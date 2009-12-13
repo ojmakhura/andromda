@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Generalization;
 
@@ -36,12 +35,12 @@ public class GeneralizableElementFacadeLogicImpl
     @Override
     protected String handleGetGeneralizationList()
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         if (this.getGeneralizations() != null)
         {
             for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
             {
-                final ModelElementFacade element = (ModelElementFacade)iterator.next();
+                final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {
@@ -86,9 +85,9 @@ public class GeneralizableElementFacadeLogicImpl
         Collection<Generalization> generalizations = ((Classifier)this.metaObject).getGeneralizations();
         if (generalizations != null && !generalizations.isEmpty())
         {
-            for (final Iterator<Generalization> iterator = generalizations.iterator(); iterator.hasNext();)
+            for (Generalization general : generalizations)
             {
-                parents.add((iterator.next()).getGeneral());
+                parents.add(general.getGeneral());
             }
         }
         return parents;
@@ -113,9 +112,8 @@ public class GeneralizableElementFacadeLogicImpl
         if (this.getSpecializations() != null)
         {
             allSpecializations.addAll(this.getSpecializations());
-            for (final Iterator<GeneralizableElementFacade> iterator = this.getSpecializations().iterator(); iterator.hasNext();)
+            for (GeneralizableElementFacade element : this.getSpecializations())
             {
-                final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
                 allSpecializations.addAll(element.getAllSpecializations());
             }
         }
@@ -129,15 +127,17 @@ public class GeneralizableElementFacadeLogicImpl
     protected Collection<GeneralizableElementFacade> handleGetAllGeneralizations()
     {
         final Collection<GeneralizableElementFacade> generalizations = new ArrayList<GeneralizableElementFacade>();
-        for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+        for (GeneralizableElementFacade element : this.getGeneralizations())
         {
-            final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
             generalizations.add(element);
             generalizations.addAll(element.getAllGeneralizations());
         }
         return generalizations;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.GeneralizableElementFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     */
     @Override
     protected Object handleFindTaggedValue(
         final String tagName,
@@ -161,6 +161,9 @@ public class GeneralizableElementFacadeLogicImpl
         return value;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.GeneralizableElementFacadeLogic#handleGetGeneralizationRoot()
+     */
     @Override
     protected GeneralizableElementFacade handleGetGeneralizationRoot()
     {

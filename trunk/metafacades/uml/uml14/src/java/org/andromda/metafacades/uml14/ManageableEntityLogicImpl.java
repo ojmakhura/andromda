@@ -163,12 +163,12 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsUpdate()
     {
-        return this.getManageableIdentifier() != null; // @todo
+        return this.getManageableIdentifier() != null; // TODO Implement handleIsUpdate
     }
 
     protected boolean handleIsDelete()
     {
-        return this.getManageableIdentifier() != null; // @todo
+        return this.getManageableIdentifier() != null; // TODO Implement handleIsDelete
     }
 
     protected List handleGetManageableAttributes()

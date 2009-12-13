@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.TreeSet;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
@@ -33,25 +32,24 @@ public class ValueObjectLogicImpl
     @Override
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations()
     {
-        StringBuffer stereotypes = new StringBuffer();
-        for (final Iterator<StereotypeFacade> iterator = this.getStereotypes().iterator(); iterator.hasNext();)
+        StringBuilder stereotypes = new StringBuilder();
+        for (StereotypeFacade stereotype : this.getStereotypes())
         {
-            stereotypes.append(iterator.next().getName()).append(",");
+            stereotypes.append(stereotype.getName()).append(",");
         }
         return this.handleGetTypeSpecializations(stereotypes.toString());
     }
 
     /**
-     * @param stereotypes 
+     * @param stereotypes
      * @return specializations
      */
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations(String stereotypes)
     {
         Collection<ValueObjectLogic> specializations = new TreeSet<ValueObjectLogic>();
         String[] stereotypeList = stereotypes.split(",", -1);
-        for (final Iterator<GeneralizableElementFacade> iterator = this.getAllSpecializations().iterator(); iterator.hasNext();)
+        for (GeneralizableElementFacade classifier : this.getAllSpecializations())
         {
-            final GeneralizableElementFacade classifier = iterator.next();
             if (classifier instanceof ValueObjectLogic)
             {
                 for (int i=0; i<stereotypeList.length; i++)

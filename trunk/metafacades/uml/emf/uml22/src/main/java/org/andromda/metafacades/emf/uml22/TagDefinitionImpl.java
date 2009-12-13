@@ -69,8 +69,8 @@ public class TagDefinitionImpl
 
     /**
      * Generalized constructor.
-     * @param nameIn 
-     * @param valuesIn 
+     * @param nameIn
+     * @param valuesIn
      */
     public TagDefinitionImpl(
         final String nameIn,
@@ -110,7 +110,7 @@ public class TagDefinitionImpl
     @Override
     public String toString()
     {
-        StringBuffer out = new StringBuffer(this.name + ": ");
+        StringBuilder out = new StringBuilder(this.name).append(": ");
         for (Iterator<Object> it = this.values.iterator(); it.hasNext();)
         {
             out.append(it.next());
@@ -987,7 +987,7 @@ public class TagDefinitionImpl
     public void unsetName()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -996,7 +996,7 @@ public class TagDefinitionImpl
     public void unsetVisibility()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**

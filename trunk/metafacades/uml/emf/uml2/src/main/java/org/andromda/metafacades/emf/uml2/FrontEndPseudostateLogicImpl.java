@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -24,6 +23,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndPseudostateLogicImpl
     extends FrontEndPseudostateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndPseudostateLogicImpl(
         final Object metaObject,
         final String context)
@@ -32,6 +35,7 @@ public class FrontEndPseudostateLogicImpl
     }
 
     /**
+     * @return getStateMachine() instanceof FrontEndActivityGraph
      * @see org.andromda.metafacades.uml.FrontEndPseudostate#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -40,6 +44,7 @@ public class FrontEndPseudostateLogicImpl
     }
 
     /**
+     * @return getContainerActions
      * @see org.andromda.metafacades.uml.FrontEndPseudostate#getContainerActions()
      */
     protected List handleGetContainerActions()

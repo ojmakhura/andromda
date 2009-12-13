@@ -41,6 +41,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Entity.
  *
  * @see org.andromda.metafacades.uml.Entity
+ * @author Bob Fields
  */
 public class EntityLogicImpl
     extends EntityLogic
@@ -295,8 +296,7 @@ public class EntityLogicImpl
         final boolean withIdentifiers,
         final boolean follow)
     {
-        final StringBuffer buffer = new StringBuffer();
-        buffer.append("(");
+        final StringBuilder buffer = new StringBuilder("(");
 
         final Set attributes = new LinkedHashSet(this.getAttributes());
 
@@ -427,7 +427,7 @@ public class EntityLogicImpl
      */
     private String getTypeList(final Collection attributes)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             attributes,
@@ -789,9 +789,8 @@ public class EntityLogicImpl
             final Collection<AttributeFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
                     true);
-            for (final Iterator<AttributeFacade> iterator = identifiers.iterator(); iterator.hasNext();)
+            for (AttributeFacade identifier : identifiers)
             {
-                final AttributeFacade identifier = (AttributeFacade)iterator.next();
                 this.createIdentifier(
                     identifier.getName(),
                     identifier.getType().getFullyQualifiedName(true),
@@ -902,7 +901,7 @@ public class EntityLogicImpl
             UMLProfile.STEREOTYPE_IDENTIFIER);
         return associationEnds;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#isCompositeIdentifier()
      */
@@ -940,7 +939,7 @@ public class EntityLogicImpl
         });
         return result;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#getEmbeddedValues()
      */

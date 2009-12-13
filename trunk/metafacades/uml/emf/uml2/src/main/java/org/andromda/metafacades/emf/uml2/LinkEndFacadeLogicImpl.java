@@ -1,11 +1,10 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.eclipse.uml2.InstanceValue;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.LinkEndFacade.
@@ -14,24 +13,30 @@ import java.util.Collection;
  */
 public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public LinkEndFacadeLogicImpl(LinkEnd metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return getInstances().get(0)
      * @see org.andromda.metafacades.uml.LinkEndFacade#getInstance()
      */
-    protected java.lang.Object handleGetInstance()
+    protected Object handleGetInstance()
     {
         final Collection values = this.getInstances();
         return values.isEmpty() ? null : values.iterator().next();
     }
 
     /**
+     * @return metaObject.getValues().getInstances()
      * @see org.andromda.metafacades.uml.LinkEndFacade#getInstances()
      */
-    protected java.util.Collection handleGetInstances()
+    protected Collection handleGetInstances()
     {
         final Collection values = new ArrayList(this.metaObject.getValues());
 
@@ -47,17 +52,19 @@ public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
     }
 
     /**
+     * @return UmlUtilities.ELEMENT_TRANSFORMER.transform(metaObject.getDefiningFeature())
      * @see org.andromda.metafacades.uml.LinkEndFacade#getAssociationEnd()
      */
-    protected java.lang.Object handleGetAssociationEnd()
+    protected Object handleGetAssociationEnd()
     {
         return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getDefiningFeature());
     }
 
     /**
+     * @return UmlUtilities.ELEMENT_TRANSFORMER.transform(metaObject.getOwner())
      * @see org.andromda.metafacades.uml.LinkEndFacade#getLink()
      */
-    protected java.lang.Object handleGetLink()
+    protected Object handleGetLink()
     {
         return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getOwner());
     }

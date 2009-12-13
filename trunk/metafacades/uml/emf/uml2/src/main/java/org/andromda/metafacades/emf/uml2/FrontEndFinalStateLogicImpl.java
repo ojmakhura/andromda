@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
@@ -26,6 +25,10 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndFinalStateLogicImpl
     extends FrontEndFinalStateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndFinalStateLogicImpl(
         final Object metaObject,
         final String context)
@@ -34,6 +37,7 @@ public class FrontEndFinalStateLogicImpl
     }
 
     /**
+     * @return getStateMachine() instanceof FrontEndActivityGraph
      * @see org.andromda.metafacades.uml.FrontEndFinalState#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -41,6 +45,9 @@ public class FrontEndFinalStateLogicImpl
         return this.getStateMachine() instanceof FrontEndActivityGraph;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl#handleGetName()
+     */
     public String handleGetName()
     {
         String name = super.handleGetName();
@@ -56,6 +63,7 @@ public class FrontEndFinalStateLogicImpl
     }
 
     /**
+     * @return hyperlinkModel.getUseCase()
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
      */
     protected Object handleGetTargetUseCase()
@@ -76,7 +84,7 @@ public class FrontEndFinalStateLogicImpl
                 targetUseCase = taggedValue;
             }
         }
-        
+
         // maybe the name points to a use-case ?
         if (targetUseCase == null)
         {
@@ -94,12 +102,12 @@ public class FrontEndFinalStateLogicImpl
     }
 
     /**
+     * @return getIncomings().getForwardParameters()
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getInterUseCaseParameters()
      */
     protected List handleGetInterUseCaseParameters()
     {
-        // we don't want to list parameters with the same name to we use a hash
-        // map
+        // we don't want to list parameters with the same name so we use a hashmap
         final Map parameterMap = new LinkedHashMap();
 
         final Collection transitions = this.getIncomings();

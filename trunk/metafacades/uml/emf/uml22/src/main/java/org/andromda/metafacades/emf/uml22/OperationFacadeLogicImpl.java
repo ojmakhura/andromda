@@ -35,6 +35,7 @@ import org.eclipse.uml2.uml.Type;
  * org.andromda.metafacades.uml.OperationFacade.
  *
  * @see org.andromda.metafacades.uml.OperationFacade
+ * @author Bob Fields
  */
 public class OperationFacadeLogicImpl
     extends OperationFacadeLogic
@@ -53,6 +54,18 @@ public class OperationFacadeLogicImpl
         final String context)
     {
         super(metaObject, context);
+    }
+
+    /**
+     * Not yet implemented, always returns null. To implement: walk through the
+     * related elements from the Sequence Diagram in the UML model to produce compilable code.
+     * @return methodBody
+     * @see org.andromda.metafacades.uml.OperationFacade#getMethodBody()
+     */
+    //@Override
+    protected String handleGetMethodBody()
+    {
+        return null;
     }
 
     /**
@@ -96,8 +109,7 @@ public class OperationFacadeLogicImpl
      */
     private String getCall(final String name)
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(name);
+        StringBuilder buffer = new StringBuilder(name);
         buffer.append("(");
         buffer.append(this.getArgumentNames());
         buffer.append(")");
@@ -208,7 +220,7 @@ public class OperationFacadeLogicImpl
                 return ((DependencyFacade)object).getTargetElement();
             }
         });
-        
+
         // finally add in any members of the UML2 RaisedException list
         // (the 'proper' UML2 way of doing exceptions .. or at least one way).
         Collection<Type> raisedExceptions = this.metaObject.getRaisedExceptions();
@@ -255,7 +267,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
@@ -285,7 +297,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentTypeNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
@@ -462,7 +474,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
-        StringBuffer exceptionList = new StringBuffer(initialExceptions);
+        StringBuilder exceptionList = new StringBuilder(initialExceptions);
         Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {
@@ -541,7 +553,7 @@ public class OperationFacadeLogicImpl
         }
         else
         {
-            obj = this.metaObject.getClass_();            
+            obj = this.metaObject.getClass_();
         }
         return obj;
     }
@@ -574,7 +586,7 @@ public class OperationFacadeLogicImpl
     {
         return this.metaObject.getType();
     }
-    
+
     /**
      * @return this.getReturnType().getFullyQualifiedName()
      * @see org.andromda.metafacades.uml.OperationFacade#getGetterSetterReturnTypeName()
@@ -644,7 +656,7 @@ public class OperationFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         // RJF3 True if either the operation is many or the return parameter is many
-        boolean returnMany = this.getReturnParameter().getUpper() > 1 || 
+        boolean returnMany = this.getReturnParameter().getUpper() > 1 ||
             this.getReturnParameter().getUpper() == LiteralUnlimitedNatural.UNLIMITED
             || this.getReturnParameter().getType().getName().endsWith("[]");
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
@@ -714,6 +726,7 @@ public class OperationFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return this.metaObject.getUpper();
+        //return UmlUtilities.parseMultiplicity(this.metaObject.getUpper(), 1);
     }
 
     /**
@@ -724,6 +737,9 @@ public class OperationFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return this.metaObject.getLower();
+        //return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLower(),
+        //    (ClassifierFacade) this.getReturnType(), "0");
+            // ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
     /**

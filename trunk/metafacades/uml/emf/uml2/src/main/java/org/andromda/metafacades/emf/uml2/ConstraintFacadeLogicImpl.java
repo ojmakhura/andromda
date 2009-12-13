@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
 import java.util.List;
-
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -17,6 +16,10 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ConstraintFacadeLogicImpl(
         final org.eclipse.uml2.Constraint metaObject,
         final String context)
@@ -25,9 +28,10 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getSpecification()
      * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
      */
-    protected java.lang.String handleGetBody()
+    protected String handleGetBody()
     {
         String body = null;
         if (this.metaObject.getSpecification() != null)
@@ -38,6 +42,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return isConstraintKind(ExpressionKinds.INV)
      * @see org.andromda.metafacades.uml.ConstraintFacade#isInvariant()
      */
     protected boolean handleIsInvariant()
@@ -48,6 +53,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return isConstraintKind(ExpressionKinds.PRE)
      * @see org.andromda.metafacades.uml.ConstraintFacade#isPreCondition()
      */
     protected boolean handleIsPreCondition()
@@ -58,6 +64,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return isConstraintKind(ExpressionKinds.POST)
      * @see org.andromda.metafacades.uml.ConstraintFacade#isPostCondition()
      */
     protected boolean handleIsPostCondition()
@@ -68,6 +75,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return isConstraintKind(ExpressionKinds.DEF)
      * @see org.andromda.metafacades.uml.ConstraintFacade#isDefinition()
      */
     protected boolean handleIsDefinition()
@@ -78,6 +86,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return isConstraintKind(ExpressionKinds.BODY)
      * @see org.andromda.metafacades.uml.ConstraintFacade#isBodyExpression()
      */
     protected boolean handleIsBodyExpression()
@@ -88,9 +97,11 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(java.lang.String)
+     * @param language
+     * @return getTranslatedExpression
+     * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(String)
      */
-    protected java.lang.String handleGetTranslation(final java.lang.String language)
+    protected String handleGetTranslation(final String language)
     {
         final Expression expression =
             ExpressionTranslator.instance().translate(
@@ -101,9 +112,10 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
+     * @return getConstrainedElements.get(0)
      * @see org.andromda.metafacades.uml.ConstraintFacade#getContextElement()
      */
-    protected java.lang.Object handleGetContextElement()
+    protected Object handleGetContextElement()
     {
         Object element = null;
         final List elements = this.metaObject.getConstrainedElements();

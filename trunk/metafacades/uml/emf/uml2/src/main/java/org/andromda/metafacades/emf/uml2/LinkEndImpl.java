@@ -1,26 +1,25 @@
 package org.andromda.metafacades.emf.uml2;
 
-import org.eclipse.uml2.Slot;
-import org.eclipse.uml2.InstanceSpecification;
-import org.eclipse.uml2.ValueSpecification;
-import org.eclipse.uml2.StructuralFeature;
-import org.eclipse.uml2.Element;
-import org.eclipse.uml2.Comment;
-import org.eclipse.uml2.Stereotype;
-import org.eclipse.uml2.Model;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
-
 import java.util.Map;
 import java.util.Set;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.uml2.Comment;
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.InstanceSpecification;
+import org.eclipse.uml2.Model;
+import org.eclipse.uml2.Slot;
+import org.eclipse.uml2.Stereotype;
+import org.eclipse.uml2.StructuralFeature;
+import org.eclipse.uml2.ValueSpecification;
 
 public class LinkEndImpl implements LinkEnd
 {

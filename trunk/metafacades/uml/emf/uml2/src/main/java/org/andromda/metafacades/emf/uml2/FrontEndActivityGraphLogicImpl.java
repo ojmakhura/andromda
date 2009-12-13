@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -32,6 +31,7 @@ public class FrontEndActivityGraphLogicImpl
     }
 
     /**
+     * @return getUseCase() instanceof FrontEndUseCase
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -58,6 +58,7 @@ public class FrontEndActivityGraphLogicImpl
     }
 
     /**
+     * @return getInitialStates().getOutgoings()
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getInitialAction()
      */
     protected Object handleGetInitialAction()
@@ -74,11 +75,12 @@ public class FrontEndActivityGraphLogicImpl
     }
 
     /**
+     * @return getOwnedMembers() instanceof Class
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getController()
      */
-    protected java.lang.Object handleGetController()
+    protected Object handleGetController()
     {
-        // Take the frist class inside the FSM
+        // Take the first class inside the FSM
         Class controller = null;
         for (Iterator it = ((StateMachine)this.metaObject).getOwnedMembers().iterator();
             it.hasNext() && controller == null;)

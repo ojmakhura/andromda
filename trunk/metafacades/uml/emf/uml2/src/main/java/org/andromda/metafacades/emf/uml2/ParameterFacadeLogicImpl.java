@@ -13,9 +13,10 @@ import org.eclipse.uml2.Activity;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.MultiplicityElement;
 import org.eclipse.uml2.Operation;
+import org.eclipse.uml2.Parameter;
 import org.eclipse.uml2.ParameterDirectionKind;
 import org.eclipse.uml2.ParameterEffectKind;
-
+import org.eclipse.uml2.Type;
 
 /**
  * MetafacadeLogic implementation for
@@ -32,7 +33,7 @@ public class ParameterFacadeLogicImpl
      * @param context
      */
     public ParameterFacadeLogicImpl(
-        final org.eclipse.uml2.Parameter metaObjectIn,
+        final Parameter metaObjectIn,
         final String context)
     {
         super(metaObjectIn, context);
@@ -42,12 +43,12 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
      */
     @Override
-    protected java.lang.String handleGetDefaultValue()
+    protected String handleGetDefaultValue()
     {
         String defaultValue = this.metaObject.getDefault();
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type parameter = $parameter.defaultValue, requiring quotes around the value
-        if (StringUtils.isNotEmpty(defaultValue) && !this.handleIsMany())
+        if (StringUtils.isNotBlank(defaultValue) && !this.handleIsMany())
         {
             String typeName = this.metaObject.getType().getName();
             if (typeName.equals("String") && defaultValue.indexOf('"')<0)
@@ -64,7 +65,7 @@ public class ParameterFacadeLogicImpl
         if (defaultValue==null) defaultValue="";
         return defaultValue;
     }
-    
+
     /**
      * Overridden to provide name masking.
      *
@@ -81,12 +82,12 @@ public class ParameterFacadeLogicImpl
         {
             name = StringUtilsHelper.pluralize(name);
         }
-        
+
         return name;
     }
 
     /**
-     * Indicates whether or not we should pluralize association end names.
+     * Indicates whether or not we should pluralize parameter names if parameter[*].
      *
      * @return true/false
      */
@@ -98,13 +99,14 @@ public class ParameterFacadeLogicImpl
 
     /**
      * @return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isMany()
+     * @see org.andromda.metafacades.uml.ParameterFacade#isMany()
      */
     protected boolean handleIsMany()
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
-        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND;
+        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
+        || this.getType().isArrayType() || this.getType().isCollectionType();
     }
 
     /**
@@ -121,6 +123,7 @@ public class ParameterFacadeLogicImpl
         }
         else
         {
+            //return effect.getLiteral();
             return effect.getName();
         }
     }
@@ -175,7 +178,7 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getGetterName()
      */
     @Override
-    protected java.lang.String handleGetGetterName()
+    protected String handleGetGetterName()
     {
         return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
     }
@@ -184,7 +187,7 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getSetterName()
      */
     @Override
-    protected java.lang.String handleGetSetterName()
+    protected String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(this.getName());
     }
@@ -247,12 +250,12 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getOperation()
      */
     @Override
-    protected java.lang.Object handleGetOperation()
+    protected Operation handleGetOperation()
     {
         Object owner = this.metaObject.getOwner();
         if (owner instanceof Operation)
         {
-            return owner;
+            return (Operation) owner;
         }
         return null;
     }
@@ -261,12 +264,12 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getEvent()
      */
     @Override
-    protected java.lang.Object handleGetEvent()
+    protected Activity handleGetEvent()
     {
         Element owner = this.metaObject.getOwner();
         if (owner instanceof Activity)
         {
-            return owner;
+            return (Activity)owner;
         }
         return null;
     }
@@ -275,11 +278,11 @@ public class ParameterFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ParameterFacade#getType()
      */
     @Override
-    protected java.lang.Object handleGetType()
+    protected Type handleGetType()
     {
         return this.metaObject.getType();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeName()
      */
@@ -306,12 +309,33 @@ public class ParameterFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += "<" + this.getType().getFullyQualifiedName() + ">";
+                String type = this.getType().getFullyQualifiedName();
+                if (this.getType().isPrimitive())
+                {
+                    // Can't template primitive values, Objects only. Convert to wrapped.
+                    type = StringUtils.capitalize(type);
+                }
+                name += "<" + type + ">";
             }
         }
         if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
+            // Special case: lower bound overrides primitive/wrapped type declaration
+            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+            if (this.getType().isBooleanType())
+            {
+                if (this.getType().isPrimitive() && this.getLower() < 1)
+                {
+                    // Type is optional, should not be primitive
+                    name = StringUtils.capitalize(name);
+                }
+                else if (!this.getType().isPrimitive() && this.getLower() > 0)
+                {
+                    // Type is required, should not be wrapped
+                    name = StringUtils.uncapitalize(name);
+                }
+            }
         }
         return name;
     }

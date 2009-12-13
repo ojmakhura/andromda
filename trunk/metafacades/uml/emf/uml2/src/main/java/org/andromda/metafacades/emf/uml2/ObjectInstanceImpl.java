@@ -1,5 +1,8 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
@@ -28,10 +31,6 @@ import org.eclipse.uml2.TemplateParameter;
 import org.eclipse.uml2.TemplateSignature;
 import org.eclipse.uml2.ValueSpecification;
 import org.eclipse.uml2.VisibilityKind;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class ObjectInstanceImpl implements ObjectInstance
 {

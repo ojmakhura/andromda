@@ -1,9 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
-import org.apache.commons.collections.CollectionUtils;
-
-
 import java.util.Collection;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.LinkFacade.

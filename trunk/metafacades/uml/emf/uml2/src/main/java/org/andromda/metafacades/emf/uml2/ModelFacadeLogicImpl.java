@@ -3,18 +3,18 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import org.apache.log4j.Logger;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.log4j.Logger;
 import org.eclipse.uml2.Actor;
 import org.eclipse.uml2.FinalState;
 import org.eclipse.uml2.State;
 import org.eclipse.uml2.StateMachine;
 import org.eclipse.uml2.UseCase;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ModelFacade.
@@ -25,6 +25,10 @@ import org.eclipse.uml2.UseCase;
 public class ModelFacadeLogicImpl
     extends ModelFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ModelFacadeLogicImpl(
         final org.eclipse.uml2.util.UML2Resource metaObject,
         final String context)
@@ -38,12 +42,15 @@ public class ModelFacadeLogicImpl
     private static final Logger logger = Logger.getLogger(ModelFacadeLogicImpl.class);
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithTaggedValueOrHyperlink(java.lang.String,
-     *      java.lang.String)
+     * @param tag
+     * @param value
+     * @return UnsupportedOperationException
+     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithTaggedValueOrHyperlink(String,
+     *      String)
      */
-    protected org.andromda.metafacades.uml.UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(
-        final java.lang.String tag,
-        final java.lang.String value)
+    protected UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(
+        final String tag,
+        final String value)
     {
         // TODO
         throw new UnsupportedOperationException();
@@ -51,22 +58,27 @@ public class ModelFacadeLogicImpl
 
     /**
      *
-     * @see org.andromda.metafacades.uml.ModelFacade#findClassWithTaggedValueOrHyperlink(java.lang.String,
-     *      java.lang.String)
+     * @param tag
+     * @param value
+     * @return UnsupportedOperationException
+     * @see org.andromda.metafacades.uml.ModelFacade#findClassWithTaggedValueOrHyperlink(String,
+     *      String)
      */
-    protected org.andromda.metafacades.uml.ClassifierFacade handleFindClassWithTaggedValueOrHyperlink(
-        final java.lang.String tag,
-        final java.lang.String value)
+    protected ClassifierFacade handleFindClassWithTaggedValueOrHyperlink(
+        final String tag,
+        final String value)
     {
         // TODO
         throw new UnsupportedOperationException();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findActivityGraphByName(java.lang.String)
+     * @param name
+     * @return activityGraphByName
+     * @see org.andromda.metafacades.uml.ModelFacade#findActivityGraphByName(String)
      */
-    protected org.andromda.metafacades.uml.ActivityGraphFacade handleFindActivityGraphByName(
-        final java.lang.String name)
+    protected ActivityGraphFacade handleFindActivityGraphByName(
+        final String name)
     {
         return this.findActivityGraphByNameAndStereotype(
             name,
@@ -74,12 +86,15 @@ public class ModelFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findActivityGraphByNameAndStereotype(java.lang.String,
-     *      java.lang.String)
+     * @param name
+     * @param stereotypeName
+     * @return activityGraphByNameAndStereotype
+     * @see org.andromda.metafacades.uml.ModelFacade#findActivityGraphByNameAndStereotype(String,
+     *      String)
      */
-    protected org.andromda.metafacades.uml.ActivityGraphFacade handleFindActivityGraphByNameAndStereotype(
-        final java.lang.String name,
-        final java.lang.String stereotypeName)
+    protected ActivityGraphFacade handleFindActivityGraphByNameAndStereotype(
+        final String name,
+        final String stereotypeName)
     {
         ActivityGraphFacade agfFound = null;
 
@@ -103,9 +118,11 @@ public class ModelFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseByName(java.lang.String)
+     * @param name
+     * @return useCaseByName
+     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseByName(String)
      */
-    protected org.andromda.metafacades.uml.UseCaseFacade handleFindUseCaseByName(final java.lang.String name)
+    protected UseCaseFacade handleFindUseCaseByName(final String name)
     {
         return this.findUseCaseWithNameAndStereotype(
             name,
@@ -113,12 +130,15 @@ public class ModelFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithNameAndStereotype(java.lang.String,
-     *      java.lang.String)
+     * @param name
+     * @param stereotypeName
+     * @return useCaseWithNameAndStereotype
+     * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithNameAndStereotype(String,
+     *      String)
      */
-    protected org.andromda.metafacades.uml.UseCaseFacade handleFindUseCaseWithNameAndStereotype(
-        final java.lang.String name,
-        final java.lang.String stereotypeName)
+    protected UseCaseFacade handleFindUseCaseWithNameAndStereotype(
+        final String name,
+        final String stereotypeName)
     {
         UseCaseFacade ucfFound = null;
         Collection ucCollections = this.getAllUseCases();
@@ -137,10 +157,12 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @param useCase
+     * @return finalStatesWithNameOrHyperlink
      * @see org.andromda.metafacades.uml.ModelFacade#findFinalStatesWithNameOrHyperlink(org.andromda.metafacades.uml.UseCaseFacade)
      */
-    protected java.util.Collection handleFindFinalStatesWithNameOrHyperlink(
-        final org.andromda.metafacades.uml.UseCaseFacade useCase)
+    protected Collection handleFindFinalStatesWithNameOrHyperlink(
+        final UseCaseFacade useCase)
     {
         Collection fsCollection =
             UmlUtilities.getAllMetaObjectsInstanceOf(
@@ -161,12 +183,15 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @param activityGraph
+     * @param stereotypeName
+     * @return aAllActionStatesWithStereotype
      * @see org.andromda.metafacades.uml.ModelFacade#getAllActionStatesWithStereotype(org.andromda.metafacades.uml.ActivityGraphFacade,
-     *      java.lang.String)
+     *      String)
      */
-    protected java.util.Collection handleGetAllActionStatesWithStereotype(
-        final org.andromda.metafacades.uml.ActivityGraphFacade activityGraph,
-        final java.lang.String stereotypeName)
+    protected Collection handleGetAllActionStatesWithStereotype(
+        final ActivityGraphFacade activityGraph,
+        final String stereotypeName)
     {
         Collection asCollection = this.getAllActionStates();
         CollectionUtils.filter(
@@ -185,22 +210,24 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @return getRootPackage
      * @see org.andromda.metafacades.uml.ModelFacade#getRootPackage()
      */
-    protected java.lang.Object handleGetRootPackage()
+    protected Object handleGetRootPackage()
     {
         Object model = UmlUtilities.findModel(this.metaObject);
-        if (this.logger.isDebugEnabled())
+        if (ModelFacadeLogicImpl.logger.isDebugEnabled())
         {
-            this.logger.debug("Root package " + model);
+            ModelFacadeLogicImpl.logger.debug("Root package " + model);
         }
         return model;
     }
 
     /**
+     * @return getAllActors
      * @see org.andromda.metafacades.uml.ModelFacade#getAllActors()
      */
-    protected java.util.Collection handleGetAllActors()
+    protected Collection handleGetAllActors()
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             Actor.class,
@@ -208,9 +235,10 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @return getAllUseCases
      * @see org.andromda.metafacades.uml.ModelFacade#getAllUseCases()
      */
-    protected java.util.Collection handleGetAllUseCases()
+    protected Collection handleGetAllUseCases()
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             UseCase.class,
@@ -218,9 +246,10 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @return getAllActionStates
      * @see org.andromda.metafacades.uml.ModelFacade#getAllActionStates()
      */
-    protected java.util.Collection handleGetAllActionStates()
+    protected Collection handleGetAllActionStates()
     {
         // cf documentation, action states are mapped to uml2 normal state
         Collection allActionStates =
@@ -240,24 +269,30 @@ public class ModelFacadeLogicImpl
     }
 
     /**
+     * @return getAllObjectFlowStates
      * @see org.andromda.metafacades.uml.ModelFacade#getAllObjectFlowStates()
      */
-    protected java.util.Collection handleGetAllObjectFlowStates()
+    protected Collection handleGetAllObjectFlowStates()
     {
         // TODO: Not implemented
         return Collections.EMPTY_LIST;
     }
 
     /**
+     * @return getAllClasses
      * @see org.andromda.metafacades.uml.ModelFacade#getAllClasses()
      */
-    protected java.util.Collection handleGetAllClasses()
+    protected Collection handleGetAllClasses()
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             org.eclipse.uml2.Class.class,
             UmlUtilities.findModel(this.metaObject));
     }
 
+    /**
+     * @return getAllTransitions
+     * @see org.andromda.metafacades.uml.ModelFacade#getAllTransitions()
+     */
     protected Collection handleGetAllTransitions()
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(

@@ -145,7 +145,7 @@ public class AssociationEndFacadeLogicImpl
         String name = super.handleGetName();
 
         // if name is empty, then get the name from the type
-        if (StringUtils.isEmpty(name))
+        if (StringUtils.isBlank(name))
         {
             final ClassifierFacade type = this.getType();
             if (type != null)
@@ -179,7 +179,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterName()
      */
     @Override
-    protected java.lang.String handleGetGetterName()
+    protected String handleGetGetterName()
     {
         return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
     }
@@ -188,7 +188,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getSetterName()
      */
     @Override
-    protected java.lang.String handleGetSetterName()
+    protected String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(this.getName());
     }
@@ -197,7 +197,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     @Override
-    protected java.lang.String handleGetGetterSetterTypeName()
+    protected String handleGetGetterSetterTypeName()
     {
         String name = null;
         if (this.isMany())
@@ -213,7 +213,7 @@ public class AssociationEndFacadeLogicImpl
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
+                name += "<" + this.getType().getFullyQualifiedName() + ">";
             }
         }
         if (name == null && this.getType() != null)
@@ -231,7 +231,8 @@ public class AssociationEndFacadeLogicImpl
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
-        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND;
+        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
+               || this.getType().getName().endsWith("[]");
     }
 
     /**
@@ -256,7 +257,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
      */
     @Override
-    protected java.lang.Object handleGetOtherEnd()
+    protected Object handleGetOtherEnd()
     {
         return UmlUtilities.getOppositeAssociationEnd(this.metaObject);
     }
@@ -265,7 +266,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getAssociation()
      */
     @Override
-    protected java.lang.Object handleGetAssociation()
+    protected Object handleGetAssociation()
     {
         return this.metaObject.getAssociation();
     }
@@ -283,7 +284,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getType()
      */
     @Override
-    protected java.lang.Object handleGetType()
+    protected Object handleGetType()
     {
         // In uml1.4 facade, it returns getParticipant
         return this.metaObject.getType();
@@ -310,6 +311,7 @@ public class AssociationEndFacadeLogicImpl
 
     /**
      * Get the UML lower multiplicity Not implemented for UML1.4
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getLower()
      */
     @Override
     protected int handleGetLower()

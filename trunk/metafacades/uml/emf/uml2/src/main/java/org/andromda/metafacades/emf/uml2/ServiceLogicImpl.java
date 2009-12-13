@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -25,15 +24,20 @@ import org.apache.commons.collections.Transformer;
  */
 public class ServiceLogicImpl extends ServiceLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ServiceLogicImpl(final Object metaObject, final String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return getServiceReferences
      * @see org.andromda.metafacades.uml.Service#getServiceReferences()
      */
-    protected java.util.Collection handleGetServiceReferences()
+    protected Collection handleGetServiceReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
@@ -46,9 +50,10 @@ public class ServiceLogicImpl extends ServiceLogic
     }
 
     /**
+     * @return getEntityReferences
      * @see org.andromda.metafacades.uml.Service#getEntityReferences()
      */
-    protected java.util.Collection handleGetEntityReferences()
+    protected Collection handleGetEntityReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
@@ -61,7 +66,8 @@ public class ServiceLogicImpl extends ServiceLogic
     }
 
     /**
-     * @see org.andromda.metafacades.uml.Service.getAllServiceReferences()
+     * @return getAllServiceReferences
+     * @see org.andromda.metafacades.uml.Service#getAllServiceReferences()
      */
     public Collection handleGetAllServiceReferences()
     {
@@ -85,6 +91,7 @@ public class ServiceLogicImpl extends ServiceLogic
     }
 
     /**
+     * @return getRoles
      * @see org.andromda.metafacades.uml.Service#getRoles()
      */
     protected Collection handleGetRoles()
@@ -126,6 +133,7 @@ public class ServiceLogicImpl extends ServiceLogic
     }
 
     /**
+     * @return getAllRoles
      * @see org.andromda.metafacades.uml.Service#getAllRoles()
      */
     protected Collection handleGetAllRoles()
@@ -145,8 +153,9 @@ public class ServiceLogicImpl extends ServiceLogic
             });
         return roles;
     }
-    
+
     /**
+     * @return getMessagingDestinations
      * @see org.andromda.metafacades.uml.Service#getMessagingDestinations()
      */
     protected Collection handleGetMessagingDestinations()
@@ -172,8 +181,9 @@ public class ServiceLogicImpl extends ServiceLogic
         });
         return destinations;
     }
-    
+
     /**
+     * @return getAllEntityReferences
      * @see org.andromda.metafacades.uml.Service#getAllEntityReferences()
      */
     protected Collection handleGetAllEntityReferences()
@@ -199,6 +209,7 @@ public class ServiceLogicImpl extends ServiceLogic
     }
 
     /**
+     * @return getAllMessagingDestinations
      * @see org.andromda.metafacades.uml.Service#getAllMessagingDestinations()
      */
     protected Collection handleGetAllMessagingDestinations()

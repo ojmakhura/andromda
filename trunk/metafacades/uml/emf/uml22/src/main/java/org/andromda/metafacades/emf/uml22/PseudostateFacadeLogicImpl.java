@@ -1,7 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
-import org.eclipse.uml2.uml.PseudostateKind;
 import org.eclipse.uml2.uml.Pseudostate;
+import org.eclipse.uml2.uml.PseudostateKind;
 
 /**
  * MetafacadeLogic implementation for

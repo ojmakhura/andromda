@@ -1,37 +1,36 @@
 package org.andromda.metafacades.emf.uml2;
 
-import org.eclipse.uml2.InstanceSpecification;
-import org.eclipse.uml2.Deployment;
-import org.eclipse.uml2.PackageableElement;
-import org.eclipse.uml2.Slot;
-import org.eclipse.uml2.Classifier;
-import org.eclipse.uml2.ValueSpecification;
-import org.eclipse.uml2.TemplateParameter;
-import org.eclipse.uml2.VisibilityKind;
-import org.eclipse.uml2.Dependency;
-import org.eclipse.uml2.StringExpression;
-import org.eclipse.uml2.NamedElement;
-import org.eclipse.uml2.Namespace;
-import org.eclipse.uml2.TemplateBinding;
-import org.eclipse.uml2.TemplateSignature;
-import org.eclipse.uml2.Element;
-import org.eclipse.uml2.Comment;
-import org.eclipse.uml2.Stereotype;
-import org.eclipse.uml2.Model;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.TreeIterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
-
-import java.util.Map;
-import java.util.List;
-import java.util.Set;
+import org.eclipse.uml2.Classifier;
+import org.eclipse.uml2.Comment;
+import org.eclipse.uml2.Dependency;
+import org.eclipse.uml2.Deployment;
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.InstanceSpecification;
+import org.eclipse.uml2.Model;
+import org.eclipse.uml2.NamedElement;
+import org.eclipse.uml2.Namespace;
+import org.eclipse.uml2.PackageableElement;
+import org.eclipse.uml2.Slot;
+import org.eclipse.uml2.Stereotype;
+import org.eclipse.uml2.StringExpression;
+import org.eclipse.uml2.TemplateBinding;
+import org.eclipse.uml2.TemplateParameter;
+import org.eclipse.uml2.TemplateSignature;
+import org.eclipse.uml2.ValueSpecification;
+import org.eclipse.uml2.VisibilityKind;
 
 public class LinkInstanceImpl implements LinkInstance
 {

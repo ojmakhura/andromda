@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Destination;
 import org.andromda.metafacades.uml.Entity;
@@ -157,7 +156,7 @@ public class ServiceLogicImpl extends ServiceLogic
             });
         return roles;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Service#getMessagingDestinations()
      */
@@ -185,7 +184,7 @@ public class ServiceLogicImpl extends ServiceLogic
         });
         return destinations;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Service#getAllEntityReferences()
      */

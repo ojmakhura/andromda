@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.eclipse.uml2.Activity;
 import org.eclipse.uml2.State;
 
@@ -15,6 +14,10 @@ import org.eclipse.uml2.State;
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StateFacadeLogicImpl(
         final State metaObject,
         final String context)
@@ -23,9 +26,10 @@ public class StateFacadeLogicImpl
     }
 
     /**
+     * @return getDeferrableEvents
      * @see org.andromda.metafacades.uml.StateFacade#getDeferrableEvents()
      */
-    protected java.util.Collection handleGetDeferrableEvents()
+    protected Collection handleGetDeferrableEvents()
     {
         // UML1.4 Evetns are mapped to UML2 Activity
         // We obtains them through entry, doactivity and exit

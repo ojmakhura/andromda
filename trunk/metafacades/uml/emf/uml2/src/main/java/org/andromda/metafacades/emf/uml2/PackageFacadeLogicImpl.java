@@ -1,12 +1,15 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.log4j.Logger;
-
+import org.eclipse.uml2.Class;
+import org.eclipse.uml2.Package;
 
 /**
  * MetafacadeLogic implementation for
@@ -18,8 +21,12 @@ import org.apache.log4j.Logger;
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public PackageFacadeLogicImpl(
-        final org.eclipse.uml2.Package metaObject,
+        final Package metaObject,
         final String context)
     {
         super(metaObject, context);
@@ -31,15 +38,16 @@ public class PackageFacadeLogicImpl
     private static final Logger logger = Logger.getLogger(PackageFacadeLogicImpl.class);
 
     /**
-     * @see org.andromda.metafacades.uml.PackageFacade#findModelElement(java.lang.String)
+     * @see org.andromda.metafacades.uml.PackageFacade#findModelElement(String)
      */
+    @Override
     protected org.andromda.metafacades.uml.ModelElementFacade handleFindModelElement(
-        final java.lang.String fullyQualifiedName)
+        final String fullyQualifiedName)
     {
         Object modelElement = null;
-        if (this.logger.isDebugEnabled())
+        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
         {
-            this.logger.debug("Looking for >> " + fullyQualifiedName);
+            PackageFacadeLogicImpl.logger.debug("Looking for >> " + fullyQualifiedName);
         }
         modelElement =
             UmlUtilities.findByFullyQualifiedName(
@@ -47,9 +55,19 @@ public class PackageFacadeLogicImpl
                 fullyQualifiedName,
                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                 true);
-        if (this.logger.isDebugEnabled())
+        if (modelElement==null)
         {
-            this.logger.debug("Found: '" + modelElement + "'");
+            // Try again with fullyQualified PSM name, this may come from a taggedValue or some freeform entry.
+            modelElement =
+                UmlUtilities.findByFullyQualifiedName(
+                    this.metaObject.eResource().getResourceSet(),
+                    fullyQualifiedName,
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+                    false);
+        }
+        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
+        {
+            PackageFacadeLogicImpl.logger.debug("Found: '" + modelElement + "'");
         }
         return (ModelElementFacade)this.shieldedElement(modelElement);
     }
@@ -57,13 +75,15 @@ public class PackageFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.PackageFacade#getClasses()
      */
-    protected java.util.Collection handleGetClasses()
+    @Override
+    protected Collection<ClassifierFacade> handleGetClasses()
     {
         return new FilteredCollection(this.metaObject.getOwnedElements())
             {
+                @Override
                 public boolean evaluate(final Object object)
                 {
-                    return object instanceof org.eclipse.uml2.Class;
+                    return object instanceof Class;
                 }
             };
     }
@@ -71,7 +91,8 @@ public class PackageFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.PackageFacade#getSubPackages()
      */
-    protected java.util.Collection handleGetSubPackages()
+    @Override
+    protected Collection<Package> handleGetSubPackages()
     {
         return this.metaObject.getNestedPackages();
     }
@@ -79,7 +100,8 @@ public class PackageFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.PackageFacade#getModelElements()
      */
-    protected java.util.Collection handleGetModelElements()
+    @Override
+    protected Collection handleGetModelElements()
     {
         return CollectionUtils.collect(this.metaObject.getModel()
                 .allOwnedElements(), UmlUtilities.ELEMENT_TRANSFORMER);
@@ -88,7 +110,8 @@ public class PackageFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.PackageFacade#getOwnedElements()
      */
-    protected java.util.Collection handleGetOwnedElements()
+    @Override
+    protected Collection handleGetOwnedElements()
     {
         return CollectionUtils.collect(
             this.metaObject.getOwnedMembers(),

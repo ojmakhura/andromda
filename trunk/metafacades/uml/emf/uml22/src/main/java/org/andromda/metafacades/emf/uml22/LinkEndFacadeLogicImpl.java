@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.andromda.metafacades.uml.InstanceFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;

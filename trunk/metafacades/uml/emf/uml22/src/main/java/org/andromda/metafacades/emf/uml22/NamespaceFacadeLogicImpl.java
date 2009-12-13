@@ -1,8 +1,8 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Collection;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Namespace;
-import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for

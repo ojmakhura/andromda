@@ -50,6 +50,7 @@ import org.eclipse.uml2.uml.Property;
  * org.andromda.metafacades.uml.ClassifierFacade.
  *
  * @see org.andromda.metafacades.uml.ClassifierFacade
+ * @author Bob Fields
  */
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
@@ -101,6 +102,7 @@ public class ClassifierFacadeLogicImpl
 
     /**
      * Indicates whether or not this classifier represents a wrapped primitive type.
+     * @return wrappedPrimitive true/false
      * @see org.andromda.metafacades.uml.ClassifierFacade#isWrappedPrimitive()
      */
     //@Override
@@ -124,13 +126,10 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetOperationCallFromAttributes()
     {
-        final StringBuffer call = new StringBuffer();
+        final StringBuilder call = new StringBuilder("(");
         String separator = "";
-        call.append("(");
-        for (final Iterator<AttributeFacade> iterator = this.getAttributes().iterator(); iterator.hasNext();)
+        for (AttributeFacade attribute : this.getAttributes())
         {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
-
             call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
             call.append(typeName);
@@ -255,16 +254,16 @@ public class ClassifierFacadeLogicImpl
         return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
     }
 
-    /**
+    /*
      * Gets the array suffix from the configured metafacade properties.
      *
      * @return the array suffix.
-     */
     private String getArraySuffix()
     {
         // TODO: Private method 'getArraySuffix' also declared in class 'org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl'
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
+     */
 
     /**
      * <p>
@@ -371,6 +370,51 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsInterface()
     {
         return this.metaObject instanceof Interface;
+    }
+
+    /**
+     * <p>
+     * A String representing the new Constructor value for this classifier type to
+     * be used in a Java environment.
+     * </p>
+     * @return new constructor
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
+     */
+    //@Override
+    protected String handleGetJavaNewString()
+    {
+        String javaNewString;
+        if (this.isPrimitive())
+        {
+            if (UMLMetafacadeUtils.isType(
+                    this,
+                    UMLProfile.BOOLEAN_TYPE_NAME))
+            {
+                javaNewString = "false";
+            }
+            else
+            {
+                javaNewString = "0";
+            }
+        }
+        else if (this.handleIsWrappedPrimitive())
+        {
+            if (UMLMetafacadeUtils.isType(
+                this,
+                UMLProfile.BOOLEAN_TYPE_NAME))
+            {
+                javaNewString = "Boolean.FALSE";
+            }
+            else
+            {
+                javaNewString = this.getFullyQualifiedName() + ".valueOf(0)";
+            }
+        }
+        else
+        {
+            javaNewString = "new " + this.getFullyQualifiedName() + "()";
+        }
+        return javaNewString;
     }
 
     /**
@@ -528,37 +572,31 @@ public class ClassifierFacadeLogicImpl
      */
     private Long calculateDefaultSUID()
     {
-        final StringBuffer buffer = new StringBuffer();
-
         // class name
-        buffer.append(this.getName());
+        final StringBuilder buffer = new StringBuilder(this.getName());
 
         // generalizations
-        for (final Iterator<GeneralizableElementFacade> iterator = this.getAllGeneralizations().iterator(); iterator.hasNext();)
+        for (GeneralizableElementFacade classifier : this.getAllGeneralizations())
         {
-            ClassifierFacade classifier = (ClassifierFacade)iterator.next();
             buffer.append(classifier.getName());
         }
 
         // declared fields
-        for (final Iterator<AttributeFacade> iterator = this.getAttributes().iterator(); iterator.hasNext();)
+        for (AttributeFacade attribute : this.getAttributes())
         {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
             buffer.append(attribute.getName());
             buffer.append(attribute.getVisibility());
             buffer.append(attribute.getType().getName());
         }
 
         // operations
-        for (final Iterator<OperationFacade> iter = this.getOperations().iterator(); iter.hasNext();)
+        for (OperationFacade operation : this.getOperations())
         {
-            OperationFacade operation = (OperationFacade)iter.next();
             buffer.append(operation.getName());
             buffer.append(operation.getVisibility());
             buffer.append(operation.getReturnType().getName());
-            for (final Iterator<ParameterFacade> iterator = operation.getArguments().iterator(); iterator.hasNext();)
+            for (ParameterFacade parameter : operation.getArguments())
             {
-                final ParameterFacade parameter = (ParameterFacade)iterator.next();
                 buffer.append(parameter.getName());
                 buffer.append(parameter.getType().getName());
             }
@@ -679,6 +717,7 @@ public class ClassifierFacadeLogicImpl
      * <p>
      * Indicates whether or not this classifier represents a time type.
      * </p>
+     * @return isDoubleType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
      */
     //@Override
@@ -693,6 +732,7 @@ public class ClassifierFacadeLogicImpl
      * <p>
      * Indicates whether or not this classifier represents a float type.
      * </p>
+     * @return isFloatType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
      */
     //@Override
@@ -707,6 +747,7 @@ public class ClassifierFacadeLogicImpl
      * <p>
      * Indicates whether or not this classifier represents an integer type.
      * </p>
+     * @return isIntegerType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
      */
     //@Override
@@ -721,6 +762,7 @@ public class ClassifierFacadeLogicImpl
      * <p>
      * Indicates whether or not this classifier represents a long type.
      * </p>
+     * @return isLongType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
      */
     //@Override
@@ -783,6 +825,9 @@ public class ClassifierFacadeLogicImpl
         return properties;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetOperations()
+     */
     @Override
     protected Collection<Operation> handleGetOperations()
     {
@@ -820,6 +865,9 @@ public class ClassifierFacadeLogicImpl
 
             final Collection<Dependency> dependencies = new FilteredCollection(this.metaObject.getClientDependencies())
             {
+                /** serialVersionUID = 1L */
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 public boolean evaluate(Object object)
                 {
@@ -1105,12 +1153,18 @@ public class ClassifierFacadeLogicImpl
         return connectingEnds;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleIsLeaf()
+     */
     @Override
     protected boolean handleIsLeaf()
     {
         return this.metaObject.isLeaf();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetInterfaceAbstractions()
+     */
     @Override
     protected Collection<ClassifierFacade> handleGetInterfaceAbstractions()
     {
@@ -1144,6 +1198,9 @@ public class ClassifierFacadeLogicImpl
         return interfaceAbstractions;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetImplementedInterfaceList()
+     */
     @Override
     protected String handleGetImplementedInterfaceList()
     {
@@ -1156,7 +1213,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            final StringBuffer list = new StringBuffer();
+            final StringBuilder list = new StringBuilder();
             for (final Iterator<ClassifierFacade> iterator = interfaces.iterator(); iterator.hasNext();)
             {
                 final ClassifierFacade element = (ClassifierFacade)iterator.next();
@@ -1217,6 +1274,9 @@ public class ClassifierFacadeLogicImpl
         return AssociationClass.class.isAssignableFrom(this.metaObject.getClass());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetAssociatedClasses()
+     */
     @Override
     protected Collection<ClassifierFacade> handleGetAssociatedClasses()
     {
@@ -1232,6 +1292,9 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetAllAssociatedClasses()
+     */
     @Override
     protected Set<ClassifierFacade> handleGetAllAssociatedClasses()
     {
@@ -1246,12 +1309,20 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
+    @Override
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetSuperClass()
+     */
     protected ClassifierFacade handleGetSuperClass()
     {
         final GeneralizableElementFacade superClass = this.getGeneralization();
         return (ClassifierFacade)(superClass instanceof ClassifierFacade ? superClass : null);
     }
 
+    @Override
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleIsEmbeddedValue()
+     */
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);

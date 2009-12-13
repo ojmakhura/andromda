@@ -48,16 +48,19 @@ import org.eclipse.uml2.uml.TemplateableElement;
 import org.eclipse.uml2.uml.Usage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ModelElementFacade.
  *
  * @see org.andromda.metafacades.uml.ModelElementFacade
+ * @author Bob Fields
  */
 public class ModelElementFacadeLogicImpl
     extends ModelElementFacadeLogic
 {
+    /**
+     * Helps to get the xmi:id value from the model
+     */
     static XMIHelperImpl xmiHelper = new XMIHelperImpl();
 
     /**
@@ -193,7 +196,7 @@ public class ModelElementFacadeLogicImpl
      *
      * @return the array suffix.
      */
-    private String getArraySuffix()
+    protected String getArraySuffix()
     {
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
@@ -252,6 +255,16 @@ public class ModelElementFacadeLogicImpl
     protected String handleGetId()
     {
         return xmiHelper.getID(this.metaObject);
+    }
+
+    /**
+     * @return isReservedWord
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isReservedWord()
+     */
+    //@Override
+    protected boolean handleIsReservedWord()
+    {
+        return UMLMetafacadeUtils.isReservedWord(this.getName());
     }
 
     /**
@@ -333,13 +346,8 @@ public class ModelElementFacadeLogicImpl
                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
         {
             // we'll be constructing the parameter list in this buffer
-            final StringBuffer buffer = new StringBuffer();
-
             // add the name we've constructed so far
-            buffer.append(fullName);
-
-            // start the parameter list
-            buffer.append("<");
+            final StringBuilder buffer = new StringBuilder(fullName + "<");
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)
@@ -560,8 +568,8 @@ public class ModelElementFacadeLogicImpl
                     {
                         values.add(taggedValue.getValue());
                     } */
-                    // 
-                    if (taggedValue.getValues() != null && taggedValue.getValues().size() > 0) 
+                    //
+                    if (taggedValue.getValues() != null && taggedValue.getValues().size() > 0)
                     {
                         values.addAll(taggedValue.getValues());
                     }
@@ -583,7 +591,7 @@ public class ModelElementFacadeLogicImpl
         int lineLength,
         final boolean htmlStyle)
     {
-        final StringBuffer documentation = new StringBuffer();
+        final StringBuilder documentation = new StringBuilder();
 
         if (lineLength < 1)
         {
@@ -593,9 +601,8 @@ public class ModelElementFacadeLogicImpl
         final Collection<Comment> comments = this.metaObject.getOwnedComments();
         if (comments != null && !comments.isEmpty())
         {
-            for (final Iterator<Comment> commentIterator = comments.iterator(); commentIterator.hasNext();)
+            for (Comment comment : comments)
             {
-                final Comment comment = (Comment)commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
                 // Comment.toString returns org.eclipse.uml2.uml.internal.impl.CommentImpl@95c90f4 (body: )
@@ -615,11 +622,55 @@ public class ModelElementFacadeLogicImpl
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
 
+        // TODO: Optional generation of TODO tags for missing documentation
+        // if there still isn't anything, create a todo tag
+        if (StringUtils.isEmpty(documentation.toString()))
+        {
+            /*if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
+            {
+                String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
+                documentation.append(todoTag).append(": Model Documentation for " + this.getFullyQualifiedName());
+            }*/
+        }
+
         return StringUtilsHelper.format(
             StringUtils.trimToEmpty(documentation.toString()),
             indent,
             lineLength,
             htmlStyle);
+    }
+
+    /**
+     * If documentation is present, i.e. to add toDoTag or skip a line if not
+     * @return true is documentation comment or Documentation stereotype is present
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isDocumentationPresent()
+     */
+    //@Override
+    protected boolean handleIsDocumentationPresent()
+    {
+        boolean rtn = false;
+        final Collection<Comment> comments = this.metaObject.getOwnedComments();
+        if (comments != null && !comments.isEmpty())
+        {
+            for (Comment comment : comments)
+            {
+                String commentString = StringUtils.trimToEmpty(comment.getBody());
+
+                // if there isn't anything in the body, try the name
+                if (StringUtils.isNotBlank(commentString))
+                {
+                    rtn = true;
+                    break;
+                }
+            }
+        }
+
+        if (!rtn && StringUtils.isNotBlank((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)))
+        {
+            rtn = true;
+        }
+
+        return rtn;
     }
 
     /**
@@ -789,7 +840,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * This function tests if the given relation is a dependency in UML1.4 sense of term.
      * @param relation The relation to test
-     * @return
+     * @return instanceof Abstraction, Deployment, Manifestation, realization, Substitution, Usage
      */
     static boolean isAUml14Dependency(DirectedRelationship relation)
     {
@@ -834,7 +885,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     public String getValidationName()
     {
-        final StringBuffer validationName = new StringBuffer();
+        final StringBuilder validationName = new StringBuilder();
         final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         for (NamedElement namespace = (NamedElement)this.metaObject.getOwner(); namespace != null;
             namespace = (NamedElement)namespace.getOwner())
@@ -868,6 +919,9 @@ public class ModelElementFacadeLogicImpl
         return validationName.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleIsBindingDependenciesPresent()
+     */
     @Override
     protected boolean handleIsBindingDependenciesPresent()
     {
@@ -884,6 +938,9 @@ public class ModelElementFacadeLogicImpl
         return !dependencies.isEmpty();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleIsTemplateParametersPresent()
+     */
     @Override
     protected boolean handleIsTemplateParametersPresent()
     {
@@ -892,12 +949,18 @@ public class ModelElementFacadeLogicImpl
         return params != null && !params.isEmpty();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleCopyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
+     */
     @Override
     protected void handleCopyTaggedValues(final ModelElementFacade element)
     {
         // TODO What to do with this ?
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetTemplateParameter(java.lang.String)
+     */
     @Override
     protected Object handleGetTemplateParameter(String parameterName)
     {
@@ -931,6 +994,9 @@ public class ModelElementFacadeLogicImpl
         return templateParameter;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetTemplateParameters()
+     */
     @Override
     protected Collection<TemplateParameter> handleGetTemplateParameters()
     {
@@ -1002,7 +1068,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @param keywordName 
+     * @param keywordName
      * @return this.metaObject.hasKeyword(keywordName)
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasKeyword(String)
      */

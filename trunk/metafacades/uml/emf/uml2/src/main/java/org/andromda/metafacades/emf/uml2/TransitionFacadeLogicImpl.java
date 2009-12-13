@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
@@ -20,6 +19,10 @@ import org.eclipse.uml2.Activity;
 public class TransitionFacadeLogicImpl
     extends TransitionFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public TransitionFacadeLogicImpl(
         final org.eclipse.uml2.Transition metaObject,
         final String context)
@@ -108,6 +111,9 @@ public class TransitionFacadeLogicImpl
         return this.getTarget() instanceof FinalStateFacade;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return this.getTarget().getStateMachine();
