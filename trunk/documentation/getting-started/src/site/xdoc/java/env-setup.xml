@@ -151,12 +151,12 @@
                     message at the end of the command output.
                 </p>
 
-                <p><code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.3</code></p>
+                <p><code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.4-SNAPSHOT</code></p>
 
                 <p>
-                    Notice that you will now have <code>maven-andromdapp-plugin-3.3.jar</code>
-                    installed at MAVEN_HOME/plugins
-                    (<code>C:\Program Files\Apache Software Foundation\Maven 1.0.2\plugins</code>
+                    Notice that you will now have <code>maven-andromdapp-plugin-3.4-SNAPSHOT.jar</code>
+                    installed at M2_HOME/plugins
+                    (<code>C:\Program Files\Apache Software Foundation\Maven\plugins</code>
                     for this example).
                 </p>
             </subsection>
