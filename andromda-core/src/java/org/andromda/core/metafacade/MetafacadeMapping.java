@@ -25,7 +25,7 @@ public class MetafacadeMapping
     /**
      * The meta facade for which this mapping applies.
      */
-    private Class metafacadeClass = null;
+    private Class metafacadeClass;
 
     /**
      * Gets the metafacadeClass for this mapping.
@@ -58,7 +58,7 @@ public class MetafacadeMapping
      * The name of the mapping class for which this mapping applies. The {@link #context},{@link #stereotypes}and this
      * name make up the identifying key for this mapping.
      */
-    private String mappingClassName = null;
+    private String mappingClassName;
 
     /**
      * Gets the name of the metaobject class used for this mapping.
@@ -99,7 +99,7 @@ public class MetafacadeMapping
     /**
      * Whether or not this mapping represents a <code>contextRoot</code>.
      */
-    private boolean contextRoot = false;
+    private boolean contextRoot;
 
     /**
      * <p/>
@@ -193,7 +193,7 @@ public class MetafacadeMapping
     /**
      * Used to hold the properties that should apply to the mapping element.
      */
-    private PropertyGroup mappingProperties = null;
+    private PropertyGroup mappingProperties;
 
     /**
      * Adds a mapping property. This are used to narrow the metafacade to which the mapping can apply. The properties
@@ -368,7 +368,7 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getMetafacadeClass() + "], mappingClassName[" + this.mappingClassName +
+        return super.toString() + '[' + this.getMetafacadeClass() + "], mappingClassName[" + this.mappingClassName +
         "], properties[" + this.getMappingProperties() + "], stereotypes" + this.stereotypes + ", context[" +
         this.context + "], propertiesReferences" + this.getPropertyReferences();
     }

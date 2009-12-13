@@ -43,7 +43,7 @@ public class TranslationUtils
         {
             ExceptionUtils.checkNull("pattern", pattern);
             ExceptionUtils.checkNull("replaceWith", replaceWith);
-            string = StringUtils.replace(string, "{" + pattern + "}", replaceWith);
+            string = StringUtils.replace(string, '{' + pattern + '}', replaceWith);
         }
         return string;
     }
@@ -66,7 +66,7 @@ public class TranslationUtils
         {
             ExceptionUtils.checkNull("pattern", pattern);
             ExceptionUtils.checkNull("replaceWith", replaceWith);
-            string = StringUtils.replaceOnce(string, "{" + pattern + "}", replaceWith);
+            string = StringUtils.replaceOnce(string, '{' + pattern + '}', replaceWith);
         }
         return string;
     }
@@ -85,7 +85,7 @@ public class TranslationUtils
         boolean containsPattern = string != null && pattern != null;
         if (containsPattern)
         {
-            containsPattern = StringUtils.contains(string, "{" + pattern + "}");
+            containsPattern = StringUtils.contains(string, '{' + pattern + '}');
         }
         return containsPattern;
     }
@@ -163,7 +163,7 @@ public class TranslationUtils
         catch (final Exception exception)
         {
             throw new TranslatorException(
-                "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + "'",
+                "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + '\'',
                 exception);
         }
     }

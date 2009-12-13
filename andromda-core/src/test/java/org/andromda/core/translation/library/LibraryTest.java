@@ -14,7 +14,7 @@ import org.andromda.core.namespace.NamespaceComponents;
  * Implements the JUnit test suit for
  * <code>org.andromda.core.translation.library.Library</code>
  *
- * @see org.andromda.core.library.LibraryTest
+ * @see org.andromda.core.translation.library.Library
  * @author Chad Brandon
  */
 public class LibraryTest
@@ -101,12 +101,12 @@ public class LibraryTest
 
     public void testGetTemplateObjects()
     {
-        final Collection templateObjects = this.library.getTemplateObjects();
+        final Collection<TemplateObject> templateObjects = this.library.getTemplateObjects();
         assertNotNull(templateObjects);
         assertEquals(
             1,
             templateObjects.size());
-        TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
+        TemplateObject templateObject = templateObjects.iterator().next();
         assertEquals("utils", templateObject.getName());
         assertEquals("test",templateObject.getNamespace());
         LibraryTemplateObject object = (LibraryTemplateObject)templateObject.getObject();

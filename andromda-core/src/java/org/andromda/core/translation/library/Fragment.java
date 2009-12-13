@@ -87,7 +87,7 @@ public class Fragment
             throw new LibraryException(
                 "No kind '" + name + "' could be found for the translation fragment '" +
                 this.getName() + "' check the fragment '" + this.getName() + "' in translation template --> '" +
-                getTranslation().getLibraryTranslation().getTemplate() + "'");
+                getTranslation().getLibraryTranslation().getTemplate() + '\'');
         }
         return kind;
     }

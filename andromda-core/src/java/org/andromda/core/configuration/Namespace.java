@@ -110,6 +110,6 @@ public class Namespace
      */
     public String toString()
     {
-        return super.toString() + "[" + this.name + "]";
+        return super.toString() + '[' + this.name + ']';
     }
 }

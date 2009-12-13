@@ -72,7 +72,7 @@ public class LibraryTranslationFinder
                 {
                     logger.error(
                         "ERROR! no translation '" + translationName + "' found within library --> '" + libraryName +
-                        "'");
+                                '\'');
                 }
             }
         }

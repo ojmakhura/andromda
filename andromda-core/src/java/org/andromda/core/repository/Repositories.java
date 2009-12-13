@@ -13,6 +13,7 @@ import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.PropertyDefinition;
 import org.andromda.core.transformation.Transformer;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -111,7 +112,7 @@ public class Repositories
                     "', you must specify one of the following as your repository name: [" +
                     StringUtils.join(
                         this.repositories.keySet().iterator(),
-                        ", ") + "]";
+                        ", ") + ']';
             }
             throw new RepositoryException(message);
         }
@@ -159,7 +160,7 @@ public class Repositories
             // - now load the models into the repository
             for (final String uri : uris)
             {
-                AndroMDALogger.info("loading model --> '" + uri + "'");
+                AndroMDALogger.info("loading model --> '" + uri + '\'');
             }
             final RepositoryFacade repositoryImplementation = this.getImplementation(repositoryName);
             repositoryImplementation.readModel(
@@ -168,22 +169,12 @@ public class Repositories
                 model.getModuleSearchLocationPaths());
 
             // - set the package filter
-            repositoryImplementation.getModel().setPackageFilter(model.getPackages());
-            try
+            repositoryImplementation.getModel().setPackageFilter(model.getPackages());            
+            for (InputStream stream : streams)
             {
-                for (InputStream stream : streams)
-                {
-                    if (stream != null)
-                    {
-                        stream.close();
-                        stream = null;
-                    }
-                }
+                IOUtils.closeQuietly(stream);
             }
-            catch (final IOException exception)
-            {
-                // ignore since the stream just couldn't be closed
-            }
+
         }
         return loaded;
     }

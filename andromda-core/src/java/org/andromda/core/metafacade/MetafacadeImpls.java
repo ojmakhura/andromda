@@ -67,7 +67,7 @@ public class MetafacadeImpls
     /**
      * The extension for the metafacade implementation files.
      */
-    private final static String METAFACADE_IMPLEMENTATION_SUFFIX =
+    private static final String METAFACADE_IMPLEMENTATION_SUFFIX =
         MetafacadeConstants.METAFACADE_IMPLEMENTATION_SUFFIX + ClassUtils.CLASS_EXTENSION;
 
     /**
@@ -271,7 +271,7 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeImplClass",
                 metafacadeImplClass);
-            Class metafacadeClass = null;
+            Class metafacadeClass;
             try
             {
                 final String metafacadeClassName = this.metafacadesByImpls.get(metafacadeImplClass);
@@ -302,7 +302,7 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeClass",
                 metafacadeClass);
-            Class metafacadeImplementationClass = null;
+            Class metafacadeImplementationClass;
             try
             {
                 final String metafacadeImplementationClassName = this.implsByMetafacades.get(metafacadeClass);
@@ -334,7 +334,7 @@ public class MetafacadeImpls
          */
         public String toString()
         {
-            return super.toString() + "[" + this.metafacadesByImpls + "]";
+            return super.toString() + '[' + this.metafacadesByImpls + ']';
         }
     }
 }

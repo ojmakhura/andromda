@@ -77,7 +77,7 @@ public class BuildInformation
             if (versionUri == null)
             {
                 throw new IllegalStateException(
-                    "BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
+                    "BuildInformation: could not load file --> '" + buildPropertiesUri + '\'');
             }
             final Properties properties = new Properties();
             InputStream stream = versionUri.openStream();

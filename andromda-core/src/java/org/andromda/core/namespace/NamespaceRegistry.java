@@ -43,7 +43,7 @@ public class NamespaceRegistry
     /**
      * Whether or not this is a shared namespace.
      */
-    private boolean shared = false;
+    private boolean shared;
 
     /**
      * Gets whether or not the namespace defined by this registry
@@ -215,6 +215,6 @@ public class NamespaceRegistry
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getName() + "]";
+        return super.toString() + '[' + this.getName() + ']';
     }
 }

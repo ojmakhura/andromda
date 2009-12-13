@@ -66,22 +66,22 @@ public class XmlObjectFactory
     /**
      * The digester instance.
      */
-    private Digester digester = null;
+    private Digester digester;
 
     /**
      * The class of which the object we're instantiating.
      */
-    private Class objectClass = null;
+    private Class objectClass;
 
     /**
      * The URL to the object rules.
      */
-    private URL objectRulesXml = null;
+    private URL objectRulesXml;
 
     /**
      * The URL of the schema.
      */
-    private URL schemaUri = null;
+    private URL schemaUri;
 
     /**
      * Whether or not validation should be turned on by default when using this factory to load XML configuration
@@ -129,7 +129,7 @@ public class XmlObjectFactory
                         '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
-                throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + "'");
+                throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + '\'');
             }
             factory = new XmlObjectFactory(objectRulesXml);
             factory.objectClass = objectClass;
@@ -280,7 +280,7 @@ public class XmlObjectFactory
         ExceptionUtils.checkNull(
             "objectXml",
             objectXml);
-        Object object = null;
+        Object object;
         try
         {
             this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));
@@ -302,14 +302,14 @@ public class XmlObjectFactory
             {
                 final String message =
                     "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
-                    "' --> message: '" + exception.getMessage() + "'";
+                    "' --> message: '" + exception.getMessage() + '\'';
                 throw new XmlObjectFactoryException(message);
             }
             throw new XmlObjectFactoryException(cause);
         }
         catch (final Throwable throwable)
         {
-            final String message = "XML resource could not be loaded --> '" + objectXml + "'";
+            final String message = "XML resource could not be loaded --> '" + objectXml + '\'';
             throw new XmlObjectFactoryException(message, throwable);
         }
         return object;

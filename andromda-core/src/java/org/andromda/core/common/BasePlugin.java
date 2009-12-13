@@ -129,7 +129,7 @@ public abstract class BasePlugin
     /**
      * The template engine that this plugin will use.
      */
-    private TemplateEngine templateEngine = null;
+    private TemplateEngine templateEngine;
 
     /**
      * @see org.andromda.core.common.Plugin#getTemplateEngine()
@@ -227,7 +227,7 @@ public abstract class BasePlugin
     /**
      * Stores the contents of the plugin.
      */
-    private List<String> contents = null;
+    private List<String> contents;
 
     /**
      * @see org.andromda.core.common.Plugin#getContents()
@@ -278,6 +278,6 @@ public abstract class BasePlugin
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getNamespace() + "]";
+        return super.toString() + '[' + this.getNamespace() + ']';
     }
 }

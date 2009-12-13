@@ -140,7 +140,7 @@ public class ClassUtils
             loader);
 
         Class primitiveClass = null;
-        if (isPrimitiveType(name) && !name.equals("void"))
+        if (isPrimitiveType(name) && !"void".equals(name))
         {
             final String className;
             if ("char".equals(name))
@@ -265,8 +265,9 @@ public class ClassUtils
      */
     public static Class[] getInterfacesReversed(final String className)
     {
-        Class[] interfaces = (Class[])getInterfaces(className).toArray(new Class[0]);
-        if (interfaces != null && interfaces.length > 0)
+        final List<Class> interfacesList = getInterfaces(className);
+        Class[] interfaces = interfacesList.toArray(new Class[interfacesList.size()]);
+        if (interfaces.length > 0)
         {
             CollectionUtils.reverseArray(interfaces);
         }
@@ -282,9 +283,9 @@ public class ClassUtils
      */
     protected static boolean isPrimitiveType(final String name)
     {
-        return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) ||
+        return "void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) ||
         "int".equals(name) || "long".equals(name) || "float".equals(name) || "double".equals(name) ||
-        "boolean".equals(name));
+        "boolean".equals(name);
     }
 
     /**
@@ -301,38 +302,33 @@ public class ClassUtils
      * @return the class or null if not found.
      */
     public static Class findClassOfType(
-        final URL directoryUris[],
+        final URL[] directoryUris,
         final Class type)
     {
         Class found = null;
         if (directoryUris != null && directoryUris.length > 0)
         {
-            final int numberOfDirectoryUris = directoryUris.length;
-            for (int ctr = 0; ctr < numberOfDirectoryUris; ctr++)
+            for (URL directoryUri : directoryUris)
             {
-                final URL directoryUri = directoryUris[ctr];
-                final List contents = ResourceUtils.getDirectoryContents(
+                final List<String> contents = ResourceUtils.getDirectoryContents(
                         directoryUri,
                         false,
                         null);
-                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+                for (final String path : contents)
                 {
-                    final String path = (String)iterator.next();
                     if (path.endsWith(CLASS_EXTENSION))
                     {
                         final String typeName =
-                            StringUtils.replace(
-                                ResourceUtils.normalizePath(path).replace(
-                                    '/',
-                                    '.'),
-                                CLASS_EXTENSION,
-                                "");
+                                StringUtils.replace(
+                                        ResourceUtils.normalizePath(path).replace('/', '.'),
+                                        CLASS_EXTENSION,
+                                        "");
                         try
                         {
                             final Class loadedClass = getClassLoader().loadClass(typeName);
                             if (type.isAssignableFrom(loadedClass))
                             {
-                                found = loadedClass;                          
+                                found = loadedClass;
                                 break;
                             }
                         }
@@ -390,7 +386,7 @@ public class ClassUtils
      * @return true/false.
      */
     public static boolean isClassOfTypePresent(
-        final URL directoryUris[],
+        final URL[] directoryUris,
         final Class type)
     {
         return ClassUtils.findClassOfType(directoryUris, type) != null;

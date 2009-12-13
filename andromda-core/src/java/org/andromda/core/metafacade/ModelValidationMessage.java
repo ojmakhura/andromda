@@ -92,7 +92,7 @@ public class ModelValidationMessage
     /**
      * Stores the metafacade name which is only constructed the very first time.
      */
-    private String metafacadeName = null;
+    private String metafacadeName;
 
     /**
      * Gets the name of the metafacade to which this validation message applies.
@@ -132,7 +132,7 @@ public class ModelValidationMessage
     /**
      * Stores the metafacade class displayed within the message, this is only retrieved the very first time.
      */
-    private Class metafacadeClass = null;
+    private Class metafacadeClass;
 
     /**
      * Gets the class of the metafacade to which this validation message applies.
@@ -159,10 +159,10 @@ public class ModelValidationMessage
     public String toString()
     {
         final StringBuffer toString = new StringBuffer();
-        toString.append("[");
+        toString.append('[');
         toString.append(this.getMetafacadeName());
-        toString.append("]");
-        toString.append(":");
+        toString.append(']');
+        toString.append(':');
         toString.append(this.message);
         return toString.toString();
     }

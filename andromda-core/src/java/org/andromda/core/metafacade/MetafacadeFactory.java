@@ -35,7 +35,7 @@ public class MetafacadeFactory
     /**
      * The shared instance of this factory.
      */
-    private static MetafacadeFactory instance = null;
+    private static MetafacadeFactory instance;
 
     private MetafacadeFactory()
     {
@@ -172,7 +172,7 @@ public class MetafacadeFactory
             final Collection<String> stereotypes = this.getModel().getStereotypeNames(mappingObject);
             if (this.getLogger().isDebugEnabled())
             {
-                this.getLogger().debug("mappingObject stereotypes --> '" + stereotypes + "'");
+                this.getLogger().debug("mappingObject stereotypes --> '" + stereotypes + '\'');
             }
 
             MetafacadeMapping mapping = null;
@@ -201,7 +201,7 @@ public class MetafacadeFactory
                         this.getLogger().warn(
                             "Meta object model class '" + mappingObject.getClass() +
                             "' has no corresponding meta facade class, default is being used --> '" + metafacadeClass +
-                            "'");
+                                    '\'');
                     }
                 }
             }
@@ -209,7 +209,7 @@ public class MetafacadeFactory
             if (metafacadeClass == null)
             {
                 throw new MetafacadeMappingsException(methodName + " metafacadeClass was not retrieved from mappings" +
-                    " or specified as an argument in this method for mappingObject --> '" + mappingObject + "'");
+                    " or specified as an argument in this method for mappingObject --> '" + mappingObject + '\'');
             }
             final MetafacadeBase metafacade = this.getMetafacade(
                     metafacadeClass,
@@ -230,7 +230,7 @@ public class MetafacadeFactory
         {
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
-                mappingObject.getClass() + "'";
+                mappingObject.getClass() + '\'';
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -287,7 +287,7 @@ public class MetafacadeFactory
         {
             final String message =
                 "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() +
-                "' with mappingObject of type --> '" + mapping.getMappingClassName() + "'";
+                "' with mappingObject of type --> '" + mapping.getMappingClassName() + '\'';
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -425,7 +425,7 @@ public class MetafacadeFactory
         {
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
-                mappingObject.getClass().getName() + "'";
+                mappingObject.getClass().getName() + '\'';
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -668,7 +668,7 @@ public class MetafacadeFactory
         {
             throw new MetafacadeFactoryException(methodName + " - no property '" + name +
                 "' registered under metafacade '" + metafacade.getName() + "' for namespace '" + this.getNamespace() +
-                "'");
+                    '\'');
         }
         return registeredProperty;
     }

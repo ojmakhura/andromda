@@ -13,8 +13,7 @@ public class LibraryTranslator
     implements Translator
 {
     /**
-     * @see org.andromda.core.translation.Translator#translate(java.lang.String,
-     *      java.lang.Object, java.lang.String)
+     * {@inheritDoc}
      */
     public Expression translate(
         String translationLibrary,

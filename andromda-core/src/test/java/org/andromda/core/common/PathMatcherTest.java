@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 
 /**
- * JUnit tests for {@link org.andromda.common.PathMatcher}
+ * JUnit tests for {@link org.andromda.core.common}
  *
  * @author Chad Brandon
  */

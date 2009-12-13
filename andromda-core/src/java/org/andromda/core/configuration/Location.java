@@ -98,7 +98,7 @@ public class Location
                         urls.add(resource);
                     }
                 }
-                resources = urls.toArray(new URL[0]);
+                resources = urls.toArray(new URL[urls.size()]);
             }
         }
         else

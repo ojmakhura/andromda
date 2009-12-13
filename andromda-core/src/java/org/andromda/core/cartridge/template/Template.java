@@ -32,7 +32,7 @@ public class Template
      * A flag indicating whether or not empty files should
      * be generated.
      */
-    private boolean generateEmptyFiles = false;
+    private boolean generateEmptyFiles;
 
     /**
      * Tells us whether output files should be generated if this template does not produce any output.
@@ -134,7 +134,7 @@ public class Template
         this.supportedModelElements = supportedModelElements;
     }
 
-    private boolean outputToSingleFile = false;
+    private boolean outputToSingleFile;
 
     /**
      * If output to single file is <code>true</code> then all model elements found by the processor (i.e. all those
@@ -198,5 +198,5 @@ public class Template
     /**
      * The model elements (i.e. metafacades) supported by this template.
      */
-    private ModelElements supportedModelElements = null;
+    private ModelElements supportedModelElements;
 }

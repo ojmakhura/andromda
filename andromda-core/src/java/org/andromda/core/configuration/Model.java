@@ -26,7 +26,7 @@ public class Model
      * Stores whether or not a last modified check
      * should be performed.
      */
-    private boolean lastModifiedCheck = false;
+    private boolean lastModifiedCheck;
 
     /**
      * Whether or not to perform a last modified check on the model.
@@ -134,7 +134,7 @@ public class Model
      * Caches the urisAsStrings value (so we don't need
      * to do the conversion more than once).
      */
-    private String[] urisAsStrings = null;
+    private String[] urisAsStrings;
 
     /**
      * All URIs that make up the model.
@@ -149,7 +149,7 @@ public class Model
             this.urisAsStrings = new String[uriNumber];
             for (int ctr = 0; ctr < uriNumber; ctr++)
             {
-                urisAsStrings[ctr] = (uris.get(ctr)).toString();
+                urisAsStrings[ctr] = uris.get(ctr).toString();
             }
         }
         return this.urisAsStrings;
@@ -167,7 +167,7 @@ public class Model
             final URL url = ResourceUtils.toURL(uri);
             if (url == null)
             {
-                throw new ConfigurationException("Model could not be loaded from invalid path --> '" + uri + "'");
+                throw new ConfigurationException("Model could not be loaded from invalid path --> '" + uri + '\'');
             }
             try
             {
@@ -209,7 +209,7 @@ public class Model
      */
     public Transformation[] getTransformations()
     {
-        return this.transformations.toArray(new Transformation[0]);
+        return this.transformations.toArray(new Transformation[this.transformations.size()]);
     }
 
     /**
@@ -281,13 +281,13 @@ public class Model
      */
     public Location[] getModuleSearchLocations()
     {
-        return this.moduleSearchLocations.toArray(new Location[0]);
+        return this.moduleSearchLocations.toArray(new Location[this.moduleSearchLocations.size()]);
     }
 
     /**
      * Stores the path for each module search location in this configuration.
      */
-    private String[] moduleSearchLocationPaths = null;
+    private String[] moduleSearchLocationPaths;
 
     /**
      * Gets all found module search location paths for this model instance.
@@ -300,9 +300,8 @@ public class Model
         if (this.moduleSearchLocationPaths == null)
         {
             final Collection<String> paths = new ArrayList<String>();
-            for (final Iterator<Location> iterator = this.moduleSearchLocations.iterator(); iterator.hasNext();)
+            for (final Location location : this.moduleSearchLocations)
             {
-                final Location location = iterator.next();
                 final URL[] resources = location.getResources();
                 final int resourceNumber = resources.length;
                 for (int ctr = 0; ctr < resourceNumber; ctr++)
@@ -311,7 +310,7 @@ public class Model
                 }
                 paths.add(location.getPath());
             }
-            this.moduleSearchLocationPaths = (String[])paths.toArray(new String[0]);
+            this.moduleSearchLocationPaths = paths.toArray(new String[paths.size()]);
         }
         return this.moduleSearchLocationPaths;
     }
@@ -320,7 +319,7 @@ public class Model
      * Stores all resources including all resources found within the module search locations
      * as well as a resource for the {@link #getUris()}.
      */
-    private URL[] moduleSearchLocationResources = null;
+    private URL[] moduleSearchLocationResources;
 
     /**
      * Gets the accumulation of all files found when combining the contents
@@ -388,7 +387,7 @@ public class Model
     /**
      * The unique key that identifies this model.
      */
-    private String key = null;
+    private String key;
 
     /**
      * Creates the unique key that identifies this model

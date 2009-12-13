@@ -183,12 +183,12 @@ public class CartridgeTest
      */
     public void testGetTemplateObjects()
     {
-        final Collection templateObjects = this.cartridge.getTemplateObjects();
+        final Collection<TemplateObject> templateObjects = this.cartridge.getTemplateObjects();
         assertNotNull(templateObjects);
         assertEquals(
             1,
             templateObjects.size());
-        TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
+        TemplateObject templateObject = templateObjects.iterator().next();
         assertEquals("utils", templateObject.getName());
         assertEquals("test",templateObject.getNamespace());
         CartridgeTemplateObject object = (CartridgeTemplateObject)templateObject.getObject();

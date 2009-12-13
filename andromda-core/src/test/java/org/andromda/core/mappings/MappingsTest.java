@@ -218,8 +218,8 @@ public class MappingsTest
         {
             final String message = mappingsException.getMessage();
             assertTrue(message.startsWith("Logical mappings cannot be initialized due to invalid inheritance"));
-            assertTrue(message.indexOf("TestMappingsCyclicA") != -1);
-            assertTrue(message.indexOf("TestMappingsCyclicB") != -1);
+            assertTrue(message.contains("TestMappingsCyclicA"));
+            assertTrue(message.contains("TestMappingsCyclicB"));
         }
         finally
         {

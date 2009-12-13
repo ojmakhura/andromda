@@ -7,7 +7,7 @@ package org.andromda.core.metafacade;
  *
  * @author Chad Brandon
  */
-public class MetafacadeProperties
+public interface MetafacadeProperties
 {
     /**
      * Are we making use of the caching of metafacade properties (true/false).

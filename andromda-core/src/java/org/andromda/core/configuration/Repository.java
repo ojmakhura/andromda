@@ -63,6 +63,6 @@ public class Repository
      */
     public Model[] getModels()
     {
-        return this.models.toArray(new Model[0]);
+        return this.models.toArray(new Model[this.models.size()]);
     }
 }

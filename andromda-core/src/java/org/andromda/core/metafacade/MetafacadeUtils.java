@@ -40,7 +40,7 @@ final class MetafacadeUtils
                 {
                     getLogger().debug(
                         "evaluating " + propertyGroups.size() + " property groups(s) on metafacade '" + metafacade +
-                        "'");
+                                '\'');
                 }
                 final Introspector introspector = Introspector.instance();
                 for (final MetafacadeMapping.PropertyGroup propertyGroup : propertyGroups)
@@ -55,7 +55,7 @@ final class MetafacadeUtils
                         {
                             getLogger().debug(
                                 "property '" + property.getName() + "', with value '" + property.getValue() +
-                                "' on metafacade '" + metafacade + "', evaluated to --> '" + valid + "'");
+                                "' on metafacade '" + metafacade + "', evaluated to --> '" + valid + '\'');
                         }
 
                         // - if the property is invalid, we break out
@@ -89,7 +89,7 @@ final class MetafacadeUtils
             {
                 getLogger().debug(
                     "completed evaluating " + propertyGroups.size() + " properties on metafacade '" + metafacade +
-                    "' with a result of --> '" + valid + "'");
+                    "' with a result of --> '" + valid + '\'');
             }
         }
         return valid;
@@ -115,7 +115,7 @@ final class MetafacadeUtils
         {
             getLogger().debug(
                 "constructing metafacade from class '" + metafacadeClass + "' mapping object '" + mappingObject +
-                "', and context '" + context + "'");
+                "', and context '" + context + '\'');
         }
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
         return (MetafacadeBase)constructor.newInstance(mappingObject, context);
@@ -144,7 +144,7 @@ final class MetafacadeUtils
         if (className == null)
         {
             throw new MetafacadeMappingsException("No mapping class could be found for '" + metafacadeClass.getName() +
-                "'");
+                    '\'');
         }
         return className;
     }
