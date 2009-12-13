@@ -260,4 +260,9 @@ public class UMLMetafacadeProperties
      * Value indicating work to do in source code. Default=TODO
      */
     public static final String TODO_TAG = "toDoTag";
+
+    /**
+     * Value indicating missing documentation in model elements. Default=false, do not insert todo tags.
+     */
+    public static final String TODO_FOR_MISSING_DOCUMENTATION = "toDoForMissingDocumentation";
 }
