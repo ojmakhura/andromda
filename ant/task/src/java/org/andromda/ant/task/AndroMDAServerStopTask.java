@@ -68,7 +68,7 @@ public class AndroMDAServerStopTask
         {
             if (this.configurationUri == null)
             {
-                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + "'");
+                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + '\'');
             }
 
             // Create the configuration file
@@ -89,7 +89,7 @@ public class AndroMDAServerStopTask
             }
             if (throwable instanceof FileNotFoundException)
             {
-                throw new BuildException("No configuration could be loaded from --> '" + configurationUri + "'");
+                throw new BuildException("No configuration could be loaded from --> '" + configurationUri + '\'');
             }
             throw new BuildException(throwable);
         }

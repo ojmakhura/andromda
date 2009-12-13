@@ -47,7 +47,7 @@ public class AndroMDApp
             if (internalConfiguration == null)
             {
                 throw new AndroMDAppException("No configuration could be loaded from --> '" +
-                    INTERNAL_CONFIGURATION_URI + "'");
+                    INTERNAL_CONFIGURATION_URI + '\'');
             }
             this.addConfigurationUri(internalConfiguration.toString());
             this.initialize();
@@ -108,7 +108,7 @@ public class AndroMDApp
                         final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(descriptorUri);
                         andromdapp.setResource(descriptorUri);
                         final String type = andromdapp.getType();
-                        AndroMDALogger.info("discovered andromdapp type --> '" + type + "'");
+                        AndroMDALogger.info("discovered andromdapp type --> '" + type + '\'');
                         this.types.put(
                             type,
                             andromdapp);
@@ -137,7 +137,7 @@ public class AndroMDApp
             final URL configurationUrl = ResourceUtils.toURL(configurationUri);
             if (configurationUrl == null)
             {
-                throw new AndroMDAppException("configuriationUri is invalid --> '" + configurationUri + "'");
+                throw new AndroMDAppException("configuriationUri is invalid --> '" + configurationUri + '\'');
             }
             this.configurations.add(factory.getObject(ResourceUtils.toURL(configurationUri)));
         }
@@ -191,7 +191,7 @@ public class AndroMDApp
                         typesChoice.append(", ");
                     }
                 }
-                typesChoice.append("]");
+                typesChoice.append(']');
                 this.printText("Please choose the type of application to generate " + typesChoice);
                 String selectedType = this.readLine();
                 while (!this.types.containsKey(selectedType))
@@ -267,7 +267,7 @@ public class AndroMDApp
             {
                 if (file.delete())
                 {
-                    AndroMDALogger.info("Removed: '" + file.toURI().toURL() + "'");
+                    AndroMDALogger.info("Removed: '" + file.toURI().toURL() + '\'');
                 }
                 this.deleteFile(file.getParentFile());
             }

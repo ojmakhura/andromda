@@ -70,7 +70,7 @@ public class DateUtilsHelper
         for (int i = 0; i < PERL_TIME_FORMATS.length && !containsTimeFormat; i++)
         {
             String timeFormatPattern = PERL_TIME_FORMATS[i];
-            containsTimeFormat = perlFormat.indexOf(timeFormatPattern) > -1;
+            containsTimeFormat = perlFormat.contains(timeFormatPattern);
         }
 
         return containsTimeFormat;

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Language utility for transforming french words
  *
- * @author Cédric Vidal
+ * @author Cï¿½dric Vidal
  */
 public class FrenchInflector
 {
@@ -133,7 +133,7 @@ public class FrenchInflector
         for (int i = 0; i < patterns.length; i++)
         {
             String string = patterns[i];
-            plural(endsWith(string), "$1" + string + "s");
+            plural(endsWith(string), "$1" + string + 's');
         }
     }
 
@@ -147,7 +147,7 @@ public class FrenchInflector
         for (int i = 0; i < patterns.length; i++)
         {
             String string = patterns[i];
-            plural(endsWith(string), "$1" + string + "x");
+            plural(endsWith(string), "$1" + string + 'x');
         }
     }
 
@@ -168,7 +168,7 @@ public class FrenchInflector
      */
     private static String endsWith(String end)
     {
-        return "(\\S*)" + end + "$";
+        return "(\\S*)" + end + '$';
     }
 
     /**

@@ -32,7 +32,7 @@ public class DateUtilsHelperTest
         for (int i = 0; i < fixture.length; i++)
         {
             Object[] objects = fixture[i];
-            assertEquals(Boolean.valueOf(DateUtilsHelper.containsTimeFormat((String)objects[0])), objects[1]);
+            assertEquals(DateUtilsHelper.containsTimeFormat((String) objects[0]), objects[1]);
         }
     }
 }

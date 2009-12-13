@@ -253,7 +253,7 @@ public class BeanComparator
                 }
                 else
                 {
-                    throw new ComparatorException("No comparator defined for the given type '" + type.getName() + "'");
+                    throw new ComparatorException("No comparator defined for the given type '" + type.getName() + '\'');
                 }
             }
             return this.comparator;

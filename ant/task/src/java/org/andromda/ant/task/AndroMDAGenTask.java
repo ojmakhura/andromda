@@ -69,7 +69,7 @@ public class AndroMDAGenTask
         {
             if (this.configurationUri == null)
             {
-                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + "'");
+                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + '\'');
             }
             final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)
@@ -88,7 +88,7 @@ public class AndroMDAGenTask
             }
             if (throwable instanceof FileNotFoundException)
             {
-                throw new BuildException("No configuration could be loaded from --> '" + configurationUri + "'");
+                throw new BuildException("No configuration could be loaded from --> '" + configurationUri + '\'');
             }
             throw new BuildException(throwable);
         }
@@ -116,7 +116,7 @@ public class AndroMDAGenTask
             for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
             {
                 final String name = (String)iterator.next();
-                final String property = "${" + name + "}";
+                final String property = "${" + name + '}';
                 final String value = (String)properties.get(name);
                 string = StringUtils.replace(string, property, value);
             }

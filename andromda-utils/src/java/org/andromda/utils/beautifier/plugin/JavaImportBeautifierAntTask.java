@@ -31,7 +31,7 @@ public class JavaImportBeautifierAntTask extends Task {
         final String[] fileList = fileSet.getDirectoryScanner(getProject()).getIncludedFiles();
 
         for (String fileName : fileList) {
-            File file = new File(fileSet.getDir(getProject()).getAbsolutePath() + "/" + fileName);
+            File file = new File(fileSet.getDir(getProject()).getAbsolutePath() + '/' + fileName);
             try {
                 beautifier.beautify(file, debugMode ? new File(file.getAbsoluteFile() + "_debug") : null);
             } catch (FileNotFoundException e) {

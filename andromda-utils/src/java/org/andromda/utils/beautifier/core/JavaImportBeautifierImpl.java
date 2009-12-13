@@ -195,7 +195,7 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         String currentPackage = DEFAULT_PACKAGE;
         for (TypeContext typeContext : sequences) {
             if (PACKAGE_ANNOTATION == typeContext.getType()) {
-                currentPackage = typeContext.getQualifiedName().toString();
+                currentPackage = typeContext.getQualifiedName();
                 break;
             }
         }
