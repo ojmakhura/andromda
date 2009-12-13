@@ -115,7 +115,7 @@ public class ScriptClassGenerator
                     if (returnType.equals(CtClass.voidType))
                     {
                         methodBody =
-                            "{" + contructArgumentString(method) + "scriptWrapper.invoke(\"" + method.getName() +
+                                '{' + contructArgumentString(method) + "scriptWrapper.invoke(\"" + method.getName() +
                             "\", arguments);}";
                     }
                     else
@@ -123,14 +123,14 @@ public class ScriptClassGenerator
                         if (returnType.isPrimitive())
                         {
                             methodBody =
-                                "{" + contructArgumentString(method) + " return ((" + getWrapperTypeName(returnType) +
+                                    '{' + contructArgumentString(method) + " return ((" + getWrapperTypeName(returnType) +
                                 ")scriptWrapper.invoke(\"" + method.getName() + "\", arguments))." +
                                 returnType.getName() + "Value();}";
                         }
                         else
                         {
                             methodBody =
-                                "{" + contructArgumentString(method) + " return (" + method.getReturnType().getName() +
+                                    '{' + contructArgumentString(method) + " return (" + method.getReturnType().getName() +
                                 ")scriptWrapper.invoke(\"" + method.getName() + "\", arguments);}";
                         }
                     }
@@ -164,7 +164,7 @@ public class ScriptClassGenerator
         final URL classResource = existingClass.getResource(classResourcePath);
         if (classResource == null)
         {
-            throw new ScriptClassGeneratorException("Could not find the class resource '" + classResourcePath + "'");
+            throw new ScriptClassGeneratorException("Could not find the class resource '" + classResourcePath + '\'');
         }
         final String file = classResource.getFile().replaceAll(".*(\\\\|//)", "/");
         return new File(StringUtils.replace(file, classResourcePath, ""));
@@ -180,14 +180,14 @@ public class ScriptClassGenerator
         for (int ctr = 1; ctr <= argumentNumber; ctr++)
         {
             final CtClass argumentType = argumentTypes[ctr - 1];
-            arguments.append("arguments[" + (ctr - 1) + "] = ");
+            arguments.append("arguments[").append(ctr - 1).append("] = ");
             if (argumentType.isPrimitive())
             {
-                arguments.append("new java.lang." + getWrapperTypeName(argumentType) + "($" + ctr + ");");
+                arguments.append("new java.lang.").append(getWrapperTypeName(argumentType)).append("($").append(ctr).append(");");
             }
             else
             {
-                arguments.append("$" + ctr + ";");
+                arguments.append('$').append(ctr).append(';');
             }
         }
         return arguments.toString();
@@ -197,7 +197,7 @@ public class ScriptClassGenerator
     {
         final String typeName = ctClass.getName();
         StringBuffer name = new StringBuffer(typeName);
-        if (typeName.equalsIgnoreCase("int"))
+        if ("int".equalsIgnoreCase(typeName))
         {
             name.append("eger");
         }

@@ -138,7 +138,7 @@ public class EclipseMojo
      *
      * @parameter
      */
-    private Set classpathArtifactTypes = new LinkedHashSet(Arrays.asList(new String[] {"jar","ejb"}));
+    private Set classpathArtifactTypes = new LinkedHashSet(Arrays.asList("jar","ejb"));
 
     /**
      * Whether or not transitive dependencies shall be included in any resources (i.e. .classpath
@@ -419,7 +419,6 @@ public class EclipseMojo
                      this.rootProject.getParent() != null && this.rootProject.getParent().getFile() != null;
                      this.rootProject = this.rootProject.getParent(), rootFile = new File(rootFile.getParentFile().getParentFile(), POM_FILE_NAME))
                 {
-                    ;
                 }
                 // - if the project has no file defined, use the rootFile
                 if (this.rootProject != null && this.rootProject.getFile() == null && rootFile.exists())
@@ -441,7 +440,7 @@ public class EclipseMojo
      * @return all poms found.
      * @throws MojoExecutionException
      */
-    private List getPoms()
+    private List<File> getPoms()
         throws Exception
     {
         final DirectoryScanner scanner = new DirectoryScanner();
@@ -453,10 +452,10 @@ public class EclipseMojo
         {
             excludes.addAll(Arrays.asList(excludePoms.split(",")));
         }
-        scanner.setExcludes(excludes.toArray(new String[0]));
+        scanner.setExcludes(excludes.toArray(new String[excludes.size()]));
         scanner.scan();
 
-        List poms = new ArrayList();
+        List<File> poms = new ArrayList<File>();
 
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {

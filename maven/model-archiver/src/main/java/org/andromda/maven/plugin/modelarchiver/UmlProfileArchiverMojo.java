@@ -115,11 +115,11 @@ public class UmlProfileArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= UmlProfileArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
-        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
+        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
 
         try
         {
@@ -205,7 +205,7 @@ public class UmlProfileArchiverMojo
                 }
             }
 
-            final File umlFile = new File(buildDirectory, this.finalName + "." + this.project.getPackaging());
+            final File umlFile = new File(buildDirectory, this.finalName + '.' + this.project.getPackaging());
 
             final Artifact artifact = this.project.getArtifact();
 

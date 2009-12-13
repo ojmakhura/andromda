@@ -124,7 +124,7 @@ public class GenerateCartridgeHowtoArtifactsMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured unpacking cartridge howto pictures '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }
@@ -156,7 +156,7 @@ public class GenerateCartridgeHowtoArtifactsMojo
             }
             throw new MojoExecutionException(
                     "An error occured while running AndroMDA over the cartridge howto model '" +
-                    this.project.getArtifactId() + "'", ExceptionUtils.getRootCause(throwable));
+                    this.project.getArtifactId() + '\'', ExceptionUtils.getRootCause(throwable));
         }
     }
 }

@@ -124,13 +124,13 @@ public class CartridgeTestMojo
                 else if (this.testFailureIgnore)
                 {
                     this.getLog().error("An error occured while testing cartridge '" +
-                        this.project.getArtifactId() + "'",
+                        this.project.getArtifactId() + '\'',
                         ExceptionUtils.getRootCause(throwable));
                 }
                 else
                 {
                     throw new MojoExecutionException("An error occured while testing cartridge '" +
-                            this.project.getArtifactId() + "'",
+                            this.project.getArtifactId() + '\'',
                             ExceptionUtils.getRootCause(throwable));
                 }
             }

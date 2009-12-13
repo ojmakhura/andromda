@@ -114,7 +114,7 @@ public class AndroMDAMojo
             if (configurationUri == null)
             {
                 throw new MojoExecutionException("Configuration could not be loaded from '" + this.configurationUri +
-                    "'");
+                        '\'');
             }
             final Configuration configuration = this.getConfiguration(configurationUri);
             boolean execute = true;
@@ -174,7 +174,7 @@ public class AndroMDAMojo
             throwable = ExceptionUtils.getRootCause(throwable);
             if (throwable instanceof MalformedURLException || throwable instanceof FileNotFoundException)
             {
-                message = "Configuration is not valid '" + this.configurationUri + "'";
+                message = "Configuration is not valid '" + this.configurationUri + '\'';
             }
             throw new MojoExecutionException(message, throwable);
         }

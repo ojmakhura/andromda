@@ -114,11 +114,11 @@ public class UmlLibraryArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= UmlLibraryArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
-        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
+        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
 
         try
         {
@@ -134,7 +134,7 @@ public class UmlLibraryArchiverMojo
             {
                 // old files in directory are not automatically deleted.                
                 MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml");            	                
-                FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));;
+                FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
 
             String packaging = this.project.getPackaging();
@@ -204,7 +204,7 @@ public class UmlLibraryArchiverMojo
                 }
             }
 
-            final File umlFile = new File(buildDirectory, this.finalName + "." + this.project.getPackaging());
+            final File umlFile = new File(buildDirectory, this.finalName + '.' + this.project.getPackaging());
 
             final Artifact artifact = this.project.getArtifact();
 

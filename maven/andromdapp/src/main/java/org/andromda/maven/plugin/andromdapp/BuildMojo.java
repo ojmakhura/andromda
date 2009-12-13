@@ -88,7 +88,7 @@ public class BuildMojo
      *
      * @parameter
      */
-    private List goals = new ArrayList(Arrays.asList(new String[] {"install"}));
+    private List goals = new ArrayList(Arrays.asList("install"));
 
     /**
      * The string used to quite the console;
@@ -162,7 +162,7 @@ public class BuildMojo
                         input = input.replaceFirst(
                                 EXECUTION_PROPERTY_TOKEN,
                                 "");
-                        int index = input.indexOf("=");
+                        int index = input.indexOf('=');
                         String name;
                         String value;
                         if (index <= 0)
@@ -265,11 +265,9 @@ public class BuildMojo
         try
         {
             final Method method = System.class.getMethod(
-                    GET_ENVIRONMENT_METHOD,
-                    null);
+                    GET_ENVIRONMENT_METHOD);
             final Object result = method.invoke(
-                    System.class,
-                    null);
+                    System.class);
             if (result instanceof Map)
             {
                 variables.putAll((Map)result);
@@ -303,7 +301,7 @@ public class BuildMojo
         if (this.project != null)
         {
             this.printText("");
-            this.printText(this.project.getArtifactId() + " " + this.project.getVersion() + ">");
+            this.printText(this.project.getArtifactId() + ' ' + this.project.getVersion() + '>');
         }
     }
 
@@ -537,7 +535,7 @@ public class BuildMojo
                 }
                 catch (ProjectBuildingException exception)
                 {
-                    throw new MojoExecutionException("Error loading POM --> '" + pom + "'", exception);
+                    throw new MojoExecutionException("Error loading POM --> '" + pom + '\'', exception);
                 }
             }
         }
@@ -563,7 +561,7 @@ public class BuildMojo
             {
                 String module = modules[ctr].trim();
                 final List goalsList = new ArrayList();
-                if (module.indexOf(goalPrefix) != -1)
+                if (module.contains(goalPrefix))
                 {
                     final String[] goals = module.replaceAll(
                             ".*(:\\[)|(\\])",

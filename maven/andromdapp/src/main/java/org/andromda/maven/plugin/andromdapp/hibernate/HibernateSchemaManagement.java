@@ -65,7 +65,7 @@ public abstract class HibernateSchemaManagement
         String hibernate3ClassName = null;
         try
         {
-            hibernate3ClassName = HIBERNATE_3_PACKAGE + "." + this.getExecutionClassName();
+            hibernate3ClassName = HIBERNATE_3_PACKAGE + '.' + this.getExecutionClassName();
             hibernateClass = ClassUtils.loadClass(hibernate3ClassName);
         }
         catch (Exception exception)
@@ -74,7 +74,7 @@ public abstract class HibernateSchemaManagement
         }
         try
         {
-            hibernate2ClassName = HIBERNATE_2_PACKAGE + "." + this.getExecutionClassName();
+            hibernate2ClassName = HIBERNATE_2_PACKAGE + '.' + this.getExecutionClassName();
             hibernateClass = ClassUtils.loadClass(hibernate2ClassName);
         }
         catch (Exception exception)
@@ -167,7 +167,8 @@ public abstract class HibernateSchemaManagement
             this.getRequiredProperty(
                 options,
                 hibernateDialect));
-        final String[] arguments = (String[])this.getArguments(options).toArray(new String[0]);
+        final List<String> argumentList = this.getArguments(options);
+        final String[] arguments = argumentList.toArray(new String[argumentList.size()]);
         final Class executionClass = this.getExecutionClass();
         final Method method = executionClass.getMethod(
                 "main",
@@ -194,10 +195,10 @@ public abstract class HibernateSchemaManagement
      * @param options the options from which to retrieve any required properties.
      * @return the list of common arguments.
      */
-    private List getArguments(final Map options)
+    private List<String> getArguments(final Map options)
         throws Exception
     {
-        final List mappingFiles =
+        final List<String> mappingFiles =
             this.getMappingFilesList(
                 this.getRequiredProperty(
                     options,
@@ -206,7 +207,7 @@ public abstract class HibernateSchemaManagement
                     options,
                     "mappingsLocation"));
         final String[] args = new String[] {"--delimiter=;", "--format"};
-        final List arguments = new ArrayList(Arrays.asList(args));
+        final List<String> arguments = new ArrayList<String>(Arrays.asList(args));
         arguments.addAll(mappingFiles);
         this.addArguments(
             options,
@@ -232,7 +233,7 @@ public abstract class HibernateSchemaManagement
      * @param baseDirectory the directory from which to perform the search.
      * @return the list of mapping files
      */
-    protected List getMappingFilesList(
+    protected List<String> getMappingFilesList(
         final String extension,
         final String baseDirectory)
     {
@@ -242,10 +243,9 @@ public abstract class HibernateSchemaManagement
         scanner.setExcludes(null);
         scanner.scan();
 
-        final List files = new ArrayList();
-        for (final Iterator iterator = Arrays.asList(scanner.getIncludedFiles()).iterator(); iterator.hasNext();)
+        final List<String> files = new ArrayList<String>();
+        for (String path : Arrays.asList(scanner.getIncludedFiles()))
         {
-            final String path = (String)iterator.next();
             files.add(new File(
                     baseDirectory,
                     path).toString());

@@ -34,12 +34,12 @@ class Schema2XMIUtils
             {
                 if (StringUtils.isNotEmpty(length))
                 {
-                    buffer.append("(" + length);
+                    buffer.append('(').append(length);
                     if (StringUtils.isNotEmpty(decimalPlaces))
                     {
-                        buffer.append("," + decimalPlaces);    
+                        buffer.append(',').append(decimalPlaces);
                     }
-                    buffer.append(")");
+                    buffer.append(')');
                 }
             }
 

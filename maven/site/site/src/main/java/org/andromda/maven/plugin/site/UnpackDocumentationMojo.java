@@ -108,7 +108,7 @@ public class UnpackDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured unpacking JMI 1.4 API '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }
@@ -141,7 +141,7 @@ public class UnpackDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured unpacking UmlDoc for car-rental-sample '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }

@@ -198,7 +198,7 @@ public class SchemaMojo
                 final Map tasksMap = (Map)SchemaMojo.tasksCache.get(this.taskType);
                 if (tasksMap == null)
                 {
-                    throw new MojoExecutionException("'" + taskType +
+                    throw new MojoExecutionException('\'' + taskType +
                         "' is not a valid task type, valid task types are: " + tasksMap.keySet());
                 }
 
@@ -245,7 +245,7 @@ public class SchemaMojo
                     final Class type = (Class)tasksMap.get(task);
                     if (type == null)
                     {
-                        throw new MojoExecutionException("'" + task + "' is not a valid task, valid types are: " +
+                        throw new MojoExecutionException('\'' + task + "' is not a valid task, valid types are: " +
                             tasksMap.keySet());
                     }
 
@@ -353,7 +353,7 @@ public class SchemaMojo
         }
 
         final List files = new ArrayList(classpathFiles);
-        if (files != null && files.size() > 0)
+        if (files != null && !files.isEmpty())
         {
             final URL[] classpathUrls = new URL[classpathFiles.size()];
 
@@ -362,7 +362,7 @@ public class SchemaMojo
                 final File file = new File((String)files.get(ctr));
                 if (this.getLog().isDebugEnabled())
                 {
-                    getLog().debug("adding to classpath '" + file + "'");
+                    getLog().debug("adding to classpath '" + file + '\'');
                 }
                 classpathUrls[ctr] = file.toURI().toURL();
             }
@@ -523,7 +523,7 @@ public class SchemaMojo
                         }
                         sql = new StringBuffer();
                     }
-                    sql.append("\n");
+                    sql.append('\n');
                 }
                 resourceInput.close();
                 if (statement != null)
@@ -532,8 +532,8 @@ public class SchemaMojo
                 }
             }
             this.getLog().info(" Executed script: " + sqlPath);
-            final String count = String.valueOf((this.successes + this.failures)).toString();
-            this.getLog().info(" " + count + "  SQL statements executed");
+            final String count = String.valueOf(this.successes + this.failures);
+            this.getLog().info(' ' + count + "  SQL statements executed");
             this.getLog().info(" Failures: " + this.failures);
             this.getLog().info(" Successes: " + this.successes);
         }
@@ -564,7 +564,7 @@ public class SchemaMojo
         this.getLog().info(sql.trim());
         try
         {
-            statement.execute(sql.toString());
+            statement.execute(sql);
             this.successes++;
         }
         catch (final SQLException exception)

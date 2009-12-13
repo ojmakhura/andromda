@@ -109,7 +109,7 @@ public class NamespaceTransformerMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured creating namespace site document '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }

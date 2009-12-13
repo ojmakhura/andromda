@@ -54,6 +54,6 @@ public class JdbcTypeFinder
      */
     public static String find(int jdbcType)
     {
-        return (String)jdbcTypes.get(new Integer(jdbcType));
+        return (String)jdbcTypes.get(jdbcType);
     }
 }

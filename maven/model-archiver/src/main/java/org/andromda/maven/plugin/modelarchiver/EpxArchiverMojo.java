@@ -116,11 +116,11 @@ public class EpxArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= UmlArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
-        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
+        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
 
         try
         {

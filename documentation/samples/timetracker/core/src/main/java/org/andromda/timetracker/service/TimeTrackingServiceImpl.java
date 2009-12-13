@@ -23,6 +23,6 @@ public class TimeTrackingServiceImpl
     {
         List timecards = getTimecardDao().findByCriteria(criteria);
         getTimecardDao().toTimecardSummaryVOCollection(timecards);
-        return (TimecardSummaryVO[])timecards.toArray(new TimecardSummaryVO[0]);
+        return (TimecardSummaryVO[]) timecards.toArray(new TimecardSummaryVO[timecards.size()]);
     }
 }

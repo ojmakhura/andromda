@@ -49,12 +49,12 @@ public class HibernateUpdateSchema
                 options,
                 "jdbcPassword");
         final StringBuffer contents = new StringBuffer();
-        contents.append("hibernate.connection.driver_class=" + driverClass + "\n");
-        contents.append("hibernate.connection.url=" + connectionUrl + "\n");
-        contents.append("hibernate.connection.username=" + username + "\n");
-        contents.append("hibernate.connection.password=" + password + "\n");
+        contents.append("hibernate.connection.driver_class=").append(driverClass).append('\n');
+        contents.append("hibernate.connection.url=").append(connectionUrl).append('\n');
+        contents.append("hibernate.connection.username=").append(username).append('\n');
+        contents.append("hibernate.connection.password=").append(password).append('\n');
         final File temporaryProperitesFile =
-            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, new Random().nextDouble() + "");
+            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(new Random().nextDouble()));
         temporaryProperitesFile.deleteOnExit();
         ResourceWriter.instance().writeStringToFile(
             contents.toString(),
