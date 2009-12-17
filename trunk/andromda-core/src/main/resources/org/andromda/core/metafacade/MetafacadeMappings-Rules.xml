@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- these are the digester rules used to load
+     a MetafacadeMappings object by Apache Digester -->
+<digester-rules>
+
+    <pattern value="metafacades">
+
+        <object-create-rule
+            classname="org.andromda.core.metafacade.MetafacadeMappings" />
+
+        <set-properties-rule>
+            <alias attr-name="namepace" prop-name="namespace" />
+        </set-properties-rule>
+
+        <set-properties-rule>
+            <alias attr-name="shared" prop-name="shared" />
+        </set-properties-rule>
+
+         <!-- add configuration property references to the metafacade -->
+        <pattern value="property">
+
+            <call-method-rule
+                methodname="addPropertyReference"
+                paramcount="1"
+                paramtypes="java.lang.String"/>
+
+            <call-param-rule
+                attrname="reference"
+                paramnumber="0" />
+
+        </pattern>
+
+         <!-- add the default metafacade -->
+        <pattern value="default">
+
+            <set-properties-rule>
+                 <alias attr-name="class" prop-name="defaultMetafacadeClass" />
+             </set-properties-rule>
+
+        </pattern>
+
+        <!-- add the MetafacadeMapping implementation(s) -->
+        <pattern value="metafacade">
+
+            <object-create-rule
+                  classname="org.andromda.core.metafacade.MetafacadeMapping" />
+
+            <pattern value="mapping">
+
+                <set-properties-rule>
+                    <alias attr-name="class" prop-name="mappingClassName" />
+                </set-properties-rule>
+
+                <call-method-rule
+                      pattern="context"
+                      methodname="setContext"
+                      paramcount="1" />
+
+                <call-param-rule
+                      pattern="context"
+                      paramnumber="0"/>
+
+                <call-method-rule
+                      pattern="stereotype"
+                      methodname="addStereotype"
+                      paramcount="1" />
+
+                <call-param-rule
+                      pattern="stereotype"
+                      paramnumber="0"/>
+
+                <pattern value="property">
+
+                    <call-method-rule
+                        methodname="addMappingProperty"
+                        paramcount="2"
+                        paramtypes="java.lang.String,java.lang.String"/>
+
+                    <call-param-rule
+                        attrname="name"
+                        paramnumber="0" />
+
+                    <call-param-rule
+                        paramnumber="1"/>
+
+                </pattern>
+
+            </pattern>
+
+            <set-properties-rule>
+                <alias attr-name="class" prop-name="metafacadeClassName"/>
+            </set-properties-rule>
+
+            <set-properties-rule>
+                <alias attr-name="contextRoot" prop-name="contextRoot" />
+            </set-properties-rule>
+
+             <!-- add configuration property references to the metafacade -->
+            <pattern value="property">
+
+            <call-method-rule
+                methodname="addPropertyReference"
+                paramcount="1"
+                paramtypes="java.lang.String"/>
+
+            <call-param-rule
+                attrname="reference"
+                paramnumber="0" />
+
+            </pattern>
+
+             <set-next-rule methodname="addMapping" />
+
+         </pattern>
+
+    </pattern>
+
+</digester-rules>
