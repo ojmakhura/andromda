@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -9,7 +10,8 @@
     <name>AndroMDA: The Open Source MDA Tool</name>
     <description>
         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven
-        Architecture (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other
+        Architecture (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and
+        other
         components.
     </description>
     <inceptionYear>2003</inceptionYear>
@@ -448,6 +450,39 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <configuration>
+                    <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+                    <items>
+                        <item>timestamp</item>
+                    </items>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>                
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <!-- Comment to disable project reporting using default maven plugins -->
@@ -734,7 +769,7 @@
         </profile>
 
         <profile>
-            <id>andromda-sonatype</id>            
+            <id>andromda-sonatype</id>
             <distributionManagement>
                 <repository>
                     <id>andromda-releases</id>
