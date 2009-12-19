@@ -1,23 +1,19 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda</groupId>
-        <artifactId>andromda</artifactId>
+        <artifactId>andromda-etc</artifactId>
         <version>3.4-SNAPSHOT</version>
-    </parent>
-    <groupId>org.andromda</groupId>
+    </parent>    
     <artifactId>andromda-schema2xmi</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Schema2XMI</name>
 	<description>
 	    Provides XMI Generation from a Database Schema.  This is for users who would like to take an existing database 
 	    schema and reverse engineer it into an XMI document.
-	</description>
-    <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/etc/schema2xmi</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
-          <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>
+	</description>    
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>
@@ -27,25 +23,19 @@
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
-            <version>${project.version}</version>
+            <version>${project.version}</version>            
         </dependency>
     	<dependency> 
     		<groupId>jmi</groupId>
-      		<artifactId>jmiuml</artifactId>
-     		<version>1.4di</version>
+      		<artifactId>jmiuml</artifactId>     		
     	</dependency> 
         <dependency>
             <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.2</version>
+            <artifactId>commons-cli</artifactId>            
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -53,26 +43,11 @@
         </dependency>
      	<dependency> 
     		<groupId>commons-dbutils</groupId>
-      		<artifactId>commons-dbutils</artifactId>
-     		<version>1.0</version>
-    	</dependency>  
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
+      		<artifactId>commons-dbutils</artifactId>     		
+    	</dependency>          
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-    </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>    
+    </dependencies>       
 </project>
