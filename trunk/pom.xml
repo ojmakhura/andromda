@@ -377,19 +377,18 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <sourceDirectory>src/java</sourceDirectory>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork>
-                    <!--compilerVersion>1.5</compilerVersion>
-                     <compilerArgument>-Xlint</compilerArgument-->
-                </configuration>
+        <pluginManagement>
+          <plugins>
+            <plugin>              
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>2.0.2</version>
+              <configuration>
+                <source>1.5</source>
+                <target>1.5</target>
+                <showDeprecation>true</showDeprecation>
+                <showWarnings>true</showWarnings>
+                <fork>true</fork>
+              </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
@@ -397,6 +396,50 @@
                 <configuration>
                     <createChecksum>true</createChecksum>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <configuration>
+                    <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+                    <items>
+                        <item>timestamp</item>
+                    </items>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>                
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>             
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
             </plugin>
             <!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
            (i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
@@ -486,40 +529,7 @@
                         </fileset>
                     </filesets>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0-beta-4</version>
-                <configuration>
-                    <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
-                    <items>
-                        <item>timestamp</item>
-                    </items>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>                
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
+            </plugin>            
         </plugins>
     </build>
     <!-- Comment to disable project reporting using default maven plugins -->
@@ -751,7 +761,7 @@
         <!--temporary until uml2+uml22 coexistence solved-->
         <module>repositories/emf/uml22</module>
         <module>metafacades/uml/emf/uml22</module>
-        <module>distribution</module>
+        <module>andromda-distribution</module>
     </modules>
     <repositories>
         <repository>

@@ -93,17 +93,6 @@
                             </configuration>
                         </execution>
                     </executions>
-                </plugin>                
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                        <failOnError>false</failOnError>
-                        <showDeprecation>true</showDeprecation>
-                        <showWarnings>true</showWarnings>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins.site</groupId>
