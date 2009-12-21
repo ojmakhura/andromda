@@ -1,0 +1,48 @@
+<project name="andromda-ant" default="run" basedir=".">
+    
+    <description>
+        This build script executes the AndroMDA project
+        generator, used to create an AndroMDA powered project.
+    	
+        IMPORTANT: this is intended to be run from the 
+        AndroMDA binary distribution directory, 
+        as it references required .jars from the distribution.
+    </description>
+    
+    <target name="init">
+        <property name="andromda.dist.dir" value="."/>
+        <property name="andromda.lib.dir" value="${andromda.dist.dir}/andromda"/>
+        <property name="andromda.dependency.dir" value="${andromda.dist.dir}/lib"/>
+        <path id="andromda.ant.classpath">
+            <fileset dir="${andromda.lib.dir}">
+                <include name="andromda-andromdapp-core-*.jar"/> 
+                <include name="andromda-core-*.jar"/> 
+                <include name="andromda-utils-*.jar"/> 
+                <include name="andromda-andromdapp-project-*.jar"/>
+                <include name="andromda-ant-*.jar"/> 
+                <include name="andromda-templateengine-velocity-*.jar"/> 
+            </fileset>
+            <fileset dir="${andromda.dependency.dir}">        
+                <include name="commons-beanutils-*.jar"/>
+                <include name="commons-collections-*.jar"/>
+                <include name="commons-digester-*.jar"/>
+                <include name="commons-io-*.jar"/>
+                <include name="commons-lang-*.jar"/>
+                <include name="commons-logging-*.jar"/>
+                <include name="log4j-*.jar"/> 
+                <include name="velocity-*.jar"/>
+                <include name="xercesImpl-*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
+    <target name="run" depends="init">
+        <java classname="org.andromda.ant.AndromdaAntRunner">
+            <classpath>
+                <path refid="andromda.ant.classpath"/>
+                <pathelement path="."/>
+            </classpath>
+        </java>
+    </target>
+
+</project>
