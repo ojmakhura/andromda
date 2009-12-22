@@ -299,5 +299,6 @@ $member.getDocumentation("     * ")
             ${enumeration.name}.names = Collections.unmodifiableList(names);
         }
     }
+    // type-safe-enumeration-object java merge-point
 }
 #end

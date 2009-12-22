@@ -85,7 +85,7 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
-public#if($class.leaf) final#end #if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $enableTemplating)
+public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
     extends $class.generalization.fullyQualifiedName
@@ -245,20 +245,15 @@ $attribute.getDocumentation("     * ")
 #end
      */
     public ${class.name}(## no newline
-#set ($comma = "")
 #foreach ($property in $class.allRequiredConstructorParameters)
-##set ($propertyType = ${conversionUtils.getFullName(${property.getterSetterTypeName})})
-${comma}final ${property.getterSetterTypeName} ${property.name}In## no newline
-#set ($comma = ", ")
+final ${property.getterSetterTypeName} ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 )
     {
 #if($class.generalization)
         super(## no newline
-#set ($comma = "")
 #foreach ($property in $class.generalization.allRequiredConstructorParameters)
-${comma}${property.name}In## no newline
-#set ($comma = ", ")
+${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 );
 #elseif($class.allRequiredConstructorParameters.empty)
@@ -281,20 +276,16 @@ ${comma}${property.name}In## no newline
 #end
      */
     public ${class.name}(## no newline
-#set ($comma = "")
 #foreach ($property in $class.allProperties)
 #set ($propertyType = $property.getterSetterTypeName)
-${comma}final $propertyType ${property.name}In## no newline
-#set ($comma = ", ")
+final $propertyType ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 )
     {
 #if($class.generalization)
         super(## no newline
-#set ($comma = "")
 #foreach ($property in $class.generalization.allProperties)
-${comma}${property.name}In## no newline
-#set ($comma = ", ")
+${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 );
 #end
@@ -315,8 +306,10 @@ ${comma}${property.name}In## no newline
      */
     public ${class.name}(final $class.name${genericTemplate} otherBean)
     {
-        super();
-#foreach ($property in $class.allProperties)
+#if($class.generalization)
+        super(otherBean);
+#end
+#foreach ($property in $class.properties)
         this.${property.name} = otherBean.${property.getterName}();
 #end
     }
@@ -328,13 +321,17 @@ ${comma}${property.name}In## no newline
      */
     public#if($generateChainedSetters) $class.name${genericTemplate}#else void#end copy(final $class.name${genericTemplate} otherBean)
     {
-        if (otherBean != null)
+#if ($class.allProperties.empty)
+// No attributes to copy...
+#else
+        if (null != otherBean)
         {
-#foreach ($property in $class.allProperties)
+#if($class.generalization)
+            super.copy(otherBean);
+#end
+#foreach ($property in $class.properties)
             this.${property.setterName}(otherBean.${property.getterName}());
 #end
-#if ($class.allProperties.empty)
-            // No attributes to copy...
 #end
         }
 #if($generateChainedSetters)
@@ -462,11 +459,14 @@ $connectingEnd.getDocumentation("     * ")
         {
              return false;
         }
-#if (!$class.allProperties.empty)
+#if (!$class.properties.empty)
         $class.fullyQualifiedName rhs = ($class.fullyQualifiedName) object;
 #end
-        return new EqualsBuilder().appendSuper(super.equals(object))
-#foreach($attr in $class.allProperties)
+        return new EqualsBuilder()
+#if($class.generalization)
+            .appendSuper(super.equals(object))
+#end
+#foreach($attr in $class.properties)
             .append(this.${attr.getterName}(), rhs.${attr.getterName}())
 #end
             .isEquals();
@@ -491,11 +491,14 @@ $connectingEnd.getDocumentation("     * ")
         {
             return -1;
         }
-#if (!$class.allProperties.empty)
+#if (!$class.properties.empty)
         $class.fullyQualifiedName myClass = ($class.fullyQualifiedName) object;
 #end
         return new CompareToBuilder()
-#foreach($attr in $class.allProperties)
+#if($class.generalization)
+            .appendSuper(super.compareTo(object))
+#end
+#foreach($attr in $class.properties)
             .append(this.${attr.getterName}(), myClass.${attr.getterName}())
 #end
             .toComparison();
@@ -510,8 +513,11 @@ $connectingEnd.getDocumentation("     * ")
 #end
     public int hashCode()
     {
-        return new HashCodeBuilder(1249046965, -82296885).appendSuper(super.hashCode())
-#foreach($attr in $class.getAttributes(true))
+        return new HashCodeBuilder(1249046965, -82296885)
+#if($class.generalization)
+            .appendSuper(super.hashCode())
+#end
+#foreach($attr in $class.properties)
             .append(this.${attr.getterName}())
 #end
 #foreach($associationEnd in $class.associationEnds)
@@ -539,7 +545,6 @@ $connectingEnd.getDocumentation("     * ")
     public String toString()
     {
         return new ToStringBuilder(this)
-##foreach($attr in $class.getAttributes(true))
 #foreach($attr in $class.allProperties)
             .append("${attr.name}", this.${attr.getterName}())
 #end
