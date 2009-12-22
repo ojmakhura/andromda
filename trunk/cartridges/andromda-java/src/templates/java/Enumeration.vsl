@@ -336,5 +336,6 @@ $literal.getDocumentation("     * ")
         ${enumeration.name}.literals = Collections.unmodifiableList(literals);
         ${enumeration.name}.names = Collections.unmodifiableList(names);
     }
+    // enumeration-object java merge-point
 }
 #end
