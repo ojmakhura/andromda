@@ -133,7 +133,7 @@ public class Mapping
      */
     public String toString()
     {
-        final StringBuffer buffer = new StringBuffer(512); // 512 should be enough for resizing not to occur
+        final StringBuilder buffer = new StringBuilder(512); // 512 should be enough for resizing not to occur
 
         for (Iterator<String> fromIterator = this.froms.iterator(); fromIterator.hasNext();)
         {
