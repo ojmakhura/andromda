@@ -115,16 +115,10 @@ public class AttributeFacadeLogicImpl
     @Override
     protected boolean handleIsMany()
     {
-        // Because of MD11.5 (their multiplicity are String), we cannot use
-        // isMultiValued()
-        String name = null;
-        // Name or type may be null during the model validation process.
-        if (this.getType() != null)
-        {
-            name = this.getType().getName();
-        }
+        // Because of MD11.5 (their multiplicity are String), we cannot use isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-        || (name != null && name.endsWith("[]"));
+                // Name or type may be null during the model validation process.
+               || (null!=this.getType() && this.getType().isArrayType());
     }
 
     /**
@@ -255,9 +249,7 @@ public class AttributeFacadeLogicImpl
                 if (this.getType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = StringUtils.capitalize(type);
-                    // TODO Map from primitive to wrapped types
-                    if ("Int".equals(type)) {type = "Integer";}
+                    type = this.getType().getWrapperName();
                 }
                 name += '<' + type + '>';
             }

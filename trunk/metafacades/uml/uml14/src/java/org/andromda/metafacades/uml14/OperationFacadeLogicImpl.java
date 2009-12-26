@@ -709,12 +709,11 @@ public class OperationFacadeLogicImpl
         //throw new UnsupportedOperationException("ReturnResults is not a UML1.4 feature");
         ParameterFacade facade = null;
         final Collection<Parameter> parms = metaObject.getParameter();
-        for (final Iterator<Parameter> iterator = parms.iterator(); iterator.hasNext();)
+        for (final Parameter parameter : parms)
         {
-            final Parameter parameter = iterator.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
-                facade = (ParameterFacade)shieldedElement(parameter);
+                facade = (ParameterFacade) shieldedElement(parameter);
                 break;
             }
         }
