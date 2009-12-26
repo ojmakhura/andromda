@@ -255,6 +255,10 @@ public class UML14MetafacadeUtils
                     if (feature != null && Attribute.class.isAssignableFrom(feature.getClass()))
                     {
                         exists = StringUtils.trimToEmpty(((Attribute)feature).getName()).equals(name);
+                        if(exists)
+                        {
+                            break;
+                        }
                     }
                 }
             }
