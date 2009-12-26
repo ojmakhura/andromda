@@ -118,7 +118,7 @@ public class AttributeFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
-        || this.getType().getName().endsWith("[]");
+        || this.getType().isArrayType();
     }
 
     /**
@@ -249,9 +249,7 @@ public class AttributeFacadeLogicImpl
                 if (this.getType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = StringUtils.capitalize(type);
-                    // TODO Map from primitive to wrapped types
-                    if ("Int".equals(type)) {type = "Integer";}
+                    type = this.getType().getWrapperName();
                 }
                 name += '<' + type + '>';
             }

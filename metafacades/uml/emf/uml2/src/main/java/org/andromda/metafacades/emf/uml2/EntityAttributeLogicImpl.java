@@ -182,10 +182,10 @@ public class EntityAttributeLogicImpl
     {
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+
         if (property instanceof String)
         {
-            uri = (String)property;
+            String uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -196,7 +196,7 @@ public class EntityAttributeLogicImpl
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
-                this.logger.error(
+                logger.error(
                     errMsg,
                     th);
 

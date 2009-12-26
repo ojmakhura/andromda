@@ -167,7 +167,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected Collection handleGetExceptions()
     {
-        Collection exceptions = new LinkedHashSet();
+        Collection<DependencyFacade> exceptions = new LinkedHashSet<DependencyFacade>();
 
         // finds both exceptions and exception references
         final class ExceptionFilter
@@ -197,14 +197,14 @@ public class OperationFacadeLogicImpl
 
         // first get any dependencies on this operation's
         // owner (because these will represent the default exception(s))
-        final Collection<DependencyFacade> ownerDependencies = new ArrayList(this.getOwner().getSourceDependencies());
+        final Collection<DependencyFacade> ownerDependencies = new ArrayList<DependencyFacade>(this.getOwner().getSourceDependencies());
         if (!ownerDependencies.isEmpty())
         {
             CollectionUtils.filter(ownerDependencies, new ExceptionFilter());
             exceptions.addAll(ownerDependencies);
         }
 
-        final Collection<DependencyFacade> operationDependencies = new ArrayList(this.getSourceDependencies());
+        final Collection<DependencyFacade> operationDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         // now get any exceptions directly on the operation
         if (!operationDependencies.isEmpty())
         {
@@ -609,9 +609,7 @@ public class OperationFacadeLogicImpl
                 if (this.getReturnType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = StringUtils.capitalize(type);
-                    // TODO Map from primitive to wrapped types
-                    if ("Int".equals(type)) {type = "Integer";}
+                    type = this.getReturnType().getWrapperName();
                 }
                 name += '<' + type + '>';
             }

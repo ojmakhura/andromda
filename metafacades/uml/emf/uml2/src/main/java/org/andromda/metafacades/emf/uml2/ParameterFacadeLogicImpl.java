@@ -290,7 +290,7 @@ public class ParameterFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
-        if (this.handleIsMany())
+        if (this.handleIsMany() && !this.getType().isArrayType() && !this.getType().isCollectionType())
         {
             final TypeMappings mappings = this.getLanguageMappings();
             if (this.handleIsUnique())
@@ -313,12 +313,12 @@ public class ParameterFacadeLogicImpl
                 if (this.getType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = StringUtils.capitalize(type);
+                    type = this.getType().getWrapperName();
                 }
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.getType() != null)
+        if (name == null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration

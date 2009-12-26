@@ -233,7 +233,7 @@ public class AssociationEndFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-               || this.getType().getName().endsWith("[]");
+               || this.getType().isArrayType();
     }
 
     /**
