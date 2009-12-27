@@ -27,8 +27,13 @@ import ${hibernateUtils.hibernateUserTypePackage}.UserType;
  * </p>
  */
 public class $className
-    implements UserType
+    implements UserType, Serializable
 {
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = 4850231348151909385L;
+
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
      */
