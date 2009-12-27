@@ -114,12 +114,15 @@ public class UmlProfileArchiverMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().debug(" ======= UmlProfileArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
-        getLog().debug("workDirectory[" + workDirectory + ']');
-        getLog().debug("outputDirectory[" + outputDirectory + ']');
-        getLog().debug("finalName[" + finalName + ']');
-        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+        if(getLog().isDebugEnabled())
+        {
+            getLog().debug(" ======= UmlProfileArchiverMojo settings =======");
+            getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+            getLog().debug("workDirectory[" + workDirectory + ']');
+            getLog().debug("outputDirectory[" + outputDirectory + ']');
+            getLog().debug("finalName[" + finalName + ']');
+            getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+        }
 
         try
         {
@@ -156,9 +159,8 @@ public class UmlProfileArchiverMojo
             {
                 getLog().debug("Copy uml profile resources to " + buildDirectory.getAbsolutePath());
                 final File[] modelFiles = modelSourceDir.listFiles();
-                for (int modelFileNum = 0; modelFileNum < modelFiles.length; modelFileNum++)
+                for (File file : modelFiles)
                 {
-                    File file = modelFiles[modelFileNum];
                     if (file.isFile() && file.toString().matches(this.modelFilePattern))
                     {
                         final String version = MojoUtils.escapePattern(this.project.getVersion());
@@ -181,9 +183,9 @@ public class UmlProfileArchiverMojo
                             String contents = IOUtils.toString(new FileReader(buildFile));
                             if (replaceExtensions)
                             {
-                                for (int replacementExtensionNum = 0; replacementExtensionNum < replacementExtensions.length; replacementExtensionNum++)
+                                for (String replacementExtension : replacementExtensions)
                                 {
-                                    final String extension = MojoUtils.escapePattern(replacementExtensions[replacementExtensionNum]);
+                                    final String extension = MojoUtils.escapePattern(replacementExtension);
                                     final String extensionPattern = "((\\-" + version + ")?)" + extension;
                                     final String newExtension = "\\-" + version + extension;
                                     contents = contents.replaceAll(
@@ -191,9 +193,9 @@ public class UmlProfileArchiverMojo
                                             newExtension);
                                     // Fix replacement error for standard UML profiles which follow the _Profile. naming convention.
                                     contents =
-                                        contents.replaceAll(
-                                            "_Profile\\-" + version,
-                                            "_Profile");
+                                            contents.replaceAll(
+                                                    "_Profile\\-" + version,
+                                                    "_Profile");
                                 }
                             }
                             final FileWriter fileWriter = new FileWriter(buildFile);

@@ -190,16 +190,19 @@ public class XmiZipArchiverMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().debug(" ======= XmlZipArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
-        getLog().debug("workDirectory[" + workDirectory + ']');
-        getLog().debug("outputDirectory[" + outputDirectory + ']');
-        getLog().debug("finalName[" + finalName + ']');
-        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
-        getLog().debug("version[" + this.project.getVersion() + ']');
-        getLog().debug("extension[" + this.replacementExtensions + ']');
-        getLog().debug("extensionPattern[" + "((\\-" + this.project.getVersion() + ")?)" + this.replacementExtensions + ']');
-        getLog().debug("newExtension[" + "\\-" + this.project.getVersion() + this.replacementExtensions + ']');
+        if(getLog().isDebugEnabled())
+        {
+            getLog().debug(" ======= XmlZipArchiverMojo settings =======");
+            getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+            getLog().debug("workDirectory[" + workDirectory + ']');
+            getLog().debug("outputDirectory[" + outputDirectory + ']');
+            getLog().debug("finalName[" + finalName + ']');
+            getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+            getLog().debug("version[" + this.project.getVersion() + ']');
+            getLog().debug("extension[" + this.replacementExtensions + ']');
+            getLog().debug("extensionPattern[" + "((\\-" + this.project.getVersion() + ")?)" + this.replacementExtensions + ']');
+            getLog().debug("newExtension[" + "\\-" + this.project.getVersion() + this.replacementExtensions + ']');
+        }
 
         try
         {
@@ -225,25 +228,23 @@ public class XmiZipArchiverMojo
             {
                 getLog().info("Copy xml.zip resources to " + buildDirectory.getAbsolutePath());
                 final File[] modelFiles = modelSourceDir.listFiles();
-                for (int ctr = 0; ctr < modelFiles.length; ctr++)
+                for (final File file : modelFiles)
                 {
-                    final File file = modelFiles[ctr];
                     if (file.isFile() && file.toString().matches(this.modelArchivePattern))
                     {
                         // - extract model file
                         this.unpack(
-                            file,
-                            modelExtractDirectory);
+                                file,
+                                modelExtractDirectory);
                         final File[] extractedModelFiles = modelExtractDirectory.listFiles();
-                        for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
+                        for (final File extractedFile : extractedModelFiles)
                         {
-                            final File extractedFile = extractedModelFiles[ctr2];
                             final String extractedFilePath = extractedFile.toString();
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
-                                    new File(modelExtractDirectory,
-                                        this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
+                                        new File(modelExtractDirectory,
+                                                this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
 
                                 // - exclude the file that we extracted
                                 if (!newFile.equals(extractedFile))
@@ -257,31 +258,36 @@ public class XmiZipArchiverMojo
                                 String contents = IOUtils.toString(new FileReader(newFile));
                                 if (replaceExtensions)
                                 {
-                                    for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
+                                    final String version = MojoUtils.escapePattern(this.project.getVersion());
+                                    for (String replacementExtension : replacementExtensions)
                                     {
-                                        final String version = MojoUtils.escapePattern(this.project.getVersion());
-                                        final String extension = MojoUtils.escapePattern(replacementExtensions[ctr3]);
+                                        // add ' to extension, to match only href elements (example: href='abcdefg.xml')
+                                        // and not abc.xml.efg substrings
+                                        final String extension = MojoUtils.escapePattern(replacementExtension+"'");
                                         final String extensionPattern = "((\\-" + version + ")?)" + extension;
                                         final String newExtension = "\\-" + version + extension;
-                                        getLog().debug("replacing " + extensionPattern + " with " + newExtension + " in " + extractedFile.getName() + " from " + file.getAbsolutePath());
+                                        if(getLog().isDebugEnabled())
+                                        {
+                                            getLog().debug("replacing " + extensionPattern + " with " + newExtension + " in " + extractedFile.getName() + " from " + file.getAbsolutePath());
+                                        }
                                         contents =
-                                            contents.replaceAll(
-                                                extensionPattern,
-                                                newExtension);
-                                        // Put original versions back for standard _Profile references
-                                        contents =
-                                            contents.replaceAll(
-                                                "_Profile\\-" + version,
-                                                "_Profile");
+                                                contents.replaceAll(
+                                                        extensionPattern,
+                                                        newExtension);
                                     }
+                                    // Put original versions back for standard _Profile references
+                                    contents =
+                                            contents.replaceAll(
+                                                    "_Profile\\-" + version,
+                                                    "_Profile");
                                 }
                                 final FileWriter fileWriter = new FileWriter(newFile);
                                 fileWriter.write(contents);
                                 fileWriter.flush();
                                 final File xmlZipFile = new File(buildDirectory, this.finalName + ".xml.zip");
                                 this.writeModelArchive(
-                                    xmlZipFile,
-                                    newFile.toString());
+                                        xmlZipFile,
+                                        newFile.toString());
                             }
                         }
                     }

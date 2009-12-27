@@ -98,11 +98,14 @@ public class XmlArchiverMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().debug(" ======= XmlArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
-        getLog().debug("workDirectory[" + workDirectory + ']');
-        getLog().debug("outputDirectory[" + outputDirectory + ']');
-        getLog().debug("finalName[" + finalName + ']');
+        if(getLog().isDebugEnabled())
+        {
+            getLog().debug(" ======= XmlArchiverMojo settings =======");
+            getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+            getLog().debug("workDirectory[" + workDirectory + ']');
+            getLog().debug("outputDirectory[" + outputDirectory + ']');
+            getLog().debug("finalName[" + finalName + ']');
+        }
 
         try
         {
@@ -129,46 +132,44 @@ public class XmlArchiverMojo
             {
                 getLog().info("Copy xml resources to " + buildDirectory.getAbsolutePath());
                 final File[] modelFiles = modelSourceDir.listFiles();
-                for (int ctr = 0; ctr < modelFiles.length; ctr++)
+                for (final File file : modelFiles)
                 {
-                    final File file = modelFiles[ctr];
                     if (file.isFile() && file.toString().matches(this.modelFilePattern))
                     {
                         FileUtils.copyFileToDirectory(
-                            file,
-                            buildDirectory);
+                                file,
+                                buildDirectory);
 
                         // - copy the model to the extract directory
                         final File[] extractedModelFiles = buildDirectory.listFiles();
-                        for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
+                        for (final File extractedFile : extractedModelFiles)
                         {
-                            final File extractedFile = extractedModelFiles[ctr2];
                             final String extractedFilePath = extractedFile.toString();
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
-                                    new File(buildDirectory,
-                                        this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
+                                        new File(buildDirectory,
+                                                this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
                                 boolean renamed = extractedFile.renameTo(newFile);
                                 getLog().info("Renamed xml " + extractedFile.getAbsolutePath() + " to " + newFile.getAbsolutePath() + ' ' + renamed);
                                 String contents = IOUtils.toString(new FileReader(newFile));
                                 final String version = MojoUtils.escapePattern(this.project.getVersion());
-                            /*if (replaceExtensions)
-                                {
-                                    for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
-                                    {
-                                        final String extension = escapePattern(replacementExtensions[ctr3]);
-                                        final String extensionPattern = "((\\-" + version + ")?)" + extension;
-                                        final String newExtension = "\\-" + version + extension;
-                                        contents = contents.replaceAll(
-                                                extensionPattern,
-                                                newExtension); */
-                                        // Fix replacement error for standard UML profiles which follow the _Profile. naming convention.
-                                        contents =
-                                            contents.replaceAll(
+                                /*if (replaceExtensions)
+               {
+                   for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
+                   {
+                       final String extension = escapePattern(replacementExtensions[ctr3]);
+                       final String extensionPattern = "((\\-" + version + ")?)" + extension;
+                       final String newExtension = "\\-" + version + extension;
+                       contents = contents.replaceAll(
+                               extensionPattern,
+                               newExtension); */
+                                // Fix replacement error for standard UML profiles which follow the _Profile. naming convention.
+                                contents =
+                                        contents.replaceAll(
                                                 "_Profile\\-" + version,
                                                 "_Profile");
-                                    /*}
+                                /*}
                                 }*/
                                 final FileWriter fileWriter = new FileWriter(newFile);
                                 fileWriter.write(contents);

@@ -115,12 +115,15 @@ public class EmxArchiverMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().debug(" ======= UmlArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
-        getLog().debug("workDirectory[" + workDirectory + ']');
-        getLog().debug("outputDirectory[" + outputDirectory + ']');
-        getLog().debug("finalName[" + finalName + ']');
-        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+        if(getLog().isDebugEnabled())
+        {
+            getLog().debug(" ======= UmlArchiverMojo settings =======");
+            getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+            getLog().debug("workDirectory[" + workDirectory + ']');
+            getLog().debug("outputDirectory[" + outputDirectory + ']');
+            getLog().debug("finalName[" + finalName + ']');
+            getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+        }
 
         try
         {
@@ -146,34 +149,32 @@ public class EmxArchiverMojo
             {
                 getLog().info("Copy emx resources to " + buildDirectory.getAbsolutePath());
                 final File[] modelFiles = modelSourceDir.listFiles();
-                for (int ctr = 0; ctr < modelFiles.length; ctr++)
+                for (final File file : modelFiles)
                 {
-                    final File file = modelFiles[ctr];
                     if (file.isFile() && file.toString().matches(this.modelFilePattern))
                     {
                         FileUtils.copyFileToDirectory(
-                            file,
-                            modelExtractDirectory);
+                                file,
+                                modelExtractDirectory);
 
                         // - copy the model to the extract directory
                         final File[] extractedModelFiles = modelExtractDirectory.listFiles();
-                        for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
+                        for (final File extractedFile : extractedModelFiles)
                         {
-                            final File extractedFile = extractedModelFiles[ctr2];
                             final String extractedFilePath = extractedFile.toString();
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
-                                    new File(buildDirectory,
-                                        this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
+                                        new File(buildDirectory,
+                                                this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
                                 extractedFile.renameTo(newFile);
                                 String contents = IOUtils.toString(new FileReader(newFile));
                                 if (replaceExtensions)
                                 {
-                                    for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
+                                    for (String replacementExtension : replacementExtensions)
                                     {
                                         final String version = MojoUtils.escapePattern(this.project.getVersion());
-                                        final String extension = MojoUtils.escapePattern(replacementExtensions[ctr3]);
+                                        final String extension = MojoUtils.escapePattern(replacementExtension);
                                         final String extensionPattern = "((\\-" + version + ")?)" + extension;
                                         final String newExtension = "\\-" + version + extension;
                                         contents = contents.replaceAll(
@@ -181,9 +182,9 @@ public class EmxArchiverMojo
                                                 newExtension);
                                         // Fix replacement error for standard UML profiles which follow the _Profile. naming convention.
                                         contents =
-                                            contents.replaceAll(
-                                                "_Profile\\-" + version,
-                                                "_Profile");
+                                                contents.replaceAll(
+                                                        "_Profile\\-" + version,
+                                                        "_Profile");
                                     }
                                 }
                                 final FileWriter fileWriter = new FileWriter(newFile);
