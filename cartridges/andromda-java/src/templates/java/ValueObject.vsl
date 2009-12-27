@@ -127,10 +127,11 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
      */
     public $returnType ${getterName}()
     {
-#if ($parameter.many && !$parameter.type.name.endsWith("[]"))
+#if ($parameter.many && !$parameter.type.arrayType)
         if (this.${parameter.name} == null) 
         {
-            this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<${parameter.type.fullyQualifiedName}>#end();
+## TODO: make it better
+            this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<#if(${parameter.type.primitive})${parameter.type.wrapperName}#else${parameter.type.fullyQualifiedName}#end>#end();
         }
 #end
         return this.$parameter.name;
@@ -352,10 +353,11 @@ $attribute.getDocumentation("     * ")
      */
     public $returnType ${attribute.getterName}()
     {
-#if ($attribute.many && !$attribute.type.name.endsWith("[]"))
+#if ($attribute.many && !$attribute.type.arrayType)
         if (this.${attribute.name} == null) 
         {
-            this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<${attribute.type.fullyQualifiedName}>#end();
+## Todo: make it better
+            this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();
         }
 #end
         return this.$attribute.name;
@@ -475,7 +477,7 @@ $connectingEnd.getDocumentation("     * ")
     /**
      * @param object to compare this object against
      * @return int if equal
-     * @see Comparable${esc.hash}compareTo(final Object)
+     * @see Comparable${esc.hash}compareTo(Object)
      */
 #if ($enableAnnotations)
 #if ($templating)

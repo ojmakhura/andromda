@@ -63,10 +63,11 @@ $attribute.getDocumentation("     * ")
      */
     public $returnType ${attribute.getterName}()
     {
-#if ($attribute.many && !$attribute.type.name.endsWith("[]"))
+#if ($attribute.many && !$attribute.type.arrayType)
         if (this.${attribute.name} == null) 
         {
-            this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<${attribute.type.fullyQualifiedName}>#end();
+## Todo: make it better
+            this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();
         }
 #end
         return this.$attribute.name;
