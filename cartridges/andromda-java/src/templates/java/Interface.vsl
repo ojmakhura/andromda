@@ -26,7 +26,7 @@ public interface $interface.name
     /**
 $attribute.getDocumentation("     * ")
      */
-    public static final $attribute.type.fullyQualifiedName $attribute.name = $attribute.defaultValue;
+    public static final $attribute.getterSetterTypeName $attribute.name = $attribute.defaultValue;
 #else
     /**
 $attribute.getDocumentation("     * ")
