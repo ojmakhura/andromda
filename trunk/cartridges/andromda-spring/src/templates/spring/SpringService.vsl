@@ -34,7 +34,7 @@ public interface $service.name
 {
 
 #foreach ($attribute in $service.attributes)
-#set ($typeName = $attribute.type.fullyQualifiedName)
+#set ($typeName = $attribute.getterSetterTypeName)
 #if(!$attribute.visibility.equalsIgnoreCase("private") && !$attribute.visibility.equalsIgnoreCase("protected"))                 
     /**
      * Getter for $attribute.name

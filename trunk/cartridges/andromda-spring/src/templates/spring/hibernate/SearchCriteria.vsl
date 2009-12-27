@@ -41,7 +41,7 @@ public class $class.name
 #if ($property.many)
 #set ($typeName = "java.util.Collection")
 #end
-        $typeName ${property.name}#if($velocityCount != $class.properties.size()),#else)
+        $typeName ${property.name}#if($velocityHasNext),#else)
 #end
 
 #end
