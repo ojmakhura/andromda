@@ -32,7 +32,7 @@ public abstract class $embeddedValue.name
 #set ($parenthesis = "()")
 #end
     public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)
-$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)
+$attribute.getterSetterTypeName ${attribute.name}#if($velocityHasNext),#else)
 #end
 #end
     {
@@ -52,7 +52,7 @@ $attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embedded
         if (otherObject != null)
         {
             return newInstance(#foreach ($attribute in $embeddedValue.attributes)
-otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attributes.size()),#end#end);
+otherObject.${attribute.getterName}()#if($velocityHasNext),#end#end);
         }
         return null;
     }
