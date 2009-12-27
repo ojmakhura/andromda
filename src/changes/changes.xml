@@ -5,6 +5,12 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">			
+			<action dev="catforce" type="fix" issue="HIB-195">
+                 Fix incorrect replacement of some tagged value names in uml2.0 persistence profile
+            </action>
+			<action dev="catforce" type="fix" issue="UMLMETA-77">
+                 Fix implementation of attributeExists method in UML14MetafacadeUtils.
+            </action>
 			<action dev="catforce" type="add" issue="SPRING-63">
                  Add using of "PostConstruct" and "PreDestroy" stereotypes on operations of SpringServices to generate init and destroy methods mapping
             </action>
