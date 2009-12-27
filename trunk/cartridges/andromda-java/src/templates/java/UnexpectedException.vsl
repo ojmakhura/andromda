@@ -33,7 +33,7 @@ public#if($class.abstract) abstract#end class ${class.name}
 {
 #if ($serializable)
     /** The serial version UID of this class. Throwable implements Serializable so declaration not needed. */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = ${class.serialVersionUID}L;
 
 #end
     /**
