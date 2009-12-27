@@ -279,11 +279,11 @@
 #set($serviceImplementsInterfaces = !$service.interfaceAbstractions.empty)
 #foreach ($operation in $springUtils.filterUniqueByName($service.implementationOperations))
 #if (!$operation.roles.empty)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityCount != $operation.roles.size()), #end#end
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityHasNext), #end#end
 
 ##advise service roles to implemented interface methods
 #elseif($serviceImplementsInterfaces)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $service.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityCount != $service.roles.size()), #end#end
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $service.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityHasNext), #end#end
 
 #end
 #end

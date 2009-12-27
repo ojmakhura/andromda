@@ -24,7 +24,7 @@ public abstract class $service.baseName
 {
 
 #foreach ($attribute in $service.attributes)
-#set ($typeName = $attribute.type.fullyQualifiedName)
+#set ($typeName = $attribute.getterSetterTypeName)
     /**
     $attribute.getDocumentation("* ")
     */

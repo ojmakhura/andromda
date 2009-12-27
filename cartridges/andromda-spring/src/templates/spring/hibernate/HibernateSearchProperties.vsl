@@ -47,14 +47,13 @@ public class ${criteriaSearchBaseName}Properties
             ${entity.fullyQualifiedEntityImplementationName}.class,
             null);
 #else 
-#set ($embeddedValuesSize = $entity.embeddedValues.size())
         embeddedValuesByType.put(
             ${entity.fullyQualifiedEntityImplementationName}.class,
             java.util.Arrays.asList(
                 new PropertyType[] 
                 {
 #foreach($embeddedValue in $entity.embeddedValues)
-                    new PropertyType("$embeddedValue.name", ${embeddedValue.type.fullyQualifiedName}Impl.class)#if($velocityCount != $embeddedValuesSize), 
+                    new PropertyType("$embeddedValue.name", ${embeddedValue.type.fullyQualifiedName}Impl.class)#if($velocityHasNext),
 #end#end
 
                 }
@@ -66,14 +65,13 @@ public class ${criteriaSearchBaseName}Properties
             ${entity.fullyQualifiedEntityImplementationName}.class,
             null);
 #else   
-#set ($endsSize = $entity.getNavigableConnectingEnds(true).size())
         navigableAssociationEndsByType.put(
             ${entity.fullyQualifiedEntityImplementationName}.class,
             java.util.Arrays.asList(
                 new PropertyType[] 
                 {
 #foreach($end in $entity.getNavigableConnectingEnds(true))
-                    new PropertyType("$end.name", ${end.type.fullyQualifiedEntityImplementationName}.class)#if($velocityCount != $endsSize), 
+                    new PropertyType("$end.name", ${end.type.fullyQualifiedEntityImplementationName}.class)#if($velocityHasNext), 
 #end#end
 
                 }

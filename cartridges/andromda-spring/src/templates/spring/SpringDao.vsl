@@ -313,7 +313,7 @@ public interface $entity.daoName
      */
     public $rootEntityType create(
 #foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
+        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
 
 #end
 
@@ -335,7 +335,7 @@ public interface $entity.daoName
     public Object create(
         int transform,
 #foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
+        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
 
 #end
 
@@ -355,7 +355,7 @@ public interface $entity.daoName
      */
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
+        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
 
 #end
 
@@ -376,7 +376,7 @@ public interface $entity.daoName
     public Object create(
         int transform,
 #foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
+        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
 
 #end
 #end
