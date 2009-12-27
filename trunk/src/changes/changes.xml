@@ -5,6 +5,12 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">			
+			<action dev="catforce" type="fix" issue="JAVA-11">
+                 Defined serialVersionUID for all serializable classes 
+            </action>
+			<action dev="catforce" type="fix" issue="HIB-101">
+                 Defined serialVersionUID for HibernateStringClobType and HibernateByteBlobType classes
+            </action>
 			<action dev="catforce" type="fix" issue="MAVEN-64">
                  Removed ourself implementation of multi-source plugin. Using codehaus plugin (http://mojo.codehaus.org/build-helper-maven-plugin/usage.html ) istead.
             </action>
