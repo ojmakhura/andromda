@@ -73,13 +73,11 @@ $class.getDocumentation(" * ")
 #if (!$cxfVersion.startsWith("2.0"))
 #set ($specializations = $class.typeSpecializations)
 #if (!$specializations.empty)
-#set ($count=1)
 // Referenced subclasses of $class.name
 @javax.xml.bind.annotation.XmlSeeAlso({
 #foreach ($specialization in $specializations)
-    ${specialization.fullyQualifiedName}.class#if ($count<$specializations.size()), #end
+    ${specialization.fullyQualifiedName}.class#if ($velocityHasNext), #end
 
-#set ($count=$count+1)
 #end
 })
 #end
