@@ -3,6 +3,7 @@ package org.andromda.cartridges.java.metafacades;
 import java.util.Collection;
 import java.util.Iterator;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TemplateParameterFacade;
@@ -60,7 +61,7 @@ public class JavaClassLogicImpl
     @Override
     protected String handleGetFullyQualifiedInterfaceImplementationName()
     {
-        final StringBuffer fullName = new StringBuffer();
+        final StringBuilder fullName = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -79,9 +80,9 @@ public class JavaClassLogicImpl
         boolean abstractImplementation = !this.getOperations().isEmpty();
         if (!abstractImplementation)
         {
-            for (final Iterator iterator = this.getAllGeneralizations().iterator(); iterator.hasNext();)
+            for (GeneralizableElementFacade generalizableElementFacade : this.getAllGeneralizations())
             {
-                final ClassifierFacade classifier = (ClassifierFacade)iterator.next();
+                final ClassifierFacade classifier = (ClassifierFacade) generalizableElementFacade;
                 abstractImplementation = !classifier.getOperations().isEmpty();
                 if (abstractImplementation)
                 {
@@ -104,7 +105,7 @@ public class JavaClassLogicImpl
                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
         {
             // we'll be constructing the parameter list in this buffer
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
 
             // add the name we've constructed so far
             buffer.append(fullName);
