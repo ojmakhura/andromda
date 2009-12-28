@@ -10,7 +10,7 @@
     <artifactId>andromda-distribution</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA Distribution</name>
-    <description>Provides the assembly of the AndroMDA distribution</description>    
+    <description>Provides the assembly of the AndroMDA distribution</description>
     <dependencies>
         <!--Andromda core modulle-->
         <dependency>
@@ -29,7 +29,7 @@
             <groupId>org.andromda.andromdapp</groupId>
             <artifactId>andromda-andromdapp-core</artifactId>
             <version>${project.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.andromda.andromdapp.projects</groupId>
             <artifactId>andromda-andromdapp-project-richclient-ant</artifactId>
@@ -40,8 +40,8 @@
             <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        <!--Ant modulle-->        
+
+        <!--Ant modulle-->
         <dependency>
             <groupId>org.andromda.ant</groupId>
             <artifactId>andromda-ant</artifactId>
@@ -52,8 +52,8 @@
             <artifactId>andromda-ant-task</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        <!--Maven modulle-->        
+
+        <!--Maven modulle-->
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-maven-plugin</artifactId>
@@ -96,11 +96,6 @@
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
-            <artifactId>andromda-sablecc-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-translation-library-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -119,8 +114,8 @@
             <artifactId>andromda-site-skin</artifactId>
             <version>${project.version}</version>
         </dependency>
-               
-        
+
+
         <!--Andromda metafacedes modulle-->
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
@@ -144,35 +139,35 @@
             <version>${project.version}</version>
         </dependency>
         -->
-                
-        <!--Andromda profiles modulle-->       
+
+        <!--Andromda profiles modulle-->
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${project.version}</version>
             <type>xml.zip</type>
         </dependency>
-     
+
         <dependency>
             <groupId>org.andromda.profiles.uml2</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${project.version}</version>
             <type>xml.zip</type>
         </dependency>
-        
+
         <dependency>
             <groupId>org.andromda.profiles.emf.rsm75</groupId>
             <artifactId>andromda-common</artifactId>
             <version>${project.version}</version>
             <type>epx</type>
         </dependency>
-                
+
         <dependency>
             <groupId>org.andromda.profiles.emf.uml2</groupId>
             <artifactId>andromda-profile-common</artifactId>
             <version>${project.version}</version>
             <type>uml2</type>
-        </dependency>              
+        </dependency>
         <!--
         <dependency>    
             <groupId>org.andromda.profiles.emf.uml22</groupId>
@@ -181,7 +176,7 @@
             <type>profile.uml</type>
         </dependency>        
         -->
-        
+
         <!--Andromda repositories modulle-->
         <dependency>
             <groupId>org.andromda.repositories</groupId>
@@ -193,7 +188,7 @@
             <artifactId>andromda-repository-mdr-uml14</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf</artifactId>
@@ -211,8 +206,8 @@
             <version>${project.version}</version>
         </dependency>
         -->
-        
-        
+
+
         <!--Andromda cartriges modulle-->
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
@@ -268,7 +263,7 @@
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-xmlschema-cartridge</artifactId>
             <version>${project.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.andromda.cartridges.support</groupId>
             <artifactId>andromda-webservice-client</artifactId>
@@ -291,7 +286,7 @@
             <artifactId>andromda-templateengine-freemarker</artifactId>
             <version>${project.version}</version>
         </dependency>
-    
+
         <!--Andromda translation librarys-->
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
@@ -312,29 +307,29 @@
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-testsuite</artifactId>
             <version>${project.version}</version>
-        </dependency>            
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-             <artifactId>maven-assembly-plugin</artifactId>             
-             <configuration>          
-              <descriptors>
-                 <descriptor>src/assembly/dist.xml</descriptor>
-                 <descriptor>src/assembly/src.xml</descriptor>
-                 <descriptor>src/assembly/repository.xml</descriptor>
-              </descriptors>
-            </configuration>
-            <executions>
-              <execution>
-                <id>make-assembly</id> 
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/dist.xml</descriptor>
+                        <descriptor>src/assembly/src.xml</descriptor>
+                        <descriptor>src/assembly/repository.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-    </build>    
+    </build>
 </project>
