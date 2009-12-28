@@ -691,7 +691,7 @@ public class Cartridge
     /**
      * Indicates whether or not the global outputConditions have been evaluated.
      */
-    private boolean conditionsEvaluated;
+    private boolean conditionsEvaluated = false;
     
     /**
      * Evaluates all conditions and stores the results in the <code>evaluatedConditions</code>

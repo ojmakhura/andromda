@@ -35,7 +35,7 @@ public class MetafacadeFactory
     /**
      * The shared instance of this factory.
      */
-    private static MetafacadeFactory instance;
+    private static MetafacadeFactory instance = null;
 
     private MetafacadeFactory()
     {

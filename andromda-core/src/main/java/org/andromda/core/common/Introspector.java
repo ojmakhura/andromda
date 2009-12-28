@@ -21,7 +21,7 @@ public final class Introspector
     /**
      * The shared instance.
      */
-    private static Introspector instance;
+    private static Introspector instance = null;
 
     /**
      * Gets the shared instance.
@@ -542,7 +542,7 @@ public final class Introspector
     {
         if (object != null || (StringUtils.isNotEmpty(name)))
         {
-            Class expectedType;
+            Class expectedType = null;
             if (value != null && object != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(

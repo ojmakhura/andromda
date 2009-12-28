@@ -271,7 +271,7 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeImplClass",
                 metafacadeImplClass);
-            Class metafacadeClass;
+            Class metafacadeClass = null;
             try
             {
                 final String metafacadeClassName = this.metafacadesByImpls.get(metafacadeImplClass);
@@ -302,7 +302,7 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeClass",
                 metafacadeClass);
-            Class metafacadeImplementationClass;
+            Class metafacadeImplementationClass = null;
             try
             {
                 final String metafacadeImplementationClassName = this.implsByMetafacades.get(metafacadeClass);

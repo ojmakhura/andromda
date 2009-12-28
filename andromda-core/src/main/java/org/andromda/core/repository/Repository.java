@@ -16,7 +16,7 @@ public class Repository
     /**
      * Stores the repository facade implementation.
      */
-    private RepositoryFacade implementation;
+    private RepositoryFacade implementation = null;
 
     /**
      * Sets the implementation class name.

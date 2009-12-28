@@ -472,7 +472,7 @@ public class ModelProcessor
     /**
      * The current configuration of this model processor.
      */
-    private Configuration currentConfiguration;
+    private Configuration currentConfiguration = null;
 
     /**
      * Determines whether or not this model processor needs to be reconfigured.
@@ -601,12 +601,12 @@ public class ModelProcessor
     /**
      * Stores the cartridge filter.
      */
-    private List cartridgeFilter;
+    private List cartridgeFilter = null;
 
     /**
      * Denotes whether or not the complement of filtered cartridges should be processed
      */
-    private boolean negateCartridgeFilter;
+    private boolean negateCartridgeFilter = false;
 
     /**
      * Indicates whether or not the <code>namespace</code> should be processed. This is determined in conjunction with

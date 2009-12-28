@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.namespace.NamespaceComponent;
 import org.andromda.core.namespace.NamespaceRegistry;
@@ -44,7 +43,7 @@ public class Namespaces
     /**
      * The shared instance.
      */
-    private static Namespaces instance;
+    private static Namespaces instance = null;
 
     /**
      * Returns the singleton instance of this Namespaces
@@ -221,7 +220,7 @@ public class Namespaces
         {
             /*if (logger.isDebugEnabled())
             {
-                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + Namespaces.DEFAULT + "'");
+                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + Namespaces.DEFAULT + '\'');
             }*/
             defaultNamespace = this.namespaces.get(Namespaces.DEFAULT);
             if (defaultNamespace != null)

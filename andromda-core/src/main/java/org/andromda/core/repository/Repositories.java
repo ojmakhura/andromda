@@ -1,6 +1,5 @@
 package org.andromda.core.repository;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -169,7 +168,10 @@ public class Repositories
                 model.getModuleSearchLocationPaths());
 
             // - set the package filter
-            repositoryImplementation.getModel().setPackageFilter(model.getPackages());            
+            if (repositoryImplementation.getModel()!=null)
+            {
+                repositoryImplementation.getModel().setPackageFilter(model.getPackages());            
+            }
             for (InputStream stream : streams)
             {
                 IOUtils.closeQuietly(stream);
