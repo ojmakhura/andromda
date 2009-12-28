@@ -263,9 +263,9 @@ public class XmiZipArchiverMojo
                                     {
                                         // add ' to extension, to match only href elements (example: href='abcdefg.xml')
                                         // and not abc.xml.efg substrings
-                                        final String extension = MojoUtils.escapePattern(replacementExtension+"'");
-                                        final String extensionPattern = "((\\-" + version + ")?)" + extension;
-                                        final String newExtension = "\\-" + version + extension;
+                                        final String extension = MojoUtils.escapePattern(replacementExtension);
+                                        final String extensionPattern = "((\\-" + version + ")?)" + extension+"(['\"|])";
+                                        final String newExtension = "\\-" + version + extension+"$3";
                                         if(getLog().isDebugEnabled())
                                         {
                                             getLog().debug("replacing " + extensionPattern + " with " + newExtension + " in " + extractedFile.getName() + " from " + file.getAbsolutePath());
