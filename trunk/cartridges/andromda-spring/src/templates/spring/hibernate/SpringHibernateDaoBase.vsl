@@ -1191,7 +1191,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #foreach ($property in $valueObjectRef.targetElement.allProperties)
 #* *##foreach ($entityProperty in $entityProperties)
 #*    *##if ($property.name.equals($entityProperty.name) && (!$entity.compositeIdentifier || !$entityProperty.identifier))
-#*      *##if(${entityProperty.many})
+#*      *##if(${entityProperty.many} && !${property.type.arrayType})
         target.${property.getterName}().clear();
         if(null!=source.${entityProperty.getterName}()) {
             target.${property.getterName}().addAll(source.${entityProperty.getterName}());
@@ -1240,7 +1240,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #* *##if (!$entityProperty.readOnly)
 #*    *##foreach ($property in $valueObjectRef.targetElement.allProperties)
 #*        *##if ($property.name.equals($entityProperty.name) && (!$entity.compositeIdentifier || !$entityProperty.identifier))
-#*            *##if(${entityProperty.many})
+#*            *##if(${entityProperty.many} && !${property.type.arrayType})
         if (copyIfNull || source.${property.getterName}() != null)
         {
             target.${entityProperty.getterName}().clear();
