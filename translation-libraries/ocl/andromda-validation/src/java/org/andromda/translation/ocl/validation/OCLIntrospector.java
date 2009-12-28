@@ -42,7 +42,7 @@ public final class OCLIntrospector
                 result = Introspector.instance().getProperty(element, feature);
             }
         }
-        catch (final NullPointerException exception)
+        catch (final NullPointerException ignore)
         {
             // ignore (the result will just be null)
         }
