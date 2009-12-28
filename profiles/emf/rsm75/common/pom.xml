@@ -8,6 +8,14 @@
     <packaging>epx</packaging>
     <artifactId>andromda-common</artifactId>
     <name>AndroMDA RSM75 Common Profile</name>
+    <description>
+        Contains the AndroMDA RSM75 common profile.
+    </description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles/emf/rsm75/common</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles/emf/rsm75/common</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.profiles.emf.rsm75</groupId>
