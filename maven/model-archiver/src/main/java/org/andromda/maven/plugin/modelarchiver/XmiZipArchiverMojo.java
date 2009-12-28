@@ -9,14 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.artifact.Artifact;
@@ -30,8 +27,6 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-
-
 
 /**
  * Builds archived model xml.zip files.
@@ -206,7 +201,6 @@ public class XmiZipArchiverMojo
 
         try
         {
-            // - the directory which to extract the model file
             final File buildDirectory = new File(this.workDirectory);
             if (!buildDirectory.exists())
             {
@@ -218,6 +212,7 @@ public class XmiZipArchiverMojo
             	MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "xml.zip");            	                
                 FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
+            // - the directory which to extract the model file
             final File modelExtractDirectory = new File(this.workDirectory, "models/xmi");
             modelExtractDirectory.mkdirs();
 
