@@ -8,6 +8,14 @@
     <packaging>uml2</packaging>
     <artifactId>andromda-profile-common</artifactId>
     <name>AndroMDA EMF-UML2 Common Profile</name>
+    <description>
+        Contains the AndroMDA EMF-UML2 1.X common profile.
+    </description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles/emf/uml2/common</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles/emf/uml2/common</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.profiles.emf.uml2</groupId>
