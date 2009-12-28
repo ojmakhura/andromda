@@ -2,7 +2,6 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -324,7 +323,7 @@ public class HibernateAssociationEndLogicImpl
 
             // for many-to-many we just put the flag on the side that
             // is aggregation or composition and on the lexically longer
-            // fully qualified name for it's type on other types of relations
+            // fully qualified name for its type on other types of relations
             if (this.isMany2Many() && !inverse)
             {
                 if (this.isAggregation() || this.isComposition())

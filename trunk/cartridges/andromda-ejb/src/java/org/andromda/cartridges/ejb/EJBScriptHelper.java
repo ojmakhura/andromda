@@ -1,11 +1,10 @@
 package org.andromda.cartridges.ejb;
 
-import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 
 /**
  * Transform class for the EJB cartridge.
@@ -17,13 +16,14 @@ public class EJBScriptHelper
 {
 
     /**
-     * Create a comma seperated list of attributes.
+     * Create a comma separated list of attributes.
      * <p>
      * This method can be used to generated e.g. argument lists for constructors, method calls etc.
      *
-     * @param attributes   a collection of {@link Attribute} objects
+     * @param attributes   a collection of {@link AttributeFacade} objects
      * @param includeTypes if <code>true</code>, the type names of the attributes are included.
      * @param includeNames if <code>true</code>, the names of the attributes are included
+     * @return attributes
      */
     public String getAttributesAsList(Collection attributes, boolean includeTypes, boolean includeNames)
     {
