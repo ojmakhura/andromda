@@ -97,7 +97,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 // get those two famous static fields
                 Object nsURI = ePackageClass.getField("eNS_URI").get(null);
                 Object eInstance = ePackageClass.getField("eINSTANCE").get(null);
-                registry.put(nsURI, eInstance);
+                registry.put(nsURI.toString(), eInstance);
                 logger.debug("Optional metamodel registered: " + nsURI);
             }
         }
