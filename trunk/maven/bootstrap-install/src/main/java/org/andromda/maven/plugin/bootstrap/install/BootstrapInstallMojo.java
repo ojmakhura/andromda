@@ -3,11 +3,9 @@ package org.andromda.maven.plugin.bootstrap.install;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -158,9 +156,10 @@ public class BootstrapInstallMojo
             model.setGroupId(this.getBootstrapGroupId(artifact));
             model.setParent(null);
             model.setBuild(null);
-            model.setDependencies(Collections.emptyList());
-            model.setDevelopers(Collections.emptyList());
-            model.setContributors(Collections.emptyList());
+            // Maven 2.2.1: Collections.emptyList() causes "setDependencies(List<Dependency>) in the type ModelBase is not applicable for the arguments (List<Object>)"
+            model.setDependencies(Collections.EMPTY_LIST);
+            model.setDevelopers(Collections.EMPTY_LIST);
+            model.setContributors(Collections.EMPTY_LIST);
             final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
             this.project.writeModel(fileWriter);
             fileWriter.flush();
