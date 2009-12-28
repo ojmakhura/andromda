@@ -5,9 +5,9 @@
         <artifactId>andromda-ocl-translation-libraries</artifactId>
         <version>3.4-SNAPSHOT</version>
     </parent>
-      <artifactId>andromda-ocl-translation-core</artifactId>
+    <artifactId>andromda-ocl-translation-core</artifactId>
     <packaging>jar</packaging>
-      <name>AndroMDA OCL Translation Core</name>
+    <name>AndroMDA OCL Translation Core</name>
     <description>The AndroMDA OCL translation engine, providing the OCL translation support.</description>
     <scm>
         <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/core</connection>
@@ -15,18 +15,11 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <build>
-         <plugins>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-sablecc-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sablecc-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -43,33 +36,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>target/src/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
     </build>
 </project>
