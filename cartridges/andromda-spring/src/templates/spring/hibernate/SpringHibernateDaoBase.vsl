@@ -93,7 +93,7 @@ public abstract class $entity.daoBaseName
     /**
      * {@inheritDoc}
      */
-    public java.lang.Object get(final int transform, final ${identifierTypeName} ${identifierName})
+    public Object get(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
 #if($identifierTypePrimitive)
@@ -126,7 +126,7 @@ public abstract class $entity.daoBaseName
 #else
 #set ($xmlIndent = "")
 #end
-$xmlIndent        final java.lang.Object entity = this.getHibernateTemplate().get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+$xmlIndent        final Object entity = this.getHibernateTemplate().get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
 $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
 #if ($hibernateUtils.xmlPersistenceActive)
         }
