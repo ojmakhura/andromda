@@ -174,9 +174,9 @@ public class Axis2PortClientInterceptor
      * Translates the method invocation into a JAX-RPC service invocation.
      * Uses traditional RMI stub invocation if a JAX-RPC port stub is available;
      * falls back to JAX-RPC dynamic calls else.
-     * @see #getPortStub()
+     * @see ${esc.hash}getPortStub()
      * @see org.springframework.remoting.rmi.RmiClientInterceptorUtils
-     * @see #performJaxRpcCall
+     * @see ${esc.hash}performJaxRpcCall
      */
     public Object invoke(MethodInvocation invocation)
         throws Throwable
