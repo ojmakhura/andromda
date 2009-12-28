@@ -184,7 +184,7 @@ $envEntry.getDocumentation("     * ")
     /**
      * Home interface method for accessing {@link #${attribute.getterName}}.
      * @ejb.home-method
-     * @see #${envEntry.getterName}
+     * @see ${esc.hash}${envEntry.getterName}
      */
      public $envEntry.type.fullyQualifiedName ejbHomeGet${envEntry.name}() 
      {
@@ -213,7 +213,7 @@ $constant.getDocumentation("     * ")
     /**
      * Home interface method for accessing {@link #${attribute.getterName}}.
      * @ejb.home-method
-     * @see #${constant.getterName}
+     * @see ${esc.hash}${constant.getterName}
      */
      public $constant.type.fullyQualifiedName ejbHomeGet${constant.name}() 
      {
