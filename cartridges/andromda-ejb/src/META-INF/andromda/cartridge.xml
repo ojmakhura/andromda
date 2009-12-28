@@ -2,7 +2,7 @@
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
     
-    <!-- define the template objects that are made availble to the template -->
+    <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     <!-- cartridge-templateObject merge-point-->

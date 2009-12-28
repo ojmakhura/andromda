@@ -487,7 +487,7 @@
                            otherwise cascade is <em>delete</em>.
                         </li>
                         <li>
-                            If the property IS defined, it's value is generated at each occurence of a UML composition,
+                            If the property IS defined, it's value is generated at each occurrence of a UML composition,
                             and the inverse side is marked with cascade="none".  The value must be a valid Hibernate cascade style.
                             You should use a cascade value which includes delete to be conform with the
                             UML concept of a composition, e.g. <em>all-delete-orphan</em>.
