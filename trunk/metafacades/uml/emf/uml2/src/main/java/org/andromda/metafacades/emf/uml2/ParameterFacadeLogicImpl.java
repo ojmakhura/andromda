@@ -180,7 +180,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.getName());
     }
 
     /**
