@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.metafacade.MetafacadeMapping.PropertyGroup;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
 /**
- * Tests {@link org.andromda.core.MetafacadeMappings)
+ * Tests {@link org.andromda.core.metafacade.MetafacadeMappings}
  * 
  * @author Chad Brandon
  */
@@ -101,6 +99,9 @@ public class MetafacadeMappingsTest
         STEREOTYPES_3.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
     }
 
+    /**
+     * 
+     */
     public void testGetMetafacadeMapping()
     {
 

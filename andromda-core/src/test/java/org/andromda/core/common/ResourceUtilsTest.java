@@ -1,15 +1,11 @@
 package org.andromda.core.common;
 
-import org.junit.Test;
-
-import java.net.URL;
-
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
-
+import static org.junit.Assert.assertNotNull;
+import java.net.URL;
+import java.util.List;
+import org.junit.Test;
 
 /**
  * JUnit test for {@link org.andromda.core.common.ResourceUtils}
@@ -18,6 +14,9 @@ import static org.junit.Assert.assertFalse;
  */
 public class ResourceUtilsTest
 {
+  /**
+   * @throws Exception
+   */
   @Test
   public void testGetDirectoryContentsZeroLevels()
         throws Exception
@@ -32,6 +31,9 @@ public class ResourceUtilsTest
             resources.size());
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testGetDirectoryContentsTwoLevels()
         throws Exception
@@ -46,6 +48,9 @@ public class ResourceUtilsTest
             resources.size());
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testResolveClasspathResource()
         throws Exception

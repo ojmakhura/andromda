@@ -1,5 +1,10 @@
 package org.andromda.translation.ocl;
 
+import java.io.IOException;
+import java.io.PushbackReader;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.TranslationUtils;
@@ -23,14 +28,8 @@ import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
 import org.andromda.translation.ocl.syntax.OperationDeclaration;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.io.PushbackReader;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * The "base" translator which all Translator's should extend, provides some basic functionality, such as the retrieveal
+ * The "base" translator which all Translators should extend, provides some basic functionality, such as the retrieval
  * of translation fragments from the translation template file, pre-processing, post-processing, etc.
  * <p/>
  * The primary methods (in addition to methods you'll extend to handle expression parsing) to take note of when
@@ -149,7 +148,7 @@ public abstract class BaseTranslator
      * @param node the node being parsed, the toString value of this node is what is matched against the translation
      *             fragment. We also need to pass the node to our <a href="#handlerMethod">handlerMethod </a> so that it
      *             can be used it for additional processing (if we need it).
-     * @see getTranslationFragment(String)
+     * @see #getTranslationFragment(String)
      */
     protected void handleTranslationFragment(Object node)
     {
@@ -174,7 +173,7 @@ public abstract class BaseTranslator
      * being translated, then the body of the element &lt;kind name="inv"&gt; would be returned). </p>
      * <p/>
      * <strong>NOTE: </strong>You would use this method <strong>instead </strong> of <a
-     * href="#handleTranslationFragment(org.andromda.core.translation.parser.node.Node)">handleTranslationFragment(Node
+     * href="#handleTranslationFragment(Object)">handleTranslationFragment(Object
      * node) </a> if you just want to retrieve the value of the fragment and don't want to have a <a
      * href="#handlerMethod">handlerMethod </a> which actually handles the processing of the output. For example you may
      * want to add a fragment called 'constraintTail' which would always be added to your translation at the end of the
@@ -183,7 +182,7 @@ public abstract class BaseTranslator
      *
      * @param fragmentName the name of the fragment to retrieve from the translation
      * @return String the output String from the translated fragment.
-     * @see #handleTranslationFragment(Node node)
+     * @see #handleTranslationFragment(Object)
      */
     protected String getTranslationFragment(String fragmentName)
     {
@@ -211,9 +210,12 @@ public abstract class BaseTranslator
      * <strong>NOTE: </strong> null is allowed for contextElement (even though it isn't within
      * ExpressionTranslator.translate() since the TraceTranslator doesn't need a <code>contextElement</code> and we
      * don't want to slow down the trace by having to read and load a model each time. </p>
+     * @param translationName 
+     * @param expression 
+     * @param contextElement 
+     * @return translated expression
      *
-     * @see org.andromda.core.translation.ExpressionTranslator#translate( String, Object,
-            *      String)
+     * @see org.andromda.core.translation.ExpressionTranslator#translate( String, String, Object)
      */
     public Expression translate(String translationName, String expression, Object contextElement)
     {
