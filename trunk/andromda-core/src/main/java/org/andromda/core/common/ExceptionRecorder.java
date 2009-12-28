@@ -51,7 +51,7 @@ public class ExceptionRecorder
     /**
      * The exceptions directory, initialized to exceptions.
      */
-    private static File exceptionDirectory;
+    private static File exceptionDirectory = null;
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat("yyMMddHHmmss");
     private static final Random random = new Random();
 
@@ -188,8 +188,9 @@ public class ExceptionRecorder
 
     /**
      * Gets a unique file name.
-     * @param prefix 
+     * @param prefix
      * @return uniqueName
+     * @concurrency guarded
      */
     protected synchronized String getUniqueName(String prefix)
     {

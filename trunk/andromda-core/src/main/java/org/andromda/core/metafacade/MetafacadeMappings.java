@@ -47,7 +47,7 @@ public class MetafacadeMappings
     /**
      * The default meta facade to use when there isn't a mapping found.
      */
-    private Class defaultMetafacadeClass;
+    private Class defaultMetafacadeClass = null;
 
     /**
      * Constructs a new instance of this class.

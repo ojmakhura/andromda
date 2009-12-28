@@ -35,7 +35,7 @@ public class Translation
         // should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
-            throw new LibraryException("Translation.getLibraryTranslation" + " - libraryTranslation can not be null");
+            throw new LibraryException("Translation.getLibraryTranslation - libraryTranslation can not be null");
         }
         return libraryTranslation;
     }

@@ -54,7 +54,7 @@ public class ComponentContainer
     /**
      * The shared instance.
      */
-    private static ComponentContainer instance;
+    private static ComponentContainer instance = null;
 
     /**
      * Gets the shared instance of this ComponentContainer.

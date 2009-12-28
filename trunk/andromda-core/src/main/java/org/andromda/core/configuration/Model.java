@@ -26,7 +26,7 @@ public class Model
      * Stores whether or not a last modified check
      * should be performed.
      */
-    private boolean lastModifiedCheck;
+    private boolean lastModifiedCheck = false;
 
     /**
      * Whether or not to perform a last modified check on the model.
@@ -134,7 +134,7 @@ public class Model
      * Caches the urisAsStrings value (so we don't need
      * to do the conversion more than once).
      */
-    private String[] urisAsStrings;
+    private String[] urisAsStrings = null;
 
     /**
      * All URIs that make up the model.
@@ -287,7 +287,7 @@ public class Model
     /**
      * Stores the path for each module search location in this configuration.
      */
-    private String[] moduleSearchLocationPaths;
+    private String[] moduleSearchLocationPaths = null;
 
     /**
      * Gets all found module search location paths for this model instance.
@@ -319,7 +319,7 @@ public class Model
      * Stores all resources including all resources found within the module search locations
      * as well as a resource for the {@link #getUris()}.
      */
-    private URL[] moduleSearchLocationResources;
+    private URL[] moduleSearchLocationResources = null;
 
     /**
      * Gets the accumulation of all files found when combining the contents
@@ -387,7 +387,7 @@ public class Model
     /**
      * The unique key that identifies this model.
      */
-    private String key;
+    private String key = null;
 
     /**
      * Creates the unique key that identifies this model

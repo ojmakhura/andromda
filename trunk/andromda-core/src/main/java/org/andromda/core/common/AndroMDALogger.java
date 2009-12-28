@@ -69,7 +69,7 @@ public class AndroMDALogger
     /**
      * The URI to an external logging configuration file.
      */
-    private static String loggingConfigurationUri;
+    private static String loggingConfigurationUri = null;
 
     /**
      * Sets the URI to an external logging configuration file. This will override the default log4j.xml.

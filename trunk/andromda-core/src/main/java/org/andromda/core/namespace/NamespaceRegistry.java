@@ -43,7 +43,7 @@ public class NamespaceRegistry
     /**
      * Whether or not this is a shared namespace.
      */
-    private boolean shared;
+    private boolean shared = false;
 
     /**
      * Gets whether or not the namespace defined by this registry

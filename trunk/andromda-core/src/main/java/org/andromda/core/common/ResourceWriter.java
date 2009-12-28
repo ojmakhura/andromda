@@ -199,7 +199,7 @@ public class ResourceWriter
     /**
      * Stores the encoding to be used for output.
      */
-    private String encoding;
+    private String encoding = null;
 
     /**
      * Sets the encoding to which all output written from this class will be
@@ -236,12 +236,12 @@ public class ResourceWriter
         this.writtenCount = 0;
     }
 
-    private String modelFile;
+    private String modelFile = null;
 
     /**
      * Stores the count of the resources written over this instance's history.
      */
-    private long writtenCount;
+    private long writtenCount = 0;
 
     /**
      * Gets the number of currently written resources over the course of this instance's history.

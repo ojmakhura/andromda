@@ -66,22 +66,22 @@ public class XmlObjectFactory
     /**
      * The digester instance.
      */
-    private Digester digester;
+    private Digester digester = null;
 
     /**
      * The class of which the object we're instantiating.
      */
-    private Class objectClass;
+    private Class objectClass = null;
 
     /**
      * The URL to the object rules.
      */
-    private URL objectRulesXml;
+    private URL objectRulesXml = null;
 
     /**
      * The URL of the schema.
      */
-    private URL schemaUri;
+    private URL schemaUri = null;
 
     /**
      * Whether or not validation should be turned on by default when using this factory to load XML configuration
@@ -280,7 +280,7 @@ public class XmlObjectFactory
         ExceptionUtils.checkNull(
             "objectXml",
             objectXml);
-        Object object;
+        Object object = null;
         try
         {
             this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));
