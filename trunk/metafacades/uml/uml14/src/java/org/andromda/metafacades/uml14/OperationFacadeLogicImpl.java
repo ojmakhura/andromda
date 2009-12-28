@@ -233,6 +233,18 @@ public class OperationFacadeLogicImpl
     }
 
     /**
+     * Not yet implemented, always returns null. To implement: walk through the
+     * related elements from the Sequence Diagram in the UML model to produce compilable code.
+     * @return method body
+     * @see org.andromda.metafacades.uml.OperationFacade#getMethodBody()
+     */
+    //@Override
+    protected String handleGetMethodBody()
+    {
+        return null;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.OperationFacade#getOwner()
      */
     @Override
