@@ -35,11 +35,11 @@
         <conditions>
             <condition id="war" equal="true"/>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
-            <output>web/target/${applicationId}-${applicationVersion}/WEB-INF/web.xml</output>
+            <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
         </conditions>
         <conditions>
             <condition id="ear" equal="true"/>
-            <output>web/target/${applicationId}-web-${applicationVersion}/WEB-INF/web.xml</output>
+            <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
         </conditions>
         <conditions type="or">
             <condition id="web" equal="true"/>
