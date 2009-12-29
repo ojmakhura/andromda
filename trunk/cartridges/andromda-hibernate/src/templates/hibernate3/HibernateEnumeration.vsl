@@ -94,7 +94,7 @@ public final class $enumeration.enumerationName
     public Object nullSafeGet(ResultSet resultSet, String[] values, Object owner) throws HibernateException, SQLException
     {
 #if ($enumeration.literalType.primitive)
-##        final java.lang.Number value = (java.lang.Number)resultSet.getObject(values[0]);
+##        final Number value = (Number)resultSet.getObject(values[0]);
         final $enumeration.literalType.wrapperName value = ($enumeration.literalType.wrapperName)resultSet.getObject(values[0]);
         return resultSet.wasNull() ? null : #if ($enumeration.typeSafe)${enumeration.name}.#end${enumeration.fromOperationName}(value.${enumeration.literalType.fullyQualifiedName}Value());
 #else

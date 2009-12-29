@@ -112,7 +112,7 @@ public abstract class $service.testName
      * @see ${service.fullyQualifiedName}${esc.hash}${operation.signature}
      */
     public void $operation.testSignature
-        throws java.lang.Exception
+        throws Exception
     {
         ${operation.testImplementationCall};
     }
@@ -121,7 +121,7 @@ public abstract class $service.testName
      * Provides the actual test implementation for {@link #${operation.signature}}
      */
     protected abstract void ${operation.testImplementationSignature}
-        throws java.lang.Exception;
+        throws Exception;
 
 #end
 }

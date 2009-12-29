@@ -36,7 +36,7 @@ public class ${service.name}BeanImpl
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else
-        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
+        throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
     }
 
