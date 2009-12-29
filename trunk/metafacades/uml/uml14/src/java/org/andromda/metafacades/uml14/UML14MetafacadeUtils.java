@@ -640,7 +640,7 @@ public class UML14MetafacadeUtils
      * @return the serial version UID of the classifier. Returns
      *         <code>null</code> if the tagged value cannot be found.
      */
-    static String getSerialVersionUID(ClassifierFacade classifier)
+    public static String getSerialVersionUID(ClassifierFacade classifier)
     {
         ExceptionUtils.checkNull("classifer", classifier);
         String serialVersionString = (String)classifier

@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.Collator;
 import java.util.Collection;
 import java.util.Collections;
@@ -199,9 +201,8 @@ public class MetafacadeUtils
     {
         final StringBuffer buffer = new StringBuffer();
         boolean commaNeeded = false;
-        for (final Iterator<ParameterFacade> iterator = arguments.iterator(); iterator.hasNext();)
+        for (ParameterFacade parameter : arguments)
         {
-            ParameterFacade parameter = iterator.next();
             String type = null;
             ClassifierFacade classifier = parameter.getType();
             if (classifier != null)
@@ -301,5 +302,72 @@ public class MetafacadeUtils
         }
         name = name.replace(underscore, period);
         return name;
+    }
+
+    /**
+     * Calculates the serial version UID of this classifier based on the
+     * signature of the classifier (name, visibility, attributes and methods).
+     * The algorithm is inspired by
+     * {@link java.io.ObjectStreamClass#getSerialVersionUID()}.
+     *
+     * The value should be stable as long as the classifier remains unchanged
+     * and should change as soon as there is any change in the signature of the
+     * classifier.
+     *
+     * @return the serial version UID of this classifier.
+     */
+    public static long calculateDefaultSUID(ClassifierFacade object)
+    {
+        // class name
+        StringBuilder buffer = new StringBuilder(object.getName());
+
+        // generalizations
+        for (GeneralizableElementFacade generalizableElementFacade : object.getAllGeneralizations())
+        {
+            ClassifierFacade classifier = (ClassifierFacade) generalizableElementFacade;
+            buffer.append(classifier.getName());
+        }
+
+        // declared fields
+        for (AttributeFacade attribute : object.getAttributes())
+        {
+            buffer.append(attribute.getName());
+            buffer.append(attribute.getVisibility());
+            buffer.append(attribute.getType().getName());
+        }
+
+        // operations
+        for (OperationFacade operation : object.getOperations())
+        {
+            buffer.append(operation.getName());
+            buffer.append(operation.getVisibility());
+            buffer.append(operation.getReturnType().getName());
+            for (final ParameterFacade parameter : operation.getArguments())
+            {
+                buffer.append(parameter.getName());
+                buffer.append(parameter.getType().getName());
+            }
+        }
+        final String signature = buffer.toString();
+
+        long serialVersionUID = 0L;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            byte[] hashBytes = md.digest(signature.getBytes());
+
+            long hash = 0;
+            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
+            {
+                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
+            }
+            serialVersionUID = hash;
+        }
+        catch (final NoSuchAlgorithmException ignore)
+        {
+            // ignore exception
+        }
+
+        return serialVersionUID;
     }
 }
