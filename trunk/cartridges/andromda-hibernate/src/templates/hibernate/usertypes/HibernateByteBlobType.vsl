@@ -7,17 +7,16 @@
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
 package $userTypesPackage;
 
-import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
-
+import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.sql.Blob;
-
 import ${hibernateUtils.hibernatePackage}.HibernateException;
 import ${hibernateUtils.hibernateUserTypePackage}.UserType;
 
