@@ -83,7 +83,7 @@
 #foreach($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
 "",## no newline
-#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+#elseif ($member.type.booleanType)
 false,## no newline
 #elseif ($member.type.dateType)
 "",## no newline
@@ -115,7 +115,7 @@ form)
 #foreach($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
                 setSelect(false,form,"$member.name",$member.name);
-#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+#elseif ($member.type.booleanType)
                 form.elements["$member.name"].checked = $member.name;
 #elseif ($member.type.dateType)
                 form.elements["${member.name}AsString"].value = $member.name;
@@ -158,7 +158,7 @@ form)
 #if ($member.identifier)#set($displayId = false)#end
 #else
                         <tr>
-                            <td>#if ($member.required && !($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean'))<nobr><bean:message key="$member.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$member.messageKey"/>#end</td>
+                            <td>#if ($member.required && !($member.type.booleanType))<nobr><bean:message key="$member.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$member.messageKey"/>#end</td>
                             <td>
 #renderAttribute($member "                                ")
                             </td>
@@ -243,7 +243,7 @@ form)
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
 #if (!$member.hidden)
-#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+#if ($member.type.booleanType)
                         <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
 ## We're not using <html:checkbox> here because this renders a 'name' attribute which possibly interferes with the
 ## corresponding criteria field used as input (which has the same name of course: the copy feature would not

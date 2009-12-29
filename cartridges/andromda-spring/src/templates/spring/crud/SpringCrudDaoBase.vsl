@@ -161,7 +161,7 @@ public final class $manageable.manageableDaoBaseName
                     criteria.add(Expression.between("$member.name", $member.name, calendar.getTime()));
                 }
             }
-#elseif ($member.type.fullyQualifiedName == 'java.lang.Boolean' || $member.type.fullyQualifiedName == 'Boolean')
+#elseif ($member.type.booleanType)
             if (${member.name}.booleanValue()) criteria.add(Expression.eq("$member.name", Boolean.TRUE));
 #else
             criteria.add(Expression.eq("$member.name", $member.name));

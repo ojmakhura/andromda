@@ -317,7 +317,7 @@ $field.getDocumentation("     * ")
 #set ($optionValues = $field.optionValues)
 #foreach ($optionKey in $field.optionKeys)
 #set ($optionIndex = $velocityCount - 1)
-#if ($field.type.fullyQualifiedName == "java.lang.String" || $field.type.fullyQualifiedName == "String")
+#if ($field.type.stringType)
             case $optionIndex : return "$optionValues.get($optionIndex)";
 #else
             case $optionIndex : return new ${field.type.fullyQualifiedName}("$optionValues.get($optionIndex)");
