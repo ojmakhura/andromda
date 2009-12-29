@@ -117,6 +117,58 @@ $target.getDocumentation("     * ")
         this.${target.name} = ${target.name}In;
     }
 
+#if ($target.many)
+#if ($target.map)
+    /**
+$target.getDocumentation("     * ")
+     * @param elementKey $target.collectionIndexType     
+     * @param elementToAdd $target.type.fullyQualifiedName
+     * @return the previous value associated with <tt>key</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
+     *         (A <tt>null</tt> return can also indicate that the map
+     *         previously associated <tt>null</tt> with <tt>key</tt>,
+     *         if the implementation supports <tt>null</tt> values.)
+     */
+    public $target.type.fullyQualifiedName ${target.adderName}($target.collectionIndexType elementKey, $target.type.fullyQualifiedName elementToAdd)
+    {
+        return this.${target.name}.put(elementKey, elementToAdd);
+    }
+
+    /**
+$target.getDocumentation("     * ")
+     * @param elementKey $target.collectionIndexType
+     * @return the previous value associated with <tt>key</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
+     */
+    public $target.type.fullyQualifiedName ${target.removerName}($target.collectionIndexType elementKey)
+    {
+        return this.${target.name}.remove(elementKey);
+    }
+#else
+    /**
+$target.getDocumentation("     * ")
+     * @param elementToAdd $target.type.fullyQualifiedName
+     * @return <tt>true</tt> if this collection changed as a result of the
+     *         call
+     */
+    public boolean ${target.adderName}($target.type.fullyQualifiedName elementToAdd)
+    {
+        return this.${target.name}.add(elementToAdd);
+    }
+
+    /**
+$target.getDocumentation("     * ")
+     * @param elementToRemove $target.type.fullyQualifiedName
+     * @return <tt>true</tt> if this collection changed as a result of the
+     *         call
+     */
+    public boolean ${target.removerName}($target.type.fullyQualifiedName elementToRemove)
+    {
+        return this.${target.name}.remove(elementToRemove);
+    }
+#end
+
+#end
 #end
 #end
 #foreach ($operation in $entity.businessOperations)
