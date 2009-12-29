@@ -14,6 +14,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -866,92 +867,20 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * Calculates the serial version UID of this classifier based on the
-     * signature of the classifier (name, visibility, attributes and methods).
-     * The algorithm is inspired by
-     * {@link java.io.ObjectStreamClass#getSerialVersionUID()}.
-     *
-     * The value should be stable as long as the classifier remains unchanged
-     * and should change as soon as there is any change in the signature of the
-     * classifier.
-     *
-     * @return the serial version UID of this classifier.
-     */
-    private Long calculateDefaultSUID()
-    {
-        final StringBuffer buffer = new StringBuffer();
-
-        // class name
-        buffer.append(this.getName());
-
-        // generalizations
-        for (final Iterator iterator = this.getAllGeneralizations().iterator(); iterator.hasNext();)
-        {
-            ClassifierFacade classifier = (ClassifierFacade)iterator.next();
-            buffer.append(classifier.getName());
-        }
-
-        // declared fields
-        for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
-        {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
-            buffer.append(attribute.getName());
-            buffer.append(attribute.getVisibility());
-            buffer.append(attribute.getType().getName());
-        }
-
-        // operations
-        for (final Iterator iter = this.getOperations().iterator(); iter.hasNext();)
-        {
-            OperationFacade operation = (OperationFacade)iter.next();
-            buffer.append(operation.getName());
-            buffer.append(operation.getVisibility());
-            buffer.append(operation.getReturnType().getName());
-            for (final Iterator iterator = operation.getArguments().iterator(); iterator.hasNext();)
-            {
-                final ParameterFacade parameter = (ParameterFacade)iterator.next();
-                buffer.append(parameter.getName());
-                buffer.append(parameter.getType().getName());
-            }
-        }
-        final String signature = buffer.toString();
-
-        long serialVersionUID = 0L;
-        try
-        {
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            byte[] hashBytes = md.digest(signature.getBytes());
-
-            long hash = 0;
-            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
-            {
-                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
-            }
-            serialVersionUID = hash;
-        }
-        catch (final NoSuchAlgorithmException exception)
-        {
-            final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
-            logger.error(errMsg, exception);
-        }
-        return serialVersionUID;
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getSerialVersionUID()
      */
     @Override
-    protected Long handleGetSerialVersionUID()
+    protected long handleGetSerialVersionUID()
     {
-        Long serialVersionUID;
+        long serialVersionUID;
         final String serialVersionString = UML14MetafacadeUtils.getSerialVersionUID(this);
         if (serialVersionString != null)
         {
-            serialVersionUID = Long.valueOf(serialVersionString);
+            serialVersionUID = Long.parseLong(serialVersionString);
         }
         else
         {
-            serialVersionUID = calculateDefaultSUID();
+            serialVersionUID = MetafacadeUtils.calculateDefaultSUID(this);
         }
         return serialVersionUID;
     }

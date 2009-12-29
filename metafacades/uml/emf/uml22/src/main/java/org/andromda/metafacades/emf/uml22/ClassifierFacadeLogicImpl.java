@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -559,99 +560,27 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * Calculates the serial version UID of this classifier based on the
-     * signature of the classifier (name, visibility, attributes and methods).
-     * The algorithm is inspired by
-     * {@link java.io.ObjectStreamClass#getSerialVersionUID()}.
-     *
-     * The value should be stable as long as the classifier remains unchanged
-     * and should change as soon as there is any change in the signature of the
-     * classifier.
-     *
-     * @return the serial version UID of this classifier.
-     */
-    private Long calculateDefaultSUID()
-    {
-        // class name
-        final StringBuilder buffer = new StringBuilder(this.getName());
-
-        // generalizations
-        for (GeneralizableElementFacade classifier : this.getAllGeneralizations())
-        {
-            buffer.append(classifier.getName());
-        }
-
-        // declared fields
-        for (AttributeFacade attribute : this.getAttributes())
-        {
-            buffer.append(attribute.getName());
-            buffer.append(attribute.getVisibility());
-            buffer.append(attribute.getType().getName());
-        }
-
-        // operations
-        for (OperationFacade operation : this.getOperations())
-        {
-            buffer.append(operation.getName());
-            buffer.append(operation.getVisibility());
-            buffer.append(operation.getReturnType().getName());
-            for (ParameterFacade parameter : operation.getArguments())
-            {
-                buffer.append(parameter.getName());
-                buffer.append(parameter.getType().getName());
-            }
-        }
-        final String signature = buffer.toString();
-
-        Long serialVersionUID = 0L;
-        try
-        {
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            byte[] hashBytes = md.digest(signature.getBytes());
-
-            long hash = 0;
-            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
-            {
-                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
-            }
-            serialVersionUID = hash;
-        }
-        catch (final NoSuchAlgorithmException exception)
-        {
-            final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
-            ClassifierFacadeLogicImpl.logger.error(
-                errMsg,
-                exception);
-        }
-        if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
-        {
-            ClassifierFacadeLogicImpl.logger.debug("Default UID for " + this.metaObject.getQualifiedName() + " is " + serialVersionUID);
-        }
-        return serialVersionUID;
-    }
-
-    /**
      * <p>
      * Returns the serial version UID of the underlying model element.
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#getSerialVersionUID()
      */
     @Override
-    protected Long handleGetSerialVersionUID()
+    protected long handleGetSerialVersionUID()
     {
         if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
             ClassifierFacadeLogicImpl.logger.debug("Starting get serial UID");
         }
-        Long serialVersionUID;
+        long serialVersionUID;
         String serialVersionString = UmlUtilities.getSerialVersionUID(this);
         if (serialVersionString != null)
         {
-            serialVersionUID = Long.valueOf(serialVersionString);
+            serialVersionUID = Long.parseLong(serialVersionString);
         }
         else
         {
-            serialVersionUID = this.calculateDefaultSUID();
+            serialVersionUID = MetafacadeUtils.calculateDefaultSUID(this);
         }
         if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
