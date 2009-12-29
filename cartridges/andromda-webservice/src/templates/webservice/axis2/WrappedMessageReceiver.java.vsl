@@ -574,7 +574,7 @@ public class $className
             if (type.isEnum())
             {
                 object = type.getMethod(
-                    VALUE_OF, new Class[]{java.lang.String.class}).invoke(
+                    VALUE_OF, new Class[]{String.class}).invoke(
                         type, element.getText());
             }
             else
@@ -688,7 +688,7 @@ public class $className
         for (Method method : methods)
         {
             // do not take methods from the JDK into account, we only want to consider those that have been modeled
-            // (eg. this could happen for <<Exception>> types, which would extend java.lang.Exception)
+            // (eg. this could happen for <<Exception>> types, which would extend Exception)
             if (exceptionFromJdk || !method.getDeclaringClass().getName().startsWith("java."))
             {
                 // decide whether or not this method is a getter

@@ -57,7 +57,7 @@ public class $className
     /**
      * Overrides the default array serialization in order to provide the correct array item names.
      *
-     * @see org.apache.axis.encoding.Serializer${esc.hash}serialize(javax.xml.namespace.QName, org.xml.sax.Attributes, java.lang.Object, org.apache.axis.encoding.SerializationContext)
+     * @see org.apache.axis.encoding.Serializer${esc.hash}serialize(javax.xml.namespace.QName, org.xml.sax.Attributes, Object, org.apache.axis.encoding.SerializationContext)
      */
     public void serialize(
         final QName name,

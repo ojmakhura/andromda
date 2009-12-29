@@ -6,7 +6,7 @@ package $webserviceTypesPackage;
 /**
  * This class is used for the handling attachments within service
  * operations.  It can for example publish attachments to the response of the
- * current AXIS message using {@link ${esc.hash}storeAttachment(java.lang.Object, java.lang.String)}.
+ * current AXIS message using {@link ${esc.hash}storeAttachment(Object, String)}.
  *
  * @author Chad Brandon
  */
@@ -79,7 +79,7 @@ public class $className
      * @return List of attachments or an empty array if none exist.
      */
     public static javax.activation.DataHandler[] getAttachments()
-        throws java.lang.Exception
+        throws Exception
     {
         final org.apache.axis.MessageContext messageContext = getCurrentMessageContext();
         final org.apache.axis.Message requestMessage = messageContext.getRequestMessage();
