@@ -195,6 +195,24 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getAdderName()
+     */
+    @Override
+    protected String handleGetAdderName()
+    {
+        return "add" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getRemoverName()
+     */
+    @Override
+    protected String handleGetRemoverName()
+    {
+        return "remove" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     @Override
@@ -269,7 +287,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected Association handleGetAssociation()
     {
-        return (Association)this.metaObject.getAssociation();
+        return this.metaObject.getAssociation();
     }
 
     /**

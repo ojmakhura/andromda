@@ -54,10 +54,9 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected AssociationEnd handleGetOtherEnd()
     {
-        final Collection ends = metaObject.getAssociation().getConnection();
-        for (final Iterator endIt = ends.iterator(); endIt.hasNext();)
+        final Collection<AssociationEnd> ends = metaObject.getAssociation().getConnection();
+        for (final AssociationEnd end : ends)
         {
-            final AssociationEnd end = (AssociationEnd)endIt.next();
             if (!metaObject.equals(end))
             {
                 return end;
@@ -183,10 +182,8 @@ public class AssociationEndFacadeLogicImpl
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -291,6 +288,24 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getAdderName()
+     */
+    @Override
+    protected String handleGetAdderName()
+    {
+        return "add" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getRemoverName()
+     */
+    @Override
+    protected String handleGetRemoverName()
+    {
+        return "remove" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getAssociation()
      */
     @Override
@@ -361,12 +376,10 @@ public class AssociationEndFacadeLogicImpl
         if (multiplicity != null)
         {
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
-            if (ranges != null && !ranges.isEmpty())
+            if (ranges != null)
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange  : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     upper = multiplicityRange.getUpper();
                 }
             }
@@ -390,12 +403,10 @@ public class AssociationEndFacadeLogicImpl
         if (multiplicity != null)
         {
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
-            if (ranges != null && !ranges.isEmpty())
+            if (ranges != null)
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     lower = multiplicityRange.getLower();
                 }
             }
