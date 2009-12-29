@@ -194,6 +194,24 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getAdderName()
+     */
+    @Override
+    protected String handleGetAdderName()
+    {
+        return "add" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getRemoverName()
+     */
+    @Override
+    protected String handleGetRemoverName()
+    {
+        return "remove" + StringUtils.capitalize(this.getName());
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     @Override
@@ -208,8 +226,7 @@ public class AssociationEndFacadeLogicImpl
                 name = mappings.getTo(this.isOrdered() ? UMLProfile.LIST_TYPE_NAME : UMLProfile.COLLECTION_TYPE_NAME);
             }
 
-            // set this association end's type as a template parameter if
-            // required
+            // set this association end's type as a template parameter if required
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
