@@ -538,6 +538,7 @@
                             <includes>
                                 <include>*.exc</include>
                                 <include>*.log</include>
+                                <include>*.log.1</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
@@ -634,7 +635,7 @@
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <!--<report>jira-report</report>-->
+                            <report>jira-report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
@@ -794,7 +795,6 @@
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
-
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
@@ -820,6 +820,12 @@
                     <url>file:/var/www/andromda/maven2</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>AndroMDA Snapshot Repository</name>
+                    <url>file:/var/www/andromda/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
                 <site>
                     <id>website</id>
                     <url>file:/var/www/andromda/docs</url>
@@ -841,7 +847,6 @@
                     <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
-
                 <site>
                     <id>website</id>
                     <url>file:/var/www/andromda/docs</url>
