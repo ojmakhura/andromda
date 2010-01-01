@@ -11,8 +11,7 @@
     <description>
         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven
         Architecture (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and
-        other
-        components.
+        other components.
     </description>
     <inceptionYear>2003</inceptionYear>
     <url>http://www.andromda.org</url>
@@ -382,6 +381,8 @@
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
                         <fork>true</fork>
+                        <!--compilerVersion>1.5</compilerVersion>
+                        <compilerArgument>-Xlint</compilerArgument-->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -793,7 +794,8 @@
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>${maven.version}</maven>
+        <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
+        <maven>2.0.10</maven>
     </prerequisites>
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
@@ -802,9 +804,9 @@
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
         <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository>
-      <bootstrap.artifacts>true</bootstrap.artifacts-->
+        <bootstrap.artifacts>true</bootstrap.artifacts-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.version>2.0.10</maven.version>
+        <maven.version>2.2.1</maven.version>
         <plexus.util.version>1.5.9</plexus.util.version>
     </properties>
     <profiles>
