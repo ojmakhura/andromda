@@ -23,34 +23,28 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
     	<dependency> 
-    		<groupId>org.netbeans.mdr</groupId>
-      		<artifactId>jmiutils</artifactId>
-     		<version>20050711</version>
+    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+      		<artifactId>jmiutils</artifactId>     		
     	</dependency>  
     	<dependency> 
-    		<groupId>org.netbeans.mdr</groupId>
+    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
       		<artifactId>mdrapi</artifactId>
-     		<version>20050711</version>
     	</dependency>  
      	<dependency> 
-    		<groupId>org.netbeans.mdr</groupId>
+    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
       		<artifactId>nbmdr</artifactId>
-     		<version>20050711</version>
     	</dependency>     	
      	<dependency> 
-    		<groupId>org.netbeans.mdr</groupId>
+    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
       		<artifactId>openide-util</artifactId>
-     		<version>20050711</version>
     	</dependency> 
     	<dependency> 
-    		<groupId>jmi</groupId>
-      		<artifactId>mof</artifactId>
-     		<version>20030918</version>
+    		<groupId>org.andromda.thirdparty.jmi</groupId>
+      		<artifactId>mof</artifactId>     		
     	</dependency>  
     	<dependency> 
-    		<groupId>jmi</groupId>
-      		<artifactId>jmi</artifactId>
-     		<version>20030918</version>
+    		<groupId>org.andromda.thirdparty.jmi</groupId>
+      		<artifactId>jmi</artifactId>     		
     	</dependency>  
 	</dependencies>	
     <build>
