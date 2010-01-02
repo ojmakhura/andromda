@@ -362,7 +362,7 @@ rsm6 or rsm7 for .emx files)</text>
                 <text>Would you like to use Facelets or JSP as your view type for JSF?</text>
                 <shortText>JSF view type</shortText>
                 <preconditions>
-                    <condition id="jsf" equal="true"/>
+                    <condition id="jsfCartridgeVersion" equal="jsf1"/>
                 </preconditions>
                 <responses>
                     <response>facelets</response>
