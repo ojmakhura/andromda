@@ -32,14 +32,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jmi</groupId>
-            <artifactId>jmiuml</artifactId>
-            <version>1.4di</version>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+            <artifactId>jmiuml</artifactId>            
         </dependency>
         <dependency>
-            <groupId>jmi</groupId>
-            <artifactId>jmi</artifactId>
-            <version>20030918</version>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+            <artifactId>jmi</artifactId>            
         </dependency>
     </dependencies>
     <build>

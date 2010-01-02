@@ -248,11 +248,6 @@
             </dependency>
 
             <dependency>
-                <groupId>jmi</groupId>
-                <artifactId>jmiuml</artifactId>
-                <version>1.4di</version>
-            </dependency>
-            <dependency>
                 <groupId>xalan</groupId>
                 <artifactId>xalan</artifactId>
                 <version>2.7.0</version>
@@ -278,7 +273,7 @@
                 <version>1.6</version>
             </dependency>
             <dependency>
-                <groupId>jalopy</groupId>
+                <groupId>org.andromda.thirdparty.jalopy</groupId>
                 <artifactId>jalopy</artifactId>
                 <version>1.5-RC3P1</version>
             </dependency>
@@ -335,6 +330,44 @@
                 <artifactId>servlet-api</artifactId>
                 <version>2.4</version>
             </dependency>
+            
+            <!-- Some dependencies, which can not be found in maven repository-->
+            <dependency>
+                <groupId>org.andromda.thirdparty.jmi</groupId>
+                <artifactId>jmiuml</artifactId>
+                <version>1.4di</version>
+            </dependency>
+            <dependency> 
+    		    <groupId>org.andromda.thirdparty.jmi</groupId>
+      		    <artifactId>jmi</artifactId>
+     		    <version>20030918</version>
+    	    </dependency> 
+            <dependency> 
+    		    <groupId>org.andromda.thirdparty.jmi</groupId>
+      		    <artifactId>mof</artifactId>
+     		    <version>20030918</version>
+    	    </dependency>
+    	    
+    	    <dependency> 
+        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+          		<artifactId>jmiutils</artifactId>
+         		<version>20050711</version>
+        	</dependency>  
+        	<dependency> 
+        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+          		<artifactId>mdrapi</artifactId>
+         		<version>20050711</version>
+        	</dependency>  
+         	<dependency> 
+        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+          		<artifactId>nbmdr</artifactId>
+         		<version>20050711</version>
+        	</dependency>     	
+         	<dependency> 
+        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+          		<artifactId>openide-util</artifactId>
+         		<version>20050711</version>
+        	</dependency>
             
             <!-- Maven dependencies -->
             <dependency>
@@ -778,19 +811,29 @@
         <module>repositories/emf/uml22</module>
         <module>metafacades/uml/emf/uml22</module>
         <module>andromda-distribution</module>
-    </modules>
+    </modules>    
     <repositories>
         <repository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
+            <id>sonatype</id>
+            <name>Sonatype AndroMDA Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>andromda</id> 
+            <name>AndroMDA Repository</name> 
+            <url>http://www.andromda.org/maven2</url> 
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
+            <id>sonatype</id>
+            <name>Sonatype AndroMDA Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>andromda</id> 
+            <name>AndroMDA Repository</name> 
+            <url>http://www.andromda.org/maven2</url> 
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
