@@ -3,6 +3,8 @@ package org.andromda.utils;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -17,7 +19,7 @@ public class JavaTypeConverter
 {
     private static final Logger logger = Logger.getLogger(JavaTypeConverter.class);
     
-    private ArrayList javaTypeConversionIgnoreList = new ArrayList();
+    private List<String> javaTypeConversionIgnoreList = new ArrayList<String>();
     
     /** 
      * Specifies a list of one or more fully qualified java types that should be ignored 
@@ -26,7 +28,7 @@ public class JavaTypeConverter
      */
     public void setJavaTypeConversionIgnoreList(String commaSeparatedIgnoreList)
     {
-        javaTypeConversionIgnoreList = new ArrayList();
+        javaTypeConversionIgnoreList = new ArrayList<String>();
         if (commaSeparatedIgnoreList != null)
         {
             final String[] typeList = commaSeparatedIgnoreList.split("\\s*,\\s*");
@@ -304,7 +306,7 @@ public class JavaTypeConverter
         return convertedValue;
     }
 
-    private static ArrayList<String> javaLangList = new ArrayList<String>();
+    private final static List<String> javaLangList = new ArrayList<String>();
     /**
      * Creates a java.lang. fully qualified name from the given <code>name</code>,
      * inserting 'java.lang.' in front if needed. Many EJB3 and Hibernate configuration files
