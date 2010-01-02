@@ -24,7 +24,7 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.apache.ws.commons</groupId>
+            <groupId>org.apache.ws.commons.schema</groupId>
             <artifactId>XmlSchema</artifactId>
             <version>1.3.1</version>
             <optional>true</optional>
@@ -172,7 +172,7 @@
                                 <artifactId>commons-httpclient</artifactId>
                             </inclusion>
                             <inclusion>
-                                <groupId>org.apache.ws.commons</groupId>
+                                <groupId>org.apache.ws.commons.schema</groupId>
                                 <artifactId>XmlSchema</artifactId>
                             </inclusion>
                         </inclusions>
