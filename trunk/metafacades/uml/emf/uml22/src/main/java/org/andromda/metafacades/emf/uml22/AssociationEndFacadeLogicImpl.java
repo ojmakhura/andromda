@@ -213,6 +213,15 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isBindingDependenciesPresent()
+     */
+    @Override
+    protected boolean handleIsBidirectional()
+    {
+        return isNavigable() && getOtherEnd().isNavigable();
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     @Override
