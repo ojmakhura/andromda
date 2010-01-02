@@ -854,10 +854,7 @@
     </properties>
     <profiles>
         <profile>
-            <id>andromda-default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>andromda-local</id>            
             <distributionManagement>
                 <repository>
                     <id>andromda-repository</id>
@@ -880,11 +877,14 @@
 
         <profile>
             <id>andromda-sonatype</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <distributionManagement>
                 <repository>
                     <id>andromda-releases</id>
                     <name>Andromda Staging Repository</name>
-                    <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <url>http://oss.sonatype.org/content/groups/staging</url>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
