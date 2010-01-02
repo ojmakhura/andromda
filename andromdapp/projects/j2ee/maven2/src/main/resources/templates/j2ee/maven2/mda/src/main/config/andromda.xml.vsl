@@ -49,7 +49,7 @@
 						<!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
-#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
+#elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
                         <location patterns="**/*.uml2">${project.basedir}/src/main/uml</location>
                         <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
@@ -470,7 +470,9 @@
 #if ($portlet)
                 <property name="portletContainer">$portletContainer</property>
 #end
+#if ($jsf1)
                 <property name="viewType">$viewType</property>
+#end
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.dir}</property>
                 <property name="views">${web.generated.dir}</property>
