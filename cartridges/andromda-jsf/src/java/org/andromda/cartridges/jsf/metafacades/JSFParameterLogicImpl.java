@@ -14,7 +14,13 @@ import java.util.Set;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -60,7 +66,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsPageableTable()
     {
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_PAGEABLE);
-        return Boolean.valueOf(ObjectUtils.toString(value));
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
 
     /**
@@ -144,10 +150,10 @@ public class JSFParameterLogicImpl
      *
      * @return true/false
      */
-    private boolean isNormalizeMessages()
+    private final boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**
@@ -205,7 +211,7 @@ public class JSFParameterLogicImpl
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private List getTableActions(boolean hyperlink)
+    private final List getTableActions(boolean hyperlink)
     {
         final Set actions = new LinkedHashSet();
         final String name = StringUtils.trimToNull(getName());
@@ -863,7 +869,7 @@ public class JSFParameterLogicImpl
     public boolean isRequired()
     {
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
-        return Boolean.valueOf(ObjectUtils.toString(value));
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
 
     /**
@@ -906,7 +912,8 @@ public class JSFParameterLogicImpl
     protected boolean handleIsReset()
     {
         boolean reset =
-                Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)));
+            Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)))
+                   .booleanValue();
         if (!reset)
         {
             final JSFAction action = (JSFAction)this.getAction();

@@ -68,7 +68,7 @@ public class JSFAttributeLogicImpl
     {
         final String normalizeMessages =
             ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**

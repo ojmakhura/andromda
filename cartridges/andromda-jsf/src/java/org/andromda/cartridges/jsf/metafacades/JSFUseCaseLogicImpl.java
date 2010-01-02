@@ -116,7 +116,7 @@ public class JSFUseCaseLogicImpl
     private final boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**

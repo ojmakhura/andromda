@@ -33,7 +33,7 @@ public class MetafacadeGeneralizationLogicImpl
     @Override
     protected Integer handleGetPrecedence()
     {
-        Integer precedence = 999999999;
+        Integer precedence = Integer.valueOf(999999999);
         String value =
             ObjectUtils.toString(
                 this.findTaggedValue(MetaProfile.TAGGEDVALUE_GENERALIZATION_PRECEDENCE));

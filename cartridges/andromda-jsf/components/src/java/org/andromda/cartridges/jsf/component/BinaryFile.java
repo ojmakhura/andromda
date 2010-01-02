@@ -175,7 +175,7 @@ public class BinaryFile
                 this.prompt = (Boolean)binding.getValue(this.getFacesContext());
             }
         }
-        return this.prompt != null ? this.prompt : false;
+        return this.prompt != null ? this.prompt.booleanValue() : false;
     }
 
     /**
@@ -185,7 +185,7 @@ public class BinaryFile
      */
     public void setPrompt(final boolean prompt)
     {
-        this.prompt = prompt;
+        this.prompt = Boolean.valueOf(prompt);
     }
 
     /**
