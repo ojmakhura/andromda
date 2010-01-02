@@ -339,7 +339,7 @@ public class JSFValidatorComponent
     private boolean isClient()
     {
         String client = (String)this.getAttributes().get(CLIENT);
-        return StringUtils.isBlank(client) ? true : Boolean.valueOf(client);
+        return StringUtils.isBlank(client) ? true : Boolean.valueOf(client).booleanValue();
     }
 
     /**
@@ -505,6 +505,7 @@ public class JSFValidatorComponent
         if (validator instanceof JSFValidatorComponent)
         {
             final UIComponent parent = validator.getParent();
+            // When would parent ever NOT be an instance of UIComponent?
             if (parent instanceof UIComponent)
             {
                 form = parent;

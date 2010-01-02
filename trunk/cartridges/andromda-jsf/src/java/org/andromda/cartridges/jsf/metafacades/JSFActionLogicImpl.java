@@ -718,7 +718,7 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsFormReset()
     {
-        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET)));
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 
     /**
