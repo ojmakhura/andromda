@@ -283,7 +283,7 @@ $literal.getDocumentation("     * ")
     public int hashCode()
     {
 #if ($enumeration.literalType.primitive)
-        return this.getValue();
+        return (int)this.getValue();
 #else
         if (this.getValue()==null)
         {
