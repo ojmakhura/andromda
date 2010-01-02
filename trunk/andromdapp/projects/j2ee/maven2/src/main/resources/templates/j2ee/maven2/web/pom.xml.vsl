@@ -317,7 +317,7 @@
                     <tasks>
                         <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
 #set ($viewSrcType = "jsp")
-#if ($facelets)
+#if ($facelets || $jsf2)
 #set ($viewSrcType = "xhtml")
 #end
                             <fileset dir="${project.basedir}/src/main/$viewSrcType">
