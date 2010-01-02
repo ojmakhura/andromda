@@ -15,8 +15,8 @@
             $stringUtils.replace($constraintTranslation, 'final Object contextElement = this;', 'final Object contextElement = this.THIS();') 
             if (!constraintValid)
                 validationMessages.add(
-                    new org.andromda.core.metafacade.ModelValidationMessage(
-                        ($fullyQualifiedMetafacadeRoot)contextElement ,
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
                         "$metaUtils.getFullyQualifiedConstraintName($constraint)",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
         }

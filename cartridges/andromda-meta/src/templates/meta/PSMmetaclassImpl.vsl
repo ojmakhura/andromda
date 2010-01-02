@@ -5,13 +5,16 @@
  */
 #if ($stringUtils.isNotBlank($class.packageName))
 package $class.packageName;
+#set ($pkg = "${class.packageName}.")
+#else
+#set ($pkg = "")
 #end
 
 /**
- * @see $class.fullyQualifiedName
+ * @see $class.fullyQualifiedName.replace($pkg, "")
  */
 public#if($class.implMustBeAbstract) abstract#end class ${class.name}Impl
-    extends $class.fullyQualifiedName
+    extends $class.fullyQualifiedName.replace($pkg, "")
 {
 ##
 ##  default constructor
