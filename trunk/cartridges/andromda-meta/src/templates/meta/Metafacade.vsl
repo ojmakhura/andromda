@@ -2,7 +2,12 @@
 //
 // Attention: generated code (by Metafacade.vsl) - do not modify!
 //
+#if ($stringUtils.isNotBlank($metafacade.packageName))
 package $metafacade.packageName;
+#set ($pkg = "${metafacade.packageName}.")
+#else
+#set ($pkg = "")
+#end
 
 /**
 $metafacade.getDocumentation(" * ")
@@ -11,10 +16,9 @@ $metafacade.getDocumentation(" * ")
  */
 public interface $metafacade.name
 #if (!$metafacade.generalizations.empty)
-    extends $metafacade.generalizationList
+    extends $metafacade.generalizationList.replace($pkg, "")
 #end
 {
-
     /**
      * Indicates the metafacade type (used for metafacade mappings).
      *

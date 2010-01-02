@@ -5,8 +5,15 @@
 //
 #if ($stringUtils.isNotBlank($class.packageName))
 package $class.packageName;
+#set ($pkg = "${class.packageName}.")
+#else
+#set ($pkg = "")
 #end
 
+#if ($serializable)
+import java.io.Serializable;
+
+#end
 /**
 $class.getDocumentation(" * ")
  */
@@ -14,14 +21,14 @@ $class.getDocumentation(" * ")
 public#if($abstract) abstract#end class $class.name
 #if($class.generalization)
 #if ($class.generalization.operationsPresent)
-#set ($suffix = "Impl")
+#set ($classExtends = "${class.generalization.fullyQualifiedName}Impl")
 #else
-#set ($suffix = "")
+#set ($classExtends = "${class.generalization.fullyQualifiedName}")
 #end
-    extends ${class.generalization.fullyQualifiedName}$suffix
+    extends $classExtends.replace($pkg, "")
 #end
 #if ($serializable)
-    implements java.io.Serializable
+    implements Serializable
 #end
 {
 #if ($serializable)
@@ -205,7 +212,7 @@ $target.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name $argument.fullyQualifiedName
+     * @param $argument.name $argument.fullyQualifiedName $argument.getDocumentation("")
 #end
      * @return $returnType.fullyQualifiedName
 #foreach ($exception in $operation.exceptions)

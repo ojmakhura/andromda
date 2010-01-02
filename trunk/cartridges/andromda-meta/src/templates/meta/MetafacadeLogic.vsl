@@ -3,17 +3,26 @@
 //
 // Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
 //
-#if ($metafacade.logicPackageName)
+#if ($stringUtils.isNotBlank($metafacade.logicPackageName))
 package $metafacade.logicPackageName;
+#set ($pkg = "${metafacade.logicPackageName}.")
+#else
+#set ($pkg = "")
 #end
 
-#if (!$metafacade.navigableConnectingEnds.empty || !$modelElement.getConstraints("inv").empty)
+import org.andromda.core.common.Introspector;
+import org.andromda.core.metafacade.MetafacadeBase;
+import org.andromda.core.metafacade.MetafacadeFactory;
+#if (!$modelElement.getConstraints("inv").empty)
+import org.andromda.core.metafacade.ModelValidationMessage;
+import org.apache.log4j.Logger;
+#elseif (!$metafacade.navigableConnectingEnds.empty)
 import org.apache.log4j.Logger;
 #end
 
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
-#set ($metaclassTypeName = $metafacade.metaclass.fullyQualifiedName)
+#set ($metaclassTypeName = $metafacade.metaclass.fullyQualifiedName.replace($pkg, ""))
 #else
 #if ($metafacade.constructorRequiresMetaclassCast)
 #set ($constructorRequiresMetaclassCast = true)
@@ -25,19 +34,22 @@ import org.apache.log4j.Logger;
 ##
 /**
 $metafacade.getDocumentation(" * ")
- * MetafacadeLogic for $metafacade.fullyQualifiedName
+ * MetafacadeLogic for $metafacade.fullyQualifiedName.replace($pkg, "")
  *
- * @see $metafacade.fullyQualifiedName
+ * @see $metafacade.fullyQualifiedName.replace($pkg, "")
  */
 public abstract class $metafacade.logicName
 #if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
-    extends $superMetafacade.fullyQualifiedLogicImplName
+    extends $superMetafacade.fullyQualifiedLogicImplName.replace($pkg, "")
 #else
-    extends $fullyQualifiedMetafacadeRoot
+    extends MetafacadeBase
 #end
-    implements $metafacade.fullyQualifiedName
+    implements $metafacade.fullyQualifiedName.replace($pkg, "")
 {
-
+    /**
+     * The underlying UML object
+     * @see $metaclassTypeName
+     */
     protected $metaclassTypeName metaObject;
 
     /** Create Metafacade implementation instance using the MetafacadeFactory from the context
@@ -51,7 +63,7 @@ public abstract class $metafacade.logicName
 #foreach ($link in $metafacade.generalizationLinks)
         this.${link.name} =
            ($link.parent.fullyQualifiedName)
-            org.andromda.core.metafacade.MetafacadeFactory.getInstance().createFacadeImpl(
+            MetafacadeFactory.getInstance().createFacadeImpl(
                     "$link.parent.fullyQualifiedName",
                     metaObjectIn,
                     getContext(context));
@@ -75,7 +87,7 @@ public abstract class $metafacade.logicName
 #end
     /**
      * Gets the context for this metafacade logic instance.
-     * @param context String. Set to $metafacade.fullyQualifiedName if null
+     * @param context String. Set to $metafacade.fullyQualifiedName.replace($pkg, "") if null
      * @return context String
      */
     private static String getContext(String context)
@@ -101,7 +113,7 @@ public abstract class $metafacade.logicName
     {
         if (!this.$initializedCheck)
         {
-            ((org.andromda.core.metafacade.MetafacadeBase)this.${link.name}).setMetafacadeContext(this.getMetafacadeContext());
+            ((MetafacadeBase)this.${link.name}).setMetafacadeContext(this.getMetafacadeContext());
             this.$initializedCheck = true;
         }
         return this.${link.name};
@@ -126,7 +138,7 @@ public abstract class $metafacade.logicName
 #set ($initializedCheck = "${link.name}Initialized")
             if (this.$initializedCheck)
             {
-                ((org.andromda.core.metafacade.MetafacadeBase)this.${link.name}).resetMetafacadeContext(context);
+                ((MetafacadeBase)this.${link.name}).resetMetafacadeContext(context);
             }
 #end
 #end
@@ -136,7 +148,7 @@ public abstract class $metafacade.logicName
 
     /**
      * @return boolean true always
-     * @see $metafacade.fullyQualifiedName
+     * @see $metafacade.fullyQualifiedName.replace($pkg, "")
      */
     public boolean is${metafacade.name}MetaType()
     {
@@ -219,6 +231,10 @@ $attribute.getDocumentation("     * ")
 #set ($typedArgumentList = $operation.typedArgumentList)
 #set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${operation.implementationName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
+    /**
+     * Method to be implemented in descendants
+     * @return $memberTypeName
+     */
     protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
 
     private void $handleMethodPreCondition
@@ -334,9 +350,17 @@ $associationEnd.getDocumentation("     * ")
     }
 
 #if ($otherEnd.many)
-    // UML Specific type is returned in Collection, transformed by shieldedElements to AndroMDA Metafacade type
+    /**
+     * UML Specific type is returned in Collection, transformed by shieldedElements to AndroMDA Metafacade type
+     * @return #if($otherEnd.ordered) java.util.List#else java.util.Collection#end
+
+     */
     protected abstract#if($otherEnd.ordered) java.util.List#else java.util.Collection#end ${otherEnd.implementationOperationName}($typedArgumentList);
 #else
+    /**
+     * UML Specific type is transformed by shieldedElements to AndroMDA Metafacade type
+     * @return Object 
+     */
     protected abstract Object ${otherEnd.implementationOperationName}($typedArgumentList);
 #end
 
@@ -471,9 +495,9 @@ $associationEnd.getDocumentation("     * ")
         toString.append("[");
         try
         {
-            toString.append(org.andromda.core.common.Introspector.instance().getProperty(this, NAME_PROPERTY));
+            toString.append(Introspector.instance().getProperty(this, NAME_PROPERTY));
         }
-        catch (final Throwable throwable)
+        catch (final Throwable ignore)
         {
             // - just ignore when the metafacade doesn't have a name property
         }
