@@ -1121,6 +1121,8 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * Default implementation for transforming the results of a report query into a value object. This
      * implementation exists for convenience reasons only. It needs only be overridden in the
      * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
+     * @param row 
+     * @return ${valueObjectRef.transformationMethodName}(this.toEntity(row))
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
     protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(Object[] row)
