@@ -816,7 +816,7 @@
         <repository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/releases</url>
+            <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
         <repository>
             <id>andromda</id> 
@@ -828,7 +828,7 @@
         <pluginRepository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/releases</url>
+            <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
         <pluginRepository>
             <id>andromda</id> 
@@ -885,11 +885,12 @@
                     <id>andromda-releases</id>
                     <name>Andromda Staging Repository</name>
                     <url>http://oss.sonatype.org/content/groups/staging</url>
+                    <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>Andromda Snapshot Repository</name>
-                    <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
