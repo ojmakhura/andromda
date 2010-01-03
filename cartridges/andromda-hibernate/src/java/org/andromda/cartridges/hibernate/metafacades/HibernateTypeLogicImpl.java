@@ -49,7 +49,7 @@ public class HibernateTypeLogicImpl
                 fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);
             }
         }
-        fullyQualifiedName = new JavaTypeConverter().getJavaLangTypeName(fullyQualifiedName);
+        fullyQualifiedName = JavaTypeConverter.getJavaLangTypeName(fullyQualifiedName);
         return fullyQualifiedName;
     }
 

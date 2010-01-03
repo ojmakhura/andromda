@@ -46,7 +46,7 @@ public class HibernateEnumerationLogicImpl
      */
     protected String handleGetFullyQualifiedHibernateType()
     {
-        return new JavaTypeConverter().getJavaLangTypeName(super.getFullyQualifiedName());
+        return JavaTypeConverter.getJavaLangTypeName(super.getFullyQualifiedName());
     }
 
     @Override
