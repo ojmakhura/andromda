@@ -27,7 +27,7 @@ class $className
         mappings.put(java.sql.Timestamp.class, "dateTime");
         mappings.put(char.class, "int");
         mappings.put(java.math.BigInteger.class, "integer");
-        mappings.put(Float.class, "decimal");//TODO Is owerwritten
+        mappings.put(Float.class, "decimal");//TODO Is overwritten
         mappings.put(Double.class, "double");
         mappings.put(Float.class, "float");
         mappings.put(Short.class, "short");
