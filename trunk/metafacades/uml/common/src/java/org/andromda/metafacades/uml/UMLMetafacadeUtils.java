@@ -63,7 +63,7 @@ public class UMLMetafacadeUtils
             name = StringUtils.trimToEmpty(classifier.getFullyQualifiedName(true));
             // IgnoreCase allows primitive and wrapped types to both return true
             if (lastType.equalsIgnoreCase(StringUtils.substringAfterLast(classifier.getFullyQualifiedName(), ":"))
-                || lastType.equalsIgnoreCase(name))
+                || lastType.equalsIgnoreCase(name) || lastType.equalsIgnoreCase(classifier.getFullyQualifiedName()))
             {
                 isType = true;
             }
