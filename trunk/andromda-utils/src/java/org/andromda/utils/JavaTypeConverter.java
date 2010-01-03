@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * A utility object used by the code generator when it needs to convert an object
@@ -17,8 +16,6 @@ import org.apache.log4j.Logger;
  */
 public class JavaTypeConverter
 {
-    private static final Logger logger = Logger.getLogger(JavaTypeConverter.class);
-    
     private List<String> javaTypeConversionIgnoreList = new ArrayList<String>();
     
     /** 
@@ -316,7 +313,7 @@ public class JavaTypeConverter
      * @param name the name of the model element.
      * @return the java.lang. fully qualified name, if needed.
      */
-    public String getJavaLangTypeName(String name)
+    public static String getJavaLangTypeName(String name)
     {
         if (StringUtils.isBlank(name))
         {
