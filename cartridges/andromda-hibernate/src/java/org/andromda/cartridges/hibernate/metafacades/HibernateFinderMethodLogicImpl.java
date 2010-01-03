@@ -112,7 +112,7 @@ public class HibernateFinderMethodLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
+        boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue()
                 || StringUtils.isNotBlank(this.getTranslatedQuery());
         return HibernateMetafacadeUtils.getUseNamedParameters(this, useNamedParameters);
     }
@@ -130,13 +130,14 @@ public class HibernateFinderMethodLogicImpl
     protected boolean handleIsUseQueryCache()
     {
         boolean useQueryCache =
-                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)));
+            Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE))).booleanValue();
 
         if (useQueryCache)
         {
             useQueryCache =
                     Boolean.valueOf(
-                            String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)));
+                    String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
+                       .booleanValue();
         }
         return useQueryCache;
     }

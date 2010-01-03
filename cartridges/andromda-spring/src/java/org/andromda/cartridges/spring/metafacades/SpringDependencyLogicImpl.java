@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import org.andromda.cartridges.spring.SpringHibernateUtils;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -120,7 +119,7 @@ public class SpringDependencyLogicImpl
             for (int ctr = hierarchy.size() - 1; ctr >= 0; ctr--)
             {
                 final SpringEntity generalization = hierarchy.get(ctr);
-                //TODO Bug? generalization.getValueObjectReferences() can contains not only ClassiefierFacades
+                //TODO Bug? generalization.getValueObjectReferences() can contain not only ClassifierFacades
                 for (final Iterator referenceIterator = generalization.getValueObjectReferences().iterator();
                     referenceIterator.hasNext();)
                 {

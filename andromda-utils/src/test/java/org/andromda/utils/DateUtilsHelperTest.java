@@ -2,14 +2,23 @@ package org.andromda.utils;
 
 import junit.framework.TestCase;
 
+/**
+ *
+ */
 public class DateUtilsHelperTest
     extends TestCase
 {
+    /**
+     * @param name
+     */
     public DateUtilsHelperTest(String name)
     {
         super(name);
     }
 
+    /**
+     * @throws Exception
+     */
     public void testJavaToPerlFormat() throws Exception
     {
         final String[][] fixture = new String[][]{new String[]{"yyyy/MM/dd", "%Y/%m/%d"},
@@ -23,6 +32,9 @@ public class DateUtilsHelperTest
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public void testContainsTimeFormat() throws Exception
     {
         final Object[][] fixture = new Object[][]{new Object[]{"%Y/%m/%d", Boolean.FALSE},
@@ -32,7 +44,7 @@ public class DateUtilsHelperTest
         for (int i = 0; i < fixture.length; i++)
         {
             Object[] objects = fixture[i];
-            assertEquals(DateUtilsHelper.containsTimeFormat((String) objects[0]), objects[1]);
+            assertEquals(Boolean.valueOf(DateUtilsHelper.containsTimeFormat((String)objects[0])), objects[1]);
         }
     }
 }

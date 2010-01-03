@@ -137,7 +137,8 @@ public class HibernateAssociationEndLogicImpl
         {
             final boolean specificInterfaces =
                     Boolean.valueOf(
-                            ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)));
+                    ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)))
+                       .booleanValue();
 
             final TypeMappings mappings = this.getLanguageMappings();
             if (mappings != null)
@@ -191,7 +192,8 @@ public class HibernateAssociationEndLogicImpl
         else if (this.isMany())
         {
             // set this association end's type as a template parameter if required
-            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                       .booleanValue())
             {
                 final StringBuilder lBuffer = new StringBuilder();
                 lBuffer.append(getterSetterTypeName);
@@ -224,7 +226,8 @@ public class HibernateAssociationEndLogicImpl
             // check whether or not composition defines eager loading is turned
             // on
             boolean compositionDefinesEagerLoading =
-                    Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)));
+                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
+                       .booleanValue();
 
             if (compositionDefinesEagerLoading)
             {
@@ -233,7 +236,7 @@ public class HibernateAssociationEndLogicImpl
         }
         else
         {
-            lazy = Boolean.valueOf(lazyString);
+            lazy = Boolean.valueOf(lazyString).booleanValue();
         }
 
         return lazy;
@@ -572,7 +575,7 @@ public class HibernateAssociationEndLogicImpl
                 }
                 // Otherwise, just use the taggedValue String, and hope things line up with the model.
                 // Add java.lang. if needed...
-                value = new JavaTypeConverter().getJavaLangTypeName((String)value);
+                value = JavaTypeConverter.getJavaLangTypeName((String)value);
             }
             if (value instanceof HibernateType)
             {
@@ -670,7 +673,8 @@ public class HibernateAssociationEndLogicImpl
             }
 
             // set this association end's type as a template parameter if required
-            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                       .booleanValue())
             {
                 implementation.append('<');
                 if (this.isMap())

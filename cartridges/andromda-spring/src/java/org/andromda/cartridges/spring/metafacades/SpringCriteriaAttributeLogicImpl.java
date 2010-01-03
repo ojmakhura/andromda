@@ -263,6 +263,6 @@ public class SpringCriteriaAttributeLogicImpl
         {
             value = this.getConfiguredProperty(HIBERNATE_CRITERIA_QUERY_IGNORE_CASE);
         }
-        return Boolean.valueOf(ObjectUtils.toString(value));
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
 }

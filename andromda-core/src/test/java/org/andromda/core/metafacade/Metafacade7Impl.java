@@ -20,8 +20,11 @@ public class Metafacade7Impl
         super(metaObject, context);
     }
 
-    private boolean propertyOne;
+    private boolean propertyOne = false;
 
+    /**
+     * @return propertyOne
+     */
     public boolean getPropertyOne()
     {
         return propertyOne;
@@ -29,6 +32,9 @@ public class Metafacade7Impl
 
     private boolean propertyTwo = true;
 
+    /**
+     * @return propertyTwo
+     */
     public boolean getPropertyTwo()
     {
         return propertyTwo;

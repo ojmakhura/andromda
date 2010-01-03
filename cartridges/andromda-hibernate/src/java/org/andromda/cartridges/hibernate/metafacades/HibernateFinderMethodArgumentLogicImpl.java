@@ -38,7 +38,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     {
         StringBuffer setterName = new StringBuffer();
         boolean specializedSetters =
-                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS)));
+            Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS))).booleanValue();
         ClassifierFacade classifier = this.getType();
         if (classifier != null)
         {

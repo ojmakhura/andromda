@@ -70,6 +70,7 @@ public class SpringQueryOperationLogicImpl
     protected boolean handleIsUseNamedParameters()
     {
         boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
+                .booleanValue()
                 || StringUtils.isNotBlank(this.getTranslatedQuery());
 
         return SpringMetafacadeUtils.getUseNamedParameters(this, useNamedParameters);
