@@ -15,7 +15,7 @@ package $class.packageName;
 $class.getDocumentation(" * ")
  */
 #if ($XMLBindingAnnotations)
-    @XmlRootElement(name="TestApplicationException")
+    @XmlRootElement(name="#if ($webFault)$faultClass#else$class.name#end")
     // Annotate get/set fields with @XmlTransient, not the private fields.
     @XmlAccessorType(XmlAccessType.PROPERTY)
     @XmlType(name="testApplicationException")
