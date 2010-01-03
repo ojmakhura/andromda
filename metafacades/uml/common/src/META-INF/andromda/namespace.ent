@@ -287,6 +287,7 @@
             </documentation>
         </property>
         <property name="manageableServiceAccessorPattern" required="false">
+            <default>${application.package}.ManageableServiceLocator.instance().get{1}()</default>
             <documentation>
                 The pattern used for constructing the accessor's for manageable services.
                 Used with CRUD.
@@ -376,6 +377,13 @@
             property to work correctly: you must use a Java 5 compiler and you must use Hibernate 3
             for Object-relational mapping.
         </documentation>
+        </property>
+        <property name="toDoForMissingDocumentation">
+            <default>false</default>
+            <documentation>
+               If a model element documentation is missing, insert the text:
+               TODO: Missing Model Documentation for Name
+            </documentation>
         </property>
     </propertyGroup>
 </properties>
