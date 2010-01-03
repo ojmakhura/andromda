@@ -80,29 +80,37 @@ public interface $entity.daoName
      * Copies the fields of the specified entity to the target value object. This method is similar to
      * ${valueObjectRef.transformationMethodName}(), but it does not handle any attributes in the target
      * value object that are "read-only" (as those do not have setter methods exposed).
+     * @param source 
+     * @param target 
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
         $valueObjectRef.targetElement.fullyQualifiedName target);
 
-
     /**
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * @param entity 
+     * @return $valueObjectRef.targetElement.fullyQualifiedName
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
     /**
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * @param entities 
      */
     public void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
 
     /**
      * Converts this DAO's entity to an array of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * @param entities 
+     * @return ${valueObjectRef.targetElement.fullyQualifiedName}[]
      */
     public ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
 
     /**
      * Copies the fields of {@link $valueObjectRef.targetElement.fullyQualifiedName} to the specified entity.
+     * @param source 
+     * @param target 
      * @param copyIfNull If FALSE, the value object's field will not be copied to the entity if the value is NULL. If TRUE,
      * it will be copied regardless of its value.
      */
@@ -113,12 +121,15 @@ public interface $entity.daoName
 
     /**
      * Converts an instance of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity.
+     * @param $stringUtils.uncapitalize($valueObjectRef.name) 
+     * @return $entity.fullyQualifiedEntityName
      */
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
 
     /**
      * Converts a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this
      * DAO's entity.
+     * @param instances 
      */
     public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances);
 
@@ -150,6 +161,7 @@ public interface $entity.daoName
      * not occur.
      * </p>
      *
+     * @param transform flag to determine transformation type.
      * @param $identifierName the identifier of the entity to get.
      * @return either the entity or the object transformed from the entity.
      */
@@ -172,6 +184,7 @@ public interface $entity.daoName
      * not occur.
      * </p>
      *
+     * @param transform flag to determine transformation type.
      * @param $identifierName the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
      */
@@ -368,6 +381,7 @@ public interface $entity.daoName
      * transform the entity (into a value object for example). By default, transformation does
      * not occur.
      * </p>
+	 * @param transform flag to determine transformation type.
 #foreach($property in $requiredProperties)
      * @param $property.name
 #end
@@ -405,6 +419,7 @@ public interface $entity.daoName
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
+     * @param $argumentName 
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName);
 
@@ -626,7 +641,7 @@ $operation.getDocumentation("     * ")
 #set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 
     /**
-     * Does the same thing as {@link ${esc.hash}search(int, $fullyQualifiedSearchClassName) but with an
+     * Does the same thing as {@link ${esc.hash}search(int, ${fullyQualifiedSearchClassName})} but with an
      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
      * limit your data to a specified page number and size.
      *
@@ -639,7 +654,7 @@ $operation.getDocumentation("     * ")
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
 
     /**
-     * Does the same thing as {@link ${esc.hash}search($fullyQualifiedSearchClassName) but with an
+     * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
      * limit your data to a specified page number and size.
      *
@@ -651,7 +666,7 @@ $operation.getDocumentation("     * ")
     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
 
     /**
-     * Does the same thing as {@link ${esc.hash}search($fullyQualifiedSearchClassName)} but with an
+     * Does the same thing as {@link ${esc.hash}search(${fullyQualifiedSearchClassName})} but with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * finder results will <strong>NOT</strong> be transformed during retrieval.
      * If this flag is any of the other constants defined here

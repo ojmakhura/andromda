@@ -129,7 +129,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsLazy()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : false;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : false;
     }
 
     /**
@@ -149,7 +149,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsInsertEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : true;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
     }
 
     /**
@@ -160,7 +160,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsUpdateEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : true;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
     }
 
     private boolean isXmlPersistenceActive()
@@ -238,7 +238,7 @@ public class HibernateEntityAttributeLogicImpl
                     fullyQualifiedName = this.getType().getFullyQualifiedName();
                 }
             }
-            fullyQualifiedName = new JavaTypeConverter().getJavaLangTypeName(fullyQualifiedName);
+            fullyQualifiedName = JavaTypeConverter.getJavaLangTypeName(fullyQualifiedName);
         }
 
         return fullyQualifiedName; 

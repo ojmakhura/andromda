@@ -2,7 +2,6 @@ package org.andromda.core.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import junit.framework.TestCase;
 
 
@@ -14,7 +13,9 @@ import junit.framework.TestCase;
 public class IntrospectorTest
     extends TestCase
 {
-    
+    /**
+     * 
+     */
     public void testGetProperty()
     {
         TestBean testBean = new TestBean();
@@ -28,6 +29,9 @@ public class IntrospectorTest
         catch (IntrospectorException exception) {}
     }
     
+    /**
+     * 
+     */
     public void testSetProperty()
     {
         TestBean testBean = new TestBean();
@@ -52,6 +56,9 @@ public class IntrospectorTest
         catch (IntrospectorException exception) {}
     }
     
+    /**
+     * 
+     */
     public void testIsReadable()
     {
         TestBean testBean = new TestBean();
@@ -63,6 +70,9 @@ public class IntrospectorTest
         assertFalse(Introspector.instance().isWritable(testBean, "nestedBean.intProperty"));
     }
     
+    /**
+     * 
+     */
     public void testConstainsValidProperty()
     {
         TestBean testBean = new TestBean();
@@ -160,7 +170,7 @@ public class IntrospectorTest
     
     private static final class NestedBean
     {
-        private boolean booleanProperty;
+        private boolean booleanProperty = false;
         private Integer integerProperty = 10;
         private String stringProperty = "NestedBean";
         private int intProperty = 54;

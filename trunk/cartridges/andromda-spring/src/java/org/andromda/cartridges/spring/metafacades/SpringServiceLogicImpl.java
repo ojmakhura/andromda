@@ -548,7 +548,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsAllowDefaultServiceException()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(SpringGlobals.DEFAULT_SERVICE_EXCEPTIONS)));
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(SpringGlobals.DEFAULT_SERVICE_EXCEPTIONS))).booleanValue();
     }
 
     /**
@@ -617,7 +617,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsHibernateInterceptorEnabled()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)));
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED))).booleanValue();
     }
 
     /**
@@ -671,7 +671,7 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType;
+        String transactionType = null;
         final boolean ejbTransactionsEnabled =
             BooleanUtils.toBoolean(
                 ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.EJB_TRANSACTIONS_ENABLED)));

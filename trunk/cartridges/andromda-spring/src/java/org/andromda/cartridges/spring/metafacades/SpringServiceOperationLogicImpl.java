@@ -58,7 +58,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationSignature()
     {
-        String signature;
+        String signature = null;
         if (this.isIncomingMessageOperation())
         {
             signature = this.getIncomingMessageImplementationSignature();
@@ -81,7 +81,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getCall()
     {
-        String call;
+        String call = null;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             call = this.getName() + "(message)";
@@ -100,7 +100,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getSignature(String modifier)
     {
-        String signature;
+        String signature = null;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             signature = this.getIncomingMessageSignature(modifier);
@@ -119,7 +119,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getSignature(final boolean withArgumentNames)
     {
-        String signature;
+        String signature = null;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             signature = this.getIncomingMessageSignature(null);

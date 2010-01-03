@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Language utility for transforming french words
  *
- * @author C�dric Vidal
+ * @author Cédric Vidal
  */
 public class FrenchInflector
 {
@@ -172,9 +172,10 @@ public class FrenchInflector
     }
 
     /**
-     * Converts an french word to plural form
+     * Converts an French word to plural form
      *
      * @param str
+     * @return plural form
      */
     public static String pluralize(String str)
     {

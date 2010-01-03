@@ -38,7 +38,7 @@ public class HibernateEmbeddedValueLogicImpl
         Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_IMMUTABLE);
         if (value != null)
         {
-            immutable = Boolean.valueOf(ObjectUtils.toString(value));
+            immutable = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
         }
         return immutable;
     }

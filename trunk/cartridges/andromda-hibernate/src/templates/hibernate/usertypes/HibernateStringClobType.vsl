@@ -180,7 +180,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}assemble(Object value)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}disassemble(Object value)
      */
      public java.io.Serializable disassemble(Object value)
      {
@@ -188,7 +188,7 @@ public class $className
      }
 
      /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}assemble(Object value)
+     * @see Object${esc.hash}hashCode()
      */
      public int hashCode(Object x)
      {

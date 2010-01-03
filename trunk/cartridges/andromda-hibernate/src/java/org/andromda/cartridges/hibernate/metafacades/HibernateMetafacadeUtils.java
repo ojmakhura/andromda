@@ -123,7 +123,7 @@ class HibernateMetafacadeUtils
                     .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
             if (StringUtils.isNotEmpty(useNamedParametersValue))
             {
-                useNamedParameters = Boolean.valueOf(useNamedParametersValue);
+                useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
             }
         }
         return useNamedParameters;

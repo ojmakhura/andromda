@@ -67,7 +67,7 @@
 #end
 #if($class.compositeIdentifier)
 #set($primaryKeyName="$stringUtils.uncapitalize($className)Pk")
-        hashCode = 29 * hashCode + ($primaryKeyName == null ? 0 : ${primaryKeyName}.hashCode());
+        hashCode = 29 * hashCode + (this.$primaryKeyName == null ? 0 : this.${primaryKeyName}.hashCode());
 #else
 #foreach ($attribute in $attributeSet)
 #set ($attrType = $attribute.type)

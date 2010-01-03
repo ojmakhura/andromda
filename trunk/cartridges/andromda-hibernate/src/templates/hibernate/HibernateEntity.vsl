@@ -8,6 +8,10 @@
 package $entity.packageName;
 #end
 
+#if(!$entity.generalization)
+import java.io.Serializable;
+
+#end
 /**
 $entity.getDocumentation(" * ")
  */
@@ -15,7 +19,7 @@ public abstract class $entity.entityName
 #if($entity.generalization)
     extends $entity.generalization.fullyQualifiedEntityImplementationName
 #else
-    implements java.io.Serializable
+    implements Serializable
 #if (!$entity.interfaceAbstractions.empty)
         , $entity.implementedInterfaceList
 #end
@@ -214,6 +218,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
+    @Override
 #renderEqualsMethod($entity $entity.entityName $identifiers)
 
     /**
@@ -238,6 +243,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
+    @Override
 #renderHashCodeMethod($entity $entity.entityName $identifiers)
 
 #end
@@ -249,6 +255,7 @@ $operation.getDocumentation("     * ")
     {
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}.
+         * @return new ${entity.fullyQualifiedEntityImplementationName}()
          */
         public static $entity.fullyQualifiedName newInstance()
         {
@@ -272,6 +279,12 @@ $operation.getDocumentation("     * ")
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all required and/or
          * read-only properties as arguments, except for identifiers.
+#foreach ($property in $entity.allRequiredConstructorParameters)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
+         * @param ${property.name} ${property.getterSetterTypeName}
+#end
+#end
+         * @return newInstance
          */
         public static $entity.fullyQualifiedName newInstance(## no newline
 #set ($comma = "")

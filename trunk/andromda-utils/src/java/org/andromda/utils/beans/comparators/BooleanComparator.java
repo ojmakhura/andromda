@@ -1,7 +1,6 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.util.Comparator;
 
 
@@ -17,6 +16,9 @@ class BooleanComparator
     /**
      * Used to sort Boolean values, both objects are assumed
      * to be Boolean instances.
+     * @param objectA 
+     * @param objectB 
+     * @return compare result
      */
     public int compare(
         Object objectA,
@@ -25,11 +27,11 @@ class BooleanComparator
         Boolean aAsBoolean = (Boolean)objectA;
         Boolean bAsBoolean = (Boolean)objectB;
         int result = 0;
-        if (aAsBoolean && !bAsBoolean)
+        if (aAsBoolean.booleanValue() && !bAsBoolean.booleanValue())
         {
             result = 1;
         }
-        else if (!aAsBoolean && bAsBoolean)
+        else if (!aAsBoolean.booleanValue() && bAsBoolean.booleanValue())
         {
             result = -1;
         }

@@ -9,7 +9,6 @@ import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.Entity;
-import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -319,7 +318,7 @@ public class HibernateEntityLogicImpl
             String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
             value = version.equals(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
         }
-        return Boolean.valueOf(value);
+        return Boolean.valueOf(value).booleanValue();
     }
 
     @Override
@@ -530,7 +529,7 @@ public class HibernateEntityLogicImpl
             hibernateProxy = (String)this.getConfiguredProperty(HIBERNATE_PROXY);
         }
 
-        return Boolean.valueOf(hibernateProxy);
+        return Boolean.valueOf(hibernateProxy).booleanValue();
     }
 
     @Override
@@ -539,8 +538,7 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetEhCacheMaxElementsInMemory()
     {
-        String maxElements;
-        maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
+        String maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
 
         if (StringUtils.isBlank(maxElements))
         {
@@ -561,7 +559,7 @@ public class HibernateEntityLogicImpl
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
-        return Boolean.valueOf(StringUtils.trimToEmpty(eternal));
+        return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
     }
 
     @Override
@@ -611,7 +609,7 @@ public class HibernateEntityLogicImpl
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
 
-        return Boolean.valueOf(StringUtils.trimToEmpty(eternal));
+        return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
     }
 
     @Override
@@ -621,13 +619,13 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateCacheDistributed()
     {
         String distributed = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITYCACHE_DISTRIBUTED);
-        boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed));
+        boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed)).booleanValue();
 
         if (distributedCachingEnabled)
         {
             String entityCacheDistributed =
                 (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITYCACHE_DISTRIBUTED);
-            return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed));
+            return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed)).booleanValue();
         }
         return false;
     }
@@ -765,7 +763,7 @@ public class HibernateEntityLogicImpl
             dynamicInsert = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
 
-        return Boolean.valueOf(dynamicInsert);
+        return Boolean.valueOf(dynamicInsert).booleanValue();
     }
 
     @Override
@@ -782,7 +780,7 @@ public class HibernateEntityLogicImpl
             dynamicUpdate = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
 
-        return Boolean.valueOf(dynamicUpdate);
+        return Boolean.valueOf(dynamicUpdate).booleanValue();
     }
 
     @Override

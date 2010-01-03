@@ -1,11 +1,8 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.text.Collator;
-
 import java.util.Comparator;
-
 
 /**
  * Used to sort by Character values
@@ -20,7 +17,10 @@ class CharacterComparator
 
     /**
      * Used to sort Character values, both objects are assumed to be assignable
-     * to java.util.Character
+     * to java.lang.Character
+     * @param objectA 
+     * @param objectB 
+     * @return comparison result
      */
     public int compare(
         Object objectA,
@@ -30,8 +30,8 @@ class CharacterComparator
         Character bAsCharacter = (Character)objectB;
         this.initializeCollator();
         return collator.compare(
-            Character.toString(aAsCharacter),
-            Character.toString(bAsCharacter));
+            Character.toString(aAsCharacter.charValue()),
+            Character.toString(bAsCharacter.charValue()));
     }
 
     /**

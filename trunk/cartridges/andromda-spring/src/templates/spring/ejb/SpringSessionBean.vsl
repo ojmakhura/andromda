@@ -44,6 +44,7 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
      *
      * @see org.springframework.ejb.support.AbstractStatelessSessionBean${esc.hash}onEjbCreate()
      */
+    @Override
     protected void onEjbCreate()
     {
 #if($service.generalization && !$service.generalization.abstract)
@@ -60,6 +61,7 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
      *
      * $seeComment
      */
+    @Override
     public void setSessionContext(javax.ejb.SessionContext sessionContext)
     {
         super.setSessionContext(sessionContext);
@@ -72,6 +74,8 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
     /**
      * Finds the root cause of the parent exception
      * by traveling up the exception tree.
+     * @param throwable
+     * @return Throwable root cause
      */
     private static Throwable getRootCause(Throwable throwable)
     {

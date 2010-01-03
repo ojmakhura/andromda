@@ -140,6 +140,7 @@ public class $serviceLocatorName
 #foreach ($service in $services)
     /**
      * Gets an instance of {@link $service.fullyQualifiedName}.
+     * @return ${service.name} from getContext().getBean("$service.beanName")
      */
     public final $service.fullyQualifiedName get${service.name}()
     {
@@ -150,7 +151,8 @@ public class $serviceLocatorName
 #end
 #foreach ($manageable in $manageables)
     /**
-     * Gets an instance of {@link $manageable.fullyQualifiedManageableServiceName}.
+     * Gets a manageable instance of {@link $manageable.fullyQualifiedManageableServiceName}.
+     * @return ${manageable.name} from getContext().getBean("$manageable.beanName")
      */
     public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}()
     {
