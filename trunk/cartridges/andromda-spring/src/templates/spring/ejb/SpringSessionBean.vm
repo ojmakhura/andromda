@@ -7,7 +7,7 @@
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
      */
-    $operation.visibility $returnType.fullyQualifiedName $signature
+    $operation.visibility $operation.getterSetterReturnTypeName $signature
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
 #end
