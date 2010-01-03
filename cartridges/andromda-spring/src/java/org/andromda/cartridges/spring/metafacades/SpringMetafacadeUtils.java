@@ -65,7 +65,7 @@ class SpringMetafacadeUtils
     static String getServiceRemotingType(ClassifierFacade classifier, String defaultServiceRemotingType)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        String remotingType = "";
+        String remotingType = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String remotingTypeValue = (String)classifier.findTaggedValue(
@@ -149,7 +149,7 @@ class SpringMetafacadeUtils
     static String getServiceRemotePort(ClassifierFacade classifier, String defaultRemoteServicePort)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        String remoteServicePort = "";
+        String remoteServicePort = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String remoteServicePortValue = (String)classifier.findTaggedValue(
@@ -196,7 +196,7 @@ class SpringMetafacadeUtils
                     .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
             if (StringUtils.isNotEmpty(useNamedParametersValue))
             {
-                useNamedParameters = Boolean.valueOf(useNamedParametersValue);
+                useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
             }
         }
         return useNamedParameters;

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -313,7 +312,7 @@ public class SpringUtils
      */
     public String getClassName(String fullyQualifiedName)
     {
-       String className = "";
+       String className = null;
        if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
@@ -325,6 +324,10 @@ public class SpringUtils
            {
                className = fullyQualifiedName;
            }
+       }
+       else
+       {
+           className = "";
        }
 
        return className;
@@ -338,11 +341,15 @@ public class SpringUtils
      */
     public String getPackageName(String fullyQualifiedName)
     {
-       String packageName = "";
+       String packageName = null;
        if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
            packageName = (lastDot >= 0 ? fullyQualifiedName.substring(0, lastDot) : "");
+       }
+       else
+       {
+           packageName = "";
        }
 
        return packageName;
@@ -366,7 +373,8 @@ public class SpringUtils
             /*final Object object = elementIterator.next();
             if (object instanceof ModelElementFacade)
             {*/
-            if (!filteredElements.containsKey(modelElement.getName())) {
+            if (!filteredElements.containsKey(modelElement.getName()))
+            {
                 filteredElements.put(modelElement.getName(), modelElement);
             }
             /*}*/
