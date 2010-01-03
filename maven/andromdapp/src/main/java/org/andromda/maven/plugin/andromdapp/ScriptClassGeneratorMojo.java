@@ -4,12 +4,15 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.maven.plugin.andromdapp.script.ScriptClassGenerator;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -120,9 +123,9 @@ public class ScriptClassGeneratorMojo
     /**
      * Adds any dependencies to the current project from the plugin
      * having the given <code>pluginArtifactId</code>.
-     *
-     * @param pluginArtifactId the artifactId of the plugin of which to add its dependencies.
-     * @param scope the artifact scope in which to add them (runtime, compile, etc).
+     * This project artifact dependencies are added.
+     * scope=PROVIDED the artifact scope in which to add them (runtime, compile, etc).
+     * @return classpathElements
      */
     protected List<String> getProvidedClasspathElements()
     {
@@ -175,8 +178,7 @@ public class ScriptClassGeneratorMojo
 
     /**
      * Sets the current context class loader from the given runtime classpath elements.
-     *
-     * @throws DependencyResolutionRequiredException
+     * @param classpathFiles
      * @throws MalformedURLException
      */
     protected void initializeClassLoader(final Collection<String> classpathFiles)
