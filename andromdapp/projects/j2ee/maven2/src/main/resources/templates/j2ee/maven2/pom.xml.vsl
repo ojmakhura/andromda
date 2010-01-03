@@ -41,7 +41,7 @@
     </developers>
     <dependencyManagement>
         <dependencies>
-        #if (!$ejb && !$ejb3 && $spring)
+#if (!$ejb && !$ejb3 && $spring)
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
@@ -90,22 +90,22 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #if($groovy)
+#if($groovy)
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all-minimal</artifactId>
                 <version>1.5.7</version>
             </dependency>
-        #end
-        #end
-        #if ($jsf)
+#end
+#end
+#if ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
                 <version>${andromda.version}</version>
                 <scope>runtime</scope>
             </dependency>
-        #if ($jsf2)
+#if ($jsf2)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf2-cartridge</artifactId>
@@ -145,14 +145,14 @@
                 <version>1.0</version>
                 <scope>runtime</scope>
             </dependency>
-        #if ($portlet)
+#if ($portlet)
             <dependency>
                 <groupId>javax.portlet</groupId>
                 <artifactId>portlet-api</artifactId>
                 <version>1.0</version>
                 <scope>provided</scope>
             </dependency>
-        #if ($ajaxLibrary.equals("icefaces"))
+#if ($ajaxLibrary.equals("icefaces"))
             <dependency>
                 <groupId>org.icefaces</groupId>
                 <artifactId>icefaces</artifactId>
@@ -171,8 +171,8 @@
                 <version>1.8.0</version>
                 <scope>runtime</scope>
             </dependency>
-        #end
-        #else
+#end
+#else
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
                 <artifactId>trinidad-api</artifactId>
@@ -189,8 +189,8 @@
                 <version>1.1.14</version>
                 <scope>runtime</scope>
             </dependency>
-        #end
-        #end
+#end
+#end
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
@@ -214,8 +214,8 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
-        #if ($jbossSeam)
+#end
+#if ($jbossSeam)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
@@ -240,8 +240,8 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
-        #if (!$transactionPersistenceType.equals("none"))
+#end
+#if (!$transactionPersistenceType.equals("none"))
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
@@ -254,7 +254,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
+#end
             <!-- This dependency provides the ability to implement your
                   business logic in an interpreted manner during development on
                   your local machine -->
@@ -294,11 +294,11 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
-            #if ($ear)
+#if ($ear)
                 <scope>provided</scope>
-            #end
+#end
             </dependency>
-        #if ($ejb3)
+#if ($ejb3)
             <!-- JBoss Dependencies -->
             <dependency>
                 <groupId>org.jboss</groupId>
@@ -366,7 +366,7 @@
                 <version>4.0.5-GA</version>
                 <scope>runtime</scope>
             </dependency>
-        #if ($jsr181Webservice)
+#if ($jsr181Webservice)
             <!-- Webservice JBossWS Dependencies -->
             <dependency>
                 <groupId>org.jboss</groupId>
@@ -380,7 +380,7 @@
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
             </dependency>
-        #end
+#end
             <!-- Embedded Microcontainer Dependencies -->
             <dependency>
                 <groupId>org.jboss.microcontainer</groupId>
@@ -418,7 +418,7 @@
                 <version>1.2.3</version>
                 <scope>provided</scope>
             </dependency>
-        #if ($spring || $hibernate)
+#if ($spring || $hibernate)
             <!-- Hibernate Dependencies -->
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -432,19 +432,19 @@
                 <version>3.3.0.ga</version>
                 <scope>provided</scope>
             </dependency>
-        #end
-        #else
+#end
+#else
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
                 <version>3.2.3</version>
-            #if ($ear)
+#if ($ear)
                 <scope>provided</scope>
-            #end
+#end
             </dependency>
-        #end
-        #if (!$ejb && !$ejb3)
-        #if ($hibernateVersion.equals("2"))
+#end
+#if (!$ejb && !$ejb3)
+#if ($hibernateVersion.equals("2"))
             <dependency>
                 <groupId>net.sf.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
@@ -486,7 +486,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #else
+#else
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
@@ -498,13 +498,13 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
-        #end
-        #if ($spring)
+#end
+#end
+#if ($spring)
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring</artifactId>
-            #if ($springVersion.equals("1"))
+#if ($springVersion.equals("1"))
                 <version>1.2.9</version>
                 <exclusions>
                     <exclusion>
@@ -512,9 +512,9 @@
                         <artifactId>mail</artifactId>
                     </exclusion>
                 </exclusions>
-            #else
+#else
                 <version>${spring.version}</version>
-            #end
+#end
             </dependency>
             <!-- Comment out three below if not using JMS -->
             <dependency>
@@ -534,8 +534,8 @@
                 <artifactId>aopalliance</artifactId>
                 <version>1.0</version>
             </dependency>
-        #end
-        #if ($workflow)
+#end
+#if ($workflow)
             <dependency>
                 <groupId>org.jbpm</groupId>
                 <artifactId>jbpm</artifactId>
@@ -551,15 +551,15 @@
                 <artifactId>c3p0</artifactId>
                 <version>0.8.5.2</version>
             </dependency>
-        #end
-        #if ($web || $hibernate || $workflow)
+#end
+#if ($web || $hibernate || $workflow)
             <dependency>
                 <groupId>antlr</groupId>
                 <artifactId>antlr</artifactId>
                 <version>2.7.7</version>
             </dependency>
-        #end
-        #if ($web)
+#end
+#if ($web)
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
@@ -613,8 +613,8 @@
                 <version>2.0.8</version>
                 <scope>runtime</scope>
             </dependency>
-        #end
-        #if ($struts)
+#end
+#if ($struts)
             <dependency>
                 <groupId>struts</groupId>
                 <artifactId>struts</artifactId>
@@ -651,9 +651,9 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
-        #if ($jsf)
-        #if ($jbossSeam)
+#end
+#if ($jsf)
+#if ($jbossSeam)
             <!-- MyFaces Dependencies -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
@@ -667,9 +667,9 @@
                 <version>1.1.5</version>
                 <scope>provided</scope>
             </dependency>
-        #end
-        #end
-        #if ($axis)
+#end
+#end
+#if ($axis)
             <dependency>
                 <groupId>javax.activation</groupId>
                 <artifactId>activation</artifactId>
@@ -680,7 +680,7 @@
                 <artifactId>mail</artifactId>
                 <version>1.4.1</version>
             </dependency>
-        #if ($axisVersion.equals("1"))
+#if ($axisVersion.equals("1"))
             <!-- Axis1 Dependencies -->
             <dependency>
                 <groupId>axis</groupId>
@@ -708,7 +708,7 @@
                 <artifactId>wsdl4j</artifactId>
                 <version>1.6.2</version>
             </dependency>
-        #else
+#else
             <!-- Axis2 Dependencies -->
             <dependency>
                 <groupId>org.apache.axis2</groupId>
@@ -815,8 +815,8 @@
                 <version>3.2.7</version>
                 <scope>runtime</scope>
             </dependency>
-        #end
-        #elseif ($xfire)
+#end
+#elseif ($xfire)
             <dependency>
                 <groupId>org.codehaus.xfire</groupId>
                 <artifactId>xfire-all</artifactId>
@@ -829,7 +829,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-        #end
+#end
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -842,7 +842,7 @@
                 <version>1.2.14</version>
                 <!--scope>test</scope-->
             </dependency>
-        #if ($ejb3)
+#if ($ejb3)
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
@@ -866,7 +866,7 @@
                 <version>5.0.4</version>
                 <scope>test</scope>
             </dependency>
-        #end
+#end
         </dependencies>
     </dependencyManagement>
     <build>
@@ -912,7 +912,7 @@
                         <target>1.5</target>
                     </configuration>
                 </plugin>
-            #if ($ejb3)
+#if ($ejb3)
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.4.3</version>
@@ -929,7 +929,7 @@
                         </systemProperties>
                     </configuration>
                 </plugin>
-            #end
+#end
                 <!-- Comment to run Eclipse plugin for top leval project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
@@ -973,21 +973,21 @@
     <modules>
         <module>mda</module>
         <module>common</module>
-    #if (!$transactionPersistenceType.equals("none"))
+#if (!$transactionPersistenceType.equals("none"))
         <module>core</module>
-    #end
-    #if ($web || $war)
+#end
+#if ($web || $war)
         <module>web</module>
-    #end
-    #if ($webservice && !$jsr181Webservice && $ear)
+#end
+#if ($webservice && !$jsr181Webservice && $ear)
         <module>webservice</module>
-    #end
-    #if ($workflow)
+#end
+#if ($workflow)
         <module>workflow</module>
-    #end
-    #if ($ear)
+#end
+#if ($ear)
         <module>app</module>
-    #end
+#end
     </modules>
     <properties>
         <andromda.version>$andromdaVersion</andromda.version>
@@ -1020,34 +1020,34 @@
             For Derby use: Derby
             -->
         <sql.mappings>
-        #if ($mysql)
+#if ($mysql)
             MySQL
-        #elseif ($oracle)
+#elseif ($oracle)
             Oracle9i
-        #elseif ($db2)
+#elseif ($db2)
             DB2
-        #elseif ($informix)
+#elseif ($informix)
             InformixDB
-        #elseif ($mssql)
+#elseif ($mssql)
             MSSQL
-        #elseif ($pointbase)
+#elseif ($pointbase)
             PointBase
-        #elseif ($postgres)
+#elseif ($postgres)
             PostgreSQL
-        #elseif ($sybase)
+#elseif ($sybase)
             Sybase
-        #elseif ($sapdb)
+#elseif ($sapdb)
             SapDB
-        #elseif ($progress)
+#elseif ($progress)
             PostgreSQL 7.2
-        #elseif ($derby)
+#elseif ($derby)
             Derby
-        #else
+#else
             HypersonicSql
-        #end
+#end
         </sql.mappings>
-    #if ($hibernate || $spring || $ejb3)
-    #if ($hibernateVersion.equals("2"))
+#if ($hibernate || $spring || $ejb3)
+#if ($hibernateVersion.equals("2"))
         <!--
         Change this for the appropriate database
         For MySql use: net.sf.hibernate.dialect.MySQLDialect
@@ -1065,33 +1065,33 @@
         For Derby use: net.sf.hibernate.dialect.DerbyDialect
         -->
         <hibernate.dialect>
-        #if ($mysql)
+#if ($mysql)
             net.sf.hibernate.dialect.MySQLDialect
-        #elseif ($oracle)
+#elseif ($oracle)
             net.sf.hibernate.dialect.Oracle9Dialect
-        #elseif ($db2)
+#elseif ($db2)
             net.sf.hibernate.dialect.DB2Dialect
-        #elseif ($informix)
+#elseif ($informix)
             net.sf.hibernate.dialect.InformixDialect
-        #elseif ($mssql)
+#elseif ($mssql)
             net.sf.hibernate.dialect.SQLServerDialect
-        #elseif ($pointbase)
+#elseif ($pointbase)
             net.sf.hibernate.dialect.PointbaseDialect
-        #elseif ($postgres)
+#elseif ($postgres)
             net.sf.hibernate.dialect.PostgreSQLDialect
-        #elseif ($sybase)
+#elseif ($sybase)
             net.sf.hibernate.dialect.SybaseDialect
-        #elseif ($sapdb)
+#elseif ($sapdb)
             net.sf.hibernate.dialect.SAPDBDialect
-        #elseif ($progress)
+#elseif ($progress)
             net.sf.hibernate.dialect.ProgressDialect
-        #elseif ($derby)
+#elseif ($derby)
             net.sf.hibernate.dialect.DerbyDialect
-        #else
+#else
             net.sf.hibernate.dialect.HSQLDialect
-        #end
+#end
         </hibernate.dialect>
-    #else
+#else
         <!--
         Change this for the appropriate database
         For MySql use: org.hibernate.dialect.MySQLDialect
@@ -1112,35 +1112,35 @@
         For Derby use: org.hibernate.dialect.DerbyDialect
         -->
         <hibernate.dialect>
-        #if ($mysql)
+#if ($mysql)
             org.hibernate.dialect.MySQLInnoDBDialect
-        #elseif ($oracle)
+#elseif ($oracle)
             org.hibernate.dialect.Oracle9Dialect
-        #elseif ($db2)
+#elseif ($db2)
             org.hibernate.dialect.DB2Dialect
-        #elseif ($informix)
+#elseif ($informix)
             org.hibernate.dialect.InformixDialect
-        #elseif ($mssql)
+#elseif ($mssql)
             org.hibernate.dialect.SQLServerDialect
-        #elseif ($pointbase)
+#elseif ($pointbase)
             org.hibernate.dialect.PointbaseDialect
-        #elseif ($postgres)
+#elseif ($postgres)
             org.hibernate.dialect.PostgreSQLDialect
-        #elseif ($sybase)
+#elseif ($sybase)
             org.hibernate.dialect.SybaseDialect
-        #elseif ($sapdb)
+#elseif ($sapdb)
             org.hibernate.dialect.SAPDBDialect
-        #elseif ($progress)
+#elseif ($progress)
             org.hibernate.dialect.ProgressDialect
-        #elseif ($derby)
+#elseif ($derby)
             org.hibernate.dialect.DerbyDialect
-        #else
+#else
             org.hibernate.dialect.HSQLDialect
-        #end
+#end
         </hibernate.dialect>
-    #end
-    #end
-    #if ($ejb || $ejb3)
+#end
+#end
+#if ($ejb || $ejb3)
         <!--
           Change this to the correct database type mappings (for Jboss)
           For MySql use: mySQL
@@ -1156,51 +1156,51 @@
           For Derby use: Derby
           -->
         <jboss.typeMappings>
-        #if ($mysql)
+#if ($mysql)
             mySQL
-        #elseif ($oracle)
+#elseif ($oracle)
             Oracle9i
-        #elseif ($db2)
+#elseif ($db2)
             DB2
-        #elseif ($informix)
+#elseif ($informix)
             InformixDB
-        #elseif ($mssql)
+#elseif ($mssql)
             MS SQLSERVER2000
-        #elseif ($pointbase)
+#elseif ($pointbase)
             PointBase
-        #elseif ($postgres)
+#elseif ($postgres)
             PostgreSQL 7.2
-        #elseif ($sybase)
+#elseif ($sybase)
             Sybase
-        #elseif ($sapdb)
+#elseif ($sapdb)
             SapDB
-        #elseif ($derby)
+#elseif ($derby)
             Derby
-        #elseif ($progress)
+#elseif ($progress)
             PostgreSQL 7.2
-        #else
+#else
             Hypersonic SQL
-        #end
+#end
         </jboss.typeMappings>
-    #end
-    #if ($ear)
+#end
+#if ($ear)
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
-    #else
+#else
         <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
-    #end
+#end
     <application.id>$applicationId</application.id>
     <application.package>$applicationPackage</application.package>
     <application.name>$applicationName</application.name>
     <application.version>$applicationVersion</application.version>
     <dataSource.name>jdbc/${application.id}</dataSource.name>
-    #if ($ear)
+#if ($ear)
         <dataSource>java:/${dataSource.name}</dataSource>
-    #else
+#else
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
-    #end
-    #if ($spring && $springVersion.equals("2"))
+#end
+#if ($spring && $springVersion.equals("2"))
         <spring.version>2.0.8</spring.version>
-    #end
+#end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>
         <password></password>
@@ -1218,59 +1218,59 @@
                         For Hypersonic use: hsqldb.jar
                         -->
                 <jdbc.driver.jar>
-                #if ($ear)
-                    #if ($mysql)
+#if ($ear)
+#if ($mysql)
                         ${jboss.home}/server/default/lib/mysql-connector-java-5.0.4-bin.jar
-                    #elseif ($oracle)
+#elseif ($oracle)
                         ${jboss.home}/server/default/lib/ojdbc14.jar
-                    #elseif ($db2)
+#elseif ($db2)
                         ${jboss.home}/server/default/lib/db2java.zip
-                    #elseif ($informix)
+#elseif ($informix)
                         ${jboss.home}/server/default/lib/ifxjdbc.jar
-                    #elseif ($mssql)
+#elseif ($mssql)
                         ${jboss.home}/server/default/lib/Mssqlserver.jar
-                    #elseif ($pointbase)
+#elseif ($pointbase)
                         ${jboss.home}/server/default/lib/pbclient.jar
-                    #elseif ($postgres)
+#elseif ($postgres)
                         ${jboss.home}/server/default/lib/postgresql.jar
-                    #elseif ($sybase)
+#elseif ($sybase)
                         ${jboss.home}/server/default/lib/jconn2.jar
-                    #elseif ($sapdb)
+#elseif ($sapdb)
                         ${jboss.home}/server/default/lib/sapdbc.jar
-                    #elseif ($progress)
+#elseif ($progress)
                         ${jboss.home}/server/default/lib/progress.jar
-                    #elseif ($derby)
+#elseif ($derby)
                         ${jboss.home}/server/default/lib/derby.jar
-                    #else
+#else
                         ${jboss.home}/server/default/lib/hsqldb.jar
-                    #end
-                #else
-                    #if ($mysql)
+#end
+#else
+#if ($mysql)
                         /path/to/mysql/lib/mysql-connector-java-5.0.4-bin.jar
-                    #elseif ($oracle)
+#elseif ($oracle)
                         /path/to/oracle/jdbc/lib/ojdbc14.jar
-                    #elseif ($db2)
+#elseif ($db2)
                         /path/to/db2/java/db2java.zip
-                    #elseif ($informix)
+#elseif ($informix)
                         /path/to/informix/lib/ifxjdbc.jar
-                    #elseif ($mssql)
+#elseif ($mssql)
                         /path/to/SQLServerh/java/Mssqlserver.jar
-                    #elseif ($pointbase)
+#elseif ($pointbase)
                         /path/to/pointbase/lib/pbclient.jar
-                    #elseif ($postgres)
+#elseif ($postgres)
                         /path/to/postgres/lib/postgresql.jar
-                    #elseif ($sybase)
+#elseif ($sybase)
                         /path/to/sybase/java/jconn2.jar
-                    #elseif ($sapdb)
+#elseif ($sapdb)
                         /path/to/sapdb/lib/sapdbc.jar
-                    #elseif ($progress)
+#elseif ($progress)
                         /path/to/progress/lib/progress.jar
-                    #elseif ($derby)
+#elseif ($derby)
                         /path/to/derby/lib/derby.jar
-                    #else
+#else
                         /path/to/hsqldb/lib/hsqldb.jar
-                    #end
-                #end
+#end
+#end
                 </jdbc.driver.jar>
                 <!--
                         Change driver for appropriate database
@@ -1288,31 +1288,31 @@
                         For Derby use: org.apache.derby.jdbc.EmbeddedDriver
                         -->
                 <jdbc.driver>
-                #if ($mysql)
+#if ($mysql)
                     com.mysql.jdbc.Driver
-                #elseif ($oracle)
+#elseif ($oracle)
                     oracle.jdbc.driver.OracleDriver
-                #elseif ($db2)
+#elseif ($db2)
                     COM.ibm.db2.jdbc.app.DB2Driver
-                #elseif ($informix)
+#elseif ($informix)
                     com.informix.jdbc.IfxDriver
-                #elseif ($mssql)
+#elseif ($mssql)
                     com.microsoft.jdbc.sqlserver.SQLServerDriver
-                #elseif ($pointbase)
+#elseif ($pointbase)
                     com.pointbase.jdbc.jdbcUniversalDriver
-                #elseif ($postgres)
+#elseif ($postgres)
                     org.postgresql.Driver
-                #elseif ($sybase)
+#elseif ($sybase)
                     com.sybase.jdbc2.jdbc.SybDataSource
-                #elseif ($sapdb)
+#elseif ($sapdb)
                     com.sap.dbtech.jdbc.DriverSapDB
-                #elseif ($progress)
+#elseif ($progress)
                     com.progress.sql.jdbc.JdbcProgressDriver
-                #elseif ($derby)
+#elseif ($derby)
                     org.apache.derby.jdbc.EmbeddedDriver
-                #else
+#else
                     org.hsqldb.jdbcDriver
-                #end
+#end
                 </jdbc.driver>
                     <!--
                           Change connection url for appropriate database
@@ -1329,59 +1329,59 @@
 				For Progress use: jdbc:JdbcProgress:T:localhost:3305:$applicationId
 				-->
                 <jdbc.url>
-                #if ($mysql)
+#if ($mysql)
                     jdbc:mysql://localhost:3306/$applicationId
-                #elseif ($oracle)
+#elseif ($oracle)
                     jdbc:oracle:thin:@localhost:1521:yoursid
-                #elseif ($db2)
+#elseif ($db2)
                     jdbc:db2:$applicationId
-                #elseif ($informix)
+#elseif ($informix)
                     jdbc:informix-sqli://localhost:1557/${applicationId}:INFORMIXSERVER=myserver
-                #elseif ($mssql)
+#elseif ($mssql)
                     jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=$applicationId
-                #elseif ($pointbase)
+#elseif ($pointbase)
                     jdbc:pointbase:server://@pointbase.server@:@pointbase.port/pointbase.${applicationId}@,new
-                #elseif ($postgres)
+#elseif ($postgres)
                     jdbc:postgresql://localhost/$applicationId
-                #elseif ($sybase)
+#elseif ($sybase)
                     jdbc:sybase:Tds:localhost:5000/${applicationId}?JCONNECT_VERSION=6
-                #elseif ($sapdb)
+#elseif ($sapdb)
                     jdbc:sapdb://127.0.0.1/$applicationId
-                #elseif ($progress)
+#elseif ($progress)
                     jdbc:JdbcProgress:T:localhost:3305:$applicationId
-                #elseif ($derby)
+#elseif ($derby)
                     jdbc:derby:$applicationId
-                #else
+#else
                     jdbc:hsqldb:hsql://127.0.0.1:1701
-                #end
+#end
                 </jdbc.url>
                 <!-- Enter id/password for the database connection -->
                 <jdbc.username>
-                #if ($mysql)
+#if ($mysql)
                     $applicationId
-                #elseif ($oracle)
+#elseif ($oracle)
                     SYSTEM
-                #elseif ($db2)
+#elseif ($db2)
                     db2admin
-                #elseif ($informix)
+#elseif ($informix)
                     informix
-                #elseif ($mssql || $sybase)
+#elseif ($mssql || $sybase)
                     sa
-                #elseif ($pointbase)
+#elseif ($pointbase)
                     pointbase
-                #elseif ($postgres)
+#elseif ($postgres)
                     postgres
-                #elseif ($sapdb)
+#elseif ($sapdb)
                     sap
-                #elseif ($progress)
+#elseif ($progress)
                     progress
-                #elseif ($derby)
+#elseif ($derby)
                     derby
-                #else
-                    hsql
-                #end
+#else
+                    sa
+#end
                 </jdbc.username>
-                <jdbc.password>$applicationId</jdbc.password>
+                <jdbc.password>#if(!$hypersonic)$applicationId#end</jdbc.password>
                 <!--
                         Change exception sorter class name for appropriate database
                         For MySQL use: org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
@@ -1397,24 +1397,24 @@
                         For Progress use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
                         -->
                 <jdbc.exception.sorter>
-                #if ($mysql)
+#if ($mysql)
                     org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
-                #elseif ($oracle)
+#elseif ($oracle)
                     org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
-                #elseif ($informix)
+#elseif ($informix)
                     org.jboss.resource.adapter.jdbc.vendor.InformixExceptionSorter
-                #elseif ($sybase)
+#elseif ($sybase)
                     org.jboss.resource.adapter.jdbc.vendor.SybaseExceptionSorter
-                #else
+#else
                     org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
-                #end
+#end
                 </jdbc.exception.sorter>
-            #if ($webservice)
+#if ($webservice)
                 <!-- Change this to the host on which your webservice will be deployed -->
                 <webservice.host>localhost</webservice.host>
                 <!-- Change this the port on which your webservice will be deploy -->
                 <webservice.port>8080</webservice.port>
-            #end
+#end
             </properties>
             <build>
                 <pluginManagement>
@@ -1495,10 +1495,10 @@
                 <jdbc.username></jdbc.username>
                 <jdbc.password></jdbc.password>
                 <jdbc.exception.sorter></jdbc.exception.sorter>
-            #if ($webservice)
+#if ($webservice)
                 <webservice.host></webservice.host>
                 <webservice.port></webservice.port>
-            #end
+#end
             </properties>
         </profile>
         <profile>
@@ -1516,10 +1516,10 @@
                 <jdbc.username></jdbc.username>
                 <jdbc.password></jdbc.password>
                 <jdbc.exception.sorter></jdbc.exception.sorter>
-            #if ($webservice)
+#if ($webservice)
                 <webservice.host></webservice.host>
                 <webservice.port></webservice.port>
-            #end
+#end
             </properties>
         </profile>
         <profile>
@@ -1537,10 +1537,10 @@
                 <jdbc.username></jdbc.username>
                 <jdbc.password></jdbc.password>
                 <jdbc.exception.sorter></jdbc.exception.sorter>
-            #if ($webservice)
+#if ($webservice)
                 <webservice.host></webservice.host>
                 <webservice.port></webservice.port>
-            #end
+#end
             </properties>
         </profile>
     </profiles>
@@ -1550,20 +1550,20 @@
             <name>AndroMDA Repository</name>
             <url>http://team.andromda.org/maven2</url>
         </repository>
-    #if ($jsf2)
+#if ($jsf2)
         <repository>
             <id>stockholm</id>
             <name>University Of Stockholm Repository</name>
             <url>http://maven.it.su.se/it.su.se/maven2</url>
         </repository>
-        #if ($ajaxLibrary.equals("icefaces"))
+#if ($ajaxLibrary.equals("icefaces"))
             <repository>
                 <id>jboss</id>
                 <name>JBoss Repository</name>
                 <url>http://repository.jboss.com/maven2</url>
             </repository>
-        #end
-    #end
+#end
+#end
         <repository>
             <id>Codehaus Snapshots</id>
             <url>http://snapshots.repository.codehaus.org/</url>
@@ -1597,20 +1597,20 @@
     </prerequisites>
 #if ($distributionManagementRepositoryUrl.length() > 0 || $distributionManagementSnapshotRepositoryUrl.length() > 0)
     <distributionManagement>
-    #if ($distributionManagementRepositoryUrl.length() > 0)
+#if ($distributionManagementRepositoryUrl.length() > 0)
         <repository>
             <id>$distributionManagementRepositoryId</id>
             <url>$distributionManagementRepositoryUrl</url>
             <uniqueVersion>true</uniqueVersion>
         </repository>
-    #end
-    #if ($distributionManagementSnapshotRepositoryUrl.length() > 0)
+#end
+#if ($distributionManagementSnapshotRepositoryUrl.length() > 0)
         <snapshotRepository>
             <id>$distributionManagementSnapshotRepositoryId</id>
             <url>$distributionManagementSnapshotRepositoryUrl</url>
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
-    #end
+#end
     </distributionManagement>
 #end
     <!-- Comment to disable project reporting using default maven plugins -->
