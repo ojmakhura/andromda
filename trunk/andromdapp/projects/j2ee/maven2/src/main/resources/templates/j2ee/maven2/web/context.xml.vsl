@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/$applicationId" docBase="${applicationId}-${applicationVersion}"
-         debug="99" reloadable="true" antiJARLocking="true" antiResourceLocking="false">
+<Context debug="99" reloadable="true" antiJARLocking="true" antiResourceLocking="false">
 
     <Resource name="${dataSource.name}" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
