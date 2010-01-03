@@ -233,7 +233,7 @@
                     relationship with the role name <code>homeAddress</code> and the address having an attribute
                     named "city". If you want to retrieve all people living in Hamburg, simply set the value of
                     this tagged value to <code>homeAddress.city</code>.
-                    If you ommit this tagged value, the name of the attribute in the criteria class will be used.
+                    If you omit this tagged value, the name of the attribute in the criteria class will be used.
                 </documentation>
                 <value>@andromda.hibernate.criteria.attribute</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
@@ -318,7 +318,7 @@
         </elementGroup>
         <elementGroup name="Constants">
             <documentation>
-                Values of contants used in the Spring namespace.
+                Values of constants used in the Spring namespace.
             </documentation>
             <element name="LIKE_COMPARATOR">
                 <documentation></documentation>
