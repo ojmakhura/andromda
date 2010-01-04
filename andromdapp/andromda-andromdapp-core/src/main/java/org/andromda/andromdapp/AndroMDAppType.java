@@ -540,7 +540,7 @@ public class AndroMDAppType
                                 if (StringUtils.isNotBlank(id))
                                 {
                                     final boolean result = condition.evaluate(this.templateContext.get(id));
-                                    writable = result;
+                                    writable = Boolean.valueOf(result);
                                     if (Conditions.TYPE_AND.equals(conditionsType) && !result)
                                     {
                                         // - if we 'and' the conditions, we break at the first false
@@ -570,7 +570,7 @@ public class AndroMDAppType
         {
             writable = Boolean.TRUE;
         }
-        return writable;
+        return writable.booleanValue();
     }
 
     /**

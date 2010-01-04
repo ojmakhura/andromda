@@ -2,11 +2,9 @@ package org.andromda.translation.ocl.testsuite;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
@@ -268,7 +266,7 @@ public class TranslationTestProcessor
             {
                 final String message =
                     "No element found in model in expression --> '" + expression +
-                    "', please check your model or your TranslationTest file";
+                    "' for translation ' " + translation + "', please check your model or your TranslationTest file";
                 logger.error("ERROR! " + message);
                 TestCase.fail(message);
             }

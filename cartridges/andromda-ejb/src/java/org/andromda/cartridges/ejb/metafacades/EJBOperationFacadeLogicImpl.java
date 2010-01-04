@@ -1,6 +1,8 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.EJBOperationFacade.
@@ -12,6 +14,10 @@ public class EJBOperationFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBOperationFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -20,9 +26,18 @@ public class EJBOperationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
-        return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
+        String transactionType = (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+        }
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = "Required";
+        }
+        return transactionType;
     }
 
     /**

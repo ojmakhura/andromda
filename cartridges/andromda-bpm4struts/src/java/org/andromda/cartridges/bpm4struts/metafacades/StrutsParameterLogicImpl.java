@@ -513,13 +513,13 @@ public class StrutsParameterLogicImpl
             if (taggedValue != null)
             {
                 final String taggedValueString = String.valueOf(taggedValue);
-                required = Boolean.valueOf(taggedValueString);
+                required = Boolean.valueOf(taggedValueString).booleanValue();
             }
             else
             {
                 final Object property = getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_GENERATE_TABLE_DECORATORS);
                 final String propertyString = String.valueOf(property);
-                required = Boolean.valueOf(propertyString);
+                required = Boolean.valueOf(propertyString).booleanValue();
             }
         }
 
@@ -1561,7 +1561,7 @@ public class StrutsParameterLogicImpl
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
         if (value != null)
         {
-            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String) value));
+            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String)value)).booleanValue();
         }
         return shouldReset;
     }
@@ -1868,7 +1868,7 @@ public class StrutsParameterLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**

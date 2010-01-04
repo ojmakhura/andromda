@@ -1,5 +1,11 @@
 package org.andromda.translation.ocl.testsuite;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -16,13 +22,6 @@ import org.andromda.core.translation.Translator;
 import org.andromda.core.translation.TranslatorException;
 import org.andromda.translation.ocl.BaseTranslator;
 import org.apache.log4j.Logger;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * This class allows us to trace the parsing of the expression. It is reflectively extended by Javaassist to allow the
@@ -95,7 +94,7 @@ public class TraceTranslator
     }
 
     /**
-     * @see org.andromda.core.translation.Translator#translate(java.lang.String, java.lang.Object, java.lang.String)
+     * @see org.andromda.core.translation.Translator#translate(String, String, Object)
      */
     public Expression translate(String translationName, String expression, Object contextElement)
     {
@@ -230,7 +229,7 @@ public class TraceTranslator
     /**
      * Retrieves the output directory which the adapted class will be written to.
      *
-     * @return
+     * @return AdaptedClassOutputDirectory
      */
     protected File getAdaptedClassOutputDirectory()
     {
@@ -348,7 +347,7 @@ public class TraceTranslator
      * Returns the prefix for the method (inA or outA)
      *
      * @param method
-     * @return
+     * @return MethodPrefix
      */
     protected String getMethodPrefix(CtMethod method)
     {
@@ -403,7 +402,7 @@ public class TraceTranslator
          * Retrieves an instance of this TranslatorClassPool using the loader to find/load any classes.
          *
          * @param loader
-         * @return
+         * @return pool
          */
         protected static ClassPool getPool(ClassLoader loader)
         {
@@ -417,7 +416,7 @@ public class TraceTranslator
         }
 
         /**
-         * Returns a <code>java.lang.Class</code> object. It calls <code>write()</code> to obtain a class file and then
+         * Returns a <code>Class</code> object. It calls <code>write()</code> to obtain a class file and then
          * loads the obtained class file into the JVM. The returned <code>Class</code> object represents the loaded
          * class.
          * <p/>
