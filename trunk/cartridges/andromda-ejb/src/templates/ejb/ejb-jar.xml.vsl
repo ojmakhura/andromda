@@ -14,16 +14,21 @@
         <session>
             <description>
                 <![CDATA[
-                $service.getDocumentation("                ", 64, false)
+$service.getDocumentation("                ", 64, false)
                 ]]>
             </description>
             <ejb-name>$service.name</ejb-name>
+#if ($service.ejbStateful)
+            <display-name>${service.name}StatefulSessionBean</display-name>
+#else
+            <display-name>${service.name}StatelessSessionBean</display-name>
+#end
+            <$service.viewType>$service.fullyQualifiedName</$service.viewType>
 #if ($service.remoteView)
             <home>${service.fullyQualifiedName}Home</home>
 #else
             <local-home>${service.fullyQualifiedName}Home</local-home>
 #end
-            <$service.viewType>$service.fullyQualifiedName</$service.viewType>
             <ejb-class>${service.fullyQualifiedName}BeanImpl</ejb-class>
 #if ($service.ejbStateful)
             <session-type>Stateful</session-type>
