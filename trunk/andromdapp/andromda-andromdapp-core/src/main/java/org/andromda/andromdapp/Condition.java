@@ -135,7 +135,7 @@ public class Condition
      */
     public void setPresent(final boolean present)
     {
-        this.present = present;
+        this.present = Boolean.valueOf(present);
     }
 
     /**
@@ -150,11 +150,11 @@ public class Condition
         if (this.present != null)
         {
             // - if the condition must be present, very that it is
-            if (this.present)
+            if (this.present.booleanValue())
             {
                 valid = value != null;
             }
-            else if (!this.present)
+            else if (!this.present.booleanValue())
             {
                 // - otherwise verify that the condition is not present (if it shouldn't be)
                 valid = value == null;

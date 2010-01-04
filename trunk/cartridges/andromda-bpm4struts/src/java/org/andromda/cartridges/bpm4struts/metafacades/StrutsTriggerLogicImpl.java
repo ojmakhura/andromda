@@ -140,6 +140,6 @@ public class StrutsTriggerLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

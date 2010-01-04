@@ -1,13 +1,12 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.Collection;
+import java.util.List;
 import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * MetafacadeLogic implementation.
@@ -19,12 +18,18 @@ public class EJBSessionFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBSessionFacadeLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @param follow 
+     * @return getCreateMethods
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getCreateMethods(boolean)
      */
     protected java.util.Collection handleGetCreateMethods(boolean follow)
@@ -33,17 +38,19 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @return EJBMetafacadeUtils.getHomeInterfaceName(this)
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getHomeInterfaceName()
      */
-    protected java.lang.String handleGetHomeInterfaceName()
+    protected String handleGetHomeInterfaceName()
     {
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
     /**
+     * @return EJBMetafacadeUtils.getViewType(this)
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getViewType()
      */
-    protected java.lang.String handleGetViewType()
+    protected String handleGetViewType()
     {
         return EJBMetafacadeUtils.getViewType(this);
     }
@@ -59,6 +66,8 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return getEnvironmentEntries
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
      */
     protected Collection handleGetEnvironmentEntries(boolean follow)
@@ -67,6 +76,8 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return getConstants
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getConstants(boolean)
      */
     protected Collection handleGetConstants(boolean follow)
@@ -75,9 +86,10 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBSession#getJndiName()
+     * @return jndiName
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getJndiName()
      */
-    protected java.lang.String handleGetJndiName()
+    protected String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
@@ -107,6 +119,7 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @return !isStateless
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#isStateful()
      */
     protected boolean handleIsStateful()
@@ -115,6 +128,7 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @return getAllInstanceAttributes().isEmpty()
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#isStateless()
      */
     protected boolean handleIsStateless()
@@ -123,6 +137,7 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @return type Stateful/Stateless
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getType()
      */
     protected String handleGetType()
@@ -136,7 +151,8 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#allowSyntheticCreateMethod()
+     * @return EJBMetafacadeUtils.allowSyntheticCreateMethod(this)
+     * @see org.andromda.cartridges.ejb.metafacades.EJBMetafacadeUtils#allowSyntheticCreateMethod(org.andromda.metafacades.uml.ClassifierFacade)
      */
     protected boolean handleIsSyntheticCreateMethodAllowed()
     {
@@ -144,7 +160,8 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     * @return businessOperation
+     * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
      */
     protected Collection handleGetBusinessOperations()
     {
@@ -165,14 +182,19 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * @return transactionType
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         String transactionType = (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+        }
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = "Required";
         }
         return transactionType;
     }

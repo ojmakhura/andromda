@@ -18,6 +18,10 @@ public class ValueObjectFacadeLogicImpl
     extends ValueObjectFacadeLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ValueObjectFacadeLogicImpl(
         Object metaObject,
         String context)
@@ -72,6 +76,7 @@ public class ValueObjectFacadeLogicImpl
     /**
      * If we're using inheritance to build up a value object with all model elements of an entity, we're returning no
      * superclass.
+     * @return super.getGeneralization() if generalization.hasStereotype(EJBProfile.STEREOTYPE_ENTITY)
      */
     public GeneralizableElementFacade getGeneralization()
     {

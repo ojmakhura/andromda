@@ -110,11 +110,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                equal = comparable.compareTo((int) second) > 0;
+                equal = comparable.compareTo(Integer.valueOf((int)second)) > 0;
             }
             else
             {
-                equal = comparable.equals(second);
+                equal = comparable.equals(Long.valueOf(second));
             }
         }
         return equal;
@@ -128,7 +128,7 @@ public final class OCLExpressions
         if (equal)
         {
             final Comparable comparable = (Comparable)first;
-            equal = comparable.equals(second);
+            equal = comparable.equals(Integer.valueOf(second));
         }
         return equal;
     }
@@ -313,7 +313,7 @@ public final class OCLExpressions
         boolean lessOrEqual = first instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual((Comparable)first, new Float(second));
+            lessOrEqual = lessOrEqual((Comparable)first, Float.valueOf(second));
         }
         return lessOrEqual;
     }
@@ -344,7 +344,7 @@ public final class OCLExpressions
         boolean lessOrEqual = first instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual((Comparable)first, new Double(second));
+            lessOrEqual = lessOrEqual((Comparable)first, Double.valueOf(second));
         }
         return lessOrEqual;
     }
@@ -356,7 +356,7 @@ public final class OCLExpressions
         boolean lessOrEqual = second instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual(new Double(first), (Comparable)second);
+            lessOrEqual = lessOrEqual(Double.valueOf(first), (Comparable)second);
         }
         return lessOrEqual;
     }
@@ -394,7 +394,7 @@ public final class OCLExpressions
         boolean lessOrEqual = first instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual((Comparable)first, new Integer(second));
+            lessOrEqual = lessOrEqual((Comparable)first, Integer.valueOf(second));
         }
         return lessOrEqual;
     }
@@ -406,7 +406,7 @@ public final class OCLExpressions
         boolean lessOrEqual = first instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual((Comparable)first, new Short(second));
+            lessOrEqual = lessOrEqual((Comparable)first, Short.valueOf(second));
         }
         return lessOrEqual;
     }
@@ -471,11 +471,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                greater = comparable.compareTo((int) second) > 0;
+                greater = comparable.compareTo(Integer.valueOf((int)second)) > 0;
             }
             else
             {
-                greater = comparable.compareTo(second) > 0;
+                greater = comparable.compareTo(Long.valueOf(second)) > 0;
             }
         }
         return greater;
@@ -491,11 +491,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                greater = comparable.compareTo(second) > 0;
+                greater = comparable.compareTo(Integer.valueOf(second)) > 0;
             }
             else
             {
-                greater = comparable.compareTo((long) second) > 0;
+                greater = comparable.compareTo(Long.valueOf(second)) > 0;
             }
         }
         return greater;
@@ -552,11 +552,11 @@ public final class OCLExpressions
         {
             if (first instanceof Integer)
             {
-                greaterOrEqual = greaterOrEqual((Comparable)first, new Integer((int)second));
+                greaterOrEqual = greaterOrEqual((Comparable)first, Integer.valueOf((int)second));
             }
             else
             {
-                greaterOrEqual = greaterOrEqual((Comparable)first, new Long(second));
+                greaterOrEqual = greaterOrEqual((Comparable)first, Long.valueOf(second));
             }
         }
         return greaterOrEqual;
@@ -569,7 +569,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = first instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual((Comparable)first, new Integer(second));
+            greaterOrEqual = greaterOrEqual((Comparable)first, Integer.valueOf(second));
         }
         return greaterOrEqual;
     }
@@ -581,7 +581,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = first instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual((Comparable)first, new Short(second));
+            greaterOrEqual = greaterOrEqual((Comparable)first, Short.valueOf(second));
         }
         return greaterOrEqual;
     }
@@ -595,11 +595,11 @@ public final class OCLExpressions
         {
             if (second instanceof Integer)
             {
-                greaterOrEqual = greaterOrEqual(new Integer((int)first), (Integer)second);
+                greaterOrEqual = greaterOrEqual(Integer.valueOf((int)first), (Integer)second);
             }
             else
             {
-                greaterOrEqual = greaterOrEqual(new Long(first), (Comparable)second);
+                greaterOrEqual = greaterOrEqual(Long.valueOf(first), (Comparable)second);
             }
         }
         return greaterOrEqual;
@@ -612,7 +612,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = second instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual(new Integer(first), (Comparable)second);
+            greaterOrEqual = greaterOrEqual(Integer.valueOf(first), (Comparable)second);
         }
         return greaterOrEqual;
     }
@@ -624,7 +624,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = second instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual(new Short(first), (Comparable)second);
+            greaterOrEqual = greaterOrEqual(Short.valueOf(first), (Comparable)second);
         }
         return greaterOrEqual;
     }
@@ -648,7 +648,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = first instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual((Comparable)first, new Double(second));
+            greaterOrEqual = greaterOrEqual((Comparable)first, Double.valueOf(second));
         }
         return greaterOrEqual;
     }
@@ -660,7 +660,7 @@ public final class OCLExpressions
         boolean greaterOrEqual = first instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual((Comparable)first, new Float(second));
+            greaterOrEqual = greaterOrEqual((Comparable)first, Float.valueOf(second));
         }
         return greaterOrEqual;
     }

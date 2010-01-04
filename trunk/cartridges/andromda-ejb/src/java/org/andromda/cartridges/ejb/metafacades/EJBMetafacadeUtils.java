@@ -1,5 +1,9 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -10,11 +14,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Contains utilities for use with EJB metafacades.
@@ -78,7 +77,7 @@ class EJBMetafacadeUtils
 
     /**
      * Gets the view type for the passed in <code>classifier</code>. Returns 'local' if the model element has the entity
-     * stereotype, others checks there ejb tagged value and if there is no value defined, returns 'remote'.
+     * stereotype, also checks the ejb tagged value and if there is no value defined, returns 'remote'.
      *
      * @return String the view type name.
      */
@@ -86,7 +85,7 @@ class EJBMetafacadeUtils
     {
         ExceptionUtils.checkNull("classifer", classifier);
         String viewType = "local";
-        if (classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE))
+        if (classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE) || classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE_ELEMENT))
         {
             String viewTypeValue = (String)classifier.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE);
             // if the view type wasn't found, search all super classes
@@ -154,7 +153,7 @@ class EJBMetafacadeUtils
 
     /**
      * Gets all environment entries for the specified <code>classifier</code>. If <code>follow</code> is true, then a
-     * search up the inheritance hierachy will be performed and all super type environment entries will also be
+     * search up the inheritance hierarchy will be performed and all super type environment entries will also be
      * retrieved.
      *
      * @param classifier the classifier from which to retrieve the env-entries
@@ -190,7 +189,7 @@ class EJBMetafacadeUtils
 
     /**
      * Gets all constants for the specified <code>classifier</code>. If <code>follow</code> is true, then a search up
-     * the inheritance hierachy will be performed and all super type constants will also be retrieved.
+     * the inheritance hierarchy will be performed and all super type constants will also be retrieved.
      *
      * @param classifier the classifier from which to retrieve the constants
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
