@@ -16,26 +16,22 @@ package org.andromda.utils.beautifier.core;
  * limitations under the License.
  */
 
-import de.hunsicker.jalopy.Jalopy;
-import de.hunsicker.jalopy.language.antlr.JavaNode;
-
 import java.io.File;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.reflect.Field;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.apache.log4j.Level;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import de.hunsicker.jalopy.Jalopy;
+import de.hunsicker.jalopy.language.antlr.JavaNode;
 
 /**
  * Simple oAW beautifier implementation based on Jalopy and the antlr JavaNode. The
@@ -48,9 +44,11 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
     /**
      * The logger
      */
-    private static final Logger sLogger = Logger.getLogger(JavaImportBeautifierImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JavaImportBeautifierImpl.class);
 
     private static final boolean DEBUG = false;
+
+    private static final String LINESEP = System.getProperty("line.separator");
 
     private static final String DEFAULT_PACKAGE = "";
 
@@ -91,6 +89,9 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
 
     private Map<Integer, TypeReplacementStrategy> strategyMap = new HashMap<Integer, TypeReplacementStrategy>();
 
+    /**
+     * 
+     */
     public JavaImportBeautifierImpl() {
         // populate strategy map
         strategyMap.put(NEW, new DefaultTypeReplacementStrategy("[\\,|\\<|\\)|\\[|\\<|\\(|\\s]"));
@@ -106,18 +107,30 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         strategyMap.put(ANNOTATION_VALUE, new DefaultTypeReplacementStrategy("[\\(|\\>|\\<|\\[|\\,|\\;|\\{|\\s|\\.]"));
     }
 
+    /**
+     * @return isFormat
+     */
     public boolean isFormat() {
         return isFormat;
     }
 
+    /**
+     * @param isFormat
+     */
     public void setFormat(boolean isFormat) {
         this.isFormat = isFormat;
     }
 
+    /**
+     * @return isOrganizeImports
+     */
     public boolean isOrganizeImports() {
         return isOrganizeImports;
     }
 
+    /**
+     * @param isOrganizeImports
+     */
     public void setOrganizeImports(boolean isOrganizeImports) {
         this.isOrganizeImports = isOrganizeImports;
     }
@@ -145,7 +158,10 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         writer.close();
     }
 
-
+    /**
+     * Beautify and Organize Imports on the source file.
+     * @see org.andromda.utils.beautifier.core.Beautifier#beautify(java.lang.String)
+     */
     public String beautify(String pSource) {
         String result = null;
         File tempFile = null;
@@ -157,16 +173,17 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
             if (isFormat()) {
                 result = format(pSource, tempFile);
             }
+        // Note: Jalopy JavaRecognizer.parse() does System.err.println and does not rethrow exception
         } catch (Exception e) {
-            if(sLogger.isDebugEnabled()) {
-                sLogger.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
+            if(LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
-            sLogger.warn("Error during beautification. Source will not be beautified!");
+            LOGGER.warn("Error during beautification. Source will not be beautified!");
         } catch (Error e) {
-            if(sLogger.isDebugEnabled()) {
-                sLogger.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
+            if(LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
-            sLogger.warn("Error during beautification. Source will not be beautified!");
+            LOGGER.warn("Error during beautification. Source will not be beautified!");
         } finally {
             if (null != tempFile) {
                 tempFile.delete();
@@ -175,6 +192,9 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return result;
     }
 
+    private static final String EMPTY = "";
+    private static final String IMPORT = "import ";
+    @SuppressWarnings("null")
     private String organizeImports(String pSource, File pTempFile) {
         // create formatter context for this pTempFile
         BeautifierContext formatterContext = new BeautifierContext();
@@ -195,7 +215,7 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         String currentPackage = DEFAULT_PACKAGE;
         for (TypeContext typeContext : sequences) {
             if (PACKAGE_ANNOTATION == typeContext.getType()) {
-                currentPackage = typeContext.getQualifiedName();
+                currentPackage = typeContext.getQualifiedName().toString();
                 break;
             }
         }
@@ -241,7 +261,7 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
                 if (null == currentPackage) {
                     importTypes.add(typeContext.getQualifiedName());
                 } else {
-                    final StringBuffer sb = new StringBuffer(100);
+                    StringBuilder sb = new StringBuilder(100);
                     sb.append(currentPackage);
                     sb.append('.');
                     sb.append(typeContext.getQualifiedName());
@@ -253,7 +273,9 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         body = replaceFullQualifiedClassNames(body, sequences, importTypes, replacedSet);
 
         //Start Output
-        result.append(imports);
+	    if (imports.length() > 0) {
+            result.append(imports);
+	    }
 
         // populate header with imports
         for (String type : replacedSet) {
@@ -264,8 +286,10 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
                 // make sure the import is not redundant, because :
                 //  - it is part of the current package
                 //  - it is java.lang import (automatically imported)
-                if (!currentPackage.equals(typePackage) && !"java.lang".equals(typePackage)) {
-                    result.append("import ").append(type).append(";\r\n");
+                if (typePackage != null && !typePackage.toString().equals(EMPTY) && 
+                    !currentPackage.equals(typePackage) && !"java.lang".equals(typePackage))
+                {
+                    result.append(IMPORT).append(type).append(";\r\n");
                 }
             }
         }

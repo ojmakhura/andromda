@@ -16,17 +16,20 @@ package org.andromda.utils.beautifier.core;
  * limitations under the License.
  */
 
-import de.hunsicker.jalopy.Jalopy;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
+import de.hunsicker.jalopy.Jalopy;
+import de.hunsicker.jalopy.storage.Loggers;
 
 /**
  * Abstract implementation of the Beautifier interface focussing on Java beautification.
@@ -37,16 +40,22 @@ public abstract class JavaBeautifier implements Beautifier, ImportBeautifierJalo
 
     private static final Pattern PATTERN_NEWLINE = Pattern.compile("\\n");
 
-    private static final Logger sLogger = Logger.getLogger(JavaBeautifier.class.toString());
+    private static final Logger LOG = Logger.getLogger(JavaBeautifier.class.toString());
 
     private String conventionFilePath;
 
     private boolean conventionFileInitialized = false;
 
+    /**
+     * @return conventionFilePath
+     */
     public String getConventionFilePath() {
         return conventionFilePath;
     }
 
+    /**
+     * @param conventionFilePath
+     */
     public void setConventionFilePath(String conventionFilePath) {
         this.conventionFilePath = conventionFilePath;
         conventionFileInitialized = false;
@@ -96,7 +105,7 @@ public abstract class JavaBeautifier implements Beautifier, ImportBeautifierJalo
                 try {
                     url = testUrl(new URL("file:" + conventionFilePath));
                 } catch (MalformedURLException e) {
-                    sLogger.error("Cannot read convention file from 'file:" + conventionFilePath + "'.", e);
+                    LOG.error("Cannot read convention file from 'file:" + conventionFilePath + "'.", e);
                 }
             }
         }
@@ -109,7 +118,7 @@ public abstract class JavaBeautifier implements Beautifier, ImportBeautifierJalo
             try {
                 Jalopy.setConvention(url);
             } catch (IOException e) {
-                sLogger.error("Cannot read convention file from '" + url + "'.", e);
+                LOG.error("Cannot read convention file from '" + url + "'.", e);
             }
         }
     }
@@ -137,11 +146,15 @@ public abstract class JavaBeautifier implements Beautifier, ImportBeautifierJalo
 
     protected String format(String pSource, File file) {
         Jalopy jalopy = initializeJalopy();
-        jalopy.setInput(pSource, file.getAbsolutePath());
-
         StringBuffer sb = new StringBuffer();
-        jalopy.setOutput(sb);
-        jalopy.format();
+        try {
+            jalopy.setInput(pSource, file.getAbsolutePath());
+
+            jalopy.setOutput(sb);
+            jalopy.format();
+        } finally {
+            cleanupJalopy();
+        }
 
         return sb.toString();
     }
@@ -155,4 +168,20 @@ public abstract class JavaBeautifier implements Beautifier, ImportBeautifierJalo
         return jalopy;
     }
 
+    @SuppressWarnings("unchecked")
+    private void cleanupJalopy() {
+        List<Appender> toBeDeleted = new ArrayList<Appender>();
+
+        Logger logger = Loggers.ALL;
+        
+        for (Enumeration<Object> it = logger.getAllAppenders(); it.hasMoreElements(); ) {
+            Object obj = it.nextElement();
+            String name = obj.getClass().getName();
+            if (name.equals("de.hunsicker.jalopy.Jalopy$SpyAppender"))
+                toBeDeleted.add((Appender)obj);
+        }
+
+        for (Appender appender : toBeDeleted)
+            logger.removeAppender(appender);
+    }
 }
