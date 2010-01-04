@@ -52,9 +52,9 @@ $class.getDocumentation(" * ")
 #end
  */
 #if ($XMLOutput)
-@XmlRootElement
+@XmlRootElement(name = "$class.name")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "$class.name", namespace="http://$javaUtils.reversePackage($class.packageName)/", 
+@XmlType(name = "$class.name", // namespace="http://$javaUtils.reversePackage($class.packageName)/", 
 #set ($size = $class.attributes.size() + $class.navigableConnectingEnds.size())
 #set ($count = 1)
   propOrder = {
@@ -88,11 +88,12 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
     extends $class.generalization.fullyQualifiedName
 #elseif ($serializable)
-    implements Serializable, Comparable#if($enableTemplating)<Object>#end
-#else
-    implements Comparable#if($enableTemplating)<Object>#end
-#end
+    implements Serializable, Comparable#if($enableTemplating)<$class.name>#end
 
+#else
+    implements Comparable#if($enableTemplating)<$class.name>#end
+
+#end
     {
 #if ($serializable)
     /** The serial version UID of this class. Needed for serialization. */
@@ -137,11 +138,11 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 
     /**
      * Set the $parameter.name Template Parameter
-     * @param ${parameter.name}In $returnType
+     * @param value $returnType
      */
-    public void ${setterName}($returnType ${parameter.name}In)
+    public void ${setterName}($returnType value)
     {
-        this.${parameter.name} = ${parameter.name}In;
+        this.${parameter.name} = value;
     }
 
 #end
@@ -210,8 +211,7 @@ $attribute.getDocumentation("     * ")
     // Class associationEnds
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
 #if ($XMLOutput)
-    @XmlElement(name="$connectingEnd.name"#if(!$connectingEnd.type.packageName.equals($class.packageName)), namespace="http://$javaUtils.reversePackage($connectingEnd.type.packageName)/"#end##No newline
-#if ($connectingEnd.required), required=true#end)
+    @XmlElement(name="$connectingEnd.name"#if ($connectingEnd.required), required=true#end)
 #end
     protected $connectingEnd.getterSetterTypeName $connectingEnd.name;
 #end
@@ -380,15 +380,15 @@ $attribute.getDocumentation("     * ")
 ##   use in other cartridges
     /**
 $attribute.getDocumentation("     * ")
-     * @param ${attribute.name}In $returnType
+     * @param value $returnType
 #if($generateChainedSetters&&!$XMLOutput)
      * @return this ${class.name}
 #end
      */
 ## XMLOutput does not allow return values from the setter method
-    public#if($generateChainedSetters&&!$XMLOutput) ${class.name}#else void#end ${attribute.setterName}(final $returnType ${attribute.name}In)
+    public#if($generateChainedSetters&&!$XMLOutput) ${class.name}#else void#end ${attribute.setterName}(final $returnType value)
     {
-        this.${attribute.name} = ${attribute.name}In;
+        this.${attribute.name} = value;
 #if($generateChainedSetters&&!$XMLOutput)
         return this;
 #end
@@ -428,14 +428,14 @@ $connectingEnd.getDocumentation("     * ")
 ##   use in other cartridges
     /**
      * Sets the $connectingEnd.name
-     * @param ${connectingEnd.name}In $connectingEnd.getterSetterTypeName
+     * @param value $connectingEnd.getterSetterTypeName
 #if($generateChainedSetters)
      * @return this ${class.name}
 #end
      */
-    public#if($generateChainedSetters) $umlUtils.getClassDeclaration($class, $enableTemplating)#else void#end ${connectingEnd.setterName}($connectingEnd.getterSetterTypeName ${connectingEnd.name}In)
+    public#if($generateChainedSetters) $umlUtils.getClassDeclaration($class, $enableTemplating)#else void#end ${connectingEnd.setterName}($connectingEnd.getterSetterTypeName value)
     {
-        this.${connectingEnd.name} = ${connectingEnd.name}In;
+        this.${connectingEnd.name} = value;
 #if($generateChainedSetters)
         return this;
 #end
@@ -448,7 +448,7 @@ $connectingEnd.getDocumentation("     * ")
      * @see Object${esc.hash}equals(Object)
      */
 #if ($enableAnnotations)
-#if ($templating)
+#if ($enableTemplating)
     @SuppressWarnings("unchecked")
 #end
     @Override
@@ -478,28 +478,27 @@ $connectingEnd.getDocumentation("     * ")
      * @see Comparable${esc.hash}compareTo(Object)
      */
 #if ($enableAnnotations)
-#if ($templating)
+#if ($enableTemplating)
     @SuppressWarnings("unchecked")
-#end
-#if ($class.generalization)
+#elseif ($class.generalization)
     @Override
 #end
 #end
-    public int compareTo(final Object object)
+    public int compareTo(final#if($enableTemplating) ${class.name}#else Object#end object)
     {
-        if (object==null || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class)))
+        if (object==null#if(!$enableTemplating) || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class))#end)
         {
             return -1;
         }
-#if (!$class.properties.empty)
-        $class.fullyQualifiedName myClass = ($class.fullyQualifiedName) object;
+#if (!$enableTemplating && !$class.properties.empty)
+        $class.name myClass = ($class.fullyQualifiedName)object;
 #end
         return new CompareToBuilder()
 #if($class.generalization)
             .appendSuper(super.compareTo(object))
 #end
 #foreach($attr in $class.properties)
-            .append(this.${attr.getterName}(), myClass.${attr.getterName}())
+            .append(this.${attr.getterName}(),#if($enableTemplating) object#else myClass#end.${attr.getterName}())
 #end
             .toComparison();
     }
@@ -572,7 +571,7 @@ $connectingEnd.getDocumentation("     * ")
      *      argument instance; in all other cases this method will return {@code false}
      */
 #if ($enableAnnotations)
-#if ($templating)
+#if ($enableTemplating)
     @SuppressWarnings("unchecked")
 #end
 #if ($class.generalization)
