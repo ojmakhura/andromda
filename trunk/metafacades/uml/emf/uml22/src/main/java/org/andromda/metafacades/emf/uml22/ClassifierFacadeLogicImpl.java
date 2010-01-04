@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,6 +41,7 @@ import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 
@@ -106,7 +108,7 @@ public class ClassifierFacadeLogicImpl
      * @return wrappedPrimitive true/false
      * @see org.andromda.metafacades.uml.ClassifierFacade#isWrappedPrimitive()
      */
-    //@Override
+    @Override
     protected boolean handleIsWrappedPrimitive()
     {
         // Try both the fully qualified name and the ClassName
@@ -158,7 +160,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
     @Override
-    protected Collection handleGetProperties()
+    protected List handleGetProperties()
     {
         return this.getProperties(false);
     }
@@ -381,7 +383,7 @@ public class ClassifierFacadeLogicImpl
      * @return new constructor
      * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
      */
-    //@Override
+    @Override
     protected String handleGetJavaNewString()
     {
         String javaNewString;
@@ -649,7 +651,7 @@ public class ClassifierFacadeLogicImpl
      * @return isDoubleType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
      */
-    //@Override
+    @Override
     protected boolean handleIsDoubleType()
     {
         return UMLMetafacadeUtils.isType(
@@ -664,7 +666,7 @@ public class ClassifierFacadeLogicImpl
      * @return isFloatType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
      */
-    //@Override
+    @Override
     protected boolean handleIsFloatType()
     {
         return UMLMetafacadeUtils.isType(
@@ -679,7 +681,7 @@ public class ClassifierFacadeLogicImpl
      * @return isIntegerType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
      */
-    //@Override
+    @Override
     protected boolean handleIsIntegerType()
     {
         return UMLMetafacadeUtils.isType(
@@ -694,7 +696,7 @@ public class ClassifierFacadeLogicImpl
      * @return isLongType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
      */
-    //@Override
+    @Override
     protected boolean handleIsLongType()
     {
         return UMLMetafacadeUtils.isType(
@@ -706,11 +708,11 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
     @Override
-    protected Collection<AttributeFacade> handleGetAttributes(final boolean follow)
+    protected List<AttributeFacade> handleGetAttributes(final boolean follow)
     {
-        return this.shieldedElements(UmlUtilities.getAttributes(
+        return new ArrayList(this.shieldedElements(UmlUtilities.getAttributes(
                 this.metaObject,
-                follow));
+                follow)));
     }
 
     /**
@@ -735,7 +737,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
      */
     @Override
-    protected Collection handleGetProperties(final boolean follow)
+    protected List handleGetProperties(final boolean follow)
     {
         final List properties = new ArrayList();
         properties.addAll(this.getAttributes(false));
@@ -758,16 +760,16 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetOperations()
      */
     @Override
-    protected Collection<Operation> handleGetOperations()
+    protected List<Operation> handleGetOperations()
     {
-        final Collection<Operation> operations;
+        final List<Operation> operations;
         if (this.metaObject instanceof Class)
         {
             operations = ((Class)this.metaObject).getOwnedOperations();
         }
         else if (this.metaObject instanceof Interface)
         {
-            operations = new LinkedHashSet(((Interface)this.metaObject).getOwnedOperations());
+            operations = ((Interface)this.metaObject).getOwnedOperations();
         }
         else
         {
@@ -967,9 +969,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetStaticOperations()
+    protected List<OperationFacade> handleGetStaticOperations()
     {
-        Collection<OperationFacade> operations = this.getOperations();
+        List<OperationFacade> operations = this.getOperations();
         CollectionUtils.filter(
             operations,
             new Predicate()
@@ -986,9 +988,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetInstanceOperations()
+    protected List<OperationFacade> handleGetInstanceOperations()
     {
-        Collection<OperationFacade> operations = this.getOperations();
+        List<OperationFacade> operations = this.getOperations();
         CollectionUtils.filter(
             operations,
             new Predicate()
@@ -1052,11 +1054,11 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNavigableConnectingEnds(boolean)
      */
     @Override
-    protected Collection<AssociationEndFacade> handleGetNavigableConnectingEnds(final boolean follow)
+    protected List<AssociationEndFacade> handleGetNavigableConnectingEnds(final boolean follow)
     {
-        final Collection<AssociationEndFacade> connectingEnds = this.shieldedElements(UmlUtilities.getAssociationEnds(
+        final List<AssociationEndFacade> connectingEnds = new ArrayList(this.shieldedElements(UmlUtilities.getAssociationEnds(
                     this.metaObject,
-                    follow));
+                    follow)));
         CollectionUtils.transform(
             connectingEnds,
             new Transformer()
@@ -1255,5 +1257,32 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);
+    }
+
+    // Sort Operations by name, then by number of parameters, then by parameter names
+    private static class OperationComparator implements Comparator<Operation>
+    {
+        public int compare(Operation operation1, Operation operation2)
+        {
+            int rtn = operation1.getName().compareTo(operation2.getName());
+            if (rtn == 0)
+            {
+                rtn = operation1.getOwnedParameters().size() - operation1.getOwnedParameters().size();
+                if (rtn == 0)
+                {
+                    int index = 0;
+                    for (Parameter parameter : operation1.getOwnedParameters())
+                    {
+                        rtn = parameter.getName().compareTo(operation2.getOwnedParameters().get(index).getName());
+                        if (rtn != 0)
+                        {
+                            break;
+                        }
+                        index++;
+                    }
+                }
+            }
+            return rtn;
+        }
     }
 }

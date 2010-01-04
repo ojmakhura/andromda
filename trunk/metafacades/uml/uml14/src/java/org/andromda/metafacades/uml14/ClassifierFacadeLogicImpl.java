@@ -72,7 +72,10 @@ public class ClassifierFacadeLogicImpl
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
-    protected Collection<Operation> handleGetOperations()
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetOperations()
+     */
+    protected List<Operation> handleGetOperations()
     {
         return new FilteredCollection(this.metaObject.getFeature())
         {
@@ -172,7 +175,7 @@ public class ClassifierFacadeLogicImpl
      * Indicates whether or not this classifier represents a wrapped primitive type.
      * @see org.andromda.metafacades.uml.ClassifierFacade#isWrappedPrimitive()
      */
-    //@Override
+    @Override
     protected boolean handleIsWrappedPrimitive()
     {
         // Try both the fully qualified name and the ClassName
@@ -307,7 +310,7 @@ public class ClassifierFacadeLogicImpl
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
      */
-    //@Override
+    @Override
     protected boolean handleIsDoubleType()
     {
         return UMLMetafacadeUtils.isType(
@@ -321,7 +324,7 @@ public class ClassifierFacadeLogicImpl
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
      */
-    //@Override
+    @Override
     protected boolean handleIsFloatType()
     {
         return UMLMetafacadeUtils.isType(
@@ -335,7 +338,7 @@ public class ClassifierFacadeLogicImpl
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
      */
-    //@Override
+    @Override
     protected boolean handleIsIntegerType()
     {
         return UMLMetafacadeUtils.isType(
@@ -349,7 +352,7 @@ public class ClassifierFacadeLogicImpl
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
      */
-    //@Override
+    @Override
     protected boolean handleIsLongType()
     {
         return UMLMetafacadeUtils.isType(
@@ -418,9 +421,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes()
      */
     @Override
-    protected Collection<Attribute> handleGetAttributes()
+    protected List<Attribute> handleGetAttributes()
     {
-        final Collection attributes = new ArrayList(this.metaObject.getFeature());
+        final List attributes = new ArrayList(this.metaObject.getFeature());
         for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
         {
             if (!(iterator.next() instanceof Attribute))
@@ -435,9 +438,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
     @Override
-    protected Collection<AttributeFacade> handleGetAttributes(boolean follow)
+    protected List<AttributeFacade> handleGetAttributes(boolean follow)
     {
-        final Collection<AttributeFacade> attributes = new ArrayList<AttributeFacade>(this.getAttributes());
+        final List<AttributeFacade> attributes = new ArrayList<AttributeFacade>(this.getAttributes());
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
              superClass = (ClassifierFacade)superClass.getGeneralization())
         {
@@ -467,9 +470,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
     @Override
-    protected Collection handleGetProperties()
+    protected List handleGetProperties()
     {
-        final Collection properties = new ArrayList(this.getAttributes());
+        final List properties = new ArrayList(this.getAttributes());
         properties.addAll(this.getNavigableConnectingEnds());
         return properties;
     }
@@ -542,9 +545,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
      */
     @Override
-    protected Collection handleGetProperties(boolean follow)
+    protected List handleGetProperties(boolean follow)
     {
-        final Collection properties = new ArrayList(this.getAttributes(follow));
+        final List properties = new ArrayList(this.getAttributes(follow));
         properties.addAll(this.getNavigableConnectingEnds());
         if (follow)
         {
@@ -774,6 +777,50 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * <p>
+     * A String representing the new Constructor value for this classifier type to
+     * be used in a Java environment.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
+     */
+    @Override
+    protected String handleGetJavaNewString()
+    {
+        String javaNewString;
+        if (this.isPrimitive())
+        {
+            if (UMLMetafacadeUtils.isType(
+                    this,
+                    UMLProfile.BOOLEAN_TYPE_NAME))
+            {
+                javaNewString = "false";
+            }
+            else
+            {
+                javaNewString = "0";
+            }
+        }
+        else if (this.isWrappedPrimitive())
+        {
+            if (UMLMetafacadeUtils.isType(
+                this,
+                UMLProfile.BOOLEAN_TYPE_NAME))
+            {
+                javaNewString = "Boolean.FALSE";
+            }
+            else
+            {
+                javaNewString = this.getFullyQualifiedName() + ".valueOf(0)";
+            }
+        }
+        else
+        {
+            javaNewString = "new " + this.getFullyQualifiedName() + "()";
+        }
+        return javaNewString;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
      */
     @Override
@@ -804,7 +851,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetStaticOperations()
+    protected List<OperationFacade> handleGetStaticOperations()
     {
         return new FilteredCollection(this.getOperations())
             {
@@ -819,7 +866,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetInstanceOperations()
+    protected List<OperationFacade> handleGetInstanceOperations()
     {
         return new FilteredCollection(this.getOperations())
             {
@@ -918,9 +965,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNavigableConnectingEnds(boolean)
      */
     @Override
-    protected Collection<AssociationEndFacade> handleGetNavigableConnectingEnds(boolean follow)
+    protected List<AssociationEndFacade> handleGetNavigableConnectingEnds(boolean follow)
     {
-        final Collection<AssociationEndFacade> connectionEnds = new ArrayList(this.getNavigableConnectingEnds());
+        final List<AssociationEndFacade> connectionEnds = new ArrayList(this.getNavigableConnectingEnds());
 
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
              superClass = (ClassifierFacade)superClass.getGeneralization())

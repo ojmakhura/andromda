@@ -2,6 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
 import java.util.Collection;
+import java.util.List;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -12,7 +13,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for
@@ -483,9 +483,9 @@ public class SpringServiceLogicImpl
      *
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
-    public Collection<OperationFacade> getOperations()
+    public List<OperationFacade> getOperations()
     {
-        final Collection<OperationFacade> operations = super.getOperations();
+        final List<OperationFacade> operations = super.getOperations();
         if (!this.isAbstract())
         {
             for (ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null;

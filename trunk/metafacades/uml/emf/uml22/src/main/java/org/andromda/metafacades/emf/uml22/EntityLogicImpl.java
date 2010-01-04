@@ -206,10 +206,12 @@ public class EntityLogicImpl
             if (modelElement instanceof Type)
             {
                 Type element = (Type)modelElement;
+                // Identifiers will always have lowerBound 0, since they are optional when creating the Entity class but still valid.
+                // Creates a property with the specified name, type, lower bound, and upper bound 
                 final Property property = umlClass.createOwnedAttribute(
                         name,
                         element,
-                        1,
+                        0,
                         1);
                 VisibilityKind kind = VisibilityKind.PUBLIC_LITERAL;
                 if ("package".equalsIgnoreCase(visibility))
@@ -731,7 +733,7 @@ public class EntityLogicImpl
      * Gets the maximum name length SQL names may be
      */
     @Override
-    protected Short handleGetMaxSqlNameLength()
+    protected short handleGetMaxSqlNameLength()
     {
         return Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
@@ -741,7 +743,8 @@ public class EntityLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS));
+        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
+                      .booleanValue();
     }
 
     /**
@@ -868,8 +871,9 @@ public class EntityLogicImpl
             AttributeFacade identifier = (AttributeFacade)id;
             assigned =
                     Boolean.valueOf(
-                            ObjectUtils.toString(
-                                    identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)));
+                        ObjectUtils.toString(
+                        identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
+                       .booleanValue();
         }
         return assigned;
     }
