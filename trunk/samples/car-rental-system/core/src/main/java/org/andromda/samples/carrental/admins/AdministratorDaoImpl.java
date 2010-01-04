@@ -9,6 +9,6 @@ package org.andromda.samples.carrental.admins;
  * @see org.andromda.samples.carrental.admins.Administrator
  */
 public class AdministratorDaoImpl
-    extends org.andromda.samples.carrental.admins.AdministratorDaoBase
+    extends AdministratorDaoBase
 {
 }

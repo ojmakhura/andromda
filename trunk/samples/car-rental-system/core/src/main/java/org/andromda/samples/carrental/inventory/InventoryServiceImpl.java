@@ -9,56 +9,56 @@ package org.andromda.samples.carrental.inventory;
  * @see org.andromda.samples.carrental.inventory.InventoryService
  */
 public class InventoryServiceImpl
-    extends org.andromda.samples.carrental.inventory.InventoryServiceBase
+    extends InventoryServiceBase
 {
 
     /**
-     * @see org.andromda.samples.carrental.inventory.InventoryService#createCarType(org.andromda.samples.carrental.inventory.CarTypeData)
+     * @see org.andromda.samples.carrental.inventory.InventoryService#createCarType(CarTypeData)
      */
-    protected java.lang.String handleCreateCarType(org.andromda.samples.carrental.inventory.CarTypeData typeData)
-        throws java.lang.Exception
+    protected String handleCreateCarType(CarTypeData typeData)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleCreateCarType(org.andromda.samples.carrental.inventory.CarTypeData typeData)
+        //@todo implement protected String handleCreateCarType(CarTypeData typeData)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.inventory.InventoryService#createCar(org.andromda.samples.carrental.inventory.CarData, java.lang.String)
+     * @see org.andromda.samples.carrental.inventory.InventoryService#createCar(CarData, String)
      */
-    protected java.lang.String handleCreateCar(org.andromda.samples.carrental.inventory.CarData carData, java.lang.String carTypeId)
-        throws java.lang.Exception
+    protected String handleCreateCar(CarData carData, String carTypeId)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleCreateCar(org.andromda.samples.carrental.inventory.CarData carData, java.lang.String carTypeId)
+        //@todo implement protected String handleCreateCar(CarData carData, String carTypeId)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.inventory.InventoryService#searchCarByComfortClass(java.lang.String)
+     * @see org.andromda.samples.carrental.inventory.InventoryService#searchCarByComfortClass(String)
      */
-    protected java.util.Collection handleSearchCarByComfortClass(java.lang.String comfortClass)
-        throws java.lang.Exception
+    protected Collection handleSearchCarByComfortClass(String comfortClass)
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchCarByComfortClass(java.lang.String comfortClass)
+        //@todo implement protected Collection handleSearchCarByComfortClass(String comfortClass)
         return null;
     }
 
     /**
      * @see org.andromda.samples.carrental.inventory.InventoryService#searchAllCarTypes()
      */
-    protected java.util.Collection handleSearchAllCarTypes()
-        throws java.lang.Exception
+    protected Collection handleSearchAllCarTypes()
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchAllCarTypes()
+        //@todo implement protected Collection handleSearchAllCarTypes()
         return null;
     }
 
     /**
      * @see org.andromda.samples.carrental.inventory.InventoryService#searchAllCars()
      */
-    protected java.util.Collection handleSearchAllCars()
-        throws java.lang.Exception
+    protected Collection handleSearchAllCars()
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchAllCars()
+        //@todo implement protected Collection handleSearchAllCars()
         return null;
     }
 

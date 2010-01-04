@@ -9,46 +9,46 @@ package org.andromda.samples.carrental.customers;
  * @see org.andromda.samples.carrental.customers.CustomerService
  */
 public class CustomerServiceImpl
-    extends org.andromda.samples.carrental.customers.CustomerServiceBase
+    extends CustomerServiceBase
 {
 
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#createCustomer(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.customers.CustomerService#createCustomer(String, String, String)
      */
-    protected java.lang.String handleCreateCustomer(java.lang.String name, java.lang.String customerNo, java.lang.String password)
-        throws java.lang.Exception
+    protected String handleCreateCustomer(String name, String customerNo, String password)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleCreateCustomer(java.lang.String name, java.lang.String customerNo, java.lang.String password)
+        //@todo implement protected String handleCreateCustomer(String name, String customerNo, String password)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#addDriver(java.lang.String, org.andromda.samples.carrental.customers.DriverData)
+     * @see org.andromda.samples.carrental.customers.CustomerService#addDriver(String, DriverData)
      */
-    protected java.lang.String handleAddDriver(java.lang.String customerId, org.andromda.samples.carrental.customers.DriverData driverData)
-        throws java.lang.Exception
+    protected String handleAddDriver(String customerId, DriverData driverData)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleAddDriver(java.lang.String customerId, org.andromda.samples.carrental.customers.DriverData driverData)
+        //@todo implement protected String handleAddDriver(String customerId, DriverData driverData)
         return null;
     }
 
     /**
      * @see org.andromda.samples.carrental.customers.CustomerService#searchAllCustomers()
      */
-    protected java.util.Collection handleSearchAllCustomers()
-        throws java.lang.Exception
+    protected Collection handleSearchAllCustomers()
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchAllCustomers()
+        //@todo implement protected Collection handleSearchAllCustomers()
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#authenticateAsCustomer(java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.customers.CustomerService#authenticateAsCustomer(String, String)
      */
-    protected java.lang.String handleAuthenticateAsCustomer(java.lang.String customerNo, java.lang.String password)
-        throws java.lang.Exception
+    protected String handleAuthenticateAsCustomer(String customerNo, String password)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleAuthenticateAsCustomer(java.lang.String customerNo, java.lang.String password)
+        //@todo implement protected String handleAuthenticateAsCustomer(String customerNo, String password)
         return null;
     }
 

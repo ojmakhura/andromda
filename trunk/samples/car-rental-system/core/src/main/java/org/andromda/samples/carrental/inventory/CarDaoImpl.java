@@ -9,6 +9,6 @@ package org.andromda.samples.carrental.inventory;
  * @see org.andromda.samples.carrental.inventory.Car
  */
 public class CarDaoImpl
-    extends org.andromda.samples.carrental.inventory.CarDaoBase
+    extends CarDaoBase
 {
 }

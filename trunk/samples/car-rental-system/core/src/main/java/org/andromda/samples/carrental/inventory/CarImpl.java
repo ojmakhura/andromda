@@ -6,10 +6,10 @@
 package org.andromda.samples.carrental.inventory;
 
 /**
- * @see org.andromda.samples.carrental.inventory.Car
+ * @see Car
  */
 public class CarImpl
-    extends org.andromda.samples.carrental.inventory.Car
+    extends Car
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -17,11 +17,11 @@ public class CarImpl
     private static final long serialVersionUID = -2661310554395849743L;
 
     /**
-     * @see org.andromda.samples.carrental.inventory.Car#create(java.lang.Long, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.inventory.Car#create(Long, String, String)
      */
-    public org.andromda.samples.carrental.inventory.Car create(java.lang.Long id, java.lang.String registrationNumber, java.lang.String inventoryNumber)
+    public Car create(Long id, String registrationNumber, String inventoryNumber)
     {
-        //@todo implement public org.andromda.samples.carrental.inventory.Car create(java.lang.Long id, java.lang.String registrationNumber, java.lang.String inventoryNumber)
+        //@todo implement public Car create(Long id, String registrationNumber, String inventoryNumber)
         return null;
     }
 

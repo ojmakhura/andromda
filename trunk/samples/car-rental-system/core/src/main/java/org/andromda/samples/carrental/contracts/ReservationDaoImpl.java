@@ -9,6 +9,6 @@ package org.andromda.samples.carrental.contracts;
  * @see org.andromda.samples.carrental.contracts.Reservation
  */
 public class ReservationDaoImpl
-    extends org.andromda.samples.carrental.contracts.ReservationDaoBase
+    extends ReservationDaoBase
 {
 }
