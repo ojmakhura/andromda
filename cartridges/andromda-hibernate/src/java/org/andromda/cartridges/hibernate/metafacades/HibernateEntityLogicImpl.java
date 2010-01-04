@@ -228,9 +228,9 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public Collection<AttributeFacade> getProperties()
+    public List<AttributeFacade> getProperties()
     {
-        Collection<AttributeFacade> properties = this.getAttributes();
+        List<AttributeFacade> properties = this.getAttributes();
         List connectingEnds = this.getAssociationEnds();
         CollectionUtils.transform(
             connectingEnds,

@@ -679,7 +679,7 @@ public class EntityLogicImpl
      * Gets the maximum name length SQL names may be
      */
     @Override
-    protected Short handleGetMaxSqlNameLength()
+    protected short handleGetMaxSqlNameLength()
     {
         return Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
@@ -689,7 +689,8 @@ public class EntityLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS));
+        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
+                      .booleanValue();
     }
 
     /**
@@ -812,8 +813,9 @@ public class EntityLogicImpl
             final AttributeFacade identifier = (AttributeFacade)identifiers.iterator().next();
             assigned =
                     Boolean.valueOf(
-                            ObjectUtils.toString(
-                                    identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)));
+                       ObjectUtils.toString(
+                        identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
+                       .booleanValue();
         }
         return assigned;
     }

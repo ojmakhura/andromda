@@ -36,7 +36,7 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
     @Override
     protected OperationFacade handleGetOperation()
     {
-        final List<OperationFacade> operations = this.getOperations();
+        final Collection<OperationFacade> operations = this.getOperations();
         return operations.isEmpty() ? null : operations.iterator().next();
     }
 

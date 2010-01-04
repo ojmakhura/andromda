@@ -453,13 +453,12 @@ public class ModelElementFacadeLogicImpl
         final Collection<Comment> comments = this.metaObject.getComment();
         if (comments != null && !comments.isEmpty())
         {
-            for (final Iterator<Comment> commentIterator = comments.iterator(); commentIterator.hasNext();)
+            for (Comment comment : comments)
             {
-                final Comment comment = commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
                 // if there isn't anything in the body, try the name
-                if (StringUtils.isEmpty(commentString))
+                if (StringUtils.isBlank(commentString))
                 {
                     commentString = StringUtils.trimToEmpty(comment.getName());
                 }
@@ -469,17 +468,60 @@ public class ModelElementFacadeLogicImpl
         }
 
         // if there still isn't anything, try a tagged value
-        if (StringUtils.isEmpty(documentation.toString()))
+        if (StringUtils.isBlank(documentation.toString()))
         {
             documentation.append(
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
+        // Add toDoTag if doc is empty: make modelers do the documentation.
+        if (StringUtils.isEmpty(documentation.toString()))
+        {
+            /*if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
+            {
+                String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
+                documentation.append(todoTag).append(": Model Documentation for " + this.getFullyQualifiedName());
+            }*/
+        }
 
-        return StringUtilsHelper.format(
+        // Only add paragraph tags if doc is not empty
+        String rtn = StringUtilsHelper.format(
             StringUtils.trimToEmpty(documentation.toString()),
             indent,
             lineLength,
             htmlStyle);
+        
+        return rtn;
+    }
+
+    /**
+     * If documentation is present, i.e. to add toDoTag or skip a line if not
+     * @return true is documentation comment or Documentation stereotype is present
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isDocumentationPresent()
+     */
+    @Override
+    protected boolean handleIsDocumentationPresent()
+    {
+        boolean rtn = false;
+        final Collection<Comment> comments = this.metaObject.getComment();
+        if (comments != null && !comments.isEmpty())
+        {
+            for (Comment comment : comments)
+            {
+                // if there isn't anything in the body, try the name
+                if (StringUtils.isNotBlank(comment.getBody())|| StringUtils.isNotBlank(comment.getName()))
+                {
+                    rtn = true;
+                    break;
+                }
+            }
+        }
+
+        if (!rtn && StringUtils.isNotBlank((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)))
+        {
+            rtn = true;
+        }
+
+        return rtn;
     }
 
     /**
@@ -912,6 +954,15 @@ public class ModelElementFacadeLogicImpl
                 }
             });
         return !dependencies.isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isReservedWord()
+     */
+    @Override
+    protected boolean handleIsReservedWord()
+    {
+        return UMLMetafacadeUtils.isReservedWord(metaObject.getName());
     }
 
     /**
