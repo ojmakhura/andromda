@@ -132,19 +132,11 @@ public final class $manageable.actionClassName extends DispatchAction
 #if ($memberType.dateType)
         form.${member.setterName}AsString("$member.defaultValue.replaceAll('"', '')");
 #elseif ($memberType.stringType)
-        form.${member.setterName}("$member.defaultValue.replaceAll('"', '')");
-#elseif ($memberType.primitive)
-#if ($memberType.fullyQualifiedName == 'char')
-        form.${member.setterName}('$member.defaultValue.replaceAll("'", "").charAt(0)');
-#else
         form.${member.setterName}($member.defaultValue);
-#end
-#else
-#if ($memberType.fullyQualifiedName == 'java.lang.Character' || $memberType.fullyQualifiedName == 'Character')
-        form.${member.setterName}(new ${memberType.fullyQualifiedName}('$member.defaultValue.replaceAll("'", "").charAt(0)'));
+#elseif ($memberType.primitive)
+        form.${member.setterName}($member.defaultValue);
 #else
         form.${member.setterName}(new ${memberType.fullyQualifiedName}("$member.replaceAll('"', '').defaultValue"));
-#end
 #end
 #end
 #end
