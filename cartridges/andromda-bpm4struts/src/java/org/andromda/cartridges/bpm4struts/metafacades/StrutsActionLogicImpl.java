@@ -212,14 +212,11 @@ public class StrutsActionLogicImpl
             final StrutsJsp page = this.getInput();
             if (page != null)
             {
-                final List<FrontEndParameter> tables = page.getTables();
-                int size = tables.size();
-                for (int i = 0; i < size && tableLinkParameter == null; i++)
+                for (FrontEndParameter table : page.getTables())
                 {
-                    StrutsParameter table = (StrutsParameter) tables.get(i);
                     if (tableLinkName.equals(table.getName()))
                     {
-                        tableLinkParameter = table;
+                        tableLinkParameter = (StrutsParameter)table;
                     }
                 }
             }
