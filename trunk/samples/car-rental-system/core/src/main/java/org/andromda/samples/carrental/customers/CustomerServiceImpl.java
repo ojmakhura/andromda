@@ -5,6 +5,8 @@
  */
 package org.andromda.samples.carrental.customers;
 
+import java.util.Collection;
+
 /**
  * @see org.andromda.samples.carrental.customers.CustomerService
  */
