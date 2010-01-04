@@ -8,6 +8,20 @@
 #if ($stringUtils.isNotBlank($class.packageName))
 package $class.packageName;
 #end
+#set ($webFault=$class.hasStereotype("WebFault"))
+#if ($webFault)
+## Assume the only Exception AssociationEnd class is the faultBean
+#if ($class.associationEnds.empty)
+## Create a new FaultBean class at the same time as processing this Exception
+#set ($faultDetails="Object")
+#set ($faultName="Object")
+#set ($faultClass="Object")
+#else
+#set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
+#set ($faultName=$class.associationEnds.get(0).name)
+#set ($faultClass=$class.associationEnds.get(0).otherEnd.type.name)
+#end
+#end
 
 #parse("templates/java/ExceptionUtilsImports.vm")
 
@@ -19,7 +33,14 @@ $class.getDocumentation(" * ")
     // Annotate get/set fields with @XmlTransient, not the private fields.
     @XmlAccessorType(XmlAccessType.PROPERTY)
     @XmlType(name="testApplicationException")
-    @WebFault( name="${class.name}", faultBean="$class.fullyQualifiedName", targetNamespace="http://$javaUtils.reversePackage($class.packageName)")
+#if ($webFault)
+    @XmlType(name="$stringUtils.uncapitalize($faultClass)")
+    @WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)/")
+##set ($faultName=$class.name.replace("Exception", "Fault"))
+##    @WebFault( name="$faultClass", faultBean="$stringUtils.uncapitalize($faultClass)", targetNamespace="http://$javaUtils.reversePackage($class.packageName)/")
+#else
+    @XmlType(name="$stringUtils.uncapitalize($class.name)")
+#end
 #end
 public#if($class.abstract) abstract#end class ${class.name}
 #if($class.generalization)
@@ -34,6 +55,12 @@ public#if($class.abstract) abstract#end class ${class.name}
 #if ($serializable)
     /** The serial version UID of this class. Throwable implements Serializable so declaration not needed. */
     private static final long serialVersionUID = ${class.serialVersionUID}L;
+
+#end
+#if ($webFault)
+    /** The Class with attributes populated with Exception Details, modeled as ValueObject, to fully describe the fault.
+        Exception throwable and message are stored in the Exception class, identifying details such as name and id are in FaultDetails */
+    private $faultDetails details;
 
 #end
     /**

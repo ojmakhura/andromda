@@ -14,8 +14,10 @@ package $class.packageName;
 #if ($class.associationEnds.empty)
 ## Create a new FaultBean class at the same time as processing this Exception
 #set ($faultDetails="Object")
+#set ($faultClass="Object")
 #else
 #set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
+#set ($faultClass=$class.associationEnds.get(0).otherEnd.type.name)
 #end
 #end
 
@@ -25,14 +27,16 @@ package $class.packageName;
 $class.getDocumentation(" * ")
  */
 #if ($XMLBindingAnnotations)
-    @XmlRootElement(name="${class.name}")
+    @XmlRootElement(name="#if ($webFault)$faultClass#else$class.name#end")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name="$stringUtils.uncapitalize(${class.name})")
 #if ($webFault)
-    @WebFault( name="${class.name}", faultBean="$faultDetails", targetNamespace="http://$javaUtils.reversePackage($class.packageName)")
+    @XmlType(name="$stringUtils.uncapitalize($faultClass)")
+    @WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)/")
+#else
+    @XmlType(name="$stringUtils.uncapitalize($class.name)")
 #end
 #end
-public#if($class.abstract) abstract#end class ${class.name}
+public#if($class.abstract) abstract#end class $class.name
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
 #else
@@ -63,7 +67,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     }
 
     /**
-     * Constructs a new instance of ${class.name}
+     * Constructs a new instance of $class.name
      *
      * @param throwable the parent Throwable
      */
@@ -73,7 +77,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     }
 
     /**
-     * Constructs a new instance of ${class.name}
+     * Constructs a new instance of $class.name
      *
      * @param message the throwable message.
      */
@@ -83,7 +87,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     }
 
     /**
-     * Constructs a new instance of ${class.name}
+     * Constructs a new instance of $class.name
      *
      * @param message the throwable message.
      * @param throwable the parent of this Throwable.
@@ -119,7 +123,7 @@ public#if($class.abstract) abstract#end class ${class.name}
 
 #if ($webFault)
     /**
-     * Constructs a new instance of ${class.name} with WebFault details
+     * Constructs a new instance of $class.name with WebFault details
      *
      * @param throwable the parent Throwable
      * @param detailsIn $faultDetails WebFault details
@@ -131,7 +135,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     }
 
     /**
-     * Constructs a new instance of ${class.name} with WebFault details
+     * Constructs a new instance of $class.name with WebFault details
      *
      * @param message the throwable message.
      * @param detailsIn $faultDetails WebFault details
@@ -143,7 +147,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     }
 
     /**
-     * Constructs a new instance of ${class.name} with WebFault details
+     * Constructs a new instance of $class.name with WebFault details
      *
      * @param message the throwable message.
      * @param throwable the parent of this Throwable.
