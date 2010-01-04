@@ -22,6 +22,13 @@
                 <value>Service</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="SERVICE_ELEMENT">
+                <documentation>
+                    View Type and Transaction Type taggedValues .
+                </documentation>
+                <value>ServiceElement</value>
+                <appliedOnElement>class, operation</appliedOnElement>
+            </element>
             <element name="IDENTIFIER">
                 <documentation>
                     Identifies an attribute as an identifier (primary key).

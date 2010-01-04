@@ -4,6 +4,9 @@
 package $service.packageName;
 #end
 
+import java.rmi.RemoteException;
+import javax.ejb.EJBObject;
+
 /**
  * Remote component interface for the $service.name session bean.
 $service.getDocumentation(" * ")
@@ -12,7 +15,7 @@ public interface ${service.name}
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #else
-    extends javax.ejb.EJBObject
+    extends EJBObject
 #end
 {
     // -- accessors for environment entries --
@@ -21,8 +24,9 @@ public interface ${service.name}
     /**
      * Get the ${envEntry.name} environment entry
 $envEntry.getDocumentation("     * ")
+     * @return service fullyQualifiedName
      */
-    public $envEntry.type.fullyQualifiedName ${envEntry.getterName}();
+    $envEntry.type.fullyQualifiedName ${envEntry.getterName}();
 
 #end
 #end
@@ -33,8 +37,9 @@ $envEntry.getDocumentation("     * ")
     /**
      * Get the $attribute.name constant
 $constant.getDocumentation("     * ")
+     * @return $constant fullyQualifiedName
      */
-    public $constant.type.fullyQualifiedName ${constant.getterName}();
+    $constant.type.fullyQualifiedName ${constant.getterName}();
 
 #end
 #end
@@ -43,17 +48,19 @@ $constant.getDocumentation("     * ")
     /**
      * Get the ${attribute.name} property
 $attribute.getDocumentation("     * ")
+     * @return ${attribute.name} fullyQualifiedName
      */
-    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
-        throws java.rmi.RemoteException;
+    $attribute.type.fullyQualifiedName ${attribute.getterName}()
+        throws RemoteException;
 
 #if(!$attribute.readOnly)
     /**
      * Set the $attribute.name property
      * @param value the new value
+     * @throws RemoteException
      */
-    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
-        throws java.rmi.RemoteException;
+    void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
+        throws RemoteException;
 #end
 #end
 
@@ -62,16 +69,26 @@ $attribute.getDocumentation("     * ")
 ## Only expose public methods
 #if ($operation.visibility == "public")
 
+#set ($returnType = $operation.getterSetterReturnTypeName)
    /**
 $operation.getDocumentation("    * ")
+#foreach ($argument in $operation.arguments)
+    * @param $argument.name
+#end
+#if ($operation.returnTypePresent)
+    * @return $returnType
+#end
+    * @throws RemoteException
+#foreach ($exception in $operation.exceptions)
+    * @throws $exception.fullyQualifiedName
+#end
     */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
-    public $returnType $operation.signature
+    $returnType $operation.signature
         throws $operation.getExceptionList('java.rmi.RemoteException');
 #else
-    public $returnType $operation.signature
-        throws java.rmi.RemoteException;
+    $returnType $operation.signature
+        throws RemoteException;
 #end
 #end
 #end

@@ -5,6 +5,7 @@
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
+    <templateObject name="javaConverter" className="org.andromda.utils.JavaTypeConverter"/>
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
@@ -155,6 +156,21 @@
     </template>
 
     <template
+        path="templates/ejb/SessionClient.vsl"
+        outputPattern="{0}/{1}Client.java"
+        outlet="session-beans"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/ejb/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
@@ -162,6 +178,53 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionTestClient.vsl"
+        outputPattern="{0}/test/{1}Test.java"
+        outlet="session-impls"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionTestClient.vsl"
+        outputPattern="{0}/test/{1}Test.java.ref"
+        outlet="session-impls"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- This duplicates functionality in Hibernate cartridge, used if Hibernate not specified. -->
+    <template
+        path="templates/ejb/ejb-jar.xml.vsl"
+        outputPattern="META-INF/ejb-jar.xml"
+        outlet="session-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                <!-- type name="org.andromda.metafacades.uml.Service"-->
+                </type>
             </modelElement>
         </modelElements>
     </template>
