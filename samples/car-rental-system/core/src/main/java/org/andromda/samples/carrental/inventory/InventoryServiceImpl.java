@@ -5,6 +5,8 @@
  */
 package org.andromda.samples.carrental.inventory;
 
+import java.util.Collection;
+
 /**
  * @see org.andromda.samples.carrental.inventory.InventoryService
  */

@@ -5,6 +5,8 @@
  */
 package org.andromda.samples.carrental.contracts;
 
+import java.util.Date;
+
 /**
  * @see Reservation
  */
