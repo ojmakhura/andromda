@@ -61,7 +61,7 @@
      * @see java.lang.Throwable#getStackTrace()
      */
     @Override
-    @XmlTransient
+    //@XmlTransient
     public StackTraceElement[] getStackTrace()
     {
         return super.getStackTrace();
