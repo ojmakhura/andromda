@@ -9,6 +9,6 @@ package org.andromda.samples.carrental.customers;
  * @see org.andromda.samples.carrental.customers.Customer
  */
 public class CustomerDaoImpl
-    extends org.andromda.samples.carrental.customers.CustomerDaoBase
+    extends CustomerDaoBase
 {
 }

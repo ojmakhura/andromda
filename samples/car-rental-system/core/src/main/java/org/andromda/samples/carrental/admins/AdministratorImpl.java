@@ -8,10 +8,10 @@ package org.andromda.samples.carrental.admins;
 import java.util.Collection;
 
 /**
- * @see org.andromda.samples.carrental.admins.Administrator
+ * @see Administrator
  */
 public class AdministratorImpl
-    extends org.andromda.samples.carrental.admins.Administrator
+    extends Administrator
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -19,21 +19,21 @@ public class AdministratorImpl
     private static final long serialVersionUID = 2896231750025115135L;
 
     /**
-     * @see org.andromda.samples.carrental.admins.Administrator#create(long, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.admins.Administrator#create(long, String, String, String)
      */
-    public org.andromda.samples.carrental.admins.Administrator create(long id, java.lang.String name, java.lang.String accountNo, java.lang.String password)
-        throws org.andromda.samples.carrental.admins.AdminException
+    public Administrator create(long id, String name, String accountNo, String password)
+        throws AdminException
     {
-        //@todo implement public org.andromda.samples.carrental.admins.Administrator create(long id, java.lang.String name, java.lang.String accountNo, java.lang.String password)
+        //@todo implement public Administrator create(long id, String name, String accountNo, String password)
         return null;
     }
 
-    public Collection findByAccountNo(String accountNo) throws org.andromda.samples.carrental.admins.AdminException
+    public Collection findByAccountNo(String accountNo) throws AdminException
     {
         return null;
     }
 
-    public Collection findAll() throws org.andromda.samples.carrental.admins.AdminException
+    public Collection findAll() throws AdminException
     {
         return null;
     }

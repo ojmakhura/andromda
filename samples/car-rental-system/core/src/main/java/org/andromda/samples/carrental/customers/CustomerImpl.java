@@ -6,10 +6,10 @@
 package org.andromda.samples.carrental.customers;
 
 /**
- * @see org.andromda.samples.carrental.customers.Customer
+ * @see Customer
  */
 public class CustomerImpl
-    extends org.andromda.samples.carrental.customers.Customer
+    extends Customer
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -17,22 +17,22 @@ public class CustomerImpl
     private static final long serialVersionUID = 5742979904955754030L;
 
     /**
-     * @see org.andromda.samples.carrental.customers.Customer#addDriver(org.andromda.samples.carrental.customers.Driver)
+     * @see org.andromda.samples.carrental.customers.Customer#addDriver(Driver)
      */
-    public void addDriver(org.andromda.samples.carrental.customers.Driver driver)
-        throws org.andromda.samples.carrental.customers.CustomerException
+    public void addDriver(Driver driver)
+        throws CustomerException
     {
-        //@todo implement public void addDriver(org.andromda.samples.carrental.customers.Driver driver)
-        throw new java.lang.UnsupportedOperationException("org.andromda.samples.carrental.customers.Customer.addDriver(org.andromda.samples.carrental.customers.Driver driver) Not implemented!");
+        //@todo implement public void addDriver(Driver driver)
+        throw new UnsupportedOperationException("org.andromda.samples.carrental.customers.Customer.addDriver(Driver driver) Not implemented!");
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.Customer#create(long, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.customers.Customer#create(long, String, String, String)
      */
-    public org.andromda.samples.carrental.customers.Customer create(long id, java.lang.String name, java.lang.String customerNo, java.lang.String password)
-        throws org.andromda.samples.carrental.customers.CustomerException
+    public Customer create(long id, String name, String customerNo, String password)
+        throws CustomerException
     {
-        //@todo implement public org.andromda.samples.carrental.customers.Customer create(long id, java.lang.String name, java.lang.String customerNo, java.lang.String password)
+        //@todo implement public Customer create(long id, String name, String customerNo, String password)
         return null;
     }
 

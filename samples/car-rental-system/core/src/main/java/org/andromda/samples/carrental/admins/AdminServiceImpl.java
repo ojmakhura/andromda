@@ -9,26 +9,26 @@ package org.andromda.samples.carrental.admins;
  * @see org.andromda.samples.carrental.admins.AdminService
  */
 public class AdminServiceImpl
-    extends org.andromda.samples.carrental.admins.AdminServiceBase
+    extends AdminServiceBase
 {
 
     /**
-     * @see org.andromda.samples.carrental.admins.AdminService#authenticateAsAdministrator(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.admins.AdminService#authenticateAsAdministrator(String, String, String)
      */
-    protected java.lang.String handleAuthenticateAsAdministrator(java.lang.String name, java.lang.String accountNo, java.lang.String password)
-        throws java.lang.Exception
+    protected String handleAuthenticateAsAdministrator(String name, String accountNo, String password)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleAuthenticateAsAdministrator(java.lang.String name, java.lang.String accountNo, java.lang.String password)
+        //@todo implement protected String handleAuthenticateAsAdministrator(String name, String accountNo, String password)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.admins.AdminService#createAdministrator(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.admins.AdminService#createAdministrator(String, String, String)
      */
-    protected java.lang.String handleCreateAdministrator(java.lang.String name, java.lang.String accountNo, java.lang.String password)
-        throws java.lang.Exception
+    protected String handleCreateAdministrator(String name, String accountNo, String password)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleCreateAdministrator(java.lang.String name, java.lang.String accountNo, java.lang.String password)
+        //@todo implement protected String handleCreateAdministrator(String name, String accountNo, String password)
         return null;
     }
 

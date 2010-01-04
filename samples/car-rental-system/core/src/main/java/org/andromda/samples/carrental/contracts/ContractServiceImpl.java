@@ -5,70 +5,73 @@
  */
 package org.andromda.samples.carrental.contracts;
 
+import java.util.Collection;
+import java.util.Date;
+
 /**
  * @see org.andromda.samples.carrental.contracts.ContractService
  */
 public class ContractServiceImpl
-    extends org.andromda.samples.carrental.contracts.ContractServiceBase
+    extends ContractServiceBase
 {
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#searchForReservationsOfCustomer(java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.ContractService#searchForReservationsOfCustomer(String)
      */
-    protected java.util.Collection handleSearchForReservationsOfCustomer(java.lang.String customerId)
-        throws java.lang.Exception
+    protected Collection handleSearchForReservationsOfCustomer(String customerId)
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchForReservationsOfCustomer(java.lang.String customerId)
+        //@todo implement protected Collection handleSearchForReservationsOfCustomer(String customerId)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#reserve(java.lang.String, java.lang.String, java.util.Date)
+     * @see org.andromda.samples.carrental.contracts.ContractService#reserve(String, String, Date)
      */
-    protected void handleReserve(java.lang.String customerId, java.lang.String comfortClass, java.util.Date reservationDate)
-        throws java.lang.Exception
+    protected void handleReserve(String customerId, String comfortClass, Date reservationDate)
+        throws Exception
     {
-        //@todo implement protected void handleReserve(java.lang.String customerId, java.lang.String comfortClass, java.util.Date reservationDate)
-        throw new java.lang.UnsupportedOperationException("org.andromda.samples.carrental.contracts.ContractService.handleReserve(java.lang.String customerId, java.lang.String comfortClass, java.util.Date reservationDate) Not implemented!");
+        //@todo implement protected void handleReserve(String customerId, String comfortClass, Date reservationDate)
+        throw new UnsupportedOperationException("org.andromda.samples.carrental.contracts.ContractService.handleReserve(String customerId, String comfortClass, Date reservationDate) Not implemented!");
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#handOutReservation(java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.ContractService#handOutReservation(String)
      */
-    protected java.lang.String handleHandOutReservation(java.lang.String idReservation)
-        throws java.lang.Exception
+    protected String handleHandOutReservation(String idReservation)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleHandOutReservation(java.lang.String idReservation)
+        //@todo implement protected String handleHandOutReservation(String idReservation)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#returnCar(java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.ContractService#returnCar(String)
      */
-    protected java.lang.String handleReturnCar(java.lang.String idContract)
-        throws java.lang.Exception
+    protected String handleReturnCar(String idContract)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleReturnCar(java.lang.String idContract)
+        //@todo implement protected String handleReturnCar(String idContract)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#searchForContractsOfCustomer(java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.ContractService#searchForContractsOfCustomer(String)
      */
-    protected java.util.Collection handleSearchForContractsOfCustomer(java.lang.String idCustomer)
-        throws java.lang.Exception
+    protected Collection handleSearchForContractsOfCustomer(String idCustomer)
+        throws Exception
     {
-        //@todo implement protected java.util.Collection handleSearchForContractsOfCustomer(java.lang.String idCustomer)
+        //@todo implement protected Collection handleSearchForContractsOfCustomer(String idCustomer)
         return null;
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.ContractService#registerAccident(java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.ContractService#registerAccident(String)
      */
-    protected java.lang.String handleRegisterAccident(java.lang.String idContract)
-        throws java.lang.Exception
+    protected String handleRegisterAccident(String idContract)
+        throws Exception
     {
-        //@todo implement protected java.lang.String handleRegisterAccident(java.lang.String idContract)
+        //@todo implement protected String handleRegisterAccident(String idContract)
         return null;
     }
 

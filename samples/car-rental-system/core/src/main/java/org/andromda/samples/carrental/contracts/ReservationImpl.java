@@ -6,10 +6,10 @@
 package org.andromda.samples.carrental.contracts;
 
 /**
- * @see org.andromda.samples.carrental.contracts.Reservation
+ * @see Reservation
  */
 public class ReservationImpl
-    extends org.andromda.samples.carrental.contracts.Reservation
+    extends Reservation
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -17,11 +17,11 @@ public class ReservationImpl
     private static final long serialVersionUID = 8662713071753922409L;
 
     /**
-     * @see org.andromda.samples.carrental.contracts.Reservation#create(long, java.util.Date, java.lang.String)
+     * @see org.andromda.samples.carrental.contracts.Reservation#create(long, Date, String)
      */
-    public org.andromda.samples.carrental.contracts.Reservation create(long id, java.util.Date reservationDate, java.lang.String comfortClass)
+    public Reservation create(long id, Date reservationDate, String comfortClass)
     {
-        //@todo implement public org.andromda.samples.carrental.contracts.Reservation create(long id, java.util.Date reservationDate, java.lang.String comfortClass)
+        //@todo implement public Reservation create(long id, Date reservationDate, String comfortClass)
         return null;
     }
 

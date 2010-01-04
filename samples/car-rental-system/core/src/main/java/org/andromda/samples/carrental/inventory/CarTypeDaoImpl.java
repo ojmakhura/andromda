@@ -9,6 +9,6 @@ package org.andromda.samples.carrental.inventory;
  * @see org.andromda.samples.carrental.inventory.CarType
  */
 public class CarTypeDaoImpl
-    extends org.andromda.samples.carrental.inventory.CarTypeDaoBase
+    extends CarTypeDaoBase
 {
 }
