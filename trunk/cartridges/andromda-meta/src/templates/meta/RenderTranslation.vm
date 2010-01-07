@@ -1,11 +1,10 @@
 ##
 ##  This macro will render the approriate java validation code
 ##
-##      o   $modelElement: the element from which for are going to translate constraints
-##      o   $constraintKind: "pre", "post", "inv", ...
+##      o   $allconstraints: all constraints to be translated
 ##
-#macro (renderTranslation $modelElement $constraintKind)
-#foreach ($constraint in $modelElement.getConstraints($constraintKind))
+#macro (renderTranslation $allconstraints)
+#foreach ($constraint in $allconstraints)
 #set ($constraintTranslation = $constraint.getTranslation("validation.Java"))
 #set ($constraintDocumentation = $constraint.getDocumentation("",-1,false))
         try
@@ -35,9 +34,6 @@
                 + this.THIS().toString() + ": " + th.getMessage(), th);
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
-#end
-#if ($modelElement.getConstraints($constraintKind).empty)
-        // $modelElement.name has no $constraintKind constraints
 #end
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
 #end
