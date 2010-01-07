@@ -118,6 +118,21 @@ public abstract class HibernateSchemaManagement
 
     /**
      * Attempts to retrieve the given property with the given <code>name</code>.
+     *
+     * @param properties the properties from which to retrieve the property.
+     * @param name the name of the property to retrieve.
+     * @return the value of the property.
+     */
+    protected String getProperty(
+        final Map properties,
+        final String name)
+    {
+        final String value = ObjectUtils.toString(properties.get(name));
+        return value;
+    }
+
+    /**
+     * Attempts to retrieve the given property with the given <code>name</code>.
      * If the property isn't found an exception is thrown.
      *
      * @param properties the properties from which to retrieve the property.

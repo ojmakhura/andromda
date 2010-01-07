@@ -10,6 +10,7 @@ import java.util.Random;
 
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ResourceWriter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 
 
@@ -45,14 +46,17 @@ public class HibernateUpdateSchema
         final String username = this.getRequiredProperty(
                 options,
                 "jdbcUsername");
-        final String password = this.getRequiredProperty(
+        final String password = this.getProperty(
                 options,
                 "jdbcPassword");
         final StringBuffer contents = new StringBuffer();
         contents.append("hibernate.connection.driver_class=").append(driverClass).append('\n');
         contents.append("hibernate.connection.url=").append(connectionUrl).append('\n');
         contents.append("hibernate.connection.username=").append(username).append('\n');
-        contents.append("hibernate.connection.password=").append(password).append('\n');
+        if(StringUtils.isNotBlank(password))
+        {
+            contents.append("hibernate.connection.password=").append(password).append('\n');
+        }
         final File temporaryProperitesFile =
             new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(new Random().nextDouble()));
         temporaryProperitesFile.deleteOnExit();
