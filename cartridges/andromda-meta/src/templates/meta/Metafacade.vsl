@@ -9,6 +9,9 @@ package $metafacade.packageName;
 #set ($pkg = "")
 #end
 
+import org.andromda.core.metafacade.ModelValidationMessage;
+import java.util.Collection;
+
 /**
 $metafacade.getDocumentation(" * ")
  *
@@ -56,7 +59,7 @@ public interface $metafacade.name
      * @param validationMessages the collection of messages to which additional
      *        validation messages will be added if invariants are broken.
      */
-    void validateInvariants(java.util.Collection validationMessages);
+    void validateInvariants(Collection<ModelValidationMessage> validationMessages);
 #end
 #foreach ($method in $metafacade.methodDataForPSM)
 

@@ -13,12 +13,10 @@ package $metafacade.logicPackageName;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeFactory;
-#if (!$modelElement.getConstraints("inv").empty)
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.apache.log4j.Logger;
-#elseif (!$metafacade.navigableConnectingEnds.empty)
-import org.apache.log4j.Logger;
-#end
+
+import java.util.Collection;
 
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
@@ -166,23 +164,27 @@ public abstract class $metafacade.logicName
 #set ($methodName = $attribute.getterName)
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${attribute.implementationOperationName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
+#set ($allPreConstraints=$attribute.getConstraints("pre")) 
+#set ($allPostConstraints=$attribute.getConstraints("post"))
    /**
     * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
     * @return $memberTypeName
     */
     protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
-
+#if (!$allPreConstraints.empty)
+#set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
     {
-#renderTranslation ($attribute "pre")
+#renderTranslation ($allPreConstraints)
     }
-
+#end
+#if (!$allPostConstraints.empty)
+#set ($handleMethodPostCondition = "${attribute.implementationOperationName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPostCondition
     {
-#renderTranslation ($attribute "post")
+#renderTranslation ($allPostConstraints)
     }
+#end    
 
 #if ($attribute.readOnly)
     private $memberTypeName __$memberName;
@@ -204,9 +206,17 @@ $attribute.getDocumentation("     * ")
         $memberTypeName $memberName = $memberType.javaNullString;
 #set ($indent = "")
 #end
+#if(!$allPreConstraints.empty)
         ${indent}$handleMethodPreCondition;
+#else
+        ${indent}// $attribute.name has no pre constraints
+#end        
         ${indent}$memberName = ${attribute.implementationOperationName}($typedArgumentList);
+#if(!$allPostConstraints.empty)
         ${indent}$handleMethodPostCondition;
+#else
+        ${indent}// $attribute.name has no post constraints
+#end        
 #if ($attribute.readOnly)
             this.__$memberName = $memberName;
             if (isMetafacadePropertyCachingEnabled())
@@ -229,23 +239,27 @@ $attribute.getDocumentation("     * ")
 #set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = $operation.typedArgumentList)
-#set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${operation.implementationName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
+#set ($allPreConstraints=$operation.getConstraints("pre")) 
+#set ($allPostConstraints=$operation.getConstraints("post"))
     /**
      * Method to be implemented in descendants
      * @return $memberTypeName
      */
     protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
-
+#if (!$allPreConstraints.empty)
+#set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
     {
-#renderTranslation ($operation "pre")
+#renderTranslation ($allPreConstraints)
     }
-
+#end
+#if (!$allPostConstraints.empty)
+#set ($handleMethodPostCondition = "${operation.implementationName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPostCondition
     {
-#renderTranslation ($operation "post")
+#renderTranslation ($allPostConstraints)
     }
+#end    
 
     /**
 $operation.getDocumentation("     * ")
@@ -260,14 +274,22 @@ $parameter.getDocumentation("     * ")
 #end
      */
     $operation.visibility $memberTypeName ${methodName}($typedArgumentList)
-    {
+    {           
+#if(!$allPreConstraints.empty)
         $handleMethodPreCondition;
+#else
+        // $operation.name has no pre constraints
+#end        
 #if($operation.returnTypePresent)
         $memberTypeName returnValue = ${operation.implementationName}($operation.argumentNames);
 #else
         ${operation.implementationName}($operation.argumentNames);
 #end
-        ${handleMethodPostCondition};
+#if(!$allPostConstraints.empty)
+        $handleMethodPostCondition;
+#else
+        // $operation.name has no post constraints
+#end         
 #if($operation.returnTypePresent)
         return returnValue;
 #end
@@ -289,18 +311,23 @@ $parameter.getDocumentation("     * ")
 #set ($methodName = $otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${otherEnd.implementationOperationName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${otherEnd.implementationOperationName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
+#set ($allPreConstraints=$associationEnd.getConstraints("pre")) 
+#set ($allPostConstraints=$associationEnd.getConstraints("post"))
 ##
+#if (!$allPreConstraints.empty)
+#set ($handleMethodPreCondition = "${otherEnd.implementationOperationName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
     {
-#renderTranslation ($associationEnd "pre")
+#renderTranslation ($allPreConstraints)
     }
-
+#end
+#if (!$allPostConstraints.empty)
+#set ($handleMethodPostCondition = "${otherEnd.implementationOperationName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPostCondition
     {
-#renderTranslation ($associationEnd "post")
+#renderTranslation ($allPostConstraints)
     }
+#end    
 
 #if ($otherEnd.readOnly)
     private $memberTypeName __$memberName;
@@ -322,9 +349,13 @@ $associationEnd.getDocumentation("     * ")
 #set ($indent = "")
         $memberTypeName $memberName = $memberType.javaNullString;
 #end
+#if (!$allPreConstraints.empty)
         ${indent}$handleMethodPreCondition;
+#else
+        ${indent}// $associationEnd.name has no pre constraints
+#end        
 #if ($otherEnd.many)
-        ${indent}java.util.Collection result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
+        ${indent}Collection result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
 #else
         ${indent}Object result = this.shieldedElement(${otherEnd.implementationOperationName}($typedArgumentList));
 #end
@@ -337,7 +368,11 @@ $associationEnd.getDocumentation("     * ")
         ${indent}    // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
         ${indent}    ${metafacade.logicName}.logger.warn("incorrect metafacade cast for ${metafacade.logicName}.${methodName} $memberTypeName " + ${otherEnd.implementationOperationName}($typedArgumentList) + ": " + result);
         ${indent}}
+#if (!$allPostConstraints.empty)        	
         ${indent}$handleMethodPostCondition;
+#else
+        ${indent}// $associationEnd.name has no post constraints
+#end        
 #if ($otherEnd.readOnly)
             this.__$memberName = $memberName;
             if (isMetafacadePropertyCachingEnabled())
@@ -355,7 +390,7 @@ $associationEnd.getDocumentation("     * ")
      * @return #if($otherEnd.ordered) java.util.List#else java.util.Collection#end
 
      */
-    protected abstract#if($otherEnd.ordered) java.util.List#else java.util.Collection#end ${otherEnd.implementationOperationName}($typedArgumentList);
+    protected abstract#if($otherEnd.ordered) java.util.List#else Collection#end ${otherEnd.implementationOperationName}($typedArgumentList);
 #else
     /**
      * UML Specific type is transformed by shieldedElements to AndroMDA Metafacade type
@@ -463,10 +498,10 @@ $associationEnd.getDocumentation("     * ")
      * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
 #end
      * @param validationMessages Collection
-     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}validateInvariants(java.util.Collection validationMessages)
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}validateInvariants(Collection validationMessages)
      */
     @Override
-    public void validateInvariants(java.util.Collection validationMessages)
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
     {
 #if ($metafacade.requiresInheritanceDelegatation)
 #foreach ($link in $metafacade.generalizationLinks)
@@ -475,7 +510,7 @@ $associationEnd.getDocumentation("     * ")
 #elseif ($superMetafacade)
         super.validateInvariants(validationMessages);
 #end
-#renderTranslation ($metafacade "inv")
+#renderTranslation ($metafacade.getConstraints("inv"))
     }
 ## Only render toString() on top level ancestor Facade objects or delegates.
 #if (!$superMetafacade || $metafacade.requiresInheritanceDelegatation)
