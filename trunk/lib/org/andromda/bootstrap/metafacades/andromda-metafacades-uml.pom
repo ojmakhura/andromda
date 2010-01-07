@@ -75,41 +75,6 @@
   </distributionManagement>
   <repositories>
     <repository>
-      <releases>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-      <snapshots>
-        <checksumPolicy>ignore</checksumPolicy>
-      </snapshots>
-      <id>internal</id>
-      <name>Internal WDW Repository</name>
-      <url>http://wm-flor-apvm004.wdw.disney.com:81/internal</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>fornax</id>
-      <name>Fornax Platform Repository</name>
-      <url>http://www.fornax-platform.org/archiva/repository/releases</url>
-    </repository>
-    <repository>
-      <id>andromda</id>
-      <name>AndroMDA Repository</name>
-      <url>http://team.andromda.org/maven2</url>
-    </repository>
-    <repository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <url>http://repository.jboss.org/maven2</url>
-    </repository>
-    <repository>
-      <snapshots />
-      <id>apache</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
-    </repository>
-    <repository>
       <id>sonatype</id>
       <name>Sonatype AndroMDA Repository</name>
       <url>http://oss.sonatype.org/content/groups/public</url>
@@ -124,39 +89,6 @@
     </repository>
   </repositories>
   <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-      <snapshots>
-        <checksumPolicy>ignore</checksumPolicy>
-      </snapshots>
-      <id>internal</id>
-      <name>Internal WDW Repository</name>
-      <url>http://wm-flor-apvm004.wdw.disney.com:81/internal</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>andromda</id>
-      <name>AndroMDA Repository</name>
-      <url>http://team.andromda.org/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>Codehaus repository</id>
-      <url>http://repository.codehaus.org/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>fornax</id>
-      <name>Fornax Platform Repository</name>
-      <url>http://www.fornax-platform.org/archiva/repository/releases</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <url>http://repository.jboss.org/maven2</url>
-    </pluginRepository>
     <pluginRepository>
       <id>sonatype</id>
       <name>Sonatype AndroMDA Repository</name>
@@ -176,7 +108,7 @@
   </pluginRepositories>
   <reporting>
     <excludeDefaults>false</excludeDefaults>
-    <outputDirectory>C:\workspaces\A34\andromda-all\metafacades\uml\common\target/site</outputDirectory>
+    <outputDirectory>D:\Andromda\andromda\metafacades\uml\common\target/site</outputDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -186,7 +118,7 @@
           <show>package</show>
           <minmemory>128m</minmemory>
           <maxmemory>512</maxmemory>
-          <sourcepath>C:\workspaces\A34\andromda-all\metafacades\uml\common/src/java;C:\workspaces\A34\andromda-all\metafacades\uml\common/target/src</sourcepath>
+          <sourcepath>D:\Andromda\andromda\metafacades\uml\common/src/java;D:\Andromda\andromda\metafacades\uml\common/target/src</sourcepath>
           <links>
             <link>http://java.sun.com/javase/6/docs/api/</link>
             <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
@@ -563,17 +495,18 @@
   </dependencyManagement>
   <properties>
     <scmBranch>trunk</scmBranch>
-    <buildNumber>2010-01-04 17:17:12</buildNumber>
+    <buildNumber>2010-01-07 16:43:32</buildNumber>
     <plexus.util.version>1.5.9</plexus.util.version>
-    <maven.build.src>C:\workspaces\A34\andromda-all\metafacades\uml\common/target/src</maven.build.src>
+    <maven.build.src>D:\Andromda\andromda\metafacades\uml\common/target/src</maven.build.src>
     <maven.version>2.2.1</maven.version>
-    <maven.andromda.model.uri>jar:file:C:\workspaces\A34\andromda-all\metafacades\uml\common/src/uml/andromda-metafacades-uml.xml.zip!/andromda-metafacades-uml.xml</maven.andromda.model.uri>
-    <timestamp>1262643432484</timestamp>
+    <bootstrap.artifacts>true</bootstrap.artifacts>
+    <maven.andromda.model.uri>jar:file:D:\Andromda\andromda\metafacades\uml\common/src/uml/andromda-metafacades-uml.xml.zip!/andromda-metafacades-uml.xml</maven.andromda.model.uri>
+    <timestamp>1262879012459</timestamp>
     <andromda.version>3.4-SNAPSHOT</andromda.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <createChecksum>true</createChecksum>
     <downloadSources>true</downloadSources>
-    <model.file>C:\workspaces\A34\andromda-all\metafacades\uml\common/src/uml/andromda-metafacades-uml.xml.zip</model.file>
-    <maven.src.dir>C:\workspaces\A34\andromda-all\metafacades\uml\common/src</maven.src.dir>
+    <model.file>D:\Andromda\andromda\metafacades\uml\common/src/uml/andromda-metafacades-uml.xml.zip</model.file>
+    <maven.src.dir>D:\Andromda\andromda\metafacades\uml\common/src</maven.src.dir>
   </properties>
 </project>

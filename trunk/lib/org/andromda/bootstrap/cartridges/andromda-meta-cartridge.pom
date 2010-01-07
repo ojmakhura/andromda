@@ -75,41 +75,6 @@
   </distributionManagement>
   <repositories>
     <repository>
-      <releases>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-      <snapshots>
-        <checksumPolicy>ignore</checksumPolicy>
-      </snapshots>
-      <id>internal</id>
-      <name>Internal WDW Repository</name>
-      <url>http://wm-flor-apvm004.wdw.disney.com:81/internal</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>fornax</id>
-      <name>Fornax Platform Repository</name>
-      <url>http://www.fornax-platform.org/archiva/repository/releases</url>
-    </repository>
-    <repository>
-      <id>andromda</id>
-      <name>AndroMDA Repository</name>
-      <url>http://team.andromda.org/maven2</url>
-    </repository>
-    <repository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <url>http://repository.jboss.org/maven2</url>
-    </repository>
-    <repository>
-      <snapshots />
-      <id>apache</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
-    </repository>
-    <repository>
       <id>sonatype</id>
       <name>Sonatype AndroMDA Repository</name>
       <url>http://oss.sonatype.org/content/groups/public</url>
@@ -124,39 +89,6 @@
     </repository>
   </repositories>
   <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-      <snapshots>
-        <checksumPolicy>ignore</checksumPolicy>
-      </snapshots>
-      <id>internal</id>
-      <name>Internal WDW Repository</name>
-      <url>http://wm-flor-apvm004.wdw.disney.com:81/internal</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>andromda</id>
-      <name>AndroMDA Repository</name>
-      <url>http://team.andromda.org/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>Codehaus repository</id>
-      <url>http://repository.codehaus.org/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>fornax</id>
-      <name>Fornax Platform Repository</name>
-      <url>http://www.fornax-platform.org/archiva/repository/releases</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <url>http://repository.jboss.org/maven2</url>
-    </pluginRepository>
     <pluginRepository>
       <id>sonatype</id>
       <name>Sonatype AndroMDA Repository</name>
@@ -176,7 +108,7 @@
   </pluginRepositories>
   <reporting>
     <excludeDefaults>false</excludeDefaults>
-    <outputDirectory>C:\workspaces\A34\andromda-all\cartridges\andromda-meta\target/site</outputDirectory>
+    <outputDirectory>D:\Andromda\andromda\cartridges\andromda-meta\target/site</outputDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -550,21 +482,22 @@
   <properties>
     <plexus.util.version>1.5.9</plexus.util.version>
     <maven.version>2.2.1</maven.version>
-    <timestamp>1262643552874</timestamp>
-    <src.dir>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src</src.dir>
-    <maven.build.src>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/target/src</maven.build.src>
+    <timestamp>1262879150242</timestamp>
+    <src.dir>D:\Andromda\andromda\cartridges\andromda-meta/src</src.dir>
+    <maven.build.src>D:\Andromda\andromda\cartridges\andromda-meta/target/src</maven.build.src>
     <createChecksum>true</createChecksum>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <howto.output.dir>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/target/site/howto</howto.output.dir>
+    <howto.output.dir>D:\Andromda\andromda\cartridges\andromda-meta/target/site/howto</howto.output.dir>
     <downloadSources>true</downloadSources>
-    <java.src.dir>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src/java</java.src.dir>
-    <model.uri>jar:file:C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src/uml/MetaMetafacadeModel.xml.zip!/MetaMetafacadeModel.xml</model.uri>
+    <java.src.dir>D:\Andromda\andromda\cartridges\andromda-meta/src/java</java.src.dir>
+    <model.uri>jar:file:D:\Andromda\andromda\cartridges\andromda-meta/src/uml/MetaMetafacadeModel.xml.zip!/MetaMetafacadeModel.xml</model.uri>
+    <bootstrap.artifacts>true</bootstrap.artifacts>
     <andromda.version>3.4-SNAPSHOT</andromda.version>
-    <andromda.cartridge.howto.model.uri>jar:file:C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src/site/resources/howto/HowToModel.xml.zip!/HowToModel.xml</andromda.cartridge.howto.model.uri>
+    <andromda.cartridge.howto.model.uri>jar:file:D:\Andromda\andromda\cartridges\andromda-meta/src/site/resources/howto/HowToModel.xml.zip!/HowToModel.xml</andromda.cartridge.howto.model.uri>
     <scmBranch>trunk</scmBranch>
-    <test.src.dir>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src/test</test.src.dir>
-    <buildNumber>2010-01-04 17:19:12</buildNumber>
-    <test.model.uri>jar:file:C:\workspaces\A34\andromda-all\cartridges\andromda-meta/src/test/uml/MetaCartridgeTestModel.xml.zip!/MetaCartridgeTestModel.xml</test.model.uri>
-    <test.output.dir>C:\workspaces\A34\andromda-all\cartridges\andromda-meta/target/cartridge-test/actual</test.output.dir>
+    <test.src.dir>D:\Andromda\andromda\cartridges\andromda-meta/src/test</test.src.dir>
+    <buildNumber>2010-01-07 16:45:50</buildNumber>
+    <test.model.uri>jar:file:D:\Andromda\andromda\cartridges\andromda-meta/src/test/uml/MetaCartridgeTestModel.xml.zip!/MetaCartridgeTestModel.xml</test.model.uri>
+    <test.output.dir>D:\Andromda\andromda\cartridges\andromda-meta/target/cartridge-test/actual</test.output.dir>
   </properties>
 </project>
