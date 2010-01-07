@@ -95,7 +95,11 @@ public final class $enumeration.enumerationName
     {
 #if ($enumeration.literalType.primitive)
 ##        final Number value = (Number)resultSet.getObject(values[0]);
+#if($enumeration.literalType.name == "char")
+        final $enumeration.literalType.wrapperName value = ($enumeration.literalType.wrapperName)resultSet.getObject(values[0]).toString().charAt(0);
+#else
         final $enumeration.literalType.wrapperName value = ($enumeration.literalType.wrapperName)resultSet.getObject(values[0]);
+#end
         return resultSet.wasNull() ? null : #if ($enumeration.typeSafe)${enumeration.name}.#end${enumeration.fromOperationName}(value.${enumeration.literalType.fullyQualifiedName}Value());
 #else
 #set ($valueAssignment = "($enumeration.literalType.fullyQualifiedName)resultSet.getObject(values[0])")
@@ -120,7 +124,7 @@ public final class $enumeration.enumerationName
 #else
 #set ($typeName = $enumeration.literalType.fullyQualifiedName)
 #end
-            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)));
+            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)#if($typeName == "java.lang.Character").charAt(0)#end));
         }
     }
 
@@ -177,7 +181,9 @@ public final class $enumeration.enumerationName
      */
     public Object fromXMLString(String string)
     {
-#if ($enumeration.literalType.primitive)
+#if ($typeName == "java.lang.Character")
+#set ($value = "${typeName}.valueOf(string.charAt(0))")
+#elseif ($enumeration.literalType.primitive)
 #set ($value = "${typeName}.valueOf(string).${enumeration.literalType.name}Value()")
 #else
 #set ($value = "${typeName}.valueOf(string)")
