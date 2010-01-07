@@ -170,23 +170,15 @@ $literal.getDocumentation("     * ")
     }
 
     /**
-     * Returns an instance of $enumeration.name from String <code>value</code>.
+     * Returns an instance of $enumeration.name from $literalTypeName <code>value</code>.
      * Required by JAXB2 enumeration implementation
      *
      * @param value the value to create the $enumeration.name from.
      * @return static Enumeration with corresponding value
      */
-    public static $enumeration.name fromValue(String value) 
+    public static $enumeration.name fromValue($literalTypeName value) 
     {
-        for (int i=0; i<${enumeration.name}.names().size(); i++) 
-        {
-            String enumName = (String)${enumeration.name}.names().get(i);
-            if (enumName.equals(value)) 
-            {
-                return ($enumeration.name)valueList.get(i);
-            }
-        }
-        throw new IllegalArgumentException(value.toString());
+        return ${enumeration.name}.${enumeration.fromOperationName}(value);
     }
 
     /**
