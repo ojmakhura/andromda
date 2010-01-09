@@ -1,0 +1,25 @@
+package org.andromda.test;
+
+import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Calendar;
+
+
+/**
+ * Test for existing imports
+ */
+public class TestClass {
+    public void test(java.util.List param, java.util.ArrayList param2) {
+
+    }
+
+    public void test2(java.util.List<java.lang.String> param, java.util.ArrayList<Long> param2) {
+
+    }
+
+    public void test(java.util.Set param, ArrayList param2) {
+        java.util.Collections.asLifoQueue(param);
+        param2.size();
+    }
+}

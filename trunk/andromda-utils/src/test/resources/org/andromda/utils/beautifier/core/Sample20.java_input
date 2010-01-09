@@ -1,0 +1,27 @@
+package package0.package1.package2;
+
+import dfg.dfs.dfg.Hasenfuss;
+import dfg.dfs.dfg.Hasenfuss2;
+import dfg.dfs.dfg.kkl.Hasenfuss2;
+
+class ClassB extends package0.package1.ClassA 
+	implements package0.package1.package2.InterfaceB, package0.package1.package3.InterfaceC {
+	
+    private static String statPrivVisStr = "Check UpperCase";
+    String instDefVisStr;
+    public boolean instPubVisBool = false;
+    private com.algebraic.test.DoublePrecisionValue t;
+
+	// docu.
+    void instVoidOp() {
+    }
+
+	// .
+    String instStringOp() {
+        return null;
+    }
+
+    static int statPubVisIntOp(String strParam) {
+        return -1;
+    }
+}

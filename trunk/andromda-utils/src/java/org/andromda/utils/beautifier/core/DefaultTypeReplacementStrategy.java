@@ -21,23 +21,28 @@ package org.andromda.utils.beautifier.core;
  *
  * @author Karsten Klein, hybrid labs; Plushnikov Michail
  */
-public class DefaultTypeReplacementStrategy implements TypeReplacementStrategy {
+public class DefaultTypeReplacementStrategy implements TypeReplacementStrategy
+{
 
     private String suffix;
 
-    public DefaultTypeReplacementStrategy(String suffix) {
+    public DefaultTypeReplacementStrategy(String suffix)
+    {
         this.suffix = '(' + suffix + ')';
     }
 
-    public String composeMatch(String type) {
+    public String composeMatch(String type)
+    {
         return type.replaceAll("\\.", "\\\\s*\\.\\\\s*") + suffix;
     }
 
-    public String modulateType(String type) {
+    public String modulateType(String type)
+    {
         return type;
     }
 
-    public String composeReplace(String type) {
+    public String composeReplace(String type)
+    {
         String t = type.substring(type.lastIndexOf('.') + 1);
         return t + "$1";
     }

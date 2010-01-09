@@ -1,0 +1,21 @@
+package test;
+
+import test.bar.*;
+
+public class AnotherTestResult extends test.logging.FOO_Logger implements test.logging.ONEINT {
+    private static test.logging.FOO_Logger logger =
+        test.logging.Foo_LoggerFactory.getInstance().getLogger(AnotherTestResult.class);
+
+    public static test.bar.X2_Daaa.Nested_X2_Daaa getDaaa()
+        throws FOO_ParamException, OtherException {
+        logger.calling("getDaaa", test.logging.FOO_Logger.NO_PARAMS);
+
+        return (test.bar.X2_Daaa.Nested_X2_Daaa) new test.bar.X2_Daaa.Nested_X2_Daaa();
+    }
+
+    protected static Foo_Daaa GetSomethingElse() {
+        String s1 = "k";
+        java.util.Date d1;
+        return new Foo_Daaa();
+    }
+}

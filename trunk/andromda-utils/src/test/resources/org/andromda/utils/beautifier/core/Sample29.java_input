@@ -1,0 +1,25 @@
+package org.company.test; 
+
+public class Test { 
+          
+        private de.company.product.Klasse klasse; 
+        private de.company.product.KlassenKamerad kamerad; 
+        private java.lang.List<de.company.product.KlassenKamerad> alleKameraden; 
+
+        public de.company.product.Klasse getKlasse(){ 
+                return klasse; 
+        } 
+
+        public void setKlasseUndKamerad(de.company.product.Klasse neueKlasse, de.company.product.KlassenKamerad neuerKamerad){ 
+                this.klasse = neueKlasse; 
+                this.kamerad = neuerKamerad; 
+        } 
+
+        public de.company.product.KlassenKamerad getKlassenKamerad(){ 
+                return kamerad; 
+        } 
+
+        public java.lang.List<de.company.product.KlassenKamerad> getAlleKameraden(){ 
+                return alleKameraden; 
+        } 
+} 

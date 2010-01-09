@@ -1,0 +1,145 @@
+
+package com.icw.phr.document.transfer; 
+
+/** 
+ * THIS FILE WAS GENERATED. DO NOT MODIFY. 
+ * 
+ * Created at Tue Sep 05 20:27:46 CEST 2007. 
+ */ 
+@SuppressWarnings("serial") 
+@com.icw.phr.commons.annotation.DomainObjectMapping(domainObject = "com.icw.phr.document.domain.DocumentContext") 
+@com.icw.phr.commons.domain.PermissionClassifier("com.icw.phr.document.domain.Object") 
+public class DocumentContextDto extends com.icw.phr.commons.transfer.EmbeddedObjectDto { 
+    private int contentSize; 
+    private com.icw.phr.core.transfer.CodeDto mimeType; 
+    private String description; 
+    private com.icw.phr.core.transfer.CodeDto language; 
+    private com.icw.phr.core.transfer.CodeDto confidentiality; 
+    private String styleSheetId; 
+    private String printStyleSheetId; 
+    private String encoding; 
+    private com.icw.phr.document.transfer.ParticipantDto author; 
+    private int documentVersion; 
+    private com.icw.phr.document.transfer.DocumentQualifierDto
+    	rootDocumentQualifier; 
+    private com.icw.phr.document.transfer.DocumentQualifierDto
+    	documentQualifier; 
+
+    // Embedded transfer object have a default constructor 
+    public DocumentContextDto() { 
+    } 
+
+    public void setContentSize(int contentSize) { 
+        this.contentSize = contentSize; 
+    } 
+
+    public int getContentSize() { 
+        return contentSize; 
+    } 
+
+    public void setMimeType(com.icw.phr.core.transfer.CodeDto mimeType) { 
+        this.mimeType = mimeType; 
+    } 
+
+    public com.icw.phr.core.transfer.CodeDto getMimeType() { 
+        if (mimeType == null) { 
+            mimeType = new com.icw.phr.core.transfer.CodeDto(); 
+        } 
+        return mimeType; 
+    } 
+
+    public void setDescription(String description) { 
+        this.description = description; 
+    } 
+
+    public String getDescription() { 
+        return description; 
+    } 
+
+    public void setLanguage(com.icw.phr.core.transfer.CodeDto language) { 
+        this.language = language; 
+    } 
+
+    public com.icw.phr.core.transfer.CodeDto getLanguage() { 
+        if (language == null) { 
+            language = new com.icw.phr.core.transfer.CodeDto(); 
+        } 
+        return language; 
+    } 
+
+    public void setConfidentiality(com.icw.phr.core.transfer.CodeDto confidentiality) { 
+        this.confidentiality = confidentiality; 
+    } 
+
+    public com.icw.phr.core.transfer.CodeDto getConfidentiality() { 
+        if (confidentiality == null) { 
+            confidentiality = new com.icw.phr.core.transfer.CodeDto(); 
+        } 
+        return confidentiality; 
+    } 
+
+    public void setStyleSheetId(String styleSheetId) { 
+        this.styleSheetId = styleSheetId; 
+    } 
+
+    public String getStyleSheetId() { 
+        return styleSheetId; 
+    } 
+
+    public void setPrintStyleSheetId(String printStyleSheetId) { 
+        this.printStyleSheetId = printStyleSheetId; 
+    } 
+
+    public String getPrintStyleSheetId() { 
+        return printStyleSheetId; 
+    } 
+
+    public void setEncoding(String encoding) { 
+        this.encoding = encoding; 
+    } 
+
+    public String getEncoding() { 
+        return encoding; 
+    } 
+
+    public void setAuthor(com.icw.phr.document.transfer.ParticipantDto author) { 
+        this.author = author; 
+    } 
+
+    public com.icw.phr.document.transfer.ParticipantDto getAuthor() { 
+        if (author == null) { 
+            author = new com.icw.phr.document.transfer.ParticipantDto(); 
+        } 
+        return author; 
+    } 
+
+    public void setDocumentVersion(int documentVersion) { 
+        this.documentVersion = documentVersion; 
+    } 
+
+    public int getDocumentVersion() { 
+        return documentVersion; 
+    } 
+
+    public void setRootDocumentQualifier( 
+        com.icw.phr.document.transfer.DocumentQualifierDto rootDocumentQualifier) { 
+        this.rootDocumentQualifier = rootDocumentQualifier; 
+
+    } 
+
+    public com.icw.phr.document.transfer.DocumentQualifierDto getRootDocumentQualifier() { 
+        return rootDocumentQualifier; 
+    } 
+
+    public void setDocumentQualifier( 
+        com.icw.phr.document.transfer.DocumentQualifierDto documentQualifier) { 
+        this.documentQualifier = documentQualifier; 
+
+    } 
+
+    public com.icw.phr.document.transfer.DocumentQualifierDto getDocumentQualifier() { 
+        return documentQualifier; 
+    } 
+} 
+
+

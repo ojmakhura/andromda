@@ -20,16 +20,17 @@ import de.hunsicker.jalopy.language.antlr.JavaNode;
 
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Map;
 
 /**
  * Context object used during a beatification process.
  *
  * @author Karsten Klein, hybrid labs; Plushnikov Michail
  */
-public class BeautifierContext implements ImportBeautifierJalopyConstants {
+public class BeautifierContext implements ImportBeautifierJalopyConstants
+{
 
     private TypeContext currentTypeContext;
 
@@ -43,94 +44,120 @@ public class BeautifierContext implements ImportBeautifierJalopyConstants {
 
     private Set<TypeContext> typeContexts = new TreeSet<TypeContext>();
 
-    public BeautifierContext() {
+    public BeautifierContext()
+    {
         initializeTypeContext(-1);
     }
 
-    public void preProcess(JavaNode javaNode) {
+    public void preProcess(JavaNode javaNode)
+    {
         processedNodes.put(javaNode, null);
     }
 
-    public boolean isProcessed(JavaNode javaNode) {
+    public boolean isProcessed(JavaNode javaNode)
+    {
         return processedNodes.containsKey(javaNode);
     }
 
-    public void addToCurrentTypeContext(JavaNode javaNode) {
+    public void addToCurrentTypeContext(JavaNode javaNode)
+    {
         currentTypeContext.addComponent(javaNode.getText());
     }
 
-    public TypeContext getCurrentTypeContext() {
+    public TypeContext getCurrentTypeContext()
+    {
         return currentTypeContext;
     }
 
-    public void postProcess(JavaNode javaNode) {
+    public void postProcess(JavaNode javaNode)
+    {
     }
 
-    private void initializeTypeContext(int type) {
+    private void initializeTypeContext(int type)
+    {
         currentTypeContext = new TypeContext(type, new ArrayList<String>());
     }
 
-    public void terminateCurrentSequence(JavaNode javaNode, int typeOfSequenceScope) {
-        if (currentTypeContext != null) {
+    public void terminateCurrentSequence(JavaNode javaNode, int typeOfSequenceScope)
+    {
+        if (currentTypeContext != null)
+        {
             currentTypeContext.reviseType();
 
-            if (currentTypeContext.getType() == PACKAGE_ANNOTATION) {
-                if (packageEnd == -1) {
+            if (currentTypeContext.getType() == PACKAGE_ANNOTATION)
+            {
+                if (packageEnd == -1)
+                {
                     packageEnd = javaNode.getEndColumn();
                     packageLine = javaNode.getEndLine();
                 }
             }
 
             if (currentTypeContext.getType() == IMPORT_STATEMENT ||
-                    currentTypeContext.getType() == STATIC_IMPORT_STATEMENT) {
-                if (javaNode.getEndLine() > importEndLine) {
+                    currentTypeContext.getType() == STATIC_IMPORT_STATEMENT)
+            {
+                if (javaNode.getEndLine() > importEndLine)
+                {
                     importEndLine = javaNode.getEndLine();
                     importEnd = javaNode.getEndColumn();
                 }
             }
 
-            if (currentTypeContext.getType() == 19) {
-                if (currentTypeContext.getLength() == 1) {
+            if (currentTypeContext.getType() == 19)
+            {
+                if (currentTypeContext.getLength() == 1)
+                {
                     typeContexts.add(currentTypeContext);
                 }
             }
 
-            if (currentTypeContext.getType() == 55) {
-                if (currentTypeContext.getLength() == 1) {
+            if (currentTypeContext.getType() == 55)
+            {
+                if (currentTypeContext.getLength() == 1)
+                {
                     typeContexts.add(currentTypeContext);
                 }
             }
 
-            if (currentTypeContext.getLength() > 1) {
+            if (currentTypeContext.getLength() > 1)
+            {
                 typeContexts.add(currentTypeContext);
             }
         }
 
-        if (typeOfSequenceScope == -1) {
+        if (typeOfSequenceScope == -1)
+        {
             initializeTypeContext(javaNode.getType());
-        } else {
+        }
+        else
+        {
             initializeTypeContext(typeOfSequenceScope);
         }
 
     }
 
-    public Set<TypeContext> getSequences() {
+    public Set<TypeContext> getSequences()
+    {
         return typeContexts;
     }
 
-    public int getPackageEnd() {
+    public int getPackageEnd()
+    {
         return packageEnd;
     }
 
-    public int getPackageLine() {
+    public int getPackageLine()
+    {
         return packageLine;
     }
 
-    public int getImportEndLine() {
+    public int getImportEndLine()
+    {
         return importEndLine;
     }
 
-    public int getImportEndColumn() {
+    public int getImportEndColumn()
+    {
         return importEnd;
     }
 

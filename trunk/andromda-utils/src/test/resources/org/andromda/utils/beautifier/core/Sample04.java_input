@@ -1,0 +1,20 @@
+package package0.package1.package2;
+
+class ClassB extends package0.package1.ClassA 
+	implements package0.package1.package2.InterfaceB{
+	
+    private static String statPrivVisStr = "Check UpperCase";
+    String instDefVisStr;
+    public boolean instPubVisBool = false;
+
+    void instVoidOp() {
+    }
+
+    String instStringOp() {
+        return null;
+    }
+
+    static int statPubVisIntOp(String strParam) {
+        return -1;
+    }
+}

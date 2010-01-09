@@ -1,0 +1,21 @@
+
+package org.oaw.forum;
+		
+public class Test {
+
+	public void testMethod0() {
+		com.example.Pet.valueOf("com.example.Pet.DOG", true);
+	}
+
+	public void testMethod1(java.lang.String... args) {
+		com.example.Pet.valueOf(com.example.Pet.class.getName() + ".DOG", true);
+	}
+
+	public void testMethod2(com.example.Dog... dogs) {
+		com.example.Pet.valueOf(com.example.Pet.DOG.class.getName(), true);
+	}
+	
+	protected com.example.Pet findByCriteria(
+            org.hibernate.criterion.Criterion... criterion) {
+	}
+}

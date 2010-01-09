@@ -1,0 +1,24 @@
+package test;
+
+/**
+ * Unit test for the import beautifier
+ * Goal: Test throw clauses:
+ * <li> In the java.lang package
+ * <li> Without package
+ * <li> In a *-imported package
+ * <li> In the default package
+ * <li> In any other package
+ */
+
+import test.exceptions.*;
+
+import test.otherpackage.Exception4;
+
+public class TestClass  {
+    public boolean getTheTruth()
+        throws Exception, Exception1, Exception2, Exception3, Exception4 {
+
+        return true;
+    }
+
+}
