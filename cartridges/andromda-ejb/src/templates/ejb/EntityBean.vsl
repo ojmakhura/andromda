@@ -96,12 +96,12 @@ $entity.getDocumentation(" * ")
 #end
 #foreach ( $finder in $entity.getQueryOperations(true))
 #if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
- * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
+ * @ejb.finder signature="$finder.getterSetterReturnTypeName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
- * @jboss.query signature="$finder.returnType.fullyQualifiedName $finder.signature"
+ * @jboss.query signature="$finder.getterSetterReturnTypeName $finder.signature"
  *             query="$finder.query"
 #else
- * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
+ * @ejb.finder signature="$finder.getterSetterReturnTypeName $finder.signature"
  *             query="$finder.query"
 #end
 #if ($finder.transactionType)
@@ -541,7 +541,7 @@ $operation.getDocumentation("    * ")
 #end
 #end
     */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
     $visibility abstract $returnType $signature
         throws $operation.exceptionList;
@@ -564,7 +564,7 @@ $operation.getDocumentation("    * ")
 #end
 #end
 #end
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
    /**
 $operation.getDocumentation("    * ")
     *

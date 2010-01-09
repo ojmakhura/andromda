@@ -27,17 +27,17 @@ $operation.getDocumentation("     * ")
      * @param $argument.name $argument.getDocumentation("")
 #end
 #if ($operation.returnTypePresent)
-     * @return $operation.returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #end
 #foreach ($exception in $operation.exceptions)
      * @throws $exception.name $exception.getDocumentation("")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end

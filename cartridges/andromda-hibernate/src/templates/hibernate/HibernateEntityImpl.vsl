@@ -32,7 +32,7 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
      * @see ${entity.fullyQualifiedEntityName}${esc.hash}${operation.getSignature(false)}
      */
 #set ($abstract = $entity.abstract && $operation.abstract)
-    $operation.visibility#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
+    $operation.visibility#if ($abstract) abstract#end $operation.getterSetterReturnTypeName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
 #if ($operation.exceptionsPresent)
 
         throws $operation.exceptionList#if ($abstract);#end
@@ -40,9 +40,9 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 #if (!$abstract)
 
     {
-        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.returnTypePresent)
-        $operation.returnType.fullyQualifiedName rtn = $operation.returnType.javaNullString;
+        $operation.getterSetterReturnTypeName rtn = $operation.returnType.javaNullString;
         return rtn;
 #else
         throw new UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");

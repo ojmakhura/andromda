@@ -183,10 +183,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.signature;
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end

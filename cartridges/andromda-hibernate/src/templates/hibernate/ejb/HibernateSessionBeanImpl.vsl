@@ -23,7 +23,7 @@ public class ${service.name}BeanImpl
 #else
 #set ($parameters = "${hibernateUtils.hibernatePackage}.Session session, ${parameterList}")
 #end
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
     protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList
@@ -32,7 +32,7 @@ public class ${service.name}BeanImpl
     protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
     {
 #end
-        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else

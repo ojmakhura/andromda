@@ -606,8 +606,8 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 ##
 #foreach ($finder in $queryOperations)
-#set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
-##    // ${finder.returnType.fullyQualifiedName} $finder.returnTypePresent $returnType
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+##    // ${finder.getterSetterReturnTypeName} $finder.returnTypePresent $returnType
     /**
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
@@ -638,7 +638,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      */
 #if ($finder.returnType.collectionType)
 #if($enableTemplating)
-#set ($returnType = "${finder.returnType.fullyQualifiedName}<?>")
+#set ($returnType = "${finder.getterSetterReturnTypeName}<?>")
 #end
 #elseif ($finder.returnTypePresent)
 #set ($returnType = "Object")
@@ -658,7 +658,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 #end
 
-#set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #if(!$finder.criteriaFinder)
     /**
      * {@inheritDoc}
@@ -708,7 +708,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
 #if($enableTemplating)
-#set ($returnType = "${finder.returnType.fullyQualifiedName}<?>")
+#set ($returnType = "${finder.getterSetterReturnTypeName}<?>")
 #end
     /**
      * {@inheritDoc}
@@ -800,7 +800,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 if (results.size() > 1)
                 {
                     throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-                        "More than one instance of '${finder.returnType.fullyQualifiedName}"
+                        "More than one instance of '${finder.getterSetterReturnTypeName}"
                             + "' was found when executing query --> '" + queryString + "'");
                 }
                 else if (results.size() == 1)
@@ -826,7 +826,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 #else
 #if($finder.returnType.collectionType)
-#set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating)<?>#end")
+#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
 #else
 #set ($returnType = "Object")
 #end
@@ -961,7 +961,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      /**
       * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
       */
-    protected abstract $operation.returnType.fullyQualifiedName#if($enableTemplating && $operation.returnType.collectionType)<?>#end $operation.implementationSignature
+    protected abstract $operation.getterSetterReturnTypeName#if($enableTemplating && $operation.returnType.collectionType)<?>#end $operation.implementationSignature
         throws Exception;
 
 #end

@@ -26,7 +26,7 @@ public class $service.webServiceDelegatorName
     /**
      * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
 #end

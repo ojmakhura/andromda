@@ -445,7 +445,7 @@ public interface $entity.daoName
     public void remove($entityCollectionType entities);
 
 #foreach ($operation in $entity.queryOperations)
-#set ($returnType = "${operation.returnType.fullyQualifiedName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
 $operation.getDocumentation("     * ")
      * @return $returnType
@@ -477,7 +477,7 @@ $operation.getDocumentation("     * ")
 
 #if ($operation.returnType.collectionType)
 #if($enableTemplating)
-#set ($returnType = "${operation.returnType.fullyQualifiedName}<${entity.fullyQualifiedEntityName}>")
+#set ($returnType = "${operation.getterSetterReturnTypeName}<${entity.fullyQualifiedEntityName}>")
 #end
     /**
      * <p>
@@ -509,7 +509,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #if($enableTemplating)
-#set ($returnType = "${operation.returnType.fullyQualifiedName}<?>")
+#set ($returnType = "${operation.getterSetterReturnTypeName}<?>")
 #end
 
 #else
@@ -583,7 +583,7 @@ $operation.getDocumentation("     * ")
 #end
 #else
 #if($operation.returnType.collectionType)
-#set ($returnType = "${operation.returnType.fullyQualifiedName}#if($enableTemplating)<?>#end")
+#set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating)<?>#end")
 #else
 #set ($returnType = "Object")
 #end

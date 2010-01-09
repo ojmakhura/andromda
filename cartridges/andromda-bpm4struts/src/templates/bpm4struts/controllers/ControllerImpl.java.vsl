@@ -27,7 +27,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 {
 #foreach ($operation in $controller.operations)
 #set ($visibility = $operation.visibility)
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #if (!$returnType)
 #set ($returnType = "void")
 #end

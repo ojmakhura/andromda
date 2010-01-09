@@ -70,7 +70,7 @@ public abstract class ${entity.name}Factory {
     }
 
 #foreach ($finder in $entity.getQueryOperations(true))
-#set ($returnType = $finder.returnType.fullyQualifiedName)
+#set ($returnType = $finder.getterSetterReturnTypeName)
 ##
 #set ($parameterList = $finder.typedArgumentList)
 #if ($finder.arguments.empty)

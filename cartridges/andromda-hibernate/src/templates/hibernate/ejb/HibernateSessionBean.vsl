@@ -66,16 +66,16 @@ $attribute.getDocumentation("     * ")
 #set ($parameters = "${hibernateUtils.hibernatePackage}.Session session, ${parameterList}")
 #end
 #if ($operation.exceptionsPresent)
-    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters)
+    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} ($parameters)
         throws $operation.exceptionList;
 #else
-    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters);
+    protected abstract $operation.getterSetterReturnTypeName handle${stringUtils.capitalize(${operation.name})} ($parameters);
 #end
 
     /**
 $operation.getDocumentation("     * ")
      */
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #end

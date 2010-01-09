@@ -30,10 +30,10 @@ public interface ${service.name}${localSuffix}
 $operation.getDocumentation("     * ")
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
         $operation.throwsClause;
 #else
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end

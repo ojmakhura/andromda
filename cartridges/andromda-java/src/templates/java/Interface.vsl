@@ -79,7 +79,7 @@ $target.getDocumentation("     * ")
 #end
 #foreach ($operation in $interface.operations)
 #if ($operation.visibility == "public")
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)

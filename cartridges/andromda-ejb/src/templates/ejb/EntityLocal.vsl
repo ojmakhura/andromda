@@ -89,10 +89,10 @@ $relation.otherEnd.getDocumentation("    * ")
 $operation.getDocumentation("    * ")
      */
 #if ($operation.exceptionsPresent)
-    public $operation.returnType.fullyQualifiedName $operation.signature
+    public $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    $visibility $operation.returnType.fullyQualifiedName $operation.signature;
+    $visibility $operation.getterSetterReturnTypeName $operation.signature;
 #end
 #end
 #end
