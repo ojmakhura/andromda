@@ -26,11 +26,10 @@ public class EnglishInflector
         if (word == null) return null;
 
         final Map<String, String> rules = EnglishInflector.getPluralRules();
-        for (Iterator<Map.Entry<String, String>> ruleIterator = rules.entrySet().iterator(); ruleIterator.hasNext();)
+        for (final Map.Entry<String, String> rule : rules.entrySet())
         {
-            final Map.Entry rule = ruleIterator.next();
-            final String pattern = rule.getKey().toString();
-            final String replace = rule.getValue().toString();
+            final String pattern = rule.getKey();
+            final String replace = rule.getValue();
             if (word.matches(pattern))
             {
                 return word.replaceFirst(pattern, replace);
@@ -86,11 +85,10 @@ public class EnglishInflector
         if (word == null) return null;
 
         final Map<String, String> rules = EnglishInflector.getSingularRules();
-        for (Iterator<Map.Entry<String, String>> ruleIterator = rules.entrySet().iterator(); ruleIterator.hasNext();)
+        for (final Map.Entry<String, String> rule : rules.entrySet())
         {
-            final Map.Entry rule = ruleIterator.next();
-            final String pattern = rule.getKey().toString();
-            final String replace = rule.getValue().toString();
+            final String pattern = rule.getKey();
+            final String replace = rule.getValue();
             if (word.matches(pattern))
             {
                 return word.replaceFirst(pattern, replace);
