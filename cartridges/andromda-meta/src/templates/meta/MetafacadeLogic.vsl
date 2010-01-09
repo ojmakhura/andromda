@@ -526,7 +526,7 @@ $associationEnd.getDocumentation("     * ")
     @Override
     public String toString()
     {
-        final StringBuffer toString = new StringBuffer(this.getClass().getName());
+        final StringBuilder toString = new StringBuilder(this.getClass().getName());
         toString.append("[");
         try
         {
