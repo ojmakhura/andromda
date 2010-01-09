@@ -1,19 +1,17 @@
 package org.andromda.utils;
 
 import java.text.ParseException;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class JavaTypeConverterTest 
-    extends TestCase
+public class JavaTypeConverterTest
 {
-
     public static final class ExpectedResult
     {
         private final String fromType;
         private final String toType;
         private final String expected;
-        
+
         public ExpectedResult(
             String fromType,
             String toType,
@@ -24,8 +22,8 @@ public class JavaTypeConverterTest
             this.expected = expected;
         }
     }
-    
-    
+
+
     private final static ExpectedResult[] expected =
     {
         new ExpectedResult("java.lang.Character", "java.lang.String", "(sourceVal == null ? null : sourceVal.toString())"),
@@ -1105,43 +1103,44 @@ public class JavaTypeConverterTest
         new ExpectedResult("java.lang.Character", "char", "(sourceVal == null ? 0 : sourceVal.charValue())"),
         new ExpectedResult("char", "java.lang.Character", "java.lang.Character.valueOf(sourceVal)"),
     };
-    
+
+    @Test
     public void testTypeConversion()
     {
         final JavaTypeConverter converter = new JavaTypeConverter();
-        for (int i = 0; i < expected.length; i++)
+        for (ExpectedResult anExpected : expected)
         {
-            final String result = converter.typeConvert(expected[i].fromType, "sourceVal", expected[i].toType);
-            assertEquals("Converting " + expected[i].fromType + " to " +
-                expected[i].toType, expected[i].expected, result);
-        } // for
+            final String result = converter.typeConvert(anExpected.fromType, "sourceVal", anExpected.toType);
+            assertEquals("Converting " + anExpected.fromType + " to " +
+                    anExpected.toType, anExpected.expected, result);
+        }
     }
 
-    
+    @Test
     public void testTypeConversionWithIgnore()
     {
         final JavaTypeConverter converter = new JavaTypeConverter();
         converter.setJavaTypeConversionIgnoreList("java.util.Date, java.sql.Timestamp");
-        
-        for (int i = 0; i < expected.length; i++)
+
+        for (ExpectedResult anExpected : expected)
         {
-            final String result = converter.typeConvert(expected[i].fromType, "sourceVal", expected[i].toType);
-            if ("java.util.Date".equals(expected[i].fromType) ||
-                    "java.sql.Timestamp".equals(expected[i].fromType) ||
-                    "java.util.Date".equals(expected[i].toType) ||
-                    "java.sql.Timestamp".equals(expected[i].toType))
+            final String result = converter.typeConvert(anExpected.fromType, "sourceVal", anExpected.toType);
+            if ("java.util.Date".equals(anExpected.fromType) ||
+                    "java.sql.Timestamp".equals(anExpected.fromType) ||
+                    "java.util.Date".equals(anExpected.toType) ||
+                    "java.sql.Timestamp".equals(anExpected.toType))
             {
-                assertNull("Converting " + expected[i].fromType + " to " + expected[i].toType +
-                    " should have been null, was: " + result, result);
+                assertNull("Converting " + anExpected.fromType + " to " + anExpected.toType +
+                        " should have been null, was: " + result, result);
             }
             else
             {
-                assertEquals("Converting " + expected[i].fromType + " to " + expected[i].toType,
-                    expected[i].expected, result);
+                assertEquals("Converting " + anExpected.fromType + " to " + anExpected.toType,
+                        anExpected.expected, result);
             }
-        } // for
+        }
     }
-    
+
     /**
      * This method generates the "expected" source array, so it can be cut and
      * pasted from the console output to this class, AFTER is has been examined
@@ -1151,19 +1150,19 @@ public class JavaTypeConverterTest
      */
     public static void generateExpectedSource()
     {
-        final String[] knownTypes = 
+        final String[] knownTypes =
         {
             "int", "long", "double", "float", "boolean",
             "java.lang.Integer", "java.lang.Long", "java.lang.Double", "java.lang.Float", "java.lang.Boolean",
             "java.util.Date", "java.sql.Timestamp", "java.sql.Time", "java.sql.Date",
-            "java.lang.String", "com.example.UserClass1", "com.example.UserClass2", 
+            "java.lang.String", "com.example.UserClass1", "com.example.UserClass2",
             "java.math.BigInteger", "java.math.BigDecimal"
         };
-        
+
         final String[] typeSuffix = { "", "[]" };
-        
+
         final JavaTypeConverter converter = new JavaTypeConverter();
-        
+
         boolean firstOut = false;
         for (int fromIndex = 0; fromIndex < knownTypes.length; fromIndex++)
         {
@@ -1195,7 +1194,7 @@ public class JavaTypeConverterTest
                        }
                        else
                        {
-                          System.out.print("null");                   
+                          System.out.print("null");
                        }
                        System.out.print(")");
                    } // for toSuffix
@@ -1210,7 +1209,7 @@ public class JavaTypeConverterTest
      */
     public static void genActualSource()
     {
-        final String[] knownTypes = 
+        final String[] knownTypes =
         {
             "int", "long", "double", "float", "boolean",
             "java.lang.Integer", "java.lang.Long", "java.lang.Double", "java.lang.Float", "java.lang.Boolean",
@@ -1219,7 +1218,7 @@ public class JavaTypeConverterTest
         };
 
         final String[] typeSuffix = { "", "[]" };
-        
+
         final JavaTypeConverter converter = new JavaTypeConverter();
 
         int sourceCounter = 1;
@@ -1279,16 +1278,15 @@ public class JavaTypeConverterTest
             } // for fromSuffix
         } // for fromIndex
         System.out.println("}");
-        
+
     }
 
-    public static void main(String[] args) throws ParseException {
-//        Uncomment to re-generated the "expected" if major mods are made        
+//    public static void main(String[] args) throws ParseException {
+//        Uncomment to re-generated the "expected" if major mods are made
 //        JavaTypeConverterTest.generateExpectedSource();
 
-//        Uncomment to re-generate source code to put through compiler to check syntax             
+//        Uncomment to re-generate source code to put through compiler to check syntax
 //        JavaTypeConverterTest.genActualSource();
-        
-        junit.textui.TestRunner.run(JavaTypeConverterTest.class);
-    }
+
+//    }
 }
