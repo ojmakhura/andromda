@@ -82,7 +82,7 @@ public class UMLModelAccessFacade
             "modelElement",
             modelElement.getClass());
         final ModelElementFacade modelElementFacade = (ModelElementFacade)modelElement;
-        final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
+        final StringBuilder packageName = new StringBuilder(modelElementFacade.getPackageName(true));
 
         // - if the model element is a package then the package name will be the name
         //   of the package with its package name
@@ -205,7 +205,7 @@ public class UMLModelAccessFacade
                         if (metafacade instanceof MetafacadeBase)
                         {
                             final ModelElementFacade modelElementFacade = (ModelElementFacade)metafacade;
-                            final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
+                            final StringBuilder packageName = new StringBuilder(modelElementFacade.getPackageName(true));
 
                             // - if the model element is a package then the package name will be the name
                             //   of the package with its package name

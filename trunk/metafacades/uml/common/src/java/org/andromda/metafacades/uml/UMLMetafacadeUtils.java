@@ -426,7 +426,7 @@ public class UMLMetafacadeUtils
         if (facade.isTemplateParametersPresent() && enableTemplating)
         {
             // we'll be constructing the parameter list in this buffer
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
 
             // add the name we've constructed so far
             buffer.append(fullName);
@@ -475,7 +475,7 @@ public class UMLMetafacadeUtils
         if (facade.isTemplateParametersPresent() && enableTemplating)
         {
             // we'll be constructing the parameter list in this buffer
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
 
             // start the parameter list
             buffer.append(LT);

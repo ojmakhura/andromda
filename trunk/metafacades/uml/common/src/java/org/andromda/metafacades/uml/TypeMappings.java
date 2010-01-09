@@ -98,7 +98,7 @@ public class TypeMappings
             mapping = this.mappings.getMapping(from);
             if (mapping != null)
             {
-                StringBuffer toBuffer = new StringBuffer(mapping.getTo());
+                StringBuilder toBuffer = new StringBuilder(mapping.getTo());
                 if (isArray)
                 {
                     // append the suffix back to the return value;

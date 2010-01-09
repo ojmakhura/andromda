@@ -36,7 +36,7 @@ public class EntityMetafacadeUtils
             "modelElementName",
             modelElementName);
 
-        StringBuffer sqlName = new StringBuffer();
+        StringBuilder sqlName = new StringBuilder();
         StringCharacterIterator iterator = new StringCharacterIterator(StringUtils.uncapitalize(modelElementName));
 
         for (char character = iterator.first(); character != CharacterIterator.DONE; character = iterator.next())
@@ -165,12 +165,12 @@ public class EntityMetafacadeUtils
         if (element != null)
         {
             Object value = element.findTaggedValue(name);
-            StringBuffer buffer = new StringBuffer(StringUtils.trimToEmpty((String)value));
+            StringBuilder buffer = new StringBuilder(StringUtils.trimToEmpty((String)value));
             if (StringUtils.isEmpty(buffer.toString()))
             {
                 // if we can't find the tagValue then use the
                 // element name for the name
-                buffer = new StringBuffer(toSqlName(
+                buffer = new StringBuilder(toSqlName(
                             element.getName(),
                             separator));
                 suffix = StringUtils.trimToEmpty(suffix);
@@ -179,7 +179,7 @@ public class EntityMetafacadeUtils
                 {
                     final short maxLength = (short)(nameMaxLength.shortValue() - suffix.length() - prefix.length());
                     buffer =
-                        new StringBuffer(
+                        new StringBuilder(
                             EntityMetafacadeUtils.ensureMaximumNameLength(
                                 buffer.toString(),
                                 Short.valueOf(maxLength)));
@@ -311,7 +311,7 @@ public class EntityMetafacadeUtils
         if (taggedValueObject == null)
         {
             // we construct our own foreign key constraint name here
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
 
             final ClassifierFacade type = associationEnd.getOtherEnd().getType();
             if (type instanceof Entity)
@@ -331,7 +331,7 @@ public class EntityMetafacadeUtils
 
             // we take into consideration the maximum length allowed
             final short maxLength = (short)(Short.valueOf(maxLengthProperty).shortValue() - suffix.length());
-            buffer = new StringBuffer(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength)));
+            buffer = new StringBuilder(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength)));
             buffer.append(suffix);
             constraintName = EntityMetafacadeUtils.getUniqueForeignKeyConstraintName(buffer.toString());
         }

@@ -1009,7 +1009,7 @@ public class UmlUtilities
         {
             return null;
         }
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final String usedSeparator = modelName ? MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR : separator;
 
@@ -1163,7 +1163,7 @@ public class UmlUtilities
                         if (object instanceof NamedElement)
                         {
                             NamedElement element = (NamedElement)object;
-                            StringBuffer fullName = new StringBuffer(getPackageName(
+                            StringBuilder fullName = new StringBuilder(getPackageName(
                                         element,
                                         separator,
                                         modelName));

@@ -33,7 +33,7 @@ public class ValueObjectLogicImpl
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations()
     {
         System.out.println("TypeSpecializations " + this.getAllSpecializations().size() + " with stereotypes " + this.getStereotypes().size());
-        StringBuffer stereotypes = new StringBuffer();
+        StringBuilder stereotypes = new StringBuilder();
         for (final Iterator<StereotypeFacade> iterator = this.getStereotypes().iterator(); iterator.hasNext();)
         {
             stereotypes.append(iterator.next().getName()).append(',');

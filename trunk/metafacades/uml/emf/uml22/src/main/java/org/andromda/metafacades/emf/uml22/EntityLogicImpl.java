@@ -476,7 +476,7 @@ public class EntityLogicImpl
      */
     private String getNameList(final Collection properties)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             properties,

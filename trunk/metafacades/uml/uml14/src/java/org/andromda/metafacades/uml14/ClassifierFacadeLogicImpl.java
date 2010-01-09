@@ -583,7 +583,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetOperationCallFromAttributes()
     {
-        final StringBuffer call = new StringBuffer();
+        final StringBuilder call = new StringBuilder();
         String separator = "";
         call.append('(');
         for (final Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
@@ -668,7 +668,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            final StringBuffer list = new StringBuffer();
+            final StringBuilder list = new StringBuilder();
             for (final Iterator iterator = interfaces.iterator(); iterator.hasNext();)
             {
                 final ModelElementFacade element = (ModelElementFacade)iterator.next();

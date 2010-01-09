@@ -137,7 +137,7 @@ public class ModelElementFacadeLogicImpl
                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
         {
             // we'll be constructing the parameter list in this buffer
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
 
             // add the name we've constructed so far
             buffer.append(fullName);
@@ -443,7 +443,7 @@ public class ModelElementFacadeLogicImpl
         int lineLength,
         boolean htmlStyle)
     {
-        final StringBuffer documentation = new StringBuffer();
+        final StringBuilder documentation = new StringBuilder();
 
         if (lineLength < 1)
         {
@@ -894,7 +894,7 @@ public class ModelElementFacadeLogicImpl
      */
     public String getValidationName()
     {
-        final StringBuffer validationName = new StringBuffer();
+        final StringBuilder validationName = new StringBuilder();
         final String seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         for (ModelElement namespace = metaObject.getNamespace(); namespace != null;
             namespace = namespace.getNamespace())

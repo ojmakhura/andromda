@@ -296,7 +296,7 @@ public class EntityLogicImpl
         final boolean withIdentifiers,
         final boolean follow)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         buffer.append('(');
 
         final Set attributes = new LinkedHashSet(this.getAttributes());
@@ -428,7 +428,7 @@ public class EntityLogicImpl
      */
     private String getTypeList(final Collection attributes)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             attributes,
@@ -475,7 +475,7 @@ public class EntityLogicImpl
      */
     private String getNameList(final Collection properties)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             properties,

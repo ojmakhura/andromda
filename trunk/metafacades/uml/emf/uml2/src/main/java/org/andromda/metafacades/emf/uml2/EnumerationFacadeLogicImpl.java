@@ -114,7 +114,7 @@ public class EnumerationFacadeLogicImpl
     @Override
     protected String handleGetFromOperationSignature()
     {
-        final StringBuffer signature = new StringBuffer(this.getFromOperationName());
+        final StringBuilder signature = new StringBuilder(this.getFromOperationName());
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {
@@ -141,7 +141,7 @@ public class EnumerationFacadeLogicImpl
     @Override
     protected String handleGetFromOperationName()
     {
-        final StringBuffer name = new StringBuffer("from");
+        final StringBuilder name = new StringBuilder("from");
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {

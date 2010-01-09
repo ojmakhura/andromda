@@ -211,7 +211,7 @@ public class ManageableEntityLogicImpl
 
     protected String handleListManageableMembers(final boolean withTypes)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final List attributes = this.getManageableAttributes();
         for (int i = 0; i < attributes.size(); i++)

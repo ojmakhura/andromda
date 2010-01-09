@@ -69,7 +69,7 @@ public class UML14MetafacadeUtils
             public boolean evaluate(Object object)
             {
                 ModelElement element = (ModelElement)object;
-                StringBuffer fullName = new StringBuffer(getPackageName(element, separator, modelName));
+                StringBuilder fullName = new StringBuilder(getPackageName(element, separator, modelName));
                 String name = element.getName();
                 if (StringUtils.isNotBlank(name))
                 {
