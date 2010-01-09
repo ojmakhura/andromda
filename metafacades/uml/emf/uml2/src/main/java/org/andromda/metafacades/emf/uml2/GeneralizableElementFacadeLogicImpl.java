@@ -36,7 +36,7 @@ public class GeneralizableElementFacadeLogicImpl
     @Override
     protected String handleGetGeneralizationList()
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         if (this.getGeneralizations() != null)
         {
             for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)

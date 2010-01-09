@@ -199,7 +199,7 @@ public class MetafacadeUtils
         final boolean withArgumentNames,
         final String modifier)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         boolean commaNeeded = false;
         for (ParameterFacade parameter : arguments)
         {
@@ -247,7 +247,7 @@ public class MetafacadeUtils
         final boolean withArgumentNames,
         final String argumentModifier)
     {
-        final StringBuffer signature = new StringBuffer(name);
+        final StringBuilder signature = new StringBuilder(name);
         signature.append('(');
         signature.append(getTypedArgumentList(
                 arguments,

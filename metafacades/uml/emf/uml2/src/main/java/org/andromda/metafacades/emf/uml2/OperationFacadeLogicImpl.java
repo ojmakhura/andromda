@@ -109,7 +109,7 @@ public class OperationFacadeLogicImpl
      */
     private String getCall(final String name)
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(name);
         buffer.append('(');
         buffer.append(this.getArgumentNames());
@@ -268,7 +268,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
@@ -298,7 +298,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentTypeNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
@@ -475,7 +475,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
-        StringBuffer exceptionList = new StringBuffer(initialExceptions);
+        StringBuilder exceptionList = new StringBuilder(initialExceptions);
         Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {

@@ -111,7 +111,7 @@ public class UMLModelAccessFacade
             "modelElement",
             modelElement.getClass());
         final ModelElementFacade modelElementFacade = (ModelElementFacade)modelElement;
-        final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
+        final StringBuilder packageName = new StringBuilder(modelElementFacade.getPackageName(true));
 
         // - if the model element is a package then the package name will be the
         // name of the package with its package name
@@ -252,8 +252,8 @@ public class UMLModelAccessFacade
                         if (element instanceof NamedElement)
                         {
                             final NamedElement modelElement = (NamedElement)element;
-                            final StringBuffer packageName =
-                                new StringBuffer(
+                            final StringBuilder packageName =
+                                new StringBuilder(
                                     UmlUtilities.getPackageName(
                                         modelElement,
                                         MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,

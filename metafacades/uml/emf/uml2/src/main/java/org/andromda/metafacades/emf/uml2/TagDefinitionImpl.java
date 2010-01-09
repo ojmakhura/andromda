@@ -106,7 +106,7 @@ public class TagDefinitionImpl
      */
     public String toString()
     {
-        StringBuffer out = new StringBuffer(this.name + ": ");
+        StringBuilder out = new StringBuilder(this.name + ": ");
         for (Iterator it = this.values.iterator(); it.hasNext();)
         {
             out.append(it.next());

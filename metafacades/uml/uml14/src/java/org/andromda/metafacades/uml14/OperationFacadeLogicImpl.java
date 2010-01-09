@@ -119,7 +119,7 @@ public class OperationFacadeLogicImpl
      */
     private String getCall(String name)
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(name);
         buffer.append('(');
         buffer.append(this.getArgumentNames());
@@ -133,7 +133,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator iterator = metaObject.getParameter().iterator();
 
@@ -162,7 +162,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentTypeNames()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator iterator = metaObject.getParameter().iterator();
 
@@ -453,7 +453,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
-        StringBuffer exceptionList = new StringBuffer(initialExceptions);
+        StringBuilder exceptionList = new StringBuilder(initialExceptions);
         Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {
@@ -496,7 +496,7 @@ public class OperationFacadeLogicImpl
 
     private String getTypedArgumentList(boolean withArgumentNames, String modifier)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         final Iterator parameterIterator = metaObject.getParameter().iterator();
 
         boolean commaNeeded = false;
