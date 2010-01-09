@@ -25,7 +25,7 @@ public class $className
     {
         // - initialize the TEMPORARY_DIRECTORY
         final String tmpDir = System.getProperty("java.io.tmpdir");
-        final StringBuffer directory = new StringBuffer(tmpDir);
+        final StringBuilder directory = new StringBuilder(tmpDir);
         if (!directory.toString().endsWith("/"))
         {
             directory.append("/");

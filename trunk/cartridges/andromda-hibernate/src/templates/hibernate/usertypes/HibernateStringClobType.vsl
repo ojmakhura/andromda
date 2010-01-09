@@ -81,7 +81,7 @@ public class $className
         Object owner)
         throws HibernateException, SQLException
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         try
         {
             //First we get the stream
