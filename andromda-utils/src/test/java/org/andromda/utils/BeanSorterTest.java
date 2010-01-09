@@ -9,6 +9,9 @@ import junit.framework.TestCase;
 import org.andromda.utils.beans.BeanSorter;
 import org.andromda.utils.beans.SortCriteria;
 import org.andromda.utils.beans.SortCriteria.Ordering;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -17,24 +20,24 @@ import org.andromda.utils.beans.SortCriteria.Ordering;
  * @author Chad Brandon
  */
 public class BeanSorterTest
-    extends TestCase
 {
+    @Test
     public void testSort()
     {
-        final List persons = Arrays.asList(BeanSorterTest.persons);
+        final List<Person> persons = Arrays.asList(BeanSorterTest.persons);
 
         // - try simple property sorting
-        List sorted = BeanSorter.sort(
+        List<Person> sorted = BeanSorter.sort(
             persons,
             new SortCriteria[] {new SortCriteria(
                     "firstName",
                     Ordering.ASCENDING)});
-        Iterator iterator = sorted.iterator();
-        Person billy =  (Person)iterator.next();
+        Iterator<Person> iterator = sorted.iterator();
+        Person billy =  iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
-        Person chad = (Person)iterator.next();
+        Person chad = iterator.next();
         assertEquals(chad.getFirstName(), "Chad");
-        Person john = (Person)iterator.next();
+        Person john = iterator.next();
         assertEquals(john.getFirstName(), "John");
 
         sorted = BeanSorter.sort(
@@ -43,11 +46,11 @@ public class BeanSorterTest
                     "firstName",
                     Ordering.DESCENDING)});
         iterator = sorted.iterator();
-        john =  (Person)iterator.next();
+        john =  iterator.next();
         assertEquals(john.getFirstName(), "John");
-        chad = (Person)iterator.next();
+        chad = iterator.next();
         assertEquals(chad.getFirstName(), "Chad");
-        billy = (Person)iterator.next();
+        billy = iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
         
         // - try nested property sorting
@@ -57,11 +60,11 @@ public class BeanSorterTest
                     "address.streetNumber",
                     Ordering.ASCENDING)});      
         iterator = sorted.iterator();
-        john =  (Person)iterator.next();
+        john =  iterator.next();
         assertEquals(john.getFirstName(), "John");
-        chad = (Person)iterator.next();
+        chad = iterator.next();
         assertEquals(chad.getFirstName(), "Chad");
-        billy = (Person)iterator.next();
+        billy = iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
         
         sorted = BeanSorter.sort(
@@ -70,11 +73,11 @@ public class BeanSorterTest
                     "address.streetNumber",
                     Ordering.DESCENDING)});      
         iterator = sorted.iterator();
-        billy =  (Person)iterator.next();
+        billy =  iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
-        chad = (Person)iterator.next();
+        chad = iterator.next();
         assertEquals(chad.getFirstName(), "Chad");
-        john = (Person)iterator.next();
+        john = iterator.next();
         assertEquals(john.getFirstName(), "John");
         
     }

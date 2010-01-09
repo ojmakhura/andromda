@@ -1,6 +1,7 @@
 package org.andromda.utils;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 
 /**
@@ -9,13 +10,8 @@ import junit.framework.TestCase;
  * @author Wouter Zoons
  */
 public class StringUtilsHelperTest
-    extends TestCase
 {
-    public StringUtilsHelperTest(String name)
-    {
-        super(name);
-    }
-
+    @Test
     public void testReplaceSuffix()
     {
         final String[][] fixture =
@@ -28,15 +24,15 @@ public class StringUtilsHelperTest
                 new String[] {"EntityHibernate", "ernate", "qwErty", "EntityHibqwErty"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.replaceSuffix(strings[0], strings[1], strings[2]),
-                strings[3]);
+                    StringUtilsHelper.replaceSuffix(strings[0], strings[1], strings[2]),
+                    strings[3]);
         }
     }
 
+    @Test
     public void testUpperCamelCaseName()
     {
         final String[][] fixture =
@@ -48,15 +44,15 @@ public class StringUtilsHelperTest
                 new String[] {"Welcome... to the jungle (Guns \'n\' Roses)", "WelcomeToTheJungleGunsNRoses"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.upperCamelCaseName(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.upperCamelCaseName(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testLowerCamelCaseName()
     {
         final String[][] fixture =
@@ -68,15 +64,15 @@ public class StringUtilsHelperTest
                 new String[] {"Welcome... to the jungle (Guns \'n\' Roses)", "welcomeToTheJungleGunsNRoses"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.lowerCamelCaseName(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.lowerCamelCaseName(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testToResourceMessageKey()
     {
         final String[][] fixture =
@@ -87,15 +83,15 @@ public class StringUtilsHelperTest
                 new String[] {"Hibernate Entity", "hibernate.entity"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.toResourceMessageKey(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.toResourceMessageKey(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testToPhrase()
     {
         final String[][] fixture =
@@ -106,15 +102,15 @@ public class StringUtilsHelperTest
                 new String[] {"Hibernate Entity", "Hibernate Entity"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.toPhrase(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.toPhrase(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testPrefixWithAPredicate()
     {
         final String[][] fixture =
@@ -133,15 +129,15 @@ public class StringUtilsHelperTest
                 new String[] {"building", "a building"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.prefixWithAPredicate(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.prefixWithAPredicate(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testToSingleLine()
     {
         final String[][] fixture =
@@ -156,15 +152,15 @@ public class StringUtilsHelperTest
                 new String[] {"This is \na multiline\n\n?", "This is a multiline ?"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.toSingleLine(strings[0]),
-                strings[1]);
+                    StringUtilsHelper.toSingleLine(strings[0]),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testRemoveLastOccurence()
     {
         final String testString = "This is a test string ending with a comma";
@@ -174,6 +170,7 @@ public class StringUtilsHelperTest
             testString + "  ");
     }
 
+    @Test
     public void testPluralize()
     {
         final String[][] fixture =
@@ -191,16 +188,16 @@ public class StringUtilsHelperTest
                 new String[] {"people", "people"}, new String[] {"feet", "feet"}, new String[] {"women", "women"}, new String[] {"elves", "elves"}, 
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             String plural = StringUtilsHelper.pluralize(strings[0]);
             assertEquals(plural + "!=" + strings[1],
-                plural,
-                strings[1]);
+                    plural,
+                    strings[1]);
         }
     }
 
+    @Test
     public void testSeparate()
     {
         final String[][] fixture =
@@ -210,15 +207,15 @@ public class StringUtilsHelperTest
                 new String[] {"UNDERSCORE_TEST", "UNDERSCORE_TEST"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.separate(strings[0], "_"),
-                strings[1]);
+                    StringUtilsHelper.separate(strings[0], "_"),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testSimpleFormat()
     {
         final String newline = StringUtilsHelper.getLineSeparator();
@@ -237,15 +234,15 @@ public class StringUtilsHelperTest
                 new String[] {"dodo do do doooo", "dodo"+newline+"do do"+newline+"doooo"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.format(strings[0], null, 5, false),
-                strings[1]);
+                    StringUtilsHelper.format(strings[0], null, 5, false),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testIndentedFormat()
     {
         final String indentation = " * ";
@@ -260,15 +257,15 @@ public class StringUtilsHelperTest
                                   indentation+"Sets the <code>thisArgumentIsMissingFromTheActionForm</code>"+newline+"field."}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.format(strings[0], indentation, 64, false),
-                strings[1]);
+                    StringUtilsHelper.format(strings[0], indentation, 64, false),
+                    strings[1]);
         }
     }
 
+    @Test
     public void testHtmlFormat()
     {
         final String newline = StringUtilsHelper.getLineSeparator();
@@ -279,12 +276,11 @@ public class StringUtilsHelperTest
                 new String[] {"one two three", "<p>"+newline+"one"+newline+"two"+newline+"three"+newline+"</p>"}
             };
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.format(strings[0], "", 5, true),
-                strings[1]);
+                    StringUtilsHelper.format(strings[0], "", 5, true),
+                    strings[1]);
         }
     }
 }
