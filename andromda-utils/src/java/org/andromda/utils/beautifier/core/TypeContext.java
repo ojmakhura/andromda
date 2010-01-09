@@ -24,23 +24,29 @@ import java.util.List;
  *
  * @author Karsten Klein, hybrid labs; Plushnikov Michail
  */
-public class TypeContext implements Comparable {
+public class TypeContext implements Comparable<TypeContext>
+{
 
     private int type;
     private List<String> sequence;
 
     private String qualifiedName = null;
 
-    public TypeContext(int type, List<String> sequence) {
+    public TypeContext(int type, List<String> sequence)
+    {
         this.type = type;
         this.sequence = sequence;
     }
 
-    public String getQualifiedName() {
-        if (qualifiedName == null) {
+    public String getQualifiedName()
+    {
+        if (qualifiedName == null)
+        {
             StringBuilder sb = new StringBuilder(100);
-            for (String lSequence : sequence) {
-                if (sb.length() > 0) {
+            for (String lSequence : sequence)
+            {
+                if (sb.length() > 0)
+                {
                     sb.append('.');
                 }
                 sb.append(lSequence);
@@ -50,77 +56,104 @@ public class TypeContext implements Comparable {
         return qualifiedName;
     }
 
-    public int getType() {
+    public int getType()
+    {
         return type;
     }
 
-    public String toString() {
+    public String toString()
+    {
         return String.valueOf(getType()) + " - " + getQualifiedName();
     }
 
-    public void reviseType() {
+    public void reviseType()
+    {
         int removeIndex = -1;
 
-        if (type == 50) return;
-        if (type == 19) return;
-        if (type == 55) return; // package
+        if (type == 50)
+        {
+            return;
+        }
+        if (type == 19)
+        {
+            return;
+        }
+        if (type == 55)
+        {
+            return;
+        } // package
 
-        for (int i = 0; i < sequence.size(); i++) {
+        for (int i = 0; i < sequence.size(); i++)
+        {
             String pos = sequence.get(i);
-            
+
             // uses java conventions to revise type
-            if (pos.matches("[A-Z].*")) {
+            if (pos.matches("[A-Z].*"))
+            {
                 removeIndex = i + 1;
                 break;
             }
         }
 
-        if (removeIndex != -1 && removeIndex < sequence.size()) {
-            while (sequence.size() != removeIndex) {
+        if (removeIndex != -1 && removeIndex < sequence.size())
+        {
+            while (sequence.size() != removeIndex)
+            {
                 sequence.remove(removeIndex);
                 qualifiedName = null;
             }
         }
     }
 
-    public int compareTo(Object arg0) {
-        TypeContext other = (TypeContext) arg0;
-
+    public int compareTo(TypeContext other)
+    {
         String qf1 = getQualifiedName();
         String qf2 = other.getQualifiedName();
-        
+
         // FIXME it is unclear why we need this. Normally the
         //  replacement patterns should have covered this.
-        
+
         // changes the order of types that start with the same prefix
-        if (qf2.startsWith(qf1)) {
+        if (qf2.startsWith(qf1))
+        {
             return -(qf1.compareTo(qf2));
         }
 
         return qf1.compareTo(qf2);
     }
 
-    public boolean isValidType() {
-        if (getType() == 19) return true;
-        if (getType() == 55) return true;
+    public boolean isValidType()
+    {
+        if (getType() == 19)
+        {
+            return true;
+        }
+        if (getType() == 55)
+        {
+            return true;
+        }
 
         String type = getQualifiedName();
         int index = type.lastIndexOf('.');
-        if (index != -1) {
-            CharSequence lastElement = type.substring(index + 1);
-            if (lastElement.toString().matches("^[A-Z]{1,}[a-z0-9]{1,}.*")) {
+        if (index != -1)
+        {
+            String lastElement = type.substring(index + 1);
+            if (lastElement.matches("^[A-Z]{1,}[A-Za-z0-9_]{1,}.*"))
+            {
                 return true;
             }
         }
         return false;
     }
 
-    public void addComponent(String component) {
+    public void addComponent(String component)
+    {
         sequence.add(component);
         qualifiedName = null;
     }
 
-    public int getLength() {
+    public int getLength()
+    {
         return sequence.size();
     }
 

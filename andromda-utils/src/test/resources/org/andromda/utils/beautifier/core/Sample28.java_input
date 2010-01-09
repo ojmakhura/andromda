@@ -1,0 +1,30 @@
+package org.oaw.forum;
+		
+public class Test {
+
+	public void testMethod0() {
+		new org.oaw.forum.subpack.MyType();
+		new org.oaw.forum.subpack.MyTypes();
+	}
+
+	public void testMethod1() {
+		org.oaw.forum.subpack.MyType.class.getName();
+		org.oaw.forum.subpack.MyTypes.class.getName();
+	}
+
+
+    public void testMethod2() {
+        de.company.product.Klasse.class.getName();
+        de.company.product.KlassenKamerad.class.getName();
+    }
+
+    public void testMethod3() {
+        de.company.product.Klasse klasse = new Klasse();
+        de.company.product.KlassenKamerad klassenKamerad = new KlassenKamerad();
+    }
+
+    public void testMethod3() {
+        de.company.product.Klasseclass klasse = new de.company.product.Klasseclass();
+    }
+
+}

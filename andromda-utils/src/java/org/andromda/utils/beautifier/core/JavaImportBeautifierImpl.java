@@ -16,6 +16,12 @@ package org.andromda.utils.beautifier.core;
  * limitations under the License.
  */
 
+import de.hunsicker.jalopy.Jalopy;
+import de.hunsicker.jalopy.language.antlr.JavaNode;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,19 +34,17 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import de.hunsicker.jalopy.Jalopy;
-import de.hunsicker.jalopy.language.antlr.JavaNode;
 
 /**
  * Simple oAW beautifier implementation based on Jalopy and the antlr JavaNode. The
  * implementation substitutes fully qualified class names (as long as there is
  * no conflict) with the short name and the according import statement.
  *
- * @author Karsten Klein, hybrid labs; Plushnikov Michail
+ * @author Karsten Klein, hybrid labs;
+ * @author Plushnikov Michail
  */
-public class JavaImportBeautifierImpl extends JavaBeautifier {
+public class JavaImportBeautifierImpl extends JavaBeautifier
+{
     /**
      * The logger
      */
@@ -48,14 +52,16 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
 
     private static final boolean DEBUG = false;
 
-    private static final String LINESEP = System.getProperty("line.separator");
-
     private static final String DEFAULT_PACKAGE = "";
+    private static final String JAVA_LANG_PACKAGE = "java.lang";
+
+    private static final String IMPORT = "import ";
 
     private static Set<Integer> startSequenceTypeSet = new HashSet<Integer>();
     private static Set<Integer> terminateSequenceTypeSet = new HashSet<Integer>();
 
-    static {
+    static
+    {
         startSequenceTypeSet.add(PACKAGE);
         startSequenceTypeSet.add(IMPORT_STATEMENT);
         startSequenceTypeSet.add(GENERIC_UPPER_BOUNDS);
@@ -85,14 +91,16 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
     }
 
     private boolean isOrganizeImports = true;
+    private boolean isStrict = true;
     private boolean isFormat = true;
 
     private Map<Integer, TypeReplacementStrategy> strategyMap = new HashMap<Integer, TypeReplacementStrategy>();
 
     /**
-     * 
+     *
      */
-    public JavaImportBeautifierImpl() {
+    public JavaImportBeautifierImpl()
+    {
         // populate strategy map
         strategyMap.put(NEW, new DefaultTypeReplacementStrategy("[\\,|\\<|\\)|\\[|\\<|\\(|\\s]"));
         strategyMap.put(GENERIC_UPPER_BOUNDS, new DefaultTypeReplacementStrategy("[\\(|\\,|\\<|\\[|\\,|\\>|\\s]"));
@@ -100,6 +108,7 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         strategyMap.put(IMPLEMENTS_CLAUSE, new DefaultTypeReplacementStrategy("[\\(|\\>|\\<|\\[|\\,|\\;|\\{|\\s]"));
 
         strategyMap.put(TYPE, new DefaultTypeReplacementStrategy("[\\(|\\,|\\>|\\)\\[\\<|\\;|\\s|\\.]"));
+        strategyMap.put(35, new DefaultTypeReplacementStrategy("[\\(|\\,|\\>|\\)\\[\\<|\\;|\\s|\\.]"));
         strategyMap.put(EXPRESSION, new DefaultTypeReplacementStrategy("[\\(|\\,|\\>|\\<|\\)|\\.|\\s*]"));
         strategyMap.put(ANNOTATION, new DefaultTypeReplacementStrategy("[\\(|\\>|\\<|\\[\\,|\\;|\\{|\\s]"));
         strategyMap.put(AT, new DefaultTypeReplacementStrategy("[\\(|\\>|\\<|\\[\\,|\\;|\\{|\\s]"));
@@ -110,29 +119,43 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
     /**
      * @return isFormat
      */
-    public boolean isFormat() {
+    public boolean isFormat()
+    {
         return isFormat;
     }
 
     /**
-     * @param isFormat
+     * @param format
      */
-    public void setFormat(boolean isFormat) {
-        this.isFormat = isFormat;
+    public void setFormat(boolean format)
+    {
+        isFormat = format;
     }
 
     /**
      * @return isOrganizeImports
      */
-    public boolean isOrganizeImports() {
+    public boolean isOrganizeImports()
+    {
         return isOrganizeImports;
     }
 
     /**
      * @param isOrganizeImports
      */
-    public void setOrganizeImports(boolean isOrganizeImports) {
+    public void setOrganizeImports(boolean isOrganizeImports)
+    {
         this.isOrganizeImports = isOrganizeImports;
+    }
+
+    public boolean isStrict()
+    {
+        return isStrict;
+    }
+
+    public void setStrict(boolean strict)
+    {
+        isStrict = strict;
     }
 
     /**
@@ -143,13 +166,15 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
      * @param targetFile the output file
      * @throws java.io.IOException on IOErrors
      */
-    public void beautify(File sourceFile, File targetFile) throws IOException {
+    public void beautify(File sourceFile, File targetFile) throws IOException
+    {
         final String lSource = FileUtils.readFileToString(sourceFile);
 
         String output = beautify(lSource);
 
         String targetPath = sourceFile.getAbsolutePath();
-        if (targetFile != null) {
+        if (targetFile != null)
+        {
             targetPath = targetFile.getAbsolutePath();
         }
 
@@ -160,42 +185,55 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
 
     /**
      * Beautify and Organize Imports on the source file.
+     *
      * @see org.andromda.utils.beautifier.core.Beautifier#beautify(java.lang.String)
      */
-    public String beautify(String pSource) {
-        String result = null;
+    public String beautify(String pSource)
+    {
+        String result = pSource;
         File tempFile = null;
-        try {
+        try
+        {
             tempFile = File.createTempFile("andromda-beautifier", "java");
-            if (isOrganizeImports()) {
-                result = organizeImports(pSource, tempFile);
+            if (isOrganizeImports())
+            {
+                result = organizeImports(result, tempFile);
             }
-            if (isFormat()) {
-                result = format(pSource, tempFile);
+            if (isFormat())
+            {
+                result = format(result, tempFile);
             }
-        // Note: Jalopy JavaRecognizer.parse() does System.err.println and does not rethrow exception
-        } catch (Exception e) {
-            if(LOGGER.isDebugEnabled()) {
+            // Note: Jalopy JavaRecognizer.parse() does System.err.println and does not rethrow exception
+        }
+        catch (Exception e)
+        {
+            if (LOGGER.isDebugEnabled())
+            {
                 LOGGER.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
             LOGGER.warn("Error during beautification. Source will not be beautified!");
-        } catch (Error e) {
-            if(LOGGER.isDebugEnabled()) {
+        }
+        catch (Error e)
+        {
+            if (LOGGER.isDebugEnabled())
+            {
                 LOGGER.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
             LOGGER.warn("Error during beautification. Source will not be beautified!");
-        } finally {
-            if (null != tempFile) {
+        }
+        finally
+        {
+            if (null != tempFile)
+            {
                 tempFile.delete();
             }
         }
         return result;
     }
 
-    private static final String EMPTY = "";
-    private static final String IMPORT = "import ";
     @SuppressWarnings("null")
-    private String organizeImports(String pSource, File pTempFile) {
+    private String organizeImports(final String pSource, File pTempFile)
+    {
         // create formatter context for this pTempFile
         BeautifierContext formatterContext = new BeautifierContext();
 
@@ -207,15 +245,18 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         Collection<TypeContext> sequences = formatterContext.getSequences();
 
         // dump all detected sequences to system out in DEBUG mode
-        if (DEBUG) {
+        if (DEBUG)
+        {
             printSequences(sequences);
         }
 
         // extract package from ast
         String currentPackage = DEFAULT_PACKAGE;
-        for (TypeContext typeContext : sequences) {
-            if (PACKAGE_ANNOTATION == typeContext.getType()) {
-                currentPackage = typeContext.getQualifiedName().toString();
+        for (TypeContext typeContext : sequences)
+        {
+            if (PACKAGE_ANNOTATION == typeContext.getType())
+            {
+                currentPackage = typeContext.getQualifiedName();
                 break;
             }
         }
@@ -229,73 +270,102 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
                 formatterContext.getImportEndLine(), formatterContext.getImportEndColumn());
 
         // split the pTempFile in header (including the package declaration) ...
-        StringBuilder result = new StringBuilder(pSource.length());
-        if (DEFAULT_PACKAGE.equals(currentPackage)) {
+        if (DEFAULT_PACKAGE.equals(currentPackage))
+        {
             packageEndPos = 0;
-        } else {
-            result.append(pSource.subSequence(0, packageEndPos));
         }
 
-        if (DEBUG) {
+        if (DEBUG)
+        {
             System.out.println("Package: " + currentPackage + '[' + packageEndPos + ']');
             System.out.println("Imports end at: " + importEndPos);
         }
 
-        if (-1 == importEndPos) {
+        if (-1 == importEndPos)
+        {
             importEndPos = packageEndPos;
         }
 
-        CharSequence imports = pSource.subSequence(packageEndPos, importEndPos);
+        String oldImports = pSource.substring(packageEndPos, importEndPos);
 
-        // and the body part (imports, comments, classes/interfaces)
-        String body = pSource.substring(importEndPos, pSource.length());
+        final StringBuilder result = new StringBuilder(pSource.length());
+        // do not organize anything if there is a wildcard import - this could lead to ambiguity
+        if (!isStrict || !oldImports.contains(".*"))
+        {
+            // and the body part (imports, comments, classes/interfaces)
+            String body = pSource.substring(importEndPos, pSource.length());
 
-        // extract the detected imports sequences
-        Collection<String> importTypes = extractImports(sequences);
+            // extract the detected import sequences
+            Collection<String> importTypes = extractImports(sequences);
 
-        // set for monitoring the already replaced types
-        Set<String> replacedSet = new TreeSet<String>();
-
-        for (TypeContext typeContext : sequences) {
-            if (19 == typeContext.getType()) {
-                if (null == currentPackage) {
-                    importTypes.add(typeContext.getQualifiedName());
-                } else {
-                    StringBuilder sb = new StringBuilder(100);
-                    sb.append(currentPackage);
-                    sb.append('.');
-                    sb.append(typeContext.getQualifiedName());
-                    importTypes.add(sb.toString());
-                }
-            }
-        }
-
-        body = replaceFullQualifiedClassNames(body, sequences, importTypes, replacedSet);
-
-        //Start Output
-	    if (imports.length() > 0) {
-            result.append(imports);
-	    }
-
-        // populate header with imports
-        for (String type : replacedSet) {
-            if (!importTypes.contains(type)) {
-                final int index = type.lastIndexOf('.');
-                CharSequence typePackage = -1 == index ? DEFAULT_PACKAGE : type.subSequence(0, index);
-
-                // make sure the import is not redundant, because :
-                //  - it is part of the current package
-                //  - it is java.lang import (automatically imported)
-                if (typePackage != null && !typePackage.toString().equals(EMPTY) && 
-                    !currentPackage.equals(typePackage) && !"java.lang".equals(typePackage))
+            // set for monitoring the already replaced types
+            Set<String> replacedSet = new TreeSet<String>();
+            // add all locally referenced types
+            for (TypeContext typeContext : sequences)
+            {
+                if (19 == typeContext.getType())
                 {
-                    result.append(IMPORT).append(type).append(";\r\n");
+                    if (null == currentPackage)
+                    {
+                        importTypes.add(typeContext.getQualifiedName());
+                    }
+                    else
+                    {
+                        importTypes.add(currentPackage + '.' + typeContext.getQualifiedName());
+                    }
                 }
             }
-        }
+            // add some of basic java.lang types
+            initializeJavaLang(importTypes);
 
-        // supplement the rest of the source
-        result.append(body);
+            body = replaceFullQualifiedClassNames(body, sequences, importTypes, replacedSet);
+
+            // collect all * imports
+            Collection<String> lStarImports = new HashSet<String>();
+            for (String pImportType : importTypes)
+            {
+                if (pImportType.endsWith(".*"))
+                {
+                    lStarImports.add(pImportType);
+                }
+            }
+            for (String pImportType : replacedSet)
+            {
+                if (pImportType.endsWith(".*"))
+                {
+                    lStarImports.add(pImportType);
+                }
+            }
+
+            // Start output
+            result.append(pSource.subSequence(0, packageEndPos));
+
+            // Check for comments in the import sections
+            if (oldImports.length() > 0 && (oldImports.contains("//") || oldImports.contains("/*") || oldImports.contains("*/")))
+            {
+                // append unchanged old import section
+                result.append(oldImports);
+                // remove duplicated imports
+                replacedSet.removeAll(importTypes);
+                // output generated imports
+                appendImports(result, replacedSet, currentPackage, lStarImports);
+            }
+            else
+            {
+                // merge all imports
+                importTypes.addAll(replacedSet);
+                // output all imports
+                appendImports(result, importTypes, currentPackage, lStarImports);
+            }
+
+            // supplement the rest of the source
+            result.append(body);
+        }
+        else
+        {
+            LOGGER.info("Did not organize imports - file contains wildcard imports.");
+            result.append(pSource);
+        }
 
         // cleanup
         jalopy.reset();
@@ -305,47 +375,87 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return result.toString();
     }
 
+    private void appendImports(StringBuilder pBuffer, Collection<String> pImportTypes, final String pPackage, final Collection<String> pStarImports)
+    {
+        boolean needNewLine = false;
+
+        for (String pImportType : pImportTypes)
+        {
+            String typePackage = extractPackage(pImportType);
+
+            // make sure the import is not redundant, because :
+            //  - it is part of the current package
+            //  - it is java.lang import (automatically imported)
+            //  - there is * import from the same package already
+            if (StringUtils.isNotBlank(typePackage) && !typePackage.equals(pPackage)
+                    && !JAVA_LANG_PACKAGE.equals(typePackage) &&
+                    (pImportType.endsWith(".*") || !pStarImports.contains(typePackage + ".*")))
+            {
+                pBuffer.append(IMPORT).append(pImportType).append(";\r\n");
+                needNewLine = true;
+            }
+        }
+
+        if (needNewLine)
+        {
+            // append new line
+            pBuffer.append("\r\n");
+        }
+    }
+
     /**
      * Hack to prevent memory leaks
+     *
      * @param jalopy
      */
-    private void clearObject(Jalopy jalopy) {
+    private void clearObject(Jalopy jalopy)
+    {
         Class clazz = jalopy.getClass();
         Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {
-            try {
+        for (Field field : fields)
+        {
+            try
+            {
                 field.setAccessible(true);
                 field.set(jalopy, null);
-            } catch (IllegalArgumentException ignore) {
-            } catch (IllegalAccessException ignore) {
+            }
+            catch (IllegalArgumentException ignore)
+            {
+            }
+            catch (IllegalAccessException ignore)
+            {
             }
         }
     }
 
     private String replaceFullQualifiedClassNames(String body, Collection<TypeContext> sequences,
-                                                        Collection<String> importTypes,
-                                                        Collection<String> replacedSet) {
-        // body consists of import, comment, classes etc
-        // the existing imports should not be touched by the replacement
-
+                                                  Collection<String> importTypes,
+                                                  Collection<String> replacedSet)
+    {
         final Set<String> conflictCache = new HashSet<String>();
 
-        for (TypeContext typeContext : sequences) {
+        for (TypeContext typeContext : sequences)
+        {
             String type = typeContext.getQualifiedName();
 
-            if (!replacedSet.contains(type)) {
-                if (typeContext.isValidType()) {
+            if (!replacedSet.contains(type))
+            {
+                if (typeContext.isValidType())
+                {
                     // ensure there are no conflicts
-                    if (!isConflict(type, importTypes, replacedSet, conflictCache)) {
+                    if (!isConflict(type, importTypes, replacedSet, conflictCache))
+                    {
                         // access the replacement strategy
                         TypeReplacementStrategy strategy = strategyMap.get(typeContext.getType());
 
-                        if (null != strategy) {
+                        if (null != strategy)
+                        {
                             Pattern pattern = Pattern.compile(strategy.composeMatch(type));
                             Matcher matcher = pattern.matcher(body);
 
                             // check whether the pattern was matched
-                            if (matcher.find()) {
+                            if (matcher.find())
+                            {
                                 final String replacement = strategy.composeReplace(type);
 
                                 // match and replace the type by the short form (in the sub string)
@@ -362,13 +472,37 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return body;
     }
 
-    private Collection<String> extractImports(Collection<TypeContext> sequences) {
+    private void initializeJavaLang(Collection<String> pCache)
+    {
+        // add default java lang import
+        pCache.add("java.lang.*");
+        pCache.add("java.lang.Short");
+        pCache.add("java.lang.Integer");
+        pCache.add("java.lang.Long");
+        pCache.add("java.lang.Float");
+        pCache.add("java.lang.Double");
+        pCache.add("java.lang.String");
+        pCache.add("java.lang.Character");
+        pCache.add("java.lang.Boolean");
+        pCache.add("java.lang.Byte");
+        pCache.add("java.lang.Number");
+        pCache.add("java.lang.Exeption");
+        pCache.add("java.lang.StringBuilder");
+        pCache.add("java.lang.StringBuffer");
+    }
+
+    private Collection<String> extractImports(Collection<TypeContext> sequences)
+    {
         Collection<String> importTypes = new TreeSet<String>();
 
-        for (TypeContext typeContext : sequences) {
-            if (IMPORT_STATEMENT == typeContext.getType()) {
+        for (TypeContext typeContext : sequences)
+        {
+            if (IMPORT_STATEMENT == typeContext.getType())
+            {
                 importTypes.add(typeContext.getQualifiedName());
-            } else if (STATIC_IMPORT_STATEMENT == typeContext.getType()) {
+            }
+            else if (STATIC_IMPORT_STATEMENT == typeContext.getType())
+            {
                 final StringBuffer sb = new StringBuffer(100);
                 sb.append("static ");
                 sb.append(typeContext.getQualifiedName());
@@ -378,38 +512,55 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return importTypes;
     }
 
-    private void printSequences(Collection<TypeContext> sequences) {
-        for (TypeContext typeContext : sequences) {
+    private void printSequences(Collection<TypeContext> sequences)
+    {
+        for (TypeContext typeContext : sequences)
+        {
             System.out.println(typeContext);
         }
     }
 
     private boolean isConflict(String type, Collection<String> importList,
-                               Collection<String> replacedSet, Collection<String> conflictCache) {
-        if (isConflict(type, replacedSet, conflictCache)) {
+                               Collection<String> replacedSet, Collection<String> conflictCache)
+    {
+        if (JAVA_LANG_PACKAGE.equals(extractPackage(type)))
+        {
+            return false;
+        }
+
+        if (isConflict(type, replacedSet, conflictCache))
+        {
             return true;
         }
 
-        if (isConflict(type, importList, conflictCache)) {
+        if (isConflict(type, importList, conflictCache))
+        {
             return true;
         }
         return false;
     }
 
-    private boolean isConflict(String type, Collection<String> testSet, Collection<String> conflictCache) {
-        if (testSet.contains(type)) {
+    private boolean isConflict(String type, Collection<String> testSet, Collection<String> conflictCache)
+    {
+        if (testSet.contains(type))
+        {
             return false;
         }
 
-        if (conflictCache.contains(type)) {
+        if (conflictCache.contains(type))
+        {
             return true;
         }
 
-        for (String importType : testSet) {
-            if (!importType.endsWith("*")) {
-                if (!type.equals(importType)) {
-                    CharSequence t = importType.substring(importType.lastIndexOf('.') + 1);
-                    if (type.endsWith("." + t) && !importType.startsWith("static ")) {
+        for (String importType : testSet)
+        {
+            if (!importType.endsWith("*"))
+            {
+                if (!type.equals(importType))
+                {
+                    String className = importType.substring(importType.lastIndexOf('.'));
+                    if (type.endsWith(className) && !importType.startsWith("static "))
+                    {
                         conflictCache.add(type);
                         return true;
                     }
@@ -419,14 +570,28 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return false;
     }
 
-    private int traverseAst(JavaNode ast, BeautifierContext context, int depth) {
+    private String extractPackage(String pImportType)
+    {
+        final int index = pImportType.lastIndexOf('.');
+        String typePackage = DEFAULT_PACKAGE;
+        if (-1 < index)
+        {
+            typePackage = pImportType.substring(0, index);
+        }
+        return typePackage;
+    }
+
+    private int traverseAst(JavaNode ast, BeautifierContext context, int depth)
+    {
         // print this node
-        if (DEBUG) {
+        if (DEBUG)
+        {
             preparePrintln(depth);
             System.out.println(ast);
         }
 
-        if (context.isProcessed(ast)) {
+        if (context.isProcessed(ast))
+        {
             return -1;
         }
 
@@ -435,26 +600,33 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         // check whether this subtree is to be ignored completely
         Integer astType = ast.getType();
 
-        if (terminateSequenceTypeSet.contains(astType)) {
+        if (terminateSequenceTypeSet.contains(astType))
+        {
             context.terminateCurrentSequence(ast, context.getCurrentTypeContext().getType());
-        } else if (startSequenceTypeSet.contains(astType)) {
+        }
+        else if (startSequenceTypeSet.contains(astType))
+        {
             context.terminateCurrentSequence(ast, -1);
         }
 
-        if (DEBUG) {
+        if (DEBUG)
+        {
             System.out.println("TRAVERSING: " + ast.getType());
         }
 
         // traverse all children
         JavaNode child = (JavaNode) ast.getFirstChild();
-        if (null != child) {
+        if (null != child)
+        {
             traverseAst(child, context, depth + 1);
         }
 
         // print if a type was detected
-        if (79 == ast.getType()) {
+        if (79 == ast.getType())
+        {
             context.addToCurrentTypeContext(ast);
-            if (DEBUG) {
+            if (DEBUG)
+            {
                 preparePrintln(depth);
                 System.out.println(context.getCurrentTypeContext());
             }
@@ -462,7 +634,8 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
 
         // continue visiting the tree (traverse siblings)
         JavaNode next = (JavaNode) ast.getNextSibling();
-        while (null != next) {
+        while (null != next)
+        {
             traverseAst(next, context, depth);
             next = (JavaNode) next.getNextSibling();
         }
@@ -471,8 +644,10 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
         return -1;
     }
 
-    private void preparePrintln(int depth) {
-        for (int i = 0; i < depth; i++) {
+    private void preparePrintln(int depth)
+    {
+        for (int i = 0; i < depth; i++)
+        {
             System.out.print("    ");
         }
     }

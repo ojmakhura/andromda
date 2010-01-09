@@ -22,7 +22,8 @@ package org.andromda.utils.beautifier.core;
  *
  * @author Karsten Klein, hybrid labs
  */
-public interface TypeReplacementStrategy {
+public interface TypeReplacementStrategy
+{
 
     public String modulateType(String type);
 

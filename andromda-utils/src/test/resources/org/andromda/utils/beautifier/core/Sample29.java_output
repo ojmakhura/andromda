@@ -1,0 +1,28 @@
+package org.company.test;
+
+import de.company.product.Klasse;
+import de.company.product.KlassenKamerad;
+
+public class Test {
+    private Klasse klasse;
+    private KlassenKamerad kamerad;
+    private List<KlassenKamerad> alleKameraden;
+
+    public Klasse getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasseUndKamerad(Klasse neueKlasse,
+        KlassenKamerad neuerKamerad) {
+        this.klasse = neueKlasse;
+        this.kamerad = neuerKamerad;
+    }
+
+    public KlassenKamerad getKlassenKamerad() {
+        return kamerad;
+    }
+
+    public List<KlassenKamerad> getAlleKameraden() {
+        return alleKameraden;
+    }
+} 

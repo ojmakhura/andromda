@@ -21,13 +21,14 @@ package org.andromda.utils.beautifier.core;
  *
  * @author Karsten Klein, hybrid labs
  */
-public interface Beautifier {
+public interface Beautifier
+{
 
     /**
      * Processes the characterSequence and beautifies its content.
      *
      * @param pSource The character sequence serving as input for
-     *                          the beautification.
+     *                the beautification.
      */
     public String beautify(String pSource);
 
