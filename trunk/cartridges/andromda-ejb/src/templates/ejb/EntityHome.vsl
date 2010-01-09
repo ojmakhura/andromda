@@ -53,7 +53,7 @@ $constant.getDocumentation("     * ")
    /**
 $operation.getDocumentation("    * ")
     */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
     public $returnType $operation.signature throws $operation.exceptionList;
 #else
@@ -77,7 +77,7 @@ $operation.getDocumentation("    * ")
    /**
 $finder.getDocumentation("    * ")
     */
-    public $finder.returnType.fullyQualifiedName $finder.signature
+    public $finder.getterSetterReturnTypeName $finder.signature
            throws javax.ejb.FinderException;
 
 #end

@@ -52,7 +52,7 @@ $attribute.getDocumentation("     * ")
 #if (!$metafacade.operations.empty)
 #foreach ($operation in $metafacade.operations)
 #set ($methodName = $operation.name)
-#set ($returnTypeName = $operation.returnType.fullyQualifiedName)
+#set ($returnTypeName = $operation.getterSetterReturnTypeName)
     /**
 $operation.getDocumentation("     * ")
      * @see ${metafacade.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}

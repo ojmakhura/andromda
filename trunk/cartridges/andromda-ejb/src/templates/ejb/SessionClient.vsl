@@ -49,7 +49,7 @@ public class ${service.name}Client
 ## Only expose public methods
 #if ($operation.visibility == "public")
 
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
    /**
 $operation.getDocumentation("    * ")
 #foreach ($argument in $operation.arguments)

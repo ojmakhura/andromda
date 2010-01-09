@@ -42,7 +42,7 @@ public class ${service.name}Impl
     {
         // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
-#set ($returnTypeName = $operation.returnType.fullyQualifiedName)
+#set ($returnTypeName = $operation.getterSetterReturnTypeName)
 #if (!$operation.returnType.primitive)
         return null;
 #elseif ("boolean" == $returnTypeName)

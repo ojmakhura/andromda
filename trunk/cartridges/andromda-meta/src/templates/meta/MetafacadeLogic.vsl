@@ -235,7 +235,7 @@ $attribute.getDocumentation("     * ")
 
 #foreach ($operation in $metafacade.operations)
 #set ($hasArguments = (!$operation.arguments.empty))
-#set ($memberTypeName = $operation.returnType.fullyQualifiedName)
+#set ($memberTypeName = $operation.getterSetterReturnTypeName)
 #set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = $operation.typedArgumentList)

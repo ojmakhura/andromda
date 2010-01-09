@@ -73,7 +73,7 @@ $attribute.getDocumentation("     * ")
    /**
 $operation.getDocumentation("    * ")
     */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #if ($operation.exceptionsPresent)
     public $returnType $operation.signature
     throws $operation.exceptionList;

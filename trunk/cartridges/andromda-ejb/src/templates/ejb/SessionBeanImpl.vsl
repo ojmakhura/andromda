@@ -22,7 +22,7 @@ public class ${service.name}BeanImpl
     private static final long serialVersionUID = 1L;
 
 #foreach ($operation in $service.operations)
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
 #set ($signature = $operation.signature)
 #set ($visibility = $operation.visibility)
 ## Public static methods are exposed on the home

@@ -76,7 +76,7 @@ public class ${service.name}Test
 ## Only expose public methods
 #if ($operation.visibility == "public")
 
-#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.getterSetterReturnTypeName)
    /**
     * Invokes the $operation.name service method on ${service.name}.
 $operation.getDocumentation("    * ")
@@ -101,7 +101,7 @@ $operation.getDocumentation("    * ")
         this.logStart();
         ${service.fullyQualifiedName}Client client = new ${service.fullyQualifiedName}Client();
 
-        $operation.returnType.fullyQualifiedName ${operation.name}Return = client.${operation.name}(${operation.argumentNames});
+        $operation.getterSetterReturnTypeName ${operation.name}Return = client.${operation.name}(${operation.argumentNames});
         System.out.println(" Result = " + XMLCoder.encode(${operation.name}Return));
         this.log("Finished test!");
         return ${operation.name}Return;

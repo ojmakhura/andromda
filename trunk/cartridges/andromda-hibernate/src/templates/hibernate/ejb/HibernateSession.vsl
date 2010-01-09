@@ -31,14 +31,14 @@ public interface $service.name
 $operation.getDocumentation("    * ")
     */
 #if ($operation.exceptionsPresent)
-    public $operation.returnType.fullyQualifiedName $operation.signature
+    public $operation.getterSetterReturnTypeName $operation.signature
         throws $throwsList;
 #else
 #if ($service.ejbRemoteView)
-    public $operation.returnType.fullyQualifiedName $operation.signature
+    public $operation.getterSetterReturnTypeName $operation.signature
         throws java.rmi.RemoteException;
 #else
-    public $operation.returnType.fullyQualifiedName $operation.signature;
+    public $operation.getterSetterReturnTypeName $operation.signature;
 #end
 #end
 #end
