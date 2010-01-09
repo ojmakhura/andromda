@@ -594,6 +594,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetGetterSetterReturnTypeName()
     {
         String name = null;
+        final ClassifierFacade returnType = this.getReturnType();
         if (this.handleIsMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
@@ -605,28 +606,28 @@ public class OperationFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                String type = this.getReturnType().getFullyQualifiedName();
-                if (this.getReturnType().isPrimitive())
+                String type = returnType.getFullyQualifiedName();
+                if (returnType.isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = this.getReturnType().getWrapperName();
+                    type = returnType.getWrapperName();
                 }
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.getReturnType() != null)
+        if (name == null && returnType != null)
         {
-            name = this.getReturnType().getFullyQualifiedName();
+            name = returnType.getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (this.getReturnType().isBooleanType())
+            if (returnType.isBooleanType())
             {
-                if (this.getReturnType().isPrimitive() && (this.getLower() < 1))
+                if (returnType.isPrimitive() && (this.getLower() < 1))
                 {
                     // Type is optional, should not be primitive
                     name = StringUtils.capitalize(name);
                 }
-                else if (!this.getReturnType().isPrimitive() && this.getLower() > 0)
+                else if (!returnType.isPrimitive() && this.getLower() > 0)
                 {
                     // Type is required, should not be wrapped
                     name = StringUtils.uncapitalize(name);
@@ -654,9 +655,10 @@ public class OperationFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         // RJF3 True if either the operation is many or the return parameter is many
-        boolean returnMany = this.getReturnParameter().getUpper() > 1 ||
-            this.getReturnParameter().getUpper() == LiteralUnlimitedNatural.UNLIMITED
-            || this.getReturnParameter().getType().getName().endsWith("[]");
+        final ParameterFacade returnParameter = this.getReturnParameter();
+        boolean returnMany = returnParameter.getUpper() > 1 ||
+            returnParameter.getUpper() == LiteralUnlimitedNatural.UNLIMITED
+            || returnParameter.getType().getName().endsWith("[]");
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
     }
 
