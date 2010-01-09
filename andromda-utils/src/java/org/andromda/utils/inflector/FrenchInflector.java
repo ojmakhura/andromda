@@ -13,9 +13,9 @@ import java.util.regex.Pattern;
  */
 public class FrenchInflector
 {
-    private static final List plurals = new ArrayList();
+    private static final List<Inflection> plurals = new ArrayList<Inflection>();
 
-    private static final List uncountables = new ArrayList();
+    private static final List<Pattern> uncountables = new ArrayList<Pattern>();
 
     static class Inflection
     {
@@ -116,9 +116,8 @@ public class FrenchInflector
      */
     private static void ailIrregulars(String[] strings)
     {
-        for (int i = 0; i < strings.length; i++)
+        for (String string : strings)
         {
-            String string = strings[i];
             plural("(\\S*)" + string + "ail$", "$1" + string + "aux");
         }
     }
@@ -130,9 +129,8 @@ public class FrenchInflector
      */
     private static void takeAnS(String[] patterns)
     {
-        for (int i = 0; i < patterns.length; i++)
+        for (String string : patterns)
         {
-            String string = patterns[i];
             plural(endsWith(string), "$1" + string + 's');
         }
     }
@@ -144,9 +142,8 @@ public class FrenchInflector
      */
     private static void takeAnX(String[] patterns)
     {
-        for (int i = 0; i < patterns.length; i++)
+        for (String string : patterns)
         {
-            String string = patterns[i];
             plural(endsWith(string), "$1" + string + 'x');
         }
     }
@@ -180,9 +177,8 @@ public class FrenchInflector
     public static String pluralize(String str)
     {
 
-        for (Iterator i = uncountables.iterator(); i.hasNext();)
+        for (Pattern pattern : uncountables)
         {
-            Pattern pattern = (Pattern)i.next();
             Matcher matcher = pattern.matcher(str);
             if (matcher.matches())
             {
@@ -190,10 +186,9 @@ public class FrenchInflector
             }
         }
 
-        List rules = FrenchInflector.getPluralRules();
-        for (Iterator i = rules.iterator(); i.hasNext();)
+        List<Inflection> rules = FrenchInflector.getPluralRules();
+        for (Inflection inflection : rules)
         {
-            Inflection inflection = (Inflection)i.next();
             Pattern pattern = inflection.getPattern();
             String replace = inflection.getReplace();
             Matcher matcher = pattern.matcher(str);
@@ -208,7 +203,7 @@ public class FrenchInflector
     /**
      * Returns map of plural patterns
      */
-    private static List getPluralRules()
+    private static List<Inflection> getPluralRules()
     {
         return plurals;
 	}

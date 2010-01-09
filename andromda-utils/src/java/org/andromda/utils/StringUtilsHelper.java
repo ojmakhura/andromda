@@ -74,16 +74,16 @@ public class StringUtilsHelper
 
         final String[] parts = splitAtNonWordCharacters(string);
         final StringBuffer conversionBuffer = new StringBuffer();
-        for (int i = 0; i < parts.length; i++)
+        for (String part : parts)
         {
-            if (parts[i].length() < 2)
+            if (part.length() < 2)
             {
-                conversionBuffer.append(parts[i].toUpperCase());
+                conversionBuffer.append(part.toUpperCase());
             }
             else
             {
-                conversionBuffer.append(parts[i].substring(0, 1).toUpperCase());
-                conversionBuffer.append(parts[i].substring(1));
+                conversionBuffer.append(part.substring(0, 1).toUpperCase());
+                conversionBuffer.append(part.substring(1));
             }
         }
         return conversionBuffer.toString();
@@ -218,10 +218,9 @@ public class StringUtilsHelper
         final String suffix)
     {
         final String[] lines = StringUtils.trimToEmpty(multiLines).split(LINE_SEPARATOR);
-        final StringBuffer linesBuffer = new StringBuffer();
-        for (int i = 0; i < lines.length; i++)
+        final StringBuilder linesBuffer = new StringBuilder();
+        for (String line : lines)
         {
-            String line = lines[i];
             linesBuffer.append(line);
             linesBuffer.append(suffix);
             linesBuffer.append(LINE_SEPARATOR);
@@ -269,7 +268,7 @@ public class StringUtilsHelper
     {
         // todo: this method could be implemented with better logic, for example to support 'an r' and 'a rattlesnake'
 
-        final StringBuffer formattedBuffer = new StringBuffer();
+        final StringBuilder formattedBuffer = new StringBuilder();
 
         formattedBuffer.append("a ");
         formattedBuffer.append(word);
@@ -432,7 +431,7 @@ public class StringUtilsHelper
         try
         {
             // - this buffer will contain the formatted text
-            final StringBuffer formattedText = new StringBuffer();
+            final StringBuilder formattedText = new StringBuilder();
 
             // - we'll be reading lines from this reader
             final BufferedReader reader = new BufferedReader(new StringReader(plainText));
