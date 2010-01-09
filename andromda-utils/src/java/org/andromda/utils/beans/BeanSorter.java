@@ -40,8 +40,8 @@ public class BeanSorter
      *        or {@link SortCriteria#DESCENDING})
      * @return the sorted List
      */
-    public static List sort(
-        final Collection beans,
+    public static <T> List<T> sort(
+        final Collection<T> beans,
         final String sortBy,
         final Ordering ordering)
     {
@@ -67,8 +67,8 @@ public class BeanSorter
      *        or the ending of the list.
      * @return the sorted List
      */
-    public static List sort(
-        final Collection beans,
+    public static <T> List<T> sort(
+        final Collection<T> beans,
         final String sortBy,
         final boolean nullsFirst)
     {
@@ -94,8 +94,8 @@ public class BeanSorter
      *        or the ending of the list.
      * @return the sorted List
      */
-    public static List sort(
-        final Collection beans,
+    public static <T> List<T> sort(
+        final Collection<T> beans,
         final String sortBy,
         final Ordering ordering,
         final boolean nullsFirst)
@@ -128,8 +128,8 @@ public class BeanSorter
      *
      * @return List the sorted List
      */
-    public static List sort(
-        final Collection beans,
+    public static <T> List<T> sort(
+        final Collection<T> beans,
         final SortCriteria[] sortBy)
     {
         ExceptionUtils.checkNull(
@@ -144,19 +144,8 @@ public class BeanSorter
             throw new IllegalArgumentException("sortBy must contain at least one value by which to sort");
         }
 
-        List sorted = null;
-
-        // - if the beans passed in, isn't assignable to List,
-        //   create a new ArrayList
-        if (!(beans instanceof List))
-        {
-            sorted = new ArrayList(beans);
-        }
-        else
-        {
-            sorted = (List)beans;
-        }
-
+        List<T> sorted = new ArrayList<T>(beans);
+        
         int sortByNum = sortBy.length;
 
         // - use the Comparator chain to provide SQL like sorting of properties
