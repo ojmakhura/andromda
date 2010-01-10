@@ -1,0 +1,53 @@
+#set ($className = "${useCase.actionClassName}ViewPopulator")
+#if ($stringUtils.isNotEmpty($useCase.packageName))
+package $useCase.packageName;
+#end
+
+/**
+ * Provides the ability to populate any view in the ${useCase.name}
+ */
+public final class $className
+{
+    /**
+     * Populates the view using the appropriate view populator.
+     */
+    public static void populateFormAndViewVariables(final javax.faces.context.FacesContext facesContext, Object form)
+    {
+        try
+        {
+	        String viewId = getViewId(facesContext);
+	        final Class<?> populator = populators.get(viewId);
+	        if (populator != null)
+	        {
+	            final java.lang.reflect.Method method = populator.getMethod(
+	                "populateFormAndViewVariables", 
+	                new Class[]{javax.faces.context.FacesContext.class, Object.class});
+	            method.invoke(populator, new Object[]{facesContext, form});
+	       }    
+	    }
+	    catch (final Throwable throwable)
+	    {
+	    	throw new RuntimeException(throwable);
+	    }
+    }
+    
+    protected static String getViewId(final javax.faces.context.FacesContext facesContext)
+    {
+        javax.faces.component.UIViewRoot view  = facesContext.getViewRoot();
+        return view != null ? view.getViewId() : null;
+    }
+
+    /**
+     * Stores the view populators by path.
+     */
+    private static final java.util.Map<String, Class<?>> populators = new java.util.HashMap<String, Class<?>>();
+    
+    static
+    {
+#foreach ($view in $useCase.views)
+#if ($view.populatorRequired)
+        populators.put("${view.path}.xhtml", ${view.fullyQualifiedPopulator}.class);
+#end
+#end
+    }
+}

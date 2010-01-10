@@ -1,0 +1,188 @@
+#set ($className = "PortletPhaseListener")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * A phase listener which handles the pre-population of the form that is passed
+ * from view to view.
+ *
+ * @author Chad Brandon
+ */
+public class $className
+    extends AbstractPhaseListener
+{
+    private static final long serialVersionUID = 1L;
+
+    private static final String FACES_CONTEXT = "facesContext";
+
+#if ($liferayPortlet)
+    /**
+     * Liferay specific attribute available in the request that gives the current URL in the browser.
+     */
+    private static final String CURRENT_URL = "CURRENT_URL";
+
+#end
+    @Override
+    protected void handleBeforePhase(javax.faces.event.PhaseEvent event)
+    {
+        String viewId = this.getViewId(event);
+        if (viewId != null && event.getFacesContext() != null)
+        {
+#if ($liferayPortlet)
+            // - get the parameters from the current URL and set them as request attributes to make them available to the current portlets
+            //   (otherwise we'd need to namespace prefix the parameter names in order to pass them to the portlet - at least in Liferay)
+            final javax.portlet.PortletRequest request = (javax.portlet.PortletRequest)event.getFacesContext().getExternalContext().getRequest();
+            final String currentUrl = (String)request.getAttribute(CURRENT_URL);
+            final java.util.Map<String, Object> parameters = ${managedBeansPackage}.JsfUtils.extractParameters(currentUrl);
+            if (parameters != null && !parameters.isEmpty())
+            {
+                final javax.faces.context.FacesContext context = event.getFacesContext();
+                final Object form = context.getApplication().getVariableResolver().resolveVariable(context, "$actionFormKey");
+                if (form != null)
+                {
+                    ${managedBeansPackage}.${formPopulatorName}.populateFormFromPropertyMap(form, null, parameters);
+                }
+                else
+                {
+                    for (final String parameter : parameters.keySet())
+                    {
+                        request.setAttribute(parameter, parameters.get(parameter));
+                    }
+                }
+            }
+#end
+#if (!$icefaces)
+            // - remove the stored current view from the session so that the portlet knows it can use
+            //   the default viewId already stored (otherwise it will use the viewId stored in the CURRENT_VIEW)
+            if (!(javax.faces.event.PhaseId.RESTORE_VIEW.equals(event.getPhaseId()) ||
+                  javax.faces.event.PhaseId.RENDER_RESPONSE.equals(event.getPhaseId())))
+            {
+                request.getPortletSession().removeAttribute(${managedBeansPackage}.GenericFaceletsPortlet.CURRENT_VIEW_ID);
+            }
+
+#end
+            // - make the faces context available to all views
+            ((javax.portlet.PortletRequest)event.getFacesContext().getExternalContext().getRequest()).setAttribute(FACES_CONTEXT, event.getFacesContext());
+
+#if (!$useCases.empty)
+            final javax.portlet.PortletSession session = (javax.portlet.PortletSession)event.getFacesContext().getExternalContext().getSession(true);
+#foreach ($role in $useCases.iterator().next().getAllRoles())
+#set ($userIsInRoleName = "userIs${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
+            if (session.getAttribute("$userIsInRoleName") == null)
+            {
+#set ($specializedRoles = $role.generalizedByActors)
+                final boolean $userIsInRoleName = event.getFacesContext().getExternalContext().isUserInRole("$role.name")
+#foreach ($specializedRole in $role.generalizedByActors)
+                    || event.getFacesContext().getExternalContext().isUserInRole("$specializedRole.name")
+#end
+                    ;
+                session.setAttribute("$userIsInRoleName", $userIsInRoleName);
+            }
+#end
+            if (javax.faces.event.PhaseId.RENDER_RESPONSE.equals(event.getPhaseId()))
+            {
+#foreach ($useCase in $useCases)
+#set ($controller = $useCase.controller)
+#set ($ifClause = "if")
+#if ($velocityCount > 1)
+#set ($ifClause = "else $ifClause")
+#end
+                $ifClause (viewId.equals("${useCase.portletViewPath}.xhtml"))
+                {
+                    final $controller.fullyQualifiedName controller =  ($controller.fullyQualifiedName)
+                        event.getFacesContext().getApplication().getVariableResolver().resolveVariable(
+                            event.getFacesContext(), "$controller.beanName");
+                    event.getFacesContext().getApplication().getNavigationHandler().handleNavigation(
+                        event.getFacesContext(), null, controller.${useCase.controllerAction}());
+                    // - get the new view id before population since we are navigating to a new view
+                    viewId = event.getFacesContext().getViewRoot().getViewId();
+                }
+#end
+                this.populateView(event, viewId);
+            }
+            else if (javax.faces.event.PhaseId.APPLY_REQUEST_VALUES.equals(event.getPhaseId()))
+            {
+                this.populateView(event, viewId);
+            }
+#end
+        }
+    }
+
+    protected String getViewId(javax.faces.event.PhaseEvent event)
+    {
+        String viewId = null;
+        if (event.getFacesContext() != null)
+        {
+            javax.faces.component.UIViewRoot view  = event.getFacesContext().getViewRoot();
+            viewId = view != null ? view.getViewId() : null;
+        }
+        return viewId;
+    }
+
+    private void populateView(javax.faces.event.PhaseEvent event, String viewId)
+    {
+        final java.lang.Object session = event.getFacesContext().getExternalContext().getSession(false);
+        if (!this.isViewPopulated(session, viewId))
+        {
+#if (!$useCases.empty)
+#foreach ($view in $useCases.iterator().next().allViews)
+#if ($view.populatorRequired)
+#set ($ifClause = "if")
+#if ($velocityCount > 1)
+#set ($ifClause = "else $ifClause")
+#end
+            $ifClause (viewId.equals("${view.path}.xhtml"))
+            {
+                ${view.fullyQualifiedPopulator}.populateFormAndViewVariables(event.getFacesContext(), null);
+            }
+#end
+#end
+#end
+            this.setCurrentView(session, viewId);
+        }
+    }
+
+    @Override
+    protected void handleAfterPhase(javax.faces.event.PhaseEvent event)
+    {
+        final String viewId = this.getViewId(event);
+        if (javax.faces.event.PhaseId.INVOKE_APPLICATION.equals(event.getPhaseId()))
+        {
+            this.populateView(event, viewId);
+        }
+        else
+        {
+            // - remove the current view
+            this.setCurrentView(event.getFacesContext().getExternalContext().getSession(false), null);
+        }
+    }
+
+    /**
+     * The name of the attribute that stores the current view id for this phase listener.
+     */
+    private static final String CURRENT_VIEW_ATTRIBUTE = PortletPhaseListener.class.getName() + "ViewId";
+
+    /**
+     * Keeps track of whether or not the view has already been populated (so that we don't try again).
+     *
+     * @param session the session object that stores the view id to keep track of whether or not its been populated.
+     * @param viewId the view Id.
+     * @return true if populated, false otherwise.
+     */
+    protected boolean isViewPopulated(final Object session, final String viewId)
+    {
+        final Object currentView = ${managedBeansPackage}.JsfUtils.getAttribute(session, CURRENT_VIEW_ATTRIBUTE);
+        return currentView != null && currentView.equals(viewId);
+    }
+
+    /**
+     * Sets the given viewId as the current view tracked by this portlet.
+     * @param session the session object that stores the view id to keep track of whether or not its been populated.
+     * @param viewId the view id to set.
+     */
+    protected void setCurrentView(final Object session, final String viewId)
+    {
+        ${managedBeansPackage}.JsfUtils.setAttribute(session, CURRENT_VIEW_ATTRIBUTE, viewId);
+    }
+}

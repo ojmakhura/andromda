@@ -1,0 +1,228 @@
+#if ($stringUtils.isNotBlank($view.packageName))
+package $view.packageName;
+#end
+#if ($standalone)
+import java.io.IOException;
+
+import javax.faces.FactoryFinder;
+import javax.faces.context.FacesContextFactory;
+import javax.faces.lifecycle.Lifecycle;
+import javax.faces.lifecycle.LifecycleFactory;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+#end
+
+import javax.faces.context.FacesContext;
+
+/**
+ * This filter handles the population of forms for the <em>$view.name</code>
+ * view.
+ */
+public class $view.populator
+#if ($standalone)
+    implements Filter
+#end
+{
+#if ($standalone)
+    private FilterConfig config;
+
+    /**
+     * Initialize the filter
+     *
+     * @param config the configuration
+     * @see javax.servlet.Filter#hash()setFilterConfig(FilterConfig)
+     */
+    public void init(FilterConfig config)
+    {
+        this.config = config;
+    }
+
+    /**
+     * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest,
+     *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(
+        ServletRequest request,
+        ServletResponse response,
+        FilterChain chain) throws IOException, ServletException
+    {
+        // - we need to retrieve the faces context differently since we're outside of the
+        //   faces servlet
+#set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
+#end
+        populateFormAndViewVariables(${facesContextUtilsFullyQualifiedName}.getFacesContext(request, response), null);
+        chain.doFilter(request, response);
+    }
+
+    /**
+     * @see javax.servlet.Filter#hash()destroy()
+     */
+    public void destroy()
+    {
+        this.config = null;
+    }
+#end
+
+    public static void populateFormAndViewVariables(final FacesContext facesContext, Object form)
+#if ($standalone)
+        throws ServletException
+#end
+    {
+        final $jsfUtils.requestClassName request = ($jsfUtils.requestClassName)facesContext.getExternalContext().getRequest();
+        final $jsfUtils.sessionClassName session = ($jsfUtils.sessionClassName)facesContext.getExternalContext().getSession(true);
+#if ($standalone)
+        org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
+#end
+        final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
+#if ($standalone)
+        if (form == null)
+        {
+            // - first try getting the form from the ADF PageFlowScope
+            form = adfContext.getPageFlowScope().get("$view.formKey");
+            // - if the form is null, try getting the current adfContext from the session (and then remove it from the session)
+            if (form == null)
+            {
+                final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper =
+                    (${managedBeansPackage}.AdfFacesContextWrapper)session.getAttribute("$adfContextAttributeName");
+                adfContext = contextWrapper != null ? contextWrapper.getCurrentInstance() : null;
+                form = adfContext != null ? adfContext.getPageFlowScope().get("$view.formKey") : null;
+                if (form == null)
+                {
+                    form = session.getAttribute("$view.formKey");
+                    session.removeAttribute("$view.formKey");
+                }
+#if ($formSerialization)
+                // - if the form is still null, see if we can get it from a serialized state
+                if (form == null)
+                {
+                    form = ${managedBeansPackage}.JsfUtils.getSerializedForm(facesContext);
+                }
+#end
+                if (form != null)
+                {
+                    // - add the form to the current process scope since it wasn't in the current one to begin with
+                    org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance().getPageFlowScope().put("$view.formKey", form);
+                }
+            }
+            else
+            {
+                // - remove the ADF context in the event that its present
+                session.removeAttribute("$adfContextAttributeName");
+            }
+        }
+        else
+        {
+            // - since the form argument is not null, set it as the "$view.formKey" in the PageFlowScope
+            //   (to replace the existing "$view.formKey" attribute)
+            adfContext.getPageFlowScope().put("$view.formKey", form);
+        }
+#else
+        if (form == null)
+        {
+            // - first try getting the form from the request scope
+            form = request.getAttribute("$view.formKey");
+            // - if the form is null, try getting the current from the session
+            if (form == null)
+            {
+                form = session.getAttribute("$view.formKey");
+            }
+#if ($formSerialization)
+            // - if the form is still null, see if we can get it from a serialized state
+            if (form == null)
+            {
+                form = ${managedBeansPackage}.JsfUtils.getSerializedForm(facesContext);
+            }
+            else
+            {
+                // - pass any properties from the serialized form along
+                org.andromda.presentation.jsf.FormPopulator.populateForm(
+                    org.andromda.presentation.jsf.JsfUtils.getSerializedForm(facesContext), form, false);
+            }
+#end
+        }
+        else
+        {
+            // - since the form argument is not null, set it as the "form" in the session to replace
+            //   (to replace the existing "form" attribute)
+            session.setAttribute("$view.formKey", form);
+        }
+#end
+        try
+        {
+#if (!$view.formActions.empty)
+            // - populate the forms
+            if (form != null)
+            {
+#foreach ($action in $view.formActions)
+                $action.fullyQualifiedFormImplementationName $action.formBeanName =
+                    ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
+                    facesContext,
+                    "$action.formBeanName");
+                // - populate the $action.formBeanName with any parameters from the previous form
+                ${managedBeansPackage}.${formPopulatorName}.populateForm(form, $action.formBeanName, $icefaces);
+                request.setAttribute("$action.formBeanName", $action.formBeanName);
+#end
+            }
+#end
+#if ($formSerialization)
+            // - serialize the form
+            if (form != null)
+            {
+                ${managedBeansPackage}.JsfUtils.serializeForm(facesContext, form);
+            }
+#end
+#if (!$view.variables.empty || !$view.backingValueVariables.empty)
+            // - populate the view variables
+            if (form != null)
+            {
+#foreach ($variable in $view.variables)
+#set ($readableVariable = "${variable.name}Readable")
+                final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variable.name");
+                if ($readableVariable)
+                {
+                    java.lang.Boolean propertySet = null;
+                    final String isSetPropertyName = "${variable.name}Set";
+                    if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, isSetPropertyName))
+                    {
+                        propertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
+                    }
+                    // - only set the property if its been set, or we can't tell if it has
+                    if (propertySet == null || propertySet)
+                    {
+                        request.setAttribute("${variable.name}", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "${variable.name}"));
+                    }
+#if ($variable.reset)
+                    // reset $variable.name (since the model indicates that it should be reset)
+                    org.apache.commons.beanutils.PropertyUtils.setProperty(form, "$variable.name", $variable.type.javaNullString);
+#end
+                }
+#end
+#foreach ($variable in $view.backingValueVariables)
+#if ($variable.selectable)
+#renderBackingValuePopulation($variable "")
+#end
+#foreach ($attribute in $variable.attributes)
+#if ($attribute.isSelectable($variable) || $attribute.isBackingValueRequired($variable))
+#renderBackingValuePopulation($attribute $variable)
+#end
+#end
+#end
+            }
+#end
+        }
+        catch (final Throwable throwable)
+        {
+#if ($standalone)
+            throw new ServletException(throwable);
+#else
+            throw new RuntimeException(throwable);
+#end
+        }
+    }
+}

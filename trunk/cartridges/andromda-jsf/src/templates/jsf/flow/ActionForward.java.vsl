@@ -1,0 +1,57 @@
+#if ($stringUtils.isNotBlank($action.packageName))
+package $action.packageName;
+#end
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+ * This servlet is used to allow controller operation execution through
+ * a URL call.
+ */
+public class $action.actionClassName
+    extends HttpServlet
+{
+    /**
+     * @see javax.servlet.http.HttpServlet#hash()doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public void doGet(
+        final HttpServletRequest request,
+        final HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        // - we need to resolve the controller differently since we're outside of the faces servlet
+#set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
+#end
+#set ($controller = $action.controller)
+        $controller.fullyQualifiedName controller =
+            ($controller.fullyQualifiedName)${facesContextUtilsFullyQualifiedName}.resolveVariable(
+                request, response,
+                "$controller.beanName");
+#if ($action.useCase)
+#set ($useCase = $action.useCase)
+#else
+#set ($useCase = $action)
+#end
+        final String forwardPath = ${managedBeansPackage}.UseCaseForwards.getPath(controller.${action.controllerAction}());
+        response.sendRedirect(request.getContextPath() + forwardPath + (request.getQueryString() != null ? "?" + request.getQueryString() : ""));
+    }
+
+    /**
+     * @see javax.servlet.http.HttpServlet#hash()doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public void doPost(
+        final HttpServletRequest request,
+        final HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        this.doGet(request, response);
+    }
+}
