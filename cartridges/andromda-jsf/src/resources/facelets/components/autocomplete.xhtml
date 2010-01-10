@@ -1,0 +1,258 @@
+<ui:component 
+    xmlns:h="http://java.sun.com/jsf/html" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:jsf="http://www.andromda.org/cartridges/jsf">
+    <c:set var="jsIdPrefix" value=""/>
+    <c:if test="#{not empty parentId}">
+        <c:set var="jsIdPrefix" value="#{parentId}:"/>
+    </c:if>
+    <c:set var="autocompleteSubformId" value="_#{id}_subformAutocomplete"/>
+    <c:set var="editId" value="edit"/>
+    <c:set var="jsEditId" value="#{jsIdPrefix}#{autocompleteSubformId}:#{editId}"/>
+    <c:set var="jsActionId" value="#{jsIdPrefix}#{autocompleteSubformId}:action"/>
+    <c:set var="jsTableId" value="#{jsIdPrefix}#{autocompleteSubformId}:table"/>
+    <c:set var="jsHiddenId" value="#{jsIdPrefix}#{id}"/>
+    <c:set var="timeoutVar" value="_#{parentId}_#{id}_timeout_"/>
+    <c:set var="lineArrayVar" value="_#{parentId}_#{id}_lineArray_"/>
+    <c:set var="selectedLineVar" value="_#{parentId}_#{id}_selectedLine_"/>
+    <c:set var="orgValue" value="_#{parentId}_#{id}_orgValue_"/>
+    <c:set var="orgEditValue" value="_#{parentId}_#{id}_orgEditValue_"/>
+    <c:set var="hiddenEditValue" value="_#{parentId}_#{id}_hiddenEditValue"/>
+    <c:set var="showResultTableFunc" value="_#{parentId}_#{id}_showResultTableFunc"/>
+    <c:set var="setValuesFromTableFunc" value="_#{parentId}_#{id}_setValuesFromTableFunc"/>
+    <c:set var="hideResultTableFunc" value="_#{parentId}_#{id}_hideResultTableFunc"/>
+    <c:set var="editKeydownFunc" value="_#{parentId}_#{id}_editKeydownFunc"/>
+    <c:set var="pprMonitorFunc" value="_#{parentId}_#{id}_pprMonitorFunc"/>
+    <c:set var="addPPRListenerFunc" value="_#{parentId}_#{id}_addPPRListenerFunc"/>
+    <c:set var="checkEmptyEditFunc" value="_#{parentId}_#{id}_checkEmptyEditFunc"/>
+    <c:set var="checkChangeEditFunc" value="_#{parentId}_#{id}_checkChangeEditFunc"/>
+    <c:set var="resetOrgValuesFunc" value="_#{parentId}_#{id}_resetOrgValuesFunc"/>
+    <c:set var="getLeftTop" value="_#{parentId}_#{id}_getLeftTop"/>
+    <c:set var="flagIsPPR" value="_#{id}_flagIsPPR"/>
+    <c:set var="onchangeFunc" value="_#{parentId}_#{id}_onchangeFunc"/>
+
+    <tr:inputHidden id="#{id}" value="#{value}" required="#{required}"/>
+    
+    <tr:subform id="#{autocompleteSubformId}">
+        <trh:script type="text/javascript">
+            var #{timeoutVar}=null;
+            var #{lineArrayVar}=null;
+            var #{selectedLineVar}=null;
+            var #{orgValue}='#{value}';
+            var #{orgEditValue}='#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}';
+            var #{hiddenEditValue}='#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}';
+            function #{onchangeFunc}(){
+                #{onchange}
+            }
+            function #{showResultTableFunc}(ignoreEdit){
+                window.clearTimeout(#{timeoutVar});
+                var edit=document.getElementById('#{jsEditId}');
+                if(ignoreEdit || edit.value != ''){
+                    #{selectedLineVar} = null;
+                    #{lineArrayVar} = null;
+
+                    var action=document.getElementById('#{jsActionId}')
+                    action.click();
+                } else {
+                    #{hideResultTableFunc}();
+                } 
+            }
+            function #{getLeftTop}(_tag){
+                var _tagTmp = _tag;
+                var pt = [0,0];
+                var loop = true
+                do {
+                    pt[0] += _tagTmp.offsetLeft;
+                    pt[1] += _tagTmp.offsetTop;
+                    if (_tagTmp.offsetParent == null) {
+                        loop = false
+                    }else if (_tagTmp.offsetParent.id == "pageContentInt") {
+                        loop = false;
+                    } else if (_tagTmp.offsetParent == "BODY") {
+                        loop = false;
+                    } else if (_tagTmp.offsetParent.id.indexOf(":panel")!=-1) {
+                    	pt[0] += 3;
+                    	pt[1] += 3;
+                        loop = false;
+                    }
+                    _tagTmp = _tagTmp.offsetParent;
+                } while(loop == true);
+                return pt;
+            }
+            function #{pprMonitorFunc}(state)
+            {
+                var busy = state == TrRequestQueue.STATE_BUSY;
+                if(busy){
+                    document.getElementById('#{jsActionId}').className = 'autocomplete-button-action';
+                } else {
+                    document.getElementById('#{jsActionId}').className = 'autocomplete-button';
+                    TrPage.getInstance().getRequestQueue().removeStateChangeListener(#{pprMonitorFunc});
+                    
+                    var firstElement = document.getElementById('#{jsTableId}0');
+                    if(firstElement){
+                        var table = document.getElementById('#{jsTableId}');
+                        var edit=document.getElementById('#{jsEditId}');
+                    
+                        #{lineArrayVar} = table.getElementsByTagName('TD');
+                        #{selectedLineVar} = 0;
+                        firstElement.className='autocomplete-selected-line';
+
+                        var editOffset = #{getLeftTop}(edit);
+                        
+                        table.style.top = (eval(editOffset[1])+eval(edit.offsetHeight)) +"px";
+                        table.style.left = editOffset[0] +"px";
+                        table.style.width = edit.offsetWidth +"px";
+                        firstElement.parentNode.style.width = edit.offsetWidth +"px";
+                        table.style.display="";
+                        
+                        
+                        edit.focus();
+                    } else {
+                        #{selectedLineVar} = null;
+                        #{lineArrayVar} = null;
+                    }
+                }
+            }
+            function #{addPPRListenerFunc}()
+            {
+                var requestQueue = TrPage.getInstance().getRequestQueue();
+                requestQueue.addStateChangeListener(#{pprMonitorFunc});
+            }            
+            function #{setValuesFromTableFunc}(hiddenValue, editValue){
+                #{orgValue} = document.getElementById('#{jsHiddenId}').value;
+                #{orgEditValue} = #{hiddenEditValue};
+                #{hiddenEditValue} = editValue;
+                document.getElementById('#{jsEditId}').value=editValue;             //the order matters
+                document.getElementById('#{jsHiddenId}').value=hiddenValue; 
+                #{hideResultTableFunc}();
+                #{onchangeFunc}();
+            }
+            function #{hideResultTableFunc}(){
+                window.clearTimeout(#{timeoutVar});
+                #{timeoutVar}=null;
+                document.getElementById('#{jsTableId}').style.display='none';
+                #{selectedLineVar}=null;
+                #{lineArrayVar}=null;
+            }
+            function #{checkEmptyEditFunc}(){
+                var edit=document.getElementById('#{jsEditId}');
+                var hidden=document.getElementById('#{jsHiddenId}');
+                if(hidden.value == ''){
+                    edit.value = '';
+                } else {
+                    edit.value = edit.value.replace(/^\s\s*/, '').replace(/\s\s*$/, ''); //trim 
+                    if(edit.value == ''){
+                        hidden.value = '';
+                    }
+                }
+            }
+            function #{editKeydownFunc}(_event) {
+                window.clearTimeout(#{timeoutVar});
+                var event = window.event || _event;
+            
+                var _keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+                //alert(event.shiftKey+'-'+_keyCode);
+                if(_keyCode==46 &amp;&amp; event.shiftKey){ //shift+del
+                    #{setValuesFromTableFunc}('', '');                        
+                    return false;
+                } else if(#{selectedLineVar} == null){
+                    if(_keyCode==40) { //down arrow
+                        #{showResultTableFunc}(true);
+                    }else if(_keyCode==27){ //esc
+                        #{setValuesFromTableFunc}(#{orgValue}, #{orgEditValue});                        
+                        return false;
+                    } else {
+                        #{timeoutVar}=window.setTimeout('#{showResultTableFunc}(false);',900);
+                    }
+                } else {
+                    if(_keyCode==38){//up arrow
+                        if(#{selectedLineVar} > 0){
+                            document.getElementById('#{jsTableId}'+#{selectedLineVar}).className='autocomplete-line';
+                            --#{selectedLineVar};
+                            document.getElementById('#{jsTableId}'+#{selectedLineVar}).className='autocomplete-selected-line';
+                        }
+                    }else if(_keyCode==40){//down arrow
+                        if((#{lineArrayVar}.length - 1) > #{selectedLineVar}){
+                            if(#{selectedLineVar} > -1)
+                                document.getElementById('#{jsTableId}'+#{selectedLineVar}).className='autocomplete-line';
+                            ++#{selectedLineVar};
+                            document.getElementById('#{jsTableId}'+#{selectedLineVar}).className='autocomplete-selected-line';
+                        }
+                    }else if(_keyCode==27){ //esc
+                        #{setValuesFromTableFunc}(#{orgValue}, #{orgEditValue});                        
+                        return false;
+                    }else if(_keyCode==13){ //enter
+                        document.getElementById('#{jsTableId}'+#{selectedLineVar}).onclick();
+                        return false;
+                    }else if(_keyCode==9){ //tab
+                        document.getElementById('#{jsTableId}'+#{selectedLineVar}).onclick();
+                    } else {
+                        #{timeoutVar}=window.setTimeout('#{showResultTableFunc}(false);',900);
+                    }
+                }
+                return true;
+            }
+            function #{checkChangeEditFunc}(){
+                var edit=document.getElementById('#{jsEditId}');
+                var hidden=document.getElementById('#{jsHiddenId}');
+                if(edit.value == ''){
+                    hidden.value = '';
+                }else if((#{selectedLineVar}==null)&amp;&amp;(#{hiddenEditValue}!=edit.value)){
+                    edit.value = #{hiddenEditValue};
+                    hidden.value = #{orgValue};
+                }
+            }
+            function #{resetOrgValuesFunc}(){
+                #{orgValue} = document.getElementById('#{jsHiddenId}').value;
+                #{orgEditValue} = document.getElementById('#{jsEditId}').value;
+                #{hiddenEditValue} = #{orgEditValue};
+            }
+            
+            var #{flagIsPPR};
+        </trh:script>
+        <h:inputText id="#{editId}" autocomplete="off" required="#{required}" style="#{contentStyle}"
+            readOnly="#{readOnly}"
+            onkeydown="return #{editKeydownFunc}(event);"
+            onchange="#{checkChangeEditFunc}(); return true;"
+            onblur="window.clearTimeout(#{timeoutVar}); #{checkEmptyEditFunc}();#{timeoutVar}=window.setTimeout('#{hideResultTableFunc}();',100);#{resetOrgValuesFunc}();"
+            value="#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}"/>
+        <tr:commandButton blocking="true" id="action" styleClass="autocomplete-button" actionListener="#{locateBackingBean[locateActionListenerName]}"
+            partialSubmit="true" text="" immediate="true" onclick="#{addPPRListenerFunc}(); return true;">
+            <f:param name="searchFieldRequestParamName" value="#{jsEditId}"/>
+        </tr:commandButton>
+        <tr:table styleClass="autocomplete-table-list" inlineStyle=" #{empty autocompleteResult ? 'display:none': ''}"
+            id="table" var="row" value="#{autocompleteResult}" rows="20" width="100%" partialTriggers="::action" varStatus="status">
+            <tr:column styleClass="autocomplete-table-line">
+                <div id="#{jsTableId}#{status.index}" class="autocomplete-line" onmouseover="document.getElementById('#{jsTableId}0').className = 'autocomplete-line'	;this.className='autocomplete-selected-line';"
+                    onmouseout="this.className = 'autocomplete-line';" onmousedown="#{setValuesFromTableFunc}('#{row[locateValueFieldName]}','#{row[locateVisibleFieldName]}');" >
+                    <c:if test="#{not empty locateVisibleFieldName}">                       
+                        <h:outputText value="#{row[locateVisibleFieldName]}"/>
+                    </c:if>
+                    <c:if test="#{empty locateVisibleFieldName}">                       
+                        <h:outputText value="#{row[locateValueFieldName]}" converter="#{itemConverterId}"/>
+                    </c:if>
+                </div>
+            </tr:column>
+        </tr:table>
+    </tr:subform>
+    <trh:script type="text/javascript" partialTriggers="#{jsf:splitPartialTriggers(partialTriggers)}">
+        if(typeof #{flagIsPPR} == 'undefined'){//only occurs if the page was refreshed
+            #{flagIsPPR} = true;
+        } else { //PPR
+            #{timeoutVar}=null;
+            #{lineArrayVar}=null;
+            #{selectedLineVar}=null;
+            #{orgValue}='#{value}';
+            #{orgEditValue}='#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}';
+            #{hiddenEditValue}='#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}';
+            
+            document.getElementById('#{jsHiddenId}').value='#{value}';
+            document.getElementById('#{jsEditId}').value='#{(empty itemConverterId) ? value : (empty value) ? '' : jsf:valueFromConverter(value,itemConverterId)}';
+        }
+    </trh:script>
+
+</ui:component>
