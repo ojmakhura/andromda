@@ -1,0 +1,69 @@
+#set ($generatedFile = "${operation.fullyQualifiedFormPath}.java")
+// license-header java merge-point
+package $operation.packageName;
+
+/**
+ * This form encapsulates the fields that are used in the execution of the
+ * <code>$operation.name</code> method, which is located on the
+ * <code>$operation.owner.fullyQualifiedName</code> controller.
+ *
+$operation.getDocumentation(" * ")
+ *
+ * @see ${operation.owner.fullyQualifiedName}#hash()${operation.signature}
+ */
+public interface $operation.formName
+{
+    /**
+     * Gets the ValueChangeEvent (if any) that is associated with this form.
+     * 
+     * @return the faces ValueChangeEvent associated to this form.
+     */
+    public javax.faces.event.ValueChangeEvent getValueChangeEvent();
+    
+    /**
+     * Gets the ActionEvent (if any) that is associated with this form.
+     * 
+     * @return the faces ActionEvent associated to this form.
+     */
+    public javax.faces.event.ActionEvent getActionEvent();
+    
+    /**
+     * Sets the event (if any) that is associated with this form.
+     * 
+     * @param event the faces event to associate to this form.
+     */
+    public void setEvent(javax.faces.event.FacesEvent event);
+    
+#foreach ($field in $operation.formFields)
+#if ($field.pageableTable)
+#set ($fieldTypeName = "javax.faces.model.DataModel")
+#elseif ($field.type.collectionType)
+#set ($fieldTypeName = "java.util.Collection")
+#elseif ($field.type.fileType)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldTypeName ${field.getterName}();
+## - don't allow fields with default values to be set
+#if (!$field.defaultValuePresent)
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($fieldTypeName $field.name);
+#if ($field.selectable || $field.type.enumeration)
+#renderBackingListSupport($field "")
+#end
+#foreach ($attribute in $field.attributes)
+#if ($attribute.isSelectable($field) || $attribute.type.enumeration || $attribute.isBackingValueRequired($field))
+#renderBackingListSupport($attribute $field)
+#end
+#end
+#end
+
+#end
+}
