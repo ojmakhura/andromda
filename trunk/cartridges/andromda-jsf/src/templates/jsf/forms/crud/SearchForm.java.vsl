@@ -1,0 +1,105 @@
+#set ($generatedFile = "${manageable.searchFormBeanFullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+/**
+ * This form holds the fields that are used in the search operation of ${manageable.name} 
+ *
+ */
+public final class $manageable.searchFormBeanClassName
+    implements java.io.Serializable
+{
+
+#foreach ($field in $manageable.manageableAttributes)
+#if ($field.type.collectionType)
+#set ($fieldTypeName = "java.util.List")
+#else
+#if ($field.type.primitive)
+#set ($fieldTypeName = $field.type.wrapperName)
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end 
+#end
+    private $fieldTypeName $field.name;
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldTypeName ${field.getterName}()
+    {
+#if ($field.complex)
+        if (this.$field.name == null)
+        {
+            this.$field.name = new ${field.type.fullyQualifiedName}();
+        }
+#end
+        return this.${field.name};
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($fieldTypeName $field.name)
+    {
+        this.$field.name = $field.name;
+    }
+
+#end
+#foreach ($member in $manageable.manageableSearchAssociationEnds)
+#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#if($member.type.hasStereotype("Manageable"))
+#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#else
+#if($member.type.identifiers.size() > 1)
+#set ($fieldType = "java.lang.Object")
+#else
+#set ($fieldType = $member.type.identifiers.get(0).type.fullyQualifiedName)
+#end
+#end
+#if ($member.many)
+#set ($fieldType = "${fieldType}[]")
+#end
+    private $fieldType $member.name;
+
+    /**
+$member.getDocumentation("     * ")
+     */
+    $member.visibility $fieldType ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    /**
+$member.getDocumentation("     * ")
+     */
+    $member.visibility void ${member.setterName}($fieldType $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+	private java.util.Collection $member.backingListName;
+
+#set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
+    /**
+     * The current collection of possible values of ${member.name}.
+     */
+	public java.util.Collection get${backingListMethod}(){
+		return ${member.backingListName};
+	}
+
+    /**
+     * The current collection of possible values of ${member.name}.
+     */
+	public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
+		this.${member.backingListName} = ${member.backingListName};
+	}
+#end
+
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${manageable.formSerialVersionUID}L;
+}

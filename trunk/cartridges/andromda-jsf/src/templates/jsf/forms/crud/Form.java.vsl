@@ -1,0 +1,357 @@
+#set ($generatedFile = "${manageable.formBeanFullPath}.java")
+##
+##
+##
+#macro (resetField $fieldName $fieldType)
+#if ($fieldType.primitive)
+#if ($fieldType.fullyQualifiedName == 'boolean')
+$fieldName = false;
+#else
+$fieldName = 0;
+#end
+#else
+$fieldName = null;
+#end
+#end
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+/**
+ * This form encapsulates the fields that are used in the execution of the CRUD operations in ${manageable.name} 
+ *
+ */
+public class $manageable.formBeanClassName
+    implements java.io.Serializable
+{
+
+    /**
+     * Default constructor. Initializes the attributes formatters.
+     *
+     */
+	public ${manageable.formBeanClassName}(){
+#foreach ($field in $manageable.manageableAttributes)
+#if ($field.type.dateType)
+        java.text.DateFormat ${field.dateFormatter} = new java.text.SimpleDateFormat("$field.format");
+#set ($lenient = !$field.strictDateFormat)
+        ${field.dateFormatter}.setLenient($lenient);
+        this.dateTimeFormatters.put("${field.name}", ${field.dateFormatter});
+        this.dateTimeFormatters.put("searchForm.${field.name}", ${field.dateFormatter});
+#elseif ($field.type.timeType)
+        this.dateTimeFormatters.put("${field.name}", new java.text.SimpleDateFormat("$field.format"));
+        this.dateTimeFormatters.put("searchForm.${field.name}", new java.text.SimpleDateFormat("$field.format"));
+#end
+#end
+        // - setup the default java.util.Date.toString() formatter
+        java.text.DateFormat dateFormatter = new java.text.SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        dateFormatter.setLenient(true);
+        this.dateTimeFormatters.put(null, dateFormatter);
+
+        searchForm = new ${manageable.searchFormBeanClassName}();
+
+        editState=false;
+	}
+
+    /**
+     * Holds the edit/search state of the form
+     */
+	private boolean editState;
+
+	public boolean getEditState(){
+		return editState;
+	}
+
+	public void setEditState(boolean editState){
+		this.editState = editState;
+	}
+
+	private ${manageable.searchFormBeanClassName} searchForm;
+
+	public ${manageable.searchFormBeanClassName} getSearchForm(){
+		return searchForm;
+	}
+
+	public void setSearchForm(${manageable.searchFormBeanClassName} searchForm){
+		this.searchForm = searchForm;
+	}
+
+    private java.util.List $manageable.listName = null;
+
+    public java.util.List ${manageable.listGetterName}()
+    {
+        return this.$manageable.listName;
+    }
+
+    public void ${manageable.listSetterName}(java.util.List $manageable.listName)
+    {
+        this.$manageable.listName = $manageable.listName;
+    }
+
+#set ($identifier = $manageable.manageableIdentifier)
+    /**
+$identifier.getDocumentation("     * ")
+    */
+    private ${identifier.type.fullyQualifiedName}[] selectedRows = null;
+
+    public ${identifier.type.fullyQualifiedName}[] getSelectedRows()
+    {
+        return this.selectedRows;
+    }
+
+    public void setSelectedRows(${identifier.type.fullyQualifiedName}[] selectedRows)
+    {
+        this.selectedRows = selectedRows;
+    }
+
+#foreach ($field in $manageable.manageableAttributes)
+#if ($field.type.collectionType)
+#set ($fieldTypeName = "java.util.List")
+#elseif ($field.inputFile)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end
+#if ($field.defaultValuePresent)
+    private $fieldTypeName $field.name = $field.defaultValue;
+#else
+    private $fieldTypeName $field.name;
+#end
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldTypeName ${field.getterName}()
+    {
+#if ($field.complex)
+        if (this.$field.name == null)
+        {
+            this.$field.name = new ${field.type.fullyQualifiedName}();
+        }
+#end
+        return this.${field.name};
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($fieldTypeName $field.name)
+    {
+        this.$field.name = $field.name;
+    }
+
+	private java.util.Collection $field.backingListName;
+
+#set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
+	public java.util.Collection get${backingListMethod}(){
+		return ${field.backingListName};
+	}
+
+	public void set${backingListMethod}(java.util.Collection ${field.backingListName}){
+		this.${field.backingListName} = ${field.backingListName};
+	}
+
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if($member.type.hasStereotype("Manageable"))
+#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#else
+#if($member.type.identifiers.size() > 1)
+#set ($fieldType = "java.lang.Object")
+#else
+#set ($fieldType = $member.type.identifiers.get(0).type.fullyQualifiedName)
+#end
+#end
+#if ($member.many)
+#set ($fieldType = "${fieldType}[]")
+#end
+    private $fieldType $member.name;
+
+    /**
+$member.getDocumentation("     * ")
+     */
+    $member.visibility $fieldType ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    /**
+$member.getDocumentation("     * ")
+     */
+    $member.visibility void ${member.setterName}($fieldType $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+	private java.util.Collection $member.backingListName;
+
+#set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
+    /**
+     * The current collection of possible values of ${member.name}.
+     */
+	public java.util.Collection get${backingListMethod}(){
+		return ${member.backingListName};
+	}
+
+    /**
+     * The current collection of possible values of ${member.name}.
+     */
+	public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
+		this.${member.backingListName} = ${member.backingListName};
+	}
+
+#end
+    /**
+     * Stores any date or time formatters for this form.
+     */
+    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
+
+    /**
+     * Gets any date and time formatters (keyed by property name)
+     * for this form.
+     *
+     * @return the Map containing any date and time formatters.
+     */
+    public java.util.Map getDateTimeFormatters()
+    {
+        return this.dateTimeFormatters;
+    }
+
+
+    /**
+     * The current collection of messages stored within this form.
+     */
+    private java.util.Map<java.lang.String, javax.faces.application.FacesMessage> $formMessagesProperty =
+        new java.util.LinkedHashMap<java.lang.String, javax.faces.application.FacesMessage>();
+
+
+    /**
+     * Adds a {@link javax.faces.application.FacesMessage} message to the current messages
+     * stored within this form.
+     *
+     * @param jsfMessage the faces message to add.
+     */
+    public void add${stringUtils.capitalize($formMessagesProperty)}(javax.faces.application.FacesMessage jsfMessage)
+    {
+        if (jsfMessage != null)
+        {
+            this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
+        }
+    }
+
+    /**
+     * Gets the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     * @return the current Faces messages.
+     */
+    public java.util.Collection<javax.faces.application.FacesMessage> get${stringUtils.capitalize($formMessagesProperty)}()
+    {
+        return this.${formMessagesProperty}.values();
+    }
+
+    /**
+     * Sets the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     * @param messages a collection of the current Faces messages.
+     */
+    public void set${stringUtils.capitalize($formMessagesProperty)}(final java.util.Collection<javax.faces.application.FacesMessage> messages)
+    {
+        if (messages != null)
+        {
+            for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+            {
+                javax.faces.application.FacesMessage jsfMessage = (javax.faces.application.FacesMessage)iterator.next();
+                this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
+            }
+        }
+    }
+
+    /**
+     * Clear the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     */
+    public void clear${stringUtils.capitalize($formMessagesProperty)}()
+    {
+        this.${formMessagesProperty}.clear();
+    }
+
+    /**
+     * The faces message title (used on a view).
+     */
+    private String ${formMessagesProperty}Title;
+
+    /**
+     * The optional faces message title to set (used on a view).  If not set, the default title
+     * will be used.
+     *
+     * @param jsfMessagesTitle the title to use for the messages on the view.
+     */
+    public void set${stringUtils.capitalize($formMessagesProperty)}Title(final String ${formMessagesProperty}Title)
+    {
+        this.${formMessagesProperty}Title = ${formMessagesProperty}Title;
+    }
+
+    /**
+     * Gets the faces messages title to use.
+     *
+     * @return the faces messages title.
+     */
+    public String get${stringUtils.capitalize($formMessagesProperty)}Title()
+    {
+        return this.${formMessagesProperty}Title;
+    }
+
+    /**
+     * Gets the maximum severity of the messages stored in this form.
+     *
+     * @return the maximum severity or null if no messages are present and/or severity isn't set.
+     */
+    public javax.faces.application.FacesMessage.Severity getMaximumMessageSeverity()
+    {
+        javax.faces.application.FacesMessage.Severity maxSeverity = null;
+        for (final javax.faces.application.FacesMessage message : this.get${stringUtils.capitalize($formMessagesProperty)}())
+        {
+            final javax.faces.application.FacesMessage.Severity severity = message.getSeverity();
+            if (maxSeverity == null || (severity != null && severity.getOrdinal() > maxSeverity.getOrdinal()))
+            {
+                maxSeverity = severity;
+            }
+        }
+        return maxSeverity;
+    }
+
+    /**
+     * Copy all the properties from the other form to the current form.
+     *
+     * @param otherForm the form with the source properties to be copied.
+     */
+    public void copyFrom($manageable.formBeanClassName otherForm){
+#foreach ($field in $manageable.manageableAttributes)
+		this.${field.setterName}(otherForm.${field.getterName}());
+#set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
+		this.set${backingListMethod}(otherForm.get${backingListMethod}());
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+		this.${member.setterName}(otherForm.${member.getterName}());
+#set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
+		this.set${backingListMethod}(otherForm.get${backingListMethod}());
+#end
+
+		this.set${stringUtils.capitalize($formMessagesProperty)}(otherForm.get${stringUtils.capitalize($formMessagesProperty)}());
+		this.set${stringUtils.capitalize($formMessagesProperty)}Title(otherForm.get${stringUtils.capitalize($formMessagesProperty)}Title());
+
+		this.setEditState(otherForm.getEditState());
+		this.setSearchForm(otherForm.getSearchForm());
+		this.${manageable.listSetterName}(otherForm.${manageable.listGetterName}());
+		this.setSelectedRows(otherForm.getSelectedRows());
+    }
+
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${manageable.formSerialVersionUID}L;
+}
