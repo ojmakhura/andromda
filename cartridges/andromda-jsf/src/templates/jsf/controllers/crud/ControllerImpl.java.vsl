@@ -1,0 +1,18 @@
+#set ($generatedFile = "${manageable.controllerFullPath}Impl.java")
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+/**
+ * @see ${manageable.manageablePackageName}.${manageable.controllerName}
+ */
+public class ${manageable.controllerName}Impl
+    extends ${manageable.controllerName}
+    implements java.io.Serializable
+{
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${manageable.actionSerialVersionUID}L;
+    
+    
+}
