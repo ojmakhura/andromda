@@ -342,38 +342,11 @@ rsm6 or rsm7 for .emx files)</text>
                     <response>struts</response>
                 </responses>
             </prompt>
-            <prompt id="jsfCartridgeVersion" setResponseAsTrue="true">
-                <text>Would you like to use the JSF or JSF2 cartridge?</text>
-                <shortText>Web interface technology</shortText>
-                <preconditions>
-                    <condition id="webType" equal="jsf"/>
-                </preconditions>
-                <responses>
-                    <response>jsf1</response>
-                    <response>jsf2</response>
-                </responses>
-                <conditions>
-                    <condition equal="jsf2">
-                        <setProperty id="viewType">facelets</setProperty>
-                    </condition>
-                </conditions>
-            </prompt>
-            <prompt id="viewType" setResponseAsTrue="true">
-                <text>Would you like to use Facelets or JSP as your view type for JSF?</text>
-                <shortText>JSF view type</shortText>
-                <preconditions>
-                    <condition id="jsfCartridgeVersion" equal="jsf1"/>
-                </preconditions>
-                <responses>
-                    <response>facelets</response>
-                    <response>jsp</response>
-                </responses>
-            </prompt>
             <prompt id="jsfApplicationType" setResponseAsTrue="true">
                 <text>Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
-                    <condition id="jsfCartridgeVersion" equal="jsf2"/>
+                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses>
                     <response>standalone</response>
