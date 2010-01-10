@@ -1,9 +1,0 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <ui:composition>
-        <h:panelGroup id="footer">
-            <h:outputText value="#{messages['footer.message']}" escape="false"/>
-        </h:panelGroup>
-    </ui:composition>
-</html>
