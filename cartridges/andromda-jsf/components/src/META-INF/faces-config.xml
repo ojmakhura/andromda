@@ -36,6 +36,14 @@
         <component-class>org.andromda.cartridges.jsf.component.BinaryFile</component-class>
     </component>
 
+    <component>
+        <description>
+            This component sets a transaction token in the parent component's attributes.
+        </description>
+        <component-type>org.andromda.cartridges.jsf.component.TransactionToken</component-type>
+        <component-class>org.andromda.cartridges.jsf.component.TransactionToken</component-class>
+    </component>
+
     <validator>
         <validator-id>org.andromda.cartridges.jsf.validator.JSFValidator</validator-id>
         <validator-class>org.andromda.cartridges.jsf.validator.JSFValidator</validator-class>
@@ -54,6 +62,14 @@
             <component-family>org.andromda.cartridges.jsf.BinaryFile</component-family>
             <renderer-type>org.andromda.cartridges.jsf.BinaryFile</renderer-type>
             <renderer-class>org.andromda.cartridges.jsf.renderkit.BinaryFileRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <render-kit>
+        <renderer>
+            <component-family>org.andromda.cartridges.jsf.TransactionToken</component-family>
+            <renderer-type>org.andromda.cartridges.jsf.TransactionToken</renderer-type>
+            <renderer-class>org.andromda.cartridges.jsf.renderkit.TransactionTokenRenderer</renderer-class>
         </renderer>
     </render-kit>
 
