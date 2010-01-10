@@ -45,4 +45,12 @@
         </component>
     </tag>
 
+    <tag>
+        <tag-name>transactionToken</tag-name>
+        <component>
+            <component-type>org.andromda.cartridges.jsf.component.TransactionToken</component-type>
+            <renderer-type>org.andromda.cartridges.jsf.TransactionToken</renderer-type>
+        </component>
+    </tag>
+    
 </facelet-taglib>
