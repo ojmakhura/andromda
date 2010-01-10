@@ -129,47 +129,9 @@
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/ajax4jsf.jar</systemPath>
         </dependency>
 #else
-#if ($jsf1)
-        <dependency>
-            <groupId>org.apache.myfaces</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces</groupId>
-            <artifactId>tomahawk</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>oracle.adf.view.faces</groupId>
-            <artifactId>adf-faces-api</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/adf-faces-api.jar</systemPath>
-        </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge-components</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath>
-        </dependency>
-#elseif ($jsf2)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf-cartridge-components</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf2-cartridge-components</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
@@ -223,7 +185,6 @@
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-impl</artifactId>
         </dependency>
-#end
 #end
 #end
         <dependency>
@@ -292,14 +253,12 @@
                 <targetPath>../${build.finalName}</targetPath>
                 <filtering>true</filtering>
             </resource>
-#if ($jsf2)
             <resource>
                 <directory>target/src</directory>
                 <includes>
                     <include>org/andromda/**/*.properties</include>
                 </includes>
             </resource>
-#end
         </resources>
         <plugins>
             <plugin>
@@ -317,7 +276,7 @@
                     <tasks>
                         <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
 #set ($viewSrcType = "jsp")
-#if ($facelets || $jsf2)
+#if ($jsf)
 #set ($viewSrcType = "xhtml")
 #end
                             <fileset dir="${project.basedir}/src/main/$viewSrcType">
@@ -333,12 +292,6 @@
                             </fileset>
 #end
                         </copy>
-#if ($facelets)
-                        <!-- place any facelet tag files in ${project.basedir}/src/main/xml/tags -->
-                        <copy todir="${project.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/src/main/xml/tags"/>
-                        </copy>
-#end
                     </tasks>
                 </configuration>
             </plugin>

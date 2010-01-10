@@ -105,17 +105,10 @@
                 <version>${andromda.version}</version>
                 <scope>runtime</scope>
             </dependency>
-#if ($jsf2)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf2-cartridge</artifactId>
-                <version>1.1-SNAPSHOT</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf2-cartridge-components</artifactId>
-                <version>1.1-SNAPSHOT</version>
+                <artifactId>andromda-jsf-cartridge</artifactId>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -189,7 +182,6 @@
                 <version>1.1.14</version>
                 <scope>runtime</scope>
             </dependency>
-#end
 #end
             <dependency>
                 <groupId>org.andromda</groupId>
@@ -1550,7 +1542,6 @@
             <name>AndroMDA Repository</name>
             <url>http://team.andromda.org/maven2</url>
         </repository>
-#if ($jsf2)
         <repository>
             <id>stockholm</id>
             <name>University Of Stockholm Repository</name>
@@ -1562,7 +1553,6 @@
                 <name>JBoss Repository</name>
                 <url>http://repository.jboss.com/maven2</url>
             </repository>
-#end
 #end
         <repository>
             <id>Codehaus Snapshots</id>

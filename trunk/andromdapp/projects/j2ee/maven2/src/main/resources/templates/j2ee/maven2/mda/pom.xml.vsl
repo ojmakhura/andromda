@@ -141,27 +141,14 @@
             <scope>runtime</scope>
         </dependency>
 #elseif ($jsf)
-#if ($jsf1)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#elseif ($jsf2)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf2-cartridge</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>runtime</scope>
-        </dependency>
-#end
 #end
 #if ($jbossSeam)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf-cartridge-components</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-seam-cartridge</artifactId>
