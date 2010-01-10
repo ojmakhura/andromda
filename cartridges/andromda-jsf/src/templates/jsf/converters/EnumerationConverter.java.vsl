@@ -1,0 +1,58 @@
+#if ($stringUtils.isNotBlank($enumeration.packageName))
+package $enumeration.packageName;
+#end
+
+/**
+ * Handles conversion of the enumeration {@link ${enumeration.fullyQualifiedName}}
+ * to a String and back.
+ */
+public class $enumeration.converterName
+    implements javax.faces.convert.Converter
+{
+    /**
+     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     */
+    public String getAsString(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.Object value)
+        throws javax.faces.convert.ConverterException
+    {
+        return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
+    }
+
+    /**
+     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     */
+    public Object getAsObject(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.String value)
+        throws javax.faces.convert.ConverterException
+    {
+#if(${enumeration.literalType.fullyQualifiedName} == "java.lang.String")
+        return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromValue(value) : null;
+#elseif ($enumeration.literalType.primitive)
+        if(value == null || value.trim().length() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            try {
+#if(${enumeration.literalType.fullyQualifiedName} == "char")
+                char v = value.charAt(0);
+#else
+#set ($parseSuffix = $stringUtils.capitalize($enumeration.literalType.name))
+                ${enumeration.literalType.fullyQualifiedName} v = ${enumeration.literalType.wrapperName}.parse${parseSuffix}(value);
+#end           
+                return ${enumeration.fullyQualifiedName}.fromValue(v);
+            } catch (Exception ex) {
+                throw new javax.faces.convert.ConverterException(ex);
+            }
+        }
+#else
+        return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromValue(new ${enumeration.literalType.fullyQualifiedName}(value)) : null;
+#end
+    }
+}
