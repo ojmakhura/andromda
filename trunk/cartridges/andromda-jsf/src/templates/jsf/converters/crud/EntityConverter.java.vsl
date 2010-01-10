@@ -1,0 +1,54 @@
+#set ($generatedFile = "${manageable.converterFullPath}.java")
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+/**
+ * Handles conversion of the entity id to a String.
+ */
+public class $manageable.converterClassName
+    implements javax.faces.convert.Converter
+{
+    /**
+     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     */
+    public String getAsString(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.Object value)
+        throws javax.faces.convert.ConverterException
+    {
+        if(value == null)
+            return "";
+            
+        final ${manageable.valueObjectClassName} vo;
+        try {
+            final ${manageable.manageableIdentifier.type.name} id;
+            if(value instanceof String)
+                id = ${manageable.manageableIdentifier.type.name}.valueOf((String)value);
+            else
+                id = (${manageable.manageableIdentifier.type.name})value;
+            
+            vo = ${manageable.manageableServiceAccessorCall}.readById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ("Failed to locate object.");
+        }
+#if($manageable.displayAttribute.type.stringType)        
+        return vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)();
+#else
+        return String.valueOf(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)());
+#end        
+    }
+
+    /**
+     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     */
+    public Object getAsObject(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.String value)
+        throws javax.faces.convert.ConverterException
+    {
+        throw new UnsupportedOperationException();
+    }
+}
