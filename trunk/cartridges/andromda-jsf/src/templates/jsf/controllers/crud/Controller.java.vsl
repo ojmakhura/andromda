@@ -1,0 +1,854 @@
+#set ($generatedFile = "${manageable.controllerFullPath}.java")
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+/**
+ * Javaserver Faces Controller of the ${manageable.name} CRUD management.
+ */
+public abstract class ${manageable.controllerName}
+{
+    private static final org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${manageable.controllerName}.class);
+
+    /**
+    * Initializes the controller, calling the doInit method
+    *    
+    * @return the controller view path.
+    */
+    public String init()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doInit(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+        return "${manageable.viewFullPath}";
+    }
+
+    /**
+    * Initializes the controller. This method can be overriden.
+    */
+    public void doInit(${manageable.formBeanType} form) 
+        throws Exception 
+    {
+
+#foreach ($member in $manageable.manageableMembers)
+#if(!$member.hidden)##isn't working the ($manageable.searchable($member))
+        form.getSearchForm().${member.setterName}(null);
+#end
+#end
+
+#if ($manageable.preload)
+        final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
+
+        form.${manageable.listSetterName}(list);
+
+#if ($manageable.maximumListSize > 0)
+        if (list.size() >= $manageable.maximumListSize)
+            saveMaxResultsWarning();
+
+#end
+#else
+        form.${manageable.listSetterName}(null);
+
+#end
+#if (!$useAutocompleteLookup)
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
+#end
+#end
+
+#end
+        form.setEditState(false);
+    }
+
+#if ($manageable.manageableIdentifier.type.primitive)
+#set($idParamClass = $manageable.manageableIdentifier.type.wrapperName)
+#else
+#set($idParamClass = $manageable.manageableIdentifier.type.name)
+#end
+    /**
+    * The instance load action.
+    */
+    public void load(javax.faces.event.ActionEvent event)
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doLoad(${idParamClass}.valueOf(((javax.faces.component.UIParameter)event.getComponent().findComponent("${manageable.manageableIdentifier.name}")).getValue().toString()),form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+            resetAllEditableComponentsValues();
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+    }
+
+    /**
+    * Loads the selected instance.
+    */
+    public void doLoad(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form) 
+        throws Exception 
+    {
+        final ${manageable.valueObjectClassName} vo=
+            ${manageable.manageableServiceAccessorCall}.readById(${manageable.manageableIdentifier.name});
+
+#foreach ($member in $manageable.manageableAttributes)
+#if(!${member.inputFile})
+        form.${member.setterName}(vo.${member.getterName}());
+#end
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.setterName}(vo.${member.getterName}());
+#end
+
+        form.setEditState(true);
+    }
+
+    /**
+    * The cancel edit action
+    *
+    * @return the controller view path.
+    */
+    public String cancel()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doCancel(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+
+        resetAllEditableComponentsValues();
+        return null;
+    }
+
+    /**
+    * Executes the edit cancel.
+    */
+    public void doCancel(${manageable.formBeanType} form) 
+        throws Exception 
+    {
+        form.setEditState(false);
+    }
+
+#if ($manageable.create)
+    /**
+    * The new instance action.
+    *
+    * @return the controller view path.
+    */
+    public String startNew()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doStartNew(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+
+        resetAllEditableComponentsValues();
+        return null;
+    }
+
+    /**
+    * Executes the new instance action.
+    */
+    public void doStartNew(${manageable.formBeanType} form) 
+        throws Exception 
+    {
+
+## set all default attribute values
+#foreach ($member in $manageable.manageableAttributes)
+#set($memberType = $member.type)
+#if ($member.defaultValuePresent)
+#if ($memberType.dateType)
+        form.${member.setterName}AsString("$member.defaultValue");
+#els
+        form.${member.setterName}($member.defaultValue);
+#end
+#else
+#if ($memberType.primitive)
+#if ($memberType.fullyQualifiedName == 'char')
+        form.${member.setterName}(' ');
+#elseif ($memberType.fullyQualifiedName == 'boolean')
+        form.${member.setterName}(false);
+#else
+        form.${member.setterName}(0);
+#end
+#else
+        form.${member.setterName}(null);
+#end
+#end
+#end
+
+#if (!$manageable.manageableAssociationEnds.empty)
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.setterName}(null);
+#end
+#end
+
+#if (!$useAutocompleteLookup)
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
+#end
+
+#end
+#end
+        form.setEditState(true);
+    }
+#end
+#if ($manageable.create || $manageable.update)
+    /**
+    * The save instance action.
+    *
+    * @return the controller view path.
+    */
+    public String save()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doSave(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+
+        resetAllEditableComponentsValues();
+        return null;
+    }
+
+    /**
+    * Saves instance action.
+    */
+    public void doSave(${manageable.formBeanType} form) 
+        throws Exception 
+    {
+
+#if ($manageable.create)
+        if(form.${manageable.manageableIdentifier.getterName}() == null){
+            form.${manageable.manageableIdentifier.setterName}(
+                ${manageable.manageableServiceAccessorCall}.create(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+#if ($member.name == $manageable.manageableIdentifier.name)
+                    ${comma}null
+#elseif ($member.inputFile)
+                    ${comma}form.${member.getterName}()==null?null:org.apache.commons.io.IOUtils.toByteArray(form.${member.getterName}().getInputStream())
+#else
+                    ${comma}form.${member.getterName}()
+#end
+#set ($comma = ', ')
+#end
+                ).${manageable.manageableIdentifier.getterName}()
+            );
+        }
+        else{
+#end
+            ${manageable.manageableServiceAccessorCall}.update(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+#if ($member.inputFile)
+                ${comma}form.${member.getterName}()==null?null:org.apache.commons.io.IOUtils.toByteArray(form.${member.getterName}().getInputStream())
+#else
+                ${comma}form.${member.getterName}()
+#end
+#set ($comma = ', ')
+#end
+            );
+#if ($manageable.create)
+        }
+#end
+        if(form.${manageable.listGetterName}() != null) //only searches again if there was an old search
+            doSearch(form); //search again to show the updated item (if it fits the search criteria)
+
+        form.setEditState(false);
+    }
+
+#end
+#if ($manageable.create)
+    /**
+    * The save and new instance action.
+    *
+    * @return the controller view path.
+    */
+    public String saveAndNew()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doSave(form);
+                this.doStartNew(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+
+        resetAllEditableComponentsValues();
+        return null;
+    }
+#end
+
+    /**
+    * The search action.
+    *
+    * @return the controller view path.
+    */
+    public String search()
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doSearch(form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+
+        resetAllEditableComponentsValues();
+        return null;
+    }
+
+    /**
+    * Executes the search action.
+    */
+    public void doSearch(${manageable.formBeanType} form) 
+        throws Exception 
+    {
+
+        final java.util.List list;
+        //if all search fields are null, call readAll()
+        if(
+#set ($and = '')
+#foreach ($member in $manageable.manageableMembers)
+#if(!$member.hidden)##isn't working the ($manageable.searchable($member))
+#if($member.type.stringType)
+            ${and} org.apache.commons.lang.StringUtils.isEmpty(form.getSearchForm().${member.getterName}())
+#elseif($member.type.collectionType)
+            ${and} org.apache.commons.collections.CollectionUtils.isEmpty(form.getSearchForm().${member.getterName}())
+#elseif($member.type.arrayType)
+            ${and} org.apache.commons.lang.ArrayUtils.isEmpty(form.getSearchForm().${member.getterName}())
+#else
+            ${and} form.getSearchForm().${member.getterName}() == null
+#end
+#set ($and = '&&')
+#end
+#end
+            )
+        list=${manageable.manageableServiceAccessorCall}.readAll();
+    else
+        list = ${manageable.manageableServiceAccessorCall}.read(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+#if(!$member.hidden)##isn't working the ($manageable.searchable($member))
+            ${comma}form.getSearchForm().${member.getterName}()
+#else
+            ${comma}null
+#end
+#set ($comma = ', ')
+#end
+        );
+
+        form.${manageable.listSetterName}(list);
+#if ($manageable.maximumListSize > 0)
+        if (list.size() >= $manageable.maximumListSize)
+            saveMaxResultsWarning();
+#end
+
+#if (!$useAutocompleteLookup)
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
+#end
+#end
+
+#end
+        form.setEditState(false);
+    }
+
+#if ($manageable.delete)
+#if ($manageable.manageableIdentifier.type.primitive)
+#set($idParamClass = $manageable.manageableIdentifier.type.wrapperName)
+#else
+#set($idParamClass = $manageable.manageableIdentifier.type.name)
+#end
+    /**
+    * The delete event.
+    */
+    public void delete(javax.faces.event.ActionEvent event)
+    {
+        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        try
+        {
+            final ${manageable.formBeanType} form = this.getForm();
+
+            try
+            {
+                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
+
+                this.doDelete(${idParamClass}.valueOf(((javax.faces.component.UIParameter)event.getComponent().findComponent("${manageable.manageableIdentifier.name}")).getValue().toString()),form);
+            }
+            catch (final Throwable throwable)
+            {
+                final String messageKey = ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable);
+                // - the exception is re-thrown by the exception handler and handled by the catch below if it can't get a messageKey
+                //   (no reason to check for presence of messageKey)
+                this.addErrorMessage(${managedBeansPackage}.Messages.get(messageKey, null));
+            }
+            resetAllEditableComponentsValues();
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+    }
+
+    /**
+    * Deletes the selected instance.
+    */
+    public void doDelete(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form) 
+        throws Exception 
+    {
+        ${manageable.manageableServiceAccessorCall}.delete(new ${idParamClass}[]{${manageable.manageableIdentifier.name}});
+
+        doSearch(form);
+    }
+
+#end
+#if ($manageable.maximumListSize > 0)
+    /**
+    * Shows a message warning the user can exists more records available.
+    */
+    private void saveMaxResultsWarning() 
+    {
+        addWarningMessage(${managedBeansPackage}.Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("${manageable.maximumListSize}")}));
+    }
+
+#end
+    /**
+    * Helper method to fill the autocomplete component list.
+    */
+    public void fillAutocomplete(javax.faces.event.ActionEvent event)
+    {
+        final javax.faces.context.FacesContext facesContext = this.getContext();
+        final java.util.Map parameters = facesContext.getExternalContext().getRequestParameterMap();
+        final Object fieldValue = parameters.get(this.getParameterValue("searchFieldRequestParamName",event));
+        try{
+            final java.util.List list = ${manageable.manageableServiceAccessorCall}.read(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+#if($member.name == $manageable.displayAttribute.name)
+#if($member.type.stringType)
+                ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : fieldValue.toString()
+#else
+#if($member.type.primitive)
+                ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.wrapperName}.valueOf(fieldValue.toString())
+#else
+                ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.fullyQualifiedName}.valueOf(fieldValue.toString())
+#end
+#end
+#else
+                ${comma}null
+#end
+#set ($comma = ', ')
+#end
+            );
+            final javax.faces.el.ValueBinding vb = facesContext.getApplication().createValueBinding("#{autocompleteResult}");
+            vb.setValue(facesContext, list);
+        }
+        catch (final Throwable throwable)
+        {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+        }
+    }
+
+    /**
+    * Helper method to fill the select component list.
+    *
+    * @return a collection with the filtered list.
+    */
+    public java.util.Collection<javax.faces.model.SelectItem> getAsSelectItems()
+    {
+        final java.util.Collection<${manageable.valueObjectClassName}> vos;
+        try {
+            vos = (java.util.Collection<${manageable.valueObjectClassName}>)${manageable.manageableServiceAccessorCall}.readAll();
+        } catch (final Throwable throwable) {
+            logger.error(throwable);
+            this.addExceptionMessage(throwable);
+            return null;
+        }
+        final java.util.Collection<javax.faces.model.SelectItem> result=new java.util.ArrayList<javax.faces.model.SelectItem>(vos.size());
+        for(${manageable.valueObjectClassName} vo: vos){
+            result.add(new javax.faces.model.SelectItem(vo.${manageable.manageableIdentifier.getterName}(),org.apache.commons.lang.ObjectUtils.toString(vo.get$stringUtils.upperCamelCaseName($manageable.displayAttribute.name)())));
+        }
+        return result;
+    }
+
+    /**
+     * Resolves "${manageable.formBeanName}" variable in all contexts.
+     *
+     * @return the manageable form.
+     */
+    protected ${manageable.formBeanType} getForm()
+    {
+        return (${manageable.formBeanType})this.resolveVariable("${manageable.formBeanName}");
+    }
+
+    /**
+     * Force the component to get its value from the backing bean before rendering
+     *
+     * @param uic the parent UIComponent.
+     */
+    private void resetEditableComponentsValues(javax.faces.component.UIComponent uic)
+    {
+        if(uic instanceof javax.faces.component.EditableValueHolder)
+        {
+            final javax.faces.component.EditableValueHolder evh=(javax.faces.component.EditableValueHolder)uic;
+            evh.setValue(null);
+            evh.setSubmittedValue(null);
+            evh.setLocalValueSet(false);
+            evh.setValid(true);
+        }
+        for(Object component: uic.getChildren())
+        {
+            resetEditableComponentsValues((javax.faces.component.UIComponent)component);
+        }
+    }
+    
+    /**
+     * Force all the editable components to get its values from the backing bean before rendering 
+     */
+    private void resetAllEditableComponentsValues()
+    {
+        resetEditableComponentsValues(this.getContext().getViewRoot());
+    }
+    
+    /**
+     * Returns an javax.faces.event.FacesEvent parameter value, from its name
+     *
+     * @param parameterName the name of the parameter.
+     * @param event the FacesEvent holding the parameter.
+     */
+    protected Object getParameterValue(String parameterName, javax.faces.event.FacesEvent event)
+    {
+        for(Object uiObject : event.getComponent().getChildren()){
+            if(uiObject instanceof javax.faces.component.UIParameter){
+                final javax.faces.component.UIParameter param = (javax.faces.component.UIParameter)uiObject;
+                if(param.getName().equals(parameterName)) {
+                    return param.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the current faces context.  This object is the point
+     * from which to retrieve any request, session, etc information.
+     *
+     * @return the JSF faces context instance.
+     */
+    protected javax.faces.context.FacesContext getContext()
+    {
+        return javax.faces.context.FacesContext.getCurrentInstance();
+    }
+
+    /**
+     * A helper method that gets the current request from the faces
+     * context.
+     *
+     * @return the current HttpServletRequest instance.
+     */
+    protected javax.servlet.http.HttpServletRequest getRequest()
+    {
+        return (javax.servlet.http.HttpServletRequest)this.getContext().getExternalContext().getRequest();
+    }
+
+    /**
+     * A helper method that gets the current reponse from the faces
+     * context.
+     *
+     * @return the current HttpServletReponse instance.
+     */
+    protected javax.servlet.http.HttpServletResponse getResponse()
+    {
+        return (javax.servlet.http.HttpServletResponse)this.getContext().getExternalContext().getResponse();
+    }
+
+    /**
+     * A helper method that gets the current session from the faces
+     * context.
+     *
+     * @param create If the create parameter is true, create (if necessary) and return a
+     *        session instance associated with the current request. If the create
+     *        parameter is false return any existing session instance associated with the
+     *        current request, or return null if there is no such session.
+     * @return the current HttpSession instance.
+     */
+    protected javax.servlet.http.HttpSession getSession(final boolean create)
+    {
+        return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
+    }
+
+    /**
+     * Attempts to resolve the variable, given, the <code>name</code> of
+     * the variable using the faces context variable resolver instance.
+     *
+     * @param name the variable name
+     * @return the resolved variable or null if not found.
+     */
+    protected java.lang.Object resolveVariable(final String name)
+    {
+        org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
+        Object variable = adfContext.getPageFlowScope().get(name);
+        // - if we couldn't get the variable from the regular ADF context, see if
+        //   the session contains an ADF context with the variable
+        if (variable == null)
+        {
+            final javax.servlet.http.HttpSession session = this.getSession(false);
+            if (session != null)
+            {
+                final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper =
+                    (${managedBeansPackage}.AdfFacesContextWrapper)session.getAttribute("AndroMDAADFContext");
+                adfContext = contextWrapper != null ? contextWrapper.getCurrentInstance() : null;
+            }
+            variable = adfContext != null ? adfContext.getPageFlowScope().get(name) : null;
+        }
+        // - finally try resolving it in the standard JSF manner
+        if (variable == null)
+        {
+            final javax.faces.context.FacesContext context = this.getContext();
+            variable = context != null ? context.getApplication().getVariableResolver().resolveVariable(context, name) : null;
+        }
+        return variable;
+    }
+
+    /**
+     * Finds the root cause of the given <code>throwable</code> and
+     * adds the message taken from that cause to the faces context messages.
+     *
+     * @param throwable the exception information to add.
+     */
+    protected final void addExceptionMessage(
+        Throwable throwable)
+    {
+        String message = null;
+        final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        if (rootCause != null)
+        {
+            message = rootCause.toString();
+        }
+        if (message == null || message.trim().length() == 0)
+        {
+            message = throwable.toString();
+        }
+        this.addErrorMessage(message);
+    }
+
+    /**
+     * Adds the given error <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addErrorMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);
+    }
+
+    /**
+     * Adds the given warning <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addWarningMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);
+    }
+
+    /**
+     * Adds the given info <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addInfoMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);
+    }
+
+    /**
+     * Adds the given fatal <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addFatalMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);
+    }
+
+    /**
+     * Adds a message to the faces context (which will show up on your view when using the
+     * lt;h:messages/gt; tag).
+     *
+     * @param severity the severity of the message
+     * @param message the message to add.
+     */
+    protected void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
+    {
+        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
+        final org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
+        final Object form = adfContext.getPageFlowScope().get("${actionFormKey}");
+        if (form != null)
+        {
+            try
+            {
+                final java.lang.reflect.Method method = form.getClass().getMethod(
+                    "add${stringUtils.capitalize($formMessagesProperty)}",
+                    new Class[]{javax.faces.application.FacesMessage.class});
+                method.invoke(form, new Object[]{facesMessage});
+            }
+            catch (final Exception exception)
+            {
+                throw new RuntimeException(exception);
+            }
+        }
+    }
+
+    /**
+     * Creates a new request attribute.
+     *
+     * @param name the attribute name.
+     * @param object the attribute value.
+     */
+    protected void setRequestAttribute(final String name, final Object object)
+    {
+        ${managedBeansPackage}.JsfUtils.setAttribute(this.getContext().getExternalContext().getRequest(), name, object);
+    }
+
+    // crud-controller merge-point
+
+}
