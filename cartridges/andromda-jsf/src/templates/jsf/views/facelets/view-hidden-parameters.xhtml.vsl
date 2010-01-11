@@ -1,0 +1,38 @@
+##
+##  This macro renders the hidden input parameters
+##
+#macro(renderHiddenInputField $field $ownerParameter)
+#if ($field.backingListName)
+#set ($propertyId = $field.name)
+#set ($valuePropertyName = $field.name)
+#else
+#set ($propertyId = $field.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${field.getFormPropertyName($ownerParameter)})
+#end
+<tr:inputHidden id="${propertyId}" value="#{${action.formBeanName}.${valuePropertyName}}"#if($trinidad) partialTriggers="${field.action.triggerName}Action"#end>
+#if ($field.type.dateType)
+    <a:convertDateTime pattern="$field.format"/>
+#end
+</tr:inputHidden>
+#end
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://www.andromda.org/cartridges/jsf"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+<ui:composition>
+##
+##    This xhtml composition stores all hidden parameters for an action.
+##
+#foreach ($field in $action.hiddenParameters)
+#if (!$field.complex || $field.type.enumeration)
+#renderHiddenInputField($field "")
+#else
+#foreach ($attribute in $field.attributes)
+#if ($attribute.inputHidden || $field.inputHidden)
+#renderHiddenInputField($attribute $field)
+#end
+#end
+#end
+#end
+</ui:composition>
+</html>

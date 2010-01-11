@@ -1,0 +1,133 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:c="http://java.sun.com/jstl/core"
+     xmlns:t="http://myfaces.apache.org/tomahawk"
+     xmlns:a="http://www.andromda.org/cartridges/jsf">
+<ui:composition>
+
+<h:form>
+#set ($targetColumns = $table.targettedTableColumnNames)
+<h:panelGroup>
+    <t:dataScroller id="${table.name}Scroller1"
+            for="$table.name"
+            fastStep="10"
+            pageCountVar="pageCount"
+            pageIndexVar="pageIndex"
+            styleClass="scroller"
+            paginator="true"
+            paginatorMaxPages="10"
+            paginatorTableClass="paginator"
+            paginatorActiveColumnStyle="font-weight:bold;"
+            immediate="true">
+        <f:facet name="first">
+            <h:outputText value="|&lt;"/>
+        </f:facet>
+        <f:facet name="last">
+            <h:outputText value="&gt;|"/>
+        </f:facet>
+        <f:facet name="previous">
+            <h:outputText value="&lt;"/>
+        </f:facet>
+        <f:facet name="next">
+            <h:outputText value="&gt;"/>
+        </f:facet>
+        <f:facet name="fastforward">
+            <h:outputText value="&gt;&gt;"/>
+        </f:facet>
+        <f:facet name="fastrewind">
+            <h:outputText value="&lt;&lt;"/>
+        </f:facet>
+    </t:dataScroller>
+#if ($table.pageableTable)
+    <c:set var="renderTable" value="#{${table.name} != null and !${table.name}['empty']}"/>
+#else
+    <c:set var="renderTable" value="#{!empty ${table.name}}"/>
+#end
+    <t:dataScroller id="${table.name}Scroller2"
+            for="$table.name"
+            rowsCountVar="rowsCount"
+            displayedRowsCountVar="displayedRowsCountVar"
+            firstRowIndexVar="firstRowIndex"
+            lastRowIndexVar="lastRowIndex"
+            pageCountVar="pageCount"
+            immediate="true"
+            pageIndexVar="pageIndex">
+        <h:outputFormat value="#{messages['table.results']}" rendered="#{renderTable}">
+            <f:param value="#{rowsCount}" />
+            <f:param value="#{displayedRowsCountVar}" />
+            <f:param value="#{firstRowIndex}" />
+            <f:param value="#{lastRowIndex}" />
+            <f:param value="#{pageIndex}" />
+            <f:param value="#{pageCount}" />
+        </h:outputFormat>
+        <h:outputText value="#{messages['table.results.none.found']}" rendered="#{${table.name} != null and !renderTable}"/>
+    </t:dataScroller>
+    <t:dataTable value="#{${table.name}}" var="row" id="$table.name" sortable="true" rows="10" rendered="#{renderTable}">
+#if (!$table.tableColumns.empty)
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        <h:column>
+            <f:facet name="header">
+                <t:commandSortHeader columnName="$columnName" arrow="true" propertyName="$columnName">
+                    <h:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
+                </t:commandSortHeader>
+            </f:facet>
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+            <h:commandLink value="#{row.${columnName}}" action="#{${action.controller.beanName}.${action.triggerName}}">
+#if ($column.type.dateType)
+                    <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+                </h:outputText>
+#renderTableCommandLinkParameters(false)
+            </h:commandLink>
+#else
+            <h:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </h:outputText>
+#end
+        </h:column>
+#end
+#else
+        <h:column>
+            <h:outputText value="#{row}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </h:outputText>
+        </h:column>
+#end
+## - render any table hyperlink actions
+#foreach ($action in $table.tableHyperlinkActions)
+#if (!$action.tableLinkColumnName)
+        <h:column>
+            <h:commandLink value="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}">
+#renderTableCommandLinkParameters(false)
+            </h:commandLink>
+        </h:column>
+#end
+#end
+## - render any table button actions
+#foreach ($action in $table.tableFormActions)
+#if (!$action.tableLinkColumnName)
+        <h:column>
+            <h:commandButton value="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}" actionListener="#{${action.controller.beanName}.action}">
+#renderTableCommandLinkParameters(true)
+            </h:commandButton>
+        </h:column>
+#end
+#end
+    </t:dataTable>
+</h:panelGroup>
+</h:form>
+</ui:composition>
+</div>

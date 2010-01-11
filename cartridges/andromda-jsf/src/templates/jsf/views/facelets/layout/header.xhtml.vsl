@@ -1,0 +1,10 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:tr="http://myfaces.apache.org/trinidad"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <ui:composition>
+        <tr:panelGroupLayout inlineStyle="overflow: auto; font-size: x-large; font-weight: bold;">
+           <tr:outputText>#{messages['application.name']}</tr:outputText>
+        </tr:panelGroupLayout>
+    </ui:composition>
+</html>

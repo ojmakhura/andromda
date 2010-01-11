@@ -1,0 +1,293 @@
+##
+## A macro that renders the appropriate search input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##
+#macro(renderSearchInput $parameter)
+#set ($valuePropertyName = "searchForm.${parameter.name}")
+#set ($propertyId = "searchForm_${parameter.name}")
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#set ($formValuePropertyName = "${formName}.${valuePropertyName}")
+#if ($parameter.type.dateType)
+        <tr:inputDate id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
+            <f:convertDateTime pattern="$parameter.format"/>
+        </tr:inputDate>
+#elseif ($parameter.inputCheckbox)
+        <tr:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"/>
+#elseif ($parameter.inputSelect)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#else
+#set ($selectBoxType = "selectOneChoice")
+#end
+        <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:$selectBoxType>
+#elseif ($parameter.inputMultibox)
+        <tr:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:selectManyCheckbox>
+#elseif ($parameter.inputRadio)
+        <tr:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false">
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:selectOneRadio>
+#elseif ($parameter.plainText)
+        <tr:outputText value="#{${formValuePropertyName}}"/>
+#else
+##if the widget type is not defined explicitly ...
+#if($parameter.type.enumeration)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#else
+#set ($selectBoxType = "selectOneChoice")
+#end
+        <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+            <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
+#foreach ($literal in $field.type.literals)
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+#set($literalKey = $literal.name)
+#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+#set($itemValue = $literal.enumerationValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${itemValue}${quote} />
+#end
+        </tr:$selectBoxType>
+#elseif(!$parameter.inputFile && !$parameter.inputHidden)
+        <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end>
+#if ($parameter.type.timeType)
+            <f:convertDateTime pattern="$parameter.format"/>
+#end
+        </tr:inputText>
+#end
+#end
+#end
+## ===============
+#set ($generatedFile = "${manageable.viewFullPath}.xhtml")
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:a="http://www.andromda.org/cartridges/jsf"
+      xmlns:tr="http://myfaces.apache.org/trinidad"
+#if ($useAutocompleteLookup)
+      xmlns:ajsfc="http://www.andromda.org/cartridges/jsf/facelets"
+#end
+      >
+
+#set($formName = $manageable.formBeanName)
+#set($searchFormId = "${formName}_search")
+#set($editFormId = "${formName}_edit")
+#set ($layout = "/layout/layout.xhtml")
+<ui:composition template="$layout">
+    <ui:param name="partialTriggers" value="#{fn:split('#if($manageable.create)${searchFormId}:newAction #end${searchFormId}:searchResult:loadAction ${editFormId}:saveAction #if($manageable.create)${editFormId}:saveAndNewAction #end${editFormId}:cancelAction',' ')}"/>
+    <ui:param name="usesUpload" value=#if($manageable.needsFileUpload)"true"#else"false"#end/>
+    <ui:define name="title">
+        <c:set var="title" value="#{messages['${manageable.viewTitleKey}']}#{messages['title.action.separator']}#{messages[${formName}.editState ? (empty ${formName}.${manageable.manageableIdentifier.name} ? 'title.action.new' : 'title.action.edit') : 'title.action.search']}" scope="request"/>
+    </ui:define>
+    <ui:define name="content">
+#set ($clientValidation = $clientValidation && $manageable.validationRequired)
+#set ($formValidateName = "validate$stringUtils.capitalize($formName)")
+        <tr:group rendered="#{!${formName}.editState}"> 
+        <tr:subform id="${searchFormId}">
+        <tr:panelFormLayout>
+#foreach ($field in $manageable.manageableSearchAttributes)
+#renderSearchInput($field)
+#end
+#foreach ($field in $manageable.manageableSearchAssociationEnds)
+#if($field.type.hasStereotype("Manageable"))
+#set ($valuePropertyName = "${formName}.searchForm.${field.name}")
+#set ($multiSelect = false)
+#set ($multiSelect = $field.many)
+#if ($useAutocompleteLookup)
+#if ($multiSelect)
+#set ($autocompleteType = "autocompleteMulti")
+#else
+#set ($autocompleteType = "autocomplete")
+#end
+        <tr:panelLabelAndMessage label="#{messages['${field.messageKey}']}:" showRequired="false">
+            <ajsfc:${autocompleteType} id="${field.name}" parentId="${searchFormId}" value="#{${valuePropertyName}}" readOnly="false" required="false"
+                locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete" 
+                locateValueFieldName="${field.type.identifiers.get(0).name}" locateVisibleFieldName="${field.type.displayAttribute.name}" itemConverterId="${field.type.ConverterType}"/>
+        </tr:panelLabelAndMessage>
+#else
+#set ($backingListName = "${formName}.${field.name}BackingList")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#else
+#set ($selectBoxType = "selectOneChoice")
+#end
+        <tr:$selectBoxType id="searchForm_${field.name}" value="#{${valuePropertyName}}" label="#{messages['$field.messageKey']}:" required="false" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+            <c:if test="${!empty ${backingListName}}">
+                <c:forEach var="row" items="#{${backingListName}}">
+                    <f:selectItem itemLabel="#{row[1]}" itemValue="#{row[0]}" />
+                </c:forEach>
+            </c:if>
+        </tr:$selectBoxType>
+#end
+#end
+#end
+        <f:facet name="footer">
+            <tr:panelButtonBar>
+                <tr:commandButton id="searchAction" text="#{messages['action.search']}" action="#{${manageable.controllerBeanName}.search}" accessKey="#{messages['action.search.access.key']}" partialSubmit="true"/>
+#if ($manageable.create)
+                <tr:commandButton id="newAction" text="#{messages['action.new']}" action="#{${manageable.controllerBeanName}.startNew}" accessKey="#{messages['action.new.access.key']}" partialSubmit="true" immediate="true"/>
+#end
+            </tr:panelButtonBar>
+        </f:facet>
+        </tr:panelFormLayout>
+        <tr:table id="searchResult" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${formName}.${manageable.listName}}" rows="#{${preferencesBeanName}.maxTableRows}" width="90%" inlineStyle="display:#{${formName}.${manageable.listName} == null? 'none': ''}" partialTriggers="searchResult:deleteAction ::searchAction" emptyText="#{messages['empty.result.set']}">
+            <tr:column width="46px">
+                <f:facet name="header">
+                    <h:panelGroup><tr:image source="/images/space.gif"/></h:panelGroup>
+                </f:facet>
+                <h:panelGroup>
+                    <tr:commandLink id="loadAction" actionListener="#{${manageable.controllerBeanName}.load}" partialSubmit="true" immediate="true">
+                       <tr:image source="/skins/#{${preferencesBeanName}.skin}/images/tableLoad.gif" shortDesc="#{messages['action.load']}" inlineStyle="border-style:none" />
+                       <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
+                    </tr:commandLink>
+#if ($manageable.delete)
+                    <tr:spacer width="10" height="1"/>
+                    <tr:commandLink id="deleteAction" actionListener="#{${manageable.controllerBeanName}.delete}" partialSubmit="true" immediate="true">
+                        <tr:image source="/skins/#{${preferencesBeanName}.skin}/images/tableDelete.gif" shortDesc="#{messages['action.delete']}" inlineStyle="border-style:none" />
+                        <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
+                    </tr:commandLink>
+#end
+                </h:panelGroup>
+            </tr:column>
+#foreach ($member in $manageable.manageableAttributes)
+#if(!$member.hidden && !$member.inputFile)
+            <tr:column sortable=#if($manageable.tableSortable)"true"#else"false"#end sortProperty="$member.name">
+                <f:facet name="header">
+                    <tr:outputText value="#{messages['$member.messageKey']}"/>
+                </f:facet>
+#if($member.type.enumeration)
+                <c:set var="key" value="sexo.#{row.${member.name}.value}"/>
+                <tr:outputText value="#{messages[key]}">
+#else
+                <tr:outputText value="#{row.${member.name}}">
+#end
+#if ($column.type.dateType)
+                    <f:convertDateTime pattern="$defaultDateFormat"/>
+#end
+                </tr:outputText>
+            </tr:column>
+#end
+#end
+#foreach ($field in $manageable.manageableSearchAssociationEnds)
+#if($field.type.hasStereotype("Manageable"))
+#if(!$field.many)
+            <tr:column sortable="false">
+                <f:facet name="header">
+                    <tr:outputText value="#{messages['$field.type.viewTitleKey']}"/>
+                </f:facet>
+                <tr:outputText value="#{row.${field.name}}" converter="$field.type.converterType"/>
+            </tr:column>
+#end
+#end
+#end
+        </tr:table>
+        </tr:subform>
+        </tr:group>
+        <tr:group rendered="#{${formName}.editState}">
+        <tr:subform id="${editFormId}" #if($clientValidation) onsubmit="return $formValidateName(this);"#end>
+            <tr:panelFormLayout>
+##todo **** temporary solution ****
+#set($oldTrinidadValue=$trinidad)
+#set($trinidad=false)
+##*********************************
+#foreach ($field in $manageable.manageableAttributes)
+#if($field.hidden)
+            <h:inputHidden id="${field.name}" value="#{${formName}.${field.name}}"/>
+#else
+#if($field.type.enumeration)
+#set ($propertyId = $field.name)
+#set ($formValuePropertyName = "${formName}.${field.name}")
+#set ($multiSelect = $field.type.collectionType || $field.type.arrayType)
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#else
+#set ($selectBoxType = "selectOneChoice")
+#end
+            <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$field.messageKey']}:" required="$field.required" readOnly="$field.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+                <f:converter converterId="${field.type.fullyQualifiedName}"/>
+#foreach ($literal in $field.type.literals)
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+#set($literalKey = $literal.name)
+#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+#set($itemValue = $literal.enumerationValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+                <f:selectItem itemLabel="#{messages['${field.type.messageKey}.${literalKey}']}" itemValue=${quote}${itemValue}${quote} />
+#end
+            </tr:$selectBoxType>
+#else
+#renderActionInput($field "")
+#end
+#end
+#end
+##todo **** temporary solution ****
+#set($trinidad=$oldTrinidadValue)
+##*********************************
+#foreach ($field in $manageable.manageableAssociationEnds)
+#if($field.type.hasStereotype("Manageable"))
+#set ($valuePropertyName = "${formName}.${field.name}")
+#set ($multiSelect = false)
+#set ($multiSelect = $field.many)
+#if ($useAutocompleteLookup)
+#if ($multiSelect)
+#set ($autocompleteType = "autocompleteMulti")
+#else
+#set ($autocompleteType = "autocomplete")
+#end
+            <tr:panelLabelAndMessage label="#{messages['${field.messageKey}']}:" showRequired="${field.required}">
+                <ajsfc:${autocompleteType} id="${field.name}" parentId="${editFormId}" value="#{${valuePropertyName}}" readOnly="${field.readOnly}" required="${field.required}"
+                    locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete" 
+                    locateValueFieldName="${field.type.identifiers.get(0).name}" locateVisibleFieldName="${field.type.displayAttribute.name}" itemConverterId="${field.type.ConverterType}"/>
+            </tr:panelLabelAndMessage>
+#else
+#set ($backingListName = "${formName}.${field.name}BackingList")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#else
+#set ($selectBoxType = "selectOneChoice")
+#end
+            <tr:$selectBoxType id="$field.name" value="#{${valuePropertyName}}" label="#{messages['$field.messageKey']}:" required="$field.required" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+                   <c:if test="${!empty ${backingListName}}">
+                       <c:forEach var="row" items="#{${backingListName}}">
+                           <f:selectItem itemLabel="#{row[1]}" itemValue="#{row[0]}" />
+                       </c:forEach>
+                   </c:if>
+            </tr:$selectBoxType>
+#end
+#end
+#end
+
+            <f:facet name="footer">
+                   <tr:panelButtonBar>
+#if ($manageable.create || !$manageable.update)
+                       <tr:commandButton id="saveAction" text="#{messages['action.save']}" action="#{${manageable.controllerBeanName}.save}" accessKey="#{messages['action.save.access.key']}" partialSubmit="false"/>
+#if ($manageable.create)
+                       <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" rendered="#{empty ${formName}.${manageable.manageableIdentifier.name}}" partialSubmit="false"/>
+#end                   
+                       <tr:commandButton id="cancelAction" text="#{messages['action.cancel']}" action="#{${manageable.controllerBeanName}.cancel}" accessKey="#{messages['action.cancel.access.key']}" immediate="true" partialSubmit="true" />
+#end
+                   </tr:panelButtonBar>
+            </f:facet>
+            </tr:panelFormLayout>
+            <a:validator#if(!$clientValidation) client="false"#end/>
+        </tr:subform>
+        </tr:group>
+    </ui:define>
+</ui:composition>
+
+</html>

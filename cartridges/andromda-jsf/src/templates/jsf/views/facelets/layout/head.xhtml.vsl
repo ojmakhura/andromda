@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:trh="http://myfaces.apache.org/trinidad/html">
+<ui:composition>
+<f:loadBundle basename="message-resources" var="messages"/>
+<trh:head>
+    <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8"/>
+    <title>#{messages['application.name']}<c:if test="${!empty viewTitle}"> ~ ${viewTitle}</c:if></title>
+#if ($outputCustomResources)
+    <link rel="stylesheet" type="text/css" href="${facesContext.externalContext.request.contextPath}/css/custom.css" />
+#end
+    <trh:script source="/js/common.js"/>
+    <trh:script source="/js/key-events.js"/>
+</trh:head>
+</ui:composition>
+</html>

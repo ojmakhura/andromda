@@ -1,0 +1,18 @@
+##
+## This macro renders the <f:param> elements for a command link
+##
+#macro (renderTableCommandLinkParameters $attribute)
+#foreach ($parameter in $action.parameters)
+#if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
+#else
+#set ($parameterValue = "$parameter.name")
+#end
+#if($attribute)
+#set ($elementType = "attribute")
+#else
+#set ($elementType = "param")
+#end
+                <f:$elementType name="$parameter.name" value="#{${parameterValue}}"/>
+#end
+#end

@@ -1,0 +1,2 @@
+<%request.getSession().invalidate();%>
+<%response.sendRedirect(request.getContextPath() + "${applicationUseCases.iterator().next().path}.${facesServletExtension}?action=roleError");%>
