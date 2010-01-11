@@ -104,20 +104,16 @@ ${comma}otherBean.${property.getterName}()## no newline
 ## generate implementations for operations
 #foreach ($operation in $class.operations)
 #if (!$operation.abstract)
-#set ($returnType = $operation.returnType)
-#set ($signature = $operation.signature)
     /**
      * @see ${class.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $signature
         throws $operation.exceptionList
-#else
-    $operation.visibility $returnType.fullyQualifiedName $signature
 #end
     {
-        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $signature
-        throw new UnsupportedOperationException("${class.fullyQualifiedName}.${signature} Not implemented!");
+        // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
+        throw new UnsupportedOperationException("${class.fullyQualifiedName}.${operation.signature} Not implemented!");
     }
 
 #end

@@ -207,23 +207,21 @@ $target.getDocumentation("     * ")
 #end
 ##Generate operations
 #foreach ($operation in $class.operations)
-#set ($returnType = $operation.returnType)
-#set ($signature = $operation.signature)
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
      * @param $argument.name $argument.fullyQualifiedName $argument.getDocumentation("")
 #end
-     * @return $returnType.fullyQualifiedName
+     * @return $operation.getterSetterReturnTypeName
 #foreach ($exception in $operation.exceptions)
      * @throws $exception.fullyQualifiedName
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature;
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end
