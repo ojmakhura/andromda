@@ -1,0 +1,264 @@
+#set ($className = "PageableDataModel")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.myfaces.trinidad.model.SortCriterion;
+
+
+/**
+ * A type of JSF DataModel that allows a table
+ * to page through a large set of data without having to hold the entire
+ * set of data in memory at once.
+ */
+public abstract class $className
+    extends org.apache.myfaces.trinidad.model.CollectionModel
+    implements java.io.Serializable
+{
+    private int pageSize;
+    private int rowIndex;
+    private $paginationResultClassName page;
+
+    /**
+     * Create a datamodel that pages through the data showing the specified
+     * number of rows on each page.
+     */
+    public $className(int pageSize)
+    {
+        super();
+        this.pageSize = pageSize;
+        this.rowIndex = -1;
+        this.page = null;
+    }
+
+    /**
+     * Not used in this class; data is fetched via a callback to the
+     * fetchData method rather than by explicitly assigning a list.
+     */
+    @Override
+    public void setWrappedData(Object wrappedData)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getRowIndex()
+    {
+        return rowIndex;
+    }
+
+    /**
+     * Specify what the "current row" within the dataset is. Note that
+     * the UIData component will repeatedly call this method followed
+     * by getRowData to obtain the objects to render in the table.
+     */
+    @Override
+    public void setRowIndex(int rowIndex)
+    {
+        this.rowIndex = rowIndex;
+    }
+
+    /**
+     * Return the total number of rows of data available (not just the
+     * number of rows in the current page!).
+     */
+    @Override
+    public int getRowCount()
+    {
+        return (int)getPage().getTotalSize();
+    }
+
+    /**
+     * Return a DataPage object; if one is not currently available then
+     * fetch one. Note that this doesn't ensure that the datapage
+     * returned includes the current rowIndex row; see getRowData.
+     */
+    public $paginationResultClassName getPage()
+    {
+        if (page == null)
+        {
+            page =
+                this.getPage(
+                    this.getPageNumber(),
+                    pageSize,
+                    this.sortProperty,
+                    this.sortAscending);
+        }
+        return page;
+    }
+
+    private int getPageNumber()
+    {
+        int pageNumber = 1;
+        int rowIndex = this.rowIndex + 1;
+        if (rowIndex >= this.pageSize)
+        {
+            pageNumber = this.rowIndex / this.pageSize;
+            if ((rowIndex % this.pageSize) > 0)
+            {
+                pageNumber++;
+            }
+        }
+        return pageNumber;
+    }
+
+    /**
+     * Keeps track of the previous row index (so that we don't search more than we need)
+     */
+    private int previousRowIndex;
+
+    /**
+     * Return the object corresponding to the current rowIndex.
+     * If the DataPage object currently cached doesn't include that
+     * index then fetchPage is called to retrieve the appropriate page.
+     */
+    @Override
+    public Object getRowData()
+    {
+        if (rowIndex < 0)
+        {
+            throw new IllegalArgumentException("Invalid rowIndex: " + rowIndex + "; not within page");
+        }
+
+        // don't perform any new operations if the same index is used over again
+        final int listIndex = this.rowIndex % this.pageSize;
+        if (this.forcePageRefresh || listIndex == 0 && this.previousRowIndex != this.rowIndex)
+        {
+            this.previousRowIndex = this.rowIndex;
+            // - only search if the listIndex is 0 (that is its a multiple of the page size)
+            page =
+                this.getPage(
+                    this.getPageNumber(),
+                    pageSize,
+                    this.sortProperty,
+                    this.sortAscending);
+            this.forcePageRefresh = false;
+        }
+        Object rowData = null;
+        if (page.getData() != null)
+        {
+            if (page.getData().length > listIndex)
+            {
+                rowData = page.getData()[listIndex];
+            }
+        }
+        return rowData;
+    }
+
+    @Override
+    public Object getWrappedData()
+    {
+        return page.getData();
+    }
+
+    /**
+     * Return true if the rowIndex value is currently set to a
+     * value that matches some element in the dataset. Note that
+     * it may match a row that is not in the currently cached
+     * DataPage; if so then when getRowData is called the
+     * required DataPage will be fetched by calling fetchData.
+     */
+    @Override
+    public boolean isRowAvailable()
+    {
+        final $paginationResultClassName page = getPage();
+        if (page == null)
+        {
+            return false;
+        }
+
+        int rowIndex = getRowIndex();
+        if (rowIndex < 0)
+        {
+            return false;
+        }
+        else if (rowIndex >= page.getTotalSize())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Method which must be implemented in cooperation with the
+     * managed bean class to fetch data on demand.
+     */
+    public abstract $paginationResultClassName getPage(
+        int pageNumber,
+        int pageSize,
+        String sortProperty,
+        boolean sortAscending);
+
+    public Object getRowKey()
+    {
+        return isRowAvailable() ? String.valueOf(getRowIndex()) : null;
+    }
+
+    public void setRowKey(Object key)
+    {
+        setRowIndex(this.toRowIndex((String)key));
+    }
+
+    /**
+     * Creates a row index for the given row key
+     */
+    private int toRowIndex(String rowKey)
+    {
+        int rowIndex = -1;
+        try
+        {
+            rowIndex = Integer.parseInt(rowKey);
+        }
+        catch (NumberFormatException exception)
+        {
+            // - ignore
+        }
+        return rowIndex;
+    }
+
+    private SortCriterion sortCriterion = null;
+
+    private String sortProperty;
+    private boolean sortAscending;
+    private boolean forcePageRefresh;
+
+    @Override
+    public void setSortCriteria(List criteria)
+    {
+        if (criteria == null || criteria.isEmpty())
+        {
+            this.sortCriterion = null;
+        }
+        else
+        {
+            SortCriterion criterion = (SortCriterion)criteria.get(0);
+            if ((this.sortCriterion == null) || (!sortCriterion.equals(criterion)))
+            {
+                this.sortCriterion = criterion;
+                this.sortProperty = this.sortCriterion.getProperty();
+                this.sortAscending = this.sortCriterion.isAscending();
+                this.forcePageRefresh = true;
+            }
+        }
+    }
+
+    @Override
+    public List getSortCriteria()
+    {
+      return this.sortCriterion == null
+        ? Collections.EMPTY_LIST
+        : Collections.singletonList(this.sortCriterion);
+    }
+
+    @Override
+    public boolean isSortable(String property)
+    {
+        return true;
+    }
+}

@@ -1,0 +1,55 @@
+#set ($className = "MenuModelAdapter")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+import java.util.List;
+import org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel;
+
+/**
+ * @author Leif Johansson
+ */
+public class $className
+    implements java.io.Serializable
+{
+    public $className() {}
+    private ViewIdPropertyMenuModel model = null;
+    private List aliasList = null;
+    private boolean aliasListAdded = false;
+
+    public void setModel(ViewIdPropertyMenuModel model)
+    {
+      this.model = model;
+      this.aliasListAdded = false;
+    } 
+
+  public ViewIdPropertyMenuModel getModel()
+  {
+    if (model != null && !aliasListAdded)
+    {
+      aliasListAdded = true;
+      if(aliasList != null && !aliasList.isEmpty())
+      {
+        int size = aliasList.size();
+        if (size % 2 == 1)
+          size = size - 1;
+
+        for ( int i = 0; i < size; i=i+2)
+        {
+          model.addViewId(aliasList.get(i).toString(),aliasList.get(i+1).toString());
+        }
+      }
+    }
+    return model;
+  }
+
+  public List getAliasList()
+  {
+    return aliasList;
+  }
+
+  public void setAliasList(List aliasList)
+  {
+    this.aliasList = aliasList;
+  }
+}

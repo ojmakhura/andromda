@@ -1,0 +1,125 @@
+#set ($className = "MessagePhaseListener")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Used to pass messages to the current faces context (this allows messages to live beyond
+ * a request, which is very useful when redirecting).
+ *
+ * @author Chad Brandon
+ */
+public class $className
+    extends AbstractPhaseListener
+{
+    private static final long serialVersionUID = 1L;
+
+    private static final String ARGUMENT_PREFIX = "arg:";
+
+    @Override
+    protected void handleBeforePhase(javax.faces.event.PhaseEvent event)
+    {
+        final javax.faces.context.FacesContext context = event.getFacesContext();
+        final javax.faces.component.UIViewRoot root = context.getViewRoot();
+        for (final java.util.Iterator iterator = context.getClientIdsWithMessages(); iterator.hasNext();)
+        {
+            final String clientId = (String)iterator.next();
+            if (clientId != null)
+            {
+                final javax.faces.component.UIComponent component = root.findComponent(clientId);
+                final java.util.Collection<Object> arguments = new java.util.ArrayList<Object>();
+                if (component != null)
+                {
+                    for (final java.util.Iterator iterator2 = component.getChildren().iterator(); iterator2.hasNext();)
+                    {
+                        final Object child = iterator2.next();
+                        if (child instanceof javax.faces.component.UIParameter)
+                        {
+                            final javax.faces.component.UIParameter parameter = (javax.faces.component.UIParameter)child;
+                            if (parameter.getName() != null)
+                            {
+                                if (parameter.getName().startsWith(ARGUMENT_PREFIX))
+                                {
+                                    arguments.add(parameter.getValue());
+                                }
+                            }
+                       }
+                   }
+               }
+               for (final java.util.Iterator iterator2 = context.getMessages(clientId); iterator2.hasNext();)
+               {
+                   final javax.faces.application.FacesMessage facesMessage = (javax.faces.application.FacesMessage)iterator2.next();
+                   final String messageKey = this.getMessageKey(facesMessage.getDetail());
+                   final String newMessage = Messages.get(messageKey, null);
+                   if (!newMessage.equals(messageKey))
+                   {
+                       facesMessage.setDetail(java.text.MessageFormat.format(newMessage, arguments.toArray(new Object[0])));
+                   }
+               }
+            }
+        }
+#if ($standalone)
+        org.apache.myfaces.trinidad.context.RequestContext requestContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
+        final Object form =  requestContext != null ? requestContext.getPageFlowScope().get("$actionFormKey") : null;
+#else
+        final Object form = context != null ? context.getApplication().getVariableResolver().resolveVariable(context, "$actionFormKey") : null;
+#end
+        if (form != null)
+        {
+            try
+            {
+                final java.util.Collection messages = (java.util.Collection)org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$formMessagesProperty");
+                if (messages != null)
+                {
+                    for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+                    {
+                        javax.faces.context.FacesContext.getCurrentInstance().addMessage(null, (javax.faces.application.FacesMessage)iterator.next());
+                    }
+                    // - set the messages title to use (if we have a severity of error or higher)
+                    final javax.faces.application.FacesMessage.Severity severity = context.getMaximumSeverity();
+                    if (severity != null && severity.getOrdinal() >= javax.faces.application.FacesMessage.SEVERITY_ERROR.getOrdinal())
+                    {
+                        final java.lang.Object request = context.getExternalContext().getRequest();
+                        if (request instanceof $jsfUtils.requestClassName)
+                        {
+                            String messagesTitle = (String)form.getClass().getMethod("get${stringUtils.capitalize($formMessagesProperty)}Title", (Class[])null).invoke(form, (Object[])null);
+                            if (messagesTitle == null || messagesTitle.trim().length() == 0)
+                            {
+                                messagesTitle = Messages.get("errors.header", null);
+                            }
+                            (($jsfUtils.requestClassName)request).setAttribute(MESSAGES_TITLE, messagesTitle);
+                        }
+                    }
+                    form.getClass().getMethod("clear${stringUtils.capitalize($formMessagesProperty)}", (Class[])null).invoke(form, (Object[])null);
+                    form.getClass().getMethod("set${stringUtils.capitalize($formMessagesProperty)}Title",
+                        new Class[]{java.lang.String.class}).invoke(form, new Object[]{null});
+                }
+            }
+            catch (final Exception exception)
+            {
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * The name of the property storing the title to use for faces messages in the request scope
+     */
+    protected static final String MESSAGES_TITLE = "${formMessagesProperty}Title";
+
+    @Override
+    protected void handleAfterPhase(javax.faces.event.PhaseEvent event)
+    {
+    }
+
+    @Override
+    public javax.faces.event.PhaseId getPhaseId()
+    {
+        return javax.faces.event.PhaseId.RENDER_RESPONSE;
+    }
+
+    private String getMessageKey(final String detail)
+    {
+        return detail != null ? detail.replaceAll(".*:", "").replace(".", "").trim().replaceAll("\\s+", ".").toLowerCase() : null;
+    }
+}

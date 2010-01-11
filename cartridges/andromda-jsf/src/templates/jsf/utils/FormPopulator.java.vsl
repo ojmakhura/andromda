@@ -1,0 +1,298 @@
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Provides utilities for population of forms
+ * when using JSF.
+ *
+ * @author Chad Brandon
+ */
+public class $formPopulatorName
+    implements java.io.Serializable
+{
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Copies the properties from the <code>fromForm</code> to the <code>toForm</code>.  Only passes not-null values to the toForm.
+     *
+     * @param fromForm the form from which we're populating
+     * @param toForm the form to which we're populating
+     */
+    public static final void populateForm(final Object fromForm, final Object toForm)
+    {
+        populateForm(fromForm, toForm, false);
+    }
+
+    /**
+     * Copies the properties from the <code>fromForm</code> to the <code>toForm</code>.  Only passes not-null values to the toForm.
+     *
+     * @param fromForm the form from which we're populating
+     * @param toForm the form to which we're populating
+     * @param override whether or not properties that have already been copied, should be overridden.
+     */
+    public static final void populateForm(final Object fromForm, final Object toForm, boolean override)
+    {
+        if (fromForm != null && toForm != null)
+        {
+            try
+            {
+                final java.util.Map parameters = org.apache.commons.beanutils.PropertyUtils.describe(fromForm);
+                for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
+                {
+                    final String name = (java.lang.String)iterator.next();
+                    if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name))
+                    {
+                        // - the property name used for checking whether or not the property value has been set
+                        final String isSetPropertyName = name + "Set";
+                        java.lang.Boolean isToFormPropertySet = null;
+                        java.lang.Boolean isFromFormPropertySet = null;
+                        // - only if override isn't true do we care whether or not the to property has been populated
+                        if (!override)
+                        {
+                            if (org.apache.commons.beanutils.PropertyUtils.isReadable(toForm, isSetPropertyName))
+                            {
+                                isToFormPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, isSetPropertyName);
+                            }
+                        }
+                        // - only if override is set to true, we check to see if the from form property has been set
+                        if (override)
+                        {
+                            if (org.apache.commons.beanutils.PropertyUtils.isReadable(fromForm, isSetPropertyName))
+                            {
+                                isFromFormPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(fromForm, isSetPropertyName);
+                            }
+                        }
+                        if (!override || (override && isFromFormPropertySet != null && isFromFormPropertySet.booleanValue()))
+                        {
+                            if (override || (isToFormPropertySet == null || !isToFormPropertySet.booleanValue()))
+                            {
+                                final java.beans.PropertyDescriptor toDescriptor =
+                                    org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(toForm, name);
+                                if (toDescriptor != null)
+                                {
+                                    java.lang.Object fromValue = parameters.get(name);
+                                    // - only populate if not null
+                                    if (fromValue != null)
+                                    {
+                                        final java.beans.PropertyDescriptor fromDescriptor =
+                                            org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(fromForm, name);
+                                        // - only attempt to set if the types match
+                                        if (fromDescriptor.getPropertyType() == toDescriptor.getPropertyType())
+                                        {
+                                            org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, fromValue);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (final Throwable throwable)
+            {
+                throw new RuntimeException(throwable);
+            }
+        }
+    }
+
+    /**
+     * Populates the form from the attributes contained in the request object.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param request the request object from which to populate attributes.
+     * @param override whether or not to override properties already set on the given form.
+     */
+    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map formatters, boolean override)
+    {
+        final javax.faces.context.FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
+        final String[] names = ${managedBeansPackage}.JsfUtils.getAttributeNames(context.getExternalContext().getRequest());
+        final java.util.Map<String, Object> attributes = new java.util.LinkedHashMap<String, Object>();
+        if (names != null)
+        {
+            for (final String name : names)
+            {
+                attributes.put(name, ${managedBeansPackage}.JsfUtils.getAttribute(context.getExternalContext().getRequest(), name));
+            }
+        }
+        populateFormFromPropertyMap(form, formatters, attributes, override);
+    }
+
+    /**
+     * Populates the form from the given map of properties. If a matching property is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param properties the properties to populate from.
+     * @param override whether or not to override properties already set on the given form.
+     */
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map formatters, final java.util.Map properties, boolean override)
+    {
+        populateFormFromPropertyMap(form, formatters, properties, null, override, false);
+    }
+
+    /**
+     * Populates the form from the given map of properties. If a matching property is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param properties the properties to populate from.
+     */
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map formatters, final java.util.Map properties)
+    {
+        populateFormFromPropertyMap(form, formatters, properties, null, true, false);
+    }
+
+    /**
+     * Populates the form from the given map of properties and populates only if the types
+     * the properties are assignable. If a matching property is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param properties the properties to populate from.
+     */
+    public static final void populateFormFromPropertyMapAssignableTypesOnly(final Object form, final java.util.Map formatters, final java.util.Map properties)
+    {
+        populateFormFromPropertyMap(form, formatters, properties, null, true, true);
+    }
+
+    /**
+     * Populates the form from the given map of properties. If a matching property is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param properties the properties to populate from.
+     * @param ignoreProperties names of any properties to ignore when it comes to populating on the form.
+     */
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map formatters,
+        final java.util.Map properties, final String[] ignoreProperties)
+    {
+        populateFormFromPropertyMap(form, formatters, properties, ignoreProperties, true, false);
+    }
+
+    /**
+     * Populates the form from the given map of properties. If a matching property is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param properties the properties to populate from.
+     * @param ignoreProperties names of any properties to ignore when it comes to populating on the form.
+     * @param override whether or not to override properties already set on the given form.
+     * @param assignableTypesOnly whether or not copying should be attempted only if the property types are assignable.
+     */
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map formatters,
+        final java.util.Map properties, final String[] ignoreProperties, boolean override, boolean assignableTypesOnly)
+    {
+        if (properties != null)
+        {
+            try
+            {
+                final java.util.Collection ignoredProperties = ignoreProperties != null ? java.util.Arrays.asList(ignoreProperties) : java.util.Collections.EMPTY_LIST;
+                final java.util.Map formProperties = org.apache.commons.beanutils.PropertyUtils.describe(form);
+                for (final java.util.Iterator iterator = formProperties.keySet().iterator(); iterator.hasNext();)
+                {
+                    final String name = (String)iterator.next();
+                    if (org.apache.commons.beanutils.PropertyUtils.isWriteable(form, name) && !ignoredProperties.contains(name))
+                    {
+                        final java.beans.PropertyDescriptor descriptor =
+                            org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(form, name);
+                        if (descriptor != null)
+                        {
+                            boolean populateProperty = true;
+                            if (!override)
+                            {
+                                final String isSetPropertyName = name + "Set";
+                                if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, isSetPropertyName))
+                                {
+                                    final boolean isPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
+                                    if (isPropertySet)
+                                    {
+                                        populateProperty = false;
+                                    }
+                                }
+                            }
+                            if (populateProperty)
+                            {
+                                final Object property = properties.get(name);
+
+                                // - only convert if the string is not empty
+                                if (property != null)
+                                {
+                                    Object value = null;
+                                    if (property instanceof String)
+                                    {
+                                        final String propertyAsString = (String)property;
+                                        if (propertyAsString.trim().length() > 0)
+                                        {
+                                            java.text.DateFormat formatter = formatters != null ? (java.text.DateFormat)formatters.get(name) : null;
+                                            // - if the formatter is available we use that, otherwise we attempt to convert
+                                            if (formatter != null)
+                                            {
+                                                try
+                                                {
+                                                    value = formatter.parse(propertyAsString);
+                                                }
+                                                catch (java.text.ParseException parseException)
+                                                {
+                                                    // - try the default formatter (handles the default java.util.Date.toString() format)
+                                                    formatter = formatters != null ? (java.text.DateFormat)formatters.get(null) : null;
+                                                    value = formatter.parse(propertyAsString);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                value = org.apache.commons.beanutils.ConvertUtils.convert(propertyAsString, descriptor.getPropertyType());
+                                            }
+                                        }
+                                        // - don't attempt to set null on primitive fields
+                                        if (value != null || !descriptor.getPropertyType().isPrimitive())
+                                        {
+                                            org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        value = property;
+                                        if (value != null)
+                                        {
+                                            try
+                                            {
+                                                if (!assignableTypesOnly || descriptor.getPropertyType().isAssignableFrom(value.getClass()))
+                                                {
+                                                    org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
+                                                }
+                                            }
+                                            catch (Exception exception)
+                                            {
+                                                final String valueTypeName = value.getClass().getName();
+                                                final String propertyTypeName = descriptor.getPropertyType().getName();
+                                                final StringBuilder message = new StringBuilder("Can not set form property '"
+                                                    + name + "' of type: " + propertyTypeName + " with value: "
+                                                    + value);
+                                                if (!descriptor.getPropertyType().isAssignableFrom(value.getClass()))
+                                                {
+                                                    message.append("; " + valueTypeName + " is not assignable to " + propertyTypeName);
+                                                }
+                                                throw new java.lang.IllegalArgumentException(message + ": " + exception.toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (final Throwable throwable)
+            {
+                throw new RuntimeException(throwable);
+            }
+        }
+    }
+}
