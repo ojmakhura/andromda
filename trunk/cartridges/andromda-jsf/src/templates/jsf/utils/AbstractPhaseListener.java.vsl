@@ -1,0 +1,67 @@
+#set ($className = "AbstractPhaseListener")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+
+/**
+ * An abstract phase listener that can be extended, provides some basic functionality (like
+ * the prevention of the phase listener being used more than once if it happens to be
+ * registered more than once by the container, like seems to happen with myfaces used with liferay).
+ *
+ * @author Chad Brandon
+ */
+public abstract class $className
+    implements javax.faces.event.PhaseListener
+{
+    private static final long serialVersionUID = 1L;
+
+    private static java.util.Map<Class, Object> firstInstances = new java.util.HashMap<Class, Object>();
+
+    private boolean isFirstInstance()
+    {
+        return firstInstances.get(this.getClass()).equals(this);
+    }
+
+    public AbstractPhaseListener()
+    {
+        if (!firstInstances.containsKey(this.getClass()))
+        {
+            firstInstances.put(this.getClass(), this);
+        }
+    }
+
+    /**
+     * @see javax.faces.event.PhaseListener#hash()beforePhase(javax.faces.event.PhaseEvent)
+     */
+    public void beforePhase(javax.faces.event.PhaseEvent event)
+    {
+        if (this.isFirstInstance())
+        {
+            this.handleBeforePhase(event);
+        }
+    }
+
+    protected abstract void handleBeforePhase(javax.faces.event.PhaseEvent event);
+
+    /**
+     * @see javax.faces.event.PhaseListener#hash()afterPhase(javax.faces.event.PhaseEvent)
+     */
+    public void afterPhase(javax.faces.event.PhaseEvent event)
+    {
+        if (this.isFirstInstance())
+        {
+            this.handleAfterPhase(event);
+        }
+    }
+
+    protected abstract void handleAfterPhase(javax.faces.event.PhaseEvent event);
+
+    /**
+     * @see javax.faces.event.PhaseListener#hash()getPhaseId()
+     */
+    public javax.faces.event.PhaseId getPhaseId()
+    {
+        return javax.faces.event.PhaseId.ANY_PHASE;
+    }
+}

@@ -1,0 +1,352 @@
+#set ($className = "PageableDataModel")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * A type of JSF DataModel that allows a table
+ * to page through a large set of data without having to hold the entire
+ * set of data in memory at once.
+ */
+public abstract class $className
+    extends javax.faces.model.DataModel
+    implements java.io.Serializable
+{
+    private int pageSize;
+    private int rowIndex;
+    private $paginationResultClassName page;
+
+    /**
+     * Create a datamodel that pages through the data showing the specified
+     * number of rows on each page.
+     */
+    public $className(int pageSize)
+    {
+        super();
+        this.pageSize = pageSize;
+        this.rowIndex = -1;
+        this.page = null;
+    }
+
+    /**
+     * Not used in this class; data is fetched via a callback to the
+     * fetchData method rather than by explicitly assigning a list.
+     */
+    @Override
+    public void setWrappedData(Object wrappedData)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getRowIndex()
+    {
+        return rowIndex;
+    }
+
+    /**
+     * Specify what the "current row" within the dataset is. Note that
+     * the UIData component will repeatedly call this method followed
+     * by getRowData to obtain the objects to render in the table.
+     */
+    @Override
+    public void setRowIndex(int rowIndex)
+    {
+        this.rowIndex = rowIndex;
+    }
+
+    /**
+     * Return the total number of rows of data available (not just the
+     * number of rows in the current page!).
+     */
+    @Override
+    public int getRowCount()
+    {
+        return (int)getPage().getTotalSize();
+    }
+
+    /**
+     * Return a DataPage object; if one is not currently available then
+     * fetch one. Note that this doesn't ensure that the datapage
+     * returned includes the current rowIndex row; see getRowData.
+     */
+    public $paginationResultClassName getPage()
+    {
+        this.initialize();
+        if (this.page == null || this.forcePageRefresh)
+        {
+            this.page =
+                this.getPage(
+                    this.getPageNumber(),
+                    this.pageSize,
+                    this.sortProperty,
+                    this.sortAscending);
+            this.forcePageRefresh = false;
+        }
+        return this.page;
+    }
+
+    protected int getPageNumber()
+    {
+        int pageNumber = 1;
+        int rowIndex = this.rowIndex + 1;
+        if (rowIndex >= this.pageSize)
+        {
+            pageNumber = this.rowIndex / this.pageSize;
+            if ((rowIndex % this.pageSize) > 0)
+            {
+                pageNumber++;
+            }
+        }
+        return pageNumber;
+    }
+
+    /**
+     * Gets the number of the first record.
+     *
+     * @return the first record number.
+     */
+    protected int getFirst()
+    {
+        final javax.faces.component.UIData owner = this.findOwner();
+        return owner != null ? owner.getFirst() : -1;
+    }
+
+    /**
+     * Finds the component that "owns" this data model.
+     *
+     * @return the owne component (i.e. table).
+     */
+    private static final String SORT_PROPERTY = "sortProperty";
+
+    private static final String SORT_ASCENDING = "sortAscending";
+
+    /**
+     * When this pageable data model is created a reset is required (i.e.
+     * setting first to 0 on the owner and resetting the rowIndex to 0
+     */
+    private boolean resetRequired = true;
+
+    /**
+     * Finds the component that "owns" this data model.
+     *
+     * @return the owne component (i.e. table).
+     */
+    protected javax.faces.component.UIData findOwner()
+    {
+        return (javax.faces.component.UIData)findOwner(javax.faces.context.FacesContext.getCurrentInstance().getViewRoot());
+    }
+
+    /**
+     * Performs any required initialization.
+     */
+    protected void initialize()
+    {
+        final javax.faces.component.UIData owner = this.findOwner();
+        if (owner != null)
+        {
+            final Object sortProperty = this.getProperty(owner, SORT_PROPERTY);
+            if (sortProperty instanceof String)
+            {
+                this.setSortProperty((String)sortProperty);
+            }
+            final Object sortAscending = this.getProperty(owner, SORT_ASCENDING);
+            if (sortAscending instanceof Boolean)
+            {
+                this.setSortAscending((Boolean)sortAscending);
+            }
+            if (this.resetRequired)
+            {
+                owner.setFirst(0);
+                this.setRowIndex(0);
+                this.resetRequired = false;
+            }
+        }
+    }
+
+    protected Object getProperty(final javax.faces.component.UIData owner, String name)
+    {
+        Object property = null;
+        if (owner != null)
+        {
+            try
+            {
+                if (org.apache.commons.beanutils.PropertyUtils.isReadable(owner, name))
+                {
+                    property = org.apache.commons.beanutils.PropertyUtils.getProperty(owner, name);
+                }
+            }
+            catch (Exception ex)
+            {
+                // - ignore if not available
+            }
+        }
+        return property;
+    }
+
+    /**
+     * Finds the component that "owns" this data model.
+     *
+     * @param component the component to start the search with.
+     * @return the owne component (i.e. table).
+     */
+    protected javax.faces.component.UIComponent findOwner(final javax.faces.component.UIComponent component)
+    {
+        javax.faces.component.UIComponent owner = null;
+        if (component instanceof javax.faces.component.UIData)
+        {
+            final javax.faces.component.UIData uiData = (javax.faces.component.UIData)component;
+            if (this.equals(uiData.getValue()))
+            {
+                owner = component;
+            }
+        }
+        if (owner == null && component != null)
+        {
+            for (final java.util.Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
+            {
+                final javax.faces.component.UIComponent childComponent = (javax.faces.component.UIComponent)iterator.next();
+                owner = this.findOwner(childComponent);
+                if (owner != null)
+                {
+                    break;
+                }
+            }
+        }
+        return owner;
+    }
+
+    /**
+     * Keeps track of the previous row index (so that we don't search more than we need)
+     */
+    private int previousRowIndex;
+
+    /**
+     * Return the object corresponding to the current rowIndex.
+     * If the DataPage object currently cached doesn't include that
+     * index then fetchPage is called to retrieve the appropriate page.
+     */
+    @Override
+    public Object getRowData()
+    {
+        if (rowIndex < 0)
+        {
+            throw new IllegalArgumentException("Invalid rowIndex: " + rowIndex + "; not within page");
+        }
+
+        // - we call getFirst() here to populate any 'owner' properties before the forcePageRefresh check is made
+        final int first = this.getFirst();
+        // don't perform any new operations if the same index is used over again
+        final int listIndex = this.rowIndex % this.pageSize;
+        if (this.forcePageRefresh || listIndex == 0 && this.previousRowIndex != this.rowIndex)
+        {
+            if (!this.forcePageRefresh)
+            {
+                this.forcePageRefresh = this.previousRowIndex != this.rowIndex &&
+                    (first == -1 || (this.rowIndex >= first && this.rowIndex <= (first + this.pageSize)));
+            }
+            page = this.getPage();
+            this.previousRowIndex = this.rowIndex;
+        }
+        Object rowData = null;
+        if (page.getData() != null)
+        {
+            if (page.getData().length > listIndex)
+            {
+                rowData = page.getData()[listIndex];
+            }
+        }
+        return rowData;
+    }
+
+    @Override
+    public Object getWrappedData()
+    {
+        return page.getData();
+    }
+
+    /**
+     * Return true if the rowIndex value is currently set to a
+     * value that matches some element in the dataset. Note that
+     * it may match a row that is not in the currently cached
+     * DataPage; if so then when getRowData is called the
+     * required DataPage will be fetched by calling fetchData.
+     */
+    @Override
+    public boolean isRowAvailable()
+    {
+        final $paginationResultClassName page = getPage();
+        if (page == null)
+        {
+            return false;
+        }
+
+        int rowIndex = getRowIndex();
+        if (rowIndex < 0)
+        {
+            return false;
+        }
+        else if (rowIndex >= page.getTotalSize())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Method which must be implemented in cooperation with the
+     * managed bean class to fetch data on demand.
+     */
+    public abstract $paginationResultClassName getPage(
+        int pageNumber,
+        int pageSize,
+        String sortProperty,
+        boolean sortAscending);
+
+    private boolean forcePageRefresh;
+
+    private String sortProperty;
+
+    public String getSortProperty()
+    {
+        return this.sortProperty;
+    }
+
+    public void setSortProperty(String sortProperty)
+    {
+        if (sortProperty != null && !sortProperty.equals(this.sortProperty))
+        {
+            this.forcePageRefresh = true;
+        }
+        this.sortProperty = sortProperty;
+    }
+
+    private boolean sortAscending = true;
+
+    public boolean isSortAscending()
+    {
+        return this.sortAscending;
+    }
+
+    public void setSortAscending(boolean sortAscending)
+    {
+        if (this.sortAscending != sortAscending)
+        {
+            this.forcePageRefresh = true;
+        }
+        this.sortAscending = sortAscending;
+    }
+
+    /**
+     * Provides ability to check whether or not the
+     * data is empty in JSTL (this this class wraps a collection
+     * when the collection is pageable).
+     */
+    public boolean isEmpty()
+    {
+        return this.getRowCount() == 0;
+    }
+}

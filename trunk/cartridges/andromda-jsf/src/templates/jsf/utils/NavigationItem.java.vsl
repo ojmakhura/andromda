@@ -1,0 +1,189 @@
+#set ($className = "NavigationItem")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+import java.util.List;
+import java.lang.StringBuilder;
+import org.apache.commons.beanutils.MethodUtils;
+
+/**
+ * @author Leif Johansson
+ */
+public class $className
+    implements java.io.Serializable
+{
+    private String label = null;
+    private String outcome = null;
+    private String viewId = null;
+    private String icon = null;
+    private List children = null;
+    private Object controllerBean = null;
+    private String controllerAction = null;
+    private String roles = null;
+    private String[] _roles = null;
+
+    public NavigationItem()
+    {}
+
+    public String getLabel()
+    {
+        return label;
+    }
+
+    public void setLabel(String label)
+    {
+        this.label = label;
+    }
+
+    public String getOutcome()
+    {
+        return outcome;
+    }
+
+    public void setOutcome(String outcome)
+    {
+        this.outcome = outcome;
+    }
+
+    public String getViewId()
+    {
+        return viewId;
+    }
+
+    public void setViewId(String viewId)
+    {
+        this.viewId = viewId;
+    }
+
+    public List getChildren()
+    {
+        return children;
+    }
+
+    public void setChildren(List children)
+    {
+        this.children = children;
+    }
+
+    public String getIco()
+    {
+        return icon;
+    }
+
+    public void setIco(String icon)
+    {
+        this.icon = icon;
+    }
+
+    public String getRoles()
+    {
+        return roles;
+    }
+
+    private void _updateRoles()
+    {
+        if (roles != null && roles.length() > 0)
+            _roles = roles.split(",");
+        else
+            _roles = null;
+    }
+
+    public void setRoles(String roles)
+    {
+        this.roles = roles;
+        _updateRoles();
+    }
+
+    public String[] getAssociatedRoles()
+    {
+        return _roles;
+    }
+
+    public boolean isRendered()
+    {
+        return this.isUserInItemRoles();
+    }
+
+    public boolean isUserInItemRoles()
+    {
+        String[] roles = this.getAssociatedRoles();
+
+        if (roles == null || roles.length == 0)
+        { // no constraints at all
+
+            return true;
+        }
+
+        javax.faces.context.ExternalContext ctx =
+            javax.faces.context.FacesContext.getCurrentInstance().getExternalContext();
+
+        if (ctx.getUserPrincipal() == null)
+        { // not logged in
+
+            return false;
+        }
+
+        for (int i = 0; i < roles.length; i++)
+        {
+            String role = roles[i];
+
+            if (ctx.isUserInRole(role))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public String getAction()
+    {
+        try
+        {
+            return (java.lang.String)MethodUtils.invokeMethod(
+                getControllerBean(),
+                getControllerAction(),
+                null);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setControllerBean(Object controllerBean)
+    {
+        this.controllerBean = controllerBean;
+    }
+
+    public Object getControllerBean()
+    {
+        return controllerBean;
+    }
+
+    public void setControllerAction(String controllerAction)
+    {
+        this.controllerAction = controllerAction;
+    }
+
+    public String getControllerAction()
+    {
+        return this.controllerAction;
+    }
+
+    public String toString()
+    {
+        StringBuilder buf = new StringBuilder();
+        buf.append(this.getClass().getName()  + "[");
+        buf.append("label=").append(label);
+        buf.append(",outcome=").append(outcome);
+        buf.append(",viewId=").append(viewId);
+        buf.append(",roles=").append(roles);
+        if (children != null)
+            buf.append(",children=").append(children);
+        buf.append("]");
+        return buf.toString();
+    }
+}

@@ -1,0 +1,260 @@
+#set ($className = $defaultPortletClassName)
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+import java.io.IOException;
+
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ApplicationFactory;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.UnavailableException;
+
+import org.apache.myfaces.context.servlet.ServletFacesContextImpl;
+
+/**
+ * Extends the default {@link org.apache.myfaces.portlet.MyFacesGenericPortlet} instance to
+ * provide the necessary support for Facelets.  This class depends on the execution
+ * of {@link PortletPhaseListener}.
+ *
+ * @author Raymond Auge
+ * @author Joel Kozikowski
+ * @author Chad Brandon
+ */
+public class $className
+    extends org.apache.myfaces.portlet.MyFacesGenericPortlet
+{
+
+    public static final String DEFAULT_VIEW_PARAM = "DEFAULT_VIEW_ID";
+
+    public void init() throws UnavailableException, PortletException
+    {
+        _editPage = this.getInitParameter("EditPage");
+        _helpPage = this.getInitParameter("HelpPage");
+        _viewPage = this.getInitParameter("ViewPage");
+        super.init();
+    }
+
+    public void render(RenderRequest req, RenderResponse res)
+        throws IOException, PortletException
+    {
+
+        PortletSession ses = req.getPortletSession();
+
+        PortletMode mode = (PortletMode)ses.getAttribute("CurrentPortletMode");
+
+        if (mode == null) {
+            mode = req.getPortletMode();
+        }
+
+        if (mode != req.getPortletMode()) {
+            req.setAttribute("isPortletModeChanged", Boolean.TRUE);
+        }
+        else {
+            req.setAttribute("isPortletModeChanged", Boolean.FALSE);
+        }
+
+        ses.setAttribute("CurrentPortletMode", mode);
+
+        super.render(req, res);
+
+        // - if we don't do this, the FacesContext.getCurrentInstance()
+        //   will return null (at least in myfaces 1.1.5)
+        this.facesContext(req, res);
+    }
+
+    @Override
+    protected void setDefaultView() throws UnavailableException
+    {
+        defaultView = getPortletConfig().getInitParameter(DEFAULT_VIEW);
+        if (defaultView == null)
+        {
+            defaultView = _viewPage;
+        }
+        if (defaultView == null)
+        {
+            throw new UnavailableException(
+                "Default JSF view is not specified in portlet.xml");
+        }
+    }
+
+    protected void doEdit(RenderRequest req, RenderResponse res)
+        throws IOException, PortletException
+    {
+        Boolean isPortletModeChanged =
+            (Boolean)req.getAttribute("isPortletModeChanged");
+        if (isPortletModeChanged.booleanValue())
+        {
+            setPortletRequestFlag(req);
+            nonFacesRequest(req, res, _editPage);
+
+            return;
+        }
+        facesRender(req, res);
+    }
+
+    protected void doHelp(RenderRequest req, RenderResponse res)
+        throws IOException, PortletException
+    {
+        Boolean isPortletModeChanged =
+            (Boolean)req.getAttribute("isPortletModeChanged");
+
+        if (isPortletModeChanged.booleanValue()) {
+            setPortletRequestFlag(req);
+            nonFacesRequest(req, res, _helpPage);
+
+            return;
+        }
+        facesRender(req, res);
+    }
+
+    /**
+     * Overriden in order to save the VIEW_ID to the portlet session (the version in MyFacesGenericPortlet saves the
+     * viewId as a render parameter which is lost when executing another portlet).  This method also makes sure
+     * we stay on the default view once the session becomes invalided (even on refreshes).
+     */
+    @Override
+    public void processAction(ActionRequest request, ActionResponse response)
+        throws PortletException, IOException
+    {
+        if (sessionTimedOut(request)) return;
+
+        setPortletRequestFlag(request);
+
+        FacesContext facesContext = facesContext(request, response);
+
+        try
+        {
+            lifecycle.execute(facesContext);
+
+            // - get and set the current view explicitly if its set (so that when page refreshes occur
+            //   we stay on the same page).
+            final String currentView = (String)request.getPortletSession().getAttribute(CURRENT_VIEW_ID);
+            if (currentView != null)
+            {
+                facesContext.getViewRoot().setViewId(currentView);
+            }
+
+            if (!facesContext.getResponseComplete())
+            {
+                request.getPortletSession().setAttribute(VIEW_ID, facesContext.getViewRoot().getViewId());
+                // This here below is what is in the MyFacesGenericPortlet implementation
+                // response.setRenderParameter(VIEW_ID, facesContext.getViewRoot().getViewId());
+            }
+
+            request.getPortletSession().setAttribute(CURRENT_FACES_CONTEXT, facesContext);
+        }
+        catch (Throwable e)
+        {
+            facesContext.release();
+            handleExceptionFromLifecycle(e);
+        }
+        finally
+        {
+           saveRequestAttributes(request);
+        }
+    }
+
+        /**
+     * Stores the current view id in the session.
+     */
+    public static final String CURRENT_VIEW_ID = GenericFaceletsPortlet.class.getName() + "_CurrentViewId";
+
+    /**
+     * Overridden in order to retrieve the VIEW_ID from the portlet session (instead of request.getParameter(VIEW_ID)
+     * as found in {@link org.apache.myfaces.portlet.MyFacesGenericPortlet}).
+     */
+    @Override
+    protected void facesRender(RenderRequest request, RenderResponse response)
+            throws PortletException, java.io.IOException
+    {
+        setContentType(request, response);
+        String viewId = request.getParameter(DEFAULT_VIEW_PARAM);
+        boolean restoreRequired = true;
+        if (viewId == null)
+        {
+            viewId = (String)request.getPortletSession().getAttribute(VIEW_ID);
+        }
+        else
+        {
+            // - since we're using an explicitly defined default view (we don't
+            //   need to attempt to restore any previous attributes).
+            restoreRequired = false;
+        }
+
+        setPortletRequestFlag(request);
+
+        // This here below is what was in the MyFacesGenericPortlet implementation
+        // String viewId = request.getParameter(VIEW_ID);
+        final boolean sessionInvalidated = sessionInvalidated(request);
+        if (sessionInvalidated)
+        {
+            // - set the viewId to the default so that we are sent to the default view
+            viewId = this.defaultView;
+            // - remove the view id so we aren't attempting to go back to it if the session is invalid
+            request.getPortletSession().removeAttribute(VIEW_ID);
+        }
+
+        if (viewId != null)
+        {
+            request.getPortletSession().setAttribute(CURRENT_VIEW_ID, viewId);
+        }
+
+        if (viewId == null || sessionInvalidated)
+        {
+            nonFacesRequest(request,  response);
+            return;
+        }
+
+        try
+        {
+            ServletFacesContextImpl facesContext = (ServletFacesContextImpl)
+                request.getPortletSession().getAttribute(CURRENT_FACES_CONTEXT);
+            if (facesContext == null) // processAction was not called
+            {
+               facesContext = (ServletFacesContextImpl)facesContext(request, response);
+               setViewRootOnFacesContext(facesContext, viewId);
+            }
+
+            // TODO: not sure if this can happen.  Also double check this against spec section 2.1.3
+            if (facesContext.getResponseComplete()) return;
+
+            facesContext.setExternalContext(makeExternalContext(request, response));
+            if (restoreRequired)
+            {
+                restoreRequestAttributes(request);
+            }
+            lifecycle.render(facesContext);
+        }
+        catch (Throwable e)
+        {
+            handleExceptionFromLifecycle(e);
+        }
+    }
+
+    // Set the view root on a FacesContext to prepare for rendering
+    private void setViewRootOnFacesContext(FacesContext facesContext, String view)
+    {
+        ApplicationFactory appFactory =
+            (ApplicationFactory)FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+        Application application = appFactory.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        UIViewRoot viewRoot = viewHandler.createView(facesContext, view);
+        viewRoot.setViewId(view);
+        facesContext.setViewRoot(viewRoot);
+    }
+
+    private String _editPage = null;
+    private String _helpPage = null;
+    private String _viewPage = null;
+}
