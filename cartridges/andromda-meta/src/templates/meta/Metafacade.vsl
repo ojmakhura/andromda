@@ -9,9 +9,11 @@ package $metafacade.packageName;
 #set ($pkg = "")
 #end
 
-import org.andromda.core.metafacade.ModelValidationMessage;
+#if ($metafacade.generalizations.empty)
 import java.util.Collection;
+import org.andromda.core.metafacade.ModelValidationMessage;
 
+#end
 /**
 $metafacade.getDocumentation(" * ")
  *
