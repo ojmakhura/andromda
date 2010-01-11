@@ -56,16 +56,19 @@ public class UMLMetafacadeUtils
                     }
                 }) != null;
             }
-            // Match=true if the classifier name is in a different package than datatype::, i.e. PrimitiveTypes::
-            // or the name is the same. Allows using Java, UML Standard types instead of AndroMDA types
-            final String lastType = StringUtils.substringAfterLast(typeName, ":");
-            // If FQN class name is the same as the mapped implementation Class Name
-            name = StringUtils.trimToEmpty(classifier.getFullyQualifiedName(true));
-            // IgnoreCase allows primitive and wrapped types to both return true
-            if (lastType.equalsIgnoreCase(StringUtils.substringAfterLast(classifier.getFullyQualifiedName(), ":"))
-                || lastType.equalsIgnoreCase(name) || lastType.equalsIgnoreCase(classifier.getFullyQualifiedName()))
+            if (!isType)
             {
-                isType = true;
+                // Match=true if the classifier name is in a different package than datatype::, i.e. PrimitiveTypes::
+                // or the name is the same. Allows using Java, UML Standard types instead of AndroMDA types
+                final String lastType = StringUtils.substringAfterLast(typeName, ":");
+                // If FQN class name is the same as the mapped implementation Class Name
+                name = StringUtils.trimToEmpty(classifier.getFullyQualifiedName(true));
+                // IgnoreCase allows primitive and wrapped types to both return true
+                if (lastType.equalsIgnoreCase(StringUtils.substringAfterLast(classifier.getFullyQualifiedName(), ":"))
+                    || lastType.equalsIgnoreCase(name) || lastType.equalsIgnoreCase(classifier.getFullyQualifiedName()))
+                {
+                    isType = true;
+                }
             }
         }
         return isType;
