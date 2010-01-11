@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<resource-action-mapping>
+#foreach ($useCase in $useCases)
+    <portlet-resource>
+        <portlet-name>$jsfUtils.toWebResourceName($useCase.name)</portlet-name>
+        <supports>
+            <action-key>VIEW</action-key>
+            <action-key>CONFIGURATION</action-key>
+        </supports>
+        <community-defaults/>
+        <guest-defaults/>
+        <guest-unsupported/>
+    </portlet-resource>
+#end
+</resource-action-mapping>

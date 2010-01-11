@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+#foreach ($useCase in $useCases)
+    <portlet>
+        <portlet-name>$jsfUtils.toWebResourceName($useCase.name)</portlet-name>
+        <display-name>$useCase.name</display-name>
+        <portlet-class>org.apache.portals.bridges.portletfilter.FilterPortlet</portlet-class>
+        <init-param>
+            <name>portlet-class</name>
+            <value>$portletClass</value>
+        </init-param>
+        <init-param>
+            <name>portlet-filters</name>
+            <value>org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.ExtensionsPortletFilter</value>
+        </init-param>
+        <init-param>
+#if ($icefaces)
+            <name>com.icesoft.faces.EDIT</name>
+            <value>${useCase.portletEditPath}.iface</value>
+#else
+            <name>EditPage</name>
+            <value>${useCase.portletEditPath}.xhtml</value>
+#end
+        </init-param>
+        <init-param>
+#if ($icefaces)
+            <name>com.icesoft.faces.HELP</name>
+            <value>${useCase.portletHelpPath}.iface</value>
+#else
+            <name>HelpPage</name>
+            <value>${useCase.portletHelpPath}.xhtml</value>
+#end
+        </init-param>
+        <init-param>
+#if ($icefaces)
+            <name>com.icesoft.faces.VIEW</name>
+            <value>${useCase.portletViewPath}.iface</value>
+#else
+            <name>ViewPage</name>
+            <value>${useCase.portletViewPath}.xhtml</value>
+#end
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>edit</portlet-mode>
+            <portlet-mode>help</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>$useCase.name</title>
+            <short-title>$useCase.name</short-title>
+            <keywords>$useCase.name</keywords>
+        </portlet-info>
+#if ($useCase.preferences)
+        <portlet-preferences>
+#foreach ($attribute in $useCase.preferences.getAttributes(true))
+            <preference>
+                <name>$attribute.name</name>
+#if ($attribute.defaultValue)
+                <value>$attribute.defaultValue</value>
+#end
+                <read-only>$attribute.readOnly</read-only>
+            </preference>
+#end
+        </portlet-preferences>
+#end
+    </portlet>
+#end
+</portlet-app>
