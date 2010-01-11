@@ -1,0 +1,54 @@
+#set ($generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/${preferencesClassName}.java")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Provides dynamically changeable preferences for changing the application
+ * display.
+ */
+public class $preferencesClassName
+    implements java.io.Serializable
+{
+    /**
+     * The skin to apply.
+     */
+    private String skin;
+
+    public String getSkin()
+    {
+        return this.skin;
+    }
+
+    public void setSkin(final String skin)
+    {
+        this.skin = skin;
+    }
+
+    /**
+     * The maximum rows displayed in a table.
+     */
+    private int maxTableRows;
+
+    public void setMaxTableRows(final int maxTableRows)
+    {
+        this.maxTableRows = maxTableRows;
+    }
+
+    public void setMaxTableRows(final String maxTableRows)
+    {
+        try
+        {
+            this.maxTableRows = Integer.parseInt(maxTableRows);
+        }
+        catch (Exception ex)
+        {
+            this.maxTableRows = 1;
+        }
+    }
+
+    public int getMaxTableRows()
+    {
+        return this.maxTableRows;
+    }
+}
