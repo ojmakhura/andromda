@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 4.4.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_4_4_0.dtd">
+
+<liferay-portlet-app>
+#foreach ($useCase in $useCases)
+    <portlet>
+        <portlet-name>$jsfUtils.toWebResourceName($useCase.name)</portlet-name>
+        <instanceable>true</instanceable>
+        <header-portlet-javascript>/js/custom.js</header-portlet-javascript>
+        <css-class-wrapper>$jsfUtils.toWebResourceName($useCase.name)</css-class-wrapper>
+    </portlet>
+#end
+</liferay-portlet-app>

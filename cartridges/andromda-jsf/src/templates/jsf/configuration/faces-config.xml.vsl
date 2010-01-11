@@ -1,0 +1,414 @@
+##
+## This macro adds the default role to the roles string
+##
+#macro (addDefaultRole $roles)
+#if($stringUtils.isNotBlank($defaultRole))
+#if($stringUtils.isBlank($roles))
+#set($roles = $defaultRole)
+#else
+#set($roles = "${roles},${defaultRole}")
+#end
+#end
+#end
+##
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config>
+    <application>
+#if ($portlet)
+#if ($icefaces)
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+#else
+        <view-handler>com.sun.facelets.FaceletPortletViewHandler</view-handler>
+#end
+#else
+        <default-render-kit-id>
+            org.apache.myfaces.trinidad.core
+        </default-render-kit-id>
+#end
+    </application>
+#if ($liferayPortlet)
+    <factory>
+        <faces-context-factory>com.liferay.util.bridges.jsf.myfaces.MyFacesContextFactoryImpl</faces-context-factory>
+    </factory>
+#end
+#if ($portlet)
+    <lifecycle>
+        <phase-listener>${managedBeansPackage}.PortletPhaseListener</phase-listener>
+    </lifecycle>
+#end
+    <lifecycle>
+        <phase-listener>${managedBeansPackage}.MessagePhaseListener</phase-listener>
+    </lifecycle>
+#if ($icefaces)
+    <managed-bean>
+        <managed-bean-name>renderManager</managed-bean-name>
+        <managed-bean-class>com.icesoft.faces.async.render.RenderManager</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+#end
+#if(!$applicationUseCases.empty)
+#set($applicationUseCase = $applicationUseCases.iterator().next())
+#end
+#set ($useCases = $applicationUseCase.allUseCases)
+    <!-- forms -->
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+#if (!$action.formFields.empty)
+    <managed-bean>
+        <managed-bean-name>$action.formBeanName</managed-bean-name>
+        <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
+        <managed-bean-scope>$action.formScope</managed-bean-scope>
+    </managed-bean>
+#end
+#end
+#end
+    <!-- crud forms -->
+#foreach ($manageable in $manageables)
+#if (!$action.formFields.empty)
+    <managed-bean>
+        <managed-bean-name>${manageable.formBeanName}</managed-bean-name>
+        <managed-bean-class>${manageable.formBeanType}</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+#end
+#end
+    <!-- controllers -->
+#foreach ($controller in $controllers)
+    <managed-bean>
+        <managed-bean-name>$controller.beanName</managed-bean-name>
+        <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+#if ($icefaces)
+        <managed-property>
+            <property-name>renderManager</property-name>
+            <value>#{renderManager}</value>
+        </managed-property>
+#end
+    </managed-bean>
+#end
+
+    <!-- crud controllers -->
+
+#foreach ($manageable in $manageables)
+    <managed-bean>
+        <managed-bean-name>${manageable.controllerBeanName}</managed-bean-name>
+        <managed-bean-class>${manageable.controllerType}Impl</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+#end
+##Helpers
+    <managed-bean>
+        <managed-bean-name>autocompleteHelper</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.AutocompleteHelper</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+#if ($standalone)
+    <!-- menuModel nodes -->
+
+#foreach ($useCase in $useCases)
+    <managed-bean>
+       <managed-bean-name>navItem_$stringUtils.replace($useCase.forwardName, '-', '_')</managed-bean-name>
+       <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <managed-property>
+          <property-name>label</property-name>
+          <value>$useCase.titleKey</value>
+       </managed-property>
+       <managed-property>
+          <property-name>viewId</property-name>
+          <value>${useCase.path}.${jsfUtils.viewExtension}</value>
+       </managed-property>
+       <managed-property>
+          <property-name>controllerBean</property-name>
+          <value>#{${useCase.controller.beanName}}</value>
+       </managed-property>
+       <managed-property>
+         <property-name>controllerAction</property-name>
+         <value>${useCase.controllerAction}</value>
+       </managed-property>
+#set ($roles = $useCase.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
+#if ($securityEnabled)
+       <managed-property>
+          <property-name>roles</property-name>
+          <value>$roles</value>
+       </managed-property>
+#end
+       <managed-property>
+          <property-name>outcome</property-name>
+          <value>$useCase.forwardName</value>
+       </managed-property>
+#set ($children = $useCase.navigationChildren)
+#if (!$children.empty)
+       <managed-property>
+          <property-name>children</property-name>
+          <list-entries>
+            <value-class>${managedBeansPackage}.NavigationItem</value-class>
+#foreach ($childUseCase in $children)
+            <value>#{navItem_$stringUtils.replace($childUseCase.forwardName, '-', '_')}</value>
+#end
+          </list-entries>
+       </managed-property>
+#end
+    </managed-bean>
+#end
+
+#foreach ($manageable in $manageables)
+    <managed-bean>
+       <managed-bean-name>navItem_$manageable.actionClassName</managed-bean-name>
+       <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <managed-property>
+          <property-name>label</property-name>
+          <value>$manageable.viewTitleKey</value>
+       </managed-property>
+       <managed-property>
+          <property-name>viewId</property-name>
+          <value>${manageable.viewFullPath}.${jsfUtils.viewExtension}</value>
+       </managed-property>
+       <managed-property>
+          <property-name>controllerBean</property-name>
+          <value>#{${manageable.controllerBeanName}}</value>
+       </managed-property>
+       <managed-property>
+         <property-name>controllerAction</property-name>
+         <value>init</value>
+       </managed-property>
+#set ($roles = $manageable.actionRoles)
+#addDefaultRole($roles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
+#if ($securityEnabled)
+       <managed-property>
+          <property-name>roles</property-name>
+          <value>${roles}</value>
+       </managed-property>
+#end
+       <managed-property>
+          <property-name>outcome</property-name>
+          <value>${manageable.viewFullPath}</value>
+       </managed-property>
+    </managed-bean>
+
+#end
+
+    <!-- setup the (root of the) treemodel -->
+
+    <managed-bean>
+       <managed-bean-name>navTreeList</managed-bean-name>
+       <managed-bean-class>
+          java.util.ArrayList
+       </managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <list-entries>
+          <value-class>${managedBeansPackage}.NavigationItem</value-class>
+#foreach ($useCase in $useCases)
+#set ($parents = $useCase.navigationParents)
+#if ($parents.empty)
+          <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
+#end
+#end
+#foreach ($manageable in $manageables)
+        <value>#{navItem_$manageable.actionClassName}</value>
+#end
+       </list-entries>
+    </managed-bean>
+
+    <managed-bean>
+       <managed-bean-name>navTreeModel</managed-bean-name>
+       <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <managed-property>
+         <property-name>childProperty</property-name>
+         <value>children</value>
+       </managed-property>
+       <managed-property>
+         <property-name>wrappedData</property-name>
+         <value>#{navTreeList}</value>
+       </managed-property>
+    </managed-bean>
+
+    <!-- setup the menuModel -->
+
+    <managed-bean>
+       <managed-bean-name>viewIdMenuModel</managed-bean-name>
+       <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <managed-property>
+         <property-name>viewIdProperty</property-name>
+         <value>viewId</value>
+       </managed-property>
+       <managed-property>
+          <property-name>wrappedData</property-name>
+          <value>#{navTreeModel}</value>
+       </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+      <managed-bean-name>menuModel</managed-bean-name>
+      <managed-bean-class>${managedBeansPackage}.MenuModelAdapter</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+      <managed-property>
+        <property-name>model</property-name>
+        <value>#{viewIdMenuModel}</value>
+      </managed-property>
+      <managed-property>
+        <property-name>aliasList</property-name>
+        <list-entries>
+          <value-class>java.lang.String</value-class>
+#foreach ($useCase in $useCases)
+          <!-- $useCase.titleValue views -->
+#foreach ($view in $useCase.views)
+          <value>${view.path}.${jsfUtils.viewExtension}</value>
+          <value>${useCase.path}.${jsfUtils.viewExtension}</value>
+#end
+#end
+#foreach($manageable in $manageables)
+          <value>${manageable.viewFullPath}.${jsfUtils.viewExtension}</value>
+          <value>${manageable.actionFullPath}.${jsfUtils.viewExtension}</value>
+#end
+        </list-entries>
+      </managed-property>
+    </managed-bean>
+#end
+
+    <!-- global navigational-rules -->
+#foreach ($useCase in $useCases)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.forwardName</from-outcome>
+            <to-view-id>${useCase.path}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#if ($portlet)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.portletViewForwardName</from-outcome>
+            <to-view-id>${useCase.portletViewPath}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.portletEditForwardName</from-outcome>
+            <to-view-id>${useCase.portletEditPath}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.portletHelpForwardName</from-outcome>
+            <to-view-id>${useCase.portletHelpPath}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#end
+#end
+#foreach ($useCase in $useCases)
+#foreach ($rule in $useCase.navigationRules)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$rule.fromOutcome</from-outcome>
+            <to-view-id>${rule.path}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#end
+#end
+#foreach ($manageable in $manageables)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>${manageable.viewFullPath}</from-outcome>
+            <to-view-id>${manageable.viewFullPath}.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#end
+#if ($enablePreferences)
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>preferences</from-outcome>
+            <to-view-id>/preferences/preferences.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#end
+#if ($standalone && $stringUtils.isNotBlank($securityRealm))
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
+#if (!$portlet)
+            <redirect/>
+#end
+        </navigation-case>
+    </navigation-rule>
+#end
+#if ($enablePreferences)
+
+    <managed-bean>
+        <managed-bean-name>$preferencesBeanName</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.${preferencesClassName}</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>skin</property-name>
+            <value>$skin</value>
+        </managed-property>
+#if ($stringUtils.isNotBlank($maxTableRows))
+        <managed-property>
+            <property-name>maxTableRows</property-name>
+            <value>$maxTableRows</value>
+        </managed-property>
+#end
+    </managed-bean>
+#end
+
+#foreach ($enumeration in $enumerations)
+    <converter>
+        <converter-id>$enumeration.fullyQualifiedName</converter-id>
+        <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
+    </converter>
+    <converter>
+        <converter-for-class>$enumeration.fullyQualifiedName</converter-for-class>
+        <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
+    </converter>
+#end
+
+#foreach ($manageable in $manageables)
+    <converter>
+        <converter-id>$manageable.converterType</converter-id>
+        <converter-class>$manageable.converterType</converter-class>
+    </converter>
+    <converter>
+        <converter-for-class>$manageable.converterType</converter-for-class>
+        <converter-class>$manageable.converterType</converter-class>
+    </converter>
+#end
+
+    <!-- faces-config merge-point -->
+</faces-config>
