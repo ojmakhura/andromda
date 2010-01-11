@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:a="http://www.andromda.org/cartridges/jsf"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+<ui:composition>
+#set ($targetColumns = $table.targettedTableColumnNames)
+#if($trinidad)
+#set($partialTriggers = "")
+#setTablePartialTriggers($table $partialTriggers)
+#end
+    <tr:table id="$table.name" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${table.name}}" rows="#{${preferencesBeanName}.maxTableRows}" 
+        width="90%"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
+#if (!$table.tableColumns.empty)
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        <tr:column sortable="true" sortProperty="$columnName">
+            <f:facet name="header">
+                <tr:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
+            </f:facet>
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+            <tr:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" actionListener="#{${action.controller.beanName}.action}"#if($trinidad) partialSubmit="true"#end>
+                <tr:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                    <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+                </tr:outputText>
+#renderTableCommandLinkParameters(false)
+            </tr:commandLink>
+#else
+            <tr:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </tr:outputText>
+#end
+        </tr:column>
+#end
+#else
+        <tr:column>
+            <f:facet name="header">
+                <tr:image source="/images/space.gif"/>
+            </f:facet>
+            <tr:outputText value="#{row}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </tr:outputText>
+        </tr:column>
+#end
+## - render any table hyperlink actions
+#foreach ($action in $table.tableHyperlinkActions)
+#if (!$action.tableLinkColumnName)
+        <tr:column>
+            <f:facet name="header">
+                <h:panelGroup styleClass="actionColumn"><tr:image source="/images/space.gif"/></h:panelGroup>
+            </f:facet>
+            <h:panelGroup styleClass="actionColumn">
+                <tr:commandLink id="${action.triggerName}Action" text="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}" actionListener="#{${action.controller.beanName}.action}"#if($trinidad) partialSubmit="true"#end>
+#renderTableCommandLinkParameters(false)
+                </tr:commandLink>
+            </h:panelGroup>
+        </tr:column>
+#end
+#end
+## - render any table button actions
+#foreach ($action in $table.tableFormActions)
+#if (!$action.tableLinkColumnName)
+        <tr:column>
+            <f:facet name="header">
+                <h:panelGroup styleClass="actionColumn"><tr:image source="/images/space.gif"/></h:panelGroup>
+            </f:facet>
+            <h:panelGroup styleClass="actionColumn">
+                <tr:commandButton id="${action.triggerName}Action" text="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}" actionListener="#{${action.controller.beanName}.action}"#if($trinidad) partialSubmit="true"#end>
+#renderTableCommandLinkParameters(true)
+                </tr:commandButton>
+            </h:panelGroup>
+        </tr:column>
+#end
+#end
+    </tr:table>
+</ui:composition>
+</html>

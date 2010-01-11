@@ -1,0 +1,24 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+    <h:panelGrid id="popupView" columns="1" styleClass="popup">
+        <h:panelGrid id="popupViewHeader" columns="1" styleClass="popupHeader">
+            <h:commandLink action="closePopup"><img src="/${portletContextName}images/x.gif"/></h:commandLink>
+        </h:panelGrid>
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+        <ui:include src="${action.viewFragmentPath}.xhtml"/>
+#end
+#end
+#foreach ($variable in $view.variables)
+#if ($variable.table)
+        <ui:include src="${view.path}-${variable.name}.xhtml"/>
+#end
+#end
+    </h:panelGrid>
+
+</f:view>
+
+</div>

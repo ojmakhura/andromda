@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a="http://www.andromda.org/cartridges/jsf"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+<ui:composition>
+<h:panelGrid columns="2" columnClasses="variableLabel,variableText">
+#set($partialTriggers = "")
+#setViewPartialTriggers($view $partialTriggers)
+#foreach ($variable in $view.variables)
+#if (!$variable.table)
+#if ($variable.attributes.empty)
+    <tr:outputText value="#{messages['$variable.messageKey']} :"/>
+#if ($variable.type.collectionType || $variable.type.arrayType)
+    <c:forEach var="item" items="${${variable.name}}" varStatus="status">
+        ${item} <c:if test="${!status.last}">,</c:if>
+    </c:forEach>
+#else
+    <tr:outputText id="${variable.name}" value="#{${variable.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
+#if ($variable.type.dateType)
+        <a:convertDateTime pattern="$variable.format"/>
+#end
+    </tr:outputText>
+#end
+#else
+#foreach ($attribute in $variable.attributes)
+    <tr:outputText value="#{messages['$attribute.messageKey']} :"/>
+    <tr:outputText id="$attribute.getFormPropertyId($variable)" value="#{${variable.name}.${attribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
+#if ($attribute.type.dateType)
+        <a:convertDateTime pattern="$attribute.format"/>
+#end
+    </tr:outputText>
+#end
+#foreach ($associationEnd in $variable.navigableAssociationEnds)
+#if ($associationEnd.many)
+    <c:forEach var="item" items="${${variable.name}.${associationEnd.name}}">
+        <c:set var="item" value="${item}" scope="request"/>
+#foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
+        <tr:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+        <tr:outputText id="$itemAttribute.getFormPropertyId($variable)" value="#{item.${itemAttribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
+#if ($itemAttribute.type.dateType)
+            <a:convertDateTime pattern="$itemAttribute.format"/>
+#end
+        </tr:outputText>
+#end
+    </c:forEach>
+#else
+#foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
+    <tr:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+    <tr:outputText id="$itemAttribute.getFormPropertyId($variable)" value="#{item.${itemAttribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
+#if ($itemAttribute.type.dateType)
+        <a:convertDateTime pattern="$itemAttribute.format"/>
+#end
+    </tr:outputText>
+#end
+#end
+#end
+#end
+#end
+#end
+</h:panelGrid>
+</ui:composition>
+</html>

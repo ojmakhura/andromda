@@ -1,0 +1,6 @@
+#if($applicationUseCases.size() > 0)
+#set($path = $applicationUseCases.iterator().next().path)
+#else
+#set($path = "/crud-index")
+#end
+<%response.sendRedirect(request.getContextPath() + "${path}.${facesServletExtension}"+(request.getQueryString() != null ? "?"+request.getQueryString() : ""));%>

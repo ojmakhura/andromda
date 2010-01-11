@@ -1,0 +1,145 @@
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##     o  $renderLabel - whether or not a labeled should be rendered (i.e. we don't render labels with input tables)
+##
+#macro(renderActionInput $parameter $ownerParameter)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#set ($actionId = "${parameter.action.triggerName}Action")
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#set ($actionId = "${ownerParameter.action.triggerName}Action")
+#end
+#set ($formValuePropertyName = "${formName}.${valuePropertyName}")
+#if (!$parameter.table && !($parameter.inputHidden || $ownerParameter.inputHidden))
+#if ($parameter.type.dateType)
+#if ($parameter.readOnly)
+        <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" readOnly="true"#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end#if($trinidad) partialTriggers="$actionId"#end/>
+#else
+        <tr:inputDate id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($trinidad) partialTriggers="$actionId"#end>
+            <f:convertDateTime pattern="$parameter.format"/>
+        </tr:inputDate>
+#end
+#elseif ($parameter.inputCheckbox)
+        <tr:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"#if($trinidad) partialTriggers="$actionId"#end/>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneChoice")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#end
+        <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly" valuePassThru="true"#if ($multiSelect) size="$defaultMultiSelectSize"#end#if($trinidad) partialTriggers="$actionId"#end>
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:$selectBoxType>
+#elseif ($parameter.inputFile)
+        <tr:inputFile id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" columns="50"#if($trinidad) partialTriggers="$actionId"#end/>
+#elseif ($parameter.inputMultibox)
+        <tr:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($trinidad) partialTriggers="$actionId"#end>
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:selectManyCheckbox>
+#elseif ($parameter.inputRadio)
+        <tr:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required"#if($trinidad) partialTriggers="$actionId"#end>
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </tr:selectOneRadio>
+#elseif ($parameter.inputTable)
+#renderInputTable($parameter)
+#elseif ($parameter.plainText)
+        <tr:outputText value="#{${formValuePropertyName}}"#if($trinidad) partialTriggers="$actionId"#end/>
+#elseif ($parameter.inputSecret)
+        <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly" secret="true"#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end#if($trinidad) partialTriggers="$actionId"#end/>
+#else
+##if the widget type is not defined explicit ...
+#if($parameter.inputFile)
+        <tr:inputFile id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" columns="50"#if($trinidad) partialTriggers="$actionId"#end/>
+#elseif($parameter.type.enumeration)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneChoice")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#end
+        <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end#if($trinidad) partialTriggers="$actionId"#end>
+#foreach ($literal in $field.type.literals)
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+#set($literalKey = $literal.name)
+#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+			<f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${literal.enumerationValue}${quote} />
+#end		
+        </tr:$selectBoxType>
+#else
+        <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"#if($parameter.inputTextarea) rows="3" columns="40"#end#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end#if($trinidad) partialTriggers="$actionId"#end>
+#if ($parameter.type.timeType)
+            <f:convertDateTime pattern="$parameter.format"/>
+#end
+        </tr:inputText>
+#end        
+#end
+#end
+#end
+##
+##  This macro renders an submittable input table
+##
+#macro (renderInputTable $parameter)
+            <a:dataTable id="$parameter.name"
+                columnClasses="list-column-center,list-column-right, list-column-center,list-column-right"
+                headerClass="list-header"
+                rowClasses="list-row"
+                styleClass="list-background"
+                backingValue="#{${backingValueName}}"
+                value="#{${formName}.${parameter.name}}"
+                identifierColumns="$parameter.inputTableIdentifierColumns"
+                var="item">
+#foreach ($column in $parameter.tableColumns)
+#set ($columnId = $column.getFormPropertyId($parameter))
+                <h:column>
+                    <f:facet name="header">
+                        <tr:outputText value="#{messages['$column.messageKey']}"/>
+                    </f:facet>
+#if ($column.type.dateType)
+#if ($column.readOnly)
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" readonly="true">
+#else
+                    <tr:inputDate id="$columnId" value="#{item.${column.name}}" required="$column.required">
+                        <f:convertDateTime pattern="$parameter.format"/>
+                    </tr:inputDate>
+#end
+#elseif ($column.inputCheckbox)
+                    <h:selectBooleanCheckbox id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
+#elseif ($column.inputRadio)
+                    <h:selectOneRadio id="$columnId" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
+#elseif ($column.inputText)
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
+#if ($column.type.timeType)
+                        <a:convertDateTime pattern="$column.format"/>
+#end
+                    </h:inputText>                    
+#else
+                    <tr:outputText value="#{item.${column.name}}"/>
+#end
+#if ($column.inputTypePresent)
+                    <t:message for="$columnId" styleClass="error" showDetail="true" showSummary="false"/>
+#end
+                </h:column>
+#end
+            </a:dataTable>
+#end

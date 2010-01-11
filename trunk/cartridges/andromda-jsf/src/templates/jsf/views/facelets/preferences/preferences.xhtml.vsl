@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+
+<ui:composition template="/layout/layout.xhtml">
+    <f:loadBundle basename="$messageResources" var="messages"/>
+    <ui:define name="title">
+        <c:set var="title" value="#{messages['preferences.title']}" scope="request"/>
+    </ui:define>
+    <ui:define name="content">
+        <tr:subform id="$preferencesBeanName">
+            <tr:panelFormLayout>
+                <tr:selectOneChoice id="skin" value="#{${preferencesBeanName}.skin}" label="#{messages['preferences.skin']}:">
+                    <f:selectItem itemLabel="Default" itemValue="default"/>
+                    <f:selectItem itemLabel="Beach" itemValue="beach"/>
+                    <f:selectItem itemLabel="Purple" itemValue="purple"/>
+                </tr:selectOneChoice>
+                <tr:inputText id="maxTableRows" value="#{${preferencesBeanName}.maxTableRows}" label="#{messages['preferences.max.table.rows']}:" columns="1">
+                    <f:validateLongRange minimum="5" maximum="100"/>
+                </tr:inputText>
+                <f:facet name="footer">
+                    <tr:panelButtonBar>
+                        <tr:commandButton text="#{messages['preferences.apply']}" action="ok"/>
+                    </tr:panelButtonBar>
+                </f:facet>
+            </tr:panelFormLayout>
+        </tr:subform>
+    </ui:define>
+</ui:composition>
+
+</html>

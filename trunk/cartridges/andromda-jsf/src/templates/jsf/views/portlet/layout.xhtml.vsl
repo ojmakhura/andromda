@@ -1,0 +1,45 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+#if ($icefaces)
+     xmlns:ice="http://www.icesoft.com/icefaces/component"
+#end
+     xmlns:f="http://java.sun.com/jsf/core">
+    <f:loadBundle basename="message-resources" var="messages"/>
+    <script type="text/javascript" language="Javascript1.1" src="${facesContext.externalContext.request.contextPath}/js/common.js">
+    </script>
+    <script type="text/javascript" language="Javascript1.1" src="${facesContext.externalContext.request.contextPath}/js/key-events.js">
+    </script>
+    <script type="text/javascript" language="Javascript1.1" src="${facesContext.externalContext.request.contextPath}/js/shortlinks.js">
+    </script>
+#if ($icefaces)
+    <link href="${facesContext.externalContext.request.contextPath}/xmlhttp/css/rime/rime-portlet.css" rel="stylesheet" type="text/css" />
+    <link href="${facesContext.externalContext.request.contextPath}/css/icefaces/icefaces.css" rel="stylesheet" type="text/css" />
+    <link href="${facesContext.externalContext.request.contextPath}/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- include the tomahawk calendar required js and css files so that we can continue to the use the tomahawk calender; at least for now -->
+	<link rel="stylesheet" href="${facesContext.externalContext.request.contextPath}/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/12414718/calendar.HtmlCalendarRenderer/WH/theme.css" type="text/css" />
+	<link rel="stylesheet" href="${facesContext.externalContext.request.contextPath}/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/12414718/calendar.HtmlCalendarRenderer/DB/theme.css" type="text/css" />
+	<script type="text/javascript" src="${facesContext.externalContext.request.contextPath}/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/12414718/calendar.HtmlCalendarRenderer/date.js">
+	</script>
+	<script type="text/javascript" src="${facesContext.externalContext.request.contextPath}/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/12414718/calendar.HtmlCalendarRenderer/popcalendar.js"></script>
+#else
+    <link href="${facesContext.externalContext.request.contextPath}/css/custom.css" rel="stylesheet" type="text/css" />
+#end
+    <f:view>
+#if ($icefaces)
+    	<ice:portlet>
+            <ui:include src="messages.xhtml"/>
+#if ($icefaces)
+            <ice:outputConnectionStatus styleClass="navConnectionStatus" showPopupOnDisconnect="true"/>
+#end
+            <div>
+                <ui:insert name="content"/>
+            </div>
+    	</ice:portlet>
+#else
+        <ui:include src="messages.xhtml"/>
+        <div>
+            <ui:insert name="content"/>
+        </div>
+#end
+    </f:view>
+</div>

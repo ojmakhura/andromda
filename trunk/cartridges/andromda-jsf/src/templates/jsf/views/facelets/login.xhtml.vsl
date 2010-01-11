@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+
+<ui:insert name="head">
+    <ui:include src="/layout/head.xhtml"/>
+</ui:insert>
+
+<body>
+
+    <tr:panelPage>
+        <f:facet name="branding">
+            <ui:insert name="header">
+                <ui:include src="layout/header.xhtml"/>
+            </ui:insert>
+        </f:facet>
+        <f:facet name="appCopyright">
+            <ui:insert name="footer">
+                <ui:include src="layout/footer.xhtml"/>
+            </ui:insert>
+        </f:facet>
+        <div id="pageContent">
+            <tr:outputText value="#{messages['login.text']}" styleClass="loginText" escape="false"/>
+            <br/>
+#set ($actionParam = "param.action")
+             <tr:outputText value="#{messages['login.error']}" rendered="${${actionParam} == 'error'}" styleClass="error"/>
+             <tr:outputText value="#{messages['login.error.role']}" rendered="${${actionParam} == 'roleError'}" styleClass="error"/>
+             <tr:form>
+                <tr:panelFormLayout>
+                    <tr:inputText id="j_username"  label="#{messages['login.username']}:" />
+                    <tr:inputText id="j_password" secret="true"  label="#{messages['login.password']}:" />
+                    <f:facet name="footer">
+                        <tr:panelButtonBar>
+                            <tr:goButton text="#{messages['login.submit']}" onclick="document.forms[0].action='j_security_check';document.forms[0].submit();" />
+                            <tr:goButton text="#{messages['login.reset']}" onclick="document.forms[0].reset();" />
+                        </tr:panelButtonBar>
+                    </f:facet>
+                </tr:panelFormLayout>
+             </tr:form>
+#if (!$registrationUseCases.empty)
+#set ($useCase = $registrationUseCases.iterator().next())
+              <br/>
+              <tr:form>
+                  <tr:commandLink  action="#{${useCase.controller.beanName}.${useCase.controllerAction}}"  text=" #{messages['login.register.as.new.user']}"/>
+              </tr:form>
+              <br/>
+#end
+        </div>
+    </tr:panelPage>
+
+    <script type="text/javascript" language="Javascript1.1">
+        var field = document.forms[0].elements["j_username"];
+        field.focus();
+        field.select();
+    </script>
+
+</body>
+
+</html>

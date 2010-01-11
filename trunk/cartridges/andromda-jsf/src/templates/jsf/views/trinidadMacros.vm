@@ -1,0 +1,42 @@
+##
+## A macro that renders a the partialTriggers according the table/view
+##
+#macro(setTablePartialTriggers $table $partialTriggers)
+#set($triggerSep = " ")
+#foreach ($action in $table.tableHyperlinkActions)
+#set($partialTriggers = "${partialTriggers}${triggerSep}${action.triggerName}Action")
+#end
+#foreach ($action in $table.tableFormActions)
+#set($partialTriggers = "${partialTriggers}${triggerSep}${action.triggerName}Action")
+#end
+#foreach ($action in $table.view.actions)
+#if(!$action.tableLink)
+#set($partialTriggers = "${partialTriggers}${triggerSep}::${action.formBeanName}:${action.triggerName}Action")
+#end
+#end
+#if($partialTriggers.startsWith(" "))
+#set($partialTriggers = $partialTriggers.substring(1))
+#end
+#end
+##
+## A macro that sets a the partialTriggers according the table/view
+##
+#macro(setViewPartialTriggers $view $partialTriggers)
+#set($triggerSep = " ")
+#foreach ($table in $view.tables)
+#foreach ($action in $table.tableHyperlinkActions)
+#set($partialTriggers = "${partialTriggers}${triggerSep}${table.name}:${action.triggerName}Action")
+#end
+#foreach ($action in $table.tableFormActions)
+#set($partialTriggers = "${partialTriggers}${triggerSep}${table.name}:${action.triggerName}Action")
+#end
+#end
+#foreach ($action in $view.actions)
+#if(!$action.tableLink)
+#set($partialTriggers = "${partialTriggers}${triggerSep}${action.formBeanName}:${action.triggerName}Action")
+#end
+#end
+#if($partialTriggers.startsWith(" "))
+#set($partialTriggers = $partialTriggers.substring(1))
+#end
+#end

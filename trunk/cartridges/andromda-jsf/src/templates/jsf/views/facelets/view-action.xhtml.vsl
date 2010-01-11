@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:a="http://www.andromda.org/cartridges/jsf"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+<ui:composition>
+#set($formName = $action.formBeanName)
+#if ($action.hyperlink || $action.popup)
+<tr:subform id="${formName}">
+#if ($action.hyperlink)
+    <tr:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}"#if($trinidad) partialSubmit="true"#end>
+#else
+    <a:popup scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
+#end
+    <tr:outputText value="#{messages['$action.messageKey']}"/>
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.complex || $parameter.type.enumeration)
+#renderActionCommandLinkParameter($parameter "")
+#end
+#foreach ($attribute in $parameter.attributes)
+#renderActionCommandLinkParameter($attribute $parameter)
+#end
+#end
+#if ($action.hyperlink)
+    </tr:commandLink>
+#else
+    </a:popup>
+#end
+</tr:subform>
+<br/><br/>
+#else
+#set ($clientValidation = $clientValidation && $action.validationRequired)
+#set ($formValidateName = "validate$stringUtils.capitalize($formName)")
+<tr:subform id="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end>
+#if (!$action.hiddenParameters.empty)
+    <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
+#end
+    <tr:panelFormLayout>
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.complex || $parameter.type.enumeration)
+#renderActionInput($parameter "")
+#else
+#foreach ($attribute in $parameter.attributes)
+#renderActionInput($attribute $parameter)
+#end
+#end
+#end
+        <f:facet name="footer">
+            <tr:panelButtonBar>
+                <tr:commandButton id="${action.triggerName}Action" text="#{messages['$action.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}"#if($trinidad) partialSubmit="true"#end/>
+#if ($action.resettable)
+                <tr:resetButton text="#{messages['$action.trigger.resetMessageKey']}"/>
+#end
+            </tr:panelButtonBar>
+        </f:facet>
+    </tr:panelFormLayout>
+    <a:validator#if(!$clientValidation) client="false"#end/>
+</tr:subform>
+#end
+</ui:composition>
+</html>

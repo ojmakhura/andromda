@@ -1,0 +1,25 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/layout/layout.xhtml">
+    <ui:define name="content">
+#if ($view.nonTableVariablesPresent)
+        <ui:include src="${view.path}-vars.xhtml"/>
+#end
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+        <ui:include src="${action.viewFragmentPath}.xhtml"/>
+#end
+#end
+#foreach ($variable in $view.variables)
+#if ($variable.table)
+        <ui:include src="${view.path}-${variable.name}.xhtml"/>
+#end
+#end
+    </ui:define>
+</ui:composition>
+
+</div>

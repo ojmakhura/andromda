@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+
+<facelet-taglib>
+    <namespace>http://www.andromda.org/cartridges/jsf/facelets</namespace>
+#if($useAutocompleteLookup)
+    <tag>
+        <tag-name>autocomplete</tag-name>
+        <source>
+            facelets/components/autocomplete.xhtml
+        </source>
+    </tag>
+    <tag>
+        <tag-name>autocompleteMulti</tag-name>
+        <source>
+            facelets/components/autocompleteMulti.xhtml
+        </source>
+    </tag>
+#end
+    <function>
+        <function-name>valueFromConverter</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>java.lang.String valueFromConverter(java.lang.Object, java.lang.String, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>valueFromConverter</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>java.lang.String valueFromConverter(java.lang.Object, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>splitPartialTriggers</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>java.lang.String[] splitPartialTriggers(java.lang.Object)</function-signature>
+    </function>
+</facelet-taglib>

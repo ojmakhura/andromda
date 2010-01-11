@@ -1,0 +1,10 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:tr="http://myfaces.apache.org/trinidad"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <ui:composition>
+        <h:panelGroup id="return">
+            <tr:goLink destination="#{messages['return.link.uri']}"><tr:outputText value="#{messages['return.link.text']}" escape="false"/></tr:goLink>
+        </h:panelGroup>
+    </ui:composition>
+</html>

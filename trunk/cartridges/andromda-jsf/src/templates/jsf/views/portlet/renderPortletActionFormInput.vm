@@ -1,0 +1,148 @@
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##     o  $renderLabel - whether or not a labeled should be rendered (i.e. we don't render labels with input tables)
+##
+#macro(renderPortletActionInput $parameter $ownerParameter)
+#if ($parameter.backingListName)
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#end
+#set ($formValuePropertyName = "${formName}.${valuePropertyName}")
+#if (!$parameter.table && !($parameter.inputHidden || $ownerParameter.inputHidden))
+        <h:outputLabel for="$propertyId" value="#{messages['$parameter.messageKey']}:" />
+#if ($parameter.type.dateType)
+#if ($parameter.readOnly)
+        <h:inputText id="$propertyId" value="#{${formValuePropertyName}}" readonly="true"/>
+#else
+        <t:inputCalendar id="$propertyId" value="#{${formValuePropertyName}}" renderAsPopup="true" popupDateFormat="$parameter.format" required="$parameter.required">
+            <a:convertDateTime pattern="$parameter.format"/>
+        </t:inputCalendar>
+#end
+#elseif ($parameter.inputCheckbox)
+        <h:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+#elseif ($parameter.inputSelect || $parameter.type.enumeration)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneListbox")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#end
+        <h:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly" size=#if ($multiSelect)"$defaultMultiSelectSize"#else"1"#end>
+            <f:selectItem itemValue="" itemLabel=""/>
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </h:$selectBoxType>
+#elseif ($parameter.inputFile)
+        <t:inputFileUpload id="$propertyId" value="#{${formValuePropertyName}}" storage="file" size="50" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
+#elseif ($parameter.inputMultibox)
+        <h:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" layout="pageDirection">
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </h:selectManyCheckbox>
+#elseif ($parameter.inputRadio)
+        <h:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required">
+            <c:if test="${!empty ${backingListName}}">
+                <f:selectItems value="#{${backingListName}}" />
+            </c:if>
+        </h:selectOneRadio>
+#elseif ($parameter.inputTextarea)
+        <h:inputTextarea id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+#elseif ($parameter.inputTable)
+#renderInputTable($parameter $ownerParameter)
+#elseif ($parameter.plainText)
+        <h:outputText value="#{${formValuePropertyName}}"/>
+#elseif ($parameter.inputSecret)
+        <h:inputSecret id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+#else
+##if the widget type is not defined explicit ...
+#if($parameter.inputFile)
+        <t:inputFileUpload id="$propertyId" value="#{${formValuePropertyName}}" storage="file" size="50" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
+#elseif($parameter.type.enumeration)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($selectBoxType = "selectOneListbox")
+#if ($multiSelect)
+#set ($selectBoxType = "selectManyListbox")
+#end
+        <h:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readonly="$parameter.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
+#foreach ($literal in $field.type.literals)
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+#set($literalKey = $literal.name)
+#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
+            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${literal.enumerationValue}${quote} />
+#end
+        </h:$selectBoxType>
+#else
+        <h:inputText id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly">
+#if ($parameter.type.timeType)
+            <f:convertDateTime pattern="$parameter.format"/>
+#end
+        </h:inputText>
+#end
+#end
+#end
+#end
+##
+##  This macro renders an submittable input table
+##
+#macro (renderInputTable $parameter $ownerParameter)
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
+#set ($formValuePropertyName = "${formName}.${valuePropertyName}")
+            <a:dataTable id="$propertyId"
+                columnClasses="list-column-center,list-column-right, list-column-center,list-column-right"
+                headerClass="list-header"
+                rowClasses="list-row"
+                styleClass="list-background"
+                backingValue="#{${backingValueName}}"
+                value="#{${formValuePropertyName}}"
+                identifierColumns="$parameter.inputTableIdentifierColumns"
+                var="item">
+#foreach ($column in $parameter.tableColumns)
+#set ($columnId = $column.getFormPropertyId($parameter))
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{messages['$column.messageKey']}"/>
+                    </f:facet>
+#if ($column.type.dateType)
+#if ($column.readOnly)
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" readonly="true">
+#else
+                    <t:inputCalendar id="$columnId" monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" value="#{item.${column.name}}"
+                                     renderAsPopup="true" popupDateFormat="$column.format" required="$column.required">
+                        <a:convertDateTime pattern="$column.format"/>
+                    </t:inputCalendar>
+#end
+#elseif ($column.inputCheckbox)
+                    <h:selectBooleanCheckbox id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
+#elseif ($column.inputRadio)
+                    <h:selectOneRadio id="$columnId" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
+#elseif ($column.inputText)
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
+#if ($column.type.timeType)
+                        <a:convertDateTime pattern="$column.format"/>
+#end
+                    </h:inputText>
+#else
+                    <h:outputText value="#{item.${column.name}}"/>
+#end
+#if ($column.inputTypePresent)
+                    <h:message for="$columnId" styleClass="error" showDetail="true" showSummary="false"/>
+#end
+                </h:column>
+#end
+            </a:dataTable>
+#end

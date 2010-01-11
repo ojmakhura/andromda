@@ -1,0 +1,18 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/layout/layout.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2">
+#foreach ($attribute in $useCase.preferences.getAttributes(true))
+                <h:outputText value="#{messages['$attribute.messageKey']}:" style="font-weight: bold; text-align: right; width: 100%"/>
+                <h:inputText value="#{${useCase.controller.beanName}.preferences.${attribute.name}}"/>
+#end
+            </h:panelGrid>
+            <h:commandButton value="#{messages['action.save']}" action="#{${useCase.controller.beanName}.portletModeView}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</div>

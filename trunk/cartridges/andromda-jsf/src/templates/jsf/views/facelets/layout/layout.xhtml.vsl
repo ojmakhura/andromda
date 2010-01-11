@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:trh="http://myfaces.apache.org/trinidad/html"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <ui:insert name="head">
+        <ui:include src="head.xhtml"/>
+    </ui:insert>
+    <c:set var="remoteUser" value="${facesContext.externalContext.request.userPrincipal.name}" scope="request"/>
+    <trh:body>
+        <tr:form usesUpload="#{usesUpload}" partialTriggers="#{partialTriggers}">
+        <ui:insert name="title"/>
+        <tr:panelPage>
+            <f:facet name="branding">
+                <ui:insert name="header">
+                    <ui:include src="header.xhtml"/>
+                </ui:insert>
+            </f:facet>
+            <f:facet name="infoStatus">
+                <ui:include src="messages.xhtml"/>
+            </f:facet>
+#if ($stringUtils.isNotBlank($securityRealm))
+            <f:facet name="infoUser">
+                <tr:panelGroupLayout>
+                    <tr:image source="/images/user.gif" rendered="#{!empty remoteUser}"/>
+                    <tr:outputText value=" #{remoteUser}"/>
+                </tr:panelGroupLayout>
+            </f:facet>
+#end
+#if ($navigationStyle.equals("full"))
+            <f:facet name="navigation1">
+                <tr:navigationPane hint="tabs" level="0" var="item" value="#{menuModel.model}">
+                    <f:facet name="nodeStamp">
+                        <tr:commandNavigationItem text="#{messages[item.label]}" action="#{item.getAction}" rendered="#{item.rendered}" immediate="true"/>
+                    </f:facet>
+                </tr:navigationPane>
+            </f:facet>
+            <f:facet name="navigation2">
+                <tr:navigationPane hint="bar" level="1" var="item" value="#{menuModel.model}">
+                    <f:facet name="nodeStamp">
+                        <tr:commandNavigationItem text="#{messages[item.label]}" action="#{item.getAction}" rendered="#{item.rendered}" immediate="true"/>
+                    </f:facet>
+                </tr:navigationPane>
+            </f:facet>
+            <f:facet name="navigation3">
+                <tr:navigationPane hint="list" level="2" var="item" value="#{menuModel.model}">
+                    <f:facet name="nodeStamp">
+                        <tr:commandNavigationItem text="#{messages[item.label]}" action="#{item.getAction}"#if($securityEnabled) rendered="#{item.rendered}"#end immediate="true"/>
+                    </f:facet>
+                </tr:navigationPane>
+            </f:facet>
+#end
+#if ($navigationStyle.equals("sidebar"))
+            <f:facet name="navigation3">
+               <tr:navigationTree var="item" value="#{menuModel.model}">
+                   <f:facet name="nodeStamp">
+                       <tr:commandNavigationItem text="#{messages[item.label]}" action="#{item.getAction}"#if($securityEnabled) rendered="#{item.rendered}"#end immediate="true"/>
+                   </f:facet>
+                </tr:navigationTree>
+            </f:facet>
+#end
+            <f:facet name="navigationGlobal">
+                <tr:navigationPane hint="tabs">
+                    <tr:commandNavigationItem text="#{messages['menu.preferences']}" action="preferences" immediate="true"/>
+#if ($stringUtils.isNotBlank($securityRealm))
+                    <tr:commandNavigationItem text="#{messages['logout.action']}" action="logout" rendered="#{!empty remoteUser}" immediate="true"/>
+#end
+                </tr:navigationPane>
+            </f:facet>
+##using breadcrumbs ?
+##            <f:facet name="location">
+##                <tr:breadCrumbs var="item" value="#{menuModel.model}">
+##                    <f:facet name="nodeStamp">
+##                        <tr:commandNavigationItem text="#{messages[item.label]}" action="#{item.getAction}" immediate="true"/>
+##                    </f:facet>
+##                </tr:breadCrumbs>
+##            </f:facet>
+            <f:facet name="appCopyright">
+                <ui:insert name="footer">
+                    <ui:include src="footer.xhtml"/>
+                </ui:insert>
+            </f:facet>
+## using return ? don't forget to remove the return.xhtml
+##            <f:facet name="infoReturn">
+##                    <ui:insert name="return">
+##                        <ui:include src="return.xhtml"/>
+##                    </ui:insert>
+##            </f:facet>
+            <div id="pageContent">
+                <tr:panelHeader text="#{title}" partialTriggers="#{partialTriggers}">
+                    <ui:insert name="content"/>
+                </tr:panelHeader>
+            </div>
+        </tr:panelPage>
+        </tr:form>
+    </trh:body>
+</html>
