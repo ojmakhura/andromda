@@ -527,23 +527,23 @@ public class UMLProfile
      * Used to identify a double type in the model, any other type that will be identified as a double type must
      * specialize this type.
      */
-    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE_NAME");
+    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");
 
     /**
      * Used to identify a float type in the model, any other type that will be identified as a float type must
      * specialize this type.
      */
-    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE_NAME");
+    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");
 
     /**
      * Used to identify a integer type in the model, any other type that will be identified as a integer type must
      * specialize this type.
      */
-    public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE_NAME");
+    public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE");
 
     /**
      * Used to identify a long type in the model, any other type that will be identified as a long type must
      * specialize this type.
      */
-    public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE_NAME");
+    public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE");
 }
