@@ -132,6 +132,7 @@
     </pluginRepository>
   </pluginRepositories>
   <reporting>
+    <excludeDefaults>false</excludeDefaults>
     <outputDirectory>C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta\target/site</outputDirectory>
     <plugins>
       <plugin>
@@ -506,7 +507,7 @@
   <properties>
     <plexus.util.version>1.5.9</plexus.util.version>
     <maven.version>2.2.1</maven.version>
-    <timestamp>1263185268017</timestamp>
+    <timestamp>1263276829847</timestamp>
     <src.dir>C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/src</src.dir>
     <maven.build.src>C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/target/src</maven.build.src>
     <createChecksum>true</createChecksum>
@@ -519,7 +520,7 @@
     <andromda.cartridge.howto.model.uri>jar:file:C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/src/site/resources/howto/HowToModel.xml.zip!/HowToModel.xml</andromda.cartridge.howto.model.uri>
     <scmBranch>trunk</scmBranch>
     <test.src.dir>C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/src/test</test.src.dir>
-    <buildNumber>2010-01-10 23:47:48</buildNumber>
+    <buildNumber>2010-01-12 01:13:49</buildNumber>
     <test.model.uri>jar:file:C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/src/test/uml/MetaCartridgeTestModel.xml.zip!/MetaCartridgeTestModel.xml</test.model.uri>
     <test.output.dir>C:\Windows\1Workspaces\A34\andromda-all\cartridges\andromda-meta/target/cartridge-test/actual</test.output.dir>
   </properties>
