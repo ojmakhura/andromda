@@ -124,7 +124,7 @@ public final class $enumeration.enumerationName
 #else
 #set ($typeName = $enumeration.literalType.fullyQualifiedName)
 #end
-            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)#if($typeName == "java.lang.Character").charAt(0)#end));
+            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)#if($typeName == "java.lang.Character" || $typeName == "Character" || $typeName == "char").charAt(0)#end));
         }
     }
 
@@ -181,7 +181,7 @@ public final class $enumeration.enumerationName
      */
     public Object fromXMLString(String string)
     {
-#if ($typeName == "java.lang.Character")
+#if ($typeName == "java.lang.Character" || $typeName == "Character" || $typeName == "char")
 #set ($value = "${typeName}.valueOf(string.charAt(0))")
 #elseif ($enumeration.literalType.primitive)
 #set ($value = "${typeName}.valueOf(string).${enumeration.literalType.name}Value()")

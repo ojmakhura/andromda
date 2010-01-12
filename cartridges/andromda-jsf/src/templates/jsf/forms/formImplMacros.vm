@@ -100,18 +100,18 @@
                     else
                     {
                         final StringBuilder labelText = new StringBuilder();
-				        int ctr2 = 0;
-				        do
-				        {
-				            if (!labelDelimiters.isEmpty())
-				            {
-				                labelText.append(labelDelimiters.get(ctr2));
-				            }
-				            String property = null;
-				            if (ctr2 < labelProperties.size())
-				            {
-				                property = labelProperties.get(ctr2);
-				            }
+                        int ctr2 = 0;
+                        do
+                        {
+                            if (!labelDelimiters.isEmpty())
+                            {
+                                labelText.append(labelDelimiters.get(ctr2));
+                            }
+                            String property = null;
+                            if (ctr2 < labelProperties.size())
+                            {
+                                property = labelProperties.get(ctr2);
+                            }
                             if (property != null && property.length() > 0)
                             {
                                 if (org.apache.commons.beanutils.PropertyUtils.isReadable(item, property))
@@ -137,9 +137,9 @@
                                     labelText.append(property);
                                 }
                             }
-				            ctr2++;
-				        }
-				        while (ctr2 < labelDelimiters.size());
+                            ctr2++;
+                        }
+                        while (ctr2 < labelDelimiters.size());
                         this.${labelListName}[ctr] = labelText.toString().replaceAll("\\s+", " ").trim();
                     }
                 }

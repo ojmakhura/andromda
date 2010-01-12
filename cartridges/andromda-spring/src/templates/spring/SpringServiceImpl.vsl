@@ -30,7 +30,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
 #if ($abstract)
-        throws Exception;        
+        throws Exception;
 #else
         throws Exception
     {

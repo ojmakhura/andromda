@@ -7,7 +7,7 @@
      * Create webservice exception with detail exception.
      * @param message Exception message
      * @param ${exceptionAttribute}In webservice Throwable detail
-    public ${class.name}(String message, Object ${exceptionAttribute}In) 
+    public ${class.name}(String message, Object ${exceptionAttribute}In)
     {
         super(message);
         this.$exceptionAttribute = ${exceptionAttribute}In;
@@ -19,7 +19,7 @@
      * @param message Exception message
      * @param ${exceptionAttribute}In webservice Throwable detail
      * @param cause webservice Throwable cause
-    public ${class.name}(String message, Object ${exceptionAttribute}In, Throwable cause) 
+    public ${class.name}(String message, Object ${exceptionAttribute}In, Throwable cause)
     {
         super(message, cause);
         this.$exceptionAttribute = ${exceptionAttribute}In;
@@ -29,7 +29,7 @@
     /*
      * Get webservice detail exception.
      * @return this.$exceptionAttribute com.sun.org.apache.xerces.internal.dom.ElementNSImpl
-    public Object getFaultInfo() 
+    public Object getFaultInfo()
     {
         return this.$exceptionAttribute;
     }
@@ -39,7 +39,7 @@
     private String faultCode;
      * Get webservice faultCode.
      * @return this.$exceptionAttribute com.sun.org.apache.xerces.internal.dom.ElementNSImpl
-    public Object getFaultCode() 
+    public Object getFaultCode()
     {
         return this.faultCode;
     }
@@ -49,7 +49,7 @@
     private String faultString;
      * Get webservice detail exception.
      * @return this.faultString
-    public Object getFaultString() 
+    public Object getFaultString()
     {
         return this.faultString;
     }
@@ -66,7 +66,7 @@
     {
         return super.getStackTrace();
     }
-    
+
     /**
      * @see java.lang.Throwable#setStackTrace(StackTraceElement[])
      */
@@ -172,7 +172,7 @@ $operation.getDocumentation("     * ")
 #foreach ($attribute in $class.attributes)
     private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
-    /** 
+    /**
      * $attribute.documentation
 ##$attribute.getDocumentation("     * ")
      * @return ${attribute.name}
@@ -182,9 +182,9 @@ $operation.getDocumentation("     * ")
         return this.${attribute.name};
     }
 
-## - always have as public, having read-only causes too many issues when attempting to 
+## - always have as public, having read-only causes too many issues when attempting to
 ##   use in other cartridges
-    /** 
+    /**
      * $attribute.documentation
 ##$attribute.getDocumentation("     * ")
      * @param ${attribute.name}In

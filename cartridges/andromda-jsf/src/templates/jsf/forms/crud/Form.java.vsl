@@ -20,7 +20,7 @@ $fieldName = null;
 package $manageable.manageablePackageName;
 
 /**
- * This form encapsulates the fields that are used in the execution of the CRUD operations in ${manageable.name} 
+ * This form encapsulates the fields that are used in the execution of the CRUD operations in ${manageable.name}
  *
  */
 public class $manageable.formBeanClassName
@@ -31,7 +31,7 @@ public class $manageable.formBeanClassName
      * Default constructor. Initializes the attributes formatters.
      *
      */
-	public ${manageable.formBeanClassName}(){
+    public ${manageable.formBeanClassName}(){
 #foreach ($field in $manageable.manageableAttributes)
 #if ($field.type.dateType)
         java.text.DateFormat ${field.dateFormatter} = new java.text.SimpleDateFormat("$field.format");
@@ -52,30 +52,30 @@ public class $manageable.formBeanClassName
         searchForm = new ${manageable.searchFormBeanClassName}();
 
         editState=false;
-	}
+    }
 
     /**
      * Holds the edit/search state of the form
      */
-	private boolean editState;
+    private boolean editState;
 
-	public boolean getEditState(){
-		return editState;
-	}
+    public boolean getEditState(){
+        return editState;
+    }
 
-	public void setEditState(boolean editState){
-		this.editState = editState;
-	}
+    public void setEditState(boolean editState){
+        this.editState = editState;
+    }
 
-	private ${manageable.searchFormBeanClassName} searchForm;
+    private ${manageable.searchFormBeanClassName} searchForm;
 
-	public ${manageable.searchFormBeanClassName} getSearchForm(){
-		return searchForm;
-	}
+    public ${manageable.searchFormBeanClassName} getSearchForm(){
+        return searchForm;
+    }
 
-	public void setSearchForm(${manageable.searchFormBeanClassName} searchForm){
-		this.searchForm = searchForm;
-	}
+    public void setSearchForm(${manageable.searchFormBeanClassName} searchForm){
+        this.searchForm = searchForm;
+    }
 
     private java.util.List $manageable.listName = null;
 
@@ -141,16 +141,16 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.name;
     }
 
-	private java.util.Collection $field.backingListName;
+    private java.util.Collection $field.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
-	public java.util.Collection get${backingListMethod}(){
-		return ${field.backingListName};
-	}
+    public java.util.Collection get${backingListMethod}(){
+        return ${field.backingListName};
+    }
 
-	public void set${backingListMethod}(java.util.Collection ${field.backingListName}){
-		this.${field.backingListName} = ${field.backingListName};
-	}
+    public void set${backingListMethod}(java.util.Collection ${field.backingListName}){
+        this.${field.backingListName} = ${field.backingListName};
+    }
 
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
@@ -184,22 +184,22 @@ $member.getDocumentation("     * ")
         this.$member.name = $member.name;
     }
 
-	private java.util.Collection $member.backingListName;
+    private java.util.Collection $member.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
     /**
      * The current collection of possible values of ${member.name}.
      */
-	public java.util.Collection get${backingListMethod}(){
-		return ${member.backingListName};
-	}
+    public java.util.Collection get${backingListMethod}(){
+        return ${member.backingListName};
+    }
 
     /**
      * The current collection of possible values of ${member.name}.
      */
-	public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
-		this.${member.backingListName} = ${member.backingListName};
-	}
+    public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
+        this.${member.backingListName} = ${member.backingListName};
+    }
 
 #end
     /**
@@ -331,23 +331,23 @@ $member.getDocumentation("     * ")
      */
     public void copyFrom($manageable.formBeanClassName otherForm){
 #foreach ($field in $manageable.manageableAttributes)
-		this.${field.setterName}(otherForm.${field.getterName}());
+        this.${field.setterName}(otherForm.${field.getterName}());
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
-		this.set${backingListMethod}(otherForm.get${backingListMethod}());
+        this.set${backingListMethod}(otherForm.get${backingListMethod}());
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-		this.${member.setterName}(otherForm.${member.getterName}());
+        this.${member.setterName}(otherForm.${member.getterName}());
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
-		this.set${backingListMethod}(otherForm.get${backingListMethod}());
+        this.set${backingListMethod}(otherForm.get${backingListMethod}());
 #end
 
-		this.set${stringUtils.capitalize($formMessagesProperty)}(otherForm.get${stringUtils.capitalize($formMessagesProperty)}());
-		this.set${stringUtils.capitalize($formMessagesProperty)}Title(otherForm.get${stringUtils.capitalize($formMessagesProperty)}Title());
+        this.set${stringUtils.capitalize($formMessagesProperty)}(otherForm.get${stringUtils.capitalize($formMessagesProperty)}());
+        this.set${stringUtils.capitalize($formMessagesProperty)}Title(otherForm.get${stringUtils.capitalize($formMessagesProperty)}Title());
 
-		this.setEditState(otherForm.getEditState());
-		this.setSearchForm(otherForm.getSearchForm());
-		this.${manageable.listSetterName}(otherForm.${manageable.listGetterName}());
-		this.setSelectedRows(otherForm.getSelectedRows());
+        this.setEditState(otherForm.getEditState());
+        this.setSearchForm(otherForm.getSearchForm());
+        this.${manageable.listSetterName}(otherForm.${manageable.listGetterName}());
+        this.setSelectedRows(otherForm.getSelectedRows());
     }
 
     /**

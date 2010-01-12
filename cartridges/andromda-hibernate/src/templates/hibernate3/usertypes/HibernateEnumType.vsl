@@ -84,13 +84,13 @@ public class $className implements EnhancedUserType, ParameterizedType
         }
         else
         {
-        	if(value instanceof Enum)
-        	{
-            	statement.setString(index, ((Enum)value).name());
+            if(value instanceof Enum)
+            {
+                statement.setString(index, ((Enum)value).name());
             }
             else
             {
-            	statement.setString(index, (String)value);
+                statement.setString(index, (String)value);
             }
         }
     }

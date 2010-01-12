@@ -13,7 +13,7 @@ package $springTypesPackage;
 /**
  * This advice helps you to put all service related exception handling in one place.
  */
-public class $clientExceptionHandlingAdviceName 
+public class $clientExceptionHandlingAdviceName
     implements org.springframework.aop.ThrowsAdvice
 {
 
@@ -24,7 +24,7 @@ public class $clientExceptionHandlingAdviceName
      * @param exception The exception that has been thrown by the service.
      * @throws Throwable
      */
-    public void afterThrowing(org.springframework.remoting.RemoteAccessException exception) 
+    public void afterThrowing(org.springframework.remoting.RemoteAccessException exception)
         throws Throwable
     {
         // ${toDoTag} Add the logic to handle the exception

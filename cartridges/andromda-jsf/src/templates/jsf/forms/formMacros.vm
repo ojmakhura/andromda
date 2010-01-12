@@ -118,13 +118,13 @@
 #set ($backingValueMethod = $stringUtils.capitalize($backingValueName))
 
     /**
-     * Provides the ability to set the backing value for the {@link #${field.getterName}()} input 
+     * Provides the ability to set the backing value for the {@link #${field.getterName}()} input
      * table type.  This backing value provides all values that can be selected from.
      *
      * @param $backingValueName the backing value for ${field.name}.
      */
     public void set${backingValueMethod}($field.type.fullyQualifiedName $backingValueName);
-    
+
     /**
      * Gets the backing value for @{link #${field.getterName}()}.  Backing values provide all
      * possible values for a input table type.

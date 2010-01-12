@@ -28,7 +28,7 @@ public class $className
     public void init(FilterConfig config)
     {
     }
-    
+
     /**
      * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest,
      *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
@@ -48,7 +48,7 @@ public class $className
             || httpRequest.isUserInRole("$specializedRole.name")
 #end
         ;
-        httpRequest.setAttribute("$userIsInRoleName",  Boolean.valueOf($userIsInRoleName));  
+        httpRequest.setAttribute("$userIsInRoleName",  Boolean.valueOf($userIsInRoleName));
 #end
         chain.doFilter(
             request,

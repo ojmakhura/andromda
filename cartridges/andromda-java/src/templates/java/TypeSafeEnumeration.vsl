@@ -80,7 +80,7 @@ public enum $enumeration.name
 #set ($separator = ",")
 #end
 #if ($stringUtils.isNotBlank($literal.documentation))
-    /** 
+    /**
 $literal.getDocumentation("     * ")
      */
 #else
@@ -144,7 +144,7 @@ $member.getDocumentation("     * ")
 
 #end
     /*
-     * Do not override this method directly. Use an alternate name 
+     * Do not override this method directly. Use an alternate name
      * if providing a different toString implementation
      * @see Object${esc.hash}toString()
 #if ($enableAnnotations)

@@ -45,7 +45,7 @@ public class $enumeration.converterName
 #else
 #set ($parseSuffix = $stringUtils.capitalize($enumeration.literalType.name))
                 ${enumeration.literalType.fullyQualifiedName} v = ${enumeration.literalType.wrapperName}.parse${parseSuffix}(value);
-#end           
+#end
                 return ${enumeration.fullyQualifiedName}.fromValue(v);
             } catch (Exception ex) {
                 throw new javax.faces.convert.ConverterException(ex);

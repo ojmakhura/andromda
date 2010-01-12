@@ -17,11 +17,11 @@ public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementa
     implements java.io.Serializable
 {
 
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${embeddedValue.serialVersionUID}L;
-    
+
 #foreach ($operation in $embeddedValue.operations)
     /**
      * @see ${embeddedValue.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}

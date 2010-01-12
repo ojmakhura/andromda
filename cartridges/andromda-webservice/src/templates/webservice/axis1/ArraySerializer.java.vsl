@@ -90,7 +90,7 @@ public class $className
             value,
             context);
     }
-    
+
     private String getArrayComponentTypeName(final Class arrayClass, final SerializationContext context)
     {
         final Class componentType = arrayClass.getComponentType();

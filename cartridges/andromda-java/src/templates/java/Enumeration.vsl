@@ -1,9 +1,9 @@
 #if ($umlUtils.shouldOutput($enumeration))
 // license-header java merge-point
 //
-/** 
+/**
  * @author GENERATED CODE! Do not modify by hand!
- * 
+ *
  * TEMPLATE:     Enumeration.vsl in andromda-java-cartridge
  * MODEL CLASS:  $enumeration.validationName
  * METAFACADE:   org.andromda.metafacades.uml.Enumeration
@@ -176,7 +176,7 @@ $literal.getDocumentation("     * ")
      * @param value the value to create the $enumeration.name from.
      * @return static Enumeration with corresponding value
      */
-    public static $enumeration.name fromValue($literalTypeName value) 
+    public static $enumeration.name fromValue($literalTypeName value)
     {
         return ${enumeration.name}.${enumeration.fromOperationName}(value);
     }
@@ -232,7 +232,7 @@ $literal.getDocumentation("     * ")
     {
         return ${enumeration.name}.names;
     }
-    
+
     /**
      * Returns an unmodifiable list containing the actual enumeration instance values.
      *

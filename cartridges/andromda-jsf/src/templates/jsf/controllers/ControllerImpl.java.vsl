@@ -12,7 +12,7 @@ public class $controller.implementationName
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${controller.controllerSerialVersionUID}L;
-    
+
 #foreach ($operation in $controller.operations)
     /**
      * @see $controller.fullyQualifiedName#hash()$operation.signature
@@ -41,7 +41,7 @@ public class $controller.implementationName
         // populating value with dummy instance
         $field.type.fullyQualifiedName $field.name = new ${field.type.fullyQualifiedName}();
 #foreach ($attribute in $field.attributes)
-        ${field.name}.${attribute.setterName}($attribute.dummyValue);   
+        ${field.name}.${attribute.setterName}($attribute.dummyValue);
 #end
 #end
         form.${field.setterName}($field.name);
@@ -84,9 +84,9 @@ public class $controller.implementationName
 #end
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
-#end  
+#end
     }
-    
+
 #end
 #if ($allowDummyData)
 ## here we populate tabular data with dummy values
@@ -140,7 +140,7 @@ public class $controller.implementationName
             this.$columnName = $columnName;
 #end
         }
-        
+
 #foreach ($columnName in $field.tableColumnNames)
 #set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
         public void set$stringUtils.capitalize($columnName)(String $columnName)
@@ -152,7 +152,7 @@ public class $controller.implementationName
         {
             return this.$columnName;
         }
-        
+
 #end
     }
 #else

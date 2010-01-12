@@ -239,14 +239,14 @@ public class $className
         if (converter != null)
         {
             result = converter.convert(type, value);
-        } 
-        else 
+        }
+        else
         {
             result = value;
         }
         return result;
     }
-    
+
     /**
      * Converts the value contained within the parameter to the type which Hibernate expects.
      *

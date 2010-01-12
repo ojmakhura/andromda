@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="$xmlEncoding"?>
-<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" 
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN"
                        "http://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
 
 <jboss>
 
 #if ($ejbSecurityEnabled)
     <security-domain>java:/jaas/$securityRealm</security-domain>
-    
+
 #end
     <enterprise-beans>
 
@@ -21,7 +21,7 @@
 #end
         </session>
 
-#end      
+#end
    </enterprise-beans>
 
 </jboss>

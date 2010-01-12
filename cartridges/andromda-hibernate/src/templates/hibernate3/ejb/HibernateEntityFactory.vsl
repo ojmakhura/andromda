@@ -68,7 +68,7 @@ public abstract class ${entity.name}Factory
 
 #else
 #set ($primaryKeyName = "$stringUtils.uncapitalize($entity.name)Pk")
-	public static $entity.name findByPrimaryKey (org.hibernate.Session session, ${entity.fullyQualifiedEntityName}PK ${primaryKeyName})
+    public static $entity.name findByPrimaryKey (org.hibernate.Session session, ${entity.fullyQualifiedEntityName}PK ${primaryKeyName})
         throws org.hibernate.HibernateException
     {
         ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKeyName});

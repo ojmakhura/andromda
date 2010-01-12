@@ -15,22 +15,22 @@ public final class $className
     {
         try
         {
-	        String viewId = getViewId(facesContext);
-	        final Class<?> populator = populators.get(viewId);
-	        if (populator != null)
-	        {
-	            final java.lang.reflect.Method method = populator.getMethod(
-	                "populateFormAndViewVariables", 
-	                new Class[]{javax.faces.context.FacesContext.class, Object.class});
-	            method.invoke(populator, new Object[]{facesContext, form});
-	       }    
-	    }
-	    catch (final Throwable throwable)
-	    {
-	    	throw new RuntimeException(throwable);
-	    }
+            String viewId = getViewId(facesContext);
+            final Class<?> populator = populators.get(viewId);
+            if (populator != null)
+            {
+                final java.lang.reflect.Method method = populator.getMethod(
+                    "populateFormAndViewVariables",
+                    new Class[]{javax.faces.context.FacesContext.class, Object.class});
+                method.invoke(populator, new Object[]{facesContext, form});
+           }
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
     }
-    
+
     protected static String getViewId(final javax.faces.context.FacesContext facesContext)
     {
         javax.faces.component.UIViewRoot view  = facesContext.getViewRoot();
@@ -41,7 +41,7 @@ public final class $className
      * Stores the view populators by path.
      */
     private static final java.util.Map<String, Class<?>> populators = new java.util.HashMap<String, Class<?>>();
-    
+
     static
     {
 #foreach ($view in $useCase.views)

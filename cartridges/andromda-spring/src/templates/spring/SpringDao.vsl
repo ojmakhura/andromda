@@ -80,8 +80,8 @@ public interface $entity.daoName
      * Copies the fields of the specified entity to the target value object. This method is similar to
      * ${valueObjectRef.transformationMethodName}(), but it does not handle any attributes in the target
      * value object that are "read-only" (as those do not have setter methods exposed).
-     * @param source 
-     * @param target 
+     * @param source
+     * @param target
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
@@ -89,28 +89,28 @@ public interface $entity.daoName
 
     /**
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
-     * @param entity 
+     * @param entity
      * @return $valueObjectRef.targetElement.fullyQualifiedName
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
     /**
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
-     * @param entities 
+     * @param entities
      */
     public void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
 
     /**
      * Converts this DAO's entity to an array of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
-     * @param entities 
+     * @param entities
      * @return ${valueObjectRef.targetElement.fullyQualifiedName}[]
      */
     public ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities);
 
     /**
      * Copies the fields of {@link $valueObjectRef.targetElement.fullyQualifiedName} to the specified entity.
-     * @param source 
-     * @param target 
+     * @param source
+     * @param target
      * @param copyIfNull If FALSE, the value object's field will not be copied to the entity if the value is NULL. If TRUE,
      * it will be copied regardless of its value.
      */
@@ -121,7 +121,7 @@ public interface $entity.daoName
 
     /**
      * Converts an instance of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity.
-     * @param $stringUtils.uncapitalize($valueObjectRef.name) 
+     * @param $stringUtils.uncapitalize($valueObjectRef.name)
      * @return $entity.fullyQualifiedEntityName
      */
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
@@ -129,7 +129,7 @@ public interface $entity.daoName
     /**
      * Converts a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this
      * DAO's entity.
-     * @param instances 
+     * @param instances
      */
     public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances);
 
@@ -381,7 +381,7 @@ public interface $entity.daoName
      * transform the entity (into a value object for example). By default, transformation does
      * not occur.
      * </p>
-	 * @param transform flag to determine transformation type.
+     * @param transform flag to determine transformation type.
 #foreach($property in $requiredProperties)
      * @param $property.name
 #end
@@ -419,7 +419,7 @@ public interface $entity.daoName
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
-     * @param $argumentName 
+     * @param $argumentName
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName);
 

@@ -249,7 +249,7 @@ public final class $manageable.manageableDaoBaseName
         {
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.manageableIdentifier)
-##            // member.name=$member.name member=$member 
+##            // member.name=$member.name member=$member
 ##            // identifier.name=$identifier.name identifier=$identifier
 ##            // member.type.name=$member.type.name member.type=$member.type
 ##            // displayAttribute.name=$member.type.displayAttribute.name displayAttribute=$member.type.displayAttribute

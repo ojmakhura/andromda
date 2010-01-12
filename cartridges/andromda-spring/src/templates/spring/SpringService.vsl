@@ -35,7 +35,7 @@ public interface $service.name
 
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)
-#if(!$attribute.visibility.equalsIgnoreCase("private") && !$attribute.visibility.equalsIgnoreCase("protected"))                 
+#if(!$attribute.visibility.equalsIgnoreCase("private") && !$attribute.visibility.equalsIgnoreCase("protected"))
     /**
      * Getter for $attribute.name
      * @return Value of $attribute.name
@@ -44,7 +44,7 @@ public interface $service.name
 
     /**
      * Setter for $attribute.name
-     * @param ${attribute.name}In New value for $attribute.name                     
+     * @param ${attribute.name}In New value for $attribute.name
      */
     $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In);
 
@@ -52,7 +52,7 @@ public interface $service.name
 #end
 ##do generate operation declarations for all implemented service interfaces as well
 ##when spring transactions are enabled
-##(workaround for spring MethodMapTransactionAttributeSource, which does no map inherited interface methods)    
+##(workaround for spring MethodMapTransactionAttributeSource, which does no map inherited interface methods)
 #if ($enableSpringTransactionsWhenEjbsEnabled.equalsIgnoreCase("true") || !$ejbsEnabled)
 #set ($serviceOperations = $service.implementationOperations)
 #else

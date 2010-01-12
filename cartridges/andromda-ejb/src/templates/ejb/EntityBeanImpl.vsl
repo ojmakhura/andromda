@@ -9,8 +9,8 @@ import javax.ejb.RemoveException;
 /**
  * @see ${entity.fullyQualifiedName}Bean
  */
-public abstract class ${entity.name}BeanImpl 
-    extends ${entity.name}Bean 
+public abstract class ${entity.name}BeanImpl
+    extends ${entity.name}Bean
 {
 #foreach ($operation in $entity.businessOperations)
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -27,7 +27,7 @@ public abstract class ${entity.name}BeanImpl
      */
     $visibility $returnType $signature
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList 
+        throws $operation.exceptionList
 #end
     {
         // TODO put your implementation here.
@@ -44,7 +44,7 @@ public abstract class ${entity.name}BeanImpl
     /**
 $op.getDocumentation("     * ")
      */
-    public void createImpl(${op.typedArgumentList}) throws javax.ejb.CreateException 
+    public void createImpl(${op.typedArgumentList}) throws javax.ejb.CreateException
     {
 
     }
@@ -52,10 +52,10 @@ $op.getDocumentation("     * ")
     /**
 $op.getDocumentation("     * ")
      */
-     public void ejbPostCreate(${op.typedArgumentList}) 
+     public void ejbPostCreate(${op.typedArgumentList})
      {
 
      }
-     
+
 #end
 }

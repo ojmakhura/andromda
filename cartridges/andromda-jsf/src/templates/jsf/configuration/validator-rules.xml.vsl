@@ -1341,16 +1341,16 @@
             function getFormName(form)
             {
                 var formName = form.getAttributeNode("name");
-		        if (!formName || trim(formName.value).length == '')
+                if (!formName || trim(formName.value).length == '')
                 {
                     formName = form.getAttributeNode("id");
-		        }
+                }
                 if (formName)
                 {
                     formName = formName.value;
                 }
                 var delimIndex = formName.indexOf(':');
-		        if (delimIndex != -1)
+                if (delimIndex != -1)
                 {
                     formName = formName.substring(delimIndex + 1, formName.length);
                 }

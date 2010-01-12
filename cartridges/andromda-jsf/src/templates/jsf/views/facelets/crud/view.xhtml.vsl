@@ -99,7 +99,7 @@
     <ui:define name="content">
 #set ($clientValidation = $clientValidation && $manageable.validationRequired)
 #set ($formValidateName = "validate$stringUtils.capitalize($formName)")
-        <tr:group rendered="#{!${formName}.editState}"> 
+        <tr:group rendered="#{!${formName}.editState}">
         <tr:subform id="${searchFormId}">
         <tr:panelFormLayout>
 #foreach ($field in $manageable.manageableSearchAttributes)
@@ -118,7 +118,7 @@
 #end
         <tr:panelLabelAndMessage label="#{messages['${field.messageKey}']}:" showRequired="false">
             <ajsfc:${autocompleteType} id="${field.name}" parentId="${searchFormId}" value="#{${valuePropertyName}}" readOnly="false" required="false"
-                locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete" 
+                locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete"
                 locateValueFieldName="${field.type.identifiers.get(0).name}" locateVisibleFieldName="${field.type.displayAttribute.name}" itemConverterId="${field.type.ConverterType}"/>
         </tr:panelLabelAndMessage>
 #else
@@ -251,7 +251,7 @@
 #end
             <tr:panelLabelAndMessage label="#{messages['${field.messageKey}']}:" showRequired="${field.required}">
                 <ajsfc:${autocompleteType} id="${field.name}" parentId="${editFormId}" value="#{${valuePropertyName}}" readOnly="${field.readOnly}" required="${field.required}"
-                    locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete" 
+                    locateBackingBean="#{${field.type.controllerBeanName}}" locateActionListenerName="fillAutocomplete"
                     locateValueFieldName="${field.type.identifiers.get(0).name}" locateVisibleFieldName="${field.type.displayAttribute.name}" itemConverterId="${field.type.ConverterType}"/>
             </tr:panelLabelAndMessage>
 #else
@@ -278,7 +278,7 @@
                        <tr:commandButton id="saveAction" text="#{messages['action.save']}" action="#{${manageable.controllerBeanName}.save}" accessKey="#{messages['action.save.access.key']}" partialSubmit="false"/>
 #if ($manageable.create)
                        <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" rendered="#{empty ${formName}.${manageable.manageableIdentifier.name}}" partialSubmit="false"/>
-#end                   
+#end
                        <tr:commandButton id="cancelAction" text="#{messages['action.cancel']}" action="#{${manageable.controllerBeanName}.cancel}" accessKey="#{messages['action.cancel.access.key']}" immediate="true" partialSubmit="true" />
 #end
                    </tr:panelButtonBar>

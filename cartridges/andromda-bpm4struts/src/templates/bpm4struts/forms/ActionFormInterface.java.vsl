@@ -231,7 +231,7 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      */
     public $fieldType ${field.getterName}();
-    
+
 #if ($optionField)
     /**
      * Converts the selected option index to the corresponding value as it was modeled.

@@ -54,9 +54,9 @@ public abstract class $entity.entityName
 #if($entity.compositeIdentifier)
 #set($primaryKeyType="${entity.fullyQualifiedEntityName}PK")
 #set($primaryKeyName="$stringUtils.uncapitalize($entity.name)Pk")
-	private $primaryKeyType $primaryKeyName;
-	
-	public $primaryKeyType get${entity.name}Pk() {
+    private $primaryKeyType $primaryKeyName;
+
+    public $primaryKeyType get${entity.name}Pk() {
         return this.${primaryKeyName};
     }
 
@@ -125,7 +125,7 @@ $target.getDocumentation("     * ")
 #if ($target.map)
     /**
 $target.getDocumentation("     * ")
-     * @param elementKey $target.collectionIndexType     
+     * @param elementKey $target.collectionIndexType
      * @param elementToAdd $target.type.fullyQualifiedName
      * @return the previous value associated with <tt>key</tt>, or
      *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
@@ -337,7 +337,7 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
         }
 #end
     }
-    
+
 #end
 // HibernateEntity.vsl merge-point
 }

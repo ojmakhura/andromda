@@ -24,7 +24,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
 #if ($attribute.visibility == "public")
 #if (!$attribute.static)
     private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
-    
+
     /**
      * @see ${interface.fullyQualifiedName}${esc.hash}${attribute.getterName}()
      */
@@ -32,7 +32,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
     {
         return this.${attribute.name};
     }
-    
+
 ## - always generate setter on impl (so that the value can be populated
     /**
 #if (!$attribute.readOnly)
@@ -52,13 +52,13 @@ $attribute.getDocumentation("     * ")
         return this;
 #end
     }
-    
+
 #end
 #end
 #end
 #foreach ($associationEnd in $interface.getNavigableConnectingEnds(true))
     private $associationEnd.getterSetterTypeName $associationEnd.name;
-    
+
     /**
      * @see ${interface.fullyQualifiedName}${esc.hash}${associationEnd.getterName}()
      */

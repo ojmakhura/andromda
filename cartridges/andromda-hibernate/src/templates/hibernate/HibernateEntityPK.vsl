@@ -82,7 +82,7 @@ $identifier.getDocumentation("     * ")
 #end
 #end
 #foreach ( $identifier in $entity.identifiers )
-            .append(${identifier.getterName}())    
+            .append(${identifier.getterName}())
 #end
             .toHashCode();
     }

@@ -152,7 +152,7 @@ public abstract class $metafacade.logicName
     {
         return true;
     }
-    
+
 #if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
 
@@ -164,7 +164,7 @@ public abstract class $metafacade.logicName
 #set ($methodName = $attribute.getterName)
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = "")
-#set ($allPreConstraints=$attribute.getConstraints("pre")) 
+#set ($allPreConstraints=$attribute.getConstraints("pre"))
 #set ($allPostConstraints=$attribute.getConstraints("post"))
    /**
     * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
@@ -184,7 +184,7 @@ public abstract class $metafacade.logicName
     {
 #renderTranslation ($allPostConstraints)
     }
-#end    
+#end
 
 #if ($attribute.readOnly)
     private $memberTypeName __$memberName;
@@ -210,13 +210,13 @@ $attribute.getDocumentation("     * ")
         ${indent}$handleMethodPreCondition;
 #else
         ${indent}// $attribute.name has no pre constraints
-#end        
+#end
         ${indent}$memberName = ${attribute.implementationOperationName}($typedArgumentList);
 #if(!$allPostConstraints.empty)
         ${indent}$handleMethodPostCondition;
 #else
         ${indent}// $attribute.name has no post constraints
-#end        
+#end
 #if ($attribute.readOnly)
             this.__$memberName = $memberName;
             if (isMetafacadePropertyCachingEnabled())
@@ -239,7 +239,7 @@ $attribute.getDocumentation("     * ")
 #set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = $operation.typedArgumentList)
-#set ($allPreConstraints=$operation.getConstraints("pre")) 
+#set ($allPreConstraints=$operation.getConstraints("pre"))
 #set ($allPostConstraints=$operation.getConstraints("post"))
     /**
      * Method to be implemented in descendants
@@ -259,7 +259,7 @@ $attribute.getDocumentation("     * ")
     {
 #renderTranslation ($allPostConstraints)
     }
-#end    
+#end
 
     /**
 $operation.getDocumentation("     * ")
@@ -274,12 +274,12 @@ $parameter.getDocumentation("     * ")
 #end
      */
     $operation.visibility $memberTypeName ${methodName}($typedArgumentList)
-    {           
+    {
 #if(!$allPreConstraints.empty)
         $handleMethodPreCondition;
 #else
         // $operation.name has no pre constraints
-#end        
+#end
 #if($operation.returnTypePresent)
         $memberTypeName returnValue = ${operation.implementationName}($operation.argumentNames);
 #else
@@ -289,7 +289,7 @@ $parameter.getDocumentation("     * ")
         $handleMethodPostCondition;
 #else
         // $operation.name has no post constraints
-#end         
+#end
 #if($operation.returnTypePresent)
         return returnValue;
 #end
@@ -311,7 +311,7 @@ $parameter.getDocumentation("     * ")
 #set ($methodName = $otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($typedArgumentList = "")
-#set ($allPreConstraints=$associationEnd.getConstraints("pre")) 
+#set ($allPreConstraints=$associationEnd.getConstraints("pre"))
 #set ($allPostConstraints=$associationEnd.getConstraints("post"))
 ##
 #if (!$allPreConstraints.empty)
@@ -327,14 +327,14 @@ $parameter.getDocumentation("     * ")
     {
 #renderTranslation ($allPostConstraints)
     }
-#end    
+#end
 
 #if ($otherEnd.readOnly)
     private $memberTypeName __$memberName;
     private boolean __${memberName}Set = false;
 
 #end
-    /** 
+    /**
 $associationEnd.getDocumentation("     * ")
      * @return ($memberTypeName)${otherEnd.implementationOperationName}($typedArgumentList)
      */
@@ -353,7 +353,7 @@ $associationEnd.getDocumentation("     * ")
         ${indent}$handleMethodPreCondition;
 #else
         ${indent}// $associationEnd.name has no pre constraints
-#end        
+#end
 #if ($otherEnd.many)
         ${indent}Collection result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
 #else
@@ -368,11 +368,11 @@ $associationEnd.getDocumentation("     * ")
         ${indent}    // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
         ${indent}    ${metafacade.logicName}.logger.warn("incorrect metafacade cast for ${metafacade.logicName}.${methodName} $memberTypeName " + ${otherEnd.implementationOperationName}($typedArgumentList) + ": " + result);
         ${indent}}
-#if (!$allPostConstraints.empty)        	
+#if (!$allPostConstraints.empty)
         ${indent}$handleMethodPostCondition;
 #else
         ${indent}// $associationEnd.name has no post constraints
-#end        
+#end
 #if ($otherEnd.readOnly)
             this.__$memberName = $memberName;
             if (isMetafacadePropertyCachingEnabled())
@@ -394,7 +394,7 @@ $associationEnd.getDocumentation("     * ")
 #else
     /**
      * UML Specific type is transformed by shieldedElements to AndroMDA Metafacade type
-     * @return Object 
+     * @return Object
      */
     protected abstract Object ${otherEnd.implementationOperationName}($typedArgumentList);
 #end
@@ -413,7 +413,7 @@ $associationEnd.getDocumentation("     * ")
     {
         return true;
     }
-    
+
 #end
 #foreach ($link in $metafacade.generalizationLinks)
 #set ($generalizationCount = $velocityCount)
@@ -514,12 +514,12 @@ $associationEnd.getDocumentation("     * ")
     }
 ## Only render toString() on top level ancestor Facade objects or delegates.
 #if (!$superMetafacade || $metafacade.requiresInheritanceDelegatation)
-    
+
     /**
      * The property that stores the name of the metafacade.
      */
     private static final String NAME_PROPERTY = "name";
-    
+
     /**
      * @see Object${esc.hash}toString()
      */
