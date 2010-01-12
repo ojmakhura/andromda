@@ -436,7 +436,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     public Object create(
         final int transform,
 #foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end    
+        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
 #end
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
@@ -1121,7 +1121,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * Default implementation for transforming the results of a report query into a value object. This
      * implementation exists for convenience reasons only. It needs only be overridden in the
      * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
-     * @param row 
+     * @param row
      * @return ${valueObjectRef.transformationMethodName}(this.toEntity(row))
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
@@ -1246,7 +1246,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         if (copyIfNull || source.${property.getterName}() != null)
         {
             target.${entityProperty.getterName}().clear();
-            if(null != source.${property.getterName}()) {    
+            if(null != source.${property.getterName}()) {
                 target.${entityProperty.getterName}().addAll(source.${property.getterName}());
             }
         }

@@ -11,7 +11,7 @@ public abstract class ${manageable.controllerName}
 
     /**
     * Initializes the controller, calling the doInit method
-    *    
+    *
     * @return the controller view path.
     */
     public String init()
@@ -46,8 +46,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Initializes the controller. This method can be overriden.
     */
-    public void doInit(${manageable.formBeanType} form) 
-        throws Exception 
+    public void doInit(${manageable.formBeanType} form)
+        throws Exception
     {
 
 #foreach ($member in $manageable.manageableMembers)
@@ -122,8 +122,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Loads the selected instance.
     */
-    public void doLoad(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form) 
-        throws Exception 
+    public void doLoad(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form)
+        throws Exception
     {
         final ${manageable.valueObjectClassName} vo=
             ${manageable.manageableServiceAccessorCall}.readById(${manageable.manageableIdentifier.name});
@@ -179,8 +179,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Executes the edit cancel.
     */
-    public void doCancel(${manageable.formBeanType} form) 
-        throws Exception 
+    public void doCancel(${manageable.formBeanType} form)
+        throws Exception
     {
         form.setEditState(false);
     }
@@ -225,8 +225,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Executes the new instance action.
     */
-    public void doStartNew(${manageable.formBeanType} form) 
-        throws Exception 
+    public void doStartNew(${manageable.formBeanType} form)
+        throws Exception
     {
 
 ## set all default attribute values
@@ -311,8 +311,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Saves instance action.
     */
-    public void doSave(${manageable.formBeanType} form) 
-        throws Exception 
+    public void doSave(${manageable.formBeanType} form)
+        throws Exception
     {
 
 #if ($manageable.create)
@@ -434,8 +434,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Executes the search action.
     */
-    public void doSearch(${manageable.formBeanType} form) 
-        throws Exception 
+    public void doSearch(${manageable.formBeanType} form)
+        throws Exception
     {
 
         final java.util.List list;
@@ -530,8 +530,8 @@ public abstract class ${manageable.controllerName}
     /**
     * Deletes the selected instance.
     */
-    public void doDelete(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form) 
-        throws Exception 
+    public void doDelete(${idParamClass} ${manageable.manageableIdentifier.name}, ${manageable.formBeanType} form)
+        throws Exception
     {
         ${manageable.manageableServiceAccessorCall}.delete(new ${idParamClass}[]{${manageable.manageableIdentifier.name}});
 
@@ -543,7 +543,7 @@ public abstract class ${manageable.controllerName}
     /**
     * Shows a message warning the user can exists more records available.
     */
-    private void saveMaxResultsWarning() 
+    private void saveMaxResultsWarning()
     {
         addWarningMessage(${managedBeansPackage}.Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("${manageable.maximumListSize}")}));
     }
@@ -639,15 +639,15 @@ public abstract class ${manageable.controllerName}
             resetEditableComponentsValues((javax.faces.component.UIComponent)component);
         }
     }
-    
+
     /**
-     * Force all the editable components to get its values from the backing bean before rendering 
+     * Force all the editable components to get its values from the backing bean before rendering
      */
     private void resetAllEditableComponentsValues()
     {
         resetEditableComponentsValues(this.getContext().getViewRoot());
     }
-    
+
     /**
      * Returns an javax.faces.event.FacesEvent parameter value, from its name
      *

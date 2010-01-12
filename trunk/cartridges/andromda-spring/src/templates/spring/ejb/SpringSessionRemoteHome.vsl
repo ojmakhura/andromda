@@ -12,7 +12,7 @@
 package $service.ejbPackageName;
 
 /**
- * @see $service.fullyQualifiedName 
+ * @see $service.fullyQualifiedName
  */
 public interface ${service.name}Home
     extends javax.ejb.EJBHome
@@ -20,14 +20,14 @@ public interface ${service.name}Home
 
     /**
      * The logical JNDI name.
-     */ 
-    public static final String COMP_NAME="java:comp/env/${service.ejbJndiName}"; 
-    
+     */
+    public static final String COMP_NAME="java:comp/env/${service.ejbJndiName}";
+
     /**
      * The physical JNDI name.
      */
-    public static final String JNDI_NAME="${service.ejbJndiName}"; 
-	
+    public static final String JNDI_NAME="${service.ejbJndiName}";
+
     public $service.fullyQualifiedEjbName create()
         throws javax.ejb.CreateException, java.rmi.RemoteException;
 

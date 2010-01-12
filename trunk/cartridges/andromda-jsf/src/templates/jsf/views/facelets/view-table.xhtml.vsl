@@ -12,7 +12,7 @@
 #set($partialTriggers = "")
 #setTablePartialTriggers($table $partialTriggers)
 #end
-    <tr:table id="$table.name" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${table.name}}" rows="#{${preferencesBeanName}.maxTableRows}" 
+    <tr:table id="$table.name" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${table.name}}" rows="#{${preferencesBeanName}.maxTableRows}"
         width="90%"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
 #if (!$table.tableColumns.empty)
 #foreach ($column in $table.tableColumns)

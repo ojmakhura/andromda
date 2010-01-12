@@ -5,7 +5,7 @@
         <namespace>$service.namespace</namespace>
         <serviceClass>$service.rpcClassName</serviceClass>
         <!-- use default generated WSDL for now since using a specified
-             WSDL has issues 
+             WSDL has issues
         <wsdlURL>$service.wsdlFile</wsdlURL>
         -->
     </service>

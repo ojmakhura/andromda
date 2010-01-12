@@ -71,7 +71,7 @@ $attribute.getDocumentation("     * ")
     public $returnType ${attribute.getterName}()
     {
 #if ($attribute.many && !$attribute.type.arrayType)
-        if (this.${attribute.name} == null) 
+        if (this.${attribute.name} == null)
         {
 ## Todo: make it better
             this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();

@@ -17,25 +17,25 @@ public final class ProcessManager
     private final static org.jbpm.db.JbpmSessionFactory SESSION_FACTORY =
         org.jbpm.db.JbpmSessionFactory.buildJbpmSessionFactory();
 
-	/**
-	 * Injects the process definitions into the database, this should only be done once.
-	 */
+    /**
+     * Injects the process definitions into the database, this should only be done once.
+     */
     public static void injectAllProcessDefinitions() throws Exception
-	{
+    {
 #foreach ($processDefinition in $processDefinitions)
-		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition =
-		    org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
+        final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition =
+            org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
 #end
 
-	    final org.jbpm.db.JbpmSession session = SESSION_FACTORY.openJbpmSession();
+        final org.jbpm.db.JbpmSession session = SESSION_FACTORY.openJbpmSession();
         final org.jbpm.db.GraphSession graphSession = session.getGraphSession();
 
-	    session.beginTransaction();
+        session.beginTransaction();
 #foreach ($processDefinition in $processDefinitions)
-	    graphSession.saveProcessDefinition($stringUtils.lowerCamelCaseName($processDefinition.name)Definition);
+        graphSession.saveProcessDefinition($stringUtils.lowerCamelCaseName($processDefinition.name)Definition);
 #end
         session.commitTransactionAndClose();
-	}
+    }
 
     public static void createProcessSchema() throws Exception
     {

@@ -9,7 +9,7 @@
     <import resource="../dist/WEB-INF/$applicationContextLocalDataSource"/>
     <!-- serverTestBeanRefFactory import merge-point -->
 
-#set ($testPropertiesFile = "${stringUtils.substringBeforeLast($serverTestBeanRefFactory, '.')}.properties")    
+#set ($testPropertiesFile = "${stringUtils.substringBeforeLast($serverTestBeanRefFactory, '.')}.properties")
     <bean id="overrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
         <property name="location">
             <value>$testPropertiesFile</value>

@@ -19,7 +19,7 @@
             </list>
         </property>
     </bean>
-    
+
 #end
 #if ($stringUtils.isNotBlank($acegiDaoAuthenticationProviderImplClass))
     <bean id="${acegiDaoAuthenticationProviderBeanName}" class="${acegiDaoAuthenticationProviderImplClass}">
@@ -42,7 +42,7 @@
         </property>
 #end
     </bean>
-    
+
 #end
 #if ($stringUtils.isNotBlank($acegiDaoUserCacheImplClass))
     <bean id="userCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -54,7 +54,7 @@
 #end
         </property>
     </bean>
-    
+
     <bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
         <property name="cacheManager">
            <ref local="userCacheManager"/>
@@ -69,12 +69,12 @@
             <ref local="userCacheBackend"/>
         </property>
     </bean>
-    
+
 #end
 #if ($stringUtils.isNotBlank($acegiPasswordEncoderImplClass))
     <bean id="${acegiPasswordEncoderBeanName}" class="${acegiPasswordEncoderImplClass}">
     </bean>
 
 #end
-    <!-- applicationContext server authentication merge-point -->    
+    <!-- applicationContext server authentication merge-point -->
 </beans>

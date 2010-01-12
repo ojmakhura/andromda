@@ -9,9 +9,9 @@
 #set ($constraintDocumentation = $constraint.getDocumentation("",-1,false))
         try
         {
-## - we need to replace the references of "this" with "this.THIS()" in order to validate the correct metafacade instance 
+## - we need to replace the references of "this" with "this.THIS()" in order to validate the correct metafacade instance
 ##  (since we're using delegate inheritance)
-            $stringUtils.replace($constraintTranslation, 'final Object contextElement = this;', 'final Object contextElement = this.THIS();') 
+            $stringUtils.replace($constraintTranslation, 'final Object contextElement = this;', 'final Object contextElement = this.THIS();')
             if (!constraintValid)
                 validationMessages.add(
                     new ModelValidationMessage(
@@ -30,7 +30,7 @@
                 th = cause;
                 depth++;
             }
-            logger.error("Error validating constraint '$metaUtils.getFullyQualifiedConstraintName($constraint)' ON " 
+            logger.error("Error validating constraint '$metaUtils.getFullyQualifiedConstraintName($constraint)' ON "
                 + this.THIS().toString() + ": " + th.getMessage(), th);
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints

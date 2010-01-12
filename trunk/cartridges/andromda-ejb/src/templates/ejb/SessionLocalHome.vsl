@@ -38,7 +38,7 @@ $operation.getDocumentation("    * ")
     /**
      * Default create method.
      */
-    public ${service.name}Local create() 
+    public ${service.name}Local create()
         throws javax.ejb.CreateException;
 #end
 #end

@@ -59,7 +59,7 @@ $operation.getDocumentation("     * ")
      */
 #if ($defaultException)
     $operation.visibility $returnTypeName ${operation.implementationName}($operation.typedArgumentList)
-        throws $defaultException.name 
+        throws $defaultException.name
     {
 #else
     protected $returnTypeName ${operation.implementationName}($operation.typedArgumentList)

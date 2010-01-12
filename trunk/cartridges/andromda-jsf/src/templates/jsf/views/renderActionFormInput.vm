@@ -83,8 +83,8 @@
 #if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
 #set($literalKey = $literal.name)
 #set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-			<f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${literal.enumerationValue}${quote} />
-#end		
+            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${literal.enumerationValue}${quote} />
+#end
         </tr:$selectBoxType>
 #else
         <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"#if($parameter.inputTextarea) rows="3" columns="40"#end#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end#if($trinidad) partialTriggers="$actionId"#end>
@@ -92,7 +92,7 @@
             <f:convertDateTime pattern="$parameter.format"/>
 #end
         </tr:inputText>
-#end        
+#end
 #end
 #end
 #end
@@ -132,7 +132,7 @@
 #if ($column.type.timeType)
                         <a:convertDateTime pattern="$column.format"/>
 #end
-                    </h:inputText>                    
+                    </h:inputText>
 #else
                     <tr:outputText value="#{item.${column.name}}"/>
 #end

@@ -24,7 +24,7 @@
 
     <!-- ========================= End of BEAN POSTPROCESSORS ========================== -->
 
-	
+
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
 ##encode variables names with single quotes to prevent rendering by velocity
@@ -43,7 +43,7 @@
                 <prop key="java.naming.factory.initial">${textInitialContextFactory}</prop>
                 <prop key="java.naming.factory.url.pkgs">${textUrlPkgPrefixes}</prop>
             </props>
-		</property>
+        </property>
     </bean>
 
 #end

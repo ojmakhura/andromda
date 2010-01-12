@@ -41,7 +41,7 @@ public class $className
      * this by attempting to construct a java.net.URL instance and checking
      * whether or not, it's valid.
      * </p>
-     * 
+     *
      * @param bean the bean validation is being performed on.
      * @param validatorAction the <code>ValidatorAction</code> that is
      *        currently being performed.
@@ -100,7 +100,7 @@ public class $className
         }
         return valid;
     }
-    
+
     /**
      * Checks if a fields value is within a range (min &amp; max specified in the
      * vars attribute).
@@ -125,28 +125,28 @@ public class $className
     {
         boolean valid = true;
         String value = null;
-        if (bean instanceof String) 
+        if (bean instanceof String)
         {
             value = (String) bean;
-        } 
-        else 
+        }
+        else
         {
             value = ValidatorUtils.getValueAsString(bean, field.getProperty());
         }
-        if (!GenericValidator.isBlankOrNull(value)) 
+        if (!GenericValidator.isBlankOrNull(value))
         {
-            try 
+            try
             {
                 long intValue = Long.parseLong(value);
                 long min = Long.parseLong(field.getVarValue("min"));
                 long max = Long.parseLong(field.getVarValue("max"));
-                if (!GenericValidator.isInRange(intValue, min, max)) 
+                if (!GenericValidator.isInRange(intValue, min, max))
                 {
                     errors.add(field.getKey(), Resources.getActionMessage(request, validatorAction, field));
                     valid = false;
                 }
-            } 
-            catch (Exception exception) 
+            }
+            catch (Exception exception)
             {
                 errors.add(field.getKey(), Resources.getActionMessage(request, validatorAction, field));
                 valid = false;
@@ -154,7 +154,7 @@ public class $className
         }
         return valid;
     }
-    
+
     /**
      *  Checks if the field is a valid time. If the field has a timePattern variable,
      *  that will be used to format <code>java.text.SimpleDateFormat</code>.

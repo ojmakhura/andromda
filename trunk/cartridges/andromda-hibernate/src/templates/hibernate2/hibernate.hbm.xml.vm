@@ -102,7 +102,7 @@ ${indent}        <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlTy
 ${indent}    </key>
 #if ($otherEnd.list || $otherEnd.map )
 ${indent}    <index column="$otherEnd.collectionIndexName"/>
-#end            
+#end
 ${indent}    <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName">
 ${indent}        <column name="$otherEnd.columnName" sql-type="$otherEnd.sqlType"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end/>
 ${indent}    </many-to-many>

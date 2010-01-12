@@ -433,13 +433,13 @@ public class $className
         else if(partialTriggers instanceof String[])
         {
             return (String[])partialTriggers;
-        } 
-        else 
+        }
+        else
         {
             return null;
         }
     }
-    
+
     /**
      * Returns an javax.faces.event.ActionEvent parameter value, from its name
      * @parameterName the parameter name

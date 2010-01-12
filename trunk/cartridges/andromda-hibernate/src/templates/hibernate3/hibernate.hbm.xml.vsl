@@ -12,7 +12,7 @@
 #if ($mapSubclassesInSeparateFile && $entity.generalization)
 #renderSubClass3($entity "    ")
 #else
-    <class name="$entity.fullyQualifiedEntityImplementationName" 
+    <class name="$entity.fullyQualifiedEntityImplementationName"
         table="$entity.tableName"#if($stringUtils.isNotBlank($entity.schema)) schema="$entity.schema"#end#if(!$entity.lazy) lazy="false"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"#if (!$entity.specializations.empty && $entity.hibernateInheritanceClass && !$entity.abstract) discriminator-value="$entity.hibernateDiscriminatorValue"#end#if ($entity.xmlTagName) node="$entity.xmlTagName"#end#if ($entity.abstract) abstract="true"#end>
 #if($hibernateEnableCache.equalsIgnoreCase("true"))
         <cache usage="$entity.hibernateCacheType" />

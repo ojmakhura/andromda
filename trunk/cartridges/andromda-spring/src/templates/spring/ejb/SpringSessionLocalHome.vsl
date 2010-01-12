@@ -16,21 +16,21 @@
 package $service.ejbPackageName;
 
 /**
- * @see $service.fullyQualifiedName 
+ * @see $service.fullyQualifiedName
  */
 public interface ${service.name}${localSuffix}Home
     extends javax.ejb.EJBLocalHome
 {
     /**
      * The logical JNDI name.
-     */ 
-    public static final String COMP_NAME="java:comp/env/${service.ejbLocalJndiName}"; 
-    
+     */
+    public static final String COMP_NAME="java:comp/env/${service.ejbLocalJndiName}";
+
     /**
      * The physical JNDI name.
      */
-    public static final String JNDI_NAME="${service.ejbLocalJndiName}"; 
-	
+    public static final String JNDI_NAME="${service.ejbLocalJndiName}";
+
     /**
      * @return local ejb
      * @throws CreateException

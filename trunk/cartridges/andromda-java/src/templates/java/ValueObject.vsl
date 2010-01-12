@@ -3,7 +3,7 @@
 //
 /**
  * @author GENERATED CODE! Do not modify by hand!
- * 
+ *
  * TEMPLATE:     ValueObject.vsl in andromda-java-cartridge.
  * MODEL CLASS:  $class.validationName
  * METAFACADE:   org.andromda.metafacades.uml.ValueObject
@@ -54,7 +54,7 @@ $class.getDocumentation(" * ")
 #if ($XMLOutput)
 @XmlRootElement(name = "$class.name")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "$class.name", // namespace="http://$javaUtils.reversePackage($class.packageName)/", 
+@XmlType(name = "$class.name", // namespace="http://$javaUtils.reversePackage($class.packageName)/",
 #set ($size = $class.attributes.size() + $class.navigableConnectingEnds.size())
 #set ($count = 1)
   propOrder = {
@@ -116,7 +116,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 #set ($getterName = "${parameter.getterName}")
 #set ($setterName = "${parameter.setterName}")
 #end
-## TODO UML2 maps to ParameterableElement, not Parameter. No methods getterSetterTypeName, get/setterName in UML2, 
+## TODO UML2 maps to ParameterableElement, not Parameter. No methods getterSetterTypeName, get/setterName in UML2,
 ## returns JavaClassLogicImpl with parameter name, not type
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
@@ -127,7 +127,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
     public $returnType ${getterName}()
     {
 #if ($parameter.many && !$parameter.type.arrayType)
-        if (this.${parameter.name} == null) 
+        if (this.${parameter.name} == null)
         {
 ## TODO: make it better
             this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<#if(${parameter.type.primitive})${parameter.type.wrapperName}#else${parameter.type.fullyQualifiedName}#end>#end();
@@ -236,8 +236,8 @@ $attribute.getDocumentation("     * ")
 ##  constructor taking only required properties
 ##
 #if ($class.allProperties.size() > $class.allRequiredConstructorParameters.size() && ($class.allRequiredConstructorParameters.size() != 1 || !$class.allRequiredConstructorParameters.get(0).getterSetterTypeName.equals($class.fullyQualifiedName)))
-    /** 
-     * Constructor taking only required properties 
+    /**
+     * Constructor taking only required properties
 #foreach ($property in $class.allRequiredConstructorParameters)
      * @param ${property.name}In $property.getterSetterTypeName#if ($stringUtils.isNotBlank(${property.getDocumentation("")})) ${property.getDocumentation("")}#end
 
@@ -268,8 +268,8 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 ##  constructor taking all properties
 ##
 #if ($class.allProperties.size() != 1 || !$class.allProperties.get(0).getterSetterTypeName.equals($class.fullyQualifiedName))
-    /** 
-     * Constructor with all properties 
+    /**
+     * Constructor with all properties
 #foreach ($property in $class.allProperties)
      * @param ${property.name}In $property.getterSetterTypeName
 #end
@@ -352,7 +352,7 @@ $attribute.getDocumentation("     * ")
     public $returnType ${attribute.getterName}()
     {
 #if ($attribute.many && !$attribute.type.arrayType)
-        if (this.${attribute.name} == null) 
+        if (this.${attribute.name} == null)
         {
 ## Todo: make it better
             this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();
@@ -376,7 +376,7 @@ $attribute.getDocumentation("     * ")
 
 #end
 #if (!$attribute.readOnly)
-## - always have as public, having read-only causes too many issues when attempting to 
+## - always have as public, having read-only causes too many issues when attempting to
 ##   use in other cartridges
     /**
 $attribute.getDocumentation("     * ")
@@ -416,7 +416,7 @@ $connectingEnd.getDocumentation("     * ")
     {
 ## XMLBindings assume nillable is never declared, List must be empty instead of null
 #if ($connectingEnd.many && !$connectingEnd.getterSetterTypeName.endsWith("[]"))
-        if (this.${connectingEnd.name} == null) 
+        if (this.${connectingEnd.name} == null)
         {
             this.${connectingEnd.name} = new java.util.ArrayList#if($enableTemplating)<${connectingEnd.type.fullyQualifiedName}>#end();
         }
@@ -424,7 +424,7 @@ $connectingEnd.getDocumentation("     * ")
         return this.${connectingEnd.name};
     }
 
-## - always have as public, having read-only causes too many issues when attempting to 
+## - always have as public, having read-only causes too many issues when attempting to
 ##   use in other cartridges
     /**
      * Sets the $connectingEnd.name
@@ -522,7 +522,7 @@ $connectingEnd.getDocumentation("     * ")
 #foreach($associationEnd in $class.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable)
-## Do not append one of the two ends if bidirectional navigation. Comment out 1 end of 1:*, or end with lower alphabetical name. 
+## Do not append one of the two ends if bidirectional navigation. Comment out 1 end of 1:*, or end with lower alphabetical name.
 #if (($associationEnd.many.compareTo($target.many)<0) || ($associationEnd.many.equals($target.many)) && $associationEnd.type.fullyQualifiedName.compareTo($target.type.fullyQualifiedName)<1)
             //Commented out to avoid commons-lang-2.4 recursion StackOverflowError: https://issues.apache.org/jira/browse/LANG-456
             //.append(this.${target.getterName}())

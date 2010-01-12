@@ -126,7 +126,7 @@ $field.getDocumentation("     * ")
     {
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
-    
+
 #elseif ($field.strutsAction.tableAction)
 #set ($fieldName = $field.name)
 #if ($field.type.primitive)
@@ -266,16 +266,16 @@ $field.getDocumentation("     * ")
         return this.$fieldName;
     }
 #elseif ($field.type.mapType)
-    public void ${field.setterName}Value(String key, Object value) 
+    public void ${field.setterName}Value(String key, Object value)
     {
         this.${fieldName}.put(key, value);
     }
 
-    public Object ${field.getterName}Value(String key) 
+    public Object ${field.getterName}Value(String key)
     {
         return ${fieldName}.get(key);
     }
-    
+
     public void ${field.setterName}(java.util.Map $fieldName)
     {
         this.$fieldName = $fieldName;
@@ -302,7 +302,7 @@ $field.getDocumentation("     * ")
     {
         return this.$fieldName;
     }
-    
+
 #if ($field.widgetType == "radio")
     /**
      * Converts the selected option index to the corresponding value as it was modeled.

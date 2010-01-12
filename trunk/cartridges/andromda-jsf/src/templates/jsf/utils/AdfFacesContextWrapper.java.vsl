@@ -6,14 +6,14 @@ package $managedBeansPackage;
 /**
  * This wrapper just allows us to store the current RequestContext instance
  * in the session since the RequestContext is not serializable.
- * 
+ *
  * @author Chad Brandon
  */
 public class $className
     implements java.io.Serializable
-{    
+{
     private transient org.apache.myfaces.trinidad.context.RequestContext currentInstance = null;
-    
+
     public org.apache.myfaces.trinidad.context.RequestContext getCurrentInstance()
     {
         if (this.currentInstance == null)
@@ -22,6 +22,6 @@ public class $className
         }
         return this.currentInstance;
     }
-    
+
     private static final long serialVersionUID = 1L;
 }

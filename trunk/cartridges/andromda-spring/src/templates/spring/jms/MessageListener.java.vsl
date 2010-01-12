@@ -9,7 +9,7 @@ package $operation.owner.packageName;
 #end
 
 /**
- * A JMS message listener that accepts incoming messages for $operation.name on 
+ * A JMS message listener that accepts incoming messages for $operation.name on
  * {@link $operation.owner.name}.
  */
 public class $operation.messageListenerName
@@ -29,12 +29,12 @@ public class $operation.messageListenerName
             throw new ${operation.owner.fullyQualifiedDefaultExceptionName}(exception);
         }
     }
-    
+
     /**
      * The service to which this listener applies.
      */
     private $operation.owner.name service;
-    
+
     public void set${operation.owner.name}(final $operation.owner.name service)
     {
         this.service = service;

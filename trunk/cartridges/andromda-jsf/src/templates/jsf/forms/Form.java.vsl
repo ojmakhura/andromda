@@ -15,25 +15,25 @@ public interface $operation.formName
 {
     /**
      * Gets the ValueChangeEvent (if any) that is associated with this form.
-     * 
+     *
      * @return the faces ValueChangeEvent associated to this form.
      */
     public javax.faces.event.ValueChangeEvent getValueChangeEvent();
-    
+
     /**
      * Gets the ActionEvent (if any) that is associated with this form.
-     * 
+     *
      * @return the faces ActionEvent associated to this form.
      */
     public javax.faces.event.ActionEvent getActionEvent();
-    
+
     /**
      * Sets the event (if any) that is associated with this form.
-     * 
+     *
      * @param event the faces event to associate to this form.
      */
     public void setEvent(javax.faces.event.FacesEvent event);
-    
+
 #foreach ($field in $operation.formFields)
 #if ($field.pageableTable)
 #set ($fieldTypeName = "javax.faces.model.DataModel")

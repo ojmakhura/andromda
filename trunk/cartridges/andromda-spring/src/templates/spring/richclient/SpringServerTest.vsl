@@ -25,22 +25,22 @@ import ${springTypesPackage}.${serviceLocatorName};
 * A unit test for exercising the methods of ${service.name}. This unit test
 * makes local calls, bypassing remote invocations of service methods.
 */
-public class ${service.name}LocalTest 
-    extends AbstractDependencyInjectionSpringContextTests 
+public class ${service.name}LocalTest
+    extends AbstractDependencyInjectionSpringContextTests
 {
 
 #if ($acegiServiceSecurity)
     private Authentication mockUser;
-    
+
 #end
-    protected void onSetUp() 
-        throws Exception 
+    protected void onSetUp()
+        throws Exception
     {
         super.onSetUp();
 #if ($acegiServiceSecurity)
         // $toDoTag Specify which roles the "test user" will have for this test
-        GrantedAuthority[] mockAuthorities = 
-            { 
+        GrantedAuthority[] mockAuthorities =
+            {
                 new GrantedAuthorityImpl("ROLE_SomeRole1"),
                 new GrantedAuthorityImpl("ROLE_SomeRole2"),
                 new GrantedAuthorityImpl("ROLE_SomeRole3")
@@ -57,7 +57,7 @@ public class ${service.name}LocalTest
 
 #if ($acegiServiceSecurity)
         SecurityContextHolder.getContext().setAuthentication(mockUser);
-        
+
 #end
         // $toDoTag Write test code for ${service.name}::${operation.name}() server test.
     }

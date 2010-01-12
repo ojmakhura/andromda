@@ -19,10 +19,10 @@
                 final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variableName");
                 if ($readableVariable)
                 {
-                	Object backingList = org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$variableName");
+                    Object backingList = org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$variableName");
 ## ICEFaces currently requires lists for select lists
 #if ($icefaces)
-                	if (backingList != null)
+                    if (backingList != null)
                     {
                         backingList = java.util.Arrays.asList((Object[])backingList);
                     }

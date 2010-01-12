@@ -79,11 +79,11 @@ public class $className
         {
             final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-			try
+            try
             {
-			    final byte[] buffer = new byte[65536];
+                final byte[] buffer = new byte[65536];
                 int read = -1;
-				
+
                 while ((read = inputStream.read(buffer)) > -1)
                 {
                     outputStream.write(buffer, 0, read);

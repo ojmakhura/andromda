@@ -128,7 +128,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
             this.$columnName = $columnName;
 #end
         }
-        
+
 #foreach ($columnName in $field.tableColumnNames)
 #set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
         public void set$stringUtils.capitalize($columnName)(String $columnName)
@@ -140,7 +140,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
         {
             return this.$columnName;
         }
-        
+
 #end
     }
 #else
