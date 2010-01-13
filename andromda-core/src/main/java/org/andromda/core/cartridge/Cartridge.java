@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
@@ -415,14 +414,22 @@ public class Cartridge
                                 {
                                     if(postProcessor.acceptFile(outputFile))
                                     {
-                                        String lResult = postProcessor.postProcess(outputString);
-                                        if(StringUtils.isNotEmpty(lResult))
+                                        String lResult = null;
+                                        try
                                         {
-                                            outputString = lResult;
+                                            lResult = postProcessor.postProcess(outputString);
+                                            if(StringUtils.isNotEmpty(lResult))
+                                            {
+                                                outputString = lResult;
+                                            }
+                                            else
+                                            {
+                                                LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath());
+                                            }
                                         }
-                                        else
+                                        catch (Exception exc)
                                         {
-                                            LOGGER.warn("Error PostProcessing " + outputFile.getAbsolutePath());
+                                            LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath() + ": " + exc.getMessage());
                                         }
                                     }
                                 }
