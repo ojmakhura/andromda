@@ -154,8 +154,8 @@
         <module>common</module>
         <!-- Comment out uml14 for performance improvement if not using uml14 models -->
         <module>uml14</module>
-        <!-- Change to emf/uml22 for UML2 2.x and RSM 7.x support -->
         <module>emf/uml2</module>
+        <module>emf/uml22</module>
     </modules>
     <properties>
         <model.file>${project.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
