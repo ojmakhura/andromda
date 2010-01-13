@@ -114,7 +114,7 @@ $service.getDocumentation("                ", 64, false)
 #if (!$operation.arguments.empty)
                 <method-params>
 #foreach ($argument in $operation.arguments)
-                    <method-param>$argument.type.fullyQualifiedName</method-param>
+                    <method-param>$javaConverter.getJavaLangTypeName($argument.type.fullyQualifiedName)</method-param>
 #end
                 </method-params>
 #end
@@ -131,7 +131,7 @@ $service.getDocumentation("                ", 64, false)
                 <method-name>$operation.name</method-name>
                 <method-params>
 #foreach ($argument in $operation.arguments)
-                    <method-param>$argument.type.fullyQualifiedName</method-param>
+                    <method-param>$javaConverter.getJavaLangTypeName($argument.type.fullyQualifiedName)</method-param>
 #end
                 </method-params>
             </method>
