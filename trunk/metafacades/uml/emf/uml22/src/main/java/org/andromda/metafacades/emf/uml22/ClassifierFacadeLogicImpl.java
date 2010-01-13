@@ -1,7 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -84,8 +82,16 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetName()
     {
-        final String nameMask =
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+        String nameMask = null;
+        try
+        {
+            nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+        }
+        catch (Exception ignore)
+        {
+            logger.error("classifierNameMask not found in " + this.toString());
+            nameMask = "none";
+        }
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -400,7 +406,7 @@ public class ClassifierFacadeLogicImpl
                 javaNewString = "0";
             }
         }
-        else if (this.handleIsWrappedPrimitive())
+        else if (this.isWrappedPrimitive())
         {
             if (UMLMetafacadeUtils.isType(
                 this,
@@ -632,6 +638,26 @@ public class ClassifierFacadeLogicImpl
 
     /**
      * <p>
+     * Indicates if this type represents a char, Character, or java.lang.Character type or not.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isCharacterType()
+     */
+    @Override
+    protected boolean handleIsCharacterType()
+    {
+        String characterType = UMLProfile.CHARACTER_TYPE_NAME;
+        // Check both char and Character by taking the part after datatype::
+        String charType = characterType.substring(characterType.indexOf(':')+1).substring(0, 4).toLowerCase();
+        return UMLMetafacadeUtils.isType(
+            this,
+            charType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                characterType);
+    }
+
+    /**
+     * <p>
      * Indicates whether or not this classifier represents a time type.
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isTimeType()
@@ -646,7 +672,7 @@ public class ClassifierFacadeLogicImpl
 
     /**
      * <p>
-     * Indicates whether or not this classifier represents a time type.
+     * Indicates whether or not this classifier represents a double type.
      * </p>
      * @return isDoubleType
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
@@ -684,9 +710,15 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsIntegerType()
     {
+        String integerType = UMLProfile.INTEGER_TYPE_NAME;
+        // Check both int and Integer by taking the part after datatype::
+        String intType = integerType.substring(integerType.indexOf(':')+1).substring(0, 3).toLowerCase();
         return UMLMetafacadeUtils.isType(
             this,
-            UMLProfile.INTEGER_TYPE_NAME);
+            intType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                integerType);
     }
 
     /**
@@ -710,9 +742,9 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<AttributeFacade> handleGetAttributes(final boolean follow)
     {
-        return new ArrayList(this.shieldedElements(UmlUtilities.getAttributes(
+        return this.shieldedElements(UmlUtilities.getAttributes(
                 this.metaObject,
-                follow)));
+                follow));
     }
 
     /**
@@ -775,6 +807,7 @@ public class ClassifierFacadeLogicImpl
         {
             operations = Collections.emptyList();
         }
+        //Collections.sort(operations, new OperationComparator());
 
         return operations;
     }
@@ -909,7 +942,7 @@ public class ClassifierFacadeLogicImpl
         if (this.metaObject instanceof PrimitiveType)
         {
             String name = this.getFullyQualifiedName(true);
-            if (name.indexOf(this.getArraySuffix()) == -1)
+            if (!name.contains(this.getArraySuffix()))
             {
                 name += this.getArraySuffix();
                 PackageFacade pkg = this.getRootPackage();
@@ -1056,9 +1089,9 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<AssociationEndFacade> handleGetNavigableConnectingEnds(final boolean follow)
     {
-        final List<AssociationEndFacade> connectingEnds = new ArrayList(this.shieldedElements(UmlUtilities.getAssociationEnds(
+        final List<AssociationEndFacade> connectingEnds = this.shieldedElements(UmlUtilities.getAssociationEnds(
                     this.metaObject,
-                    follow)));
+                    follow));
         CollectionUtils.transform(
             connectingEnds,
             new Transformer()
@@ -1162,36 +1195,30 @@ public class ClassifierFacadeLogicImpl
 
 /*    protected Object handleFindTaggedValue(final String tagName, final boolean follow)
     {
-       // TODO: This method has been overridden. Why ?
         return null;
     }
 
     protected boolean handleIsBindingDependenciesPresent()
     {
-        // TODO: This method has been overridden. Why ?
         return false;
     }
 
     protected boolean handleIsTemplateParametersPresent()
     {
-        // TODO: This method has been overridden. Why ?
         return false;
     }
 
     protected void handleCopyTaggedValues(final ModelElementFacade element)
     {
-        // TODO: This method has been overridden. Why ?
     }
 
     protected Object handleGetTemplateParameter(final String parameterName)
     {
-        // TODO: This method has been overridden. Why ?
         return null;
     }
 
     protected Collection handleGetTemplateParameters()
     {
-        // TODO: This method has been overridden. Why ?
         return null;
     }*/
 
@@ -1229,7 +1256,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Set<ClassifierFacade> handleGetAllAssociatedClasses()
     {
-        final Set<ClassifierFacade> associatedClasses = new LinkedHashSet();
+        final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
         associatedClasses.addAll(this.getAssociatedClasses());
         for (Iterator<GeneralizableElementFacade> parentIterator = this.getGeneralizations().iterator(); parentIterator.hasNext();)
         {

@@ -34,11 +34,6 @@ import org.eclipse.uml2.util.UML2Resource;
 public class UMLModelAccessFacade
     implements ModelAccessFacade
 {
-    /*
-     * The logger instance.
-    private static final Logger logger = Logger.getLogger(UMLModelAccessFacade.class);
-     */
-
     /**
      * Protected to improve performance.
      */

@@ -39,7 +39,7 @@ public class AttributeFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
@@ -228,7 +228,7 @@ public class AttributeFacadeLogicImpl
                 while (rangeIt.hasNext())
                 {
                     final MultiplicityRange multiplicityRange = rangeIt.next();
-                    lower = multiplicityRange.getLower();
+                    lower = Integer.valueOf(multiplicityRange.getLower());
                 }
             }
         }
@@ -236,26 +236,26 @@ public class AttributeFacadeLogicImpl
         {
             if (this.getType().isPrimitive())
             {
-                lower = 1;
+                lower = Integer.valueOf(1);
             }
-            /*else if (this.getType().isWrappedPrimitive())
+            else if (this.getType().isWrappedPrimitive())
             {
                 lower = Integer.valueOf(0);
-            }*/
+            }
             else
             {
                 final String defaultMultiplicity = this.getDefaultMultiplicity();
                 if (defaultMultiplicity.startsWith("0"))
                 {
-                    lower = 0;
+                    lower = Integer.valueOf(0);
                 }
                 else
                 {
-                    lower = 1;
+                    lower = Integer.valueOf(1);
                 }
             }
         }
-        return lower;
+        return lower.intValue();
     }
 
     /**
@@ -276,15 +276,15 @@ public class AttributeFacadeLogicImpl
                 while (rangeIt.hasNext())
                 {
                     final MultiplicityRange multiplicityRange = rangeIt.next();
-                    upper = multiplicityRange.getUpper();
+                    upper = Integer.valueOf(multiplicityRange.getUpper());
                 }
             }
         }
         if (upper == null)
         {
-            upper = 1;
+            upper = Integer.valueOf(1);
         }
-        return upper;
+        return upper.intValue();
     }
 
     /**
@@ -374,7 +374,7 @@ public class AttributeFacadeLogicImpl
         }
         return parametersExist;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isDefaultValuePresent()
      */
@@ -392,7 +392,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetName()
     {
-        String name;
+        String name = null;
         if (this.isEnumerationMember())
         {
             name = super.handleGetName();
@@ -403,7 +403,7 @@ public class AttributeFacadeLogicImpl
                 this.getOwner() instanceof EnumerationFacade
                     ? UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK
                     : UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK ));
-    
+
             name = NameMasker.mask(super.handleGetName(), mask);
             final boolean templating = Boolean.parseBoolean(String.valueOf(
                 this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)));
@@ -413,7 +413,7 @@ public class AttributeFacadeLogicImpl
                 name = StringUtilsHelper.pluralize(name);
             }
         }
-        
+
         return name;
     }
 
@@ -425,7 +425,7 @@ public class AttributeFacadeLogicImpl
     private boolean isPluralizeAttributeNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ATTRIBUTE_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value));
+        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
     }
 
     /**

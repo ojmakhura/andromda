@@ -39,7 +39,7 @@ public class AssociationEndFacadeLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
@@ -389,15 +389,15 @@ public class AssociationEndFacadeLogicImpl
             {
                 for (MultiplicityRange multiplicityRange  : ranges)
                 {
-                    upper = multiplicityRange.getUpper();
+                    upper = Integer.valueOf(multiplicityRange.getUpper());
                 }
             }
         }
         if (upper == null)
         {
-            upper = 1;
+            upper = Integer.valueOf(1);
         }
-        return upper;
+        return upper.intValue();
     }
 
     /**
@@ -416,7 +416,7 @@ public class AssociationEndFacadeLogicImpl
             {
                 for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    lower = multiplicityRange.getLower();
+                    lower = Integer.valueOf(multiplicityRange.getLower());
                 }
             }
         }
@@ -425,14 +425,14 @@ public class AssociationEndFacadeLogicImpl
             final String defaultMultiplicity = this.getDefaultMultiplicity();
             if (defaultMultiplicity.startsWith("0"))
             {
-                lower = 0;
+                lower = Integer.valueOf(0);
             }
             else
             {
-                lower = 1;
+                lower = Integer.valueOf(1);
             }
         }
-        return lower;
+        return lower.intValue();
     }
 
     /**
@@ -445,7 +445,7 @@ public class AssociationEndFacadeLogicImpl
     {
         return ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY));
     }
-    
+
     /**
      * Get the UML upper multiplicity
      * Not implemented for UML1.4

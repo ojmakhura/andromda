@@ -472,78 +472,83 @@ public class UMLProfile
 
     /**
      * Used to identify date types in the model, any other type that will be identified as a date must specialize this
-     * type.
+     * type. Default=datatype::Date
      */
     public static final String DATE_TYPE_NAME = profile.get("DATE_TYPE");
 
     /**
      * Used to identify time types in the model, any other type that will be identified as a time must specialize this
-     * type.
+     * type. Default=datatype::Time
      */
     public static final String TIME_TYPE_NAME = profile.get("TIME_TYPE");
 
     /**
-     * Used to identify datetime types in the model.
+     * Used to identify datetime types in the model. Default=datatype::DateTime
      */
     public static final String DATETIME_TYPE_NAME = profile.get("DATETIME_TYPE");
 
     /**
      * Used to identify a boolean type in the model, any other type that will be identified as a boolean type must
-     * specialize this type.
+     * specialize this type. Default=datatype::boolean
      */
     public static final String BOOLEAN_TYPE_NAME = profile.get("BOOLEAN_TYPE");
+    /**
+     * Used to identify a character type in the model, any other type that will be identified as a character type must
+     * specialize this type. Default=datatype::Character
+     */
+    public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");
 
     /**
      * Used to identify a file type in the model, any other type that will be identified as a file type must specialize
-     * this type.
+     * this type. Default=datatype::File
      */
     public static final String FILE_TYPE_NAME = profile.get("FILE_TYPE");
 
     /**
      * Used to identify a Blob type in the model, any other type that will be identified as a Blob type must specialize
-     * this type.
+     * this type. Default=datatype::Blob
      */
     public static final String BLOB_TYPE_NAME = profile.get("BLOB_TYPE");
 
     /**
      * Used to identify a Clob type in the model, any other type that will be identified as a Clob type must specialize
-     * this type.
+     * this type. Default=datatype::Clob
      */
     public static final String CLOB_TYPE_NAME = profile.get("CLOB_TYPE");
 
     /**
      * Used to identify a string type in the model, any other type that will be identified as a string type must
-     * specialize this type.
+     * specialize this type. Default=datatype::String
      */
     public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
 
     /**
      * Used to identify a void type in the model, any other type that will be identified as a void type must
-     * specialize this type.
+     * specialize this type. Default=datatype::void
      */
     public static final String VOID_TYPE_NAME = profile.get("VOID_TYPE");
 
     /**
      * Used to identify a double type in the model, any other type that will be identified as a double type must
-     * specialize this type.
+     * specialize this type. Default=datatype::Double
      */
     public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");
 
     /**
      * Used to identify a float type in the model, any other type that will be identified as a float type must
-     * specialize this type.
+     * specialize this type. Default=datatype::Float
      */
     public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");
 
     /**
      * Used to identify a integer type in the model, any other type that will be identified as a integer type must
-     * specialize this type.
+     * specialize this type. Default=datatype::Integer
      */
     public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE");
 
     /**
      * Used to identify a long type in the model, any other type that will be identified as a long type must
-     * specialize this type.
+     * specialize this type. Default=datatype::Long
      */
     public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE");
 }

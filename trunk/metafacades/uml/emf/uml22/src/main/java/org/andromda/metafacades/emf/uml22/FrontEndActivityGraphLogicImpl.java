@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.StateMachine;
+import org.eclipse.uml2.uml.UseCase;
 
 /**
  * MetafacadeLogic implementation for
@@ -47,13 +48,13 @@ public class FrontEndActivityGraphLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ActivityGraphFacadeLogic#handleGetUseCase()
      */
     @Override
-    protected Object handleGetUseCase()
+    protected UseCase handleGetUseCase()
     {
-        Object useCase = super.handleGetUseCase();
+        UseCase useCase = super.handleGetUseCase();
         if (useCase == null)
         {
             useCase =
-                this.getModel().findUseCaseWithTaggedValueOrHyperlink(
+                (UseCase) this.getModel().findUseCaseWithTaggedValueOrHyperlink(
                     UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY,
                     this.getName());
         }

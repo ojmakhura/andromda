@@ -62,7 +62,7 @@ public class OperationFacadeLogicImpl
      * @return null
      * @see org.andromda.metafacades.uml.OperationFacade#getMethodBody()
      */
-    //@Override
+    @Override
     protected String handleGetMethodBody()
     {
         return null;
@@ -109,8 +109,7 @@ public class OperationFacadeLogicImpl
      */
     private String getCall(final String name)
     {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append(name);
+        StringBuilder buffer = new StringBuilder(name);
         buffer.append('(');
         buffer.append(this.getArgumentNames());
         buffer.append(')');
@@ -554,7 +553,7 @@ public class OperationFacadeLogicImpl
         }
         else
         {
-            obj = this.metaObject.getClass_();
+            obj = this.metaObject.getClass_();    
         }
         return obj;*/
         return this.metaObject.getOwner();
@@ -596,7 +595,6 @@ public class OperationFacadeLogicImpl
     protected String handleGetGetterSetterReturnTypeName()
     {
         String name = null;
-        final ClassifierFacade returnType = this.getReturnType();
         if (this.handleIsMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
@@ -608,28 +606,33 @@ public class OperationFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                String type = returnType.getFullyQualifiedName();
-                if (returnType.isPrimitive())
+                String type = this.getReturnType().getFullyQualifiedName();
+                if (this.getReturnType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = returnType.getWrapperName();
+                    type = this.getReturnType().getWrapperName();
+                }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
                 }
                 name += '<' + type + '>';
             }
         }
-        if (name == null && returnType != null)
+        if (name == null && this.getReturnType() != null)
         {
-            name = returnType.getFullyQualifiedName();
+            name = this.getReturnType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (returnType.isBooleanType())
+            if (this.getReturnType().isBooleanType())
             {
-                if (returnType.isPrimitive() && (this.getLower() < 1))
+                if (this.getReturnType().isPrimitive() && (this.getLower() < 1))
                 {
                     // Type is optional, should not be primitive
                     name = StringUtils.capitalize(name);
                 }
-                else if (!returnType.isPrimitive() && this.getLower() > 0)
+                else if (!this.getReturnType().isPrimitive() && this.getLower() > 0)
                 {
                     // Type is required, should not be wrapped
                     name = StringUtils.uncapitalize(name);
@@ -752,7 +755,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#isOverriding()
+     * @see org.andromda.metafacades.uml.OperationFacade#isOverriding()
      */
     @Override
     protected boolean handleIsOverriding()
@@ -761,7 +764,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#getOverriddenOperation()
+     * @see org.andromda.metafacades.uml.OperationFacade#getOverriddenOperation()
      */
     @Override
     protected OperationFacade handleGetOverriddenOperation()

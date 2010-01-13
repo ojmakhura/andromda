@@ -32,7 +32,6 @@ public class ValueObjectLogicImpl
     @Override
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations()
     {
-        System.out.println("TypeSpecializations " + this.getAllSpecializations().size() + " with stereotypes " + this.getStereotypes().size());
         StringBuilder stereotypes = new StringBuilder();
         for (final Iterator<StereotypeFacade> iterator = this.getStereotypes().iterator(); iterator.hasNext();)
         {
@@ -48,20 +47,17 @@ public class ValueObjectLogicImpl
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations(String stereotypes)
     {
         Collection<ValueObjectLogic> specializations = new TreeSet<ValueObjectLogic>();
-        System.out.println("TypeSpecializations " + this.getAllSpecializations().size() + " with stereotypes " + stereotypes);
         String[] stereotypeList = stereotypes.split(",", -1);
         for (final Iterator<GeneralizableElementFacade> iterator = this.getAllSpecializations().iterator(); iterator.hasNext();)
         {
             final GeneralizableElementFacade classifier = iterator.next();
             if (classifier instanceof ValueObjectLogic)
             {
-                System.out.println("Specialization " + classifier.getFullyQualifiedName() + " with stereotype " + classifier.getStereotypes().size());
                 for (int i=0; i<stereotypeList.length; i++)
                 {
                     if (classifier.hasStereotype(stereotypeList[i]) && !specializations.contains(classifier))
                     {
                         specializations.add((ValueObjectLogic) classifier);
-                        System.out.println("Added " + classifier.getFullyQualifiedName() + " with stereotype " + stereotypeList[i]);
                     }
                 }
             }

@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -16,6 +17,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -316,6 +318,7 @@ public class UmlUtilities
         CollectionUtils.transform(
             attributeList,
             ELEMENT_TRANSFORMER);
+        //Collections.sort(attributeList, new PropertyComparator());
         return attributeList;
     }
 
@@ -339,14 +342,14 @@ public class UmlUtilities
             attachedToType = classifier.equals(property.getType());
             if (follow && !attachedToType)
             {
-                //final List<Classifier> parents = classifier.getGenerals();
+
                 for (Classifier parent : classifier.getGenerals())
                 {
                     //if (parent instanceof Classifier)
                     //{
                         attachedToType =
                             isAssociationEndAttachedToType(
-                                    parent,
+                                parent,
                                 property,
                                 follow);
                     //}
@@ -591,7 +594,6 @@ public class UmlUtilities
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
             !stereotypes.isEmpty();
 
-        logger.debug(hasStereotype  + " <<" + stereotypeName + ">> in " + element.toString());
         if (hasStereotype)
         {
             class StereotypeFilter
@@ -799,7 +801,7 @@ public class UmlUtilities
         Stereotype foundStereotype = element.getAppliedStereotype(name);
         if (foundStereotype == null)
         {
-            final List<Stereotype> stereotypes = element.getAppliedStereotypes();
+            final EList<Stereotype> stereotypes = element.getAppliedStereotypes();
             if (stereotypes != null)
             {
                 for (Stereotype stereotype : stereotypes)
@@ -834,7 +836,7 @@ public class UmlUtilities
         Stereotype foundStereotype = element.getApplicableStereotype(name);
         if (foundStereotype == null)
         {
-            final List<Stereotype> stereotypes = element.getApplicableStereotypes();
+            final EList<Stereotype> stereotypes = element.getApplicableStereotypes();
             if (stereotypes != null)
             {
                 for (Stereotype stereotype : stereotypes)
@@ -1122,20 +1124,23 @@ public class UmlUtilities
             return null;
         }
         Object modelElement = null;
-        modelElement =
-            findByPredicate(
-                rs,
-                new Predicate()
-                {
-                    public boolean evaluate(final Object object)
+        if (StringUtils.isNotBlank(name))
+        {
+            modelElement =
+                findByPredicate(
+                    rs,
+                    new Predicate()
                     {
-                        if (object instanceof NamedElement)
+                        public boolean evaluate(final Object object)
                         {
-                            return StringUtils.trimToEmpty(((NamedElement)object).getName()).equals(name);
+                            if (object instanceof NamedElement)
+                            {
+                                return StringUtils.trimToEmpty(((NamedElement)object).getName()).equals(name);
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
+                    });
+        }
         return modelElement;
     }
 
@@ -1205,9 +1210,46 @@ public class UmlUtilities
      * @param defaultMultiplicity from ClassifierFacadeLogic.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)
      * @return the parsed integer. Defaults to 1.
      */
-    static int parseMultiplicity(final ValueSpecification multValue)
+    static int parseLowerMultiplicity(final ValueSpecification multValue, final ClassifierFacade type, final String defaultMultiplicity)
     {
         int value = 1;
+        if (multValue == null)
+        {
+            if (type.isWrappedPrimitive())
+            {
+                value = 0;
+            }
+            else if (!type.isPrimitive())
+            {
+                if (defaultMultiplicity != null && defaultMultiplicity.startsWith("0"))
+                {
+                    value = Integer.valueOf(0);
+                }
+                else
+                {
+                    value = Integer.valueOf(1);
+                }
+            }
+            // Defaults to 1 if a Primitive
+        }
+        else
+        {
+            value = parseMultiplicity(multValue, Integer.valueOf(defaultMultiplicity));
+        }
+        return value;
+    }
+
+    /**
+     * Multiplicity can be expressed as Value. String, integer... This method
+     * parses it. MD11.5 uses string, and RSM integers.
+     *
+     * @param multValue a ValueSpecification, which needs to be parsed
+     * @param defaultValue when null: 1 for upper multiplicity, 0 for lower multiplicity.
+     * @return the parsed integer. Defaults to 1.
+     */
+    static int parseMultiplicity(final ValueSpecification multValue, int defaultValue)
+    {
+        int value = defaultValue;
         if (multValue != null)
         {
             if (multValue instanceof LiteralInteger)
@@ -1318,6 +1360,15 @@ public class UmlUtilities
         public static String getEMFName(String name)
         {
             return getValidJavaIdentifier(name);
+        }
+    }
+
+    // Sort Attributes and AssociationEnds
+    private static class PropertyComparator implements Comparator<Property>
+    {
+        public int compare(Property property1, Property property2)
+        {
+            return property1.getName().compareTo(property2.getName());
         }
     }
 }

@@ -1,7 +1,5 @@
 package org.andromda.metafacades.emf.uml2;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,6 +40,7 @@ import org.eclipse.uml2.NamedElement;
 import org.eclipse.uml2.Operation;
 import org.eclipse.uml2.PrimitiveType;
 import org.eclipse.uml2.Property;
+
 
 /**
  * Represents a Classifier model element
@@ -99,10 +98,10 @@ public class ClassifierFacadeLogicImpl
 
     /**
      * Indicates whether or not this classifier represents a wrapped primitive type.
-     * @return isWrappedPrimitive
+     * @return wrappedPrimitive true/false
      * @see org.andromda.metafacades.uml.ClassifierFacade#isWrappedPrimitive()
      */
-    //@Override
+    @Override
     protected boolean handleIsWrappedPrimitive()
     {
         // Try both the fully qualified name and the ClassName
@@ -121,13 +120,10 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetOperationCallFromAttributes()
     {
-        StringBuilder call = new StringBuilder();
+        final StringBuilder call = new StringBuilder("(");
         String separator = "";
-        call.append('(');
-        for (final Iterator<AttributeFacade> iterator = this.getAttributes().iterator(); iterator.hasNext();)
+        for (AttributeFacade attribute : this.getAttributes())
         {
-            AttributeFacade attribute = iterator.next();
-
             call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
             call.append(typeName);
@@ -252,16 +248,16 @@ public class ClassifierFacadeLogicImpl
         return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
     }
 
-    /**
+    /*
      * Gets the array suffix from the configured metafacade properties.
      *
      * @return the array suffix.
-     */
     private String getArraySuffix()
     {
-        // TODO: Private method 'getArraySuffix' also declared in class 'org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl'
+        // TODO: Private method 'getArraySuffix' also declared in class 'org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl'
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
+     */
 
     /**
      * <p>
@@ -395,7 +391,7 @@ public class ClassifierFacadeLogicImpl
                 javaNewString = "0";
             }
         }
-        else if (this.handleIsWrappedPrimitive())
+        else if (this.isWrappedPrimitive())
         {
             if (UMLMetafacadeUtils.isType(
                 this,
@@ -565,9 +561,9 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected long handleGetSerialVersionUID()
     {
-        if (logger.isDebugEnabled())
+        if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
-            logger.debug("Starting get serial UID");
+            ClassifierFacadeLogicImpl.logger.debug("Starting get serial UID");
         }
         long serialVersionUID;
         String serialVersionString = UmlUtilities.getSerialVersionUID(this);
@@ -579,9 +575,9 @@ public class ClassifierFacadeLogicImpl
         {
             serialVersionUID = MetafacadeUtils.calculateDefaultSUID(this);
         }
-        if (logger.isDebugEnabled())
+        if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
-            logger.debug("SerialVersionUID for " + this.metaObject.getQualifiedName() + " is " + serialVersionUID);
+            ClassifierFacadeLogicImpl.logger.debug("SerialVersionUID for " + this.metaObject.getQualifiedName() + " is " + serialVersionUID);
         }
         return serialVersionUID;
     }
@@ -623,6 +619,26 @@ public class ClassifierFacadeLogicImpl
         return UMLMetafacadeUtils.isType(
             this,
             UMLProfile.BOOLEAN_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates if this type represents a char, Character, or java.lang.Character type or not.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isCharacterType()
+     */
+    @Override
+    protected boolean handleIsCharacterType()
+    {
+        String characterType = UMLProfile.CHARACTER_TYPE_NAME;
+        // Check both char and Character by taking the part after datatype::
+        String charType = characterType.substring(characterType.indexOf(':')+1).substring(0, 4).toLowerCase();
+        return UMLMetafacadeUtils.isType(
+            this,
+            charType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                characterType);
     }
 
     /**
@@ -679,9 +695,15 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsIntegerType()
     {
+        String integerType = UMLProfile.INTEGER_TYPE_NAME;
+        // Check both int and Integer by taking the part after datatype::
+        String intType = integerType.substring(integerType.indexOf(':')+1).substring(0, 3).toLowerCase();
         return UMLMetafacadeUtils.isType(
             this,
-            UMLProfile.INTEGER_TYPE_NAME);
+            intType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                integerType);
     }
 
     /**
@@ -705,7 +727,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<AttributeFacade> handleGetAttributes(final boolean follow)
     {
-        return (List<AttributeFacade>) this.shieldedElements(UmlUtilities.getAttributes(
+        return this.shieldedElements(UmlUtilities.getAttributes(
                 this.metaObject,
                 follow));
     }
@@ -751,6 +773,9 @@ public class ClassifierFacadeLogicImpl
         return properties;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleGetOperations()
+     */
     @Override
     protected List<Operation> handleGetOperations()
     {
@@ -767,6 +792,7 @@ public class ClassifierFacadeLogicImpl
         {
             operations = Collections.emptyList();
         }
+        //Collections.sort(operations, new OperationComparator());
 
         return operations;
     }
@@ -1048,7 +1074,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<AssociationEndFacade> handleGetNavigableConnectingEnds(final boolean follow)
     {
-        final List<AssociationEndFacade> connectingEnds = (List<AssociationEndFacade>) this.shieldedElements(UmlUtilities.getAssociationEnds(
+        final List<AssociationEndFacade> connectingEnds = this.shieldedElements(UmlUtilities.getAssociationEnds(
                     this.metaObject,
                     follow));
         CollectionUtils.transform(
@@ -1071,7 +1097,7 @@ public class ClassifierFacadeLogicImpl
             });
         if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
-            ClassifierFacadeLogicImpl.logger.debug("handleGetNavigableConnectingEnds " + this.metaObject.getQualifiedName() + " " + connectingEnds.size());
+            ClassifierFacadeLogicImpl.logger.debug("handleGetNavigableConnectingEnds " + this.metaObject.getQualifiedName() + ' ' + connectingEnds.size());
         }
         return connectingEnds;
     }
@@ -1096,9 +1122,12 @@ public class ClassifierFacadeLogicImpl
         {
             for (Iterator<ClassifierFacade> abstractionIterator = this.getAbstractions().iterator(); abstractionIterator.hasNext();)
             {
-                final DependencyFacade abstraction = (DependencyFacade)abstractionIterator.next();
+                Object obj = abstractionIterator.next();
+                try
+                {
+                    final DependencyFacade abstraction = (DependencyFacade)obj;
                     final ModelElementFacade element = abstraction.getTargetElement();
-
+    
                     if (element instanceof ClassifierFacade)
                     {
                         final ClassifierFacade classifier = (ClassifierFacade)element;
@@ -1108,6 +1137,11 @@ public class ClassifierFacadeLogicImpl
                         }
                     }
                 }
+                catch (Exception e)
+                {
+                    logger.warn("ClassifierFacade.handleGetInterfaceAbstractions " + obj + ' ' + e.getMessage());
+                }
+            }
         }
 
         return interfaceAbstractions;
@@ -1189,6 +1223,9 @@ public class ClassifierFacadeLogicImpl
         return AssociationClass.class.isAssignableFrom(this.metaObject.getClass());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleGetAssociatedClasses()
+     */
     @Override
     protected Collection<ClassifierFacade> handleGetAssociatedClasses()
     {
@@ -1204,6 +1241,9 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleGetAllAssociatedClasses()
+     */
     @Override
     protected Set<ClassifierFacade> handleGetAllAssociatedClasses()
     {
@@ -1219,6 +1259,9 @@ public class ClassifierFacadeLogicImpl
     }
 
     @Override
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleGetSuperClass()
+     */
     protected ClassifierFacade handleGetSuperClass()
     {
         final GeneralizableElementFacade superClass = this.getGeneralization();
@@ -1226,8 +1269,42 @@ public class ClassifierFacadeLogicImpl
     }
 
     @Override
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleIsEmbeddedValue()
+     */
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);
     }
+
+    /*
+    // Sort Operations by name, then by number of parameters, then by parameter names
+    @SuppressWarnings("unused")
+    private static class OperationComparator implements Comparator<Operation>
+    {
+        public int compare(Operation operation1, Operation operation2)
+        {
+            int rtn = operation1.getName().compareTo(operation2.getName());
+            if (rtn == 0)
+            {
+                rtn = operation1.getOwnedParameters().size() - operation1.getOwnedParameters().size();
+                if (rtn == 0)
+                {
+                    int index = 0;
+                    for (Iterator<Parameter> params = operation1.getOwnedParameters().iterator(); params.hasNext();)
+                    {
+                        final Parameter parameter = params.next();
+                        rtn = parameter.name().compareTo(((Enum<Parameter>) operation2.getOwnedParameters().get(index)).name());
+                        if (rtn != 0)
+                        {
+                            break;
+                        }
+                        index++;
+                    }
+                }
+            }
+            return rtn;
+        }
+    }
+    */
 }

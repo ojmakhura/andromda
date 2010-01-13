@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -249,7 +248,7 @@ public class FrontEndForwardLogicImpl
         {
             handledForwards.add(this);
 
-            if (this instanceof FrontEndAction) // @todo this is not so nice because FrontEndAction extends FrontEndForward, solution would be to override in FrontEndAction
+            if (this instanceof FrontEndAction) // TODO this is not so nice because FrontEndAction extends FrontEndForward, solution would be to override in FrontEndAction
             {
                 actions.add((FrontEndAction)this.THIS());
             }
@@ -307,7 +306,7 @@ public class FrontEndForwardLogicImpl
     protected List<ParameterFacade> handleGetForwardParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger != null ? new ArrayList<ParameterFacade>(trigger.getParameters()) : Collections.<ParameterFacade>emptyList();
+        return trigger == null ? Collections.EMPTY_LIST : new ArrayList<ParameterFacade>(trigger.getParameters());
     }
 
     /**

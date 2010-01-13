@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -29,14 +30,14 @@ public class ParameterFacadeLogicImpl
     extends ParameterFacadeLogic
 {
     /**
-     * @param metaObject
+     * @param metaObjectIn
      * @param context
      */
     public ParameterFacadeLogicImpl(
-        final Parameter metaObject,
+        final Parameter metaObjectIn,
         final String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
@@ -315,10 +316,15 @@ public class ParameterFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getType().getWrapperName();
                 }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
+                }
                 name += '<' + type + '>';
             }
         }
-        if (name == null)
+        if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
@@ -360,7 +366,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected int handleGetUpper()
     {
-        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue());
+        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue(), 1);
     }
 
     /**
@@ -371,7 +377,7 @@ public class ParameterFacadeLogicImpl
     private int getDefaultMultiplicity()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY);
-        return (value != null ? Integer.valueOf(String.valueOf(value)) : 1);
+        return (value != null ? Integer.valueOf(String.valueOf(value)).intValue() : 1);
     }
 
     /**
@@ -380,6 +386,9 @@ public class ParameterFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
+            (ClassifierFacade) this.getType(), "1");
+    //      Throws no property 'defaultMultiplicity' registered under metafacade 'org.andromda.metafacades.uml.ParameterFacade' for namespace
+    //    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 }

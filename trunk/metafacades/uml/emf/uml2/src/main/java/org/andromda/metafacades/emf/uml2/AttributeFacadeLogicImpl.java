@@ -117,8 +117,14 @@ public class AttributeFacadeLogicImpl
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
+        String name = null;
+        // Name or type may be null during the model validation process.
+        if (this.getType() != null)
+        {
+            name = this.getType().getName();
+        }
         return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
-        || this.getType().isArrayType();
+               || (null!=this.getType() && this.getType().isArrayType());
     }
 
     /**
@@ -250,6 +256,11 @@ public class AttributeFacadeLogicImpl
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getType().getWrapperName();
+                }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
                 }
                 name += '<' + type + '>';
             }
@@ -408,7 +419,7 @@ public class AttributeFacadeLogicImpl
     protected int handleGetUpper()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue());
+        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue(), 1);
     }
 
     /**
@@ -418,7 +429,8 @@ public class AttributeFacadeLogicImpl
     protected int handleGetLower()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
+            (ClassifierFacade) this.getType(), "1");
     }
 
     @Override

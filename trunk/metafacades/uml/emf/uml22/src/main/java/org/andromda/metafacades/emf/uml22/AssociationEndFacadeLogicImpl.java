@@ -173,7 +173,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value));
+        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
     }
 
     /**
@@ -236,8 +236,7 @@ public class AssociationEndFacadeLogicImpl
                 name = mappings.getTo(this.isOrdered() ? UMLProfile.LIST_TYPE_NAME : UMLProfile.COLLECTION_TYPE_NAME);
             }
 
-            // set this association end's type as a template parameter if
-            // required
+            // set this association end's type as a template parameter if required
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
@@ -334,7 +333,7 @@ public class AssociationEndFacadeLogicImpl
     protected int handleGetUpper()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue());
+        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue(), 1);
     }
 
     /**
@@ -345,7 +344,7 @@ public class AssociationEndFacadeLogicImpl
     protected int handleGetLower()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), this.getType(), "1");
     }
 
     /**

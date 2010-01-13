@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -17,7 +18,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -272,7 +272,7 @@ public class UmlUtilities
      * @param follow        whether or not the inheritance hierarchy should be followed
      * @return all retrieved attributes.
      */
-    public static List getAttributes(
+    public static List<Property> getAttributes(
         final Classifier classifier,
         final boolean follow)
     {
@@ -280,17 +280,16 @@ public class UmlUtilities
         {
             return new ArrayList<Property>();
         }
-        final Map attributeMap = new LinkedHashMap(); // preserve ordering
-        final List members = new ArrayList(classifier.getOwnedMembers());
+        final Map<String, Property> attributeMap = new LinkedHashMap<String, Property>(); // preserve ordering
+        final List<NamedElement> members = new ArrayList<NamedElement>(classifier.getOwnedMembers());
 
         if (follow)
         {
             members.addAll(classifier.getInheritedMembers());
         }
 
-        for (final Iterator memberIterator = members.iterator(); memberIterator.hasNext();)
+        for (NamedElement nextCandidate : members)
         {
-            final Object nextCandidate = memberIterator.next();
             if (nextCandidate instanceof Property)
             {
                 final Property property = (Property)nextCandidate;
@@ -316,10 +315,11 @@ public class UmlUtilities
             }
         }
 
-        final List attributeList = new ArrayList(attributeMap.values());
+        final List<Property> attributeList = new ArrayList<Property>(attributeMap.values());
         CollectionUtils.transform(
             attributeList,
             ELEMENT_TRANSFORMER);
+        //Collections.sort(attributeList, new PropertyComparator());
         return attributeList;
     }
 
@@ -343,18 +343,16 @@ public class UmlUtilities
             attachedToType = classifier.equals(property.getType());
             if (follow && !attachedToType)
             {
-                final List parents = classifier.getGenerals();
-                for (final Iterator iterator = parents.iterator(); iterator.hasNext();)
+                for (Object parent : classifier.getGenerals())
                 {
-                    final Object parent = iterator.next();
-                    if (parent instanceof Classifier)
-                    {
+                    //if (parent instanceof Classifier)
+                    //{
                         attachedToType =
                             isAssociationEndAttachedToType(
                                 (Classifier)parent,
                                 property,
                                 follow);
-                    }
+                    //}
                 }
             }
             if (logger.isDebugEnabled() && attachedToType)
@@ -377,11 +375,11 @@ public class UmlUtilities
      * @param follow     whether or not the inheritance hierarchy should be followed
      * @return all retrieved attributes.
      */
-    public static List getAssociationEnds(
+    public static List<Property> getAssociationEnds(
         final Classifier classifier,
         final boolean follow)
     {
-        final List associationEnds = new ArrayList();
+        final List<Property> associationEnds = new ArrayList<Property>();
         if (classifier==null)
         {
             return associationEnds;
@@ -393,7 +391,7 @@ public class UmlUtilities
             logger.error(classifier + " getModel was null: " + classifier.getOwner() + ' ' + classifier.getQualifiedName());
         }
         //logger.info(classifier + " " + classifier.getModel());
-        final List allProperties = getAllMetaObjectsInstanceOf(
+        final List<Property> allProperties = getAllMetaObjectsInstanceOf(
                 Property.class,
                 classifier.getModel());
         if (logger.isDebugEnabled())
@@ -401,10 +399,8 @@ public class UmlUtilities
             logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": getAllMetaObjectsInstanceOf=" + allProperties.size());
         }
 
-        for (final Iterator propertyIterator = allProperties.iterator(); propertyIterator.hasNext();)
+        for (Property property : allProperties)
         {
-            final Property property = (Property)propertyIterator.next();
-
             // only treat association ends, ignore attributes
             if (property.getAssociation() != null && isAssociationEndAttachedToType(
                     classifier,
@@ -462,16 +458,16 @@ public class UmlUtilities
                 first.getName(),
                 second.getName()))
         {
-            final List firstParameters = first.getOwnedParameters();
-            final List secondParameters = second.getOwnedParameters();
+            final List<Parameter> firstParameters = first.getOwnedParameters();
+            final List<Parameter> secondParameters = second.getOwnedParameters();
 
             // test number of parameters
             if (firstParameters.size() == secondParameters.size())
             {
                 for (int i = 0; i < firstParameters.size() && sameSignature; i++)
                 {
-                    final Parameter firstParameter = (Parameter)firstParameters.get(i);
-                    final Parameter secondParameter = (Parameter)secondParameters.get(i);
+                    final Parameter firstParameter = firstParameters.get(i);
+                    final Parameter secondParameter = secondParameters.get(i);
 
                     // test each parameter's type
                     sameSignature =
@@ -511,9 +507,13 @@ public class UmlUtilities
      * @param classifier the classifier from which to retrieve the specializations.
      * @return all specializations.
      */
-    public static List getSpecializations(final Classifier classifier)
+    public static List<Classifier> getSpecializations(final Classifier classifier)
     {
-        final List specials = new ArrayList();
+        final List<Classifier> specials = new ArrayList<Classifier>();
+        if (classifier==null)
+        {
+            return specials;
+        }
         for (final TreeIterator iterator = EcoreUtil.getRootContainer(classifier).eAllContents(); iterator.hasNext();)
         {
             final EObject object = (EObject)iterator.next();
@@ -538,17 +538,16 @@ public class UmlUtilities
      */
     public static List<String> getStereotypeNames(final Element element)
     {
-        final List<String> names = new ArrayList();
+        final List<String> names = new ArrayList<String>();
         if (element==null)
         {
             return names;
         }
-        final Collection stereotypes = element.getAppliedStereotypes();
+        final Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
         if (stereotypes != null)
         {
-            for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+            for (Stereotype stereotype : stereotypes)
             {
-                final Stereotype stereotype = (Stereotype)iterator.next();
                 names.add(stereotype.getName());
             }
         }
@@ -571,7 +570,7 @@ public class UmlUtilities
         {
             return false;
         }
-        Collection stereotypes = element.getAppliedStereotypes();
+        Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
             !stereotypes.isEmpty();
@@ -587,10 +586,9 @@ public class UmlUtilities
                     Stereotype stereotype = (Stereotype)object;
                     String name = StringUtils.trimToEmpty(stereotype.getName());
                     valid = stereotypeName.equalsIgnoreCase(name);
-                    for (Iterator itStereo = stereotype.allParents().iterator(); !valid && itStereo.hasNext();)
+                    for (Object itStereo : stereotype.allParents())
                     {
-                        Stereotype currentStereotype = (Stereotype)itStereo.next();
-                        valid = StringUtils.trimToEmpty(currentStereotype.getName()).equalsIgnoreCase(stereotypeName);
+                        valid = StringUtils.trimToEmpty(((Classifier) itStereo).getName()).equalsIgnoreCase(stereotypeName);
                     }
                     return valid;
                 }
@@ -630,9 +628,9 @@ public class UmlUtilities
      * @param element the element from which to retrieve the tagged values.
      * @return the collection of {@link TagDefinition} instances.
      */
-    public static Collection getTaggedValue(final Element element)
+    public static Collection<TagDefinition> getTaggedValue(final Element element)
     {
-        final Collection tags = new ArrayList();
+        final Collection<TagDefinition> tags = new ArrayList<TagDefinition>();
         if (element==null)
         {
             return tags;
@@ -651,10 +649,9 @@ public class UmlUtilities
         {
             logger.debug("Searching Tagged Values for " + elementName);
         }*/
-        final Collection stereotypes = element.getAppliedStereotypes();
-        for (Iterator stereoIt = stereotypes.iterator(); stereoIt.hasNext();)
+        final Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
+        for (Stereotype stereo : stereotypes)
         {
-            Stereotype stereo = (Stereotype)stereoIt.next();
             if (stereo.getName().equals(TAGGED_VALUES_STEREOTYPE))
             {
                 List tagNames = (List)element.getValue(
@@ -683,11 +680,8 @@ public class UmlUtilities
             }
             else
             {
-                for (Iterator tvIt = getAttributes(
-                            stereo,
-                            true).iterator(); tvIt.hasNext();)
+                for (Property tagProperty : getAttributes(stereo, true))
                 {
-                    Property tagProperty = (Property)tvIt.next();
                     String tagName = tagProperty.getName();
                     if (!tagName.startsWith("base$"))
                     {
@@ -721,9 +715,11 @@ public class UmlUtilities
                             }
                             else
                             {
-                                TagDefinition tagDefinition =
-                                    new TagDefinitionImpl(tagName,
-                                        getTagValueAsString(tagValue));
+                                String tagString = getTagValueAsString(tagValue);
+                                if (!StringUtils.isBlank(tagString) && !"default".equalsIgnoreCase(tagString))
+                                {
+                                    TagDefinition tagDefinition =
+                                        new TagDefinitionImpl(tagName, tagString);
                                 tags.add(tagDefinition);
                             }
                         }
@@ -737,6 +733,7 @@ public class UmlUtilities
             logger.debug("Found " + tags.size() + " tagged values for " + elementName);
         }
 
+        }
         return tags;
     }
 
@@ -785,12 +782,11 @@ public class UmlUtilities
         Stereotype foundStereotype = element.getAppliedStereotype(name);
         if (foundStereotype == null)
         {
-            final Set stereotypes = element.getAppliedStereotypes();
+            final Set<Stereotype> stereotypes = element.getAppliedStereotypes();
             if (stereotypes != null)
             {
-                for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+                for (Stereotype stereotype : stereotypes)
                 {
-                    final Stereotype stereotype = (Stereotype)iterator.next();
                     if (stereotype.getName().equals(name))
                     {
                         foundStereotype = stereotype;
@@ -821,12 +817,11 @@ public class UmlUtilities
         Stereotype foundStereotype = element.getApplicableStereotype(name);
         if (foundStereotype == null)
         {
-            final Set stereotypes = element.getApplicableStereotypes();
+            final Set<Stereotype> stereotypes = element.getApplicableStereotypes();
             if (stereotypes != null)
             {
-                for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+                for (Stereotype stereotype : stereotypes)
                 {
-                    final Stereotype stereotype = (Stereotype)iterator.next();
                     if (stereotype.getName().equals(name))
                     {
                         foundStereotype = stereotype;
@@ -876,10 +871,9 @@ public class UmlUtilities
 
             if (association != null)
             {
-                Collection ends = association.getMemberEnds();
-                for (final Iterator endIterator = ends.iterator(); endIterator.hasNext();)
+                Collection<Property> ends = association.getMemberEnds();
+                for (Property end : ends)
                 {
-                    final Object end = endIterator.next();
                     if (end != null && !associationEnd.equals(end))
                     {
                         opposite = end;
@@ -909,10 +903,9 @@ public class UmlUtilities
         {
             return modelElement;
         }
-        for (final Iterator iterator = resourceSet.getResources().iterator();
-            iterator.hasNext() && modelElement == null;)
+        for (Object obj : resourceSet.getResources())
         {
-            final Resource resource = (Resource)iterator.next();
+            final Resource resource = (Resource)obj;
             final Package model =
                 (Package)EcoreUtil.getObjectByType(
                     resource.getContents(),
@@ -928,6 +921,10 @@ public class UmlUtilities
                         modelElement = object;
                     }
                 }
+            }
+            if (modelElement != null)
+            {
+                break;
             }
         }
 
@@ -1190,12 +1187,51 @@ public class UmlUtilities
      * Multiplicity can be expressed as Value. String, integer... This method
      * parses it. MD11.5 uses string, and RSM integers.
      *
-     * @param multValue a ValueSpecification, which need to be parsed
+     * @param multValue a ValueSpecification, which needs to be parsed
+     * @param type ClassifierFacade type used to determine default lower multiplicity (primitive=1, wrapped=0)
+     * @param defaultMultiplicity from ClassifierFacadeLogic.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)
      * @return the parsed integer. Defaults to 1.
      */
-    static int parseMultiplicity(final ValueSpecification multValue)
+    static int parseLowerMultiplicity(final ValueSpecification multValue, final ClassifierFacade type, final String defaultMultiplicity)
     {
         int value = 1;
+        if (multValue == null)
+        {
+            if (type.isWrappedPrimitive())
+            {
+                value = 0;
+            }
+            else if (!type.isPrimitive())
+            {
+                if (defaultMultiplicity != null && defaultMultiplicity.startsWith("0"))
+                {
+                    value = Integer.valueOf(0);
+                }
+                else
+                {
+                    value = Integer.valueOf(1);
+                }
+            }
+            // Defaults to 1 if a Primitive
+        }
+        else
+        {
+            value = parseMultiplicity(multValue, Integer.valueOf(defaultMultiplicity));
+        }
+        return value;
+    }
+
+    /**
+     * Multiplicity can be expressed as Value. String, integer... This method
+     * parses it. MD11.5 uses string, and RSM integers.
+     *
+     * @param multValue a ValueSpecification, which needs to be parsed
+     * @param defaultValue when null: 1 for upper multiplicity, 0 for lower multiplicity.
+     * @return the parsed integer. Defaults to 1.
+     */
+    static int parseMultiplicity(final ValueSpecification multValue, int defaultValue)
+    {
+        int value = defaultValue;
         if (multValue != null)
         {
             if (multValue instanceof LiteralInteger)
@@ -1271,7 +1307,7 @@ public class UmlUtilities
                 String emfName = EMFNormalizer.getEMFName(requestedName);
                 result = emfName.equals(tagValueName);
             }
-        }
+        /*}
         if (!result && tagValueName.startsWith("@"))
         {
             // let's try rsm guess
@@ -1287,6 +1323,14 @@ public class UmlUtilities
                 String emfName = EMFNormalizer.getEMFName(tagValueName);
                 result = requestedName.equals(emfName);
             }
+        }*/
+            // RSM converts @andromda.value to _andromdavalue when upgrading MD 9.5 profile
+            if (!result)
+            {
+                rsmName =
+                    '_' + StringUtils.remove(requestedName.substring(1), '.');
+                result = rsmName.equals(tagValueName);
+            }
         }
         return result;
     }
@@ -1298,6 +1342,15 @@ public class UmlUtilities
         public static String getEMFName(String name)
         {
             return getValidIdentifier(name);
+        }
+    }
+
+    // Sort Attributes and AssociationEnds
+    private static class PropertyComparator implements Comparator<Property>
+    {
+        public int compare(Property property1, Property property2)
+        {
+            return property1.getName().compareTo(property2.getName());
         }
     }
 }

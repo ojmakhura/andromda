@@ -56,7 +56,8 @@ public abstract class $entity.entityName
 #set($primaryKeyName="$stringUtils.uncapitalize($entity.name)Pk")
     private $primaryKeyType $primaryKeyName;
 
-    public $primaryKeyType get${entity.name}Pk() {
+    public $primaryKeyType get${entity.name}Pk()
+    {
         return this.${primaryKeyName};
     }
 
@@ -263,19 +264,21 @@ $operation.getDocumentation("     * ")
         }
 
 ## Allow for the possibility that identifiers might be seen as required if default multiplicity is set to 1
-#set ($requiredSize = $entity.allRequiredConstructorParameters.size())
 #set ($allSize = $entity.allProperties.size())
 #if (!$entity.usingForeignIdentifier)
-## allRequiredProperties includes identifiers, which is never required. subtract 1 from allProperties.size()
+## allRequiredProperties includes identifiers, which should never be required. subtract 1 from allProperties.size()
 #foreach ($identifier in $entity.identifiers)
-#if ($identifier.required)
-#set ($requiredSize = $requiredSize - 1)
-#end
 #set ($allSize = $allSize - 1)
 #end
 #end
-## $entity.allRequiredConstructorParameters.size() < $entity.allProperties.size() gives the wrong answer
-#if ($requiredSize < $allSize && $requiredSize > 0)
+#set ($requiredParams=0)
+#foreach ($property in $entity.allRequiredConstructorParameters)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
+#set ($requiredParams=$requiredParams+1)
+#end
+#end
+## Don't duplicate newInstance if there are no optional parameters or no required parameters
+#if ($requiredParams < $allSize && $requiredParams > 0)
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all required and/or
          * read-only properties as arguments, except for identifiers.
@@ -316,6 +319,12 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all possible properties
          * (except the identifier(s))as arguments.
+#foreach ($property in $entity.allProperties)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
+         * @param ${property.name} ${property.getterSetterTypeName}
+#end
+#end
+         * @return newInstance $entity.fullyQualifiedName
          */
         public static $entity.fullyQualifiedName newInstance(## no newline
 #set ($comma = "")
