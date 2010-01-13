@@ -199,7 +199,8 @@ public class ManageableEntityLogicImpl
     {
         final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
         final String accessorImplementation =
-            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : "";
+            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) 
+                : "${application.package}.ManageableServiceLocator.instance().get{1}()";
         return accessorImplementation.replaceAll(
             "\\{0\\}",
             this.getManageablePackageName()).replaceAll(
@@ -329,7 +330,7 @@ public class ManageableEntityLogicImpl
                         {
                             buffer.append(", ");
                         }
-    
+
                         final ClassifierFacade type = identifier.getType();
                         if (type != null)
                         {

@@ -64,14 +64,14 @@ public class ModelElementFacadeLogicImpl
     static XMIHelperImpl xmiHelper = new XMIHelperImpl();
 
     /**
-     * @param metaObject
+     * @param metaObjectIn
      * @param context
      */
     public ModelElementFacadeLogicImpl(
-        final Element metaObject,
+        final Element metaObjectIn,
         final String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
@@ -261,7 +261,7 @@ public class ModelElementFacadeLogicImpl
      * @return isReservedWord
      * @see org.andromda.metafacades.uml.ModelElementFacade#isReservedWord()
      */
-    //@Override
+    @Override
     protected boolean handleIsReservedWord()
     {
         return UMLMetafacadeUtils.isReservedWord(this.getName());
@@ -549,10 +549,8 @@ public class ModelElementFacadeLogicImpl
 
             // loop over the tagged values
             final Collection<TaggedValueFacade> taggedValues = this.getTaggedValues();
-            for (final Iterator<TaggedValueFacade> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
+            for (final TaggedValueFacade taggedValue : taggedValues)
             {
-                final TaggedValueFacade taggedValue = taggedValueIterator.next();
-
                 // does this name match the argument tagged value name ?
                 if (UmlUtilities.doesTagValueNameMatch(name, taggedValue.getName()))
                 {
@@ -601,7 +599,7 @@ public class ModelElementFacadeLogicImpl
         final Collection<Comment> comments = this.metaObject.getOwnedComments();
         if (comments != null && !comments.isEmpty())
         {
-            for (Comment comment : comments)
+            for (final Comment comment : comments)
             {
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
@@ -645,7 +643,7 @@ public class ModelElementFacadeLogicImpl
      * @return true is documentation comment or Documentation stereotype is present
      * @see org.andromda.metafacades.uml.ModelElementFacade#isDocumentationPresent()
      */
-    //@Override
+    @Override
     protected boolean handleIsDocumentationPresent()
     {
         boolean rtn = false;
@@ -972,9 +970,8 @@ public class ModelElementFacadeLogicImpl
             final Collection<TemplateParameterFacade> parameters = this.getTemplateParameters();
             if (parameters != null && !parameters.isEmpty())
             {
-                for (final Iterator<TemplateParameterFacade> iterator = parameters.iterator(); iterator.hasNext();)
+                for (final TemplateParameterFacade currentTemplateParameter : parameters)
                 {
-                    final TemplateParameterFacade currentTemplateParameter = iterator.next();
                     if (currentTemplateParameter.getParameter() != null)
                     {
                         final ModelElementFacade parameter = currentTemplateParameter.getParameter();
@@ -1038,9 +1035,9 @@ public class ModelElementFacadeLogicImpl
     /**
      * @return element.getNamespace()
      */
-    // * @see org.andromda.metafacades.uml.ModelElementFacade#getNamespace()
+    // * @see org.andromda.metafacades.uml.ModelElementFacade#getModelNamespace()
     //@Override
-    protected ModelElementFacade handleGetNamespace()
+    protected ModelElementFacade handleGetModelNamespace()
     {
         final NamedElement element = (NamedElement)this.metaObject;
         //return (ModelElementFacade) element.getNamespace();

@@ -148,7 +148,8 @@ public class ManageableEntityLogicImpl
     {
         final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
         final String accessorImplementation =
-            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : "";
+            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) 
+                : "${application.package}.ManageableServiceLocator.instance().get{1}()";
         return accessorImplementation.replaceAll(
             "\\{0\\}",
             getManageablePackageName()).replaceAll(
@@ -249,7 +250,7 @@ public class ManageableEntityLogicImpl
                         {
                             buffer.append(", ");
                         }
-    
+
                         final ClassifierFacade type = identifier.getType();
                         if (type != null)
                         {
@@ -274,8 +275,8 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsManageable()
     {
-        return Boolean.valueOf((String) this.getConfiguredProperty(
-                UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES));
+        return Boolean.valueOf((String)this.getConfiguredProperty(
+            UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES)).booleanValue();
     }
 
     protected List handleGetReferencingManageables()
@@ -462,7 +463,7 @@ public class ManageableEntityLogicImpl
         {
             try
             {
-                resolveable = Boolean.valueOf(taggedValueObject.toString());
+                resolveable = Boolean.valueOf(taggedValueObject.toString()).booleanValue();
             }
             catch (NumberFormatException e)
             {
@@ -484,7 +485,8 @@ public class ManageableEntityLogicImpl
         try
         {
             resolveable =
-                    Boolean.valueOf((String) getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE));
+                Boolean.valueOf((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
+                       .booleanValue();
         }
         catch (NumberFormatException ex)
         {

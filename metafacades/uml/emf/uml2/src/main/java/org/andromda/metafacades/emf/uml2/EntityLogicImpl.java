@@ -37,6 +37,7 @@ import org.eclipse.uml2.Stereotype;
 import org.eclipse.uml2.Type;
 import org.eclipse.uml2.VisibilityKind;
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Entity.
  *
@@ -292,7 +293,7 @@ public class EntityLogicImpl
      *      boolean)
      */
     @Override
-    protected String handleGetOperationCallFromAttributes(
+   protected String handleGetOperationCallFromAttributes(
         final boolean withIdentifiers,
         final boolean follow)
     {
@@ -870,8 +871,8 @@ public class EntityLogicImpl
             final Object id = identifiers.iterator().next();
             AttributeFacade identifier = (AttributeFacade)id;
             assigned =
-                    Boolean.valueOf(
-                       ObjectUtils.toString(
+                Boolean.valueOf(
+                    ObjectUtils.toString(
                         identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
                        .booleanValue();
         }
@@ -898,9 +899,12 @@ public class EntityLogicImpl
     @Override
     protected Collection handleGetIdentifierAssociationEnds() {
         Collection associationEnds = new ArrayList(this.getAssociationEnds());
-        MetafacadeUtils.filterByStereotype(
+        if (associationEnds != null)
+        {
+            MetafacadeUtils.filterByStereotype(
                 associationEnds,
                 UMLProfile.STEREOTYPE_IDENTIFIER);
+        }
         return associationEnds;
     }
 
@@ -916,7 +920,7 @@ public class EntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.Entity#getAllEntityReferences()
+     * @see org.andromda.metafacades.uml.EntityLogic#getAllEntityReferences()
      */
     @Override
     protected Collection<DependencyFacade> handleGetAllEntityReferences()
@@ -943,7 +947,7 @@ public class EntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.Entity#getEmbeddedValues()
+     * @see org.andromda.metafacades.uml.EntityLogic#getEmbeddedValues()
      */
     @Override
     protected Collection<AttributeFacade> handleGetEmbeddedValues()

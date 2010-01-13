@@ -1,6 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
+
 import org.andromda.metafacades.uml.StateFacade;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Region;
@@ -55,12 +56,12 @@ public class ActivityGraphFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ActivityGraphFacade#getUseCase()
      */
     @Override
-    protected Object handleGetUseCase()
+    protected UseCase handleGetUseCase()
     {
         Element owner = (this.metaObject).getOwner();
         if (owner instanceof UseCase)
         {
-            return owner;
+            return (UseCase)owner;
         }
 
         return null;

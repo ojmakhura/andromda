@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -60,7 +61,6 @@ public class ParameterFacadeLogicImpl
             {
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
-            //if (!defaultValue.equals("")) System.out.println("Attribute.handleGetDefaultValue " + this.getName() + " typeName=" + typeName + " defaultValue=" + defaultValue + " upper=" + this.metaObject.getUpper());
         }
         if (defaultValue==null) defaultValue="";
         return defaultValue;
@@ -315,10 +315,15 @@ public class ParameterFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getType().getWrapperName();
                 }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
+                }
                 name += '<' + type + '>';
             }
         }
-        if (name == null)
+        if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
@@ -355,20 +360,33 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * Get the UML upper multiplicity Not available for UML1.4
+     * Get the UML upper multiplicity
      */
     @Override
     protected int handleGetUpper()
     {
-        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue());
+        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue(), 1);
     }
 
     /**
-     * Get the UML lower multiplicity Not available for UML1.4
+     * Retrieve the default value for lower multiplicity from configured property defaultMultiplicity.
+     *
+     * @return 1/0
+     */
+    private int getDefaultMultiplicity()
+    {
+        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY);
+        return (value != null ? Integer.valueOf(String.valueOf(value)).intValue() : 1);
+    }
+
+    /**
+     * Get the UML lower multiplicity
      */
     @Override
     protected int handleGetLower()
     {
-        return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
+            (ClassifierFacade) this.getType(), "1");
+
     }
 }

@@ -115,9 +115,9 @@ public class ConstraintFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ConstraintFacade#getContextElement()
      */
     @Override
-    protected Object handleGetContextElement()
+    protected Element handleGetContextElement()
     {
-        Object element = null;
+        Element element = null;
         final List<Element> elements = this.metaObject.getConstrainedElements();
         if (elements != null && !elements.isEmpty())
         {

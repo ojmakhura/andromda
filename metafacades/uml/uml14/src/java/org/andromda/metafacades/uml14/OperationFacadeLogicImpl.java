@@ -238,7 +238,7 @@ public class OperationFacadeLogicImpl
      * @return method body
      * @see org.andromda.metafacades.uml.OperationFacade#getMethodBody()
      */
-    //@Override
+    @Override
     protected String handleGetMethodBody()
     {
         return null;
@@ -665,7 +665,7 @@ public class OperationFacadeLogicImpl
     {
         return this.getConstraints(ExpressionKinds.POST);
     }
-    
+
     /**
      * @see  org.andromda.metafacades.uml.OperationFacade#findParameter(String)
      */
@@ -725,7 +725,7 @@ public class OperationFacadeLogicImpl
         {
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
-                facade = (ParameterFacade) shieldedElement(parameter);
+                facade = (ParameterFacade)shieldedElement(parameter);
                 break;
             }
         }

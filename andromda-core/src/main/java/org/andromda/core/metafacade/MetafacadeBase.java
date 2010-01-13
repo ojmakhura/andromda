@@ -166,7 +166,7 @@ public class MetafacadeBase implements Comparable
      * @return Collection of MetafacadeBase-derived objects
      * @see MetafacadeFactory
      */
-    protected Collection shieldedElements(final Collection metaobjects)
+    protected List shieldedElements(final Collection metaobjects)
     {
         final List metafacades = new ArrayList();
         if (metaobjects != null)
@@ -414,7 +414,7 @@ public class MetafacadeBase implements Comparable
         }
         return this.metafacadePropertyCachingEnabled;
     }
-    
+
     /**
      * The instance of this class as the appropriate metafacade instance.
      */

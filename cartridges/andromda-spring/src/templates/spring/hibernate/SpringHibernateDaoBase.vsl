@@ -437,6 +437,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         final int transform,
 #foreach($property in $requiredProperties)
         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
+
 #end
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();

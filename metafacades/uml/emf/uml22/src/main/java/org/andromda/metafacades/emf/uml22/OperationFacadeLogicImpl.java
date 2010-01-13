@@ -58,11 +58,11 @@ public class OperationFacadeLogicImpl
 
     /**
      * Not yet implemented, always returns null. To implement: walk through the
-     * related elements from the Sequence Diagram in the UML model to produce compilable code.
-     * @return methodBody
+     * related elements from the Sequence Diagram or OCL Body in the UML model to produce compilable code.
+     * @return null
      * @see org.andromda.metafacades.uml.OperationFacade#getMethodBody()
      */
-    //@Override
+    @Override
     protected String handleGetMethodBody()
     {
         return null;
@@ -594,7 +594,6 @@ public class OperationFacadeLogicImpl
     protected String handleGetGetterSetterReturnTypeName()
     {
         String name = null;
-        final ClassifierFacade returnType = this.getReturnType();
         if (this.handleIsMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
@@ -606,28 +605,33 @@ public class OperationFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                String type = returnType.getFullyQualifiedName();
-                if (returnType.isPrimitive())
+                String type = this.getReturnType().getFullyQualifiedName();
+                if (this.getReturnType().isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = returnType.getWrapperName();
+                    type = this.getReturnType().getWrapperName();
+                }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
                 }
                 name += '<' + type + '>';
             }
         }
-        if (name == null && returnType != null)
+        if (name == null && this.getReturnType() != null)
         {
-            name = returnType.getFullyQualifiedName();
+            name = this.getReturnType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (returnType.isBooleanType())
+            if (this.getReturnType().isBooleanType())
             {
-                if (returnType.isPrimitive() && (this.getLower() < 1))
+                if (this.getReturnType().isPrimitive() && (this.getLower() < 1))
                 {
                     // Type is optional, should not be primitive
                     name = StringUtils.capitalize(name);
                 }
-                else if (!returnType.isPrimitive() && this.getLower() > 0)
+                else if (!this.getReturnType().isPrimitive() && this.getLower() > 0)
                 {
                     // Type is required, should not be wrapped
                     name = StringUtils.uncapitalize(name);
@@ -658,7 +662,7 @@ public class OperationFacadeLogicImpl
         final ParameterFacade returnParameter = this.getReturnParameter();
         boolean returnMany = returnParameter.getUpper() > 1 ||
             returnParameter.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-            || returnParameter.getType().getName().endsWith("[]");
+            || returnParameter.getType().isArrayType();
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
     }
 
@@ -686,7 +690,7 @@ public class OperationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.OperationFacade#getPreconditions()
      */
     @Override
-    protected Collection<org.andromda.metafacades.uml.ConstraintFacade> handleGetPreconditions()
+    protected Collection<ConstraintFacade> handleGetPreconditions()
     {
         return this.getConstraints(ExpressionKinds.PRE);
     }
@@ -695,7 +699,7 @@ public class OperationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.OperationFacade#getPostconditions()
      */
     @Override
-    protected Collection<org.andromda.metafacades.uml.ConstraintFacade> handleGetPostconditions()
+    protected Collection<ConstraintFacade> handleGetPostconditions()
     {
         return this.getConstraints(ExpressionKinds.POST);
     }
@@ -710,7 +714,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#findParameter(String)
+     * @see org.andromda.metafacades.uml.OperationFacade#findParameter(String)
      */
     @Override
     protected ParameterFacade handleFindParameter(final String name)
@@ -752,7 +756,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#handleIsOverriding()
+     * @see org.andromda.metafacades.uml.OperationFacade#isOverriding()
      */
     @Override
     protected boolean handleIsOverriding()
@@ -761,7 +765,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#handleGetOverriddenOperation()
+     * @see org.andromda.metafacades.uml.OperationFacade#getOverriddenOperation()
      */
     @Override
     protected OperationFacade handleGetOverriddenOperation()

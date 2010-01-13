@@ -11,8 +11,9 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.AggregationKind;
+import org.eclipse.uml2.Association;
 import org.eclipse.uml2.MultiplicityElement;
-
+import org.eclipse.uml2.Type;
 
 /**
  * MetafacadeLogic implementation for
@@ -172,7 +173,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value));
+        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
     }
 
     /**
@@ -239,7 +240,7 @@ public class AssociationEndFacadeLogicImpl
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += "<" + this.getType().getFullyQualifiedName() + ">";
+                name += '<' + this.getType().getFullyQualifiedName() + '>';
             }
         }
         if (name == null && this.getType() != null)
@@ -283,7 +284,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getOtherEnd()
      */
     @Override
-    protected Object handleGetOtherEnd()
+    protected AssociationEnd handleGetOtherEnd()
     {
         return UmlUtilities.getOppositeAssociationEnd(this.metaObject);
     }
@@ -292,7 +293,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getAssociation()
      */
     @Override
-    protected Object handleGetAssociation()
+    protected Association handleGetAssociation()
     {
         return this.metaObject.getAssociation();
     }
@@ -310,7 +311,7 @@ public class AssociationEndFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getType()
      */
     @Override
-    protected Object handleGetType()
+    protected Type handleGetType()
     {
         // In uml1.4 facade, it returns getParticipant
         return this.metaObject.getType();
@@ -332,7 +333,7 @@ public class AssociationEndFacadeLogicImpl
     protected int handleGetUpper()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue());
+        return UmlUtilities.parseMultiplicity(this.metaObject.getUpperValue(), 1);
     }
 
     /**
@@ -343,7 +344,7 @@ public class AssociationEndFacadeLogicImpl
     protected int handleGetLower()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), this.getType(), "1");
     }
 
     /**

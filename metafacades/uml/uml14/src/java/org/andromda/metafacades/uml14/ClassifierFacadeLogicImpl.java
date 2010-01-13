@@ -1,7 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -193,15 +191,15 @@ public class ClassifierFacadeLogicImpl
         return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
     }
 
-    /**
+    /*
      * Gets the array suffix from the configured metafacade properties.
      *
      * @return the array suffix.
-     */
     private String getArraySuffix()
     {
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
+     */
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
@@ -296,6 +294,26 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * <p>
+     * Indicates if this type represents a char, Character, or java.lang.Character type or not.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isCharacterType()
+     */
+    @Override
+    protected boolean handleIsCharacterType()
+    {
+        String characterType = UMLProfile.CHARACTER_TYPE_NAME;
+        // Check both char and Character by taking the part after datatype::
+        String charType = characterType.substring(characterType.indexOf(':')+1).substring(0, 4).toLowerCase();
+        return UMLMetafacadeUtils.isType(
+            this,
+            charType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                characterType);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
      */
     @Override
@@ -341,9 +359,15 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsIntegerType()
     {
+        String integerType = UMLProfile.INTEGER_TYPE_NAME;
+        // Check both int and Integer by taking the part after datatype::
+        String intType = integerType.substring(integerType.indexOf(':')+1).substring(0, 3).toLowerCase();
         return UMLMetafacadeUtils.isType(
             this,
-            UMLProfile.INTEGER_TYPE_NAME);
+            intType) ||
+            UMLMetafacadeUtils.isType(
+                this,
+                integerType);
     }
 
     /**

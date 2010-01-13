@@ -118,7 +118,7 @@ public class PackageFacadeLogicImpl
             UmlUtilities.ELEMENT_TRANSFORMER);
     }
 
-    //@Override
+    @Override
     protected String handleGetTablePrefix()
     {
         // TODO Auto-generated method stub

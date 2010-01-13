@@ -91,7 +91,7 @@ public class PackageFacadeLogicImpl
         return metaObject.getOwnedElement();
     }
 
-    //@Override
+    @Override
     protected String handleGetTablePrefix()
     {
         // TODO Auto-generated method stub
