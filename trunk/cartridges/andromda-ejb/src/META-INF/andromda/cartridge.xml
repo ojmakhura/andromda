@@ -8,7 +8,7 @@
     <templateObject name="javaConverter" className="org.andromda.utils.JavaTypeConverter"/>
     <!-- cartridge-templateObject merge-point-->
 
-    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
     <property reference="toDoTag"/>
     <!-- cartridge-property merge-point-->

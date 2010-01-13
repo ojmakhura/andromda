@@ -16,7 +16,7 @@
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
     
-    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
     <property reference="securityRealm"/>
     <property reference="customTypesPackage"/>
