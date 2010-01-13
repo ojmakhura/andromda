@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--
+******************************************************************************
+* Log4j Configuration
+*
+* Logging levels (higest to lowest):
+*   off, fatal, error, warn, info, debug, all
+* A logging request is enabled if its level is
+* higher than or equal to the level of its logger.
+******************************************************************************
+-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <!-- ******************************************************************* -->
+  <!-- ConsoleAppender                                                     -->
+  <!-- ******************************************************************* -->
+  <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <param name="Threshold" value="info"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Conversion pattern: Message\n -->
+      <param name="ConversionPattern" value="%m%n"/>
+    </layout>
+  </appender>
+
+  <!-- ******************************************************************* -->
+  <!-- FileAppender                                                        -->
+  <!-- ******************************************************************* -->
+  <appender name="FileAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="beautifier.log"/>
+    <param name="Append" value="false"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Conversion pattern: Time Priority - Message\n -->
+      <param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p - %m%n"/>
+
+      <!-- Alternate Conversion pattern: Time Priority - Class[Line] - Message\n -->
+      <!--
+      <param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p %50C[%4L] - %m%n"/>
+      -->
+    </layout>
+  </appender>
+
+  <!-- ******************************************************************* -->
+  <!-- Low Level Loggers                                                   -->
+  <!-- ******************************************************************* -->
+  <!-- Log beautifier messages -->
+  <logger name="org.hybridlabs">
+    <level value="debug"/>
+  </logger>
+  <logger name="de.hunsicker">
+    <level value="debug"/>
+  </logger>
+
+  <!-- ******************************************************************* -->
+  <!-- Root Logger                                                         -->
+  <!-- ******************************************************************* -->
+  <!-- Allow warning and higher messages from everyone to go to console and file -->
+  <root>
+    <level value="warn"/>
+    <appender-ref ref="ConsoleAppender"/>
+    <appender-ref ref="FileAppender"/>
+  </root>
+
+</log4j:configuration>
