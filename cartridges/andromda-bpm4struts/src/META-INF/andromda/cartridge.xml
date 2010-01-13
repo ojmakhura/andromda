@@ -17,7 +17,7 @@
     <templateObject name="numberUtils" className="org.apache.commons.lang.math.NumberUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
-    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
     <property reference="xhtml"/>
     <property reference="securityRealm"/>
