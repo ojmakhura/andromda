@@ -23,6 +23,8 @@
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+
     <property reference="xmlEncoding"/>
     <property reference="facesConfig"/>
     <property reference="jspIncludes"/>
