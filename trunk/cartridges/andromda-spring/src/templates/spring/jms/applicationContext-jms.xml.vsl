@@ -166,6 +166,7 @@
             <value>$operation.sessionAcknowledgeMode</value>
         </property>
 #end
+        <!-- ${operation.messageListenerBeanName}ListenerContainer merge-point -->
     </bean>
 
 #if ($operation.arguments.empty)
