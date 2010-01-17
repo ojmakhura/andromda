@@ -242,6 +242,31 @@
         </dependency>
 #end
 #end
+#if ($embeddedJetty)
+#if ($mysql)
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+#elseif ($postgres)
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+#elseif ($derby)
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
+#elseif ($hypersonic)
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+        </dependency>
+#else
+        <!-- add the database jdbc dependency -->    
+#end
+#end
     </dependencies>
     <build>
 #if ($war)
@@ -329,6 +354,18 @@
                 <groupId>org.apache.maven.plugins</groupId> 
                 <artifactId>maven-source-plugin</artifactId> 
             </plugin>
+#if ($embeddedJetty)
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>${project.basedir}/target/src</webAppSourceDirectory>
+                    <webAppConfig>
+                        <contextPath>/${application.id}-${project.version}</contextPath>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+#end
         </plugins>
     </build>
 </project>

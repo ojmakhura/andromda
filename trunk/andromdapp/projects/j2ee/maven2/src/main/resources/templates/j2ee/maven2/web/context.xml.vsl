@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context debug="99" reloadable="true" antiJARLocking="true" antiResourceLocking="false">
 
+#if ($embeddedJetty)
+    <!-- uncomment to use the context configured datasource 
+#end
     <Resource name="${dataSource.name}" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               driverClassName="${jdbc.driver}"
@@ -8,4 +11,7 @@
               url="${jdbc.url}"
               defaultAutoCommit="false" removeAbandoned="true"
               removeAbandonedTimeout="60" logAbandoned="true"/>
+#if ($embeddedJetty)
+    --> 
+#end
 </Context>
