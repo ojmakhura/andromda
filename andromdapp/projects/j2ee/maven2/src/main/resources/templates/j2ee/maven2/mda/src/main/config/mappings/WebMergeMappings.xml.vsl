@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     This is used to map merge patterns in files generated
-    by Bpm4Struts to new patterns. Just add content to the
+    by#if($jsf) jsf cartridge#else Bpm4Struts cartridge#end to new patterns. Just add content to the
     CDATA sections of the <to/> elements in order to
     use the following merge points.
 -->

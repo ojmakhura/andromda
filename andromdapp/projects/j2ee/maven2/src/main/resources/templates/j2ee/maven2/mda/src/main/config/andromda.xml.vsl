@@ -260,7 +260,13 @@
 #if ($groovy)
                 <property name="implementationLanguage">groovy</property>
 #end
+#if ($embeddedJetty)
+               <!-- uncomment to use the context configured datasource 
+#end
                 <property name="dataSource">${dataSource}</property>
+#if ($embeddedJetty)
+                --> 
+#end
                 <property name="username">${jdbc.username}</property>
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
@@ -280,6 +286,7 @@
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
 #end
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
 #if ($war)
                 <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
 #end

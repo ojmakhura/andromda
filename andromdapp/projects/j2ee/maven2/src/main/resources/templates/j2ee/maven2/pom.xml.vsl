@@ -859,6 +859,35 @@
                 <scope>test</scope>
             </dependency>
 #end
+#if ($embeddedJetty)
+#if ($mysql)
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.6</version>
+            </dependency>
+#elseif ($postgres)
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>8.4-701.jdbc4</version>
+            </dependency>
+#elseif ($derby)
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>10.5.3.0</version>
+            </dependency>
+#elseif ($hypersonic)
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>1.8.0.7</version>
+            </dependency>
+#else
+            <!-- add the database jdbc dependency -->    
+#end
+#end
         </dependencies>
     </dependencyManagement>
     <build>
@@ -922,7 +951,7 @@
                     </configuration>
                 </plugin>
 #end
-                <!-- Comment to run Eclipse plugin for top leval project only, as part of mda install. See mda/eclipse.bat -->
+                <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
                     <version>2.7</version>
@@ -946,6 +975,13 @@
                         </execution>
                     </executions>
                 </plugin>
+#if ($embeddedJetty)
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>maven-jetty-plugin</artifactId>
+                    <version>6.1.22</version>
+                </plugin>
+#end
             </plugins>
         </pluginManagement>
         <plugins>
@@ -1184,11 +1220,17 @@
     <application.package>$applicationPackage</application.package>
     <application.name>$applicationName</application.name>
     <application.version>$applicationVersion</application.version>
-    <dataSource.name>jdbc/${application.id}</dataSource.name>
+#if ($embeddedJetty)
+        <!-- uncomment to use the context configured datasource 
+#end
+        <dataSource.name>jdbc/${application.id}</dataSource.name>
 #if ($ear)
         <dataSource>java:/${dataSource.name}</dataSource>
 #else
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
+#end
+#if ($embeddedJetty)
+        --> 
 #end
 #if ($spring && $springVersion.equals("2"))
         <spring.version>2.0.8</spring.version>
@@ -1344,7 +1386,11 @@
 #elseif ($derby)
                     jdbc:derby:$applicationId
 #else
+#if ($embeddedJetty)
+                    jdbc:hsqldb:file:database/${applicationId};shutdown=true
+#else
                     jdbc:hsqldb:hsql://127.0.0.1:1701
+#end
 #end
                 </jdbc.url>
                 <!-- Enter id/password for the database connection -->

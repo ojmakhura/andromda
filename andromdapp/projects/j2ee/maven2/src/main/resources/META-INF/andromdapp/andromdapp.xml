@@ -50,6 +50,10 @@
             <condition id="web" equal="true"/>
             <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
         </conditions>
+        <conditions>
+            <condition id="spring" equal="true"/>
+            <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
+        </conditions>
         <conditions type="and">
             <condition id="war" equal="true"/>
             <condition id="webservice" equal="true"/>
@@ -376,6 +380,17 @@ rsm6 or rsm7 for .emx files)</text>
                         <setProperty id="ajaxLibrary">trinidad</setProperty>
                     </condition>
                 </conditions>
+            </prompt>
+            <prompt id="embeddedJetty" setResponseAsTrue="true">
+                <text>Would you like to use the embedded Jetty web server (Maven plugin)?</text>
+                <shortText>Use the Jetty web server</shortText>
+                <preconditions>
+                    <condition id="jsfApplicationType" equal="standalone"/>
+                </preconditions>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
             </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
                 <text>Would you like to use the JBoss Seam application framework?</text>
