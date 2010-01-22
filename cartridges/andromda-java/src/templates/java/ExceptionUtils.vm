@@ -139,21 +139,19 @@ $operation.getDocumentation("     * ")
      * @param $parameter.name default=$parameter.defaultValue required=$parameter.required
 #end
 #end
-#if ($returnType.fullyQualifiedName != "void")
-     * @return $returnType.fullyQualifiedName
+#if ($operation.returnTypePresent)
+     * @return $operation.getterSetterReturnTypeName
 #end
 #if ($operation.exceptionsPresent)
      * @throws $operation.exceptionList
 #end
      */
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $operation.signature
         throws $operation.exceptionList
-#else
-    $operation.visibility $returnType.fullyQualifiedName $operation.signature
 #end
     {
-        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
 #if (!$operation.type.primitive)

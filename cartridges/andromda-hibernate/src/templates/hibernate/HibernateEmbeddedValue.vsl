@@ -91,16 +91,14 @@ $attribute.getDocumentation("     * ")
 
 #end
 #foreach ($operation in $embeddedValue.operations)
-#set ($returnType = $operation.returnType)
-#set ($signature = $operation.signature)
     /**
 $operation.getDocumentation("     * ")
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature;
+    $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end
