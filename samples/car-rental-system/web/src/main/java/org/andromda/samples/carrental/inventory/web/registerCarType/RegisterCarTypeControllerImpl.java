@@ -2,7 +2,6 @@
 package org.andromda.samples.carrental.inventory.web.registerCarType;
 
 import org.apache.struts.action.ActionMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterCarTypeControllerImpl extends RegisterCarTypeController
 {
     /**
-     * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController#createCarType(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.inventory.web.registerCarType.CreateCarTypeForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController#createCarType(org.apache.struts.action.ActionMapping, CreateCarTypeForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void createCarType(ActionMapping mapping, org.andromda.samples.carrental.inventory.web.registerCarType.CreateCarTypeForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void createCarType(ActionMapping mapping, CreateCarTypeForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // this property receives a default value, just to have the application running on dummy data
         form.setManufacter("manufacter-test");
@@ -29,9 +28,9 @@ public class RegisterCarTypeControllerImpl extends RegisterCarTypeController
     }
 
     /**
-     * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController#searchAllCarTypes(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.inventory.web.registerCarType.SearchAllCarTypesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController#searchAllCarTypes(org.apache.struts.action.ActionMapping, SearchAllCarTypesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void searchAllCarTypes(ActionMapping mapping, org.andromda.samples.carrental.inventory.web.registerCarType.SearchAllCarTypesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void searchAllCarTypes(ActionMapping mapping, SearchAllCarTypesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // this property receives a default value, just to have the application running on dummy data
         form.setComfortClass("comfortClass-test");
