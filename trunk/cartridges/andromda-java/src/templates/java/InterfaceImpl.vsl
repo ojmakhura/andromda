@@ -89,16 +89,15 @@ $associationEnd.getDocumentation("     * ")
 
 #end
 #foreach ($operation in $interface.operations)
-#set ($returnType = $operation.returnType)
 #if ($operation.visibility == "public")
     /**
      * @see ${interface.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #if ($operation.exceptionsPresent)
-    public abstract $returnType.fullyQualifiedName $operation.signature
+    public abstract $operation.getterSetterReturnTypeName $operation.signature
         throws $operation.exceptionList;
 #else
-    public abstract $returnType.fullyQualifiedName $operation.signature;
+    public abstract $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
 #end

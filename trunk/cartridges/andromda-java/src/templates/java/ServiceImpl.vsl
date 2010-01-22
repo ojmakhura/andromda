@@ -33,22 +33,19 @@ public class ${service.name}Impl
     /**
      * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
+    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType.fullyQualifiedName $operation.signature
         throws $operation.exceptionList
-#else
-    $operation.visibility $returnType.fullyQualifiedName $operation.signature
 #end
     {
-        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
 #if ($operation.returnTypePresent)
-#set ($returnTypeName = $operation.getterSetterReturnTypeName)
 #if (!$operation.returnType.primitive)
         return null;
-#elseif ("boolean" == $returnTypeName)
+#elseif ("boolean" == $operation.getterSetterReturnTypeName)
         return false;
 #else
-        return ($returnTypeName)0;
+        return ($operation.getterSetterReturnTypeName)0;
 #end
 #else
         throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
