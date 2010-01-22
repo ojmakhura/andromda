@@ -1,10 +1,13 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.customers.web.registerCustomer;
 
-import org.apache.struts.action.ActionMapping;
-
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController
@@ -12,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterCustomerControllerImpl extends RegisterCustomerController
 {
     /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#createCustomer(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.customers.web.registerCustomer.CreateCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#createCustomer(org.apache.struts.action.ActionMapping, CreateCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final java.lang.String createCustomer(ActionMapping mapping, org.andromda.samples.carrental.customers.web.registerCustomer.CreateCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final String createCustomer(ActionMapping mapping, CreateCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // this property receives a default value, just to have the application running on dummy data
         form.setPassword("password-test");
@@ -26,9 +29,9 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#searchAllCustomers(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.customers.web.registerCustomer.SearchAllCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#searchAllCustomers(org.apache.struts.action.ActionMapping, SearchAllCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final java.util.Collection searchAllCustomers(ActionMapping mapping, org.andromda.samples.carrental.customers.web.registerCustomer.SearchAllCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final Collection searchAllCustomers(ActionMapping mapping, SearchAllCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // populating the table with a dummy list
         form.setCustomers(customersDummyList);
@@ -36,27 +39,27 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingCustomers(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingCustomers(org.apache.struts.action.ActionMapping, LoadExistingCustomersForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void loadExistingCustomers(ActionMapping mapping, org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void loadExistingCustomers(ActionMapping mapping, LoadExistingCustomersForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // this property receives a default value, just to have the application running on dummy data
         form.setCustomerNo("customerNo-test");
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingDrivers(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingDriversForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#loadExistingDrivers(org.apache.struts.action.ActionMapping, LoadExistingDriversForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void loadExistingDrivers(ActionMapping mapping, org.andromda.samples.carrental.customers.web.registerCustomer.LoadExistingDriversForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void loadExistingDrivers(ActionMapping mapping, LoadExistingDriversForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // populating the table with a dummy list
         form.setDrivers(driversDummyList);
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#saveDriver(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.customers.web.registerCustomer.SaveDriverForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#saveDriver(org.apache.struts.action.ActionMapping, SaveDriverForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void saveDriver(ActionMapping mapping, org.andromda.samples.carrental.customers.web.registerCustomer.SaveDriverForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void saveDriver(ActionMapping mapping, SaveDriverForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // this property receives a default value, just to have the application running on dummy data
         form.setLicenseIssuedBy("licenseIssuedBy-test");
@@ -67,26 +70,26 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         // this property receives a default value, just to have the application running on dummy data
         form.setName("name-test");
         // setting a date
-        form.setBirthDateAsDate(new java.util.Date());
+        form.setBirthDateAsDate(new Date());
     }
 
     /**
      * This dummy variable is used to populate the "customers" table.
      * You may delete it when you add you own code in this controller.
      */
-    private static final java.util.Collection customersDummyList =
-        java.util.Arrays.asList(new CustomersDummy("customerNo-1", "name-1"),
-                new CustomersDummy("customerNo-2", "name-2"),
-                new CustomersDummy("customerNo-3", "name-3"),
-                new CustomersDummy("customerNo-4", "name-4"),
-                new CustomersDummy("customerNo-5", "name-5"));
+    private static final Collection customersDummyList =
+        Arrays.asList(new CustomersDummy("customerNo-1", "name-1"),
+            new CustomersDummy("customerNo-2", "name-2"),
+            new CustomersDummy("customerNo-3", "name-3"),
+            new CustomersDummy("customerNo-4", "name-4"),
+            new CustomersDummy("customerNo-5", "name-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application
      * running without any manual programming.
      * You may delete this class when you add you own code in this controller.
      */
-    public static final class CustomersDummy implements java.io.Serializable
+    public static final class CustomersDummy implements Serializable
     {
         private String customerNo = null;
         private String name = null;
@@ -122,19 +125,19 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      * This dummy variable is used to populate the "drivers" table.
      * You may delete it when you add you own code in this controller.
      */
-    private static final java.util.Collection driversDummyList =
-        java.util.Arrays.asList(new DriversDummy("name-1", "surname-1", "licenseNo-1"),
-                new DriversDummy("name-2", "surname-2", "licenseNo-2"),
-                new DriversDummy("name-3", "surname-3", "licenseNo-3"),
-                new DriversDummy("name-4", "surname-4", "licenseNo-4"),
-                new DriversDummy("name-5", "surname-5", "licenseNo-5"));
+    private static final Collection driversDummyList =
+        Arrays.asList(new DriversDummy("name-1", "surname-1", "licenseNo-1"),
+            new DriversDummy("name-2", "surname-2", "licenseNo-2"),
+            new DriversDummy("name-3", "surname-3", "licenseNo-3"),
+            new DriversDummy("name-4", "surname-4", "licenseNo-4"),
+            new DriversDummy("name-5", "surname-5", "licenseNo-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application
      * running without any manual programming.
      * You may delete this class when you add you own code in this controller.
      */
-    public static final class DriversDummy implements java.io.Serializable
+    public static final class DriversDummy implements Serializable
     {
         private String name = null;
         private String surname = null;

@@ -2,7 +2,6 @@ package org.andromda.samples.carrental.welcome;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionMapping;
 
 /**
@@ -13,13 +12,13 @@ public class WelcomeControllerImpl
 {
     /**
      * @see org.andromda.samples.carrental.welcome.WelcomeController#getWelcomeMessage(org.apache.struts.action.ActionMapping,
-     *      org.andromda.samples.carrental.welcome.GetWelcomeMessageForm,
+     *      GetWelcomeMessageForm,
      *      javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)
      */
-    public final java.lang.String getWelcomeMessage(
+    public final String getWelcomeMessage(
         ActionMapping mapping,
-        org.andromda.samples.carrental.welcome.GetWelcomeMessageForm form,
+        GetWelcomeMessageForm form,
         HttpServletRequest request,
         HttpServletResponse response) throws Exception
     {
