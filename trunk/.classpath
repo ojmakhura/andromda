@@ -37,6 +37,7 @@
     <classpathentry kind="src" path="cartridges/testsuite/src/java"/>
     <classpathentry kind="src" path="maven/andromda/src/main/java"/>
     <classpathentry kind="src" path="maven/andromdapp/src/main/java"/>
+    <classpathentry kind="src" path="maven/beautifier/src/main/java"/>
     <classpathentry kind="src" path="maven/bootstrap/src/main/java"/>
     <classpathentry kind="src" path="maven/bootstrap-install/src/main/java"/>
     <classpathentry kind="src" path="maven/cartridge/src/main/java"/>
@@ -76,7 +77,7 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar" sourcepath="/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar" sourcepath="/M2_REPO/ant/ant/1.6.5/ant-1.6.5-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/bsh/bsh/2.0b4/bsh-2.0b4.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/bsh/bsh/2.0b1/bsh-2.0b1.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0.jar" sourcepath="/M2_REPO/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" sourcepath="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar"/>
@@ -90,20 +91,21 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-lang/commons-lang/2.4/commons-lang-2.4.jar" sourcepath="/M2_REPO/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1.jar" sourcepath="M2_REPO/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/de/plushnikov/doctor-jim/1.0-SNAPSHOT/doctor-jim-1.0-SNAPSHOT.jar" sourcepath="M2_REPO/de/plushnikov/doctor-jim/1.0-SNAPSHOT/doctor-jim-1.0-SNAPSHOT-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/freemarker/freemarker/2.3.1/freemarker-2.3.1.jar" sourcepath="/M2_REPO/freemarker/freemarker/2.3.1/freemarker-2.3.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/groovy/groovy-all-1.0-jsr/06/groovy-all-1.0-jsr-06.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/jalopy/jalopy/1.5-RC3P1/jalopy-1.5-RC3P1.jar" sourcepath="M2_REPO/jalopy/jalopy/1.5-RC3P1/jalopy-1.5-RC3P1-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jalopy/jalopy/1.5-RC3P1/jalopy-1.5-RC3P1.jar" sourcepath="M2_REPO/jalopy/jalopy/1.5-RC3P1/jalopy-1.5-RC3P1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" sourcepath="/M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/jboss/javassist/2.6/javassist-2.6.jar" sourcepath="/M2_REPO/jboss/javassist/2.6/javassist-2.6-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/jmi/jmi/20030918/jmi-20030918.jar" sourcepath="/M2_REPO/jmi/jmi/20030918/jmi-20030918-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di.jar" sourcepath="/M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di-sources.jar">
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jmi/jmi/20030918/jmi-20030918.jar" sourcepath="/M2_REPO/jmi/jmi/20030918/jmi-20030918-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jmi/jmiuml/1.4di/jmiuml-1.4di.jar" sourcepath="/M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di-sources.jar">
         <attributes>
             <attribute name="javadoc_location" value="jar:platform:/resource/andromda-all/src/site/resources/jmi-uml1.4.zip!/jmi-uml1.4"/>
         </attributes>
     </classpathentry>
-    <classpathentry exported="true" kind="var" path="M2_REPO/jmi/mof/20030918/mof-20030918.jar" sourcepath="/M2_REPO/jmi/mof/20030918/mof-20030918-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jmi/mof/20030918/mof-20030918.jar" sourcepath="/M2_REPO/jmi/mof/20030918/mof-20030918-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/4.7/junit-4.7.jar" sourcepath="/M2_REPO/junit/junit/4.7/junit-4.7-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="/M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/axis2/axis2/1.2/axis2-1.2.jar" sourcepath="/M2_REPO/org/apache/axis2/axis2/1.2/axis2-1.2-sources.jar"/>
@@ -111,7 +113,6 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-core/2.2.1/maven-core-2.2.1.jar" sourcepath="/M2_REPO/org/apache/maven/maven-core/2.2.1/maven-core-2.2.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-core/1.0-alpha-8/doxia-core-1.0-alpha-8.jar" sourcepath="/M2_REPO/org/apache/maven/doxia/doxia-core/1.0-alpha-8/doxia-core-1.0-alpha-8-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-module-apt/1.0-alpha-10/doxia-module-apt-1.0-alpha-10.jar" sourcepath="/M2_REPO/org/apache/maven/doxia/doxia-module-apt/1.0-alpha-10/doxia-module-apt-1.0-alpha-10-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-maven-plugin/1.0-alpha-10/doxia-maven-plugin-1.0-alpha-10.jar" sourcepath="/M2_REPO/org/apache/maven/doxia/doxia-maven-plugin/1.0-alpha-10/doxia-maven-plugin-1.0-alpha-10-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-9/doxia-sink-api-1.0-alpha-9.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-plugin-api/2.2.1/maven-plugin-api-2.2.1.jar" sourcepath="/M2_REPO/org/apache/maven/maven-plugin-api/2.2.1/maven-plugin-api-2.2.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar" sourcepath="/M2_REPO/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1-sources.jar"/>
@@ -136,21 +137,21 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/1.5.1/plexus-utils-1.5.1.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-utils/1.5.1/plexus-utils-1.5.1-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/common/2.3.0/common-2.3.0.jar" sourcepath="/M2_REPO/org/eclipse/emf/common/2.3.0/common-2.3.0-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/common/2.3.2/common-2.3.2.jar" sourcepath="/M2_REPO/org/eclipse/emf/common/2.3.2/common-2.3.2-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/ecore/2.3.1/ecore-2.3.1.jar" sourcepath="M2_REPO/org/eclipse/emf/ecore/2.3.1/ecore-2.3.1-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/ecore/xmi/2.3.1/xmi-2.3.1.jar" sourcepath="M2_REPO/org/eclipse/emf/ecore/xmi/2.3.1/xmi-2.3.1-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/ecore/xmi/2.3.2/xmi-2.3.2.jar" sourcepath="M2_REPO/org/eclipse/emf/ecore/xmi/2.3.2/xmi-2.3.2-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/mapping/ecore2xml/2.3.0/ecore2xml-2.3.0.jar" sourcepath="M2_REPO/org/eclipse/emf/mapping/ecore2xml/2.3.0/ecore2xml-2.3.0-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/uml/2.1.1/uml-2.1.1.jar" sourcepath="M2_REPO/org/eclipse/uml2/uml/2.1.1/uml-2.1.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/common/1.3.1/common-1.3.1.jar" sourcepath="M2_REPO/org/eclipse/uml2/common/1.3.1/common-1.3.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/1.1.1/uml2-1.1.1.jar" sourcepath="/M2_REPO/org/eclipse/uml2/1.1.1/uml2-1.1.1-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/netbeans/mdr/jmiutils/20050711/jmiutils-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/jmiutils/20050711/jmiutils-20050711-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/netbeans/mdr/mdrapi/20050711/mdrapi-20050711.jar" sourcepath="/M2_REPO/netbeans/mdr/mdrapi/20050711/mdrapi-20050711-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/netbeans/mdr/nbmdr/20050711/nbmdr-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/nbmdr/20050711/nbmdr-20050711-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/netbeans/mdr/openide-util/20050711/openide-util-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/openide-util/20050711/openide-util-20050711-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/netbeans/mdr/jmiutils/20050711/jmiutils-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/jmiutils/20050711/jmiutils-20050711-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/netbeans/mdr/mdrapi/20050711/mdrapi-20050711.jar" sourcepath="/M2_REPO/netbeans/mdr/mdrapi/20050711/mdrapi-20050711-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/netbeans/mdr/nbmdr/20050711/nbmdr-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/nbmdr/20050711/nbmdr-20050711-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/netbeans/mdr/openide-util/20050711/openide-util-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/openide-util/20050711/openide-util-20050711-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-aop/2.0.8/spring-aop-2.0.8.jar" sourcepath="/M2_REPO/org/springframework/spring-aop/2.0.8/spring-aop-2.0.8-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-beans/2.0.8/spring-beans-2.0.8.jar" sourcepath="/M2_REPO/org/springframework/spring-beans/2.0.8/spring-beans-2.0.8-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-core/2.0.8/spring-core-2.0.8.jar" sourcepath="/M2_REPO/org/springframework/spring-core/2.0.8/spring-core-2.0.8-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-remoting/1.2.9/spring-remoting-1.2.9.jar" sourcepath="/M2_REPO/org/springframework/spring-remoting/1.2.9/spring-remoting-1.2.9-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-remoting/2.0.8/spring-remoting-2.0.8.jar" sourcepath="/M2_REPO/org/springframework/spring-remoting/2.0.8/spring-remoting-2.0.8-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/sablecc/sablecc/2.18.2/sablecc-2.18.2.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/velocity-tools/velocity-tools/1.4/velocity-tools-1.4.jar" sourcepath="/M2_REPO/velocity-tools/velocity-tools/1.4/velocity-tools-1.4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/xalan/serializer/2.7.1/serializer-2.7.1.jar" sourcepath="/M2_REPO/xalan/serializer/2.7.1/serializer-2.7.1-sources.jar"/>
