@@ -12,11 +12,13 @@ public interface PostProcessor
      * @param pFile
      * @return file
      */
-    boolean acceptFile(File pFile); 
+    public boolean acceptFile(File pFile);
 
     /**
-     * @param pSource
-     * @return postProcess String
+     * Postprocess the source
+     * @param pSource the Source for postprocessing
+     * @return postprocessed source
+     * @throws Exception on errors occurred
      */
-    String postProcess(String pSource);
+    public String postProcess(String pSource) throws Exception;
 }

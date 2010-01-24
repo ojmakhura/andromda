@@ -1,4 +1,4 @@
-package org.andromda.utils.beautifier.plugin;
+package org.hybridlabs.beautifier.plugin;
 
 /**
  * Copyright 2008 hybrid labs 
@@ -21,12 +21,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collection;
-import org.andromda.utils.beautifier.core.JavaBeautifier;
-import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.hybridlabs.beautifier.core.JavaBeautifier;
+import org.hybridlabs.beautifier.core.JavaImportBeautifierImpl;
 
 /**
  * Runs hybridlabs beautifier.
@@ -34,7 +34,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @author Jack Archer, Bob Fields; Plushnikov Michail
  * @version 3.4
  * @phase process-sources
- * @goal beautify-imports
+ * @goal beautify-imports-old
  * @requiresProject false
  */
 public class ImportBeautifierMojo extends AbstractMojo {

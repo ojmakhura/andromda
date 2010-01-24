@@ -37,7 +37,8 @@
                 Update version of JUnit to 4.7
             </action>
 			<action dev="catforce" type="update">
-                Update version of velocity to 1.6.2, add dependency to velocity-tools for velocity-template-engine
+                Update version of velocity to 1.6.3, add dependency to velocity-tools for velocity-template-engine
+                Update version of freemarker to 2.3.16
             </action>
             <action dev="catforce" type="update">
                 Fix groupIds for itext and bsh: ('itext' has been relocated to com.lowagie:itext and 'bsh' has been relocated to org.beanshell:bsh)

@@ -1,4 +1,4 @@
-package org.andromda.utils.beautifier.core;
+package org.hybridlabs.beautifier.core;
 
 /**
  * Copyright 2008 hybrid labs

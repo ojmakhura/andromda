@@ -25,6 +25,7 @@ import org.andromda.core.common.TemplateObject;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -414,22 +415,21 @@ public class Cartridge
                                 {
                                     if(postProcessor.acceptFile(outputFile))
                                     {
-                                        String lResult = null;
                                         try
                                         {
-                                            lResult = postProcessor.postProcess(outputString);
+                                            String lResult = postProcessor.postProcess(outputString);
                                             if(StringUtils.isNotEmpty(lResult))
                                             {
                                                 outputString = lResult;
                                             }
                                             else
                                             {
-                                                LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath());
+                                                LOGGER.warn("Error PostProcessing " + outputFile.toURI());
                                             }
                                         }
                                         catch (Exception exc)
                                         {
-                                            LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath() + ": " + exc.getMessage());
+                                            LOGGER.warn("Error PostProcessing " + outputFile.toURI() + ": " + exc.getMessage());
                                         }
                                     }
                                 }
@@ -455,9 +455,8 @@ public class Cartridge
         }
         catch (final Throwable throwable)
         {
-            if (outputFile != null)
+            if (FileUtils.deleteQuietly(outputFile))
             {
-                outputFile.delete();
                 this.getLogger().info("Removed: '" + outputFile + '\'');
             }
             final String message =
@@ -676,7 +675,7 @@ public class Cartridge
      */
     public void addCondition(final String name, final String value)
     {
-        this.conditions.put(name, value != null ? value.trim() : "");
+        this.conditions.put(name, StringUtils.trimToEmpty(value));
     }
     
     /**

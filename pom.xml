@@ -38,15 +38,7 @@
     </licenses>
     <ciManagement>
         <system>cruisecontrol</system>
-        <url>http://andromda.it.su.se/cruisecontrol</url>
-        <!--notifiers>
-          <notifier>
-          <type>mail</type>
-          <configuration>
-          <address>committers@andromda.org</address>
-          </configuration>
-          </notifier>
-      </notifiers-->
+        <url>http://www.andromda.org/cruisecontrol</url>
     </ciManagement>
     <mailingLists>
         <mailingList>
@@ -183,6 +175,8 @@
             <organization>AndroMDA</organization>
             <roles>
                 <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
             </roles>
             <timezone>1</timezone>
         </developer>
@@ -273,15 +267,10 @@
                 <version>1.6</version>
             </dependency>
             <dependency>
-                <groupId>org.andromda.thirdparty.jalopy</groupId>
-                <artifactId>jalopy</artifactId>
-                <version>1.5-RC3P1</version>
-            </dependency>
-            <dependency>
-                <groupId>antlr</groupId>
-                <artifactId>antlr</artifactId>
-                <version>2.7.7</version>
-            </dependency>
+                <groupId>de.plushnikov</groupId>
+                <artifactId>doctor-jim</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>            
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
@@ -289,19 +278,19 @@
             </dependency>
 
             <dependency>
-                <groupId>freemarker</groupId>
+                <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.16</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity</artifactId>
-                <version>1.6.2</version>
+                <version>1.6.3</version>
             </dependency>
             <dependency>
-                <groupId>velocity-tools</groupId>
+                <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity-tools</artifactId>
-                <version>1.4</version>
+                <version>2.0-beta4</version>
             </dependency>
 
             <dependency>
@@ -330,45 +319,45 @@
                 <artifactId>servlet-api</artifactId>
                 <version>2.4</version>
             </dependency>
-            
+
             <!-- Some dependencies, which can not be found in maven repository-->
             <dependency>
                 <groupId>org.andromda.thirdparty.jmi</groupId>
                 <artifactId>jmiuml</artifactId>
                 <version>1.4di</version>
             </dependency>
-            <dependency> 
-    		    <groupId>org.andromda.thirdparty.jmi</groupId>
-      		    <artifactId>jmi</artifactId>
-     		    <version>20030918</version>
-    	    </dependency> 
-            <dependency> 
-    		    <groupId>org.andromda.thirdparty.jmi</groupId>
-      		    <artifactId>mof</artifactId>
-     		    <version>20030918</version>
-    	    </dependency>
-    	    
-    	    <dependency> 
-        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-          		<artifactId>jmiutils</artifactId>
-         		<version>20050711</version>
-        	</dependency>  
-        	<dependency> 
-        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-          		<artifactId>mdrapi</artifactId>
-         		<version>20050711</version>
-        	</dependency>  
-         	<dependency> 
-        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-          		<artifactId>nbmdr</artifactId>
-         		<version>20050711</version>
-        	</dependency>     	
-         	<dependency> 
-        		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-          		<artifactId>openide-util</artifactId>
-         		<version>20050711</version>
-        	</dependency>
-            
+            <dependency>
+                <groupId>org.andromda.thirdparty.jmi</groupId>
+                <artifactId>jmi</artifactId>
+                <version>20030918</version>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda.thirdparty.jmi</groupId>
+                <artifactId>mof</artifactId>
+                <version>20030918</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+                <artifactId>jmiutils</artifactId>
+                <version>20050711</version>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+                <artifactId>mdrapi</artifactId>
+                <version>20050711</version>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+                <artifactId>nbmdr</artifactId>
+                <version>20050711</version>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+                <artifactId>openide-util</artifactId>
+                <version>20050711</version>
+            </dependency>
+
             <!-- Maven dependencies -->
             <dependency>
                 <groupId>org.apache.maven</groupId>
@@ -810,7 +799,7 @@
         <!--temporary until uml2+uml22 coexistence solved-->
         <module>repositories/emf/uml22</module>
         <module>andromda-distribution</module>
-    </modules>    
+    </modules>
     <repositories>
         <repository>
             <id>sonatype</id>
@@ -822,6 +811,11 @@
             <name>AndroMDA Repository</name> 
             <url>http://www.andromda.org/maven2</url> 
         </repository>
+        <!--<repository>
+            <id>fornax.repository</id>
+            <name>Fornax Repository</name>
+            <url>http://www.fornax-platform.org/m2/repository</url>
+        </repository>-->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -834,6 +828,11 @@
             <name>AndroMDA Repository</name> 
             <url>http://www.andromda.org/maven2</url> 
         </pluginRepository>
+        <!--<pluginRepository>
+            <id>fornax.plugin.repository</id>
+            <name>Fornax Plugin Repository</name>
+            <url>http://www.fornax-platform.org/m2/repository</url>
+        </pluginRepository>-->
     </pluginRepositories>
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
@@ -846,30 +845,30 @@
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
         <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository>
-        <bootstrap.artifacts>true</bootstrap.artifacts-->
+        <bootstrap.artifacts>true</bootstrap.artifacts>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>2.2.1</maven.version>
         <plexus.util.version>1.5.9</plexus.util.version>
     </properties>
     <profiles>
         <profile>
-            <id>andromda-local</id>            
+            <id>andromda-local</id>
             <distributionManagement>
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/andromda/maven2</url>
+                    <url>file:/var/www/maven2</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/andromda/maven2</url>
+                    <url>file:/var/www/maven2</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/andromda/docs</url>
+                    <url>file:/var/www/docs</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -894,7 +893,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/andromda/docs</url>
+                    <url>file:/var/www/docs</url>
                 </site>
             </distributionManagement>
         </profile>

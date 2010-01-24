@@ -58,25 +58,14 @@
             <artifactId>xercesImpl</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.andromda.thirdparty.jalopy</groupId>
-            <artifactId>jalopy</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+                
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
             <groupId>de.plushnikov</groupId>
-            <artifactId>doctor-jim</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>doctor-jim</artifactId>            
         </dependency>
     </dependencies>
     <build>

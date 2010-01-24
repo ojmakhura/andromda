@@ -16,15 +16,28 @@
 			<version>${project.version}</version>
         </dependency>
 		<dependency>
-			<groupId>org.andromda</groupId>
-			<artifactId>andromda-utils</artifactId>
-			<version>${project.version}</version>
-        </dependency>
-		<dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <!--scope>test</scope-->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.jalopy</groupId>
+	        <artifactId>jalopy</artifactId>
+            <version>1.5-RC3P1</version>
+        </dependency>
+        <dependency>
+            <groupId>antlr</groupId>
+	        <artifactId>antlr</artifactId>
+            <version>2.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-plugin-api</artifactId>
         </dependency>
         <!--dependency>
             <groupId>org.hybridlabs</groupId>
@@ -67,21 +80,7 @@
                 </exclusion>
             </exclusions>
         </dependency-->
-    </dependencies>
-    <build>
-        <!--plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-        </plugins-->
-    </build>
+    </dependencies>    
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <downloadSources>true</downloadSources>
