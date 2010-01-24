@@ -1,34 +1,29 @@
 package org.andromda.maven.plugin.bootstrap.install;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Parent;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /**
  * Provides the installation of bootstrap artifacts.
  *
  * @author Chad Brandon
- *
  * @goal install
  * @phase install
  */
 public class BootstrapInstallMojo
-    extends AbstractMojo
+        extends AbstractMojo
 {
     /**
      * The maven project.
@@ -90,7 +85,7 @@ public class BootstrapInstallMojo
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
-        throws MojoExecutionException, MojoFailureException
+            throws MojoExecutionException, MojoFailureException
     {
         if (this.installBootstraps)
         {
@@ -115,8 +110,8 @@ public class BootstrapInstallMojo
                 final File bootstrapFile = new File(installDirectory, bootstrapPath + '.' + JAR_EXTENSION);
                 this.getLog().info("Installing bootstrap artifact: " + bootstrapFile);
                 FileUtils.copyFile(
-                    existingFile,
-                    bootstrapFile);
+                        existingFile,
+                        bootstrapFile);
                 final File bootstrapPomFile = new File(installDirectory, bootstrapPath + '.' + POM_EXTENSION);
                 this.writeMinimalPom(bootstrapPomFile);
             }
@@ -135,43 +130,30 @@ public class BootstrapInstallMojo
      * @param bootstrapPomFile the bootstrap POM file to write.
      */
     private void writeMinimalPom(final File bootstrapPomFile)
-        throws MojoExecutionException, IOException
+            throws IOException
     {
-        if (this.project != null)
-        {
-            Model model = this.project.getModel();
-            if (model == null)
-            {
-                throw new MojoExecutionException("Model could not be retrieved from current project");
-            }
+        final Model model = this.project.getModel();
 
-            // - remove the parent
-            final Parent parent = model.getParent();
-            final List dependencies = new ArrayList(model.getDependencies());
-            final String groupId = model.getGroupId();
-            final Artifact artifact = this.project.getArtifact();
-            final Build build = this.project.getBuild();
-            final List developers = new ArrayList(model.getDevelopers());
-            final List contributors = new ArrayList(model.getContributors());
-            model.setGroupId(this.getBootstrapGroupId(artifact));
-            model.setParent(null);
-            model.setBuild(null);
-            // Maven 2.2.1: Collections.emptyList() causes "setDependencies(List<Dependency>) in the type ModelBase is not applicable for the arguments (List<Object>)"
-            model.setDependencies(Collections.EMPTY_LIST);
-            model.setDevelopers(Collections.EMPTY_LIST);
-            model.setContributors(Collections.EMPTY_LIST);
-            final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
-            this.project.writeModel(fileWriter);
-            fileWriter.flush();
+        final MavenProject minimalProject = new MavenProject();
+        final Model minModel = minimalProject.getModel();
 
-            // - set any removed items back to the way it was since we've written the POM
-            model.setParent(parent);
-            model.setGroupId(groupId);
-            model.setDependencies(dependencies);
-            model.setBuild(build);
-            model.setDevelopers(developers);
-            model.setContributors(contributors);
-        }
+        minModel.setGroupId(getBootstrapGroupId(this.project.getArtifact()));
+        minModel.setArtifactId(model.getArtifactId());
+        minModel.setVersion(model.getVersion());
+        minModel.setDescription(model.getDescription());
+        minModel.setModelEncoding(model.getModelEncoding());
+        minModel.setModelVersion(model.getModelVersion());
+
+        minModel.setName(model.getName());
+        minModel.setPackaging(model.getPackaging());
+        minModel.setPrerequisites(model.getPrerequisites());
+        minModel.setOrganization(model.getOrganization());
+        minModel.setInceptionYear(model.getInceptionYear());
+        minModel.setLicenses(model.getLicenses());
+
+        final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
+        minimalProject.writeModel(fileWriter);
+        fileWriter.flush();
     }
 
     /**
@@ -183,20 +165,21 @@ public class BootstrapInstallMojo
     private String getBootstrapGroupId(final Artifact artifact)
     {
         return StringUtils.replaceOnce(
-            artifact.getGroupId(),
-            this.projectGroupId,
-            this.projectBootstrapGroupId);
+                artifact.getGroupId(),
+                this.projectGroupId,
+                this.projectBootstrapGroupId);
     }
 
     /**
      * Retrieves the extension from the given path.
-     * @param artifact the artifact from which to retrieve the version information.
-     * @param path the path of the file
+     *
+     * @param artifact     the artifact from which to retrieve the version information.
+     * @param newExtension new extension for the file
      * @return the extension.
      */
     private String replaceExtension(
-        final Artifact artifact,
-        final String newExtension)
+            final Artifact artifact,
+            final String newExtension)
     {
         String path = this.localRepository.pathOf(artifact);
         final String version = artifact.getVersion() != null ? artifact.getVersion().trim() : "";
