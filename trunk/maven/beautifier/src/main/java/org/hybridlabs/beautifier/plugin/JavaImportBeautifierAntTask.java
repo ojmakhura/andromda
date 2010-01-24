@@ -1,9 +1,9 @@
-package org.andromda.utils.beautifier.plugin;
+package org.hybridlabs.beautifier.plugin;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
-import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
+import org.hybridlabs.beautifier.core.JavaImportBeautifierImpl;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package org.andromda.utils.beautifier.core;
+package org.hybridlabs.beautifier.core;
 
 /**
  * Copyright 2008 hybrid labs
@@ -40,13 +40,13 @@ public class JavaImportBeautifierTest
         beautifier.setStrict(true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample1() throws Exception
     {
         testIndexedSample("01", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample1Formatted() throws Exception
     {
         beautifier.setFormat(true);
@@ -58,19 +58,19 @@ public class JavaImportBeautifierTest
         compare(expectedOutput, output);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample2() throws Exception
     {
         testIndexedSample("02", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample3() throws Exception
     {
         testIndexedSample("03", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample03Formatted() throws Exception
     {
         beautifier.setFormat(true);
@@ -82,189 +82,189 @@ public class JavaImportBeautifierTest
         compare(expectedOutput, output);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample4() throws Exception
     {
         testIndexedSample("04", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample5() throws Exception
     {
         testIndexedSample("05", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample6() throws Exception
     {
         testIndexedSample("06", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample7() throws Exception
     {
         testIndexedSample("07", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample8() throws Exception
     {
         testIndexedSample("08", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample9() throws Exception
     {
         testIndexedSample("09", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample10() throws Exception
     {
         testIndexedSample("10", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample11() throws Exception
     {
         testIndexedSample("11", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample12() throws Exception
     {
         testIndexedSample("12", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample13() throws Exception
     {
         testIndexedSample("13", true);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample14() throws Exception
     {
         testIndexedSample("14", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample15() throws Exception
     {
         testIndexedSample("15", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample16() throws Exception
     {
         testIndexedSample("16", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample17() throws Exception
     {
         beautifier.setStrict(false);
         testIndexedSample("17", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample18() throws Exception
     {
         beautifier.setStrict(false);
         testIndexedSample("18", false, false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample20() throws Exception
     {
         testIndexedSample("20", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample21() throws Exception
     {
         testIndexedSample("21", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample22() throws Exception
     {
         testIndexedSample("22", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample23() throws Exception
     {
         testIndexedSample("23", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample24() throws Exception
     {
         testIndexedSample("24", false);
     }
 
-    @Test
+    @org.junit.Test
     public void testSample25() throws Exception
     {
         testIndexedSample("25");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample26() throws Exception
     {
         testIndexedSample("26");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample27() throws Exception
     {
         testIndexedSample("27");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample28() throws Exception
     {
         testIndexedSample("28");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample29() throws Exception
     {
         testIndexedSample("29");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample30() throws Exception
     {
         testIndexedSample("30");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample31() throws Exception
     {
         testIndexedSample("31");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample32() throws Exception
     {
         testIndexedSample("32");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample33() throws Exception
     {
         testIndexedSample("33");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample34() throws Exception
     {
         testIndexedSample("34");
     }
 
-    @Test
+    @org.junit.Test
     public void testSample35() throws Exception
     {
         testIndexedSample("35");
@@ -277,7 +277,7 @@ public class JavaImportBeautifierTest
         testIndexedSample("36");
     }
 */
-    @Test
+    @org.junit.Test
     public void testSample37() throws Exception
     {
         testIndexedSample("37");

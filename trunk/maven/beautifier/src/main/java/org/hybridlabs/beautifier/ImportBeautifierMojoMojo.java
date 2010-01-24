@@ -80,7 +80,7 @@ public class ImportBeautifierMojoMojo
             throw new MojoExecutionException("Beautifier format input directory does not exist: " + this.inputDirectory);
         }
 
-        if (this.outputDirectory==null || this.outputDirectory.equals(""))
+        if (this.outputDirectory==null)
         {
             this.outputDirectory = this.inputDirectory;
         }

@@ -26,10 +26,12 @@ public class ImportBeautifierPostProcessorImpl implements PostProcessor
     }
 
     /**
-     * @param pSource
-     * @return postProcess String
+     * Postprocess the source
+     * @param pSource the Source for postprocessing
+     * @return postprocessed source
+     * @throws Exception on errors occurred
      */
-    public String postProcess(String pSource)
+    public String postProcess(String pSource) throws Exception
     {
         try
         {
@@ -38,7 +40,7 @@ public class ImportBeautifierPostProcessorImpl implements PostProcessor
         catch (ParseException ex)
         {
             LOGGER.debug("Error PostProcessing ", ex);
-            return null;
+            throw ex;
         }
     }
 }

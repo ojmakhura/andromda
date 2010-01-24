@@ -1,4 +1,4 @@
-package org.andromda.utils.beautifier.core;
+package org.hybridlabs.beautifier.core;
 
 /**
  * Copyright 2008 hybrid labs
@@ -186,7 +186,7 @@ public class JavaImportBeautifierImpl extends JavaBeautifier
     /**
      * Beautify and Organize Imports on the source file.
      *
-     * @see org.andromda.utils.beautifier.core.Beautifier#beautify(java.lang.String)
+     * @see Beautifier#beautify(java.lang.String)
      */
     public String beautify(String pSource)
     {

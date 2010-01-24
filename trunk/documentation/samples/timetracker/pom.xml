@@ -231,12 +231,7 @@
                 <groupId>aopalliance</groupId>
                 <artifactId>aopalliance</artifactId>
                 <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>antlr</groupId>
-                <artifactId>antlr</artifactId>
-                <version>2.7.7</version>
-            </dependency>
+            </dependency>            
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -459,9 +454,7 @@
             For SapDB use: SapDB
             For Derby use: Derby
         -->
-        <sql.mappings>
-            MySQL
-        </sql.mappings>
+        <sql.mappings>MySQL</sql.mappings>
         <!--
             Change this for the appropriate database
             For MySql use: org.hibernate.dialect.MySQLDialect
@@ -481,9 +474,7 @@
             For Progress use: org.hibernate.dialect.ProgressDialect
             For Derby use: org.hibernate.dialect.DerbyDialect
         -->
-        <hibernate.dialect>
-            org.hibernate.dialect.MySQLInnoDBDialect
-        </hibernate.dialect>
+        <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <application.id>timetracker</application.id>
         <application.package>org.andromda.timetracker</application.package>
@@ -491,6 +482,7 @@
         <application.version>1.0-SNAPSHOT</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
         <profile>
@@ -599,57 +591,6 @@
                     </plugins>
                 </pluginManagement>
             </build>
-        </profile>
-        <profile>
-            <id>development</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>dev</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-            </properties>
-        </profile>
-        <profile>
-            <id>validation</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>val</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-            </properties>
-        </profile>
-        <profile>
-            <id>production</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>prod</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-            </properties>
         </profile>
     </profiles>
     <repositories>

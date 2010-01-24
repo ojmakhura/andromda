@@ -1,4 +1,5 @@
-package org.andromda.utils.beautifier.core;
+package org.hybridlabs.beautifier.core;
+
 
 /**
  * Copyright 2008 hybrid labs
@@ -17,19 +18,17 @@ package org.andromda.utils.beautifier.core;
  */
 
 /**
- * Interface defining the signatures for all Beautifier.
+ * Interface defining the a type replacement strategy.
  *
  * @author Karsten Klein, hybrid labs
  */
-public interface Beautifier
+public interface TypeReplacementStrategy
 {
 
-    /**
-     * Processes the characterSequence and beautifies its content.
-     *
-     * @param pSource The character sequence serving as input for
-     *                the beautification.
-     */
-    public String beautify(String pSource);
+    public String modulateType(String type);
+
+    public String composeMatch(String type);
+
+    public String composeReplace(String type);
 
 }

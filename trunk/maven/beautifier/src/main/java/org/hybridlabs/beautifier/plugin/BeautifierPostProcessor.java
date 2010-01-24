@@ -1,7 +1,7 @@
-package org.andromda.utils.beautifier.plugin;
+package org.hybridlabs.beautifier.plugin;
 
 import org.andromda.core.common.PostProcessor;
-import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
+import org.hybridlabs.beautifier.core.JavaImportBeautifierImpl;
 
 import java.io.File;
 
@@ -10,13 +10,6 @@ import java.io.File;
  * @author Plushnikov Michail
  */
 public class BeautifierPostProcessor implements PostProcessor {
-    /**
-     * Standard Constructor
-     */
-    public BeautifierPostProcessor() {
-
-    }
-
     /**
      * Accept Files or not
      * @param pFile the File to postprocess
@@ -28,10 +21,11 @@ public class BeautifierPostProcessor implements PostProcessor {
 
     /**
      * Postprocess the source
-     * @param pSource the Source
+     * @param pSource the Source for postprocessing
      * @return postprocessed source
+     * @throws Exception on errors occurred
      */
-    public String postProcess(String pSource) {
+    public String postProcess(String pSource) throws Exception {
         JavaImportBeautifierImpl beautifier = new JavaImportBeautifierImpl();
         beautifier.setFormat(false);
         beautifier.setOrganizeImports(true);

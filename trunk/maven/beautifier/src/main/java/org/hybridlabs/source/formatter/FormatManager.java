@@ -6,9 +6,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hybridlabs.beautifier.core.JavaImportBeautifierImpl;
 
 /**
  * A utility to drive the code beautifier. Note the system properties that point

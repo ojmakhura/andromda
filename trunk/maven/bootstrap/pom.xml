@@ -33,7 +33,7 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>velocity-tools</groupId>
+			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-tools</artifactId>			
 			<scope>runtime</scope>
 		</dependency>
@@ -87,6 +87,11 @@
 			<artifactId>jmi</artifactId>			
 			<scope>runtime</scope>
 		</dependency>
+        <dependency>
+            <groupId>de.plushnikov</groupId>
+            <artifactId>doctor-jim</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 		
 		<!-- Maven dependencies -->		
 		<dependency>
