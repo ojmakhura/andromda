@@ -594,7 +594,9 @@ public class OperationFacadeLogicImpl
     protected String handleGetGetterSetterReturnTypeName()
     {
         String name = null;
-        if (this.handleIsMany())
+        ClassifierFacade returnType = this.getReturnType();
+
+        if (this.handleIsMany() && returnType!=null && !returnType.isArrayType())
         {
             final TypeMappings mappings = this.getLanguageMappings();
             name =
@@ -605,23 +607,18 @@ public class OperationFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                String type = this.getReturnType().getFullyQualifiedName();
-                if (this.getReturnType().isPrimitive())
+                String type = returnType.getFullyQualifiedName();
+                if (returnType.isPrimitive())
                 {
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getReturnType().getWrapperName();
                 }
-                // Don't apply templating to modeled array types
-                if (type.endsWith("[]"))
-                {
-                    type = type.substring(0, type.length()-2);
-                }
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.getReturnType() != null)
+        if (name == null && returnType != null)
         {
-            name = this.getReturnType().getFullyQualifiedName();
+            name = returnType.getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
             if (this.getReturnType().isBooleanType())
