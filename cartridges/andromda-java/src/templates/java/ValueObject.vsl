@@ -331,8 +331,8 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #foreach ($property in $class.properties)
             this.${property.setterName}(otherBean.${property.getterName}());
 #end
-#end
         }
+#end
 #if($generateChainedSetters)
         return otherBean;
 #end
