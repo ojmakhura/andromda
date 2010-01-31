@@ -1,11 +1,11 @@
 <andromda xmlns="http://andromda.org/core/configuration">
     <!-- See http://galaxy.andromda.org/docs/configuration.html for andromda.xml properties documentation -->
     <properties>
-        <property name="modelValidation">true</property>
+        <property name="modelValidation">${validation}</property>
         <property name="xmlValidation">true</property>
-        <!-- property name="failOnModelValidationErrors">true</property-->
+        <property name="failOnModelValidationErrors">true</property>
         <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all -->
-        <property name="cartridgeFilter"></property>
+        <property name="cartridgeFilter">${filter}</property>
         <!-- Debug andromda processing using example log4j.xml file -->
         <!--property name="loggingConfigurationUri">file:${applicationParentDirectory}/${applicationId}/mda/log4j.xml</property-->
     </properties>
