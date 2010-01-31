@@ -325,34 +325,16 @@ public class HibernateAssociationEndLogicImpl
             inverse = this.isMany2One();
 
             // for many-to-many we just put the flag on the side that
-            // is aggregation or composition and on the lexically longer
-            // fully qualified name for its type on other types of relations
+            // is aggregation or composition
             if (this.isMany2Many() && !inverse)
             {
-                if (this.isAggregation() || this.isComposition())
+                if (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()) 
                 {
-                    inverse = false;
-                }
-                else if (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()) {
                     inverse = true;
                 }
                 else
                 {
-                    String endTypeName = StringUtils.trimToEmpty(this.getType().getFullyQualifiedName(true));
-                    String otherEndTypeName =
-                        StringUtils.trimToEmpty(this.getOtherEnd().getType().getFullyQualifiedName(true));
-                    int compareTo = endTypeName.compareTo(otherEndTypeName);
-
-                    // if for some reason the fully qualified names are equal,
-                    // compare the names.
-                    if (compareTo == 0)
-                    {
-                        String endName = StringUtils.trimToEmpty(this.getName());
-                        String otherEndName = StringUtils.trimToEmpty(this.getOtherEnd().getName());
-                        compareTo = endName.compareTo(otherEndName);
-                    }
-
-                    inverse = compareTo < 0;
+                    inverse=false;
                 }
                 if (inverse && this.isBidirectionalOrderedListChild() && this.isVersion3())
                 { // A special case - when using ver 3 of hibernate for a bi-dir
