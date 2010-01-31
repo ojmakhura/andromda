@@ -161,10 +161,7 @@ $message.key=$message.value
 #
 #foreach($enumeration in $enumerations)
 #foreach ($literal in $enumeration.literals)
-#set($literalKey = $literal.name)
-#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-#set($literalValue = $literal.name)
-${enumeration.messageKey}.${literalKey}=${literalValue}
+${enumeration.messageKey}.${literal.name}=$stringUtils.toPhrase($literal.name)
 #end
 #end
 #end
