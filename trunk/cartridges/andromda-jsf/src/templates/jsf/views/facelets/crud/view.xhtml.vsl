@@ -54,11 +54,12 @@
         <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
             <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
 #foreach ($literal in $field.type.literals)
-#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
-#set($literalKey = $literal.name)
-#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-#set($itemValue = $literal.enumerationValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literalKey}']}" itemValue=${quote}${itemValue}${quote} />
+##To be reviewed: actually this is done this way because $literal.value does not work
+#set($literalValue = $literal.defaultValue.replace("'","").replace('"',''))
+#if($literalValue == "")
+#set($literalValue = $literal.name)
+#end
+            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literal.name}']}" itemValue="${literalValue}" />
 #end
         </tr:$selectBoxType>
 #elseif(!$parameter.inputFile && !$parameter.inputHidden)
@@ -223,11 +224,12 @@
             <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$field.messageKey']}:" required="$field.required" readOnly="$field.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
                 <f:converter converterId="${field.type.fullyQualifiedName}"/>
 #foreach ($literal in $field.type.literals)
-#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
-#set($literalKey = $literal.name)
-#set($literalKey = $literal.defaultValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-#set($itemValue = $literal.enumerationValue.replace("'","").replace('"',''))##todo remove after 3.4 release: hack to keep compatibility with Andromda 3.4-SNAPSHOT
-                <f:selectItem itemLabel="#{messages['${field.type.messageKey}.${literalKey}']}" itemValue=${quote}${itemValue}${quote} />
+##To be reviewed: actually this is done this way because $literal.value does not work
+#set($literalValue = $literal.defaultValue.replace("'","").replace('"',''))
+#if($literalValue == "")
+#set($literalValue = $literal.name)
+#end
+                <f:selectItem itemLabel="#{messages['${field.type.messageKey}.${literal.name}']}" itemValue="${literalValue}" />
 #end
             </tr:$selectBoxType>
 #else
