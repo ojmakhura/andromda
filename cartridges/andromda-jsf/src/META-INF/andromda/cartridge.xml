@@ -695,8 +695,8 @@
         outputCondition="standalone"/>
 
     <template
-        path="templates/jsf/views/facelets/jsf.taglib.xml.vsl"
-        outputPattern="WEB-INF/jsf.taglib.xml"
+        path="templates/jsf/views/facelets/ajsfc.taglib.xml.vsl"
+        outputPattern="WEB-INF/ajsfc.taglib.xml"
         outlet="views"
         overwrite="true"
         generateEmptyFiles="true"/>
