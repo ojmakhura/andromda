@@ -98,7 +98,7 @@
         <param-name>facelets.LIBRARIES</param-name>
         <param-value>
         <!-- facelets-libraries merge-point -->
-            /WEB-INF/jsf.taglib.xml;
+            /WEB-INF/ajsfc.taglib.xml;
         </param-value>
     </context-param>
 #if ($faceletsDevelopmentSupportEnabled)
