@@ -1,0 +1,37 @@
+package 
+org.
+somepackage.
+test;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.somepackage.test.more.Dummy2;
+import org.w3c.dom.Element;
+import static org.apache.commons.logging.LogFactory.LEVEL;
+
+public class MyHelper {
+
+	private LogFactory logFactory = null;
+	private Log log = null;
+	private Dummy dummy;
+	private Dummy2 dummy2;
+    	
+    // import
+	public static void main(String[] args) {
+		Element[] children = new Element[10];
+
+		if(children.lenght == 10){
+		  // as expected!
+		}
+		
+		int level = LogFactory.
+		LEVEL 
+		
+		
+		+ 
+		
+		
+		1;
+	
+	}
+}

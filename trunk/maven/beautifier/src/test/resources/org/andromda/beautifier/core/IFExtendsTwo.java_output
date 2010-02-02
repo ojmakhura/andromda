@@ -1,0 +1,13 @@
+package org.andromda.metafacades.uml;
+
+import java.util.Collection;
+import org.andromda.metafacades.AssociationFacade;
+import org.andromda.metafacades.ClassifierFacade;
+
+/**
+ *
+ */
+public interface AssociationClassFacade
+    extends ClassifierFacade, AssociationFacade
+{
+}

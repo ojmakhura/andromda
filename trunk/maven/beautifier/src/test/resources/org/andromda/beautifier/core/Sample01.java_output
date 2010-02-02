@@ -1,0 +1,40 @@
+package org.somepackage.test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import javax.hibernate.Basic;
+import javax.hibernate.JoinTable;
+import javax.hibernate.Table;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import org.somepackage.annotations.Info;
+
+@Entity
+public class SampleEntity {
+
+    @Id()
+    String id;
+    
+    @javax.persistence.Basic
+    String name;
+    
+    @Table
+    @JoinTable(table=@Table(schema="test"))
+    @Basic
+    String test;
+
+    @Info(dtoClass="org.somepackage.sample.dto.SampleEntityDto")
+    public Set<OtherSampleEntity> getOtherSamples(SampleQualifier sampleQualifier) {
+        Set<OtherSampleEntity> set = new HashSet<OtherSampleEntity>();
+        
+        int color = Color.WHITE.getRed();
+        Set set2 = (Set) set;
+        ArrayList list = (ArrayList) Collections.getEmptyList();
+        Object[] array = new Object[10];
+        array = new Object[array.length];
+        return set;
+    }
+
+}

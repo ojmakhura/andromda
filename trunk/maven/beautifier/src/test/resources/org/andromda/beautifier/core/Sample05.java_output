@@ -1,0 +1,28 @@
+package package0.package1.package2;
+
+import com.algebraic.test.DoublePrecisionValue;
+import dfg.dfs.dfg.Hasenfuss;
+import dfg.dfs.dfg.Hasenfuss2;
+import dfg.dfs.dfg.kkl.Hasenfuss2;
+import package0.package1.ClassA;
+import package0.package1.package3.InterfaceC;
+
+class ClassB extends ClassA 
+	implements InterfaceB, InterfaceC {
+	
+    private static String statPrivVisStr = "Check UpperCase";
+    String instDefVisStr;
+    public boolean instPubVisBool = false;
+    private DoublePrecisionValue t;
+
+    void instVoidOp() {
+    }
+
+    String instStringOp() {
+        return null;
+    }
+
+    static int statPubVisIntOp(String strParam) {
+        return -1;
+    }
+}

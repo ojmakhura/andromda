@@ -1,0 +1,12 @@
+import some.foo.bar.InnerClass3;
+import static org.apache.commons.logging.LogFactory.LEVEL;
+
+public abstract class List implements java.util.List{
+
+
+	private static class InnerClass extends some.foo.bar.InnerClass {
+	}
+	private static class InnerClass2 extends InnerClass3 {
+	}
+
+}

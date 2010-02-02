@@ -1,0 +1,119 @@
+package de.plushnikov.doctorjim;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+
+/**
+ * Just a test class
+ *
+ * @author Plushnikov Michail
+ */
+public class Temp extends java.lang.Object implements java.util.Comparator<Integer> {
+    public void test00() {
+        //new Ajava.lang.Integer(0);
+        //new bjava.lang.Integer(0);
+        //new _java.lang.Integer(0);
+        //new .java.lang.Integer(0);
+        java.lang.Integer l;
+        java.
+                lang.
+                Integer ll;
+        //new *java.lang.Integer(0);
+        //new java.lang.Integer(0);
+        //new -java.lang.Integer(0);
+        //new ?java.lang.Integer(0);
+        //Array.setChar(new Integer(0), 1, '2');
+        java.lang.reflect.Array.setChar(new Integer(0), 1, '2');
+    }
+
+    public int compare(Integer integer, Integer integer1) {
+        java.util.Map.Entry<Integer, Integer> b;
+        return 0;
+    }
+
+
+    public static void main(String[] args) {
+        java.util.Map.Entry<String, String> a;
+        java.lang.Integer test, test2, test3;
+        java.lang.Character test4 = new Character('_');
+    }
+
+    public java.lang.Float test() {
+        new BigDecimal("0");
+        java.lang.String p1 = "";
+        java.lang.Integer p2 = 0;
+        java.lang.Float p3 = 0.0f;
+        java.lang.Double p4 = 0.0;
+        int p5 = 0;
+        java.lang.String p6 = "";
+        byte p7 = 0;
+        java.util.Collection<Integer> p8 = null;
+        test9((java.lang.String) p1, (java.lang.Integer) p2, (java.lang.Float) p3,
+                (java.lang.Double) p4, (int) p5, (java.lang.String) p6, (byte) p7,
+                (java.util.Collection<Integer>) p8);
+        return (java.lang.Float) 4.4f;
+    }
+
+    public java.lang.String test0() {
+        HashMap<String, Integer> map = new java.util.HashMap<String, Integer>(15);
+        for (java.
+                util.// comment string
+                Map./*erewrewr*/
+                Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+        for (java.util.Map.Entry<String, java.lang.Integer> entry : map.entrySet()) {
+            java.lang.System.out.println(entry.getKey());
+        }
+        return "";
+    }
+
+    /**
+     * Test Doku
+     *
+     * @return value
+     */
+    public java.lang.String test2() {
+        return new java.lang.String("");
+    }
+
+    public java.util.Collection test3() {
+        return new java.util.ArrayList(1);
+    }
+
+    /**
+     * @XmlSchema
+     */
+    public java.util.Collection<String> test4() {
+        return new java.util.ArrayList<String>(1);
+    }
+
+    public java.util.Collection<java.lang.String> test5() {
+        return new java.util.ArrayList<java.lang.String>(1);
+    }
+
+    public void test6() {
+        java.util.Collections.emptyMap();
+        java.util.List l = java.util.Collections.emptyList();
+
+        java.util.Collections.checkedSet(new java.util.HashSet(), String.class);
+    }
+
+    public void test7() {
+        java.lang.reflect.Array.setChar(new Integer(0), 1, '2');
+    }
+
+    public void test8() {
+        System.out.println(java.util.Collections.class);
+        System.out.println(java.util.Collection.class);
+        java.util.Collections.class.toString();
+        java.util.Collection.class.toString();
+    }
+
+    private java.lang.Boolean test9(java.lang.String p1, java.lang.Integer p2, java.lang.Float p3,
+                                    java.lang.Double p4, int p5, java.lang.String p6, byte p7,
+                                    java.util.Collection<Integer> p8) {
+
+        return new java.lang.Boolean(true);
+    }
+}

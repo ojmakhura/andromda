@@ -1,0 +1,19 @@
+package org.oaw.forum;
+
+import com.example.Pet;
+
+public class Test {
+
+	public void testMethod0() {
+		Pet.valueOf("com.example.Pet.DOG", true);
+	}
+
+	public void testMethod1() {
+		Pet.valueOf(Pet.class.getName() + ".DOG", true);
+	}
+
+	public void testMethod2() {
+		Pet.valueOf(Pet.DOC.class.getName(), true);
+	}
+	
+}

@@ -39,47 +39,6 @@
           <groupId>org.apache.maven</groupId>
           <artifactId>maven-plugin-api</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>org.hybridlabs</groupId>
-            <artifactId>hybridlabs-beautifier</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openarchitectureware</groupId>
-            <artifactId>oaw-core-xpand2</artifactId>
-            <version>4.3.1</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.openarchitectureware</groupId>
-                    <artifactId>oaw-core-expressions</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.openarchitectureware</groupId>
-                    <artifactId>oaw-core-workflow</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.openarchitectureware</groupId>
-                    <artifactId>oaw-core-xpand2</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.m2t.xpand</groupId>
-                    <artifactId>m2t-xpand-xpand</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jdt</groupId>
-                    <artifactId>core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse</groupId>
-                    <artifactId>text</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency-->
     </dependencies>    
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>

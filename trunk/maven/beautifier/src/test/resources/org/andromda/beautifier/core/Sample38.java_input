@@ -1,0 +1,13 @@
+package package_0;
+
+import java.util.Map;
+
+public class Class {
+    private Map aMap;
+
+	public void method() {
+		for (Iterator it = aMap.entrySet().iterator(); it.hasNext(); ) {
+			Map.Entry entry = (Map.Entry)it.next();
+		}
+	}
+}

@@ -1,0 +1,20 @@
+package org.somepackage.test;
+
+/*PROTECTED REGION ID(12345) ENABLED START*/
+
+import javax.persistence.LockModeType;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Example;
+import org.hibernate.ejb.HibernateEntityManager;
+import your.pack.AClass;
+
+/*PROTECTED REGION END*/
+
+/**
+ * see http://code.google.com/p/andromda-beautifier/issues/detail?id=12
+ */
+public class TestClass {
+    AClass v1;
+    AClass v2;
+}

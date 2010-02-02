@@ -1,0 +1,147 @@
+package com.icw.phr.document.transfer;
+
+import com.icw.phr.commons.annotation.DomainObjectMapping;
+import com.icw.phr.commons.domain.PermissionClassifier;
+import com.icw.phr.commons.transfer.EmbeddedObjectDto;
+import com.icw.phr.core.transfer.CodeDto;
+
+/** 
+ * THIS FILE WAS GENERATED. DO NOT MODIFY. 
+ * 
+ * Created at Tue Sep 05 20:27:46 CEST 2007. 
+ */ 
+@SuppressWarnings("serial") 
+@DomainObjectMapping(domainObject = "com.icw.phr.document.domain.DocumentContext") 
+@PermissionClassifier("com.icw.phr.document.domain.Object") 
+public class DocumentContextDto extends EmbeddedObjectDto { 
+    private int contentSize; 
+    private CodeDto mimeType; 
+    private String description; 
+    private CodeDto language; 
+    private CodeDto confidentiality; 
+    private String styleSheetId; 
+    private String printStyleSheetId; 
+    private String encoding; 
+    private ParticipantDto author; 
+    private int documentVersion; 
+    private DocumentQualifierDto
+    	rootDocumentQualifier; 
+    private DocumentQualifierDto
+    	documentQualifier; 
+
+    // Embedded transfer object have a default constructor 
+    public DocumentContextDto() { 
+    } 
+
+    public void setContentSize(int contentSize) { 
+        this.contentSize = contentSize; 
+    } 
+
+    public int getContentSize() { 
+        return contentSize; 
+    } 
+
+    public void setMimeType(CodeDto mimeType) { 
+        this.mimeType = mimeType; 
+    } 
+
+    public CodeDto getMimeType() { 
+        if (mimeType == null) { 
+            mimeType = new CodeDto(); 
+        } 
+        return mimeType; 
+    } 
+
+    public void setDescription(String description) { 
+        this.description = description; 
+    } 
+
+    public String getDescription() { 
+        return description; 
+    } 
+
+    public void setLanguage(CodeDto language) { 
+        this.language = language; 
+    } 
+
+    public CodeDto getLanguage() { 
+        if (language == null) { 
+            language = new CodeDto(); 
+        } 
+        return language; 
+    } 
+
+    public void setConfidentiality(CodeDto confidentiality) { 
+        this.confidentiality = confidentiality; 
+    } 
+
+    public CodeDto getConfidentiality() { 
+        if (confidentiality == null) { 
+            confidentiality = new CodeDto(); 
+        } 
+        return confidentiality; 
+    } 
+
+    public void setStyleSheetId(String styleSheetId) { 
+        this.styleSheetId = styleSheetId; 
+    } 
+
+    public String getStyleSheetId() { 
+        return styleSheetId; 
+    } 
+
+    public void setPrintStyleSheetId(String printStyleSheetId) { 
+        this.printStyleSheetId = printStyleSheetId; 
+    } 
+
+    public String getPrintStyleSheetId() { 
+        return printStyleSheetId; 
+    } 
+
+    public void setEncoding(String encoding) { 
+        this.encoding = encoding; 
+    } 
+
+    public String getEncoding() { 
+        return encoding; 
+    } 
+
+    public void setAuthor(ParticipantDto author) { 
+        this.author = author; 
+    } 
+
+    public ParticipantDto getAuthor() { 
+        if (author == null) { 
+            author = new ParticipantDto(); 
+        } 
+        return author; 
+    } 
+
+    public void setDocumentVersion(int documentVersion) { 
+        this.documentVersion = documentVersion; 
+    } 
+
+    public int getDocumentVersion() { 
+        return documentVersion; 
+    } 
+
+    public void setRootDocumentQualifier( 
+        DocumentQualifierDto rootDocumentQualifier) { 
+        this.rootDocumentQualifier = rootDocumentQualifier; 
+
+    } 
+
+    public DocumentQualifierDto getRootDocumentQualifier() { 
+        return rootDocumentQualifier; 
+    } 
+
+    public void setDocumentQualifier( 
+        DocumentQualifierDto documentQualifier) { 
+        this.documentQualifier = documentQualifier; 
+
+    } 
+
+    public DocumentQualifierDto getDocumentQualifier() { 
+        return documentQualifier; 
+    } 
+}
