@@ -1,0 +1,190 @@
+package org.ekkehard.abc.entitybean.adress;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+/**
+ * <b>Embeddable Iso</b><br>
+ * keine eigene Identität in der Datenbank die einzelnen Attribute werden
+ * eingebettet in das zugehörige {@code Entity}<br>
+ * 
+ * @author ekke (ekkehard gentz) <a href="http://www.ekkehard.org/index.html">
+ *         ekkehard.org</a><br>
+ *         generated with:
+ *         {@link <a href="http://www.openarchitectureware.org"> openArchitectureWare</a>}
+ *         (oAW)<br>
+ *         using oAW - Cartridges from
+ *         {@link <a href="http://ekkes-corner.org/index.html"> ekke (Ekkehard Gentz)</a>}
+ * <br>
+ *         <p/>
+ *         Copyright 2003...2009: Ekkehard Gentz,
+ *         {@link <a href="http://www.gentz-software.de/index.html"> Gentz-Software</a>}
+ *         <br>
+ *         Max-Josefs-Platz 30, D-83022 Rosenheim, Germany (Bavaria)<br>
+ *         {@link <a href="mailto:ekke@ekkes-corner.org"> ekkes email</a>}
+ *         {@link <a href="CALLTO://ekkes-corner"> ekkes skype</a>}
+ *         <p/>
+ *         Lizensiert unter der
+ *         {@link <a href="http://www.opensource.org/licenses/eclipse-1.0.php"> Eclipse Public License 1.0</a>}
+ *         <p/>
+ */
+
+@Embeddable
+public class Iso
+implements Serializable
+{
+    /**
+     * default no-arg constructor for java bean support Standard Konstruktor
+     * ohne Argumente für Java Beans Support
+     */
+    public Iso()
+    {
+        super();
+    }
+
+    /**
+     * Versionsnummer zur Serialisierung von {@code Iso}
+     */
+    private static final long serialVersionUID = 1L;
+
+    transient private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
+    @Column(name = "ISO2", nullable = false, length = 2)
+    private String iso2 = null;
+
+    @Column(name = "ISO3", nullable = false, length = 3)
+    private String iso3 = null;
+
+    /**
+     * 
+     * @return iso2 as {@code String}
+     */
+
+    public String getIso2()
+    {
+        /* PROTECTED REGION ID(GET_NTITYBAN_ADRSS_ISO_ISO2) START */
+        // here's the place for additional code
+        // add ENABLED before START to protect your changes < --- IMPORTANT
+        // copy the file to /src/gen-pr/java if not already there
+        return iso2;
+        /* PROTECTED REGION END */
+    }
+
+    /**
+     * 
+     * @param a_Iso2
+     *            set {@code a_Iso2} as {@code String}
+     */
+
+    public void setIso2(String a_Iso2)
+    {
+        /* PROTECTED REGION ID(SET_NTITYBAN_ADRSS_ISO_ISO2) START */
+        // here's the place for additional code
+        // add ENABLED before START to protect your changes < --- IMPORTANT
+        // copy the file to /src/gen-pr/java if not already there
+
+        final String oldIso2 = iso2;
+        iso2 = a_Iso2;
+        changes.firePropertyChange("iso2", oldIso2, a_Iso2);
+
+        /* PROTECTED REGION END */
+    }
+
+    /**
+     * 
+     * @return iso3 as {@code String}
+     */
+
+    public String getIso3()
+    {
+        /* PROTECTED REGION ID(GET_NTITYBAN_ADRSS_ISO_ISO3) START */
+        // here's the place for additional code
+        // add ENABLED before START to protect your changes < --- IMPORTANT
+        // copy the file to /src/gen-pr/java if not already there
+        return iso3;
+        /* PROTECTED REGION END */
+    }
+
+    /**
+     * 
+     * @param a_Iso3
+     *            set {@code a_Iso3} as {@code String}
+     */
+
+    public void setIso3(String a_Iso3)
+    {
+        /* PROTECTED REGION ID(SET_NTITYBAN_ADRSS_ISO_ISO3) START */
+        // here's the place for additional code
+        // add ENABLED before START to protect your changes < --- IMPORTANT
+        // copy the file to /src/gen-pr/java if not already there
+
+        final String oldIso3 = iso3;
+        iso3 = a_Iso3;
+        changes.firePropertyChange("iso3", oldIso3, a_Iso3);
+
+        /* PROTECTED REGION END */
+    }
+
+    /**
+     * @return serialVersionUID as {@code long}
+     */
+    public static long getSerialVersionUID()
+    {
+        return serialVersionUID;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object arg0)
+    {
+        return super.equals(arg0);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
+
+    /**
+     * gibt den Klassennamen, sowie die Inhalte der Attribute mit Getter aus
+     * 
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        return "o.e.abc.entitybean.adress.Iso / "
+        + " iso2 = {" + getIso2() + "}"
+        + " iso3 = {" + getIso3() + "}"
+        ;
+    }
+
+    /**
+     * @param pChangeListener
+     */
+    public void addPropertyChangeListener(final PropertyChangeListener pChangeListener)
+    {
+        this.changes.addPropertyChangeListener(pChangeListener);
+    }
+
+    /**
+     * @param pChangeListener
+     */
+    public void removePropertyChangeListener(final PropertyChangeListener pChangeListener)
+    {
+        this.changes.removePropertyChangeListener(pChangeListener);
+    }
+}

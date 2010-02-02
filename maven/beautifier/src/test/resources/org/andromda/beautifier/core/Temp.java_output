@@ -1,0 +1,125 @@
+package de.plushnikov.doctorjim;
+
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Just a test class
+ *
+ * @author Plushnikov Michail
+ */
+public class Temp extends Object implements Comparator<Integer> {
+    public void test00() {
+        //new Ajava.lang.Integer(0);
+        //new bjava.lang.Integer(0);
+        //new _java.lang.Integer(0);
+        //new .java.lang.Integer(0);
+        Integer l;
+        Integer ll;
+        //new *Integer(0);
+        //new Integer(0);
+        //new -Integer(0);
+        //new ?Integer(0);
+        //Array.setChar(new Integer(0), 1, '2');
+        Array.setChar(new Integer(0), 1, '2');
+    }
+
+    public int compare(Integer integer, Integer integer1) {
+        Map.Entry<Integer, Integer> b;
+        return 0;
+    }
+
+
+    public static void main(String[] args) {
+        Map.Entry<String, String> a;
+        Integer test, test2, test3;
+        Character test4 = new Character('_');
+    }
+
+    public Float test() {
+        new BigDecimal("0");
+        String p1 = "";
+        Integer p2 = 0;
+        Float p3 = 0.0f;
+        Double p4 = 0.0;
+        int p5 = 0;
+        String p6 = "";
+        byte p7 = 0;
+        Collection<Integer> p8 = null;
+        test9((String) p1, (Integer) p2, (Float) p3,
+                (Double) p4, (int) p5, (String) p6, (byte) p7,
+                (Collection<Integer>) p8);
+        return (Float) 4.4f;
+    }
+
+    public String test0() {
+        HashMap<String, Integer> map = new HashMap<String, Integer>(15);
+        for (java.
+                util.// comment string
+                Map./*erewrewr*/
+                Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+        return "";
+    }
+
+    /**
+     * Test Doku
+     *
+     * @return value
+     */
+    public String test2() {
+        return new String("");
+    }
+
+    public Collection test3() {
+        return new ArrayList(1);
+    }
+
+    /**
+     * @XmlSchema
+     */
+    public Collection<String> test4() {
+        return new ArrayList<String>(1);
+    }
+
+    public Collection<String> test5() {
+        return new ArrayList<String>(1);
+    }
+
+    public void test6() {
+        Collections.emptyMap();
+        List l = Collections.emptyList();
+
+        Collections.checkedSet(new HashSet(), String.class);
+    }
+
+    public void test7() {
+        Array.setChar(new Integer(0), 1, '2');
+    }
+
+    public void test8() {
+        System.out.println(Collections.class);
+        System.out.println(Collection.class);
+        Collections.class.toString();
+        Collection.class.toString();
+    }
+
+    private Boolean test9(String p1, Integer p2, Float p3,
+                                    Double p4, int p5, String p6, byte p7,
+                                    Collection<Integer> p8) {
+
+        return new Boolean(true);
+    }
+}

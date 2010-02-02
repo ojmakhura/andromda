@@ -1,0 +1,24 @@
+package org.oaw.forum;
+
+import com.example.Dog;
+import com.example.Pet;
+import org.hibernate.criterion.Criterion;
+
+public class Test {
+
+	public void testMethod0() {
+		Pet.valueOf("com.example.Pet.DOG", true);
+	}
+
+	public void testMethod1(String... args) {
+		Pet.valueOf(Pet.class.getName() + ".DOG", true);
+	}
+
+	public void testMethod2(Dog... dogs) {
+		Pet.valueOf(Pet.DOG.class.getName(), true);
+	}
+	
+	protected Pet findByCriteria(
+            Criterion... criterion) {
+	}
+}

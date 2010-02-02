@@ -1,0 +1,33 @@
+// Demonstrates improper Antlr file parsing
+package com.wdpr.bussvcs.travelplansegmentv3.service;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+// Adds import bundleOfferRequest.accommodationOfferRequest.insuranceOfferRequest.vehicleOfferRequest.Shoppers;
+
+public class BeautifierBadTest
+{
+    private static final Logger LOG = Logger.getLogger(TravelPlanSegmentServiceV3SEIImpl.class.getName());
+    private static final String className = "TravelPlanSegmentServiceV3SEIImpl";
+
+    /**
+     * Invokes the determineOffers service method on TravelPlanSegmentServiceV3.
+     * 
+     */
+     public com.wdpr.bussvcs.travelplansegmentv3.OfferResponse determineOffers
+     (
+          com.wdpr.bussvcs.travelplansegmentv3.BundleOfferRequest bundleOfferRequest,
+          com.wdpr.bussvcs.travelplansegmentv3.AccommodationOfferRequest accommodationOfferRequest, 
+          com.wdpr.bussvcs.travelplansegmentv3.InsuranceOfferRequest insuranceOfferRequest, 
+          com.wdpr.bussvcs.travelplansegmentv3.VehicleOfferRequest vehicleOfferRequest, 
+          java.util.List<com.wdpr.bussvcs.travelplansegmentv3.Shopper> Shoppers
+     )
+     {
+         LOG.logp(Level.FINER, BeautifierBadTest.className, "determineOffers", "Executing operation TravelPlanSegmentServiceV3.determineOffers: "  + bundleOfferRequest + accommodationOfferRequest + insuranceOfferRequest + vehicleOfferRequest + Shoppers);
+
+         TravelPlanSegmentServiceV3WSDelegate delegate = new TravelPlanSegmentServiceV3WSDelegate();
+         com.wdpr.bussvcs.travelplansegmentv3.OfferResponse offerResponseReturn = delegate.determineOffers(bundleOfferRequest, accommodationOfferRequest, insuranceOfferRequest, vehicleOfferRequest, Shoppers, null, null, null);
+         LOG.logp(Level.FINER, BeautifierBadTest.className, "determineOffers", "Returning TravelPlanSegmentServiceV3.determineOffers: " + offerResponseReturn);
+         return offerResponseReturn;
+     }
+}

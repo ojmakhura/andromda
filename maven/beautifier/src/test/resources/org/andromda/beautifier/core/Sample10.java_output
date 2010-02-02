@@ -1,0 +1,11 @@
+package 
+org.
+andromda.
+test;
+
+import static org.apache.commons.logging.LogFactory.LEVEL;
+import test.foo.Bar;
+
+public abstract class List implements java.util.List, Bar {
+
+}

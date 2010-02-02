@@ -1,0 +1,36 @@
+package org.oaw.forum;
+
+import de.company.product.Klasse;
+import de.company.product.Klasseclass;
+import de.company.product.KlassenKamerad;
+import org.oaw.forum.subpack.MyType;
+import org.oaw.forum.subpack.MyTypes;
+
+public class Test {
+
+	public void testMethod0() {
+		new MyType();
+		new MyTypes();
+	}
+
+	public void testMethod1() {
+		MyType.class.getName();
+		MyTypes.class.getName();
+	}
+
+
+    public void testMethod2() {
+        Klasse.class.getName();
+        KlassenKamerad.class.getName();
+    }
+
+    public void testMethod3() {
+        Klasse klasse = new Klasse();
+        KlassenKamerad klassenKamerad = new KlassenKamerad();
+    }
+
+    public void testMethod3() {
+        Klasseclass klasse = new Klasseclass();
+    }
+
+}

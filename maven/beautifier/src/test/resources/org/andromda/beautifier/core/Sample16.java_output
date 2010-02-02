@@ -1,0 +1,32 @@
+package com.dvelop.esb.docbuilder;
+
+import java.io.test.SomeThingElse;
+
+/* PROTECTED REGION ID(com/dvelop/esb/docbuilder/Executor/java) ENABLED START */
+// Use this for your own imports
+import java.io.BufferedReader;
+
+/* PROTECTED REGION END */
+
+
+/**
+ *
+ *
+ * @author This is generated code.
+ */
+public class Executor {
+    private BookMaker bookMaker = null;
+
+    /**
+     *
+     * @author This is generated code.
+     */
+    public void buildAll(String inputDirectory, String outputDirectory) {
+
+        /* PROTECTED REGION ID(Data::com.dvelop.esb.docbuilder::Executor::buildAll::void::String::String) ENABLED START */
+        // TODO Insert your code here (Method: buildAll).
+        
+        BufferedReader in = null;
+        /* PROTECTED REGION END */
+    }
+}
