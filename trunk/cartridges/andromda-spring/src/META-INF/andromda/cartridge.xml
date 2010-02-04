@@ -1252,7 +1252,6 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="allRoles"/>
                     <property name="remotable"/>
                 </type>
             </modelElement>
