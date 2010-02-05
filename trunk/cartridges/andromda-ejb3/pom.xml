@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.cartridges</groupId>
@@ -17,9 +17,9 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10011</url>
     </issueManagement>
     <scm>
-      <connection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</connection>
-      <developerConnection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</developerConnection>
-      <url>http://andromdaplugins.svn.sourceforge.net/andromdaplugins</url>
+        <connection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</connection>
+        <developerConnection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</developerConnection>
+        <url>http://andromdaplugins.svn.sourceforge.net/andromdaplugins</url>
     </scm>
     <developers>
         <developer>
@@ -47,115 +47,68 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>3.3</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <type>xml.zip</type>
-            <version>3.3</version>
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-maven-plugin</artifactId>
-                    <version>3.3</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <buildSourceDirectory>${pom.basedir}/target/src</buildSourceDirectory>
-                                <configurationUri>file:${pom.basedir}/../conf/andromda.xml</configurationUri>
-                                <lastModifiedCheck>true</lastModifiedCheck>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <extensions>true</extensions>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-cartridge-plugin</artifactId>
-                    <version>3.3</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                                <configurationUri>file:${pom.basedir}/conf/test/andromda.xml</configurationUri>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-plugin</artifactId>
-                <version>3.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.cartridges</groupId>
-                        <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>3.3</version>
-                    </dependency>
-                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <buildSourceDirectory>${pom.basedir}/target/src</buildSourceDirectory>
+                            <configurationUri>file:${pom.basedir}/../conf/andromda.xml</configurationUri>
+                            <lastModifiedCheck>true</lastModifiedCheck>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <version>3.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-query-library</artifactId>
-                        <version>3.3</version>
-                    </dependency>
-                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <configurationUri>file:${pom.basedir}/conf/test/andromda.xml</configurationUri>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>3.3</version>
                 <executions>
                     <execution>
                         <id>profile-transform</id>
@@ -174,14 +127,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-cartridge-plugin</artifactId>
-                <version>3.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>commons-lang</groupId>
-                        <artifactId>commons-lang</artifactId>
-                        <version>2.1</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <id>cartridge-howto-artifacts</id>
@@ -197,13 +142,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.andromda.maven.plugins.site</groupId>
-						<artifactId>andromda-doxia-module-xdoc</artifactId>
-						<version>3.3</version>
-					</dependency>
-				</dependencies>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.maven.plugins.site</groupId>
+                        <artifactId>andromda-doxia-module-xdoc</artifactId>
+                        <version>3.3</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <locales>en</locales>
                     <outputEncoding>UTF-8</outputEncoding>
@@ -282,7 +227,7 @@
                             <report>changelog</report>
                             <report>file-activity</report>
                             <report>dev-activity</report>
-                            </reports>
+                        </reports>
                     </reportSet>
                 </reportSets>
             </plugin>
