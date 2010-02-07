@@ -7,26 +7,7 @@
     <packaging>pom</packaging>
     <version>3.4-SNAPSHOT</version>
     <name>TimeTracker</name>
-    <description>The TimeTracker Project.</description>
-    <scm>
-        <connection></connection>
-        <url></url>
-    </scm>
-    <organization>
-      <name></name>
-      <url></url>
-    </organization>
-    <ciManagement>
-        <system>continuum</system>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address></address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
+    <description>The TimeTracker Project.</description>    
     <developers>
         <developer>
             <id></id>
@@ -52,19 +33,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xerces</groupId>
-                        <artifactId>xercesImpl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
+                <exclusions>                    
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -281,6 +250,10 @@
                         <groupId>commons-digester</groupId>
                         <artifactId>commons-digester</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -329,15 +302,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        -->
+    <dependencies>        
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -620,12 +585,12 @@
         <repository>
 			<id>andromda</id>
             <name>AndroMDA Repository</name>
-            <url>file:/var/www/andromda/maven2</url>
+            <url>file:/var/www/maven2</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
         <site>
             <id>website</id>
-            <url>file:/var/www/andromda/docs/samples/timetracker</url>
+            <url>file:/var/www/docs/samples/timetracker</url>
         </site>
     </distributionManagement>
 </project>
