@@ -35,28 +35,5 @@
     </dependencies>
     <modules>
         <module>uml</module>
-    </modules>
-    <reporting>
-        <plugins>            
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                    <show>package</show>
-                    <minmemory>128m</minmemory>
-                    <maxmemory>512</maxmemory>
-                    <sourcepath>${basedir}/src/java;${basedir}/target/src</sourcepath>
-                    <links>
-                        <link>http://java.sun.com/javase/6/docs/api/</link>
-                        <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
-                        <link>http://galaxy.andromda.org/docs/andromda-core/apidocs/</link>
-                        <link>http://galaxy.andromda.org/docs/jmi-uml1.4/</link>
-                        <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/2.2.2/</link>
-                    </links>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+    </modules>    
 </project>
