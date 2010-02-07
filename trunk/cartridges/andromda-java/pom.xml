@@ -8,14 +8,18 @@
     <artifactId>andromda-java-cartridge</artifactId>
     <packaging>andromda-cartridge</packaging>
     <name>AndroMDA JavaCartridge</name>
-    <description>Produces generic Java code, such as: value objects, enumerations, exceptions, interfaces, etc.</description>
+    <description>Produces generic Java code, such as: value objects, enumerations, exceptions, interfaces, etc.
+    </description>
     <issueManagement>
         <system>jira</system>
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10051</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java</developerConnection>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java
+        </connection>
+        <developerConnection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
@@ -25,12 +29,24 @@
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
             <version>2.2.4</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.2</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>
@@ -38,28 +54,29 @@
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>  
+                <artifactId>andromda-maven-plugin</artifactId>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId> 
+                <artifactId>andromda-site-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
     <properties>
         <model.uri>jar:file:${src.dir}/uml/JavaMetafacadeModel.xml.zip!/JavaMetafacadeModel.xml</model.uri>
-        <test.model.uri>jar:file:${test.src.dir}/uml/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml</test.model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml
+        </test.model.uri>
     </properties>
 </project>
