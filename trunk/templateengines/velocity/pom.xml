@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.templateengines</groupId>
@@ -15,13 +16,13 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
-    	<dependency> 
-    		<groupId>org.apache.velocity</groupId>
-      		<artifactId>velocity</artifactId>     		        
-    	</dependency>
-    	<dependency> 
-    		<groupId>org.apache.velocity</groupId>
-      		<artifactId>velocity-tools</artifactId>     		
-    	</dependency>
-    </dependencies>    
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-tools</artifactId>
+        </dependency>
+    </dependencies>
 </project>

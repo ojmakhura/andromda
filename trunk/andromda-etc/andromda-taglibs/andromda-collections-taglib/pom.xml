@@ -10,11 +10,11 @@
     <artifactId>andromda-collections-taglib</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Collections Taglib</name>
-    <description>This tag-library is used to more easily handle Collections in JSPs</description>    
+    <description>This tag-library is used to more easily handle Collections in JSPs</description>
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>            
+            <artifactId>jsp-api</artifactId>
         </dependency>
     </dependencies>
 </project>

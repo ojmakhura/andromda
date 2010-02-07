@@ -12,9 +12,9 @@
     <name>AndroMDA Web Service Client</name>
     <description>Contains a simple webservice client (that also contains Spring support) contained in a single jar, that currently works with "wrapped" style services</description>
     <scm>
-      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/support/webservice-client</connection>
-      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/support/webservice-client</developerConnection>
-      <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/support/webservice-client</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/support/webservice-client</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
@@ -124,7 +124,7 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-    <build>        
+    <build>
         <plugins>
             <plugin>
                 <groupId>com.pyx4me</groupId>
@@ -211,30 +211,38 @@
                         <configuration>
                             <tasks>
                                 <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
-                                <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
+                                <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask"
+                                         classpath="${dependencyClasspath}"/>
                                 <jarjar jarfile="${project.build.directory}/${project.artifactId}-${project.version}.jar">
                                     <fileset dir="${project.basedir}/src/main/resources"/>
                                     <zipfileset src="${project.build.directory}/webservice-client.jar"
-                                        excludes="**/*/axis2_default.xml,
+                                                excludes="**/*/axis2_default.xml,
                                                   **/*/javax.xml.stream.XMLInputFactory,
                                                   **/*/javax.xml.stream.XMLOutputFactory,
                                                   **/*/pom.xml,
                                                   **/*/pom.properties,
                                                   **/*.html,
                                                   **/*.mar"/>
-                                    <rule pattern="org.apache.axis2.receivers.**" result="org.apache.axis2a.receivers.@1"/>
-                                    <rule pattern="org.apache.axis2.transport.jms.**" result="org.apache.axis2a.transport.jms.@1"/>
-                                    <rule pattern="org.apache.axis2.transport.tcp.**" result="org.apache.axis2a.transport.tcp.@1"/>
-                                    <rule pattern="org.apache.axis2.transport.local.**" result="org.apache.axis2a.transport.local.@1"/>
-                                    <rule pattern="org.apache.axis2.transport.http.**" result="org.apache.axis2a.transport.http.@1"/>
+                                    <rule pattern="org.apache.axis2.receivers.**"
+                                          result="org.apache.axis2a.receivers.@1"/>
+                                    <rule pattern="org.apache.axis2.transport.jms.**"
+                                          result="org.apache.axis2a.transport.jms.@1"/>
+                                    <rule pattern="org.apache.axis2.transport.tcp.**"
+                                          result="org.apache.axis2a.transport.tcp.@1"/>
+                                    <rule pattern="org.apache.axis2.transport.local.**"
+                                          result="org.apache.axis2a.transport.local.@1"/>
+                                    <rule pattern="org.apache.axis2.transport.http.**"
+                                          result="org.apache.axis2a.transport.http.@1"/>
                                     <rule pattern="org.apache.axis2.builder.**" result="org.apache.axis2a.builder.@1"/>
                                     <rule pattern="org.apache.axis2.engine.**" result="org.apache.axis2a.engine.@1"/>
                                     <rule pattern="com.ibm.wsdl.factory.**" result="com.ibm.wsdla.factory.@1"/>
                                     <rule pattern="com.ctc.wstx.stax.**" result="com.ctc.wstxa.stax.@1"/>
                                     <rule pattern="com.ctc.wstx.compat.**" result="com.ctc.wstxa.compat.@1"/>
                                     <rule pattern="org.apache.axiom.om.**" result="org.apache.axioma.om.@1"/>
-                                    <rule pattern="org.apache.axiom.soap.impl.llom.**" result="org.apache.axioma.soap.impl.llom.@1"/>
-                                    <rule pattern="org.apache.axis2.deployment.**" result="org.apache.axis2a.deployment.@1"/>
+                                    <rule pattern="org.apache.axiom.soap.impl.llom.**"
+                                          result="org.apache.axioma.soap.impl.llom.@1"/>
+                                    <rule pattern="org.apache.axis2.deployment.**"
+                                          result="org.apache.axis2a.deployment.@1"/>
                                     <rule pattern="META*.services.*" result="META@1.servicesa.@1"/>
                                 </jarjar>
                             </tasks>

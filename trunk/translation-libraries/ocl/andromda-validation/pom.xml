@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
@@ -31,8 +32,8 @@
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>        
-        </dependency> 
+            <artifactId>commons-collections</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <filters>
@@ -45,10 +46,10 @@
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-plugin</artifactId>  
+                <artifactId>andromda-bootstrap-plugin</artifactId>
                 <configuration>
                     <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
                 </configuration>
@@ -63,12 +64,12 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration> 
+                        <configuration>
                             <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration> 
+                        </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
 </project>

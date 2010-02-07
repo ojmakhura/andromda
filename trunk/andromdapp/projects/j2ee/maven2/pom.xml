@@ -1,18 +1,19 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.andromdapp.projects</groupId>
         <artifactId>andromda-andromdapp-projects</artifactId>
         <version>3.4-SNAPSHOT</version>
-    </parent>    
+    </parent>
     <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA J2EE Maven2 Project</name>
     <description>AndroMDA powered J2EE Maven2 Application</description>
     <scm>
-      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</connection>
-      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</developerConnection>
-      <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <build>
         <resources>
@@ -20,17 +21,17 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
-                </includes>    
+                </includes>
                 <excludes>
                     <exclude>**/configuration.xml</exclude>
-                </excludes>        
+                </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/../../../../andromda-etc/mda/uml</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
-                <targetPath>templates/j2ee/maven2/mda/src/main/uml</targetPath> 
+                <targetPath>templates/j2ee/maven2/mda/src/main/uml</targetPath>
             </resource>
         </resources>
     </build>

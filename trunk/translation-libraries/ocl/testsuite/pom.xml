@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
@@ -26,21 +27,21 @@
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>        
-        </dependency> 
+            <artifactId>commons-collections</artifactId>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-        </dependency>     
+        </dependency>
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>javassist</artifactId>
-        </dependency>  
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>compile</scope>
-        </dependency> 
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -50,7 +51,7 @@
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
-            </plugin>  
+            </plugin>
         </plugins>
     </build>
 </project>

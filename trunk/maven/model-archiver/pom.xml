@@ -1,55 +1,56 @@
-<project>
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>andromda-maven-plugins</artifactId>
-		<groupId>org.andromda.maven.plugins</groupId>
-		<version>3.4-SNAPSHOT</version>
-	</parent>
-	<artifactId>andromda-model-archiver-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>AndroMDA Model Archiver Plugin</name>
-	<description>
-		A Maven plugin used for archiving models of type .xml.zip, .xml, .uml2, .uml, .emx, .epx
-		(for example by calling the xml.zip goal you can create a versioned xml.zip artifact).
-	</description>
-	<inceptionYear>2005</inceptionYear>
-	<scm>
-		<connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/model-archiver</connection>
-		<developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/model-archiver</developerConnection>
-		<url>http://andromda.svn.sourceforge.net/</url>
-	</scm>
-	<dependencies>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-model-archiver-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Model Archiver Plugin</name>
+    <description>
+        A Maven plugin used for archiving models of type .xml.zip, .xml, .uml2, .uml, .emx, .epx
+        (for example by calling the xml.zip goal you can create a versioned xml.zip artifact).
+    </description>
+    <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/model-archiver</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/model-archiver</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
-		<!-- Maven dependencies -->
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-archiver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-artifact</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-archiver</artifactId>
-		</dependency>
+        <!-- Maven dependencies -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-archiver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-archiver</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>

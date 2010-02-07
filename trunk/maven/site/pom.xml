@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.maven.plugins</groupId>
@@ -13,15 +13,15 @@
     <description>
         The AndroMDA Maven site plugins
     </description>
-    <inceptionYear>2006</inceptionYear>    
+    <inceptionYear>2006</inceptionYear>
     <scm>
         <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <modules>        
+    <modules>
         <module>site</module>
-        <module>cartridge</module>        
+        <module>cartridge</module>
         <module>skin</module>
     </modules>
 </project>

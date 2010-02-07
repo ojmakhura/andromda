@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda</groupId>
@@ -57,7 +58,7 @@
                     <configuration>
                         <installDirectory>${basedir}/../../../lib</installDirectory>
                     </configuration>
-                </plugin>            
+                </plugin>
             </plugins>
         </pluginManagement>
         <testResources>
@@ -70,7 +71,7 @@
             <testResource>
                 <directory>src/test/uml</directory>
                 <includes>
-                  <include>**/*</include>
+                    <include>**/*</include>
                 </includes>
             </testResource>
         </testResources>
@@ -81,5 +82,5 @@
         <module>emf</module>
         <!-- Change to emf-uml22 for UML2 2.x and RSM 7.x support -->
         <module>emf/uml2</module>
-    </modules>    
+    </modules>
 </project>

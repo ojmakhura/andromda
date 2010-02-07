@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
@@ -9,7 +10,7 @@
     <packaging>jar</packaging>
     <name>AndroMDA OCL Query Translation-Library</name>
     <description>
-        Performs translation of OCL query expressions to different query languages, currently supports 
+        Performs translation of OCL query expressions to different query languages, currently supports
         Enterprise Java Bean Query Language and Hibernate Query Language.
     </description>
     <issueManagement>
@@ -35,7 +36,7 @@
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-translation-library-plugin</artifactId>  
+                <artifactId>andromda-translation-library-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -47,12 +48,12 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration> 
+                        <configuration>
                             <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration> 
+                        </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
         </plugins>
         <resources>
             <resource>

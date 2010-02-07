@@ -10,15 +10,15 @@
     <artifactId>andromda-script-wrappers</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Script Wrappers</name>
-	<description>Provides implementations of "Script Wrapper" classes, these classes are injected into class files in order to provide the ability to write your business logic in an interpreted manner</description>	
+    <description>Provides implementations of "Script Wrapper" classes, these classes are injected into class files in order to provide the ability to write your business logic in an interpreted manner</description>
     <dependencies>
         <dependency>
             <groupId>org.beanshell</groupId>
-            <artifactId>bsh</artifactId>            
+            <artifactId>bsh</artifactId>
         </dependency>
         <dependency>
             <groupId>groovy</groupId>
-            <artifactId>groovy-all-1.0-jsr</artifactId>            
+            <artifactId>groovy-all-1.0-jsr</artifactId>
         </dependency>
-    </dependencies>    
+    </dependencies>
 </project>

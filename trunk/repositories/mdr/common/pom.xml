@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.repositories</groupId>
@@ -8,11 +9,11 @@
     <artifactId>andromda-repository-mdr</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA MDR Repository (Common)</name>
-  	<description>
-  	    This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading, 
-  	    and querying object models.
-  	</description>
-  	<scm>
+    <description>
+        This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading,
+        and querying object models.
+    </description>
+    <scm>
         <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/mdr/common</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/mdr/common</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
@@ -22,31 +23,31 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
-    	<dependency> 
-    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-      		<artifactId>jmiutils</artifactId>     		
-    	</dependency>  
-    	<dependency> 
-    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-      		<artifactId>mdrapi</artifactId>
-    	</dependency>  
-     	<dependency> 
-    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-      		<artifactId>nbmdr</artifactId>
-    	</dependency>     	
-     	<dependency> 
-    		<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-      		<artifactId>openide-util</artifactId>
-    	</dependency> 
-    	<dependency> 
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>mof</artifactId>     		
-    	</dependency>  
-    	<dependency> 
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>jmi</artifactId>     		
-    	</dependency>  
-	</dependencies>	
+        <dependency>
+            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+            <artifactId>jmiutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+            <artifactId>mdrapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+            <artifactId>nbmdr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
+            <artifactId>openide-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+            <artifactId>mof</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+            <artifactId>jmi</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -63,7 +64,7 @@
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
-    </build>    
+    </build>
 </project>

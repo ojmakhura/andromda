@@ -1,33 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>andromda-maven-plugins</artifactId>
-		<groupId>org.andromda.maven.plugins</groupId>
-		<version>3.4-SNAPSHOT</version>
-	</parent>
-	<artifactId>andromda-beautifier-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>AndroMDA Beautifier Plugin</name>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-beautifier-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Beautifier Plugin</name>
     <dependencies>
-		<dependency>
-			<groupId>org.andromda</groupId>
-			<artifactId>andromda-core</artifactId>
-			<version>${project.version}</version>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.thirdparty.jalopy</groupId>
-	        <artifactId>jalopy</artifactId>
+            <artifactId>jalopy</artifactId>
             <version>1.5-RC3P1</version>
         </dependency>
         <dependency>
             <groupId>antlr</groupId>
-	        <artifactId>antlr</artifactId>
+            <artifactId>antlr</artifactId>
             <version>2.7.7</version>
         </dependency>
         <dependency>
@@ -36,10 +36,10 @@
         </dependency>
 
         <dependency>
-          <groupId>org.apache.maven</groupId>
-          <artifactId>maven-plugin-api</artifactId>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
         </dependency>
-    </dependencies>    
+    </dependencies>
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <downloadSources>true</downloadSources>
