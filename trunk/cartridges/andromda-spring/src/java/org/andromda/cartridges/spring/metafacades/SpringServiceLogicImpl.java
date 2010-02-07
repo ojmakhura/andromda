@@ -149,31 +149,31 @@ public class SpringServiceLogicImpl
      * @return ImplementationPackageName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationPackageName()
      */
-	protected String handleGetImplementationPackageName() {
+    protected String handleGetImplementationPackageName() {
         String implementationPackageName =
             MessageFormat.format(
                 this.getImplemenationPackageNamePattern(),
                     StringUtils.trimToEmpty(this.getPackageName()));
         if (StringUtils.isBlank(this.getPackageName()))
         {
-        	implementationPackageName = implementationPackageName.replaceAll(
+            implementationPackageName = implementationPackageName.replaceAll(
                     "^\\.",
                     "");
         }
         return implementationPackageName;
-	}
+    }
 
     /**
      * @return ImplementationPackagePath
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationPackagePath()
      */
-	protected String handleGetImplementationPackagePath()
-	{
-		 return this.getImplementationPackageName().replace(
-		            '.',
-		            '/');
-	}
-	
+    protected String handleGetImplementationPackagePath()
+    {
+         return this.getImplementationPackageName().replace(
+                    '.',
+                    '/');
+    }
+
     /**
      * Gets the <code>implementationPackageNamePattern</code> for this SpringService.
      *
@@ -183,7 +183,7 @@ public class SpringServiceLogicImpl
     {
         return (String)this.getConfiguredProperty(SpringGlobals.IMPLEMENTATION_PACKAGE_NAME_PATTERN);
     }
-	
+
     /**
      * @return getName() + SpringGlobals.SERVICE_BASE_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBaseName()
@@ -296,10 +296,10 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetFullyQualifiedWebServiceDelegatorName()
     {
-		return SpringMetafacadeUtils.getFullyQualifiedName(
-		          this.getImplementationPackageName(),
-		          this.getName(),
-		          SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX);    	
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+                  this.getImplementationPackageName(),
+                  this.getName(),
+                  SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX);
     }
 
     /**

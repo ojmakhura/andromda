@@ -231,7 +231,7 @@ public class JSFViewLogicImpl
         }
         return actions;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFormKey()
      */
@@ -259,7 +259,7 @@ public class JSFViewLogicImpl
     {
         return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopulatorRequired()
      */
@@ -278,7 +278,7 @@ public class JSFViewLogicImpl
         }
         return required;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopup()
      */
@@ -309,7 +309,7 @@ public class JSFViewLogicImpl
         }
         return present;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isHasNameOfUseCase()
      */
@@ -381,20 +381,20 @@ public class JSFViewLogicImpl
      */
     protected boolean handleIsNeedsFileUpload()
     {
-    	if(this.getAllActionParameters().size() == 0)
-    		return false;
-    		
+        if(this.getAllActionParameters().size() == 0)
+            return false;
+        
         for (final Iterator iterator = this.getAllActionParameters().iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (object instanceof JSFParameter){
-            	final JSFParameter parameter = (JSFParameter)object;
+                final JSFParameter parameter = (JSFParameter)object;
                 if(parameter.isInputFile())
-              	   return true;
+                     return true;
                 if(parameter.isComplex()){
-                	for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
-                		if(((JSFAttribute)attributes.next()).isInputFile())
-                			return true;
+                    for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
+                        if(((JSFAttribute)attributes.next()).isInputFile())
+                            return true;
                 }
             }
         }

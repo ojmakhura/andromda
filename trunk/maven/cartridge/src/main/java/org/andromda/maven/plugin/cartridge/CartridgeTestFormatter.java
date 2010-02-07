@@ -8,11 +8,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
-
 import org.andromda.cartridges.testsuite.FileComparator;
 
 
@@ -45,6 +43,9 @@ public class CartridgeTestFormatter
      */
     private boolean testFailureIgnore = false;
 
+    /**
+     * 
+     */
     public CartridgeTestFormatter()
     {
         this.report = new StringWriter();
@@ -98,6 +99,9 @@ public class CartridgeTestFormatter
             failure);
     }
 
+    /**
+     * @see junit.framework.TestListener#endTest(junit.framework.Test)
+     */
     public void endTest(Test test)
     {
     }
@@ -107,6 +111,9 @@ public class CartridgeTestFormatter
      */
     private int numberOfTests = 0;
 
+    /**
+     * @see junit.framework.TestListener#startTest(junit.framework.Test)
+     */
     public void startTest(Test test)
     {
         this.numberOfTests++;
@@ -124,6 +131,7 @@ public class CartridgeTestFormatter
 
     /**
      * The testsuite started.
+     * @param name 
      */
     public void startTestSuite(final String name)
     {

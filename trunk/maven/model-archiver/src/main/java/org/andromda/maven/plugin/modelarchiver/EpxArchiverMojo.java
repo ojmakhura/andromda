@@ -134,8 +134,8 @@ public class EpxArchiverMojo
             }
             else
             {
-                // old files in directory are not automatically deleted.                
-                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "epx");            	                
+                // old files in directory are not automatically deleted.
+                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "epx");
                 FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
             // - the directory which to extract the model file

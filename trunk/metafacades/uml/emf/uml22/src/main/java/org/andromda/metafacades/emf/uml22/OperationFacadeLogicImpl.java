@@ -613,6 +613,11 @@ public class OperationFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getReturnType().getWrapperName();
                 }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
+                }
                 name += '<' + type + '>';
             }
         }

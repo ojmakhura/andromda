@@ -136,8 +136,8 @@ public class UmlProfileArchiverMojo
             }
             else
             {
-                // old files in directory are not automatically deleted.                
-                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml");            	                
+                // old files in directory are not automatically deleted.
+                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml");
                 FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
 

@@ -2,10 +2,8 @@ package org.andromda.maven.plugin.cartridge;
 
 import java.io.File;
 import java.io.IOException;
-
 import junit.framework.Test;
 import junit.framework.TestResult;
-
 import org.andromda.cartridges.testsuite.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
@@ -51,12 +49,37 @@ public class CartridgeTestMojo
                             this.expectedOutputArchive + "' must be a file");
                 }
             }
+            final File expectedOutputDir = new File(this.expectedDirectory);
+            if (!expectedOutputDir.exists())
+            {
+                expectedOutputDir.mkdirs();
+            }
+            else if (!expectedOutputDir.isDirectory())
+            {
+                throw new MojoExecutionException("The path specifying the expectedDirectory '" +
+                    this.expectedDirectory + "' must be a directory");
+            }
+            final File actualOutputDir = new File(this.actualDirectory);
+            if (!actualOutputDir.exists())
+            {
+                actualOutputDir.mkdirs();
+            }
+            else if (!actualOutputDir.isDirectory())
+            {
+                throw new MojoExecutionException("The path specifying the actualOutputDir '" +
+                    this.actualDirectory + "' must be a directory");
+            }
 
             try
             {
                 this.getLog().info("-----------------------------------------------------------------------------");
                 this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e          ");
                 this.getLog().info("-----------------------------------------------------------------------------");
+                this.getLog().info("configurationUri=" + this.configurationUri);
+                this.getLog().info("actualDirectory=" + this.actualDirectory);
+                this.getLog().info("expectedDirectory=" + this.expectedDirectory);
+                this.getLog().info("expectedOutputArchive=" + this.expectedOutputArchive);
+                this.getLog().info("testFailureIgnore=" + this.testFailureIgnore);
 
                 // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
                 this.addCartridgeTestDependencies();
@@ -146,6 +169,7 @@ public class CartridgeTestMojo
      *
      * @param file File to be unpacked.
      * @param location Location where to put the unpacked files.
+     * @throws MojoExecutionException error unpacking file to location
      */
     protected void unpack(
         final File file,

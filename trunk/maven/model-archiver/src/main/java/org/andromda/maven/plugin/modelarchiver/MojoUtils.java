@@ -15,21 +15,21 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MojoUtils 
 {
-	/**
-	 * Deletes all files with given extension in the given directory
-	 * @param pPath path to directory
-	 * @param pExtension extension of files
-	 */
-	public static void deleteFiles(String pPath, String pExtension) 
-	{
-		Iterator<File> lFileIter = FileUtils.iterateFiles(new File(pPath), new String[] {pExtension}, false);
-    	while(lFileIter.hasNext()) 
-    	{    		
-    		FileUtils.deleteQuietly(lFileIter.next());
-    	}
-	}
-	
-	/**
+    /**
+     * Deletes all files with given extension in the given directory
+     * @param pPath path to directory
+     * @param pExtension extension of files
+     */
+    public static void deleteFiles(String pPath, String pExtension) 
+    {
+        Iterator<File> lFileIter = FileUtils.iterateFiles(new File(pPath), new String[] {pExtension}, false);
+        while(lFileIter.hasNext()) 
+        {    
+            FileUtils.deleteQuietly(lFileIter.next());
+        }
+    }
+
+    /**
      * Escapes the pattern so that the reserved regular expression
      * characters are used literally.
      * @param pattern the pattern to replace.

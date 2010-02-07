@@ -209,7 +209,7 @@ public class XmiZipArchiverMojo
             else
             {
                 // old files in directory are not automatically deleted.
-            	MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "xml.zip");            	                
+                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "xml.zip");                        
                 FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
             // - the directory which to extract the model file
@@ -369,7 +369,7 @@ public class XmiZipArchiverMojo
             source,
             destination);
     }
-    
+
     /**
      * Unpacks the archive file.
      *

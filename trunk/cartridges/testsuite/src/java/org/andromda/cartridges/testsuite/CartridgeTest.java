@@ -7,11 +7,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -36,13 +34,13 @@ public class CartridgeTest
     private static final Logger logger = Logger.getLogger(CartridgeTest.class);
 
     /**
-     * Points to the directory were the expected files are stored which will be
+     * Points to the directory where the expected files are stored which will be
      * compared to the generated ones.
      */
     public static final String EXPECTED_DIRECTORY = "expected.dir";
 
     /**
-     * Points to the directory were the generated files are located.
+     * Points to the directory where the generated files are located.
      */
     public static final String ACTUAL_DIRECTORY = "actual.dir";
 
@@ -53,7 +51,7 @@ public class CartridgeTest
     public static final String BINARY_SUFFIXES = "binary.suffixes";
     
     /**
-     * The shared instanceo of this class.
+     * The shared instance of this class.
      */
     private static CartridgeTest instance;
     
@@ -77,7 +75,7 @@ public class CartridgeTest
     }
     
     /**
-     * Stores a comma seperated list of binary suffixes.
+     * Stores a comma separated list of binary suffixes.
      */
     private String binarySuffixes = StringUtils.trimToEmpty(System.getProperty(BINARY_SUFFIXES));
     
@@ -85,7 +83,7 @@ public class CartridgeTest
      * Sets the value of the suffixes that indicate a binary file (binary files
      * are not compared as text).
      * 
-     * @param binarySuffixes a comma seperated list of binary suffixes.
+     * @param binarySuffixes a comma separated list of binary suffixes.
      */
     public void setBinarySuffixes(final String binarySuffixes)
     {
@@ -129,11 +127,17 @@ public class CartridgeTest
         AndroMDALogger.initialize();
     }
 
+    /**
+     * @param name
+     */
     public CartridgeTest(final String name)
     {
         super(name);
     }
 
+    /**
+     * @return suite
+     */
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
@@ -155,7 +159,7 @@ public class CartridgeTest
             expectedFiles);
         final Iterator iterator = expectedFiles.iterator();
         logger.info(" --- Expecting " + expectedFiles.size() + " Generated Files --- ");
-        logger.info("binary suffixes --> " + getBinarySuffixes());
+        logger.info("ExpectedOutputDirectory --> " + this.getExpectedOutputDirectory());
         final List missingFiles = new ArrayList();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {

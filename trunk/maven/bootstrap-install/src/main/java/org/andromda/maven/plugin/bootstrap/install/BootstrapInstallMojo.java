@@ -124,7 +124,7 @@ public class BootstrapInstallMojo
 
     /**
      * Clears the POM's model of its parent or any dependencies
-     * it may have so that we can write a POM that isn't dependant on anything
+     * it may have so that we can write a POM that isn't dependent on anything
      * (which we need for bootstrap artifacts).
      *
      * @param bootstrapPomFile the bootstrap POM file to write.
@@ -159,7 +159,7 @@ public class BootstrapInstallMojo
     /**
      * Retrieves the project's bootstrap groupId from the given <code>artifact</code>.
      *
-     * @param artifact the artfact from which to retrieve the group Id.
+     * @param artifact the artifact from which to retrieve the group Id.
      * @return the bootstrap groupId.
      */
     private String getBootstrapGroupId(final Artifact artifact)

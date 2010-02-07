@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.cartridge;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
@@ -178,7 +177,7 @@ public class CartridgeArchiverMojo
     /**
      * Resolves the actual Maven artifact for the given cartridge artifact.
      * @param cartridgeArtifact the cartridge artifact.
-     * @return
+     * @return maven artifact
      * @throws MojoFailureException
      */
     public Artifact resolveArtifact(final CartridgeArtifact cartridgeArtifact)
