@@ -85,7 +85,7 @@
                 <role>Project Admin</role>
             </roles>
             <timezone>-6</timezone>
-        </developer>        
+        </developer>
         <developer>
             <id>amartinwest</id>
             <name>Martin West</name>
@@ -228,26 +228,23 @@
                 <artifactId>log4j</artifactId>
                 <version>1.2.14</version>
             </dependency>
-
-            <dependency>
-                <groupId>xalan</groupId>
-                <artifactId>xalan</artifactId>
-                <version>2.7.0</version>
-            </dependency>
-            <dependency>
-                <groupId>xerces</groupId>
-                <artifactId>xercesImpl</artifactId>
-                <version>2.8.1</version>
-            </dependency>
+            
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>1.0.b2</version>
-            </dependency>
+            </dependency>            
             <dependency>
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
-                <version>1.1</version>
+                <version>1.1.1</version>
+                <exclusions>
+                    <!--Exclude old xerces-->
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
@@ -258,7 +255,7 @@
                 <groupId>de.plushnikov</groupId>
                 <artifactId>doctor-jim</artifactId>
                 <version>1.0-SNAPSHOT</version>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
@@ -374,7 +371,6 @@
                 <artifactId>plexus-archiver</artifactId>
                 <version>1.0-alpha-12</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
     <build>
@@ -771,21 +767,21 @@
     </reporting>
     <modules>
         <module>andromda-core</module>
+        <module>andromda-utils</module>
+        <module>templateengines</module>
         <module>andromdapp</module>
+        <module>ant</module>
         <module>maven</module>
         <module>cartridges</module>
         <module>metafacades</module>
-        <module>andromda-utils</module>
         <module>repositories</module>
-        <module>templateengines</module>
-        <module>translation-libraries</module>
-        <module>ant</module>
-        <module>profiles</module>
-        <module>samples</module>
-        <module>andromda-etc</module>
-        <module>documentation</module>
         <!--temporary until uml2+uml22 coexistence solved-->
         <module>repositories/emf/uml22</module>
+        <module>andromda-etc</module>        
+        <module>translation-libraries</module>
+        <module>profiles</module>
+        <module>documentation</module>
+        <module>samples</module>
         <module>andromda-distribution</module>
     </modules>
     <repositories>
@@ -795,9 +791,9 @@
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
         <repository>
-            <id>andromda</id> 
-            <name>AndroMDA Repository</name> 
-            <url>http://www.andromda.org/maven2</url> 
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://www.andromda.org/maven2</url>
         </repository>
         <!--<repository>
             <id>fornax.repository</id>
@@ -812,9 +808,9 @@
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
         <pluginRepository>
-            <id>andromda</id> 
-            <name>AndroMDA Repository</name> 
-            <url>http://www.andromda.org/maven2</url> 
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://www.andromda.org/maven2</url>
         </pluginRepository>
         <!--<pluginRepository>
             <id>fornax.plugin.repository</id>
@@ -832,7 +828,7 @@
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
-        <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository>
+        <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository
         <bootstrap.artifacts>true</bootstrap.artifacts>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>2.2.1</maven.version>
