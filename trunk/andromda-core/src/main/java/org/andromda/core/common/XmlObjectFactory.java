@@ -1,14 +1,8 @@
 package org.andromda.core.common;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.EntityResolver;
@@ -16,6 +10,15 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import javax.xml.XMLConstants;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -92,18 +95,18 @@ public class XmlObjectFactory
     /**
      * Cache containing XmlObjectFactory instances which have already been configured for given objectRulesXml
      */
-    private static final Map factoryCache = new HashMap();
+    private static final Map<Class, XmlObjectFactory> factoryCache = new HashMap<Class, XmlObjectFactory>();
 
     /**
      * Creates an instance of this XmlObjectFactory with the given <code>objectRulesXml</code>
      *
-     * @param objectRulesXml
+     * @param objectRulesXml URL to the XML file defining the digester rules for object 
      */
     private XmlObjectFactory(final URL objectRulesXml)
     {
         ExceptionUtils.checkNull(
-            "objectRulesXml",
-            objectRulesXml);
+                "objectRulesXml",
+                objectRulesXml);
         this.digester = DigesterLoader.createDigester(objectRulesXml);
         this.digester.setUseContextClassLoader(true);
     }
@@ -117,16 +120,16 @@ public class XmlObjectFactory
     public static XmlObjectFactory getInstance(final Class objectClass)
     {
         ExceptionUtils.checkNull(
-            "objectClass",
-            objectClass);
+                "objectClass",
+                objectClass);
 
-        XmlObjectFactory factory = (XmlObjectFactory)factoryCache.get(objectClass);
+        XmlObjectFactory factory = factoryCache.get(objectClass);
         if (factory == null)
         {
             final URL objectRulesXml =
-                XmlObjectFactory.class.getResource('/' + objectClass.getName().replace(
-                        '.',
-                        '/') + RULES_SUFFIX);
+                    XmlObjectFactory.class.getResource('/' + objectClass.getName().replace(
+                            '.',
+                            '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
                 throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + '\'');
@@ -136,8 +139,8 @@ public class XmlObjectFactory
             factory.objectRulesXml = objectRulesXml;
             factory.setValidating(defaultValidating);
             factoryCache.put(
-                objectClass,
-                factory);
+                    objectClass,
+                    factory);
         }
 
         return factory;
@@ -178,7 +181,7 @@ public class XmlObjectFactory
                     if (this.schemaUri != null)
                     {
                         InputStream stream = this.schemaUri.openStream();
-                        stream.close();
+                        IOUtils.closeQuietly(stream);
                     }
                 }
                 catch (final IOException exception)
@@ -188,45 +191,29 @@ public class XmlObjectFactory
                 if (this.schemaUri == null)
                 {
                     logger.warn(
-                        "WARNING! Was not able to find schemaUri --> '" + schemaLocation +
-                        "' continuing in non validating mode");
+                            "WARNING! Was not able to find schemaUri --> '" + schemaLocation +
+                                    "' continuing in non validating mode");
                 }
             }
             if (this.schemaUri != null)
             {
                 try
                 {
-                    this.digester.setSchema(this.schemaUri.toString());
-                    this.digester.setErrorHandler(new XmlObjectValidator());
+                    this.digester.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", this.schemaUri.toString());
+                    this.digester.setProperty("http://java.sun.com/xml/jaxp/properties/schemaLanguage", XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-                    // also set the JAXP properties in case we're using a parser that needs those
-                    this.digester.setProperty(
-                        JAXP_SCHEMA_LANGUAGE,
-                        this.digester.getSchemaLanguage());
-                    this.digester.setProperty(
-                        JAXP_SCHEMA_SOURCE,
-                        this.digester.getSchema());
+                    this.digester.setErrorHandler(new XmlObjectValidator());
                 }
                 catch (final Exception exception)
                 {
                     logger.warn(
-                        "WARNING! Your parser does NOT support the " +
-                        " schema validation continuing in non validation mode",
-                        exception);
+                            "WARNING! Your parser does NOT support the " +
+                                    " schema validation continuing in non validation mode",
+                            exception);
                 }
             }
         }
     }
-
-    /**
-     * The JAXP 1.2 property required to set up the schema location.
-     */
-    protected static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
-
-    /**
-     * The JAXP 1.2 property to set up the schemaLanguage used.
-     */
-    protected String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
     /**
      * Returns a configured Object based on the objectXml configuration file
@@ -237,8 +224,8 @@ public class XmlObjectFactory
     public Object getObject(final URL objectXml)
     {
         return this.getObject(
-            objectXml != null ? ResourceUtils.getContents(objectXml) : null,
-            objectXml);
+                objectXml != null ? ResourceUtils.getContents(objectXml) : null,
+                objectXml);
     }
 
     /**
@@ -261,25 +248,25 @@ public class XmlObjectFactory
     public Object getObject(String objectXml)
     {
         return this.getObject(
-            objectXml,
-            null);
+                objectXml,
+                null);
     }
 
     /**
      * Returns a configured Object based on the objectXml configuration file passed in as a String.
      *
      * @param objectXml the path to the Object XML config file.
-     * @param resource the resource from which the objectXml was retrieved (this is needed to resolve
-     *        any relative references; like XML entities).
+     * @param resource  the resource from which the objectXml was retrieved (this is needed to resolve
+     *                  any relative references; like XML entities).
      * @return Object the created instance.
      */
     public Object getObject(
-        String objectXml,
-        final URL resource)
+            String objectXml,
+            final URL resource)
     {
         ExceptionUtils.checkNull(
-            "objectXml",
-            objectXml);
+                "objectXml",
+                objectXml);
         Object object = null;
         try
         {
@@ -289,20 +276,21 @@ public class XmlObjectFactory
             if (object == null)
             {
                 final String message =
-                    "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
-                    "' with objectXml '" + objectXml + "', please check either the objectXml " +
-                    "or objectRulesXml file for inconsistencies";
+                        "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
+                                "' with objectXml '" + objectXml + "', please check either the objectXml " +
+                                "or objectRulesXml file for inconsistencies";
                 throw new XmlObjectFactoryException(message);
             }
         }
         catch (final SAXException exception)
         {
             final Throwable cause = ExceptionUtils.getRootCause(exception);
+            logger.warn("SAXException " + schemaUri, cause);
             if (cause instanceof SAXException)
             {
                 final String message =
-                    "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
-                    "' --> message: '" + exception.getMessage() + '\'';
+                        "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
+                                "' --> message: '" + exception.getMessage() + '\'';
                 throw new XmlObjectFactoryException(message);
             }
             throw new XmlObjectFactoryException(cause);
@@ -319,24 +307,24 @@ public class XmlObjectFactory
      * Handles the validation errors.
      */
     static final class XmlObjectValidator
-        implements ErrorHandler
+            implements ErrorHandler
     {
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
          */
         public final void error(final SAXParseException exception)
-            throws SAXException
+                throws SAXException
         {
-            throw new SAXException(this.getMessage(exception));
+            throw new SAXException(getMessage(exception));
         }
 
         /**
          * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
          */
         public final void fatalError(final SAXParseException exception)
-            throws SAXException
+                throws SAXException
         {
-            throw new SAXException(this.getMessage(exception));
+            throw new SAXException(getMessage(exception));
         }
 
         /**
@@ -344,7 +332,7 @@ public class XmlObjectFactory
          */
         public final void warning(final SAXParseException exception)
         {
-            logger.warn("WARNING!: " + this.getMessage(exception));
+            logger.warn("WARNING!: " + getMessage(exception));
         }
 
         /**
@@ -355,14 +343,13 @@ public class XmlObjectFactory
          */
         private String getMessage(final SAXParseException exception)
         {
-            final StringBuffer message = new StringBuffer();
-            if (exception != null)
-            {
-                message.append(exception.getMessage());
-                message.append(", line: ");
-                message.append(exception.getLineNumber());
-                message.append(", column: ").append(exception.getColumnNumber());
-            }
+            final StringBuilder message = new StringBuilder(100);
+
+            message.append(exception.getMessage());
+            message.append(", line: ");
+            message.append(exception.getLineNumber());
+            message.append(", column: ").append(exception.getColumnNumber());
+
             return message.toString();
         }
     }
@@ -377,7 +364,7 @@ public class XmlObjectFactory
      * Provides the resolution of external entities from the classpath.
      */
     private static final class XmlObjectEntityResolver
-        implements EntityResolver
+            implements EntityResolver
     {
         private URL xmlResource;
 
@@ -390,9 +377,9 @@ public class XmlObjectFactory
          * @see org.xml.sax.EntityResolver#resolveEntity(String, String)
          */
         public InputSource resolveEntity(
-            final String publicId,
-            final String systemId)
-            throws SAXException, IOException
+                final String publicId,
+                final String systemId)
+                throws SAXException, IOException
         {
             InputSource source = null;
             if (this.xmlResource != null)
@@ -423,9 +410,9 @@ public class XmlObjectFactory
                     try
                     {
                         uri = ResourceUtils.toURL(StringUtils.replace(
-                                    xmlResource,
-                                    xmlResourceName,
-                                    path));
+                                xmlResource,
+                                xmlResourceName,
+                                path));
                         if (uri != null)
                         {
                             inputStream = uri.openStream();
