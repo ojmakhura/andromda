@@ -12,9 +12,9 @@
     <packaging>pom</packaging>
     <name>AndroMDA Cartridges</name>
     <scm>
-      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges</connection>
-      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges</developerConnection>
-      <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
@@ -84,7 +84,7 @@
                     <version>${project.version}</version>
                     <executions>
                         <execution>
-                            <phase>generate-test-sources</phase> 
+                            <phase>generate-test-sources</phase>
                             <goals>
                                 <goal>test</goal>
                             </goals>

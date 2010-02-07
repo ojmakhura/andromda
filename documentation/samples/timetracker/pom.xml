@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <version>3.4-SNAPSHOT</version>
     <name>TimeTracker</name>
-    <description>The TimeTracker Project.</description>    
+    <description>The TimeTracker Project.</description>
     <developers>
         <developer>
             <id></id>
@@ -33,7 +33,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
                 <version>${project.version}</version>
-                <exclusions>                    
+                <exclusions>
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -158,14 +158,14 @@
                 <artifactId>spring</artifactId>
                 <version>1.2.9</version>
                 <exclusions>
-                     <exclusion>
+                    <exclusion>
                         <artifactId>servlet-api</artifactId>
                         <groupId>javax.servlet</groupId>
                     </exclusion>
                     <exclusion>
                         <artifactId>jta</artifactId>
-                         <groupId>javax.transaction</groupId>
-                     </exclusion>
+                        <groupId>javax.transaction</groupId>
+                    </exclusion>
                     <exclusion>
                         <artifactId>connector</artifactId>
                         <groupId>javax.resource</groupId>
@@ -200,7 +200,7 @@
                 <groupId>aopalliance</groupId>
                 <artifactId>aopalliance</artifactId>
                 <version>1.0</version>
-            </dependency>            
+            </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -302,7 +302,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>        
+    <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -328,22 +328,22 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                  <groupId>org.codehaus.mojo</groupId>
-                  <artifactId>build-helper-maven-plugin</artifactId>
-                  <version>1.4</version>
-                  <executions>
-                  	<execution>
-                  		<phase>generate-sources</phase>
-                  		<goals>
-                  			<goal>add-source</goal>
-                  		</goals>
-                  		<configuration>
-                          <sources>
-                            <source>target/src</source>
-                          </sources>
-                  		</configuration>
-                  	</execution>
-                  </executions>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>target/src</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
@@ -369,14 +369,14 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
-                   <artifactId>maven-surefire-plugin</artifactId>
-                   <version>2.4.3</version>
-                   <configuration>
-                     <suiteXmlFiles>
-                       <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                     </suiteXmlFiles>
-                   </configuration>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.4.3</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                        </suiteXmlFiles>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -387,7 +387,7 @@
                                 <directory>${basedir}</directory>
                                 <includes>
                                     <include>*.exc</include>
-                                    <include>*.log</include>                                    
+                                    <include>*.log</include>
                                 </includes>
                                 <followSymlinks>false</followSymlinks>
                             </fileset>
@@ -583,7 +583,7 @@
     </prerequisites>
     <distributionManagement>
         <repository>
-			<id>andromda</id>
+            <id>andromda</id>
             <name>AndroMDA Repository</name>
             <url>file:/var/www/maven2</url>
             <uniqueVersion>false</uniqueVersion>

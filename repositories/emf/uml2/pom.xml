@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.repositories</groupId>
@@ -8,35 +9,35 @@
     <artifactId>andromda-repository-emf-uml2</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA EMF UML2 Repository</name>
-  	<description>This EMF UML2 repository module allows AndroMDA to load Eclipse UML2 models into EMF.</description>
+    <description>This EMF UML2 repository module allows AndroMDA to load Eclipse UML2 models into EMF.</description>
     <scm>
         <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies> 
-		<dependency> 
-    		<groupId>${project.groupId}</groupId>
-      		<artifactId>andromda-repository-emf</artifactId>
-     		<version>${project.version}</version>
-    	</dependency> 
-        <dependency> 
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>andromda-repository-emf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml2</artifactId>
             <version>${project.version}</version>
-        </dependency> 
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>uml2</artifactId>
-			<version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>uml2</artifactId>
+            <version>1.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.eclipse.core</groupId>
                     <artifactId>runtime</artifactId>
                 </exclusion>
             </exclusions>
-		</dependency>
-	</dependencies>	
+        </dependency>
+    </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
@@ -54,7 +55,7 @@
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -63,6 +64,6 @@
                     <include>**/*</include>
                 </includes>
             </resource>
-        </resources>        
-    </build>   
+        </resources>
+    </build>
 </project>

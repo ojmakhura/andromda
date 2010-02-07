@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.ant</groupId>
@@ -17,20 +18,20 @@
         <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant/task</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant/task</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>    
+    </scm>
     <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>                
+            <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>            
+            <artifactId>ant</artifactId>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${project.version}</version>
-        </dependency>        
+        </dependency>
     </dependencies>
 </project>

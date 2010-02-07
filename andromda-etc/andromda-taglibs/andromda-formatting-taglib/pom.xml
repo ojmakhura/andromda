@@ -10,15 +10,15 @@
     <artifactId>andromda-formatting-taglib</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Formatting Taglib</name>
-    <description>This tag-library can be used to format strings in a web application.</description>    
-    <dependencies>        
+    <description>This tag-library can be used to format strings in a web application.</description>
+    <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>            
+            <artifactId>jsp-api</artifactId>
         </dependency>
     </dependencies>
 </project>

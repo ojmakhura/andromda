@@ -11,11 +11,11 @@
     <packaging>ear</packaging>
     <name>TimeTracker Application</name>
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>timetracker-common</artifactId>
-            <version>${project.version}</version>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>timetracker-common</artifactId>
+                <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>${project.groupId}</groupId>
@@ -30,11 +30,11 @@
                         <artifactId>log4j</artifactId>
                     </exclusion>
                 </exclusions>
-        </dependency>
-        <dependency>
+            </dependency>
+            <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
-            	<version>1.7</version>
+                <version>1.7</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>

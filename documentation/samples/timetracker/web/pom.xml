@@ -23,7 +23,7 @@
             <version>${project.version}</version>
             <type>ejb</type>
             <scope>provided</scope>
-       </dependency>
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -64,8 +64,8 @@
             <artifactId>displaytag</artifactId>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.lowagie</groupId>

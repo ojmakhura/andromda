@@ -1,160 +1,161 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>andromda-maven-plugins</artifactId>
-		<groupId>org.andromda.maven.plugins</groupId>
-		<version>3.4-SNAPSHOT</version>
-	</parent>
-	<artifactId>andromdapp-maven-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>AndroMDA Application Generator Maven Plugin</name>
-	<description>
-		A plugin for running AndroMDA's AndroMDApp application generator
-		to generate Maven2 AndroMDA powered applications.
-	</description>
-	<inceptionYear>2005</inceptionYear>
-	<scm>
-		<connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/andromdapp</connection>
-		<developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/andromdapp</developerConnection>
-		<url>http://andromda.svn.sourceforge.net/</url>
-	</scm>
-	<dependencies>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromdapp-maven-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Application Generator Maven Plugin</name>
+    <description>
+        A plugin for running AndroMDA's AndroMDApp application generator
+        to generate Maven2 AndroMDA powered applications.
+    </description>
+    <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/andromdapp</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/andromdapp</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
+    <dependencies>
 
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>javassist</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
 
-		<!-- Maven dependencies -->
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-resources-plugin</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-artifact</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-settings</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-monitor</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-model</artifactId>
-		</dependency>		
+        <!-- Maven dependencies -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-settings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-monitor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+        </dependency>
 
-		<!-- Plexus dependencies -->
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-container-default</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-		</dependency>
+        <!-- Plexus dependencies -->
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-container-default</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+        </dependency>
 
-		<!-- Andromda dependencies -->
-		<dependency>
-			<groupId>org.andromda</groupId>
-			<artifactId>andromda-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.andromdapp</groupId>
-			<artifactId>andromda-andromdapp-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.andromdapp.projects</groupId>
-			<artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.andromdapp.projects</groupId>
-			<artifactId>andromda-andromdapp-project-richclient-ant</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.templateengines</groupId>
-			<artifactId>andromda-templateengine-velocity</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-			<resource>
-				<directory>src/main/resources/xml</directory>
-				<targetPath>../plugin-install/org/andromda/maven/plugins/${project.artifactId}</targetPath>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources/deploy/link/windows</directory>
-			</resource>
-		</resources>
-		<plugins>
-			<!-- This snippet here creates a zip which can be unzipped into your local repository in order
-			to install the andromdapp plugin (this is necessary because currently maven2 will not search
-			any other repo other than central when trying to install a plugin without a pom.xml, i.e. command line) -->
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<phase>install</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<tasks>
-						<property name="build.directory" value="${basedir}/target"/>
-						<property name="plugin.install.directory" value="${project.build.directory}/plugin-install"/>
-						<property name="groupId.directory" value="org/andromda/maven/plugins"/>
-						<copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
-						tofile="${plugin.install.directory}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"/>
-						<copy file="${settings.localRepository}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.pom"
-						tofile="${plugin.install.directory}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.pom"/>
-						<zip basedir="${plugin.install.directory}" destfile="${project.build.directory}/${project.artifactId}-install-${project.version}.zip"/>
-						<copy file="${project.build.directory}/${project.artifactId}-install-${project.version}.zip"
-						tofile="${settings.localRepository}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-install-${project.version}.zip"/>
-					</tasks>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <!-- Andromda dependencies -->
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.andromdapp</groupId>
+            <artifactId>andromda-andromdapp-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.andromdapp.projects</groupId>
+            <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.andromdapp.projects</groupId>
+            <artifactId>andromda-andromdapp-project-richclient-ant</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.templateengines</groupId>
+            <artifactId>andromda-templateengine-velocity</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/xml</directory>
+                <targetPath>../plugin-install/org/andromda/maven/plugins/${project.artifactId}</targetPath>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources/deploy/link/windows</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- This snippet here creates a zip which can be unzipped into your local repository in order
+               to install the andromdapp plugin (this is necessary because currently maven2 will not search
+               any other repo other than central when trying to install a plugin without a pom.xml, i.e. command line) -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <tasks>
+                        <property name="build.directory" value="${basedir}/target"/>
+                        <property name="plugin.install.directory" value="${project.build.directory}/plugin-install"/>
+                        <property name="groupId.directory" value="org/andromda/maven/plugins"/>
+                        <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
+                              tofile="${plugin.install.directory}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.jar"/>
+                        <copy file="${settings.localRepository}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.pom"
+                              tofile="${plugin.install.directory}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-${project.version}.pom"/>
+                        <zip basedir="${plugin.install.directory}"
+                             destfile="${project.build.directory}/${project.artifactId}-install-${project.version}.zip"/>
+                        <copy file="${project.build.directory}/${project.artifactId}-install-${project.version}.zip"
+                              tofile="${settings.localRepository}/${groupId.directory}/${project.artifactId}/${project.version}/${project.artifactId}-install-${project.version}.zip"/>
+                    </tasks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

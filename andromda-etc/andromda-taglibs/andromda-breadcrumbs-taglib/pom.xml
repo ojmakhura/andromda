@@ -12,15 +12,15 @@
     <name>AndroMDA BreadCrumbs Taglib</name>
     <description>
         This tag-library can be used to maintain and display breadcrumbs in a web application.
-    </description>    
-    <dependencies>        
+    </description>
+    <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>            
+            <artifactId>jsp-api</artifactId>
         </dependency>
     </dependencies>
 </project>

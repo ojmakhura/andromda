@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.cartridges</groupId>
@@ -32,35 +33,35 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build> 
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>  
+                <artifactId>andromda-maven-plugin</artifactId>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.translationlibraries</groupId>
                         <artifactId>andromda-ocl-query-library</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-            </plugin>            
-        </plugins> 
+            </plugin>
+        </plugins>
     </build>
     <properties>
         <model.uri>jar:file:${src.dir}/uml/HibernateMetafacadeModel.xml.zip!/HibernateMetafacadeModel.xml</model.uri>

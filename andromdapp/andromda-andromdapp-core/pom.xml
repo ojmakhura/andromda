@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.andromdapp</groupId>
@@ -11,7 +12,7 @@
     <description>
         Provides the generic application generation functionality for AndroMDA.
         Project templates can be "plugged in".
-    </description>    
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
@@ -21,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>                
+            <artifactId>commons-lang</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -30,24 +31,24 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
-                </includes>    
+                </includes>
                 <excludes>
                     <exclude>**/configuration.xml</exclude>
-                </excludes>        
+                </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources/META-INF/andromdapp</directory>
                 <includes>
                     <include>configuration.xml</include>
-                </includes>          
-                <filtering>true</filtering>   
-                <targetPath>META-INF/andromdapp</targetPath> 
+                </includes>
+                <filtering>true</filtering>
+                <targetPath>META-INF/andromdapp</targetPath>
             </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
-                </excludes>              
+                </excludes>
             </resource>
         </resources>
     </build>

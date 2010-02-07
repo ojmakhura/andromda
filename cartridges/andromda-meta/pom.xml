@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.cartridges</groupId>
@@ -19,7 +20,7 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <build>
-        <plugins>  
+        <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>
@@ -40,14 +41,14 @@
                     <dependency>
                         <groupId>org.andromda.bootstrap.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>                        
+                        <version>${project.version}</version>
                         <scope>provided</scope>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>    
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
                 <version>${project.version}</version>
                 <executions>
                     <execution>
@@ -55,21 +56,21 @@
                             <goal>install</goal>
                         </goals>
                     </execution>
-                </executions> 
+                </executions>
                 <configuration>
                     <installDirectory>${basedir}/../../lib</installDirectory>
-                </configuration>           
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-            </plugin>            
-        </plugins> 
-    </build>    
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <model.uri>jar:file:${src.dir}/uml/MetaMetafacadeModel.xml.zip!/MetaMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/MetaCartridgeTestModel.xml.zip!/MetaCartridgeTestModel.xml</test.model.uri>

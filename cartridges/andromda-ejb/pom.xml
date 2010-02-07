@@ -1,4 +1,5 @@
-<project>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.cartridges</groupId>
@@ -16,7 +17,7 @@
     <scm>
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
-          <url>http://andromda.svn.sourceforge.net/</url>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
@@ -36,25 +37,25 @@
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>  
+                <artifactId>andromda-maven-plugin</artifactId>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.translationlibraries</groupId>
                         <artifactId>andromda-ocl-query-library</artifactId>
                         <version>${project.version}</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -86,9 +87,9 @@
                     </books>
                 </configuration>
             </plugin>
-            -->            
-        </plugins> 
-    </build>    
+            -->
+        </plugins>
+    </build>
     <properties>
         <model.uri>jar:file:${src.dir}/uml/EJBMetafacadeModel.xml.zip!/EJBMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJBCartridgeTestModel.xml.zip!/EJBCartridgeTestModel.xml</test.model.uri>
