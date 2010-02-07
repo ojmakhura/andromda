@@ -48,24 +48,14 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-                
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
             <groupId>de.plushnikov</groupId>
-            <artifactId>doctor-jim</artifactId>            
+            <artifactId>doctor-jim</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -73,25 +63,8 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>                
-            </resource>            
+                <filtering>true</filtering>
+            </resource>
         </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>install</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <installDirectory>${basedir}/../lib</installDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>
