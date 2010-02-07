@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -223,6 +222,7 @@ public abstract class AbstractCartridgeTestMojo
      *
      * @param file File to be unpacked.
      * @param location Location where to put the unpacked files.
+     * @throws MojoExecutionException Error unpacking file
      */
     protected void unpack(
         final File file,

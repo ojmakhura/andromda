@@ -135,7 +135,7 @@ public class Uml2ArchiverMojo
             else
             {
                 // old files in directory are not automatically deleted.
-                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml2");            	                
+                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml2");
                 FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
             // - the directory which to extract the model file
@@ -208,5 +208,4 @@ public class Uml2ArchiverMojo
             throw new MojoExecutionException("Error assembling model", throwable);
         }
     }
-    
 }

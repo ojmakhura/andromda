@@ -40,25 +40,25 @@ public class AndroMDAppCleanMojo
         }
         catch (final NoClassDefFoundError ncdfe)
         {
-        	ClassLoader cl = this.getClass().getClassLoader();
-        	// Its a RealmClassLoader but its a private class and so cant reference grrr !!!
-        	// but it extends URLClassLoader
-        	System.err.println( "classloader:" + cl );
-        	if ( cl instanceof URLClassLoader ) {
-        		URLClassLoader ucl = (URLClassLoader) cl;
-        		URL [] urls = ucl.getURLs();
-        		for (int i = 0; i < urls.length; i++) {
-					System.err.println( "cp:" + urls[i] );
-				}
-        	}
-        	System.out.println( "Exception:" + ncdfe );
-        	ncdfe.printStackTrace(System.err);
-        	Throwable th = ncdfe.getCause();
-        	while ( th != null ) {
-        		System.err.println( "================= cause =================");
-        		th.printStackTrace(System.err);
-        		th = th.getCause();
-        	}
+            ClassLoader cl = this.getClass().getClassLoader();
+            // Its a RealmClassLoader but its a private class and so cant reference grrr !!!
+            // but it extends URLClassLoader
+            System.err.println( "classloader:" + cl );
+            if ( cl instanceof URLClassLoader ) {
+                URLClassLoader ucl = (URLClassLoader) cl;
+                URL [] urls = ucl.getURLs();
+                for (int i = 0; i < urls.length; i++) {
+                    System.err.println( "cp:" + urls[i] );
+                }
+            }
+            System.out.println( "Exception:" + ncdfe );
+            ncdfe.printStackTrace(System.err);
+            Throwable th = ncdfe.getCause();
+            while ( th != null ) {
+                System.err.println( "================= cause =================");
+                th.printStackTrace(System.err);
+                th = th.getCause();
+            }
         }
         catch (final Throwable throwable)
         {

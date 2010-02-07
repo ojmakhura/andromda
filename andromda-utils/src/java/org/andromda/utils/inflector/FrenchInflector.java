@@ -206,5 +206,5 @@ public class FrenchInflector
     private static List<Inflection> getPluralRules()
     {
         return plurals;
-	}
+    }
 }

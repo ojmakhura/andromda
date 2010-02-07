@@ -46,7 +46,7 @@ public class VelocityTemplateEngineTest
     }
 
     /**
-     * Creates an instance of templatengine    
+     * Creates an instance of templatengine
      * @return instance of tempalte engine
      * @throws Exception
      */
@@ -57,8 +57,8 @@ public class VelocityTemplateEngineTest
         assertNotNull(mergeMappingsUri);
         mergeMappings.setName(NamespaceProperties.MERGE_MAPPINGS_URI);
         mergeMappings.setValue(mergeMappingsUri.toString());
-        
-		final String namespaceName = "test-namespace";
+
+        final String namespaceName = "test-namespace";
         final Namespace namespace = new Namespace();
         namespace.setName(namespaceName);
         namespace.addProperty(mergeMappings);
@@ -91,8 +91,8 @@ public class VelocityTemplateEngineTest
     @Test
     public void testVelocityEscapeToolHash()
             throws Exception
-    {        
-        final VelocityTemplateEngine engine = createEngine();                                
+    {
+        final VelocityTemplateEngine engine = createEngine();
         assertEquals("Test#Test", engine.getEvaluatedExpression("Test${esc.hash}Test", null));
     }
 
@@ -100,7 +100,7 @@ public class VelocityTemplateEngineTest
     public void testVelocityEscapeToolJavadoc()
             throws Exception
     {
-        final VelocityTemplateEngine engine = createEngine();        
+        final VelocityTemplateEngine engine = createEngine();
         assertEquals("@see package.name.Clasname#methodname(package.name.class var)",
                 engine.getEvaluatedExpression("@see package.name.Clasname${esc.hash}methodname(package.name.class var)",
                         null));

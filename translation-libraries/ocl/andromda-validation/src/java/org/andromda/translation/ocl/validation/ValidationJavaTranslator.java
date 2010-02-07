@@ -154,7 +154,7 @@ public class ValidationJavaTranslator
             features.load(stream);
             stream.close();
             stream = null;
-            
+
         }
         catch (final Throwable throwable)
         {
@@ -747,7 +747,7 @@ public class ValidationJavaTranslator
                 if (parameterList != null)
                 {
                     List expressions = parameterList.getCommaExpression();
-    
+
                     if (parameterList.getExpression() != null)
                     {
                         if (arrow)
@@ -896,7 +896,7 @@ public class ValidationJavaTranslator
      * A flag indicating if the expression needs to be converted/wrapped in a Java Boolean instance.
      */
     private boolean requiresBooleanConversion = false;
-    
+
     public void inARelationalExpression(ARelationalExpression node)
     {
         // in this block of code, we determine whether or not
@@ -1365,7 +1365,8 @@ public class ValidationJavaTranslator
         this.getExpression().insertInTranslatedExpression(0, OCL_TRANSLATOR_PACKAGE + ".OCLResultEnsurer.ensure(");
         this.getExpression().insertInTranslatedExpression(0, "boolean constraintValid = ");
         this.getExpression().insertInTranslatedExpression(0,
-                "final java.lang.Object " + CONTEXT_ELEMENT_NAME + " = this; ");
+                "final Object " + CONTEXT_ELEMENT_NAME + " = this; ");
+        this.getExpression().replaceInTranslatedExpression("java.lang.", "");
         this.getExpression().appendToTranslatedExpression(");");
     }
 }

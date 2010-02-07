@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.Constants;
@@ -591,6 +588,7 @@ public class AndroMDAppType
             if (path.startsWith(exclusionPath))
             {
                 final String[] patterns = (String[])exclusions.get(exclusionPath);
+                // See http://galaxy.andromda.org/forum/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
                 exclude = ResourceUtils.matchesAtLeastOnePattern(
                     exclusionPath,
                     patterns);

@@ -2,7 +2,6 @@ package org.andromda.maven.plugin.cartridge;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -78,6 +77,7 @@ public class CartridgeTestUpdaterMojo
      *
      * @param location Location where to put the unpacked files.
      * @param file Archive file to be created.
+     * @throws MojoExecutionException error packing directory
      */
     protected void pack(final File location,
         final File file) throws MojoExecutionException

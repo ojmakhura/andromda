@@ -169,18 +169,16 @@ public class HibernateEntityAttributeLogicImpl
                                                     (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE));
     }
 
-    
     private boolean persistIDAsAttribute() 
     {
         boolean persistAsAttribute = true;
         String prop = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE_ID_AS_ATTRIBUTE);
         if (prop != null && "false".equalsIgnoreCase(prop))
             persistAsAttribute = false;
-        
+
         return persistAsAttribute;
     }
-    
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleGetXmlTagName()
      */
@@ -188,7 +186,7 @@ public class HibernateEntityAttributeLogicImpl
     protected String handleGetXmlTagName() 
     {
         String tagName = null;
-        
+
         if (isXmlPersistenceActive())
         {
             tagName = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_TAG_NAME);
@@ -242,5 +240,5 @@ public class HibernateEntityAttributeLogicImpl
         }
 
         return fullyQualifiedName; 
-	}
+    }
 }

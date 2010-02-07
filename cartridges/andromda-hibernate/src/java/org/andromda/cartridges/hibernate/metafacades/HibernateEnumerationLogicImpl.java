@@ -71,19 +71,19 @@ public class HibernateEnumerationLogicImpl
             this.getEnumerationName(),
             null);
     }
-    
+
     /**
      * Check for optional defined enumTypesPackage (overrides modeled package name) 
      */
     private String getHibernateEnumerationPackageName() {
-    	String enumPackageName = (String) this.getConfiguredProperty(HibernateGlobals.ENUM_TYPES_PACKAGE);
-    	if (enumPackageName != null) {
-    		return enumPackageName;
-    	} else {
-        	return super.getPackageName();
-    	}
+        String enumPackageName = (String) this.getConfiguredProperty(HibernateGlobals.ENUM_TYPES_PACKAGE);
+        if (enumPackageName != null) {
+            return enumPackageName;
+        } else {
+            return super.getPackageName();
+        }
     }
-    
+
     @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getVersion()

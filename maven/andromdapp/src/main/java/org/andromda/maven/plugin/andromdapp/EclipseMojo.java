@@ -423,7 +423,7 @@ public class EclipseMojo
                 // - if the project has no file defined, use the rootFile
                 if (this.rootProject != null && this.rootProject.getFile() == null && rootFile.exists())
                 {
-                	this.rootProject.setFile(rootFile);
+                    this.rootProject.setFile(rootFile);
                 }
             }
             else
