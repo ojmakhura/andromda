@@ -20,38 +20,8 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>compile</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>			
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity-tools</artifactId>			
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>			
-			<scope>runtime</scope>
-		</dependency>
+		</dependency>		
+
 		<dependency>
 			<groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
 			<artifactId>jmiutils</artifactId>			
@@ -87,12 +57,7 @@
 			<artifactId>jmi</artifactId>			
 			<scope>runtime</scope>
 		</dependency>
-        <dependency>
-            <groupId>de.plushnikov</groupId>
-            <artifactId>doctor-jim</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-		
+        		
 		<!-- Maven dependencies -->		
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -118,10 +83,22 @@
 
 		<!-- Andromda dependencies -->
 		<dependency>
-			<groupId>org.andromda.bootstrap</groupId>
+			<groupId>org.andromda</groupId>
 			<artifactId>andromda-core</artifactId>
+			<version>${project.version}</version>			
+		</dependency>
+		<dependency>
+			<groupId>org.andromda</groupId>
+			<artifactId>andromda-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.andromda.templateengines</groupId>
+			<artifactId>andromda-templateengine-velocity</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Andromda bootstrap dependencies -->
 		<dependency>
 			<groupId>org.andromda.bootstrap.maven.plugins</groupId>
 			<artifactId>andromda-configuration-mojo</artifactId>
@@ -159,25 +136,13 @@
 			<artifactId>andromda-repository-mdr</artifactId>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.bootstrap.templateengines</groupId>
-			<artifactId>andromda-templateengine-velocity</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.andromda.bootstrap.cartridges</groupId>
 			<artifactId>andromda-meta-cartridge</artifactId>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.bootstrap</groupId>
-			<artifactId>andromda-utils</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.andromda.bootstrap.translationlibraries</groupId>
 			<artifactId>andromda-ocl-translation-testsuite</artifactId>
