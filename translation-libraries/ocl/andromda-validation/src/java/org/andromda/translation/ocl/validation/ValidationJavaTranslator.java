@@ -1,5 +1,13 @@
 package org.andromda.translation.ocl.validation;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Stack;
 import org.andromda.core.engine.ModelProcessorException;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -118,15 +126,6 @@ import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
 import org.andromda.translation.ocl.syntax.OCLFeatures;
 import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Stack;
 
 /**
  * <p/>
@@ -1366,7 +1365,7 @@ public class ValidationJavaTranslator
         this.getExpression().insertInTranslatedExpression(0, "boolean constraintValid = ");
         this.getExpression().insertInTranslatedExpression(0,
                 "final Object " + CONTEXT_ELEMENT_NAME + " = this; ");
-        this.getExpression().replaceInTranslatedExpression("java.lang.", "");
+        //this.getExpression().replaceInTranslatedExpression("java.lang.", "");
         this.getExpression().appendToTranslatedExpression(");");
     }
 }
