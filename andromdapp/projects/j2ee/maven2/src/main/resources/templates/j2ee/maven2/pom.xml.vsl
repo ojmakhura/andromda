@@ -8,25 +8,6 @@
     <version>$applicationVersion</version>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
-    <scm>
-        <connection></connection>
-        <url></url>
-    </scm>
-    <organization>
-        <name></name>
-        <url></url>
-    </organization>
-    <ciManagement>
-        <system>continuum</system>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address></address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
     <developers>
         <developer>
             <id></id>
@@ -48,18 +29,6 @@
                 <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xerces</groupId>
-                        <artifactId>xercesImpl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -188,18 +157,6 @@
                 <artifactId>andromda-utils</artifactId>
                 <version>${andromda.version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xerces</groupId>
-                        <artifactId>xercesImpl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -556,13 +513,7 @@
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
                 <version>2.0</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
+                <scope>runtime</scope>                
             </dependency>
             <dependency>
                 <groupId>commons-validator</groupId>
@@ -619,6 +570,10 @@
                     <exclusion>
                         <groupId>commons-digester</groupId>
                         <artifactId>commons-digester</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -722,6 +677,10 @@
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -733,6 +692,10 @@
                     <exclusion>
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -777,6 +740,12 @@
                 <artifactId>neethi</artifactId>
                 <version>2.0.1</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>stax</groupId>
@@ -825,7 +794,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>3.8.2</version>
+                <version>4.7</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -1026,7 +995,7 @@
         <!-- Globally change these versions in all projects -->
         <commons-beanutils.version>1.7.0</commons-beanutils.version>
         <commons-collections.version>3.2</commons-collections.version>
-        <commons-digester.version>1.7</commons-digester.version>
+        <commons-digester.version>2.0</commons-digester.version>
         <commons-io.version>1.4</commons-io.version>
         <commons-lang.version>2.4</commons-lang.version>
         <commons-logging.version>1.1.1</commons-logging.version>
@@ -1517,69 +1486,6 @@
                     </plugins>
                 </pluginManagement>
             </build>
-        </profile>
-        <profile>
-            <id>development</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>dev</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-#if ($webservice)
-                <webservice.host></webservice.host>
-                <webservice.port></webservice.port>
-#end
-            </properties>
-        </profile>
-        <profile>
-            <id>validation</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>val</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-#if ($webservice)
-                <webservice.host></webservice.host>
-                <webservice.port></webservice.port>
-#end
-            </properties>
-        </profile>
-        <profile>
-            <id>production</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>prod</value>
-                </property>
-            </activation>
-            <properties>
-                <jdbc.driver.jar></jdbc.driver.jar>
-                <jdbc.driver></jdbc.driver>
-                <jdbc.url></jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
-                <jdbc.exception.sorter></jdbc.exception.sorter>
-#if ($webservice)
-                <webservice.host></webservice.host>
-                <webservice.port></webservice.port>
-#end
-            </properties>
         </profile>
     </profiles>
     <repositories>
