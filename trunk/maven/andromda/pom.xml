@@ -18,27 +18,27 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/andromda</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies>   
+    <dependencies>
     		<!-- General dependencies -->
     	<dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>     
-        
-        <!-- Maven dependencies -->        
+        </dependency>
+
+        <!-- Maven dependencies -->
         <dependency>
             <groupId>org.apache.maven</groupId>
-            <artifactId>maven-settings</artifactId>            
+            <artifactId>maven-settings</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
-            <artifactId>maven-artifact</artifactId>            
+            <artifactId>maven-artifact</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
-            <artifactId>maven-project</artifactId>            
+            <artifactId>maven-project</artifactId>
         </dependency>
-                
+
         <!-- Andromda dependencies -->
         <dependency>
             <groupId>org.andromda</groupId>
@@ -82,7 +82,7 @@
             <artifactId>andromda-repository-emf-uml22</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-        </dependency-->        
+        </dependency-->
     </dependencies>
     <build>
         <resources>
@@ -97,8 +97,8 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
-                </includes>              
+                </includes>
             </resource>
-        </resources>       
-    </build>    
+        </resources>
+    </build>
 </project>

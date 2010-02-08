@@ -2,9 +2,9 @@ hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
 datasource.jndi=java:/DefaultDS
 hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
 
-# Defines a comma seperated list of discovered cartridges to filter, an empty 
-# string means do NOT filter.  If you wanted to process the model with only 
-# bpm4struts and hibernate for example, you'd make the value of this property 
+# Defines a comma seperated list of discovered cartridges to filter, an empty
+# string means do NOT filter.  If you wanted to process the model with only
+# bpm4struts and hibernate for example, you'd make the value of this property
 # 'bpm4struts,hibernate' (i.e. filter=bpm4struts,hibernate)
 filter=
 

@@ -26,39 +26,39 @@
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${project.version}</version>
-        </dependency> 
+        </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${project.version}</version>
         </dependency>
-    	<dependency> 
+    	<dependency>
     		<groupId>org.andromda.thirdparty.jmi</groupId>
       		<artifactId>jmiuml</artifactId>     		
-    	</dependency>   
-    	<dependency> 
+    	</dependency>
+    	<dependency>
     		<groupId>org.andromda.thirdparty.jmi</groupId>
       		<artifactId>jmi</artifactId>     		
-    	</dependency>     
-    	<dependency> 
+    	</dependency>
+    	<dependency>
     		<groupId>log4j</groupId>
       		<artifactId>log4j</artifactId>
     	</dependency>	
 	</dependencies>	
     <build>
-        <plugins>  
+        <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>            
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
@@ -69,9 +69,9 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration> 
+                        <configuration>
                             <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration> 
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -107,5 +107,5 @@
         <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
         <maven.src.dir>${project.basedir}/src</maven.src.dir>
-    </properties>    
+    </properties>
 </project>

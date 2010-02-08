@@ -38,8 +38,8 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>            
-            </plugin>           
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
@@ -51,8 +51,8 @@
                             <goal>profile-xsl</goal>
                         </goals>
                         <configuration>
-                            <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath> 
-                        </configuration> 
+                            <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath>
+                        </configuration>
                     </execution>
                     <!--
                     <execution>
@@ -60,9 +60,9 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration> 
+                        <configuration>
                             <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration> 
+                        </configuration>
                     </execution>
                      -->
                 </executions>
@@ -96,5 +96,5 @@
         <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
         <maven.src.dir>${project.basedir}/src</maven.src.dir>
-    </properties>   
+    </properties>
 </project>

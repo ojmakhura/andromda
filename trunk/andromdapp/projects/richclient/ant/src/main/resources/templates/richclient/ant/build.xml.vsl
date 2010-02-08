@@ -4,16 +4,16 @@
        Put your description of the project here.
     </description>
   <!-- set global properties for this build -->
-  <property environment="env"/>	
+  <property environment="env"/>
   <property file="build.properties"/>
 
   <property name="andromda.lib.dir" value="${andromda.dist.dir}/andromda/org/andromda"/>
   <property name="andromda.dependency.dir" value="${andromda.dist.dir}/lib"/>
   <path id="andromda.classpath">
     <fileset dir="${andromda.lib.dir}">
-        <include name="andromda-core/*/andromda-core-*.jar"/> 
+        <include name="andromda-core/*/andromda-core-*.jar"/>
         <include name="andromda-utils/*/andromda-utils-*.jar"/>
-        <include name="ant/andromda-ant-task/*/andromda-ant-task-*.jar"/> 
+        <include name="ant/andromda-ant-task/*/andromda-ant-task-*.jar"/>
         <include name="metafacades/andromda-metafacades-emf-uml2/*/andromda-metafacades-emf-uml2-*.jar"/>
         <include name="metafacades/andromda-metafacades-uml/*/andromda-metafacades-uml-*.jar"/>
         <include name="metafacades/andromda-metafacades-uml14/*/andromda-metafacades-uml14-*.jar"/>
@@ -25,18 +25,18 @@
         <include name="translationlibraries/andromda-ocl-translation-core/*/andromda-ocl-translation-core-*.jar"/>
         <include name="translationlibraries/andromda-ocl-translation-testsuite/*/andromda-ocl-translation-testsuite-*.jar"/>
         <include name="translationlibraries/andromda-ocl-validation-library/*/andromda-ocl-validation-library-*.jar"/>
-        <include name="templateengines/andromda-templateengine-velocity/*/andromda-templateengine-velocity-*.jar"/> 
+        <include name="templateengines/andromda-templateengine-velocity/*/andromda-templateengine-velocity-*.jar"/>
         <include name="cartridges/andromda-spring-cartridge/*/andromda-spring-cartridge-*.jar"/>
         <include name="cartridges/andromda-java-cartridge/*/andromda-java-cartridge-*.jar"/>
         <include name="cartridges/andromda-hibernate-cartridge/*/andromda-hibernate-cartridge-*.jar"/>
     </fileset>
-    <fileset dir="${andromda.dependency.dir}">        
+    <fileset dir="${andromda.dependency.dir}">
         <include name="commons-beanutils/commons-beanutils/*/commons-beanutils-*.jar"/>
         <include name="commons-collections/commons-collections/*/commons-collections-*.jar"/>
         <include name="commons-digester/commons-digester/*/commons-digester-*.jar"/>
         <include name="commons-lang/commons-lang/*/commons-lang-*.jar"/>
         <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
-        <include name="log4j/log4j/*/log4j-*.jar"/> 
+        <include name="log4j/log4j/*/log4j-*.jar"/>
         <include name="velocity/velocity/*/velocity-*.jar"/>
         <include name="xml-apis/xml-apis/*/xml-apis-*.jar"/>
         <include name="jmi/jmi/*/jmi-*.jar"/>
@@ -60,7 +60,7 @@
         set "properties.reviewed" property to "true."
      </fail>
   </target>
-	
+
   <target name="1.mda" description="Generates code from the UML model" depends="init, clean">
     <taskdef name="andromda" classname="org.andromda.ant.task.AndroMDAGenTask" classpathref="andromda.classpath"/>
     <andromda configurationUri="file:${basedir}/mda/config/andromda.xml"/>
@@ -87,13 +87,13 @@
   </target>
 
   <target name="3.deploy-local" description="Deploy the server .war to a local application server" depends="init,make-jars">
-  	  <copy file="server/target/${application.id}.war" todir="${jboss.default.deploy.dir}"/>
+        <copy file="server/target/${application.id}.war" todir="${jboss.default.deploy.dir}"/>
   </target>
-	
+
   <target name="schema-generate" unless="schema-is-generated">
         <!-- Generates the schema files for the database -->
         <path id="hibernate.classpath">
-           <fileset dir="${andromda.dependency.dir}">        
+           <fileset dir="${andromda.dependency.dir}">
               <include name="org/hibernate/hibernate/*/hibernate-*.jar"/>
               <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
               <include name="dom4j/dom4j/*/dom4j-*.jar"/>
@@ -186,14 +186,14 @@
        <equals arg1="n" arg2="${do.nuke}"/>
      </condition>
      <fail if="do.abort">Nuke aborted by user.</fail>
-  	 <delete dir="${source.client.impl.dir}" includeemptydirs="true"/>
+       <delete dir="${source.client.impl.dir}" includeemptydirs="true"/>
      <delete dir="${source.client.testCode.dir}" includeemptydirs="true"/>
      <delete dir="${source.common.impl.dir}" includeemptydirs="true"/>
      <delete dir="${source.server.impl.dir}" includeemptydirs="true"/>
      <delete dir="${source.server.testCode.dir}" includeemptydirs="true"/>
      <!-- Put back directories that are in Eclipse source path in case AndroMDA does NOT make them -->
-  	 <mkdir dir="${source.client.impl.dir.java}"/>
-  	 <mkdir dir="${source.client.testCode.dir.config}"/>
+       <mkdir dir="${source.client.impl.dir.java}"/>
+       <mkdir dir="${source.client.testCode.dir.config}"/>
      <mkdir dir="${source.common.impl.dir.java}"/>
      <mkdir dir="${source.server.impl.dir.java}"/>
      <mkdir dir="${source.server.testCode.dir.java}"/>
@@ -211,11 +211,11 @@
       <include name="**/ehcache*.jar"/>
       <include name="**/commons-beanutils*.jar"/>
       <include name="**/commons-logging*.jar"/>
-#if ($enableAcegi == 'yes')      
+#if ($enableAcegi == 'yes')
       <include name="**/acegi*.jar"/>
-#end      
+#end
   </fileset>
-	
+
   <target name="make-server-war" unless="server-war-built">
      <!-- Creates the server .war -->
      <mkdir dir="server/target"/>
@@ -235,7 +235,7 @@
      <delete dir="${jars-temp}" failonerror="true"/>
      <property name="server-war-built" value="true"/>
   </target>
-	
+
   <target name="make-client-jar">
      <!-- Creates the client side .jar -->
      <mkdir dir="client/target"/>
@@ -249,14 +249,14 @@
   <target name="make-jars" depends="init,make-server-war,make-client-jar">
     <!-- Creates all distribution .jar files -->
   </target>
-  
+
   <target name="deploy-datasource">
-  	  <filter token="dataSourceName" value="${dataSource.name}"/>
-	  <filter token="dataSourceURL" value="${dataSource.url.prefix}/${dataSource.database.name}"/>
-	  <filter token="dataSourceDriverClass" value="${dataSource.driver.class}"/>
-	  <filter token="dataSourceUserName" value="${dataSource.user}"/>
-	  <filter token="dataSourcePassword" value="${dataSource.password}"/>
-  	  <copy file="datasource-template.xml.txt" tofile="${jboss.default.deploy.dir}/${applicationId}-ds.xml" filtering="true" overwrite="true"/>
+        <filter token="dataSourceName" value="${dataSource.name}"/>
+      <filter token="dataSourceURL" value="${dataSource.url.prefix}/${dataSource.database.name}"/>
+      <filter token="dataSourceDriverClass" value="${dataSource.driver.class}"/>
+      <filter token="dataSourceUserName" value="${dataSource.user}"/>
+      <filter token="dataSourcePassword" value="${dataSource.password}"/>
+        <copy file="datasource-template.xml.txt" tofile="${jboss.default.deploy.dir}/${applicationId}-ds.xml" filtering="true" overwrite="true"/>
   </target>
-	
+
 </project>
