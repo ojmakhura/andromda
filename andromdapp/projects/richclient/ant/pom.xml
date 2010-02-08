@@ -4,7 +4,7 @@
         <groupId>org.andromda.andromdapp.projects</groupId>
         <artifactId>andromda-andromdapp-projects</artifactId>
         <version>3.4-SNAPSHOT</version>
-    </parent>    
+    </parent>
     <artifactId>andromda-andromdapp-project-richclient-ant</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Rich Client Ant Project</name>
@@ -18,31 +18,31 @@
       <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects/richclient/ant</developerConnection>
       <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <inceptionYear>2005</inceptionYear>    
+    <inceptionYear>2005</inceptionYear>
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
-                </includes>    
+                </includes>
                 <excludes>
                     <exclude>**/configuration.xml</exclude>
-                </excludes>        
+                </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/../../../../andromda-etc/mda/uml</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
-                <targetPath>templates/richclient/ant/mda/src/uml</targetPath> 
+                <targetPath>templates/richclient/ant/mda/src/uml</targetPath>
             </resource>
             <resource>
                 <directory>${project.basedir}/../../../../andromda-etc/mappings</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
-                <targetPath>templates/richclient/ant/mda/src/mappings</targetPath> 
+                <targetPath>templates/richclient/ant/mda/src/mappings</targetPath>
             </resource>
         </resources>
     </build>

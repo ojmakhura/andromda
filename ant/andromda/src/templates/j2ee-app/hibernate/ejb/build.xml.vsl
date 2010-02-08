@@ -28,13 +28,13 @@
    <fileset id="server.classes" dir="${basedir}/target/classes">
         <include name="**/*Impl.class"/>
     </fileset>
-    
+
     <fileset id="java-sources" dir="${basedir}/../ejb/src/java" includes="**/*.java"/>
     <fileset id="mda-java-sources" dir="${basedir}/../ejb/target/src" includes="**/*.java"/>
     <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
 
     <path id="classpath">
-        <fileset dir="${app.root.dir}/lib">       
+        <fileset dir="${app.root.dir}/lib">
             <include name="dom4j-*.jar"/>
             <include name="odmg-*.jar"/>
             <include name="xdoclet-*.jar"/>
@@ -81,10 +81,10 @@
              everyone is happy.
          -->
         <replace file="${basedir}/${ejb.descriptor.dir}/ejb-jar.xml"
-        	token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
+            token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
         </replace>
     </target>
-    
+
     <target name="xdoclet-hibernate" description="o Run XDoclet Hibernate">
         <mkdir dir="${basedir}/src/java"/>
         <mkdir dir="${basedir}/target/src"/>
@@ -104,8 +104,8 @@
         <mkdir dir="${app.root.dir}/${hibernate.schema.output.dir}"/>
 
         <fileset id="hibernate.mapping.files" dir="${basedir}/${xdoclet.gen.dir}">
-	    	<include name="**/*.hbm.xml"/>
-    	</fileset>
+            <include name="**/*.hbm.xml"/>
+        </fileset>
         <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
 
         <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">

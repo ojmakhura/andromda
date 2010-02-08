@@ -14,7 +14,7 @@
                     <uri>${andromda.model.uri}</uri>
                     <moduleSearchLocations>
                         <location patterns="**/*">${andromda.dist.dir}/andromda/org/andromda/profiles</location>
-                    </moduleSearchLocations>                    
+                    </moduleSearchLocations>
                 </model>
             </models>
         </repository>
@@ -43,7 +43,7 @@
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property>
                 <property name="hibernateVersion">3</property>
-                
+
                 <property name="richClient">true</property>
                 <property name="configPropertyPrefix">${application.id}.</property>
                 <property name="toDoTag">TODO</property>
@@ -78,11 +78,11 @@
                 <property name="service-interfaces">${source.common.codeGen.dir.java}</property>
 
                 <property name="serviceRemotingType">${remote.type}</property>
-                <property name="serviceRemoteServer">${remote.server}</property> 
-                <property name="serviceRemotePort">${remote.port}</property> 
-                <property name="serviceRemoteContext">${application.id}</property> 
+                <property name="serviceRemoteServer">${remote.server}</property>
+                <property name="serviceRemotePort">${remote.port}</property>
+                <property name="serviceRemoteContext">${application.id}</property>
                 <property name="serviceRemoteUrlPattern">/services</property>
-                
+
                 <property name="client">${source.client.codeGen.dir.java}</property>
                 <property name="client-config">${source.client.codeGen.dir.config}</property>
                 <property name="client-test">${source.client.testCode.dir.java}</property>
@@ -111,8 +111,8 @@
                     <property name="acegiPasswordEncoderBeanName">userPasswordEncoder</property>
                     <property name="acegiPasswordEncoderImplClass">org.acegisecurity.providers.encoding.Md5PasswordEncoder</property>
                 -->
-                
-#end                
+
+#end
                 <property name="externalPrincipalStoreClass">org.acegisecurity.context.SecurityContextHolder</property>
                 <property name="externalPrincipalStoreGetter">getContext().getAuthentication()</property>
                 <property name="externalPrincipalStoreGetterType">org.acegisecurity.Authentication</property>
@@ -120,7 +120,7 @@
                 <!-- Uncomment this line AFTER your first "mda" run...
                     <property name="mergeMappingsUri">file:mda/src/custom/merge-mappings/SpringMergeMappings.xml</property>
                 -->
-                
+
 #end
                 <property name="merge-mappings">mda/src/custom/merge-mappings</property>
 

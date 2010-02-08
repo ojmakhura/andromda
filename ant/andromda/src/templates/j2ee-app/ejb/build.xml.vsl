@@ -57,7 +57,7 @@
             <utilobject kind="physical"/>
             <deploymentdescriptor destdir="${ejb.descriptor.dir}"/>
             <jboss
-				version="3.0"
+                version="3.0"
                 xmlencoding="UTF-8"
                 typemapping="${datasource.jboss.mapping}"
                 datasource="${datasource.jndi}"
@@ -71,7 +71,7 @@
              everyone is happy.
          -->
         <replace file="${basedir}/${ejb.descriptor.dir}/ejb-jar.xml"
-        	token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
+            token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
         </replace>
     </target>
 
