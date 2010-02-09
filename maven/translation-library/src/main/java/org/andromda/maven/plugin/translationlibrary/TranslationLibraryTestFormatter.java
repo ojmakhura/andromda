@@ -1,17 +1,16 @@
 package org.andromda.maven.plugin.translationlibrary;
 
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestListener;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestListener;
 
 
 /**
@@ -143,7 +142,7 @@ public class TranslationLibraryTestFormatter
                 throwable));
     }
 
-    private Collection failures = new ArrayList();
+    private Collection<Failure> failures = new ArrayList<Failure>();
 
     /**
      * Signifies the test suite ended and returns the summary of the
@@ -155,17 +154,16 @@ public class TranslationLibraryTestFormatter
     String endTestSuite()
     {
         final double elapsed = ((System.currentTimeMillis() - this.startTime) / 1000.0);
-        final StringBuffer summary = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
-        summary.append("Failures: ").append(String.valueOf(this.numberOfFailures)).append(", ");
-        summary.append("Errors: ").append(String.valueOf(this.numberOfErrors)).append(", ");
+        final StringBuilder summary = new StringBuilder("Tests: " + this.numberOfTests + ", ");
+        summary.append("Failures: ").append(this.numberOfFailures).append(", ");
+        summary.append("Errors: ").append(this.numberOfErrors).append(", ");
         summary.append("Time elapsed: ").append(elapsed).append(" sec");
         summary.append(newLine);
         summary.append(newLine);
         this.reportWriter.print(summary);
 
-        for (final Iterator iterator = this.failures.iterator(); iterator.hasNext();)
+        for (final Failure failure : this.failures)
         {
-            final Failure failure = (Failure)iterator.next();
             final Throwable information = failure.information;
             if (information instanceof AssertionFailedError)
             {
@@ -188,10 +186,7 @@ public class TranslationLibraryTestFormatter
                 {
                     parent.mkdirs();
                 }
-                final FileWriter writer = new FileWriter(this.reportFile);
-                writer.write(report.toString());
-                writer.flush();
-                writer.close();
+                FileUtils.writeStringToFile(this.reportFile, report.toString());
             }
             catch (IOException exception)
             {
