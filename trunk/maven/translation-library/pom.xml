@@ -45,18 +45,24 @@
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.translationlibraries</groupId>
-            <artifactId>andromda-ocl-translation-testsuite</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-configuration-mojo</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.andromda.templateengines</groupId>
+            <artifactId>andromda-templateengine-velocity</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-translation-testsuite</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr-uml14</artifactId>
@@ -74,13 +80,7 @@
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.templateengines</groupId>
-            <artifactId>andromda-templateengine-velocity</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+        </dependency>        
     </dependencies>
     <build>
         <resources>
