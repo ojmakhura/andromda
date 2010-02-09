@@ -103,13 +103,13 @@
             <artifactId>andromda-configuration-mojo</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <!-- Andromda bootstrap dependencies -->        
         <dependency>
-            <groupId>org.andromda.bootstrap.translationlibraries</groupId>
+            <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Andromda bootstrap dependencies -->
         <dependency>
             <groupId>org.andromda.bootstrap.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
