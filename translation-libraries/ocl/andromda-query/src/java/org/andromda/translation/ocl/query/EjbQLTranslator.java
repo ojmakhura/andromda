@@ -28,7 +28,7 @@ public class EjbQLTranslator
      * Holds the arguments which have previously been used during translation. The key is the argument name BEFORE
      * translation, and the value is the argument name AFTER translation.
      */
-    private Map usedArguments = new HashMap();
+    private Map<String, String> usedArguments = new HashMap<String, String>();
 
     /**
      * Called by super class to reset any objects.
@@ -74,7 +74,7 @@ public class EjbQLTranslator
         {
             // get the used argument and if it exists, use that for the
             // replacement, otherwise use a new one.
-            String usedArgument = (String)this.usedArguments.get(replacement);
+            String usedArgument = this.usedArguments.get(replacement);
             if (StringUtils.isEmpty(usedArgument))
             {
                 String argument = this.getTranslationFragment("argument");
