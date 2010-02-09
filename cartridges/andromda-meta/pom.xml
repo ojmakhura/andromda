@@ -41,8 +41,7 @@
                     <dependency>
                         <groupId>org.andromda.bootstrap.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
-                        <scope>provided</scope>
+                        <version>${project.version}</version>                        
                     </dependency>
                 </dependencies>
             </plugin>
