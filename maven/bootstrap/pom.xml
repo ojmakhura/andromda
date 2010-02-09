@@ -98,13 +98,13 @@
             <artifactId>andromda-templateengine-velocity</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <!-- Andromda bootstrap dependencies -->
         <dependency>
-            <groupId>org.andromda.bootstrap.maven.plugins</groupId>
+            <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-configuration-mojo</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Andromda bootstrap dependencies -->        
         <dependency>
             <groupId>org.andromda.bootstrap.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
@@ -113,6 +113,11 @@
         <dependency>
             <groupId>org.andromda.bootstrap.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.translationlibraries</groupId>
+            <artifactId>andromda-ocl-translation-testsuite</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -143,12 +148,7 @@
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.bootstrap.translationlibraries</groupId>
-            <artifactId>andromda-ocl-translation-testsuite</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        </dependency>        
     </dependencies>
     <build>
         <plugins>
