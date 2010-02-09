@@ -1,15 +1,5 @@
 package org.andromda.maven.plugin.configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.apache.commons.lang.ObjectUtils;
@@ -23,6 +13,15 @@ import org.apache.maven.plugin.resources.PropertyUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.util.InterpolationFilterReader;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -79,9 +78,8 @@ public abstract class AbstractConfigurationMojo
 
         // - project properties
         properties.putAll(this.getProject().getProperties());
-        for (final Iterator iterator = this.getPropertyFiles().iterator(); iterator.hasNext();)
+        for (final String propertiesFile : (Iterable<String>) this.getPropertyFiles())
         {
-            final String propertiesFile = (String)iterator.next();
             final Properties projectProperties = PropertyUtils.loadPropertyFile(
                     new File(propertiesFile),
                     true,
@@ -90,15 +88,15 @@ public abstract class AbstractConfigurationMojo
             properties.putAll(projectProperties);
         }
 
-        for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+        for (Object objProperty : properties.keySet())
         {
-            final String property = (String)iterator.next();
+            final String property = (String) objProperty;
             final String value = this.replaceProperties(
                     properties,
                     ObjectUtils.toString(properties.get(property)));
             properties.put(
-                property,
-                value);
+                    property,
+                    value);
         }
 
         properties.putAll(System.getProperties());
@@ -206,22 +204,20 @@ public abstract class AbstractConfigurationMojo
         if (pluginArtifactId != null)
         {
             final List plugins = this.getPlugins();
-            if (plugins != null && !plugins.isEmpty())
+            if (plugins != null)
             {
-                for (final Iterator iterator = plugins.iterator(); iterator.hasNext();)
+                for (final Plugin plugin : (Iterable<Plugin>) plugins)
                 {
-                    final Plugin plugin = (Plugin)iterator.next();
                     if (pluginArtifactId.equals(plugin.getArtifactId()))
                     {
                         final List dependencies = plugin.getDependencies();
                         if (dependencies != null)
                         {
-                            for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
-                                dependencyIterator.hasNext();)
+                            for (Dependency dependency : plugin.getDependencies())
                             {
                                 this.addDependency(
-                                    (Dependency)dependencyIterator.next(),
-                                    scope);
+                                        dependency,
+                                        scope);
                             }
                         }
                     }
