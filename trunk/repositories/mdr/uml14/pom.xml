@@ -23,6 +23,12 @@
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

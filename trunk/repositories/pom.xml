@@ -24,13 +24,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -41,26 +35,7 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>install</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <installDirectory>${basedir}/../../../lib</installDirectory>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+    <build>        
         <testResources>
             <testResource>
                 <directory>src/test/java</directory>
