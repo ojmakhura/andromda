@@ -23,42 +23,13 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-            <artifactId>jmiutils</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-            <artifactId>mdrapi</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-            <artifactId>nbmdr</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
-            <artifactId>openide-util</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+        
         <dependency>
             <groupId>org.andromda.thirdparty.jmi</groupId>
             <artifactId>jmiuml</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.andromda.thirdparty.jmi</groupId>
-            <artifactId>mof</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.thirdparty.jmi</groupId>
-            <artifactId>jmi</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
+       
         <!-- Maven dependencies -->
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -108,7 +79,13 @@
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.andromda.repositories</groupId>
+            <artifactId>andromda-repository-mdr</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- Andromda bootstrap dependencies -->
         <dependency>
             <groupId>org.andromda.bootstrap.translationlibraries</groupId>
@@ -134,12 +111,6 @@
         <dependency>
             <groupId>org.andromda.bootstrap.repositories</groupId>
             <artifactId>andromda-repository-mdr-uml14</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.bootstrap.repositories</groupId>
-            <artifactId>andromda-repository-mdr</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
