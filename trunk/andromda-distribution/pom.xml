@@ -140,7 +140,7 @@
         </dependency>
         -->
 
-        <!--Andromda profiles modulle-->
+        <!--Andromda profiles module-->
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
@@ -162,20 +162,18 @@
             <type>epx</type>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.andromda.profiles.emf.uml2</groupId>
             <artifactId>andromda-profile-common</artifactId>
             <version>${project.version}</version>
             <type>uml2</type>
-        </dependency>
-        <!--
+        </dependency-->
         <dependency>
             <groupId>org.andromda.profiles.emf.uml22</groupId>
             <artifactId>andromda-common</artifactId>
             <version>${project.version}</version>
             <type>profile.uml</type>
         </dependency>
-        -->
 
         <!--Andromda repositories modulle-->
         <dependency>
@@ -194,21 +192,18 @@
             <artifactId>andromda-repository-emf</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf-uml2</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <!--
+        </dependency-->
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf-uml22</artifactId>
             <version>${project.version}</version>
         </dependency>
-        -->
 
-
-        <!--Andromda cartriges modulle-->
+        <!--Andromda cartriges module-->
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
@@ -287,7 +282,7 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!--Andromda translation librarys-->
+        <!--Andromda translation libraries-->
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
