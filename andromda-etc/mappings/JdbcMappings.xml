@@ -5,73 +5,111 @@
 -->
 <mappings name="JDBC">
     <mapping>
+        <from>PrimitiveTypes::String</from>
+        <from>UML2::String</from>
         <from>datatype::String</from>
         <to>VARCHAR</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
         <to>TIMESTAMP</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
         <to>TIME</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Timestamp</from>
+        <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Timestamp</from>
         <from>datatype::DateTime</from>
         <to>TIMESTAMP</to>
     </mapping>
     <mapping>
+        <from>Java::char</from>
+        <from>PrimitiveTypes::char</from>
+        <from>PrimitiveTypes::Character</from>
         <from>datatype::char</from>
         <from>datatype::Character</from>
         <to>CHAR</to>
     </mapping>
     <mapping>
+        <from>Java::byte</from>
+        <from>PrimitiveTypes::byte</from>
+        <from>PrimitiveTypes::Byte</from>
         <from>datatype::byte</from>
         <from>datatype::Byte</from>
         <to>TINYINT</to>
     </mapping>
     <mapping>
+        <from>Java::short</from>
+        <from>PrimitiveTypes::short</from>
+        <from>PrimitiveTypes::Short</from>
         <from>datatype::short</from>
         <from>datatype::Short</from>
         <to>SMALLINT</to>
     </mapping>
     <mapping>
+        <from>Java::int</from>
+        <from>PrimitiveTypes::int</from>
+        <from>PrimitiveTypes::Integer</from>
+        <from>UML2::Integer</from>
         <from>datatype::int</from>
         <from>datatype::Integer</from>
         <to>INTEGER</to>
     </mapping>
     <mapping>
+        <from>Java::long</from>
+        <from>PrimitiveTypes::long</from>
+        <from>PrimitiveTypes::Long</from>
+        <from>UML2::UnlimitedNatural</from>
         <from>datatype::long</from>
         <from>datatype::Long</from>
         <to>BIGINT</to>
     </mapping>
     <mapping>
+        <from>Java::float</from>
+        <from>PrimitiveTypes::float</from>
+        <from>PrimitiveTypes::Float</from>
         <from>datatype::float</from>
         <from>datatype::Float</from>
         <to>FLOAT</to>
     </mapping>
     <mapping>
+        <from>Java::double</from>
+        <from>PrimitiveTypes::double</from>
+        <from>PrimitiveTypes::Double</from>
+        <from>PrimitiveTypes::Money</from>
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
         <to>DOUBLE</to>
     </mapping>
     <mapping>
+        <from>Java::boolean</from>
+        <from>PrimitiveTypes::boolean</from>
+        <from>PrimitiveTypes::Boolean</from>
+        <from>UML2::Boolean</from>
         <from>datatype::boolean</from>
         <from>datatype::Boolean</from>
         <to>BIT</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::decimal</from>
+        <from>PrimitiveTypes::Decimal</from>
         <from>datatype::decimal</from>
         <from>datatype::Decimal</from>
         <to>DECIMAL</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>CLOB</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>BLOB</to>
     </mapping>

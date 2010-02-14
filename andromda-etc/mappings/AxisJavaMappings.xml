@@ -6,6 +6,10 @@
 <mappings name="AxisJavaMappings">
     <extends>Java</extends>
 	<mapping>
+        <from>PrimitiveTypes::Time</from>
+        <from>PrimitiveTypes::Date</from>
+        <from>PrimitiveTypes::DateTime</from>
+        <from>PrimitiveTypes::Timestamp</from>
 	  	<from>datatype::Date</from>
         <from>datatype::DateTime</from>
 	  	<from>datatype::Timestamp</from>
@@ -13,6 +17,7 @@
 	  	<to>java.util.Calendar</to>
 	</mapping>
     <mapping>
+        <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
         <to>java.math.BigInteger</to>
     </mapping>
