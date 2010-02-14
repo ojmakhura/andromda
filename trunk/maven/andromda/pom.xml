@@ -69,20 +69,20 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- Comment out uml2 and uncomment uml22 to enable UML2 2.x and RSM7.x processing. Cannot run both together. -->
+        <!-- Uncomment emf-uml2 and comment uml22 to enable UML2 1.x and RSM6.x processing. Cannot run both together.>
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf-uml2</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <!-- Uncomment uml22 to enable UML2 2.x and RSM7 processing. Must comment out emf-uml2 above>
+        </dependency -->
+        <!-- Comment out emf-uml22 to disable UML2 2.x and RSM7 processing. Must uncomment out emf-uml2 above-->
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf-uml22</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
-        </dependency-->
+        </dependency>
     </dependencies>
     <build>
         <resources>

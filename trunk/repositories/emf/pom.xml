@@ -20,43 +20,34 @@
     </scm>
     <dependencies>
         <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>uml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>common</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>resources</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>common</artifactId>
-            <version>2.1.0</version>
-            <!-- Use version 2.3.2 for emf-uml22>
-            <version>2.3.2</version-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>ecore</artifactId>
-            <version>2.1.0</version>
-            <!-- Use version 2.3.2 for emf-uml22>
-            <version>2.3.2</version-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.emf.ecore</groupId>
             <artifactId>xmi</artifactId>
-            <version>2.1.0</version>
-            <!-- Use version 2.3.2 for emf-uml22>
-            <version>2.3.2</version-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf.mapping</groupId>
+            <artifactId>ecore2xml</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

@@ -22,14 +22,43 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
-
         
         <dependency>
             <groupId>org.andromda.thirdparty.jmi</groupId>
             <artifactId>jmiuml</artifactId>
             <scope>runtime</scope>
         </dependency>
-       
+		<dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>uml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>common</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>resources</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>common</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>ecore</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.eclipse.emf.ecore</groupId>
+			<artifactId>xmi</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Maven dependencies -->
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -46,6 +75,11 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -115,6 +149,30 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>org.andromda.bootstrap.metafacades</groupId>
+            <artifactId>andromda-metafacades-emf-uml22</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.repositories</groupId>
+            <artifactId>andromda-repository-emf-uml22</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.repositories</groupId>
+            <artifactId>andromda-repository-emf</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+		<!--dependency>
+			<groupId>org.andromda.bootstrap.templateengines</groupId>
+			<artifactId>andromda-templateengine-velocity</artifactId>
+			<version>${project.version}</version>
+			<scope>runtime</scope>
+		</dependency-->
+		<dependency>
             <groupId>org.andromda.bootstrap.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${project.version}</version>
