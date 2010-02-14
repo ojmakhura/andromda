@@ -19,7 +19,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -33,6 +32,7 @@ import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.ClassifierTemplateParameter;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Enumeration;
@@ -42,6 +42,7 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.TemplateParameter;
 
 /**
  * <p>
@@ -772,8 +773,6 @@ public class ClassifierFacadeLogicImpl
     protected List handleGetProperties(final boolean follow)
     {
         final List properties = new ArrayList();
-        properties.addAll(this.getAttributes(false));
-        properties.addAll(this.getNavigableConnectingEnds(false));
         if (follow && !this.getGeneralizations().isEmpty())
         {
             for (Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
@@ -785,6 +784,8 @@ public class ClassifierFacadeLogicImpl
                 }
             }
         }
+        properties.addAll(this.getAttributes(false));
+        properties.addAll(this.getNavigableConnectingEnds(false));
         return properties;
     }
 
@@ -1201,26 +1202,62 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsBindingDependenciesPresent()
     {
         return false;
-    }
+    }*/
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleIsTemplateParametersPresent()
+     */
     protected boolean handleIsTemplateParametersPresent()
     {
+        if (this.metaObject.getOwnedTemplateSignature()==null
+                || this.metaObject.getOwnedTemplateSignature().getOwnedParameters()==null)
+        {
         return false;
     }
+        return this.metaObject.getOwnedTemplateSignature().getOwnedParameters().size() > 0;
+    }
 
+    /** Not implemented 
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleCopyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
+     */
     protected void handleCopyTaggedValues(final ModelElementFacade element)
     {
     }
 
-    protected Object handleGetTemplateParameter(final String parameterName)
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleGetTemplateParameter(java.lang.String)
+     */
+    protected DataType handleGetTemplateParameter(final String parameterName)
+    {
+        if (this.metaObject.getOwnedTemplateSignature()==null
+                || this.metaObject.getOwnedTemplateSignature().getOwnedParameters()==null)
     {
         return null;
     }
 
-    protected Collection handleGetTemplateParameters()
+        for (TemplateParameter param : this.metaObject.getOwnedTemplateSignature().getOwnedParameters())
     {
+            DataType element = (DataType)((ClassifierTemplateParameter)param).getOwnedParameteredElement();
+            if (element.getName().equals(parameterName))
+            {
+                return element;
+            }
+        }
         return null;
-    }*/
+    }
+
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetTemplateParameters()
+     */
+    protected Collection<TemplateParameter> handleGetTemplateParameters()
+    {
+        if (this.metaObject.getOwnedTemplateSignature()==null
+                || this.metaObject.getOwnedTemplateSignature().getOwnedParameters()==null)
+        {
+            return new ArrayList<TemplateParameter>();
+        }            
+        return this.metaObject.getOwnedTemplateSignature().getOwnedParameters();
+    }
 
     /**
      * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleIsAssociationClass()
@@ -1267,26 +1304,27 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
-    @Override
     /**
      * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetSuperClass()
      */
+    @Override
     protected ClassifierFacade handleGetSuperClass()
     {
         final GeneralizableElementFacade superClass = this.getGeneralization();
         return (ClassifierFacade)(superClass instanceof ClassifierFacade ? superClass : null);
     }
 
-    @Override
     /**
      * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleIsEmbeddedValue()
      */
+    @Override
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);
     }
 
     // Sort Operations by name, then by number of parameters, then by parameter names
+    @SuppressWarnings("unused")
     private static class OperationComparator implements Comparator<Operation>
     {
         public int compare(Operation operation1, Operation operation2)

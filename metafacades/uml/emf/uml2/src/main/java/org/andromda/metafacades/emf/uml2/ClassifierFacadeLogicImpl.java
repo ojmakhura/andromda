@@ -1291,10 +1291,9 @@ public class ClassifierFacadeLogicImpl
                 if (rtn == 0)
                 {
                     int index = 0;
-                    for (Iterator<Parameter> params = operation1.getOwnedParameters().iterator(); params.hasNext();)
+                    for (Parameter parameter : operation1.getOwnedParameters())
                     {
-                        final Parameter parameter = params.next();
-                        rtn = parameter.name().compareTo(((Enum<Parameter>) operation2.getOwnedParameters().get(index)).name());
+                        rtn = parameter.getName().compareTo(operation2.getOwnedParameters().get(index).getName());
                         if (rtn != 0)
                         {
                             break;
