@@ -26,68 +26,34 @@
             <artifactId>andromda-metafacades-emf-uml22</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Load RSM Metamodel dependencies. Want to do this dynamically in the model processor - how?>
-        <dependency>
-            <groupId>com.ibm</groupId>
-            <artifactId>rsm</artifactId>
-            <version>7.5</version>
-            <type>pom</type>
-        </dependency -->
         <!-- Duplicate dependencies here from uml22 metafacades, for test and decoupling from uml2 -->
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>common</artifactId>
-            <version>2.3.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>ecore</artifactId>
-            <version>2.3.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf.ecore</groupId>
-            <artifactId>xmi</artifactId>
-            <version>2.3.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>uml</artifactId>
-            <version>2.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>common</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
             <artifactId>resources</artifactId>
-            <version>2.1.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.core</groupId>
-                    <artifactId>runtime</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>ecore</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf.ecore</groupId>
+            <artifactId>xmi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf.mapping</groupId>
+            <artifactId>ecore2xml</artifactId>
         </dependency>
     </dependencies>
     <build>
