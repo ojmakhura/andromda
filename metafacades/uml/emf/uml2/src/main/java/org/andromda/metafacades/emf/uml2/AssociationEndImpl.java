@@ -56,7 +56,7 @@ public class AssociationEndImpl
     private static final Logger logger = Logger.getLogger(AssociationEndImpl.class);
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * org.eclipse.uml2.uml.Property
+     * org.eclipse.uml2.Property
      */
     final Property property;
 
