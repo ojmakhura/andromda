@@ -41,8 +41,8 @@ import org.eclipse.uml2.ValueSpecification;
 import org.eclipse.uml2.VisibilityKind;
 
 /**
- * Implementation of AssociationEnd. We extends Property We keep a reference to
- * the original property and we defer almost all method calls to it.
+ * Implementation of AssociationEnd. We extend Property, we keep a reference to
+ * the original property, and we defer almost all method calls to it.
  *
  * @author Cédric Jeanneret
  * @author Bob Fields
@@ -50,18 +50,28 @@ import org.eclipse.uml2.VisibilityKind;
 public class AssociationEndImpl
     implements AssociationEnd
 {
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(AssociationEndImpl.class);
+
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * org.eclipse.uml2.uml.Property
+     */
     final Property property;
 
+    /**
+     * @param p
+     */
     AssociationEndImpl(final Property p)
     {
         this.property = p;
     }
 
     /**
-     * The logger instance.
+     * @see Object#equals(Object)
      */
-    private static final Logger logger = Logger.getLogger(AssociationEndImpl.class);
-
+    @Override
     public boolean equals(final Object obj)
     {
         if (obj instanceof Attribute)
@@ -77,36 +87,61 @@ public class AssociationEndImpl
         return this.property.equals(obj);
     }
 
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
     public int hashCode()
     {
         return this.property.hashCode();
     }
 
+    /**
+     * @see Object#toString()
+     */
+    @Override
     public String toString()
     {
         return this.getClass().getName() + '[' + this.property.toString() + ']';
     }
 
+    /**
+     * @see org.eclipse.uml2.Element#addKeyword(String)
+     */
     public void addKeyword(final String arg0)
     {
         this.property.addKeyword(arg0);
     }
 
+    /**
+     * @see org.eclipse.uml2.NamedElement#allNamespaces()
+     */
     public List allNamespaces()
     {
         return this.property.allNamespaces();
     }
 
+    /**
+     * @see org.eclipse.uml2.Element#allOwnedElements()
+     */
     public Set allOwnedElements()
     {
         return this.property.allOwnedElements();
     }
 
+    /**
+     * @param arg0
+     * @see org.eclipse.uml2.Element#apply(Stereotype)
+     */
     public void apply(final Stereotype arg0)
     {
         this.property.apply(arg0);
     }
 
+    /**
+     * @param arg0
+     * @return this.property.createDefaultValue(eClass)
+     */
     public ValueSpecification createDefaultValue(final EClass arg0)
     {
         return this.property.createDefaultValue(arg0);
@@ -157,14 +192,26 @@ public class AssociationEndImpl
         return this.property.createOwnedComment(arg0);
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#createOwnedTemplateSignature()
+     */
     public TemplateSignature createOwnedTemplateSignature()
     {
-        return this.property.createOwnedTemplateSignature();
+        //return this.property.createOwnedTemplateSignature();
+        logger.error("AssociationEndImpl.createOwnedTemplateSignature is UML14 only");
+        return null;
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
+     */
     public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
-        return this.property.createOwnedTemplateSignature(arg0);
+        //return this.property.createOwnedTemplateSignature(arg0);
+        logger.error("AssociationEndImpl.createOwnedTemplateSignature(arg0) is UML14 only");
+        return null;
     }
 
     public Property createQualifier()
@@ -177,14 +224,26 @@ public class AssociationEndImpl
         return this.property.createQualifier(arg0);
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding()
+     */
     public TemplateBinding createTemplateBinding()
     {
-        return this.property.createTemplateBinding();
+        //return this.property.createTemplateBinding();
+        logger.error("AssociationEndImpl.createTemplateBinding is UML14 only");
+        return null;
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding(org.eclipse.emf.ecore.EClass)
+     */
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
-        return this.property.createTemplateBinding(arg0);
+        //return this.property.createTemplateBinding(arg0);
+        logger.error("AssociationEndImpl.createTemplateBinding(arg0) is UML14 only");
+        return null;
     }
 
     public ValueSpecification createUpperValue(final EClass arg0)
@@ -475,9 +534,15 @@ public class AssociationEndImpl
         return this.property.getOwnedElements();
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#getOwnedTemplateSignature()
+     */
     public TemplateSignature getOwnedTemplateSignature()
     {
-        return this.property.getOwnedTemplateSignature();
+        //return this.property.getOwnedTemplateSignature();
+        logger.error("AssociationEndImpl.getOwnedTemplateSignature is UML14 only");
+        return null;
     }
 
     public Element getOwner()
@@ -550,9 +615,15 @@ public class AssociationEndImpl
         return this.property.getSubsettedProperty(arg0);
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#getTemplateBindings()
+     */
     public EList getTemplateBindings()
     {
-        return this.property.getTemplateBindings();
+        //return this.property.getTemplateBindings();
+        logger.error("AssociationEndImpl.getTemplateBindings is UML14 only");
+        return null;
     }
 
     public TemplateParameter getTemplateParameter()
@@ -712,9 +783,15 @@ public class AssociationEndImpl
         return this.property.opposite();
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#parameterableElements()
+     */
     public Set parameterableElements()
     {
-        return this.property.parameterableElements();
+        //return this.property.parameterableElements();
+        logger.error("AssociationEndImpl.property.parameterableElements is UML14 only");
+        return null;
     }
 
     public String qualifiedName()
@@ -827,9 +904,14 @@ public class AssociationEndImpl
         this.property.setNavigable(arg0);
     }
 
+    /**
+     * @return null
+     * @see org.eclipse.uml2.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.TemplateSignature)
+     */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
-        this.property.setOwnedTemplateSignature(arg0);
+        //this.property.setOwnedTemplateSignature(arg0);
+        logger.error("AssociationEndImpl.property.setOwnedTemplateSignature(arg0) is UML14 only");
     }
 
     public void setOwningAssociation(final Association arg0)

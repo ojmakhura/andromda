@@ -1,6 +1,8 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
@@ -52,8 +54,19 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class AttributeImpl
     implements Attribute
 {
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(AttributeImpl.class);
+
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * org.eclipse.uml2.uml.Property
+     */
     final Property property;
 
+    /**
+     * @param propertyIn
+     */
     AttributeImpl(final Property propertyIn)
     {
         this.property = propertyIn;
@@ -218,20 +231,27 @@ public class AttributeImpl
         return this.property.createOwnedComment();
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature()
      */
     public TemplateSignature createOwnedTemplateSignature()
     {
-        return this.property.createOwnedTemplateSignature();
+        //return this.property.createOwnedTemplateSignature();
+        logger.error("AttributeImpl.createOwnedTemplateSignature is UML14 only");
+        return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @param arg0 
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
      */
     public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
-        return this.property.createOwnedTemplateSignature(arg0);
+        //return this.property.createOwnedTemplateSignature(arg0);
+        logger.error("AttributeImpl.createOwnedTemplateSignature(EClass) is UML14 only");
+        return null;
     }
 
     /**
@@ -253,23 +273,27 @@ public class AttributeImpl
         return this.property.createQualifier(null, null, arg0);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @return this.property.createTemplateBinding(null)
      * @see org.eclipse.uml2.uml.Property#createTemplateBinding(TemplateSignature)
      */
     public TemplateBinding createTemplateBinding()
     {
-        return this.property.createTemplateBinding(null);
+        //return this.property.createTemplateBinding(null);
+        logger.error("AttributeImpl.property.createTemplateBinding is UML14 only");
+        return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @param arg0
      * @return this.property.createTemplateBinding((TemplateSignature) arg0)
      * @see org.eclipse.uml2.uml.Property#createTemplateBinding(TemplateSignature)
      */
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
-        return this.property.createTemplateBinding((TemplateSignature) arg0);
+        //return this.property.createTemplateBinding((TemplateSignature) arg0);
+        logger.error("AttributeImpl.property.createTemplateBinding(EClass) is UML14 only");
+        return null;
     }
 
     /**
@@ -728,12 +752,15 @@ public class AttributeImpl
         return this.property.getOwnedElements();
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getOwnedTemplateSignature()
      */
     public TemplateSignature getOwnedTemplateSignature()
     {
-        return this.property.getOwnedTemplateSignature();
+        //return this.property.getOwnedTemplateSignature();
+        logger.error("AttributeImpl.property.getOwnedTemplateSignature() is UML14 only");
+        return null;
     }
 
     /**
@@ -854,12 +881,15 @@ public class AttributeImpl
         return this.property.getSubsettedProperty(arg0, null);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBindings()
      */
     public EList getTemplateBindings()
     {
-        return this.property.getTemplateBindings();
+        //return this.property.getTemplateBindings();
+        logger.error("AttributeImpl.property.getTemplateBindings() is UML14 only");
+        return null;
     }
 
     /**
@@ -1112,12 +1142,15 @@ public class AttributeImpl
         return this.property.getOpposite();
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#parameterableElements()
      */
     public EList<ParameterableElement> parameterableElements()
     {
-        return this.property.parameterableElements();
+        //return this.property.parameterableElements();
+        logger.error("AttributeImpl.property.parameterableElements() is UML14 only");
+        return null;
     }
 
     /**
@@ -1301,12 +1334,14 @@ public class AttributeImpl
         this.property.setIsNavigable(arg0);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @param arg0 
      * @see org.eclipse.uml2.uml.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.uml.TemplateSignature)
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
-        this.property.setOwnedTemplateSignature(arg0);
+        //this.property.setOwnedTemplateSignature(arg0);
+        logger.error("AttributeImpl.property.setOwnedTemplateSignature(TemplateSignature) is UML14 only");
     }
 
     /**
@@ -1654,16 +1689,19 @@ public class AttributeImpl
             arg1);
     }
 
-    /**
-     * @see org.eclipse.uml2.uml.MultiplicityElement#validateUpperGt0(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+    /** UML2 3.0: property.validateUpperGt0 no longer exists
+     * @param arg0 
+     * @param arg1 
+     * @return property.getUpper() > 0
      */
     public boolean validateUpperGt0(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
     {
-        return this.property.validateUpperGt0(
+        return this.property.getUpper() > 0;
+        /* return this.property.validateUpperGt0(
             arg0,
-            arg1);
+            arg1); */
     }
 
     /**
@@ -2264,35 +2302,51 @@ public class AttributeImpl
         return this.property.getDeployment(name, ignoreCase, createOnDemand);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @param signature 
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
     public TemplateBinding createTemplateBinding(TemplateSignature signature)
     {
-        return this.property.createTemplateBinding(signature);
+        //return this.property.createTemplateBinding(signature);
+        logger.error("AttributeImpl.property.createTemplateBinding(TemplateSignature) is UML14 only");
+        return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @param signature 
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
     public TemplateBinding getTemplateBinding(TemplateSignature signature)
     {
-        return this.property.getTemplateBinding(signature);
+        //return this.property.getTemplateBinding(signature);
+        logger.error("AttributeImpl.property.getTemplateBinding(TemplateSignature) is UML14 only");
+        return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @param signature 
+     * @param createOnDemand 
+     * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature, boolean)
      */
     public TemplateBinding getTemplateBinding(TemplateSignature signature, boolean createOnDemand)
     {
-        return this.property.getTemplateBinding(signature, createOnDemand);
+        //return this.property.getTemplateBinding(signature, createOnDemand);
+        logger.error("AttributeImpl.property.getTemplateBinding(TemplateSignature, boolean) is UML14 only");
+        return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * @return false
      * @see org.eclipse.uml2.uml.TemplateableElement#isTemplate()
      */
     public boolean isTemplate()
     {
-        return this.property.isTemplate();
+        //return this.property.isTemplate();
+        logger.error("AttributeImpl.property.isTemplate() is UML14 only");
+        return false;
     }
 }
