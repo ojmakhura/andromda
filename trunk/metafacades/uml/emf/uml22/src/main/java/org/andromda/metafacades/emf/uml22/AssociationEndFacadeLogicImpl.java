@@ -21,6 +21,7 @@ import org.eclipse.uml2.uml.Type;
  * org.andromda.metafacades.uml.AssociationEndFacade.
  *
  * @see org.andromda.metafacades.uml.AssociationEndFacade
+ * @author Bob Fields
  */
 public class AssociationEndFacadeLogicImpl
     extends AssociationEndFacadeLogic
