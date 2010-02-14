@@ -111,7 +111,9 @@ public class ImportBeautifierMojo
             {
                 try
                 {
-                    processor.organizeImports(formatFile.getCanonicalPath());
+                    LOG.info("Beautifying imports on " + formatFile.getPath());
+                    String output = processor.organizeImports(FileUtils.readFileToString(formatFile));
+                    FileUtils.writeStringToFile(formatFile, output);
                 }
                 catch (ParseException e)
                 {
