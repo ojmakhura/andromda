@@ -55,7 +55,8 @@
         <module>mdr/common</module>
         <module>mdr/uml14</module>
         <module>emf</module>
-        <!-- Change to emf-uml22 for UML2 2.x and RSM 7.x support -->
-        <module>emf/uml2</module>
+        <!-- Change to emf-uml2 for UML2 1.x and RSM 6.x support -->
+        <module>emf/uml22</module>
+        <!--module>emf/uml2</module-->
     </modules>
 </project>
