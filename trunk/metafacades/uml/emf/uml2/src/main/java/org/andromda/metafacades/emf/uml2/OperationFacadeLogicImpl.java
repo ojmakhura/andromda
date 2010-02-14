@@ -614,6 +614,11 @@ public class OperationFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getReturnType().getWrapperName();
                 }
+                // Don't apply templating to modeled array types
+                if (type.endsWith("[]"))
+                {
+                    type = type.substring(0, type.length()-2);
+                }
                 name += '<' + type + '>';
             }
         }
@@ -658,9 +663,10 @@ public class OperationFacadeLogicImpl
         // isMultiValued()
         // RJF3 True if either the operation is many or the return parameter is many
         final ParameterFacade returnParameter = this.getReturnParameter();
-        boolean returnMany = returnParameter.getUpper() > 1 ||
+        // Parameter may be null during model validation
+        boolean returnMany = returnParameter!=null && (returnParameter.getUpper() > 1 ||
             returnParameter.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
-            || returnParameter.getType().isArrayType();
+            || returnParameter.getType().isArrayType());
         return returnMany || this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND;
     }
 
@@ -728,6 +734,7 @@ public class OperationFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return this.metaObject.getUpper();
+        //return UmlUtilities.parseMultiplicity(this.metaObject.getUpper(), 1);
     }
 
     /**
@@ -738,6 +745,9 @@ public class OperationFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return this.metaObject.getLower();
+        //return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLower(),
+        //    (ClassifierFacade) this.getReturnType(), "0");
+            // ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
     /**
