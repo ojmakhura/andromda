@@ -606,7 +606,7 @@ public class ModelElementFacadeLogicImpl
             {
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
-                // Comment.toString returns org.eclipse.uml2.uml.internal.impl.CommentImpl@95c90f4 (body: )
+                // Comment.toString returns org.eclipse.uml2.internal.impl.CommentImpl@95c90f4 (body: )
                 /*if (StringUtils.isBlank(commentString))
                 {
                     commentString = StringUtils.trimToEmpty(comment.toString());
