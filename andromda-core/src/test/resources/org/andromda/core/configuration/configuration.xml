@@ -1,4 +1,4 @@
-<andromda>
+<andromda xmlns="http://andromda.org/core/configuration">
     <properties>
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
@@ -17,7 +17,9 @@
                     <uri>file:model1Uri2.xmi</uri>
                     <transformations>
                         <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
-                        <transformation><uri>file:transformation2.xsl</uri></transformation>
+                        <transformation>
+                            <uri>file:transformation2.xsl</uri>
+                        </transformation>
                     </transformations>
                     <moduleSearchLocations>
                         <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
@@ -35,7 +37,9 @@
                         <constraint>org::andromda::uml::metafacades::Service</constraint>
                     </constraints>
                 </model>
-                <model><uri>file:model2.xmi</uri></model>
+                <model>
+                    <uri>file:model2.xmi</uri>
+                </model>
                 <model>
                     <uri>file:model3.xmi</uri>
                     <modelPackages processAll="true">
