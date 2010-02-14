@@ -516,7 +516,7 @@ $connectingEnd.getDocumentation("     * ")
 #if($class.generalization)
             .appendSuper(super.hashCode())
 #end
-#foreach($attr in $class.properties)
+#foreach($attr in $class.attributes)
             .append(this.${attr.getterName}())
 #end
 #foreach($associationEnd in $class.associationEnds)
