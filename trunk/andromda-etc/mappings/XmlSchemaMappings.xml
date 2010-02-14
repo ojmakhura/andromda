@@ -5,22 +5,40 @@
 -->
 <mappings name="XmlSchema">
     <mapping>
+        <from>UML2::Boolean</from>
+        <from>Java::boolean</from>
+        <from>PrimitiveTypes::boolean</from>
+        <from>PrimitiveTypes::Boolean</from>
         <from>datatype::boolean</from>
         <from>datatype::Boolean</from>
         <to>boolean</to>
     </mapping>
     <mapping>
+        <from>Java::byte</from>
+        <from>PrimitiveTypes::byte</from>
+        <from>PrimitiveTypes::Byte</from>
         <from>datatype::byte</from>
         <from>datatype::Byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Blob</from>
+        <from>PrimitiveTypes::byte[]</from>
+        <from>PrimitiveTypes::Byte[]</from>
         <from>datatype::Blob</from>
         <from>datatype::byte[]</from>
         <from>datatype::Byte[]</from>
         <to>base64Binary</to>
     </mapping>
     <mapping>
+        <from>UML2::String</from>
+        <from>UMLTypes::String</from>
+        <from>PrimitiveTypes::URI</from>
+        <from>PrimitiveTypes::URL</from>
+        <from>PrimitiveTypes::char[]</from>
+        <from>PrimitiveTypes::Char[]</from>
+        <from>PrimitiveTypes::String</from>
+        <from>PrimitiveTypes::Clob</from>
         <from>datatype::URI</from>
         <from>datatype::URL</from>
         <from>datatype::char[]</from>
@@ -30,53 +48,85 @@
         <to>string</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
         <to>time</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
         <to>date</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::DateTime</from>
+        <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
         <to>dateTime</to>
     </mapping>
     <mapping>
+        <from>Java::int</from>
+        <from>Java::char</from>
+        <from>PrimitiveTypes::int</from>
+        <from>PrimitiveTypes::char</from>
         <from>datatype::int</from>
         <from>datatype::char</from>
         <to>int</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Integer</from>
+        <from>PrimitiveTypes::BigInteger</from>
+        <from>UML2::Integer</from>
+        <from>UML2::UnlimitedNatural</from>
         <from>datatype::Integer</from>
+        <from>datatype::BigInteger</from>
         <to>integer</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::decimal</from>
+        <from>PrimitiveTypes::Decimal</from>
+        <from>PrimitiveTypes::BigDecimal</from>
         <from>datatype::Decimal</from>
+        <from>datatype::decimal</from>
+        <from>datatype::BigDecimal</from>
         <to>decimal</to>
     </mapping>
     <mapping>
+        <from>Java::double</from>
+        <from>PrimitiveTypes::double</from>
+        <from>PrimitiveTypes::Double</from>
+        <from>PrimitiveTypes::Money</from>
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
         <to>double</to>
     </mapping>
     <mapping>
+        <from>Java::float</from>
+        <from>PrimitiveTypes::float</from>
+        <from>PrimitiveTypes::Float</from>
         <from>datatype::float</from>
         <from>datatype::Float</from>
         <to>float</to>
     </mapping>
     <mapping>
+        <from>Java::long</from>
+        <from>PrimitiveTypes::long</from>
+        <from>PrimitiveTypes::Long</from>
         <from>datatype::long</from>
         <from>datatype::Long</from>
         <to>long</to>
     </mapping>
     <mapping>
+        <from>Java::short</from>
+        <from>PrimitiveTypes::short</from>
+        <from>PrimitiveTypes::Short</from>
         <from>datatype::short</from>
         <from>datatype::Short</from>
         <to>short</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
         <to>anyType</to>
     </mapping>

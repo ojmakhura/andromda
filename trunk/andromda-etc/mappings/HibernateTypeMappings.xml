@@ -5,10 +5,12 @@
 -->
 <mappings name="Hibernate">
     <mapping>
+        <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>org.andromda.persistence.hibernate.usertypes.HibernateByteBlobType</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>org.andromda.persistence.hibernate.usertypes.HibernateStringClobType</to>
     </mapping>

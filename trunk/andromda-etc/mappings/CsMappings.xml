@@ -21,14 +21,23 @@
         <to/>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::File</from>
         <from>datatype::File</from>
         <to>System.IO.File</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::String</from>
+        <from>UML2::String</from>
+        <from>UMLTypes::String</from>
+        <from>UMLPrimitiveTypes::String</from>
         <from>datatype::String</from>
         <to>String</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Time</from>
+        <from>PrimitiveTypes::Date</from>
+        <from>PrimitiveTypes::DateTime</from>
+        <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::Time</from>
         <from>datatype::Date</from>
         <from>datatype::DateTime</from>
@@ -36,131 +45,177 @@
         <to>DateTime?</to>
     </mapping>
     <mapping>
+        <from>Java::char</from>
+        <from>PrimitiveTypes::char</from>
         <from>datatype::char</from>
         <to>char</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Character</from>
         <from>datatype::Character</from>
         <to>char?</to>
     </mapping>
     <mapping>
+        <from>Java::byte</from>
+        <from>PrimitiveTypes::byte</from>
         <from>datatype::byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Byte</from>
         <from>datatype::Byte</from>
         <to>byte?</to>
     </mapping>
     <mapping>
+        <from>Java::short</from>
+        <from>PrimitiveTypes::short</from>
         <from>datatype::short</from>
         <to>short</to>
     </mapping>
     <mapping>
+        <from>Java::Short</from>
+        <from>PrimitiveTypes::Short</from>
         <from>datatype::Short</from>
         <to>short?</to>
     </mapping>
     <mapping>
+        <from>Java::int</from>
+        <from>PrimitiveTypes::int</from>
         <from>datatype::int</from>
         <to>int</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
         <to>int?</to>
     </mapping>
     <mapping>
+        <from>Java::long</from>
+        <from>PrimitiveTypes::long</from>
         <from>datatype::long</from>
         <to>long</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Long</from>
         <from>datatype::Long</from>
         <to>long?</to>
     </mapping>
     <mapping>
+        <from>Java::float</from>
+        <from>PrimitiveTypes::float</from>
         <from>datatype::float</from>
         <to>float</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Float</from>
         <from>datatype::Float</from>
         <to>float?</to>
     </mapping>
     <mapping>
+        <from>Java::double</from>
+        <from>PrimitiveTypes::double</from>
         <from>datatype::double</from>
         <to>double</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Double</from>
+        <from>PrimitiveTypes::Money</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
         <to>double?</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Decimal</from>
         <from>datatype::Decimal</from>
         <to>decimal?</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Boolean</from>
         <from>datatype::Boolean</from>
         <to>bool?</to>
     </mapping>
     <mapping>
+        <from>Java::boolean</from>
+        <from>PrimitiveTypes::boolean</from>
         <from>datatype::boolean</from>
         <to>bool</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Guid</from>
         <from>datatype::Guid</from>
         <to>System.Guid</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Collection</from>
         <from>datatype::Collection</from>
         <to>System.Collections.ICollection</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::List</from>
         <from>datatype::List</from>
         <to>System.Collections.IList</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Set</from>
+        <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::Set</from>
+        <from>datatype::SortedSet</from>
         <to>Iesi.Collections.ISet</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>String</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>Byte[]</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Map</from>
+        <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::Map</from>
+        <from>datatype::SortedMap</from>
         <to>System.Collections.IDictionary</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Mappings</from>
         <from>datatype::Mappings</from>
         <to>org.andromda.metafacades.uml.TypeMappings</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::URI</from>
         <from>datatype::URI</from>
         <to>Uri</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::URL</from>
         <from>datatype::URL</from>
         <to>Uri</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
         <to>Object</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::void</from>
         <from>datatype::void</from>
         <to>void</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::Document</from>
         <from>datatype::Document</from>
         <to>System.Xml.XmlDocument</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::ContentHandler</from>
         <from>datatype::ContentHandler</from>
         <to>System.Xml.XmlReader</to>
     </mapping>
     <mapping>
+        <from>PrimitiveTypes::TreeNode</from>
         <from>datatype::TreeNode</from>
         <to>System.Windows.Forms.TreeNode</to>
     </mapping>

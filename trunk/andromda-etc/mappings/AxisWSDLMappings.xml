@@ -6,6 +6,10 @@
 <mappings name="AxisWSDLMappings">
     <extends>XmlSchema</extends>
     <mapping>
+        <from>PrimitiveTypes::Time</from>
+        <from>PrimitiveTypes::Date</from>
+        <from>PrimitiveTypes::DateTime</from>
+        <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
         <from>datatype::Time</from>
