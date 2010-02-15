@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmi:id="_16_6_1_2e90116_1265842154275_505522_389" name="Profile_for_JavaCartridgeTestModel1" metamodelReference="_0metamodelReferenceProfile_for_JavaCartridgeTestModel1">
+  <eAnnotations xmi:id="_JqQqkhaXEd-5EJGVgffQ7g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_JqQqkxaXEd-5EJGVgffQ7g" name="Profile_for_JavaCartridgeTestModel1" nsURI="http:///schemas/Profile_for_JavaCartridgeTestModel1/_JpEXwRaXEd-5EJGVgffQ7g/0" nsPrefix="Profile_for_JavaCartridgeTestModel1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_JqQqlBaXEd-5EJGVgffQ7g" name="realize">
+        <eAnnotations xmi:id="_JqQqlRaXEd-5EJGVgffQ7g" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_2_2cb0161_1136058099890_849355_277"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_JqQqlhaXEd-5EJGVgffQ7g" name="base_Abstraction" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Abstraction"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_0metamodelReferenceProfile_for_JavaCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypesProfile_for_JavaCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_JavaCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_2_2cb0161_1136058099890_849355_277" name="realize">
+    <ownedAttribute xmi:id="_16_6_1_2e90116_1265842154291_908631_392" name="base_Abstraction" visibility="private" association="_16_6_1_2e90116_1265842154291_567473_391">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Abstraction"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_16_6_1_2e90116_1265842154291_567473_391" name="" memberEnd="_16_6_1_2e90116_1265842154291_938344_393 _16_6_1_2e90116_1265842154291_908631_392">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_6_1_2e90116_1265842154291_938344_393" name="extension_realize" visibility="private" type="_9_0_2_2cb0161_1136058099890_849355_277" aggregation="composite" association="_16_6_1_2e90116_1265842154291_567473_391">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_6_1_2e90116_1265842154291_258754_395" name="" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_6_1_2e90116_1265842154291_204459_394" name=""/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Profile>

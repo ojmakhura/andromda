@@ -16,11 +16,8 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10051</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java
-        </connection>
-        <developerConnection>
-            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java
-        </developerConnection>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-java</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
@@ -51,6 +48,7 @@
         </dependency>
     </dependencies>
     <build>
+        <!-- UML2 test model output does not compile due to ParameterTemplateFacade issues -->
         <testSourceDirectory>target/cartridge-test/actual</testSourceDirectory>
         <plugins>
             <plugin>
@@ -65,8 +63,36 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <extensions>true</extensions>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>uml14</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <configurationUri>file:${basedir}/conf/test/andromda.xml</configurationUri>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>uml2</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <actualDirectory>${project.build.directory}/cartridge-test/actualUML2</actualDirectory>
+                            <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML2</expectedDirectory>
+                            <expectedOutputArchive>${basedir}/src/test/expected/cartridge-uml2.zip</expectedOutputArchive>
+                            <configurationUri>file:${basedir}/conf/test/andromdaUML2.xml</configurationUri>
+                            <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -75,8 +101,10 @@
         </plugins>
     </build>
     <properties>
+        <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
+        <uml2.model.uri>file:${src.dir}/uml2/JavaMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/JavaCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/JavaMetafacadeModel.xml.zip!/JavaMetafacadeModel.xml</model.uri>
-        <test.model.uri>jar:file:${test.src.dir}/uml/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml
-        </test.model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml</test.model.uri>
     </properties>
 </project>
