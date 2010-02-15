@@ -59,6 +59,19 @@ public class CartridgeTestMojo
                 throw new MojoExecutionException("The path specifying the expectedDirectory '" +
                     this.expectedDirectory + "' must be a directory");
             }
+            else
+            {
+                try
+                {
+                    FileUtils.cleanDirectory(this.expectedDirectory);
+                }
+                catch (IOException ex)
+                {
+                    throw new MojoExecutionException("Could not clean the expectedDirectory '" +
+                            this.expectedDirectory + "'");
+                }
+            }
+
             final File actualOutputDir = new File(this.actualDirectory);
             if (!actualOutputDir.exists())
             {
@@ -68,6 +81,18 @@ public class CartridgeTestMojo
             {
                 throw new MojoExecutionException("The path specifying the actualOutputDir '" +
                     this.actualDirectory + "' must be a directory");
+            }
+            else
+            {
+                try
+                {
+                    FileUtils.cleanDirectory(this.actualDirectory);
+                }
+                catch (IOException ex)
+                {
+                    throw new MojoExecutionException("Could not clean the actualOutputDir '" +
+                            this.actualDirectory + "'");
+                }
             }
 
             try
@@ -79,10 +104,14 @@ public class CartridgeTestMojo
                 this.getLog().info("actualDirectory=" + this.actualDirectory);
                 this.getLog().info("expectedDirectory=" + this.expectedDirectory);
                 this.getLog().info("expectedOutputArchive=" + this.expectedOutputArchive);
-                this.getLog().info("testFailureIgnore=" + this.testFailureIgnore);
+                if (this.testFailureIgnore)
+                {
+                    this.getLog().info("testFailureIgnore=" + this.testFailureIgnore);
+                }
 
                 // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
                 this.addCartridgeTestDependencies();
+                // TODO Clear the error list, carried over from a previous cartridge run.
 
                 // - first run AndroMDA with the test configuration
                 final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
@@ -97,46 +126,38 @@ public class CartridgeTestMojo
                     expectedOutputArchive,
                     new File(this.expectedDirectory));
 
-                /*// Throws NullPointerException during unpack process, don't know why
-                if (this.skipTests)
+                final CartridgeTest cartridgeTest = CartridgeTest.instance();
+                cartridgeTest.setActualOutputPath(this.actualDirectory);
+                cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
+                cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
+
+                final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
+
+                // - set the report location
+                final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
+                formatter.setReportFile(report);
+                formatter.setTestFailureIgnore(this.testFailureIgnore);
+                final TestResult result = new TestResult();
+                result.addListener(formatter);
+                final Test suite = CartridgeTest.suite();
+                formatter.startTestSuite(this.project.getName());
+                suite.run(result);
+                this.getLog().info("");
+                this.getLog().info("Results:");
+                this.getLog().info(formatter.endTestSuite(suite));
+                cartridgeTest.shutdown();
+                if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
-                    this.getLog().info(this.project.getArtifactId() + " Unpacked expected results, Skipping cartridge comparison tests");
-                }
-                else
-                {*/
-                    final CartridgeTest cartridgeTest = CartridgeTest.instance();
-                    cartridgeTest.setActualOutputPath(this.actualDirectory);
-                    cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
-                    cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
-    
-                    final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
-    
-                    // - set the report location
-                    final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
-                    formatter.setReportFile(report);
-                    formatter.setTestFailureIgnore(this.testFailureIgnore);
-                    final TestResult result = new TestResult();
-                    result.addListener(formatter);
-                    final Test suite = CartridgeTest.suite();
-                    formatter.startTestSuite(this.project.getName());
-                    suite.run(result);
-                    this.getLog().info("");
-                    this.getLog().info("Results:");
-                    this.getLog().info(formatter.endTestSuite(suite));
-                    cartridgeTest.shutdown();
-                    if (result.failureCount() > 0 || result.errorCount() > 0)
+                    if (this.testFailureIgnore)
                     {
-                        if (this.testFailureIgnore)
-                        {
-                            this.getLog().error("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount()
-                                    + ", Cartridge=" + this.project.getArtifactId());
-                        }
-                        else
-                        {
-                            throw new MojoExecutionException("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount());
-                        }
+                        this.getLog().error("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount()
+                                + ", Cartridge=" + this.project.getArtifactId());
                     }
-                /*}*/
+                    else
+                    {
+                        throw new MojoExecutionException("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount());
+                    }
+                }
             }
             catch (final Throwable throwable)
             {
