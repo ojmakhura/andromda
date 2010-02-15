@@ -39,6 +39,22 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.andromda.profiles.emf.uml22</groupId>
+            <artifactId>andromda-common</artifactId>
+            <version>${project.version}</version>
+            <type>profile.uml</type>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <!--dependency>
+            <groupId>org.andromda.profiles.emf.uml2</groupId>
+            <artifactId>andromda-profile-common</artifactId>
+            <version>${project.version}</version>
+            <type>uml2</type>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency-->
+        <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${project.version}</version>
@@ -84,6 +100,7 @@
                     <version>${project.version}</version>
                     <executions>
                         <execution>
+                            <id>uml14</id>
                             <phase>generate-test-sources</phase>
                             <goals>
                                 <goal>test</goal>
@@ -134,6 +151,7 @@
                 <excludes>
                     <exclude>java/**/*.java</exclude>
                     <exclude>uml/**/*</exclude>
+                    <exclude>uml2/**/*</exclude>
                     <exclude>test/**/*</exclude>
                 </excludes>
             </resource>

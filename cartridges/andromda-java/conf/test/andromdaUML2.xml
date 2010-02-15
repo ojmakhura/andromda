@@ -3,14 +3,21 @@
     <property name="failOnValidationErrors">false</property>
   </properties>
   <repositories>
-    <repository name="netBeansMDR">
+    <repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>file:${project.basedir}/src/test/uml2/JavaCartridgeTestModel.uml</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations>
+          <!--repository name="netBeansMDR">
       <models>
         <model>
           <uri>${test.model.uri}</uri>
           <moduleSearchLocations>
             <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
-          </moduleSearchLocations>
+          </moduleSearchLocations-->
         </model>
       </models>
     </repository>
@@ -36,12 +43,12 @@
         <!--Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements-->
         <property name="xmlAttributes">true</property>
         <!--Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes-->
-        <!--property name="XMLDateAdapter"></property>
-        <property name="XMLDateTimeAdapter"></property>
-        <property name="XMLTimeAdapter"></property>
-        <property name="XMLIntegerAdapter"></property>
-        <property name="XMLLongAdapter"></property>
-        <property name="XMLBooleanAdapter"></property-->
+        <property name="XMLDateAdapter">com.disney.jaxb.adapter.XSDateAdapter</property>
+        <property name="XMLDateTimeAdapter">com.disney.jaxb.adapter.XSDateTimeAdapter</property>
+        <property name="XMLTimeAdapter">com.disney.jaxb.adapter.XSTimeAdapter</property>
+        <!--property name="XMLIntegerAdapter">com.disney.jaxb.adapter.IntegerAdapter</property>
+        <property name="XMLLongAdapter">com.disney.jaxb.adapter.LongAdapter</property-->
+        <property name="XMLBooleanAdapter">com.disney.jaxb.adapter.BooleanAdapter</property>
         <property name="persistenceContainerName">jboss</property>
         <!--Override default @todo to set to Eclipse default>
         <property name="toDoTag">TODO</property-->
@@ -56,13 +63,13 @@
         <property name="generateChainedSetters">true</property-->
         <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
         <property name="generateEqualPropertiesMethod">true</property>
-        <property name="services">${test.output.dir}</property>
-        <property name="service-impls">${test.output.dir}</property>
-        <property name="value-objects">${test.output.dir}</property>
-        <property name="exceptions">${test.output.dir}</property>
-        <property name="enumerations">${test.output.dir}</property>
-        <property name="interfaces">${test.output.dir}</property>
-        <property name="interface-impls">${test.output.dir}</property>
+        <property name="services">${uml2.output.dir}</property>
+        <property name="service-impls">${uml2.output.dir}</property>
+        <property name="value-objects">${uml2.output.dir}</property>
+        <property name="exceptions">${uml2.output.dir}</property>
+        <property name="enumerations">${uml2.output.dir}</property>
+        <property name="interfaces">${uml2.output.dir}</property>
+        <property name="interface-impls">${uml2.output.dir}</property>
         <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
         <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
         <property name="generateEqualPropertiesMethod">true</property>
