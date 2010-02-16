@@ -342,6 +342,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>4.7</version>
+            <classifier>jdk15</classifier>
         </dependency>  
     </dependencies>
     <build>
