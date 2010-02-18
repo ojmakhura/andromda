@@ -190,10 +190,10 @@
                                         <zipfileset src="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-1.0-incubating-M7a.jar"
-                                        tofile="${project.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
-                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-1.0-incubating-M7a.jar">
-                                        <zipfileset src="${project.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar"
+                                        tofile="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
+                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar">
+                                        <zipfileset src="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
                                     <zip destfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}.ear"

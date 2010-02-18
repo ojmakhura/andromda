@@ -671,7 +671,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-api</artifactId>
-                <version>1.2.4</version>
+                <version>1.2.8</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -686,7 +686,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-impl</artifactId>
-                <version>1.2.4</version>
+                <version>1.2.8</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -702,7 +702,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-dom</artifactId>
-                <version>1.2.4</version>
+                <version>1.2.8</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -755,26 +755,14 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.woden</groupId>
-                <artifactId>woden</artifactId>
-                <version>1.0-incubating-M7a</version>
+                <artifactId>woden-impl-om</artifactId>
+                <version>1.0M8</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>wsdl4j</groupId>
                 <artifactId>wsdl4j</artifactId>
                 <version>1.6.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.ws.commons.schema</groupId>
-                <artifactId>XmlSchema</artifactId>
-                <version>1.4.2</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>woodstox</groupId>
-                <artifactId>wstx-asl</artifactId>
-                <version>3.2.7</version>
-                <scope>runtime</scope>
             </dependency>
 #end
 #elseif ($xfire)
@@ -857,6 +845,12 @@
             <!-- add the database jdbc dependency -->    
 #end
 #end
+					<dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>4.7</version>
+            <classifier>jdk15</classifier>
+        	</dependency>  
         </dependencies>
     </dependencyManagement>
     <build>
