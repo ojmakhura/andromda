@@ -164,14 +164,7 @@
             <groupId>org.jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <!--dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-            <classifier>jdk15</classifier>
-        </dependency-->
+        </dependency>        
 #if ($jsr181Webservice)
         <dependency>
             <groupId>org.jboss</groupId>
@@ -281,12 +274,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.woden</groupId>
-            <artifactId>woden</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ws.commons.axiom</groupId>
-            <artifactId>axiom-api</artifactId>
-        </dependency>
+            <artifactId>woden-impl-om</artifactId>
+        </dependency>        
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-dom</artifactId>
@@ -294,6 +283,10 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
+        </dependency>
+        <dependency>
+                <groupId>org.apache.ws.commons.axiom</groupId>
+                <artifactId>axiom-api</artifactId>
         </dependency>
         <dependency>
             <groupId>backport-util-concurrent</groupId>
@@ -323,14 +316,6 @@
             <groupId>wsdl4j</groupId>
             <artifactId>wsdl4j</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.ws.commons.schema</groupId>
-            <artifactId>XmlSchema</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>woodstox</groupId>
-            <artifactId>wstx-asl</artifactId>
-        </dependency>
 #end
 #elseif ($xfire)
         <dependency>
@@ -341,8 +326,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>4.7</version>
-            <classifier>jdk15</classifier>
+            <classifier>jdk15</classifier>            
         </dependency>  
     </dependencies>
     <build>
