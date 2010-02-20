@@ -126,9 +126,23 @@ public class EMFUML2RepositoryFacadeTest
     public void testGetModel()
     {
         long now = System.currentTimeMillis();
+        // Load from org.eclipse.uml2.resources jar.
+        URL url = this.getClass().getClassLoader().getResource("profiles/Standard.profile.uml");
+        if (url!=null)
+        {
+            this.repository.readModel(
+                new String[] {this.modelUrl.toString()},
+                new String[] {url.toString(), 
+                    this.getClass().getClassLoader().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getClassLoader().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getClassLoader().getResource("metamodels/UML.metamodel.uml").toString()});
+        }
+        else
+        {
         this.repository.readModel(
             new String[] {this.modelUrl.toString()},
             null);
+        }
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();
         long now3 = System.currentTimeMillis();
@@ -159,8 +173,9 @@ public class EMFUML2RepositoryFacadeTest
                 "Top",
                 umlClass.getName());
             getStereotypeNames(umlClass);
+            // Can't find the classpath reference to UMLStandardProfile, to load stereotype.
             // This fails with UML2 1.x dependencies - skip unless dependencies are changed.
-            // assertFalse(getStereotypeNames(umlClass).isEmpty());
+            assertFalse(getStereotypeNames(umlClass).isEmpty());
         }
     }
 }
