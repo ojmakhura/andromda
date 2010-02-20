@@ -108,9 +108,9 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 #set ($parameter = $param.parameter)
 ## UML2 type hierarchy for TemplateParameter changed, null values returned. Default to String for now.
 #if ($stringUtils.isBlank($parameter.getterSetterTypeName))
-#set ($returnType = "String")
-#set ($getterName = "get$stringUtils.capitalize($parameter.name)")
-#set ($setterName = "set$stringUtils.capitalize($parameter.name)")
+#set ($returnType = "${param.type.fullyQualifiedName}")
+#set ($getterName = "get$stringUtils.capitalize($param.name)")
+#set ($setterName = "set$stringUtils.capitalize($param.name)")
 #else
 #set ($returnType = $parameter.getterSetterTypeName)
 #set ($getterName = "${parameter.getterName}")
