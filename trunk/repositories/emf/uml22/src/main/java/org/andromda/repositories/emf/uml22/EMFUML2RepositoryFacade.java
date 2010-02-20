@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -56,28 +57,36 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         // Use our own proxy resolver which extends the standard UML2 resolver, to load moduleSearchLocations URLs
         final ResourceSet proxyResourceSet = new EMXProxyResolvingResourceSet();
         // Maps from file extension to resource for XML deserialization
-        final Map extensionToFactoryMap = proxyResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
+        final Map<String, Object> extensionToFactoryMap = proxyResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
 
         // - we need to perform these registrations in order to load a UML model into EMF
         //   see: http://dev.eclipse.org/viewcvs/indextools.cgi/%7Echeckout%7E/uml2-home/faq.html#6 OR http://wiki.eclipse.org/MDT/UML2/FAQ
-        Map packageRegistry = proxyResourceSet.getPackageRegistry();
+        Registry packageRegistry = proxyResourceSet.getPackageRegistry();
         // EcorePackage.eNS_URI=http://www.eclipse.org/emf/2002/Ecore
         packageRegistry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
         // UMLPackage.eNS_URI=http://www.eclipse.org/uml2/2.1.0/UML
         // This gives a ConnectException when loading the model unless 2.0.0 namespace is also registered
         packageRegistry.put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/1.0.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put("http://www.eclipse.org/uml2/2.0.0/UML", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/2.1.0/UML", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://www.eclipse.org/uml2/2.2.0/UML", UMLPackage.eINSTANCE);
         packageRegistry.put(Ecore2XMLPackage.eNS_URI, Ecore2XMLPackage.eINSTANCE);
         // register the UML2 schema against the standard UML namespace for UML 2.0 and 2.1
         // see: http://dev.eclipse.org/newslists/news.eclipse.tools.uml2/msg03392.html
         packageRegistry.put("http://schema.omg.org/spec/UML/2.0", UMLPackage.eINSTANCE);
         packageRegistry.put("http://schema.omg.org/spec/UML/2.1", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.1.1", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.1.2", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.2", UMLPackage.eINSTANCE);
+        packageRegistry.put("http://schema.omg.org/spec/UML/2.3", UMLPackage.eINSTANCE);
         // Register all files with all extensions as .uml resources, for loading purposes
         extensionToFactoryMap.put(Resource.Factory.Registry.DEFAULT_EXTENSION, UMLResource.Factory.INSTANCE);
 
         // if IBM's metamodel jars are on the classpath, we can register the package factories.
         // This appears to have no effect, emx models are processed anyway.
-        boolean registered = registerOptionalRsmMetamodels(proxyResourceSet.getPackageRegistry());
+        //boolean registered = 
+            registerOptionalRsmMetamodels(proxyResourceSet.getPackageRegistry());
         // RSM profiles Default and Deployment.epx are dependencies referred to by com/ibm/rsm/7.5/pom.
         // UML2 Standard resources are located under org/eclipse/uml2/uml/resources, referred to by metafacade dependency so it is in the plugin classpath.
         // Eclipse examples show URI.create with a hard-coded jar file location like jar:file:/C:/eclipse/plugins/org.eclipse.uml2.uml.resources_2.0.0.v200606221411.jar!/
@@ -103,10 +112,23 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 uri.appendSegment("profiles").appendSegment(""));
         }
         // Local implementation which delegates to the global map, so registrations are local
-        Map uriMap = proxyResourceSet.getURIConverter().getURIMap();
+        Map<URI, URI> uriMap = proxyResourceSet.getURIConverter().getURIMap();
         uriMap.putAll(UML22UMLExtendedMetaData.getURIMap());
+        // TODO: Map from UML/2.0 etc to UML later versions. uriMap typically contains pathmap:// values.
+        //uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.0"),
+        //    URI.createURI("http://www.eclipse.org/uml2/1.0.0/UML"));
         uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.0"),
-            URI.createURI("http://www.eclipse.org/uml2/1.0.0/UML"));
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.1"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.1.1"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.1.2"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.2"),
+                URI.createURI(UMLPackage.eNS_URI));
+        uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.3"),
+                URI.createURI(UMLPackage.eNS_URI));
         // Add pathmap for RSM UML2_MSL_PROFILES in com/ibm/xtools/uml/msl/7.10.500/msl-7.10.500.jar 
         url = this.getClass().getClassLoader().getResource("/profiles/Default.epx");
         if (url!=null)

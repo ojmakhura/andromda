@@ -439,17 +439,16 @@ public class UMLMetafacadeUtils
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)
-            final Collection<TemplateParameterFacade> templateParameters = facade.getTemplateParameters();
-            for (Iterator<TemplateParameterFacade> parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
+            int size = facade.getTemplateParameters().size();
+            int i = 1;
+            for (TemplateParameterFacade parameter : facade.getTemplateParameters())
             {
-                final ModelElementFacade modelElement =
-                    ((TemplateParameterFacade)parameterIterator.next()).getParameter();
-
+                final ModelElementFacade modelElement = parameter.getParameter();
                 buffer.append(modelElement.getName());
-                
-                if (parameterIterator.hasNext())
+                if (i < size)
                 {
                     buffer.append(COMMA);
+                    i++;
                 }
             }
 
