@@ -13,6 +13,7 @@
     </mapping>
     <mapping>
         <from>char</from>
+        <from>Java::char</from>
         <from>PrimitiveTypes::char</from>
         <from>UML Standard Profile::char</from>
         <to>java.lang.Character</to>

@@ -5,21 +5,26 @@
 -->
 <mappings name="MSSQL">
     <mapping>
+        <from>String</from>
         <from>PrimitiveTypes::String</from>
         <from>datatype::String</from>
         <to>VARCHAR(255)</to>
     </mapping>
     <mapping>
+        <from>Date</from>
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
         <to>DATETIME</to>
     </mapping>
     <mapping>
+        <from>Time</from>
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
         <to>DATETIME</to>
     </mapping>
     <mapping>
+        <from>Timestamp</from>
+        <from>DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
         <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Timestamp</from>
@@ -27,6 +32,8 @@
         <to>DATETIME</to>
     </mapping>
     <mapping>
+        <from>char</from>
+        <from>Character</from>
         <from>Java::char</from>
         <from>PrimitiveTypes::char</from>
         <from>PrimitiveTypes::Character</from>
@@ -35,6 +42,8 @@
         <to>CHAR</to>
     </mapping>
     <mapping>
+        <from>byte</from>
+        <from>Byte</from>
         <from>Java::byte</from>
         <from>PrimitiveTypes::byte</from>
         <from>PrimitiveTypes::Byte</from>
@@ -43,6 +52,8 @@
         <to>TINYINT</to>
     </mapping>
     <mapping>
+        <from>short</from>
+        <from>Short</from>
         <from>Java::short</from>
         <from>PrimitiveTypes::short</from>
         <from>PrimitiveTypes::Short</from>
@@ -51,6 +62,8 @@
         <to>SMALLINT</to>
     </mapping>
     <mapping>
+        <from>int</from>
+        <from>Integer</from>
         <from>Java::int</from>
         <from>PrimitiveTypes::int</from>
         <from>PrimitiveTypes::Integer</from>
@@ -59,6 +72,8 @@
         <to>INTEGER</to>
     </mapping>
     <mapping>
+        <from>long</from>
+        <from>Long</from>
         <from>Java::long</from>
         <from>PrimitiveTypes::long</from>
         <from>PrimitiveTypes::Long</from>
@@ -67,6 +82,8 @@
         <to>BIGINT</to>
     </mapping>
     <mapping>
+        <from>float</from>
+        <from>Float</from>
         <from>Java::float</from>
         <from>PrimitiveTypes::float</from>
         <from>PrimitiveTypes::Float</from>
@@ -75,6 +92,9 @@
         <to>REAL</to>
     </mapping>
     <mapping>
+        <from>double</from>
+        <from>Double</from>
+        <from>Money</from>
         <from>Java::double</from>
         <from>PrimitiveTypes::double</from>
         <from>PrimitiveTypes::Double</from>
@@ -85,6 +105,8 @@
         <to>FLOAT</to>
     </mapping>
     <mapping>
+        <from>boolean</from>
+        <from>Boolean</from>
         <from>Java::boolean</from>
         <from>PrimitiveTypes::boolean</from>
         <from>PrimitiveTypes::Boolean</from>
@@ -93,6 +115,8 @@
         <to>BIT</to>
     </mapping>
     <mapping>
+        <from>Decimal</from>
+        <from>decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>PrimitiveTypes::decimal</from>
         <from>datatype::Decimal</from>
@@ -100,16 +124,19 @@
         <to>DECIMAL(20)</to>
     </mapping>
     <mapping>
+        <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>TEXT</to>
     </mapping>
     <mapping>
+        <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>IMAGE</to>
     </mapping>
     <mapping>
+        <from>Guid</from>
         <from>PrimitiveTypes::Guid</from>
         <from>datatype::Guid</from>
         <to>UNIQUEIDENTIFIER</to>

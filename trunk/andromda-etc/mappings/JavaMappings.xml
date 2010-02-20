@@ -21,11 +21,13 @@
         <to/>
     </mapping>
     <mapping>
+        <from>File</from>
         <from>PrimitiveTypes::File</from>
         <from>datatype::File</from>
         <to>java.io.File</to>
     </mapping>
     <mapping>
+        <from>String</from>
         <from>PrimitiveTypes::String</from>
         <from>UML2::String</from>
         <from>UMLTypes::String</from>
@@ -34,6 +36,8 @@
         <to>java.lang.String</to>
     </mapping>
     <mapping>
+        <from>Time</from>
+        <from>Date</from>
         <from>PrimitiveTypes::Time</from>
         <from>PrimitiveTypes::Date</from>
         <from>PrimitiveTypes::DateTime</from>
@@ -43,6 +47,8 @@
     </mapping>
     <!-- Timestamp contains nanoseconds, required by some database implementations. Use for persistent attributes -->
     <mapping>
+        <from>DateTime</from>
+        <from>Timestamp</from>
         <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
@@ -51,10 +57,12 @@
     <mapping>
         <from>PrimitiveTypes::char</from>
         <from>Java::char</from>
+        <from>UML Standard Profile::char</from>
         <from>datatype::char</from>
         <to>char</to>
     </mapping>
     <mapping>
+        <from>Character</from>
         <from>PrimitiveTypes::Character</from>
         <from>datatype::Character</from>
         <to>java.lang.Character</to>
@@ -62,10 +70,12 @@
     <mapping>
         <from>PrimitiveTypes::byte</from>
         <from>Java::byte</from>
+        <from>UML Standard Profile::byte</from>
         <from>datatype::byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
+        <from>Byte</from>
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::Byte</from>
         <to>java.lang.Byte</to>
@@ -73,10 +83,12 @@
     <mapping>
         <from>PrimitiveTypes::short</from>
         <from>Java::short</from>
+        <from>UML Standard Profile::short</from>
         <from>datatype::short</from>
         <to>short</to>
     </mapping>
     <mapping>
+        <from>Short</from>
         <from>PrimitiveTypes::Short</from>
         <from>datatype::Short</from>
         <to>java.lang.Short</to>
@@ -84,23 +96,28 @@
     <mapping>
         <from>PrimitiveTypes::int</from>
         <from>Java::int</from>
+        <from>UML Standard Profile::int</from>
         <from>datatype::int</from>
         <to>int</to>
     </mapping>
     <mapping>
+        <from>Integer</from>
         <from>UML2::Integer</from>
         <from>UMLPrimitiveTypes::Integer</from>
         <from>PrimitiveTypes::Integer</from>
+        <from>UML Standard Profile::Integer</from>
         <from>datatype::Integer</from>
         <to>java.lang.Integer</to>
     </mapping>
     <mapping>
         <from>PrimitiveTypes::long</from>
         <from>Java::long</from>
+        <from>UML Standard Profile::long</from>
         <from>datatype::long</from>
         <to>long</to>
     </mapping>
     <mapping>
+        <from>Long</from>
         <from>UML2::UnlimitedNatural</from>
         <from>UMLPrimitiveTypes::UnlimitedNatural</from>
         <from>PrimitiveTypes::Long</from>
@@ -114,17 +131,22 @@
         <to>float</to>
     </mapping>
     <mapping>
+        <from>Float</from>
         <from>PrimitiveTypes::Float</from>
+        <from>UML Standard Profile::float</from>
         <from>datatype::Float</from>
         <to>java.lang.Float</to>
     </mapping>
     <mapping>
         <from>PrimitiveTypes::double</from>
         <from>Java::double</from>
+        <from>UML Standard Profile::double</from>
         <from>datatype::double</from>
         <to>double</to>
     </mapping>
     <mapping>
+        <from>Double</from>
+        <from>Decimal</from>
         <from>PrimitiveTypes::Double</from>
         <from>PrimitiveTypes::Money</from>
         <from>PrimitiveTypes::Decimal</from>
@@ -134,16 +156,21 @@
         <to>java.lang.Double</to>
     </mapping>
     <mapping>
+        <from>BigInteger</from>
         <from>PrimitiveTypes::BigInteger</from>
         <from>datatype::BigInteger</from>
         <to>java.math.BigInteger</to>
     </mapping>
     <mapping>
+        <from>BigDecimal</from>
+        <from>money</from>
+        <from>Money</from>
         <from>PrimitiveTypes::BigDecimal</from>
         <from>datatype::BigDecimal</from>
         <to>java.math.BigDecimal</to>
     </mapping>
     <mapping>
+        <from>Boolean</from>
         <from>UML2::Boolean</from>
         <from>UMLPrimitiveTypes::Boolean</from>
         <from>PrimitiveTypes::Boolean</from>
@@ -153,45 +180,54 @@
     <mapping>
         <from>PrimitiveTypes::boolean</from>
         <from>Java::boolean</from>
+        <from>UML Standard Profile::boolean</from>
         <from>datatype::boolean</from>
         <to>boolean</to>
     </mapping>
     <mapping>
+        <from>Collection</from>
         <from>datatype::Collection</from>
         <from>PrimitiveTypes::Collection</from>
         <to>java.util.Collection</to>
     </mapping>
     <mapping>
+        <from>List</from>
         <from>PrimitiveTypes::List</from>
         <from>datatype::List</from>
         <to>java.util.List</to>
     </mapping>
     <mapping>
+        <from>Set</from>
         <from>PrimitiveTypes::Set</from>
         <from>datatype::Set</from>
         <to>java.util.Set</to>
     </mapping>
     <mapping>
+        <from>SortedSet</from>
         <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::SortedSet</from>
         <to>java.util.SortedSet</to>
     </mapping>
     <mapping>
+        <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>java.lang.String</to>
     </mapping>
     <mapping>
+        <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>byte[]</to>
     </mapping>
     <mapping>
+        <from>Map</from>
         <from>PrimitiveTypes::Map</from>
         <from>datatype::Map</from>
         <to>java.util.Map</to>
     </mapping>
     <mapping>
+        <from>SortedMap</from>
         <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::SortedMap</from>
         <to>java.util.SortedMap</to>
@@ -201,21 +237,26 @@
         <to>org.andromda.metafacades.uml.TypeMappings</to>
     </mapping>
     <mapping>
+        <from>URI</from>
         <from>datatype::URI</from>
         <from>PrimitiveTypes::URI</from>
         <to>java.net.URI</to>
     </mapping>
     <mapping>
+        <from>URL</from>
         <from>datatype::URL</from>
         <from>PrimitiveTypes::URL</from>
         <to>java.net.URL</to>
     </mapping>
     <mapping>
+        <from>Object</from>
+        <from>Class</from>
         <from>datatype::Object</from>
         <from>PrimitiveTypes::Object</from>
         <to>java.lang.Object</to>
     </mapping>
     <mapping>
+        <from>Void</from>
         <from>PrimitiveTypes::void</from>
         <from>PrimitiveTypes::Void</from>
         <from>datatype::void</from>
@@ -223,16 +264,19 @@
         <to>void</to>
     </mapping>
     <mapping>
+        <from>Document</from>
         <from>PrimitiveTypes::Document</from>
         <from>datatype::Document</from>
         <to>org.w3c.dom.Document</to>
     </mapping>
     <mapping>
+        <from>ContentHandler</from>
         <from>datatype::ContentHandler</from>
         <from>PrimitiveTypes::ContentHandler</from>
         <to>org.xml.sax.ContentHandler</to>
     </mapping>
     <mapping>
+        <from>TreeNode</from>
         <from>datatype::TreeNode</from>
         <from>PrimitiveTypes::TreeNode</from>
         <to>javax.swing.tree.TreeNode</to>

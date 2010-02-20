@@ -21,6 +21,7 @@
         <to/>
     </mapping>
     <mapping>
+        <from>File</from>
         <from>PrimitiveTypes::File</from>
         <from>datatype::File</from>
         <to>System.IO.File</to>
@@ -34,6 +35,10 @@
         <to>String</to>
     </mapping>
     <mapping>
+        <from>Time</from>
+        <from>Date</from>
+        <from>DateTime</from>
+        <from>Timestamp</from>
         <from>PrimitiveTypes::Time</from>
         <from>PrimitiveTypes::Date</from>
         <from>PrimitiveTypes::DateTime</from>
@@ -51,6 +56,7 @@
         <to>char</to>
     </mapping>
     <mapping>
+        <from>Character</from>
         <from>PrimitiveTypes::Character</from>
         <from>datatype::Character</from>
         <to>char?</to>
@@ -62,6 +68,7 @@
         <to>byte</to>
     </mapping>
     <mapping>
+        <from>Byte</from>
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::Byte</from>
         <to>byte?</to>
@@ -73,6 +80,7 @@
         <to>short</to>
     </mapping>
     <mapping>
+        <from>Short</from>
         <from>Java::Short</from>
         <from>PrimitiveTypes::Short</from>
         <from>datatype::Short</from>
@@ -85,6 +93,7 @@
         <to>int</to>
     </mapping>
     <mapping>
+        <from>Integer</from>
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
         <to>int?</to>
@@ -96,6 +105,7 @@
         <to>long</to>
     </mapping>
     <mapping>
+        <from>Long</from>
         <from>PrimitiveTypes::Long</from>
         <from>datatype::Long</from>
         <to>long?</to>
@@ -107,6 +117,7 @@
         <to>float</to>
     </mapping>
     <mapping>
+        <from>Float</from>
         <from>PrimitiveTypes::Float</from>
         <from>datatype::Float</from>
         <to>float?</to>
@@ -118,6 +129,8 @@
         <to>double</to>
     </mapping>
     <mapping>
+        <from>Double</from>
+        <from>Money</from>
         <from>PrimitiveTypes::Double</from>
         <from>PrimitiveTypes::Money</from>
         <from>datatype::Double</from>
@@ -125,37 +138,44 @@
         <to>double?</to>
     </mapping>
     <mapping>
+        <from>Decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>datatype::Decimal</from>
         <to>decimal?</to>
     </mapping>
     <mapping>
+        <from>Boolean</from>
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::Boolean</from>
         <to>bool?</to>
     </mapping>
     <mapping>
+        <from>boolean</from>
         <from>Java::boolean</from>
         <from>PrimitiveTypes::boolean</from>
         <from>datatype::boolean</from>
         <to>bool</to>
     </mapping>
     <mapping>
+        <from>Guid</from>
         <from>PrimitiveTypes::Guid</from>
         <from>datatype::Guid</from>
         <to>System.Guid</to>
     </mapping>
     <mapping>
+        <from>Collection</from>
         <from>PrimitiveTypes::Collection</from>
         <from>datatype::Collection</from>
         <to>System.Collections.ICollection</to>
     </mapping>
     <mapping>
+        <from>List</from>
         <from>PrimitiveTypes::List</from>
         <from>datatype::List</from>
         <to>System.Collections.IList</to>
     </mapping>
     <mapping>
+        <from>Set</from>
         <from>PrimitiveTypes::Set</from>
         <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::Set</from>
@@ -163,16 +183,19 @@
         <to>Iesi.Collections.ISet</to>
     </mapping>
     <mapping>
+        <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <to>String</to>
     </mapping>
     <mapping>
+        <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
         <from>datatype::Blob</from>
         <to>Byte[]</to>
     </mapping>
     <mapping>
+        <from>Map</from>
         <from>PrimitiveTypes::Map</from>
         <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::Map</from>
@@ -180,16 +203,19 @@
         <to>System.Collections.IDictionary</to>
     </mapping>
     <mapping>
+        <from>Mappings</from>
         <from>PrimitiveTypes::Mappings</from>
         <from>datatype::Mappings</from>
         <to>org.andromda.metafacades.uml.TypeMappings</to>
     </mapping>
     <mapping>
+        <from>URI</from>
         <from>PrimitiveTypes::URI</from>
         <from>datatype::URI</from>
         <to>Uri</to>
     </mapping>
     <mapping>
+        <from>URL</from>
         <from>PrimitiveTypes::URL</from>
         <from>datatype::URL</from>
         <to>Uri</to>
@@ -200,21 +226,25 @@
         <to>Object</to>
     </mapping>
     <mapping>
+        <from>Void</from>
         <from>PrimitiveTypes::void</from>
         <from>datatype::void</from>
         <to>void</to>
     </mapping>
     <mapping>
+        <from>Document</from>
         <from>PrimitiveTypes::Document</from>
         <from>datatype::Document</from>
         <to>System.Xml.XmlDocument</to>
     </mapping>
     <mapping>
+        <from>ContentHandler</from>
         <from>PrimitiveTypes::ContentHandler</from>
         <from>datatype::ContentHandler</from>
         <to>System.Xml.XmlReader</to>
     </mapping>
     <mapping>
+        <from>TreeNode</from>
         <from>PrimitiveTypes::TreeNode</from>
         <from>datatype::TreeNode</from>
         <to>System.Windows.Forms.TreeNode</to>
