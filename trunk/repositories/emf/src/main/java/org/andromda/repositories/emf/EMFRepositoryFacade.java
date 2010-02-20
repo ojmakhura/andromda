@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
 
 /**
@@ -42,6 +43,9 @@ public abstract class EMFRepositoryFacade
      */
     protected ResourceSet resourceSet;
     
+    /**
+     * 
+     */
     protected ModelAccessFacade modelFacade;
 
     /**
@@ -86,17 +90,17 @@ public abstract class EMFRepositoryFacade
             }
             modelResource.load(this.getLoadOptions());
             // Show errors and warnings, if any....
-            EList errors = modelResource.getErrors();
+            EList<Diagnostic> errors = modelResource.getErrors();
             if (errors!=null && !errors.isEmpty())
             {
                 logger.info(errors);
             }
-            EList warnings = modelResource.getWarnings();
+            EList<Diagnostic> warnings = modelResource.getWarnings();
             if (warnings!=null && !warnings.isEmpty())
             {
                 logger.info(warnings);
             }
-            // Don't validate that model resources can be loaded, if not necessary
+            // Don't validate that model resources can be loaded, if not necessary. Speeds up processing.
             if (ModelProcessor.getModelValidation())
             {
                 try {
@@ -105,15 +109,23 @@ public abstract class EMFRepositoryFacade
                     //long now = System.currentTimeMillis();
                     for (Iterator<EObject> i = modelResource.getAllContents();  i.hasNext(); )
                     {
-                        long now1 = System.currentTimeMillis();
+                        //long now1 = System.currentTimeMillis();
                         EObject eObject = i.next();
                         //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + EcoreUtil.getURI(eObject) + " " + (System.currentTimeMillis()-now1) + " ms");
                         for (Iterator<EObject> crossRefIterator =  eObject.eCrossReferences().iterator();  crossRefIterator.hasNext(); )
                         {
-                            long now2 = System.currentTimeMillis();
-                            EObject crossRef = crossRefIterator.next();
+                            try
+                            {
+                                //long now2 = System.currentTimeMillis();
+                                //EObject crossRef = 
+                                    crossRefIterator.next();
                             //EObject resolved = EcoreUtil.resolve(crossRef, this.resourceSet);
                             //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + crossRef.toString() + " = " + EcoreUtil.getURI(crossRef) + " " + (System.currentTimeMillis()-now2) + " ms");
+                        }
+                            catch (Exception ex)
+                            {
+                                logger.error("EMFRepositoryFacade.readModel.resolveAll on " + eObject + ": " + ex);
+                            }
                         }
                     }
                 } catch (RuntimeException e) {
@@ -170,15 +182,18 @@ public abstract class EMFRepositoryFacade
         {
             throw new RepositoryFacadeException("No model specified.");
         }
-        final List moduleSearchPathList = new ArrayList();
+        final List<String> moduleSearchPathList = new ArrayList<String>();
         if (moduleSearchPaths != null)
         {
             moduleSearchPathList.addAll(Arrays.asList(moduleSearchPaths));
         }
 
         // - first add the default module search paths maps that are found on the classpath
-        final URL[] classpathSearchPaths = ResourceFinder.findResources(MODULES_PATH);
-
+        URL[] classpathSearchPaths = ResourceFinder.findResources(MODULES_PATH);
+        if (classpathSearchPaths != null)
+        {
+            classpathSearchPaths = ResourceFinder.findResources("profiles");
+        }
         if (classpathSearchPaths != null)
         {
             final int numberOfClasspathSearchPaths = classpathSearchPaths.length;
