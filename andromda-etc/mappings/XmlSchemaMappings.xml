@@ -5,6 +5,7 @@
 -->
 <mappings name="XmlSchema">
     <mapping>
+        <from>Boolean</from>
         <from>UML2::Boolean</from>
         <from>Java::boolean</from>
         <from>PrimitiveTypes::boolean</from>
@@ -14,6 +15,7 @@
         <to>boolean</to>
     </mapping>
     <mapping>
+        <from>Byte</from>
         <from>Java::byte</from>
         <from>PrimitiveTypes::byte</from>
         <from>PrimitiveTypes::Byte</from>
@@ -22,6 +24,9 @@
         <to>byte</to>
     </mapping>
     <mapping>
+        <from>Blob</from>
+        <from>byte[]</from>
+        <from>Byte[]</from>
         <from>PrimitiveTypes::Blob</from>
         <from>PrimitiveTypes::byte[]</from>
         <from>PrimitiveTypes::Byte[]</from>
@@ -31,6 +36,12 @@
         <to>base64Binary</to>
     </mapping>
     <mapping>
+        <from>URI</from>
+        <from>URL</from>
+        <from>char[]</from>
+        <from>Char[]</from>
+        <from>String</from>
+        <from>Clob</from>
         <from>UML2::String</from>
         <from>UMLTypes::String</from>
         <from>PrimitiveTypes::URI</from>
@@ -48,16 +59,20 @@
         <to>string</to>
     </mapping>
     <mapping>
+        <from>Time</from>
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
         <to>time</to>
     </mapping>
     <mapping>
+        <from>Date</from>
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
         <to>date</to>
     </mapping>
     <mapping>
+        <from>DateTime</from>
+        <from>Timestamp</from>
         <from>PrimitiveTypes::DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
@@ -65,16 +80,19 @@
         <to>dateTime</to>
     </mapping>
     <mapping>
+        <from>char</from>
+        <from>Integer</from>
         <from>Java::int</from>
         <from>Java::char</from>
         <from>PrimitiveTypes::int</from>
         <from>PrimitiveTypes::char</from>
+        <from>PrimitiveTypes::Integer</from>
         <from>datatype::int</from>
         <from>datatype::char</from>
         <to>int</to>
     </mapping>
     <mapping>
-        <from>PrimitiveTypes::Integer</from>
+        <from>BigInteger</from>
         <from>PrimitiveTypes::BigInteger</from>
         <from>UML2::Integer</from>
         <from>UML2::UnlimitedNatural</from>
@@ -83,6 +101,8 @@
         <to>integer</to>
     </mapping>
     <mapping>
+        <from>Decimal</from>
+        <from>BigDecimal</from>
         <from>PrimitiveTypes::decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>PrimitiveTypes::BigDecimal</from>
@@ -92,6 +112,8 @@
         <to>decimal</to>
     </mapping>
     <mapping>
+        <from>Double</from>
+        <from>Money</from>
         <from>Java::double</from>
         <from>PrimitiveTypes::double</from>
         <from>PrimitiveTypes::Double</from>
@@ -102,6 +124,7 @@
         <to>double</to>
     </mapping>
     <mapping>
+        <from>Float</from>
         <from>Java::float</from>
         <from>PrimitiveTypes::float</from>
         <from>PrimitiveTypes::Float</from>
@@ -110,6 +133,7 @@
         <to>float</to>
     </mapping>
     <mapping>
+        <from>Long</from>
         <from>Java::long</from>
         <from>PrimitiveTypes::long</from>
         <from>PrimitiveTypes::Long</from>
@@ -118,6 +142,7 @@
         <to>long</to>
     </mapping>
     <mapping>
+        <from>Short</from>
         <from>Java::short</from>
         <from>PrimitiveTypes::short</from>
         <from>PrimitiveTypes::Short</from>
@@ -126,6 +151,8 @@
         <to>short</to>
     </mapping>
     <mapping>
+        <from>Object</from>
+        <from>Class</from>
         <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
         <to>anyType</to>
