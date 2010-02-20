@@ -16,7 +16,9 @@
                     <uri>file:model1Uri1.xmi</uri>
                     <uri>file:model1Uri2.xmi</uri>
                     <transformations>
-                        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+                        <transformation output="path/to/some/directory/transformed-model.xmi">
+                          <uri>file:transformation1.xsl</uri>
+                        </transformation>
                         <transformation>
                             <uri>file:transformation2.xsl</uri>
                         </transformation>
@@ -85,7 +87,7 @@
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="springTypesPackage">${pom.package}</property>
+                <property name="springTypesPackage">${project.package}</property>
                 <property name="daos">${maven.andromda.core.generated.dir}</property>
                 <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
