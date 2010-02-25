@@ -174,7 +174,7 @@
                     <tr:outputText value="#{messages['$member.messageKey']}"/>
                 </f:facet>
 #if($member.type.enumeration)
-                <c:set var="key" value="sexo.#{row.${member.name}.value}"/>
+                <c:set var="key" value="${member.type.messageKey}.#{row.${member.name}.value}"/>
                 <tr:outputText value="#{messages[key]}">
 #else
                 <tr:outputText value="#{row.${member.name}}">
