@@ -1,7 +1,7 @@
 <ui:component xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:tr="http://myfaces.apache.org/trinidad"
     xmlns:trh="http://myfaces.apache.org/trinidad/html" xmlns:c="http://java.sun.com/jstl/core"
-    xmlns:jsf="http://www.andromda.org/cartridges/jsf">
+    xmlns:ajsfc="http://www.andromda.org/cartridges/jsf/facelets">
     <c:set var="jsIdPrefix" value="" />
     <c:if test="#{not empty parentId}">
         <c:set var="jsIdPrefix" value="#{parentId}:" />
@@ -159,14 +159,14 @@
                     }
                 } else {
                     if(_keyCode==38){//up arrow
-                        if(#{selectedLineName} > 0){
+                        if(#{selectedLineName} &gt; 0){
                             document.getElementById('#{jsTableId}'+#{selectedLineName}).className='autocomplete-line';
                             --#{selectedLineName};
                             document.getElementById('#{jsTableId}'+#{selectedLineName}).className='autocomplete-selected-line';
                         }
                     }else if(_keyCode==40){//down arrow
-                        if((#{lineArrayName}.length - 1) > #{selectedLineName}){
-                            if(#{selectedLineName} > -1)
+                        if((#{lineArrayName}.length - 1) &gt; #{selectedLineName}){
+                            if(#{selectedLineName} &gt; -1)
                                 document.getElementById('#{jsTableId}'+#{selectedLineName}).className='autocomplete-line';
                             ++#{selectedLineName};
                             document.getElementById('#{jsTableId}'+#{selectedLineName}).className='autocomplete-selected-line';
@@ -201,7 +201,7 @@
             function #{removeActionClick} (){
                 var hiddenList = document.getElementById('#{jsHiddenListId}');
                 var visibleList = document.getElementById('#{jsVisibleListId}');
-                for (var i = visibleList.length - 1; i>=0; i--) {
+                for (var i = visibleList.length - 1; i&gt;=0; i--) {
                     if (visibleList.options[i].selected) {
                         visibleList.remove(i);
                         hiddenList.remove(i);
@@ -230,7 +230,7 @@
                 <f:facet name="footer">
                     <tr:selectManyListbox id="visibleList" simple="true" contentStyle="width:100%;border-top-width:0px;" valuePassThru="true">                
                         <c:forEach var="item" items="#{value}">
-                            <f:selectItem itemValue="#{item}" itemLabel="#{jsf:valueFromConverter(item,itemConverterId)}" />
+                            <f:selectItem itemValue="#{item}" itemLabel="#{ajsfc:valueFromConverter(item,itemConverterId)}" />
                         </c:forEach>
                     </tr:selectManyListbox>
                 </f:facet>
