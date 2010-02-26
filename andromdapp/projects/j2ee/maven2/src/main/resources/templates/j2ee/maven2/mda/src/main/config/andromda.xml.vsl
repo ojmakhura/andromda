@@ -35,7 +35,7 @@
         <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
-#if ($modelType.equals("emf-uml2"))
+#if ($modelType.equals("emf-uml22"))
                     <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</uri>
 #end
 #end
