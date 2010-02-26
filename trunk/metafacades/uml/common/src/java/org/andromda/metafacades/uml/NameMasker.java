@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml;
 
+import java.text.Normalizer;
+
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
@@ -51,6 +53,11 @@ public class NameMasker
     public static final String NOSPACE = "nospace";
 
     /**
+     * The <code>noaccent</code> mask.
+     */
+    public static final String NOACCENT = "noaccent";
+
+    /**
      * The <code>none</code> mask.
      */
     public static final String NONE = "none";
@@ -100,6 +107,10 @@ public class NameMasker
             else if (mask.equalsIgnoreCase(NOSPACE))
             {
                 name = StringUtils.deleteWhitespace(name);
+            }
+            else if (mask.equalsIgnoreCase(NOACCENT))
+            {
+                name = Normalizer.normalize(name, java.text.Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]","");
             }
         }
         return name;
