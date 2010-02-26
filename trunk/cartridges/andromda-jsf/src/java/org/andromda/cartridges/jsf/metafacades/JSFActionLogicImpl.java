@@ -233,10 +233,7 @@ public class JSFActionLogicImpl
         if (trigger instanceof JSFEvent)
         {
             final JSFEvent actionTrigger = (JSFEvent)trigger;
-            if (actionTrigger != null)
-            {
-                messageKey = actionTrigger.getMessageKey();
-            }
+            messageKey = actionTrigger.getMessageKey();
         }
         return messageKey;
     }
