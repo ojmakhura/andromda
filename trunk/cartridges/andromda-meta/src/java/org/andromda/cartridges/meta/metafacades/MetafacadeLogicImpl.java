@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -83,9 +84,8 @@ public class MetafacadeLogicImpl
      */
     private ClassifierFacade getMetaclass(ClassifierFacade classifier)
     {
-        for (final Iterator iter = classifier.getSourceDependencies().iterator(); iter.hasNext();)
+        for (DependencyFacade dep : classifier.getSourceDependencies())
         {
-            DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
             Collection stereotypes = target.getStereotypeNames();
             if ((stereotypes != null) && (!stereotypes.isEmpty()))
@@ -109,11 +109,11 @@ public class MetafacadeLogicImpl
     protected boolean handleIsMetaclassDirectDependency()
     {
         boolean isMetaClassDirectDependency = false;
-        Collection dependencies = this.getSourceDependencies();
+        Collection<DependencyFacade> dependencies = this.getSourceDependencies();
         if ((dependencies != null) && !dependencies.isEmpty())
         {
             // there should be only one.
-            DependencyFacade dependency = (DependencyFacade)dependencies.iterator().next();
+            DependencyFacade dependency = dependencies.iterator().next();
             if (dependency != null)
             {
                 ModelElementFacade targetElement = dependency.getTargetElement();
@@ -412,7 +412,7 @@ public class MetafacadeLogicImpl
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
      */
     @Override
-    public Collection getGeneralizations()
+    public Collection<GeneralizableElementFacade> getGeneralizations()
     {
         final List generalizations = new ArrayList(super.getGeneralizationLinks());
         Collections.sort(
@@ -459,6 +459,9 @@ public class MetafacadeLogicImpl
     static final class GeneralizationPrecedenceComparator
         implements Comparator
     {
+        /**
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         public int compare(
             Object objectA,
             Object objectB)
