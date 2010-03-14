@@ -1,5 +1,13 @@
 package org.andromda.core.common;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import javax.xml.XMLConstants;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.io.IOUtils;
@@ -10,15 +18,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import javax.xml.XMLConstants;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
