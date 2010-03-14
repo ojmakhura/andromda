@@ -104,6 +104,7 @@ public class ParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
      */
+    @SuppressWarnings("null")
     @Override
     public String handleGetDefaultValue()
     {
@@ -149,7 +150,15 @@ public class ParameterFacadeLogicImpl
      */
     protected String handleGetGetterSetterTypeName()
     {
-        return this.getType().getFullyQualifiedName();
+        if (this.getType()==null)
+        {
+            return "";
+        }
+        else
+        {
+            // Multiplicity in return type is only supported in UML2
+            return this.getType().getFullyQualifiedName();
+        }
     }
 
     /**
@@ -344,5 +353,16 @@ public class ParameterFacadeLogicImpl
             return 1;
         }
         return 0;
+    }
+
+    /**
+     * Indicates whether or not we should pluralize association end names.
+     *
+     * @return true/false
+     */
+    private boolean isPluralizeAssociationEndNames()
+    {
+        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 }

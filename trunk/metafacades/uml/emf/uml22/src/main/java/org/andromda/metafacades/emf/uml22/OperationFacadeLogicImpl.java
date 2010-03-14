@@ -596,7 +596,7 @@ public class OperationFacadeLogicImpl
         String name = null;
         ClassifierFacade returnType = this.getReturnType();
 
-        if (this.handleIsMany() && returnType!=null && !returnType.isArrayType())
+        if (returnType!=null && (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED))
         {
             final TypeMappings mappings = this.getLanguageMappings();
             name =
@@ -614,7 +614,7 @@ public class OperationFacadeLogicImpl
                     type = this.getReturnType().getWrapperName();
                 }
                 // Don't apply templating to modeled array types
-                if (type.endsWith("[]"))
+                if (returnType.isArrayType())
                 {
                     type = type.substring(0, type.length()-2);
                 }

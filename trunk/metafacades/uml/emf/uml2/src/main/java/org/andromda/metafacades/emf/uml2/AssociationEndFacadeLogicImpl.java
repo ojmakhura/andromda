@@ -228,7 +228,7 @@ public class AssociationEndFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
-        if (this.isMany())
+        if (this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND)
         {
             final TypeMappings mappings = this.getLanguageMappings();
             if (mappings != null)
@@ -259,7 +259,7 @@ public class AssociationEndFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
-               || this.getType().isArrayType();
+               || (this.getType() != null && (this.getType().isArrayType()));
     }
 
     /**

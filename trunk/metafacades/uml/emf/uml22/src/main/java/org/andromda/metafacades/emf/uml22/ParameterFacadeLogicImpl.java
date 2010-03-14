@@ -290,7 +290,7 @@ public class ParameterFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
-        if (this.handleIsMany() && !this.getType().isArrayType() && !this.getType().isCollectionType())
+        if (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED)
         {
             final TypeMappings mappings = this.getLanguageMappings();
             if (this.handleIsUnique())
@@ -308,7 +308,8 @@ public class ParameterFacadeLogicImpl
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                    && this.getType() != null)
             {
                 String type = this.getType().getFullyQualifiedName();
                 if (this.getType().isPrimitive())
@@ -317,7 +318,7 @@ public class ParameterFacadeLogicImpl
                     type = this.getType().getWrapperName();
                 }
                 // Don't apply templating to modeled array types
-                if (type.endsWith("[]"))
+                if (this.getType().isArrayType())
                 {
                     type = type.substring(0, type.length()-2);
                 }
@@ -374,6 +375,7 @@ public class ParameterFacadeLogicImpl
      *
      * @return 1/0
      */
+    @SuppressWarnings("unused")
     private int getDefaultMultiplicity()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY);

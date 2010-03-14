@@ -179,6 +179,9 @@ public class ModelFacadeLogicImpl
             new ActionStateWithStereotypeFilter(stereotypeName));
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ModelFacadeLogic#handleGetAllTransitions()
+     */
     protected Collection handleGetAllTransitions()
     {
         return this.metaObject.getStateMachines().getTransition().refAllOfType();

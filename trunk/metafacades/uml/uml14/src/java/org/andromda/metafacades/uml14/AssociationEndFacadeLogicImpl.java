@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import java.util.Iterator;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -342,7 +341,8 @@ public class AssociationEndFacadeLogicImpl
 
             // set this association end's type as a template parameter if required
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                    && this.getType() != null)
             {
                 name = name + '<' + this.getType().getFullyQualifiedName() + '>';
             }
