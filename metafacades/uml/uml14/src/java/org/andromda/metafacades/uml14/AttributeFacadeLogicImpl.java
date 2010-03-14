@@ -69,6 +69,7 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
+    @SuppressWarnings("null")
     @Override
     public String handleGetDefaultValue()
     {
@@ -79,7 +80,7 @@ public class AttributeFacadeLogicImpl
         }
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type attribute = $attribute.defaultValue, requiring quotes around the value
-        if (StringUtils.isNotEmpty(defaultValue) && !this.isMany())
+        if (StringUtils.isNotEmpty(defaultValue) && !this.isMany() && this.metaObject.getType() != null)
         {
             String typeName = this.metaObject.getType().getName();
             if (typeName.equals("String") && defaultValue.indexOf('"')<0)
@@ -407,10 +408,14 @@ public class AttributeFacadeLogicImpl
             name = NameMasker.mask(super.handleGetName(), mask);
             final boolean templating = Boolean.parseBoolean(String.valueOf(
                 this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)));
-            final boolean arrayType = this.getType().isArrayType();
-            if (this.isPluralizeAttributeNames() && ((this.isMany() && templating) || arrayType))
-            {
-                name = StringUtilsHelper.pluralize(name);
+                // May be null during the validation process.
+                if (this.getType() != null)
+                {
+                final boolean arrayType = this.getType().isArrayType();
+                if (this.isPluralizeAttributeNames() && ((this.isMany() && templating) || arrayType))
+                {
+                    name = StringUtilsHelper.pluralize(name);
+                }
             }
         }
 

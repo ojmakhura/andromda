@@ -116,12 +116,6 @@ public class AttributeFacadeLogicImpl
     protected boolean handleIsMany()
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use isMultiValued()
-        String name = null;
-        // Name or type may be null during the model validation process.
-        if (this.getType() != null)
-        {
-            name = this.getType().getName();
-        }
         // Name or type may be null during the model validation process.
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
                || (null!=this.getType() && this.getType().isArrayType());
@@ -230,7 +224,7 @@ public class AttributeFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
-        if (this.isMany())
+        if (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED)
         {
             final TypeMappings mappings = this.getLanguageMappings();
             //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
@@ -342,6 +336,9 @@ public class AttributeFacadeLogicImpl
         return (EnumerationFacade)(this.isEnumerationLiteral() ? this.getOwner() : null);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.AttributeFacadeLogic#handleIsDefaultValuePresent()
+     */
     @Override
     protected boolean handleIsDefaultValuePresent()
     {
@@ -435,6 +432,9 @@ public class AttributeFacadeLogicImpl
             //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.AttributeFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     */
     @Override
     protected Object handleFindTaggedValue(
         String name,

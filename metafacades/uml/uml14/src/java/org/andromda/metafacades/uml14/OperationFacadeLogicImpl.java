@@ -59,6 +59,13 @@ public class OperationFacadeLogicImpl
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.OPERATION_NAME_MASK));
+        /*String name = super.handleGetName();
+        if (this.isMany() && this.isPluralizeAssociationEndNames())
+        {
+            name = StringUtilsHelper.pluralize(name);
+        }
+        return NameMasker.mask(name, nameMask);*/
+        // UML14 does not support multiplicity > 1 on operation return parameter
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -192,8 +199,15 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetGetterSetterReturnTypeName()
     {
-        // Multiplicity in return type is only supported in UML2
-        return getReturnType().getFullyQualifiedName();
+        if (this.getReturnType()==null)
+        {
+            return "";
+        }
+        else
+        {
+            // Multiplicity in return type is only supported in UML2
+            return getReturnType().getFullyQualifiedName();
+        }
     }
 
     /**
@@ -317,6 +331,12 @@ public class OperationFacadeLogicImpl
     //@Override
     protected boolean handleIsMany()
     {
+        /*boolean isMany = false;
+        if (null!=this.getReturnType())
+        {
+            isMany = this.getReturnType().isArrayType();
+        }
+        return isMany;*/
         return false;
     }
 
@@ -760,5 +780,16 @@ public class OperationFacadeLogicImpl
         }
 
         return overriddenOperation;
+    }
+
+    /**
+     * Indicates whether or not we should pluralize association end names.
+     *
+     * @return true/false
+     */
+    private boolean isPluralizeAssociationEndNames()
+    {
+        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 }
