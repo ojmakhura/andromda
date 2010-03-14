@@ -79,6 +79,7 @@ public class EMFUML2RepositoryFacadeTest
     /**
      * @see TestCase#setUp()
      */
+    @Override
     protected void setUp()
         throws Exception
     {
@@ -96,6 +97,7 @@ public class EMFUML2RepositoryFacadeTest
     /**
      * @see TestCase#tearDown()
      */
+    @Override
     protected void tearDown()
         throws Exception
     {
@@ -104,12 +106,29 @@ public class EMFUML2RepositoryFacadeTest
         super.tearDown();
     }
 
+    /**
+     * 
+     */
     public void testGetModel()
     {
         long now = System.currentTimeMillis();
-        this.repository.readModel(
-            new String[] {this.modelUrl.toString()},
-            null);
+        // Load from org.eclipse.uml2.resources jar.
+        URL url = this.getClass().getClassLoader().getResource("profiles/Standard.profile.uml");
+        if (url!=null)
+        {
+            this.repository.readModel(
+                new String[] {this.modelUrl.toString()},
+                new String[] {url.toString(), 
+                    this.getClass().getClassLoader().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getClassLoader().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getClassLoader().getResource("metamodels/UML.metamodel.uml").toString()});
+        }
+        else
+        {
+            this.repository.readModel(
+                new String[] {this.modelUrl.toString()},
+                null);
+        }
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();
         long now3 = System.currentTimeMillis();
@@ -153,6 +172,7 @@ public class EMFUML2RepositoryFacadeTest
                 true);
             umlClass = (Class)elements.iterator().next();
             getStereotypeNames(umlClass).isEmpty();
+            //assertFalse(getStereotypeNames(umlClass).isEmpty());
         }
     }
 }
