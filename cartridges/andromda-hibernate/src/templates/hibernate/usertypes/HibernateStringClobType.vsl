@@ -57,7 +57,11 @@ public class $className
         throws HibernateException
     {
         boolean equal = false;
-        if (x == null || y == null)
+        if (x == y) 
+        {
+            equal = true;
+        }
+        else if (x == null || y == null)
         {
             equal = false;
         }
