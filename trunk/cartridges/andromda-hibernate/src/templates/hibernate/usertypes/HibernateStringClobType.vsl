@@ -140,18 +140,7 @@ public class $className
     public Object deepCopy(Object value)
         throws HibernateException
     {
-        String ret = null;
-        value = value == null ? new String() : value;
-        String in = (String)value;
-        int len = in.length();
-        char[] buf = new char[len];
-
-        for (int i = 0; i < len; i++)
-        {
-            buf[i] = in.charAt(i);
-        }
-        ret = new String(buf);
-        return ret;
+        return value;
     }
 
     /**
