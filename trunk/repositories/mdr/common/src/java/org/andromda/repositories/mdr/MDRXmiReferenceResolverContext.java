@@ -150,7 +150,7 @@ public class MDRXmiReferenceResolverContext
                         {
                             try
                             {
-                                moduleUrl = candidate.toURL().toExternalForm();
+                                moduleUrl = candidate.toURI().toURL().toExternalForm();
                             }
                             catch (final MalformedURLException exception)
                             {
