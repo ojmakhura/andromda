@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.cartridges</groupId>
-        <artifactId>andromda-cartridge-plugins</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>andromda-cartridges</artifactId>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-ejb3-cartridge</artifactId>
     <packaging>andromda-cartridge</packaging>
@@ -14,64 +14,25 @@
     <inceptionYear>2006</inceptionYear>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10011</url>
+        <url>http://www.andromda.org/jira/BrowseProject.jspa?id=10011</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</connection>
-        <developerConnection>scm:svn:https://andromdaplugins.svn.sourceforge.net/svnroot/andromdaplugins/trunk/cartridges/andromda-ejb3</developerConnection>
-        <url>http://andromdaplugins.svn.sourceforge.net/andromdaplugins</url>
-    </scm>
-    <developers>
-        <developer>
-            <id>vancek</id>
-            <name>Vance Karimi</name>
-            <email>vance@andromda.org</email>
-            <organization>AndroMDA</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>8</timezone>
-        </developer>
-        <developer>
-            <id>cwbrandon</id>
-            <name>Chad Brandon</name>
-            <email>chad@andromda.org</email>
-            <organization>AndroMDA</organization>
-            <roles>
-                <role>Project Admin</role>
-            </roles>
-            <timezone>-6</timezone>
-        </developer>
-    </developers>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/andromda</url>
+    </scm>    
     <dependencies>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml14</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
-            <artifactId>andromda-ocl-validation-library</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile</artifactId>
-            <type>xml.zip</type>
+            <artifactId>andromda-ocl-query-library</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -79,50 +40,24 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <buildSourceDirectory>${pom.basedir}/target/src</buildSourceDirectory>
-                            <configurationUri>file:${pom.basedir}/../conf/andromda.xml</configurationUri>
-                            <lastModifiedCheck>true</lastModifiedCheck>
-                        </configuration>
-                    </execution>
-                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.cartridges</groupId>
+                        <artifactId>andromda-meta-cartridge</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <configurationUri>file:${pom.basedir}/conf/test/andromda.xml</configurationUri>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>profile-transform</id>
-                        <goals>
-                            <goal>profile-xsl</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>namespace-transform</id>
-                        <goals>
-                            <goal>namespace-xsl</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-query-library</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -138,101 +73,9 @@
                 <configuration>
                     <howtoCartridgePicturesOutputDirectory>${pom.basedir}/target/site/images</howtoCartridgePicturesOutputDirectory>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.maven.plugins.site</groupId>
-                        <artifactId>andromda-doxia-module-xdoc</artifactId>
-                        <version>3.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <locales>en</locales>
-                    <outputEncoding>UTF-8</outputEncoding>
-                </configuration>
-            </plugin>
+            </plugin>            
         </plugins>
-    </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <minmemory>128m</minmemory>
-                    <maxmemory>512</maxmemory>
-                    <sourcepath>${basedir}/src/main/java;${basedir}/target/src</sourcepath>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <configuration>
-                    <xmlPath>${basedir}/src/site/changes.xml</xmlPath>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>changes-report</report>
-                            <report>jira-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changelog-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <id>All Reports</id>
-                        <configuration>
-                            <type>range</type>
-                            <range>90</range>
-                        </configuration>
-                        <reports>
-                            <report>changelog</report>
-                            <report>file-activity</report>
-                            <report>dev-activity</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
+    </build>    
     <properties>
         <model.uri>jar:file:${pom.basedir}/src/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${pom.basedir}/src/test/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
