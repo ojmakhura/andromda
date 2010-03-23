@@ -109,7 +109,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
+     *   Does the same thing as {@link ${esc.hash}load($identifier.type.fullyQualifiedName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
@@ -141,7 +141,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #loadAll()} with an
+     *   Does the same thing as {@link ${esc.hash}loadAll()} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -167,7 +167,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+     *   Does the same thing as {@link ${esc.hash}create($entity.fullyQualifiedEntityName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -195,7 +195,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+     *   Does the same thing as {@link ${esc.hash}create($entity.fullyQualifiedEntityName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -227,7 +227,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #create($entity.getInstanceAttributeTypeList(true,false))} with an
+     *   Does the same thing as {@link ${esc.hash}create($entity.getInstanceAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -266,7 +266,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     *   Does the same thing as {@link #create($entity.getRequiredAttributeTypeList(true,false))} with an
+     *   Does the same thing as {@link ${esc.hash}create($entity.getRequiredAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -337,9 +337,9 @@ $operation.getDocumentation("     * ")
 
     /**
      * <p>
-     *   Does the same thing as {@link #${operation.getSignature(false)}} with an
+     *   Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}.
+     *   argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
      * </p>
      */
 
@@ -355,7 +355,7 @@ $operation.getDocumentation("     * ")
 #**##end
     /**
      * <p>
-     *   Does the same thing as {@link #${operation.getSignature(false)}} with an
+     *   Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   finder results will <strong>NOT</strong> be transformed during retrieval.
      *   If this flag is any of the other constants defined here
@@ -374,9 +374,9 @@ $operation.getDocumentation("     * ")
 
     /**
      * <p>
-     *   Does the same thing as {@link #${operation.name}(boolean#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     *   Does the same thing as {@link ${esc.hash}${operation.name}(boolean#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
+     *   argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
      * </p>
      */
 
