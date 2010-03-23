@@ -97,7 +97,7 @@ public abstract class $entity.daoBaseName
 #end
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * @see ${rootDaoType}#load(int,#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
+     * @see ${rootDaoType}${esc.hash}load(int,#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
      */
     public Object load(final int transform,#foreach($identifier in $entity.identifiers) final $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -127,7 +127,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#load(#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
+     * @see ${rootDaoType}${esc.hash}load(#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
      */
     public $rootEntityType load(#foreach($identifier in $entity.identifiers) final $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -148,7 +148,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#loadAll(int)
+     * @see ${rootDaoType}${esc.hash}loadAll(int)
      */
     public java.util.Collection loadAll(final int transform)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -176,7 +176,7 @@ public abstract class $entity.daoBaseName
 #if (!$entity.abstract)
 
     /**
-     * @see ${rootDaoType}#create($entity.fullyQualifiedEntityName)
+     * @see ${rootDaoType}${esc.hash}create($entity.fullyQualifiedEntityName)
      */
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -185,7 +185,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#create(int transform, $entity.fullyQualifiedEntityName)
+     * @see ${rootDaoType}${esc.hash}create(int transform, $entity.fullyQualifiedEntityName)
      */
     public Object create(final int transform, final $rootEntityType $argumentName)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -209,7 +209,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#create($entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}create($entityCollectionType)
      */
 #**##if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -221,7 +221,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#create(int, $entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}create(int, $entityCollectionType)
      */
 #**##if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -253,7 +253,7 @@ public abstract class $entity.daoBaseName
 #*  *##set ($attributes = $entity.getInstanceAttributes(true, $entity.usingAssignedIdentifier))
 #*  *##if (!$attributes.empty)
     /**
-     * @see ${rootDaoType}#create(${entity.getInstanceAttributeTypeList(true, false)})
+     * @see ${rootDaoType}${esc.hash}create(${entity.getInstanceAttributeTypeList(true, false)})
      */
     public $rootEntityType create(
 #*    *##foreach($attribute in $attributes)
@@ -266,7 +266,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#create(int, ${entity.getInstanceAttributeTypeList(true, false)})
+     * @see ${rootDaoType}${esc.hash}create(int, ${entity.getInstanceAttributeTypeList(true, false)})
      */
     public Object create(
         final int transform,
@@ -292,7 +292,7 @@ public abstract class $entity.daoBaseName
 #*  *##set ($requiredProperties = $entity.getRequiredProperties(true,$entity.usingAssignedIdentifier))
 #*  *##if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,$entity.usingAssignedIdentifier).size() != $requiredProperties.size())
     /**
-     * @see ${rootDaoType}#create(${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
+     * @see ${rootDaoType}${esc.hash}create(${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
      */
     public $rootEntityType create(
 #*    *##foreach($property in $requiredProperties)
@@ -305,7 +305,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#create(int, ${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
+     * @see ${rootDaoType}${esc.hash}create(int, ${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
      */
     public Object create(
         final int transform,
@@ -326,7 +326,7 @@ public abstract class $entity.daoBaseName
 #**##end
 #end
     /**
-     * @see ${rootDaoType}#update($entity.fullyQualifiedEntityName)
+     * @see ${rootDaoType}${esc.hash}update($entity.fullyQualifiedEntityName)
      */
     public void update($entity.fullyQualifiedEntityName $argumentName)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -348,7 +348,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#update($entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}update($entityCollectionType)
      */
     public void update(final $entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -372,7 +372,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#remove($entity.fullyQualifiedEntityName)
+     * @see ${rootDaoType}${esc.hash}remove($entity.fullyQualifiedEntityName)
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -394,7 +394,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()), #end#end)
+     * @see ${rootDaoType}${esc.hash}remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()), #end#end)
      */
     public void remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -431,7 +431,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#remove($entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}remove($entityCollectionType)
      */
     public void remove($entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
@@ -457,7 +457,7 @@ public abstract class $entity.daoBaseName
 #foreach ($finder in $entity.getQueryOperations(true))
 #**##set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
-     * @see ${rootDaoType}#$finder.getSignature(false)
+     * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
      */
     $finder.visibility $returnType $finder.signature
 #**##if ($finder.exceptionsPresent)
@@ -478,7 +478,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${rootDaoType}${esc.hash}${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility $returnType ${finder.name}(final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
@@ -502,7 +502,7 @@ public abstract class $entity.daoBaseName
 #*  *##set ($returnType = "Object")
 #**##end
     /**
-     * @see ${rootDaoType}#${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${rootDaoType}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
@@ -569,7 +569,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#${finder.name}(int, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${rootDaoType}${esc.hash}${finder.name}(int, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform, final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
@@ -640,7 +640,7 @@ public abstract class $entity.daoBaseName
 #**##set ($returnType = $operation.returnType)
 #**##set ($signature = $operation.signature)
     /**
-     * @see ${rootDaoType}#${operation.getSignature(false)}
+     * @see ${rootDaoType}${esc.hash}${operation.getSignature(false)}
      */
     $operation.visibility $returnType.fullyQualifiedName ${operation.name}(${operation.getTypedArgumentList('final')})
 #**##if ($operation.exceptionsPresent)
@@ -682,7 +682,7 @@ public abstract class $entity.daoBaseName
     }
 
      /**
-      * Performs the core logic for {@link #${operation.getSignature(false)}}
+      * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
       */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
@@ -692,13 +692,13 @@ public abstract class $entity.daoBaseName
      * Allows transformation of entities into value objects
      * (or something else for that matter), when the <code>transform</code>
      * flag is set to one of the constants defined in <code>${rootDaoType}</code>, please note
-     * that the {@link #$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
+     * that the {@link ${esc.hash}$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
      * will be returned.
 #if (!$entity.valueObjectReferences.empty)
      * <p/>
      * This method will return instances of these types:
      * <ul>
-     *   <li>{@link ${rootEntityType}} - {@link #$entity.daoNoTransformationConstantName}</li>
+     *   <li>{@link ${rootEntityType}} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
 #**##foreach ($valueObjectRef in $entity.valueObjectReferences)
 #*  *##set ($targetElement = $valueObjectRef.targetElement)
      *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
@@ -706,12 +706,12 @@ public abstract class $entity.daoBaseName
      * </ul>
 #end
      *
-     * If the integer argument value is unknown {@link #${entity.daoNoTransformationConstantName}} is assumed.
+     * If the integer argument value is unknown {@link ${esc.hash}${entity.daoNoTransformationConstantName}} is assumed.
      *
      * @param transform one of the constants declared in {@link ${rootDaoType}}
      * @param entity an entity that was found
      * @return the transformed entity (i.e. new value object, etc)
-     * @see #transformEntities(int,java.util.Collection)
+     * @see ${esc.hash}transformEntities(int,java.util.Collection)
      */
     protected Object transformEntity(final int transform, final ${rootEntityType} entity)
     {
@@ -735,7 +735,7 @@ public abstract class $entity.daoBaseName
 
     /**
      * Transforms a collection of entities using the
-     * {@link #transformEntity(int, ${rootEntityType})}
+     * {@link ${esc.hash}transformEntity(int, ${rootEntityType})}
      * method. This method does not instantiate a new collection.
      * <p/>
      * This method is to be used internally only.
@@ -743,7 +743,7 @@ public abstract class $entity.daoBaseName
      * @param transform one of the constants declared in <code>${rootDaoType}</code>
      * @param entities the collection of entities to transform
      * @return the same collection as the argument, but this time containing the transformed entities
-     * @see #transformEntity(int, ${rootEntityType})
+     * @see ${esc.hash}transformEntity(int, ${rootEntityType})
      */
     protected void transformEntities(final int transform, final java.util.Collection entities)
     {
@@ -762,7 +762,7 @@ public abstract class $entity.daoBaseName
 
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @see ${rootDaoType}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
      */
     public final void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities)
     {
@@ -776,7 +776,7 @@ public abstract class $entity.daoBaseName
      * Default implementation for transforming the results of a report query into a value object. This
      * implementation exists for convenience reasons only. It needs only be overridden in the
      * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
-     * @see ${rootDaoType}#${valueObjectRef.transformationMethodName}(${rootEntityType})
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationMethodName}(${rootEntityType})
      */
     protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(Object[] row)
     {
@@ -821,7 +821,7 @@ public abstract class $entity.daoBaseName
         };
 
     /**
-     * @see ${rootDaoType}#${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
      */
     public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection instances)
     {
@@ -850,7 +850,7 @@ public abstract class $entity.daoBaseName
 
 
     /**
-     * @see ${rootDaoType}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source, 
@@ -877,7 +877,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#${valueObjectRef.transformationMethodName}(${rootEntityType})
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationMethodName}(${rootEntityType})
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $rootEntityType entity)
     {
@@ -887,7 +887,7 @@ public abstract class $entity.daoBaseName
     }
     
     /**
-     * @see ${rootDaoType}#${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
+     * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
      */
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName source,
