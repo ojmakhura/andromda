@@ -547,7 +547,6 @@ public class EJB3EntityFacadeLogicImpl
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(errMsg);
                 // don't throw the exception
                 ExceptionRecorder.instance().record(errMsg, th);
             }
@@ -796,7 +795,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * Return the inheritance tagged value for for given <code>entity</code>.
      *
-     * @param the EJB3EntityFacade from which to retrieve the inheritance tagged value.
+     * @param entity EJB3EntityFacade from which to retrieve the inheritance tagged value.
      * @return String inheritance tagged value.
      */
     private String getInheritance(EJB3EntityFacade entity)
@@ -1150,11 +1149,11 @@ public class EJB3EntityFacadeLogicImpl
     {
         return MessageFormat.format(
             getDaoNamePattern(),
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
-     * Gets the value of the {@link #DAO_PATTERN}
+     * Gets the value of the {@link EJB3Globals#DAO_PATTERN}
      *
      * @return the DAO name pattern.
      */
@@ -1181,7 +1180,7 @@ public class EJB3EntityFacadeLogicImpl
     {
         return MessageFormat.format(
                 getDaoImplementationNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -1212,7 +1211,7 @@ public class EJB3EntityFacadeLogicImpl
     {
         return MessageFormat.format(
                 getDaoBaseNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -1305,7 +1304,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected Collection handleGetValueObjectReferences(boolean follow)
     {
-        final Collection sourceDependencies = new ArrayList(this.getSourceDependencies());
+        final Collection<DependencyFacade> sourceDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         if (follow)
         {
             for (
@@ -1363,7 +1362,7 @@ public class EJB3EntityFacadeLogicImpl
     {
         return MessageFormat.format(
                 getDaoDefaultExceptionNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -1566,7 +1565,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected Collection handleGetNonRunAsRoles()
     {
-        Collection roles = this.getTargetDependencies();
+        Collection<DependencyFacade> roles = this.getTargetDependencies();
         CollectionUtils.filter(
             roles, 
             new Predicate()

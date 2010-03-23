@@ -143,11 +143,11 @@ public class EJB3DependencyFacadeLogicImpl
     {
         return MessageFormat.format(
                 getDaoNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
-     * Gets the value of the {@link SpringGlobals#DAO_PATTERN}.
+     * Gets the value of the {@link EJB3Globals#DAO_PATTERN}.
      *
      * @return the DAO name pattern.
      */

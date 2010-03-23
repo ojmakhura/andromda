@@ -233,7 +233,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 
         return MessageFormat.format(
                 serviceOperationTestNamePattern,
-                new Object[] {StringUtils.trimToEmpty(StringUtils.capitalize(this.getName()))});
+                StringUtils.trimToEmpty(StringUtils.capitalize(this.getName())));
     }
     
     /**
@@ -479,7 +479,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 
         return MessageFormat.format(
                 implementationNamePattern,
-                new Object[] {StringUtils.trimToEmpty(replacement)});
+                StringUtils.trimToEmpty(replacement));
     }
 
     /**
@@ -674,7 +674,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 	 */
 	protected String handleGetSeamObserverEventName() 
     {
-		return "(\"" +  (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_LIFECYCLE_OBSERVER_EVENT) + "\")";
+		return "(\"" +  this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_LIFECYCLE_OBSERVER_EVENT) + "\")";
 	}
 
 	/**
@@ -818,7 +818,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 	protected String handleGetSeamConversationCreateProcessParameters() 
     {
 		return "(definition = \"" + 
-            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION) + "\")";
+            this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION) + "\")";
 	}
     
 	/**
@@ -924,7 +924,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 	protected String handleGetSeamConversationResumeProcessParameters() 
     {
 		return "(processIdParameter = \"" + 
-            (String)this.findTaggedValue(
+            this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER) + "\")";
 	}
 

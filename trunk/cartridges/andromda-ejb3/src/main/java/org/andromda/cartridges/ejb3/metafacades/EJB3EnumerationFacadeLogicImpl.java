@@ -32,7 +32,7 @@ public class EJB3EnumerationFacadeLogicImpl
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String separator = "";
 
         for (final Iterator it = variables.iterator(); it.hasNext();)

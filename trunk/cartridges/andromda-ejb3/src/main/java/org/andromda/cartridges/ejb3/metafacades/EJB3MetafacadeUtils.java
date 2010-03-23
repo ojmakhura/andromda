@@ -132,7 +132,7 @@ class EJB3MetafacadeUtils
      * Gets all the inherited instance attributes, excluding the instance attributes directory from this
      * <code>classifier</code>.
      *
-     * @param classifer the ClassifierFacade from which to retrieve the inherited attributes.
+     * @param classifier the ClassifierFacade from which to retrieve the inherited attributes.
      * @return a list of ordered attributes.
      */
     static List getInheritedInstanceAttributes(ClassifierFacade classifier)

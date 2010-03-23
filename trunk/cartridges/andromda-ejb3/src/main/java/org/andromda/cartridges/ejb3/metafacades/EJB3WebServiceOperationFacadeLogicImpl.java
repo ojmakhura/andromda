@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -17,6 +18,11 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3WebServiceOperationFacadeLogicImpl
     extends EJB3WebServiceOperationFacadeLogic
 {
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(EJB3WebServiceOperationFacadeLogicImpl.class);
 
     public EJB3WebServiceOperationFacadeLogicImpl (Object metaObject, String context)
     {
@@ -54,13 +60,13 @@ public class EJB3WebServiceOperationFacadeLogicImpl
     }
 
     /**
-     * @param b
-     * @param object
+     * @param withArgumentNames
+     * @param modifier
      * @return
      */
     private String getAnnotatedTypedArgumentList(boolean withArgumentNames, String modifier)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         final Iterator parameterIterator = this.getArguments().iterator();
 
         boolean commaNeeded = false;
@@ -90,7 +96,8 @@ public class EJB3WebServiceOperationFacadeLogicImpl
             // Add WebParam annotation
             if (withArgumentNames)
             {
-                buffer.append("        @javax.jws.WebParam(name = \"" + StringUtils.capitalize(paramter.getName()) + "\")");
+                buffer.append("        @javax.jws.WebParam(name = \"");
+                buffer.append(StringUtils.capitalize(paramter.getName())).append("\")");
                 buffer.append(" ");
             }
             if (StringUtils.isNotBlank(modifier))

@@ -63,7 +63,6 @@ public class EJB3TypeFacadeLogicImpl
                     catch (final Throwable throwable)
                     {
                         final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                        logger.error(message);
 
                         // don't throw the exception
                         ExceptionRecorder.instance().record(message, throwable);
