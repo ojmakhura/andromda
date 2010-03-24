@@ -134,8 +134,8 @@ public class EJB3MessageDrivenFacadeLogicImpl
     {
         String namespacePattern = String.valueOf(this.getConfiguredProperty(MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN));
         return MessageFormat.format(
-                namespacePattern, 
-                new Object[] {this.getPackageName()});
+                namespacePattern,
+                this.getPackageName());
     }
     
     /**
@@ -192,7 +192,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
         return MessageFormat.format(
                 messageDrivenImplNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -205,7 +205,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
         return MessageFormat.format(
                 messageDrivenListenerNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -218,7 +218,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
         return MessageFormat.format(
                 messageDrivenNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -231,7 +231,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
         return MessageFormat.format(
                 messageDrivenTestNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -315,7 +315,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
         return MessageFormat.format(
                 durableSubscriptionIdPattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**

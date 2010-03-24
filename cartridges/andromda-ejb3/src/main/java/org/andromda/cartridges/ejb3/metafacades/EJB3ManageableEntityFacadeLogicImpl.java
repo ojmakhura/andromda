@@ -70,7 +70,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return MessageFormat.format(
                 exceptionNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -93,7 +93,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return MessageFormat.format(
                 exceptionNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -116,7 +116,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return MessageFormat.format(
                 exceptionNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -139,7 +139,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return MessageFormat.format(
                 exceptionNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -180,7 +180,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return MessageFormat.format(
             exceptionNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getManageableServiceName())});
+                StringUtils.trimToEmpty(this.getManageableServiceName()));
     }
 
     /**

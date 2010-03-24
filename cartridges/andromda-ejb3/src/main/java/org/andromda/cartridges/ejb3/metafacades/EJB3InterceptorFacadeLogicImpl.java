@@ -42,7 +42,7 @@ public class EJB3InterceptorFacadeLogicImpl
 
         return MessageFormat.format(
                 interceptorNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**

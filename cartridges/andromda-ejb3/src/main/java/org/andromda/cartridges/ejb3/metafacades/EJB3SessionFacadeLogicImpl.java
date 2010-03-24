@@ -522,8 +522,8 @@ extends EJB3SessionFacadeLogic
     {
         String namespacePattern = String.valueOf(this.getConfiguredProperty(SERVICE_TEST_PACKAGE_NAME_PATTERN));
         return MessageFormat.format(
-                namespacePattern, 
-                new Object[] {this.getPackageName()});
+                namespacePattern,
+                this.getPackageName());
     }
     
     /**
@@ -535,7 +535,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -548,7 +548,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceInterfaceNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -561,7 +561,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceLocalInterfaceNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -574,7 +574,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceRemoteInterfaceNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -587,7 +587,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceImplementationNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -600,7 +600,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceListenerNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
 
@@ -614,7 +614,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceDelegateNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -627,7 +627,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceBaseNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -640,7 +640,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 serviceTestNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -1151,7 +1151,7 @@ extends EJB3SessionFacadeLogic
 
         return MessageFormat.format(
                 defaultExceptionNamePattern,
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**

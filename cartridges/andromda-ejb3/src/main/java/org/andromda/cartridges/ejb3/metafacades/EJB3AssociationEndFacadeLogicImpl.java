@@ -848,7 +848,7 @@ public class EJB3AssociationEndFacadeLogicImpl
 
         return MessageFormat.format(
                 labelNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
