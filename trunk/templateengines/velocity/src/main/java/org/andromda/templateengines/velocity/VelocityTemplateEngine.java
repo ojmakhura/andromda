@@ -22,12 +22,16 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.commons.collections.ExtendedProperties;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.log.Log4JLogChute;
+import org.apache.velocity.runtime.log.LogChute;
 import org.apache.velocity.tools.generic.EscapeTool;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeServices;
@@ -46,6 +50,8 @@ public class VelocityTemplateEngine
     implements TemplateEngine
 {
     protected static Logger logger = null;
+
+    protected FileAppender appender = null;
 
     /**
      * The directory we look in to find velocity properties.
@@ -68,12 +74,6 @@ public class VelocityTemplateEngine
     private String mergeLocation;
 
     /**
-     * Stores additional properties specified within the plugin within the file META-INF/'plugin
-     * name'-velocity.properties
-     */
-    private Properties properties;
-
-    /**
      * The current namespace this template engine is running within.
      */
     private String namespace;
@@ -86,6 +86,9 @@ public class VelocityTemplateEngine
      * The VelocityContext instance to use
      */
     private VelocityContext velocityContext;
+    /**
+     * The Macro Libraries
+     */
     private final List<String> macroLibraries = new ArrayList<String>();
 
     /**
@@ -127,11 +130,10 @@ public class VelocityTemplateEngine
             "classpath." + VelocityEngine.RESOURCE_LOADER + ".class",
             ClasspathResourceLoader.class.getName());
 
-        // Tell VelocityTemplateEngine not to use its own logger
-        // the logger but to use of this plugin.
-        engineProperties.setProperty(
-            VelocityEngine.RUNTIME_LOG_LOGSYSTEM,
-            new VelocityLoggingReceiver());
+        // Configure Velocity logger
+        engineProperties.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+              "org.apache.velocity.runtime.log.Log4JLogChute" );                                    
+        engineProperties.setProperty(Log4JLogChute.RUNTIME_LOG_LOG4J_LOGGER, logger.getName());
 
         // Let this template engine know about the macro libraries.
         for (String macroLibrary : getMacroLibraries())
@@ -169,11 +171,7 @@ public class VelocityTemplateEngine
     private void addProperties(String pluginName)
         throws IOException
     {
-        // reset any properties from previous processing
-        this.properties = null;
-
-        // see if the velocity properties exist for the current
-        // plugin
+        // see if the velocity properties exist for the current plugin
         URL propertiesUri =
             ResourceUtils.getResource(PROPERTIES_DIR + StringUtils.trimToEmpty(pluginName) + PROPERTIES_SUFFIX);
 
@@ -184,13 +182,13 @@ public class VelocityTemplateEngine
                 logger.debug("loading properties from --> '" + propertiesUri + '\'');
             }
 
-            this.properties = new Properties();
-            this.properties.load(propertiesUri.openStream());
+            Properties properties = new Properties();
+            properties.load(propertiesUri.openStream());
 
-            for (final Iterator iterator = this.properties.keySet().iterator(); iterator.hasNext();)
+            for (Map.Entry entry : properties.entrySet())
             {
-                final String property = (String)iterator.next();
-                final String value = this.properties.getProperty(property);
+                final String property = (String) entry.getKey();
+                final String value = (String)entry.getValue();
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("setting property '" + property + "' with --> '" + value + '\'');
@@ -256,7 +254,8 @@ public class VelocityTemplateEngine
         if (templateObjects != null && !templateObjects.isEmpty())
         {    
             // copy the templateObjects to the velocityContext
-            for (final String name : templateObjects.keySet()) {
+            for (final String name : templateObjects.keySet())
+            {
                 final Object value = templateObjects.get(name);
                 this.velocityContext.put(name, value);
             }
@@ -352,31 +351,21 @@ public class VelocityTemplateEngine
      */
     public void shutdown()
     {
-        this.deleteMergedTemplatesLocation();
+        //  Deletes the merged templates location (these are the templates that were created just for merging
+        //  purposes and so therefore are no longer needed after the engine is shutdown).
+        FileUtils.deleteQuietly(new File(TEMPORARY_TEMPLATE_LOCATION));
         this.discoveredTemplates.clear();
         this.velocityEngine = null;
-    }
-
-    /**
-     * Deletes the merged templates location (these
-     * are the templates that were created just for merging
-     * purposes and so therefore are no longer needed after
-     * the engine is shutdown).
-     */
-    private void deleteMergedTemplatesLocation()
-    {
-        File directory = new File(TEMPORARY_TEMPLATE_LOCATION);
-        if (directory.getParentFile().isDirectory())
+        if(null!=logger && null!=appender)
         {
-            directory = directory.getParentFile();
-            ResourceUtils.deleteDirectory(directory);
-            directory.delete();
+            logger.removeAppender(appender);
         }
     }
-
+        
     /**
      * Opens a log file for this namespace.
      *
+     * @param pluginName  Name of this plugin
      * @throws IOException if the file cannot be opened
      */
     private void initLogger(final String pluginName)
@@ -385,60 +374,11 @@ public class VelocityTemplateEngine
         logger = AndroMDALogger.getNamespaceLogger(pluginName);
         logger.setAdditivity(false);
 
-        final FileAppender appender =
+        appender =
             new FileAppender(
                 new PatternLayout("%-5p %d - %m%n"),
                 AndroMDALogger.getNamespaceLogFileName(pluginName),
                 true);
         logger.addAppender(appender);
-    }
-
-    /**
-     * <p/>
-     * This class receives log messages from VelocityTemplateEngine and forwards them to the concrete logger that is
-     * configured for this cartridge. </p>
-     * <p/>
-     * This avoids creation of one large VelocityTemplateEngine log file where errors are difficult to find and track.
-     * </p>
-     * <p/>
-     * Error messages can now be traced to plugin activities. </p>
-     */
-    static class VelocityLoggingReceiver
-        implements LogSystem
-    {
-        /**
-         * @see org.apache.velocity.runtime.log.LogSystem#init(org.apache.velocity.runtime.RuntimeServices)
-         */
-        public void init(RuntimeServices services)
-            throws Exception
-        {
-        }
-
-        /**
-         * @see org.apache.velocity.runtime.log.LogSystem#logVelocityMessage(int, java.lang.String)
-         */
-        public void logVelocityMessage(
-            int level,
-            String message)
-        {
-            switch (level)
-            {
-            case LogSystem.WARN_ID:
-                logger.info(message);
-                break;
-            case LogSystem.INFO_ID:
-                logger.info(message);
-                break;
-            case LogSystem.DEBUG_ID:
-                logger.debug(message);
-                break;
-            case LogSystem.ERROR_ID:
-                logger.info(message);
-                break;
-            default:
-                logger.debug(message);
-                break;
-            }
-        }
     }
 }
