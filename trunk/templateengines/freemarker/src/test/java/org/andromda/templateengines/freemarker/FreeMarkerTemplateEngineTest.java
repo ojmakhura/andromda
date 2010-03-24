@@ -4,24 +4,22 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
  * Tests the direct interpretation of a string by FreeMarkerTemplateEngine.
  */
-public class FreeMarkerTemplateEngineTest
-    extends TestCase
+public class FreeMarkerTemplateEngineTest    
 {
-    public FreeMarkerTemplateEngineTest(String name)
-    {
-        super(name);
-    }
-
+    @Test
     public void testDirectFreeMarker()
         throws Exception
     {
@@ -30,7 +28,7 @@ public class FreeMarkerTemplateEngineTest
         // - create the template
         Template template = new Template("strTemplate", new StringReader("${test1}${test2}"), new Configuration());
 
-        HashMap templateObjects = new HashMap();
+        Map<String, Object> templateObjects = new HashMap<String, Object>();
 
         templateObjects.put(
             "test1",
