@@ -62,7 +62,7 @@ public class $service.serviceDelegateName
 ##
 #**##if (!$operation.lifecycleCallback && $operation.visibility == "public")
     /**
-     * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedServiceName}${esc.hash}${operation.getSignature(false)}
      *
      * Call the session bean operation using appropriate view type
      */

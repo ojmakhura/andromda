@@ -136,7 +136,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}#loadAll()
+     * @see ${rootDaoType}${esc.hash}loadAll()
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})

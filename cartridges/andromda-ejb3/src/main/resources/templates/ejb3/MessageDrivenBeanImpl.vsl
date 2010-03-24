@@ -39,7 +39,7 @@ public class ${mdb.messageDrivenImplementationName}
 #*  *##set ($signature = $operation.signature)
 #*  *##set ($visibility = $operation.visibility)
     /**
-     * @see ${mdb.fullyQualifiedMessageDrivenName}#${operation.getSignature(false)}
+     * @see ${mdb.fullyQualifiedMessageDrivenName}${esc.hash}${operation.getSignature(false)}
      */
     $visibility $returnType $signature
 #*  *##if ($operation.exceptionsPresent)
