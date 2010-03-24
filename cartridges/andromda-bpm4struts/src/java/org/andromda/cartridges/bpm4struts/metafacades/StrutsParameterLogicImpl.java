@@ -1432,7 +1432,7 @@ public class StrutsParameterLogicImpl
             }
             if (this.isValidatorTime())
             {
-                vars.put("timePattern", Arrays.asList(new Object[]{"timePattern", this.getTimeFormat()}));
+                vars.put("timePattern", Arrays.asList("timePattern", this.getTimeFormat()));
             }
 
             final String validWhen = getValidWhen();
