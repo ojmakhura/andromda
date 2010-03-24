@@ -97,7 +97,7 @@ $operation.getDocumentation("     * ")
 #*  *##if (!$operation.lifecycleCallback)
     /**
 #*    *##if ($operation.visibility == "public")
-     * @see ${service.fullyQualifiedServiceBaseName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedServiceBaseName}${esc.hash}${operation.getSignature(false)}
 #*    *##else
 $operation.getDocumentation("     * ")
 #*    *##end
@@ -134,7 +134,7 @@ $operation.getDocumentation("     * ")
 #**##foreach ($operation in $operations)
 #*  *##if ($operation.lifecycleCallback)
     /**
-     * @see ${service.fullyQualifiedServiceName}#${operation.name}()
+     * @see ${service.fullyQualifiedServiceName}${esc.hash}${operation.name}()
      */
     protected void handle${stringUtils.capitalize(${operation.name})}()
     {

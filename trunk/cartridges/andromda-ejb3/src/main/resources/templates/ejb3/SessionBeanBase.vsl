@@ -489,7 +489,7 @@ $operation.getDocumentation("     * ")
     
 #*    *##if ($operation.constraintsPresent)
     /**
-     * Performs any precondition checks for {@link #${operation.call}}.
+     * Performs any precondition checks for {@link ${esc.hash}${operation.call}}.
      */
     private void $operation.preconditionSignature
     {
@@ -498,7 +498,7 @@ $operation.getDocumentation("     * ")
 
 #*    *##end
     /**
-     * Performs the core logic for {@link #${operation.getSignature(false)}}
+     * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
      */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
@@ -533,7 +533,7 @@ $operation.getDocumentation("     * ")
     }
     
     /**
-     * Performs the core logic for {@link #${operation.name}()}
+     * Performs the core logic for {@link ${esc.hash}${operation.name}()}
      */
     protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})}();
 

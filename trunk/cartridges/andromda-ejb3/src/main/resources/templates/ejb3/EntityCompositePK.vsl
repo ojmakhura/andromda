@@ -107,7 +107,7 @@ $attribute.getDocumentation("     * ")
     }
     
     /**
-     * @see java.lang.Comparable#compareTo(T)
+     * @see java.lang.Comparable${esc.hash}compareTo(T)
      */
     public int compareTo(${entity.entityCompositePrimaryKeyName} o)
     {
