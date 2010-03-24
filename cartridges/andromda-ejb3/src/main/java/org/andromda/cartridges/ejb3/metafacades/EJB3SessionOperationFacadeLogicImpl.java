@@ -41,7 +41,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacade#getViewType()
      */
-    protected java.lang.String handleGetViewType()
+    protected String handleGetViewType()
     {
         String viewType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
         if (StringUtils.isEmpty(viewType))
@@ -362,7 +362,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetThrowsClause(java.lang.String)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetThrowsClause(String)
      */
     protected String handleGetThrowsClause(String initialExceptions)
     {

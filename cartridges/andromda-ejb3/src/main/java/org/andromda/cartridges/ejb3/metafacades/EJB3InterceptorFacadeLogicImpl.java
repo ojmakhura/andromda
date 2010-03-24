@@ -36,7 +36,7 @@ public class EJB3InterceptorFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade#getInterceptorName()
      */
-    protected java.lang.String handleGetInterceptorName()
+    protected String handleGetInterceptorName()
     {
         String interceptorNamePattern = (String)this.getConfiguredProperty(INTERCEPTOR_NAME_PATTERN);
 
@@ -48,7 +48,7 @@ public class EJB3InterceptorFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade#getFullyQualifiedInterceptorName()
      */
-    protected java.lang.String handleGetFullyQualifiedInterceptorName()
+    protected String handleGetFullyQualifiedInterceptorName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
                 this.getPackageName(),

@@ -55,7 +55,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade#getQuery()
      */
-    protected java.lang.String handleGetQuery()
+    protected String handleGetQuery()
     {
         return this.getQuery((EJB3EntityFacade)null);
     }
@@ -63,7 +63,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
     	return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }

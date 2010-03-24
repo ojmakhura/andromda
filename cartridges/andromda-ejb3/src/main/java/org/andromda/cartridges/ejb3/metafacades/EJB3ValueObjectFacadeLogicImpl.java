@@ -26,7 +26,7 @@ public class EJB3ValueObjectFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacade#getSeamComponentName()
      */
-    protected java.lang.String handleGetSeamComponentName()
+    protected String handleGetSeamComponentName()
     {
         return EJB3MetafacadeUtils.getSeamComponentName(this);
     }
@@ -34,7 +34,7 @@ public class EJB3ValueObjectFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacade#getSeamComponentScopeType()
      */
-    protected java.lang.String handleGetSeamComponentScopeType()
+    protected String handleGetSeamComponentScopeType()
     {
         return EJB3MetafacadeUtils.getSeamComponentScopeType(this, false);
     }
