@@ -2,11 +2,12 @@ package org.andromda.cartridges.ejb3;
 
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
@@ -15,6 +16,7 @@ import java.util.StringTokenizer;
  * @author Richard Kunze
  * @author Chad Brandon
  * @author Vance Karimi
+ * @author Michail Plushnikov
  */
 public class EJB3ScriptHelper
 {
@@ -24,10 +26,10 @@ public class EJB3ScriptHelper
      * @param args A comma separated list of arguments
      * @return Collection A collection of of Strings representing the arguments
      */
-    public Collection getArgumentsAsList(String args)
+    public Collection<String> getArgumentsAsList(String args)
     {
     	StringTokenizer st = new StringTokenizer(args, ",");
-    	Collection retval = new ArrayList(st.countTokens());
+    	Collection<String> retval = new ArrayList<String>(st.countTokens());
     	while (st.hasMoreTokens()) {
     		retval.add(st.nextToken().trim());
     	}
@@ -41,18 +43,16 @@ public class EJB3ScriptHelper
      * @param visibility the visibility - "public" "protected", "private" or the empty string (for package visibility)
      * @return a list with all elements from the original list that have a matching visibility.
      */
-    public Collection filterByVisibility(Collection list, String visibility)
+    public Collection<ModelElementFacade> filterByVisibility(final Collection<ModelElementFacade> list, final String visibility)
     {
-        Collection retval = new ArrayList(list.size());
-        for (final Iterator iter = list.iterator(); iter.hasNext();)
+        return CollectionUtils.select(list, new Predicate()
         {
-            ModelElementFacade elem = (ModelElementFacade)iter.next();
-            if (visibility.equals(elem.getVisibility().toString()))
+            public boolean evaluate(Object pObj)
             {
-                retval.add(elem);
+                ModelElementFacade elem = (ModelElementFacade )pObj;
+                return visibility.equals(elem.getVisibility());
             }
-        }
-        return retval;
+        });        
     }
 
     /**
@@ -65,21 +65,19 @@ public class EJB3ScriptHelper
      * @param isCompositePKPresent True if entity has a composite primary key 
      * @return Collection A list of EntityAttributes from the original list that are updatable
      */
-    public Collection filterUpdatableAttributes(Collection list, boolean isCompositePKPresent)
+    public Collection<EJB3EntityAttributeFacade> filterUpdatableAttributes(final Collection<EJB3EntityAttributeFacade> list, final boolean isCompositePKPresent)
     {
-    	Collection retval = new ArrayList(list.size());
-    	for (final Iterator iter = list.iterator(); iter.hasNext(); ) 
-    	{
-    		EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)iter.next();
-    		if (!attr.isVersion() && 
-                ((isCompositePKPresent && !attr.isIdentifier()) || 
-                 (!isCompositePKPresent && (attr.isIdentifier() && attr.isGeneratorTypeNone()) ||
-                                !attr.isIdentifier())))
-    		{
-    			retval.add(attr);
-    		}
-    	}
-    	return retval;
+    	return CollectionUtils.select(list, new Predicate()
+        {
+            public boolean evaluate(Object pObj)
+            {
+                EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade )pObj;
+                return !attr.isVersion() &&
+                        ((isCompositePKPresent && !attr.isIdentifier()) ||
+                        (!isCompositePKPresent && (attr.isIdentifier() && attr.isGeneratorTypeNone()) ||
+                         !attr.isIdentifier()));
+            }
+        });
     }
     
     /**
@@ -91,12 +89,21 @@ public class EJB3ScriptHelper
      */
     public String toUnderscoreName(String name)
     {
-        String result = null;
-        if (name != null)
-        {
-            result = StringUtils.replaceChars(name, '.', '_');
-        }
-        return result;
+        return StringUtils.replaceChars(name, '.', '_');
+    }
+
+    /**
+     * Removes instances of the quotation marks (" and ') at the beginning and end of the value argument
+     *
+     * @param pValue The value, which can contains leading and trailing quotation marks
+     * @return The string without quotation marks
+     */
+    public String removeQuotationmarks(String pValue)
+    {
+        String result = StringUtils.removeStart(pValue, "\"");
+        result = StringUtils.removeEnd(result, "\"");
+        result = StringUtils.removeStart(result, "'");
+        return StringUtils.removeEnd(result,"'");
     }
     
     /**
@@ -106,9 +113,9 @@ public class EJB3ScriptHelper
      * @param prepend Prefix any interceptors to the comma separated list
      * @return String containing the comma separated fully qualified class names
      */
-    public String getInterceptorsAsList(Collection interceptors, String prepend)
+    public String getInterceptorsAsList(Collection<ModelElementFacade> interceptors, String prepend)
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String separator = "";
         
         if (StringUtils.isNotBlank(prepend))
@@ -117,12 +124,11 @@ public class EJB3ScriptHelper
             separator = ", ";
         }
 
-        for (final Iterator it = interceptors.iterator(); it.hasNext();)
+        for (ModelElementFacade interceptor : interceptors)
         {
-            ModelElementFacade interceptor = (ModelElementFacade)it.next();
             sb.append(separator);
             separator = ", ";
-            sb.append(interceptor.getFullyQualifiedName() + ".class");
+            sb.append(interceptor.getFullyQualifiedName()).append(".class");
         }
         return sb.toString();
     }

@@ -39,7 +39,7 @@
             <env-entry>
                 <env-entry-name>${envEntry.name}</env-entry-name>
                 <env-entry-type>#if ($envEntry.type.primitive)${envEntry.type.wrapperName}#else${envEntry.type.fullyQualifiedName}#end</env-entry-type>
-                <env-entry-value>${envEntry.defaultValue}</env-entry-value>
+                <env-entry-value>$transform.removeQuotationmarks(${envEntry.defaultValue})</env-entry-value>
             </env-entry>
 #**##end
         </session>
@@ -138,7 +138,7 @@
             <env-entry>
                 <env-entry-name>${envEntry.name}</env-entry-name>
                 <env-entry-type>#if ($envEntry.type.primitive)${envEntry.type.wrapperName}#else${envEntry.type.fullyQualifiedName}#end</env-entry-type>
-                <env-entry-value>${envEntry.defaultValue}</env-entry-value>
+                <env-entry-value>$transform.removeQuotationmarks(${envEntry.defaultValue})</env-entry-value>
             </env-entry>
 #**##end
         </message-driven>
