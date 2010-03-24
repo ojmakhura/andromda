@@ -177,13 +177,13 @@ class EJB3MetafacadeUtils
      *                   env-entries.
      * @return the collection of enviroment entries
      */
-    static Collection getEnvironmentEntries(
+    static Collection<AttributeFacade> getEnvironmentEntries(
             ClassifierFacade classifier, 
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
 
-        Collection attributes = classifier.getStaticAttributes();
+        Collection<AttributeFacade> attributes = classifier.getStaticAttributes();
 
         if (follow)
         {
