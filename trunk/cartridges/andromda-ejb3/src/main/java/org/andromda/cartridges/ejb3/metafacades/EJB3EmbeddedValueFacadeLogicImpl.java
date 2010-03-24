@@ -48,7 +48,7 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     {
         return MessageFormat.format(
                 getImplementationNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**

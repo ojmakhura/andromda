@@ -167,6 +167,6 @@ public class EJB3OperationFacadeLogicImpl
 
         return MessageFormat.format(
                 implementationNamePattern,
-                new Object[] {StringUtils.trimToEmpty(replacement)});
+                StringUtils.trimToEmpty(replacement));
     }
 }

@@ -589,7 +589,7 @@ public class EJB3EntityFacadeLogicImpl
 
         return MessageFormat.format(
             compPKPattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
@@ -601,7 +601,7 @@ public class EJB3EntityFacadeLogicImpl
 		
 		return MessageFormat.format(
 			entityListenerPattern,
-			new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
 	}
 
     /**
@@ -614,7 +614,7 @@ public class EJB3EntityFacadeLogicImpl
         
         return MessageFormat.format(
             embeddableSuperclassName,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -626,7 +626,7 @@ public class EJB3EntityFacadeLogicImpl
 
         return MessageFormat.format(
             entityNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -650,7 +650,7 @@ public class EJB3EntityFacadeLogicImpl
 
         return MessageFormat.format(
             implNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
     
     /**
