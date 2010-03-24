@@ -22,7 +22,7 @@ public class EJB3TypeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade#getFullyQualifiedEJB3Type()
      */
-    protected java.lang.String handleGetFullyQualifiedEJB3Type()
+    protected String handleGetFullyQualifiedEJB3Type()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
         final TypeMappings mappings = this.getEJB3TypeMappings();

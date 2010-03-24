@@ -99,7 +99,7 @@ public class EJB3WebServiceFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getFullyQualifiedWebServiceInterfaceName()
      */
-    protected java.lang.String handleGetFullyQualifiedWebServiceInterfaceName()
+    protected String handleGetFullyQualifiedWebServiceInterfaceName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
                 this.getPackageName(),
@@ -110,7 +110,7 @@ public class EJB3WebServiceFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getWebServiceInterfaceName()
      */
-    protected java.lang.String handleGetWebServiceInterfaceName()
+    protected String handleGetWebServiceInterfaceName()
     {
         String webServiceInterfaceNamePattern = 
             String.valueOf(this.getConfiguredProperty(WEB_SERVICE_INTERFACE_NAME_PATTERN));
@@ -123,7 +123,7 @@ public class EJB3WebServiceFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getStyle()
      */
-    protected java.lang.String handleGetStyle()
+    protected String handleGetStyle()
     {
         String style = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
         if (StringUtils.isEmpty(style))
@@ -136,7 +136,7 @@ public class EJB3WebServiceFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getUse()
      */
-    protected java.lang.String handleGetUse()
+    protected String handleGetUse()
     {
         String use = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
         if (StringUtils.isEmpty(use))

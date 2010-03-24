@@ -46,7 +46,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationConstantName()
      */
-    protected java.lang.String handleGetTransformationConstantName()
+    protected String handleGetTransformationConstantName()
     {
         return EJB3Globals.TRANSFORMATION_CONSTANT_PREFIX + this.getName().toUpperCase();
     }
@@ -54,7 +54,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationMethodName()
      */
-    protected java.lang.String handleGetTransformationMethodName()
+    protected String handleGetTransformationMethodName()
     {
         return EJB3Globals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName());
     }
@@ -62,7 +62,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationAnonymousName()
      */
-    protected java.lang.String handleGetTransformationAnonymousName()
+    protected String handleGetTransformationAnonymousName()
     {
         return this.getName().toUpperCase() + TRANSFORMATION_ANONYMOUS_NAME_SUFFIX;
     }
@@ -130,7 +130,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationToCollectionMethodName()
      */
-    protected java.lang.String handleGetTransformationToCollectionMethodName()
+    protected String handleGetTransformationToCollectionMethodName()
     {
         return EJB3Globals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName()) +
             EJB3Globals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
@@ -139,7 +139,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getDaoName()
      */
-    protected java.lang.String handleGetDaoName()
+    protected String handleGetDaoName()
     {
         return MessageFormat.format(
                 getDaoNamePattern(),
@@ -159,7 +159,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getDaoGetterName()
      */
-    protected java.lang.String handleGetDaoGetterName()
+    protected String handleGetDaoGetterName()
     {
         return "get" + StringUtils.capitalize(this.getDaoName());
     }
@@ -167,7 +167,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getDaoSetterName()
      */
-    protected java.lang.String handleGetDaoSetterName()
+    protected String handleGetDaoSetterName()
     {
         return "set" + StringUtils.capitalize(this.getDaoName());
     }
@@ -175,7 +175,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationToEntityCollectionMethodName()
      */
-    protected java.lang.String handleGetTransformationToEntityCollectionMethodName()
+    protected String handleGetTransformationToEntityCollectionMethodName()
     {
         return this.getTransformationToEntityMethodName() + EJB3Globals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
     }
@@ -183,7 +183,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getTransformationToEntityMethodName()
      */
-    protected java.lang.String handleGetTransformationToEntityMethodName()
+    protected String handleGetTransformationToEntityMethodName()
     {
         return this.getName() + TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX;
     }
@@ -191,7 +191,7 @@ public class EJB3DependencyFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getValueObjectToEntityTransformerName()
      */
-    protected java.lang.String handleGetValueObjectToEntityTransformerName()
+    protected String handleGetValueObjectToEntityTransformerName()
     {
         return StringUtils.capitalize(this.getTransformationToEntityMethodName()) + 
             VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX;

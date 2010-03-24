@@ -20,7 +20,7 @@ public class EJB3PersistenceContextFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade#getUnitName()
      */
-    protected java.lang.String handleGetUnitName()
+    protected String handleGetUnitName()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME);
     }
@@ -28,7 +28,7 @@ public class EJB3PersistenceContextFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade#getContextType()
      */
-    protected java.lang.String handleGetContextType()
+    protected String handleGetContextType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_TYPE);
     }

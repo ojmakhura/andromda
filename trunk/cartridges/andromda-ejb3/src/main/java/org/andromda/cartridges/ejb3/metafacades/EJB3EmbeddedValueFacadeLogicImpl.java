@@ -44,7 +44,7 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade#getImplementationName()
      */
-    protected java.lang.String handleGetImplementationName()
+    protected String handleGetImplementationName()
     {
         return MessageFormat.format(
                 getImplementationNamePattern(),

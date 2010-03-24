@@ -303,7 +303,7 @@ extends EJB3SessionFacadeLogic
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getType()
      */
-    protected java.lang.String handleGetType()
+    protected String handleGetType()
     {
         String sessionType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_TYPE);
         if (StringUtils.isBlank(sessionType))
@@ -320,7 +320,7 @@ extends EJB3SessionFacadeLogic
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getViewType()
      */
-    protected java.lang.String handleGetViewType()
+    protected String handleGetViewType()
     {
         String viewType = EJB3MetafacadeUtils.getViewType(this, 
                 String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
@@ -478,7 +478,7 @@ extends EJB3SessionFacadeLogic
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getHomeInterfaceName()
      */
-    protected java.lang.String handleGetHomeInterfaceName()
+    protected String handleGetHomeInterfaceName()
     {
         return EJB3MetafacadeUtils.getHomeInterfaceName(this);
     }
@@ -486,7 +486,7 @@ extends EJB3SessionFacadeLogic
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         return EJB3MetafacadeUtils.getTransactionType(this, null);
     }
@@ -1159,7 +1159,7 @@ extends EJB3SessionFacadeLogic
      */
     protected String handleGetFullyQualifiedDefaultExceptionName()
     {
-        StringBuffer fullyQualifiedName = new StringBuffer("java.lang.RuntimeException");
+        StringBuffer fullyQualifiedName = new StringBuffer("RuntimeException");
         if (this.isAllowDefaultServiceException())
         {
             fullyQualifiedName = new StringBuffer();
