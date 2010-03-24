@@ -61,7 +61,7 @@ public class ValueObjectFacadeLogicImpl
     {
         return MessageFormat.format(
             this.getConfiguredProperty("valueObjectName").toString(),
-            new Object[] {StringUtils.trimToEmpty(super.getName())});
+                StringUtils.trimToEmpty(super.getName()));
     }
 
     /**
