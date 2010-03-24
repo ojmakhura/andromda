@@ -151,7 +151,17 @@ public class AndroMDALogger
      */
     public static void setSuffix(final String suffix)
     {
-        logger = Logger.getLogger(DEFAULT_LOGGER_NAME + ':' + suffix);
+        logger = getSuffixLogger(suffix);
+    }
+
+    /**
+     * Gets a logger with suffixed name
+     * @param suffix the suffix to append to the logger name.
+     * @return Logger instance
+     */
+    public static Logger getSuffixLogger(final String suffix)
+    {
+        return Logger.getLogger(DEFAULT_LOGGER_NAME + ':' + suffix);
     }
 
     /**
