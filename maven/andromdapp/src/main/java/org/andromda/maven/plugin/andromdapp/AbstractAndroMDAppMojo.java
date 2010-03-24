@@ -184,7 +184,7 @@ public abstract class AbstractAndroMDAppMojo
      * of the specified property if there is one.
      *
      * @param properties the properties used to perform the replacement.
-     * @param fileContents the fileContents to perform replacement on.
+     * @param string the fileContents to perform replacement on.
      */
     private String replaceProperties(final Properties properties, final String string) throws IOException
     {
