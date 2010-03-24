@@ -13,6 +13,8 @@
     <templateObject name="converter" className="org.andromda.utils.JavaTypeConverter">
         <property reference="javaTypeConversionIgnoreList"/>
     </templateObject>
+
+    <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
     
     <!-- cartridge-templateObject merge-point-->
 
