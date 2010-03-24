@@ -257,10 +257,9 @@ public abstract class $entity.daoBaseName
      */
     public $rootEntityType create(
 #*    *##foreach($attribute in $attributes)
-        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
-
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),#end)
 #*    *##end
+        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getInstanceAttributeNameList(true, $entity.usingAssignedIdentifier)});
     }
@@ -271,10 +270,9 @@ public abstract class $entity.daoBaseName
     public Object create(
         final int transform,
 #*    *##foreach($attribute in $attributes)
-        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
-
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),#end)
 #*    *##end
+        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
 #*    *##foreach ($attribute in $attributes)
@@ -296,10 +294,9 @@ public abstract class $entity.daoBaseName
      */
     public $rootEntityType create(
 #*    *##foreach($property in $requiredProperties)
-        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityCount != $requiredProperties.size()),#else)
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
-
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),#end)
 #*    *##end
+        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,$entity.usingAssignedIdentifier)});
     }
@@ -310,10 +307,9 @@ public abstract class $entity.daoBaseName
     public Object create(
         final int transform,
 #*    *##foreach($property in $requiredProperties)
-        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityCount != $requiredProperties.size()),#else)
-        throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
-
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),#end)
 #*    *##end
+        throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
 #*    *##foreach ($property in $requiredProperties)
