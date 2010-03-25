@@ -417,7 +417,7 @@ public class Cartridge
                                     {
                                         try
                                         {
-                                            String lResult = postProcessor.postProcess(outputString);
+                                            String lResult = postProcessor.postProcess(outputString, null);
                                             if(StringUtils.isNotEmpty(lResult))
                                             {
                                                 outputString = lResult;
