@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -26,7 +27,7 @@ public class Configuration
     /**
      * Stores any properties defined in this configuration.
      */
-    private final Map properties = new LinkedHashMap();
+    private final Map<String, String> properties = new LinkedHashMap<String, String>();
 
     /**
      * Adds a property with the name and value to the current properties
@@ -47,7 +48,7 @@ public class Configuration
     /**
      * Stores any locations to property files.
      */
-    private final List locations = new ArrayList();
+    private final List<String> locations = new ArrayList<String>();
 
     /**
      * Adds a location to this configuration.
@@ -72,19 +73,17 @@ public class Configuration
     public Map getAllProperties()
     {
         final Map allProperties = new LinkedHashMap();
-        for (final Iterator iterator = this.locations.iterator(); iterator.hasNext();)
+        for (final String location : this.locations)
         {
-            final String location = (String)iterator.next();
-            final List resources =
-                ResourceUtils.getDirectoryContents(
-                    ResourceUtils.toURL(location),
-                    true,
-                    LOCATION_PATTERNS);
+            final List<String> resources =
+                    ResourceUtils.getDirectoryContents(
+                            ResourceUtils.toURL(location),
+                            true,
+                            LOCATION_PATTERNS);
             if (resources != null)
             {
-                for (final Iterator resourceIterator = resources.iterator(); resourceIterator.hasNext();)
+                for (final String path : resources)
                 {
-                    final String path = (String)resourceIterator.next();
                     final URL resource = ResourceUtils.toURL(path);
                     final Properties properties = new Properties();
                     InputStream stream = null;
@@ -100,15 +99,7 @@ public class Configuration
                     }
                     finally
                     {
-                        try
-                        {
-                            stream.close();
-                            stream = null;
-                        }
-                        catch (IOException exception)
-                        {
-                            // - ignore 
-                        }
+                        IOUtils.closeQuietly(stream);
                     }
                 }
             }

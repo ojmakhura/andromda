@@ -16,7 +16,7 @@ public class Mapping
     /**
      * Stores the mappings from which the output is mapped.
      */
-    private final List froms = new ArrayList();
+    private final List<String> froms = new ArrayList<String>();
    
     /**
      * Adds a from to this mapping's list of from mappings.
@@ -38,9 +38,8 @@ public class Mapping
     public String getMatch(final String path)
     {
         String match = null;
-        for (final Iterator iterator = this.froms.iterator(); iterator.hasNext();)
+        for (final String from : this.froms)
         {
-            final String from = (String)iterator.next();
             if (path.contains(from))
             {
                 match = StringUtils.replace(path, from, to);

@@ -52,7 +52,7 @@ public class Conditions
     /**
      * Stores the conditions.
      */
-    private List conditions = new ArrayList();
+    private List<Condition> conditions = new ArrayList<Condition>();
 
     /**
      * Adds a condition instance to this conditions.
@@ -69,7 +69,7 @@ public class Conditions
      *
      * @return the conditions that are defined within this prompt.
      */
-    public List getConditions()
+    public List<Condition> getConditions()
     {
         return this.conditions;
     }
@@ -77,7 +77,7 @@ public class Conditions
     /**
      * Stores the output paths.
      */
-    private Map outputPaths = new LinkedHashMap();
+    private Map<String, String[]> outputPaths = new LinkedHashMap<String, String[]>();
 
     /**
      * Adds a path to the output paths.
@@ -99,7 +99,7 @@ public class Conditions
      *
      * @return the map of output paths and its patterns (if it has any defined).
      */
-    final Map getOutputPaths()
+    final Map<String, String[]> getOutputPaths()
     {
         return this.outputPaths;
     }

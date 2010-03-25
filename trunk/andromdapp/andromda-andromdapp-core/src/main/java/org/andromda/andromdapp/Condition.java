@@ -40,7 +40,7 @@ public class Condition
     /**
      * Stores the properties to set if the condition is true.
      */
-    private final Map properties = new LinkedHashMap();
+    private final Map<String, Object> properties = new LinkedHashMap<String, Object>();
 
     /**
      * Sets the value of the property in the template context
@@ -68,7 +68,7 @@ public class Condition
      *
      * @return the prompt values.
      */
-    public Map getProperties()
+    public Map<String, Object> getProperties()
     {
         return this.properties;
     }
@@ -167,17 +167,14 @@ public class Condition
             final boolean equalConditionPresent = equal != null;
             final boolean notEqualConditionPresent = notEqual != null;
             value = String.valueOf(value);
-            if (equalConditionPresent || notEqualConditionPresent)
+            if (equalConditionPresent)
             {
-                if (equalConditionPresent)
-                {
-                    valid = equal.equals(value);
-                }
-                else if (notEqualConditionPresent)
-                {
-                    valid = !notEqual.equals(value);
-                }
+                valid = equal.equals(value);
             }
+            else if (notEqualConditionPresent)
+            {
+                valid = !notEqual.equals(value);
+            }            
         }
         return valid;
     }
