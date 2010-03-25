@@ -49,7 +49,7 @@ import org.xml.sax.SAXParseException;
  * @author Bob Fields
  * @author Michail Plushnikov
  */
-public class XmlObjectFactory<T>
+public class XmlObjectFactory
 {
     /**
      * The class logger. Note: visibility is protected to improve access within {@link XmlObjectValidator}
@@ -74,7 +74,7 @@ public class XmlObjectFactory<T>
     /**
      * The class of which the object we're instantiating.
      */
-    private Class<T> objectClass = null;
+    private Class objectClass = null;
 
     /**
      * The URL to the object rules.
@@ -117,13 +117,13 @@ public class XmlObjectFactory<T>
      * @param objectClass the Class of the object from which to configure this factory.
      * @return the XmlObjectFactoy instance.
      */
-    public static <T> XmlObjectFactory<T> getInstance(final Class<T> objectClass)
+    public static XmlObjectFactory getInstance(final Class objectClass)
     {
         ExceptionUtils.checkNull(
                 "objectClass",
                 objectClass);
 
-        XmlObjectFactory<T> factory = factoryCache.get(objectClass);
+        XmlObjectFactory factory = factoryCache.get(objectClass);
         if (factory == null)
         {
             final URL objectRulesXml =
@@ -134,7 +134,7 @@ public class XmlObjectFactory<T>
             {
                 throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + '\'');
             }
-            factory = new XmlObjectFactory<T>(objectRulesXml);
+            factory = new XmlObjectFactory(objectRulesXml);
             factory.objectClass = objectClass;
             factory.objectRulesXml = objectRulesXml;
             factory.setValidating(defaultValidating);
@@ -221,7 +221,7 @@ public class XmlObjectFactory<T>
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    public T getObject(final URL objectXml)
+    public Object getObject(final URL objectXml)
     {
         return this.getObject(
                 objectXml != null ? ResourceUtils.getContents(objectXml) : null,
@@ -234,7 +234,7 @@ public class XmlObjectFactory<T>
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    public T getObject(final Reader objectXml)
+    public Object getObject(final Reader objectXml)
     {
         return getObject(ResourceUtils.getContents(objectXml));
     }
@@ -245,7 +245,7 @@ public class XmlObjectFactory<T>
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    public T getObject(String objectXml)
+    public Object getObject(String objectXml)
     {
         return this.getObject(
                 objectXml,
@@ -260,18 +260,18 @@ public class XmlObjectFactory<T>
      *                  any relative references; like XML entities).
      * @return Object the created instance.
      */
-    public T getObject(
+    public Object getObject(
             String objectXml,
             final URL resource)
     {
         ExceptionUtils.checkNull(
                 "objectXml",
                 objectXml);
-        T object = null;
+        Object object = null;
         try
         {
             this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));
-            object = (T)this.digester.parse(new StringReader(objectXml));
+            object = this.digester.parse(new StringReader(objectXml));
             objectXml = null;
             if (object == null)
             {
