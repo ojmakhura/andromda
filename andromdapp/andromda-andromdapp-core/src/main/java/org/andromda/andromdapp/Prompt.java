@@ -76,7 +76,7 @@ public class Prompt
      */
     public String getText()
     {
-        final StringBuffer text = new StringBuffer();
+        final StringBuilder text = new StringBuilder();
         if (this.text != null)
         {
             text.append(this.text);
@@ -108,8 +108,6 @@ public class Prompt
      * Adds a reponse to the possible responses.
      *
      * @param response the response to add.
-     * @param type the full qualified type of the response (if undefined
-     *        the type is left as a string).
      */
     public void addResponse(final String response)
     {
@@ -170,23 +168,22 @@ public class Prompt
      */
     private String getResponsesAsString()
     {
-        final StringBuffer responses = new StringBuffer("[");
-        for (final Iterator iterator = this.responses.iterator(); iterator.hasNext();)
-        {
-            responses.append(iterator.next());
-            if (iterator.hasNext())
-            {
-                responses.append(", ");
-            }
+        final StringBuilder responsesString = new StringBuilder("[");
+        for (String response : this.responses) {
+            responsesString.append(response).append(", ");
         }
-        responses.append(']');
-        return responses.toString();
+        //remove last ","
+        if(!this.responses.isEmpty()) {
+            responsesString.deleteCharAt(responsesString.length()-1);
+        }
+        responsesString.append(']');
+        return responsesString.toString();
     }
 
     /**
      * The conditions that apply to this prompt.
      */
-    private List conditions = new ArrayList();
+    private List<Condition> conditions = new ArrayList<Condition>();
 
     /**
      * Adds a condition to this prompt.
@@ -203,7 +200,7 @@ public class Prompt
      *
      * @return the conditions that are defined within this prompt.
      */
-    public List getConditions()
+    public List<Condition> getConditions()
     {
         return this.conditions;
     }
@@ -212,7 +209,7 @@ public class Prompt
      * The preconditions that must be valid for this prompt
      * in order for it to be executed.
      */
-    private List preconditions = new ArrayList();
+    private List<Conditions> preconditions = new ArrayList<Conditions>();
 
     /**
      * Adds preconditions to this prompt.
@@ -229,7 +226,7 @@ public class Prompt
      *
      * @return the prompt preconditions.
      */
-    public List getPreconditions()
+    public List<Conditions> getPreconditions()
     {
         return this.preconditions;
     }
@@ -253,7 +250,7 @@ public class Prompt
     /**
      * Sets whether or not the response should be set to a boolean value of true.
      *
-     * @param setResponseAsTrue The setResponseAsTrue to set.
+     * @param setResponseAsBoolean The setResponseAsTrue to set.
      */
     public void setSetResponseAsTrue(boolean setResponseAsBoolean)
     {

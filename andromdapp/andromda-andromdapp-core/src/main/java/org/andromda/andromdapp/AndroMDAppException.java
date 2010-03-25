@@ -11,7 +11,7 @@ public class AndroMDAppException
     /**
      * Constructs an instance of AndroMDAppException.
      *
-     * @param parent
+     * @param parent previous exception
      */
     public AndroMDAppException(Throwable parent)
     {
@@ -21,7 +21,7 @@ public class AndroMDAppException
     /**
      * Constructs an instance of AndroMDAppException.
      *
-     * @param message
+     * @param message exception message
      */
     public AndroMDAppException(String message)
     {
@@ -31,8 +31,8 @@ public class AndroMDAppException
     /**
      * Constructs an instance of AndroMDAppException.
      *
-     * @param message
-     * @param parent
+     * @param message exception message
+     * @param parent previous exception
      */
     public AndroMDAppException(
         String message,

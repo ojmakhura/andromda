@@ -36,7 +36,7 @@ public class AndroMDAppType
     /**
      * The velocity template context.
      */
-    private final Map templateContext = new LinkedHashMap();
+    private final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
 
     /**
      * The namespace used to initialize the template engine.
@@ -54,13 +54,13 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected void initialize()
-        throws Exception
+            throws Exception
     {
         if (this.configurations != null)
         {
-            for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+            for (final Configuration configuration : this.configurations)
             {
-                this.templateContext.putAll(((Configuration)iterator.next()).getAllProperties());
+                this.templateContext.putAll(configuration.getAllProperties());
             }
         }
     }
@@ -74,23 +74,18 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected String promptUser()
-        throws Exception
+            throws Exception
     {
-        for (final Iterator iterator = this.getPrompts().iterator(); iterator.hasNext();)
+        for (final Prompt prompt : this.getPrompts())
         {
-            final Prompt prompt = (Prompt)iterator.next();
             final String id = prompt.getId();
 
             boolean validPreconditions = true;
-            for (final Iterator preconditionsIterator = prompt.getPreconditions().iterator();
-                preconditionsIterator.hasNext();)
+            for (final Conditions preconditions : prompt.getPreconditions())
             {
-                final Conditions preconditions = (Conditions)preconditionsIterator.next();
                 final String conditionsType = preconditions.getType();
-                for (final Iterator conditionIterator = preconditions.getConditions().iterator();
-                    conditionIterator.hasNext();)
+                for (final Condition precondition : preconditions.getConditions())
                 {
-                    final Condition precondition = (Condition)conditionIterator.next();
                     validPreconditions = precondition.evaluate(this.templateContext.get(precondition.getId()));
 
                     // - if we're 'anding' the conditions, we break at the first false
@@ -100,8 +95,7 @@ public class AndroMDAppType
                         {
                             break;
                         }
-                    }
-                    else
+                    } else
                     {
                         // otherwise we break at the first true condition
                         if (validPreconditions)
@@ -126,22 +120,22 @@ public class AndroMDAppType
                     while (!prompt.isValidResponse(ObjectUtils.toString(response)));
                 }
                 this.setConditionalProperties(
-                    prompt.getConditions(),
-                    response);
+                        prompt.getConditions(),
+                        response);
                 if (prompt.isSetResponseAsTrue())
                 {
                     this.templateContext.put(
-                        response,
-                        Boolean.TRUE);
+                            response.toString(),
+                            Boolean.TRUE);
                 }
                 this.templateContext.put(
-                    id,
-                    prompt.getResponse(response));
+                        id,
+                        prompt.getResponse(response));
             }
         }
         return this.getTemplateEngine().getEvaluatedExpression(
-            ResourceUtils.getContents(this.resource),
-            this.templateContext);
+                ResourceUtils.getContents(this.resource),
+                this.templateContext);
     }
 
     /**
@@ -154,23 +148,21 @@ public class AndroMDAppType
     private String promptForInput(final Prompt prompt)
     {
         this.printPromptText(prompt.getText());
-        final String input = this.readLine();
-        return input;
+        return this.readLine();
     }
 
     /**
-     * Prompts the user for the information contained in the given
-     * <code>prompt</code>.
      *
-     * @param prompt the prompt from which to format the prompt text.
+     *
+     * @param conditions
+     * @param value
      */
     private void setConditionalProperties(
-        final List<Condition> conditions,
-        final Object value)
+            final List<Condition> conditions,
+            final Object value)
     {
-        for (final Iterator iterator = conditions.iterator(); iterator.hasNext();)
+        for (final Condition condition : conditions)
         {
-            final Condition condition = (Condition)iterator.next();
             final String equalCondition = condition.getEqual();
             if (equalCondition != null && equalCondition.equals(value))
             {
@@ -193,14 +185,8 @@ public class AndroMDAppType
     {
         if (condition != null)
         {
-            final Map values = condition.getProperties();
-            for (final Iterator valueIterator = values.keySet().iterator(); valueIterator.hasNext();)
-            {
-                final String id = (String)valueIterator.next();
-                this.templateContext.put(
-                    id,
-                    values.get(id));
-            }
+            final Map<String, Object> values = condition.getProperties();
+            this.templateContext.putAll(values);
         }
     }
 
@@ -213,7 +199,7 @@ public class AndroMDAppType
      * Sets the class of the template engine to use.
      *
      * @param templateEngineClass the Class of the template engine
-     *        implementation.
+     *                            implementation.
      */
     public void setTemplateEngineClass(final String templateEngineClass)
     {
@@ -232,14 +218,14 @@ public class AndroMDAppType
      * @throws Exception
      */
     private TemplateEngine getTemplateEngine()
-        throws Exception
+            throws Exception
     {
         if (this.templateEngine == null)
         {
             this.templateEngine =
-                (TemplateEngine)ComponentContainer.instance().newComponent(
-                    this.templateEngineClass,
-                    TemplateEngine.class);
+                    (TemplateEngine) ComponentContainer.instance().newComponent(
+                            this.templateEngineClass,
+                            TemplateEngine.class);
             this.getTemplateEngine().setMergeLocation(TEMPORARY_MERGE_LOCATION);
             this.getTemplateEngine().initialize(NAMESPACE);
         }
@@ -249,22 +235,22 @@ public class AndroMDAppType
     /**
      * Stores the template engine exclusions.
      */
-    private Map templateEngineExclusions = new LinkedHashMap();
+    private Map<String, String[]> templateEngineExclusions = new LinkedHashMap<String, String[]>();
 
     /**
      * Adds a template engine exclusion (these are the things that the template engine
      * will exclude when processing templates)
      *
-     * @param path the path to the resulting output
+     * @param path     the path to the resulting output
      * @param patterns any patterns to which the conditions should apply
      */
     public void addTemplateEngineExclusion(
-        final String path,
-        final String patterns)
+            final String path,
+            final String patterns)
     {
         this.templateEngineExclusions.put(
-            path,
-            AndroMDAppUtils.stringToArray(patterns));
+                path,
+                AndroMDAppUtils.stringToArray(patterns));
     }
 
     /**
@@ -272,7 +258,7 @@ public class AndroMDAppType
      *
      * @return the map of template engine exclusion paths and its patterns (if it has any defined).
      */
-    final Map getTemplateEngineExclusions()
+    final Map<String, String[]> getTemplateEngineExclusions()
     {
         return this.templateEngineExclusions;
     }
@@ -305,7 +291,7 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected List<File> processResources(boolean write)
-        throws Exception
+            throws Exception
     {
         // - all resources that have been processed.
         final List<File> processedResources = new ArrayList<File>();
@@ -316,12 +302,11 @@ public class AndroMDAppType
         this.printLine();
         rootDirectory.mkdirs();
 
-        final Map locations = new LinkedHashMap();
+        final Map<String, Set<String>> locations = new LinkedHashMap<String, Set<String>>();
 
         // - first write any mapped resources
-        for (final Iterator iterator = this.resourceLocations.iterator(); iterator.hasNext();)
+        for (final String location : this.resourceLocations)
         {
-            final String location = (String)iterator.next();
             final URL[] resourceDirectories = ResourceFinder.findResources(location);
             if (resourceDirectories != null)
             {
@@ -333,19 +318,18 @@ public class AndroMDAppType
                             resourceDirectory,
                             false,
                             null);
-                    final Set newContents = new LinkedHashSet();
+                    final Set<String> newContents = new LinkedHashSet<String>();
                     locations.put(
-                        location,
-                        newContents);
+                            location,
+                            newContents);
                     for (final ListIterator contentsIterator = contents.listIterator(); contentsIterator.hasNext();)
                     {
-                        final String path = (String)contentsIterator.next();
-                        if (path!=null && !path.endsWith(FORWARD_SLASH))
+                        final String path = (String) contentsIterator.next();
+                        if (path != null && !path.endsWith(FORWARD_SLASH))
                         {
                             boolean hasNewPath = false;
-                            for (final Iterator<Mapping> mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
+                            for (final Mapping mapping : this.mappings)
                             {
-                                final Mapping mapping = mappingIterator.next();
                                 String newPath = mapping.getMatch(path);
                                 if (StringUtils.isNotBlank(newPath))
                                 {
@@ -353,12 +337,12 @@ public class AndroMDAppType
                                     if (absolutePath != null)
                                     {
                                         newPath =
-                                            this.getTemplateEngine().getEvaluatedExpression(
-                                                newPath,
-                                                this.templateContext);
+                                                this.getTemplateEngine().getEvaluatedExpression(
+                                                        newPath,
+                                                        this.templateContext);
                                         ResourceWriter.instance().writeUrlToFile(
-                                            absolutePath,
-                                            ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
+                                                absolutePath,
+                                                ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
                                         newContents.add(newPath);
                                         hasNewPath = true;
                                     }
@@ -375,15 +359,13 @@ public class AndroMDAppType
         }
 
         // - second process and write any output from the defined resource locations.
-        for (final Iterator<String> iterator = locations.keySet().iterator(); iterator.hasNext();)
+        for (final String location : locations.keySet())
         {
-            final String location = iterator.next();
-            final Collection contents = (Collection)locations.get(location);
+            final Collection<String> contents = locations.get(location);
             if (contents != null)
             {
-                for (final Iterator<String> contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+                for (final String path : contents)
                 {
-                    final String path = contentsIterator.next();
                     final String projectRelativePath = StringUtils.replace(
                             path,
                             location,
@@ -393,33 +375,32 @@ public class AndroMDAppType
                         if (this.isValidTemplate(path))
                         {
                             final File outputFile =
-                                new File(
-                                    rootDirectory.getAbsolutePath(),
-                                    this.trimTemplateExtension(projectRelativePath));
+                                    new File(
+                                            rootDirectory.getAbsolutePath(),
+                                            this.trimTemplateExtension(projectRelativePath));
                             if (write)
                             {
                                 final StringWriter writer = new StringWriter();
                                 try
                                 {
                                     this.getTemplateEngine().processTemplate(
-                                        path,
-                                        this.templateContext,
-                                        writer);
+                                            path,
+                                            this.templateContext,
+                                            writer);
                                 }
                                 catch (final Throwable throwable)
                                 {
                                     throw new AndroMDAppException("An error occured while processing template --> '" +
-                                        path + "' with template context '" + this.templateContext + '\'', throwable);
+                                            path + "' with template context '" + this.templateContext + '\'', throwable);
                                 }
                                 writer.flush();
                                 this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
                                 ResourceWriter.instance().writeStringToFile(
-                                    writer.toString(),
-                                    outputFile);
+                                        writer.toString(),
+                                        outputFile);
                             }
                             processedResources.add(outputFile);
-                        }
-                        else if (!path.endsWith(FORWARD_SLASH))
+                        } else if (!path.endsWith(FORWARD_SLASH))
                         {
                             final File outputFile = new File(
                                     rootDirectory.getAbsolutePath(),
@@ -427,7 +408,7 @@ public class AndroMDAppType
 
                             // - try the template engine merge location first
                             URL resource =
-                                ResourceUtils.toURL(ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + path));
+                                    ResourceUtils.toURL(ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + path));
                             if (resource == null)
                             {
                                 // - if we didn't find the file in the merge location, try the classpath
@@ -438,8 +419,8 @@ public class AndroMDAppType
                                 if (write)
                                 {
                                     ResourceWriter.instance().writeUrlToFile(
-                                        resource,
-                                        outputFile.toString());
+                                            resource,
+                                            outputFile.toString());
                                     this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
                                 }
                                 processedResources.add(outputFile);
@@ -451,9 +432,9 @@ public class AndroMDAppType
         }
 
         // - write any directories that are defined.
-        for (final Iterator directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
+        for (final Iterator<String> directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
         {
-            final String directoryPath = ((String)directoryIterator.next()).trim();
+            final String directoryPath = (directoryIterator.next()).trim();
             final File directory = new File(rootDirectory, directoryPath);
             if (this.isWriteable(directoryPath))
             {
@@ -475,8 +456,8 @@ public class AndroMDAppType
                 if (!instructions.exists())
                 {
                     throw new AndroMDAppException("No instructions are available at --> '" + instructions +
-                        "', please make sure you have the correct instructions defined in your descriptor --> '" +
-                        this.resource + '\'');
+                            "', please make sure you have the correct instructions defined in your descriptor --> '" +
+                            this.resource + '\'');
                 }
                 this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURI().toURL() + '\'');
             }
@@ -506,33 +487,28 @@ public class AndroMDAppType
 
         Boolean writable = null;
 
-        final Map evaluatedPaths = new LinkedHashMap();
-        for (final Iterator iterator = this.outputConditions.iterator(); iterator.hasNext();)
+        final Map<String, Boolean> evaluatedPaths = new LinkedHashMap<String, Boolean>();
+        for (final Conditions conditions : this.outputConditions)
         {
-            final Conditions conditions = (Conditions)iterator.next();
-            final Map outputPaths = conditions.getOutputPaths();
+            final Map<String, String[]> outputPaths = conditions.getOutputPaths();
             final String conditionsType = conditions.getType();
-            int ctr = 0;
-            for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext(); ctr++)
-            {
-                final String outputPath = (String)pathIterator.next();
 
+            for (final String outputPath : outputPaths.keySet())
+            {
                 // - only evaluate if we haven't yet evaluated
-                writable = (Boolean)evaluatedPaths.get(path);
+                writable = (Boolean) evaluatedPaths.get(path);
                 if (writable == null)
                 {
                     if (path.startsWith(outputPath))
                     {
-                        final String[] patterns = (String[])outputPaths.get(outputPath);
+                        final String[] patterns = outputPaths.get(outputPath);
                         if (ResourceUtils.matchesAtLeastOnePattern(
                                 path,
                                 patterns))
                         {
                             // - assume writable is false, since the path matches at least one conditions path.
-                            for (final Iterator conditionIterator = conditions.getConditions().iterator();
-                                conditionIterator.hasNext();)
+                            for (final Condition condition : conditions.getConditions())
                             {
-                                final Condition condition = (Condition)conditionIterator.next();
                                 final String id = condition.getId();
                                 if (StringUtils.isNotBlank(id))
                                 {
@@ -542,8 +518,7 @@ public class AndroMDAppType
                                     {
                                         // - if we 'and' the conditions, we break at the first false
                                         break;
-                                    }
-                                    else if (Conditions.TYPE_OR.equals(conditionsType) && result)
+                                    } else if (Conditions.TYPE_OR.equals(conditionsType) && result)
                                     {
                                         // - otherwise we break at the first true condition
                                         break;
@@ -555,8 +530,8 @@ public class AndroMDAppType
                     if (writable != null)
                     {
                         evaluatedPaths.put(
-                            path,
-                            writable);
+                                path,
+                                writable);
                     }
                 }
             }
@@ -582,16 +557,15 @@ public class AndroMDAppType
     {
         boolean exclude = false;
         final Map exclusions = this.getTemplateEngineExclusions();
-        for (final Iterator pathIterator = exclusions.keySet().iterator(); pathIterator.hasNext();)
+        for (final String exclusionPath : (Iterable<String>) exclusions.keySet())
         {
-            final String exclusionPath = (String)pathIterator.next();
             if (path.startsWith(exclusionPath))
             {
-                final String[] patterns = (String[])exclusions.get(exclusionPath);
+                final String[] patterns = (String[]) exclusions.get(exclusionPath);
                 // See http://galaxy.andromda.org/forum/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
                 exclude = ResourceUtils.matchesAtLeastOnePattern(
-                    exclusionPath,
-                    patterns);
+                        exclusionPath,
+                        patterns);
                 if (exclude)
                 {
                     break;
@@ -667,7 +641,7 @@ public class AndroMDAppType
         {
             this.printPromptText(
                     '\'' + rootDirectory.getAbsolutePath() +
-                "' already exists, would you like to try a new name? [yes, no]: ");
+                            "' already exists, would you like to try a new name? [yes, no]: ");
             String response = this.readLine();
             while (!RESPONSE_YES.equals(response) && !RESPONSE_NO.equals(response))
             {
@@ -700,9 +674,8 @@ public class AndroMDAppType
         boolean overwrite = false;
         if (this.configurations != null)
         {
-            for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+            for (final Configuration configuration : this.configurations)
             {
-                final Configuration configuration = (Configuration)iterator.next();
                 overwrite = configuration.isOverwrite();
                 if (overwrite)
                 {
@@ -743,7 +716,7 @@ public class AndroMDAppType
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString = null;
+        String inputString;
         try
         {
             inputString = input.readLine();
@@ -813,7 +786,7 @@ public class AndroMDAppType
     /**
      * Sets the configuration instance for this type.
      *
-     * @param configuration the optional configuration instance.
+     * @param configurations the optional configuration instance.
      */
     final void setConfigurations(final List<Configuration> configurations)
     {
@@ -885,6 +858,7 @@ public class AndroMDAppType
 
     /**
      * Adds an conditions element to the output conditions..
+     *
      * @param outputConditions the output conditions to add.
      */
     public void addOutputConditions(final Conditions outputConditions)
@@ -933,7 +907,7 @@ public class AndroMDAppType
     /**
      * The resource that configured this AndroMDAppType instance.
      */
-    URL resource;
+    private URL resource;
 
     /**
      * Sets the resource that configured this AndroMDAppType instance.
@@ -994,15 +968,15 @@ public class AndroMDAppType
      * Instantiates the template object with the given <code>className</code> and adds
      * it to the current template context.
      *
-     * @param name the name of the template variable.
+     * @param name      the name of the template variable.
      * @param className the name of the class to instantiate.
      */
     public void addTemplateObject(
-        final String name,
-        final String className)
+            final String name,
+            final String className)
     {
         this.templateContext.put(
-            name,
-            ClassUtils.newInstance(className));
+                name,
+                ClassUtils.newInstance(className));
     }
 }

@@ -76,7 +76,7 @@ public class AndroMDApp
     /**
      * All types of discovered AndroMDApps
      */
-    private Map types = new LinkedHashMap();
+    private Map<String, AndroMDAppType> types = new LinkedHashMap<String, AndroMDAppType>();
 
     /**
      * Performs any required initialization.
@@ -91,27 +91,24 @@ public class AndroMDApp
             final int numberOfDescriptorDirectories = descriptorDirectories.length;
             for (int ctr = 0; ctr < numberOfDescriptorDirectories; ctr++)
             {
-                final List directoryContents =
+                final List<String> directoryContents =
                     ResourceUtils.getDirectoryContents(
                         descriptorDirectories[ctr],
                         true,
                         null);
-                for (final Iterator iterator = directoryContents.iterator(); iterator.hasNext();)
+                for (final String uri : directoryContents)
                 {
-                    final String uri = (String)iterator.next();
-                    if (uri.replaceAll(
-                            ".*(\\\\+|/)",
-                            "").equals(DESCRIPTOR))
+                    if (uri.replaceAll(".*(\\\\+|/)","").equals(DESCRIPTOR))
                     {
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);
                         final URL descriptorUri = ResourceUtils.toURL(uri);
-                        final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(descriptorUri);
+                        final AndroMDAppType andromdapp = (AndroMDAppType) factory.getObject(descriptorUri);
                         andromdapp.setResource(descriptorUri);
                         final String type = andromdapp.getType();
                         AndroMDALogger.info("discovered andromdapp type --> '" + type + '\'');
                         this.types.put(
-                            type,
-                            andromdapp);
+                                type,
+                                andromdapp);
                     }
                 }
             }
@@ -121,7 +118,7 @@ public class AndroMDApp
     /**
      * Stores the optional configuration instance.
      */
-    private List configurations = new ArrayList();
+    private List<Configuration> configurations = new ArrayList<Configuration>();
 
     /**
      * Adds the URI for an optional configuration  These are useful if you want
@@ -139,7 +136,7 @@ public class AndroMDApp
             {
                 throw new AndroMDAppException("configuriationUri is invalid --> '" + configurationUri + '\'');
             }
-            this.configurations.add(factory.getObject(ResourceUtils.toURL(configurationUri)));
+            this.configurations.add((Configuration)factory.getObject(configurationUrl));
         }
     }
 
@@ -153,7 +150,7 @@ public class AndroMDApp
         if (StringUtils.isNotBlank(configuration))
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
-            this.configurations.add(factory.getObject(configuration));
+            this.configurations.add((Configuration)factory.getObject(configuration));
         }
     }
 
@@ -161,7 +158,7 @@ public class AndroMDApp
      * Prompts the user to choose the type of application, and then runs that AndroMDAppType.
      * @throws Exception
      */
-    private List chooseTypeAndRun(boolean write)
+    private List<File> chooseTypeAndRun(boolean write)
         throws Exception
     {
         if (this.types.isEmpty())
@@ -169,22 +166,21 @@ public class AndroMDApp
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
         final Map properties = new LinkedHashMap();
-        for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+        for (Configuration configuration : this.configurations)
         {
-            Configuration configuration = (Configuration)iterator.next();
             properties.putAll(configuration.getAllProperties());
         }
         final String applicationType = (String)properties.get(APPLICATION_TYPE);
-        final Set validTypes = this.types.keySet();
-        AndroMDAppType andromdapp = (AndroMDAppType)this.types.get(applicationType);
+        final Set<String> validTypes = this.types.keySet();
+        AndroMDAppType andromdapp = this.types.get(applicationType);
         if (andromdapp == null)
         {
             if (this.types.size() > 1)
             {
                 final StringBuffer typesChoice = new StringBuffer("[");
-                for (final Iterator iterator = validTypes.iterator(); iterator.hasNext();)
+                for (final Iterator<String> iterator = validTypes.iterator(); iterator.hasNext();)
                 {
-                    final String type = (String)iterator.next();
+                    final String type = iterator.next();
                     typesChoice.append(type);
                     if (iterator.hasNext())
                     {
@@ -198,11 +194,11 @@ public class AndroMDApp
                 {
                     selectedType = this.readLine();
                 }
-                andromdapp = (AndroMDAppType)this.types.get(selectedType);
+                andromdapp = this.types.get(selectedType);
             }
             else if (!this.types.isEmpty())
             {
-                andromdapp = (AndroMDAppType)((Map.Entry)this.types.entrySet().iterator().next()).getValue();
+                andromdapp = this.types.entrySet().iterator().next().getValue();
             }
         }
 
@@ -234,10 +230,9 @@ public class AndroMDApp
         {
             AndroMDALogger.initialize();
             this.initialize();
-            final List list = this.chooseTypeAndRun(false);
-            for (final Iterator iterator = list.iterator(); iterator.hasNext();)
+            final List<File> list = this.chooseTypeAndRun(false);
+            for (final File file : list)
             {
-                final File file = (File)iterator.next();
                 this.deleteFile(file);
             }
         }
