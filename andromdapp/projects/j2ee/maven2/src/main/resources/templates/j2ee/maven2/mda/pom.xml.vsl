@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-ejb3-cartridge</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
 #elseif ($spring)
@@ -193,55 +193,7 @@
                     <configurationUri>${project.basedir}/src/main/config/andromda.xml</configurationUri>
                 </configuration>
 #end
-            </plugin>
-            <!-- This will overwrite top level .project and .classpath each time.
-                 The maven Eclipse plugin in mda/pom.xml does a better job anyway. See mda/eclipse.bat.
-                 Uncomment if creating a single Eclipse project every MDA run. -->
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromdapp-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>eclipse</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>app/pom.xml</exclude>
-                    </excludes>
-#if ($ejb3)
-                    <classpathMerge>
-                        <![CDATA[
-                        <classpathentry kind="var" path="M2_REPO/org/testng/testng/4.7/testng-4.7-jdk15.jar"/>
-                        ]]>
-                    </classpathMerge>
-#end
-                </configuration>
-            </plugin>
-#if ($web)
-            <!-- Beautifier 1.1.9 bug: 'Collections' import is not pulled out of code properly - compilation failure.
-                 Comment out if creating web or webservice projects.
-#end
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-beautifier-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>beautify-imports</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <inputDirectory>${project.basedir}/..</inputDirectory>
-                </configuration>
-            </plugin>
-#if ($web)
-            --> 
-#end
+            </plugin>           
         </plugins>
     </build>
     <properties>
