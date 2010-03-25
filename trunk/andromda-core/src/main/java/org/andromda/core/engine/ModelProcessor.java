@@ -528,7 +528,7 @@ public class ModelProcessor
     private List<ModelValidationMessage> loadIfNecessary(final Model[] models)
     {
         final List<ModelValidationMessage> messages = new ArrayList<ModelValidationMessage>();
-        if (models != null && models.length > 0)
+        if (models != null)
         {
             for (Model model : models)
             {

@@ -1,35 +1,38 @@
 package org.andromda.core.common;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
+import java.io.FileWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * Provides utilities for loading resources.
  *
  * @author Chad Brandon
  * @author Bob Fields
+ * @author Michail Plushnikov
  */
 public class ResourceUtils
 {
@@ -73,20 +76,24 @@ public class ResourceUtils
      */
     public static String getContents(final URL resource)
     {
+        String result = null;
+
+        InputStream in = null;
         try
         {
-            return getContents(resource != null ? new InputStreamReader(resource.openStream()) : null);
+            if(null!=resource)
+            {
+                in = resource.openStream();
+                result = IOUtils.toString(in);
+            }
         }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
+        catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }finally {
+            IOUtils.closeQuietly(in);
         }
+        return result;
     }
-
-    /**
-     * The line separator.
-     */
-    private static final char LINE_SEPARATOR = '\n';
 
     /**
      * Loads the resource and returns the contents as a String.
@@ -96,24 +103,15 @@ public class ResourceUtils
      */
     public static String getContents(final Reader resource)
     {
-        final StringBuffer contents = new StringBuffer();
-        try
-        {
-            if (resource != null)
-            {
-                BufferedReader resourceInput = new BufferedReader(resource);
-                for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
-                {
-                    contents.append(line).append(LINE_SEPARATOR);
-                }
-                resourceInput.close();
-            }
+        String result;
+        try {
+            result = IOUtils.toString(resource);
+        }catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }finally {
+            IOUtils.closeQuietly(resource);
         }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
-        }
-        return contents.toString().trim();
+        return StringUtils.trimToEmpty(result);
     }
 
     /**
@@ -132,9 +130,9 @@ public class ResourceUtils
             final ZipFile archive = getArchive(resource);
             if (archive != null)
             {
-                for (final Enumeration entries = archive.entries(); entries.hasMoreElements();)
+                for (final Enumeration<? extends ZipEntry> entries = archive.entries(); entries.hasMoreElements();)
                 {
-                    final ZipEntry entry = (ZipEntry)entries.nextElement();
+                    final ZipEntry entry = entries.nextElement();
                     contents.add(entry.getName());
                 }
             }
@@ -156,10 +154,7 @@ public class ResourceUtils
         final URL resource,
         final int levels)
     {
-        return getDirectoryContents(
-            resource,
-            levels,
-            true);
+        return getDirectoryContents(resource, levels, true);
     }
 
     /**
@@ -178,9 +173,7 @@ public class ResourceUtils
     {
         if (StringUtils.isNotBlank(filePath))
         {
-            filePath = filePath.replaceAll(
-                    PATH_WHITESPACE_CHARACTER,
-                    " ");
+            filePath = filePath.replaceAll(PATH_WHITESPACE_CHARACTER, " ");
         }
         return filePath;
     }
@@ -222,9 +215,10 @@ public class ResourceUtils
                 // - remove the root path from each file
                 for (final ListIterator<String> iterator = contents.listIterator(); iterator.hasNext();)
                 {
+                    final String filePath = iterator.next();
                     iterator.set(
                         StringUtils.replace(
-                            new File(iterator.next()).getPath().replace(
+                            filePath.replace(
                                 '\\',
                                 '/'),
                             pluginDirectory.getPath().replace(
@@ -241,35 +235,41 @@ public class ResourceUtils
      * Loads all files find in the <code>directory</code> and adds them to the <code>fileList</code>.
      *
      * @param directory the directory from which to load all files.
-     * @param fileList  the List of files to which we'll add the found files.
+     * @param fileList  the Collection of files to which we'll add the found files.
      * @param includeSubdirectories whether or not to include sub directories when loading the files.
      */
     private static void loadFiles(
         final File directory,
-        final List<String> fileList,
+        final Collection<String> fileList,
         boolean includeSubdirectories)
     {
-        if (directory != null)
+        final Collection<File> lAllFiles = loadFiles(directory, includeSubdirectories);
+        for (File file : lAllFiles)
         {
-            final File[] files = directory.listFiles();
-            if (files != null)
-            {
-                for (File file : files)
-                {
-                    if (!file.isDirectory())
-                    {
-                        fileList.add(file.toString());
-                    }
-                    else if (includeSubdirectories)
-                    {
-                        loadFiles(
-                                file,
-                                fileList,
-                                includeSubdirectories);
-                    }
-                }
-            }
+            fileList.add(file.getPath());
+        }        
+    }
+
+    /**
+     * Loads all files find in the <code>directory</code> and returns them as Collection
+     *
+     * @param directory the directory from which to load all files.
+     * @param includeSubdirectories whether or not to include sub directories when loading the files.
+     * @return Collection with all files found in the directory
+     */
+    private static Collection<File> loadFiles(
+        final File directory,
+        boolean includeSubdirectories)
+    {
+        Collection<File> result = Collections.emptyList();
+        if(null!=directory && directory.exists())
+        {               
+            result = FileUtils.listFiles(
+                    directory.isDirectory()? directory : directory.getParentFile(),
+                    TrueFileFilter.INSTANCE,
+                    includeSubdirectories ? TrueFileFilter.INSTANCE : null);
         }
+        return result;
     }
 
     /**
@@ -335,7 +335,7 @@ public class ResourceUtils
     /**
      * Takes a className as an argument and returns the URL for the class.
      *
-     * @param className
+     * @param className name of class
      * @return java.net.URL
      */
     public static URL getClassResource(final String className)
@@ -354,9 +354,7 @@ public class ResourceUtils
      */
     private static String getClassNameAsResource(final String className)
     {
-        return className.replace(
-            '.',
-            '/') + ".class";
+        return className.replace('.','/') + ".class";
     }
 
     /**
@@ -440,7 +438,7 @@ public class ResourceUtils
                 //   of the URL resource
 //                uriConnection = null;
 //                System.gc();
-                uriConnection.getInputStream().close();
+                IOUtils.closeQuietly(uriConnection.getInputStream());
             }
         }
         catch (final Exception exception)
@@ -584,7 +582,7 @@ public class ResourceUtils
                     // - count the times the actual resource to resolve has been nested
                     final int nestingCount = StringUtils.countMatches(path, "!/");
                     // - this buffer is used to construct the URL spec to that specific resource
-                    final StringBuffer buffer = new StringBuffer();
+                    final StringBuilder buffer = new StringBuilder();
                     for (int ctr = 0; ctr < nestingCount; ctr++)
                     {
                         buffer.append(ARCHIVE_PREFIX);
@@ -629,35 +627,15 @@ public class ResourceUtils
         ExceptionUtils.checkEmpty(
             "fileLocation",
             fileLocation);
-        final File file = new File(fileLocation);
-        final File parent = file.getParentFile();
-        if (parent != null)
-        {
-            parent.mkdirs();
-        }
-        OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-        if (StringUtils.isNotBlank(encoding))
-        {
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(
-                        url.openStream(),
-                        encoding));
-            for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
-            {
-                stream.write(ctr);
-            }
-            inputReader.close();
-        }
-        else
-        {
-            InputStream inputStream = new BufferedInputStream(url.openStream());
-            for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
-            {
-                stream.write(ctr);
-            }
-            inputStream.close();
-        }
-        stream.flush();
-        stream.close();
+
+        makeDirectories(fileLocation);
+
+        final InputStream inputStream = url.openStream();
+        final FileWriter writer = new FileWriter(fileLocation);
+        IOUtils.copy(inputStream, writer, encoding);
+        writer.flush();
+        IOUtils.closeQuietly(inputStream);
+        IOUtils.closeQuietly(writer);
     }
 
 
@@ -670,36 +648,6 @@ public class ResourceUtils
     public static boolean isFile(final URL url)
     {
         return url != null && new File(url.getFile()).isFile();
-    }
-
-    /**
-     * Recursively deletes a directory and its contents.
-     *
-     * @param directory the directory to delete.
-     */
-    public static void deleteDirectory(final File directory)
-    {
-        if (directory != null && directory.exists() && directory.isDirectory())
-        {
-            final File[] files = directory.listFiles();
-            if (files != null && files.length > 0)
-            {
-                final int mergedTemplatesCount = files.length;
-                for (int ctr = 0; ctr < mergedTemplatesCount; ctr++)
-                {
-                    final File file = files[ctr];
-                    if (file.isDirectory())
-                    {
-                        deleteDirectory(file);
-                        file.delete();
-                    }
-                    else
-                    {
-                        file.delete();
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -795,23 +743,20 @@ public class ResourceUtils
         final String[] patterns)
     {
         boolean matches = (patterns == null || patterns.length == 0);
-        if (!matches)
+        if (!matches && patterns.length > 0)
         {
-            if (patterns!=null && patterns.length > 0)
+            final int patternNumber = patterns.length;
+            for (int ctr = 0; ctr < patternNumber; ctr++)
             {
-                final int patternNumber = patterns.length;
-                for (int ctr = 0; ctr < patternNumber; ctr++)
+                final String pattern = patterns[ctr];
+                if (PathMatcher.wildcardMatch(
+                        path,
+                        pattern))
                 {
-                    final String pattern = patterns[ctr];
-                    if (PathMatcher.wildcardMatch(
-                            path,
-                            pattern))
-                    {
-                        matches = true;
-                        break;
-                    }
+                    matches = true;
+                    break;
                 }
-            }
+            }            
         }
         return matches;
     }
@@ -828,15 +773,10 @@ public class ResourceUtils
         long time,
         final File directory)
     {
-        final List<String> files = new ArrayList<String>();
-        ResourceUtils.loadFiles(
-            directory,
-            files,
-            true);
+        final Collection<File> files = ResourceUtils.loadFiles(directory, true);
         boolean changed = files.isEmpty();
-        for (String fileName : files)
+        for (File file : files)
         {
-            final File file = new File(fileName);
             changed = file.lastModified() < time;
             if (changed)
             {
