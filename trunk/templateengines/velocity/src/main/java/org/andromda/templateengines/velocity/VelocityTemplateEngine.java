@@ -1,18 +1,5 @@
 package org.andromda.templateengines.velocity;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ExceptionUtils;
@@ -29,14 +16,24 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.log.Log4JLogChute;
-import org.apache.velocity.runtime.log.LogChute;
-import org.apache.velocity.tools.generic.EscapeTool;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeServices;
-import org.apache.velocity.runtime.log.LogSystem;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
+import org.apache.velocity.tools.generic.EscapeTool;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
