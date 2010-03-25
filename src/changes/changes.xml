@@ -188,7 +188,7 @@
                     <code>org.andromda.metafacades.uml.AssociationFacade#getAssociationEnds()</code> have the same signature
                     (List return type instead of Collection). If you have written your own cartridge then you'll have to regenerate it. If one
                     of your metafacades overrides <code>org::andromda::metafacades::uml::ClassifierFacade::associationEnds</code> then you'll have to
-                    change <code>#getAssociationEnds()</code>'s return type to <code>java.util.List</code>. Patch from Cédric Vidal.
+                    change <code>#getAssociationEnds()</code>'s return type to <code>java.util.List</code>. Patch from CÃ©dric Vidal.
                 ]]>
             </action>
             <action dev="cwbrandon" type="add" issue="UMLMETA-61">
@@ -204,7 +204,7 @@
                     into a <code>UML:AssociationClass</code> XMI 1.1 compliant file. It's available under
                     <a href="http://galaxy.andromda.org/jira/browse/UMLMETA-28">JIRA issue UMLMETA-28</a>. You can tell AndroMDA to apply that
                     XSLT before processing in the configuration using <a href="configuration.html#transformations">transformations</a>.
-                    Patch from Cédric Vidal.
+                    Patch from CÃ©dric Vidal.
                 ]]>
             </action>
             <action dev="draftdog" type="add">
@@ -1445,7 +1445,7 @@
             <action dev="cwbrandon" type="add">
                 <![CDATA[
                     The andromda task and maven plugin, now support an attribute called
-                    <code>failOnModelValidationErrors</code> which allows us to
+                    <code>failOnValidationErrors</code> which allows us to
                     turn on/off whether or not model processing should fail/stop
                     if
                     <strong>ANY</strong> model validation errors occur.
