@@ -1,79 +1,85 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>andromda-maven-plugins</artifactId>
-		<groupId>org.andromda.maven.plugins</groupId>
-		<version>3.4-SNAPSHOT</version>
-	</parent>
-	<artifactId>andromda-cartridge-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>AndroMDA Cartridge Maven Plugin</name>
-	<description>
-		A Maven plugin for performing AndroMDA cartridge related tasks (such
-		as running cartridge tests).
-	</description>
-	<inceptionYear>2005</inceptionYear>
-	<scm>
-		<connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/cartridge</connection>
-		<developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/cartridge</developerConnection>
-		<url>http://andromda.svn.sourceforge.net/</url>
-	</scm>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-cartridge-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Cartridge Maven Plugin</name>
+    <description>
+        A Maven plugin for performing AndroMDA cartridge related tasks (such
+        as running cartridge tests).
+    </description>
+    <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/cartridge</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/cartridge</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
+    <dependencies>
         <dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
-		<!-- Maven dependencies -->		
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-archiver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-artifact</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-model</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-settings</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-archiver</artifactId>
-		</dependency>
+        <!-- Maven dependencies -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-archiver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-settings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-archiver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>${plexus.util.version}</version>
+        </dependency>
 
-		<!-- Andromda dependencies -->
-		<dependency>
-			<groupId>org.andromda</groupId>
-			<artifactId>andromda-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.cartridges</groupId>
-			<artifactId>andromda-cartridge-testsuite</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.andromda.maven.plugins</groupId>
-			<artifactId>andromda-maven-plugin</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
+        <!-- Andromda dependencies -->
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-cartridge-testsuite</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-maven-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
