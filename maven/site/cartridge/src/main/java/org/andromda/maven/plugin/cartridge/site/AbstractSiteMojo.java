@@ -2,13 +2,14 @@ package org.andromda.maven.plugin.cartridge.site;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
-import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Abstract parent class used by site mojos to perform helper functions like copy
@@ -60,7 +61,7 @@ public abstract class AbstractSiteMojo
     protected void unpack(File file, File location)
         throws MojoExecutionException
     {
-        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
             location.mkdirs();
