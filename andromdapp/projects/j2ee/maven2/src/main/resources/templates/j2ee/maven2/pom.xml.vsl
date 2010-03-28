@@ -947,19 +947,6 @@
 #end
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>1.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-utils</artifactId>
-                        <version>1.5.6</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
     </build>
     <modules>
         <module>mda</module>
