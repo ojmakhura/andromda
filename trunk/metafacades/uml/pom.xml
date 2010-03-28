@@ -99,13 +99,6 @@
                         <generateJar>true</generateJar>
                         <buildSourceDirectory>target/src</buildSourceDirectory>
                     </configuration>
-                    <!--dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>${plexus.util.version}</version>
-                        </dependency>
-                   </dependencies-->
                 </plugin>
             </plugins>
         </pluginManagement>
