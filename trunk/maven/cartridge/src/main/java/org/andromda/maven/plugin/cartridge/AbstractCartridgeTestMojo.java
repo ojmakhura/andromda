@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -16,7 +18,6 @@ import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.util.FileUtils;
 
 
 /**
@@ -229,7 +230,7 @@ public abstract class AbstractCartridgeTestMojo
         final File location)
         throws MojoExecutionException
     {
-        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
             final UnArchiver unArchiver;

@@ -2,7 +2,8 @@ package org.andromda.maven.plugin.cartridge;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Iterator;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
@@ -12,7 +13,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
-import org.codehaus.plexus.util.FileUtils;
 
 
 /**
@@ -111,9 +111,8 @@ public class CartridgeArchiverMojo
         {
             if (artifacts != null)
             {
-                for (int ctr = 0; ctr < artifacts.length; ctr++)
+                for (final CartridgeArtifact cartridgeArtifact : artifacts)
                 {
-                    final CartridgeArtifact cartridgeArtifact = artifacts[ctr];
                     final Artifact artifact = this.resolveArtifact(cartridgeArtifact);
                     if (artifact != null)
                     {
@@ -121,28 +120,28 @@ public class CartridgeArchiverMojo
                         if (StringUtils.isBlank(path))
                         {
                             throw new MojoFailureException("Please specify the 'path' for the cartridge artifact [" +
-                                cartridgeArtifact.getGroupId() + ':' + cartridgeArtifact.getArtifactId() + ':' +
-                                cartridgeArtifact.getType() + ']');
+                                    cartridgeArtifact.getGroupId() + ':' + cartridgeArtifact.getArtifactId() + ':' +
+                                    cartridgeArtifact.getType() + ']');
                         }
 
                         final File destinationDirectory = new File(outputDirectory,
                                 cartridgeArtifact.getPath());
                         final File artifactFile = artifact.getFile();
                         final String artifactPath =
-                            artifactFile != null
-                            ? StringUtils.replace(
-                                artifact.getFile().toString().replaceAll(
-                                    ".*(\\\\|/)",
-                                    ""),
-                                '-' + artifact.getVersion(),
-                                "") : null;
+                                artifactFile != null
+                                        ? StringUtils.replace(
+                                        artifact.getFile().toString().replaceAll(
+                                                ".*(\\\\|/)",
+                                                ""),
+                                        '-' + artifact.getVersion(),
+                                        "") : null;
                         if (artifactPath != null)
                         {
                             FileUtils.copyFile(
-                                artifactFile,
-                                new File(
-                                    destinationDirectory,
-                                    artifactPath));
+                                    artifactFile,
+                                    new File(
+                                            destinationDirectory,
+                                            artifactPath));
                         }
                     }
                 }
@@ -186,7 +185,7 @@ public class CartridgeArchiverMojo
         Artifact resolvedArtifact = null;
         if (cartridgeArtifact != null)
         {
-            final Collection artifacts = this.project.getArtifacts();
+            final Collection<Artifact> artifacts = this.project.getArtifacts();
             final String groupId = cartridgeArtifact.getGroupId();
             final String artifactId = cartridgeArtifact.getArtifactId();
             final String type = cartridgeArtifact.getType();
@@ -196,11 +195,10 @@ public class CartridgeArchiverMojo
                         ':' + type + ']');
             }
 
-            for (final Iterator iterator = artifacts.iterator(); iterator.hasNext();)
-            {
-                final Artifact artifact = (Artifact)iterator.next();
+            for (final Artifact artifact : artifacts)
+            {                   
                 if (artifact.getGroupId().equals(groupId) && artifact.getArtifactId().equals(artifactId) &&
-                    (type == null || artifact.getType().equals(type)))
+                        (type == null || artifact.getType().equals(type)))
                 {
                     resolvedArtifact = artifact;
                     break;

@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -13,7 +15,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.FileUtils;
 
 
 /**
@@ -102,7 +103,7 @@ public class InitializeMojo
                 for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
                     String path = (String)iterator.next();
-                    final String extension = FileUtils.getExtension(path);
+                    final String extension = FilenameUtils.getExtension(path);
                     String fileName = this.getFileName(path);
                     final String version = this.project.getVersion();
                     final String versionedFileName =

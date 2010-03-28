@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.archiver.ArchiverException;
-import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Updates the cartridge expected output with the current cartridge output. Invoke it with
@@ -82,7 +82,7 @@ public class CartridgeTestUpdaterMojo
     protected void pack(final File location,
         final File file) throws MojoExecutionException
     {
-        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
             final Archiver archiver;

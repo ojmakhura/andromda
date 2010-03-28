@@ -7,11 +7,12 @@ import junit.framework.TestResult;
 import org.andromda.cartridges.testsuite.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
-import org.codehaus.plexus.util.FileUtils;
 
 
 /**
@@ -63,7 +64,7 @@ public class CartridgeTestMojo
             {
                 try
                 {
-                    FileUtils.cleanDirectory(this.expectedDirectory);
+                    FileUtils.cleanDirectory(expectedOutputDir);
                 }
                 catch (IOException ex)
                 {
@@ -86,7 +87,7 @@ public class CartridgeTestMojo
             {
                 try
                 {
-                    FileUtils.cleanDirectory(this.actualDirectory);
+                    FileUtils.cleanDirectory(actualOutputDir);
                 }
                 catch (IOException ex)
                 {
@@ -197,7 +198,7 @@ public class CartridgeTestMojo
         final File location)
         throws MojoExecutionException
     {
-        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
             final UnArchiver unArchiver;
