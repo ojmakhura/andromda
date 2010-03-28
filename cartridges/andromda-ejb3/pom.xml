@@ -68,6 +68,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-cartridge-plugin</artifactId>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>cartridge-howto-artifacts</id>
