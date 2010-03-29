@@ -41,7 +41,10 @@ public class $action.actionClassName
 #set ($useCase = $action)
 #end
         final String forwardPath = ${managedBeansPackage}.UseCaseForwards.getPath(controller.${action.controllerAction}());
-        response.sendRedirect(request.getContextPath() + forwardPath + (request.getQueryString() != null ? "?" + request.getQueryString() : ""));
+        ${useCase.actionClassName}ViewPopulator.populateFormAndViewVariables(
+           ${facesContextUtilsFullyQualifiedName}.getFacesContext(request, response),
+            null, forwardPath);
+        request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
     /**
