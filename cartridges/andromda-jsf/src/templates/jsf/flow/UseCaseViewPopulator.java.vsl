@@ -47,6 +47,7 @@ public final class $className
 #foreach ($view in $useCase.views)
 #if ($view.populatorRequired)
         populators.put("${view.path}.xhtml", ${view.fullyQualifiedPopulator}.class);
+        populators.put("${view.path}.jsf", ${view.fullyQualifiedPopulator}.class);
 #end
 #end
     }
