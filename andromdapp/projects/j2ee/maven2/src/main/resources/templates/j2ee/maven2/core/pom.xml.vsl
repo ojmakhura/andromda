@@ -285,8 +285,8 @@
             <artifactId>axiom-impl</artifactId>
         </dependency>
         <dependency>
-                <groupId>org.apache.ws.commons.axiom</groupId>
-                <artifactId>axiom-api</artifactId>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-api</artifactId>
         </dependency>
         <dependency>
             <groupId>backport-util-concurrent</groupId>
@@ -311,10 +311,6 @@
         <dependency>
             <groupId>stax</groupId>
             <artifactId>stax-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
         </dependency>
 #end
 #elseif ($xfire)
