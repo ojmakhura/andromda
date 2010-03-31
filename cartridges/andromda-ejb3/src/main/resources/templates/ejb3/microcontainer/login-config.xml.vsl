@@ -57,7 +57,7 @@ The outline of the application-policy is:
         flag="required"/>
     </authentication>
   </application-policy>
-  
+
 #if ($stringUtils.isNotBlank(${securityRealm}))
   <application-policy name="${securityRealm}">
     <!-- A simple server login module, which can be used when the number

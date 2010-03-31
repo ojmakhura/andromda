@@ -23,7 +23,7 @@ public class $service.serviceDelegateName
     {
         super();
     }
-    
+
     /**
      * Constructor setting the envirinment properties.
      *
@@ -33,7 +33,7 @@ public class $service.serviceDelegateName
     {
         super(properties);
     }
-    
+
 #if ($service.viewTypeRemote)
     /**
      * Gets an instance of {@link $service.fullyQualifiedServiceRemoteInterfaceName}
@@ -43,7 +43,7 @@ public class $service.serviceDelegateName
     {
         return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Remote(getProperties());
     }
-    
+
 #end
 #if ($service.viewTypeLocal)
     /**
@@ -54,7 +54,7 @@ public class $service.serviceDelegateName
     {
         return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Local(getProperties());
     }
-    
+
 #end
 #foreach ($operation in $service.businessOperations)
 ##
@@ -79,7 +79,7 @@ public class $service.serviceDelegateName
                 case LOCAL_VIEW_TYPE:
                     #if ($operation.returnTypePresent)return #end#**#get${service.name}Local().${operation.call};
                     #if (!$operation.returnTypePresent)break;#end
-                    
+
                 case REMOTE_VIEW_TYPE:
                 default:
                     #if ($operation.returnTypePresent)return #end#**#get${service.name}Remote().${operation.call};

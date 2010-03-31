@@ -14,7 +14,7 @@ public enum ${enum.name} implements java.io.Serializable
 {
 #foreach ($literal in $enum.literals)
     /**
-$literal.getDocumentation("     * ") 
+$literal.getDocumentation("     * ")
      */
     ${literal.name}#if ($literal.enumerationLiteralParametersExist)(${literal.enumerationLiteralParameters})#end#if ($velocityCount != $enum.literals.size()),#else#**#;#end
 
@@ -22,7 +22,7 @@ $literal.getDocumentation("     * ")
 #end
 #foreach ($memberVariable in $enum.memberVariables)
     /**
-$memberVariable.getDocumentation("     * ") 
+$memberVariable.getDocumentation("     * ")
      */
     $memberVariable.visibility $memberVariable.type.fullyQualifiedName ${memberVariable.name};
 
@@ -68,7 +68,7 @@ $memberVariable.getDocumentation("     * ")
         return values()[value];
 #end
     }
-    
+
     /**
      * Return a Collection of all literal values for this enumeration
      * @return java.util.Collection literal values

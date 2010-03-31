@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 public class $mdb.messageDrivenTestName
 {
     private static final Log logger = LogFactory.getLog(${mdb.messageDrivenTestName}.class);
-    
+
     @org.testng.annotations.Test
     public void test${mdb.name}()
     {

@@ -30,24 +30,24 @@ public final class $manageable.manageableServiceBaseName
     implements $manageable.manageableServiceName
 {
     // ------ Session Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
-    
+
     // ------ Persistence Context Injection --------
 
     /**
      * Inject persistence context #if ($manageable.defaultPersistenceContextUnitName)${manageable.defaultPersistenceContextUnitName}#end
-     
+
      */
     @javax.persistence.PersistenceContext#if ($manageable.defaultPersistenceContextUnitName)(unitName = "${manageable.defaultPersistenceContextUnitName}")#end
-    
+
     protected javax.persistence.EntityManager emanager;
-    
+
 #set ($associatedClasses = $manageable.allAssociatedClasses)
 #if (!$associatedClasses.empty)
     // ------------ Private Operations ----------
-    
+
 #**##foreach ($associatedClass in $associatedClasses)
     private java.util.List<${associatedClass.fullyQualifiedEntityName}> find${associatedClass.name}ByIds(${associatedClass.identifier.type.fullyQualifiedName}[] ids)
         throws ${manageable.fullyQualifiedManageableServiceReadExceptionName}
@@ -67,7 +67,7 @@ public final class $manageable.manageableServiceBaseName
 #**##end
 #end
     // ------------ CRUD Operations -------------
-    
+
 #if ($manageable.create)
     /**
      * Create operations
@@ -103,11 +103,11 @@ public final class $manageable.manageableServiceBaseName
 #**##foreach ($member in $manageable.manageableAssociationEnds)
 #*  *##if ($member.many)
 #*    *##set ($memberEntityName = "${member.name}Entities")
-            final java.util.List<${member.type.fullyQualifiedName}> $memberEntityName = 
+            final java.util.List<${member.type.fullyQualifiedName}> $memberEntityName =
                 ($member.name != null && ${member.name}.length > 0)
                     ? this.find${member.type.name}ByIds($member.name)
                         : java.util.Collections.EMPTY_LIST;
-                
+
 #*  *##else
 #*    *##set ($memberEntityName = "${member.name}Entity")
             $member.type.fullyQualifiedName $memberEntityName = null;
@@ -141,7 +141,7 @@ public final class $manageable.manageableServiceBaseName
 #*    *##end
 #*  *##end
             }
-            
+
 #**##end
 
             emanager.persist(entity);
@@ -162,17 +162,17 @@ public final class $manageable.manageableServiceBaseName
      * @return $manageable.fullyQualifiedEntityName
      * @throws $manageable.fullyQualifiedManageableServiceReadExceptionName
      */
-	public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
         throws ${manageable.fullyQualifiedManageableServiceReadExceptionName}
-	{
-		try{
-			return (${manageable.fullyQualifiedEntityName})emanager.find(${manageable.fullyQualifiedEntityName}.class, ${identifier.name});
+    {
+        try{
+            return (${manageable.fullyQualifiedEntityName})emanager.find(${manageable.fullyQualifiedEntityName}.class, ${identifier.name});
         }
         catch (Exception ex)
         {
             throw new ${manageable.fullyQualifiedManageableServiceReadExceptionName}(ex);
         }
-	}
+    }
 
     /**
      * Read operation
@@ -194,7 +194,7 @@ public final class $manageable.manageableServiceBaseName
 #**##foreach ($member in $manageable.manageableAttributes)
 #*  *##if ($member.type.primitive)
         buf.append(logicalOperator);
-#*    *##if ($member.type.fullyQualifiedName == 'boolean')
+#*    *##if ($member.type.booleanType)
         if ($member.name)
         {
             buf.append("entity.${member.name} is true");
@@ -211,7 +211,7 @@ public final class $manageable.manageableServiceBaseName
         if ($member.name != null)
         {
             buf.append(logicalOperator);
-#*    *##if ($member.type.fullyQualifiedName == 'java.lang.Boolean')
+#*    *##if ($member.type.booleanType)
             if (${member.name}.booleanValue())
             {
                 buf.append("entity.${member.name} is true");
@@ -266,11 +266,11 @@ public final class $manageable.manageableServiceBaseName
             final javax.persistence.Query query = emanager.createQuery(buf.toString());
 #**##foreach ($member in $manageable.manageableAttributes)
 #*  *##if ($member.type.primitive)
-#*    *##if ($member.type.fullyQualifiedName != 'boolean')
+#*    *##if ($member.type.booleanType)
             query.setParameter("$member.name", new ${member.type.wrapperName}($member.name));
 #*    *##end
 #*  *##else
-#*    *##if ($member.type.fullyQualifiedName != 'java.lang.Boolean')
+#*    *##if ($member.type.booleanType)
             if ($member.name != null)
             {
 #*      *##if ($member.type.dateType)
@@ -370,18 +370,18 @@ public final class $manageable.manageableServiceBaseName
                     if (result.${member.getterName}() != null)
                     {
 #*  *##if ($member.many)
-	                    java.util.Collection<${member.type.manageableDisplayAttribute.type.fullyQualifiedName}> $member.labelName = java.util.Collections.synchronizedCollection(new java.util.ArrayList<${member.type.manageableDisplayAttribute.type.fullyQualifiedName}>());
-	                    for (final java.util.Iterator<${member.type.fullyQualifiedEntityName}> iterator = result.${member.getterName}().iterator(); iterator.hasNext();)
-	                    {
-	                        ${member.type.fullyQualifiedEntityName} entity = iterator.next();
-	                        synchronized (${member.labelName})
-	                        {
-	                            ${member.labelName}.add(entity.${member.type.manageableDisplayAttribute.getterName}());
-	                        }
-	                    }
-	                    result.${member.setterLabelName}(${member.labelName});
+                        java.util.Collection<${member.type.manageableDisplayAttribute.type.fullyQualifiedName}> $member.labelName = java.util.Collections.synchronizedCollection(new java.util.ArrayList<${member.type.manageableDisplayAttribute.type.fullyQualifiedName}>());
+                        for (final java.util.Iterator<${member.type.fullyQualifiedEntityName}> iterator = result.${member.getterName}().iterator(); iterator.hasNext();)
+                        {
+                            ${member.type.fullyQualifiedEntityName} entity = iterator.next();
+                            synchronized (${member.labelName})
+                            {
+                                ${member.labelName}.add(entity.${member.type.manageableDisplayAttribute.getterName}());
+                            }
+                        }
+                        result.${member.setterLabelName}(${member.labelName});
 #*  *##else
-                    	result.${member.setterName}#if ($member.many)Labels#else#**#Label#end(result.${member.getterName}().${member.type.manageableDisplayAttribute.getterName}());
+                        result.${member.setterName}#if ($member.many)Labels#else#**#Label#end(result.${member.getterName}().${member.type.manageableDisplayAttribute.getterName}());
 #*  *##end
                     }
                     return result;
@@ -497,11 +497,11 @@ public final class $manageable.manageableServiceBaseName
 #**##foreach ($member in $manageable.manageableAssociationEnds)
 #*  *##if ($member.many)
 #*    *##set ($memberEntityName = "${member.name}Entities")
-            final java.util.List<${member.type.fullyQualifiedName}> $memberEntityName = 
+            final java.util.List<${member.type.fullyQualifiedName}> $memberEntityName =
                 ($member.name != null && ${member.name}.length > 0)
                     ? this.find${member.type.name}ByIds($member.name)
                         : java.util.Collections.EMPTY_LIST;
-                
+
 #*  *##else
 #*    *##set ($memberEntityName = "${member.name}Entity")
             $member.type.fullyQualifiedName $memberEntityName = null;

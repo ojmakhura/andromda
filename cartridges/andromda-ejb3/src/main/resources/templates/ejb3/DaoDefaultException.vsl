@@ -14,10 +14,10 @@ import org.apache.commons.beanutils.PropertyUtils;
 $entity.getDocumentation(" * ")
  */
 public class ${entity.daoDefaultExceptionName}
-    extends java.lang.Exception
+    extends Exception
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 

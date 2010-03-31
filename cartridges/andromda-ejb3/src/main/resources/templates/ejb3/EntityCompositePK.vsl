@@ -10,11 +10,11 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 @javax.persistence.Embeddable
-public class ${entity.entityCompositePrimaryKeyName} 
+public class ${entity.entityCompositePrimaryKeyName}
     implements java.io.Serializable, Comparable<${entity.entityCompositePrimaryKeyName}>
 {
     private static final long serialVersionUID = 1L;
-    
+
 #set ($identifiers = $entity.getIdentifiers())
 #foreach ($attribute in $identifiers)
     private $attribute.type.fullyQualifiedName $attribute.name;
@@ -24,7 +24,7 @@ public class ${entity.entityCompositePrimaryKeyName}
     {
         // default null constructor
     }
-    
+
     /**
      * Implementation for the main constructor with all POJO identifier attributes.
      *
@@ -32,13 +32,13 @@ public class ${entity.entityCompositePrimaryKeyName}
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
-    public ${entity.entityCompositePrimaryKeyName}($entity.getAttributesAsList($identifiers, true, true, true)) 
+    public ${entity.entityCompositePrimaryKeyName}($entity.getAttributesAsList($identifiers, true, true, true))
     {
 #foreach ($attribute in $identifiers)
         ${attribute.setterName}(${attribute.name});
 #end
     }
-    
+
 #foreach ($attribute in $identifiers)
 #**##set ($visibility = $attribute.visibility)
     /**
@@ -66,7 +66,7 @@ $attribute.getDocumentation("     * ")
         int result = 0;
 #foreach($attribute in $identifiers)
 #**##if ($attribute.type.primitive)
-#*  *##if ($attribute.type.fullyQualifiedName == "java.lang.boolean")
+#*  *##if ($attribute.type.booleanType)
         result = 37*result + (this.${attribute.name} ? 0 : 1);
 #*  *##else
         result = 37*result + (int)this.${attribute.name};
@@ -96,18 +96,18 @@ $attribute.getDocumentation("     * ")
         return
 #set ($totalIdentifiers = $identifiers.size())
 #foreach($attribute in $identifiers)
-#**##if ($attribute.type.fullyQualifiedName == "java.lang.String")
+#**##if ($attribute.type.stringType)
             #if ($velocityCount > 1)&&#end pk.${attribute.name}.equals(this.${attribute.name})#if ($velocityCount == $totalIdentifiers);#end
-            
+
 #**##else
             #if ($velocityCount > 1)&&#end pk.${attribute.name} == this.${attribute.name}#if ($velocityCount == $totalIdentifiers);#end
-            
+
 #**##end
 #end
     }
-    
+
     /**
-     * @see java.lang.Comparable${esc.hash}compareTo(T)
+     * @see Comparable${esc.hash}compareTo(T)
      */
     public int compareTo(${entity.entityCompositePrimaryKeyName} o)
     {

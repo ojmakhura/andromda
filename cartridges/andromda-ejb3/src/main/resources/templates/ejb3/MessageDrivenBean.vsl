@@ -10,7 +10,7 @@ package $mdb.packageName;
  *
 $mdb.getDocumentation(" * ")
  */
- 
+
 // The MessageDriven annotation is now fully configured in ejb-jar.xml
 // This allows to set the class name to the MDB implementation class
 // The annotation is commented to avoid multiple registration with the
@@ -22,11 +22,11 @@ $mdb.getDocumentation(" * ")
 //
 #if ($mdb.acknowledgeMode)
 //  @javax.ejb.ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="${mdb.acknowledgeMode}")#if ($mdb.messageSelector || $mdb.subscriptionDurability),#end
-// 
+//
 #end
 #if ($mdb.messageSelector)
 //  @javax.ejb.ActivationConfigProperty(propertyName="messageSelector", propertyValue="${mdb.messageSelector}")#if ($mdb.subscriptionDurability),#end
-//  
+//
 #end
 #if ($mdb.subscriptionDurability)
 //  @javax.ejb.ActivationConfigProperty(propertyName="durability", propertyValue="${mdb.subscriptionDurability}")
@@ -36,9 +36,9 @@ $mdb.getDocumentation(" * ")
 
 #set ($interceptors = $mdb.interceptorReferences)
 #if ($collectionUtils.size($interceptors) >= 1 || $mdb.listenerEnabled)
-#**##if ($mdb.listenerEnabled) 
+#**##if ($mdb.listenerEnabled)
 #*  *##set ($lifecycleCallback = "${mdb.fullyQualifiedMessageDrivenListenerName}.class")
-#**##else 
+#**##else
 #*  *##set ($lifecycleCallback = "")
 #**##end
 // Lifecycle callback listeners and interceptors are defined in ejb-jar.xml
@@ -63,13 +63,13 @@ public abstract class ${mdb.messageDrivenName}
     implements javax.jms.MessageListener
 {
     // ------ Message Driven Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.MessageDrivenContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
-    
+
     @javax.annotation.Resource
     protected javax.transaction.UserTransaction userTrans;
 #end
@@ -77,7 +77,7 @@ public abstract class ${mdb.messageDrivenName}
 #if (!$constants.empty)
 
     // ----------- Constant Definitions -----------
-    
+
 #**##foreach($constant in $constants)
     public static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #**##end
@@ -94,37 +94,37 @@ public abstract class ${mdb.messageDrivenName}
      */
     @javax.ejb.EJB
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
-    
+
 #**##end
 #end
 #set ($envEntries = $mdb.getEnvironmentEntries(true))
 #if (!$envEntries.empty)
 
     // ---------- Env Entry Injection -----------
-    
+
 #**##foreach ($envEntry in $envEntries)
     /**
      * The $envEntry.name resource injection
      */
     @javax.annotation.Resource(name = "${envEntry.name}")
     protected $envEntry.type.fullyQualifiedName $envEntry.name;
-    
+
 #**##end
 #end
 
     // --------- Default Constructor ----------
-    
+
     public ${mdb.messageDrivenName}()
     {
         // Empty implementation
     }
 
-    
+
 #set ($operations = $mdb.operations)
 #if (!$operations.empty)
 
     // -------- User Defined Methods  --------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##set ($visibility = $operation.visibility)
     /**

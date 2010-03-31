@@ -57,36 +57,36 @@ public abstract class ${service.serviceBaseName}
 
 {
     // ------ Session Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
-    
+
     @javax.annotation.Resource
     protected javax.transaction.UserTransaction userTrans;
 #end
 
     // ------ Persistence Context Definitions --------
-    
+
 #set ($argExists = false)
     /**
      * Inject persistence context #if ($service.persistenceContextUnitName)${service.persistenceContextUnitName}#end
-     
+
      */
     @javax.persistence.PersistenceContext#if ($service.persistenceContextUnitName || $service.persistenceContextType)(#end#if ($service.persistenceContextUnitName)unitName = "${service.persistenceContextUnitName}"#set ($argExists = true)#end#if ($service.persistenceContextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${service.persistenceContextType}#end#if ($service.persistenceContextUnitName || $service.persistenceContextType))#end
-    
+
     protected javax.persistence.EntityManager emanager;
 #foreach ($persistenceContext in $service.persistenceContextReferences)
 #**##set ($argExists = false)
 
     /**
      * Inject persistence context #if ($persistenceContext.unitName)${persistenceContext.unitName}#end
-     
+
      */
     @javax.persistence.PersistenceContext#if ($persistenceContext.unitName || $persistenceContext.contextType)(#end#if ($persistenceContext.unitName)unitName = "${persistenceContext.unitName}"#set ($argExists = true)#end#if ($persistenceContext.contextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${persistenceContext.contextType}#end#if ($persistenceContext.unitName || $persistenceContext.contextType))#end
-     
+
     protected javax.persistence.EntityManager $stringUtils.uncapitalize(${persistenceContext.name});
 #end
 #set ($references = $service.serviceReferences)
@@ -98,7 +98,7 @@ public abstract class ${service.serviceBaseName}
 
 #*  *##if ($service.seamComponent && $reference.seamComponent)
     /**
-     * Inject Seam session EJB ${reference.name} 
+     * Inject Seam session EJB ${reference.name}
      */
     @org.jboss.seam.annotations.In
 #*  *##else
@@ -128,7 +128,7 @@ public abstract class ${service.serviceBaseName}
 #if (!$mdbReferences.empty)
 
     // ------ Message Driven EJB Injection Definitions --------
-    
+
 #**##foreach ($dependency in $mdbReferences)
 #*  *##set ($reference = $dependency.targetElement)
 #*  *##if ($reference.destinationTypeQueue)
@@ -158,7 +158,7 @@ public abstract class ${service.serviceBaseName}
 #if (!$constants.empty)
 
     // ----------- Constant Definitions -----------
-    
+
 #**##foreach($constant in $constants)
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #**##end
@@ -167,7 +167,7 @@ public abstract class ${service.serviceBaseName}
 #if(!$instanceAttributes.empty)
 
     // --------- Attribute Definitions ------------
-    
+
 #**##foreach ($attribute in $instanceAttributes)
     /**
      * The $attribute.name property
@@ -210,26 +210,26 @@ public abstract class ${service.serviceBaseName}
 #*    *##end
 #*  *##end
     protected #if ($attribute.seamBijectionLogger)org.jboss.seam.log.Log#else$attribute.type.fullyQualifiedName#end $attribute.name;
-    
+
 #**##end
 #end
 #set ($envEntries = $service.getEnvironmentEntries(true))
 #if (!$envEntries.empty)
 
     // ---------- Env Entry Injection -----------
-    
+
 #**##foreach ($envEntry in $envEntries)
     /**
      * The $envEntry.name resource injection
      */
     @javax.annotation.Resource(name = "${envEntry.name}")
     protected $envEntry.type.fullyQualifiedName $envEntry.name;
-    
+
 #**##end
 #end
-    
+
     // --------------- Constructors ---------------
-    
+
 ## Default create method with no arguments.
     public ${service.serviceBaseName}()
     {
@@ -260,7 +260,7 @@ public abstract class ${service.serviceBaseName}
 #if (!$constants.empty)
 
     // --------- Accessors for Constants ----------
-    
+
 #**##foreach($constant in $constants)
 #*  *##if ($constant.visibility == "public")
     /**
@@ -271,14 +271,14 @@ $constant.getDocumentation("     * ")
     {
         return $constant.name;
     }
-    
+
 #*  *##end
 #**##end
 #end
 #if(!$instanceAttributes.empty)
 
     // ------- Accessors for Attributes ----------
-    
+
 #**##foreach ($attribute in $service.filterSeamAttributes(${instanceAttributes}))
 #*  *##set ($visibility = $attribute.visibility)
     /**
@@ -290,7 +290,7 @@ $attribute.getDocumentation("     * ")
     @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
 #*    *##end
 #*  *##end
-    $visibility $attribute.type.fullyQualifiedName ${attribute.getterName}() 
+    $visibility $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
        return $attribute.name;
     }
@@ -306,7 +306,7 @@ $attribute.getDocumentation("     * ")
     @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
 #*      *##end
 #*    *##end
-    $visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName value) 
+    $visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
     {
        this.$attribute.name = value;
     }
@@ -333,7 +333,7 @@ $attribute.getDocumentation("     * ")
 #if (!$operations.empty)
 
     // -------- Business Methods  --------------
-    
+
 #**##foreach ($operation in $operations)
 ##
 ## Check that operation is NOT a lifecycle callback
@@ -486,7 +486,7 @@ $operation.getDocumentation("     * ")
         }
 #*    *##end
     }
-    
+
 #*    *##if ($operation.constraintsPresent)
     /**
      * Performs any precondition checks for {@link ${esc.hash}${operation.call}}.
@@ -501,7 +501,7 @@ $operation.getDocumentation("     * ")
      * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
      */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
-        throws java.lang.Exception;
+        throws Exception;
 
 #*  *##end
 #**##end
@@ -509,7 +509,7 @@ $operation.getDocumentation("     * ")
 #if (!$operations.empty)
 
     // -------- Lifecycle Callbacks --------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##if ($operation.lifecycleCallback)
     /**
@@ -531,7 +531,7 @@ $operation.getDocumentation("     * ")
     {
         this.handle${stringUtils.capitalize(${operation.name})}();
     }
-    
+
     /**
      * Performs the core logic for {@link ${esc.hash}${operation.name}()}
      */
@@ -543,7 +543,7 @@ $operation.getDocumentation("     * ")
 #if ($service.stateful)
 
     // ------------ Destroy Method ------------
-    
+
     /**
      * Remove lifecycle method
      */

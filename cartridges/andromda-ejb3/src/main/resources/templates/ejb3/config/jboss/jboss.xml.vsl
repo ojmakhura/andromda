@@ -13,7 +13,7 @@
 #end
 #if ($stringUtils.isNotBlank(${securityRealm}))
     <security-domain>${securityRealm}</security-domain>
-    
+
 #end
     <enterprise-beans>
 
@@ -52,10 +52,10 @@
             <mdb-subscription-id>${mdb.durableSubscriptionId}</mdb-subscription-id>
 #**##end
         </message-driven>
-        
+
 #end
     </enterprise-beans>
 
 <!-- jboss container merge-point -->
-    
+
 </jboss>

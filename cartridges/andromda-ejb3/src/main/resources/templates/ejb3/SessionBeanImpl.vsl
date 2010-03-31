@@ -38,8 +38,8 @@ package $service.packageName;
 // Uncomment to enable webservices for ${service.serviceName}
 // @javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
 #end
-public class ${service.serviceName} 
-    extends ${service.fullyQualifiedServiceBaseName} 
+public class ${service.serviceName}
+    extends ${service.fullyQualifiedServiceBaseName}
     implements#if ($service.viewTypeLocal) ${service.fullyQualifiedServiceLocalInterfaceName}#if ($service.viewTypeRemote),#end#end#if ($service.viewTypeRemote) ${service.fullyQualifiedServiceRemoteInterfaceName}#end
 
 {
@@ -49,9 +49,9 @@ public class ${service.serviceName}
      */
     private static final long serialVersionUID = 1L;
 #end
-    
+
     // --------------- Constructors ---------------
-    
+
 ## Default create method with no arguments.
     /**
      * Default constructor extending base class default constructor
@@ -92,7 +92,7 @@ $operation.getDocumentation("     * ")
 #if (!$operations.empty)
 
     // -------- Business Methods Impl --------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##if (!$operation.lifecycleCallback)
     /**
@@ -110,16 +110,16 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
 #*    *##if ($abstract)
-        throws java.lang.Exception;
+        throws Exception;
 #*    *##else
-        throws java.lang.Exception
+        throws Exception
     {
         //TODO: put your implementation here.
 #*      *##if ($operation.returnTypePresent)
         // Dummy return value, just that the file compiles
         return $operation.returnType.javaNullString;
 #*      *##else
-        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedServiceName}.${operation.implementationSignature} Not implemented!");
+        throw new UnsupportedOperationException("${service.fullyQualifiedServiceName}.${operation.implementationSignature} Not implemented!");
 #*      *##end
     }
 #*    *##end
@@ -130,7 +130,7 @@ $operation.getDocumentation("     * ")
 #if (!$operations.empty)
 
     // -------- Lifecycle Callback Implementation --------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##if ($operation.lifecycleCallback)
     /**
@@ -140,7 +140,7 @@ $operation.getDocumentation("     * ")
     {
         // TODO put your lifecycle callback implementation here.
     }
-    
+
 #*  *##end
 #**##end
 #end

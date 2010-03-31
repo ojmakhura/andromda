@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 $manageable.getDocumentation(" * ")
  */
 public class ${manageable.manageableServiceCreateExceptionName}
-    extends java.lang.Exception
+    extends Exception
 {
     /**
      * The default constructor.

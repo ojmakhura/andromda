@@ -21,8 +21,8 @@ public interface $manageable.manageableServiceName
 
 #end
 #if ($manageable.read)
-	public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
-		throws ${manageable.fullyQualifiedManageableServiceReadExceptionName};
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+        throws ${manageable.fullyQualifiedManageableServiceReadExceptionName};
 
     public java.util.List read($memberList)
         throws ${manageable.fullyQualifiedManageableServiceReadExceptionName};

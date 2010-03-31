@@ -35,7 +35,7 @@ public abstract class $embeddedValue.name
 #*  *##set ($parenthesis = "()")
 #**##end
     public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)#end#end
-    
+
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();
 #**##foreach ($attribute in $embeddedValue.attributes)
@@ -87,7 +87,7 @@ $attribute.getDocumentation("     * ")
 #*    *##if ($attribute.lob)
 ##
 ## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
-## Also sepcify Fetch type in Basic annotation if set to EAGER since 
+## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
     @javax.persistence.Lob
@@ -111,7 +111,7 @@ $attribute.getDocumentation("     * ")
 #*  *##end
 ##
 ## Override attribute type if attribute is a LOB and lob type is specified
-##     
+##
     $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
     {
         return this.${attribute.name};

@@ -32,7 +32,7 @@ public interface ${service.serviceRemoteInterfaceName}
 #if (!$operations.empty)
 
     // ------------ Business Methods  -----------------
-    
+
 #**##foreach ($operation in $operations)
 ##
 ## Only expose methods that are not lifecycle callbacks

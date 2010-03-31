@@ -38,7 +38,7 @@ public class $entity.daoImplementationName
 #**##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #**##else
-        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedEntityName}.${signature} Not implemented!");
+        throw new UnsupportedOperationException("${entity.fullyQualifiedEntityName}.${signature} Not implemented!");
 #**##end
     }
 
@@ -48,7 +48,7 @@ public class $entity.daoImplementationName
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
     public void ${valueObjectRef.transformationMethodName}(
-        $entity.fullyQualifiedEntityName sourceEntity, 
+        $entity.fullyQualifiedEntityName sourceEntity,
         $valueObjectRef.targetElement.fullyQualifiedName targetVO)
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationMethodName}
@@ -79,15 +79,15 @@ public class $entity.daoImplementationName
 
     /**
      * Retrieves the entity object that is associated with the specified value object
-     * from the object store. If no such entity object exists in the object store, 
+     * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
     private $entity.fullyQualifiedEntityName load${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
     {
         // ${toDoTag} implement load${entity.name}From${valueObjectRef.targetElement.name}
-        throw new java.lang.UnsupportedOperationException("${entity.packageName}.load${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName) not yet implemented.");
+        throw new UnsupportedOperationException("${entity.packageName}.load${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName) not yet implemented.");
 
-        /* A typical implementation looks like this:        
+        /* A typical implementation looks like this:
         $entity.fullyQualifiedEntityName $stringUtils.uncapitalize($entity.name) = this.load(${stringUtils.uncapitalize($valueObjectRef.name)}.getId());
         if ($stringUtils.uncapitalize($entity.name) == null)
         {
@@ -97,7 +97,7 @@ public class $entity.daoImplementationName
         */
     }
 
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName)
      */
@@ -128,7 +128,7 @@ public class $entity.daoImplementationName
 #*      *##set ($getVal = $converter.typeConvert($voProperty.type.fullyQualifiedName, "sourceVO.${voProperty.getterName}()", $attribute.type.fullyQualifiedName) )
 #*      *##if (!$getVal)
         // No conversion for targetEntity.${attribute.name} (can't convert sourceVO.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName
-#*      *##end        
+#*      *##end
 #*    *##end
 #*  *##end
 #**##end

@@ -96,7 +96,7 @@
    </bean>
 
    <bean name="jboss.jca:name='jms-ra.rar',service=RARDeployment" class="org.jboss.ejb3.embedded.resource.RARDeployment">
-   	<constructor>
+       <constructor>
          <parameter class="org.jboss.deployment.DeploymentInfo">
             <inject bean="jms-rar-DeploymentInfo"/>
          </parameter>

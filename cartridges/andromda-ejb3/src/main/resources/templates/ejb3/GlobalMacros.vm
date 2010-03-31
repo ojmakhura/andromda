@@ -133,7 +133,7 @@
 ##
 #macro (renderCompareToMethod $class $className $identifiers)
     /**
-     * @see java.lang.Comparable${esc.hash}compareTo(T)
+     * @see Comparable${esc.hash}compareTo(T)
      */
     public int compareTo($className o)
     {
