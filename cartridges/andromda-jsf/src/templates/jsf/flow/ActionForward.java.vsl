@@ -43,7 +43,7 @@ public class $action.actionClassName
         final String forwardPath = ${managedBeansPackage}.UseCaseForwards.getPath(controller.${action.controllerAction}());
         ${useCase.actionClassName}ViewPopulator.populateFormAndViewVariables(
            ${facesContextUtilsFullyQualifiedName}.getFacesContext(request, response),
-            null, forwardPath);
+            null);
         request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
