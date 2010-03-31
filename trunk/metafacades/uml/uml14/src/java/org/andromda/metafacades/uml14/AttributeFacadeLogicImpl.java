@@ -529,9 +529,10 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isDerived()
      */
-	@Override
-	protected boolean handleIsDerived() {
-		// UML 1.4 does not have derived attribute.
-		return false;
-	}
+    @Override
+    protected boolean handleIsDerived()
+    {
+        // UML 1.4 does not have derived attribute.
+        return false;
+    }
 }
