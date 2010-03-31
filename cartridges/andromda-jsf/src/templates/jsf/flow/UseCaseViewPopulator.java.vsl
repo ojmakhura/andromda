@@ -9,26 +9,41 @@ package $useCase.packageName;
 public final class $className
 {
     /**
-     * Populates the view using the appropriate view populator.
+     * Attempts to populate the current view using the appropriate view populator.
+     *
+     * @param facesContext the current faces context.
+     * @param form the form to pass to the populator.
      */
     public static void populateFormAndViewVariables(final javax.faces.context.FacesContext facesContext, Object form)
     {
+        populateFormAndViewVariables(facesContext, form, null);
+    }
+
+    /**
+     * Populates the view using the appropriate view populator.
+     *
+     * @param facesContext the current faces context.
+     * @param form the form to pass to the populator.
+     * @param viewPath the path used to get the appropriate populator.
+     */
+    public static void populateFormAndViewVariables(final javax.faces.context.FacesContext facesContext, Object form, String viewPath)
+    {
         try
         {
-            String viewId = getViewId(facesContext);
-            final Class<?> populator = populators.get(viewId);
-            if (populator != null)
-            {
-                final java.lang.reflect.Method method = populator.getMethod(
-                    "populateFormAndViewVariables",
-                    new Class[]{javax.faces.context.FacesContext.class, Object.class});
-                method.invoke(populator, new Object[]{facesContext, form});
-           }
-        }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
-        }
+            final String viewId = (viewPath != null && viewPath.trim().length() > 0) ? viewPath : getViewId(facesContext);
+	        final Class<?> populator = populators.get(viewId);
+	        if (populator != null)
+	        {
+	            final java.lang.reflect.Method method = populator.getMethod(
+	                "populateFormAndViewVariables",
+	                new Class[]{javax.faces.context.FacesContext.class, Object.class});
+	            method.invoke(populator, new Object[]{facesContext, form});
+	       }
+	    }
+	    catch (final Throwable throwable)
+	    {
+	    	throw new RuntimeException(throwable);
+	    }
     }
 
     protected static String getViewId(final javax.faces.context.FacesContext facesContext)
