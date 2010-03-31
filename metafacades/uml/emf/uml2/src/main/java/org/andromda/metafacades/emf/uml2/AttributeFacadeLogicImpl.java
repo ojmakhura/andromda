@@ -451,4 +451,12 @@ public class AttributeFacadeLogicImpl
         }
         return value;
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isDerived()
+     */
+	@Override
+	protected boolean handleIsDerived() {
+		return this.metaObject.isDerived();
+	}
 }
