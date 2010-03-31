@@ -360,9 +360,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                         create(transform, entity);
                     }
 #else
-                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    for (Object entity : entities)
                     {
-                        create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next());
+                        create(transform, ($entity.fullyQualifiedEntityName)entity);
                     }
 #end
                     return null;
@@ -510,9 +510,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                         update(entity);
                     }
 #else
-                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    for (Object entity : entities)
                     {
-                        update(($entity.fullyQualifiedEntityName)entityIterator.next());
+                        update(($entity.fullyQualifiedEntityName)entity);
                     }
 #end
                     return null;
