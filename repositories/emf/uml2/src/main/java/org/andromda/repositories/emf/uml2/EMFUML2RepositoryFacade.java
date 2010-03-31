@@ -48,7 +48,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         }
 
         final ResourceSet proxyResourceSet = new EMXProxyResolvingResourceSet();
-        final Map extensionToFactoryMap = proxyResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
+        final Map<String, Object> extensionToFactoryMap = proxyResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
 
         // - we need to perform these registrations in order to load a UML2 model into EMF
         //   see: http://dev.eclipse.org/viewcvs/indextools.cgi/%7Echeckout%7E/uml2-home/faq.html#6
