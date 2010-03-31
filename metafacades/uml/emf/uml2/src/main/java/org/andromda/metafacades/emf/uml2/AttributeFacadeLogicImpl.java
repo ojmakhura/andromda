@@ -455,8 +455,9 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isDerived()
      */
-	@Override
-	protected boolean handleIsDerived() {
-		return this.metaObject.isDerived();
-	}
+    @Override
+    protected boolean handleIsDerived()
+    {
+        return this.metaObject.isDerived();
+    }
 }
