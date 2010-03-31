@@ -525,4 +525,13 @@ public class AttributeFacadeLogicImpl
     {
         return this.getMultiplicityRangeLower();
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isDerived()
+     */
+	@Override
+	protected boolean handleIsDerived() {
+		// UML 1.4 does not have derived attribute.
+		return false;
+	}
 }
