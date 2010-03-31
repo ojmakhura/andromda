@@ -46,7 +46,7 @@ public abstract class $entity.daoBaseName
     implements $rootDaoType
 {
     // ------ Session Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
 
@@ -54,10 +54,10 @@ public abstract class $entity.daoBaseName
 
     /**
      * Inject persistence context #if ($entity.defaultPersistenceContextUnitName)${entity.defaultPersistenceContextUnitName}#end
-     
+
      */
     @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
-    
+
     protected javax.persistence.EntityManager emanager;
 
 #if ($hibernateExtensionEnabled)
@@ -65,21 +65,21 @@ public abstract class $entity.daoBaseName
      * Injext Hibernate Session
      */
     @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
-    
+
     protected org.hibernate.Session hibernateSession;
-    
+
 #end
 #set ($entityReferences = $entity.entityReferences)
 #if (!$entityReferences.empty)
     // ------ DAO Injections ------
-    
+
 #**##foreach($entityRef in $entityReferences)
     /**
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
     @javax.ejb.EJB
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
-    
+
 #**##end
 #end
 #foreach($entityRef in $entityReferences)
@@ -195,7 +195,7 @@ public abstract class $entity.daoBaseName
             throw new IllegalArgumentException(
                 "${entity.name}.create - '$argumentName' can not be null");
         }
-        
+
         try
         {
             emanager.persist(${argumentName});
@@ -237,15 +237,15 @@ public abstract class $entity.daoBaseName
         java.util.Collection results = new java.util.ArrayList();
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            results.add(create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next()));
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                results.add(create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next()));
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+        }
         return results;
     }
 
@@ -356,15 +356,15 @@ public abstract class $entity.daoBaseName
         }
         try
         {
-		    for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-		    {
-		        update(($entity.fullyQualifiedEntityName)entityIterator.next());
-		    }
-		}
-		catch (Exception ex)
-		{
-		    throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-		}
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                update(($entity.fullyQualifiedEntityName)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+        }
     }
 
     /**
@@ -414,16 +414,16 @@ public abstract class $entity.daoBaseName
 #end
         try
         {
-	        final $entity.fullyQualifiedEntityName entity = $loadCall;
-	        if (entity != null)
-	        {
-	            this.remove(entity);
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-	    }
+            final $entity.fullyQualifiedEntityName entity = $loadCall;
+            if (entity != null)
+            {
+                this.remove(entity);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+        }
     }
 
     /**
@@ -439,15 +439,15 @@ public abstract class $entity.daoBaseName
         }
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            remove(($entity.fullyQualifiedEntityName)entityIterator.next());
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                remove(($entity.fullyQualifiedEntityName)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+        }
     }
 
 #foreach ($finder in $entity.getQueryOperations(true))
@@ -474,9 +474,9 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${rootDaoType}${esc.hash}${finder.name}(String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
-    $finder.visibility $returnType ${finder.name}(final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility $returnType ${finder.name}(final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -565,9 +565,9 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}${finder.name}(int, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${rootDaoType}${esc.hash}${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
-    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform, final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws ${finder.exceptionList}, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -671,7 +671,7 @@ public abstract class $entity.daoBaseName
 #**##end
         catch (Throwable th)
         {
-            throw new java.lang.RuntimeException(
+            throw new RuntimeException(
             "Error performing '${rootDaoType}.${operation.signature}' --> " + th,
             th);
         }
@@ -681,7 +681,7 @@ public abstract class $entity.daoBaseName
       * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
       */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
-        throws java.lang.Exception;
+        throws Exception;
 
 #end
     /**
@@ -849,7 +849,7 @@ public abstract class $entity.daoBaseName
      * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
     public void ${valueObjectRef.transformationMethodName}(
-        $entity.fullyQualifiedEntityName source, 
+        $entity.fullyQualifiedEntityName source,
         $valueObjectRef.targetElement.fullyQualifiedName target)
     {
 #set ($entityProperties = $entity.allProperties)
@@ -881,7 +881,7 @@ public abstract class $entity.daoBaseName
         this.${valueObjectRef.transformationMethodName}(entity, target);
         return target;
     }
-    
+
     /**
      * @see ${rootDaoType}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
      */
@@ -904,12 +904,12 @@ public abstract class $entity.daoBaseName
         }
 #*            *##else
         // No conversion for target.${entityProperty.name} (can't convert source.${property.getterName}():${property.type.fullyQualifiedName} to $entityProperty.type.fullyQualifiedName)
-#*            *##end        
+#*            *##end
 #*        *##end
 #*    *##end
 #**##end
 #end
     }
-    
+
 #end
 }

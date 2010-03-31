@@ -35,7 +35,7 @@ public interface ${service.webServiceInterfaceName}
     @javax.jws.Oneway
 #*    *##end
     public $operation.returnType.fullyQualifiedName $operation.annotatedSignature#if ($operation.exceptionsPresent) $operation.throwsClause, java.rmi.RemoteException#else throws java.rmi.RemoteException#end;
-    
+
 #*  *##end
 #**##end
 #end

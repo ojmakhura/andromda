@@ -285,7 +285,7 @@
          @org.jboss.annotation.ejb.PoolClass (value=org.jboss.ejb3.StrictMaxPool.class, maxSize=30, timeout=10000)
       </annotation>
    </domain>
-   
+
    <domain name="Consumer Bean">
       <bind pointcut="execution(public * @javax.annotation.security.RunAs->*(..))">
          <interceptor-ref name="org.jboss.ejb3.security.RunAsSecurityInterceptorFactory"/>
@@ -314,7 +314,7 @@
       </bind>
       <bind pointcut="!execution(* *->create()) AND !execution(* *->start()) AND !execution(*->new(..))">
          <interceptor-ref name="org.jboss.ejb3.security.AuthenticationInterceptorFactory"/>
-      </bind>      
+      </bind>
       <bind pointcut="execution(public * @org.jboss.annotation.security.SecurityDomain->*(..))">
          <interceptor-ref name="Basic Authorization"/>
       </bind>
@@ -339,7 +339,7 @@
       </bind>
       <bind pointcut="!execution(* *->create()) AND !execution(* *->start()) AND !execution(*->new(..))">
          <interceptor-ref name="org.jboss.ejb3.security.AuthenticationInterceptorFactory"/>
-      </bind>      
+      </bind>
       <bind pointcut="execution(public * @org.jboss.annotation.security.SecurityDomain->*(..))">
          <interceptor-ref name="Basic Authorization"/>
       </bind>

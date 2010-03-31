@@ -16,7 +16,7 @@ public class $manageableServiceLocatorName
      * The shared instance of this ${serviceLocatorName}.
      */
     private static ${manageableServiceLocatorName} instance;
-    
+
     /**
      * The Context to lookup the service beans.
      */
@@ -47,7 +47,7 @@ public class $manageableServiceLocatorName
 
     /**
      * Gets the InitialContext.
-     * 
+     *
      * @param env the Context environment properties.
      * @return the javax.naming.InitialContext.
      * @throws javax.naming.NamingException failure to create InitialContext
@@ -64,7 +64,7 @@ public class $manageableServiceLocatorName
 
     /**
      * Instantiate a new InitialContext using the properties table.
-     * 
+     *
      * @param env passed to the InitialContext constructor.
      * @return the javax.naming.InitialContext.
      * @throws javax.naming.NamingException failure to create InitialContext
@@ -127,7 +127,7 @@ public class $manageableServiceLocatorName
         return ($manageable.fullyQualifiedManageableServiceName)
             getContext(env).lookup("${jndiName}");
     }
-    
+
     /**
      * Get the local interface for {@link $manageable.fullyQualifiedManageableServiceName}.
      *

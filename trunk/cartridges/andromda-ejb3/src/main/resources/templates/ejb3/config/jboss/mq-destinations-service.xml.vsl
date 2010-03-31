@@ -4,25 +4,25 @@
 #foreach ($mdb in $mdbs)
 #**##if ($mdb.destinationTypeQueue)
     <mbean code="org.jboss.mq.server.jmx.Queue"
-	       name="jboss.mq.destination:service=Queue,name=${mdb.messageDrivenName}">
+           name="jboss.mq.destination:service=Queue,name=${mdb.messageDrivenName}">
         <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
         <attribute name="JNDIName">${mdb.destination}</attribute>
     </mbean>
 #**##elseif ($mdb.destinationTypeTopic)
     <mbean code="org.jboss.mq.server.jmx.Topic"
-	       name="jboss.mq.destination:service=Topic,name=${mdb.messageDrivenName}">
+           name="jboss.mq.destination:service=Topic,name=${mdb.messageDrivenName}">
         <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
         <depends optional-attribute-name="SecurityManager">jboss.mq:service=SecurityManager</depends>
         <attribute name="JNDIName">${mdb.destination}</attribute>
-		<attribute name="SecurityConf">
-			<security>
-				<role name="guest" read="true" write="true" create="false"/>
-				<role name="durpublisher" read="true" write="true" create="true"/>
-			</security>
-		</attribute>
+        <attribute name="SecurityConf">
+            <security>
+                <role name="guest" read="true" write="true" create="false"/>
+                <role name="durpublisher" read="true" write="true" create="true"/>
+            </security>
+        </attribute>
     </mbean>
 #**##end
 #end
 <!-- jboss mq destinations merge-point -->
-    
+
 </server>

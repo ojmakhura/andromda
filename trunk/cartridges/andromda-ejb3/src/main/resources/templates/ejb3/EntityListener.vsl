@@ -9,54 +9,54 @@ package $entity.packageName;
  *
  * @see ${entity.fullyQualifiedName}
  */
-public class ${entity.entityListenerName} 
+public class ${entity.entityListenerName}
 {
     /**
      * Default public no-args constructor
      */
-    public ${entity.entityListenerName}() 
+    public ${entity.entityListenerName}()
     {
         // empty constructor
     }
-    
+
     @javax.persistence.PrePersist
-    public void prePersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
+    public void prePersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
     {
-		// pre persist implementation
-	}
-	
-	@javax.persistence.PostPersist
-	public void postPersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
-	{
-		// post persist implementation
-	}
-	
-	@javax.persistence.PreRemove
-	public void preRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
-	{
-		// pre remove implementation
-	}
-	
-	@javax.persistence.PostRemove
-	public void postRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
-	{
-		// post remove implementation
-	}
-	
-	@javax.persistence.PreUpdate
-	public void preUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) {
-		// pre update implementation
-	}
-	
-	@javax.persistence.PostUpdate
-	public void postUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
-	{
-		// post update implementation
-	}
-	
-	@javax.persistence.PostLoad
-	public void postLoad(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
-	{
-		// post load implementation
-	}
+        // pre persist implementation
+    }
+
+    @javax.persistence.PostPersist
+    public void postPersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
+    {
+        // post persist implementation
+    }
+
+    @javax.persistence.PreRemove
+    public void preRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
+    {
+        // pre remove implementation
+    }
+
+    @javax.persistence.PostRemove
+    public void postRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
+    {
+        // post remove implementation
+    }
+
+    @javax.persistence.PreUpdate
+    public void preUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) {
+        // pre update implementation
+    }
+
+    @javax.persistence.PostUpdate
+    public void postUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
+    {
+        // post update implementation
+    }
+
+    @javax.persistence.PostLoad
+    public void postLoad(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})})
+    {
+        // post load implementation
+    }
 }

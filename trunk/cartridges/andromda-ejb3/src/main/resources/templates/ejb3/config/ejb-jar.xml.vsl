@@ -142,7 +142,7 @@
             </env-entry>
 #**##end
         </message-driven>
-        
+
 #end
     </enterprise-beans>
 #if (${seamEnabled} == 'true')
@@ -152,7 +152,7 @@
             <interceptor-class>org.jboss.seam.ejb.SeamInterceptor</interceptor-class>
         </interceptor>
     </interceptors>
-    
+
 #end
     <assembly-descriptor>
 #foreach ($interceptor in $interceptors)
@@ -179,7 +179,7 @@
 #**##if ($collectionUtils.size($interceptors) >= 1 || $service.listenerEnabled)
         <interceptor-binding>
             <ejb-name>${service.serviceName}</ejb-name>
-#*  *##if ($service.listenerEnabled) 
+#*  *##if ($service.listenerEnabled)
             <interceptor-class>${service.fullyQualifiedServiceListenerName}</interceptor-class>
 #*  *##end
 #*  *##foreach ($interceptor in $interceptors)
@@ -231,7 +231,7 @@
 #**##if ($collectionUtils.size($interceptors) >= 1 || $mdb.listenerEnabled)
         <interceptor-binding>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
-#*  *##if ($mdb.listenerEnabled) 
+#*  *##if ($mdb.listenerEnabled)
             <interceptor-class>${mdb.fullyQualifiedMessageDrivenListenerName}</interceptor-class>
 #*  *##end
 #*  *##foreach ($interceptor in $interceptors)

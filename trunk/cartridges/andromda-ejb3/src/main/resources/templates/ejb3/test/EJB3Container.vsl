@@ -31,19 +31,19 @@ import org.testng.annotations.Configuration;
  * example on Hibernate's CaveatEmptor application
  * </p>
  */
-public class EJB3Container 
+public class EJB3Container
 {
     private final static Log logger = LogFactory.getLog(EJB3Container.class);
-    
+
     private EJB3StandaloneDeployer deployer;
 
     @Configuration(beforeTest = true)
-    public void startup() 
+    public void startup()
     {
-        try 
+        try
         {
-    	    logger.info("==>Bootstrapping EJB3 container...");
-    
+            logger.info("==>Bootstrapping EJB3 container...");
+
             // Boot the JBoss Microcontainer with EJB3 settings, loads ejb3-interceptors-aop.xml
             EJB3StandaloneBootstrap.boot(null);
 
@@ -51,28 +51,28 @@ public class EJB3Container
             logger.info("==>Deploying security-beans");
             EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
             logger.info("==>Deployed security-beans");
-            
+
 #else
 //            Uncomment the following to enable security
 //            logger.info("==>Deploying security-beans");
 //            EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
 //            logger.info("==>Deployed security-beans");
-             
+
 #end
 #if (!$mdbs.isEmpty())
             logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
             EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
             logger.info("==>Deployed jboss-jms-beans");
-            
+
             logger.info("==>Configure test queue and topic");
             EJB3StandaloneBootstrap.deployXmlResource("testjms.xml");
             logger.info("==>Configured test queues and topics");
-            
+
 #else
 //            logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
 //            EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
 //            logger.info("==>Deployed jboss-jms-beans");
-            
+
 //            logger.info("==>Configure test queue and topic");
 //            EJB3StandaloneBootstrap.deployXmlResource("testjms.xml");
 //            logger.info("==>Configured test queues and topics");
@@ -83,16 +83,16 @@ public class EJB3Container
 
             // Add all EJBs found in the archive that has this file
             deployer = new EJB3StandaloneDeployer();
-    
+
             // Deploy everything we got
-            deployer.setKernel(EJB3StandaloneBootstrap.getKernel());	
+            deployer.setKernel(EJB3StandaloneBootstrap.getKernel());
             deployer.create();
             logger.info("==>Deployer created");
             deployer.start();
             logger.info("==>Deployer started");
             logger.info("==>End of bootstrapping EJB3 container");
-        } 
-        catch (Exception ex) 
+        }
+        catch (Exception ex)
         {
             logger.error(ex.getMessage(), ex);
             throw new RuntimeException(ex);
@@ -100,28 +100,28 @@ public class EJB3Container
     }
 
     @Configuration(afterTest = true)
-    public void shutdown() 
+    public void shutdown()
     {
-        try 
+        try
         {
             logger.info("==>Invoking EJB3.shutdown...");
             deployer.stop();
             deployer.destroy();
             EJB3StandaloneBootstrap.shutdown();
-        } 
+        }
         catch (Exception ex)
         {
             throw new RuntimeException(ex);
         }
     }
-    
+
     private static InitialContext initialContext = null;
     private static InitialContext securedInitialContext = null;
 
     /**
      * Return a new InitialContext based on org.jnp.interfaces.LocalOnlyContextFactory,
      * setting the the default context.
-     * 
+     *
      * @return InitialContext
      * @throws Exception
      */
@@ -132,11 +132,11 @@ public class EJB3Container
         initialContext = new InitialContext(props);
         return initialContext;
     }
-    
+
     /**
      * Return a new InitialContext based on org.jboss.security.jndi.JndiLoginInitialContextFactory,
      * setting the default context. Use the specified username and password to set the security context.
-     * 
+     *
      * @param principal
      * @param credential
      * @return InitialContext
@@ -149,15 +149,15 @@ public class EJB3Container
         securedInitialContext = new InitialContext(props);
         return securedInitialContext;
     }
-    
+
     /**
      * Return the default InitialContext based on org.jnp.interfaces.LocalOnlyContextFactory
      * if one is already instantiated, otherwise create a new InitialContext and set as the default.
-     * 
+     *
      * @return InitialContext
      * @throws Exception
      */
-    public static InitialContext getInitialContext() 
+    public static InitialContext getInitialContext()
         throws Exception
     {
         if (initialContext == null)
@@ -167,12 +167,12 @@ public class EJB3Container
         }
         return initialContext;
     }
-    
+
     /**
      * Return the default InitialContext based on org.jboss.security.jndi.JndiLoginInitialContextFactory
      * if one is already instantiated, otherwise create a new InitialContext and set as the default.
      * Use the specified username and password to set the security context.
-     * 
+     *
      * @param principal
      * @param credential
      * @return
@@ -188,7 +188,7 @@ public class EJB3Container
         }
         return securedInitialContext;
     }
-    
+
     private static Hashtable getInitialContextProperties()
     {
         Hashtable<String, String> props = new Hashtable<String, String>();
@@ -196,7 +196,7 @@ public class EJB3Container
         props.put(Context.URL_PKG_PREFIXES, "org.jboss.naming:org.jnp.interfaces");
         return props;
     }
-    
+
     private static Hashtable getInitialContextProperties(String principal, String credential)
     {
         Hashtable<String, String> props = new Hashtable<String, String>();

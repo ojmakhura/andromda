@@ -56,7 +56,7 @@ public interface $entity.daoName
      * value object that are "read-only" (as those do not have setter methods exposed).
      */
     public void ${valueObjectRef.transformationMethodName}(
-        $entity.fullyQualifiedEntityName sourceEntity, 
+        $entity.fullyQualifiedEntityName sourceEntity,
         $valueObjectRef.targetElement.fullyQualifiedName targetVO);
 
     /**
@@ -68,7 +68,7 @@ public interface $entity.daoName
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities);
-    
+
     /**
      * Copies the fields of {@link $valueObjectRef.targetElement.fullyQualifiedName} to the specified entity.
      * @param copyIfNull If FALSE, the value object's field will not be copied to the entity if the value is NULL. If TRUE,
@@ -104,7 +104,7 @@ public interface $entity.daoName
 #end
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public $rootEntityType load(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end) 
+    public $rootEntityType load(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -127,7 +127,7 @@ public interface $entity.daoName
      * @return either the entity or the object transformed from the entity.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public Object load(int transform,#foreach ($identifier in $entity.identifiers) $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end) 
+    public Object load(int transform,#foreach ($identifier in $entity.identifiers) $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -136,7 +136,7 @@ public interface $entity.daoName
      * @return the loaded entities.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public $entityCollectionType loadAll() 
+    public $entityCollectionType loadAll()
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -153,7 +153,7 @@ public interface $entity.daoName
      * @return the loaded entities.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public java.util.Collection loadAll(final int transform) 
+    public java.util.Collection loadAll(final int transform)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
 ## Only add these methods if the entity isn't abstract

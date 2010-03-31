@@ -22,7 +22,7 @@ public interface ${service.serviceInterfaceName}
 #if (!$constants.empty)
 
     // ----------- Accessors For Constants ------------
-    
+
 #**##foreach($constant in $constants)
 ## Only expose the method if it is public.
 #*  *##if($constant.visibility == "public")
@@ -39,7 +39,7 @@ $constant.getDocumentation("     * ")
 #if (!$attributes.empty)
 
     // --------------- Attributes ---------------------
-    
+
 #**##foreach ($attribute in $attributes)
 ## Only expose the method to the component interface if it is public.
 #*  *##if ($attribute.visibility == "public")
@@ -48,14 +48,14 @@ $constant.getDocumentation("     * ")
 $attribute.getDocumentation("     * ")
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}();
-    
+
 #*    *##if(!$attribute.readOnly)
     /**
      * Set the $attribute.name property
      * @param value the new value
      */
     public void ${attribute.setterName}($attribute.type.fullyQualifiedName value);
-    
+
 #*    *##end
 #*  *##end
 #**##end
@@ -63,7 +63,7 @@ $attribute.getDocumentation("     * ")
 #if ($service.stateful)
 
     // ------------ Lifecycle Methods  -----------------
-    
+
     public void destroy();
 #end
 }

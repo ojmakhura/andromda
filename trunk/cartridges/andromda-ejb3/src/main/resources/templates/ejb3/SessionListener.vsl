@@ -12,18 +12,18 @@ package $service.packageName;
  *
  * @see ${service.fullyQualifiedName}
  */
-public class ${service.serviceListenerName} 
+public class ${service.serviceListenerName}
 {
     /**
      * Default public no-args constructor
      */
-    public ${service.serviceListenerName}() 
+    public ${service.serviceListenerName}()
     {
         // empty constructor
     }
 
     @javax.annotation.PostConstruct
-    public void postConstruct(javax.interceptor.InvocationContext ctx) 
+    public void postConstruct(javax.interceptor.InvocationContext ctx)
     {
         try
         {
@@ -37,7 +37,7 @@ public class ${service.serviceListenerName}
     }
 
     @javax.annotation.PreDestroy
-    public void preDestroy(javax.interceptor.InvocationContext ctx) 
+    public void preDestroy(javax.interceptor.InvocationContext ctx)
     {
         try
         {
@@ -52,7 +52,7 @@ public class ${service.serviceListenerName}
 #if ($service.stateful)
 
     @javax.ejb.PostActivate
-    public void postActivate(javax.interceptor.InvocationContext ctx) 
+    public void postActivate(javax.interceptor.InvocationContext ctx)
     {
         try
         {
@@ -66,7 +66,7 @@ public class ${service.serviceListenerName}
     }
 
     @javax.ejb.PrePassivate
-    public void prePassivate(javax.interceptor.InvocationContext ctx) 
+    public void prePassivate(javax.interceptor.InvocationContext ctx)
     {
         try
         {

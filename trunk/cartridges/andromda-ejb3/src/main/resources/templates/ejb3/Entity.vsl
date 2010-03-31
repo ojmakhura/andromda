@@ -49,7 +49,7 @@ $entity.getDocumentation(" * ")
 #else
 #**##if ($entity.genericFinders)
 @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "select $stringUtils.uncapitalize(${entity.name}) from ${entity.name} AS $stringUtils.uncapitalize(${entity.name})")#if (!$finders.empty),#end
-    
+
 #**##end
 #end
 public#if ($entity.abstract) abstract#end class ${entity.entityName}
@@ -63,15 +63,15 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
     // --------------- constructors -----------------
-    
+
     /**
      * Default ${entity.name} constructor
      */
     public ${entity.entityName}()
-    { 
+    {
         super();
     }
-    
+
 ## Autogenerate a constructor implementation with all attributes.
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
 #if ($entity.syntheticCreateMethodAllowed && !$transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent).empty)
@@ -84,11 +84,11 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
      * @param $attribute.name Value for the ${attribute.name} property
 #**##end
      */
-    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true, false)) 
+    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true, false))
     {
         super($entity.getAttributesAsList($allAttributes, false, true, false));
     }
-    
+
 #end
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
@@ -108,7 +108,7 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
     {
         super($entity.getAttributesAsList($updatableAttributes, false, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)$relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end);
     }
-    
+
 #**##end
 #end
 #foreach ($operation in $entity.getCreateMethods(true))
@@ -120,17 +120,17 @@ $operation.getDocumentation("    * ")
      * @param $attribute Value for the $attribute property
 #**##end
      */
-    public ${entity.entityName}(${operation.typedArgumentList}) 
+    public ${entity.entityName}(${operation.typedArgumentList})
     {
         super(${operation.argumentNames});
     }
-    
+
 #end
 #set ($operations = $entity.businessOperations)
 #if (!$operations.empty)
 
     // -------------- Entity Methods -----------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##if (!$operation.lifecycleCallback)
 #*    *##set ($signature = $operation.signature)
@@ -149,7 +149,7 @@ $operation.getDocumentation("     * ")
 #*    *##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #*    *##else
-        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
+        throw new UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
 #*    *##end
     }
 

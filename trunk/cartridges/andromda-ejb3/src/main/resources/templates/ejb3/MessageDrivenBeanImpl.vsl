@@ -13,12 +13,12 @@ public class ${mdb.messageDrivenImplementationName}
 
 
     // --------- Default Constructor ----------
-    
+
     public ${mdb.messageDrivenImplementationName}()
     {
         super();
     }
-    
+
     /**
      * MessageListener callback on arrival of a JMS message
      *
@@ -33,7 +33,7 @@ public class ${mdb.messageDrivenImplementationName}
 #if (!$operations.empty)
 
     // -------- User Defined Methods  --------------
-    
+
 #**##foreach ($operation in $operations)
 #*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*  *##set ($signature = $operation.signature)

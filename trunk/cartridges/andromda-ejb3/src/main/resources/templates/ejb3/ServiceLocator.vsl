@@ -19,12 +19,12 @@ public class $serviceLocatorName
      * The shared instance of this ${serviceLocatorName}.
      */
     private static ${serviceLocatorName} instance;
-    
+
     /**
      * The Context to lookup the service beans.
      */
     protected javax.naming.InitialContext context = null;
-    
+
     /**
      * Cannot be instantiated constructor
      */
@@ -34,7 +34,7 @@ public class $serviceLocatorName
     }
 
     /**
-     * Gets the instance of this Class.  
+     * Gets the instance of this Class.
      * Create it if doesn't already exist, otherwise return the current instance.
      *
      * @return the shared service locator instance.
@@ -50,7 +50,7 @@ public class $serviceLocatorName
 
     /**
      * Gets the InitialContext.
-     * 
+     *
      * @param env the Context environment properties.
      * @return the javax.naming.InitialContext.
      * @throws javax.naming.NamingException failure to create InitialContext
@@ -64,10 +64,10 @@ public class $serviceLocatorName
         }
         return this.context;
     }
-    
+
     /**
      * Instantiate a new InitialContext using the properties table.
-     * 
+     *
      * @param env passed to the InitialContext constructor.
      * @return the javax.naming.InitialContext.
      * @throws javax.naming.NamingException failure to create InitialContext

@@ -9,41 +9,41 @@ package $mdb.packageName;
  *
  * @see ${mdb.fullyQualifiedMessageDrivenName}
  */
-public class ${mdb.messageDrivenListenerName} 
+public class ${mdb.messageDrivenListenerName}
 {
     /**
      * Default public no-args constructor
      */
-    public ${mdb.messageDrivenListenerName}() 
+    public ${mdb.messageDrivenListenerName}()
     {
         // empty constructor
     }
-    
+
     @javax.annotation.PostConstruct
-    public void postConstruct(javax.interceptor.InvocationContext ctx) 
+    public void postConstruct(javax.interceptor.InvocationContext ctx)
     {
         try
         {
-		    // post construct implementation
-		    ctx.proceed();
-		}
-		catch (Exception ex)
-		{
-		    throw new RuntimeException(ex);
-		}
-	}
-	
-	@javax.annotation.PreDestroy
-	public void preDestroy(javax.interceptor.InvocationContext ctx) 
-	{
+            // post construct implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @javax.annotation.PreDestroy
+    public void preDestroy(javax.interceptor.InvocationContext ctx)
+    {
         try
         {
-		    // pre destroy implementation
-		    ctx.proceed();
-		}
-		catch (Exception ex)
-		{
-		    throw new RuntimeException(ex);
-		}
-	}
+            // pre destroy implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(ex);
+        }
+    }
 }

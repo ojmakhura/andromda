@@ -26,7 +26,7 @@ public interface ${service.serviceLocalInterfaceName}
 #if (!$operations.empty)
 
     // ------------ Business Methods  -----------------
-    
+
 #**##foreach ($operation in $operations)
 ##
 ## Only expose methods that are not lifecycle callbacks
