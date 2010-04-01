@@ -21,7 +21,7 @@ public class EJB3EmbeddedValueFacadeLogicImpl
      * implementation name.
      */
     static final String EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN = "embeddedValueImplementationNamePattern";
-    
+
     public EJB3EmbeddedValueFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

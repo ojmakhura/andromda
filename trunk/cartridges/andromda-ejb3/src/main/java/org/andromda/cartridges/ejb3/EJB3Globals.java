@@ -7,29 +7,29 @@ package org.andromda.cartridges.ejb3;
  */
 public class EJB3Globals
 {
-    
+
     /**
      * The property that stores the default EJB transaction type.
      */
     public static final String TRANSACTION_TYPE = "transactionType";
-    
+
     /**
      * The pattern to use for determining the package name for EJBs.
      */
     public static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
-    
+
     /**
      * The property which stores the pattern defining the display attribute
      * label name when it's of type Collection.
      */
     public static final String LABEL_COLLECTION_NAME_PATTERN = "labelCollectionNamePattern";
-    
+
     /**
      * The property which stores the pattern defining the display attribute
      * label name when it's not of type Collection.
      */
     public static final String LABEL_SINGLE_NAME_PATTERN = "labelSingleNamePattern";
-    
+
     /**
      * The pattern used to construct the DAO name.
      */
@@ -42,12 +42,12 @@ public class EJB3Globals
     public static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
 
     /**
-     * The property used to specify the implementation operation name pattern 
+     * The property used to specify the implementation operation name pattern
      * on service and entity beans.
      */
-    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = 
+    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN =
         "implementationOperationNamePattern";
-    
+
     /**
      * The property used to specify whether to enable query cache.
      */
@@ -58,14 +58,14 @@ public class EJB3Globals
      * service beans.
      */
     public static final String MANAGEABLE_ROLES_ALLOWED = "manageableRolesAllowed";
-    
+
     // --------------- Constants ---------------------
-    
+
     /**
      * Represents the eager fetch type
      */
     public static final String FETCH_TYPE_EAGER = "EAGER";
-    
+
     /**
      * Represents the lazy fetch type
      */
@@ -75,7 +75,7 @@ public class EJB3Globals
      * Represents the clob lob type
      */
     public static final String LOB_TYPE_CLOB = "CLOB";
-    
+
     /**
      * Represents the blob lob type
      */
@@ -85,27 +85,27 @@ public class EJB3Globals
      * Represents the table generator type
      */
     public static final String GENERATOR_TYPE_TABLE = "TABLE";
-    
+
     /**
      * Represents the sequence generator type
      */
     public static final String GENERATOR_TYPE_SEQUENCE = "SEQUENCE";
-    
+
     /**
      * Represents the identity generator type
      */
     public static final String GENERATOR_TYPE_IDENTITY = "IDENTITY";
-    
+
     /**
      * Represents the auto generator type
      */
     public static final String GENERATOR_TYPE_AUTO = "AUTO";
-    
+
     /**
      * Represents the generic generator type
      */
     public static final String GENERATOR_TYPE_GENERIC = "GENERIC";
-    
+
     /**
      * Represents the none generator type
      */
@@ -115,17 +115,17 @@ public class EJB3Globals
      * Represents the date temporal type
      */
     public static final String TEMPORAL_TYPE_DATE = "DATE";
-    
+
     /**
      * Represents the time temporal type
      */
     public static final String TEMPORAL_TYPE_TIME = "TIME";
-    
+
     /**
      * Represents the timestamp temporal type
      */
     public static final String TEMPORAL_TYPE_TIMESTAMP = "TIMESTAMP";
-    
+
     /**
      * Represents the none temporal type
      */
@@ -135,62 +135,62 @@ public class EJB3Globals
      * Represents the finder method index type on the parameter
      */
     public static final String FINDER_RESULT_TYPE_FIRST = "First";
-    
+
     /**
      * Represents the finder method max count on the parameter
      */
     public static final String FINDER_RESULT_TYPE_MAX = "Max";
-    
+
     /**
      * Represents the view type for the entity POJO as both remote and local
      */
     public static final String VIEW_TYPE_BOTH = "both";
-    
+
     /**
      * Represents the local view type for the entity POJO
      */
     public static final String VIEW_TYPE_LOCAL = "local";
-    
+
     /**
      * Represents the remote view type for the entity POJO
      */
     public static final String VIEW_TYPE_REMOTE = "remote";
-    
+
     /**
      * Represents the mandatory transaction type
      */
     public static final String TRANSACTION_TYPE_MANDATORY = "Manadatory";
-    
+
     /**
      * Represents the never transaction type
      */
     public static final String TRANSACTION_TYPE_NEVER = "Never";
-    
+
     /**
      * Represents the not supported transaction type
      */
     public static final String TRANSACTION_TYPE_NOT_SUPPORTED = "NotSupported";
-    
+
     /**
      * Represents the required transaction type
      */
     public static final String TRANSACTION_TYPE_REQUIRED = "Required";
-    
+
     /**
      * Represents the required transaction type
      */
     public static final String TRANSACTION_TYPE_REQUIRES_NEW = "RequiresNew";
-    
+
     /**
      * Represents the supports transaction type
      */
     public static final String TRANSACTION_TYPE_SUPPORTS = "Supports";
-    
+
     /**
      * Represents the stateless session bean
      */
     public static final String SERVICE_TYPE_STATELESS = "Stateless";
-    
+
     /**
      * Represents the stateful session bean
      */
@@ -200,7 +200,7 @@ public class EJB3Globals
      * Represents the JBoss persistence container constant
      */
     public static final String PERSISTENCE_CONTAINER_JBOSS = "jboss";
-    
+
     /**
      * Represents the Weblogic persistence container contant
      */
@@ -215,7 +215,7 @@ public class EJB3Globals
      * Represents the bean managed transaction demarcation
      */
     public static final String TRANSACTION_MANAGEMENT_BEAN = "bean";
-    
+
     /**
      * Represents the container managed transaction demarcation
      */
@@ -226,38 +226,38 @@ public class EJB3Globals
      * JMS message driven bean
      */
     public static final String MDB_DESTINATION_TYPE_TOPIC = "javax.jms.Topic";
-    
+
     /**
      * Represents the fully qualified queue destination type for the
      * JMS message driven bean
      */
     public static final String MDB_DESTINATION_TYPE_QUEUE = "javax.jms.Queue";
-    
+
     /**
      * Represents the durable subscription topic
      */
     public static final String MDB_SUBSCRIPTION_DURABLE = "Durable";
-    
+
     /**
      * Represents the non durable subscription topic
      */
     public static final String MDB_SUBSCRIPTION_NONDURABLE = "NonDurable";
-    
+
     /**
      * The namespace delimiter (seperates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';
-    
+
     /**
      * Defines the prefix given to the transformation constants.
      */
     public final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
-    
+
     /**
      * The suffix given to the no transformation constant.
      */
     public static final String NO_TRANSFORMATION_CONSTANT_SUFFIX = "NONE";
-    
+
     /**
      * The prefix given to transformation method names.
      */
@@ -272,7 +272,7 @@ public class EJB3Globals
      * Seam component scope type STATELESS
      */
     public static final String SEAM_COMPONENT_SCOPE_STATELESS = "STATELESS";
-    
+
     /**
      * Seam component scope type CONVERSATION
      */

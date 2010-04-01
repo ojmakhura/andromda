@@ -50,7 +50,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
         }
         return isSeamAttribute;
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionIn()
      */
@@ -65,20 +65,20 @@ public class EJB3SessionAttributeFacadeLogicImpl
     protected String handleGetSeamBijectionInParameters()
     {
         ArrayList parameters = new ArrayList();
-        if(!isRequired()) 
+        if(!isRequired())
         {
             parameters.add("required = false");
-        } 
-        else 
+        }
+        else
         {
             if(BooleanUtils.toBoolean(
-                    (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_CREATE, true))) 
+                    (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_CREATE, true)))
             {
                 parameters.add("create = true");
             }
         }
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }
@@ -100,19 +100,19 @@ public class EJB3SessionAttributeFacadeLogicImpl
     protected String handleGetSeamBijectionOutParameters()
     {
         ArrayList parameters = new ArrayList();
-        if(!isRequired()) 
+        if(!isRequired())
         {
             parameters.add("required = false");
         }
 
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_SCOPE_TYPE, true);
-        if(StringUtils.isNotBlank(scope)) 
+        if(StringUtils.isNotBlank(scope))
         {
             parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
 
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }
@@ -140,7 +140,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_DATA_DATAMODEL);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelParameters()
      */
@@ -148,12 +148,12 @@ public class EJB3SessionAttributeFacadeLogicImpl
     {
         ArrayList parameters = new ArrayList();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SCOPE_TYPE, true);
-        if(StringUtils.isNotBlank(scope)) 
+        if(StringUtils.isNotBlank(scope))
         {
             parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
@@ -168,7 +168,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_DATA_DATAMODEL_SELECTION);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelSelectionParameters()
      */
@@ -176,7 +176,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     {
         ArrayList parameters = new ArrayList();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }
@@ -200,7 +200,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
         ArrayList parameters = new ArrayList();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }
@@ -211,7 +211,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionLogger()
      */
-    protected boolean handleIsSeamBijectionLogger() 
+    protected boolean handleIsSeamBijectionLogger()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER);
     }
@@ -219,17 +219,17 @@ public class EJB3SessionAttributeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionLoggerParameters()
      */
-    protected String handleGetSeamBijectionLoggerParameters() 
+    protected String handleGetSeamBijectionLoggerParameters()
     {
-        if(!this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER)) 
+        if(!this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER))
         {
             return null;
-        } 
-        else 
+        }
+        else
         {
             ArrayList parameters = new ArrayList();
             String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_LOGGER_VALUE, true);
-            if(StringUtils.isNotBlank(value)) 
+            if(StringUtils.isNotBlank(value))
             {
                 parameters.add("value = \"" + value + "\"");
             }
@@ -241,7 +241,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionRequestParameter()
      */
-    protected boolean handleIsSeamBijectionRequestParameter() 
+    protected boolean handleIsSeamBijectionRequestParameter()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_REQUEST_PARAMETER);
     }
@@ -249,12 +249,12 @@ public class EJB3SessionAttributeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionRequestParameterParameters()
      */
-    protected String handleGetSeamBijectionRequestParameterParameters() 
+    protected String handleGetSeamBijectionRequestParameterParameters()
     {
         ArrayList parameters = new ArrayList();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_REQUEST_PARAMETER_VALUE, true);
-        if(StringUtils.isNotBlank(value)) 
+        if(StringUtils.isNotBlank(value))
         {
             parameters.add("value = \"" + value + "\"");
         }

@@ -27,17 +27,17 @@ public class EJB3DependencyFacadeLogicImpl
      * The suffix for the transformation annonymous name.
      */
     private static final String TRANSFORMATION_ANONYMOUS_NAME_SUFFIX = "_TRANSFORMER";
-    
+
     /**
      * The suffix for the transformation to entity method name.
      */
     private static final String TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX = "ToEntity";
-    
+
     /**
      * The suffix for the value object to entity transformer.
      */
     private static final String VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX = "Transformer";
-    
+
     public EJB3DependencyFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -155,7 +155,7 @@ public class EJB3DependencyFacadeLogicImpl
     {
         return String.valueOf(this.getConfiguredProperty(EJB3Globals.DAO_PATTERN));
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacade#getDaoGetterName()
      */
@@ -193,7 +193,7 @@ public class EJB3DependencyFacadeLogicImpl
      */
     protected String handleGetValueObjectToEntityTransformerName()
     {
-        return StringUtils.capitalize(this.getTransformationToEntityMethodName()) + 
+        return StringUtils.capitalize(this.getTransformationToEntityMethodName()) +
             VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX;
     }
 

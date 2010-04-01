@@ -17,7 +17,7 @@ public class EJB3OperationFacadeLogicImpl
 {
 
     // ---------------- constructor -------------------------------
-	
+
     public EJB3OperationFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -58,7 +58,7 @@ public class EJB3OperationFacadeLogicImpl
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_METHOD) || this.isQuery();
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPrePersist()
      */
@@ -120,9 +120,9 @@ public class EJB3OperationFacadeLogicImpl
      */
     protected boolean handleIsLifecycleCallback()
     {
-        return this.isPostLoad() || 
+        return this.isPostLoad() ||
                 this.isPostPersist() ||
-                this.isPostRemove() || 
+                this.isPostRemove() ||
                 this.isPostUpdate() ||
                 this.isPrePersist() ||
                 this.isPreRemove() ||
@@ -162,7 +162,7 @@ public class EJB3OperationFacadeLogicImpl
      */
     private String getImplementationOperationName(String replacement)
     {
-        String implementationNamePattern = 
+        String implementationNamePattern =
             (String)this.getConfiguredProperty(EJB3Globals.IMPLEMENTATION_OPERATION_NAME_PATTERN);
 
         return MessageFormat.format(

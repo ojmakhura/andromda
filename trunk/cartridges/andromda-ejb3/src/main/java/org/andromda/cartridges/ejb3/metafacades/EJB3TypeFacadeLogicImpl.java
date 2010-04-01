@@ -36,7 +36,7 @@ public class EJB3TypeFacadeLogicImpl
         }
         return fullyQualifiedName;
     }
-    
+
     /**
      * Gets the <code>hibernateTypeMappings</code> for this ejb3/hibernate type.
      *

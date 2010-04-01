@@ -35,7 +35,7 @@ class EJB3MetafacadeUtils
      * @return Collection of create methods found.
      */
     static Collection getCreateMethods(
-            ClassifierFacade classifier, 
+            ClassifierFacade classifier,
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -83,11 +83,11 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Gets the view type for the passed in <code>classifier</code>. If no 
-     * view type can be retrieved from the <code>classifier</code>, then the 
+     * Gets the view type for the passed in <code>classifier</code>. If no
+     * view type can be retrieved from the <code>classifier</code>, then the
      * <code>defaultViewType</code> is returned.
-     * 
-     * If session ejb pojo then checks the ejb tagged value and if there is 
+     *
+     * If session ejb pojo then checks the ejb tagged value and if there is
      * no value defined, returns 'remote'.
      *
      * @param classifier The classifier to lookup the view type tagged value
@@ -108,7 +108,7 @@ class EJB3MetafacadeUtils
                 if (StringUtils.isEmpty(viewType))
                 {
                     viewType = (String)CollectionUtils.find(
-                            classifier.getAllGeneralizations(), 
+                            classifier.getAllGeneralizations(),
                             new Predicate()
                             {
                                 public boolean evaluate(Object object)
@@ -120,14 +120,14 @@ class EJB3MetafacadeUtils
                 }
                 if (StringUtils.isEmpty(viewType))
                 {
-                    viewType = (StringUtils.isNotBlank(defaultViewType) ? 
+                    viewType = (StringUtils.isNotBlank(defaultViewType) ?
                             defaultViewType : EJB3Globals.VIEW_TYPE_REMOTE);
                 }
             }
         }
         return viewType.toLowerCase();
     }
-    
+
     /**
      * Gets all the inherited instance attributes, excluding the instance attributes directory from this
      * <code>classifier</code>.
@@ -153,7 +153,7 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Gets all instance attributes including those instance attributes belonging to the 
+     * Gets all instance attributes including those instance attributes belonging to the
      * <code>classifier</code> and any inherited ones.
      *
      * @param classifier the ClassifierFacade from which to retrieve the instance attributes.
@@ -178,7 +178,7 @@ class EJB3MetafacadeUtils
      * @return the collection of enviroment entries
      */
     static Collection<AttributeFacade> getEnvironmentEntries(
-            ClassifierFacade classifier, 
+            ClassifierFacade classifier,
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -207,7 +207,7 @@ class EJB3MetafacadeUtils
 
     /**
      * Returns the transaction type for the specified <code>classifier</code>.
-     * 
+     *
      * @param classifier the classifier from which to retrieve the transaction type.
      * @param defaultTransactionType the default transaction type if no tagged value is specified.
      * @return the transaction type as a String.
@@ -215,7 +215,7 @@ class EJB3MetafacadeUtils
     static String getTransactionType(ClassifierFacade classifier, String defaultTransactionType)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        
+
         String transactionType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isNotBlank(transactionType))
         {
@@ -227,19 +227,19 @@ class EJB3MetafacadeUtils
         }
         return transactionType;
     }
-    
+
     /**
      * Convert the transaction type from lower casing to upper casing.
      * This maintains reusable tagged value enumeration from EJB
      * implementation.
-     * 
+     *
      * @param transType
      * @return
      */
     static String convertTransactionType(String transType)
     {
         ExceptionUtils.checkNull("transType", transType);
-        
+
         String type = null;
         if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
         {
@@ -267,11 +267,11 @@ class EJB3MetafacadeUtils
         }
         return type;
     }
-    
+
     /**
-     * Gets all constants for the specified <code>classifier</code>. 
+     * Gets all constants for the specified <code>classifier</code>.
      * If <code>follow</code> is true, then a search up
-     * the inheritance hierachy will be performed and all super 
+     * the inheritance hierachy will be performed and all super
      * type constants will also be retrieved.
      *
      * @param classifier the classifier from which to retrieve the constants
@@ -280,7 +280,7 @@ class EJB3MetafacadeUtils
      * @return the collection of enviroment entries
      */
     static Collection getConstants(
-            ClassifierFacade classifier, 
+            ClassifierFacade classifier,
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -343,10 +343,10 @@ class EJB3MetafacadeUtils
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
     }
-    
+
     /**
      * Returns true if the Seam stereotype is modelled on the class.
-     * 
+     *
      * @param classifier The classifier to lookup if the stereotype is modelled
      * @return True is stereotype exists, false otherwise
      */
@@ -359,13 +359,13 @@ class EJB3MetafacadeUtils
         }
         return isSeamComponent;
     }
-    
+
     /**
      * Gets the Seam component scope type for Entity and Session beans.
      * If no scope has been specified:
      *     If the Classifier is a stateless session bean, then returns STATELESS
      *     If the Classifier is an entity or stateful session bean, then returns CONVERSATION
-     * 
+     *
      * @param classifier The classifier to lookup the scope type tagged value
      * @paam stateless Whether the classifier is a stateless session bean
      * @return The scope type as a String
@@ -387,11 +387,11 @@ class EJB3MetafacadeUtils
         }
         return scopeType;
     }
-    
+
     /**
      * Returns the Seam component name.  Can override using tagged value, otherwise just the
      * class name.
-     * 
+     *
      * @param classifier The classifier to get the tagged value or the name from.
      * @return The Seam component name
      */
@@ -405,34 +405,34 @@ class EJB3MetafacadeUtils
         }
         return componentName;
     }
-    
+
     /**
      * Builds an annotation parameter line
      * @param parameters The parameters
      * @return The parameter line
      */
-    static String buildAnnotationParameters(Collection parameters) 
+    static String buildAnnotationParameters(Collection parameters)
     {
         StringBuffer buf = new StringBuffer();
-        if(!parameters.isEmpty()) 
+        if(!parameters.isEmpty())
         {
-        	buf.append("(");
-        	Iterator it = parameters.iterator();
-        	while(it.hasNext()) 
+            buf.append("(");
+            Iterator it = parameters.iterator();
+            while(it.hasNext())
             {
-        		String option = (String) it.next();
-        		buf.append(option);
-        		if(it.hasNext()) 
+                String option = (String) it.next();
+                buf.append(option);
+                if(it.hasNext())
                 {
-        			buf.append(", ");
-        		}
-        	}
-        	buf.append(")");
-    		return buf.toString();
-        } 
-        else 
+                    buf.append(", ");
+                }
+            }
+            buf.append(")");
+            return buf.toString();
+        }
+        else
         {
-        	return null;
+            return null;
         }
     }
 
@@ -442,9 +442,9 @@ class EJB3MetafacadeUtils
      * @param values The values for the parameters
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values) 
+    static String buildAnnotationMultivalueParameter(String name, Collection values)
     {
-    	return buildAnnotationMultivalueParameter(name, values, true);
+        return buildAnnotationMultivalueParameter(name, values, true);
     }
 
     /**
@@ -454,11 +454,11 @@ class EJB3MetafacadeUtils
      * @param areStrings If the values are strings then sorround with " sign
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings) 
+    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings)
     {
-    	return buildAnnotationMultivalueParameter(name, values, areStrings, null);
+        return buildAnnotationMultivalueParameter(name, values, areStrings, null);
     }
-    
+
     /**
      * Builds a multi option string
      * Builds a multi valued parameter string
@@ -468,44 +468,44 @@ class EJB3MetafacadeUtils
      * @param suffix Any suffix to add to the values
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings, String suffix) 
+    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings, String suffix)
     {
-		if(values.isEmpty()) 
+        if(values.isEmpty())
         {
-			return null;
-		} 
-        else 
+            return null;
+        }
+        else
         {
-			StringBuffer buf = new StringBuffer();
-			buf.append(name + " = {");
+            StringBuffer buf = new StringBuffer();
+            buf.append(name + " = {");
 
-			Iterator it = values.iterator();
-			while(it.hasNext()) 
+            Iterator it = values.iterator();
+            while(it.hasNext())
             {
-				String parameter = (String) it.next();
-				if(areStrings)
+                String parameter = (String) it.next();
+                if(areStrings)
                 {
-					buf.append("\"");
+                    buf.append("\"");
                 }
-				buf.append(parameter);
-				if((suffix != null) && !parameter.endsWith(suffix))
+                buf.append(parameter);
+                if((suffix != null) && !parameter.endsWith(suffix))
                 {
-					buf.append(suffix);
+                    buf.append(suffix);
                 }
-				if(areStrings)
+                if(areStrings)
                 {
-					buf.append("\"");
+                    buf.append("\"");
                 }
-				if(it.hasNext()) 
+                if(it.hasNext())
                 {
-					buf.append(", ");
-				}
-			}
-			buf.append("}");
-			return buf.toString();
-		}
+                    buf.append(", ");
+                }
+            }
+            buf.append("}");
+            return buf.toString();
+        }
     }
-    
+
     /**
      * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
      * the corresponding tagged value with the specified <code>name</code>,

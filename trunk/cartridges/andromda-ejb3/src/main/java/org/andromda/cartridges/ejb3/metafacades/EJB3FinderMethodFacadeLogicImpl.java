@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * <p/>
  * Represents an EJB finder method. </p>
- * 
+ *
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade.
  *
  * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
@@ -20,21 +20,21 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3FinderMethodFacadeLogicImpl
     extends EJB3FinderMethodFacadeLogic
 {
-    
+
     /**
      * Stores whether or not named parameters should be used in EJB queries.
      */
     private static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
-    
+
     // ---------------- constructor -------------------------------
-	
+
     public EJB3FinderMethodFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     // --------------- methods ---------------------
-    
+
     /**
      * Stores the translated query so that its only translated once.
      */
@@ -51,7 +51,7 @@ public class EJB3FinderMethodFacadeLogicImpl
         }
         return this.translatedQuery;
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade#getQuery()
      */
@@ -65,7 +65,7 @@ public class EJB3FinderMethodFacadeLogicImpl
      */
     protected String handleGetTransactionType()
     {
-    	return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
 
     /**
@@ -99,7 +99,7 @@ public class EJB3FinderMethodFacadeLogicImpl
         // first see if we can retrieve the query from the super class as an OCL
         // translation
         String queryString = this.getTranslatedQuery();
-        
+
         boolean whereClauseExists = false;
 
         // otherwise see if there is a query stored as a tagged value

@@ -63,7 +63,7 @@ public class EJB3InterceptorFacadeLogicImpl
     {
         Collection references = this.getSourceDependencies();
         CollectionUtils.filter(
-            references, 
+            references,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -74,7 +74,7 @@ public class EJB3InterceptorFacadeLogicImpl
                 }
             });
         CollectionUtils.transform(
-            references, 
+            references,
             new Transformer()
             {
                 public Object transform(final Object object)
@@ -104,7 +104,7 @@ public class EJB3InterceptorFacadeLogicImpl
     protected boolean handleIsDefaultInterceptor()
     {
         boolean isDefaultInterceptor = false;
-        String isDefaultInterceptorStr = 
+        String isDefaultInterceptorStr =
             String.valueOf(this.findTaggedValue(EJB3Profile.TAGGEDVALUE_DEFAULT_INTERCEPTOR));
         if (StringUtils.isNotBlank(isDefaultInterceptorStr))
         {

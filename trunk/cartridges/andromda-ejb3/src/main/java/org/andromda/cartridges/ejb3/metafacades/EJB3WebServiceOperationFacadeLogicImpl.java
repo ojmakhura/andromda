@@ -86,13 +86,13 @@ public class EJB3WebServiceOperationFacadeLogicImpl
             {
                 type = paramter.getType().getFullyQualifiedName();
             }
-            
+
             if (commaNeeded)
             {
                 buffer.append(",");
             }
             buffer.append('\n');
-            
+
             // Add WebParam annotation
             if (withArgumentNames)
             {

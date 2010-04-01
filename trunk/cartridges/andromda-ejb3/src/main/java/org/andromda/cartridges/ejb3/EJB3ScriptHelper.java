@@ -1,14 +1,13 @@
 package org.andromda.cartridges.ejb3;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.StringTokenizer;
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.StringTokenizer;
 
 /**
  * Transform class for the EJB3 cartridge.
@@ -22,20 +21,21 @@ public class EJB3ScriptHelper
 {
     /**
      * Create a collection of String objects representing the argument names.
-     * 
+     *
      * @param args A comma separated list of arguments
      * @return Collection A collection of of Strings representing the arguments
      */
     public Collection<String> getArgumentsAsList(String args)
     {
-    	StringTokenizer st = new StringTokenizer(args, ",");
-    	Collection<String> retval = new ArrayList<String>(st.countTokens());
-    	while (st.hasMoreTokens()) {
-    		retval.add(st.nextToken().trim());
-    	}
-    	return retval;
+        StringTokenizer st = new StringTokenizer(args, ",");
+        Collection<String> retval = new ArrayList<String>(st.countTokens());
+        while (st.hasMoreTokens())
+        {
+            retval.add(st.nextToken().trim());
+        }
+        return retval;
     }
-    
+
     /**
      * Filter a list of model elements by visibility.
      *
@@ -52,7 +52,7 @@ public class EJB3ScriptHelper
                 ModelElementFacade elem = (ModelElementFacade )pObj;
                 return visibility.equals(elem.getVisibility());
             }
-        });        
+        });
     }
 
     /**
@@ -60,14 +60,14 @@ public class EJB3ScriptHelper
      * This filter currently removes all attributes that are of stereotype Version
      * It also removes identifier attributes for an entity with a composite primary key class
      * or if the identifier attribute have a specified generator.
-     * 
+     *
      * @param list The original list
-     * @param isCompositePKPresent True if entity has a composite primary key 
+     * @param isCompositePKPresent True if entity has a composite primary key
      * @return Collection A list of EntityAttributes from the original list that are updatable
      */
     public Collection<EJB3EntityAttributeFacade> filterUpdatableAttributes(final Collection<EJB3EntityAttributeFacade> list, final boolean isCompositePKPresent)
     {
-    	return CollectionUtils.select(list, new Predicate()
+        return CollectionUtils.select(list, new Predicate()
         {
             public boolean evaluate(Object pObj)
             {
@@ -79,11 +79,11 @@ public class EJB3ScriptHelper
             }
         });
     }
-    
+
     /**
      * Replaces all instances of the dot (.) in the name argument with an understore (_)
      * and returns the string response.
-     *  
+     *
      * @param name The name, typically a fully qualified name with dot notation
      * @return The string with all dots replaced with underscore.
      */
@@ -103,12 +103,12 @@ public class EJB3ScriptHelper
         String result = StringUtils.removeStart(pValue, "\"");
         result = StringUtils.removeEnd(result, "\"");
         result = StringUtils.removeStart(result, "'");
-        return StringUtils.removeEnd(result,"'");
+        return StringUtils.removeEnd(result, "'");
     }
-    
+
     /**
      * Returns the comma separated list of interceptor classes.
-     * 
+     *
      * @param interceptors The collection ModelElementFacade elements representing the interceptors
      * @param prepend Prefix any interceptors to the comma separated list
      * @return String containing the comma separated fully qualified class names
@@ -117,7 +117,7 @@ public class EJB3ScriptHelper
     {
         StringBuilder sb = new StringBuilder();
         String separator = "";
-        
+
         if (StringUtils.isNotBlank(prepend))
         {
             sb.append(prepend);
@@ -132,7 +132,7 @@ public class EJB3ScriptHelper
         }
         return sb.toString();
     }
-    
+
     /**
      * Reverses the <code>packageName</code>.
      *
