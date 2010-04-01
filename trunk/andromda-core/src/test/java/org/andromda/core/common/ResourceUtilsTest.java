@@ -83,8 +83,10 @@ public class ResourceUtilsTest
         assertNotNull(resource);
         final File tempFile = File.createTempFile("andromda", "writeUrlToFileTest");
         assertNotNull(tempFile);
+        tempFile.deleteOnExit();
 
         ResourceUtils.writeUrlToFile(resource, tempFile.getName());
+        new File(tempFile.getName()).deleteOnExit();
 
         final InputStream inputStream = resource.openStream();
         assertNotNull(inputStream);
