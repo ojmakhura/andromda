@@ -284,7 +284,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected boolean handleIsSyntheticCreateMethodAllowed()
     {
-    	return EJB3MetafacadeUtils.allowSyntheticCreateMethod(this);
+        return EJB3MetafacadeUtils.allowSyntheticCreateMethod(this);
     }
 
     /**
@@ -332,7 +332,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected String handleGetViewType()
     {
-    	return EJB3MetafacadeUtils.getViewType(this,
+        return EJB3MetafacadeUtils.getViewType(this,
                 String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_VIEW_TYPE)));
     }
 
@@ -357,7 +357,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected String handleGetHomeInterfaceName()
     {
-    	return EJB3MetafacadeUtils.getHomeInterfaceName(this);
+        return EJB3MetafacadeUtils.getHomeInterfaceName(this);
     }
 
     /**
@@ -411,7 +411,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.util.Collection handleGetCreateMethods(boolean follow)
     {
-    	return EJB3MetafacadeUtils.getCreateMethods(this, follow);
+        return EJB3MetafacadeUtils.getCreateMethods(this, follow);
     }
 
     /**
@@ -450,7 +450,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.util.Collection handleGetEnvironmentEntries(boolean follow)
     {
-    	return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
+        return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
     /**
@@ -596,13 +596,13 @@ public class EJB3EntityFacadeLogicImpl
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityListenerName()
      */
     protected String handleGetEntityListenerName()
-	{
-		String entityListenerPattern = (String)this.getConfiguredProperty(ENTITY_LISTENER_NAME_PATTERN);
+    {
+        String entityListenerPattern = (String)this.getConfiguredProperty(ENTITY_LISTENER_NAME_PATTERN);
 
-		return MessageFormat.format(
-			entityListenerPattern,
+        return MessageFormat.format(
+            entityListenerPattern,
                 StringUtils.trimToEmpty(this.getName()));
-	}
+    }
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityEmbeddableName()
@@ -965,7 +965,7 @@ public class EJB3EntityFacadeLogicImpl
                     if (includeTypes)
                     {
                         /**
-                         * If attribute is a LOB and lob type is overriden, then use 
+                         * If attribute is a LOB and lob type is overriden, then use
                          * overriding lob type.
                          */
                         if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))
@@ -1316,9 +1316,9 @@ public class EJB3EntityFacadeLogicImpl
         }
         return new FilteredCollection(sourceDependencies)
             {
-				private static final long serialVersionUID = -8193885902084039620L;
+                private static final long serialVersionUID = -8193885902084039620L;
 
-				public boolean evaluate(Object object)
+                public boolean evaluate(Object object)
                 {
                     boolean valid = false;
                     Object targetElement = ((DependencyFacade)object).getTargetElement();
@@ -1406,7 +1406,7 @@ public class EJB3EntityFacadeLogicImpl
             attributes,
             new Predicate()
             {
-    			public boolean evaluate(Object object)
+                public boolean evaluate(Object object)
                 {
                     boolean valid = true;
                     if (object instanceof EntityAttribute)

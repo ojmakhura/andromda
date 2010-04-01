@@ -20,12 +20,12 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3WebServiceFacadeLogicImpl
     extends EJB3WebServiceFacadeLogic
 {
-    
+
     /**
      * The property which stores the pattern defining the web service interface name.
      */
     private static final String WEB_SERVICE_INTERFACE_NAME_PATTERN = "webServiceInterfaceNamePattern";
-    
+
     /**
      * The property defining the default style to give the web services.
      */
@@ -45,7 +45,7 @@ public class EJB3WebServiceFacadeLogicImpl
      * The property defining the default style to give the web services.
      */
     private static final String PROPERTY_DEFAULT_USE = "webServiceDefaultUse";
-    
+
     /**
      * Represents a "literal" use.
      */
@@ -55,39 +55,39 @@ public class EJB3WebServiceFacadeLogicImpl
      * Represents an "encoded" use.
      */
     private static final String USE_ENCODED = "encoded";
-    
+
     /**
      * Represents the default parameter encoding style
      */
     private static final String PROPERTY_DEFAULT_PARAMETER_STYLE = "webServiceDefaultParameterStyle";
-    
+
     /**
      * Represents a "wrapped" parameter style.
      */
     private static final String PARAMETER_STYLE_WRAPPED = "wrapped";
-    
+
     /**
      * Represents a "bare" parameter style.
      */
     private static final String PARAMETER_STYLE_BARE = "bare";
-    
+
     /**
      * Represents the qualified name local part pattern
      */
     private static final String QNAME_LOCAL_PART_PATTERN = "webServiceQualifiedNameLocalPartPattern";
-    
+
     /**
      * Determine if the namespace should be reversed
      */
     private static final String REVERSE_NAMESPACE = "webServiceReverseNamespace";
-    
+
     /**
      * Retrieve the namespace pattern used to generate the namespace
      */
     private static final String NAMESPACE_PATTERN = "webServiceNamespacePattern";
-    
+
     /**
-     * 
+     *
      * @param metaObject
      * @param context
      */
@@ -112,7 +112,7 @@ public class EJB3WebServiceFacadeLogicImpl
      */
     protected String handleGetWebServiceInterfaceName()
     {
-        String webServiceInterfaceNamePattern = 
+        String webServiceInterfaceNamePattern =
             String.valueOf(this.getConfiguredProperty(WEB_SERVICE_INTERFACE_NAME_PATTERN));
 
         return MessageFormat.format(
@@ -258,7 +258,7 @@ public class EJB3WebServiceFacadeLogicImpl
                 StringUtils.trimToEmpty(
                     StringUtils.substringAfterLast(packageName, String.valueOf(EJB3Globals.NAMESPACE_DELIMITER))));
     }
-    
+
     /**
      * Gets whether or not <code>reverseNamespace</code> is true/false for this type.
      *

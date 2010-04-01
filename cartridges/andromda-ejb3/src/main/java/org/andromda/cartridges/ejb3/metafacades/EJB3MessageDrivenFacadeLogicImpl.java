@@ -32,18 +32,18 @@ public class EJB3MessageDrivenFacadeLogicImpl
      * The property which stores the default destination type
      */
     public static final String MESSAGE_DRIVEN_DESTINATION_TYPE = "messageDrivenDestinationType";
-    
+
     /**
      * The property which stores the default subscription durability for a Topic
      */
-    public static final String MESSAGE_DRIVEN_TOPIC_SUBSCRIPTION_DURABILITY = 
+    public static final String MESSAGE_DRIVEN_TOPIC_SUBSCRIPTION_DURABILITY =
         "messageDrivenTopicSubscriptionDurability";
-    
+
     /**
      * The property which stores the pattern defining the JMS message driven bean name.
      */
     public static final String MESSAGE_DRIVEN_NAME_PATTERN = "messageDrivenNamePattern";
-    
+
     /**
      * The property which stores the pattern defining the JMS message driven bean listener callback name.
      */
@@ -53,32 +53,32 @@ public class EJB3MessageDrivenFacadeLogicImpl
      * The property which stores the pattern defining the JMS message driven bean implementation name.
      */
     private static final String MESSAGE_DRIVEN_IMPLEMENTATION_NAME_PATTERN = "messageDrivenImplementationNamePattern";
-    
+
     /**
      * The property which stores the pattern defining the JMS message driven bean test class name
      */
     private static final String MESSAGE_DRIVEN_TEST_NAME_PATTERN = "messageDrivenTestNamePattern";
-    
+
     /**
      * The property which stores the pattern defining the JMS message driven bean test package
      */
     private static final String MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN = "messageDrivenTestPackageNamePattern";
-    
+
     /**
      * The property which stores the pattern defining the JMS durable subscription ID
      */
-    private static final String MESSAGE_DRIVEN_DURABLE_SUBSCRIPTION_ID_PATTERN = 
+    private static final String MESSAGE_DRIVEN_DURABLE_SUBSCRIPTION_ID_PATTERN =
         "messageDrivenDurableSubscriptionIdPattern";
-    
+
     //  ---------------- constructor -------------------------------
-    
+
     public EJB3MessageDrivenFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     //  ---------------- methods -------------------------------
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getAcknowledgeMode()
      */
@@ -111,7 +111,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
         {
             destinationType = (String)this.getConfiguredProperty(MESSAGE_DRIVEN_DESTINATION_TYPE);
         }
-        
+
         /**
          * Formatting required to replace '_' with '.' and return correct casing
          */
@@ -137,7 +137,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
                 namespacePattern,
                 this.getPackageName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenImplementationName()
      */
@@ -181,13 +181,13 @@ public class EJB3MessageDrivenFacadeLogicImpl
                 this.getMessageDrivenTestName(),
                 null);
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageDrivenImplementationName()
      */
     protected String handleGetMessageDrivenImplementationName()
     {
-        String messageDrivenImplNamePattern = 
+        String messageDrivenImplNamePattern =
             (String)this.getConfiguredProperty(MESSAGE_DRIVEN_IMPLEMENTATION_NAME_PATTERN);
 
         return MessageFormat.format(
@@ -200,7 +200,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected String handleGetMessageDrivenListenerName()
     {
-        String messageDrivenListenerNamePattern = 
+        String messageDrivenListenerNamePattern =
             (String)this.getConfiguredProperty(MESSAGE_DRIVEN_LISTENER_NAME_PATTERN);
 
         return MessageFormat.format(
@@ -213,7 +213,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected String handleGetMessageDrivenName()
     {
-        String messageDrivenNamePattern = 
+        String messageDrivenNamePattern =
             (String)this.getConfiguredProperty(MESSAGE_DRIVEN_NAME_PATTERN);
 
         return MessageFormat.format(
@@ -226,14 +226,14 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected String handleGetMessageDrivenTestName()
     {
-        String messageDrivenTestNamePattern = 
+        String messageDrivenTestNamePattern =
             (String)this.getConfiguredProperty(MESSAGE_DRIVEN_TEST_NAME_PATTERN);
 
         return MessageFormat.format(
                 messageDrivenTestNamePattern,
                 StringUtils.trimToEmpty(this.getName()));
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageSelector()
      */
@@ -249,15 +249,15 @@ public class EJB3MessageDrivenFacadeLogicImpl
     {
         String runAsRole = null;
         DependencyFacade dependency = (DependencyFacade)CollectionUtils.find(
-            this.getTargetDependencies(), 
+            this.getTargetDependencies(),
             new Predicate()
             {
                 public boolean evaluate(final Object object)
                 {
                     DependencyFacade dependency = (DependencyFacade)object;
-                    return dependency != null 
-                            && dependency.getSourceElement() != null 
-                            && dependency.getSourceElement() instanceof Role 
+                    return dependency != null
+                            && dependency.getSourceElement() != null
+                            && dependency.getSourceElement() instanceof Role
                             && dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
                 }
             });
@@ -292,7 +292,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected boolean handleIsSubscriptionDurable()
     {
-        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_DURABLE) ? 
+        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_DURABLE) ?
                 true : false;
     }
 
@@ -301,7 +301,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected boolean handleIsSubscriptionNonDurable()
     {
-        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_NONDURABLE) ? 
+        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_NONDURABLE) ?
                 true : false;
     }
 
@@ -310,14 +310,14 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected String handleGetDurableSubscriptionId()
     {
-        String durableSubscriptionIdPattern = 
+        String durableSubscriptionIdPattern =
             (String)this.getConfiguredProperty(MESSAGE_DRIVEN_DURABLE_SUBSCRIPTION_ID_PATTERN);
 
         return MessageFormat.format(
                 durableSubscriptionIdPattern,
                 StringUtils.trimToEmpty(this.getName()));
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getTransactionManagement()
      */
@@ -339,7 +339,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected String handleGetTransactionType()
     {
-        return EJB3MetafacadeUtils.getTransactionType(this, 
+        return EJB3MetafacadeUtils.getTransactionType(this,
                 String.valueOf(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE)));
     }
 
@@ -347,8 +347,8 @@ public class EJB3MessageDrivenFacadeLogicImpl
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getAttributesAsList(java.util.Collection, boolean, boolean)
      */
     protected String handleGetAttributesAsList(
-            java.util.Collection attributes, 
-            boolean includeTypes, 
+            java.util.Collection attributes,
+            boolean includeTypes,
             boolean includeNames)
     {
         if (!includeNames && !includeTypes || attributes == null)
@@ -372,7 +372,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
             if (includeNames)
             {
                 sb.append(attr.getName());
-            }  
+            }
         }
         return sb.toString();
     }
@@ -392,7 +392,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     {
         Collection references = super.getServiceReferences();
         CollectionUtils.filter(
-            references, 
+            references,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -465,7 +465,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
         }
         return maxPoolSize;
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsListenerEnabled()
      */
@@ -481,7 +481,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     {
         Collection references = this.getSourceDependencies();
         CollectionUtils.filter(
-            references, 
+            references,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -492,7 +492,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
                 }
             });
         CollectionUtils.transform(
-            references, 
+            references,
             new Transformer()
             {
                 public Object transform(final Object object)
@@ -522,7 +522,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     protected boolean handleIsExcludeDefaultInterceptors()
     {
         boolean excludeDefault = false;
-        String excludeDefaultStr = 
+        String excludeDefaultStr =
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT);
         if (excludeDefaultStr != null)
         {

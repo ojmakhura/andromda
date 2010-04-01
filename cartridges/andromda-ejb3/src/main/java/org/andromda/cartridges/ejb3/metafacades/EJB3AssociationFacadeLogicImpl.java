@@ -24,20 +24,20 @@ public class EJB3AssociationFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
-	public EJB3AssociationFacadeLogicImpl (Object metaObject, String context)
+    public EJB3AssociationFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     // --------------- methods ---------------------
-    
+
     /**
      * Override to provide support for One-2-Many unidirectional associations as well as Many-2-Many.
-     * 
+     *
      * Returns the EJB3 cartridge specific table name for the association
      */
-	public String getTableName() 
-	{
+    public String getTableName()
+    {
         String tableName = null;
         final Collection ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
@@ -45,7 +45,7 @@ public class EJB3AssociationFacadeLogicImpl
             for (Iterator iterator = ends.iterator(); iterator.hasNext();)
             {
                 final EJB3AssociationEndFacade end = (EJB3AssociationEndFacade)iterator.next();
-                if ((end.isMany2Many() && end.isOwning()) || 
+                if ((end.isMany2Many() && end.isOwning()) ||
                         (end.isOne2Many() && !end.isNavigable() && end.getOtherEnd().isNavigable()))
                 {
                     // prevent ClassCastException if the association isn't an
@@ -69,22 +69,22 @@ public class EJB3AssociationFacadeLogicImpl
                 }
             }
         }
-        
+
 //        if (StringUtils.isNotBlank(tableName) && getName().toLowerCase().startsWith(tableName.toLowerCase()))
 //        {
 //            tableName = getRelationName().replaceAll("-", "_").toUpperCase();
 //        }
-        
+
         return tableName;
-	}
-    
+    }
+
     /**
      * Override the default implementation to use the current getRelationName implementation
      */
     public String getName()
     {
         String name = (super.getName().equalsIgnoreCase(super.getRelationName()) ? null : super.getName());
-        
+
         // if the name isn't defined, use the this implementation of relation name
         if (StringUtils.isEmpty(name))
         {
@@ -105,7 +105,7 @@ public class EJB3AssociationFacadeLogicImpl
         final EJB3AssociationEndFacade secondEnd = (EJB3AssociationEndFacade)endIt.next();
         final String separator = String.valueOf(
                 this.getConfiguredProperty(UMLMetafacadeProperties.RELATION_NAME_SEPARATOR));
-        
+
         if (secondEnd.isOwning())
         {
             return secondEnd.getName() + separator + firstEnd.getName();

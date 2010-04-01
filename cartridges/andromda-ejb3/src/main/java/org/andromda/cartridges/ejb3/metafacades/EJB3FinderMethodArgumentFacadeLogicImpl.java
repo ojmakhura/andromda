@@ -26,7 +26,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
      */
     protected String handleGetTemporalType()
     {
-        String temporalType = 
+        String temporalType =
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
         if (StringUtils.isBlank(temporalType))
         {
