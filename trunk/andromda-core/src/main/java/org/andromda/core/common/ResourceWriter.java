@@ -192,7 +192,7 @@ public class ResourceWriter
         final String fileLocation)
         throws IOException
     {
-        ResourceUtils.writeUrlToFile(url, fileLocation, this.encoding);
+        ResourceUtils.writeUrlToFile(url, fileLocation);
         this.recordHistory(new File(fileLocation));
     }
 
