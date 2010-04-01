@@ -1,12 +1,9 @@
 package org.andromda.core.common;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.FileWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,7 +17,6 @@ import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -403,7 +399,17 @@ public class ResourceUtils
     public static void makeDirectories(final String location)
     {
         final File file = new File(location);
-        final File parent = file.getParentFile();
+        makeDirectories(file);
+    }
+
+    /**
+     * Makes the directory for the given location if it doesn't exist.
+     *
+     * @param location the location to make the directory.
+     */
+    public static void makeDirectories(final File location)
+    {
+        final File parent = location.getParentFile();
         if (parent != null)
         {
             parent.mkdirs();
@@ -577,7 +583,7 @@ public class ResourceUtils
                     {
                         logger.debug("Copying classpath resource contents into temporary file");
                     }
-                    writeUrlToFile(urlResource, fileSystemResource.toString(), null);
+                    writeUrlToFile(urlResource, fileSystemResource.toString());
     
                     // - count the times the actual resource to resolve has been nested
                     final int nestingCount = StringUtils.countMatches(path, "!/");
@@ -612,13 +618,9 @@ public class ResourceUtils
      *
      * @param url the URL to read
      * @param fileLocation the location which to write.
-     * @param encoding the optional encoding
      * @throws IOException if error writing file
      */
-    public static void writeUrlToFile(
-        final URL url,
-        final String fileLocation,
-        final String encoding)
+    public static void writeUrlToFile(final URL url, final String fileLocation)
         throws IOException
     {
         ExceptionUtils.checkNull(
@@ -628,14 +630,9 @@ public class ResourceUtils
             "fileLocation",
             fileLocation);
 
-        makeDirectories(fileLocation);
-
-        final InputStream inputStream = url.openStream();
-        final FileWriter writer = new FileWriter(fileLocation);
-        IOUtils.copy(inputStream, writer, encoding);
-        writer.flush();
-        IOUtils.closeQuietly(inputStream);
-        IOUtils.closeQuietly(writer);
+        final File lOutputFile = new File(fileLocation);
+        makeDirectories(lOutputFile);        
+        FileUtils.copyURLToFile(url, lOutputFile);
     }
 
 
