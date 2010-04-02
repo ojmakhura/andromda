@@ -11,11 +11,6 @@
     <packaging>pom</packaging>
     <name>AndroMDA Template Engines</name>
     <description>The collection of Template Engine implementations.</description>
-    <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/templateengines</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/templateengines</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>
