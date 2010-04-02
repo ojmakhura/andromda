@@ -10,9 +10,6 @@
     <artifactId>andromda-etc</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA et cetera</name>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
     <modules>
         <module>andromda-schema2xmi</module>
         <module>andromda-script-wrappers</module>

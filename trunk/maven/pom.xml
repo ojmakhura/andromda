@@ -70,9 +70,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
     <modules>
         <module>initialize</module>
         <module>andromda</module>

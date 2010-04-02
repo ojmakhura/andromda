@@ -465,7 +465,6 @@
     </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
-        <sourceDirectory>src/java</sourceDirectory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -767,11 +766,7 @@
         <module>andromda-core</module>
         <module>andromda-utils</module>
         <module>andromda-templateengines</module>
-        
         <module>repositories</module>
-        <!--temporary until uml2+uml22 coexistence solved-->
-        <module>repositories/emf/uml2</module>
-
         <module>andromda-andromdapp</module>
         <module>ant</module>
         <module>maven</module>

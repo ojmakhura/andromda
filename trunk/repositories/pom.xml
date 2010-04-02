@@ -15,27 +15,7 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>        
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-    </dependencies>
-    <build>        
+    <build>
         <testResources>
             <testResource>
                 <directory>src/test/java</directory>
@@ -55,8 +35,7 @@
         <module>mdr/common</module>
         <module>mdr/uml14</module>
         <module>emf</module>
-        <!-- Change to emf-uml2 for UML2 1.x and RSM 6.x support -->
         <module>emf/uml22</module>
-        <!--module>emf/uml2</module-->
+        <module>emf/uml2</module>
     </modules>
 </project>
