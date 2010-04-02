@@ -22,20 +22,18 @@
             <models>
                 <model>
                     <uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</uri>
-#elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
+#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
         <repository name="emf-uml2">
             <models>
                 <model type="emf-uml2">
-#if ($modelType.equals("uml2"))
-                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</uri>
-#elseif ($modelType.equals("emf-uml2"))
+#if ($modelType.equals("emf-uml2"))
                     <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</uri>
 #end
-#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+#elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
-#if ($modelType.equals("emf-uml22"))
+#if ($modelType.equals("uml2") || $modelType.equals("emf-uml22"))
                     <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</uri>
 #end
 #end
@@ -49,10 +47,10 @@
 						<!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
-#elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
+#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
                         <location patterns="**/*.uml2">${project.basedir}/src/main/uml</location>
                         <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
-#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+#elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
                         <location patterns="**/*.uml">${project.basedir}/src/main/uml</location>
                         <location patterns="**/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
