@@ -11,6 +11,9 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.repository.Repositories;
 import org.andromda.repositories.mdr.MDRepositoryFacade;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.ModelElement;
@@ -25,28 +28,17 @@ import org.omg.uml.modelmanagement.ModelManagementPackage;
  * @author Chad Brandon
  */
 public class MDRepositoryTransformationTest
-    extends TestCase
 {
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
 
-    /**
-     * Constructor for MDRepositoryTransformationTest.
-     *
-     * @param name
-     */
-    public MDRepositoryTransformationTest(String name)
-    {
-        super(name);
-    }
 
     /**
      * @see TestCase#setUp()
      */
-    protected void setUp()
-        throws Exception
+    @Before
+    public void setUp()
     {
-        super.setUp();
         AndroMDALogger.initialize();
         if (modelURL == null)
         {
@@ -66,6 +58,7 @@ public class MDRepositoryTransformationTest
      *
      * @throws Exception
      */
+    @Test
     public void testTransformModel()
         throws Exception
     {
@@ -111,10 +104,9 @@ public class MDRepositoryTransformationTest
             return namespace;
         }
 
-        Collection elements = namespace.getOwnedElement();
-        for (final Iterator iterator = elements.iterator(); iterator.hasNext();)
+        Collection<ModelElement> elements = namespace.getOwnedElement();
+        for (ModelElement element : elements)
         {
-            ModelElement element = (ModelElement)iterator.next();
             if (element.getName().equals(fullyQualifiedName[pos]))
             {
                 int nextPos = pos + 1;
@@ -127,9 +119,9 @@ public class MDRepositoryTransformationTest
                 if (element instanceof Namespace)
                 {
                     return getModelElement(
-                        (Namespace)element,
-                        fullyQualifiedName,
-                        nextPos);
+                            (Namespace) element,
+                            fullyQualifiedName,
+                            nextPos);
                 }
 
                 return null;
@@ -142,11 +134,10 @@ public class MDRepositoryTransformationTest
     /**
      * @see TestCase#tearDown()
      */
-    protected void tearDown()
-        throws Exception
+    @After
+    public void tearDown()
     {
         this.repository.clear();
         this.repository = null;
-        super.tearDown();
     }
 }
