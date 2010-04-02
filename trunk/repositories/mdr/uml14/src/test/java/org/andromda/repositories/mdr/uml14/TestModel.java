@@ -20,15 +20,8 @@ public class TestModel
             {
                 throw new RuntimeException("Could not load '" + testModel + '\'');
             }
-            if (modelUri != null)
-            {
-                String jarUrl = "jar:" + modelUri.toString() + "!/TestModel.xmi";
-                modelUri = new URL(jarUrl);
-                if (modelUri == null)
-                {
-                    throw new RuntimeException("Could not load '" + jarUrl + '\'');
-                }
-            }
+            String jarUrl = "jar:" + modelUri.toString() + "!/TestModel.xmi";
+            modelUri = new URL(jarUrl);
             return modelUri;
         }
         catch (Throwable th)

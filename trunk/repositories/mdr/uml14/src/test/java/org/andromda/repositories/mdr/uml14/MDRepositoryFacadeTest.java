@@ -2,15 +2,19 @@ package org.andromda.repositories.mdr.uml14;
 
 import java.net.URL;
 
-import junit.framework.TestCase;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.repository.Repositories;
 import org.andromda.repositories.mdr.MDRepositoryFacade;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.omg.uml.UmlPackage;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -21,29 +25,17 @@ import org.omg.uml.UmlPackage;
  * @author Chad Brandon
  */
 public class MDRepositoryFacadeTest
-    extends TestCase
 {
     private static final Logger logger = Logger.getLogger(MDRepositoryFacadeTest.class);
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
 
     /**
-     * Constructor for MDRepositoryFacadeTest.
-     *
-     * @param name the test name
+     * init for test
      */
-    public MDRepositoryFacadeTest(String name)
+    @Before
+    public void setUp()
     {
-        super(name);
-    }
-
-    /**
-     * @see TestCase#setUp()
-     */
-    protected void setUp()
-        throws Exception
-    {
-        super.setUp();
         AndroMDALogger.initialize();
         if (modelURL == null)
         {
@@ -60,6 +52,7 @@ public class MDRepositoryFacadeTest
         }
     }
 
+    @Test
     public void testGetModel()
     {
         repository.readModel(
@@ -72,13 +65,12 @@ public class MDRepositoryFacadeTest
     }
 
     /**
-     * @see TestCase#tearDown()
+     * clean up after test
      */
-    protected void tearDown()
-        throws Exception
+    @After
+    public void tearDown()
     {
         this.repository.clear();
         this.repository = null;
-        super.tearDown();
     }
 }
