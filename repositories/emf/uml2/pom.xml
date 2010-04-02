@@ -26,6 +26,7 @@
             <artifactId>andromda-metafacades-emf-uml2</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>uml2</artifactId>
@@ -61,9 +62,14 @@
             <artifactId>ecore2xml</artifactId>
             <version>2.2.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -81,13 +87,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>
