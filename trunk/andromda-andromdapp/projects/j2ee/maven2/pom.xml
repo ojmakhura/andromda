@@ -11,20 +11,14 @@
     <name>AndroMDA J2EE Maven2 Project</name>
     <description>AndroMDA powered J2EE Maven2 Application</description>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</url>
     </scm>
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>**/configuration.xml</exclude>
-                </excludes>
             </resource>
             <resource>
                 <directory>${project.basedir}/../../../../andromda-etc/mda/uml</directory>
