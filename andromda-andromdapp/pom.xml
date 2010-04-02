@@ -1,0 +1,24 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.andromdapp</groupId>
+    <artifactId>andromda-andromdapp</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Application Generator Resources</name>
+    <description>
+        The grouping of AndroMDApp resources.
+    </description>
+    <inceptionYear>2005</inceptionYear>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
+    <modules>
+        <module>andromda-andromdapp-core</module>
+        <module>projects</module>
+    </modules>
+</project>
