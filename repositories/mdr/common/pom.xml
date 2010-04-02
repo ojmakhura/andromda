@@ -24,7 +24,7 @@
             <artifactId>andromda-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -33,7 +33,7 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.andromda.thirdparty.netbeans.mdr</groupId>
             <artifactId>jmiutils</artifactId>
@@ -59,7 +59,4 @@
             <artifactId>jmi</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <sourceDirectory>src/java</sourceDirectory>
-    </build>
 </project>
