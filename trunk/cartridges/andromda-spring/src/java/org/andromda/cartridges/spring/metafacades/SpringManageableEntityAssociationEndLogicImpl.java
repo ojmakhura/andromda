@@ -41,9 +41,9 @@ public class SpringManageableEntityAssociationEndLogicImpl
         String referenceName = null;
 
         final ClassifierFacade type = this.getType();
-        if (type instanceof SpringManageableEntity)
+        if (type instanceof SpringEntity)
         {
-            final SpringManageableEntity entity = (SpringManageableEntity)type;
+            final SpringEntity entity = (SpringEntity)type;
             referenceName = entity.getBeanName(false);
         }
 
