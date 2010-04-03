@@ -74,12 +74,6 @@
                     The forms to which input is stored are output here.
                 </documentation>
             </property>
-            <property name="crudValueObjectSuffix">
-                <default>ValueObject</default>
-                <documentation>
-                    The suffix to append to the names of generated value objects used in CRUD (manageable entities).
-                </documentation>
-            </property>
         </propertyGroup>
         <propertyGroup name="Configuration">
             <documentation>
@@ -595,19 +589,16 @@
                 Properties related to the generation of the web-tier part of the manageable entities
                 (also known as the CRUD feature).
             </documentation>
-            <property name="manageableReferenceParameterPrefix">
-                <default>ref_</default>
+            <property name="crudValueObjectSuffix">
+                <default>ValueObject</default>
                 <documentation>
-                    The prefix used for hidden form input fields when pre-filling an entity reference after switching,
-                    this property should only be changed if you have form fields whose name could conflict with
-                    these extra fields.
+                    The suffix to append to the names of generated value objects used in CRUD (manageable entities).
                 </documentation>
             </property>
-            <property name="manageableFieldMaxLength">
-                <default>36</default>
+            <property name="crudConfirmationMessages">
+                <default>true</default>
                 <documentation>
-                    The maximum number of characters to allow in a managed entity's
-                    table (remainder is truncated using an ellipsis).
+                    Show a confirmation message after each CRUD operation.
                 </documentation>
             </property>
         </propertyGroup>
