@@ -1310,44 +1310,54 @@ public class UmlUtilities
             return false;
         }
         boolean result = requestedName.equals(tagValueName);
-        if (!result && requestedName.startsWith("@"))
+        if (!result)
         {
-            // let's try rsm guess
-            String rsmName = requestedName.substring(1);
-            rsmName =
-                rsmName.replace(
-                    '.',
-                    '_');
-            result = rsmName.equals(tagValueName);
-            if (!result)
+            if(requestedName.startsWith("@"))
             {
-                // let's try emf normalization
-                String emfName = EMFNormalizer.getEMFName(requestedName);
-                result = emfName.equals(tagValueName);
-            }
-        /*}
-        if (!result && tagValueName.startsWith("@"))
-        {
-            // let's try rsm guess
-            String rsmName = tagValueName.substring(1);
-            rsmName =
-                rsmName.replace(
-                    '.',
-                    '_');
-            result = requestedName.equals(rsmName);
-            if (!result)
-            {
-                // let's try emf normalization
-                String emfName = EMFNormalizer.getEMFName(tagValueName);
-                result = requestedName.equals(emfName);
-            }
-        }*/
-            // RSM converts @andromda.value to _andromdavalue when upgrading MD 9.5 profile
-            if (!result)
-            {
+                // let's try rsm guess
+                String rsmName = requestedName.substring(1);
                 rsmName =
-                    '_' + StringUtils.remove(requestedName.substring(1), '.');
+                    rsmName.replace(
+                        '.',
+                        '_');
                 result = rsmName.equals(tagValueName);
+                if (!result)
+                {
+                    // let's try emf normalization
+                    String emfName = EMFNormalizer.getEMFName(requestedName);
+                    result = emfName.equals(tagValueName);
+                }
+                /*}
+                if (!result && tagValueName.startsWith("@"))
+                {
+                    // let's try rsm guess
+                    String rsmName = tagValueName.substring(1);
+                    rsmName =
+                        rsmName.replace(
+                            '.',
+                            '_');
+                    result = requestedName.equals(rsmName);
+                    if (!result)
+                    {
+                        // let's try emf normalization
+                        String emfName = EMFNormalizer.getEMFName(tagValueName);
+                        result = requestedName.equals(emfName);
+                    }
+                }*/
+                // RSM converts @andromda.value to _andromdavalue when upgrading MD 9.5 profile
+                if (!result)
+                {
+                    rsmName =
+                        '_' + StringUtils.remove(requestedName.substring(1), '.');
+                    result = rsmName.equals(tagValueName);
+                }
+            }
+            else
+            {
+                // MD converts to _andromdavalue when exporting to EMF UML2 (v2.x) XMI and
+                // the requestValue uses andromda_value
+                String emfName = '_' + StringUtils.remove(requestedName, '_');;
+                result = emfName.equals(tagValueName);
             }
         }
         return result;
