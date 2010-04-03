@@ -332,6 +332,9 @@ public abstract class ${manageable.controllerName}
 #end
                 ).${manageable.manageableIdentifier.getterName}()
             );
+#if($crudConfirmationMessages)
+            this.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.created", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+#end            
         }
         else{
 #end
@@ -346,6 +349,9 @@ public abstract class ${manageable.controllerName}
 #set ($comma = ', ')
 #end
             );
+#if($crudConfirmationMessages)
+            this.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.changed", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+#end
 #if ($manageable.create)
         }
 #end
@@ -534,7 +540,10 @@ public abstract class ${manageable.controllerName}
         throws Exception
     {
         ${manageable.manageableServiceAccessorCall}.delete(new ${idParamClass}[]{${manageable.manageableIdentifier.name}});
-
+#if($crudConfirmationMessages)
+        this.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.deleted", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
+#end
+        
         doSearch(form);
     }
 
