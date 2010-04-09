@@ -131,28 +131,13 @@
         <${propertyPrefix}property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
 ## Because of a bug in Spring with circular references (and using AOP proxies),
 ## we need to use the lookup-method as a work-a-round for dependencies
-## which represent circular references
 #if(!$daoInheritanceEnabled)
 #foreach($entityRef in $entity.entityReferences)
-#if (!$entityRef.circularReference)
-        <${propertyPrefix}property name="$entityRef.daoName" ref="$entityRef.targetElement.getBeanName(false)"/>
-#end
-#end
-#foreach($entityRef in $entity.entityReferences)
-#if ($entityRef.circularReference)
         <${propertyPrefix}lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
-#end
 #end
 #else
 #foreach($entityRef in $entity.allEntityReferences)
-#if (!$entityRef.circularReference)
-        <${propertyPrefix}property name="$entityRef.daoName" ref="$entityRef.targetElement.getBeanName(false)"/>
-#end
-#end
-#foreach($entityRef in $entity.allEntityReferences)
-#if ($entityRef.circularReference)
         <${propertyPrefix}lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
-#end
 #end
 #end
         <!-- $entity.name entity property merge-point -->
@@ -210,16 +195,8 @@
 #end
 ## Because of a bug in Spring with circular references (and using AOP proxies),
 ## we need to use the lookup-method as a work-a-round for dependencies
-## which represent circular references
 #foreach($serviceRef in $service.allServiceReferences)
-#if (!$serviceRef.circularReference)
-        <${propertyPrefix}property name="$serviceRef.name" ref="$serviceRef.targetElement.beanName"/>
-#end
-#end
-#foreach($serviceRef in $service.allServiceReferences)
-#if ($serviceRef.circularReference)
         <${propertyPrefix}lookup-method name="$serviceRef.getterName" bean="$serviceRef.targetElement.beanName"/>
-#end
 #end
 #foreach($destination in $service.allMessagingDestinations)
         <${propertyPrefix}property name="$destination.templateBeanName" ref="$destination.templateBeanName"/>
