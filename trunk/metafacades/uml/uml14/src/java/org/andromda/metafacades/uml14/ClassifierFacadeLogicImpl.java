@@ -547,7 +547,7 @@ public class ClassifierFacadeLogicImpl
             if (property instanceof AttributeFacade)
             {
                 final AttributeFacade attribute = (AttributeFacade)property;
-                if (attribute.isRequired() || attribute.isReadOnly())
+                if (!attribute.isDerived() && (attribute.isRequired() || attribute.isReadOnly()))
                 {
                     requiredConstructorParameters.add(attribute);
                 }
