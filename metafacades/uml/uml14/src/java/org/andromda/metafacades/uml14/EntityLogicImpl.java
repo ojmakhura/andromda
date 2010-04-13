@@ -325,6 +325,21 @@ public class EntityLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.Entity#getAttributeNameList(boolean, boolean, boolean)
+     */
+    @Override
+    protected String handleGetAttributeNameList(
+        final boolean follow,
+        final boolean withIdentifiers,
+        final boolean withDerived)
+    {
+        return this.getNameList(this.getAttributes(
+                follow,
+                withIdentifiers,
+                withDerived));
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.Entity#getRequiredAttributeTypeList(boolean, boolean)
      */
     @Override
@@ -563,6 +578,18 @@ public class EntityLogicImpl
         boolean follow,
         final boolean withIdentifiers)
     {
+        return this.getAttributes(follow, withIdentifiers, true);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean, boolean, boolean)
+     */
+    @Override
+    protected Collection handleGetAttributes(
+        boolean follow,
+        final boolean withIdentifiers,
+        final boolean withDerived)
+    {
         final Collection attributes = this.getAttributes(follow);
         CollectionUtils.filter(
             attributes,
@@ -574,6 +601,10 @@ public class EntityLogicImpl
                     if (!withIdentifiers && object instanceof EntityAttribute)
                     {
                         valid = !((EntityAttribute)object).isIdentifier();
+                    }
+                    if (valid && !withDerived && object instanceof EntityAttribute)
+                    {
+                        valid = !((EntityAttribute)object).isDerived();
                     }
                     return valid;
                 }
@@ -617,7 +648,7 @@ public class EntityLogicImpl
     {
         final Collection attributes = this.getAttributes(
                 follow,
-                withIdentifiers);
+                withIdentifiers, false);
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -656,7 +687,8 @@ public class EntityLogicImpl
                     boolean valid = false;
                     if (object instanceof AttributeFacade)
                     {
-                        valid = ((AttributeFacade)object).isRequired();
+                        AttributeFacade attribute = (AttributeFacade)object;
+                        valid = attribute.isRequired() && !attribute.isDerived();
                         if (valid && !withIdentifiers && object instanceof EntityAttribute)
                         {
                             valid = !((EntityAttribute)object).isIdentifier();
