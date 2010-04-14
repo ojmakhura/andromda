@@ -696,7 +696,7 @@ public class ClassifierFacadeLogicImpl
             for (final Iterator iterator = interfaces.iterator(); iterator.hasNext();)
             {
                 final ModelElementFacade element = (ModelElementFacade)iterator.next();
-                list.append(element.getFullyQualifiedName());
+                list.append(element.getBindedFullyQualifiedName(this));
                 if (iterator.hasNext())
                 {
                     list.append(", ");
