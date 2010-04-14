@@ -2,14 +2,19 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.TemplateArgumentFacade;
 import org.andromda.metafacades.uml.TemplateParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -319,73 +324,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetFullyQualifiedName(boolean modelName)
     {
-        String fullName = StringUtils.trimToEmpty(this.getName());
-        final String packageName = this.getPackageName(true);
-        final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullName = packageName + metafacadeNamespaceScopeOperator + fullName;
-        }
-        if (!modelName)
-        {
-            final TypeMappings languageMappings = this.getLanguageMappings();
-            if (languageMappings != null)
-            {
-                fullName = StringUtils.trimToEmpty(languageMappings.getTo(fullName));
-
-                // now replace the metafacade scope operators
-                // with the mapped scope operators
-                final String namespaceScopeOperator =
-                    String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
-                fullName = StringUtils.replace(
-                        fullName,
-                        metafacadeNamespaceScopeOperator,
-                        namespaceScopeOperator);
-            }
-        }
-
-        if (this.isTemplateParametersPresent() &&
-            BooleanUtils.toBoolean(
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
-        {
-            // we'll be constructing the parameter list in this buffer
-            // add the name we've constructed so far
-            final StringBuilder buffer = new StringBuilder(fullName + '<');
-
-            // loop over the parameters, we are so to have at least one (see
-            // outer condition)
-            final Collection<TemplateParameterFacade> templateParameters = this.getTemplateParameters();
-            for (Iterator<TemplateParameterFacade> parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
-            {
-                final ModelElementFacade modelElement =
-                    ((TemplateParameterFacade)parameterIterator.next()).getParameter();
-
-                // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
-                // Mapping from UML2 should return ParameterFacade, with a getType method.
-                // Add TemplateParameterFacade.getType method - need to access this in vsl templates.
-                if (modelElement instanceof ParameterFacade)
-                {
-                    buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
-                }
-                else
-                {
-                    buffer.append(modelElement.getFullyQualifiedName());
-                }
-
-                if (parameterIterator.hasNext())
-                {
-                    buffer.append(", ");
-                }
-            }
-
-            // we're finished listing the parameters
-            buffer.append('>');
-
-            // we have constructed the full name in the buffer
-            fullName = buffer.toString();
-        }
-
-        return fullName;
+        return handleGetBindedFullyQualifiedName(modelName, Collections.<BindingFacade>emptyList());
     }
 
     /**
@@ -1077,4 +1016,149 @@ public class ModelElementFacadeLogicImpl
     {
         return this.metaObject.hasKeyword(keywordName);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String handleGetBindedFullyQualifiedName(ModelElementFacade bindedElement)
+    {
+        // This cast is not safe yet, but will be as soon as the filtering will be done
+        @SuppressWarnings("unchecked")
+        final Collection<BindingFacade> bindingFacades = new ArrayList(bindedElement.getSourceDependencies());
+        CollectionUtils.filter(
+            bindingFacades,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof BindingFacade;
+                }
+            });
+        return handleGetBindedFullyQualifiedName(false, bindingFacades);
+    }
+
+    /**
+     * <p>
+     * Returns the fully qualified name of the model element. The fully
+     * qualified name includes complete package qualified name of the
+     * underlying model element.  If modelName is true, then the
+     * original name of the model element (the name contained within
+     * the model) will be the name returned, otherwise a name from a
+     * language mapping will be returned. Moreover use the given collection
+     * of {@link BindingFacade} to bind templates parameters to their actual
+     * type.
+     * </p>
+     * @param modelName boolean
+     * @param bindingFacades Collection
+     * @return String
+     */
+    private String handleGetBindedFullyQualifiedName(boolean modelName, Collection<BindingFacade> bindingFacades)
+    {
+        String fullName = StringUtils.trimToEmpty(this.getName());
+        final String packageName = this.getPackageName(true);
+        final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullName = packageName + metafacadeNamespaceScopeOperator + fullName;
+        }
+        if (!modelName)
+        {
+            final TypeMappings languageMappings = this.getLanguageMappings();
+            if (languageMappings != null)
+            {
+                fullName = StringUtils.trimToEmpty(languageMappings.getTo(fullName));
+
+                // now replace the metafacade scope operators
+                // with the mapped scope operators
+                final String namespaceScopeOperator =
+                    String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
+                fullName = StringUtils.replace(
+                        fullName,
+                        metafacadeNamespaceScopeOperator,
+                        namespaceScopeOperator);
+            }
+        }
+
+        if (this.isTemplateParametersPresent() &&
+            BooleanUtils.toBoolean(
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+        {
+            // Retrieve all template parameters
+            final Collection<TemplateParameterFacade> templateParameters = this.getTemplateParameters();
+
+            // Construct a map of the TemplateParameterFacade to replace
+            Map<TemplateParameterFacade, ModelElementFacade> bindedParameters = new HashMap<TemplateParameterFacade, ModelElementFacade>();
+            for(BindingFacade bindingFacade : bindingFacades)
+            {
+                ModelElementFacade targetElement = bindingFacade.getTargetElement();
+                if(targetElement instanceof RedefinableTemplateSignatureFacade)
+                {
+                    targetElement = ((RedefinableTemplateSignatureFacade) targetElement).getClassifier();
+                }
+                if(this.equals(targetElement))
+                {
+                    final Collection<TemplateArgumentFacade> arguments = bindingFacade.getArguments();
+                    if(arguments.size() != getTemplateParameters().size())
+                    {
+                        throw new IllegalStateException("The size of the arguments of the BindingFacace must be equals to the size of the TemplateParameter collection of this element.");
+                    }
+                    
+                    Iterator<TemplateParameterFacade> templateParametersIterator = templateParameters.iterator();
+                    Iterator<TemplateArgumentFacade> templateArgumentsIterator = arguments.iterator();
+                    
+                    while(templateParametersIterator.hasNext())
+                    {
+                        final TemplateParameterFacade templateParameter = templateParametersIterator.next();
+                        final TemplateArgumentFacade templateArgument =  templateArgumentsIterator.next();
+                        bindedParameters.put(templateParameter, templateArgument.getElement());
+                    }
+                }
+            }
+            if(bindedParameters.isEmpty())
+            {
+                for(TemplateParameterFacade templateParameterFacade : templateParameters)
+                {
+                    bindedParameters.put(templateParameterFacade, templateParameterFacade.getParameter());
+                }
+            }
+            
+            // we'll be constructing the parameter list in this buffer
+            // add the name we've constructed so far
+            final StringBuilder buffer = new StringBuilder(fullName + '<');
+
+            // loop over the parameters, we are so to have at least one (see
+            // outer condition)
+            for (final Iterator<TemplateParameterFacade> parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
+            {
+                final ModelElementFacade modelElement = bindedParameters.get(parameterIterator.next());
+
+                // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
+                // Mapping from UML2 should return ParameterFacade, with a getType method.
+                // Add TemplateParameterFacade.getType method - need to access this in vsl templates.
+                if (modelElement instanceof ParameterFacade)
+                {
+                    buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
+                }
+                else
+                {
+                    buffer.append(modelElement.getFullyQualifiedName());
+                }
+
+                if (parameterIterator.hasNext())
+                {
+                    buffer.append(", ");
+                }
+            }
+
+            // we're finished listing the parameters
+            buffer.append('>');
+
+            // we have constructed the full name in the buffer
+            fullName = buffer.toString();
+        }
+
+        return fullName;
+    }
+
 }

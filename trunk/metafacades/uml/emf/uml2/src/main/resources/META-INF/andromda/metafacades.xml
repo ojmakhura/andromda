@@ -417,6 +417,9 @@
         <property reference="classifierNameMask"/>
     </metafacade-->
     <!--WebService cartridge throws a warning if these are not mapped, even if not used-->
+    <metafacade class="org.andromda.metafacades.emf.uml2.RedefinableTemplateSignatureFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.RedefinableTemplateSignatureImpl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.impl.LiteralIntegerImpl"/>
     </metafacade>

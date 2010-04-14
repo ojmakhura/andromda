@@ -308,7 +308,7 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.TemplateBindingImpl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.TemplateArgumentFacadeLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.TemplateArgumentImpl"/>
+        <mapping class="org.eclipse.uml2.uml.internal.impl.TemplateParameterSubstitutionImpl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TemplateParameterImpl"/>
@@ -439,6 +439,9 @@
         <property reference="classifierNameMask"/>
     </metafacade-->
     <!-- WebService cartridge throws a warning if these are not mapped, even if not used -->
+    <metafacade class="org.andromda.metafacades.emf.uml22.RedefinableTemplateSignatureFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.RedefinableTemplateSignatureImpl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.LiteralIntegerImpl"/>
     </metafacade>

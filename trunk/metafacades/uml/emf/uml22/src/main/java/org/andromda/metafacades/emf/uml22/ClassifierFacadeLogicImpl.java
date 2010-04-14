@@ -1182,7 +1182,7 @@ public class ClassifierFacadeLogicImpl
             for (final Iterator<ClassifierFacade> iterator = interfaces.iterator(); iterator.hasNext();)
             {
                 final ClassifierFacade element = iterator.next();
-                list.append(element.getFullyQualifiedName());
+                list.append(element.getBindedFullyQualifiedName(this));
                 if (iterator.hasNext())
                 {
                     list.append(", ");

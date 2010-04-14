@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ClassifierTemplateParameter;
 import org.eclipse.uml2.uml.DataType;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ParameterableElement;
 
 /**
@@ -66,7 +67,7 @@ public class TemplateParameterFacadeLogicImpl
     public final String getName()
     {
         // ParameterableElement is actually uml:DataType in the model, even though it doesn't inherit from
-        DataType type = (DataType) this.metaObject.getOwnedParameteredElement();
+        NamedElement type = (NamedElement) this.metaObject.getOwnedParameteredElement();
         // Assumes no templating of template types, no array types, same declared/impl types
         return type.getName();
     }
