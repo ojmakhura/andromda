@@ -1,8 +1,11 @@
 package org.andromda.maven.plugin.bootstrap.install;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -13,6 +16,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -145,11 +150,24 @@ public class BootstrapInstallMojo
         minModel.setModelVersion(model.getModelVersion());
 
         minModel.setName(model.getName());
-        minModel.setPackaging(model.getPackaging());
+        minModel.setPackaging("jar");
         minModel.setPrerequisites(model.getPrerequisites());
         minModel.setOrganization(model.getOrganization());
         minModel.setInceptionYear(model.getInceptionYear());
         minModel.setLicenses(model.getLicenses());
+
+        final List<Dependency> dependencies = new ArrayList<Dependency>(model.getDependencies());
+        // filter all of andromda dependencies away
+        CollectionUtils.filter(dependencies, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                Dependency dependency = (Dependency)object;
+                final String lGroupId = dependency.getGroupId();
+                return !lGroupId.startsWith("org.andromda") || lGroupId.startsWith("org.andromda.thirdparty"); 
+            }
+        });
+        minModel.setDependencies(dependencies);
 
         final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
         minimalProject.writeModel(fileWriter);

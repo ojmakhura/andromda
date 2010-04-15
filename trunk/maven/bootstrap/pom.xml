@@ -22,46 +22,6 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.andromda.thirdparty.jmi</groupId>
-            <artifactId>jmiuml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-		<dependency>
-            <groupId>org.eclipse.uml2</groupId>
-            <artifactId>uml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.uml2</groupId>
-            <artifactId>common</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.uml2</groupId>
-            <artifactId>resources</artifactId>
-        </dependency>
-        <dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>common</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>ecore</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-		<dependency>
-			<groupId>org.eclipse.emf.ecore</groupId>
-			<artifactId>xmi</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf.mapping</groupId>
-            <artifactId>ecore2xml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
         <!-- Maven dependencies -->
         <dependency>
@@ -173,23 +133,6 @@
         </dependency>        
     </dependencies>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-initialize-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>initialize</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <localArtifactDirectory>${basedir}/../../lib</localArtifactDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
         <resources>
             <resource>
                 <targetPath>META-INF/andromda/mappings</targetPath>
