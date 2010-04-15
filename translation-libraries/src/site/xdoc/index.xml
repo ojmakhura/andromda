@@ -113,7 +113,7 @@
                 metafacade getQuery method:
                 <source language="java">
 <![CDATA[
-    public java.lang.String handleGetQuery()
+    public String handleGetQuery()
     {
         // this tells us to translate all "body" constraints using
         // the "EJB-QL" translation from the "query" library
