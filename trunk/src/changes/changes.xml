@@ -8,6 +8,9 @@
 			<action dev="catforce" type="fix" issue="CORE-118,CORE-145">
                  Fix implementation of  ResourceUtils.writeUrlToFile.
             </action>      
+        	<action dev="catforce" type="fix" issue="ANDROMDAPP-50">
+                 Removed double wsdl4j dependency from generated core pom.xml
+            </action>
 			<action dev="catforce" type="fix" issue="JAVA-11">
                  Defined serialVersionUID for all serializable classes 
             </action>
