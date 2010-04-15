@@ -5,7 +5,7 @@
   <groupId>org.andromda.bootstrap.metafacades</groupId>
   <artifactId>andromda-metafacades-uml</artifactId>
   <version>3.4-SNAPSHOT</version>
-  <packaging>xml.zip</packaging>
+  <packaging>jar</packaging>
   <name>AndroMDA UML Common Metafacades</name>
   <description>The common UML metafacades.  This is the set of core UML metafacades used to provide access UML meta models.</description>
   <inceptionYear>2003</inceptionYear>
@@ -21,4 +21,24 @@
       <comments>AndroMDA runs under a BSD license</comments>
     </license>
   </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

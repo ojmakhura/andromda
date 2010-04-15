@@ -6,8 +6,8 @@
   <artifactId>andromda-repository-emf</artifactId>
   <version>3.4-SNAPSHOT</version>
   <name>AndroMDA EMF Repository</name>
-  <description>This abstract EMF repository module should be extended by those repository implementations wishing to 
-  	    load EMF based models.</description>
+  <description>This abstract EMF repository module should be extended by those repository implementations wishing to
+        load EMF based models.</description>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -21,4 +21,100 @@
       <comments>AndroMDA runs under a BSD license</comments>
     </license>
   </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>uml</artifactId>
+      <version>2.2.2</version>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>common</artifactId>
+      <version>1.4.0</version>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.uml2</groupId>
+      <artifactId>resources</artifactId>
+      <version>2.2.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>common</artifactId>
+      <version>2.4.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf</groupId>
+      <artifactId>ecore</artifactId>
+      <version>2.4.2</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>resources</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf.ecore</groupId>
+      <artifactId>xmi</artifactId>
+      <version>2.4.1</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf.mapping</groupId>
+      <artifactId>ecore2xml</artifactId>
+      <version>2.4.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
