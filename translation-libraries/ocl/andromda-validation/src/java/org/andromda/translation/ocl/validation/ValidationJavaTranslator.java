@@ -1365,7 +1365,6 @@ public class ValidationJavaTranslator
         this.getExpression().insertInTranslatedExpression(0, "boolean constraintValid = ");
         this.getExpression().insertInTranslatedExpression(0,
                 "final Object " + CONTEXT_ELEMENT_NAME + " = this; ");
-        //this.getExpression().replaceInTranslatedExpression("java.lang.", "");
         this.getExpression().appendToTranslatedExpression(");");
     }
 }
