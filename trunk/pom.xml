@@ -184,7 +184,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.8.1</version>
+                <version>1.8.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
@@ -199,7 +199,7 @@
             <dependency>
                 <groupId>commons-dbutils</groupId>
                 <artifactId>commons-dbutils</artifactId>
-                <version>1.0</version>
+                <version>1.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-digester</groupId>
@@ -214,7 +214,7 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -268,7 +268,7 @@
             <dependency>
                 <groupId>dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6</version>
+                <version>1.6.1</version>
             </dependency>
             <dependency>
                 <groupId>de.plushnikov</groupId>
@@ -278,7 +278,7 @@
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
-                <version>1.7.1</version>
+                <version>1.8.0</version>
             </dependency>
 
             <dependency>
@@ -549,6 +549,187 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <inherited>false</inherited>
+                <version>2.3</version>
+                <configuration>
+                    <createChecksum>true</createChecksum>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install_meta_cartridge</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_metafacades_uml</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_metafacades_uml14</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_metafacades_uml2</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml2.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml2.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_metafacades_uml22</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install_repositories_uml</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_repositories_uml14</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_repositories_uml2</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml2.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml2.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_repositories_uml22</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install_translationlibraries_validation</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar
+                            </file>
+                            <pomFile>
+                                lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom
+                            </pomFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_translationlibraries_test</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar
+                            </file>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
+                            </pomFile>
+                        </configuration>
+                    </execution>
+                    <!--
+                    <execution>
+                        <id>install_cartridge-plugin</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install_model-archiver-plugin</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar</file>
+                        </configuration>
+                    </execution>
+                    -->
+                </executions>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <show>package</show>
+                    <minmemory>128m</minmemory>
+                    <maxmemory>512m</maxmemory>
+                    <verbose>true</verbose>
+                    <sourcepath>src/main/java;src/java;target/src</sourcepath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
     <!-- Comment to disable project reporting using default maven plugins -->
@@ -826,6 +1007,7 @@
         <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository
         <bootstrap.artifacts>true</bootstrap.artifacts>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.version>2.2.1</maven.version>
         <plexus.util.version>1.5.9</plexus.util.version>
     </properties>
@@ -859,13 +1041,6 @@
             <build>
                 <pluginManagement>
                     <plugins>
-                        <plugin>
-                            <artifactId>maven-install-plugin</artifactId>
-                            <version>2.3</version>
-                            <configuration>
-                                <createChecksum>true</createChecksum>
-                            </configuration>
-                        </plugin>
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>buildnumber-maven-plugin</artifactId>
