@@ -264,7 +264,7 @@ catch (Exception ex)
 							debugging and environment information:
 <pre>
 ------- AndroMDA Exception Recording -------
-Version ........: 3.0-RC2-20050420181638
+Version ........: 3.4-SNAPSHOT
 Error ..........: Error performing ModelProcessor.process with model(s) --> 'jar:file:/home/martin/ews30andromda/workspace/andromda-all/cartridges/andromda-webservice/src/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml'
 Build ..........: 2005-04-20 18:16:38
 Build System ...: Linux-2.6.11-suspend2
@@ -305,7 +305,7 @@ java.lang.OutOfMemoryError
                     <li>
                         <p>
                             If you fixed, added, updated or removed a feature then update
-                            <code>/documentation/main/src/changes/changes.xml</code>.
+                            <code>/src/changes/changes.xml</code>.
                             Take a look at previous changes for examples.
                         </p>
                     </li>

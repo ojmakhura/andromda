@@ -39,9 +39,7 @@
             <subsection name="Java">
                 <p>
                     You will need the developer release of the Java 2 Virtual Machine (Java 2 SDK).
-                    You will need at least version 1.4 because of dependencies such as <code>
-                    <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/package-frame.html">java.util.regexp</a>
-                    </code> which are only available starting from that release.
+                    You will need at least version 1.5.
                 </p>
                 <p>
                     A distribution can be downloaded from this site:
@@ -68,7 +66,7 @@
                 <p class="highlight">
                     Using AndroMDA in combination with Maven (instead of Ant) will save you a considerable amount of
                     time and effort if you've never used AndroMDA before. Just make sure you are using the latest
-                    version, Maven 1.0.2 is recommended, earlier versions are less performant and contain
+                    version, Maven 2.2.1 is recommended, earlier versions are less performant and contain
                     critical bugs.
                 </p>
                 <p>
@@ -126,8 +124,8 @@
             </p>
             <subsection name="Java">
                 <p>
-                    Depending on your platform you install the Java 2 SDK 1.4 (or a later version), you may go
-                    <a href="http://java.sun.com/j2se/1.4.2/download.html" target="_blank">here</a> to download a stable release.
+                    Depending on your platform you install the Java 2 SDK 1.5 (or a later version), you may go
+                    <a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank">here</a> to download a stable release.
                 </p>
                 <h3>Setting JAVA_HOME</h3>
                 <p>
@@ -146,7 +144,7 @@
                 </p>
                 <p>
                     In the dialog that you just opened you should add/edit the variable <code>JAVA_HOME</code> and set it
-                    the Java SDK installation directory, eg. C:\j2sdk1.4.2_08.
+                    the Java SDK installation directory, eg. C:\j2sdk1.5.
                 </p>
             </subsection>
             <subsection name="Maven">
@@ -155,19 +153,13 @@
                     whenever it needs to.
                     <ol>
                         <li>Download Maven from this site:
-                            <a href="http://maven.apache.org/start/download.html" target="_blank">http://maven.apache.org/start/download.html</a>
+                            <a href="http://maven.apache.org/download.html" target="_blank">http://maven.apache.org/download.html</a>
                         </li>
                         <li>Install the downloaded binary. (We will assume you installed it in <code>C:\apps\maven</code>)</li>
                         <li>If the installation would complain that the JAVA_HOME environment is not set then make sure
                             you have correctly set it and close Windows Explorer or
                             <a href="http://www.ghisler.com" target="_blank">Total Commander</a>, whatever
-                            it is you are using and start it again.</li>
-                        <li>Go to your <code>home</code> directory. (If your login is <code>foo</code> this means here:
-                            <code>C:\Documents and Settings\foo</code>)
-                        </li>
-                        <li>Create a file there, called <code>build.properties</code> and add the following line in there:
-                            <code>maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven</code>
-                        </li>
+                            it is you are using and start it again.</li>                        
                     </ol>
                 </p>
             </subsection>
@@ -318,8 +310,8 @@ plugin:download-artifact:
     [mkdir] Created dir: C:\Documents and Settings\foo\.maven\repository\andromda\plugins
     [echo] repo is 'http://www.ibiblio.org/maven'
     [echo] trying to download http://www.ibiblio.org/maven/andromda/plugins/maven-andromdapp-plugin-3.2.jar
-    [echo] repo is 'http://team.andromda.org/maven'
-    [echo] trying to download http://team.andromda.org/maven/andromda/plugins/maven-andromdapp-plugin-3.2.jar
+    [echo] repo is 'http://www.andromda.org/maven'
+    [echo] trying to download http://www.andromda.org/maven/andromda/plugins/maven-andromdapp-plugin-3.2.jar
 40K downloaded
 
 plugin:download:

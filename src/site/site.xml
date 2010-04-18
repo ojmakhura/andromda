@@ -20,8 +20,7 @@
         </links>
         <menu name="Overview">
             <item name="What is AndroMDA?" href="/whatisit.html"/>
-            <item name="Getting Started - Java" href="andromda-documentation/andromda-getting-started-java/java/index.html"/>
-            <item name="Getting Started - .NET" href="http://team.andromda.org/contrib/starting-dotnet.html"/>
+            <item name="Getting Started - Java" href="andromda-documentation/andromda-getting-started-java/java/index.html"/>            
             <item name="Modeling" href="/modeling.html"/>
             <item name="Samples" href="/samples.html"/>
             <item name="Release History" href="/changes-report.html"/>
@@ -47,19 +46,15 @@
         </menu>
         <menu name="Downloads">
             <item name="Releases" href="/releases.html"/>
-            <item name="Continuous Builds" href="http://team.andromda.org/maven2/org/andromda/distributions/"/>
+            <item name="Continuous Builds" href="http://oss.sonatype.org/content/groups/public/org/andromda/andromda-distribution/"/>
             <item name="Resources" href="/resources.html"/>
         </menu>
         <menu name="Community">
             <item name="Support Forum" href="http://forum.andromda.org"/>
             <item name="Mailing Lists" href="/mail-lists.html"/>
-            <item name="Contributions" href="http://team.andromda.org/contrib"/>
             <item name="AndroMDA JIRA" href="http://jira.andromda.org"/>
-            <item name="AndroMDA Wiki" href="http://confluence.andromda.org"/>
-<!--
-            <item name="AndroMDA #IRC" href="/irc.html"/>
--->
             <item name="Support Us" href="/donations.html"/>
+            <item name="Developers" href="/team-list.html"/>
             <item name="Pictures" href="/pictures.html"/>
             <item name="Other Links" href="/otherlinks.html"/>
         </menu>
@@ -70,10 +65,6 @@
             <item name="EMF UML2 API" href="http://download.eclipse.org/tools/uml2/1.1.1/javadoc"/>
             <item name="SVN Repository" href="/source-repository.html"/>
             <item name="Debugging" href="/dev-debugging.html"/>
-        </menu>
-        <menu name="Professional services">
-            <item name="Consulting" href="/consulting.html"/>
-            <item name="Training"   href="/training.html"/>
         </menu>
         <menu ref="reports"/>
     </body>

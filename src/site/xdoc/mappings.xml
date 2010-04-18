@@ -121,13 +121,13 @@
                         a few examples for several types of mappings, you can find them in the default namespace
                         definition within <code>mda/conf/andromda.xml</code> (which means these apply to all namespaces/cartridges):
 <source language="xml"><![CDATA[
-    <property name="languageMappingsUri">file:${maven.src.dir}/mappings/MyJavaMappings.xml</property>
+    <property name="languageMappingsUri">file:${project.basedir}/src/mappings/MyJavaMappings.xml</property>
     
-    <property name="wrapperMappingsUri">file:${maven.src.dir}/mappings/MyJavaWrapperMappings.xml</property>
+    <property name="wrapperMappingsUri">file:${project.basedir}/src/mappings/MyJavaWrapperMappings.xml</property>
     
-    <property name="jdbcMappingsUri">file:${maven.src.dir}/mappings/MyJdbcMappings.xml</property>
+    <property name="jdbcMappingsUri">file:${project.basedir}/src/mappings/MyJdbcMappings.xml</property>
     
-    <property name="sqlMappingsUri">file:${maven.src.dir}/mappings/MySqlMappings.xml</property>
+    <property name="sqlMappingsUri">file:${project.basedir}/src/mappings/MySqlMappings.xml</property>
 ]]></source>
                     </p>
                     <p>
@@ -167,8 +167,8 @@
 ]]></source>
                     </p>
                     <p class="highlight">
-                        All mappings can be found in the andromda-plugin jar, just unzip
-                        it and go into <code>/plugin-resources/andromda/mappings</code>, you can unzip them
+                        All mappings can be found in the andromda-maven-plugin.jar, just unzip
+                        it and go into <code>/META-INF/andromda/mappings</code>, you can unzip them
                         into your own location, edit them, and use them to override the defaults as explained
                         above.
                     </p>
