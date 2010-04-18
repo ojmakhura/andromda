@@ -10,7 +10,7 @@
             <p>
                 This document provides guidelines on debugging the internals of AndroMDA. 
                 Logging is managed by 
-                <a href="http://team.andromda.org/docs/andromda-core/apidocs/org/andromda/core/common/AndroMDALogger.html">
+                <a href="http://www.andromda.org/docs/andromda-core/apidocs/org/andromda/core/common/AndroMDALogger.html">
                     AndroMDALogger
                 </a>.
             </p>
@@ -73,7 +73,7 @@
             <subsection name="Cartridge Debugging">
                 <p>
                     The base class, 
-                    <a href="http://team.andromda.org/docs/andromda-core/apidocs/org/andromda/core/metafacade/MetafacadeBase.html">
+                    <a href="http://www.andromda.org/docs/andromda-core/apidocs/org/andromda/core/metafacade/MetafacadeBase.html">
                     MetaFacadeBase</a> of Facade logic classes contains an instance variable logger.
                     This logger will have been initialized to use the appropriate namespace
                     category for the cartridge which contains this class. When using the debug calls
