@@ -1,6 +1,7 @@
 package org.andromda.translation.ocl.parser;
 
 import java.util.StringTokenizer;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -77,8 +78,7 @@ public class OclParserException
                 this.errorLine = -1;
                 this.errorColumn = -1;
             }
-        }
-        else
+        } else
         {
             // No positional information
             this.messageBuffer.append(message);

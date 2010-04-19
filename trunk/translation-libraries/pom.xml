@@ -15,14 +15,13 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries</developerConnection>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries
+        </connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <modules>
         <module>ocl</module>
     </modules>
-    <build>
-        <sourceDirectory>src/java</sourceDirectory>
-    </build>
 </project>

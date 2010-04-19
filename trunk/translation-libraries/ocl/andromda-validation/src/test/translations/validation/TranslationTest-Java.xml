@@ -3,7 +3,7 @@
 
 <translation-test>
 
-	<translation name="validation.Java"/>
+    <translation name="validation.Java"/>
 
     <expression>
         <from>
@@ -11,7 +11,8 @@
             inv: age >= 18
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age"),18));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age"),18));
         </to>
     </expression>
 
@@ -21,7 +22,9 @@
             inv: validFrom.isBefore(goodThru)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"validFrom"),"isBefore(goodThru)",new Object[]{org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"goodThru")}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"validFrom"),"isBefore(goodThru)",new
+            Object[]{org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"goodThru")}));
         </to>
     </expression>
 
@@ -31,7 +34,8 @@
             inv: card.customer = customer
         </from>
         <to>
-           final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.customer"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer")));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.customer"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer")));
         </to>
     </expression>
 
@@ -41,7 +45,8 @@
             inv: serviceLevel->size() = 2
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"serviceLevel")),2));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"serviceLevel")),2));
         </to>
     </expression>
 
@@ -51,7 +56,10 @@
             inv: cards->select( valid = true )
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.select(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"cards"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"valid"),true))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.select(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"cards"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"valid"),true))).booleanValue();}}));
         </to>
     </expression>
 
@@ -61,7 +69,10 @@
             inv: program->size() = cards->select( valid = true )->size()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"program")),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLCollections.select(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"cards"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"valid"),true))).booleanValue();}}))));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"program")),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLCollections.select(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"cards"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"valid"),true))).booleanValue();}}))));
         </to>
     </expression>
 
@@ -69,10 +80,13 @@
         <from>
             context LoyaltyProgram
             inv: partners.deliveredServices->forAll( pointsEarned = 0 and pointsBurned = 0 )
-                    implies membership.loyaltyAccount->isEmpty()
+            implies membership.loyaltyAccount->isEmpty()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"pointsEarned"),0)&amp;&amp;org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"pointsBurned"),0))).booleanValue();}}))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"membership.loyaltyAccount")):true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"pointsEarned"),0)&amp;&amp;org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"pointsBurned"),0))).booleanValue();}}))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"membership.loyaltyAccount")):true));
         </to>
     </expression>
 
@@ -82,7 +96,8 @@
             inv: numberOfCustomers = loyaltyProgram.customer->size()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"numberOfCustomers"),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"loyaltyProgram.customer"))));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"numberOfCustomers"),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"loyaltyProgram.customer"))));
         </to>
     </expression>
 
@@ -92,7 +107,8 @@
             inv: numberOfCustomers = loyaltyProgram.customer->asSet()->size()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"numberOfCustomers"),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLCollections.asSet(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"loyaltyProgram.customer")))));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"numberOfCustomers"),org.andromda.translation.ocl.validation.OCLCollections.size(org.andromda.translation.ocl.validation.OCLCollections.asSet(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"loyaltyProgram.customer")))));
         </to>
     </expression>
 
@@ -104,7 +120,8 @@
             ]]>
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.less(org.andromda.translation.ocl.validation.OCLCollections.sum(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices.transaction.points")),10000));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.less(org.andromda.translation.ocl.validation.OCLCollections.sum(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices.transaction.points")),10000));
         </to>
     </expression>
 
@@ -114,7 +131,10 @@
             inv: customer->forAll( age >= 18 )
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"age"),18))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"age"),18))).booleanValue();}}));
         </to>
     </expression>
 
@@ -124,7 +144,8 @@
             inv: name = 'Edward'
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"),"Edward"));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"),"Edward"));
         </to>
     </expression>
 
@@ -134,7 +155,8 @@
             inv: self.name = 'Edward'
         </from>
         <to>
-			final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"),"Edward"));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"),"Edward"));
         </to>
     </expression>
 
@@ -144,7 +166,8 @@
             inv: self.pointsOffered > 0 implies not (self.pointsBurned = 0)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.greater(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pointsOffered"),0))).booleanValue()?!(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pointsBurned"),0)):true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.greater(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pointsOffered"),0))).booleanValue()?!(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pointsBurned"),0)):true));
         </to>
     </expression>
 
@@ -154,7 +177,8 @@
             inv: title = (if isMale = true then 'Mr.' else 'Ms.' endif)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"title"),(if(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"isMale"),true)){"Mr.";}else{"Ms.";})));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"title"),(if(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"isMale"),true)){"Mr.";}else{"Ms.";})));
         </to>
     </expression>
 
@@ -164,7 +188,8 @@
             inv: self.age() >= 0
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age()"),0));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age()"),0));
         </to>
     </expression>
 
@@ -172,11 +197,12 @@
         <from>
             context Membership
             inv: (actualLevel.name = 'Silver' implies card.color = Color::silver)
-                 and
-                 (actualLevel.name = 'Gold' implies card.color = Color::gold)
+            and
+            (actualLevel.name = 'Gold' implies card.color = Color::gold)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"actualLevel.name"),"Silver"))).booleanValue()?org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.color"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"Color::silver")):true))&amp;&amp;((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"actualLevel.name"),"Gold"))).booleanValue()?org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.color"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"Color::gold")):true)));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"actualLevel.name"),"Silver"))).booleanValue()?org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.color"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"Color::silver")):true))&amp;&amp;((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"actualLevel.name"),"Gold"))).booleanValue()?org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"card.color"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"Color::gold")):true)));
         </to>
     </expression>
 
@@ -186,7 +212,8 @@
             post : result = (points = 0)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"result"),(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"points"),0))));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"result"),(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"points"),0))));
         </to>
     </expression>
 
@@ -196,7 +223,10 @@
             pre: getModel().getAllUseCases()->one(name = 'Prince') = true
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getModel()"),"getAllUseCases()"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),"Prince"))).booleanValue();}}),true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getModel()"),"getAllUseCases()"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),"Prince"))).booleanValue();}}),true));
         </to>
     </expression>
 
@@ -206,17 +236,23 @@
             inv: let contextElementName : String = name in model.allUseCases->one(name = contextElementName)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name")))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name")))).booleanValue();}}));
         </to>
     </expression>
-	
+
     <expression>
         <from>
             context StrutsUseCase
             inv: let contextElementName : String = getName() in model.allUseCases->one(getName() = contextElementName)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"getName()"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getName()")))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"getName()"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getName()")))).booleanValue();}}));
         </to>
     </expression>
 
@@ -224,48 +260,58 @@
         <from>
             context StrutsFinalState
             inv: let finalStateName : String = name
-                  in finalStateName->notEmpty()
-                      and model.allUseCases->one(name = finalStateName)
+            in finalStateName->notEmpty()
+            and model.allUseCases->one(name = finalStateName)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"))&amp;&amp;org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name")))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name"))&amp;&amp;org.andromda.translation.ocl.validation.OCLCollections.one(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"model.allUseCases"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"name")))).booleanValue();}}));
         </to>
     </expression>
-	
+
     <expression>
         <from>
             context OperationFacade
             inv: getReturnType()->notEmpty()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getReturnType()")));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"getReturnType()")));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context SpringEntityAssociationEnd inv: one2One = true implies composition or aggregation
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"one2One"),true))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue():true)||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue());
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"one2One"),true))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue():true)||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue());
         </to>
     </expression>
-    
+
     <expression>
         <from>
-            context SpringEntityAssociationEnd inv: one2One implies (composition or aggregation or otherEnd.composition or otherEnd.aggregation)
+            context SpringEntityAssociationEnd inv: one2One implies (composition or aggregation or otherEnd.composition
+            or otherEnd.aggregation)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue()?(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"otherEnd.composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"otherEnd.aggregation"))).booleanValue()):true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"one2One"))).booleanValue()?(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"aggregation"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"otherEnd.composition"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"otherEnd.aggregation"))).booleanValue()):true));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context WebService inv : operations -> isUnique(name)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.isUnique(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"operations"),new org.apache.commons.collections.Transformer(){public Object transform(Object object){return org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name");}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.isUnique(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"operations"),new
+            org.apache.commons.collections.Transformer(){public Object transform(Object object){return
+            org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"name");}}));
         </to>
     </expression>
 
@@ -275,33 +321,39 @@
             inv: age.oclIsKindOf(java::lang::Integer)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age") instanceof java.lang.Integer);
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age")
+            instanceof java.lang.Integer);
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context Customer
             inv: age.oclIsTypeOf(java::lang::Integer)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age").getClass().getName().equals(java.lang.Integer.class.getName()));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age").getClass().getName().equals(java.lang.Integer.class.getName()));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context CustomerCard
             inv: printedName = customer.title.concat(customer.name)
         </from>
         <to>
-           final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"printedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer.title") + "" + org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer.name")));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"printedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer.title")
+            + "" + org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"customer.name")));
         </to>
     </expression>
-    
+
     <expression>
         <from>
-            context EntityAssociationEnd inv : foreignIdentifier implies one2One and child and type.associationEnds -> one (foreignIdentifier)
+            context EntityAssociationEnd inv : foreignIdentifier implies one2One and child and type.associationEnds ->
+            one (foreignIdentifier)
         </from>
         <to>
             <![CDATA[
@@ -309,61 +361,76 @@
             ]]>
         </to>
     </expression>
-    
+
     <expression>
         <from>
-            context org::andromda::translation::validation::Entity inv : generalization -> notEmpty() implies generalization.oclIsKindOf(Entity)
+            context org::andromda::translation::validation::Entity inv : generalization -> notEmpty() implies
+            generalization.oclIsKindOf(Entity)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.validation.Entity:true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"generalization")
+            instanceof org.andromda.translation.validation.Entity:true));
         </to>
     </expression>
-    
+
     <expression>
         <from>
-            context org::andromda::translation::validation::Entity inv : specializations -> notEmpty() implies specializations -> forAll(oclIsKindOf(Entity))
+            context org::andromda::translation::validation::Entity inv : specializations -> notEmpty() implies
+            specializations -> forAll(oclIsKindOf(Entity))
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(object instanceof org.andromda.translation.validation.Entity)).booleanValue();}}):true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"specializations"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(object instanceof
+            org.andromda.translation.validation.Entity)).booleanValue();}}):true));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context Gender inv: not male
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(!Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue());
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(!Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue());
         </to>
     </expression>
-    
+
     <expression>
         <from>
             context Gender inv: not male implies female
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(!Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue())).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"female"))).booleanValue():true));          
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(!Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"male"))).booleanValue())).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"female"))).booleanValue():true));
         </to>
     </expression>
-    
+
     <expression>
         <from>
-            context StrutsForward inv: operationCall->notEmpty() implies (target.oclIsKindOf(org::andromda::metafacades::uml::PseudostateFacade) and target.decisionPoint)
+            context StrutsForward inv: operationCall->notEmpty() implies
+            (target.oclIsKindOf(org::andromda::metafacades::uml::PseudostateFacade) and target.decisionPoint)
         </from>
         <to>
             <![CDATA[
             final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"operationCall")))).booleanValue()?(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"target") instanceof org.andromda.metafacades.uml.PseudostateFacade&&Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"target.decisionPoint"))).booleanValue()):true));   
-            ]]>                
+            ]]>
         </to>
     </expression>
 
     <expression>
         <from>
             context EnumerationFacade
-            inv: let literalTypeName : String = attributes->first().type.fullyQualifiedName in attributes->forAll(type.fullyQualifiedName = literalTypeName)
+            inv: let literalTypeName : String = attributes->first().type.fullyQualifiedName in
+            attributes->forAll(type.fullyQualifiedName = literalTypeName)
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.fullyQualifiedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLCollections.first(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes")),"type.fullyQualifiedName")))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.equal(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.fullyQualifiedName"),org.andromda.translation.ocl.validation.OCLIntrospector.invoke(org.andromda.translation.ocl.validation.OCLCollections.first(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes")),"type.fullyQualifiedName")))).booleanValue();}}));
         </to>
     </expression>
 
@@ -375,10 +442,11 @@
              ]]>
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(c,"name"),""));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(c,"name"),""));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             <![CDATA[
@@ -387,10 +455,11 @@
              ]]>
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(name,""));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(name,""));
         </to>
     </expression>
-    
+
     <expression>
         <from>
             <![CDATA[
@@ -399,7 +468,10 @@
              ]]>
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pages")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"activityGraph.finalStates"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"targetUseCase"),contextElement))).booleanValue();}}):true));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pages")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"activityGraph.finalStates"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"targetUseCase"),contextElement))).booleanValue();}}):true));
         </to>
     </expression>
 
@@ -410,29 +482,40 @@
              ]]>
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"selfTargetting"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"targetting"))).booleanValue():true)&amp;&amp;Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"xxxselfyyy.notProcessed"))).booleanValue());
-        </to>
-    </expression>
-    
-    <expression>
-        <from>
-            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or type.embedded) implies type.dataType)
-        </from>
-        <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.embedded"))).booleanValue()))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
-        </to>
-    </expression>
-    
-    <expression>
-        <from>
-            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or oclIsKindOf(EmbeddedValue)) implies type.dataType)
-        </from>
-        <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||object instanceof org.andromda.translation.validation.EmbeddedValue))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"selfTargetting"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"targetting"))).booleanValue():true)&amp;&amp;Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"xxxselfyyy.notProcessed"))).booleanValue());
         </to>
     </expression>
 
-   <!--
+    <expression>
+        <from>
+            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or
+            type.embedded) implies type.dataType)
+        </from>
+        <to>
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.embedded"))).booleanValue()))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or
+            oclIsKindOf(EmbeddedValue)) implies type.dataType)
+        </from>
+        <to>
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new
+            org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return
+            Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||object
+            instanceof
+            org.andromda.translation.validation.EmbeddedValue))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
+        </to>
+    </expression>
+
+    <!--
     <expression>
         <from>
             context EnumerationFacade
@@ -443,14 +526,15 @@
         </to>
     </expression>
     -->
-    
+
     <expression>
         <from>
             context SubjectService::addEvent(eventVO:EventVO)
             pre: eventVO.status.eventStatusId->notEmpty()
         </from>
         <to>
-            final Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(eventVO,"status.eventStatusId")));
+            final Object contextElement = this; boolean constraintValid =
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(eventVO,"status.eventStatusId")));
         </to>
     </expression>
 

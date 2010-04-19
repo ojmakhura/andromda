@@ -7,8 +7,9 @@ package org.andromda.translation.ocl.validation;
  */
 public class OCLIntrospectorTestObject
 {
-    public void methodOne() 
-    {}
+    public void methodOne()
+    {
+    }
 
     public String methodTwo()
     {
@@ -16,7 +17,8 @@ public class OCLIntrospectorTestObject
     }
 
     public void methodThree(String argOne)
-    {}
+    {
+    }
 
     public String methodFour(String argOne)
     {

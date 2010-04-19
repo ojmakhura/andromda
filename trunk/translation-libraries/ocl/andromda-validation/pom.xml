@@ -15,13 +15,22 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-validation</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-validation</developerConnection>
+        <connection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-validation
+        </connection>
+        <developerConnection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-validation
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -30,15 +39,26 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
-        <filters>
-            <filter>mda.properties</filter>
-        </filters>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -64,12 +84,14 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <andromda.translationlibrary.model.uri>
+            jar:file:${project.basedir}/src/test/uml/ValidationLibraryTestModel.xml.zip!/ValidationLibraryTestModel.xml
+        </andromda.translationlibrary.model.uri>
+    </properties>
 </project>

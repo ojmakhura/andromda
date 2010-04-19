@@ -5,6 +5,7 @@ import java.io.PushbackReader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.TranslationUtils;
@@ -210,12 +211,12 @@ public abstract class BaseTranslator
      * <strong>NOTE: </strong> null is allowed for contextElement (even though it isn't within
      * ExpressionTranslator.translate() since the TraceTranslator doesn't need a <code>contextElement</code> and we
      * don't want to slow down the trace by having to read and load a model each time. </p>
-     * @param translationName 
-     * @param expression 
-     * @param contextElement 
-     * @return translated expression
      *
-     * @see org.andromda.core.translation.ExpressionTranslator#translate( String, String, Object)
+     * @param translationName
+     * @param expression
+     * @param contextElement
+     * @return translated expression
+     * @see org.andromda.core.translation.ExpressionTranslator#translate(String, String, Object)
      */
     public Expression translate(String translationName, String expression, Object contextElement)
     {

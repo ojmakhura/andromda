@@ -10,89 +10,13 @@
     <packaging>pom</packaging>
     <name>AndroMDA OCL Translation Libraries</name>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl</developerConnection>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl
+        </connection>
+        <developerConnection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-translation-library-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                                <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>install</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-bootstrap-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>test-translation-library</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <resources>
-            <resource>
-                <directory>src/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
     <modules>
         <module>core</module>
         <module>testsuite</module>

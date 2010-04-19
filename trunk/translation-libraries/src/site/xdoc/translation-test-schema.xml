@@ -5,10 +5,10 @@
     <body>
         <section name="TranslationTest Schema">
             <p>
-                  Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema:
+                Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema:
             </p>
             <source language="xml">
-<![CDATA[
+                <![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <!-- The expression element consisting of 'from' and 'to' elements -->

@@ -4,11 +4,12 @@
     </properties>
     <body>
         <section name="Translation-Library Descriptor Schema">
-        <p>
-            Each Translation-Library descriptor (andromda-translation-library.xml) must comply with the following XSD Schema:
-        </p>
-        <source language="xml">
-<![CDATA[
+            <p>
+                Each Translation-Library descriptor (andromda-translation-library.xml) must comply with the following
+                XSD Schema:
+            </p>
+            <source language="xml">
+                <![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- the translation 'fragment' -->
     <xs:element name="fragment">
@@ -78,7 +79,7 @@
     <xs:element name="ignore" type="xs:string"/>
     <xs:element name="validate" type="xs:string"/>
 </xs:schema>]]>
-      </source>
-      </section>
+            </source>
+        </section>
     </body>
 </document>

@@ -3,12 +3,12 @@
         <title>Translation Schema</title>
     </properties>
     <body>
-    <section name="Translation Schema">
-        <p>
-            Each Translation template must comply with the following XSD Schema:
-        </p>
-        <source language="xml">
-<![CDATA[
+        <section name="Translation Schema">
+            <p>
+                Each Translation template must comply with the following XSD Schema:
+            </p>
+            <source language="xml">
+                <![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- the translation 'fragment' -->
     <xs:element name="fragment">
@@ -79,7 +79,7 @@
     <xs:element name="validate" type="xs:string"/>
 </xs:schema>
 ]]>
-      </source>
-      </section>
+            </source>
+        </section>
     </body>
 </document>
