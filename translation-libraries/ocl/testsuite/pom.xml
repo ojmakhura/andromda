@@ -10,14 +10,18 @@
     <packaging>jar</packaging>
     <name>AndroMDA OCL Translation-Library Test Suite</name>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite</developerConnection>
+        <connection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite
+        </connection>
+        <developerConnection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml</artifactId>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -26,8 +30,18 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

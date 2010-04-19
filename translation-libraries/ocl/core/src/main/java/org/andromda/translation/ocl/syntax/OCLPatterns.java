@@ -56,7 +56,7 @@ public class OCLPatterns
     {
         return TranslationUtils.deleteWhitespace(expression).matches(COLLECTION_CALL_RESULT_NAVIGATIONAL_PATH);
     }
-    
+
     /**
      * Indicates if this <code>expression</code> is a navigational path
      * (some.path)
@@ -70,12 +70,12 @@ public class OCLPatterns
     }
 
     private static final String COLLECTION_CALL_RESULT_NAVIGATIONAL_PATH = ".+->" + OPERATION + NAVIGATIONAL_PATH;
-    
+
     /**
      * Pattern for <em>and</em> and <em>or</em> expression matching.
      */
     private static final String AND_OR_OR_OPERATOR = "or\\s+.*|and\\s+.*";
-    
+
     /**
      * Indicates if this <code>expression</code> is an <em>and</em>
      * or <em>or</em> expression (or some.path, and some.path, etc)

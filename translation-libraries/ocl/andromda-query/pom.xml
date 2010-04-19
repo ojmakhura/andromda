@@ -18,25 +18,42 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-query</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-query</developerConnection>
+        <connection>
+            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-query
+        </connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-query
+        </developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
-        <filters>
-            <filter>mda.properties</filter>
-        </filters>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-translation-library-plugin</artifactId>
+                <artifactId>andromda-bootstrap-plugin</artifactId>
+                <configuration>
+                    <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -48,21 +65,14 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                    <exclude>test/**/*</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
+    <properties>
+        <andromda.translationlibrary.model.uri>
+            jar:file:${project.basedir}/src/test/uml/QueryLibraryTestModel.xml.zip!/QueryLibraryTestModel.xml
+        </andromda.translationlibrary.model.uri>
+    </properties>
 </project>

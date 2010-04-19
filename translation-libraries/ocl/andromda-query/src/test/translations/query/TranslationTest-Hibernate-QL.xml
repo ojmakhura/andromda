@@ -6,7 +6,8 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement)
+            context
+            org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement)
             body findByLegalPartyNameBody: allInstances() -> select ( la |
             la.legalAgreementParties->includesAll(la.legalAgreementParties->select( lap |
             StringUtils.isLike(lap.legalParty.legalPartyName,
@@ -21,7 +22,8 @@
 
     <expression>
         <from>
-              context org::andromda::translation::query::Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
+            context org::andromda::translation::query::Project::findByNameAndNumber(name:String,number:String) :
+            Collection(Project)
             body findByNameAndNumberBody: allInstances()->select(
             p | StringUtils.isLike(p.projectName, name)
             and StringUtils.isLike(p.projectNumber, number) )
@@ -35,12 +37,12 @@
     <expression>
         <from>
             context org::andromda::translation::query::Project::findByProjectTypeStatusAfterWentCurrentDate(
-                type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
-                allInstances() -> select (
-                    project |
-                        project.type = type
-                and project.status = status
-                and project.wentCurrentDate >= wentCurrentDate )
+            type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
+            allInstances() -> select (
+            project |
+            project.type = type
+            and project.status = status
+            and project.wentCurrentDate >= wentCurrentDate )
         </from>
         <to>
             from org.andromda.translation.query.Project as project
@@ -52,13 +54,15 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement)
+            context
+            org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String):
+            Collection(LegalAgreement)
             body findByStatusesBody:
-                allInstances() -> select(
-                    la |
-                agreementStatusPks -> includes(la.agreementStatus.agreementStatusPk)
-                or agreementStatusPks -> isEmpty()
-                and la.agreementTypePk = anAgreementTypePk )
+            allInstances() -> select(
+            la |
+            agreementStatusPks -> includes(la.agreementStatus.agreementStatusPk)
+            or agreementStatusPks -> isEmpty()
+            and la.agreementTypePk = anAgreementTypePk )
         </from>
         <to>
             from org.andromda.translation.query.LegalAgreement as la
@@ -77,31 +81,31 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
             context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
-                aDocumentTitle:String,
-                aLegalPartyName:String,
-                anAgreementTypePk:String,
-                anAgreementStatusPk:String,
-                aPersonPk:Long,
-                aProjectPk:Long):Collection(LegalAgreement)
+            aDocumentTitle:String,
+            aLegalPartyName:String,
+            anAgreementTypePk:String,
+            anAgreementStatusPk:String,
+            aPersonPk:Long,
+            aProjectPk:Long):Collection(LegalAgreement)
             body :
             allInstances()->select(
-                legalAgreement |
-                    StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle)
-                    and legalAgreement.legalAgreementParties -> includesAll(
-                        legalAgreement.legalAgreementParties ->
-                            select( legalAgreementParty |
-                                StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
-                    and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk)
-                    and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk)
-                    and legalAgreement.person.personPk = aPersonPk
-                    and legalAgreement.project.projectPk = aProjectPk)
+            legalAgreement |
+            StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle)
+            and legalAgreement.legalAgreementParties -> includesAll(
+            legalAgreement.legalAgreementParties ->
+            select( legalAgreementParty |
+            StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
+            and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk)
+            and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk)
+            and legalAgreement.person.personPk = aPersonPk
+            and legalAgreement.project.projectPk = aProjectPk)
         </from>
         <to>
             from org.andromda.translation.query.LegalAgreement as legalAgreement
-                join fetch legalAgreement.legalAgreementParties as legalAgreementParty
+            join fetch legalAgreement.legalAgreementParties as legalAgreementParty
             where lower(legalAgreement.documentTitle) like :aDocumentTitle
             and lower(legalAgreementParty.legalParty.legalPartyName) like :aLegalPartyName
             and lower(legalAgreement.agreementType.agreementTypePk) like :anAgreementTypePk
@@ -111,10 +115,12 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement)
-            body : allInstances() -> select( legalAgreement | legalAgreementPks -> includes(legalAgreement.legalAgreementPk))
+            context
+            org::andromda::translation::query::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement)
+            body : allInstances() -> select( legalAgreement | legalAgreementPks ->
+            includes(legalAgreement.legalAgreementPk))
         </from>
         <to>
             from org.andromda.translation.query.LegalAgreement as legalAgreement
@@ -194,7 +200,7 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
             <![CDATA[
             context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
@@ -213,7 +219,7 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
             <![CDATA[
             context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate)
@@ -235,16 +241,17 @@
     <expression>
         <from>
             context PersonRoleContext::findByPersonNamespacesRolesAndContexts(
-                personId:String,
-                namespaces:Collection(String),
-                roles:Collection(String),
-                contexts:Collection(String)):PersonRoleContext
+            personId:String,
+            namespaces:Collection(String),
+            roles:Collection(String),
+            contexts:Collection(String)):PersonRoleContext
             body : allInstances() -> select (
-                roleContext |
-                roleContext.personRole.person.id = personId
-                and namespaces -> includes(roleContext.contextRole.ctx.namespace.name)
-                and roles -> includes(roleContext.personRole.role.name)
-                and (roleContext.personRole.role.allContexts = true or contexts -> includes(roleContext.contextRole.ctx.identifier)))
+            roleContext |
+            roleContext.personRole.person.id = personId
+            and namespaces -> includes(roleContext.contextRole.ctx.namespace.name)
+            and roles -> includes(roleContext.personRole.role.name)
+            and (roleContext.personRole.role.allContexts = true or contexts ->
+            includes(roleContext.contextRole.ctx.identifier)))
         </from>
         <to>
             from org.andromda.translation.query.PersonRoleContext as roleContext
@@ -259,21 +266,22 @@
     <expression>
         <from>
             context PersonRole::findByPersonNamespacesRolesAndContexts(
-                personId:String,
-                namespaces:Collection(String),
-                roles:Collection(String),
-                contexts:Collection(String)):Collection(PersonRole)
+            personId:String,
+            namespaces:Collection(String),
+            roles:Collection(String),
+            contexts:Collection(String)):Collection(PersonRole)
             body : allInstances() -> select (
-                personRole |
-                personRole.person.id = personId and namespaces -> includes(personRole.role.namespace.name)
-                and roles -> includes(personRole.role.name)
-                and (personRole.allContexts = true
-                or personRole.roleContexts -> includesAll(
-                    personRole.roleContexts -> select(
-                        roleContext | contexts -> includes( roleContext.contextRole.ctx.identifier )))))
+            personRole |
+            personRole.person.id = personId and namespaces -> includes(personRole.role.namespace.name)
+            and roles -> includes(personRole.role.name)
+            and (personRole.allContexts = true
+            or personRole.roleContexts -> includesAll(
+            personRole.roleContexts -> select(
+            roleContext | contexts -> includes( roleContext.contextRole.ctx.identifier )))))
         </from>
         <to>
-            from org.andromda.translation.query.PersonRole as personRole join fetch personRole.roleContexts as roleContext
+            from org.andromda.translation.query.PersonRole as personRole join fetch personRole.roleContexts as
+            roleContext
             where personRole.person.id = :personId
             and personRole.role.namespace.name in (:namespaces)
             and personRole.role.name in (:roles)
@@ -281,7 +289,7 @@
             or roleContext.contextRole.ctx.identifier in (:contexts))
         </to>
     </expression>
-    
+
     <expression>
         <from>
             <![CDATA[
@@ -290,7 +298,7 @@
                           activity.activityCase.actionRequired >= startDate and
                           activity.activityCase.actionRequired <= endDate and
                           activity.status <> status ) 
-          ]]>          
+          ]]>
         </from>
         <to>
             <![CDATA[
@@ -298,7 +306,7 @@
             where activity.activityCase.actionRequired >= :startDate 
             and activity.activityCase.actionRequired <= :endDate 
             and activity.status <> :status
-            ]]>          
+            ]]>
         </to>
     </expression>
 

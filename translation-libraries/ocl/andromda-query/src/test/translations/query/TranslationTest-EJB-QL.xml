@@ -6,7 +6,8 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String) : Collection (LegalAgreement)
+            context org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String) :
+            Collection (LegalAgreement)
             body findByLegalPartyNameBody: allInstances() -> select( la |
             la.legalAgreementParties->includesAll(la.legalAgreementParties->select( party |
             StringUtils.isLike(party.legalParty.legalPartyName,
@@ -21,7 +22,8 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty)
+            context org::andromda::translation::query::LegalParty::findByLegalPartyName(name:String) :
+            Collection(LegalParty)
             body : allInstances() -> select (
             party | StringUtils.isLike(party.legalPartyName , name))
         </from>
@@ -33,7 +35,8 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalParty::findByPartyNameSubContractor(name:String, isASubContractor:Boolean):Collection(LegalParty)
+            context org::andromda::translation::query::LegalParty::findByPartyNameSubContractor(name:String,
+            isASubContractor:Boolean):Collection(LegalParty)
             body findByPartyNameSubContractorBody : allInstances()->select(
             legalParty | StringUtils.isLike(legalParty.legalPartyName, name)
             and legalParty.isSubContractor = isASubContractor)
@@ -47,8 +50,8 @@
     <expression>
         <from>
             context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
-                aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String,
-                anAgreementStatusPk:String, aPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement)
+            aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String,
+            anAgreementStatusPk:String, aPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement)
             body findByTitlePartyTypeStatusPersonProjectBody : allInstances() -> select( legalAgreement |
             StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle)
             and legalAgreement.legalAgreementParties -> includesAll(
@@ -62,30 +65,30 @@
             SELECT DISTINCT OBJECT(legalAgreement)
             FROM LegalAgreement legalAgreement ,
             IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
-                WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
-                AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
-                AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
-                AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
-                AND legalAgreement.person.personPk = ?5
-                AND legalAgreement.project.projectPk = ?6
+            WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
+            AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
+            AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
+            AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
+            AND legalAgreement.person.personPk = ?5
+            AND legalAgreement.project.projectPk = ?6
         </to>
     </expression>
 
     <expression>
         <from>
             context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusProject(
-                aDocumentTitle:String,
-                aLegalPartyName:String,
-                anAgreementTypePk:String,
-                anAgreementStatusPk:String,
-                aProjectPk:Long):Collection(LegalAgreement)
+            aDocumentTitle:String,
+            aLegalPartyName:String,
+            anAgreementTypePk:String,
+            anAgreementStatusPk:String,
+            aProjectPk:Long):Collection(LegalAgreement)
             body findByTitlePartyTypeStatusProjectBody: allInstances()->select(
-                legalAgreement | StringUtils.isLike(
-                    legalAgreement.documentTitle, aDocumentTitle)
+            legalAgreement | StringUtils.isLike(
+            legalAgreement.documentTitle, aDocumentTitle)
             and legalAgreement.legalAgreementParties -> includesAll(
-                legalAgreement.legalAgreementParties -> select(
-                    legalAgreementParty | StringUtils.isLike(
-                        legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
+            legalAgreement.legalAgreementParties -> select(
+            legalAgreementParty | StringUtils.isLike(
+            legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
             and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk)
             and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk)
             and legalAgreement.project.projectPk = aProjectPk)
@@ -95,9 +98,9 @@
             IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
             WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
             AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
-             AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
-             AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
-             AND legalAgreement.project.projectPk = ?5
+            AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
+            AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
+            AND legalAgreement.project.projectPk = ?5
         </to>
     </expression>
 
@@ -113,48 +116,52 @@
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement)
+            context
+            org::andromda::translation::query::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement)
             body findChildAgreementsBody : allInstances() -> select(
-                legalAgreement | legalAgreement.legalAgreements -> includesAll (
-                    legalAgreement.legalAgreements -> select( childLegalAgreement | childLegalAgreement.parentLegalAgreement.legalAgreementPk = primaryKey)))
+            legalAgreement | legalAgreement.legalAgreements -> includesAll (
+            legalAgreement.legalAgreements -> select( childLegalAgreement |
+            childLegalAgreement.parentLegalAgreement.legalAgreementPk = primaryKey)))
         </from>
         <to>
             SELECT DISTINCT OBJECT(legalAgreement)
             FROM LegalAgreement legalAgreement ,
             IN (legalAgreement.legalAgreements)
             AS childLegalAgreement
-               WHERE childLegalAgreement.parentLegalAgreement.legalAgreementPk = ?1
+            WHERE childLegalAgreement.parentLegalAgreement.legalAgreementPk = ?1
         </to>
     </expression>
 
     <expression>
         <from>
             context org::andromda::translation::query::Project::findByProjectTypeStatusAfterWentCurrentDate(
-                type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
-                allInstances() -> select (
-                    project |
-                        project.type = type
-                and project.status = status
-                and project.wentCurrentDate >= wentCurrentDate )
+            type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
+            allInstances() -> select (
+            project |
+            project.type = type
+            and project.status = status
+            and project.wentCurrentDate >= wentCurrentDate )
         </from>
         <to>
             SELECT DISTINCT OBJECT(project)
             FROM Project project
-                WHERE project.type = ?1
-                AND project.status = ?2
-                AND project.wentCurrentDate >= ?3
+            WHERE project.type = ?1
+            AND project.status = ?2
+            AND project.wentCurrentDate >= ?3
         </to>
     </expression>
 
     <expression>
         <from>
-            context org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement)
+            context
+            org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String):
+            Collection(LegalAgreement)
             body findByStatusesBody:
-                allInstances() -> select(
-                    legalAgreement |
-                    agreementStatusPks -> includes(legalAgreement.agreementStatus.agreementStatusPk)
-                    or agreementStatusPks -> isEmpty()
-                    and legalAgreement.agreementTypePk = anAgreementTypePk)
+            allInstances() -> select(
+            legalAgreement |
+            agreementStatusPks -> includes(legalAgreement.agreementStatus.agreementStatusPk)
+            or agreementStatusPks -> isEmpty()
+            and legalAgreement.agreementTypePk = anAgreementTypePk)
         </from>
         <to>
             SELECT DISTINCT OBJECT(legalAgreement)
@@ -219,7 +226,7 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
             <![CDATA[
             context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
@@ -239,7 +246,7 @@
         </to>
     </expression>
 
-     <expression>
+    <expression>
         <from>
             <![CDATA[
             context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate)
@@ -258,7 +265,7 @@
             ]]>
         </to>
     </expression>
-    
+
     <expression>
         <from>
             <![CDATA[
@@ -267,7 +274,7 @@
                           activity.activityCase.actionRequired >= startDate and
                           activity.activityCase.actionRequired <= endDate and
                           activity.status <> status ) 
-          ]]>          
+          ]]>
         </from>
         <to>
             <![CDATA[
@@ -276,7 +283,7 @@
             WHERE activity.activityCase.actionRequired >= ?1
             AND activity.activityCase.actionRequired <= ?2
             AND activity.status NOT ?3
-            ]]>          
+            ]]>
         </to>
     </expression>
 

@@ -82,7 +82,7 @@ public class OclParser
 
             for (int ctr = 0; iter.hasNext(); ctr++)
             {
-                PFeatureCallParameterOption option = (PFeatureCallParameterOption)iter.next();
+                PFeatureCallParameterOption option = (PFeatureCallParameterOption) iter.next();
                 parameterOption[ctr] = option;
                 isIterateDeclarator = option instanceof AIterateFeatureCallParameterOption;
                 if (!isIterateDeclarator)
@@ -101,12 +101,10 @@ public class OclParser
             {
                 parameters = getParametersWithIterateDeclarator(featureCallParameters,
                         featureCallParameters.getExpression(), parameterOption);
-            }
-            else if (isDeclarator)
+            } else if (isDeclarator)
             {
                 parameters = getParametersWithStandardDeclarator(featureCallParameters, parameterOption);
-            }
-            else
+            } else
             {
                 parameters = getParametersWithoutDeclarator(featureCallParameters,
                         featureCallParameters.getExpression(), parameterOption);
@@ -128,9 +126,9 @@ public class OclParser
         {
             AIterateDeclarator iteratorDeclarator = new AIterateDeclarator();
 
-            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption)parameterOption[0];
-            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption)parameterOption[1];
-            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption)parameterOption[2];
+            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption) parameterOption[0];
+            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption) parameterOption[1];
+            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption) parameterOption[2];
 
             AVariableDeclaration iterator = new AVariableDeclaration(getName(expression),
                     featureCallParameterOption0.getTypeDeclaration());
@@ -181,7 +179,7 @@ public class OclParser
                 }
             }
 
-            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption)parameterOptions[parameterOptionNum -
+            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption) parameterOptions[parameterOptionNum -
                     1];
 
             AStandardDeclarator standardDeclarator = new AStandardDeclarator(
@@ -213,7 +211,7 @@ public class OclParser
                     throw new OclParserException("parser error: declarator-less feature call paramaters must have the format " +
                             "\"( expr, ..., expr )\"");
                 }
-                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption)parameterOption[ctr];
+                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption) parameterOption[ctr];
                 ACommaExpression commaExpression = new ACommaExpression(commaOption.getComma(),
                         commaOption.getExpression());
                 paramList.add(commaExpression);
@@ -300,9 +298,9 @@ public class OclParser
         public AVariableDeclarationList getList()
         {
 
-            TName initialName = (TName)this.orderedNames.getFirst();
+            TName initialName = (TName) this.orderedNames.getFirst();
 
-            ATypeDeclaration typeDeclaration = (ATypeDeclaration)namesAndTypes.get(initialName);
+            ATypeDeclaration typeDeclaration = (ATypeDeclaration) namesAndTypes.get(initialName);
 
             List variableDeclarationListTails = new ArrayList();
             if (!this.orderedNames.isEmpty())
@@ -310,10 +308,10 @@ public class OclParser
                 int orderedNameSize = orderedNames.size();
                 for (int ctr = 1; ctr < orderedNameSize; ctr++)
                 {
-                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption)this.orderedNames.get(
+                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption) this.orderedNames.get(
                             ctr);
 
-                    ATypeDeclaration typeDecl = (ATypeDeclaration)this.namesAndTypes.get(name);
+                    ATypeDeclaration typeDecl = (ATypeDeclaration) this.namesAndTypes.get(name);
 
                     AVariableDeclaration variableDeclaration = new AVariableDeclaration(getName(name.getExpression()),
                             typeDecl);
