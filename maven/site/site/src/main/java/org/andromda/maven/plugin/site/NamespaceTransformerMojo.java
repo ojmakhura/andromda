@@ -1,21 +1,14 @@
 package org.andromda.maven.plugin.site;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-import org.andromda.core.common.ResourceUtils;
+import java.io.File;
+import java.net.URL;
 
 /**
  * Used to perform the transformation of the namespace XSL document to namespace.xml xdoc format
