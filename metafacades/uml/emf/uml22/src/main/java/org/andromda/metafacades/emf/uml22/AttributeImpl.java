@@ -49,7 +49,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
  * We extend Property. We keep a reference to the original property and defer
  * almost all method calls to it.
  *
- * @author Cédric Jeanneret
+ * @author CÃ©dric Jeanneret
  */
 public class AttributeImpl
     implements Attribute
