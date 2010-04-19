@@ -46,8 +46,8 @@ $attribute.getDocumentation("     * ")
     public $attribute.getterSetterTypeName ${attribute.getterName}()
     {
 #if (!$attribute.type.arrayType)
-        final java.lang.String value = this.getPreferences().getValue("$attribute.name", null);
 #if (!$attribute.type.stringType)
+        final java.lang.String value = this.getPreferences().getValue("$attribute.name", null);
 #* *##if ($attribute.type.primitive)
 #set($preferenceTypeName = $attribute.type.wrapperName)
 #* *##else
@@ -60,7 +60,7 @@ $attribute.getDocumentation("     * ")
         return wrappedValue == null ?#if ($attribute.defaultValue) ${attribute.defaultValue}#else null#end : null;
 #* *##end
 #else
-        return value;
+        return this.getPreferences().getValue("$attribute.name",#if ($attribute.defaultValue) ${attribute.defaultValue}#else null#end);
 #end
 #else
         final java.lang.String[] stringValues = this.getPreferences().getValues("$attribute.name", null);
