@@ -1,17 +1,14 @@
 package org.andromda.maven.plugin.cartridge.site;
 
-import java.io.File;
-import java.net.URL;
-import java.util.List;
-
-import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Goal that runs AndroMDA over the howto model to generate the cartridge java source files

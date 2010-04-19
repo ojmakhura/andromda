@@ -1,14 +1,11 @@
 package org.andromda.maven.plugin.site;
 
-import java.io.File;
-import java.net.URL;
-
-import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
+
+import java.io.File;
 
 /**
  * Goal that unpacks the required AndroMDA site zip packages to suitable locations preparing
