@@ -72,8 +72,6 @@
         </dependency>
     </dependencies>
     <build>
-        <!--testSourceDirectory>${basedir}/target/cartridge-test/actual</testSourceDirectory>
-        <testOutputDirectory>${basedir}/target/cartridge-test/classes</testOutputDirectory-->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -121,48 +119,17 @@
                             <goals>
                                 <goal>profile-xsl</goal>
                             </goals>
-                            <configuration>
-                                <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath>
-                            </configuration>
                         </execution>
                         <execution>
                             <id>namespace-transform</id>
                             <goals>
                                 <goal>namespace-xsl</goal>
                             </goals>
-                            <configuration>
-                                <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <sourceDirectory>src/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>java/**/*.java</exclude>
-                    <exclude>uml/**/*</exclude>
-                    <exclude>uml2/**/*</exclude>
-                    <exclude>test/**/*</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>target/src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
     <modules>
         <module>andromda-meta</module>
@@ -183,7 +150,7 @@
     </modules>
     <properties>
         <maven.build.src>${project.basedir}/target/src</maven.build.src>
-        <java.src.dir>${project.basedir}/src/java</java.src.dir>
+        <java.src.dir>${project.build.sourceDirectory}</java.src.dir>
         <test.src.dir>${project.basedir}/src/test</test.src.dir>
         <src.dir>${project.basedir}/src</src.dir>
         <test.output.dir>${project.basedir}/target/cartridge-test/actual</test.output.dir>

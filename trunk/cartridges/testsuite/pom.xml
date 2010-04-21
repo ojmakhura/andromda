@@ -41,7 +41,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>${basedir}/src/java</sourceDirectory>
         <testSourceDirectory>${basedir}/target/cartridge-test/actual</testSourceDirectory>
         <testOutputDirectory>${basedir}/target/cartridge-test/classes</testOutputDirectory>
     </build>

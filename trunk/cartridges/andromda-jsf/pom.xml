@@ -24,7 +24,7 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.andromda.cartridges</groupId>
             <artifactId>${project.artifactId}-components</artifactId>
             <version>${project.version}</version>
         </dependency>
