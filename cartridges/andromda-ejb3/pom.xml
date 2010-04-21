@@ -35,13 +35,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>                
-            </resource>            
-        </resources>
+    <build>        
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -83,8 +77,7 @@
             </plugin>            
         </plugins>
     </build>    
-    <properties>
-        <java.src.dir>${project.basedir}/src/main/java</java.src.dir>
+    <properties>        
         <model.uri>jar:file:${src.dir}/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
     </properties>
