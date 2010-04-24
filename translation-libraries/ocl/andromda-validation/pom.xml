@@ -15,22 +15,18 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
     </issueManagement>
     <scm>
-        <connection>
-            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-validation
-        </connection>
-        <developerConnection>
-            scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-validation
-        </developerConnection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-validation</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/andromda-validation</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
-        <dependency>
+        <!--dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency-->
         <dependency>
-            <groupId>org.andromda.translationlibraries</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -39,7 +35,6 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
