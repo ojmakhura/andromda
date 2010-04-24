@@ -92,7 +92,6 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-cartridge-plugin</artifactId>
                     <version>${project.version}</version>
@@ -146,7 +145,6 @@
         <module>andromda-xmlschema</module>
         <module>manageable-entities</module>
         <module>support</module>
-        <module>testsuite</module>
     </modules>
     <properties>
         <maven.build.src>${project.basedir}/target/src</maven.build.src>
