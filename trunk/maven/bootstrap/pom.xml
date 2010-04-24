@@ -23,6 +23,46 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.andromda.thirdparty.jmi</groupId>
+            <artifactId>jmiuml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>uml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>common</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>resources</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>common</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>ecore</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf.ecore</groupId>
+            <artifactId>xmi</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf.mapping</groupId>
+            <artifactId>ecore2xml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Maven dependencies -->
         <dependency>
             <groupId>org.apache.maven</groupId>
