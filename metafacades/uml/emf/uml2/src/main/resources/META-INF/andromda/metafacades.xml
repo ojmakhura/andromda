@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1"?><!-- contains the default metafacade mappings -->
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- contains the default metafacade mappings -->
+<!-- metaclassPattern maps between the UML2 class interface and its UML2 implementation name, for a mapping list of interfaces -->
 <metafacades metaclassPattern="{0}.impl.{1}Impl">
     <default class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl"/>
 
