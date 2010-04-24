@@ -17,16 +17,10 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>

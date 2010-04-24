@@ -18,7 +18,6 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-
     <dependencyManagement>
         <dependencies>
             <!-- Maven dependencies -->
@@ -57,7 +56,6 @@
                 <artifactId>maven-model</artifactId>
                 <version>${maven.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-archiver</artifactId>
