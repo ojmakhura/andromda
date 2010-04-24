@@ -38,7 +38,7 @@ public class CartridgeTestUpdaterMojo
             this.getLog().info("-----------------------------------------------------------------------------");
 
             // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
-            this.addCartridgeTestDependencies();
+            this.changeScopeForTestDependencies();
 
             // - first run AndroMDA with the test configuration
             final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
