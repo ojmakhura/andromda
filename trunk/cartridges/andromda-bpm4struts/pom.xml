@@ -7,7 +7,7 @@
         <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-bpm4struts-cartridge</artifactId>
-    <packaging>andromda-cartridge</packaging>
+    <packaging>jar</packaging>
     <name>AndroMDA BPM4Struts Cartridge</name>
     <description>
         The Bpm4Struts cartridge is used to generate Struts applications from UML models using both static and dynamic model elements.
@@ -59,27 +59,42 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.andromda.taglibs</groupId>
+                                    <artifactId>andromda-breadcrumbs-taglib</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.andromda.taglibs</groupId>
+                                    <artifactId>andromda-formatting-taglib</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.andromda.taglibs</groupId>
+                                    <artifactId>andromda-collections-taglib</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.outputDirectory}/resources/WEB-INF/lib</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <configuration>
-                    <artifacts>
-                        <artifact>
-                            <groupId>org.andromda.taglibs</groupId>
-                            <artifactId>andromda-breadcrumbs-taglib</artifactId>
-                            <path>resources/WEB-INF/lib</path>
-                        </artifact>
-                        <artifact>
-                            <groupId>org.andromda.taglibs</groupId>
-                            <artifactId>andromda-formatting-taglib</artifactId>
-                            <path>resources/WEB-INF/lib</path>
-                        </artifact>
-                        <artifact>
-                            <groupId>org.andromda.taglibs</groupId>
-                            <artifactId>andromda-collections-taglib</artifactId>
-                            <path>resources/WEB-INF/lib</path>
-                        </artifact>
-                    </artifacts>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>

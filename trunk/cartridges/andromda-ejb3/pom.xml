@@ -8,7 +8,7 @@
         <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-ejb3-cartridge</artifactId>
-    <packaging>andromda-cartridge</packaging>
+    <packaging>jar</packaging>
     <name>AndroMDA EJB3 Cartridge</name>
     <description>Produces EJB 3.0 persistence layer from a model.</description>
     <inceptionYear>2006</inceptionYear>
@@ -51,13 +51,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-query-library</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>

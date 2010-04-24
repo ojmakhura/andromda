@@ -7,7 +7,7 @@
         <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-java-cartridge</artifactId>
-    <packaging>andromda-cartridge</packaging>
+    <packaging>jar</packaging>
     <name>AndroMDA JavaCartridge</name>
     <description>Produces generic Java code, such as: value objects, enumerations, exceptions, interfaces, etc.
     </description>
@@ -63,7 +63,6 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <extensions>true</extensions>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
                 <version>${project.version}</version>
