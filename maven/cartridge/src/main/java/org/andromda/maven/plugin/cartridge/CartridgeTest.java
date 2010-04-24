@@ -1,4 +1,4 @@
-package org.andromda.cartridges.testsuite;
+package org.andromda.maven.plugin.cartridge;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,7 +10,9 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.andromda.core.common.AndroMDALogger;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -27,6 +29,7 @@ import org.apache.log4j.Logger;
  *
  * @author Ralf Wirdemann
  * @author Chad Brandon
+ * @author Michail Plushnikov
  */
 public class CartridgeTest
     extends TestCase
@@ -122,11 +125,6 @@ public class CartridgeTest
         this.expectedOutputPath = expectedOutputPath;
     }
 
-    static
-    {
-        AndroMDALogger.initialize();
-    }
-
     /**
      * @param name
      */
@@ -153,25 +151,30 @@ public class CartridgeTest
      */
     private void addTests(final TestSuite suite)
     {
-        final List expectedFiles = new ArrayList();
-        getAllFiles(
-            this.getExpectedOutputDirectory(),
-            expectedFiles);
-        final Iterator iterator = expectedFiles.iterator();
+        Collection<File> expectedFiles = Collections.emptyList();
+
+        final File directory = this.getExpectedOutputDirectory();
+        if(null!=directory && directory.exists())
+        {
+            expectedFiles = FileUtils.listFiles(
+                    directory.isDirectory()? directory : directory.getParentFile(),
+                    TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+        }
+
+        final Iterator<File> iterator = expectedFiles.iterator();
         logger.info(" --- Expecting " + expectedFiles.size() + " Generated Files --- ");
         logger.info("ExpectedOutputDirectory --> " + this.getExpectedOutputDirectory());
-        final List missingFiles = new ArrayList();
+        final List<File> missingFiles = new ArrayList<File>();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
-            final File expectedFile = (File)iterator.next();
+            final File expectedFile = iterator.next();
             final File actualFile = getActualFile(expectedFile);
             if (!actualFile.exists())
             {
                 missingFiles.add(actualFile);
             }
             final boolean binary = isBinary(actualFile);
-            final StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
-            logger.debug(header);
+            logger.debug(ctr + ") binary = " + binary);
             logger.debug("expected --> '" + expectedFile + '\'');
             logger.debug("actual   --> '" + actualFile + '\'');
             suite.addTest(new FileComparator(
@@ -183,10 +186,10 @@ public class CartridgeTest
         if (!missingFiles.isEmpty())
         {
             Collections.sort(missingFiles);
-            StringBuffer failureMessage = new StringBuffer("\n--- The following ");
+            StringBuilder failureMessage = new StringBuilder("\n--- The following ");
             failureMessage.append(missingFiles.size());
             failureMessage.append(" expected files do not exist ----\n");
-            Iterator missingFileIterator = missingFiles.iterator();
+            Iterator<File> missingFileIterator = missingFiles.iterator();
             for (int ctr = 1; missingFileIterator.hasNext(); ctr++)
             {
                 failureMessage.append(ctr);
@@ -290,19 +293,11 @@ public class CartridgeTest
      */
     private boolean isBinary(final File file)
     {
-        String suffix = "";
-        final String fileName = file.getName();
-        int dotIndex = fileName.indexOf('.');
-        if (dotIndex != -1)
-        {
-            suffix = fileName.substring(
-                    dotIndex + 1,
-                    fileName.length());
-        }
+        String suffix = FilenameUtils.getExtension(file.getName());        
         return this.getBinarySuffixes().contains(suffix);
     }
     
-    private Collection binarySuffixCollection;
+    private Collection<String> binarySuffixCollection;
 
     /**
      * Gets the binary suffixes for the <code>binary.suffixes</code> system
@@ -310,7 +305,7 @@ public class CartridgeTest
      *
      * @return the Collection of binary suffixes. (ie. jpg, jar, zip, etc).
      */
-    private Collection getBinarySuffixes()
+    private Collection<String> getBinarySuffixes()
     {
         if (this.binarySuffixCollection == null)
         {
@@ -319,34 +314,6 @@ public class CartridgeTest
             this.binarySuffixCollection = Arrays.asList(suffixArray);
         }
         return this.binarySuffixCollection;
-    }
-
-    /**
-     * Loads all files find in the <code>directory</code> and adds them to the
-     * <code>fileList</code>.
-     *
-     * @param directory the directory from which to load all files.
-     * @param fileList the List of files to which we'll add the found files.
-     */
-    private void getAllFiles(
-        final File directory,
-        final List fileList)
-    {
-        final File[] files = directory.listFiles();
-        for (int ctr = 0; ctr < files.length; ctr++)
-        {
-            final File file = files[ctr];
-            if (!file.isDirectory())
-            {
-                fileList.add(file);
-            }
-            else
-            {
-                getAllFiles(
-                    file,
-                    fileList);
-            }
-        }
     }
     
     /**

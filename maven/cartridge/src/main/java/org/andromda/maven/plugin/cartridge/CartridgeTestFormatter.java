@@ -1,17 +1,17 @@
 package org.andromda.maven.plugin.cartridge;
 
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestListener;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestListener;
-import org.andromda.cartridges.testsuite.FileComparator;
 
 
 /**
@@ -146,7 +146,6 @@ public class CartridgeTestFormatter
      * collection (these are rendered at the end of test suite
      * execution).
      *
-     * @param type the failure type (error or failure).
      * @param test the actual test.
      * @param throwable the failure information.
      */
@@ -159,7 +158,7 @@ public class CartridgeTestFormatter
                 throwable));
     }
 
-    private Collection failures = new ArrayList();
+    private Collection<Failure> failures = new ArrayList<Failure>();
 
     /**
      * Signifies the test suite ended and returns the summary of the
@@ -171,7 +170,7 @@ public class CartridgeTestFormatter
     String endTestSuite(Test test)
     {
         final double elapsed = ((System.currentTimeMillis() - this.startTime) / 1000.0);
-        final StringBuffer summary = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
+        final StringBuilder summary = new StringBuilder("Tests: " + String.valueOf(this.numberOfTests) + ", ");
         summary.append("Failures: ").append(String.valueOf(this.numberOfFailures)).append(", ");
         summary.append("Errors: ").append(String.valueOf(this.numberOfErrors)).append(", ");
         summary.append("Time elapsed: ").append(elapsed).append(" sec");
@@ -197,10 +196,9 @@ public class CartridgeTestFormatter
             this.reportWriter.println();
         }
 
-        for (final Iterator iterator = this.failures.iterator(); iterator.hasNext();)
+        for (final Failure failure : this.failures)
         {
-            final Failure failure = (Failure)iterator.next();
-            FileComparator comparator = (FileComparator)failure.test;
+            FileComparator comparator = (FileComparator) failure.test;
             final Throwable information = failure.information;
             if (information instanceof AssertionFailedError)
             {
@@ -219,19 +217,11 @@ public class CartridgeTestFormatter
         {
             try
             {
-                final File parent = this.reportFile.getParentFile();
-                if (parent != null && !parent.exists())
-                {
-                    parent.mkdirs();
-                }
-                final FileWriter writer = new FileWriter(this.reportFile);
-                writer.write(report.toString());
-                writer.flush();
-                writer.close();
+                FileUtils.writeStringToFile(this.reportFile, report.toString());
             }
             catch (IOException exception)
             {
-                if (this.testFailureIgnore)
+                if (isTestFailureIgnore())
                 {
                     this.reportWriter.println(exception);
                 }

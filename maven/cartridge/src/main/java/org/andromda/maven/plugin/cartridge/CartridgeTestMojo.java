@@ -1,18 +1,16 @@
 package org.andromda.maven.plugin.cartridge;
 
-import java.io.File;
-import java.io.IOException;
 import junit.framework.Test;
 import junit.framework.TestResult;
-import org.andromda.cartridges.testsuite.CartridgeTest;
+import org.andromda.maven.plugin.cartridge.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.archiver.ArchiverException;
-import org.codehaus.plexus.archiver.UnArchiver;
+
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -110,8 +108,8 @@ public class CartridgeTestMojo
                     this.getLog().info("testFailureIgnore=" + this.testFailureIgnore);
                 }
 
-                // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
-                this.addCartridgeTestDependencies();
+                // - change scope of test dependencies to runtime
+                this.changeScopeForTestDependencies();
                 // TODO Clear the error list, carried over from a previous cartridge run.
 
                 // - first run AndroMDA with the test configuration
@@ -147,6 +145,7 @@ public class CartridgeTestMojo
                 this.getLog().info("Results:");
                 this.getLog().info(formatter.endTestSuite(suite));
                 cartridgeTest.shutdown();
+                
                 if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
                     if (this.testFailureIgnore)
@@ -183,41 +182,6 @@ public class CartridgeTestMojo
         else
         {
             this.getLog().info("Skipping cartridge tests");
-        }
-    }
-
-    /**
-     * Unpacks the expected archive file to the expected directory
-     *
-     * @param file File to be unpacked.
-     * @param location Location where to put the unpacked files.
-     * @throws MojoExecutionException error unpacking file to location
-     */
-    protected void unpack(
-        final File file,
-        final File location)
-        throws MojoExecutionException
-    {
-        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
-        try
-        {
-            final UnArchiver unArchiver;
-            unArchiver = this.archiverManager.getUnArchiver(archiveExt);
-            unArchiver.setSourceFile(file);
-            location.mkdirs();
-            unArchiver.setDestDirectory(location);
-            unArchiver.extract();
-        }
-        catch (Throwable throwable)
-        {
-            if (this.testFailureIgnore)
-            {
-                this.getLog().error(this.project.getArtifactId() + " Error unpacking file " + file + " to " + location, throwable);
-            }
-            else if (throwable instanceof IOException || throwable instanceof ArchiverException)
-            {
-                throw new MojoExecutionException("Error unpacking file: " + file + " to: " + location, throwable);
-            }
         }
     }
 }

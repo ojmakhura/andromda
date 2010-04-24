@@ -1,16 +1,8 @@
 package org.andromda.maven.plugin.cartridge;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -18,6 +10,12 @@ import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -106,29 +104,6 @@ public abstract class AbstractCartridgeTestMojo
     protected ArchiverManager archiverManager;
 
     /**
-     * The registered plugin implementations.
-     *
-     * @parameter expression="${project.build.plugins}"
-     * @required
-     * @readonly
-     */
-    protected List plugins;
-
-    /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
-     * @required
-     * @readonly
-     */
-    protected ArtifactFactory factory;
-
-    /**
-     * @parameter expression="${localRepository}"
-     * @required
-     * @readonly
-     */
-    protected ArtifactRepository localRepository;
-
-    /**
      * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
      * @parameter expression="${maven.test.skip}"
@@ -153,69 +128,31 @@ public abstract class AbstractCartridgeTestMojo
      * Adds any dependencies for the cartridge plugin
      * to the current dependencies of the project.
      */
-    protected void addCartridgeTestDependencies()
+    protected void changeScopeForTestDependencies()
     {
-        if (this.plugins != null && !this.plugins.isEmpty())
+        // - get all test dependencies, change the scope and add them to them to the dependencies of this
+        //   project as runtime scope so that the AndroMDA plugin can see them.
+        for (final Dependency dependency : (Iterable<Dependency>) this.project.getTestDependencies())
         {
-            for (final Iterator iterator = this.plugins.iterator(); iterator.hasNext();)
+            //process only test dependencies
+            if (dependency.getScope().equals(Artifact.SCOPE_TEST))
             {
-                final Plugin plugin = (Plugin)iterator.next();
-                if (Constants.ARTIFACT_ID.equals(plugin.getArtifactId()))
-                {
-                    final List dependencies = plugin.getDependencies();
-                    if (dependencies != null)
-                    {
-                        for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
-                            dependencyIterator.hasNext();)
-                        {
-                            final Dependency dependency = (Dependency)dependencyIterator.next();
-                            dependency.setScope(Artifact.SCOPE_RUNTIME);
-                            this.addDependency(dependency);
-                        }
-                    }
-                }
+                dependency.setScope(Artifact.SCOPE_RUNTIME);
+                project.getDependencies().add(dependency);
             }
         }
 
-        // - get all test dependencies, change the scope and add them to them to the dependencies of this
-        //   project as runtime scope so that the AndroMDA plugin can see them.
-        for (final Iterator iterator = this.project.getTestDependencies().iterator(); iterator.hasNext();)
+        final Set artifacts = new HashSet<Artifact>(this.project.getArtifacts());
+        for (final Artifact artifact : (Iterable<Artifact>) this.project.getTestArtifacts())
         {
-            final Dependency dependency = (Dependency)iterator.next();
-            dependency.setScope(Artifact.SCOPE_RUNTIME);
-            this.project.getDependencies().add(dependency);
+            //process only test dependencies
+            if (artifact.getScope().equals(Artifact.SCOPE_TEST))
+            {
+                artifact.setScope(Artifact.SCOPE_RUNTIME);
+                artifacts.add(artifact);
+            }
         }
-        for (final Iterator iterator = this.project.getTestArtifacts().iterator(); iterator.hasNext();)
-        {
-            final Artifact artifact = (Artifact)iterator.next();
-            artifact.setScope(Artifact.SCOPE_RUNTIME);
-            this.project.getArtifacts().add(artifact);
-        }
-    }
-
-    /**
-     * Adds a dependency to the current project's dependencies.
-     *
-     * @param dependency
-     */
-    protected void addDependency(final Dependency dependency)
-    {
-        if (dependency != null)
-        {
-            final Artifact artifact =
-                this.factory.createArtifact(
-                    dependency.getGroupId(),
-                    dependency.getArtifactId(),
-                    dependency.getVersion(),
-                    dependency.getScope(),
-                    dependency.getType());
-            final File file = new File(
-                    this.localRepository.getBasedir(),
-                    this.localRepository.pathOf(artifact));
-            artifact.setFile(file);
-            this.project.getDependencies().add(dependency);
-            this.project.getArtifacts().add(artifact);
-        }
+        project.setArtifacts(artifacts);
     }
 
     /**

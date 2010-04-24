@@ -1,15 +1,12 @@
 package org.andromda.maven.plugin.site;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.net.URL;
-
-import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * Goal that copies the required AndroMDA site files to suitable locations preparing
@@ -26,56 +23,56 @@ public class CopyDocumentationMojo
     /**
      * Path to the mapping source directory containing the mappings
      * 
-     * @parameter expression="${basedir}/../../etc/mappings"
+     * @parameter expression="${basedir}/../andromda-etc/mappings"
      */
     private String mappingsSourceDirectory;
     
     /**
      * Path to the mapping destination directory
      * 
-     * @parameter expression="${basedir}/../../target/site/mappings"
+     * @parameter expression="${project.reporting.outputDirectory}/mappings"
      */
     private String mappingsOutputDirectory;
     
     /**
      * Path to the car-rental-system model
      * 
-     * @parameter expression="${basedir}/../../samples/car-rental-system/mda/src/main/uml/CarRentalSystem.xml.zip"
+     * @parameter expression="${basedir}/../samples/car-rental-system/mda/src/main/uml/CarRentalSystem.xml.zip"
      */
     private String carRentalSystemSourcePath;
     
     /**
      * Path to the destination directory to copy the car-rental-system model
      * 
-     * @parameter expression="${basedir}/../../target/site"
+     * @parameter expression="${project.reporting.outputDirectory}"
      */
     private String carRentalSystemOutputDirectory;
     
     /**
      * Path to the animal-quiz model
      * 
-     * @parameter expression="${basedir}/../../samples/animal-quiz/mda/src/main/uml/AnimalQuiz.xml.zip"
+     * @parameter expression="${basedir}/../samples/animal-quiz/mda/src/main/uml/AnimalQuiz.xml.zip"
      */
     private String animalQuizSourcePath;
     
     /**
      * Path to the destination directory to copy the animal-quiz model
      * 
-     * @parameter expression="${basedir}/../../target/site"
+     * @parameter expression="${project.reporting.outputDirectory}"
      */
     private String animalQuizOutputDirectory;
     
     /**
      * The directory containing the documentation site reporting artifacts
      * 
-     * @parameter expression="${basedir}/target/site"
+     * @parameter expression="${project.reporting.outputDirectory}"
      */
     private String documentationSourceDirectory;
     
     /**
      * The documentation output directory used to copy the generated site reporting artifacts
      * 
-     * @parameter expression="${basedir}/../../target/site"
+     * @parameter expression="${project.reporting.outputDirectory}"
      */
     private String documentationOutputDirectory;
     
