@@ -259,12 +259,7 @@
             <artifactId>andromda-webservice-client</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-cartridge-testsuite</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
+        
         <!--Andromda template engines-->
         <dependency>
             <groupId>org.andromda.templateengines</groupId>
