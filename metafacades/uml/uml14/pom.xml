@@ -23,27 +23,24 @@
     </scm>
 	<dependencies>
         <dependency>
-            <groupId>org.andromda.translationlibraries</groupId>
-            <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+    		<groupId>org.andromda.thirdparty.jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.andromda.thirdparty.jmi</groupId>
+      		<artifactId>jmi</artifactId>
+    	</dependency>
+        <!-- Andromda dependencies -->
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${project.version}</version>
         </dependency>
-    	<dependency>
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>jmiuml</artifactId>     		
-    	</dependency>
-    	<dependency>
-    		<groupId>org.andromda.thirdparty.jmi</groupId>
-      		<artifactId>jmi</artifactId>     		
-    	</dependency>
-    	<dependency>
-    		<groupId>log4j</groupId>
-      		<artifactId>log4j</artifactId>
-    	</dependency>	
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 	</dependencies>	
     <build>
         <plugins>
@@ -68,44 +65,21 @@
                         <id>namespace-transform</id>
                         <goals>
                             <goal>namespace-xsl</goal>
-                        </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
+                        </goals>                        
                     </execution>
                 </executions>
             </plugin>
         </plugins>
  		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
 	      	<resource>
-		        <directory>src/java</directory>
-	        	<excludes>
-	        		<exclude>**/*.java</exclude>
-	        	</excludes>
-	      	</resource>
-	      	<resource>
-		        <directory>src</directory>
+		        <directory>../common/src/main/resources</directory>
 	        	<includes>
-	        		<include>META-INF/**/*</include>
+	        		<include>META-INF/andromda/**</include>
 	        	</includes>
 	      	</resource>
-	      	<resource>
-		        <directory>../common/src</directory>
-	        	<includes>
-	        		<include>META-INF/**/*</include>
-	        	</includes>
-	      	</resource>
-	  		<resource>
-				<directory>target/src</directory>
-	        	<includes>
-	        		<include>**/*.properties</include>
-	        	</includes>
-	  		</resource>
     	</resources>
     </build>
-    <properties>
-        <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
-        <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.src.dir>${project.basedir}/src</maven.src.dir>
-    </properties>
 </project>

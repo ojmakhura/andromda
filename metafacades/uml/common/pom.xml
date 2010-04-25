@@ -20,12 +20,6 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/common</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -57,51 +51,17 @@
                         <goals>
                             <goal>profile-xsl</goal>
                         </goals>
-                        <configuration>
-                            <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath>
-                        </configuration>
-                    </execution>
-                    <!--
-                    <execution>
-                        <id>namespace-transform</id>
-                        <goals>
-                            <goal>namespace-xsl</goal>
-                        </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
-                    </execution>
-                     -->
+                    </execution>                    
                 </executions>
             </plugin>
         </plugins>
         <resources>
             <resource>
-                <directory>src/java</directory>
+                <directory>main/resources</directory>
                 <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>META-INF/andromda**/*</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>target/src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
+                    <exclude>META-INF/andromda/**</exclude>
                 </excludes>
             </resource>
         </resources>
     </build>
-    <properties>
-        <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
-        <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.src.dir>${project.basedir}/src</maven.src.dir>
-    </properties>
 </project>
