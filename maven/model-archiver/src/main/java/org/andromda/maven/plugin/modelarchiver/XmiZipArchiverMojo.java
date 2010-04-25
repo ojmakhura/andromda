@@ -250,7 +250,7 @@ public class XmiZipArchiverMojo
                                     this.modelArchiveExcludes.add(shortPath);
                                 }
                                 extractedFile.renameTo(newFile);
-                                String contents = IOUtils.toString(new FileReader(newFile));
+                                String contents = FileUtils.readFileToString(newFile);
                                 if (replaceExtensions)
                                 {
                                     final String version = MojoUtils.escapePattern(this.project.getVersion());
