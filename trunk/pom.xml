@@ -565,8 +565,6 @@
                 <inherited>false</inherited>
                 <configuration>
                     <tasks>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
-                              tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${project.version}/andromda-cartridge-plugin-${project.version}.jar"/>
                         <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
                               tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${project.version}/andromda-model-archiver-plugin-${project.version}.jar"/>
                     </tasks>
@@ -1130,7 +1128,7 @@
                         <artifactId>buildnumber-maven-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                        <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to repository -->
                         <inherited>true</inherited>
                         <artifactId>maven-source-plugin</artifactId>
                         <version>2.1.1</version>
@@ -1148,6 +1146,7 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <!-- Automatically attach javadoc to build artifact as artifact-version-javadoc.jar and deploy to repository -->
                         <inherited>true</inherited>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>2.5</version>
@@ -1160,23 +1159,21 @@
                             </execution>
                         </executions>
                     </plugin>
-
-                    <!--
-                        <plugin>
-                            <inherited>true</inherited>
-                            <artifactId>maven-gpg-plugin</artifactId>
-                            <version>1.0-alpha-4</version>
-                            <executions>
-                              <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                  <goal>sign</goal>
-                                </goals>
-                              </execution>
-                            </executions>
-                    </plugin>
-                    -->
+                    <!--<plugin>-->
+                        <!--&lt;!&ndash; Automatically attach javadoc to build artifact as artifact-version-javadoc.jar and deploy to repository &ndash;&gt;-->
+                        <!--<inherited>true</inherited>-->
+                        <!--<artifactId>maven-gpg-plugin</artifactId>-->
+                        <!--<version>1.0-alpha-4</version>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>sign-artifacts</id>-->
+                                <!--<phase>verify</phase>-->
+                                <!--<goals>-->
+                                    <!--<goal>sign</goal>-->
+                                <!--</goals>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
                 </plugins>
             </build>
             <distributionManagement>
