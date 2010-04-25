@@ -15,29 +15,7 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <dependencies>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-utils</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile</artifactId>
-            <version>${project.version}</version>
-            <type>xml.zip</type>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-    </dependencies>
     <modules>
         <module>uml</module>
     </modules>
-    <build>
-        <sourceDirectory>src/java</sourceDirectory>        
-    </build>
 </project>

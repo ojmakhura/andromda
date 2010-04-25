@@ -64,7 +64,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -79,10 +78,7 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-model-archiver-plugin</artifactId>
-                <configuration>
-                    <modelSourceDirectory>src/main/uml</modelSourceDirectory>
-                </configuration>
+                <artifactId>andromda-model-archiver-plugin</artifactId>                
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -94,66 +90,24 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
-         <resources>
-              <resource>
-                <directory>src/main/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-              </resource>
-              <resource>
+        <resources>
+            <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-              </resource>
-              <resource>
-                <directory>../../common/src</directory>
-                <includes>
-                    <include>META-INF/**/*</include>
-                </includes>
-              </resource>
-              <resource>
-                <directory>target/src</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-              </resource>
-        </resources>
+            </resource>
+	      	<resource>
+		        <directory>../../common/src/main/resources</directory>
+	        	<includes>
+	        		<include>META-INF/andromda/**</include>
+	        	</includes>
+	      	</resource>
+    	</resources>
     </build>
     <reporting>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
