@@ -1,4 +1,5 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.metafacades</groupId>
@@ -21,7 +22,7 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/emf/uml2</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
@@ -32,15 +33,15 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${project.version}</version>
         </dependency>
-		<dependency>
-    		<groupId>org.eclipse</groupId>
-      		<artifactId>uml2</artifactId>
-     		<version>1.1.1</version>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>uml2</artifactId>
+            <version>1.1.1</version>
         </dependency>
-		<dependency>
-    		<groupId>org.eclipse.uml2</groupId>
-      		<artifactId>common</artifactId>
-     		<version>1.1.1</version>
+        <dependency>
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>common</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.uml2</groupId>
@@ -67,7 +68,7 @@
             <artifactId>ecore2xml</artifactId>
             <version>2.2.0</version>
         </dependency>
-	</dependencies>	
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -83,7 +84,7 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-model-archiver-plugin</artifactId>                
+                <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -94,7 +95,10 @@
                         <id>namespace-transform</id>
                         <goals>
                             <goal>namespace-xsl</goal>
-                        </goals>                       
+                        </goals>
+                        <configuration>
+                            <namespaceDocumentPath>${project.build.outputDirectory}/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -103,12 +107,12 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-	      	<resource>
-		        <directory>../../common/src/main/resources</directory>
-	        	<includes>
-	        		<include>META-INF/andromda/**</include>
-	        	</includes>
-	      	</resource>
-    	</resources>
+            <resource>
+                <directory>../../common/src/main/resources</directory>
+                <includes>
+                    <include>META-INF/andromda/**</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
