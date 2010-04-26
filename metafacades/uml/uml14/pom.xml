@@ -65,7 +65,10 @@
                         <id>namespace-transform</id>
                         <goals>
                             <goal>namespace-xsl</goal>
-                        </goals>                        
+                        </goals>
+                        <configuration>
+                            <namespaceDocumentPath>${project.build.outputDirectory}/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

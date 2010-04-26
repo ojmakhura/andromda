@@ -90,6 +90,9 @@
                         <goals>
                             <goal>namespace-xsl</goal>
                         </goals>
+                        <configuration>
+                            <namespaceDocumentPath>${project.build.outputDirectory}/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
