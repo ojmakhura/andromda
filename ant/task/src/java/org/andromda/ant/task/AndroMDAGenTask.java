@@ -106,7 +106,7 @@ public class AndroMDAGenTask
      * <code>${some.property}</code> with the value
      * of the specified property if there is one.
      *
-     * @param fileContents the fileContents to perform replacement on.
+     * @param string the fileContents to perform replacement on.
      */
     protected String replaceProperties(String string)
     {
