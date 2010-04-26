@@ -31,12 +31,12 @@ import org.apache.log4j.PatternLayout;
  * @author Chad Brandon
  * @author Olaf Muliawan
  * @author Matthias Bohlen (usage of context classloader so that it works in Maven environments)
- * @see http://www.freemarker.org
+ * @see <a href="http://www.freemarker.org">Freemarker</a>
  */
 public class FreeMarkerTemplateEngine implements TemplateEngine
 {
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#initialize(String)
      */
     public void initialize(String namespace) throws Exception
     {
