@@ -1,24 +1,26 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacade
+ * @see EJB3SessionAttributeFacade
  */
 public class EJB3SessionAttributeFacadeLogicImpl
     extends EJB3SessionAttributeFacadeLogic
 {
-
     // ---------------- constructor -------------------------------
 
-    public EJB3SessionAttributeFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3SessionAttributeFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
@@ -26,16 +28,18 @@ public class EJB3SessionAttributeFacadeLogicImpl
     // ---------------- methods -------------------------------
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacade#getTransactionType()
+     * @see EJB3SessionAttributeFacade#getTransactionType()
      */
+    @Override
     protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamAttribute()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamAttribute()
      */
+    @Override
     protected boolean handleIsSeamAttribute()
     {
         boolean isSeamAttribute = false;
@@ -52,77 +56,82 @@ public class EJB3SessionAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionIn()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionIn()
      */
+    @Override
     protected boolean handleIsSeamBijectionIn()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_IN);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionInParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionInParameters()
      */
+    @Override
     protected String handleGetSeamBijectionInParameters()
     {
-        ArrayList parameters = new ArrayList();
-        if(!isRequired())
+        List parameters = new ArrayList();
+        if (!super.isRequired())
         {
             parameters.add("required = false");
         }
         else
         {
-            if(BooleanUtils.toBoolean(
+            if (BooleanUtils.toBoolean(
                     (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_CREATE, true)))
             {
                 parameters.add("create = true");
             }
         }
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionOut()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionOut()
      */
+    @Override
     protected boolean handleIsSeamBijectionOut()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_OUT);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionOutParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionOutParameters()
      */
+    @Override
     protected String handleGetSeamBijectionOutParameters()
     {
-        ArrayList parameters = new ArrayList();
-        if(!isRequired())
+        List parameters = new ArrayList();
+        if (!super.isRequired())
         {
             parameters.add("required = false");
         }
 
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_SCOPE_TYPE, true);
-        if(StringUtils.isNotBlank(scope))
+        if (StringUtils.isNotBlank(scope))
         {
             parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
 
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamValidationValid()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamValidationValid()
      */
+    @Override
     protected boolean handleIsSeamValidationValid()
     {
         boolean isSeamValidComponent = false;
@@ -134,26 +143,28 @@ public class EJB3SessionAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamDataModel()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamDataModel()
      */
+    @Override
     protected boolean handleIsSeamDataModel()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_DATA_DATAMODEL);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelParameters()
      */
+    @Override
     protected String handleGetSeamDataModelParameters()
     {
-        ArrayList parameters = new ArrayList();
+        List parameters = new ArrayList();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SCOPE_TYPE, true);
-        if(StringUtils.isNotBlank(scope))
+        if (StringUtils.isNotBlank(scope))
         {
             parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
@@ -162,101 +173,106 @@ public class EJB3SessionAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamDataModelSelection()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamDataModelSelection()
      */
+    @Override
     protected boolean handleIsSeamDataModelSelection()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_DATA_DATAMODEL_SELECTION);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelSelectionParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelSelectionParameters()
      */
+    @Override
     protected String handleGetSeamDataModelSelectionParameters()
     {
-        ArrayList parameters = new ArrayList();
+        List parameters = new ArrayList();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamDataModelSelection()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamDataModelSelection()
      */
+    @Override
     protected boolean handleIsSeamDataModelSelectionIndex()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_DATA_DATAMODEL_SELECTION_INDEX);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelSelectionIndexParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamDataModelSelectionIndexParameters()
      */
+    @Override
     protected String handleGetSeamDataModelSelectionIndexParameters()
     {
-        ArrayList parameters = new ArrayList();
+        List parameters = new ArrayList();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionLogger()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionLogger()
      */
+    @Override
     protected boolean handleIsSeamBijectionLogger()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionLoggerParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionLoggerParameters()
      */
+    @Override
     protected String handleGetSeamBijectionLoggerParameters()
     {
-        if(!this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER))
+        if (!this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_LOGGER))
         {
             return null;
         }
-        else
+        List parameters = new ArrayList();
+        String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_LOGGER_VALUE, true);
+        if (StringUtils.isNotBlank(value))
         {
-            ArrayList parameters = new ArrayList();
-            String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_LOGGER_VALUE, true);
-            if(StringUtils.isNotBlank(value))
-            {
-                parameters.add("value = \"" + value + "\"");
-            }
-
-            return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
+            parameters.add("value = \"" + value + '\"');
         }
+
+        return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionRequestParameter()
+     * @see EJB3SessionAttributeFacadeLogic#handleIsSeamBijectionRequestParameter()
      */
+    @Override
     protected boolean handleIsSeamBijectionRequestParameter()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_BIJECTION_REQUEST_PARAMETER);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionRequestParameterParameters()
+     * @see EJB3SessionAttributeFacadeLogic#handleGetSeamBijectionRequestParameterParameters()
      */
+    @Override
     protected String handleGetSeamBijectionRequestParameterParameters()
     {
-        ArrayList parameters = new ArrayList();
+        List parameters = new ArrayList();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_REQUEST_PARAMETER_VALUE, true);
-        if(StringUtils.isNotBlank(value))
+        if (StringUtils.isNotBlank(value))
         {
-            parameters.add("value = \"" + value + "\"");
+            parameters.add("value = \"" + value + '\"');
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);

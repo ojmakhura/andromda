@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
-
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.apache.commons.collections.CollectionUtils;
@@ -11,11 +10,10 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade
+ * @see EJB3ManageableEntityFacade
  */
 public class EJB3ManageableEntityFacadeLogicImpl
     extends EJB3ManageableEntityFacadeLogic
@@ -56,14 +54,15 @@ public class EJB3ManageableEntityFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJB3ManageableEntityFacadeLogicImpl (Object metaObject, String context)
+    public EJB3ManageableEntityFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceCreateExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceCreateExceptionName()
      */
+    @Override
     protected String handleGetManageableServiceCreateExceptionName()
     {
         String exceptionNamePattern = (String)this.getConfiguredProperty(CREATE_EXCEPTION_NAME_PATTERN);
@@ -74,8 +73,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceCreateExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceCreateExceptionName()
      */
+    @Override
     protected String handleGetFullyQualifiedManageableServiceCreateExceptionName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -85,8 +85,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceReadExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceReadExceptionName()
      */
+    @Override
     protected String handleGetManageableServiceReadExceptionName()
     {
         String exceptionNamePattern = (String)this.getConfiguredProperty(READ_EXCEPTION_NAME_PATTERN);
@@ -97,8 +98,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceReadExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceReadExceptionName()
      */
+    @Override
     protected String handleGetFullyQualifiedManageableServiceReadExceptionName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -108,8 +110,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceUpdateExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceUpdateExceptionName()
      */
+    @Override
     protected String handleGetManageableServiceUpdateExceptionName()
     {
         String exceptionNamePattern = (String)this.getConfiguredProperty(UPDATE_EXCEPTION_NAME_PATTERN);
@@ -120,8 +123,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceUpdateExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceUpdateExceptionName()
      */
+    @Override
     protected String handleGetFullyQualifiedManageableServiceUpdateExceptionName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -131,8 +135,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceDeleteExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceDeleteExceptionName()
      */
+    @Override
     protected String handleGetManageableServiceDeleteExceptionName()
     {
         String exceptionNamePattern = (String)this.getConfiguredProperty(DELETE_EXCEPTION_NAME_PATTERN);
@@ -143,8 +148,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceDeleteExceptionName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceDeleteExceptionName()
      */
+    @Override
     protected String handleGetFullyQualifiedManageableServiceDeleteExceptionName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -154,7 +160,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
+     * @see EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
      */
     protected String handleGetDefaultPersistenceContextUnitName()
     {
@@ -163,8 +169,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetJndiNamePrefix()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetJndiNamePrefix()
      */
+    @Override
     protected String handleGetJndiNamePrefix()
     {
         return this.isConfiguredProperty(SERVICE_JNDI_NAME_PREFIX) ?
@@ -172,8 +179,9 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseName()
      */
+    @Override
     protected String handleGetManageableServiceBaseName()
     {
         String exceptionNamePattern = (String)this.getConfiguredProperty(MANAGEABLE_SERVICE_BASE_NAME_PATTERN);
@@ -184,16 +192,18 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseFullPath()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseFullPath()
      */
+    @Override
     protected String handleGetManageableServiceBaseFullPath()
     {
         return StringUtils.replace(this.getFullyQualifiedManageableServiceBaseName(), ".", "/");
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceBaseName()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceBaseName()
      */
+    @Override
     protected String handleGetFullyQualifiedManageableServiceBaseName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -203,11 +213,12 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableRolesAllowed()
+     * @see EJB3ManageableEntityFacadeLogic#handleGetManageableRolesAllowed()
      */
+    @Override
     protected String handleGetManageableRolesAllowed()
     {
-        StringBuffer rolesAllowed = null;
+        StringBuilder rolesAllowed = null;
         String[] roles = StringUtils.split(
                 StringUtils.trimToEmpty(
                         ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.MANAGEABLE_ROLES_ALLOWED))),
@@ -218,7 +229,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
         {
             if (rolesAllowed == null)
             {
-                rolesAllowed = new StringBuffer();
+                rolesAllowed = new StringBuilder();
             }
             rolesAllowed.append(separator);
             rolesAllowed.append('"');
@@ -230,52 +241,55 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getIdentifier()
+     * @see EJB3ManageableEntityFacadeLogic#getIdentifier()
      *
-     * Override the implemenation in EJB3EntityFacade as UML2 models cannot retrieve the identifier via the
+     * Override the implementation in EJB3EntityFacade as UML2 models cannot retrieve the identifier via the
      * super EJB3EntityFacade.
      */
+    @Override
     public EJB3EntityAttributeFacade getIdentifier()
     {
         return (EJB3EntityAttributeFacade)super.getIdentifiers().iterator().next();
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getAllInstanceAttributes()
+     * @see EJB3ManageableEntityFacadeLogic#getAllInstanceAttributes()
      *
-     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an
+     * Override the implementation in EJB3EntityFacade as UML2 models will not get an
      * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
      */
-    public List getAllInstanceAttributes()
+    @Override public List getAllInstanceAttributes()
     {
         return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getInheritedInstanceAttributes()
+     * @see EJB3ManageableEntityFacadeLogic#getInheritedInstanceAttributes()
      *
-     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an
+     * Override the implementation in EJB3EntityFacade as UML2 models will not get an
      * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
      */
+    @Override
     public List getInheritedInstanceAttributes()
     {
         return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getInstanceAttributes(boolean, boolean)
+     * @see EJB3ManageableEntityFacadeLogic#getInstanceAttributes(boolean, boolean)
      *
-     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an
+     * Override the implementation in EJB3EntityFacade as UML2 models will not get an
      * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
      */
-    public Collection getInstanceAttributes(boolean follow, boolean withIdentifiers)
+    @Override
+    public Collection getInstanceAttributes(final boolean follow, final boolean withIdentifiers)
     {
         final Collection attributes = this.getAttributes(follow, withIdentifiers);
         CollectionUtils.filter(
             attributes,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     boolean valid = true;
                     if (object instanceof EntityAttribute)

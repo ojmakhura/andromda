@@ -6,24 +6,27 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacade
+ * @see EJB3FinderMethodArgumentFacade
  */
 public class EJB3FinderMethodArgumentFacadeLogicImpl
     extends EJB3FinderMethodArgumentFacadeLogic
 {
-
-    public EJB3FinderMethodArgumentFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3FinderMethodArgumentFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacade#getTemporalType()
+     * @see EJB3FinderMethodArgumentFacade#getTemporalType()
      */
+    @Override
     protected String handleGetTemporalType()
     {
         String temporalType =
@@ -33,7 +36,8 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
             ClassifierFacade classifier = this.getType();
             if (classifier != null)
             {
-                if (!classifier.isPrimitive()) {
+                if (!classifier.isPrimitive()) 
+                {
                     if (classifier.isDateType())
                     {
                         temporalType = EJB3Globals.TEMPORAL_TYPE_DATE;
@@ -42,7 +46,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
                     {
                         temporalType = EJB3Globals.TEMPORAL_TYPE_TIME;
                     }
-                    else if (classifier.getName().equals("Timestamp"))
+                    else if ("Timestamp".equals(classifier.getName()))
                     {
                         temporalType = EJB3Globals.TEMPORAL_TYPE_TIMESTAMP;
                     }
@@ -53,24 +57,27 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsFirstResult()
+     * @see EJB3FinderMethodArgumentFacadeLogic#handleIsFirstResult()
      */
+    @Override
     protected boolean handleIsFirstResult()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_RESULT_TYPE_FIRST);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsMaxResults()
+     * @see EJB3FinderMethodArgumentFacadeLogic#handleIsMaxResults()
      */
+    @Override
     protected boolean handleIsMaxResults()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_RESULT_TYPE_MAX);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeOrdinal()
+     * @see EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeOrdinal()
      */
+    @Override
     protected boolean handleIsEnumerationTypeOrdinal()
     {
         boolean ordinalType = false;
@@ -86,8 +93,9 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeString()
+     * @see EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeString()
      */
+    @Override
     protected boolean handleIsEnumerationTypeString()
     {
         boolean stringType = false;
@@ -101,5 +109,4 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
         }
         return stringType;
     }
-
 }

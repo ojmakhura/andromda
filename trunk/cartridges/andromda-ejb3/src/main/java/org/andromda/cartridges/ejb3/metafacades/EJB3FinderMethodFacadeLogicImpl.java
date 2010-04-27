@@ -2,12 +2,11 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * <p/>
@@ -15,12 +14,11 @@ import org.apache.commons.lang.StringUtils;
  *
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
+ * @see EJB3FinderMethodFacade
  */
 public class EJB3FinderMethodFacadeLogicImpl
     extends EJB3FinderMethodFacadeLogic
 {
-
     /**
      * Stores whether or not named parameters should be used in EJB queries.
      */
@@ -28,7 +26,11 @@ public class EJB3FinderMethodFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
-    public EJB3FinderMethodFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3FinderMethodFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
@@ -53,24 +55,27 @@ public class EJB3FinderMethodFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade#getQuery()
+     * @see EJB3FinderMethodFacade#getQuery()
      */
+    @Override
     protected String handleGetQuery()
     {
         return this.getQuery((EJB3EntityFacade)null);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade#getTransactionType()
+     * @see EJB3FinderMethodFacade#getTransactionType()
      */
+    @Override
     protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleIsUseNamedParameters()
+     * @see EJB3FinderMethodFacadeLogic#handleIsUseNamedParameters()
      */
+    @Override
     protected boolean handleIsUseNamedParameters()
     {
         return BooleanUtils.toBoolean(String.valueOf(
@@ -78,12 +83,13 @@ public class EJB3FinderMethodFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleIsUseQueryCache()
+     * @see EJB3FinderMethodFacadeLogic#handleIsUseQueryCache()
      */
+    @Override
     protected boolean handleIsUseQueryCache()
     {
         boolean queryCacheEnabled = ((EJB3EntityFacade)this.getOwner()).isUseQueryCache();
-        String queryCacheEnabledStr = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_USE_QUERY_CACHE);
+        String queryCacheEnabledStr = (String)super.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_USE_QUERY_CACHE);
         if (StringUtils.isNotBlank(queryCacheEnabledStr))
         {
             queryCacheEnabled = BooleanUtils.toBoolean(queryCacheEnabledStr);
@@ -92,9 +98,10 @@ public class EJB3FinderMethodFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleGetQuery(org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade)
+     * @see EJB3FinderMethodFacadeLogic#handleGetQuery(EJB3EntityFacade)
      */
-    protected String handleGetQuery(EJB3EntityFacade entity)
+    @Override
+    protected String handleGetQuery(final EJB3EntityFacade entity)
     {
         // first see if we can retrieve the query from the super class as an OCL
         // translation
@@ -130,7 +137,7 @@ public class EJB3FinderMethodFacadeLogicImpl
             queryString = "from " + owner.getName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
-                Collection arguments = this.getArguments();
+                Collection<ParameterFacade> arguments = this.getArguments();
                 if (arguments != null && !arguments.isEmpty())
                 {
                     Iterator argumentIt = arguments.iterator();
@@ -141,18 +148,18 @@ public class EJB3FinderMethodFacadeLogicImpl
                         {
                             if (!whereClauseExists)
                             {
-                                queryString = queryString + " where";
+                                queryString += " where";
                                 whereClauseExists = true;
                             }
                             String parameter = "?";
                             if (this.isUseNamedParameters())
                             {
-                                parameter = ":" + argument.getName();
+                                parameter = ':' + argument.getName();
                             }
-                            queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
+                            queryString += ' ' + variableName + '.' + argument.getName() + " = " + parameter;
                             if (argumentIt.hasNext())
                             {
-                                queryString = queryString + " and";
+                                queryString += " and";
                             }
                         }
                     }
@@ -163,8 +170,9 @@ public class EJB3FinderMethodFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleIsNamedQuery()
+     * @see EJB3FinderMethodFacadeLogic#handleIsNamedQuery()
      */
+    @Override
     protected boolean handleIsNamedQuery()
     {
         boolean isNamedQuery = true;
@@ -175,5 +183,4 @@ public class EJB3FinderMethodFacadeLogicImpl
         }
         return isNamedQuery;
     }
-
 }

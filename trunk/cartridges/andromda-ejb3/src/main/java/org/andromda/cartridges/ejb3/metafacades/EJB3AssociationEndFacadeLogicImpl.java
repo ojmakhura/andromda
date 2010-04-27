@@ -4,9 +4,11 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.Map;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
@@ -19,13 +21,12 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * <p/>
  * Represents an EJB association end. </p>
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade
+ * @see EJB3AssociationEndFacade
  */
 public class EJB3AssociationEndFacadeLogicImpl
     extends EJB3AssociationEndFacadeLogic
@@ -109,7 +110,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * Stores the cascade map of fully qualified cascade types
      */
-    private static final Hashtable cascadeTable = new Hashtable();
+    private static final Map cascadeTable = new Hashtable();
 
     static
     {
@@ -143,7 +144,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * Stores the valid collection types
      */
-    private static final Collection collectionTypes = new ArrayList();
+    private static final Collection<String> collectionTypes = new ArrayList<String>();
 
     static
     {
@@ -186,7 +187,11 @@ public class EJB3AssociationEndFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
-    public EJB3AssociationEndFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3AssociationEndFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
@@ -195,7 +200,7 @@ public class EJB3AssociationEndFacadeLogicImpl
 
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
+     * @see AssociationEndFacade#getGetterSetterTypeName()
      */
     @Override public String getGetterSetterTypeName()
     {
@@ -263,9 +268,9 @@ public class EJB3AssociationEndFacadeLogicImpl
              */
             if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
             {
-                getterSetterTypeName = getterSetterTypeName + "<"
-                    + (this.isMap()? this.getCollectionIndexType() + ", ": "")
-                    + this.getType().getFullyQualifiedName() + ">";
+                getterSetterTypeName += '<'
+                    + (this.isMap() ? this.getCollectionIndexType() + ", " : "")
+                    + this.getType().getFullyQualifiedName() + '>';
             }
         }
         return getterSetterTypeName;
@@ -274,8 +279,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * Overridden to provide handling of inheritance.
      *
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
+     * @see AssociationEndFacade#isRequired()
      */
+    @Override
     public boolean isRequired()
     {
         boolean required = super.isRequired();
@@ -286,7 +292,7 @@ public class EJB3AssociationEndFacadeLogicImpl
             EJB3EntityFacade entity = (EJB3EntityFacade)type;
 
             /**
-             * Excluse ONLY if single table inheritance exists
+             * Exclude ONLY if single table inheritance exists
              */
             if (entity.isRequiresGeneralizationMapping() && entity.isInheritanceSingleTable()
                     && !entity.isEmbeddableSuperclassGeneralizationExists())
@@ -299,8 +305,10 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade#getFetchType()
+     * @return fetch type
+     * @see EJB3AssociationEndFacade#getFetchType()
      */
+    @Override
     protected String handleGetFetchType()
     {
         String fetchType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FETCH_TYPE);
@@ -308,7 +316,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         if (StringUtils.isBlank(fetchType))
         {
             // check whether or not composition defines eager loading is turned on
-            boolean compositionDefinesEagerLoading =
+            final boolean compositionDefinesEagerLoading =
                 Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
                        .booleanValue();
 
@@ -343,14 +351,15 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsEager()
+     * @see EJB3AssociationEndFacadeLogic#handleIsEager()
      */
+    @Override
     protected boolean handleIsEager()
     {
         boolean isEager = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_EAGER))
+            if (EJB3Globals.FETCH_TYPE_EAGER.equalsIgnoreCase(this.getFetchType()))
             {
                 isEager = true;
             }
@@ -359,14 +368,15 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsLazy()
+     * @see EJB3AssociationEndFacadeLogic#handleIsLazy()
      */
+    @Override
     protected boolean handleIsLazy()
     {
         boolean isLazy = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_LAZY))
+            if (EJB3Globals.FETCH_TYPE_LAZY.equalsIgnoreCase(this.getFetchType()))
             {
                 isLazy = true;
             }
@@ -375,8 +385,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsOwning()
+     * @see EJB3AssociationEndFacadeLogic#handleIsOwning()
      */
+    @Override
     protected boolean handleIsOwning()
     {
         boolean owning = false;
@@ -392,8 +403,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsOptional()
+     * @see EJB3AssociationEndFacadeLogic#handleIsOptional()
      */
+    @Override
     protected boolean handleIsOptional()
     {
         boolean optional = true;
@@ -411,16 +423,18 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetOrderByClause()
+     * @see EJB3AssociationEndFacadeLogic#handleGetOrderByClause()
      */
+    @Override
     protected String handleGetOrderByClause()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_ORDERBY);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetColumnDefinition()
+     * @see EJB3AssociationEndFacadeLogic#handleGetColumnDefinition()
      */
+    @Override
     protected String handleGetColumnDefinition()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
@@ -432,8 +446,9 @@ public class EJB3AssociationEndFacadeLogicImpl
      * @param name The tagged name to lookup.
      * @return boolean True if the tagged name exists.  False otherwise.
      *
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleHasTaggedValue(String)
+     * @see EJB3AssociationEndFacadeLogic#handleHasTaggedValue(String)
      */
+    @Override
     protected boolean handleHasTaggedValue(String name)
     {
         boolean exists = false;
@@ -442,11 +457,9 @@ public class EJB3AssociationEndFacadeLogicImpl
             // trim to remove leading/trailing spaces
             name = StringUtils.trimToEmpty(name);
 
-            // loop over tagged values and matche the argument tagged value name
-            for (final Iterator iter = this.getTaggedValues().iterator(); iter.hasNext(); )
+            // loop over tagged values and match the argument tagged value name
+            for (TaggedValueFacade taggedValue : this.getTaggedValues())
             {
-                final TaggedValueFacade taggedValue = (TaggedValueFacade)iter.next();
-
                 // return with true on the first match found
                 if (name.equals(taggedValue.getName()))
                 {
@@ -464,9 +477,9 @@ public class EJB3AssociationEndFacadeLogicImpl
      * @param cascadesString
      * @return fully qualified cascade type sequence
      */
-    private String getFullyQualifiedCascadeTypeList(String cascadesString)
+    private String getFullyQualifiedCascadeTypeList(final String cascadesString)
     {
-        StringBuffer buf = null;
+        StringBuilder buf = null;
         if (StringUtils.isNotBlank(cascadesString))
         {
             String[] ct = cascadesString.split(",");
@@ -477,7 +490,7 @@ public class EJB3AssociationEndFacadeLogicImpl
                 {
                     if (buf == null)
                     {
-                        buf = new StringBuffer();
+                        buf = new StringBuilder();
                     }
                     else
                     {
@@ -492,32 +505,35 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCascadeType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCascadeType()
      */
+    @Override
     protected String handleGetCascadeType()
     {
         String cascade = null;
-        final Collection taggedValues = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE);
+        final Collection<String> taggedValues = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE);
         if (taggedValues != null && !taggedValues.isEmpty())
         {
-            StringBuffer buf = null;
-            for (final Iterator iter = taggedValues.iterator(); iter.hasNext(); )
+            StringBuilder buf = null;
+            for (String value : taggedValues)
             {
                 if (buf == null)
                 {
-                    buf = new StringBuffer();
+                    buf = new StringBuilder();
                 }
                 else
                 {
                     buf.append(", ");
                 }
-                final String value = (String)iter.next();
                 if (StringUtils.isNotBlank(value))
                 {
                     buf.append(cascadeTable.get(value));
                 }
             }
-            cascade = buf.toString();
+            if (buf != null)
+            {
+                cascade = buf.toString();
+            }
         }
         else if ((this.getOtherEnd() != null) &&
                  (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()))
@@ -530,13 +546,13 @@ public class EJB3AssociationEndFacadeLogicImpl
                     if (this.getType() instanceof EJB3EntityFacade)
                     {
                         EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
-                        cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
+                        cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(entity.getDefaultCascadeType()) ?
                                 null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
                     }
                 }
                 else
                 {
-                    cascade = (this.getCompositionCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
+                    cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(this.getCompositionCascadeType()) ?
                             null : this.getFullyQualifiedCascadeTypeList(this.getCompositionCascadeType()));
                 }
             }
@@ -547,31 +563,33 @@ public class EJB3AssociationEndFacadeLogicImpl
                     if (this.getType() instanceof EJB3EntityFacade)
                     {
                         EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
-                        cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
+                        cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(entity.getDefaultCascadeType()) ?
                                 null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
                     }
                 }
                 else
                 {
-                    cascade = (this.getAggregationCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
+                    cascade = (ENTITY_CASCADE_NONE.equalsIgnoreCase(this.getAggregationCascadeType()) ?
                             null : this.getFullyQualifiedCascadeTypeList(this.getAggregationCascadeType()));
                 }
             }
         }
         else if (this.isComposition())
         {
-            /**
+            // TODO cascade can only be null at this point
+            /*
              * On the composite side of the relationship, always enforce no cascade delete
-             * property indicating no cascadable propogation - overriding a default cascade
+             * property indicating no cascadable propagation - overriding a default cascade
              * value
              */
             cascade = null;
         }
         else if (this.isAggregation())
         {
-            /**
+            // TODO cascade can only be null at this point
+            /*
              * On the aggregation side of the relationship, always enforce no cascade delete
-             * property indicating no cascadable propogation - overriding a default cascade
+             * property indicating no cascadable propagation - overriding a default cascade
              * value
              */
             cascade = null;
@@ -580,8 +598,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCompositionCascadeType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCompositionCascadeType()
      */
+    @Override
     protected String handleGetCompositionCascadeType()
     {
         return StringUtils.trimToEmpty(
@@ -589,8 +608,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetAggregationCascadeType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetAggregationCascadeType()
      */
+    @Override
     protected String handleGetAggregationCascadeType()
     {
         return StringUtils.trimToEmpty(
@@ -598,8 +618,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionType()
      */
+    @Override
     protected String handleGetCollectionType()
     {
         String collectionType = this.getSpecificCollectionType();
@@ -619,8 +640,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplemenationClass()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplemenationClass()
      */
+    @Override
     protected String handleGetCollectionTypeImplemenationClass()
     {
         String collectionTypeImplementationClass = null;
@@ -646,19 +668,21 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation()
      */
+    @Override
     protected String handleGetCollectionTypeImplementation()
     {
         return this.getCollectionTypeImplementation(null);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation(String)
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation(String)
      */
-    protected String handleGetCollectionTypeImplementation(String arg)
+    @Override
+    protected String handleGetCollectionTypeImplementation(final String arg)
     {
-        StringBuffer implementation = new StringBuffer();
+        StringBuilder implementation = new StringBuilder();
         if (this.isMany())
         {
             implementation.append("new ");
@@ -700,44 +724,39 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionIndexType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionIndexType()
      */
+    @Override
     protected String handleGetCollectionIndexType()
     {
         Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX_TYPE);
         if (value == null)
         {
             Object name = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX);
-            if(name == null)
+            if (name == null)
             {
                 // Find the identifier
                 EJB3EntityAttributeFacade identifier = ((EJB3EntityFacade)this.getOtherEnd().getType()).getIdentifier();
                 value = identifier.getType().getFullyQualifiedName();
                 return value.toString();
             }
-            else
+            // Find the attribute corresponding to name
+            Collection<AttributeFacade> attributes = ((EJB3EntityFacade)this.getOtherEnd().getType()).getAttributes();
+            for (AttributeFacade attrib : attributes)
             {
-                // Find the attribute corresponding to name
-                Collection attributes = ((EJB3EntityFacade)this.getOtherEnd().getType()).getAttributes();
-                Iterator it = attributes.iterator();
-                while(it.hasNext())
+                EJB3EntityAttributeFacade attribute = (EJB3EntityAttributeFacade)attrib;
+                if (attribute.getName().equals(name))
                 {
-                    EJB3EntityAttributeFacade attribute = (EJB3EntityAttributeFacade) it.next();
-                    if(attribute.getName().equals(name))
-                    {
-                        value = attribute.getType().getFullyQualifiedName();
-                        return value.toString();
-                    }
+                    value = attribute.getType().getFullyQualifiedName();
+                    return value.toString();
                 }
             }
 
-            if (value == null)
+            // value can only be null at this point
+            value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
+            if (StringUtils.isBlank(ObjectUtils.toString(value)))
             {
-                value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
-                if (StringUtils.isBlank(ObjectUtils.toString(value)))
-                {
-                    value = null;
-                }
+                value = null;
             }
          }
 
@@ -756,8 +775,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionIndexName()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCollectionIndexName()
      */
+    @Override
     protected String handleGetCollectionIndexName()
     {
         Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX);
@@ -784,11 +804,12 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsMap()
+     * @see EJB3AssociationEndFacadeLogic#handleIsMap()
      */
+    @Override
     protected boolean handleIsMap()
     {
-        boolean isMap = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_MAP);
+        boolean isMap = COLLECTION_TYPE_MAP.equalsIgnoreCase(this.getCollectionType());
         if (isMap && StringUtils.isBlank(this.getSpecificCollectionType()))
         {
             isMap = !this.isOrdered();
@@ -797,11 +818,12 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsList()
+     * @see EJB3AssociationEndFacadeLogic#handleIsList()
      */
+    @Override
     protected boolean handleIsList()
     {
-        boolean isList = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_LIST);
+        boolean isList = COLLECTION_TYPE_LIST.equalsIgnoreCase(this.getCollectionType());
         if (!isList && StringUtils.isBlank(this.getSpecificCollectionType()))
         {
             isList = this.isOrdered();
@@ -810,11 +832,12 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsSet()
+     * @see EJB3AssociationEndFacadeLogic#handleIsSet()
      */
+    @Override
     protected boolean handleIsSet()
     {
-        boolean isSet = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_SET);
+        boolean isSet = COLLECTION_TYPE_SET.equalsIgnoreCase(this.getCollectionType());
         if (isSet && StringUtils.isBlank(this.getSpecificCollectionType()))
         {
             isSet = !this.isOrdered();
@@ -823,11 +846,12 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsCollection()
+     * @see EJB3AssociationEndFacadeLogic#handleIsCollection()
      */
+    @Override
     protected boolean handleIsCollection()
     {
-        boolean isCollection = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_COLLECTION);
+        boolean isCollection = COLLECTION_TYPE_COLLECTION.equalsIgnoreCase(this.getCollectionType());
         if (!isCollection && StringUtils.isBlank(this.getSpecificCollectionType()))
         {
             isCollection = this.isOrdered();
@@ -836,8 +860,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetLabelName()
+     * @see EJB3AssociationEndFacadeLogic#handleGetLabelName()
      */
+    @Override
     protected String handleGetLabelName()
     {
         String labelNamePattern = (this.isMany() ?
@@ -850,27 +875,30 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetGetterLabelName()
+     * @see EJB3AssociationEndFacadeLogic#handleGetGetterLabelName()
      */
+    @Override
     protected String handleGetGetterLabelName()
     {
         return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getLabelName());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetSetterLabelName()
+     * @see EJB3AssociationEndFacadeLogic#handleGetSetterLabelName()
      */
+    @Override
     protected String handleGetSetterLabelName()
     {
         return "set" + StringUtils.capitalize(this.getLabelName());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCacheType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetCacheType()
      */
+    @Override
     protected String handleGetCacheType()
     {
-        String cacheType = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
+        String cacheType = (String)super.findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
         if (StringUtils.isBlank(cacheType))
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
@@ -879,8 +907,9 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsAssociationCacheEnabled()
+     * @see EJB3AssociationEndFacadeLogic#handleIsAssociationCacheEnabled()
      */
+    @Override
     protected boolean handleIsAssociationCacheEnabled()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_ENABLE_CACHE)));
@@ -888,12 +917,13 @@ public class EJB3AssociationEndFacadeLogicImpl
 
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsForeignKeyConstraintDefined()
+     * @see EJB3AssociationEndFacadeLogic#handleIsForeignKeyConstraintDefined()
      */
+    @Override
     protected boolean handleIsForeignKeyConstraintDefined()
     {
         boolean fkConstraintDefined = false;
-        if (findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME) != null)
+        if (super.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME) != null)
         {
             fkConstraintDefined = true;
         }
@@ -901,19 +931,20 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetForeignKeyConstraintName(String)
+     * @see EJB3AssociationEndFacadeLogic#handleGetForeignKeyConstraintName(String)
      */
-    protected String handleGetForeignKeyConstraintName(String suffix)
+    @Override
+    protected String handleGetForeignKeyConstraintName(final String suffix)
     {
         String constraintName;
 
-        final Object taggedValueObject = findTaggedValue(
+        final Object taggedValueObject = super.findTaggedValue(
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
 
         /**
          * Construct our own foreign key constraint name here
          */
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         if (taggedValueObject == null)
         {
@@ -956,10 +987,10 @@ public class EJB3AssociationEndFacadeLogicImpl
             /**
              * we take into consideration the maximum length allowed
              */
-            final String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+            final String maxLengthString = (String)super.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
             final short maxLength = (short)(Short.valueOf(maxLengthString).shortValue() - constraintSuffix.length());
-            buffer = new StringBuffer(
-                    EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
+            buffer = new StringBuilder(
+                    EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, Short.valueOf(maxLength)));
             buffer.append(constraintSuffix);
         }
         else
@@ -973,8 +1004,9 @@ public class EJB3AssociationEndFacadeLogicImpl
 
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetForeignKeyName(String)
+     * @see EJB3AssociationEndFacadeLogic#handleGetForeignKeyName(String)
      */
+    @Override
     protected String handleGetForeignKeyName(String suffix)
     {
         if (StringUtils.isNotBlank(suffix))
@@ -1009,16 +1041,18 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
+     * @see EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
      */
+    @Override
     protected String handleGetDefaultCollectionInterface()
     {
         return ObjectUtils.toString(this.getConfiguredProperty(DEFAULT_COLLECTION_INTERFACE));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsCollectionInterfaceSortedSet()
+     * @see EJB3AssociationEndFacadeLogic#handleIsCollectionInterfaceSortedSet()
      */
+    @Override
     protected boolean handleIsCollectionInterfaceSortedSet()
     {
         boolean isInterfaceSortedSet = false;
@@ -1030,16 +1064,18 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetHibernateCascadeType()
+     * @see EJB3AssociationEndFacadeLogic#handleGetHibernateCascadeType()
      */
+    @Override
     protected String handleGetHibernateCascadeType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_CASCADE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsHibernateCascadeExists()
+     * @see EJB3AssociationEndFacadeLogic#handleIsHibernateCascadeExists()
      */
+    @Override
     protected boolean handleIsHibernateCascadeExists()
     {
         return StringUtils.isNotBlank(this.getHibernateCascadeType()) ? true : false;

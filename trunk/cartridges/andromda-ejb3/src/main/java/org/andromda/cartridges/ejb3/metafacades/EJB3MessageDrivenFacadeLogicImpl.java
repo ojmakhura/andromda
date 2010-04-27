@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -19,11 +18,10 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade
+ * @see EJB3MessageDrivenFacade
  */
 public class EJB3MessageDrivenFacadeLogicImpl
     extends EJB3MessageDrivenFacadeLogic
@@ -72,7 +70,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
     //  ---------------- constructor -------------------------------
 
-    public EJB3MessageDrivenFacadeLogicImpl (Object metaObject, String context)
+    public EJB3MessageDrivenFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
@@ -80,16 +78,18 @@ public class EJB3MessageDrivenFacadeLogicImpl
     //  ---------------- methods -------------------------------
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getAcknowledgeMode()
+     * @see EJB3MessageDrivenFacade#getAcknowledgeMode()
      */
+    @Override
     protected String handleGetAcknowledgeMode()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_ACKNOWLEDGE_MODE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getDestination()
+     * @see EJB3MessageDrivenFacade#getDestination()
      */
+    @Override
     protected String handleGetDestination()
     {
         String destination = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DESTINATION);
@@ -102,8 +102,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getDestinationType()
+     * @see EJB3MessageDrivenFacade#getDestinationType()
      */
+    @Override
     protected String handleGetDestinationType()
     {
         String destinationType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DESTINATION_TYPE);
@@ -128,8 +129,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetTestPackageName()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetTestPackageName()
      */
+    @Override
     protected String handleGetTestPackageName()
     {
         String namespacePattern = String.valueOf(this.getConfiguredProperty(MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN));
@@ -139,8 +141,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenImplementationName()
+     * @see EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenImplementationName()
      */
+    @Override
     protected String handleGetFullyQualifiedMessageDrivenImplementationName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -150,8 +153,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenListenerName()
+     * @see EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenListenerName()
      */
+    @Override
     protected String handleGetFullyQualifiedMessageDrivenListenerName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -161,8 +165,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenName()
+     * @see EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenName()
      */
+    @Override
     protected String handleGetFullyQualifiedMessageDrivenName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -172,8 +177,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetFullyQualifiedMessageDrivenTestName()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetFullyQualifiedMessageDrivenTestName()
      */
+    @Override
     protected String handleGetFullyQualifiedMessageDrivenTestName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -183,8 +189,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageDrivenImplementationName()
+     * @see EJB3MessageDrivenFacade#getMessageDrivenImplementationName()
      */
+    @Override
     protected String handleGetMessageDrivenImplementationName()
     {
         String messageDrivenImplNamePattern =
@@ -196,8 +203,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageDrivenListenerName()
+     * @see EJB3MessageDrivenFacade#getMessageDrivenListenerName()
      */
+    @Override
     protected String handleGetMessageDrivenListenerName()
     {
         String messageDrivenListenerNamePattern =
@@ -209,8 +217,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageDrivenName()
+     * @see EJB3MessageDrivenFacade#getMessageDrivenName()
      */
+    @Override
     protected String handleGetMessageDrivenName()
     {
         String messageDrivenNamePattern =
@@ -222,8 +231,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMessageDrivenTestName()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetMessageDrivenTestName()
      */
+    @Override
     protected String handleGetMessageDrivenTestName()
     {
         String messageDrivenTestNamePattern =
@@ -235,16 +245,18 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageSelector()
+     * @see EJB3MessageDrivenFacade#getMessageSelector()
      */
+    @Override
     protected String handleGetMessageSelector()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_SELECTOR);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getRunAs()
+     * @see EJB3MessageDrivenFacade#getRunAs()
      */
+    @Override
     protected String handleGetRunAs()
     {
         String runAsRole = null;
@@ -270,8 +282,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getSubscriptionDurability()
+     * @see EJB3MessageDrivenFacade#getSubscriptionDurability()
      */
+    @Override
     protected String handleGetSubscriptionDurability()
     {
         String subscriptionDurability = null;
@@ -288,8 +301,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsSubscriptionDurable()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsSubscriptionDurable()
      */
+    @Override
     protected boolean handleIsSubscriptionDurable()
     {
         return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_DURABLE) ?
@@ -297,8 +311,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsSubscriptionNonDurable()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsSubscriptionNonDurable()
      */
+    @Override
     protected boolean handleIsSubscriptionNonDurable()
     {
         return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_NONDURABLE) ?
@@ -306,8 +321,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetDurableSubscriptionId()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetDurableSubscriptionId()
      */
+    @Override
     protected String handleGetDurableSubscriptionId()
     {
         String durableSubscriptionIdPattern =
@@ -319,24 +335,27 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getTransactionManagement()
+     * @see EJB3MessageDrivenFacade#getTransactionManagement()
      */
+    @Override
     protected String handleGetTransactionManagement()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#isTransactionManagementBean()
+     * @see EJB3MessageDrivenFacade#isTransactionManagementBean()
      */
+    @Override
     protected boolean handleIsTransactionManagementBean()
     {
         return StringUtils.equalsIgnoreCase(getTransactionManagement(), EJB3Globals.TRANSACTION_MANAGEMENT_BEAN);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getTransactionType()
+     * @see EJB3MessageDrivenFacade#getTransactionType()
      */
+    @Override
     protected String handleGetTransactionType()
     {
         return EJB3MetafacadeUtils.getTransactionType(this,
@@ -344,8 +363,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getAttributesAsList(java.util.Collection, boolean, boolean)
+     * @see EJB3MessageDrivenFacade#getAttributesAsList(java.util.Collection, boolean, boolean)
      */
+    @Override
     protected String handleGetAttributesAsList(
             java.util.Collection attributes,
             boolean includeTypes,
@@ -356,7 +376,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String separator = "";
 
         for (final Iterator it = attributes.iterator(); it.hasNext();)
@@ -378,7 +398,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getConstants(boolean)
+     * @see EJB3MessageDrivenFacade#getConstants(boolean)
      */
     protected java.util.Collection handleGetConstants(boolean follow)
     {
@@ -386,7 +406,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#getServiceReferences()
+     * @see EJB3MessageDrivenFacadeLogic#getServiceReferences()
      */
     public Collection getServiceReferences()
     {
@@ -405,8 +425,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsDestinationTypeQueue()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsDestinationTypeQueue()
      */
+    @Override
     protected boolean handleIsDestinationTypeQueue()
     {
         boolean typeQueue = false;
@@ -418,8 +439,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsDestinationTypeTopic()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsDestinationTypeTopic()
      */
+    @Override
     protected boolean handleIsDestinationTypeTopic()
     {
         boolean typeTopic = false;
@@ -431,7 +453,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetEnvironmentEntries(boolean)
+     * @see EJB3MessageDrivenFacadeLogic#handleGetEnvironmentEntries(boolean)
      */
     protected Collection handleGetEnvironmentEntries(boolean follow)
     {
@@ -439,7 +461,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMinimumPoolSize()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetMinimumPoolSize()
      */
     protected int handleGetMinimumPoolSize()
     {
@@ -453,7 +475,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMaximumPoolSize()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetMaximumPoolSize()
      */
     protected int handleGetMaximumPoolSize()
     {
@@ -467,15 +489,16 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsListenerEnabled()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsListenerEnabled()
      */
+    @Override
     protected boolean handleIsListenerEnabled()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetInterceptorReferences()
+     * @see EJB3MessageDrivenFacadeLogic#handleGetInterceptorReferences()
      */
     protected Collection handleGetInterceptorReferences()
     {
@@ -517,8 +540,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsExcludeDefaultInterceptors()
+     * @see EJB3MessageDrivenFacadeLogic#handleIsExcludeDefaultInterceptors()
      */
+    @Override
     protected boolean handleIsExcludeDefaultInterceptors()
     {
         boolean excludeDefault = false;

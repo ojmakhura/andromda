@@ -251,7 +251,7 @@ public class EJB3Globals
     /**
      * Defines the prefix given to the transformation constants.
      */
-    public final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
+    public static final String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
 
     /**
      * The suffix given to the no transformation constant.
