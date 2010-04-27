@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -14,11 +13,10 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade
+ * @see EJB3InterceptorFacade
  */
 public class EJB3InterceptorFacadeLogicImpl
     extends EJB3InterceptorFacadeLogic
@@ -28,14 +26,19 @@ public class EJB3InterceptorFacadeLogicImpl
      */
     private static final String INTERCEPTOR_NAME_PATTERN = "interceptorNamePattern";
 
-    public EJB3InterceptorFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3InterceptorFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade#getInterceptorName()
+     * @see EJB3InterceptorFacade#getInterceptorName()
      */
+    @Override
     protected String handleGetInterceptorName()
     {
         String interceptorNamePattern = (String)this.getConfiguredProperty(INTERCEPTOR_NAME_PATTERN);
@@ -46,8 +49,9 @@ public class EJB3InterceptorFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade#getFullyQualifiedInterceptorName()
+     * @see EJB3InterceptorFacade#getFullyQualifiedInterceptorName()
      */
+    @Override
     protected String handleGetFullyQualifiedInterceptorName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -57,20 +61,21 @@ public class EJB3InterceptorFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogic#handleGetInterceptorReferences()
+     * @see EJB3InterceptorFacadeLogic#handleGetInterceptorReferences()
      */
+    @Override
     protected Collection handleGetInterceptorReferences()
     {
-        Collection references = this.getSourceDependencies();
+        Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(
             references,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     DependencyFacade dependency = (DependencyFacade)object;
                     ModelElementFacade targetElement = dependency.getTargetElement();
-                    return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+                    return targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR);
                 }
             });
         CollectionUtils.transform(
@@ -82,12 +87,12 @@ public class EJB3InterceptorFacadeLogicImpl
                     return ((DependencyFacade)object).getTargetElement();
                 }
             });
-        final Collection interceptors = new LinkedHashSet(references);
+        final Collection<DependencyFacade> interceptors = new LinkedHashSet(references);
         CollectionUtils.forAllDo(
             references,
             new Closure()
             {
-                public void execute(Object object)
+                public void execute(final Object object)
                 {
                     if (object instanceof EJB3InterceptorFacade)
                     {
@@ -99,8 +104,9 @@ public class EJB3InterceptorFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogic#handleIsDefaultInterceptor()
+     * @see EJB3InterceptorFacadeLogic#handleIsDefaultInterceptor()
      */
+    @Override
     protected boolean handleIsDefaultInterceptor()
     {
         boolean isDefaultInterceptor = false;
@@ -112,5 +118,4 @@ public class EJB3InterceptorFacadeLogicImpl
         }
         return isDefaultInterceptor;
     }
-
 }

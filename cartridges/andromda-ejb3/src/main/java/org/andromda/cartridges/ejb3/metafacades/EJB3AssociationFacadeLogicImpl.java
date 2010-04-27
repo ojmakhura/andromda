@@ -2,12 +2,10 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
-
+import java.util.List;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.Entity;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.MetafacadeUtils;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
@@ -16,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacade
+ * @see EJB3AssociationFacade
  */
 public class EJB3AssociationFacadeLogicImpl
     extends EJB3AssociationFacadeLogic
@@ -24,9 +22,13 @@ public class EJB3AssociationFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
-    public EJB3AssociationFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3AssociationFacadeLogicImpl(final Object metaObject, final String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     // --------------- methods ---------------------
@@ -35,18 +37,20 @@ public class EJB3AssociationFacadeLogicImpl
      * Override to provide support for One-2-Many unidirectional associations as well as Many-2-Many.
      *
      * Returns the EJB3 cartridge specific table name for the association
+     * @return table name
      */
+    @Override
     public String getTableName()
     {
         String tableName = null;
-        final Collection ends = this.getAssociationEnds();
+        final List<AssociationEndFacade> ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
         {
-            for (Iterator iterator = ends.iterator(); iterator.hasNext();)
+            for (AssociationEndFacade facade : ends)
             {
-                final EJB3AssociationEndFacade end = (EJB3AssociationEndFacade)iterator.next();
+                final EJB3AssociationEndFacade end = (EJB3AssociationEndFacade)facade;
                 if ((end.isMany2Many() && end.isOwning()) ||
-                        (end.isOne2Many() && !end.isNavigable() && end.getOtherEnd().isNavigable()))
+                    (end.isOne2Many() && !end.isNavigable() && end.getOtherEnd().isNavigable()))
                 {
                     // prevent ClassCastException if the association isn't an
                     // Entity
@@ -80,7 +84,9 @@ public class EJB3AssociationFacadeLogicImpl
 
     /**
      * Override the default implementation to use the current getRelationName implementation
+     * @return name
      */
+    @Override
     public String getName()
     {
         String name = (super.getName().equalsIgnoreCase(super.getRelationName()) ? null : super.getName());
@@ -96,10 +102,12 @@ public class EJB3AssociationFacadeLogicImpl
     /**
      * Override the default implementation to set the owning side name first followed by inverse side.
      * If there is no owning side defined, then adopt the default logic of using alphabetical ordering.
+     * @return relation name
      */
+    @Override
     public String getRelationName()
     {
-        final Collection ends = this.getAssociationEnds();
+        final Collection<AssociationEndFacade> ends = this.getAssociationEnds();
         final Iterator endIt = ends.iterator();
         final EJB3AssociationEndFacade firstEnd = (EJB3AssociationEndFacade)endIt.next();
         final EJB3AssociationEndFacade secondEnd = (EJB3AssociationEndFacade)endIt.next();

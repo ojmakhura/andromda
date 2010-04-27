@@ -1,39 +1,41 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-
-import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade
+ * @see EJB3EmbeddedValueFacade
  */
 public class EJB3EmbeddedValueFacadeLogicImpl
     extends EJB3EmbeddedValueFacadeLogic
 {
-
     /**
      * The property which stores the pattern defining the embedded value
      * implementation name.
      */
     static final String EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN = "embeddedValueImplementationNamePattern";
 
-    public EJB3EmbeddedValueFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3EmbeddedValueFacadeLogicImpl(final Object metaObject, final String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade#isImmutable()
+     * @see EJB3EmbeddedValueFacade#isImmutable()
      */
+    @Override
     protected boolean handleIsImmutable()
     {
         boolean immutable = false;
-        Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_IMMUTABLE);
+        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_IMMUTABLE);
         if (value != null)
         {
             immutable = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
@@ -42,12 +44,13 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade#getImplementationName()
+     * @see EJB3EmbeddedValueFacade#getImplementationName()
      */
+    @Override
     protected String handleGetImplementationName()
     {
         return MessageFormat.format(
-                getImplementationNamePattern(),
+                this.getImplementationNamePattern(),
                 StringUtils.trimToEmpty(this.getName()));
     }
 
@@ -62,8 +65,9 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogic#handleGetFullyQualifiedImplementationName()
+     * @see EJB3EmbeddedValueFacadeLogic#handleGetFullyQualifiedImplementationName()
      */
+    @Override
     protected String handleGetFullyQualifiedImplementationName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(

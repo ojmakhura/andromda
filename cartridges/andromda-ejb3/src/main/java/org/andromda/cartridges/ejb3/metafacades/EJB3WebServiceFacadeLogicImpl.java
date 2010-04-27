@@ -1,7 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.cartridges.ejb3.EJB3ScriptHelper;
@@ -11,16 +10,14 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade
+ * @see EJB3WebServiceFacade
  */
 public class EJB3WebServiceFacadeLogicImpl
     extends EJB3WebServiceFacadeLogic
 {
-
     /**
      * The property which stores the pattern defining the web service interface name.
      */
@@ -91,14 +88,15 @@ public class EJB3WebServiceFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJB3WebServiceFacadeLogicImpl (Object metaObject, String context)
+    public EJB3WebServiceFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getFullyQualifiedWebServiceInterfaceName()
+     * @see EJB3WebServiceFacade#getFullyQualifiedWebServiceInterfaceName()
      */
+    @Override
     protected String handleGetFullyQualifiedWebServiceInterfaceName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -108,8 +106,9 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getWebServiceInterfaceName()
+     * @see EJB3WebServiceFacade#getWebServiceInterfaceName()
      */
+    @Override
     protected String handleGetWebServiceInterfaceName()
     {
         String webServiceInterfaceNamePattern =
@@ -121,8 +120,9 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getStyle()
+     * @see EJB3WebServiceFacade#getStyle()
      */
+    @Override
     protected String handleGetStyle()
     {
         String style = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
@@ -134,8 +134,9 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#getUse()
+     * @see EJB3WebServiceFacade#getUse()
      */
+    @Override
     protected String handleGetUse()
     {
         String use = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
@@ -147,40 +148,45 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#isRpcStyle()
+     * @see EJB3WebServiceFacade#isRpcStyle()
      */
+    @Override
     protected boolean handleIsRpcStyle()
     {
-        return this.getStyle().equalsIgnoreCase(STYLE_RPC);
+        return STYLE_RPC.equalsIgnoreCase(this.getStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#isDocumentStyle()
+     * @see EJB3WebServiceFacade#isDocumentStyle()
      */
+    @Override
     protected boolean handleIsDocumentStyle()
     {
-        return this.getStyle().equalsIgnoreCase(STYLE_DOCUMENT);
+        return STYLE_DOCUMENT.equalsIgnoreCase(this.getStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#isEncodedUse()
+     * @see EJB3WebServiceFacade#isEncodedUse()
      */
+    @Override
     protected boolean handleIsEncodedUse()
     {
-        return this.getStyle().equalsIgnoreCase(USE_ENCODED);
+        return USE_ENCODED.equalsIgnoreCase(this.getStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade#isLiteralUse()
+     * @see EJB3WebServiceFacade#isLiteralUse()
      */
+    @Override
     protected boolean handleIsLiteralUse()
     {
-        return this.getStyle().equalsIgnoreCase(USE_LITERAL);
+        return USE_LITERAL.equalsIgnoreCase(this.getStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleIsWebServiceOperationsExist()
+     * @see EJB3WebServiceFacadeLogic#handleIsWebServiceOperationsExist()
      */
+    @Override
     protected boolean handleIsWebServiceOperationsExist()
     {
         return CollectionUtils.find(
@@ -201,8 +207,9 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleGetParameterStyle()
+     * @see EJB3WebServiceFacadeLogic#handleGetParameterStyle()
      */
+    @Override
     protected String handleGetParameterStyle()
     {
         String parameterStyle = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_WEBSERVICE_PARAMETER_STYLE);
@@ -214,24 +221,27 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleIsWrappedParameterStyle()
+     * @see EJB3WebServiceFacadeLogic#handleIsWrappedParameterStyle()
      */
+    @Override
     protected boolean handleIsWrappedParameterStyle()
     {
-        return this.getParameterStyle().equalsIgnoreCase(PARAMETER_STYLE_WRAPPED);
+        return PARAMETER_STYLE_WRAPPED.equalsIgnoreCase(this.getParameterStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleIsBareParameterStyle()
+     * @see EJB3WebServiceFacadeLogic#handleIsBareParameterStyle()
      */
+    @Override
     protected boolean handleIsBareParameterStyle()
     {
-        return this.getParameterStyle().equalsIgnoreCase(PARAMETER_STYLE_BARE);
+        return PARAMETER_STYLE_BARE.equalsIgnoreCase(this.getParameterStyle());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleGetQName()
+     * @see EJB3WebServiceFacadeLogic#handleGetQName()
      */
+    @Override
     protected String handleGetQName()
     {
         String qnameLocalPartPattern = String.valueOf(this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN));
@@ -241,8 +251,9 @@ public class EJB3WebServiceFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogic#handleGetNamespace()
+     * @see EJB3WebServiceFacadeLogic#handleGetNamespace()
      */
+    @Override
     protected String handleGetNamespace()
     {
         String packageName = this.getPackageName();

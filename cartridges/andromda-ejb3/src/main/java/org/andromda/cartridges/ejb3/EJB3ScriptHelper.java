@@ -25,7 +25,7 @@ public class EJB3ScriptHelper
      * @param args A comma separated list of arguments
      * @return Collection A collection of of Strings representing the arguments
      */
-    public Collection<String> getArgumentsAsList(String args)
+    public Collection<String> getArgumentsAsList(final String args)
     {
         StringTokenizer st = new StringTokenizer(args, ",");
         Collection<String> retval = new ArrayList<String>(st.countTokens());
@@ -47,7 +47,7 @@ public class EJB3ScriptHelper
     {
         return CollectionUtils.select(list, new Predicate()
         {
-            public boolean evaluate(Object pObj)
+            public boolean evaluate(final Object pObj)
             {
                 ModelElementFacade elem = (ModelElementFacade )pObj;
                 return visibility.equals(elem.getVisibility());
@@ -69,7 +69,7 @@ public class EJB3ScriptHelper
     {
         return CollectionUtils.select(list, new Predicate()
         {
-            public boolean evaluate(Object pObj)
+            public boolean evaluate(final Object pObj)
             {
                 EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade )pObj;
                 return !attr.isVersion() &&
@@ -81,31 +81,34 @@ public class EJB3ScriptHelper
     }
 
     /**
-     * Replaces all instances of the dot (.) in the name argument with an understore (_)
+     * Replaces all instances of the dot (.) in the name argument with an underscore (_)
      * and returns the string response.
      *
      * @param name The name, typically a fully qualified name with dot notation
      * @return The string with all dots replaced with underscore.
      */
-    public String toUnderscoreName(String name)
+    public String toUnderscoreName(final String name)
     {
         return StringUtils.replaceChars(name, '.', '_');
     }
 
+    private static final String BACKSLASH = "\"";
+    private static final String QUOTE = "'";
     /**
      * Removes instances of the quotation marks (" and ') at the beginning and end of the value argument
      *
      * @param pValue The value, which can contains leading and trailing quotation marks
      * @return The string without quotation marks
      */
-    public String removeQuotationmarks(String pValue)
+    public String removeQuotationmarks(final String pValue)
     {
-        String result = StringUtils.removeStart(pValue, "\"");
-        result = StringUtils.removeEnd(result, "\"");
-        result = StringUtils.removeStart(result, "'");
-        return StringUtils.removeEnd(result, "'");
+        String result = StringUtils.removeStart(pValue, BACKSLASH);
+        result = StringUtils.removeEnd(result, BACKSLASH);
+        result = StringUtils.removeStart(result, QUOTE);
+        return StringUtils.removeEnd(result, QUOTE);
     }
 
+    private static final String COMMA = ", ";
     /**
      * Returns the comma separated list of interceptor classes.
      *
@@ -113,7 +116,7 @@ public class EJB3ScriptHelper
      * @param prepend Prefix any interceptors to the comma separated list
      * @return String containing the comma separated fully qualified class names
      */
-    public String getInterceptorsAsList(Collection<ModelElementFacade> interceptors, String prepend)
+    public String getInterceptorsAsList(final Collection<ModelElementFacade> interceptors, final String prepend)
     {
         StringBuilder sb = new StringBuilder();
         String separator = "";
@@ -121,13 +124,13 @@ public class EJB3ScriptHelper
         if (StringUtils.isNotBlank(prepend))
         {
             sb.append(prepend);
-            separator = ", ";
+            separator = COMMA;
         }
 
         for (ModelElementFacade interceptor : interceptors)
         {
             sb.append(separator);
-            separator = ", ";
+            separator = COMMA;
             sb.append(interceptor.getFullyQualifiedName()).append(".class");
         }
         return sb.toString();
@@ -139,7 +142,7 @@ public class EJB3ScriptHelper
      * @param packageName the package name to reverse.
      * @return the reversed package name.
      */
-    public static String reversePackage(String packageName)
+    public static String reversePackage(final String packageName)
     {
         return StringUtils.reverseDelimited(packageName, EJB3Globals.NAMESPACE_DELIMITER);
     }

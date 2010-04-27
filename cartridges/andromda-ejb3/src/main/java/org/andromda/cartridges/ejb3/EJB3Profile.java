@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb3;
 import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * The EJB3 profile. Contains the profile information (tagged values, and stereotypes) for the EJB3 cartridge.
  *
@@ -945,6 +944,9 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME =
         profile.get("SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME");
 
+    /**
+     * SEAM_COMPONENT_STARTUP_DEPENDS
+     */
     public static final String TAGGEDVALUE_SEAM_COMPONENT_STARTUP_DEPENDS =
         profile.get("SEAM_COMPONENT_STARTUP_DEPENDS");
 

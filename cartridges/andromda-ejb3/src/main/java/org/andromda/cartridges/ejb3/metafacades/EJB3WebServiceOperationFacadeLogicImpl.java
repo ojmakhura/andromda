@@ -1,7 +1,5 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
-import java.util.Iterator;
-
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -9,29 +7,32 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacade
+ * @see EJB3WebServiceOperationFacade
  */
 public class EJB3WebServiceOperationFacadeLogicImpl
     extends EJB3WebServiceOperationFacadeLogic
 {
-
     /**
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(EJB3WebServiceOperationFacadeLogicImpl.class);
 
-    public EJB3WebServiceOperationFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3WebServiceOperationFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacade#isExposed()
+     * @see EJB3WebServiceOperationFacade#isExposed()
      */
+    @Override
     protected boolean handleIsExposed()
     {
         return this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
@@ -39,8 +40,9 @@ public class EJB3WebServiceOperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#handleIsOneway()
+     * @see EJB3WebServiceOperationFacadeLogic#handleIsOneway()
      */
+    @Override
     protected boolean handleIsOneway()
     {
         return BooleanUtils.toBoolean(
@@ -48,11 +50,12 @@ public class EJB3WebServiceOperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#getAnnotatedSignature()
+     * @see EJB3WebServiceOperationFacadeLogic#getAnnotatedSignature()
      */
+    @Override
     protected String handleGetAnnotatedSignature()
     {
-        final StringBuffer signature = new StringBuffer(this.getName());
+        final StringBuilder signature = new StringBuilder(this.getName());
         signature.append("(");
         signature.append(this.getAnnotatedTypedArgumentList(true, null));
         signature.append(")");
@@ -64,19 +67,16 @@ public class EJB3WebServiceOperationFacadeLogicImpl
      * @param modifier
      * @return
      */
-    private String getAnnotatedTypedArgumentList(boolean withArgumentNames, String modifier)
+    private String getAnnotatedTypedArgumentList(final boolean withArgumentNames, final String modifier)
     {
         final StringBuilder buffer = new StringBuilder();
-        final Iterator parameterIterator = this.getArguments().iterator();
-
         boolean commaNeeded = false;
-        while (parameterIterator.hasNext())
+        for (ParameterFacade paramter : this.getArguments())
         {
-            ParameterFacade paramter = (ParameterFacade)parameterIterator.next();
             String type = null;
             if (paramter.getType() == null)
             {
-                this.logger.error(
+                EJB3WebServiceOperationFacadeLogicImpl.logger.error(
                         "ERROR! No type specified for parameter --> '" + paramter.getName() +
                         "' on operation --> '" +
                         this.getName() +
@@ -122,8 +122,9 @@ public class EJB3WebServiceOperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#handleGetMethodName()
+     * @see EJB3WebServiceOperationFacadeLogic#handleGetMethodName()
      */
+    @Override
     protected String handleGetMethodName()
     {
         String methodName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_WEBSERVICE_OPERATION_NAME);
@@ -135,11 +136,11 @@ public class EJB3WebServiceOperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#handleGetResultName()
+     * @see EJB3WebServiceOperationFacadeLogic#handleGetResultName()
      */
+    @Override
     protected String handleGetResultName()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_WEBSERVICE_OPERATION_RESULT_NAME);
     }
-
 }

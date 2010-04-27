@@ -2,43 +2,47 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import org.andromda.cartridges.ejb3.EJB3Profile;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade
+ * @see EJB3PersistenceContextFacade
  */
 public class EJB3PersistenceContextFacadeLogicImpl
     extends EJB3PersistenceContextFacadeLogic
 {
-
-    public EJB3PersistenceContextFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3PersistenceContextFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade#getUnitName()
+     * @see EJB3PersistenceContextFacade#getUnitName()
      */
+    @Override
     protected String handleGetUnitName()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade#getContextType()
+     * @see EJB3PersistenceContextFacade#getContextType()
      */
+    @Override
     protected String handleGetContextType()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_TYPE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacadeLogic#handleGetDatasource()
+     * @see EJB3PersistenceContextFacadeLogic#handleGetDatasource()
      */
+    @Override
     protected String handleGetDatasource()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_DATASOURCE);
     }
-
 }

@@ -1,5 +1,9 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionUtils;
@@ -13,11 +17,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Contains utilities for use with EJB metafacades.
  *
@@ -26,7 +25,6 @@ import java.util.List;
  */
 class EJB3MetafacadeUtils
 {
-
     /**
      * Gets all create methods for the given <code>classifier</code>.
      *
@@ -334,7 +332,7 @@ class EJB3MetafacadeUtils
         String name,
         String suffix)
     {
-        StringBuffer fullyQualifiedName = new StringBuffer(StringUtils.trimToEmpty(packageName));
+        StringBuilder fullyQualifiedName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (StringUtils.isNotBlank(packageName))
         {
             fullyQualifiedName.append('.');
@@ -413,7 +411,7 @@ class EJB3MetafacadeUtils
      */
     static String buildAnnotationParameters(Collection parameters)
     {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if(!parameters.isEmpty())
         {
             buf.append("(");
@@ -476,7 +474,7 @@ class EJB3MetafacadeUtils
         }
         else
         {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             buf.append(name + " = {");
 
             Iterator it = values.iterator();
@@ -533,12 +531,12 @@ class EJB3MetafacadeUtils
         if (element != null)
         {
             Object value = element.findTaggedValue(name);
-            StringBuffer buffer = new StringBuffer(StringUtils.trimToEmpty((String)value));
+            StringBuilder buffer = new StringBuilder(StringUtils.trimToEmpty((String)value));
             if (StringUtils.isEmpty(buffer.toString()))
             {
                 // if we can't find the tagValue then use the
                 // element name for the name
-                buffer = new StringBuffer(
+                buffer = new StringBuilder(
                         EntityMetafacadeUtils.toSqlName(
                             element.getName(),
                             separator));
@@ -549,7 +547,7 @@ class EJB3MetafacadeUtils
                 {
                     final short maxLength = (short)(nameMaxLength.shortValue() - suffix.length() - prefix.length());
                     buffer =
-                        new StringBuffer(
+                        new StringBuilder(
                             EntityMetafacadeUtils.ensureMaximumNameLength(
                                 buffer.toString(),
                                 new Short(maxLength)));

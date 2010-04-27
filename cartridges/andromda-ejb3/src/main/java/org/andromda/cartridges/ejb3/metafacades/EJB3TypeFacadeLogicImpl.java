@@ -4,24 +4,27 @@ import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade
+ * @see EJB3TypeFacade
  */
 public class EJB3TypeFacadeLogicImpl
     extends EJB3TypeFacadeLogic
 {
-
-    public EJB3TypeFacadeLogicImpl (Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJB3TypeFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacade#getFullyQualifiedEJB3Type()
+     * @see EJB3TypeFacade#getFullyQualifiedEJB3Type()
      */
+    @Override
     protected String handleGetFullyQualifiedEJB3Type()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
@@ -49,10 +52,9 @@ public class EJB3TypeFacadeLogicImpl
         if (this.isConfiguredProperty(propertyName))
         {
             final Object property = this.getConfiguredProperty(propertyName);
-            String uri = null;
             if (property instanceof String)
             {
-                uri = (String)property;
+                String uri = (String)property;
                 if (StringUtils.isNotBlank(uri))
                 {
                     try
@@ -62,7 +64,7 @@ public class EJB3TypeFacadeLogicImpl
                     }
                     catch (final Throwable throwable)
                     {
-                        final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                        final String message = "Error getting '" + propertyName + "' --> '" + uri + '\'';
 
                         // don't throw the exception
                         ExceptionRecorder.instance().record(message, throwable);

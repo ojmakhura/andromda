@@ -3,21 +3,15 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
-import org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade;
-import org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade;
-import org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -39,11 +33,10 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade.
  *
- * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+ * @see EJB3EntityFacade
  */
 public class EJB3EntityFacadeLogicImpl
     extends EJB3EntityFacadeLogic
@@ -196,7 +189,7 @@ public class EJB3EntityFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
-    public EJB3EntityFacadeLogicImpl (Object metaObject, String context)
+    public EJB3EntityFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }
@@ -207,7 +200,7 @@ public class EJB3EntityFacadeLogicImpl
      * This was meant to overrides the default implementation in EntityLogicImpl.java.
      * TODO: check - is it really required?
      *
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getIdentifiers()
+     * @see EJB3EntityFacade#getIdentifiers()
      */
     public Collection handleGetIdentifiers()
     {
@@ -280,15 +273,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#isSyntheticCreateMethodAllowed()
+     * @see EJB3EntityFacade#isSyntheticCreateMethodAllowed()
      */
+    @Override
     protected boolean handleIsSyntheticCreateMethodAllowed()
     {
         return EJB3MetafacadeUtils.allowSyntheticCreateMethod(this);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getAllEntityRelations()
+     * @see EJB3EntityFacade#getAllEntityRelations()
      */
     protected java.util.Collection handleGetAllEntityRelations()
     {
@@ -296,11 +290,12 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getJndiName()
+     * @see EJB3EntityFacade#getJndiName()
      */
+    @Override
     protected String handleGetJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
@@ -328,8 +323,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getViewType()
+     * @see EJB3EntityFacade#getViewType()
      */
+    @Override
     protected String handleGetViewType()
     {
         return EJB3MetafacadeUtils.getViewType(this,
@@ -337,7 +333,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getAllInstanceAttributes()
+     * @see EJB3EntityFacade#getAllInstanceAttributes()
      */
     protected java.util.List handleGetAllInstanceAttributes()
     {
@@ -345,7 +341,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getInheritedInstanceAttributes()
+     * @see EJB3EntityFacade#getInheritedInstanceAttributes()
      */
     protected java.util.List handleGetInheritedInstanceAttributes()
     {
@@ -353,15 +349,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getHomeInterfaceName()
+     * @see EJB3EntityFacade#getHomeInterfaceName()
      */
+    @Override
     protected String handleGetHomeInterfaceName()
     {
         return EJB3MetafacadeUtils.getHomeInterfaceName(this);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getValueDependencies()
+     * @see EJB3EntityFacade#getValueDependencies()
      *
      * NOTE: This is not required since ValueObject no longer exist and replaced with POJOs
      */
@@ -388,7 +385,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getEntityRelations()
+     * @see EJB3EntityFacade#getEntityRelations()
      */
     protected java.util.Collection handleGetEntityRelations()
     {
@@ -407,7 +404,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getCreateMethods(boolean)
+     * @see EJB3EntityFacade#getCreateMethods(boolean)
      */
     protected java.util.Collection handleGetCreateMethods(boolean follow)
     {
@@ -415,7 +412,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getSelectMethods(boolean)
+     * @see EJB3EntityFacade#getSelectMethods(boolean)
      */
     protected java.util.Collection handleGetSelectMethods(boolean follow)
     {
@@ -446,7 +443,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getEnvironmentEntries(boolean)
+     * @see EJB3EntityFacade#getEnvironmentEntries(boolean)
      */
     protected java.util.Collection handleGetEnvironmentEntries(boolean follow)
     {
@@ -454,7 +451,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getConstants(boolean)
+     * @see EJB3EntityFacade#getConstants(boolean)
      */
     protected java.util.Collection handleGetConstants(boolean follow)
     {
@@ -462,8 +459,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#isOperationPresent(String)
+     * @see EJB3EntityFacade#isOperationPresent(String)
      */
+    @Override
     protected boolean handleIsOperationPresent(String op)
     {
         Collection collOps = this.getOperations();
@@ -479,8 +477,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#isAttributePresent(String)
+     * @see EJB3EntityFacade#isAttributePresent(String)
      */
+    @Override
     protected boolean handleIsAttributePresent(String att)
     {
         Collection collAttrib = this.getAttributes(true);
@@ -496,8 +495,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#isIdentifierPresent(String)
+     * @see EJB3EntityFacade#isIdentifierPresent(String)
      */
+    @Override
     protected boolean handleIsIdentifierPresent(String id)
     {
         Collection collIdentifier = this.getIdentifiers(true);
@@ -513,8 +513,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getSqlType()
+     * @see EJB3EntityFacade#getSqlType()
      */
+    @Override
     protected String handleGetSqlType()
     {
         String mpSql = this.getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI).getMappings().getName();
@@ -580,8 +581,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityCompositePrimaryKeyName()
+     * @see EJB3EntityFacadeLogic#handleGetEntityCompositePrimaryKeyName()
      */
+    @Override
     protected String handleGetEntityCompositePrimaryKeyName()
     {
         String compPKPattern =
@@ -593,8 +595,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityListenerName()
+     * @see EJB3EntityFacadeLogic#handleGetEntityListenerName()
      */
+    @Override
     protected String handleGetEntityListenerName()
     {
         String entityListenerPattern = (String)this.getConfiguredProperty(ENTITY_LISTENER_NAME_PATTERN);
@@ -605,8 +608,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityEmbeddableName()
+     * @see EJB3EntityFacadeLogic#handleGetEntityEmbeddableName()
      */
+    @Override
     protected String handleGetEntityEmbeddableName()
     {
         String embeddableSuperclassName =
@@ -618,8 +622,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityName()
+     * @see EJB3EntityFacadeLogic#handleGetEntityName()
      */
+    @Override
     protected String handleGetEntityName()
     {
         String entityNamePattern = (String)this.getConfiguredProperty(ENTITY_NAME_PATTERN);
@@ -630,8 +635,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityCompositePrimaryKeyName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityCompositePrimaryKeyName()
      */
+    @Override
     protected String handleGetFullyQualifiedEntityCompositePrimaryKeyName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -641,8 +647,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityImplementationName()
+     * @see EJB3EntityFacadeLogic#handleGetEntityImplementationName()
      */
+    @Override
     protected String handleGetEntityImplementationName()
     {
         String implNamePattern =
@@ -654,8 +661,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityListenerName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityListenerName()
      */
+    @Override
     protected String handleGetFullyQualifiedEntityListenerName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -665,8 +673,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityEmbeddableName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityEmbeddableName()
      */
+    @Override
     protected String handleGetFullyQualifiedEntityEmbeddableName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -676,8 +685,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityName()
      */
+    @Override
     protected String handleGetFullyQualifiedEntityName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -687,8 +697,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityImplementationName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityImplementationName()
      */
+    @Override
     protected String handleGetFullyQualifiedEntityImplementationName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -711,16 +722,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDefaultCascadeType()
+     * @see EJB3EntityFacadeLogic#handleGetDefaultCascadeType()
      */
+    @Override
     protected String handleGetDefaultCascadeType()
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_CASCADE)));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDiscriminatorColumn()
+     * @see EJB3EntityFacadeLogic#handleGetDiscriminatorColumn()
      */
+    @Override
     protected String handleGetDiscriminatorColumn()
     {
         String discriminatorColumnName =
@@ -733,15 +746,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDiscriminatorColumnDefinition()
+     * @see EJB3EntityFacadeLogic#handleGetDiscriminatorColumnDefinition()
      */
+    @Override
     protected String handleGetDiscriminatorColumnDefinition()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_DEFINITION);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDiscriminatorLength()
+     * @see EJB3EntityFacadeLogic#handleGetDiscriminatorLength()
      */
     protected int handleGetDiscriminatorLength()
     {
@@ -756,8 +770,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDiscriminatorType()
+     * @see EJB3EntityFacadeLogic#handleGetDiscriminatorType()
      */
+    @Override
     protected String handleGetDiscriminatorType()
     {
         String discriminatorType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_TYPE);
@@ -769,8 +784,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDiscriminatorValue()
+     * @see EJB3EntityFacadeLogic#handleGetDiscriminatorValue()
      */
+    @Override
     protected String handleGetDiscriminatorValue()
     {
         String discriminatorValue =
@@ -830,16 +846,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsInheritanceSingleTable()
+     * @see EJB3EntityFacadeLogic#handleIsInheritanceSingleTable()
      */
+    @Override
     protected boolean handleIsInheritanceSingleTable()
     {
         return this.getInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_SINGLE_TABLE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetInheritanceStrategy()
+     * @see EJB3EntityFacadeLogic#handleGetInheritanceStrategy()
      */
+    @Override
     protected String handleGetInheritanceStrategy()
     {
         String inheritance = this.getInheritance(this);
@@ -857,16 +875,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsInheritanceTablePerClass()
+     * @see EJB3EntityFacadeLogic#handleIsInheritanceTablePerClass()
      */
+    @Override
     protected boolean handleIsInheritanceTablePerClass()
     {
         return this.getInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_TABLE_PER_CLASS);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsInheritanceJoined()
+     * @see EJB3EntityFacadeLogic#handleIsInheritanceJoined()
      */
+    @Override
     protected boolean handleIsInheritanceJoined()
     {
         return this.getInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_JOINED_SUBLCASS);
@@ -884,8 +904,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsRequiresSpecializationMapping()
+     * @see EJB3EntityFacadeLogic#handleIsRequiresSpecializationMapping()
      */
+    @Override
     protected boolean handleIsRequiresSpecializationMapping()
     {
         return (this.isInheritanceSingleTable() || this.isInheritanceTablePerClass() || this.isInheritanceJoined())
@@ -893,8 +914,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsRequiresGeneralizationMapping()
+     * @see EJB3EntityFacadeLogic#handleIsRequiresGeneralizationMapping()
      */
+    @Override
     protected boolean handleIsRequiresGeneralizationMapping()
     {
         return (this.getSuperEntity() != null &&
@@ -904,8 +926,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEmbeddableSuperclass()
+     * @see EJB3EntityFacadeLogic#handleIsEmbeddableSuperclass()
      */
+    @Override
     protected boolean handleIsEmbeddableSuperclass()
     {
         boolean isEmbeddableSuperclass = this.hasStereotype(EJB3Profile.STEREOTYPE_MAPPED_SUPERCLASS);
@@ -917,16 +940,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEmbeddableSuperclassGeneralizationExists()
+     * @see EJB3EntityFacadeLogic#handleIsEmbeddableSuperclassGeneralizationExists()
      */
+    @Override
     protected boolean handleIsEmbeddableSuperclassGeneralizationExists()
     {
         return (this.getSuperEntity() != null && this.getSuperEntity().isEmbeddableSuperclass());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetAttributesAsList(java.util.Collection, boolean, boolean, boolean)
+     * @see EJB3EntityFacadeLogic#handleGetAttributesAsList(java.util.Collection, boolean, boolean, boolean)
      */
+    @Override
     protected String handleGetAttributesAsList(
             Collection attributes,
             boolean includeTypes,
@@ -938,7 +963,7 @@ public class EJB3EntityFacadeLogicImpl
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String separator = "";
 
         for (final Iterator it = attributes.iterator(); it.hasNext();)
@@ -990,16 +1015,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsGenericFinders()
+     * @see EJB3EntityFacadeLogic#handleIsGenericFinders()
      */
+    @Override
     protected boolean handleIsGenericFinders()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(ENTITY_GENERIC_FINDERS)));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsCompositePrimaryKeyPresent()
+     * @see EJB3EntityFacadeLogic#handleIsCompositePrimaryKeyPresent()
      */
+    @Override
     protected boolean handleIsCompositePrimaryKeyPresent()
     {
         boolean isCompositePK = false;
@@ -1011,16 +1038,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsListenerEnabled()
+     * @see EJB3EntityFacadeLogic#handleIsListenerEnabled()
      */
+    @Override
     protected boolean handleIsListenerEnabled()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsFinderFindAllExists()
+     * @see EJB3EntityFacadeLogic#handleIsFinderFindAllExists()
      */
+    @Override
     protected boolean handleIsFinderFindAllExists()
     {
         boolean finderExists = false;
@@ -1041,8 +1070,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsFinderFindByPrimaryKeyExists()
+     * @see EJB3EntityFacadeLogic#handleIsFinderFindByPrimaryKeyExists()
      */
+    @Override
     protected boolean handleIsFinderFindByPrimaryKeyExists()
     {
         boolean finderExists = false;
@@ -1059,15 +1089,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsManageable()
+     * @see EJB3EntityFacadeLogic#handleIsManageable()
      */
+    @Override
     protected boolean handleIsManageable()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_MANAGEABLE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetManageableDisplayAttribute()
+     * @see EJB3EntityFacadeLogic#handleGetManageableDisplayAttribute()
      */
     protected Object handleGetManageableDisplayAttribute()
     {
@@ -1106,7 +1137,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetIdentifier()
+     * @see EJB3EntityFacadeLogic#handleGetIdentifier()
      */
     protected Object handleGetIdentifier()
     {
@@ -1114,8 +1145,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetCacheType()
+     * @see EJB3EntityFacadeLogic#handleGetCacheType()
      */
+    @Override
     protected String handleGetCacheType()
     {
         String cacheType = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
@@ -1127,24 +1159,27 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsCacheEnabled()
+     * @see EJB3EntityFacadeLogic#handleIsCacheEnabled()
      */
+    @Override
     protected boolean handleIsCacheEnabled()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ENABLE_CACHE)));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsUseDefaultCacheRegion()
+     * @see EJB3EntityFacadeLogic#handleIsUseDefaultCacheRegion()
      */
+    @Override
     protected boolean handleIsUseDefaultCacheRegion()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(USE_DEFAULT_CACHE_REGION)));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoName()
+     * @see EJB3EntityFacadeLogic#handleGetDaoName()
      */
+    @Override
     protected String handleGetDaoName()
     {
         return MessageFormat.format(
@@ -1163,8 +1198,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoName()
      */
+    @Override
     protected String handleGetFullyQualifiedDaoName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -1174,8 +1210,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoImplementationName()
+     * @see EJB3EntityFacadeLogic#handleGetDaoImplementationName()
      */
+    @Override
     protected String handleGetDaoImplementationName()
     {
         return MessageFormat.format(
@@ -1194,8 +1231,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoImplementationName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoImplementationName()
      */
+    @Override
     protected String handleGetFullyQualifiedDaoImplementationName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -1205,8 +1243,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoBaseName()
+     * @see EJB3EntityFacadeLogic#handleGetDaoBaseName()
      */
+    @Override
     protected String handleGetDaoBaseName()
     {
         return MessageFormat.format(
@@ -1225,8 +1264,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoBaseName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoBaseName()
      */
+    @Override
     protected String handleGetFullyQualifiedDaoBaseName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -1236,15 +1276,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsDaoBusinessOperationsPresent()
+     * @see EJB3EntityFacadeLogic#handleIsDaoBusinessOperationsPresent()
      */
+    @Override
     protected boolean handleIsDaoBusinessOperationsPresent()
     {
         return this.getDaoBusinessOperations() != null && !this.getDaoBusinessOperations().isEmpty();
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoBusinessOperations()
+     * @see EJB3EntityFacadeLogic#handleGetDaoBusinessOperations()
      */
     protected Collection handleGetDaoBusinessOperations()
     {
@@ -1267,7 +1308,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetValueObjectReferences()
+     * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences()
      */
     protected Collection handleGetValueObjectReferences()
     {
@@ -1275,7 +1316,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetAllValueObjectReferences()
+     * @see EJB3EntityFacadeLogic#handleGetAllValueObjectReferences()
      */
     protected Collection handleGetAllValueObjectReferences()
     {
@@ -1283,8 +1324,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsDaoImplementationRequired()
+     * @see EJB3EntityFacadeLogic#handleIsDaoImplementationRequired()
      */
+    @Override
     protected boolean handleIsDaoImplementationRequired()
     {
         return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() ||
@@ -1292,15 +1334,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoNoTransformationConstantName()
+     * @see EJB3EntityFacadeLogic#handleGetDaoNoTransformationConstantName()
      */
+    @Override
     protected String handleGetDaoNoTransformationConstantName()
     {
         return EJB3Globals.TRANSFORMATION_CONSTANT_PREFIX + EJB3Globals.NO_TRANSFORMATION_CONSTANT_SUFFIX;
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetValueObjectReferences(boolean)
+     * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences(boolean)
      */
     protected Collection handleGetValueObjectReferences(boolean follow)
     {
@@ -1334,7 +1377,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetRoot()
+     * @see EJB3EntityFacadeLogic#handleGetRoot()
      */
     protected Object handleGetRoot()
     {
@@ -1347,8 +1390,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
+     * @see EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
      */
+    @Override
     protected String handleGetDefaultPersistenceContextUnitName()
     {
         return StringUtils.trimToEmpty(
@@ -1356,8 +1400,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoDefaultExceptionName()
+     * @see EJB3EntityFacadeLogic#handleGetDaoDefaultExceptionName()
      */
+    @Override
     protected String handleGetDaoDefaultExceptionName()
     {
         return MessageFormat.format(
@@ -1376,8 +1421,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoDefaultExceptionName()
+     * @see EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoDefaultExceptionName()
      */
+    @Override
     protected String handleGetFullyQualifiedDaoDefaultExceptionName()
     {
         return EJB3MetafacadeUtils.getFullyQualifiedName(
@@ -1387,15 +1433,16 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEntityImplementationRequired()
+     * @see EJB3EntityFacadeLogic#handleIsEntityImplementationRequired()
      */
+    @Override
     protected boolean handleIsEntityImplementationRequired()
     {
         return !this.getBusinessOperations().isEmpty();
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetInstanceAttributes(boolean, boolean)
+     * @see EJB3EntityFacadeLogic#handleGetInstanceAttributes(boolean, boolean)
      */
     protected Collection handleGetInstanceAttributes(
             boolean follow,
@@ -1420,16 +1467,18 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetInstanceAttributeNameList(boolean, boolean)
+     * @see EJB3EntityFacadeLogic#handleGetInstanceAttributeNameList(boolean, boolean)
      */
+    @Override
     protected String handleGetInstanceAttributeNameList(boolean follow, boolean withIdentifiers)
     {
         return this.getNameList(this.getInstanceAttributes(follow, withIdentifiers));
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetInstanceAttributeTypeList(boolean, boolean)
+     * @see EJB3EntityFacadeLogic#handleGetInstanceAttributeTypeList(boolean, boolean)
      */
+    @Override
     protected String handleGetInstanceAttributeTypeList(boolean follow, boolean withIdentifiers)
     {
         return this.getTypeList(this.getInstanceAttributes(follow, withIdentifiers));
@@ -1444,7 +1493,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     private String getTypeList(final Collection attributes)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             attributes,
@@ -1487,7 +1536,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     private String getNameList(final Collection properties)
     {
-        final StringBuffer list = new StringBuffer();
+        final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
             properties,
@@ -1515,26 +1564,28 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsSecurityEnabled()
+     * @see EJB3EntityFacadeLogic#handleIsSecurityEnabled()
      */
+    @Override
     protected boolean handleIsSecurityEnabled()
     {
         return StringUtils.isNotBlank(this.getSecurityRealm());
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetRolesAllowed()
+     * @see EJB3EntityFacadeLogic#handleGetRolesAllowed()
      */
+    @Override
     protected String handleGetRolesAllowed()
     {
-        StringBuffer rolesAllowed = null;
+        StringBuilder rolesAllowed = null;
         String separator = "";
 
         for (final Iterator iter = this.getNonRunAsRoles().iterator(); iter.hasNext(); )
         {
             if (rolesAllowed == null)
             {
-                rolesAllowed = new StringBuffer();
+                rolesAllowed = new StringBuilder();
             }
             rolesAllowed.append(separator);
             Role role = (Role)iter.next();
@@ -1547,8 +1598,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSecurityRealm()
+     * @see EJB3EntityFacadeLogic#handleGetSecurityRealm()
      */
+    @Override
     protected String handleGetSecurityRealm()
     {
         String securityRealm = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_REALM);
@@ -1561,7 +1613,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetNonRunAsRoles()
+     * @see EJB3EntityFacadeLogic#handleGetNonRunAsRoles()
      */
     protected Collection handleGetNonRunAsRoles()
     {
@@ -1603,8 +1655,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsUseQueryCache()
+     * @see EJB3EntityFacadeLogic#handleIsUseQueryCache()
      */
+    @Override
     protected boolean handleIsUseQueryCache()
     {
         return BooleanUtils.toBoolean(
@@ -1612,24 +1665,27 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsSeamComponent()
+     * @see EJB3EntityFacadeLogic#handleIsSeamComponent()
      */
+    @Override
     protected boolean handleIsSeamComponent()
     {
         return EJB3MetafacadeUtils.isSeamComponent(this);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSeamComponentScopeType()
+     * @see EJB3EntityFacadeLogic#handleGetSeamComponentScopeType()
      */
+    @Override
     protected String handleGetSeamComponentScopeType()
     {
         return EJB3MetafacadeUtils.getSeamComponentScopeType(this, false);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSeamComponentName()
+     * @see EJB3EntityFacadeLogic#handleGetSeamComponentName()
      */
+    @Override
     protected String handleGetSeamComponentName()
     {
         return EJB3MetafacadeUtils.getSeamComponentName(this);
