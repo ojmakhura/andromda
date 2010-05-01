@@ -113,11 +113,10 @@ public class AndroMDAGenTask
         final Map properties = this.getProject().getProperties();
         if (properties != null && !properties.isEmpty())
         {
-            for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+            for (final String name : (Iterable<String>) properties.keySet())
             {
-                final String name = (String)iterator.next();
                 final String property = "${" + name + '}';
-                final String value = (String)properties.get(name);
+                final String value = (String) properties.get(name);
                 string = StringUtils.replace(string, property, value);
             }
         }
@@ -153,7 +152,7 @@ public class AndroMDAGenTask
      * Set the context class loader so that any classes using it (the contextContextClassLoader) have access to the
      * correct loader.
      */
-    private final static void initializeContextClassLoader()
+    private static void initializeContextClassLoader()
     {
         Thread.currentThread().setContextClassLoader(AndroMDAGenTask.class.getClassLoader());
     }
