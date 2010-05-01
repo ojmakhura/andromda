@@ -106,7 +106,7 @@ public class AndroMDAServerStopTask
      * Set the context class loader so that any classes using it (the
      * contextContextClassLoader) have access to the correct loader.
      */
-    private final static void initializeContextClassLoader()
+    private static void initializeContextClassLoader()
     {
         Thread.currentThread().setContextClassLoader(AndroMDAServerStopTask.class.getClassLoader());
     }
