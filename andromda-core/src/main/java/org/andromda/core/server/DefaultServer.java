@@ -84,7 +84,7 @@ public class DefaultServer
                                     final Object object = objectInput.readObject();
                                     if (object instanceof Configuration)
                                     {
-                                        this.engine.run((Configuration)object);
+                                        this.engine.run((Configuration)object, false, null);
                                     }
                                     else if (object instanceof String)
                                     {

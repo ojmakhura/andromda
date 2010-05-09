@@ -4,7 +4,6 @@ import java.io.EOFException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.URL;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
@@ -66,7 +65,7 @@ public class AndroMDA
         ExceptionUtils.checkNull(
             "configurationUri",
             configurationUri);
-        this.run(Configuration.getInstance(configurationUri));
+        this.run(Configuration.getInstance(configurationUri), false, null);
     }
 
     /**
@@ -80,7 +79,7 @@ public class AndroMDA
         ExceptionUtils.checkNull(
             "configurationStream",
             configurationStream);
-        this.run(Configuration.getInstance(configurationStream));
+        this.run(Configuration.getInstance(configurationStream), false, null);
     }
 
     /**
@@ -94,7 +93,7 @@ public class AndroMDA
         ExceptionUtils.checkEmpty(
             "configuration",
             configuration);
-        this.run(Configuration.getInstance(configuration));
+        this.run(Configuration.getInstance(configuration), false, null);
     }
 
     /**
@@ -149,7 +148,7 @@ public class AndroMDA
         ExceptionUtils.checkNull(
             "configurationUri",
             configurationUri);
-        this.run(Configuration.getInstance(configurationUri));
+        this.run(Configuration.getInstance(configurationUri), false, null);
     }
 
     /**
@@ -159,10 +158,13 @@ public class AndroMDA
      * contacted.
      *
      * @param configuration the configuration instance that configures AndroMDA.
+     * @param lastModifiedCheck true=don't regenerate code if no changes made since last model update.
+     * @param historyDir Output location for model generation history file (i.e. /target/history)
      * @return an array of model validation messages (if there have been any collected
      *         during AndroMDA execution).
      */
-    public ModelValidationMessage[] run(final Configuration configuration)
+    public ModelValidationMessage[] run(final Configuration configuration, 
+        boolean lastModifiedCheck, final String historyDir)
     {
         ModelValidationMessage[] messages = null;
         if (configuration != null)
@@ -203,7 +205,7 @@ public class AndroMDA
             if (!client)
             {
                 this.engine.initialize(configuration);
-                messages = this.engine.run(configuration);
+                messages = this.engine.run(configuration, lastModifiedCheck, historyDir);
             }
         }
         else

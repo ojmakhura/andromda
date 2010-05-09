@@ -125,6 +125,13 @@ public abstract class AbstractCartridgeTestMojo
     protected boolean testFailureIgnore;
 
     /**
+     *  Set this to 'true' to skip code generation if code has not changed since the latest model date.
+     *
+     * @parameter expression="${lastModifiedCheck}"
+     */
+    protected boolean lastModifiedCheck;
+
+    /**
      * Adds any dependencies for the cartridge plugin
      * to the current dependencies of the project.
      */
