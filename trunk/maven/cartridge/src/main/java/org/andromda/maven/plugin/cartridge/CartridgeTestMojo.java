@@ -58,7 +58,7 @@ public class CartridgeTestMojo
                 throw new MojoExecutionException("The path specifying the expectedDirectory '" +
                     this.expectedDirectory + "' must be a directory");
             }
-            else
+            else if (!this.lastModifiedCheck)
             {
                 try
                 {
@@ -81,7 +81,7 @@ public class CartridgeTestMojo
                 throw new MojoExecutionException("The path specifying the actualOutputDir '" +
                     this.actualDirectory + "' must be a directory");
             }
-            else
+            else if (!this.lastModifiedCheck)
             {
                 try
                 {
@@ -103,6 +103,7 @@ public class CartridgeTestMojo
                 this.getLog().info("actualDirectory=" + this.actualDirectory);
                 this.getLog().info("expectedDirectory=" + this.expectedDirectory);
                 this.getLog().info("expectedOutputArchive=" + this.expectedOutputArchive);
+                this.getLog().info("lastModifiedCheck=" + this.lastModifiedCheck);
                 if (this.testFailureIgnore)
                 {
                     this.getLog().info("testFailureIgnore=" + this.testFailureIgnore);
@@ -110,7 +111,7 @@ public class CartridgeTestMojo
 
                 // - change scope of test dependencies to runtime
                 this.changeScopeForTestDependencies();
-                // TODO Clear the error list, carried over from a previous cartridge run.
+                // TODO Clear the error list, carried over from a previous cartridge run failure.
 
                 // - first run AndroMDA with the test configuration
                 final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
@@ -118,6 +119,9 @@ public class CartridgeTestMojo
                 andromdaMojo.setProject(this.project);
                 andromdaMojo.setSettings(this.settings);
                 andromdaMojo.setPropertyFiles(this.propertyFiles);
+                andromdaMojo.setLastModifiedCheck(this.lastModifiedCheck);
+                andromdaMojo.setModelOutputHistory(this.actualDirectory + "/..");
+                andromdaMojo.setBuildSourceDirectory(this.actualDirectory);
                 andromdaMojo.execute();
 
                 // - unpack the expected output archive

@@ -127,7 +127,7 @@ public class ModelProcessor
      *
      * @return any model validation messages that may have been collected during model loading/validation.
      */
-    private List<ModelValidationMessage> process(final org.andromda.core.configuration.Repository[] repositories)
+    private List<ModelValidationMessage> process(final Repository[] repositories)
     {
         List<ModelValidationMessage> messages = null;
         final long startTime = System.currentTimeMillis();
@@ -177,6 +177,33 @@ public class ModelProcessor
     private final Repositories repositories = Repositories.instance();
 
     /**
+     * Check if files have not been modified since last model modification date.
+     * Do not generate from model if no modifications made.
+     */
+    private boolean lastModifiedCheck = true;
+
+    /**
+     * Location where model generation file list is written, normally /target.
+     */
+    private String historyDir = null;
+
+    /**
+     * @param lastModifiedCheck the lastModifiedCheck to set
+     */
+    public void setLastModifiedCheck(boolean lastModifiedCheck)
+    {
+        this.lastModifiedCheck = lastModifiedCheck;
+    }
+
+    /**
+     * @param historyDir the historyDir to set
+     */
+    public void setHistoryDir(String historyDir)
+    {
+        this.historyDir = historyDir;
+    }
+
+    /**
      * Processes multiple <code>models</code>.
      *
      * @param repositoryName the name of the repository that loads/reads the model.
@@ -192,15 +219,17 @@ public class ModelProcessor
         String cartridgeName = null;
         try
         {
-            boolean lastModifiedCheck = true;
+            // If lastModifiedCheck = true, always check for modification times
             long lastModified = 0;
             final ResourceWriter writer = ResourceWriter.instance();
+            writer.setHistoryStorage(historyDir);
 
             // - get the time from the model that has the latest modified time
             for (Model model : models)
             {
                 writer.resetHistory(model.getUris()[0]);
-                lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
+                // lastModifiedCheck from andromda.xml can override the global lastModifiedCheck from maven if true
+                this.lastModifiedCheck = model.isLastModifiedCheck() || this.lastModifiedCheck;
 
                 // - we go off the model that was most recently modified.
                 if (model.getLastModified() > lastModified)
@@ -209,7 +238,7 @@ public class ModelProcessor
                 }
             }
 
-            if (!lastModifiedCheck || writer.isHistoryBefore(lastModified))
+            if (!this.lastModifiedCheck || writer.isHistoryBefore(lastModified))
             {
                 final Collection<Cartridge> cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
                 if (cartridges.isEmpty())
@@ -253,6 +282,10 @@ public class ModelProcessor
                         }
                     }
                 }
+            }
+            else
+            {
+                AndroMDALogger.info("Files are up-to-date, skipping AndroMDA execution");
             }
         }
         catch (final ModelValidationException exception)

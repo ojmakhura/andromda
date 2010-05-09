@@ -256,14 +256,25 @@ public class ResourceWriter
     /**
      * The location to which history is written.
      */
-    private static final String HISTORY_LOCATION = Constants.TEMPORARY_DIRECTORY + "history/";
+    //private static final String HISTORY_LOCATION = Constants.TEMPORARY_DIRECTORY + "history/";
+    private String historyDir = null;
 
     /**
-     * Stores the file history.
+     * Gets the file history storage location.
+     * @return model generation history storage location
      */
-    private String getHistoryStorage()
+    public String getHistoryStorage()
     {
-        return HISTORY_LOCATION + this.modelFile;
+        return this.historyDir + '/' + this.modelFile;
+    }
+
+    /**
+     * Sets the file history storage location.
+     * @param historyDirIn the history file storage location
+     */
+    public void setHistoryStorage(String historyDirIn)
+    {
+        this.historyDir = historyDirIn;
     }
 
     /**

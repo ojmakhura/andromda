@@ -672,7 +672,7 @@ public class ResourceUtils
                 0,
                 true);
 
-        // - first see if its a directory
+        // - first see if it's a directory
         if (!contents.isEmpty())
         {
             for (final ListIterator<String> iterator = contents.listIterator(); iterator.hasNext();)
@@ -740,7 +740,7 @@ public class ResourceUtils
         final String[] patterns)
     {
         boolean matches = (patterns == null || patterns.length == 0);
-        if (!matches && patterns.length > 0)
+        if (!matches && patterns != null && patterns.length > 0)
         {
             final int patternNumber = patterns.length;
             for (int ctr = 0; ctr < patternNumber; ctr++)
