@@ -240,8 +240,7 @@
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <!-- Latest v 1.2.15 has dependency to com.sun.jdmk:jmxtools:jar:1.2.1, which needs to be installed manually in repo -->
-                <version>1.2.14</version>
+                <version>1.2.16</version>
             </dependency>
             <dependency>
                 <groupId>xalan</groupId>
@@ -451,11 +450,6 @@
             </dependency>
 
             <!-- Plexus dependencies -->
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-compiler-api</artifactId>
-                <version>1.5.3</version>
-            </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-container-default</artifactId>
@@ -730,16 +724,6 @@
                     </execution>
                     <!--
                     <execution>
-                        <id>install_cartridge-plugin</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar</file>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>install_model-archiver-plugin</id>
                         <phase>initialize</phase>
                         <goals>
@@ -792,8 +776,6 @@
                         <id>non-aggregate</id>
                         <configuration>
                             <show>package</show>
-                            <minmemory>128m</minmemory>
-                            <maxmemory>1g</maxmemory>
                             <links>
                                 <link>http://java.sun.com/javase/6/docs/api/</link>
                                 <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
@@ -822,28 +804,7 @@
                 <version>2.4</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
-                    <linkXref>true</linkXref>
-                    <rulesets>
-                        <ruleset>/rulesets/basic.xml</ruleset>
-                        <ruleset>/rulesets/braces.xml</ruleset>
-                        <ruleset>/rulesets/clone.xml</ruleset>
-                        <ruleset>/rulesets/codesize.xml</ruleset>
-                        <ruleset>/rulesets/controversial.xml</ruleset>
-                        <ruleset>/rulesets/coupling.xml</ruleset>
-                        <ruleset>/rulesets/design.xml</ruleset>
-                        <ruleset>/rulesets/finalizers.xml</ruleset>
-                        <ruleset>/rulesets/logging-java.xml</ruleset>
-                        <ruleset>/rulesets/j2ee.xml</ruleset>
-                        <ruleset>/rulesets/javabeans.xml</ruleset>
-                        <ruleset>/rulesets/junit.xml</ruleset>
-                        <ruleset>/rulesets/naming.xml</ruleset>
-                        <ruleset>/rulesets/optimizations.xml</ruleset>
-                        <ruleset>/rulesets/strictexception.xml</ruleset>
-                        <ruleset>/rulesets/strings.xml</ruleset>
-                        <ruleset>/rulesets/sunsecure.xml</ruleset>
-                        <ruleset>/rulesets/typeresolution.xml</ruleset>
-                        <ruleset>/rulesets/unusedcode.xml</ruleset>
-                    </rulesets>
+                    <linkXRef>true</linkXRef>
                 </configuration>
             </plugin>
             <plugin>
