@@ -121,7 +121,8 @@ public class CartridgeTestMojo
                 andromdaMojo.setPropertyFiles(this.propertyFiles);
                 andromdaMojo.setLastModifiedCheck(this.lastModifiedCheck);
                 andromdaMojo.setModelOutputHistory(this.actualDirectory + "/..");
-                andromdaMojo.setBuildSourceDirectory(this.actualDirectory);
+                // TODO This causes the build output expected directory to compile when running javadocs.
+                //andromdaMojo.setBuildSourceDirectory(this.actualDirectory);
                 andromdaMojo.execute();
 
                 // - unpack the expected output archive
