@@ -464,4 +464,11 @@ public class AssociationEndFacadeLogicImpl
     {
         return this.getMultiplicityRangeLower();
     }
+
+    @Override
+    protected boolean handleIsDerived()
+    {
+        // UML 1.4 does not have derived association ends.
+        return false;
+    }
 }
