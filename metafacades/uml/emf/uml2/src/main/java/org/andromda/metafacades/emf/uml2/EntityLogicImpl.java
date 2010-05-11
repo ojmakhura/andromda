@@ -752,7 +752,8 @@ public class EntityLogicImpl
                     }
                     else if (object instanceof AssociationEndFacade)
                     {
-                        valid = ((AssociationEndFacade)object).isRequired();
+                        AssociationEndFacade assocationEnd = (AssociationEndFacade)object;
+                        valid = assocationEnd.isRequired() && !assocationEnd.isDerived();
                     }
                     return valid;
                 }

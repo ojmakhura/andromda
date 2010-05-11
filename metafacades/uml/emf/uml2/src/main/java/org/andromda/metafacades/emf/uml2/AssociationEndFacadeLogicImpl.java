@@ -356,4 +356,13 @@ public class AssociationEndFacadeLogicImpl
     {
         return this.metaObject.getDefault();
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isDerived()
+     */
+    @Override
+    protected boolean handleIsDerived()
+    {
+        return this.metaObject.isDerived();
+    }
 }
