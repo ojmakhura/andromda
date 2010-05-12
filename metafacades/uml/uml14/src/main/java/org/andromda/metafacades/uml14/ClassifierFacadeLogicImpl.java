@@ -555,7 +555,7 @@ public class ClassifierFacadeLogicImpl
             else if (property instanceof AssociationEndFacade)
             {
                 final AssociationEndFacade associationEnd = (AssociationEndFacade)property;
-                if (associationEnd.isRequired() || associationEnd.isReadOnly())
+                if (!associationEnd.isDerived() || associationEnd.isRequired() || associationEnd.isReadOnly())
                 {
                     requiredConstructorParameters.add(associationEnd);
                 }
