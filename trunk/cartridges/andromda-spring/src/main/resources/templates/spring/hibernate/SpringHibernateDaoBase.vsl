@@ -809,7 +809,8 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                     result = results.iterator().next();
                 }
             }
-            if(transform != $entity.daoNoTransformationConstantName){ ##with this test we can use queries returning other types than collections or the entity
+##with this test we can use queries returning other types than collections or the entity
+            if(transform != $entity.daoNoTransformationConstantName){ 
                 result = transformEntity(transform, ($entity.fullyQualifiedName)result);
             }
             return result;
