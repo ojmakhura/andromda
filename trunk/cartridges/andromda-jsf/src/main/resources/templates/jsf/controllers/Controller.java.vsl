@@ -119,12 +119,12 @@ $operation.getDocumentation("     * ")
         this.${action.triggerName}((javax.faces.event.FacesEvent)event);
     }
 
+#set ($formPopulationOperationRequired = !$action.formFields.empty)
 #if ($formPopulationOperationRequired)
     @SuppressWarnings("unchecked")
 #end
     public java.lang.String ${action.triggerName}(final javax.faces.event.FacesEvent event)
     {
-#set ($formPopulationOperationRequired = !$action.formFields.empty)
 #if ($action.finalStateTarget)
 #set ($targetUseCase = $action.target.targetUseCase)
         $targetUseCase.controller.fullyQualifiedName controller =
@@ -201,6 +201,8 @@ $operation.getDocumentation("     * ")
                 forward = this.getLastForward();
             }
 #end
+##check if there are outgoing transitions
+#if(!$controller.useCase.getViews().isEmpty())
             if (event != null)
             {
 #if ($formPopulationOperationRequired)
@@ -209,6 +211,7 @@ $operation.getDocumentation("     * ")
                 ${action.useCase.actionClassName}ViewPopulator.populateFormAndViewVariables(this.getContext(), null);
 #end
             }
+#end
 #if ($formPopulationOperationRequired && $action.formResetRequired)
             form.reset();
 #end
