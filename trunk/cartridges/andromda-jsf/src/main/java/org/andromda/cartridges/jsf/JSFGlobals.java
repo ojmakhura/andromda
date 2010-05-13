@@ -63,16 +63,6 @@ public class JSFGlobals
     public static final String FORM_BEAN_PATTERN = "formBeanPattern";
     
     /**
-     * The suffix for form names.
-     */
-    public static final String FORM_SUFFIX = "Form";
-
-    /**
-     * The suffix for converter names.
-     */
-    public static final String CONVERTER_SUFFIX = "Converter";
-
-    /**
      * Stores the default form scope which can be overriden with a tagged value.
      */
     public static final String FORM_SCOPE = "formScope";
