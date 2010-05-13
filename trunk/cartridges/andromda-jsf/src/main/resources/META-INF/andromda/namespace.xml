@@ -116,6 +116,12 @@
                     Maximum memory per request (in bytes) for file uploads.
                 </documentation>
             </property>
+            <property name="navigationUsesRedirect">
+                <default>false</default>
+                <documentation>
+                    Uses 'redirect' instead of 'forward' to navigate between views.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="UI Layout">
             <documentation>

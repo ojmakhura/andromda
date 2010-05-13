@@ -70,6 +70,7 @@
     <property reference="navigationStyle"/>
     <property reference="fileUploadMaxMemoryPerRequest"/>
     <property reference="fileUploadMaxDiskSpacePerRequest"/>
+    <property reference="navigationUsesRedirect"/>
     <property reference="defaultTableExportTypes"/>
     <property reference="useAutocompleteLookup"/>
     <property reference="crudValueObjectSuffix"/>
@@ -112,6 +113,7 @@
     <condition name="portletWithoutIcefaces">
         #if (!$ajaxLibrary.equals("icefaces") &amp;&amp; $stringUtils.isNotBlank($portletContainer))true#end
     </condition>
+    <condition name="navigationUsesRedirect">$navigationUsesRedirect.equalsIgnoreCase("true")</condition>
 
     <!-- condition merge-point-->
 

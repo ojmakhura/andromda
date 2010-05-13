@@ -286,7 +286,7 @@
         <navigation-case>
             <from-outcome>$useCase.forwardName</from-outcome>
             <to-view-id>${useCase.path}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
+#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
         </navigation-case>
@@ -296,27 +296,18 @@
         <navigation-case>
             <from-outcome>$useCase.portletViewForwardName</from-outcome>
             <to-view-id>${useCase.portletViewPath}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
-            <redirect/>
-#end
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>$useCase.portletEditForwardName</from-outcome>
             <to-view-id>${useCase.portletEditPath}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
-            <redirect/>
-#end
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>$useCase.portletHelpForwardName</from-outcome>
             <to-view-id>${useCase.portletHelpPath}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
-            <redirect/>
-#end
         </navigation-case>
     </navigation-rule>
 #end
@@ -327,7 +318,7 @@
         <navigation-case>
             <from-outcome>$rule.fromOutcome</from-outcome>
             <to-view-id>${rule.path}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
+#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
         </navigation-case>
@@ -339,7 +330,7 @@
         <navigation-case>
             <from-outcome>${manageable.viewFullPath}</from-outcome>
             <to-view-id>${manageable.viewFullPath}.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
+#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
         </navigation-case>
@@ -351,7 +342,7 @@
         <navigation-case>
             <from-outcome>preferences</from-outcome>
             <to-view-id>/preferences/preferences.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
+#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
         </navigation-case>
@@ -363,7 +354,7 @@
         <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet)
+#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
         </navigation-case>

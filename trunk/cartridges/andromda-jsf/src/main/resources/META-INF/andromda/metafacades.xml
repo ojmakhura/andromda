@@ -143,6 +143,8 @@
         <property reference="crudValueObjectSuffix"/>
         <property reference="defaultTableExportTypes"/>
         <property reference="viewPopulatorPattern"/>
+        <property reference="formBeanPattern"/>
+        <property reference="converterPattern"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFManageableEntityAttributeLogicImpl">
