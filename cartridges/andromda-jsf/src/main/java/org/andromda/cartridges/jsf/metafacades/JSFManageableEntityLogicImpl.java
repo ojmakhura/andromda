@@ -8,7 +8,6 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.utils.StringUtilsHelper;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
@@ -79,7 +78,9 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetFormBeanName()
     {
-        return "manage" + this.getName() + JSFGlobals.FORM_SUFFIX;
+        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage"); 
+        return formBeanName.replaceFirst("\\{1\\}",this.getName());
     }
 
     /**
@@ -144,7 +145,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetFormBeanClassName()
     {
-        return this.getName() + JSFGlobals.FORM_SUFFIX;
+        return StringUtils.capitalize(this.getFormBeanName());
     }
 
     /**
@@ -393,7 +394,9 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanName()
     {
-           return "manage" + this.getName() + "Search" + JSFGlobals.FORM_SUFFIX;
+           final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
+           final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage"); 
+           return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
     }
 
     /**
@@ -417,7 +420,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanClassName()
     {
-           return this.getName() + "Search" + JSFGlobals.FORM_SUFFIX;
+           return StringUtils.capitalize(this.getSearchFormBeanName());
     }
 
     /**
@@ -562,7 +565,10 @@ public class JSFManageableEntityLogicImpl
     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#converterClassName
     */
     public String handleGetConverterClassName(){
-        return this.getName() + JSFGlobals.CONVERTER_SUFFIX;
+        return StringUtils.replace(
+            ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN)),
+            "{0}",
+            this.getName());
     }
 
     /**
