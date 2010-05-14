@@ -59,7 +59,7 @@ public abstract class AbstractAndroMDAMojo
     protected Settings settings;
 
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
      * @required
      * @readonly
      */
