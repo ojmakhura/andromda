@@ -6,7 +6,7 @@
         <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-metafacades-uml</artifactId>
-    <packaging>xml.zip</packaging>
+    <packaging>jar</packaging>
     <name>AndroMDA UML Common Metafacades</name>
     <description>
         The common UML metafacades.  This is the set of core UML metafacades used to provide access UML meta models.
@@ -29,13 +29,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-utils</artifactId>
-                        <version>${plexus.util.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
