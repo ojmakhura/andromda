@@ -550,20 +550,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
-    (i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
-    the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
-    plugins must exist before the build even starts) -->
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <tasks>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
-                              tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${project.version}/andromda-model-archiver-plugin-${project.version}.jar"/>
-                    </tasks>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>2.1</version>
@@ -722,18 +708,6 @@
                             </pomFile>
                         </configuration>
                     </execution>
-                    <!--
-                    <execution>
-                        <id>install_model-archiver-plugin</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar</file>
-                        </configuration>
-                    </execution>
-                    -->
                 </executions>
             </plugin>
 
@@ -758,7 +732,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
     <!-- Comment to disable project reporting using default maven plugins -->
@@ -949,23 +922,6 @@
        </plugin-->
         </plugins>
     </reporting>
-    <modules>
-        <module>andromda-core</module>
-        <module>andromda-utils</module>
-        <module>andromda-templateengines</module>
-        <module>repositories</module>
-        <module>andromda-andromdapp</module>
-        <module>ant</module>
-        <module>maven</module>
-        <module>profiles</module>
-        <module>cartridges</module>
-        <module>metafacades</module>
-        <module>andromda-etc</module>
-        <module>translation-libraries</module>
-        <module>documentation</module>
-        <module>samples</module>
-        <module>andromda-distribution</module>
-    </modules>
     <repositories>
         <repository>
             <id>sonatype</id>
@@ -1019,10 +975,37 @@
     </properties>
     <profiles>
         <profile>
+            <!-- This profile configuration is needed to install a model-archive-plugin.
+            Before this project can be built,  the command "mvn -P andromda-prepare' must be executed
+            in order to install this plugin.
+            (since this plugin must exist before the build even starts) -->
+            <id>andromda-prepare</id>
+            <modules>
+                <module>maven/model-archiver</module>
+            </modules>
+        </profile>
+        <profile>
             <id>andromda-lite</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <modules>
+                <module>andromda-core</module>
+                <module>andromda-utils</module>
+                <module>andromda-templateengines</module>
+                <module>repositories</module>
+                <module>andromda-andromdapp</module>
+                <module>ant</module>
+                <module>maven</module>
+                <module>profiles</module>
+                <module>cartridges</module>
+                <module>metafacades</module>
+                <module>andromda-etc</module>
+                <module>translation-libraries</module>
+                <module>documentation</module>
+                <module>samples</module>
+                <module>andromda-distribution</module>
+            </modules>
             <distributionManagement>
                 <repository>
                     <id>andromda-repository</id>
@@ -1044,6 +1027,23 @@
         </profile>
         <profile>
             <id>andromda-full</id>
+            <modules>
+                <module>andromda-core</module>
+                <module>andromda-utils</module>
+                <module>andromda-templateengines</module>
+                <module>repositories</module>
+                <module>andromda-andromdapp</module>
+                <module>ant</module>
+                <module>maven</module>
+                <module>profiles</module>
+                <module>cartridges</module>
+                <module>metafacades</module>
+                <module>andromda-etc</module>
+                <module>translation-libraries</module>
+                <module>documentation</module>
+                <module>samples</module>
+                <module>andromda-distribution</module>
+            </modules>
             <build>
                 <pluginManagement>
                     <plugins>
