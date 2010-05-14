@@ -111,16 +111,30 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
                     <version>${project.version}</version>
+                     <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>xml.zip</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                     <configuration>
-                        <generateJar>true</generateJar>
+                        <attachArtifact>true</attachArtifact>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-utils</artifactId>
+                            <version>${plexus.util.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
-        </pluginManagement>       
+        </pluginManagement>
     </build>
     <modules>
         <module>common</module>
