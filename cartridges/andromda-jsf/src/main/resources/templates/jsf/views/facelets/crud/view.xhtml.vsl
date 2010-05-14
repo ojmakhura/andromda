@@ -80,7 +80,9 @@
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:t="http://myfaces.apache.org/tomahawk"
+#if ($manageable.validationRequired)
       xmlns:a="http://www.andromda.org/cartridges/jsf"
+#end
       xmlns:tr="http://myfaces.apache.org/trinidad"
 #if ($useAutocompleteLookup)
       xmlns:ajsfc="http://www.andromda.org/cartridges/jsf/facelets"
@@ -92,7 +94,7 @@
 #set($editFormId = "${formName}_edit")
 #set ($layout = "/layout/layout.xhtml")
 <ui:composition template="$layout">
-    <ui:param name="partialTriggers" value="#{fn:split('#if($manageable.create)${searchFormId}:newAction #end${searchFormId}:searchResult:loadAction ${editFormId}:saveAction #if($manageable.create)${editFormId}:saveAndNewAction #end${editFormId}:cancelAction',' ')}"/>
+    <ui:param name="partialTriggers" value="#{fn:split('#if($manageable.create):${searchFormId}:newAction #end:${searchFormId}:searchResult:loadAction :${editFormId}:saveAction #if($manageable.create):${editFormId}:saveAndNewAction #end:${editFormId}:cancelAction',' ')}"/>
     <ui:param name="usesUpload" value=#if($manageable.needsFileUpload)"true"#else"false"#end/>
     <ui:define name="title">
         <c:set var="title" value="#{messages['${manageable.viewTitleKey}']}#{messages['title.action.separator']}#{messages[${formName}.editState ? (empty ${formName}.${manageable.manageableIdentifier.name} ? 'title.action.new' : 'title.action.edit') : 'title.action.search']}" scope="request"/>
@@ -100,7 +102,7 @@
     <ui:define name="content">
 #set ($clientValidation = $clientValidation && $manageable.validationRequired)
 #set ($formValidateName = "validate$stringUtils.capitalize($formName)")
-        <tr:group rendered="#{!${formName}.editState}">
+        <tr:panelGroupLayout layout="vertical" inlineStyle="display:#{${formName}.editState?'none':''}"> 
         <tr:subform id="${searchFormId}">
         <tr:panelFormLayout>
 #foreach ($field in $manageable.manageableSearchAttributes)
@@ -200,8 +202,8 @@
 #end
         </tr:table>
         </tr:subform>
-        </tr:group>
-        <tr:group rendered="#{${formName}.editState}">
+        </tr:panelGroupLayout>
+        <tr:panelGroupLayout layout="vertical" inlineStyle="display:#{${formName}.editState?'':'none'}"> 
         <tr:subform id="${editFormId}" #if($clientValidation) onsubmit="return $formValidateName(this);"#end>
             <tr:panelFormLayout>
 ##todo **** temporary solution ****
@@ -279,16 +281,18 @@
 #if ($manageable.create || !$manageable.update)
                        <tr:commandButton id="saveAction" text="#{messages['action.save']}" action="#{${manageable.controllerBeanName}.save}" accessKey="#{messages['action.save.access.key']}" partialSubmit="false"/>
 #if ($manageable.create)
-                       <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" rendered="#{empty ${formName}.${manageable.manageableIdentifier.name}}" partialSubmit="false"/>
+                       <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" inlineStyle="display:#{(empty ${formName}.${manageable.manageableIdentifier.name})?'':'none'}" partialSubmit="false"/>
 #end
                        <tr:commandButton id="cancelAction" text="#{messages['action.cancel']}" action="#{${manageable.controllerBeanName}.cancel}" accessKey="#{messages['action.cancel.access.key']}" immediate="true" partialSubmit="true" />
 #end
                    </tr:panelButtonBar>
             </f:facet>
             </tr:panelFormLayout>
+#if ($manageable.validationRequired)
             <a:validator#if(!$clientValidation) client="false"#end/>
+#end
         </tr:subform>
-        </tr:group>
+        </tr:panelGroupLayout>
     </ui:define>
 </ui:composition>
 
