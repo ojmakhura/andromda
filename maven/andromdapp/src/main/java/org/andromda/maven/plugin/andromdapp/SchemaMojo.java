@@ -97,7 +97,7 @@ public class SchemaMojo
     private Properties properties = new Properties();
 
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
      * @required
      * @readonly
      */

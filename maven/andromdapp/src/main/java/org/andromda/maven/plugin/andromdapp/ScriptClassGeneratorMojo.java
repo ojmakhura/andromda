@@ -58,7 +58,7 @@ public class ScriptClassGeneratorMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
      * @required
      * @readonly
      */

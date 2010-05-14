@@ -42,7 +42,7 @@ public class MavenExecuteMojo
     private File baseDirectory;
 
     /**
-     * @parameter expression="${component.org.apache.maven.lifecycle.LifecycleExecutor}"
+     * @component role="org.apache.maven.lifecycle.LifecycleExecutor"
      */
     private LifecycleExecutor lifecycleExecutor;
 

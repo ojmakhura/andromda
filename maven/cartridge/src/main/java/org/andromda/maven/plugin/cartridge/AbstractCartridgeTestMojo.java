@@ -98,7 +98,7 @@ public abstract class AbstractCartridgeTestMojo
     /**
      * To look up Archiver/UnArchiver implementations
      *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
+     * @component role="org.codehaus.plexus.archiver.manager.ArchiverManager"
      * @required
      */
     protected ArchiverManager archiverManager;
