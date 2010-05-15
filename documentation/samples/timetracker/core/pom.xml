@@ -117,8 +117,7 @@
                     -->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-ejb-plugin</artifactId>
                 <configuration>
                     <archive>
