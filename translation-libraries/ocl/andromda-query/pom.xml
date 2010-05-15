@@ -54,7 +54,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>namespace-transform</id>
