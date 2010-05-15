@@ -436,7 +436,7 @@ public class BuildMojo
     /**
      * Executes the given maven <code>project</code>.
      *
-     * @param project the project to execute.
+     * @param projects the projects to execute.
      * @param goals the goals to execute on the project.
      * @throws MojoExecutionException
      * @throws CycleDetectedException
@@ -492,9 +492,9 @@ public class BuildMojo
     /**
      * Collects all project modules to execute.
      *
+     * @param modules The list of modules to execute.
      * @return the Map of collected projects (the key is the project, the value
      *         the goals).
-     * @param The list of modules to execute.
      * @throws MojoExecutionException
      */
     private Map collectProjects(final String modules)

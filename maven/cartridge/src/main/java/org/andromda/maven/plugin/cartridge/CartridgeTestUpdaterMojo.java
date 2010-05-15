@@ -29,8 +29,6 @@ public class CartridgeTestUpdaterMojo
      */
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        final File expectedOutputArchive = new File(this.expectedOutputArchive);
-
         try
         {
             this.getLog().info("-----------------------------------------------------------------------------");
@@ -49,7 +47,7 @@ public class CartridgeTestUpdaterMojo
             andromdaMojo.execute();
 
             // - pack the expected output archive
-            this.pack(new File(this.actualDirectory), expectedOutputArchive);
+            this.pack(this.actualDirectory, this.expectedOutputArchive);
 
         }
         catch (final Throwable throwable)

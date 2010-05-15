@@ -34,7 +34,7 @@ public class NamespaceTransformerMojo
      * 
      * @parameter expression="${basedir}/src/main/resources/META-INF/andromda/namespace.xml"
      */
-    private String namespaceDocumentPath;
+    private File namespaceDocumentPath;
     
     /**
      * Path to the project namespace transformation XSL
@@ -44,14 +44,14 @@ public class NamespaceTransformerMojo
     /**
      * @parameter expression="${basedir}/src/main/resources/META-INF/xsl/namespace.xsl"
      */
-    private String namespaceTransformationPath;
+    private File namespaceTransformationPath;
     
     /**
      * Path to the project namespace document output
      * 
      * @parameter expression="${basedir}/src/site/xdoc/namespace.xml"
      */
-    private String namespaceOutputPath;
+    private File namespaceOutputPath;
 
     /**
      * @parameter expression="${project}"
@@ -85,11 +85,11 @@ public class NamespaceTransformerMojo
         
         try
         {
-            final File namespaceDocumentFile = new File(this.namespaceDocumentPath);
+            final File namespaceDocumentFile = this.namespaceDocumentPath;
             if (namespaceDocumentFile.exists() && namespaceDocumentFile.isFile())
             {
                 final URL namespaceTransformationUri = ResourceUtils.getResource(NAMESPACE_TRANSFORMATION_URI);
-                xslTransformer.transform(namespaceDocumentPath, namespaceTransformationUri, namespaceOutputPath);
+                xslTransformer.transform(namespaceDocumentPath.getAbsolutePath(), namespaceTransformationUri, namespaceOutputPath.getAbsolutePath());
             }
             
             this.getLog().info("Transformed namesapce " + this.namespaceOutputPath);

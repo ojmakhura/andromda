@@ -25,56 +25,56 @@ public class CopyDocumentationMojo
      * 
      * @parameter expression="${basedir}/../andromda-etc/mappings"
      */
-    private String mappingsSourceDirectory;
+    private File mappingsSourceDirectory;
     
     /**
      * Path to the mapping destination directory
      * 
      * @parameter expression="${project.reporting.outputDirectory}/mappings"
      */
-    private String mappingsOutputDirectory;
+    private File mappingsOutputDirectory;
     
     /**
      * Path to the car-rental-system model
      * 
      * @parameter expression="${basedir}/../samples/car-rental-system/mda/src/main/uml/CarRentalSystem.xml.zip"
      */
-    private String carRentalSystemSourcePath;
+    private File carRentalSystemSourcePath;
     
     /**
      * Path to the destination directory to copy the car-rental-system model
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
      */
-    private String carRentalSystemOutputDirectory;
+    private File carRentalSystemOutputDirectory;
     
     /**
      * Path to the animal-quiz model
      * 
      * @parameter expression="${basedir}/../samples/animal-quiz/mda/src/main/uml/AnimalQuiz.xml.zip"
      */
-    private String animalQuizSourcePath;
+    private File animalQuizSourcePath;
     
     /**
      * Path to the destination directory to copy the animal-quiz model
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
      */
-    private String animalQuizOutputDirectory;
+    private File animalQuizOutputDirectory;
     
     /**
      * The directory containing the documentation site reporting artifacts
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
      */
-    private String documentationSourceDirectory;
+    private File documentationSourceDirectory;
     
     /**
      * The documentation output directory used to copy the generated site reporting artifacts
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
      */
-    private String documentationOutputDirectory;
+    private File documentationOutputDirectory;
     
     /**
      * The name of the project injected from pom.xml
@@ -119,17 +119,16 @@ public class CopyDocumentationMojo
     {
         try
         {
-            final File animalQuizSourceFile = new File(this.animalQuizSourcePath);
-            if (!animalQuizSourceFile.exists())
+            if (!this.animalQuizSourcePath.exists())
             {
                 throw new MojoExecutionException("The animal-quiz model location is invalid");
             }
             
             this.copyFile(
-                    animalQuizSourceFile, 
+                    this.animalQuizSourcePath,
                     new File(
                             this.animalQuizOutputDirectory, 
-                            animalQuizSourceFile.getName()));
+                            this.animalQuizSourcePath.getName()));
         }
         catch (final Throwable throwable)
         {
@@ -154,17 +153,16 @@ public class CopyDocumentationMojo
     {
         try
         {
-            final File carRentalSystemSourceFile = new File(this.carRentalSystemSourcePath);
-            if (!carRentalSystemSourceFile.exists())
+            if (!this.carRentalSystemSourcePath.exists())
             {
                 throw new MojoExecutionException("The car-rental-system model location is invalid");
             }
             
             this.copyFile(
-                    carRentalSystemSourceFile, 
+                    this.carRentalSystemSourcePath,
                     new File(
                             this.carRentalSystemOutputDirectory,
-                            carRentalSystemSourceFile.getName()));
+                            this.carRentalSystemSourcePath.getName()));
         }
         catch (final Throwable throwable)
         {
@@ -189,21 +187,20 @@ public class CopyDocumentationMojo
     {
         try
         {
-            final File mappingSourceDir = new File(this.mappingsSourceDirectory);
-            if (!mappingSourceDir.exists())
+            if (!this.mappingsSourceDirectory.exists())
             {
                 throw new MojoExecutionException("Mapping source location is invalid");
             }
             
-            final File[] files = mappingSourceDir.listFiles();
-            for (int i = 0; i < files.length; i++)
+            final File[] files = this.mappingsSourceDirectory.listFiles();
+            for (File file : files)
             {
                 // Ignore SVN dir/files
-                if (!".svn".equalsIgnoreCase(files[i].getName()))
+                if (!".svn".equalsIgnoreCase(file.getName()))
                 {
                     this.copyFile(
-                            files[i], 
-                            new File(this.mappingsOutputDirectory, files[i].getName()));
+                            file,
+                            new File(this.mappingsOutputDirectory, file.getName()));
                 }
             }
         }
@@ -230,8 +227,7 @@ public class CopyDocumentationMojo
     {
         try
         {
-            final File documentationSourceDir = new File(this.documentationSourceDirectory);
-            if (!documentationSourceDir.exists())
+            if (!this.documentationSourceDirectory.exists())
             {
                 throw new MojoExecutionException("Documentation source location is invalid");
             }
@@ -258,24 +254,24 @@ public class CopyDocumentationMojo
                 public boolean accept(File dir, String name)
                 {
                     boolean accept = true;
-                    for (int i = 0; i < filteredReports.length; i++)
+                    for (String filteredReport : filteredReports)
                     {
-                        if (name.equalsIgnoreCase(filteredReports[i]))
+                        if (name.equalsIgnoreCase(filteredReport))
                         {
-                            accept =  false;
+                            accept = false;
                         }
                     }
                     return accept;
                 }
             };
-            final File[] files = documentationSourceDir.listFiles(filter);
-            for (int i = 0; i < files.length; i++)
+            final File[] files = this.documentationSourceDirectory.listFiles(filter);
+            for (File file : files)
             {
                 this.copyFile(
-                        files[i], 
+                        file,
                         new File(
-                                this.documentationOutputDirectory, 
-                                files[i].getName()));
+                                this.documentationOutputDirectory,
+                                file.getName()));
             }
         }
         catch (final Throwable throwable)

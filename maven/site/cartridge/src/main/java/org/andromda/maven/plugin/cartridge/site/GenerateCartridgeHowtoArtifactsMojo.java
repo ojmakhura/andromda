@@ -31,14 +31,14 @@ public class GenerateCartridgeHowtoArtifactsMojo
      * 
      * @parameter expression="${basedir}/src/site/resources/howto/HowToPictures.zip"
      */
-    private String howtoCartridgePicturesSourcePath;
+    private File howtoCartridgePicturesSourcePath;
     
     /**
      * Path to the cartride howto pictures destination extraction directory
      * 
      * @parameter expression="${basedir}/target/site/howto"
      */
-    private String howtoCartridgePicturesOutputDirectory;
+    private File howtoCartridgePicturesOutputDirectory;
     
     /**
      * This is the URI to the AndroMDA configuration file.
@@ -104,15 +104,14 @@ public class GenerateCartridgeHowtoArtifactsMojo
     {
         try
         {
-            final File howtoCartridgePicturesSourceFile = new File(this.howtoCartridgePicturesSourcePath);
-            if (!howtoCartridgePicturesSourceFile.exists())
+            if (!this.howtoCartridgePicturesSourcePath.exists())
             {
                 throw new MojoExecutionException("Cartridge howto pictures source location is invalid");
             }
             
             this.unpack(
-                    howtoCartridgePicturesSourceFile, 
-                    new File(this.howtoCartridgePicturesOutputDirectory));
+                    this.howtoCartridgePicturesSourcePath,
+                    this.howtoCartridgePicturesOutputDirectory);
         }
         catch (final Throwable throwable)
         {

@@ -33,7 +33,7 @@ public abstract class AbstractCartridgeTestMojo
      *
      * @parameter expression="${project.build.directory}/cartridge-test/reports"
      */
-    protected String reportDirectory;
+    protected File reportDirectory;
 
     /**
      * Specifies the directory that contains the "actual" output (meaning the output
@@ -41,21 +41,21 @@ public abstract class AbstractCartridgeTestMojo
      * @parameter expression="${project.build.directory}/cartridge-test/actual"
      * @required
      */
-    protected String actualDirectory;
+    protected File actualDirectory;
 
     /**
      * Specifies the directory that contains the "expected" output.
      * @parameter expression="${project.build.directory}/cartridge-test/expected"
      * @required
      */
-    protected String expectedDirectory;
+    protected File expectedDirectory;
 
     /**
      * The location of the archive storing the expected output.
      * @parameter expression="${basedir}/src/test/expected/cartridge-output.zip"
      * @required
      */
-    protected String expectedOutputArchive;
+    protected File expectedOutputArchive;
 
     /**
      * This is the URI to the AndroMDA configuration file.

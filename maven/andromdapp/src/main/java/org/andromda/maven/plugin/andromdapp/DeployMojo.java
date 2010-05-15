@@ -79,8 +79,7 @@ public class DeployMojo
             if (artifactFile.exists())
             {
                 final File deployFile = this.getDeployFile();
-                final File deployDirectory = new File(this.deployLocation);
-                if (deployDirectory.exists() && deployDirectory.isDirectory())
+                if (this.deployLocation.exists() && this.deployLocation.isDirectory())
                 {
                     try
                     {
@@ -105,10 +104,10 @@ public class DeployMojo
                             for (final Iterator iterator = deployFiles.iterator(); iterator.hasNext();)
                             {
                                 final File file = (File)iterator.next();
-                                this.getLog().info("Deploying file " + file + " to " + deployDirectory);
+                                this.getLog().info("Deploying file " + file + " to " + this.deployLocation);
                                 FileUtils.copyFileToDirectory(
                                     file,
-                                    deployDirectory);
+                                        this.deployLocation);
                             }
                         }
                     }

@@ -62,7 +62,7 @@ public class EmxArchiverMojo
 
         try
         {
-            final File buildDirectory = new File(this.workDirectory);
+            final File buildDirectory = this.workDirectory;
             if (buildDirectory.exists())
             {   // old files in directory are not automatically deleted.
                 deleteFiles(buildDirectory.getAbsolutePath(), ARTIFACT_TYPE);

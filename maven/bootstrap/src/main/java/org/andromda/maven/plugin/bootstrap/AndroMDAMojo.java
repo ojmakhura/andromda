@@ -67,7 +67,7 @@ public class AndroMDAMojo
      *
      * @parameter expression="${project.build.directory}/src/main/java"
      */
-    private String buildSourceDirectory;
+    private File buildSourceDirectory;
 
     /**
      * The directory where the model generation output history is located 
@@ -75,7 +75,7 @@ public class AndroMDAMojo
      *
      * @parameter expression="${project.build.directory}/history"
      */
-    private String modelOutputHistory;
+    private File modelOutputHistory;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the
@@ -128,10 +128,9 @@ public class AndroMDAMojo
             boolean execute = true;
             if (this.lastModifiedCheck)
             {
-                final File directory = new File(this.buildSourceDirectory);
                 execute = ResourceUtils.modifiedAfter(
                         ResourceUtils.getLastModifiedTime(configurationUri),
-                        directory);
+                        this.buildSourceDirectory);
                 if (!execute)
                 {
                     //TODO This duplicates functionality in ModelProcessor. It also doesn't work if files are generated to multiple different project locations.
@@ -149,7 +148,7 @@ public class AndroMDAMojo
                                 final Model model = models[ctr2];
                                 execute = ResourceUtils.modifiedAfter(
                                         model.getLastModified(),
-                                        directory);
+                                        this.buildSourceDirectory);
                                 if (execute)
                                 {
                                     break;
@@ -163,18 +162,16 @@ public class AndroMDAMojo
             {
                 this.initializeClasspathFromClassPathElements(this.project.getRuntimeClasspathElements());
                 final AndroMDA andromda = AndroMDA.newInstance();
-                andromda.run(configuration, lastModifiedCheck, this.modelOutputHistory);
+                andromda.run(configuration, lastModifiedCheck, this.modelOutputHistory.getAbsolutePath());
                 andromda.shutdown();
             }
             else
             {
                 this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
             }
-            final File buildSourceDirectory =
-                this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
-            if (buildSourceDirectory != null)
+            if (this.buildSourceDirectory != null)
             {
-                this.getProject().addCompileSourceRoot(buildSourceDirectory.toString());
+                this.getProject().addCompileSourceRoot(this.buildSourceDirectory.toString());
             }
         }
         catch (Throwable throwable)

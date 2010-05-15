@@ -24,28 +24,28 @@ public class UnpackDocumentationMojo
      * 
      * @parameter expression="${basedir}/src/site/resources/jmi-uml1.4.zip"
      */
-    private String jmiApiSourcePath;
+    private File jmiApiSourcePath;
     
     /**
      * Path to the JMI 1.4 API destination extraction directory
      * 
      * @parameter expression="${basedir}/../../target/site"
      */
-    private String jmiApiOutputDirectory;
+    private File jmiApiOutputDirectory;
     
     /**
      * Path to the UmlDoc car-rental-sample zip source
      * 
      * @parameter expression="${basedir}/src/site/resources/car-rental-umldoc.zip"
      */
-    private String umlDocCarRentalSampleSourcePath;
+    private File umlDocCarRentalSampleSourcePath;
     
     /**
      * Path to the UmlDoc car-rental-sample extraction directory
      * 
      * @parameter expression="${basedir}/../../target/site"
      */
-    private String umlDocCarRentalSampleOutputDirectory;
+    private File umlDocCarRentalSampleOutputDirectory;
     
     /**
      * The name of the project injected from pom.xml
@@ -88,15 +88,14 @@ public class UnpackDocumentationMojo
     {
         try
         {
-            final File jmiApiSourceFile = new File(this.jmiApiSourcePath);
-            if (!jmiApiSourceFile.exists())
+            if (!this.jmiApiSourcePath.exists())
             {
                 throw new MojoExecutionException("JMI API source location is invalid");
             }
             
             this.unpack(
-                    jmiApiSourceFile, 
-                    new File(this.jmiApiOutputDirectory));
+                    this.jmiApiSourcePath,
+                    this.jmiApiOutputDirectory);
         }
         catch (final Throwable throwable)
         {
@@ -121,15 +120,14 @@ public class UnpackDocumentationMojo
     {
         try
         {
-            final File umlDocCarRentalSampleSourceFile = new File(this.umlDocCarRentalSampleSourcePath);
-            if (!umlDocCarRentalSampleSourceFile.exists())
+            if (!this.umlDocCarRentalSampleSourcePath.exists())
             {
                 throw new MojoExecutionException("UmlDoc car-rental-sample source location is invalid");
             }
             
             this.unpack(
-                    umlDocCarRentalSampleSourceFile, 
-                    new File(this.umlDocCarRentalSampleOutputDirectory));
+                    this.umlDocCarRentalSampleSourcePath,
+                    this.umlDocCarRentalSampleOutputDirectory);
         }
         catch (final Throwable throwable)
         {
