@@ -22,7 +22,7 @@ public abstract class AppManagementMojo
      * @parameter
      * @required
      */
-    protected String deployLocation;
+    protected File deployLocation;
 
     /**
      * @parameter expression="${project}"

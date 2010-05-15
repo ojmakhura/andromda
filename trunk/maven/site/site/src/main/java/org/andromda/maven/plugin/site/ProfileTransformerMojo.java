@@ -34,7 +34,7 @@ public class ProfileTransformerMojo
      * 
      * @parameter expression="${basedir}/src/main/resources/META-INF/andromda/profile.xml"
      */
-    private String profileDocumentPath;
+    private File profileDocumentPath;
     
     /**
      * Path to the project profile transformation XSL
@@ -44,14 +44,14 @@ public class ProfileTransformerMojo
     /**
      * @parameter expression="${basedir}/src/main/resources/META-INF/xsl/profile.xsl"
      */
-    private String profileTransformationPath;
+    private File profileTransformationPath;
     
     /**
      * Path to the project profile document output
      * 
      * @parameter expression="${basedir}/src/site/xdoc/profile.xml"
      */
-    private String profileOutputPath;
+    private File profileOutputPath;
 
     /**
      * @parameter expression="${project}"
@@ -85,11 +85,10 @@ public class ProfileTransformerMojo
         
         try
         {
-            final File profileDocumentFile = new File(this.profileDocumentPath);
-            if (profileDocumentFile.exists() && profileDocumentFile.isFile())
+            if (this.profileDocumentPath.exists() && this.profileDocumentPath.isFile())
             {
                 final URL profileTransformationUrl = ResourceUtils.getResource(PROFILE_TRANSFORMATION_URI);
-                xslTransformer.transform(profileDocumentPath, profileTransformationUrl, profileOutputPath);
+                xslTransformer.transform(profileDocumentPath.getAbsolutePath(), profileTransformationUrl, profileOutputPath.getAbsolutePath());
             }
             
             this.getLog().info("Transformation result " + this.profileOutputPath);

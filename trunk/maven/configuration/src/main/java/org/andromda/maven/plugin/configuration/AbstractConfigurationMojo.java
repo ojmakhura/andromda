@@ -9,9 +9,9 @@ import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.resources.PropertyUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
+import org.apache.maven.shared.filtering.PropertyUtils;
 import org.codehaus.plexus.util.InterpolationFilterReader;
 
 import java.io.File;
@@ -137,7 +137,7 @@ public abstract class AbstractConfigurationMojo
      * of the specified property if there is one.
      *
      * @param properties the properties used to perform the replacement.
-     * @param fileContents the fileContents to perform replacement on.
+     * @param string the fileContents to perform replacement on.
      */
     private String replaceProperties(
         final Properties properties,

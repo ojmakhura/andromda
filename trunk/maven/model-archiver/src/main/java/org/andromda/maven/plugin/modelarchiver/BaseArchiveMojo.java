@@ -34,14 +34,14 @@ public abstract class BaseArchiveMojo extends AbstractMojo
      * @parameter expression="${project.build.directory}"
      * @required
      */
-    protected String workDirectory;
+    protected File workDirectory;
     /**
      * The directory for the generated emx.
      *
      * @parameter expression="${project.build.outputDirectory}"
      * @required
      */
-    protected String outputDirectory;
+    protected File outputDirectory;
     /**
      * The name of the emx file to generate.
      *

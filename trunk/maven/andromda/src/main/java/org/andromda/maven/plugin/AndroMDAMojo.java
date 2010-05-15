@@ -41,7 +41,7 @@ public class AndroMDAMojo
      *
      * @parameter expression="${project.build.directory}/src/main/java"
      */
-    private String buildSourceDirectory;
+    private File buildSourceDirectory;
 
     /**
      * The directory where the model generation output history is located 
@@ -49,7 +49,7 @@ public class AndroMDAMojo
      *
      * @parameter expression="${project.build.directory}/history"
      */
-    private String modelOutputHistory;
+    private File modelOutputHistory;
 
     /**
      * @param lastModifiedCheck the lastModifiedCheck to set
@@ -62,7 +62,7 @@ public class AndroMDAMojo
     /**
      * @param buildSourceDirectory the buildSourceDirectory to set
      */
-    public void setBuildSourceDirectory(String buildSourceDirectory)
+    public void setBuildSourceDirectory(File buildSourceDirectory)
     {
         this.buildSourceDirectory = buildSourceDirectory;
     }
@@ -70,7 +70,7 @@ public class AndroMDAMojo
     /**
      * @param modelOutputHistory the modelOutputHistory to set
      */
-    public void setModelOutputHistory(String modelOutputHistory)
+    public void setModelOutputHistory(File modelOutputHistory)
     {
         this.modelOutputHistory = modelOutputHistory;
     }
@@ -87,14 +87,13 @@ public class AndroMDAMojo
             if (this.lastModifiedCheck)
             {
                 long date = this.getLastModelConfigDate(configuration);
-                final File directory = new File(this.buildSourceDirectory);
                 execute = ResourceUtils.modifiedAfter(date,
-                        directory);
+                        this.buildSourceDirectory);
             }
             if (execute)
             {
                 final AndroMDA andromda = AndroMDA.newInstance();
-                andromda.run(configuration, lastModifiedCheck, this.modelOutputHistory);
+                andromda.run(configuration, lastModifiedCheck, this.modelOutputHistory.getAbsolutePath());
                 andromda.shutdown();
             }
             else
@@ -102,11 +101,9 @@ public class AndroMDAMojo
                 this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
             }
         }
-        final File buildSourceDirectory =
-            this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
-        if (buildSourceDirectory != null)
+        if (this.buildSourceDirectory != null)
         {
-            this.getProject().addCompileSourceRoot(buildSourceDirectory.toString());
+            this.getProject().addCompileSourceRoot(this.buildSourceDirectory.getPath());
         }
     }
 

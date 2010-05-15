@@ -22,13 +22,12 @@ public class UndeployMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        final File deployDirectory = new File(this.deployLocation);
-        if (deployDirectory.exists() && deployDirectory.isDirectory())
+        if (this.deployLocation.exists() && this.deployLocation.isDirectory())
         {
             try
             {
                 final File deployFile = this.getDeployFile();
-                this.getLog().info("Undeploying " + deployFile + " from " + deployDirectory);
+                this.getLog().info("Undeploying " + deployFile + " from " + this.deployLocation);
                 if (deployFile.isDirectory())
                 {
                     FileUtils.deleteDirectory(deployFile);

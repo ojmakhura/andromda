@@ -34,7 +34,7 @@ public class CartridgeTestMojo
     {
         if (!this.skip)
         {
-            final File expectedOutputArchive = new File(this.expectedOutputArchive);
+            final File expectedOutputArchive = this.expectedOutputArchive;
             if (!expectedOutputArchive.exists() || !expectedOutputArchive.isFile())
             {
                 if (this.testFailureIgnore)
@@ -48,7 +48,7 @@ public class CartridgeTestMojo
                             this.expectedOutputArchive + "' must be a file");
                 }
             }
-            final File expectedOutputDir = new File(this.expectedDirectory);
+            final File expectedOutputDir = this.expectedDirectory;
             if (!expectedOutputDir.exists())
             {
                 expectedOutputDir.mkdirs();
@@ -71,7 +71,7 @@ public class CartridgeTestMojo
                 }
             }
 
-            final File actualOutputDir = new File(this.actualDirectory);
+            final File actualOutputDir = this.actualDirectory;
             if (!actualOutputDir.exists())
             {
                 actualOutputDir.mkdirs();
@@ -120,7 +120,7 @@ public class CartridgeTestMojo
                 andromdaMojo.setSettings(this.settings);
                 andromdaMojo.setPropertyFiles(this.propertyFiles);
                 andromdaMojo.setLastModifiedCheck(this.lastModifiedCheck);
-                andromdaMojo.setModelOutputHistory(this.actualDirectory + "/..");
+                andromdaMojo.setModelOutputHistory(new File(this.actualDirectory, ".."));
                 // TODO This causes the build output expected directory to compile when running javadocs.
                 //andromdaMojo.setBuildSourceDirectory(this.actualDirectory);
                 andromdaMojo.execute();
@@ -128,11 +128,11 @@ public class CartridgeTestMojo
                 // - unpack the expected output archive
                 this.unpack(
                     expectedOutputArchive,
-                    new File(this.expectedDirectory));
+                    this.expectedDirectory);
 
                 final CartridgeTest cartridgeTest = CartridgeTest.instance();
-                cartridgeTest.setActualOutputPath(this.actualDirectory);
-                cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
+                cartridgeTest.setActualOutputPath(this.actualDirectory.getAbsolutePath());
+                cartridgeTest.setExpectedOutputPath(this.expectedDirectory.getAbsolutePath());
                 cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
 
                 final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
