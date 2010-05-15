@@ -40,8 +40,8 @@ public class ValueObjectFacadeLogicImpl
         final String packageName =
             MessageFormat.format(
                 this.getConfiguredProperty("valueObjectPackage").toString(),
-                new String[] {StringUtils.trimToEmpty(super.getPackageName())});
-        StringBuffer buffer = new StringBuffer();
+                StringUtils.trimToEmpty(super.getPackageName()));
+        StringBuilder buffer = new StringBuilder();
         for (final StringTokenizer tokenizer = new StringTokenizer(packageName, "."); tokenizer.hasMoreTokens();)
         {
             String token = tokenizer.nextToken();
