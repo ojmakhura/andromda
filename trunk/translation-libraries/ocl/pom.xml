@@ -20,4 +20,25 @@
         <module>andromda-query</module>
         <module>andromda-validation</module>
     </modules>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-bootstrap-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins.site</groupId>
+                    <artifactId>andromda-site-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
