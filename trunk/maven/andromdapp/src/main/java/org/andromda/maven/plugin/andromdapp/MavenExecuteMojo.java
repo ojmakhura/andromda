@@ -176,8 +176,10 @@ public class MavenExecuteMojo
                                     this.session.getExecutionProperties(),
                                     this.session.getStartTime());
 
+                            //TODO This method is not supported by maven 3!
                             projectSession.setUsingPOMsFromFilesystem(true);
 
+                            //TODO This method is not supported by maven 3!
                             this.lifecycleExecutor.execute(
                                 projectSession,
                                 reactorManager,
