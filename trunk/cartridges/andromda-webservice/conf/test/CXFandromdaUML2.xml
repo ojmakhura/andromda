@@ -1,0 +1,134 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="failOnValidationErrors">false</property>
+  </properties>
+  <repositories>
+    <repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${uml2.test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <!--namespace property values used by ALL cartridges-->
+    <!--Variable references refer to properties defined in root pom.xml or mda/pom.xml files-->
+    <!--See http://team.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html-->
+    <namespace name="default">
+      <properties>
+        <property name="applicationName">TestApplication</property>
+        <property name="overwrite">true</property>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
+        <!--Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements-->
+        <property name="xmlAttributes">true</property>
+        <property name="sqlMappingsUri">${sql.mappings}</property>
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="maxSqlNameLength">30</property>
+        <property name="foreignKeySuffix">_FK</property>
+        <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
+        <!--masking properties configure the way your model element names are generated>
+        <property name="classifierNameMask">none</property>
+        <property name="operationNameMask">none</property>
+        <property name="roleNameMask">none</property>
+        <property name="enumerationNameMask">none</property>
+        <property name="entityNameMask">none</property>
+        <property name="entityPropertyNameMask">none</property>
+        <property name="parameterNameMask">none</property-->
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <!--Automatically makes English names plural (generally adds s if missing). 
+        default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.-->
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <!--CXF Only - output @XmlSeeAlso annotations and java2ws for CXF 2.1-->
+        <property name="cxfVersion">${cxf.version}</property>
+        <!--Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements-->
+        <property name="xmlAttributes">true</property>
+        <!--Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes-->
+        <property name="XMLDateAdapter"/>
+        <property name="XMLDateTimeAdapter"/>
+        <property name="XMLTimeAdapter"/>
+        <!--property name="XMLIntegerAdapter"></property>
+        <property name="XMLLongAdapter"></property-->
+        <!--Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2-->
+        <property name="XMLBooleanAdapter"/>
+        <property name="persistenceContainerName">jboss</property>
+        <!--Override default @todo to set to Eclipse default-->
+        <property name="toDoTag">TODO</property>
+      </properties>
+    </namespace>
+    <namespace name="webservice">
+      <properties>
+        <property name="soapStack">cxf</property>
+        <property name="cxfVersion">${cxf.version}</property>
+        <!--CXF Only - supports SOAP 1.1 and 1.2. Default=1.1>
+        <property name="soapVersion">1.2</property-->
+        <property name="springVersion">2.5.6</property>
+        <!--property name="axisVersion">2</property-->
+        <property name="languageMappingsUri">AxisJavaMappings</property>
+        <property name="schemaTypeMappingsUri">XmlSchema</property>
+        <property name="wsdlSoapAddress">http://localhost:8080</property>
+        <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
+        <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
+        <property name="languageMappingsUri">Java</property>
+        <property name="defaultProvider">RPC</property>
+        <property name="applicationName">${application.id}</property>
+        <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
+        <property name="webserviceTypesPackage">org.andromda.webservice</property>
+        <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+        <!--maxOccurs=unlimited is generated instead of arrayOf<> wrapper types-->
+        <property name="useArrayWrapper">false</property>
+        <property name="reverseNamespace">true</property>
+        <property name="defaultStyle">document</property>
+        <property name="defaultUse">literal</property>
+        <property name="defaultParameterStyle">wrapped</property>
+        <!--Use minOccurs=0 for elements and required=false for attributes, instead of nillable=true-->
+        <property name="makeNillable">false</property>
+        <!--WSDL imports XSD, package must be stereotyped with 'packageMap' so that xsd file is created.-->
+        <property name="importedXSD">true</property>
+        <property name="simpleBindingMode">true</property>
+        <!--CXF XJC binding arguments, using Jaxb2 commons plugins which must be added to %JAXB_HOME%\commons directory. Suggested value:
+             -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve-->
+        <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
+        <!--webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration-->
+        <property name="webserviceHost">localhost</property>
+        <property name="webservicePort">8080</property>
+        <property name="webContext">${application.id}-webservice</property>
+        <property name="servicesPath">services</property>
+        <!--Creates default/dummy implementation for service, iterating down through parameter hierarchy-->
+        <property name="generateMethodImpl">true</property>
+        <property name="wsdls">${uml2.output.dir}/wsdl</property>
+        <property name="configuration">${uml2.output.dir}/wsdl</property>
+        <property name="webservice-project">${uml2.output.dir}</property>
+        <property name="webservice-types">${uml2.output.dir}</property>
+        <property name="webservice-tests">${uml2.output.dir}</property>
+        <property name="core-tests">${uml2.output.dir}</property>
+        <property name="java-types">${uml2.output.dir}</property>
+        <property name="webservice-impl">${uml2.output.dir}</property>
+        <property name="service-impls">${uml2.output.dir}</property>
+        <property name="jaxb-impl">${uml2.output.dir}</property>
+        <property name="jaxb-gen">${uml2.output.dir}</property>
+        <!--property name="axis-tests">${uml2.output.dir}</property>
+        <property name="axis-test-impls">${uml2.output.dir}</property>
+        <property name="wss4j-configuration">${uml2.output.dir}</property>
+        <property name="signedRequest">true</property>
+        <property name="cryptoKeyStore">somekeystore.jks</property>
+        <property name="cryptoKeyStoreType">jks</property>
+        <property name="cryptoKeyStoreAlias">SomeAlias</property>
+        <property name="cryptoAliasPassword">SomePassword</property>
+        <property name="cryptoKeyStorePassword">SomePassword</property>
+        <property name="defaultProvider">EJB</property>
+        <property name="securityRealm">SomeRealm</property-->
+        <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

@@ -1,0 +1,13 @@
+    <webservice-description>
+        <webservice-description-name><Entity></webservice-description-name>
+        <wsdl-file>WEB-INF/wsdl/<Entity>.wsdl</wsdl-file>
+        <jaxrpc-mapping-file>WEB-INF/jaxrpc-<Entity>-mapping.xml</jaxrpc-mapping-file>
+        <port-component>
+            <port-component-name><Entity>SEIPort</port-component-name>
+            <wsdl-port>${service.namespacePrefix}:<Entity>SEIPort</wsdl-port>
+            <service-endpoint-interface><Package>.<Entity>SEI</service-endpoint-interface>
+            <service-impl-bean>
+                <servlet-link><Entity></servlet-link>
+            </service-impl-bean>
+        </port-component>
+    </webservice-description>
