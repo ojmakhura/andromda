@@ -275,7 +275,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>../${build.finalName}</targetPath>
+                <targetPath>../${project.build.finalName}</targetPath>
                 <filtering>true</filtering>
             </resource>
             <resource>
