@@ -40,13 +40,15 @@
     Important: before launching AndroMDA, be sure to have exported your model.
 
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
-    RSM6 and RSM75 are supported by AndroMDA 3.4.1. To use an existing model with a generated project:
+    RSM6 and RSM75 are supported by AndroMDA 3.4-SNAPSHOT. To use an existing model with a generated project:
     - Modify mda/config/andromda.xml to point to the emx model file (only a single file is supported 
     per AndroMDA project)
     - Add a RSM pathmap entry (Preferences -> Modeling) for m2repository pointing to the maven repository directory
     - Add AndroMDA profiles to the model by browsing the maven pepository under org/andromda/profiles/emf/uml2
     - Add the AndroMDA Datatype reference to the project through Project -> Import Model Library.
     - Mark up the model with the appropriate stereotypes and generate code.
+    RSM7.x is supported by default. To use RSM6, modify the dependencies commented in
+    M2_REPO/org/andromda/maven/plugins/andromda-maven-plugin/3.4-SNAPSHOT/andromda-maven-plugin-3.4-SNAPSHOT.pom
 
 #end
     /$applicationId J2EE project
@@ -130,20 +132,27 @@
          |              your schema within this directory.
          |
 #end
-#if ($spring)
+#if ($spring || $cxf)
          +-- /core
          |     |
          |     |    The CORE module collects those resources and classes
          |     |    that use the Spring framework, optionally making
          |     |    use of Hibernate and/or EJB under the hood.
+#if ($cxf)
+         |     |    CXF uses JAXB bindings in ValueObjects created in this project.
+#end
          |     |
          |     +-- pom.xml
-         |     |        lists Spring dependencies
+         |     |        lists Spring and services dependencies
          |     +-- /src/main/java
          |     |        Spring classes that need manual implementation are
          |     |        generated here, they will not be overwritten upon
          |     |        regeneration; this includes the service, DAO and
          |     |        entity implementations
+#if ($cxf)
+         |     +-- /src/test/java
+         |     |        Test sources are generated once to this directory, for each service.
+#end
          |     +-- /target
          |              the Spring resources and classes here will be
          |              overwriten each time AndroMDA generates new code
@@ -190,6 +199,10 @@
          |     |        you might consider putting your own JSPs here to
          |     |        be copied over the generated ones when bundling the
          |     |        .war file
+#if ($cxf)
+         |     +-- /src/test/java
+         |     |        Test sources are generated once to this directory, for each web service.
+#end
          |     +-- /target
 #if ($ear)
 #if ($struts)
@@ -215,10 +228,20 @@
 #end
 #elseif ($xfire)
          |     |    classes that expose your webservices using the XFire framework
+#elseif ($cxf)
+         |     |    classes that expose your webservices using the Apache CXF framework (http://incubator.apache.org/cxf)
+#elseif ($jaxws)
+         |     |    classes that expose your webservices using Sun's Jax-WS reference implementation
 #end
          |     |
          |     +-- pom.xml
          |     |        lists any dependencies for webservices
+#if ($cxf)
+         |     +-- /WebContent
+         |     |        Web artifact directory. Contents are not overwritten each time.
+         |     +-- /src/test/java
+         |     |        Webservice client Test sources are generated once to this directory, for each service.
+#end
          |     +-- /target
          |              generated files (like the WSDLs, etc) are emitted here
          |

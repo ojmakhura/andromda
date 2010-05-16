@@ -27,9 +27,16 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
+#if ($cxf)
+        <!-- XMLBindingAnnotations dependencies -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+        </dependency>
+#end
     </dependencies>
     <build>
-        <!-- To change from default src/main/java and src/test/java - doesn't work for maven 2.0.9, need to add test dependencies>
+        <!-- To change from default src/main/java and src/test/java - doesn't work for Cobertura>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>src-test</testSourceDirectory -->
         <plugins>
