@@ -49,7 +49,8 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring</artifactId>
         </dependency>
-        <dependency>
+        <!-- Uncomment out three below if using JMS -->
+        <!--dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
         </dependency>
@@ -60,7 +61,7 @@
         <dependency>
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
-        </dependency>
+        </dependency-->
 #if($groovy)
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -94,10 +95,45 @@
             <artifactId>ehcache</artifactId>
         </dependency>
 #else
+#if ($cxf)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://galaxy.andromda.org/forum/viewtopic.php?t=5747)
+        for purpose of this fix, so that we can be compatible with the cxf webservices -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm-attrs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+#if (!$ejb)
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+#end
+#else
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
         </dependency>
+#end
 #end
 #end
         <dependency>
@@ -165,7 +201,7 @@
             <artifactId>jboss-aspect-jdk50-client</artifactId>
             <scope>provided</scope>
         </dependency>        
-#if ($jsr181Webservice)
+#if ($jsr181Webservice || $jaxws)
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jbossws-client</artifactId>
@@ -173,10 +209,38 @@
         </dependency>
 #end
 #if ($hibernate)
+#if ($cxf)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://galaxy.andromda.org/forum/viewtopic.php?t=5747)
+        for purpose of this fix, so that we can be compatible with the cxf webservices -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm-attrs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+#else
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
         </dependency>
+#end
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
@@ -318,6 +382,27 @@
             <groupId>org.codehaus.xfire</groupId>
             <artifactId>xfire-all</artifactId>
         </dependency>
+#elseif ($jaxws)
+        <dependency>
+            <groupId>com.sun.webservices</groupId>
+            <artifactId>webservices-api</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+#elseif ($cxf)
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>compile</scope>
+        </dependency>
 #end
         <dependency>
             <groupId>org.testng</groupId>
@@ -426,17 +511,17 @@
                 <filtering>false</filtering>
             </resource>
 #end
-            <resource>
-                <directory>target/src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-#if ($ejb3)
+##            <resource>
+##                <directory>target/src</directory>
+##                <excludes>
+##                    <exclude>**/*.java</exclude>
+##                </excludes>
+##            </resource>
+##if ($ejb3)
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-#end
+##end
         </resources>
 #if ($ejb3)
         <testSourceDirectory>src/test/java</testSourceDirectory>

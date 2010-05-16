@@ -7,7 +7,7 @@
         <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all -->
         <property name="cartridgeFilter">${filter}</property>
         <!-- Debug andromda processing using example log4j.xml file -->
-        <!--property name="loggingConfigurationUri">file:${applicationParentDirectory}/${applicationId}/mda/log4j.xml</property-->
+        <!--property name="loggingConfigurationUri">file:${project.basedir}/log4j.xml</property-->
     </properties>
     <!-- Server will load and validate model in the background automatically when anything changes. 
     To start server from mda directory: mvn andromda:start-server.
@@ -42,22 +42,24 @@
 #end
                     <moduleSearchLocations>
 #if ($modelType.equals("uml1.4"))
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
 						<!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
 #elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-                        <location patterns="**/*.uml2">${project.basedir}/src/main/uml</location>
-                        <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
+                        <location patterns="**/*.uml2,**/*.e*x">${project.basedir}/src/main/uml</location>
+                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
+                        <location patterns="**/${andromda.version}/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
-                        <location patterns="**/*.uml">${project.basedir}/src/main/uml</location>
-                        <location patterns="**/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <location patterns="**/*.uml,**/*.e*x">${project.basedir}/src/main/uml</location>
+                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
+                        <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
                     <!-- Can filter in/out specific model packages (in UML notation) to generate code from (default true=process all) -->
                     <!--modelPackages>
-                        <modelPackage process="false">com::wdpr::booking</modelPackage>
+                        <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
                     </modelPackages-->
                     <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
                     <!--constraints enforceAll="true">
@@ -74,17 +76,16 @@
       Except for 'profileMappingsUri', this approach did not seem to work as there is no 
       "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
       See http://galaxy.andromda.org/docs/mappings.html.
-      A default empty mda/config/mappings/JavaRSMMappings.xml is provided with the generated project.
-      It can be used to add 'PrimitiveTypes' mappings to Java datatypes used by all cartridges. --> 
+      A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
+      It can be used to customize mappings from UML to Java datatypes used by all cartridges. -->
     <mappingsSearchLocations>
         <!-- Add additional mappings files under mda/config/mappings, referenced by languageMappingsUri -->
         <location patterns="*.xml">${conf.dir}/mappings</location>
     </mappingsSearchLocations>
     <!-- To add/remove an additional cartridge to the code generation process (i.e. modeldump):
     - Add the namespace elements to andromda.xml
-    - Add the cartridge dependency (including version) to the top level pom.xml
-    - Add the dependency to mda/pom.xml 
-    - Add additional build dependencies to individual project pom.xml -->
+    - Add the cartridge dependency (including version) to mda/pom.xml
+    - Add additional build dependencies to individual project pom.xml files -->
     <namespaces>
         <!-- namespace property values used by ALL cartridges -->
         <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
@@ -123,7 +124,22 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
+#if ($cxf)
+                <!-- CXF Only - output @XmlSeeAlso annotations and java2ws for CXF 2.1 and later -->
+                <property name="cxfVersion">${cxf.version}</property>
+                <!-- Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements -->
+                <property name="xmlAttributes">true</property>
+                <!-- Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes -->
+                <property name="XMLDateAdapter"></property>
+                <property name="XMLDateTimeAdapter"></property>
+                <property name="XMLTimeAdapter"></property>
+                <!--property name="XMLIntegerAdapter"></property>
+                <property name="XMLLongAdapter"></property-->
+                <!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
+                <property name="XMLBooleanAdapter"></property>
+#else
                 <property name="xmlAttributes">false</property>
+#end
             </properties>
         </namespace>
 #if ($ejb)
@@ -172,8 +188,11 @@
                 <property name="hibernateHbm2DDLAuto">update</property>
 #if($hibernate)
                 <property name="persistenceProviderExtensions">hibernate</property>
+#elseif($kodoJpa)
+                <property name="persistenceProviderExtensions">kodoJpa</property>
+#elseif($openJpa)
+                <property name="persistenceProviderExtensions">openJpa</property>
 #end
-                <property name="enableTemplating">true</property>
                 <!-- uncomment to specify transaction manager
                 <property name="hibernateTransactionManagerLookupClass">org.hibernate.transaction.JBossTransactionManagerLookup</property>
                 -->
@@ -310,7 +329,7 @@
                 <property name="securityRealm">${application.id}</property>
                  -->
 #end
-#if ($webservice)
+#if ($webservice && !$cxf)
                 <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
 #if ($axis)
                 <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.saveAttachment(content, contentType, dime)</property>
@@ -359,13 +378,20 @@
         <namespace name="webservice">
             <properties>
                 <property name="soapStack">$soapStack</property>
-#if (!$xfire)
-                <property name="axisVersion">$axisVersion</property>
-#else
-                <property name="springVersion">$springVersion</property>
+#if ($cxf)
+                <property name="cxfVersion">${cxf.version}</property>
+                <!-- CXF Only - supports SOAP 1.1 and 1.2. Default=1.1>
+                <property name="soapVersion">1.2</property -->
 #end
+#if ($axis)
+                <property name="axisVersion">$axisVersion</property>
                 <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
                 <property name="languageMappingsUri">AxisJavaMappings</property>
+#else
+                <property name="springVersion">$springVersion</property>
+                <property name="schemaTypeMappingsUri">XmlSchema</property>
+                <property name="languageMappingsUri">Java</property>
+#end
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
@@ -381,22 +407,57 @@
 #end
 #if ($axisVersion.equals("1"))
                 <property name="wsdls">${webservice.generated.wsdl.dir}</property>
+#elseif ($jaxws || $cxf)
+                <!-- maxOccurs=unlimited is generated instead of arrayOf<> wrapper types -->
+                <property name="useArrayWrapper">false</property>
+                <property name="reverseNamespace">true</property>
+                <property name="defaultStyle">document</property>
+                <property name="defaultUse">literal</property>
+                <property name="defaultParameterStyle">wrapped</property>
+                <!--Use minOccurs=0 for elements and required=false for attributes, instead of nillable=true-->
+                <property name="makeNillable">false</property>
+                <!--WSDL imports XSD, package must be stereotyped with 'packageMap' so that xsd file is created.-->
+                <property name="importedXSD">true</property>
+                <property name="simpleBindingMode">true</property>
+                <!-- CXF XJC binding arguments, using Jaxb2 commons plugins which must be added to %JAXB_HOME%\commons directory. Suggested value:
+                     -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve -->
+                <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
+                <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
+                <property name="webserviceHost">localhost</property>
+                <property name="webservicePort">8080</property>
+                <property name="webContext">${application.id}-webservice</property>
+                <property name="servicesPath">services</property>
+                <!-- Creates default/dummy implementation for service, iterating down through parameter hierarchy -->
+                <property name="generateMethodImpl">true</property>
+                <property name="wsdls">${webservice.generated.dir}/wsdl</property>
 #else
                 <property name="wsdls">${webservice.generated.dir}</property>
 #end
                 <property name="configuration">${webservice.generated.dir}</property>
+                <property name="webservice-project">${webservice.project}</property>
                 <property name="webservice-types">${core.generated.dir}</property>
+                <property name="webservice-impl">${webservice.manual.java.dir}</property>
+                <property name="webservice-tests">${webservice.test.dir}</property>
+                <property name="core-tests">${core.manual.test.dir}</property>
+                <property name="service-impls">${core.manual.java.dir}</property>
+                <property name="jaxb-impl">${common.manual.dir}</property>
+                <property name="jaxb-gen">${common.generated.dir}</property>
             </properties>
         </namespace>
 #end
         <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-java-cartridge/namespace.html -->
         <namespace name="java">
             <properties>
-#if ($webservice && !$jsr181Webservice)
+#if ($cxf)
+                <!-- Do not create XML schema ArrayOf wrapper objects -->
+                <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
+                <!-- ValueObjects have JAXB2 XmlAttribute/XmlElement annotations -->
+                <property name="XMLBindingAnnotations">true</property>
+#elseif ($webservice && !$jsr181Webservice)
                 <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
-#end
                 <property name="XMLBindingAnnotations">false</property>
+#end
                 <property name="generateEqualPropertiesMethod">true</property>
 #if ($ejb3)
                 <!-- Comment out the enumerations outlet for the java cartridge to avoid conflict
@@ -418,13 +479,13 @@
                 <property name="defaultDateFormat">MM/dd/yyyy</property>
                 <property name="normalizeMessages">true</property>
                 <property name="forms">${web.generated.dir}</property>
-                <property name="pages">${web.generated.dir}</property>
+                <property name="pages">${web.generated.web.dir}</property>
                 <property name="actions">${web.generated.dir}</property>
                 <property name="controllers">${web.generated.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
                 <property name="decorators">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
-                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.web.dir}/WEB-INF</property>
                 <!-- uncomment to enable web tier security
                 <property name="securityRealm">${application.id}</property>
                  -->
@@ -444,13 +505,13 @@
                 <property name="viewType">facelets</property>
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.dir}</property>
-                <property name="views">${web.generated.dir}</property>
+                <property name="views">${web.generated.web.dir}</property>
                 <property name="managed-beans">${web.generated.dir}</property>
                 <property name="controllers">${web.generated.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.dir}</property>
-                <property name="configuration">${web.generated.dir}</property>
-                <property name="libraries">${web.generated.dir}</property>
+                <property name="messages">${web.generated.web.dir}</property>
+                <property name="configuration">${web.generated.web.dir}</property>
+                <property name="libraries">${web.generated.web.dir}</property>
                 <property name="application-libraries">${application.generated.dir}</property>
                 <property name="custom-resources">${web.manual.dir}</property>
                 <!-- uncomment to enable web tier security
@@ -465,7 +526,7 @@
         <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-jsf-cartridge/namespace.html -->
         <namespace name="jsf">
             <properties>
-#if ($webservice && !$jsr181Webservice)
+#if ($webservice && !$jsr181Webservice && !$cxf)
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #end
 #if ($portlet)
@@ -473,22 +534,19 @@
 #end
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.dir}</property>
-                <property name="views">${web.generated.dir}</property>
+                <property name="views">${web.generated.web.dir}</property>
                 <property name="managed-beans">${web.generated.dir}</property>
                 <property name="controllers">${web.generated.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.dir}</property>
-                <property name="configuration">${web.generated.dir}</property>
+                <property name="messages">${web.generated.web.dir}</property>
+                <property name="configuration">${web.generated.web.dir}</property>
                 <property name="custom-configuration">${web.manual.dir}/resources</property>
 #if ($ajaxLibrary.equals("icefaces"))
                 <property name="ajaxLibrary">icefaces</property>
                 <property name="portletClass">com.icesoft.faces.webapp.http.portlet.MainPortlet</property>
                 <property name="fileTypeName">com.icesoft.faces.component.inputfile.InputFile</property>
-#elseif ($ajaxLibrary.equals("trinidad"))
-                <property name="ajaxLibrary">trinidad</property>
-                <property name="useAutocompleteLookup">true</property>
 #else
-                <property name="libraries">${web.generated.dir}</property>
+                <property name="libraries">${web.generated.web.dir}</property>
 #end
                 <property name="custom-resources">${web.manual.dir}</property>
                 <!-- uncomment to enable web tier security

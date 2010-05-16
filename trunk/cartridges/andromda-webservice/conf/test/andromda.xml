@@ -45,6 +45,8 @@
         <property name="java-types">${test.output.dir}</property>
         <property name="webservice-impl">${test.output.dir}</property>
         <property name="service-impls">${test.output.dir}</property>
+        <property name="jaxb-impl">${test.output.dir}</property>
+        <property name="jaxb-gen">${test.output.dir}</property>
         <property name="axis-tests">${test.output.dir}</property>
         <property name="axis-test-impls">${test.output.dir}</property>
         <property name="wss4j-configuration">${test.output.dir}</property>

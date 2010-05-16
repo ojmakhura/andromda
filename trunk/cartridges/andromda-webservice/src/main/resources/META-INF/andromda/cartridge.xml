@@ -4,17 +4,21 @@
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
+    <property reference="generateRefFiles"/>
+    <property reference="overwriteAll"/>
     <property reference="applicationName"/>
     <property reference="wsdlSoapAddress"/>
     <property reference="securityRealm"/>
     <property reference="testServiceLocatorName"/>
     <property reference="testServiceLocatorPackage"/>
     <property reference="servicesPath"/>
+    <property reference="webContext"/>
     <property reference="ejbJndiUrl"/>
     <property reference="ejbNamingContextFactory"/>
     <property reference="sessionTimeout"/>
@@ -36,25 +40,85 @@
     <property reference="attachmentsDirectory"/>
     <property reference="toDoTag"/>
     <property reference="axisVersion"/>
+    <property reference="cxfVersion"/>
     <property reference="soapStack"/>
+    <property reference="soapVersion"/>
     <property reference="axis2WrappedMessageReceiver"/>
     <property reference="axis2DefaultMessageReceiver"/>
     <property reference="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans"/>
     <property reference="springVersion"/>
     <property reference="extensionInheritanceDisabled"/>
+    <property reference="useArrayWrapper"/>
+    <property reference="useAttributes"/>
+    <property reference="useEventLogger"/>
+    <property reference="makeNillable"/>
+    <property reference="webserviceHost"/>
+    <property reference="webservicePort"/>
+    <property reference="namespacePrefix"/>
+    <property reference="qualifiedNameLocalPartPattern"/>
+    <property reference="namespacePattern"/>
+    <property reference="reverseNamespace"/>
+    <property reference="defaultStyle"/>
+    <property reference="defaultUse"/>
+    <property reference="defaultParameterStyle"/>
+    <property reference="importedXSD"/>
+    <property reference="validateSchema"/>
+    <property reference="generateMethodImpl"/>
+    <property reference="enableAnnotations"/>
+    <property reference="generateIsBooleanGetters"/>
+    <property reference="generateChainedSetters"/>
+    <property reference="simpleBindingMode"/>
+    <property reference="xjcArguments"/>
+    <property reference="XMLDateAdapter"/>
+    <property reference="XMLDateTimeAdapter"/>
+    <property reference="XMLTimeAdapter"/>
+    <property reference="XMLBooleanAdapter"/>
+    <property reference="XMLIntegerAdapter"/>
+    <property reference="XMLDecimalAdapter"/>
+    <property reference="jaxb-gen"/>
     <!-- cartridge-property merge-point -->
 
+    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
+    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="xfire">$soapStack.equalsIgnoreCase("xfire")</condition>
     <condition name="axis">$soapStack.equalsIgnoreCase("axis")</condition>
     <condition name="axis1">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
     <condition name="axis2">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
+    <condition name="jaxws">$soapStack.equalsIgnoreCase("jaxws")</condition>
+    <condition name="cxf">$soapStack.equalsIgnoreCase("cxf")</condition>
+    <condition name="xfireRef">#if ($soapStack.equalsIgnoreCase("xfire") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axisRef">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axis1Ref">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="axis2Ref">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="jaxwsRef">#if ($soapStack.equalsIgnoreCase("jaxws") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="cxfRef">#if ($soapStack.equalsIgnoreCase("cxf") &amp;&amp; $generateRefFiles.equals("true"))true#end</condition>
+    <condition name="jbossWeb">$stringUtils.isNotBlank($securityRealm)</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
     <condition name="spring2">$springVersion.equals("2")</condition>
-    <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled</condition>
-    <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans</condition>
+    <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled.equalsIgnoreCase("true")</condition>
+    <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
+    <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
+    <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
+    <condition name="useEventLogger">$useEventLogger.equalsIgnoreCase("true")</condition>
+    <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
+    <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
+    <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>
+    <condition name="validateSchema">$validateSchema.equalsIgnoreCase("true")</condition>
+    <condition name="generateMethodImpl">$generateMethodImpl.equalsIgnoreCase("true")</condition>
+    <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
+    <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
+    <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
+    <condition name="simpleBindingMode">$simpleBindingMode.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/webservice/ibm/*.*"
+        outputPattern="WEB-INF/{0}"
+        outlet="configuration"
+        overwrite="false"
+        lastModifiedCheck="true"/>
+
     <resource
         path="resources/webservice/axis2/modules/*.mar"
         outputPattern="WEB-INF/modules/{0}"
@@ -93,11 +157,63 @@
         outputCondition="xfire"/>
 
     <template
+        path="templates/webservice/jaxws/jaxws-package-xsd.vsl"
+        outputPattern="xsd/${webServiceUtils.reversePackage($pkg.fullyQualifiedName)}.xsd"
+        outlet="wsdls"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="false">
+        <modelElements variable="pkg">
+            <modelElement stereotype="XML_SCHEMA"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/jaxws-package-xsd.vsl"
+        outputPattern="/ref/xsd/${webServiceUtils.reversePackage($pkg.fullyQualifiedName)}.xsd.ref"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="cxfRef"
+        outputToSingleFile="false">
+        <modelElements variable="pkg">
+            <modelElement stereotype="XML_SCHEMA"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/package-info.java.vsl"
+        outputPattern="$stringUtils.replace(${pkg.packageName}, '.', '/')/$stringUtils.replace(${pkg.name}, '.', '/')/package-info.java"
+        outlet="jaxb-gen"
+        overwrite="true"
+        outputCondition="cxf"
+        outputToSingleFile="false">
+        <modelElements variable="pkg">
+            <modelElement stereotype="XML_SCHEMA"/>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/webservice/configuration/web.xml.vsl"
         outputPattern="WEB-INF/web.xml"
         outlet="configuration"
-        overwrite="true"
+        overwrite="false"
         outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/configuration/web.xml.vsl"
+        outputPattern="WEB-INF/ref/web.xml.ref"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="generateRefFiles">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
@@ -112,7 +228,514 @@
         outputPattern="WEB-INF/jboss-web.xml"
         outlet="configuration"
         overwrite="true"
-        outputCondition="securityEnabled"/>
+        outputCondition="jbossWeb"/>
+
+    <!-- Apache CXF support -->
+
+    <template
+        path="templates/webservice/cxf/jaxb_bindings.xml.vsl"
+        outputPattern="bindings/{1}.xjb"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/buildWS.xml.vsl"
+        outputPattern="buildWS.xml"
+        outlet="webservice-project"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/buildWS.xml.vsl"
+        outputPattern="buildWSNew.xml"
+        outlet="webservice-project"
+        overwrite="true"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/jaxws-wsdl.vsl"
+        outputPattern="{1}.wsdl"
+        outlet="wsdls"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/jaxws-wsdl.vsl"
+        outputPattern="/ref/{1}.wsdl.ref"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="cxfRef">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/package-info.java.vsl"
+        outputPattern="$stringUtils.replace(${pkg.packageName}, '.', '/')/$stringUtils.replace(${pkg.name}, '.', '/')/package-info.java"
+        outlet="jaxb-gen"
+        overwrite="true"
+        outputCondition="cxf"
+        outputToSingleFile="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="package" variable="pkg"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceInterface.java.vsl"
+        outputPattern="{0}/{1}SEI.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceEndpoint.java.vsl"
+        outputPattern="{0}/{1}SEIImpl.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceDelegate.java.vsl"
+        outputPattern="{0}/{1}WSDelegate.java"
+        outlet="service-impls"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceDelegate.java.vsl"
+        outputPattern="{0}/{1}WSDelegate.java.ref"
+        outlet="service-impls"
+        overwrite="true"
+        outputCondition="cxfRef">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceSEIImplTest.java.vsl"
+        outputPattern="{0}/{1}SEIImplTest.java"
+        outlet="core-tests"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceSEIImplTest.java.vsl"
+        outputPattern="{0}/{1}SEIImplTest.java.ref"
+        outlet="core-tests"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/MethodResponse.java.vsl"
+        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}ResponseWrapper.java"
+        outlet="jaxb-gen"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebServiceOperation">
+                    <property name="exposed"/>
+                    <property name="service" variable="service"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/MethodRequest.java.vsl"
+        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}.java"
+        outlet="jaxb-gen"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebServiceOperation">
+                    <property name="exposed"/>
+                    <property name="service" variable="service"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceMethodImpl.java.vsl"
+        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}Impl.java"
+        outlet="service-impls"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebServiceOperation">
+                    <property name="exposed"/>
+                    <property name="service" variable="service"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceMethodImpl.java.vsl"
+        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}Impl.java.ref"
+        outlet="service-impls"
+        overwrite="true"
+        outputCondition="cxfRef">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebServiceOperation">
+                    <property name="exposed"/>
+                    <property name="service" variable="service"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/WSClient.java.vsl"
+        outputPattern="{0}/test/{1}_WSClient.java"
+        outlet="webservice-tests"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/WSClient.java.vsl"
+        outputPattern="{0}/test/{1}_WSClient.java.ref"
+        outlet="webservice-tests"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceClient.java.vsl"
+        outputPattern="{0}/{1}SEIClient.java"
+        outlet="webservice-tests"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceClient.java.vsl"
+        outputPattern="{0}/{1}SEIClient.java.ref"
+        outlet="webservice-tests"
+        overwrite="true"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/JettyServer.java.vsl"
+        outputPattern="JettyServer.java"
+        outlet="webservice-tests"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/JettyServer.java.vsl"
+        outputPattern="JettyServer.java.ref"
+        outlet="webservice-impl"
+        overwrite="true"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/WSClient.java.vsl"
+        outputPattern="{0}/test/{1}_WSClient.java.ref"
+        outlet="webservice-tests"
+        overwrite="true"
+        outputCondition="cxfRef">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/CXFTestClient.java.vsl"
+        outputPattern="{0}/test/{1}WSTest.java"
+        outlet="webservice-tests"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/CXFTestClient.java.vsl"
+        outputPattern="{0}/test/{1}WSTest.java.ref"
+        outlet="webservice-tests"
+        overwrite="true"
+        outputCondition="cxfRef">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Not needed if we use xjc:javaType jaxb customized bindings file -->
+    <!-- template
+        path="templates/webservice/cxf/Adapter1.java.vsl"
+        outputPattern="org/w3/_2001/xmlschema/Adapter1.java"
+        outlet="jaxb-impl"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template-->
+
+    <template
+        path="templates/webservice/jaxws/index.html.vsl"
+        outputPattern="index.html"
+        outlet="configuration"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/index.html.vsl"
+        outputPattern="indexNew.html"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/applicationContext-CXF.xml.vsl"
+        outputPattern="WEB-INF/applicationContext-CXF.xml"
+        outlet="configuration"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/applicationContext-CXF.xml.vsl"
+        outputPattern="WEB-INF/ref/applicationContext-CXF.xml.ref"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="cxfRef"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/cxf-client.xml.vsl"
+        outputPattern="{0}/test/cxf-client.xml"
+        outlet="webservice-tests"
+        overwrite="false"
+        outputCondition="cxf"
+        outputToSingleFile="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/cxf-client.xml.vsl"
+        outputPattern="{0}/test/cxf-client.xml.ref"
+        outlet="webservice-tests"
+        overwrite="true"
+        outputCondition="cxfRef"
+        outputToSingleFile="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jboss/jboss-web.xml.vsl"
+        outputPattern="WEB-INF/jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="cxf"/>
+        <!--outputCondition="securityEnabled"/-->
 
     <!-- XFire support -->
 
@@ -311,6 +934,21 @@
     </template>
 
     <template
+        path="templates/webservice/axis1/WebServiceTestImpl.java.vsl"
+        outputPattern="${generatedFile}.ref"
+        outlet="axis-test-impls"
+        overwrite="true"
+        outputCondition="axis1">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/webservice/axis1/AttachmentHandler.java.vsl"
         outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
         outlet="webservice-types"
@@ -337,6 +975,129 @@
         outlet="webservice-types"
         overwrite="true"
         outputCondition="axis1"/>
+
+    <!-- Sun JAX-WS support -->
+
+    <template
+        path="templates/webservice/jaxws/WebServiceEndpoint.java.vsl"
+        outputPattern="{0}/{1}SEIEndpoint.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceInterface.java.vsl"
+        outputPattern="{0}/{1}SEI.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceDelegate.java.vsl"
+        outputPattern="{0}/{1}WSDelegate.java"
+        outlet="service-impls"
+        overwrite="false"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/WebServiceDelegate.java.vsl"
+        outputPattern="{0}/{1}WSDelegate.java.ref"
+        outlet="service-impls"
+        overwrite="true"
+        outputCondition="jaxwsRef">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/configuration/sun-jaxws.xml.vsl"
+        outputPattern="WEB-INF/sun-jaxws.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="jaxws"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- template
+        path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+        outputPattern="WEB-INF/wsdl/{1}.wsdl"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template-->
+
+    <template
+        path="templates/webservice/jaxws/jaxws-wsdl.vsl"
+        outputPattern="{1}.wsdl"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jaxws/jaxws-xsd.vsl"
+        outputPattern="{1}.xsd"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="jaxws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <!-- cartridge-template merge-point -->
 

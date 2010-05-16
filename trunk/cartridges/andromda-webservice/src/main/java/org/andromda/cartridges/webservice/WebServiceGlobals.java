@@ -51,6 +51,12 @@ public class WebServiceGlobals
     public static final String WEB_SERVICE_PROVIDER = "andromda_webservice_provider";
 
     /**
+     * Service can be exposed with a different service operation name, allowing overloaded service methods.
+     * Defaults to operation.name if blank. All service names must be unique.
+     */
+    public static final String WEB_SERVICE_NAME = "andromda_webservice_operationName";
+
+    /**
      * The WSDL SOAP Address to use for the service, by default is <code>$webserviceHost:$webservicePort/$webContext/services</code>
      */
     public static final String WEB_WSDL_SOAP_ADDRESS = "andromda_webservice_wsdlSoapAddress";
@@ -115,6 +121,101 @@ public class WebServiceGlobals
      * Overrides the default Jaxb XJC arguments for this service in wsdl2java.
      */
     public static final String JAXB_XJC_ARGUMENTS = "andromda_jaxb_xjcArguments";
+
+    /**
+     * REST: Is this a REST implementation?
+     */
+    public static final String REST = "andromda_REST";
+
+    /**
+     * REST: andromda_cache_type
+     */
+    public static final String CACHE_TYPE = "andromda_cache_type";
+
+    /**
+     * REST: andromda_REST_consumes
+     */
+    public static final String REST_CONSUMES = "andromda_REST_consumes";
+
+    /**
+     * REST: andromda_REST_context
+     */
+    public static final String REST_CONTEXT = "andromda_REST_context";
+
+    /**
+     * REST: andromda_REST_http_method
+     */
+    public static final String REST_HTTP_METHOD = "andromda_REST_http_method";
+
+    /**
+     * REST: andromda_REST_path
+     */
+    public static final String REST_PATH = "andromda_REST_path";
+
+    /**
+     * REST: andromda_REST_produces
+     */
+    public static final String REST_PRODUCES = "andromda_REST_produces";
+
+    /**
+     * REST: andromda_REST_provider
+     */
+    public static final String REST_PROVIDER = "andromda_REST_provider";
+
+    /**
+     * REST: andromda_REST_request_type
+     */
+    public static final String REST_REQUEST_TYPE = "andromda_REST_request_type";
+
+    /**
+     * REST: andromda_REST_retention
+     */
+    public static final String REST_RETENTION = "andromda_REST_retention";
+
+    /**
+     * REST: andromda_REST_target
+     */
+    public static final String REST_TARGET = "andromda_REST_target";
+
+    /**
+     * REST: andromda_REST_encoded
+     */
+    public static final String REST_ENCODED = "andromda_REST_encoded";
+
+    /**
+     * REST: andromda_REST_part_type
+     */
+    public static final String REST_PART_TYPE = "andromda_REST_part_type";
+
+    /**
+     * REST: andromda_REST_roles_allowed
+     */
+    public static final String REST_ROLES_ALLOWED = "andromda_REST_roles_allowed";
+
+    /**
+     * REST: andromda_REST_suspend
+     */
+    public static final String REST_SUSPEND = "andromda_REST_suspend";
+
+    /**
+     * REST: andromda_REST_parameter_URL
+     */
+    public static final String REST_PARAMETER_URL = "andromda_REST_parameter_URL";
+
+    /**
+     * REST: andromda_REST_param_type
+     */
+    public static final String REST_PARAM_TYPE = "andromda_REST_param_type";
+
+    /**
+     * REST: andromda_REST_path_param
+     */
+    public static final String REST_PATH_PARAM = "andromda_REST_path_param";
+
+    /**
+     * REST: andromda_REST_path_segment
+     */
+    public static final String REST_PATH_SEGMENT = "andromda_REST_path_segment";
 
     /**
      * Overrides the default attribute/element output for this element.

@@ -97,7 +97,8 @@ public class WSDLEnumerationTypeLogicImpl
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)));
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
+                .booleanValue();
     }
 
     /**
@@ -144,7 +145,7 @@ public class WSDLEnumerationTypeLogicImpl
         Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property != null && String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
             try

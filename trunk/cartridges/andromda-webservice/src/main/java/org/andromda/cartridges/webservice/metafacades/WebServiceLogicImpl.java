@@ -26,6 +26,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -158,7 +159,7 @@ public class WebServiceLogicImpl
     protected String handleGetStyle()
     {
         String style = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
-        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+        if (StringUtils.isBlank(style) || style.equals(DEFAULT))
         {
             style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
         }
@@ -177,7 +178,7 @@ public class WebServiceLogicImpl
     protected String handleGetUse()
     {
         String use = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
-        if (StringUtils.isEmpty(use) || use.equals(DEFAULT))
+        if (StringUtils.isBlank(use) || use.equals(DEFAULT))
         {
             use = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_USE));
         }
@@ -355,6 +356,7 @@ public class WebServiceLogicImpl
      * Cross reference between package name and namespace abbreviation, used to annotate foreign schema elements
      */
     private Map packageAbbr = new TreeMap();
+    private static final String EMPTY_STRING = "";
 
     /**
      * Get a unique list of packages populated from the results of GetTypeMappingElements
@@ -367,7 +369,7 @@ public class WebServiceLogicImpl
             this.elementSet = (TreeSet)handleGetTypeMappingElements();
         }
         setPkgAbbr(this.elementSet);
-        String pkgList = "";
+        String pkgList = EMPTY_STRING;
         for (final Iterator iterator = this.packageAbbr.keySet().iterator(); iterator.hasNext();)
         {
             pkgList += iterator.next() + ", ";
@@ -381,9 +383,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetPkgAbbr(String pkgName)
     {
-        if (StringUtils.isEmpty(pkgName) || pkgName.length()<1)
+        if (StringUtils.isBlank(pkgName) || pkgName.length()<1)
         {
-            return "";
+            return EMPTY_STRING;
         }
         if (this.elementSet == null || this.elementSet.size()<1)
         {
@@ -394,7 +396,7 @@ public class WebServiceLogicImpl
             setPkgAbbr(this.elementSet);
         }
         String rtn = (String)this.packageAbbr.get(pkgName);
-        if (StringUtils.isEmpty(rtn))
+        if (StringUtils.isBlank(rtn))
         {
             // Package reference was never added originally - needs to be fixed
             int namespaceCount = this.packageAbbr.size();
@@ -761,7 +763,7 @@ public class WebServiceLogicImpl
     protected String handleGetProvider()
     {
         String provider = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
-        if (StringUtils.isEmpty(provider) || provider.equals(DEFAULT))
+        if (StringUtils.isBlank(provider) || provider.equals(DEFAULT))
         {
             provider = (String)this.getConfiguredProperty("defaultProvider");
         }
@@ -901,7 +903,7 @@ public class WebServiceLogicImpl
      */
     protected boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE)));
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue();
     }
 
     /**
@@ -1277,7 +1279,7 @@ public class WebServiceLogicImpl
      * @return packages from this.getAllowedOperations()
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackages(WebServiceLogicImpl, Set, boolean)
      */
-    public Collection<WebServicePackageLogic> getPackages() {
+    public Collection<PackageFacade> getPackages() {
         return new WebServiceUtils().getPackages(this, (Set) this.getAllowedOperations(), true);
     }
 
@@ -1286,7 +1288,7 @@ public class WebServiceLogicImpl
      * @return WebServiceUtils().getPkgAbbr(pkg)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl#getPkgAbbr(WebServicePackageLogic)
      */
-    public String getPkgAbbr(WebServicePackageLogic pkg) {
+    public String getPkgAbbr(PackageFacade pkg) {
         return new WebServiceUtils().getPkgAbbr(pkg);
     }
 
@@ -1294,18 +1296,20 @@ public class WebServiceLogicImpl
      * The property defining if the web service XML should be validated against the wsdl/xsd schema.
      */
     private static final String PROPERTY_SCHEMA_VALIDATION = "schemaValidation";
+    private static final String BOOLEAN_FALSE = "false";
+    private static final String BOOLEAN_TRUE = "true";
 
     @Override
     protected boolean handleIsSchemaValidation()
     {
         String mode = (String)this.findTaggedValue(WebServiceGlobals.XML_SCHEMA_VALIDATION);
-        if (StringUtils.isEmpty(mode) || mode.equals(DEFAULT))
+        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
         {
             mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SCHEMA_VALIDATION));
         }
-        if (StringUtils.isEmpty(mode) || mode.equals(DEFAULT))
+        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
         {
-            mode = "false";
+            mode = BOOLEAN_FALSE;
         }
         return Boolean.parseBoolean(mode);
     }
@@ -1319,7 +1323,7 @@ public class WebServiceLogicImpl
     protected boolean handleIsSimpleBindingMode()
     {
         String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_SIMPLE_BINDING_MODE);
-        if (StringUtils.isEmpty(mode) || mode.equals(DEFAULT))
+        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
         {
             mode = String.valueOf(this.getConfiguredProperty(PROPERTY_SIMPLE_BINDING_MODE));
         }
@@ -1328,17 +1332,224 @@ public class WebServiceLogicImpl
 
     /**
      * The property defining the Jaxb XJC arguments used with wsdl2java utility.
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getSchemaMappings()
      */
     private static final String PROPERTY_XJC_ARGUMENTS = "xjcArguments";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getXjcArguments()
+     */
     @Override
     protected String handleGetXjcArguments()
     {
         String mode = (String)this.findTaggedValue(WebServiceGlobals.JAXB_XJC_ARGUMENTS);
-        if (StringUtils.isEmpty(mode) || mode.equals(DEFAULT))
+        if (StringUtils.isBlank(mode) || mode.equals(DEFAULT))
         {
             mode = String.valueOf(this.getConfiguredProperty(PROPERTY_XJC_ARGUMENTS));
         }
         return mode;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestCacheType()
+     */
+    @Override
+    protected String handleGetRestCacheType()
+    {
+        String cacheType = (String)this.findTaggedValue(WebServiceGlobals.CACHE_TYPE);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(cacheType) || cacheType.equals(DEFAULT))
+        {
+            cacheType = EMPTY_STRING;
+        }
+        return cacheType;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestConsumes()
+     */
+    @Override
+    protected String handleGetRestConsumes()
+    {
+        String consumes = (String)this.findTaggedValue(WebServiceGlobals.REST_CONSUMES);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(consumes) || consumes.equals(DEFAULT))
+        {
+            consumes = EMPTY_STRING;
+        }
+        else
+        {
+            consumes = WebServiceOperationLogicImpl.translateMediaType(consumes);
+        }
+        return consumes;
+    }
+
+    /**
+     * Contexts should be in the form fullyqualifiedclassname variable
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestContexts()
+     */
+    @Override
+    protected List<String> handleGetRestContexts()
+    {
+        List<String> contexts = new ArrayList<String>();
+        String context = (String)this.findTaggedValue(WebServiceGlobals.REST_CONTEXT);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))
+        {
+            context = EMPTY_STRING;
+        }
+        else
+        {
+            // Parse comma/pipe/semicolon delimited elements into ArrayList
+            String[] parsed = StringUtils.split(context, ",;|");
+            for (int i=0; i<parsed.length; i++)
+            {
+                contexts.add(parsed[i]);
+            }
+        }
+        return contexts;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestMethod()
+     */
+    @Override
+    protected String handleGetRestMethod()
+    {
+        String method = (String)this.findTaggedValue(WebServiceGlobals.REST_HTTP_METHOD);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(method) || method.equals(DEFAULT))
+        {
+            method = EMPTY_STRING;
+        }
+        return method;
+    }
+
+    private static final String SLASH = "/";
+    private static final String QUOTE = "\"";
+    //private static final String LBRACKET = "{";
+    //private static final String RBRACKET = "}";
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestPath()
+     */
+    @Override
+    protected String handleGetRestPath()
+    {
+        String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
+        if (StringUtils.isBlank(path))
+        {
+            path = EMPTY_STRING;
+        }
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(path) || path.equals(DEFAULT))
+        {
+            path = QUOTE + SLASH + this.getName().toLowerCase() + SLASH + QUOTE;
+        }
+        else
+        {
+            if (!path.startsWith(QUOTE))
+            {
+                path = QUOTE + path;
+            }
+            if (!path.endsWith(QUOTE) || path.length()<2)
+            {
+                path = path + QUOTE;
+            }
+        }
+        return path;
+    }
+
+    //private static final String PRODUCE_DEFAULT = "application/xml";
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestProduces()
+     */
+    @Override
+    protected String handleGetRestProduces()
+    {
+        return WebServiceOperationLogicImpl.translateMediaType((String)this.findTaggedValue(WebServiceGlobals.REST_PRODUCES));
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestProvider()
+     */
+    @Override
+    protected String handleGetRestProvider()
+    {
+        String provider = (String)this.findTaggedValue(WebServiceGlobals.REST_PROVIDER);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(provider) || provider.equals(DEFAULT))
+        {
+            provider = EMPTY_STRING;
+        }
+        return provider;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestRetention()
+     */
+    @Override
+    protected String handleGetRestRetention()
+    {
+        String retention = (String)this.findTaggedValue(WebServiceGlobals.REST_RETENTION);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(retention) || retention.equals(DEFAULT))
+        {
+            retention = EMPTY_STRING;
+        }
+        return retention;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#getRestTarget()
+     */
+    @Override
+    protected String handleGetRestTarget()
+    {
+        String target = (String)this.findTaggedValue(WebServiceGlobals.REST_TARGET);
+        if (!(this.getRestCount()>0) || StringUtils.isBlank(target) || target.equals(DEFAULT))
+        {
+            target = EMPTY_STRING;
+        }
+        return target;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     */
+    @Override
+    protected boolean handleIsRestAtom()
+    {
+        boolean restAtom = false;
+        if (this.getRestCount()>0)
+        {
+            Collection<WebServiceOperation> operations = this.getAllowedOperations();
+            Iterator<WebServiceOperation> operationIt = operations.iterator();
+            while (operationIt.hasNext())
+            {
+                WebServiceOperation operation = operationIt.next();
+                String restProduces = operation.getRestProduces();
+                if (StringUtils.isNotEmpty(restProduces) && restProduces.contains("atom"))
+                {
+                    restAtom = true;
+                    break;
+                }
+            }
+            if (!restAtom)
+            {
+                restAtom = StringUtils.isNotEmpty(this.getRestProduces()) && this.getRestProduces().indexOf("atom") > -1;
+            }
+        }
+        return restAtom;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     */
+    @Override
+    protected int handleGetRestCount()
+    {
+        int restCount = 0;
+        String rest = (String)this.findTaggedValue(WebServiceGlobals.REST);
+        for (WebServiceOperation operation : this.getAllowedOperations())
+        {
+            if (StringUtils.isNotBlank(rest) && (operation.isRest() || rest.equals(BOOLEAN_TRUE)))
+            {
+                restCount++;
+            }
+        }
+        return restCount;
     }
 }

@@ -26,6 +26,116 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Axis2 Dependencies -->
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>annogen</groupId>
+            <artifactId>annogen</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-api</artifactId>
+            <version>1.2.7</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-impl</artifactId>
+            <version>1.2.7</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-dom</artifactId>
+            <version>1.2.4</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>backport-util-concurrent</groupId>
+            <artifactId>backport-util-concurrent</artifactId>
+            <version>2.2</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>httpcomponents-httpcore</groupId>
+            <artifactId>jakarta-httpcore</artifactId>
+            <version>4.0-alpha4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jms_1.1_spec</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.neethi</groupId>
+            <artifactId>neethi</artifactId>
+            <version>2.0.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Conflicts with parser from JDK 6 -->
+        <dependency>
+            <groupId>stax</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.woden</groupId>
+            <artifactId>woden</artifactId>
+            <version>1.0-incubating-M7a</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.schema</groupId>
+            <artifactId>XmlSchema</artifactId>
+            <version>1.4.2</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>woodstox</groupId>
+            <artifactId>wstx-asl</artifactId>
+            <version>3.2.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -43,6 +153,22 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <!--executions>
+                    <execution>
+                        <id>cxf-uml2</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <actualDirectory>${project.build.directory}/cartridge-test/actualUML2</actualDirectory>
+                            <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML2</expectedDirectory>
+                            <expectedOutputArchive>${basedir}/src/test/expected/cartridge-outputCXF.zip</expectedOutputArchive>
+                            <configurationUri>file:${basedir}/conf/test/CXFandromdaUML2.xml</configurationUri>
+                            <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
+                        </configuration>
+                    </execution>
+                </executions-->
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -51,6 +177,9 @@
         </plugins>
     </build>
     <properties>
+        <!--uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
+        <uml2.model.uri>file:${src.dir}/uml2/WebServiceMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/WebServiceCartridgeTestModel.uml</uml2.test.model.uri-->
         <model.uri>jar:file:${src.dir}/uml/WebServiceMetafacadeModel.xml.zip!/WebServiceMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</test.model.uri>
     </properties>

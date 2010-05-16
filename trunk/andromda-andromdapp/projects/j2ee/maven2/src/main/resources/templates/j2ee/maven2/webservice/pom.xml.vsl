@@ -10,6 +10,113 @@
     <artifactId>${applicationId}-webservice</artifactId>
     <packaging>war</packaging>
     <name>${applicationName} Web Services</name>
+#if ($jaxws)
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.webservices</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.1.2</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.webservices</groupId>
+            <artifactId>webservices-tools</artifactId>
+            <version>2.1.2</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+#elseif ($cxf)
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <!-- Depending on your requirements you may need to exclude some dependencies from cxf, spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+            <exclusions>
+            <!-- Spring components cause classloader issue with Jetty test, just include spring bundle -->
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context-support</artifactId>
+                </exclusion>
+#if ($spring)
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-pool</artifactId>
+                </exclusion>
+#end
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Jetty is needed for building/testing the CXFServlet (creates geronimo dependencies) -->
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- If using Websphere or IBM JVM, uncomment JAXP dependencies >
+        <dependency>
+            <groupId>com.sun.xml</groupId>
+            <artifactId>jaxp-ri</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxp-api</artifactId>
+            <version>1.4.2</version>
+        </dependency> -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${applicationId}-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${applicationId}-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+#end
     <build>
         <!-- Change from default src/main/java and src/test/java>
         <sourceDirectory>src</sourceDirectory>
@@ -23,9 +130,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warSourceDirectory>target/src</warSourceDirectory>
+                    <warSourceDirectory>target/src/main/java</warSourceDirectory>
+                    <warName>${applicationId}-webservice</warName>
+#if ($cxf)
+                    <!-- Default for maven is src/main/webapp. WebContent is Eclipse convention. -->
+                    <webappDirectory>WebContent</webappDirectory>
+#end
                     <excludes>**/*.java</excludes>
-                    <!-- Even though these dependencies are 'provided', they are still bundled with the war file. Modify as necessary. -->
+                    <!-- Even though these dependencies are 'provided', they are still bundled with the war file. Modify as necessary.
+                         Exclude everything not already included in the EAR. -->
                     <packagingExcludes>**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache.jar,**/geronimo-servlet*.jar,**/geronimo-jms*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/qdox*.jar,**/spring-2.0.8.jar,**/xalan*.jar,**/xml-api*.jar,**/xmlbean*.jar,**/xmlsec*.jar</packagingExcludes>
                 </configuration>
             </plugin>
