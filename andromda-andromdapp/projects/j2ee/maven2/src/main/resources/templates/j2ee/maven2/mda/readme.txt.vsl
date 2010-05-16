@@ -163,7 +163,7 @@
          |     |
          |     +-- pom.xml
          |     |        lists CXF dependencies
-         |     +-- /src
+         |     +-- /src/main/java
          |     |        Boundary classes that need manual implementation are
          |     |        generated here, they will not be overwritten upon
          |     |        regeneration; this includes 
@@ -184,7 +184,7 @@
          |     |    potential problems with the generated code if the java <-> wsdl process
          |     |    is not bidirectional
          |     |
-         |     +-- /target/src-gen
+         |     +-- /target/src/main/java
          |     |        Generated java classes from the wsdl
          |     +-- /WebContent
          |              Web context root directory, containing META-INF, WEb-INF, and wsdl
@@ -303,6 +303,10 @@
         %> mvn install -Dmaven.test.failure.ignore=true
 
             builds all modules and run all automatic tests but does not stop if a test failure
+
+        %> mvn install -fae
+
+            builds all modules and run all automatic tests, reports all failures at the end
 
 #if ($ear)
         %> mvn -f app/pom.xml -Ddeploy

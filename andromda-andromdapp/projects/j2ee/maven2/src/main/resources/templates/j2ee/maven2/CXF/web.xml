@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>CXF webservice Client</display-name>
+  <!-- context-param merge-point -->
+  <!-- filter merge-point -->
+  <!-- filter-mapping merge-point -->
+  <!-- Spring context Configuration file. Default is WEB-INF/applicationContext.xml -->
+  <!-- listener merge-point -->
+  <!-- servlet merge-point -->
+  <!-- servlet-mapping merge-point -->
+  <!-- mime-mapping merge-point -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <!-- welcome-file merge-point -->
+  </welcome-file-list>
+  <!-- error-page merge-point -->
+</web-app>

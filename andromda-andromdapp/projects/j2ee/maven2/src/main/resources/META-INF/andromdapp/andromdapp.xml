@@ -30,16 +30,22 @@
         <conditions type="and">
            <condition id="webservice" equal="true"/>
             <condition id="jsr181Webservice" notEqual="true"/>
-            <condition id="ear" equal="true"/>
+            <!--condition id="ear" equal="true"/-->
             <output patterns="**/*">webservice/</output>
         </conditions>
         <conditions>
+            <condition id="soapStack" equal="cxf"/>
+            <output patterns="**/*">CXF/</output>
+        </conditions>
+        <conditions type="and">
             <condition id="war" equal="true"/>
+            <condition id="soapStack" notEqual="cxf"/>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
             <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
         </conditions>
-        <conditions>
+        <conditions type="and">
             <condition id="ear" equal="true"/>
+            <condition id="soapStack" notEqual="cxf"/>
             <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
         </conditions>
         <conditions type="or">
@@ -94,8 +100,9 @@
             <condition id="configurationUri" present="false"/>
             <output>mda/src/main/config/andromda.xml</output>
         </conditions>
-        <conditions>
+        <conditions type="or">
             <condition id="transactionPersistenceType" notEqual="none"/>
+            <condition id="soapStack" equal="cxf"/>
             <output patterns="**/*">core</output>
         </conditions>
     </conditionalOutput>
@@ -254,6 +261,24 @@ rsm6 or rsm7 for .emx files)</text>
                     <response>none</response>
                 </responses>
             </prompt>
+            <!--prompt id="ejb3Persistence" setResponseAsTrue="true">
+                <text>Please enter the ejb3 persistence cartridge to use (enter hibernate, openJpa, kodoJpa, or topLink)</text>
+                <shortText>EJB2 JPA version</shortText>
+                <preconditions>
+                    <condition id="transactionPersistenceType" equal="ejb3"/>
+                </preconditions>
+                <responses>
+                    <response>hibernate</response>
+                    <response>kodoJpa</response>
+                    <response>openJpa</response>
+                    <response>topLink</response>
+                </responses>
+                <conditions>
+                    <condition equal="kodoJpa">
+                        <setProperty id="kodoJpaVersion">4</setProperty>
+                    </condition>
+                </conditions>
+            </prompt-->
             <prompt id="springVersion">
                 <text>Please enter the Spring version to use (enter '1' for 1.x or '2' for 2.x)</text>
                 <shortText>Spring Framework version</shortText>
@@ -427,7 +452,7 @@ rsm6 or rsm7 for .emx files)</text>
                 </responses>
             </prompt>
             <prompt id="soapStack"  setResponseAsTrue="true">
-                <text>Would you like to use Axis or XFire as your SOAP Stack?</text>
+                <text>Would you like to use Axis, XFire, CXF, or Sun's Jax-WS as your SOAP Stack?</text>
                 <shortText>SOAP stack</shortText>
                 <preconditions type="and">
                     <condition id="webservice" equal="true"/>
@@ -436,6 +461,8 @@ rsm6 or rsm7 for .emx files)</text>
                 <responses>
                     <response>axis</response>
                     <response>xfire</response>
+                    <response>cxf</response>
+                    <response>jaxws</response>
                 </responses>
             </prompt>
             <prompt id="axisVersion">
@@ -447,6 +474,25 @@ rsm6 or rsm7 for .emx files)</text>
                 <responses>
                     <response>1</response>
                     <response>2</response>
+                </responses>
+            </prompt>
+            <prompt id="rest">
+                <text>What is your JAX-WS REST provider/consumer media type? 
+(none for JAX-WS only, xml for JAX-RS only, or appxml, json, atom, plain, multipart, fastinfoset, yaml)</text>
+                <shortText>REST Media type</shortText>
+                <preconditions>
+                    <condition id="soapStack" equal="cxf"/>
+                </preconditions>
+                <responses>
+                    <response>none</response>
+                    <response>xml</response>
+                    <response>appxml</response>
+                    <response>json</response>
+                    <response>atom</response>
+                    <response>plain</response>
+                    <response>fastinfoset</response>
+                    <response>yaml</response>
+                    <response>multipart</response>
                 </responses>
             </prompt>
         </promptGroup>
