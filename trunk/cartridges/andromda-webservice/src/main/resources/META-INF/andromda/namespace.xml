@@ -21,17 +21,19 @@
             <property name="wsdls">
                 <documentation>
                     Specifies the directory to which generated WSDL's will be placed.
+                     Normally webservice/src/WEB-INF/wsdl or webservice/WebContent/WEB-INF/wsdl (for CXF).
                 </documentation>
             </property>
             <property name="java-types">
                 <documentation>
                     The directory to which any non implementation Java files will be generated.
+                    Normally common/target/src/main/java
                 </documentation>
             </property>
             <property name="configuration">
                 <documentation>
                     The directory to which any configuration files
-                    are generated (such as the web.xml, etc).
+                    are generated (such as the web.xml, etc). Normally webservice/src/WEB-INF or webservice/WebContent/WEB-INF (for CXF).
                 </documentation>
             </property>
             <property name="axis-tests" required="false">
@@ -50,32 +52,53 @@
                     specific configuration files are generated.
                 </documentation>
             </property>
+            <property name="webservice-project">
+                <documentation>
+                    The webservice maven project directory, where buildWS ant scripts will be created and run.
+                </documentation>
+            </property>
             <property name="webservice-types">
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
-                    for example).
+                    for example). Normally core/src/main/java.
+                </documentation>
+            </property>
+            <property name="webservice-tests">
+                <documentation>
+                    The directory to which webservice tests will be generated, so that they can be run as part of the maven test phases.
+                    Normally webservice/src/test/java. Output is only generated once. Testing requires a running Jetty server.
                 </documentation>
             </property>
             <property name="webservice-impl">
                 <documentation>
                     The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
-                    for example).
+                    for example). Normally webservice/src/main/java.
+                </documentation>
+            </property>
+            <property name="core-tests">
+                <documentation>
+                    The directory to which webservice impl tests will be generated (in the core project), 
+                    so that they can be run as part of the maven test phases.
+                    Normally core/src/test/java. Output is only generated once.
                 </documentation>
             </property>
             <property name="service-impls">
                 <documentation>
                     The directory to which any service implementation classes will be generated.
+                    Normally core/src/main/java.
                 </documentation>
             </property>
             <property name="jaxb-impl">
                 <documentation>
                     The directory to which customized JAXB implementation classes will be generated (i.e. Adapter).
+                    Normally common/src/main/java.
                 </documentation>
             </property>
             <property name="jaxb-gen">
                 <documentation>
                     The directory to which JAXB generated classes will be generated (i.e. package-info, ObjectFactory),
                     and to which CXF client generated classes will be copied.
+                    Normally common/target/src/main/java.
                 </documentation>
             </property>
         </propertyGroup>
@@ -370,7 +393,7 @@
                 </documentation>
             </property>
             <property name="servicesPath">
-                <default>/services</default>
+                <default>services</default>
                 <documentation>
                     The path to the location of the services (relative to the web application context).
                 </documentation>
@@ -378,7 +401,7 @@
             <property name="webContext">
                 <default>webservice</default>
                 <documentation>
-                    The web application context path http://host:port/webContext/servicesPath/ServiceName.
+                    The web application context path http://$host:$port/$webContext/$servicesPath/ServiceName.
                 </documentation>
             </property>
             <property name="ejbJndiUrl" required="false">
@@ -540,7 +563,7 @@
                 </documentation>
             </property>
             <property name="XMLDateAdapter">
-                <default>com.disney.jaxb.adapter.XSDateAdapter</default>
+                <default></default>
                 <documentation>
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
                     Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
@@ -549,7 +572,7 @@
                 </documentation>
             </property>
             <property name="XMLDateTimeAdapter">
-                <default>com.disney.jaxb.adapter.XSDateTimeAdapter</default>
+                <default></default>
                 <documentation>
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
                     Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
@@ -558,7 +581,7 @@
                 </documentation>
             </property>
             <property name="XMLTimeAdapter">
-                <default>com.disney.jaxb.adapter.XSTimeAdapter</default>
+                <default></default>
                 <documentation>
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
                     Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
@@ -572,7 +595,7 @@
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Boolean&lt;.
                     Handles parse/print of customized String formats. Outputs Boolean instead of boolean.
                     Primitive boolean can cause issues with XML return values.
-                    Example: com.disney.jaxb.adapter.BooleanAdapter. Can be customized for individual attributes through
+                    Can be customized for individual attributes through
                     XmlAdapter stereotype.
                 </documentation>
             </property>
@@ -581,7 +604,7 @@
                 <documentation>
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Integer&lt;.
                     Handles parse/print of customized String formats. Outputs Integer instead of BigInteger.
-                    Example: com.disney.jaxb.adapter.IntegerAdapter. Can be customized for individual attributes through
+                    Can be customized for individual attributes through
                     XmlAdapter stereotype.
                 </documentation>
             </property>
@@ -590,7 +613,7 @@
                 <documentation>
                     Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Decimal&lt;.
                     Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
-                    Example: com.disney.jaxb.adapter.LongAdapter. Can be customized for individual attributes through
+                    Can be customized for individual attributes through
                     XmlAdapter stereotype.
                 </documentation>
             </property>
