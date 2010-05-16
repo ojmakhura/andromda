@@ -170,6 +170,34 @@
             <scope>runtime</scope>
         </dependency>
 #end
+#if ($cxf)
+        <!-- Need to reference the classpath for ant in wsdl2java java2ws -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+        </dependency>
+        <!-- Contains xjc plugins to customize cxf/jaxb2 generated code, see https://jaxb2-commons.dev.java.net/ -->
+        <!-- If put in compile classpath, the xjc plugins are not added to ant maven.compile.classpath -->
+        <dependency>
+            <groupId>org.andromda.thirdparty.jaxb-commons</groupId>
+            <artifactId>jaxb-commons</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-xjc-dv</artifactId>
+            <version>${cxf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-xjc-ts</artifactId>
+            <version>${cxf.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
     </dependencies>
     <build>
         <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
@@ -184,16 +212,112 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
 #if ($stringUtils.isNotBlank($configurationUri))
-                <configuration>
                     <configurationUri>$configurationUri</configurationUri>
-                </configuration>
 #else
-                <configuration>
                     <configurationUri>${project.basedir}/src/main/config/andromda.xml</configurationUri>
-                </configuration>
 #end
+                    <!-- Check model dates vs output file dates from previous gen, skip if files are later -->
+                    <lastModifiedCheck>true</lastModifiedCheck>
+                </configuration>
             </plugin>           
+#if ($cxf)
+            <!-- Clean any Impl files that should be overwritten each time -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>..</directory>
+                            <!-- Modify as necessary to customize for this project -->
+                            <includes>
+                                <include>*.exc</include>
+                                <include>*.log</include>
+                                <include>**/*.class</include>
+                                <include>**/*.ref</include>
+                                <include>CXF/**/WEB-INF/wsdl/**</include>
+                                <include>webservice/**/*.wsdl</include>
+                                <include>webservice/**/*.xsd</include>
+                                <include>webservice/**/*.xjb</include>
+                                <!--include>webservice/**/web*.xml</include>
+                                <include>webservice/**/applicationContext*.xml</include-->
+                                <include>webservice/**/index*.html</include>
+                            </includes>
+                            <excludes>
+                                <exclude>CXF/WebContent/WEB-INF/*.xml</exclude>
+                            </excludes>
+                            <followSymlinks>true</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws and copies ObjectFactory etc to andromda projects -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.3</version>
+              <executions>
+                <!-- Clean the implementation code and WSDL code also, during mvn clean>
+                <execution>
+                  <id>clean</id>
+                  <phase>clean</phase>
+                  <configuration>
+                    <tasks>
+                        <echo message="andromda.project is ${andromda.project}"/>
+                        <echo message="project.parent.basedir is ${project.parent.basedir}"/>
+                        <property name="andromda.project" value="${andromda.project}"/>
+                        <property name="project" value="${project.basedir}/.."/>
+                        <property name="build.compiler" value="extJavac"/>
+                        <ant antfile="${project.basedir}/build.xml">
+                            <target name="clean"/>
+                        </ant>
+                        <ant antfile="${project.basedir}/build.xml">
+                            <target name="cleanWSDL"/>
+                        </ant>
+                        <ant antfile="${project.basedir}/build.xml">
+                            <target name="cleanImpl"/>
+                        </ant>
+                    </tasks>
+                  </configuration>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution -->
+                <!-- Generated ant script runs wsdl2java and java2ws for each service -->
+                <execution>
+                  <id>buildWS</id>
+                  <phase>generate-sources</phase>
+                  <configuration>
+                    <tasks>
+                        <echo message="andromda.project is ${andromda.project}"/>
+                        <property name="build.compiler" value="extJavac"/>
+                        <property name="andromda.project" value="${andromda.project}"/>
+                        <property name="project" value="${project.basedir}/.."/>
+                        <property name="compile_classpath" refid="maven.compile.classpath"/>
+                        <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                        <property name="test_classpath" refid="maven.test.classpath"/>
+                        <ant antfile="${project.basedir}/../webservice/buildWSNew.xml">
+                            <target name="wsgenall"/>
+                        </ant>
+                    </tasks>
+                  </configuration>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <dependencies>
+                  <!-- Ant optional tasks are not included by default, very annoying -->
+                  <dependency>
+                      <groupId>org.apache.ant</groupId>
+                      <artifactId>ant-nodeps</artifactId>
+                      <version>1.7.1</version>
+                  </dependency>
+              </dependencies>
+            </plugin>
+#end
         </plugins>
     </build>
     <properties>
@@ -215,43 +339,52 @@
 #end
         <filter></filter>
         <validation>true</validation>
+        <!-- ant script location for temp copy of resources -->
+        <andromda.project>${project.basedir}/..</andromda.project>
         <conf.dir>${project.basedir}/src/main/config</conf.dir>
         <!-- cartridge output locations -->
-        <core.generated.dir>${project.basedir}/../core/target/src</core.generated.dir>
+        <common.generated.dir>${project.basedir}/../common/target/src/main/java</common.generated.dir>
+        <common.manual.dir>${project.basedir}/../common/src/main/java</common.manual.dir>
+        <core.generated.dir>${project.basedir}/../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
         <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
 #if ($groovy)
         <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end
-#if ($ejb3)
+#if ($ejb3 || $cxf)
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
-        <core.generated.test.dir>${project.basedir}/../core/target/src</core.generated.test.dir>
+        <core.generated.test.dir>${project.basedir}/../core/target/src/main/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
+#if ($war || $web)
         <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
         <web.generated.web.dir>${project.basedir}/../web</web.generated.web.dir>
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
+#end
 #if ($workflow)
-        <workflow.generated.dir>${project.basedir}/../workflow/target/src</workflow.generated.dir>
+        <workflow.generated.dir>${project.basedir}/../workflow/target/src/main/java</workflow.generated.dir>
         <workflow.manual.dir>${project.basedir}/../workflow/src/main</workflow.manual.dir>
 #end
 #if ($webservice && !$jsr181Webservice)
-#if ($war)
+        <webservice.project>${project.basedir}/../webservice</webservice.project>
+#if ($cxf)
+        <webservice.generated.dir>${project.basedir}/../webservice/WebContent</webservice.generated.dir>
+#elseif ($war)
         <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #else
         <webservice.generated.dir>${project.basedir}/../webservice/target/src</webservice.generated.dir>
 #end
-        <webservice.manual.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.dir>
         <webservice.manual.java.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.java.dir> 
 #if ($axisVersion.equals("1"))
         <webservice.generated.wsdl.dir>${webservice.generated.dir}/WEB-INF/classes</webservice.generated.wsdl.dir>
 #end
-        <webservice.host>${project.basedir}localhost</webservice.host>
-        <webservice.port>${project.basedir}8080</webservice.port>
+#if ($cxf)
+        <webservice.test.dir>${project.basedir}/../webservice/src/test/java</webservice.test.dir>
 #end
-        <common.generated.dir>${project.basedir}/../common/target/src</common.generated.dir>
-        <common.manual.dir>${project.basedir}/../common/src</common.manual.dir>      
+        <webservice.host>localhost</webservice.host>
+        <webservice.port>8080</webservice.port>
+#end
 #if ($ejb3)
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
         <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>

@@ -173,6 +173,7 @@ public class WSDLTypeLogicImpl
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)));
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
+                .booleanValue();
     }
 }

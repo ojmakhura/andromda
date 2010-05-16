@@ -25,11 +25,32 @@
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Primitive$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.eclipse.uml2.impl.ClassImpl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.eclipse.uml2.impl.DataTypeImpl"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PrimitiveTypeImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.DataTypeImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl"/>
+    </metafacade>
+    <!--metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassifierImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.EnumerationImpl"/>
+    </metafacade-->
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping>
             <stereotype>ENUMERATION</stereotype>
@@ -56,6 +77,9 @@
             <stereotype>WEBSERVICE_OPERATION</stereotype>
         </mapping>
         <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServicePackageLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
         <mapping>
