@@ -8,6 +8,18 @@
     <version>$applicationVersion</version>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
+    <scm>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <url></url>
+    </scm>
+    <organization>
+        <name></name>
+        <url></url>
+    </organization>
+    <ciManagement>
+        <system></system>
+    </ciManagement>
     <developers>
         <developer>
             <id></id>
@@ -156,7 +168,20 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
                 <version>${andromda.version}</version>
+                <scope>runtime</scope>
                 <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -216,7 +241,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.8.1</version>
+                <version>1.8.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -226,12 +251,12 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.3</version>
+                <version>1.4</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -315,7 +340,7 @@
                 <version>4.0.5-GA</version>
                 <scope>runtime</scope>
             </dependency>
-#if ($jsr181Webservice)
+#if ($jsr181Webservice || $jaxws)
             <!-- Webservice JBossWS Dependencies -->
             <dependency>
                 <groupId>org.jboss</groupId>
@@ -435,7 +460,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-#else
+#elseif ($spring || $hibernate)
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
@@ -465,7 +490,7 @@
                 <version>${spring.version}</version>
 #end
             </dependency>
-            <!-- Comment out three below if not using JMS -->
+            <!-- Uncomment out three below if using JMS>
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-core</artifactId>
@@ -482,7 +507,7 @@
                 <groupId>aopalliance</groupId>
                 <artifactId>aopalliance</artifactId>
                 <version>1.0</version>
-            </dependency>
+            </dependency -->
 #end
 #if ($workflow)
             <dependency>
@@ -778,17 +803,33 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+#elseif ($jaxws)
+            <!-- Add Sun Jax-WS compile and runtime dependencies here -->
+            <!--dependency>
+                <groupId>org.codehaus.xfire</groupId>
+                <artifactId>xfire-all</artifactId>
+                <version>1.2.5</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xmlParserAPIs</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency-->
 #end
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.7</version>
+#if (!$ejb && !$cxf)
                 <scope>test</scope>
+#end
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.14</version>
+                <version>1.2.16</version>
                 <!--scope>test</scope-->
             </dependency>
 #if ($ejb3)
@@ -814,6 +855,90 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>5.0.4</version>
                 <scope>test</scope>
+            </dependency>
+#end
+#if ($cxf)
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-bundle</artifactId>
+                <version>${cxf.version}</version>
+                <exclusions>
+                    <!-- Remove exclusion if using JMS -->
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-jms</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.activemq</groupId>
+                        <artifactId>activemq-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-pool</groupId>
+                        <artifactId>commons-pool</artifactId>
+                    </exclusion>
+                    <!-- Remove exclusion if using Apache Abdera for REST -->
+                    <exclusion>
+                        <groupId>org.apache.abdera</groupId>
+                        <artifactId>abdera-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.abdera</groupId>
+                        <artifactId>abdera-i18n</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.abdera</groupId>
+                        <artifactId>abdera-parser</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.abdera</groupId>
+                        <artifactId>abdera-extensions-main</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.abdera</groupId>
+                        <artifactId>abdera-extensions-json</artifactId>
+                    </exclusion>
+                    <!-- Remove exclusion if using REST -->
+                    <exclusion>
+                        <groupId>org.apache.ws.commons.axiom</groupId>
+                        <artifactId>axiom-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.ws.commons.axiom</groupId>
+                        <artifactId>axiom-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jaxen</groupId>
+                        <artifactId>jaxen</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+                <version>6.1.22</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>1.6.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-xjc</artifactId>
+                <version>2.1.12</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>2.9.1</version>
+            </dependency>
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>1.0.b2</version>
             </dependency>
 #end
 #if ($embeddedJetty)
@@ -855,12 +980,15 @@
     </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
+        <!-- To change from default src/main/java and src/test/java - doesn't work for Cobertura>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>src-test</testSourceDirectory -->
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>1.5</version>
                     <executions>
                         <execution>
                             <phase>generate-sources</phase>
@@ -869,7 +997,7 @@
                             </goals>
                             <configuration>
                                 <sources>
-                                    <source>target/src</source>
+                                    <source>target/src/main/java</source>
                                 </sources>
                             </configuration>
                         </execution>
@@ -887,10 +1015,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4.1</version>
+                    <version>2.4.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3</version>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
@@ -899,7 +1028,7 @@
 #if ($ejb3)
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>2.5</version>
                     <configuration>
                         <suiteXmlFiles>
                             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -917,7 +1046,7 @@
                 <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>2.8</version>
                     <inherited>true</inherited>
                     <configuration>
                         <wtpversion>1.5</wtpversion>
@@ -949,16 +1078,38 @@
         </pluginManagement>
     </build>
     <modules>
+        <!-- Save the values used to generate this project from andromdapp
+        ejb3Persistence=$ejb3Persistence
+        ear=$ear
+        ejb=$ejb
+        ejb3=$ejb3
+        transactionPersistenceType=$transactionPersistenceType
+        jsr181Webservice=$jsr181Webservice
+        hibernate=$hibernate
+        spring=$spring
+        webservice=$webservice
+        web=$web
+        struts=$struts
+        jsf=$jsf
+        cxf=$cxf
+        rest=$rest
+        ear=$ear
+        jbossSeam=$jbossSeam
+        soapStack=$soapStack
+        -->
         <module>mda</module>
         <module>common</module>
-#if (!$transactionPersistenceType.equals("none"))
+#if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($web || $war)
+#if ($web || ($war && !$cxf))
         <module>web</module>
 #end
-#if ($webservice && !$jsr181Webservice && $ear)
+#if ($webservice && !$jsr181Webservice && ($ear || $cxf))
         <module>webservice</module>
+#if ($cxf)
+        <module>CXF</module>
+#end
 #end
 #if ($workflow)
         <module>workflow</module>
@@ -973,16 +1124,6 @@
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Globally change these versions in all projects -->
-        <commons-beanutils.version>1.7.0</commons-beanutils.version>
-        <commons-collections.version>3.2</commons-collections.version>
-        <commons-digester.version>2.0</commons-digester.version>
-        <commons-io.version>1.4</commons-io.version>
-        <commons-lang.version>2.4</commons-lang.version>
-        <commons-logging.version>1.1.1</commons-logging.version>
-        <commons-validator.version>1.3.1</commons-validator.version>
-        <junit.version>4.7</junit.version>
-        <log4j.version>1.2.14</log4j.version>
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
@@ -1179,10 +1320,13 @@
 #else
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
 #end
+#if ($cxf)
+        <spring.version>2.5.6</spring.version>
+        <cxf.version>2.2.6</cxf.version>
+#elseif ($spring && $springVersion.equals("2"))
 #if ($embeddedJetty)
         --> 
 #end
-#if ($spring && $springVersion.equals("2"))
         <spring.version>2.0.8</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
@@ -1366,7 +1510,7 @@
 #elseif ($derby)
                     derby
 #else
-                    sa
+                    hsql
 #end
                 </jdbc.username>
                 <jdbc.password>#if(!$hypersonic)$applicationId#end</jdbc.password>
@@ -1410,7 +1554,7 @@
                         <plugin>
                             <groupId>org.andromda.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>$andromdaVersion</version>
+                            <version>${andromda.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                           be done when developing locally), uncomment this executions element to enable
                                           <executions>
@@ -1442,6 +1586,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-compiler-plugin</artifactId>
+                            <version>2.3</version>
                             <configuration>
                                 <source>1.5</source>
                                 <target>1.5</target>
@@ -1449,13 +1594,13 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.4.1</version>
+                            <version>2.5</version>
                             <configuration>
                             </configuration>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>2.0-beta-7</version>
+                            <version>2.1</version>
                             <dependencies>
                                 <dependency>
                                     <groupId>org.apache.maven.doxia</groupId>
@@ -1488,6 +1633,11 @@
             </repository>
 #end
         <repository>
+            <id>jboss</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.com/maven2</url>
+        </repository>
+        <repository>
             <id>Codehaus Snapshots</id>
             <url>http://snapshots.repository.codehaus.org/</url>
             <snapshots>
@@ -1518,7 +1668,7 @@
     <prerequisites>
         <maven>2.0.10</maven>
     </prerequisites>
-#if ($distributionManagementRepositoryUrl.length() > 0 || $distributionManagementSnapshotRepositoryUrl.length() > 0)
+#if ($stringUtils.isNotBlank($distributionManagementRepositoryUrl) && !$distributionManagementRepositoryUrl.equals('$distributionManagementRepositoryUrl'))
     <distributionManagement>
 #if ($distributionManagementRepositoryUrl.length() > 0)
         <repository>
@@ -1540,12 +1690,38 @@
     <reporting>
         <plugins>
             <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.1.2</version>
+                <reportSets>
+                  <reportSet>
+                    <reports>
+                      <report>dependencies</report>
+                      <report>dependency-convergence</report>
+                      <report>dependency-management</report>
+                      <report>index </report>
+                      <report>plugin-management</report>
+                      <report>summary</report>
+                      <report>project-team</report>
+                      <report>mailing-list</report>
+                      <report>cim</report>
+                      <report>issue-tracking</report>
+                      <report>license</report>
+                      <report>scm</report>
+                    </reports>
+                  </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.7</version>
                 <configuration>
                     <minmemory>128m</minmemory>
-                    <maxmemory>512</maxmemory>
-                    <sourcepath>${basedir}/src/java;${basedir}/target/src</sourcepath>
+                    <maxmemory>1g</maxmemory>
+                    <sourcepath>${basedir}/src/main/java;${basedir}/target/src/main/java</sourcepath>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
@@ -1554,22 +1730,43 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.4.3</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.5</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
+                    <linkXref>true</linkXref>
+                    <rulesets>
+                        <ruleset>/rulesets/basic.xml</ruleset>
+                        <ruleset>/rulesets/braces.xml</ruleset>
+                        <ruleset>/rulesets/clone.xml</ruleset>
+                        <ruleset>/rulesets/codesize.xml</ruleset>
+                        <ruleset>/rulesets/controversial.xml</ruleset>
+                        <ruleset>/rulesets/coupling.xml</ruleset>
+                        <ruleset>/rulesets/design.xml</ruleset>
+                        <ruleset>/rulesets/finalizers.xml</ruleset>
+                        <ruleset>/rulesets/logging-java.xml</ruleset>
+                        <ruleset>/rulesets/j2ee.xml</ruleset>
+                        <ruleset>/rulesets/javabeans.xml</ruleset>
+                        <ruleset>/rulesets/junit.xml</ruleset>
+                        <ruleset>/rulesets/naming.xml</ruleset>
+                        <ruleset>/rulesets/optimizations.xml</ruleset>
+                        <ruleset>/rulesets/strictexception.xml</ruleset>
+                        <ruleset>/rulesets/strings.xml</ruleset>
+                        <ruleset>/rulesets/sunsecure.xml</ruleset>
+                        <ruleset>/rulesets/typeresolution.xml</ruleset>
+                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                    </rulesets>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.5</version>
+                <configuration>
+                    <configLocation>config/maven_checks.xml</configLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -1583,10 +1780,15 @@
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <report>jira-report</report>
+                            <!-- Uncomment if using JIRA -->
+                            <!--report>jira-report</report-->
                         </reports>
                     </reportSet>
                 </reportSets>
+                <configuration>
+                    <columnNames>Key,Type,Summary,Assignee,Status,Resolution,Priority,Component</columnNames>
+                    <sortColumnNames>Key</sortColumnNames>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -1603,6 +1805,14 @@
                                         <matchType>ignoreCase</matchType>
                                     </tag>
                                     <tag>
+                                        <matchString>FIXME</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>XXX</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                    <tag>
                                         <matchString>@deprecated</matchString>
                                         <matchType>exact</matchType>
                                     </tag>
@@ -1615,6 +1825,7 @@
             <!-- Uncomment after configuring SCM connection>
                   <plugin>
                   <artifactId>maven-changelog-plugin</artifactId>
+                  <version>2.1</version>
                   <reportSets>
                   <reportSet>
                   <id>All Reports</id>
@@ -1641,20 +1852,20 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <artifactId>maven-docck-plugin</artifactId>
-                <!--executions>
+                <executions>
                     <execution>
                     <goals>
                     <goal>check</goal>
                     </goals>
                     </execution>
-                </executions-->
-            </plugin>
+                </executions>
+            </plugin-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <configuration>
                     <formats>
                         <format>html</format>
@@ -1679,25 +1890,38 @@
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>emma-maven-plugin</artifactId>
-                <inherited>true</inherited>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dashboard-maven-plugin</artifactId>
                 <version>1.0.0-beta-1</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.0.1</version>
+                <version>2.3.1</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <effort>Default</effort>
                     <threshold>Normal</threshold>
+                    <!--xmlOutputDirectory>directory location of findbugs xdoc xml report</xmlOutputDirectory>
+                    <threshold>High|Normal|Low|Exp|Ignore</threshold>
+                    <effort>Min|Default|Max</effort>
+                    <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                    <includeFilterFile>findbugs-include.xml</includeFilterFile>
+                    <visitors>FindDeadLocalStores,UnreadFields</visitors>
+                    <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+                    <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+                    <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+                    <debug>true|false</debug>
+                    <relaxed>true|false</relaxed>
+                    <findbugsXmlOutput>true|false</findbugsXmlOutput>
+                    <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dashboard-maven-plugin</artifactId>
+                <version>1.0.0-beta-1</version>
+            </plugin-->
+            <!--plugin>
                 <artifactId>maven-doap-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
@@ -1709,7 +1933,7 @@
                         <included>false</included>
                     </asfExtOptions>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </reporting>
 </project>
