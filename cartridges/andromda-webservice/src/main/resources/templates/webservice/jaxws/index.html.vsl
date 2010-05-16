@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>$webContext Web Services</title>
+</head>
+<body>
+<p>
+<p>
+Context: /$webContext</p>
+<p>
+<p>Service WSDL through CXF servlet and wsdl4j:</p>
+<table width="100%" border="1">
+    <tbody>
+#foreach ($service in $services)
+        <tr>
+            <td><a href="$servicesPath/$service.qName?wsdl">${service.qName}.wsdl</a></td>
+            <td><a
+                href="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/$service.qName?wsdl">http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/$service.qName?wsdl</a></td>
+        </tr>
+#end
+    </tbody>
+</table>
+<p>Service WSDL in file system, with documentation for all services and elements:</p>
+<table width="100%" border="1">
+    <tbody>
+#foreach ($service in $services)
+        <tr>
+            <td><a href="wsdl/${service.qName}.wsdl">${service.qName}.wsdl</a></td>
+            <td><a
+                href="http://${webserviceHost}:${webservicePort}/$webContext/wsdl/${service.qName}.wsdl">http://${webserviceHost}:${webservicePort}/$webContext/wsdl/${service.qName}.wsdl</a></td>
+        </tr>
+#end
+    </tbody>
+</table>
+</body>
+</html>

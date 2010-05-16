@@ -1,0 +1,30 @@
+## This recursively iterates through complex type attributes and associations and
+## creates default constructor / values for each, returning a fully developed variable
+#if ($stringUtils.isEmpty($level))
+## Uniquely name each duplicate nested attribute, prevent infinite recursion
+#set ($level=0)
+#else
+#set ($level=$level+1)
+#end
+#set ($level0=$level)
+#set ($returnName="${stringUtils.uncapitalize($returnProperty.name)}Type${level0}")
+        $returnProperty.type.fullyQualifiedName $returnName
+          = $webServiceUtils.createConstructor($returnProperty);
+#foreach ($property in $returnProperty.type.allProperties)
+##        // property=$property property.type=$property.type isMany=$property.many
+#set ($returnProperty=$property)
+#parse("templates/webservice/jaxws/ConstructorDefault.vsl")
+##        ${property.getterSetterTypeName} $property.name
+##          = ${webServiceUtils.createConstructor($property)};
+#if ($property.many)
+#set ($returnProperty=$property)
+#if (${level}<50)
+#parse("templates/webservice/jaxws/ConstructorDefault.vsl")
+#else
+        ${property.type.name}Type${level0} = $webServiceUtils.createConstructor($returnProperty.type);
+#end
+## Recursively iterate through all attributes
+        ${property.name}.add(${property.type.name}Type${level});
+#end
+        $returnName.${returnProperty.setterName}($returnName);
+#end
