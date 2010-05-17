@@ -50,7 +50,7 @@ public class Model
     }
 
     /**
-     * Stores the informationj about what packages should and shouldn't
+     * Stores the information about what packages should and shouldn't
      * be processed.
      */
     private Filters packages = new Filters();
@@ -88,7 +88,7 @@ public class Model
     }
 
     /**
-     * Stores the informationj about what constraints should and shouldn't
+     * Stores the information about what constraints should and shouldn't
      * be enforced.
      */
     private Filters constraints = new Filters();
@@ -274,7 +274,7 @@ public class Model
     }
 
     /**
-     * Gets the module searach locations for this model instance.
+     * Gets the module search locations for this model instance.
      *
      * @return the module search locations.
      * @see #getModuleSearchLocationPaths()

@@ -43,9 +43,18 @@ public class MDRepositoryFacade
     private static final Logger logger = Logger.getLogger(MDRepositoryFacade.class);
     private ModelAccessFacade modelFacade = null;
     private MDRepository repository = null;
+    /**
+     * 
+     */
     protected URL metamodelUri;
+    /**
+     * 
+     */
     protected RefPackage model = null;
 
+    /**
+     * 
+     */
     public MDRepositoryFacade()
     {
         // configure MDR to use an in-memory storage implementation
@@ -101,7 +110,7 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(String[], String[])
      */
     public void readModel(
         String[] uris,
@@ -136,7 +145,7 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], String[], String[])
      */
     public void readModel(
         final InputStream[] streams,
@@ -173,8 +182,8 @@ public class MDRepositoryFacade
     private static final String DEFAULT_ENCODING = "UTF-8";
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String,
-     *      java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String,
+     *      String)
      */
     public void writeModel(
         Object model,
@@ -277,8 +286,12 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String,
-     *      java.lang.String)
+     * @param model 
+     * @param outputLocation 
+     * @param xmiVersion 
+     * @param encoding 
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String,
+     *      String)
      */
     public void writeModel(
         Object model,
@@ -393,7 +406,7 @@ public class MDRepositoryFacade
         }
 
         // Use the metamodelUri as the name for the repository extent.
-        // This ensures we can load mutiple metamodels without them colliding.
+        // This ensures we can load multiple metamodels without them colliding.
         ModelPackage metaModelExtent = (ModelPackage)repository.getExtent(metamodelUri.toExternalForm());
 
         if (metaModelExtent == null)

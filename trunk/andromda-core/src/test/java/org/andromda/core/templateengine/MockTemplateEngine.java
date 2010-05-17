@@ -16,7 +16,7 @@ public class MockTemplateEngine
     implements TemplateEngine
 {
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#initialize(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#initialize(String)
      */
     public void initialize(String namespace)
         throws Exception
@@ -24,7 +24,7 @@ public class MockTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String, java.util.Map, java.io.Writer)
+     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(String, Map, Writer)
      */
     public void processTemplate(
         String templateFile,
@@ -50,19 +50,22 @@ public class MockTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(String)
      */
     public void addMacroLibrary(String macroLibrary)
     {
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(String)
      */
     public void setMergeLocation(String mergeLocation)
     {
     }
 
+    /**
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(String, Map)
+     */
     public String getEvaluatedExpression(String expression, Map<String, Object> templateObjects)
     {
         return null;

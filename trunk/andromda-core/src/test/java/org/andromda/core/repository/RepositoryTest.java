@@ -23,7 +23,10 @@ public class RepositoryTest
     {
         NamespaceComponents.instance().discover();
     }
-    
+
+    /**
+     *
+     */
     public void testFindRepositoryByNamespace()
     {
         Repository repository = (Repository)ComponentContainer.instance().findComponentByNamespace("test", Repository.class);
@@ -31,7 +34,10 @@ public class RepositoryTest
         repository = (Repository)ComponentContainer.instance().findComponentByNamespace("bogus", Repository.class);
         assertNull(repository);
     }
-    
+
+    /**
+     *
+     */
     public void testGetImplementation()
     {
         final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
