@@ -33,7 +33,20 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
                 <version>${project.version}</version>
+                <scope>runtime</scope>
                 <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -44,11 +57,13 @@
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-translation-core</artifactId>
                 <version>${project.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-validation-library</artifactId>
                 <version>${project.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
