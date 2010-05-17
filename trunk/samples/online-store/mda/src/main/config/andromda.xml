@@ -1,4 +1,4 @@
-<andromda>
+<andromda xmlns="http://andromda.org/core/configuration">
     <properties>
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
@@ -9,7 +9,6 @@
                 <model>
                     <uri>${model.uri}</uri>
                     <moduleSearchLocations>
-                        <location>${maven.repo.local}/andromda/xml.zips</location>
                         <location patterns="**/*.xml.zip,**/*.xml">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
@@ -49,6 +48,8 @@
                 <property name="controller-impls">${web.generated.dir}</property>
                 <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
                 <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
         </namespace>
     </namespaces>
