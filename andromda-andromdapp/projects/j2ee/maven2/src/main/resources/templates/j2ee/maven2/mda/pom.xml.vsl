@@ -357,7 +357,7 @@
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
 #if ($war || $web)
-        <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
+        <web.generated.dir>${project.basedir}/../web/target/src/main/java</web.generated.dir>
         <web.generated.web.dir>${project.basedir}/../web</web.generated.web.dir>
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
