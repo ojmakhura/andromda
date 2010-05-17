@@ -17,6 +17,9 @@ import org.andromda.core.configuration.Transformation;
 public class XslTransformerTest
     extends TestCase
 {
+    /**
+     *
+     */
     public void testTransform()
     {
         Transformer transformer = new XslTransformer();

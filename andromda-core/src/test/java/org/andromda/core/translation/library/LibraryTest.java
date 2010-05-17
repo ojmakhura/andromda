@@ -54,6 +54,9 @@ public class LibraryTest
         this.library = null;
     }
 
+    /**
+     *
+     */
     public void testGetLibraryTranslations()
     {
         Map libraryTranslations = this.library.getLibraryTranslations();
@@ -84,6 +87,9 @@ public class LibraryTest
             translationTwo.getTranslator().getClass().getName());
     }
 
+    /**
+     *
+     */
     public void testGetPropertyReferences()
     {
         String[] propertyRefs = this.library.getPropertyReferences();
@@ -99,6 +105,9 @@ public class LibraryTest
         assertEquals(propertyReferenceTwo, propertyRefs[1]);
     }
 
+    /**
+     *
+     */
     public void testGetTemplateObjects()
     {
         final Collection<TemplateObject> templateObjects = this.library.getTemplateObjects();

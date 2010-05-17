@@ -9,7 +9,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.core.mapping.MappingsException;
 
 /**
- * Tests {@link org.andromda.core.mapping.Mappings)
+ * Tests {@link org.andromda.core.mapping.Mappings}
  *
  * @author Chad Brandon
  * @author Wouter Zoons
@@ -39,6 +39,9 @@ public class MappingsTest
     private static final String TO_3 = "Class<? extends ToType>";
     private static final String FROM_6 = "Class<? extends FromType>";
 
+    /**
+     *
+     */
     public void testGetTo()
     {
         Mappings mappings1 = new Mappings();
@@ -90,6 +93,9 @@ public class MappingsTest
             mappings3.getTo(FROM_6));
     }
 
+    /**
+     *
+     */
     public void testMappingsInheritance()
     {
         final URL testMappingsParentUri = MappingsTest.class.getResource("TestMappingsParent.xml");
@@ -162,6 +168,9 @@ public class MappingsTest
             mapping4.getTo());
     }
 
+    /**
+     *
+     */
     public void testEmptyMappings()
     {
         final URL testEmptyMappingsUri = MappingsTest.class.getResource("TestMappingsEmpty.xml");
@@ -174,6 +183,9 @@ public class MappingsTest
         assertEquals(0, mappingCollection.size());
     }
 
+    /**
+     *
+     */
     public void testTransitivelyExtendingLogicalMappings()
     {
         // the order has been mixed up on purpose
@@ -204,6 +216,9 @@ public class MappingsTest
         assertEquals("DDD", ddd.getTo());
     }
 
+    /**
+     *
+     */
     public void testCyclicInheritanceLogicalMappingsException()
     {
         Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsCyclicA.xml"));

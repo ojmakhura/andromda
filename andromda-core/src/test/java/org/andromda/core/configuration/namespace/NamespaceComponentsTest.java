@@ -7,12 +7,15 @@ import org.andromda.core.namespace.NamespaceComponents;
 
 /**
  * Tests {@link NamespaceComponents}
- * 
+ *
  * @author Chad Brandon
  */
 public class NamespaceComponentsTest
     extends TestCase
 {
+    /**
+     *
+     */
     public void testInstance()
     {
         final NamespaceComponents componentRegistry = NamespaceComponents.instance();

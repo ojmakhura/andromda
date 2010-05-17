@@ -13,6 +13,9 @@ import junit.framework.TestCase;
 public class ConfigurationTest
     extends TestCase
 {
+    /**
+     *
+     */
     public void testGetInstance()
     {
         URL uri = ConfigurationTest.class.getResource("configuration.xml");
@@ -55,7 +58,7 @@ public class ConfigurationTest
         assertEquals(
             50,
             server.getMaximumFailedLoadAttempts());
-        
+
         // repositories
         assertEquals(1, configuration.getRepositories().length);
         final Repository repository = configuration.getRepositories()[0];
@@ -76,7 +79,7 @@ public class ConfigurationTest
         assertTrue(model1.isLastModifiedCheck());
         assertEquals(2, model1.getModuleSearchLocations().length);
 
-        // module search locations        
+        // module search locations
         final Location[] moduleLocations = model1.getModuleSearchLocations();
         assertNotNull(moduleLocations);
         assertEquals(2, moduleLocations.length);
@@ -93,7 +96,7 @@ public class ConfigurationTest
         assertFalse(model1.getPackages().isApply("some::package"));
         assertFalse(model1.getPackages().isApply("org::andromda::metafacades::uml"));
         assertTrue(model1.getPackages().isApply("org::andromda::cartridges::test"));
-        
+
         assertNotNull(model1.getConstraints());
         assertFalse(model1.getConstraints().isApply("org::andromda::uml::metafacades::Entity::constraint name"));
         assertFalse(model1.getConstraints().isApply("org::andromda::uml::somepackage::anotherpackage::andanotherpackage::SomeClass"));
@@ -104,7 +107,7 @@ public class ConfigurationTest
         assertTrue(model1.getConstraints().isApply("com::apackage::SomeClass"));
         assertTrue(model1.getConstraints().isApply("org::andromda::uml::metafacades::Service"));
         assertTrue(model1.getConstraints().isApply("some:Entity"));
-        
+
         // transformations
         assertEquals(2, model1.getTransformations().length);
         final Transformation transformation1 = model1.getTransformations()[0];

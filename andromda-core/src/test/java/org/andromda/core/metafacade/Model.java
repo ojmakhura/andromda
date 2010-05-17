@@ -66,6 +66,9 @@ public class Model
         return null;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
+     */
     public void setPackageFilter(Filters modelPackages)
     {
     }

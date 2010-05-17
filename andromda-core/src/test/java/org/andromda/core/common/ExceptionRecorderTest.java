@@ -90,7 +90,7 @@ public class ExceptionRecorderTest
             try
             {
                 // Close the file.
-                fr.close();
+                if (fr != null) {fr.close();}
             }
             catch (Exception e)
             {

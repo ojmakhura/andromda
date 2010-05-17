@@ -36,6 +36,9 @@ public class ProfileTest
         Profile.instance().setNamespace(profile.getNamespace());
     }
 
+    /**
+     *
+     */
     public void testGet()
     {
         assertEquals(
@@ -48,7 +51,10 @@ public class ProfileTest
             "datatype::String",
             Profile.instance().get("STRING_TYPE"));
     }
-    
+
+    /**
+     *
+     */
     public void testOverride()
     {
         Namespace namespace = new Namespace();
