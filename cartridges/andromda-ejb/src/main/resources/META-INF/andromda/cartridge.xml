@@ -6,6 +6,7 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     <templateObject name="javaConverter" className="org.andromda.utils.JavaTypeConverter"/>
+    <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
