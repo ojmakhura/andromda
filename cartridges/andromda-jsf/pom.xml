@@ -24,12 +24,12 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>org.andromda.cartridges</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${project.artifactId}-components</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.andromda.cartridges</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
