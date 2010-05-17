@@ -1,4 +1,4 @@
-<andromda>
+<andromda xmlns="http://andromda.org/core/configuration">
     <properties>
         <property name="failOnValidationErrors">false</property>
     </properties>
@@ -21,6 +21,9 @@
                 <property name="overwrite">true</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
+                <!--property name="enableTemplating">true</property>
+                <property name="enableAnnotations">true</property>
+                <property name="typeSafeEnumsEnabled">true</property-->
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="sqlMappingsUri">HypersonicSql</property>
                 <property name="maxSqlNameLength">30</property>
@@ -36,6 +39,10 @@
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property>
+                <!--property name="pluralizeAssociationEndNames">true</property>
+                <property name="pluralizeAttributeNames">false</property>
+                <property name="pluralizeParameterNames">true</property>
+                <property name="toDoTag">TODO</property-->
             </properties>
         </namespace>
         <namespace name="ejb3">
