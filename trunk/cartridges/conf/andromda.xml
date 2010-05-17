@@ -13,13 +13,12 @@
             <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/common/src/main/uml</location>
             <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml14/uml/src/main/uml</location>
             <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
-  <!-- repository name="emf-uml2">
+  <!--repository name="emf-uml22">
       <models>
-        <model type="emf-uml2">
-            <uri>${model.uri}</uri>
+        <model type="emf-uml22">
+          <uri>${uml2.model.uri}</uri>
             <moduleSearchLocations>
-                <location patterns="**/src/main/uml/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
-                <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/metafacades</location-->
+            <location patterns="**/*.uml">${project.basedir}/src/main/uml2</location-->
           </moduleSearchLocations>
           <modelPackages>
             <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
