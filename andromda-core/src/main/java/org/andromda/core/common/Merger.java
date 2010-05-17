@@ -114,25 +114,31 @@ public class Merger
         final InputStream inputStream,
         final String namespace)
     {
+        StringWriter writer = null;
+        BufferedReader inputReader = null;
         try
         {
-            StringWriter writer = new StringWriter();
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
+            writer = new StringWriter();
+            inputReader = new BufferedReader(new InputStreamReader(inputStream));
             for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
             {
                 writer.write(ctr);
             }
-            // TODO Close resources in finally block
-            inputReader.close();
-
             final String string = writer.toString();
-            writer.close();
-
             return this.getMergedString(string, namespace);
         }
         catch (final Exception exception)
         {
             throw new MergerException(exception);
+        }
+        finally
+        {
+            if (inputReader != null) {try {
+                inputReader.close();
+            } catch (Exception ex) {}}
+            if (writer != null) {try {
+                writer.close();
+            } catch (Exception ex) {}}
         }
     }
 
