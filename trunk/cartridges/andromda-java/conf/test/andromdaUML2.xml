@@ -35,12 +35,12 @@
         <!--Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements-->
         <property name="xmlAttributes">true</property>
         <!--Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes-->
-        <property name="XMLDateAdapter">com.disney.jaxb.adapter.XSDateAdapter</property>
-        <property name="XMLDateTimeAdapter">com.disney.jaxb.adapter.XSDateTimeAdapter</property>
-        <property name="XMLTimeAdapter">com.disney.jaxb.adapter.XSTimeAdapter</property>
-        <!--property name="XMLIntegerAdapter">com.disney.jaxb.adapter.IntegerAdapter</property>
-        <property name="XMLLongAdapter">com.disney.jaxb.adapter.LongAdapter</property-->
-        <property name="XMLBooleanAdapter">com.disney.jaxb.adapter.BooleanAdapter</property>
+        <property name="XMLDateAdapter"></property>
+        <property name="XMLDateTimeAdapter"></property>
+        <property name="XMLTimeAdapter"></property>
+        <!--property name="XMLIntegerAdapter"></property>
+        <property name="XMLLongAdapter"></property-->
+        <property name="XMLBooleanAdapter"></property>
         <property name="persistenceContainerName">jboss</property>
         <!--Override default @todo to set to Eclipse default>
         <property name="toDoTag">TODO</property-->
