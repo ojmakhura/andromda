@@ -1,12 +1,8 @@
-<andromda>
+<andromda xmlns="http://andromda.org/core/configuration">
     <properties>
         <property name="modelValidation">${validation}</property>
         <property name="cartridgeFilter">${filter}</property>
     </properties>
-    <server>
-        <host>localhost</host>
-        <port>4447</port>
-    </server>
     <repositories>
         <repository name="netBeansMDR">
             <models>
@@ -24,6 +20,10 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <!-- Use enums, strongly typed collections with templates, and @annotation markups>
+                <property name="enableTemplating">true</property>
+                <property name="enableAnnotations">true</property>
+                <property name="typeSafeEnumsEnabled">true</property -->
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
@@ -112,6 +112,8 @@
                 <property name="wsdls">${webservice.generated.dir}</property>
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-types">${core.generated.dir}</property>
+                <property name="jaxb-impl">${common.manual.dir}</property>
+                <property name="jaxb-gen">${common.generated.dir}</property>
             </properties>
         </namespace>
         <namespace name="java">
