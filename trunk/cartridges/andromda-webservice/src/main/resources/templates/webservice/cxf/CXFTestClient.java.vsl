@@ -163,7 +163,7 @@ $operation.getDocumentation("    * ")
 #end
         try {
             ${operation.operationName}ResponseWrapper = client.${operation.name}(${operation.argumentNames});
-            System.out.println(" Result = " + XMLCoder.encode(${operation.operationName}ResponseWrapper));
+            System.out.println(" Result = " + ${operation.operationName}ResponseWrapper.toString());
 #else
         try {
             client.${operation.name}(${operation.argumentNames});

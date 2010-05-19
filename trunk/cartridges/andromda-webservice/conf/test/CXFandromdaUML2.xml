@@ -53,13 +53,13 @@
         <!--Output WSDL XSD and JAXB object attributes as XML attributes instead of XML Elements-->
         <property name="xmlAttributes">true</property>
         <!--Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes-->
-        <property name="XMLDateAdapter"/>
-        <property name="XMLDateTimeAdapter"/>
-        <property name="XMLTimeAdapter"/>
+        <property name="XMLDateAdapter"></property>
+        <property name="XMLDateTimeAdapter"></property>
+        <property name="XMLTimeAdapter"></property>
         <!--property name="XMLIntegerAdapter"></property>
         <property name="XMLLongAdapter"></property-->
         <!--Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2-->
-        <property name="XMLBooleanAdapter"/>
+        <property name="XMLBooleanAdapter"></property>
         <property name="persistenceContainerName">jboss</property>
         <!--Override default @todo to set to Eclipse default-->
         <property name="toDoTag">TODO</property>
