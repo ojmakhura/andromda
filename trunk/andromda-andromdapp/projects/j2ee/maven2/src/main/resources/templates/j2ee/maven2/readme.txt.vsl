@@ -272,19 +272,28 @@
     Please note that you may use the '-o' flag at any time to avoid
     having Maven downloading any SNAPSHOT dependencies.
 
-        %> mvn install
+        %> mvn
 
             simply builds all modules
 
-        %> mvn -o install
+        %> mvn -o
 
             builds all modules in offline mode - does not check remote repositories for updates or downloads
 
-        %> mvn install -Dmaven.test.skip=true
+        %> mvn -Peclipse
+
+            builds all modules and updates the .project and .classpath files (Eclipse project information).
+            Must be used after dependency changes.
+
+        %> mvn -Dmaven.test.skip=true
 
             builds all modules and skips all automatic tests (i.e. surefire expected/actual)
 
-        %> mvn install -Dmaven.test.failure.ignore=true
+        %> mvn -Dmaven.test.failure.ignore=true
+
+            builds all modules and run all automatic tests but does not stop if a test failure
+
+        %> mvn -Dmaven.test.failure.ignore=true
 
             builds all modules and run all automatic tests but does not stop if a test failure
 
@@ -305,11 +314,11 @@
 
             Generates the source files, without compilation or deployment. Or run 'mvn install' from the mda subdirectory.
 
-        %> mvn install -Ddeploy
+        %> mvn -Ddeploy
 
             rebuilds the entire application and deploys
 
-        %> mvn install -Denv=prod
+        %> mvn -Denv=prod
 
             builds the entire application for the production environment, possible 'env' property values
             are 'prod' for production, 'val' for validation and 'dev' for development; not specifying
