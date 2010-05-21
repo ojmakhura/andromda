@@ -143,15 +143,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
+            <artifactId>tomahawk12</artifactId>
         </dependency>
 #if ($portlet)
         <dependency>
@@ -199,10 +191,6 @@
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
