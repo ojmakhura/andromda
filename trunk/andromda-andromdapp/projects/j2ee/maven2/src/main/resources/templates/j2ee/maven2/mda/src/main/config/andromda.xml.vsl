@@ -478,10 +478,10 @@
             <properties>
                 <property name="defaultDateFormat">MM/dd/yyyy</property>
                 <property name="normalizeMessages">true</property>
-                <property name="forms">${web.generated.dir}</property>
+                <property name="forms">${web.generated.web.dir}</property>
                 <property name="pages">${web.generated.web.dir}</property>
-                <property name="actions">${web.generated.dir}</property>
-                <property name="controllers">${web.generated.dir}</property>
+                <property name="actions">${web.generated.java.dir}</property>
+                <property name="controllers">${web.generated.java.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
                 <property name="decorators">${web.manual.java.dir}</property>
                 <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
@@ -512,8 +512,8 @@
                 <property name="messages">${web.generated.web.dir}</property>
                 <property name="configuration">${web.generated.web.dir}</property>
                 <property name="libraries">${web.generated.web.dir}</property>
-                <property name="application-libraries">${application.generated.dir}</property>
-                <property name="custom-resources">${web.manual.dir}</property>
+                <property name="application-libraries">${application.generated.web.dir}</property>
+                <property name="custom-resources">${web.manual.web.dir}</property>
                 <!-- uncomment to enable web tier security
                 <property name="securityRealm">${application.id}</property>
                  -->
@@ -533,10 +533,10 @@
                 <property name="portletContainer">$portletContainer</property>
 #end
                 <property name="applicationName">${application.name}</property>
-                <property name="forms">${web.generated.dir}</property>
+                <property name="forms">${web.generated.java.dir}</property>
                 <property name="views">${web.generated.web.dir}</property>
-                <property name="managed-beans">${web.generated.dir}</property>
-                <property name="controllers">${web.generated.dir}</property>
+                <property name="managed-beans">${web.generated.java.dir}</property>
+                <property name="controllers">${web.generated.java.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
                 <property name="messages">${web.generated.web.dir}</property>
                 <property name="configuration">${web.generated.web.dir}</property>
@@ -548,7 +548,7 @@
 #else
                 <property name="libraries">${web.generated.web.dir}</property>
 #end
-                <property name="custom-resources">${web.manual.dir}</property>
+                <property name="custom-resources">${web.manual.web.dir}</property>
                 <!-- uncomment to enable web tier security
                 <property name="securityRealm">${application.id}</property>
                  -->
