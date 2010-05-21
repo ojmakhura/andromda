@@ -1321,13 +1321,13 @@
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
 #end
 #if ($cxf)
-        <spring.version>2.5.6</spring.version>
+        <spring.version>2.5.6.SEC01</spring.version>
         <cxf.version>2.2.6</cxf.version>
 #elseif ($spring && $springVersion.equals("2"))
 #if ($embeddedJetty)
         --> 
 #end
-        <spring.version>2.0.8</spring.version>
+        <spring.version>2.5.6.SEC01</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>
@@ -1510,7 +1510,7 @@
 #elseif ($derby)
                     derby
 #else
-                    hsql
+                    sa
 #end
                 </jdbc.username>
                 <jdbc.password>#if(!$hypersonic)$applicationId#end</jdbc.password>
