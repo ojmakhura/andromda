@@ -199,6 +199,40 @@
         </dependency>
 #end
     </dependencies>
+    <profiles>
+        <profile>
+            <id>eclipse</id>
+            <build>
+                <plugins>
+                    <!-- This will overwrite top level .project and .classpath each time.
+                         The maven Eclipse plugin in mda/pom.xml does a better job anyway. See mda/eclipse.bat.-->
+                    <plugin>
+                        <groupId>org.andromda.maven.plugins</groupId>
+                        <artifactId>andromdapp-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>eclipse</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>app/pom.xml</exclude>
+                            </excludes>
+#if ($ejb3)
+                            <classpathMerge>
+                                <![CDATA[
+                                <classpathentry kind="var" path="M2_REPO/org/testng/testng/4.7/testng-4.7-jdk15.jar"/>
+                                ]]>
+                            </classpathMerge>
+#end
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <build>
         <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
         <plugins>
@@ -357,9 +391,11 @@
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
 #if ($war || $web)
-        <web.generated.dir>${project.basedir}/../web/target/src/main/java</web.generated.dir>
-        <web.generated.web.dir>${project.basedir}/../web</web.generated.web.dir>
+        <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
+        <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
+        <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
         <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
+        <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
 #end
 #if ($workflow)
