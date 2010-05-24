@@ -747,6 +747,7 @@
                                 <link>http://jakarta.apache.org/regexp/apidocs/</link>
                                 <link>http://jakarta.apache.org/velocity/api/</link>
                             </links>
+                            <detectOfflineLinks>false</detectOfflineLinks>
                         </configuration>
                         <reports>
                             <report>javadoc</report>
@@ -1097,6 +1098,9 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <configuration>
+                                	<detectOfflineLinks>false</detectOfflineLinks>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
