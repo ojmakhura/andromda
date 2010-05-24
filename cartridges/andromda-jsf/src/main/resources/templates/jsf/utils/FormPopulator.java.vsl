@@ -1,3 +1,4 @@
+## IMPORTANT!!! We can remove this when we upgrade to AndroMDA 3.4
 #if ($stringUtils.isNotEmpty($managedBeansPackage))
 package $managedBeansPackage;
 #end
@@ -95,7 +96,7 @@ public class $formPopulatorName
             }
         }
     }
-
+    
     /**
      * Populates the form from the attributes contained in the request object.
      *
@@ -103,8 +104,9 @@ public class $formPopulatorName
      * @param formatters any date or time formatters.
      * @param request the request object from which to populate attributes.
      * @param override whether or not to override properties already set on the given form.
+     * @param assignableTypesOnly whether or not copying should be attempted only if the property types are assignable.
      */
-    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map formatters, boolean override)
+    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map formatters, boolean override, boolean assignableTypesOnly)
     {
         final javax.faces.context.FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
         final String[] names = ${managedBeansPackage}.JsfUtils.getAttributeNames(context.getExternalContext().getRequest());
@@ -116,8 +118,21 @@ public class $formPopulatorName
                 attributes.put(name, ${managedBeansPackage}.JsfUtils.getAttribute(context.getExternalContext().getRequest(), name));
             }
         }
-        populateFormFromPropertyMap(form, formatters, attributes, override);
+        populateFormFromPropertyMap(form, formatters, attributes, null, override, assignableTypesOnly);
     }
+
+    /**
+     * Populates the form from the attributes contained in the request object.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     * @param request the request object from which to populate attributes.
+     * @param override whether or not to override properties already set on the given form.
+     */
+    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map formatters, boolean override)
+    {
+        populateFormFromRequestAttributes(form, formatters, override, false);
+    }    
 
     /**
      * Populates the form from the given map of properties. If a matching property is null or an empty
