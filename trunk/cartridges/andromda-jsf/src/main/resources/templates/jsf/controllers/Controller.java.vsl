@@ -166,7 +166,7 @@ $operation.getDocumentation("     * ")
             ${indent}        form, form.getDateTimeFormatters(), event.getComponent().getAttributes(), new String[] {"id"});
             ${indent}}
             ${indent}// - populate the form with any request attributes that may match
-            ${indent}${managedBeansPackage}.${formPopulatorName}.populateFormFromRequestAttributes(form, form.getDateTimeFormatters(), false);
+            ${indent}${managedBeansPackage}.${formPopulatorName}.populateFormFromRequestAttributes(form, form.getDateTimeFormatters(), false, true);
             ${indent}// - populate the form with any request parameters that may match
             ${indent}${managedBeansPackage}.${formPopulatorName}.populateFormFromPropertyMap(
             ${indent}    form, form.getDateTimeFormatters(), this.getContext().getExternalContext().getRequestParameterMap());
