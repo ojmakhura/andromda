@@ -124,7 +124,7 @@
     </context-param>
 
 #end
-#if ($facesConfigFiles)
+#if ($stringUtils.isNotBlank($facesConfigFiles))
     <context-param>
         <description>
             Comma separated list of URIs of (additional) faces config files.
