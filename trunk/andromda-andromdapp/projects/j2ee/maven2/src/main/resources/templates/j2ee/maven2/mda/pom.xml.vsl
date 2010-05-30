@@ -267,11 +267,12 @@
                             <directory>..</directory>
                             <!-- Modify as necessary to customize for this project -->
                             <includes>
-                                <include>*.exc</include>
-                                <include>*.log</include>
+                                <include>**/*.exc</include>
+                                <include>**/*.log</include>
                                 <include>**/*.class</include>
                                 <include>**/*.ref</include>
                                 <include>CXF/**/WEB-INF/wsdl/**</include>
+                                <include>CXF/**/WEB-INF/lib/**</include>
                                 <include>webservice/**/*.wsdl</include>
                                 <include>webservice/**/*.xsd</include>
                                 <include>webservice/**/*.xjb</include>
