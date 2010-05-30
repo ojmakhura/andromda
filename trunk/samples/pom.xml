@@ -24,7 +24,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
                 <directory>${project.basedir}/conf</directory>
@@ -42,7 +41,7 @@
                 <executions>
                     <execution>
                         <id>animal-quiz</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -52,7 +51,7 @@
                     </execution>
                     <execution>
                         <id>car-rental-system</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -62,7 +61,7 @@
                     </execution>
                     <execution>
                         <id>crud</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -72,7 +71,7 @@
                     </execution>
                     <execution>
                         <id>online-store</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -80,6 +79,7 @@
                             <configurationUri>${project.basedir}/conf/andromdapp/online-store/configuration.xml</configurationUri>
                         </configuration>
                     </execution>
+                    
                     <execution>
                         <id>install</id>
                         <phase>install</phase>
@@ -87,9 +87,10 @@
                             <goal>maven</goal>
                         </goals>
                     </execution>
+
                     <execution>
                         <id>clean-animal-quiz-structure</id>
-                        <phase>clean</phase>
+                        <phase>post-clean</phase>
                         <goals>
                             <goal>clean-structure</goal>
                         </goals>
@@ -99,7 +100,7 @@
                     </execution>
                     <execution>
                         <id>clean-car-rental-system-structure</id>
-                        <phase>clean</phase>
+                        <phase>post-clean</phase>
                         <goals>
                             <goal>clean-structure</goal>
                         </goals>
@@ -109,7 +110,7 @@
                     </execution>
                     <execution>
                         <id>clean-crud-structure</id>
-                        <phase>clean</phase>
+                        <phase>post-clean</phase>
                         <goals>
                             <goal>clean-structure</goal>
                         </goals>
@@ -119,7 +120,7 @@
                     </execution>
                     <execution>
                         <id>clean-online-store-structure</id>
-                        <phase>clean</phase>
+                        <phase>post-clean</phase>
                         <goals>
                             <goal>clean-structure</goal>
                         </goals>
@@ -131,20 +132,42 @@
             </plugin>
             <!-- top level project doesn't declare subprojects because they are generated -->
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
+                <artifactId>maven-invoker-plugin</artifactId>
                 <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${basedir}</directory>
-                            <includes>
-                                <include>**/target</include>
-                                <include>**/timetracker</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
+                    <streamLogs>true</streamLogs>
+                    <projectsDirectory>${basedir}</projectsDirectory>                    
+                    <pomIncludes>
+                        <pomInclude>*/pom.xml</pomInclude>
+                    </pomIncludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>clean-test</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </configuration>
+                    </execution>
+<!--
+                    <execution>
+                        <id>install-test</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>
+                                <goal>install</goal>
+                            </goals>
+                        </configuration>
+                    </execution>
+-->               
+                </executions> 
             </plugin>
         </plugins>
     </build>
