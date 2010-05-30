@@ -128,14 +128,14 @@
         </namespace>
         <namespace name="bpm4struts">
             <properties>
-                <property name="forms">${web.generated.dir}</property>
-                <property name="pages">${web.generated.dir}</property>
-                <property name="actions">${web.generated.dir}</property>
-                <property name="controllers">${web.generated.dir}</property>
+                <property name="forms">${web.generated.java.dir}</property>
+                <property name="pages">${web.generated.web.dir}</property>
+                <property name="actions">${web.generated.java.dir}</property>
+                <property name="controllers">${web.generated.java.dir}</property>
                 <property name="controller-impls">${web.manual.java.dir}</property>
                 <property name="decorators">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
-                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.web.dir}/WEB-INF</property>
                 <!-- uncomment to enable web tier security
                 <property name="securityRealm">${application.id}</property>
                  -->
