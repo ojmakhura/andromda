@@ -121,7 +121,7 @@ public class WebServiceParameterLogicImpl
     private static final String DEFAULT = "default";
     private static final String EMPTY_STRING = "";
     private static final String BOOLEAN_FALSE = "false";
-    private static final String DEFAULT_TYPE = "PathParam";
+    //private static final String DEFAULT_TYPE = "PathParam";
 
     private static final String QUOTE = "\"";
     private static final String RPARENS = "(";
