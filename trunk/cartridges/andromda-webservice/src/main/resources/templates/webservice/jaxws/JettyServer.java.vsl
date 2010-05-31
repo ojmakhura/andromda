@@ -27,12 +27,13 @@ import org.mortbay.jetty.webapp.WebAppContext;
  * Simple class to start a web server with one simple class, to test web services
  * and web server configuration. Based on CXF Samples: java_first_spring_support
  */
-public class JettyServer {
-
+public class JettyServer
+{
     /**
      * @throws Exception
      */
-    protected JettyServer() throws Exception {
+    protected JettyServer() throws Exception
+    {
         System.out.println("Starting Jetty Server");
 
         /**
@@ -74,7 +75,8 @@ public class JettyServer {
      * @param args
      * @throws Exception
      */
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) throws Exception
+    {
         new JettyServer();
     }
 }
