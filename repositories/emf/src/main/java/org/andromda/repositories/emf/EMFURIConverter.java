@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.andromda.core.common.AndroMDALogger;
@@ -30,14 +29,14 @@ public class EMFURIConverter
      *
      * @param moduleSearchPaths the paths to search for modules.
      */
-    public EMFURIConverter(final List moduleSearchPaths)
+    public EMFURIConverter(final List<String> moduleSearchPaths)
     {
         this.moduleSearchPaths = moduleSearchPaths;
         if (logger.isDebugEnabled())
         {
-            for (final Iterator pathIterator = this.moduleSearchPaths.iterator(); pathIterator.hasNext();)
+            for (final String path : moduleSearchPaths)
             {
-                logger.debug("Model search path:" + pathIterator.next());
+                logger.debug("Model search path:" + path);
             }
         }
     }
@@ -45,12 +44,12 @@ public class EMFURIConverter
     /**
      * Stores the module search paths.
      */
-    private List moduleSearchPaths;
+    private List<String> moduleSearchPaths;
 
     /**
      * Stores the URIs that have been normalized.
      */
-    private final Map normalizedUris = new HashMap();
+    private final Map<URI, URI> normalizedUris = new HashMap<URI, URI>();
 
     /**
      * The logger instance.
@@ -74,10 +73,9 @@ public class EMFURIConverter
                     final String resourceName = uri.toString().replaceAll(
                             ".*(\\\\+|/)",
                             "");
-                    for (final Iterator iterator = this.moduleSearchPaths.iterator(); iterator.hasNext();)
+                    for (final String searchPath : moduleSearchPaths)
                     {
                         Date now1 = new Date();
-                        final String searchPath = (String)iterator.next();
                         final URI fileURI = EMFRepositoryFacadeUtils.createUri(ResourceUtils.normalizePath(searchPath));
                         //long ms1 = new Date().getTime() - now1.getTime();
                         if (fileURI != null && fileURI.lastSegment() != null && fileURI.lastSegment().equals(resourceName))
