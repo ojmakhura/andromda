@@ -67,7 +67,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <echo message="running wsgen for each generated webservice class"/>
     <!-- wsgen throws an exception if directories don't exist -->
     <mkdir dir="${andromda.project}/common/target/classes"/>
+    <mkdir dir="${andromda.project}/common/target/src/main/java"/>
+    <mkdir dir="${andromda.project}/core/src/test/java"/>
     <mkdir dir="${andromda.project}/core/target/classes"/>
+    <mkdir dir="${andromda.project}/core/target/src/main/java"/>
     <mkdir dir="${andromda.project}/CXF/target/src/main/java"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/lib"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/wsdl"/>
@@ -126,6 +129,22 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
       </fileset>
     </copy>
+    <!-- Copy Service Exception FaultBeans -->
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service) && !$service.allowedOperationExceptions.empty)
+    <copy todir="${andromda.project}/common/target/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/CXF/target/src/main/java">
+#foreach ($exception in $service.allowedOperationExceptions)
+#set ($faultName = $exception.name.replace("Exception", "Fault"))
+##        <!-- $faultName $exception.associationEnds.size() $exception -->
+#if ($exception.associationEnds.empty)
+        <include name="**/${faultName}.java"/>
+#end
+#end
+      </fileset>
+    </copy>
+#end
+#end
     <!-- Copy Test Client, Test Server, and WS Endpoint Client files to webservice project -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
@@ -135,6 +154,18 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <include name="**/*_Client.java"/>
         <include name="**/*_Server.java"/>
         <include name="**/*SEIClient.java"/>
+      </fileset>
+    </copy>
+#end
+#end
+    <!-- Copy Andromda generated Test Client and WS Endpoint Client files to CXF project -->
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service))
+    <copy todir="${andromda.project}/CXF/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/webservice/target/src/test/java">
+        <include name="**/*_WSClient.java"/>
+        <include name="**/*WSTest.java"/>
+        <include name="**/cxf*.xml"/>
       </fileset>
     </copy>
 #end
@@ -162,9 +193,6 @@ and allows double-checking of both java and wsdl code generation and all annotat
   <target name="wsdlgenall" depends="init"
         description="Call java2ws (create client) for each Service, modify URL">
 
-    <!-- Build core and common so that copied files are compiled and found in the classpath>
-    <antcall target="eclipseCore"/ -->
-
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
@@ -175,12 +203,6 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </antcall>
 #end
 #end
-    <!-- Jaxb generated package-info.java files cause the beautifier to fail formatting imports. -->
-    <copy todir="${andromda.project}/CXF/target/src/main/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
-        <fileset dir="${andromda.project}/common/target/src/main/java">
-          <include name="**/package-info.java"/>
-        </fileset>
-    </copy>
     <record name="${project}/mda/wsgen${NOW}.log" action="stop"/>
   </target>
 
