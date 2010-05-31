@@ -37,7 +37,7 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
 #set ($jax="jaxws")
-#set ($atom="false")
+#set ($atom=false)
     <!-- $jax:executor  A Java executor which will be used for the service. This can be supplied using the Spring <bean class="MyExecutor"/> syntax.
     $jax:inInterceptors  The incoming interceptors for this endpoint. A list of <bean>s or <ref>s.
     $jax:inFaultInterceptors  The incoming fault interceptors for this endpoint. A list of <bean>s or <ref>s.
@@ -64,7 +64,7 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
             <bean class="${service.fullyQualifiedName}SEIImpl" />
         </jaxrs:serviceBeans>
 #if ($service.restAtom)
-#set ($atom="true")
+#set ($atom=true)
         <!-- Register custom providers if used in REST Services -->
         <jaxrs:providers>
             <ref bean="atomFeedProvider"/>
