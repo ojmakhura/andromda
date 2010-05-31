@@ -212,29 +212,41 @@ $parameter.getDocumentation("                        ", 100, false)
 #end
 ## Service exceptions are already included in referenced $types
 ##        <!-- $service.allowedOperationExceptions.size() $service.allowedOperationExceptions $service -->
-##foreach($exceptionType in $service.allowedOperationExceptions)
-##        <!-- $exceptionType.packageName $service.package.fullyQualifiedName $pkg $schemaTypes.contains($exceptionType) $exceptionType -->
-##if ($exceptionType.packageName.equals($service.package.fullyQualifiedName) || $stringUtils.isBlank($exceptionType.packageName))
-##set ($type=$exceptionType.qName)
-##set ($type="${service.namespacePrefix}:${exceptionType.name}")
-##        <xs:element name="${exceptionType.name}">
-##            <xs:complexType>
-##                <xs:sequence>
-##foreach($property in $exceptionType.allProperties)
-##if($property.lower==0)
-##set ($multiplicity="0")
-##elseif($property.lower==1)
-##set ($multiplicity="1")
-##else
-##set ($multiplicity="unlimited")
+#foreach($exception in $service.allowedOperationExceptions)
+#if ($exception.associationEnds.empty)
+#set ($faultName=$exception.name.replace("Exception", "Fault"))
+#set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.package))
+#else
+#set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
+#set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.associationEnds.get(0).otherEnd.type.package))
+#end
+##        <!-- $exception.packageName $service.package.fullyQualifiedName $pkg $schemaTypes.contains($exception) $exception -->
+##if ($exception.packageName.equals($service.package.fullyQualifiedName) || $stringUtils.isBlank($exception.packageName))
+##set ($type=$exception.qName)
+#set ($type="$webServiceUtils.getPkgAbbr(${exception.package}):$faultName")
+        <xs:element name="$faultName" type="$type"/>
+#if ($exception.packageName.equals($service.packageName))
+        <xs:complexType name="${exception.name}">
+            <xs:sequence>
+#foreach($property in $exception.allProperties)
+#if($property.lower==0)
+#set ($multiplicity="0")
+#elseif($property.lower==1)
+#set ($multiplicity="1")
+#else
+#set ($multiplicity="unlimited")
+#end
+#if ($property.type.packageName.equals($pkg.fullyQualifiedName) || $stringUtils.isBlank($property.type.packageName) || $property.type.schemaType.startsWith("xs:"))
+                <xs:element name="${property.name}" type="${property.type.schemaType}" minOccurs="$multiplicity"/>
+#else
+                <xs:element name="${property.name}" type="$webServiceUtils.getPkgAbbr(${property.type.package}):${property.type.name}" minOccurs="$multiplicity"/>
+#end
+#end
+            </xs:sequence>
+        </xs:complexType>
+#end
 ##end
-##                    <xs:element name="${property.name}" type="$webServiceUtils.getPkgAbbr(${property.type.package}):${property.type.name}" minOccurs="$multiplicity"/>
-##end
-##                </xs:sequence>
-##            </xs:complexType>
-##        </xs:element>
-##end
-##end
+#end
 #if ($defaultParameterStyle.equalsIgnoreCase("BARE"))
         <!-- TypeMapping for bare parameters in foreign namespaces -->
 #foreach ($typeMapping in $webServiceUtils.getServiceReferences($service, $extensionInheritanceDisabled))
@@ -343,7 +355,7 @@ $type.getDocumentation("                ", 100, false)
 #set ($attributeType = $attribute.type)
 ## Attribute type may be something other than WSDLType, i.e. Enumeration
 #if (!$attributeType.wSDLTypeMetaType)
-#set ($schemaType = "${webServiceUtils.getPkgAbbr($attributeType.package)}:${attributeType.name}")
+#set ($schemaType = "${webServiceUtils.getPkgAbbr($attributeType.package)}:${attributeType.qName}")
 #elseif ($attribute.many && $useArrayWrapper)
 #set ($schemaType = "${attributeType.namespacePrefix}:${attributeType.wsdlArrayName}")
 #elseif (!$attributeType.packageName.equals($pkg.fullyQualifiedName) && $stringUtils.isNotBlank($attributeType.packageName) && $attributeType.packageName.indexOf('.')>0 && !$attributeType.schemaType.startsWith("xs:"))

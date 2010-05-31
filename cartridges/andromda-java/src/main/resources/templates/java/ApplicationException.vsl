@@ -12,9 +12,9 @@ package $class.packageName;
 #if ($webFault)
 ## Assume the only Exception AssociationEnd class is the faultBean
 #if ($class.associationEnds.empty)
-## Create a new FaultBean class at the same time as processing this Exception
-#set ($faultDetails="Object")
-#set ($faultClass="Object")
+## FaultBean class is created by wsdl2java in CXF project and copied to common project
+#set ($faultDetails=$class.packageName + "." + $class.name.replace("Exception", "Fault"))
+#set ($faultClass=$class.name.replace("Exception", "Fault"))
 #else
 #set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
 #set ($faultClass=$class.associationEnds.get(0).otherEnd.type.name)
@@ -28,6 +28,7 @@ $class.getDocumentation(" * ")
  */
 #if ($XMLBindingAnnotations)
     @XmlRootElement(name="#if ($webFault)$faultClass#else$class.name#end")
+    // Annotate get/set fields with @XmlTransient, not the private fields.
     @XmlAccessorType(XmlAccessType.FIELD)
 #if ($webFault)
     @XmlType(name="$stringUtils.uncapitalize($faultClass)")

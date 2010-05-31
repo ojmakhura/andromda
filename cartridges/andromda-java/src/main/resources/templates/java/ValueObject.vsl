@@ -51,10 +51,21 @@ $class.getDocumentation(" * ")
 #end
 #end
  */
+## Use a different name for VO Fault than for Exception, if needed
+##set ($className = ${class.getName(true)})
+#if ($class.hasStereotype("WebFault") && ($type.hasStereotype("Exception") || $type.hasStereotype("ApplicationException") || $type.hasStereotype("UnexpectedException")))
+#if ($class.name.contains("Exception"))
+#set ($className = $class.name.replace("Exception", "Fault"))
+#else
+#set ($className = "${class.name}Fault")
+#end
+#else
+#set ($className = "$class.name")
+#end
 #if ($XMLOutput)
-@XmlRootElement(name = "$class.name")
+@XmlRootElement(name = "$className")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "$class.name", // namespace="http://$javaUtils.reversePackage($class.packageName)/",
+@XmlType(name = "$className", // namespace="http://$javaUtils.reversePackage($class.packageName)/",
 #set ($size = $class.attributes.size() + $class.navigableConnectingEnds.size())
 #set ($count = 1)
   propOrder = {
@@ -73,7 +84,7 @@ $class.getDocumentation(" * ")
 #if (!$cxfVersion.startsWith("2.0"))
 #set ($specializations = $class.typeSpecializations)
 #if (!$specializations.empty)
-// Referenced subclasses of $class.name
+// Referenced subclasses of $className
 @javax.xml.bind.annotation.XmlSeeAlso({
 #foreach ($specialization in $specializations)
     ${specialization.fullyQualifiedName}.class#if ($velocityHasNext), #end
@@ -83,15 +94,15 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
-public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $enableTemplating)
+public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
     extends $class.generalization.fullyQualifiedName
 #elseif ($serializable)
-    implements Serializable, Comparable#if($enableTemplating)<$class.name>#end
+    implements Serializable, Comparable#if($enableTemplating)<$className>#end
 
 #else
-    implements Comparable#if($enableTemplating)<$class.name>#end
+    implements Comparable#if($enableTemplating)<$className>#end
 
 #end
     {
@@ -222,7 +233,7 @@ $attribute.getDocumentation("     * ")
 ##
 #if (!$class.requiredConstructorParameters.empty || $class.allRequiredConstructorParameters.size() > $class.requiredConstructorParameters.size())
     /** Default Constructor with no properties */
-    public ${class.name}()
+    public ${className}()
     {
 #if($class.generalization)
         super();
@@ -243,7 +254,7 @@ $attribute.getDocumentation("     * ")
 
 #end
      */
-    public ${class.name}(## no newline
+    public ${className}(## no newline
 #foreach ($property in $class.allRequiredConstructorParameters)
 final ${property.getterSetterTypeName} ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
@@ -274,7 +285,7 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
      * @param ${property.name}In $property.getterSetterTypeName
 #end
      */
-    public ${class.name}(## no newline
+    public ${className}(## no newline
 #foreach ($property in $class.allProperties)
 #set ($propertyType = $property.getterSetterTypeName)
 final $propertyType ${property.name}In#if(${velocityHasNext}), #end## no newline
@@ -298,12 +309,12 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 
 #end
     /**
-     * Copies constructor from other $class.name
+     * Copies constructor from other $className
      *
      * @param otherBean Cannot be <code>null</code>
      * @throws NullPointerException if the argument is <code>null</code>
      */
-    public ${class.name}(final $class.name${genericTemplate} otherBean)
+    public ${className}(final $className${genericTemplate} otherBean)
     {
 #if($class.generalization)
         super(otherBean);
@@ -318,7 +329,7 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
      * @param otherBean Cannot be <code>null</code>
      * @return this
      */
-    public#if($generateChainedSetters) $class.name${genericTemplate}#else void#end copy(final $class.name${genericTemplate} otherBean)
+    public#if($generateChainedSetters) $className${genericTemplate}#else void#end copy(final $className${genericTemplate} otherBean)
     {
 #if ($class.allProperties.empty)
 // No attributes to copy...
@@ -382,11 +393,11 @@ $attribute.getDocumentation("     * ")
 $attribute.getDocumentation("     * ")
      * @param value $returnType
 #if($generateChainedSetters&&!$XMLOutput)
-     * @return this ${class.name}
+     * @return this ${className}
 #end
      */
 ## XMLOutput does not allow return values from the setter method
-    public#if($generateChainedSetters&&!$XMLOutput) ${class.name}#else void#end ${attribute.setterName}(final $returnType value)
+    public#if($generateChainedSetters&&!$XMLOutput) ${className}#else void#end ${attribute.setterName}(final $returnType value)
     {
         this.${attribute.name} = value;
 #if($generateChainedSetters&&!$XMLOutput)
@@ -430,7 +441,7 @@ $connectingEnd.getDocumentation("     * ")
      * Sets the $connectingEnd.name
      * @param value $connectingEnd.getterSetterTypeName
 #if($generateChainedSetters)
-     * @return this ${class.name}
+     * @return this ${className}
 #end
      */
     public#if($generateChainedSetters) $umlUtils.getClassDeclaration($class, $enableTemplating)#else void#end ${connectingEnd.setterName}($connectingEnd.getterSetterTypeName value)
@@ -484,14 +495,14 @@ $connectingEnd.getDocumentation("     * ")
     @Override
 #end
 #end
-    public int compareTo(final#if($enableTemplating) ${class.name}#else Object#end object)
+    public int compareTo(final#if($enableTemplating) ${className}#else Object#end object)
     {
         if (object==null#if(!$enableTemplating) || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class))#end)
         {
             return -1;
         }
 #if (!$enableTemplating && !$class.properties.empty)
-        $class.name myClass = ($class.fullyQualifiedName)object;
+        $className myClass = ($class.fullyQualifiedName)object;
 #end
         return new CompareToBuilder()
 #if($class.generalization)

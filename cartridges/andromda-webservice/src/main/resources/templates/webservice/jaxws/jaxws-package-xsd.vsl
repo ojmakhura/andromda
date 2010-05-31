@@ -20,7 +20,8 @@
             schemaLocation="${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"/>
 #end
         <!-- Service TypeMapping elements -->
-#foreach ($type in $webServiceUtils.getPackageTypes($pkg, $extensionInheritanceDisabled))
+#foreach ($type in $pkgTypes)
+##foreach ($type in $webServiceUtils.getPackageTypes($pkg, $extensionInheritanceDisabled))
 #if ($umlUtils.shouldOutput($type))
 #set ($arrayItemName = ${stringUtils.uncapitalize($type.getSchemaType(false, false))})
 ## TODO: Add nillable option for all minOccurs=0 elements/attributes
@@ -75,11 +76,20 @@ $literal.getDocumentation("                        ", 100, false)
 #* *##else
 ##        <!-- $type $type.name many=$attribute.many namespacePrefix=$type.namespacePrefix packageName=$type.packageName AschemaType=$attribute.type.schemaType qName=$type.qName isMany=$isMany schemaType=$schemaType -->
 ##if (!$service.allowedOperationExceptions.contains($type))
-#if (!$type.hasStereotype("Exception") && !$type.hasStereotype("ApplicationException") && !$type.hasStereotype("UnexpectedException"))
-#if ($type.hasStereotype("WebFault") && $type.hasStereotype("ValueObject"))
-        <xs:element name="$type.qName" type="impl:$type.qName" />
+#if ($type.hasStereotype("ValueObject"))
+        <!-- ValueObject -->
+#if ($type.hasStereotype("WebFault") && $type.hasStereotype("Exception") || $type.hasStereotype("ApplicationException") || $type.hasStereotype("UnexpectedException"))
+#if ($type.name.contains("Exception"))
+#set ($typeName = $type.name.replace("Exception", "Fault"))
+#else
+#set ($typeName = "${type.name}Fault")
 #end
-        <xs:complexType name="$type.qName">
+#else
+#set ($typeName = "$type.qName")
+#end
+##        <!-- WebFault=$type.hasStereotype("WebFault") Exception=$type.hasStereotype("Exception") ApplicationException=$type.hasStereotype("ApplicationException") UnexpectedException=$type.hasStereotype("UnexpectedException") -->
+        <xs:element name="$typeName" type="impl:$typeName" />
+        <xs:complexType name="$typeName">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
 #if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
@@ -262,6 +272,7 @@ $attribute.getDocumentation("                        ", 100, false)
         </xs:complexType>
 ##if ($type.hasStereotype("WebFault") && $type.hasStereotype("ValueObject"))
 ##        </xs:element>
+##end
 ##end
 ##end
 #end
