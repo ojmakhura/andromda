@@ -11,7 +11,6 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity.
  *
@@ -168,8 +167,8 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetOnlineHelpValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
-        return (value == null) ? "No entity documentation has been specified" : value;
+        return (!this.isDocumentationPresent()) ? "No entity documentation has been specified" : 
+            StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 
     protected String handleGetOnlineHelpActionPath()
