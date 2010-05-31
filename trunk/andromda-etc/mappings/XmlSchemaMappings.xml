@@ -12,6 +12,8 @@
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::boolean</from>
         <from>datatype::Boolean</from>
+        <from>datatypes::boolean</from>
+        <from>datatypes::Boolean</from>
         <to>boolean</to>
     </mapping>
     <mapping>
@@ -21,6 +23,8 @@
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::byte</from>
         <from>datatype::Byte</from>
+        <from>datatypes::byte</from>
+        <from>datatypes::Byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
@@ -33,6 +37,9 @@
         <from>datatype::Blob</from>
         <from>datatype::byte[]</from>
         <from>datatype::Byte[]</from>
+        <from>datatypes::Blob</from>
+        <from>datatypes::byte[]</from>
+        <from>datatypes::Byte[]</from>
         <to>base64Binary</to>
     </mapping>
     <mapping>
@@ -44,6 +51,7 @@
         <from>Clob</from>
         <from>UML2::String</from>
         <from>UMLTypes::String</from>
+        <from>UMLPrimitiveTypes::String</from>
         <from>PrimitiveTypes::URI</from>
         <from>PrimitiveTypes::URL</from>
         <from>PrimitiveTypes::char[]</from>
@@ -56,18 +64,26 @@
         <from>datatype::Char[]</from>
         <from>datatype::String</from>
         <from>datatype::Clob</from>
+        <from>datatypes::URI</from>
+        <from>datatypes::URL</from>
+        <from>datatypes::char[]</from>
+        <from>datatypes::Char[]</from>
+        <from>datatypes::String</from>
+        <from>datatypes::Clob</from>
         <to>string</to>
     </mapping>
     <mapping>
         <from>Time</from>
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
+        <from>datatypes::Time</from>
         <to>time</to>
     </mapping>
     <mapping>
         <from>Date</from>
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
+        <from>datatypes::Date</from>
         <to>date</to>
     </mapping>
     <mapping>
@@ -77,27 +93,33 @@
         <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
+        <from>datatypes::DateTime</from>
+        <from>datatypes::Timestamp</from>
         <to>dateTime</to>
     </mapping>
     <mapping>
         <from>char</from>
-        <from>Integer</from>
         <from>Java::int</from>
         <from>Java::char</from>
         <from>PrimitiveTypes::int</from>
         <from>PrimitiveTypes::char</from>
-        <from>PrimitiveTypes::Integer</from>
         <from>datatype::int</from>
         <from>datatype::char</from>
+        <from>datatypes::int</from>
+        <from>datatypes::char</from>
         <to>int</to>
     </mapping>
     <mapping>
+        <from>Integer</from>
         <from>BigInteger</from>
+        <from>PrimitiveTypes::Integer</from>
         <from>PrimitiveTypes::BigInteger</from>
         <from>UML2::Integer</from>
         <from>UML2::UnlimitedNatural</from>
         <from>datatype::Integer</from>
         <from>datatype::BigInteger</from>
+        <from>datatypes::Integer</from>
+        <from>datatypes::BigInteger</from>
         <to>integer</to>
     </mapping>
     <mapping>
@@ -109,6 +131,9 @@
         <from>datatype::Decimal</from>
         <from>datatype::decimal</from>
         <from>datatype::BigDecimal</from>
+        <from>datatypes::Decimal</from>
+        <from>datatypes::decimal</from>
+        <from>datatypes::BigDecimal</from>
         <to>decimal</to>
     </mapping>
     <mapping>
@@ -121,6 +146,9 @@
         <from>datatype::double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
+        <from>datatypes::double</from>
+        <from>datatypes::Double</from>
+        <from>datatypes::Money</from>
         <to>double</to>
     </mapping>
     <mapping>
@@ -130,6 +158,8 @@
         <from>PrimitiveTypes::Float</from>
         <from>datatype::float</from>
         <from>datatype::Float</from>
+        <from>datatypes::float</from>
+        <from>datatypes::Float</from>
         <to>float</to>
     </mapping>
     <mapping>
@@ -139,6 +169,8 @@
         <from>PrimitiveTypes::Long</from>
         <from>datatype::long</from>
         <from>datatype::Long</from>
+        <from>datatypes::long</from>
+        <from>datatypes::Long</from>
         <to>long</to>
     </mapping>
     <mapping>
@@ -148,6 +180,8 @@
         <from>PrimitiveTypes::Short</from>
         <from>datatype::short</from>
         <from>datatype::Short</from>
+        <from>datatypes::short</from>
+        <from>datatypes::Short</from>
         <to>short</to>
     </mapping>
     <mapping>
@@ -155,6 +189,7 @@
         <from>Class</from>
         <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
+        <from>datatypes::Object</from>
         <to>anyType</to>
     </mapping>
 </mappings>

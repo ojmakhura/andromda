@@ -7,12 +7,14 @@
     <mapping>
         <from>Blob</from>
         <from>PrimitiveTypes::Blob</from>
+        <from>datatypes::Blob</from>
         <from>datatype::Blob</from>
         <to>org.andromda.persistence.hibernate.usertypes.HibernateByteBlobType</to>
     </mapping>
     <mapping>
         <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
+        <from>datatypes::Clob</from>
         <from>datatype::Clob</from>
         <to>org.andromda.persistence.hibernate.usertypes.HibernateStringClobType</to>
     </mapping>
