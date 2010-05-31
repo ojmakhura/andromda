@@ -99,9 +99,9 @@ $operation.getDocumentation("    * ")
 #set ($propertyNum=0)
 #set ($property1Num=0)
 #foreach ($parameter in $operation.arguments)
-        // parameter $parameter.name with $parameter.type.allProperties.size() properties: #foreach ($property in $parameter.type.allProperties) $property.name#end
+##        // parameter $parameter.name with $parameter.type.allProperties.size() properties: #foreach ($property in $parameter.type.allProperties) $property.name#end
 
-        // $parameter.type.fullyQualifiedName $parameter.name = ${webServiceUtils.createConstructor($parameter, false)};
+##        // $parameter.type.fullyQualifiedName $parameter.name = ${webServiceUtils.createConstructor($parameter, false)};
 #if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($tab="    ")
 #set ($parameterName="${parameter.name}Element")

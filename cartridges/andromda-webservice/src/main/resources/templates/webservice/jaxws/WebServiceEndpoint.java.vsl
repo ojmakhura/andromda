@@ -44,7 +44,7 @@ $service.getDocumentation(" * ")
 @WebService(serviceName = "$service.name",
             portName = "$service.name",
             targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)/",
-            //wsdlLocation = "WEB-INF/wsdl/${service.name}.wsdl",
+            //wsdlLocation = "wsdl/${service.name}.wsdl",
             endpointInterface="${service.fullyQualifiedName}SEI")
 #end
 public class ${service.name}SEIImpl #if(!$service.rest)implements ${service.name}SEI#end
