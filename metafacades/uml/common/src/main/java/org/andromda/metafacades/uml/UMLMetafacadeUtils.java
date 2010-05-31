@@ -386,11 +386,6 @@ public class UMLMetafacadeUtils
         }
         return rtn;
     }
-
-    private static final String namespaceScopeOperator = ".";
-    private static final String COMMA = ", ";
-    private static final String LT = "<";
-    private static final String GT = ">";
     /**
      * Get the classname without the package name and without additional template<> parameters.
      *
@@ -401,7 +396,29 @@ public class UMLMetafacadeUtils
     // TODO This should really be a method on ModelElementFacade
     public static String getClassDeclaration(ModelElementFacade facade, boolean enableTemplating)
     {
-        String fullName = StringUtils.trimToEmpty(facade.getName());
+        return UMLMetafacadeUtils.getClassDeclaration(facade, facade.getName(), enableTemplating);
+    }
+
+    private static final String namespaceScopeOperator = ".";
+    private static final String COMMA = ", ";
+    private static final String LT = "<";
+    private static final String GT = ">";
+    /**
+     * Get the classname without the package name and without additional template<> parameters.
+     *
+     * @param facade 
+     * @param className Class name to use in the class declaration, overrides facade.getName()
+     * @param enableTemplating Whether template declaration should be created.
+     * @return getNameWithoutPackage
+     */
+    // TODO This should really be a method on ModelElementFacade
+    public static String getClassDeclaration(ModelElementFacade facade, String className, boolean enableTemplating)
+    {
+        if (StringUtils.isBlank(className))
+    {
+            className = facade.getName();
+        }
+        String fullName = StringUtils.trimToEmpty(className);
         final String packageName = facade.getPackageName(true);
         final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         if (StringUtils.isNotBlank(packageName))
@@ -474,7 +491,7 @@ public class UMLMetafacadeUtils
     public static String getGenericTemplate(ModelElementFacade facade, boolean enableTemplating)
     {
         String fullName = "";
-        if (facade.isTemplateParametersPresent() && enableTemplating)
+        if (facade != null && facade.isTemplateParametersPresent() && enableTemplating)
         {
             // we'll be constructing the parameter list in this buffer
             final StringBuilder buffer = new StringBuilder();
