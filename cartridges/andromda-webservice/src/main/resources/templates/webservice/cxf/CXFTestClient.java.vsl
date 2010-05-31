@@ -109,6 +109,7 @@ $operation.getDocumentation("    * ")
     * @throws $exception.fullyQualifiedName
 #end
     */
+    @Test
     public $returnType $operation.name
     (
 #if (!$operation.arguments.empty)
@@ -131,7 +132,7 @@ $operation.getDocumentation("    * ")
         throws $operation.exceptionList
 #end
     {
-        System.out.println("Starting test: " + this.name + " for " + "${service.name}Client");
+        System.out.println("Starting test: " + this.getName() + " for " + "${service.name}Client");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{"${stringUtils.replace($service.packageName,'.','/')}/test/cxf-client.xml"});
 
@@ -176,7 +177,7 @@ $operation.getDocumentation("    * ")
         client.${operation.name}(${operation.argumentNames});
 ##end
 #end
-$indent        System.out.println("Finished test: " + this.name + " for ${service.name}.${operation.name}(${operation.argumentNames})");
+$indent        System.out.println("Finished test: " + this.getName() + " for ${service.name}.${operation.name}(${operation.argumentNames})");
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##        return ${operation.operationName}ResponseWrapper.get$stringUtils.capitalize(${operation.operationName})ResponseWrapper();
 ##else
