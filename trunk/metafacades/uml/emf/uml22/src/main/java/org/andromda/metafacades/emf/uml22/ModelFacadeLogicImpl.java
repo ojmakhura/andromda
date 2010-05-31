@@ -170,7 +170,7 @@ public class ModelFacadeLogicImpl
                 public boolean evaluate(final Object candidate)
                 {
                     FinalState fs = (FinalState)candidate;
-                    return fs.getName().equals(useCase.getName());
+                    return (fs != null && fs.getName().equals(useCase.getName()));
                 }
             });
 
