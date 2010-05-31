@@ -1118,7 +1118,8 @@ public class WebServiceUtils
                             }
                         }
                     }
-                    else if (facade.hasStereotype("Exception"))
+                    else if (facade.hasStereotype("Exception") || facade.hasStereotype("ApplicationException")
+                            || facade.hasStereotype("UnexpectedException") || facade.hasStereotype("WebFault"))
                     {
                         if (!pkgTypes.contains(facade))
                         {
