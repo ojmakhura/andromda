@@ -558,7 +558,7 @@
     <template
         path="templates/webservice/jaxws/JettyServer.java.vsl"
         outputPattern="JettyServer.java.ref"
-        outlet="webservice-impl"
+        outlet="webservice-tests"
         overwrite="true"
         outputCondition="cxf"
         outputToSingleFile="true">
