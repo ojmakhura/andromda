@@ -209,7 +209,7 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.1.1</version>
+                <version>1.2.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -234,7 +234,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.7</version>
+                <version>4.8.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -293,7 +293,7 @@
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity</artifactId>
-                <version>1.6.3</version>
+                <version>1.6.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -322,6 +322,7 @@
                 <artifactId>jsp-api</artifactId>
                 <version>2.0</version>
             </dependency>
+            <!-- Update to 2.5 requires fixing cartridges/jsf/components servletContextwrapper to implement getContextPath() -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
@@ -473,7 +474,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4.2</version>
+                    <version>2.4.3</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
@@ -481,7 +482,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.3.1</version>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
@@ -498,7 +499,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.3.1</version>
                     <configuration>
                         <createChecksum>true</createChecksum>
                     </configuration>
@@ -587,6 +588,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -746,6 +748,7 @@
                                 <link>http://logging.apache.org/log4j/docs/api/</link>
                                 <link>http://jakarta.apache.org/regexp/apidocs/</link>
                                 <link>http://jakarta.apache.org/velocity/api/</link>
+                                <!--link>http://docs.andromda.org/jmi-uml1.4/</link-->
                             </links>
                             <detectOfflineLinks>false</detectOfflineLinks>
                         </configuration>
