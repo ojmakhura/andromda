@@ -17,7 +17,6 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -109,8 +108,8 @@ public class StrutsJspLogicImpl
 
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(""));
-        return (value == null) ? "" : value;
+        return (!this.isDocumentationPresent()) ? "" 
+            : StringUtilsHelper.toResourceMessage(this.getDocumentation(""));
     }
 
     protected String handleGetOnlineHelpKey()
@@ -123,8 +122,8 @@ public class StrutsJspLogicImpl
         final String crlf = "<br/>";
         final StringBuilder buffer = new StringBuilder();
 
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
-        buffer.append((value == null) ? "No page documentation has been specified" : value);
+        buffer.append(!this.isDocumentationPresent() ? "No page documentation has been specified" 
+            : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false)));
         buffer.append(crlf);
         buffer.append(crlf);
 
@@ -354,6 +353,6 @@ public class StrutsJspLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

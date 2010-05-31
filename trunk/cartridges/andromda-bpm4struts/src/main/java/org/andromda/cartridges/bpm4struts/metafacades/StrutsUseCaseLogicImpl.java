@@ -21,8 +21,6 @@ import org.andromda.metafacades.uml.Role;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -62,8 +60,8 @@ public class StrutsUseCaseLogicImpl
         final String crlf = "<br/>";
         final StringBuilder buffer = new StringBuilder();
 
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
-        buffer.append((value == null) ? "No use-case documentation has been specified" : value);
+        buffer.append(!this.isDocumentationPresent() ? "No use-case documentation has been specified" 
+            : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false)));
         buffer.append(crlf);
 
         return StringUtilsHelper.toResourceMessage(buffer.toString());
@@ -371,10 +369,10 @@ public class StrutsUseCaseLogicImpl
     public final static class UseCaseNode
         extends DefaultMutableTreeNode
     {
-    	/**
-    	 * Automatically generated variable: serialVersionUID
-    	 */
-    	private static final long serialVersionUID = -4839356733341754931L;
+        /**
+         * Automatically generated variable: serialVersionUID
+         */
+        private static final long serialVersionUID = -4839356733341754931L;
 
         /**
          * @param useCase
@@ -396,7 +394,7 @@ public class StrutsUseCaseLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     protected Map handleGetAllMessages()
@@ -635,5 +633,4 @@ public class StrutsUseCaseLogicImpl
             ? Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_DEFAULT_KEY
             : String.valueOf(formKeyValue);
     }
-
 }

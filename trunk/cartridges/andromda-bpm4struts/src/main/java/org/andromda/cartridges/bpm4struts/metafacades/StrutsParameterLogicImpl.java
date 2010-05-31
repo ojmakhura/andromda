@@ -25,8 +25,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -259,7 +257,7 @@ public class StrutsParameterLogicImpl
         }
 
         String documentation = this.getDocumentation("", 64, false);
-        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
+        return StringUtilsHelper.toResourceMessage(!this.isDocumentationPresent()
             ? super.getName() + requiredSuffix + dateSuffix
             : documentation.trim().replaceAll("\n", "<br/>"));
     }
@@ -271,8 +269,8 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
-        return (value == null) ? "" : value;
+        return (!this.isDocumentationPresent()) ? "" : 
+            StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 
     protected String handleGetOnlineHelpKey()
@@ -286,8 +284,8 @@ public class StrutsParameterLogicImpl
         final String format = getValidatorFormat();
         final StringBuilder buffer = new StringBuilder();
 
-        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
-        buffer.append((value == null) ? "No field documentation has been specified" : value);
+        buffer.append(!this.isDocumentationPresent() ? "No field documentation has been specified"
+            : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false)));
         buffer.append(crlf);
         buffer.append(crlf);
 
@@ -525,7 +523,7 @@ public class StrutsParameterLogicImpl
 
         return required;
     }
-    
+
     /**
      * Override to not allow selectable parameters to be considered tables.
      * 
@@ -1381,7 +1379,7 @@ public class StrutsParameterLogicImpl
 
         return args;
     }
-    
+
     /**
      * @return mni, max, minLength, maxLength, mask
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()

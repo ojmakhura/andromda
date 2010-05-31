@@ -5,8 +5,6 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.utils.StringUtilsHelper;
 
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd.
  *
@@ -71,7 +69,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
 
     protected String handleGetOnlineHelpValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
-        return (value == null) ? "No field documentation has been specified" : value;
+        return (!this.isDocumentationPresent()) ? "No field documentation has been specified" : 
+            StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 }
