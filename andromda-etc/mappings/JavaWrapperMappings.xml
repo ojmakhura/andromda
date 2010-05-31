@@ -9,6 +9,8 @@
         <from>Java::int</from>
         <from>PrimitiveTypes::int</from>
         <from>UML Standard Profile::int</from>
+        <from>datatype::int</from>
+        <from>datatypes::int</from>
         <to>java.lang.Integer</to>
     </mapping>
     <mapping>
@@ -16,6 +18,8 @@
         <from>Java::char</from>
         <from>PrimitiveTypes::char</from>
         <from>UML Standard Profile::char</from>
+        <from>datatype::char</from>
+        <from>datatypes::char</from>
         <to>java.lang.Character</to>
     </mapping>
     <mapping>
@@ -23,6 +27,8 @@
         <from>Java::byte</from>
         <from>PrimitiveTypes::byte</from>
         <from>UML Standard Profile::byte</from>
+        <from>datatype::byte</from>
+        <from>datatypes::byte</from>
         <to>java.lang.Byte</to>
     </mapping>
     <mapping>
@@ -30,6 +36,8 @@
         <from>Java::short</from>
         <from>PrimitiveTypes::short</from>
         <from>UML Standard Profile::short</from>
+        <from>datatype::short</from>
+        <from>datatypes::short</from>
         <to>java.lang.Short</to>
     </mapping>
     <mapping>
@@ -37,6 +45,8 @@
         <from>Java::long</from>
         <from>PrimitiveTypes::long</from>
         <from>UML Standard Profile::long</from>
+        <from>datatype::long</from>
+        <from>datatypes::long</from>
         <to>java.lang.Long</to>
     </mapping>
     <mapping>
@@ -44,6 +54,8 @@
         <from>Java::float</from>
         <from>PrimitiveTypes::float</from>
         <from>UML Standard Profile::float</from>
+        <from>datatype::float</from>
+        <from>datatypes::float</from>
         <to>java.lang.Float</to>
     </mapping>
     <mapping>
@@ -51,13 +63,17 @@
         <from>Java::double</from>
         <from>PrimitiveTypes::double</from>
         <from>UML Standard Profile::double</from>
+        <from>datatype::double</from>
+        <from>datatypes::double</from>
         <to>java.lang.Double</to>
     </mapping>
     <mapping>
-          <from>boolean</from>
+        <from>boolean</from>
         <from>Java::boolean</from>
         <from>PrimitiveTypes::boolean</from>
         <from>UML Standard Profile::boolean</from>
-          <to>java.lang.Boolean</to>
+        <from>datatype::boolean</from>
+        <from>datatypes::boolean</from>
+        <to>java.lang.Boolean</to>
     </mapping>
 </mappings>

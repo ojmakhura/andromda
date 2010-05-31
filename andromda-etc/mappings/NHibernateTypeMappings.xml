@@ -5,91 +5,138 @@
 -->
 <mappings name="NHibernate">
     <mapping>
+        <from>Time</from>
+        <from>Date</from>
+        <from>DateTime</from>
+        <from>Timestamp</from>
         <from>datatype::Time</from>
         <from>datatype::Date</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
+        <from>datatypes::Time</from>
+        <from>datatypes::Date</from>
+        <from>datatypes::DateTime</from>
+        <from>datatypes::Timestamp</from>
         <to>NHibernate.Nullables2.NullableDateTimeType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>char</from>
         <from>datatype::char</from>
+        <from>datatypes::char</from>
         <to>Char</to>
     </mapping>
     <mapping>
+        <from>Character</from>
         <from>datatype::Character</from>
+        <from>datatypes::Character</from>
         <to>NHibernate.Nullables2.NullableCharType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>byte</from>
         <from>datatype::byte</from>
+        <from>datatypes::byte</from>
         <to>Byte</to>
     </mapping>
     <mapping>
+        <from>Byte</from>
         <from>datatype::Byte</from>
+        <from>datatypes::Byte</from>
         <to>NHibernate.Nullables2.NullableByteType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>short</from>
         <from>datatype::short</from>
+        <from>datatypes::short</from>
         <to>Int16</to>
     </mapping>
     <mapping>
+        <from>Short</from>
         <from>datatype::Short</from>
+        <from>datatypes::Short</from>
         <to>NHibernate.Nullables2.NullableInt16Type, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>int</from>
         <from>datatype::int</from>
+        <from>datatypes::int</from>
         <to>Int32</to>
     </mapping>
     <mapping>
+        <from>Integer</from>
         <from>datatype::Integer</from>
+        <from>datatypes::Integer</from>
         <to>NHibernate.Nullables2.NullableInt32Type, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>long</from>
         <from>datatype::long</from>
+        <from>datatypes::long</from>
         <to>Int64</to>
     </mapping>
     <mapping>
+        <from>Long</from>
         <from>datatype::Long</from>
+        <from>datatypes::Long</from>
         <to>NHibernate.Nullables2.NullableInt64Type, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
         <from>datatype::float</from>
+        <from>datatypes::float</from>
         <to>float</to>
     </mapping>
     <mapping>
+        <from>Float</from>
         <from>datatype::Float</from>
+        <from>datatypes::Float</from>
         <to>NHibernate.Nullables2.NullableSingleType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>double</from>
         <from>datatype::double</from>
+        <from>datatypes::double</from>
         <to>Double</to>
     </mapping>
     <mapping>
+        <from>Double</from>
         <from>datatype::Double</from>
         <from>datatype::Money</from>
+        <from>datatypes::Double</from>
+        <from>datatypes::Money</from>
         <to>NHibernate.Nullables2.NullableDoubleType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>Decimal</from>
         <from>datatype::Decimal</from>
+        <from>datatypes::Decimal</from>
         <to>NHibernate.Nullables2.NullableDecimalType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>Boolean</from>
         <from>datatype::Boolean</from>
+        <from>datatypes::Boolean</from>
         <to>NHibernate.Nullables2.NullableBooleanType, NHibernate.Nullables2</to>
     </mapping>
     <mapping>
+        <from>boolean</from>
         <from>datatype::boolean</from>
+        <from>datatypes::boolean</from>
         <to>Boolean</to>
     </mapping>
     <mapping>
         <from>datatype::Guid</from>
+        <from>datatypes::Guid</from>
         <to>Guid</to>
     </mapping>
     <mapping>
+        <from>Clob</from>
         <from>datatype::Clob</from>
+        <from>datatypes::Clob</from>
         <to>StringClob</to>
     </mapping>
     <mapping>
+        <from>Blob</from>
         <from>datatype::Blob</from>
+        <from>datatypes::Blob</from>
         <to>BinaryBlob</to>
     </mapping>
 </mappings>
