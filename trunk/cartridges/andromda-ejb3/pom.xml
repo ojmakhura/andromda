@@ -54,8 +54,24 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
+                <artifactId>andromda-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-cartridge-plugin</artifactId>
                 <version>${project.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.cartridges</groupId>
+                        <artifactId>andromda-ejb3-cartridge</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.andromda.cartridges</groupId>
+                        <artifactId>andromda-java-cartridge</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>cartridge-howto-artifacts</id>
