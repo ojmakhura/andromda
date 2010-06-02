@@ -93,7 +93,8 @@ public class AndroMDAMojo
             if (execute)
             {
                 final AndroMDA andromda = AndroMDA.newInstance();
-                andromda.run(configuration, lastModifiedCheck, this.modelOutputHistory.getAbsolutePath());
+                final String historyPath = this.modelOutputHistory!=null ? this.modelOutputHistory.getAbsolutePath() : null;
+                andromda.run(configuration, lastModifiedCheck,  historyPath);
                 andromda.shutdown();
             }
             else
