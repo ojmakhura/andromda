@@ -88,7 +88,7 @@ public class Paragraph
      */
     public String toString()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         for (final String line : this.getLines())
         {
             buffer.append(line);
