@@ -56,22 +56,30 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
+            <!--Perform xslt transformation of namespace.xml for site generation-->
             <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>namespace-transform</id>
-                        <goals>
-                            <goal>namespace-xsl</goal>
-                        </goals>
-                        <configuration>
-                            <namespaceDocumentPath>${project.build.outputDirectory}/META-INF/andromda/namespace.xml</namespaceDocumentPath>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <addedToClasspath>false</addedToClasspath>
+                            <dir>${project.build.outputDirectory}/META-INF/andromda</dir>
+                            <includes>
+                                <include>namespace.xml</include>
+                            </includes>
+                            <stylesheet>../../../andromda-etc/xsl/namespace.xsl</stylesheet>
+                            <parameters>
+                                <parameter>
+                                    <name>projectName</name>
+                                    <value>${project.name}</value>
+                                </parameter>
+                            </parameters>
+                            <outputDir>src/site/xdoc</outputDir>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+            </plugin>            
         </plugins>
  		<resources>
             <resource>
@@ -82,7 +90,11 @@
 	        	<includes>
 	        		<include>META-INF/andromda/**</include>
 	        	</includes>
+                <filtering>true</filtering>
 	      	</resource>
     	</resources>
     </build>
+    <properties>
+        <namespace.name>uml-1.4</namespace.name>
+    </properties>
 </project>
