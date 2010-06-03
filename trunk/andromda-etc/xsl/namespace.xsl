@@ -1,11 +1,12 @@
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+    <xsl:param name="projectName">Andromda Project</xsl:param>
     <xsl:output method="xml"/>
 
     <xsl:template match="/">
         <document>
             <properties>
-                <title>%module% Namespace</title>
+                <title><xsl:value-of select="$projectName"/> Namespace</title>
             </properties>
             <body>
                 <xsl:apply-templates/>
@@ -14,7 +15,7 @@
     </xsl:template>
 
     <xsl:template match="properties">
-        <section name="%module% Namespace Properties">
+        <section name="{$projectName} Namespace Properties">
             <xsl:for-each select="propertyGroup">
                 <xsl:sort select="@name"/>
                 <div class="namespacePropertyGroup">
@@ -136,7 +137,7 @@
     </xsl:template>
 
     <xsl:template match="components">
-        <section name="%module% Namespace Components">
+        <section name="{$projectName} Namespace Components">
             <ul>
                 <xsl:apply-templates/>
             </ul>
