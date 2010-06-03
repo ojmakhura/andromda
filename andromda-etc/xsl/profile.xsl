@@ -1,11 +1,12 @@
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+    <xsl:param name="projectName">Andromda Project</xsl:param>
     <xsl:output method="xml"/>
 
     <xsl:template match="/">
         <document>
             <properties>
-                <title>%module% Profile</title>
+                <title><xsl:value-of select="$projectName"/> Profile</title>
             </properties>
             <body>
                 <xsl:if test="normalize-space(documentation)">
@@ -17,10 +18,10 @@
     </xsl:template>
 
     <xsl:template match="elements">
-        <section name="%module% Profile">
+        <section name="{$projectName} Profile">
             <p>
                 This profile contains all elements that can be applied on the model used as the
-                MDA transformation process. These elements are specific to the %module% component.
+                MDA transformation process. These elements are specific to the <xsl:value-of select="$projectName"/> component.
             </p>
             <xsl:for-each select="elementGroup">
                 <xsl:sort select="@name"/>
