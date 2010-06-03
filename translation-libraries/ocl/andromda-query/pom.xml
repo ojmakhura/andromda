@@ -51,17 +51,10 @@
                     <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
+            <!--Perform xslt transformation of namespace.xml for site generation-->
             <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>namespace-transform</id>
-                        <goals>
-                            <goal>namespace-xsl</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
