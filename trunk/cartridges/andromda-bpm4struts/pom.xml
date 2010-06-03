@@ -97,8 +97,8 @@
                 <artifactId>andromda-cartridge-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
