@@ -8,7 +8,9 @@ contain this directory's contents.
    (NOTE: this step only needs to be performed the first time you build with a fresh repository).
 4) Next type "mvn", this will proceed to build the entire distribution, which can be found in the
    directory: andromda-distribution/target
-
+5) Or call "mvn -Pandromda-full" to build and install the entire distribution including all sources and javadocs.
+6) Use "mvn deploy -Pandromda-full,server" to build and deploy everything to the sonatype repository
+7) Use "mvn site -Pandromda-site" to build site-documentation. You deploy it with "mvn site:deploy -Pandromda-site,local" or "mvn site:deploy -Pandromda-site,server".
 
 Good luck!
 
