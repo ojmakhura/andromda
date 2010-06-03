@@ -1,9 +1,7 @@
 package org.andromda.core.common;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +12,7 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -39,7 +38,7 @@ public class Merger
     /**
      * Stores the cached merge mappings already found (so we don't need to reconstruct again each time).
      */
-    private final Map mergeMappingsCache = new LinkedHashMap();
+    private final Map<String, Mappings> mergeMappingsCache = new LinkedHashMap<String, Mappings>();
 
     /**
      * Gets the shared Merger instance. Normally you'll want to retrieve the instance through this method.
@@ -114,17 +113,9 @@ public class Merger
         final InputStream inputStream,
         final String namespace)
     {
-        StringWriter writer = null;
-        BufferedReader inputReader = null;
         try
         {
-            writer = new StringWriter();
-            inputReader = new BufferedReader(new InputStreamReader(inputStream));
-            for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
-            {
-                writer.write(ctr);
-            }
-            final String string = writer.toString();
+            final String string = IOUtils.toString(inputStream);
             return this.getMergedString(string, namespace);
         }
         catch (final Exception exception)
@@ -133,12 +124,7 @@ public class Merger
         }
         finally
         {
-            if (inputReader != null) {try {
-                inputReader.close();
-            } catch (Exception ex) {}}
-            if (writer != null) {try {
-                writer.close();
-            } catch (Exception ex) {}}
+            IOUtils.closeQuietly(inputStream);
         }
     }
 
@@ -184,7 +170,7 @@ public class Merger
                     String mergeMappingsUriValue = (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
                     if (StringUtils.isNotBlank(mergeMappingsUriValue))
                     {
-                        Mappings mergeMappings = (Mappings)this.mergeMappingsCache.get(mergeMappingsUriValue);
+                        Mappings mergeMappings = this.mergeMappingsCache.get(mergeMappingsUriValue);
                         if (mergeMappings == null)
                         {
                             try
