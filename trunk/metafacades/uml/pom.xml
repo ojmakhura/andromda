@@ -114,7 +114,7 @@
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
                     <version>${project.version}</version>
-                     <executions>
+                    <executions>
                         <execution>
                             <phase>package</phase>
                             <goals>

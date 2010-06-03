@@ -1,4 +1,5 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.metafacades</groupId>
@@ -9,7 +10,7 @@
     <packaging>jar</packaging>
     <name>AndroMDA UML Common Metafacades</name>
     <description>
-        The common UML metafacades.  This is the set of core UML metafacades used to provide access UML meta models.
+        The common UML metafacades. This is the set of core UML metafacades used to provide access UML meta models.
     </description>
     <issueManagement>
         <system>jira</system>
@@ -34,18 +35,29 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
             </plugin>
+            <!--Perform xslt transformation of profile.xml for site generation-->
             <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
-                <artifactId>andromda-site-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>profile-transform</id>
-                        <goals>
-                            <goal>profile-xsl</goal>
-                        </goals>
-                    </execution>                    
-                </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <addedToClasspath>false</addedToClasspath>
+                            <dir>src/main/resources/META-INF/andromda</dir>
+                            <includes>
+                                <include>profile.xml</include>
+                            </includes>
+                            <stylesheet>../../../andromda-etc/xsl/profile.xsl</stylesheet>
+                            <parameters>
+                                <parameter>
+                                    <name>projectName</name>
+                                    <value>${project.name}</value>
+                                </parameter>
+                            </parameters>
+                            <outputDir>src/site/xdoc</outputDir>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
