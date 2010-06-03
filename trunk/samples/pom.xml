@@ -34,6 +34,43 @@
             </resource>
         </resources>
         <plugins>
+        	<!-- top level project doesn't declare subprojects because they are generated -->
+            <plugin>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <configuration>
+                    <streamLogs>true</streamLogs>
+                    <projectsDirectory>${basedir}</projectsDirectory>                    
+                    <pomIncludes>
+                        <pomInclude>*/pom.xml</pomInclude>
+                    </pomIncludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>clean-invoker</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-invoker</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                        </configuration>
+                    </execution>
+                </executions> 
+            </plugin>            
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
@@ -79,14 +116,6 @@
                             <configurationUri>${project.basedir}/conf/andromdapp/online-store/configuration.xml</configurationUri>
                         </configuration>
                     </execution>
-                    
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>maven</goal>
-                        </goals>
-                    </execution>
 
                     <execution>
                         <id>clean-animal-quiz-structure</id>
@@ -129,45 +158,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- top level project doesn't declare subprojects because they are generated -->
-            <plugin>
-                <artifactId>maven-invoker-plugin</artifactId>
-                <configuration>
-                    <streamLogs>true</streamLogs>
-                    <projectsDirectory>${basedir}</projectsDirectory>                    
-                    <pomIncludes>
-                        <pomInclude>*/pom.xml</pomInclude>
-                    </pomIncludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>clean-test</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </configuration>
-                    </execution>
-<!--
-                    <execution>
-                        <id>install-test</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <goals>
-                                <goal>install</goal>
-                            </goals>
-                        </configuration>
-                    </execution>
--->               
-                </executions> 
             </plugin>
         </plugins>
     </build>
