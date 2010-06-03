@@ -108,24 +108,44 @@
                         </execution>
                     </executions>
                 </plugin>
+                <!--Perform xslt transformation of profile.xml and namespace.xml for site generation-->
                 <plugin>
-                    <groupId>org.andromda.maven.plugins.site</groupId>
-                    <artifactId>andromda-site-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <executions>
-                        <execution>
-                            <id>profile-transform</id>
-                            <goals>
-                                <goal>profile-xsl</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>namespace-transform</id>
-                            <goals>
-                                <goal>namespace-xsl</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>                    
+                    <configuration>
+                        <transformationSets>
+                            <transformationSet>
+                                <addedToClasspath>false</addedToClasspath>
+                                <dir>src/main/resources/META-INF/andromda</dir>
+                                <includes>
+                                    <include>namespace.xml</include>
+                                </includes>
+                                <stylesheet>../../andromda-etc/xsl/namespace.xsl</stylesheet>
+                                <parameters>
+                                    <parameter>
+                                        <name>projectName</name>
+                                        <value>${project.name}</value>
+                                    </parameter>
+                                </parameters>
+                                <outputDir>src/site/xdoc</outputDir>
+                            </transformationSet>
+                            <transformationSet>
+                                <addedToClasspath>false</addedToClasspath>
+                                <dir>src/main/resources/META-INF/andromda</dir>
+                                <includes>
+                                    <include>profile.xml</include>
+                                </includes>
+                                <stylesheet>../../andromda-etc/xsl/profile.xsl</stylesheet>
+                                <parameters>
+                                    <parameter>
+                                        <name>projectName</name>
+                                        <value>${project.name}</value>
+                                    </parameter>
+                                </parameters>
+                                <outputDir>src/site/xdoc</outputDir>
+                            </transformationSet>
+                        </transformationSets>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
