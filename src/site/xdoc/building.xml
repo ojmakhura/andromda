@@ -22,7 +22,7 @@
                     </li>
                     <li>
                         Unpack
-                        <code>andromda-distribution-*-source.zip</code>into a directory of your choice.
+                        <code>andromda-distribution-*-source.zip</code> into a directory of your choice.
                     </li>
                     <li>
                         "MAVEN_OPTS=-XX:MaxPermSize=256m -Xmx512m" must be set in your environment variables.
@@ -38,7 +38,7 @@
             </p>
             <p class="highlight">
                 The same rules apply if you want to build from SVN version. Just checkout the
-                <code>andromda</code>module from
+                <code>andromda</code> module from
                 <a href="http://sourceforge.net/scm/?type=svn&amp;group_id=73047">AndroMDA SVN</a>, and
                 proceed as before.
             </p>
@@ -70,13 +70,19 @@
                             and files with the <code>.exc</code> extension.
                         </li>
                         <li><code>mvn install</code><br/>
-                            Builds and installs all AndroMDA components and samples into the local Maven repository.
+                            Builds and installs all AndroMDA components (without *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
+                        </li>
+                        <li><code>mvn install -Pandromda-full,local</code><br/>
+                            Builds and installs all AndroMDA components (including *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
                         </li>
                         <li><code>mvn deploy</code><br/>
-                            Deploys all libraries into the remote Maven repository.
+                            Deploys all libraries into the local directory.
                         </li>
-                        <li><code>mvn site:site</code><br/>
+                        <li><code>mvn site -Pandromda-site</code><br/>
                             Builds the documentation for all modules
+                        </li>
+                        <li><code>mvn site:deploy -Pandromda-site,local</code><br/>
+                            Deploys the documentation to local directory
                         </li>
                     </ul>
                 </p>
