@@ -1052,8 +1052,7 @@
                                         <link>http://www.junit.org/junit/javadoc/</link>
                                         <link>http://logging.apache.org/log4j/docs/api/</link>
                                         <link>http://jakarta.apache.org/regexp/apidocs/</link>
-                                        <link>http://jakarta.apache.org/velocity/api/</link>
-                                        <!--link>http://docs.andromda.org/jmi-uml1.4/</link-->
+                                        <link>http://velocity.apache.org/engine/devel/apidocs/</link>
                                     </links>
                                     <detectOfflineLinks>false</detectOfflineLinks>
                                 </configuration>
@@ -1143,10 +1142,6 @@
                                                 <matchType>exact</matchType>
                                             </tag>
                                             <tag>
-                                                <matchString>XXX</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                            <tag>
                                                 <matchString>@deprecated</matchString>
                                                 <matchType>exact</matchType>
                                             </tag>
@@ -1156,7 +1151,6 @@
                             </tagListOptions>
                         </configuration>
                     </plugin>
-                    <!--
                     <plugin>
                         <artifactId>maven-changelog-plugin</artifactId>
                         <version>2.1</version>
@@ -1176,7 +1170,6 @@
                             </reportSet>
                         </reportSets>
                     </plugin>
-                    -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>clirr-maven-plugin</artifactId>
@@ -1252,7 +1245,6 @@
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
                 <module>documentation</module>
-                <!--module>samples</module-->                
             </modules>
             <properties>
                 <invoker.skip>true</invoker.skip>
@@ -1315,8 +1307,7 @@
                                         <link>http://www.junit.org/junit/javadoc/</link>
                                         <link>http://logging.apache.org/log4j/docs/api/</link>
                                         <link>http://jakarta.apache.org/regexp/apidocs/</link>
-                                        <link>http://jakarta.apache.org/velocity/api/</link>
-                                        <!--link>http://docs.andromda.org/jmi-uml1.4/</link-->
+                                        <link>http://velocity.apache.org/engine/devel/apidocs/</link>
                                     </links>
                                     <detectOfflineLinks>false</detectOfflineLinks>
                                 </configuration>
@@ -1326,10 +1317,6 @@
                             </reportSet>
                         </reportSets>
                     </plugin>
-                    <!--<plugin>-->
-                        <!--<artifactId>maven-surefire-report-plugin</artifactId>-->
-                        <!--<version>2.5</version>-->
-                    <!--</plugin>-->
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>2.5</version>
@@ -1360,39 +1347,11 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.5</version>
-                        <configuration>
-                            <configLocation>config/maven_checks.xml</configLocation>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>jdepend-maven-plugin</artifactId>
-                        <version>2.0-beta-2</version>
-                    </plugin>
-                    <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>javancss-maven-plugin</artifactId>
                         <version>2.0</version>
                         <inherited>true</inherited>
                     </plugin>
-                    <!--<plugin>-->
-                        <!--<artifactId>maven-changes-plugin</artifactId>-->
-                        <!--<version>2.3</version>-->
-                        <!--<reportSets>-->
-                            <!--<reportSet>-->
-                                <!--<reports>-->
-                                    <!--<report>changes-report</report>-->
-                                    <!--<report>jira-report</report>-->
-                                <!--</reports>-->
-                            <!--</reportSet>-->
-                        <!--</reportSets>-->
-                        <!--<configuration>-->
-                            <!--<columnNames>Key,Type,Summary,Assignee,Status,Resolution,Priority,Component</columnNames>-->
-                            <!--<sortColumnNames>Key</sortColumnNames>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>taglist-maven-plugin</artifactId>
@@ -1412,10 +1371,6 @@
                                                 <matchType>exact</matchType>
                                             </tag>
                                             <tag>
-                                                <matchString>XXX</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                            <tag>
                                                 <matchString>@deprecated</matchString>
                                                 <matchType>exact</matchType>
                                             </tag>
@@ -1425,38 +1380,6 @@
                             </tagListOptions>
                         </configuration>
                     </plugin>
-                    <!--
-                    <plugin>
-                        <artifactId>maven-changelog-plugin</artifactId>
-                        <version>2.1</version>
-                        <reportSets>
-                            <reportSet>
-                                <id>All Reports</id>
-                                <configuration>
-                                    <type>range</type>
-                                    <range>120</range>
-                                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
-                                </configuration>
-                                <reports>
-                                    <report>changelog</report>
-                                    <report>file-activity</report>
-                                    <report>dev-activity</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                    </plugin>
-                    -->
-                    <!--<plugin>-->
-                        <!--<groupId>org.codehaus.mojo</groupId>-->
-                        <!--<artifactId>clirr-maven-plugin</artifactId>-->
-                        <!--<version>2.2.2</version>-->
-                        <!--<inherited>true</inherited>-->
-                        <!--<configuration>-->
-                            <!--<minSeverity>info</minSeverity>-->
-                            <!--<comparisonVersion>3.3</comparisonVersion>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                    
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
@@ -1467,35 +1390,6 @@
                             <threshold>Normal</threshold>
                         </configuration>
                     </plugin>
-                    <!--<plugin>-->
-                        <!--<groupId>org.codehaus.mojo</groupId>-->
-                        <!--<artifactId>cobertura-maven-plugin</artifactId>-->
-                        <!--<version>2.4</version>-->
-                        <!--<configuration>-->
-                            <!--<formats>-->
-                                <!--<format>html</format>-->
-                                <!--<format>xml</format>-->
-                            <!--</formats>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                    <!--plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dashboard-maven-plugin</artifactId>
-                        <version>1.0.0-beta-1</version>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-doap-plugin</artifactId>
-                        <version>1.0</version>
-                        <configuration>
-                        <doapOptions>
-                            <programmingLanguage>java</programmingLanguage>
-                            <category>build-management</category>
-                        </doapOptions>
-                        <asfExtOptions>
-                            <included>false</included>
-                        </asfExtOptions>
-                        </configuration>
-                    </plugin-->
                 </plugins>
             </reporting>
         </profile>
