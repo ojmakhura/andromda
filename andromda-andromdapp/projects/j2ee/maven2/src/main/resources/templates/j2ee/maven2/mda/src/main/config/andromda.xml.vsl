@@ -57,6 +57,14 @@
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
+#if ($jsf || $struts)
+                    <!-- JSF needs to disable these validations because there are situations where we can't use native
+                         types in required (multiplicy > 0) parameters or VO attibutes-->
+                    <constraints>
+                        <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
+                        <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
+                    </constraints>
+#end
                     <!-- Can filter in/out specific model packages (in UML notation) to generate code from (default true=process all) -->
                     <!--modelPackages>
                         <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
