@@ -354,9 +354,7 @@
         <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
-#if (!$portlet && $navigationUsesRedirect)
             <redirect/>
-#end
         </navigation-case>
     </navigation-rule>
 #end
