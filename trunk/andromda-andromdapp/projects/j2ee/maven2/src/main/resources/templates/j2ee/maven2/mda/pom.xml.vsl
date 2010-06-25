@@ -356,6 +356,9 @@
         </plugins>
     </build>
     <properties>
+#if ($stringUtils.isNotEmpty($model))
+        <model.uri>$model</model.uri>
+#else
 #if ($modelType.equals("uml1.4"))
 		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
 #elseif ($modelType.equals("emf-uml2"))
@@ -366,6 +369,7 @@
 		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
+#end
 #end
         <filter></filter>
         <validation>true</validation>
