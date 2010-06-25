@@ -21,25 +21,16 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</uri>
 #elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
         <repository name="emf-uml2">
             <models>
                 <model type="emf-uml2">
-#if ($modelType.equals("emf-uml2"))
-                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</uri>
-#end
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
-#if ($modelType.equals("uml2") || $modelType.equals("emf-uml22"))
-                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</uri>
 #end
-#end
-#if ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
-                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</uri>
-#end
+                    <uri>${model.uri}</uri>
                     <moduleSearchLocations>
 #if ($modelType.equals("uml1.4"))
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
