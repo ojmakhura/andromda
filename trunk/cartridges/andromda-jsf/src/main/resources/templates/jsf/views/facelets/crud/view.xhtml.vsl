@@ -15,7 +15,10 @@
             <f:convertDateTime pattern="$parameter.format"/>
         </tr:inputDate>
 #elseif ($parameter.inputCheckbox)
-        <tr:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"/>
+        <tr:selectOneChoice id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false" unselectedLabel="">
+            <tr:selectItem label="#messages['yes']}" value="true"/>            
+            <tr:selectItem label="#messages['no']}" value="false"/>            
+        </tr:selectOneChoice>
 #elseif ($parameter.inputSelect)
 #set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
 #if ($multiSelect)
