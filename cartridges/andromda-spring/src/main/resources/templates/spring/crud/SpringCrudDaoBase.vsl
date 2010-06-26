@@ -133,15 +133,13 @@ public final class $manageable.manageableDaoBaseName
 
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.type.primitive)
-#if ($member.type.fullyQualifiedName == 'boolean')
-            if ($member.name) criteria.add(Expression.eq("$member.name", Boolean.TRUE));
-    #else## indented so that the next line would appear indented in the output
             criteria.add(Expression.eq("$member.name", new ${member.type.wrapperName}($member.name)));
-#end
 #else
             if ($member.name != null)
 #if ($member.type.stringType)
+            {
                 criteria.add(Expression.ilike("$member.name", $member.name, $matchMode));
+            }
 #elseif ($member.type.dateType)
             {
                 // we check whether or not the user supplied time information within this particular date argument
@@ -162,20 +160,30 @@ public final class $manageable.manageableDaoBaseName
                 }
             }
 #elseif ($member.type.booleanType)
-            if (${member.name}.booleanValue()) criteria.add(Expression.eq("$member.name", Boolean.TRUE));
+            {
+                criteria.add(Expression.eq("$member.name", ${member.name}.booleanValue()));
+            }
 #else
-            criteria.add(Expression.eq("$member.name", $member.name));
+            {
+                criteria.add(Expression.eq("$member.name", $member.name));
+            }
 #end
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
-            if ($member.name != null && ${member.name}.length > 0) criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+            if ($member.name != null && ${member.name}.length > 0)
+            {
+                criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+            }
 #else
 #if ($member.type.primitive)
             criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
 #else
-            if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+            if ($member.name != null)
+            {
+                criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+            }
 #end
 #end
 #end
