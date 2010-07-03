@@ -32,7 +32,7 @@ Customize as necessary - it is generated once only, when the project is created.
   <path id="project.classpath">
     <path refid="cxf.classpath"/>
     <pathelement location="${m2repo}/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
-    <pathelement location="${m2repo}/junit/junit/4.7/junit-4.7.jar"/>
+    <pathelement location="${m2repo}/junit/junit/4.8.1/junit-4.8.1.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
@@ -195,8 +195,8 @@ Customize as necessary - it is generated once only, when the project is created.
   <!-- Assumes application id = Eclipse project name. Can be changed if needed -->
   <target name="eclipse" depends=""
     description="Refresh and incremental build of Eclipse projects (requires Eclipse JRE)">
-    <!--echo message="Refreshing and building project ${application.id}-mda"/>
-    <eclipse.refreshLocal resource="${application.id}-mda" depth="infinite"/-->
+    <echo message="Refreshing and building project ${application.id}-mda"/>
+    <eclipse.refreshLocal resource="${application.id}-mda" depth="infinite"/>
     <echo message="Refreshing and building project ${application.id}-common"/>
     <mkdir dir="${andromda.project}/common/target/src/main/java"/>
     <mkdir dir="${andromda.project}/common/src/main/java"/>
@@ -259,7 +259,7 @@ Customize as necessary - it is generated once only, when the project is created.
             <pathelement location="${andromda.project}/common/target/classes"/>
             <path refid="project.classpath"/>
             <pathelement location="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
-            <pathelement location="${m2repo}/org/mortbay/jetty/jetty/6.1.22/jetty-6.1.22.jar"/>
+            <pathelement location="${m2repo}/org/mortbay/jetty/jetty/6.1.24/jetty-6.1.24.jar"/>
         </classpath>
     </javac-->
 #end
