@@ -42,7 +42,6 @@
         <from>Date</from>
         <from>PrimitiveTypes::Time</from>
         <from>PrimitiveTypes::Date</from>
-        <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Time</from>
         <from>datatype::Date</from>
         <from>datatypes::Time</from>
@@ -53,6 +52,7 @@
     <mapping>
         <from>DateTime</from>
         <from>Timestamp</from>
+        <from>PrimitiveTypes::DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
