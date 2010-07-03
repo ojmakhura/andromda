@@ -179,9 +179,9 @@
         <!-- Contains xjc plugins to customize cxf/jaxb2 generated code, see https://jaxb2-commons.dev.java.net/ -->
         <!-- If put in compile classpath, the xjc plugins are not added to ant maven.compile.classpath -->
         <dependency>
-            <groupId>org.andromda.thirdparty.jaxb-commons</groupId>
+            <groupId>org.andromda.thirdparty.jaxb2_commons</groupId>
             <artifactId>jaxb-commons</artifactId>
-            <version>1.0</version>
+            <version>0.4.1.5</version>
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>
