@@ -215,7 +215,7 @@
 ##*********************************
 #foreach ($field in $manageable.manageableAttributes)
 #if($field.hidden)
-            <h:inputHidden id="${field.name}" value="#{${formName}.${field.name}}"/>
+            <tr:inputHidden id="${field.name}" value="#{${formName}.${field.name}}"/>
 #else
 #if($field.type.enumeration)
 #set ($propertyId = $field.name)
