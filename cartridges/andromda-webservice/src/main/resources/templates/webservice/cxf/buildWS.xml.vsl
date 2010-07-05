@@ -135,11 +135,13 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <copy todir="${andromda.project}/common/target/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
 #foreach ($exception in $service.allowedOperationExceptions)
-#set ($faultName = $exception.name.replace("Exception", "Fault"))
 ##        <!-- $faultName $exception.associationEnds.size() $exception -->
 #if ($exception.associationEnds.empty)
-        <include name="**/${faultName}.java"/>
+#set ($faultName = $exception.name.replace("Exception", "Fault"))
+#else
+#set ($faultName = $exception.associationEnds.get(0).type.name)
 #end
+        <include name="**/${faultName}.java"/>
 #end
       </fileset>
     </copy>
