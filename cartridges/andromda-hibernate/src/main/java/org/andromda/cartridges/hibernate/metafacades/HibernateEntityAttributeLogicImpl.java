@@ -211,7 +211,7 @@ public class HibernateEntityAttributeLogicImpl
     {
         String fullyQualifiedName;
 
-        if (this.getType().isEnumeration())
+        if (this.getType() != null && this.getType().isEnumeration())
         {
             fullyQualifiedName = "org.andromda.persistence.hibernate.usertypes.HibernateEnumType";
         }
@@ -220,7 +220,7 @@ public class HibernateEntityAttributeLogicImpl
             final String hibernateTypeMappingsUri = (String)this.getConfiguredProperty("hibernateTypeMappingsUri");
             final TypeMappings mappings = TypeMappings.getInstance(hibernateTypeMappingsUri);
 
-            if (mappings == null)
+            if (this.getType() != null && mappings == null)
             {
                 fullyQualifiedName = this.getType().getFullyQualifiedName();
             }
