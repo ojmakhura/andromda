@@ -4,19 +4,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.lang.reflect.Field;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -37,7 +32,6 @@ import org.andromda.maven.plugin.andromdapp.hibernate.HibernateValidateSchema;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactNotFoundException;
@@ -330,15 +324,14 @@ public class SchemaMojo
     /**
      * Sets the current context class loader from the given runtime classpath
      * elements.
-     *
-     * @throws DependencyResolutionRequiredException
+     * @param classpathFiles 
      * @throws MalformedURLException
      */
     protected void initializeClasspathFromClassPathElements(final Set classpathFiles)
         throws MalformedURLException
     {
-        // - for some reason some of the plugind dependencies are being excluded from the classloader,
-        //   so we explicity load them
+        // - for some reason some of the plugin dependencies are being excluded from the classloader,
+        //   so we explicitly load them
         if (this.pluginArtifacts != null)
         {
             for (final Iterator iterator = this.pluginArtifacts.iterator(); iterator.hasNext();)
@@ -353,7 +346,7 @@ public class SchemaMojo
         }
 
         final List files = new ArrayList(classpathFiles);
-        if (files != null && !files.isEmpty())
+        if (!files.isEmpty())
         {
             final URL[] classpathUrls = new URL[classpathFiles.size()];
 
@@ -392,7 +385,7 @@ public class SchemaMojo
     /**
      * Adds any dependencies with a scope of 'provided' to the current project
      * with a scope of runtime.
-     *
+     * @return classpathElements
      * @throws ArtifactNotFoundException
      * @throws ArtifactResolutionException
      */

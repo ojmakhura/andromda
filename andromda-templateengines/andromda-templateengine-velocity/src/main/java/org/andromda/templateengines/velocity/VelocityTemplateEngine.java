@@ -21,7 +21,6 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.log.Log4JLogChute;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.apache.velocity.tools.generic.EscapeTool;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
 /**
  * The TemplateEngine implementation for VelocityTemplateEngine template processor.
  *
@@ -46,8 +44,14 @@ import java.util.Properties;
 public class VelocityTemplateEngine
     implements TemplateEngine
 {
+    /**
+     * null logger
+     */
     protected static Logger logger = null;
 
+    /**
+     * null appender
+     */
     protected FileAppender appender = null;
 
     /**

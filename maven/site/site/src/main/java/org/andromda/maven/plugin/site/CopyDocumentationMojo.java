@@ -1,12 +1,11 @@
 package org.andromda.maven.plugin.site;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-
-import java.io.File;
-import java.io.FilenameFilter;
 
 /**
  * Goal that copies the required AndroMDA site files to suitable locations preparing
@@ -77,10 +76,11 @@ public class CopyDocumentationMojo
     private File documentationOutputDirectory;
     
     /**
-     * The name of the project injected from pom.xml
+     * The name of the project injected from pom.xml. Not used.
      * 
      * @parameter default-value="${project.name}"
      */
+    @SuppressWarnings("unused")
     private String projectName;
     
     /**

@@ -1,5 +1,7 @@
 package org.andromda.maven.plugin.andromdapp;
 
+import java.sql.Connection;
+import java.util.Map;
 
 /**
  * Represents a schema management task.
@@ -13,8 +15,9 @@ public interface SchemaManagement
      * 
      * @param connection the connection if required to execute the task.
      * @param options the options used during execution.
+     * @return SQL script
      * 
      * @throws Exception
      */
-    public String execute(java.sql.Connection connection, java.util.Map options) throws Exception;
+    public String execute(Connection connection, Map options) throws Exception;
 }

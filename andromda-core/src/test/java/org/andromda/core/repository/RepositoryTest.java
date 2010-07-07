@@ -1,12 +1,9 @@
 package org.andromda.core.repository;
 
 import java.util.Collection;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.namespace.NamespaceComponents;
-
 
 /**
  * Tests {@link Repository}

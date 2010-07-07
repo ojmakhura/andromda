@@ -20,7 +20,7 @@ public class HibernateDropSchema
     private static final String DROP_OUTPUT_PATH = "dropOutputPath";
 
     /**
-     * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.List)
+     * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(Map, List)
      */
     protected void addArguments(
         final Map options,

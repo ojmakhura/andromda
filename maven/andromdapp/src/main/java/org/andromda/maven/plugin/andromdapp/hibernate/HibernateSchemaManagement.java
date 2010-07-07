@@ -5,10 +5,8 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.maven.plugin.andromdapp.SchemaManagement;
 import org.andromda.maven.plugin.andromdapp.SchemaManagementException;
@@ -16,7 +14,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.DirectoryScanner;
-
 
 /**
  * A Hibernate management object.
@@ -26,6 +23,9 @@ import org.codehaus.plexus.util.DirectoryScanner;
 public abstract class HibernateSchemaManagement
     implements SchemaManagement
 {
+    /**
+     * getLogger(HibernateSchemaManagement.class)
+     */
     protected static Logger logger = Logger.getLogger(HibernateSchemaManagement.class);
 
     /**
@@ -235,6 +235,7 @@ public abstract class HibernateSchemaManagement
      *
      * @param options any options from which to retrieve argument values.
      * @param arguments the list of arguments to add.
+     * @throws Exception 
      */
     protected abstract void addArguments(
         final Map options,

@@ -28,7 +28,7 @@ public class MetafacadeMappingsTest
     {
         super(name);
     }
-    
+
     /**
      * @see TestCase#setUp()
      */
@@ -74,7 +74,7 @@ public class MetafacadeMappingsTest
 
     private static final String METAFACADE_IMPL_10 = "org.andromda.core.metafacade.Metafacade10Impl";
     private static final Object MAPPING_OBJECT_10 = new MappingObject10();
-    
+
     private static final Object MAPPING_OBJECT_11 = new MappingObject11();
 
     private static final String MAPPING_PROPERTY = "mappingProperty";
@@ -394,7 +394,7 @@ public class MetafacadeMappingsTest
         propertyOne = (MetafacadeMapping.Property)propertyIterator.next();
         assertEquals(PROPERTY_ONE, propertyOne.getName());
         assertEquals("", propertyOne.getValue());
-        
+
         // attempt with two mappings pointing to the metafacade with
         // mutually exclusive properties (the first one listed should
         // be retrieved).

@@ -165,6 +165,9 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
         }
     }
 
+    /**
+     * null logger
+     */
     protected static Logger logger = null;
 
     /**

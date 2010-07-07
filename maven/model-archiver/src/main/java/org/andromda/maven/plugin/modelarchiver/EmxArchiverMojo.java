@@ -1,12 +1,8 @@
 package org.andromda.maven.plugin.modelarchiver;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.plugin.MojoExecutionException;
-
 import java.io.File;
-
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Builds archived model emx files.

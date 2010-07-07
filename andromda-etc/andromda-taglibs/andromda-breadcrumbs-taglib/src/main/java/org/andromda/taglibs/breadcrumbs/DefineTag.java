@@ -5,31 +5,49 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
+/**
+ *
+ */
 public class DefineTag extends TagSupport
 {
     private String id = null;
     private String toScope = null;
 
+    /**
+     * @see javax.servlet.jsp.tagext.TagSupport#getId()
+     */
     public String getId()
     {
         return id;
     }
 
+    /**
+     * @see javax.servlet.jsp.tagext.TagSupport#setId(java.lang.String)
+     */
     public void setId(String id)
     {
         this.id = id;
     }
 
+    /**
+     * @return toScope
+     */
     public String getToScope()
     {
         return toScope;
     }
 
+    /**
+     * @param toScope
+     */
     public void setToScope(String toScope)
     {
         this.toScope = toScope;
     }
 
+    /**
+     * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+     */
     public int doStartTag() throws JspException
     {
         Object breadCrumbsObject = this.pageContext.getAttribute(BreadCrumbs.SESSION_KEY, PageContext.SESSION_SCOPE);

@@ -8,11 +8,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
-
 
 /**
  * Formats the translation-library test results into the correct format.
@@ -37,6 +35,9 @@ public class TranslationLibraryTestFormatter
      */
     private PrintWriter reportWriter;
 
+    /**
+     * 
+     */
     public TranslationLibraryTestFormatter()
     {
         this.report = new StringWriter();
@@ -90,6 +91,9 @@ public class TranslationLibraryTestFormatter
             failure);
     }
 
+    /**
+     * @see junit.framework.TestListener#endTest(junit.framework.Test)
+     */
     public void endTest(Test test)
     {
     }
@@ -99,6 +103,9 @@ public class TranslationLibraryTestFormatter
      */
     private int numberOfTests = 0;
 
+    /**
+     * @see junit.framework.TestListener#startTest(junit.framework.Test)
+     */
     public void startTest(Test test)
     {
         this.numberOfTests++;
@@ -116,6 +123,7 @@ public class TranslationLibraryTestFormatter
 
     /**
      * The testsuite started.
+     * @param name 
      */
     public void startTestSuite(final String name)
     {
@@ -149,7 +157,6 @@ public class TranslationLibraryTestFormatter
      * Signifies the test suite ended and returns the summary of the
      * test.
      *
-     * @param test the test suite being run.
      * @return the test summary.
      */
     String endTestSuite()

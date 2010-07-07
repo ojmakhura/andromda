@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.configuration;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-
 /**
  * A custom class loader nessary to avoid class loading errors
  * when running within Maven2.
@@ -13,6 +12,10 @@ import java.net.URLClassLoader;
 public class ConfigurationClassLoader
     extends URLClassLoader
 {
+    /**
+     * @param urls
+     * @param parent
+     */
     public ConfigurationClassLoader(
         final URL[] urls,
         final ClassLoader parent)

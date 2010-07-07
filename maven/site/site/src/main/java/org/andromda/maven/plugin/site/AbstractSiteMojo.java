@@ -1,7 +1,6 @@
 package org.andromda.maven.plugin.site;
 
 import java.io.File;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -68,6 +67,7 @@ public abstract class AbstractSiteMojo
      * 
      * @param file File to be unpacked.
      * @param location Location where to put the unpacked files.
+     * @throws MojoExecutionException 
      */
     protected void unpack(File file, File location)
         throws MojoExecutionException

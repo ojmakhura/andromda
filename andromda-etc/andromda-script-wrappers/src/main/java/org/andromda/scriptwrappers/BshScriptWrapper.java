@@ -28,11 +28,14 @@ public class BshScriptWrapper
     /**
      * StubClass is always the generated class (not any subclasses),
      * while stub may be an instance of a subclassed scripted class.
+     * @param stub 
+     * @param scriptPath 
+     * @throws InstantiationError 
      */
     public BshScriptWrapper(
         Object stub,
         String scriptPath)
-        throws java.lang.InstantiationError
+        throws InstantiationError
     {
         this.stub = stub;
         this.scriptPath = scriptPath;
@@ -41,6 +44,7 @@ public class BshScriptWrapper
                 scriptPath);
     }
 
+    @SuppressWarnings("unused")
     private BshScriptWrapper()
     {
         this.interpreter = null;

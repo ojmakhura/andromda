@@ -35,6 +35,10 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 public class ClasspathWriter
     extends EclipseWriter
 {
+    /**
+     * @param project
+     * @param logger
+     */
     public ClasspathWriter(
         final MavenProject project,
         final Log logger)
@@ -54,6 +58,7 @@ public class ClasspathWriter
      * @param classpathArtifactTypes the artifacts types that are allowed in the classpath file.
      * @param remoteRepositories the list of remote repository instances.
      * @param resolveTransitiveDependencies whether or not dependencies shall be transitively resolved.
+     * @param variables Variables replaced within the path
      * @param merge anything extra (not auto-generated), that should be "merged" into the generated .classpath
      * @throws Exception
      */

@@ -2,27 +2,43 @@ package org.andromda.taglibs.breadcrumbs;
 
 import java.io.Serializable;
 
+/**
+ *
+ */
 public class BreadCrumb implements Serializable
 {
     private String url = null;
     private String value = null;
 
+    /**
+     * @param url
+     * @param value
+     */
     public BreadCrumb(String url, String value)
     {
         setUrl(url);
         setValue(value);
     }
 
+    /**
+     * @return url
+     */
     public String getUrl()
     {
         return url;
     }
 
+    /**
+     * @return value
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * @param url
+     */
     public void setUrl(String url)
     {
         if (url == null)
@@ -30,6 +46,9 @@ public class BreadCrumb implements Serializable
         this.url = url;
     }
 
+    /**
+     * @param value
+     */
     public void setValue(String value)
     {
         if (value == null)
@@ -37,6 +56,10 @@ public class BreadCrumb implements Serializable
         this.value = value;
     }
 
+    /**
+     * @param breadCrumb
+     * @return true/false
+     */
     public boolean hasSimilarProperties(BreadCrumb breadCrumb)
     {
         return (breadCrumb == null)

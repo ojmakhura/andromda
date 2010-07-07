@@ -1,10 +1,8 @@
 package org.andromda.repositories.mdr;
 
 import javax.jmi.reflect.RefPackage;
-
 import org.netbeans.api.xmi.XMIReferenceResolver;
 import org.netbeans.lib.jmi.xmi.InputConfig;
-
 
 /**
  * @author Matthias Bohlen
@@ -19,6 +17,7 @@ public class MDRXmiReferenceResolver
      * Constructs an instance of this class.
      *
      * @param extents
+     * @param moduleSearchPath 
      */
     public MDRXmiReferenceResolver(
         RefPackage[] extents,

@@ -9,6 +9,9 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class UMLMetafacadeUtilsTest
         extends TestCase
 {
+    /**
+     * 
+     */
     public void testIsConstraintKind()
     {
         final String emptyExpression = "";

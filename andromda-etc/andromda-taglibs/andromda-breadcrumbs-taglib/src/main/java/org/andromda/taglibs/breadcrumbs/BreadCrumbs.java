@@ -4,33 +4,53 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class BreadCrumbs extends LinkedList implements Serializable
 {
+    /** org.andromda.bpm4struts.breadcrumbs */
     public final static String SESSION_KEY = "org.andromda.bpm4struts.breadcrumbs";
+    /** 6 */
     public final static int DEFAULT_SIZE = 6;
 
     private int maxSize = -1;
 
+    /**
+     * 
+     */
     public BreadCrumbs()
     {
         this(DEFAULT_SIZE);
     }
 
+    /**
+     * @param maxSize
+     */
     public BreadCrumbs(int maxSize)
     {
         this.maxSize = maxSize;
     }
 
+    /**
+     * @return maxSize
+     */
     public int getMaxSize()
     {
         return maxSize;
     }
 
+    /**
+     * @param maxSize
+     */
     public void setMaxSize(int maxSize)
     {
         this.maxSize = maxSize;
     }
 
+    /**
+     * @param collection
+     */
     public BreadCrumbs(Collection collection)
     {
         super(collection);
@@ -51,12 +71,18 @@ public class BreadCrumbs extends LinkedList implements Serializable
         }
     }
 
+    /**
+     * @see LinkedList#add(int, java.lang.Object)
+     */
     public void add(int index, Object element)
     {
         super.add(index, element);
         trimToSize();
     }
 
+    /**
+     * @see LinkedList#add(java.lang.Object)
+     */
     public boolean add(Object element)
     {
         boolean added = super.add(element);
@@ -64,18 +90,27 @@ public class BreadCrumbs extends LinkedList implements Serializable
         return added;
     }
 
+    /**
+     * @see LinkedList#addFirst(java.lang.Object)
+     */
     public void addFirst(Object element)
     {
         super.addFirst(element);
         trimToSize();
     }
 
+    /**
+     * @see LinkedList#addLast(java.lang.Object)
+     */
     public void addLast(Object element)
     {
         super.addLast(element);
         trimToSize();
     }
 
+    /**
+     * @see LinkedList#addAll(int, java.util.Collection)
+     */
     public boolean addAll(int index, Collection collection)
     {
         boolean added = super.addAll(index, collection);
@@ -83,6 +118,9 @@ public class BreadCrumbs extends LinkedList implements Serializable
         return added;
     }
 
+    /**
+     * @see LinkedList#addAll(java.util.Collection)
+     */
     public boolean addAll(Collection collection)
     {
         boolean added = super.addAll(collection);

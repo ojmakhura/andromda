@@ -5,11 +5,17 @@ import org.junit.Ignore;
 
 import java.net.URL;
 
+/**
+ *
+ */
 @Ignore//ignore "Test*" for JUnit
 public class TestModel
 {
     private static final Logger logger = Logger.getLogger(TestModel.class);
 
+    /**
+     * @return URL
+     */
     public static URL getModel()
     {
         try

@@ -24,6 +24,9 @@ public class NamespacesTest
         super(name);
     }
 
+    /**
+     * 
+     */
     public void testAddAndFindNamespaceProperty()
     {
         Namespace namespace = new Namespace();

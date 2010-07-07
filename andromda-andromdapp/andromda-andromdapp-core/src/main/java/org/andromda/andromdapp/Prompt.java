@@ -1,10 +1,8 @@
 package org.andromda.andromdapp;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Represents a user prompt used by AndroMDApp.

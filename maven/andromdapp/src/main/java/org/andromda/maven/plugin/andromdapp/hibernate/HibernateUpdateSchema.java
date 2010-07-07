@@ -7,12 +7,9 @@ import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ResourceWriter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-
 
 /**
  * Provides the ability to create a schema from Hibernate
@@ -74,8 +71,8 @@ public class HibernateUpdateSchema
     /**
      * Sets the current context class loader from the given
      * <code>jdbcDriverJar</code>
-     *
-     * @throws DependencyResolutionRequiredException
+     * @param options 
+     * @return jdbcDriverJarLoader
      * @throws MalformedURLException
      */
     protected ClassLoader getJdbcDriverJarLoader(final Map options)

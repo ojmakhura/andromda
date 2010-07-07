@@ -1,8 +1,7 @@
 package org.andromda.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
 
 /**
  * JUnit test for {@link org.andromda.utils.StringUtilsHelper}
@@ -11,6 +10,9 @@ import org.junit.Test;
  */
 public class StringUtilsHelperTest
 {
+    /**
+     * 
+     */
     @Test
     public void testReplaceSuffix()
     {
@@ -32,6 +34,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testUpperCamelCaseName()
     {
@@ -52,6 +57,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testLowerCamelCaseName()
     {
@@ -72,6 +80,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testToResourceMessageKey()
     {
@@ -91,6 +102,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testToPhrase()
     {
@@ -110,6 +124,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testPrefixWithAPredicate()
     {
@@ -137,6 +154,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testToSingleLine()
     {
@@ -160,6 +180,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testRemoveLastOccurence()
     {
@@ -170,6 +193,9 @@ public class StringUtilsHelperTest
             testString + "  ");
     }
 
+    /**
+     * 
+     */
     @Test
     public void testPluralize()
     {
@@ -197,6 +223,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testSeparate()
     {
@@ -215,6 +244,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testSimpleFormat()
     {
@@ -242,6 +274,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testIndentedFormat()
     {
@@ -265,6 +300,9 @@ public class StringUtilsHelperTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testHtmlFormat()
     {

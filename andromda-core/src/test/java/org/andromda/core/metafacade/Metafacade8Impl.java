@@ -22,6 +22,9 @@ public class Metafacade8Impl
 
     private boolean propertyOne = true;
 
+    /**
+     * @return propertyOne
+     */
     public boolean getPropertyOne()
     {
         return propertyOne;
@@ -29,6 +32,9 @@ public class Metafacade8Impl
 
     private String propertyTwo = "SomeValue";
 
+    /**
+     * @return propertyTwo
+     */
     public String getPropertyTwo()
     {
         return propertyTwo;

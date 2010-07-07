@@ -6,20 +6,32 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
+/**
+ *
+ */
 public class AddTag extends TagSupport
 {
     private String value = null;
 
+    /**
+     * @return value
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * @param value
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
+     */
     public int doStartTag() throws JspException
     {
         Object breadCrumbsObject = this.pageContext.getAttribute(BreadCrumbs.SESSION_KEY, PageContext.SESSION_SCOPE);

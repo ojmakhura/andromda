@@ -2,9 +2,7 @@ package org.andromda.maven.plugin.configuration;
 
 import java.io.File;
 import java.util.Properties;
-
 import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
-
 
 /**
  * Extends properties and allows the key to be retrieved from the given bean.
@@ -16,6 +14,9 @@ public class BeanProperties
 {
     private Object bean;
 
+    /**
+     * @param bean
+     */
     public BeanProperties(final Object bean)
     {
         this.bean = bean;

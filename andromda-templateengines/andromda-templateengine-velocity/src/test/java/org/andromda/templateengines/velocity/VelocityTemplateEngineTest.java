@@ -1,5 +1,6 @@
 package org.andromda.templateengines.velocity;
 
+import static org.junit.Assert.*;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
@@ -7,14 +8,11 @@ import org.andromda.core.configuration.Property;
 import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import static org.junit.Assert.*;
 import org.junit.Test;
-
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * Tests the direct interpretation of a string by VelocityTemplateEngine.
@@ -25,6 +23,9 @@ import java.util.Map;
  */
 public class VelocityTemplateEngineTest
 {
+    /**
+     * @throws Exception
+     */
     @Test
     public void testDirectVelocity()
             throws Exception
@@ -47,7 +48,7 @@ public class VelocityTemplateEngineTest
 
     /**
      * Creates an instance of templatengine
-     * @return instance of tempalte engine
+     * @return instance of template engine
      * @throws Exception
      */
     private VelocityTemplateEngine createEngine() throws Exception
@@ -88,6 +89,9 @@ public class VelocityTemplateEngineTest
         assertEquals("<test>merged value aValue</test>", writer.toString());
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testVelocityEscapeToolHash()
             throws Exception
@@ -96,6 +100,9 @@ public class VelocityTemplateEngineTest
         assertEquals("Test#Test", engine.getEvaluatedExpression("Test${esc.hash}Test", null));
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testVelocityEscapeToolJavadoc()
             throws Exception
@@ -106,6 +113,9 @@ public class VelocityTemplateEngineTest
                         null));
     }
 
+    /**
+     * @throws Exception
+     */
     @Test(expected= TemplateEngineException.class)
     public void testVelocityNonEscapeToolJavadoc()
             throws Exception
@@ -115,6 +125,9 @@ public class VelocityTemplateEngineTest
                 engine.getEvaluatedExpression("@see package.name.Clasname#methodname(package.name.class var)", null));
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testVelocityEscapeToolDollar()
             throws Exception

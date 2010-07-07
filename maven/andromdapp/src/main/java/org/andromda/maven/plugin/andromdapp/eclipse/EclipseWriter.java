@@ -14,10 +14,16 @@ import org.apache.maven.project.MavenProject;
  */
 public abstract class EclipseWriter
 {
+    /** */
     protected Log logger;
     
+    /** */
     protected MavenProject project;
 
+    /**
+     * @param project
+     * @param logger
+     */
     public EclipseWriter(final MavenProject project, final Log logger)
     {
         this.project = project;

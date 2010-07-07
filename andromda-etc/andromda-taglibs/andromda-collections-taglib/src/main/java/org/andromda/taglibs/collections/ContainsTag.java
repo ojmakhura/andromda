@@ -1,43 +1,70 @@
 package org.andromda.taglibs.collections;
 
-public class ContainsTag extends javax.servlet.jsp.tagext.BodyTagSupport
+import java.util.Collection;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/**
+ *
+ */
+public class ContainsTag extends BodyTagSupport
 {
     private Object item = null;
 
+    /**
+     * @return item
+     */
     public Object getItem()
     {
         return this.item;
     }
 
+    /**
+     * @param item
+     */
     public void setItem(Object item)
     {
         this.item = item;
     }
 
-    private java.util.Collection collection = null;
+    private Collection collection = null;
 
-    public java.util.Collection getCollection()
+    /**
+     * @return collection
+     */
+    public Collection getCollection()
     {
         return this.collection;
     }
 
-    public void setCollection(java.util.Collection collection)
+    /**
+     * @param collection
+     */
+    public void setCollection(Collection collection)
     {
         this.collection = collection;
     }
 
-    private java.lang.Object[] array = null;
+    private Object[] array = null;
 
+    /**
+     * @return array
+     */
     public Object[] getArray()
     {
         return array;
     }
 
+    /**
+     * @param array
+     */
     public void setArray(Object[] array)
     {
         this.array = array;
     }
 
+    /**
+     * @see javax.servlet.jsp.tagext.BodyTagSupport#doStartTag()
+     */
     public int doStartTag() throws javax.servlet.jsp.JspException
     {
         return ( (this.array != null && java.util.Arrays.asList(this.array).contains(this.item))

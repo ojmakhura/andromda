@@ -1,14 +1,13 @@
 package org.andromda.maven.plugin.site;
 
+import java.io.File;
+import java.net.URL;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-
-import java.io.File;
-import java.net.URL;
 
 /**
  * Used to perform the transformation of the namespace XSL document to namespace.xml xdoc format
@@ -41,9 +40,10 @@ public class NamespaceTransformerMojo
      */
     private static final String NAMESPACE_TRANSFORMATION_URI = "META-INF/xsl/namespace.xsl";
     
-    /**
+    /** Not used
      * @parameter expression="${basedir}/src/main/resources/META-INF/xsl/namespace.xsl"
      */
+    @SuppressWarnings("unused")
     private File namespaceTransformationPath;
     
     /**

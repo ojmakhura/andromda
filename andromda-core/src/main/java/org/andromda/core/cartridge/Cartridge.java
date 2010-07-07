@@ -665,7 +665,7 @@ public class Cartridge
      * Stores the postProcessor from cartridge.xml configuration
      */
     private final Collection<PostProcessor> templatePostProcessor = new ArrayList<PostProcessor>();
-    
+
     /**
      * Adds the outputCondition given the <code>name</code> and <code>value</code>
      * to the outputConditions map.

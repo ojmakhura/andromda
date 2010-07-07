@@ -245,6 +245,9 @@ public class Schema2XMI
         return parser.parse(options, args);
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args)
     {
         Schema2XMI schema2Xmi = new Schema2XMI();

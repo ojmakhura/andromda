@@ -6,11 +6,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,7 +18,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -29,7 +26,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 
 /**
  * Used to perform the transformation of XSL documents
@@ -175,7 +171,7 @@ public class XslTransformer
         }
 
         /**
-         * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+         * @see org.xml.sax.EntityResolver#resolveEntity(String, String)
          */
         public InputSource resolveEntity(
             final String publicId,
@@ -222,6 +218,7 @@ public class XslTransformer
                 {
                     source = new InputSource(inputStream);
                     source.setPublicId(publicId);
+                    // Warning: potential null pointer access
                     source.setSystemId(uri.toString());
                 }
             }

@@ -1,10 +1,8 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.util.Calendar;
 import java.util.Comparator;
-
 
 /**
  * Used to sort by Calendar values
@@ -18,6 +16,9 @@ class CalendarComparator
     /**
      * Used to sort Calendar values, both objects are assumed to be assignable
      * to java.util.Calendar
+     * @param objectA 
+     * @param objectB 
+     * @return compareresult
      */
     public int compare(
         Object objectA,

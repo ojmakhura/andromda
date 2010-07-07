@@ -1,21 +1,17 @@
 package org.andromda.scriptwrappers;
 
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
-
 import java.lang.reflect.Method;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyObject;
-
 
 /**
  * This is a wrapper class for a Groovy script. The generated Java classes contain a private
@@ -32,11 +28,14 @@ public class GroovyScriptWrapper
     /**
      * StubClass is always the generated class (not any subclasses),
      * while stub may be an instance of a subclassed scripted class.
+     * @param stub 
+     * @param scriptPath 
+     * @throws InstantiationError 
      */
     public GroovyScriptWrapper(
         Object stub,
         String scriptPath)
-        throws java.lang.InstantiationError
+        throws InstantiationError
     {
         this.stub = stub;
         this.scriptPath = scriptPath;
@@ -109,16 +108,13 @@ public class GroovyScriptWrapper
         final StringBuffer contents = new StringBuffer();
         try
         {
-            if (resource != null)
+            BufferedReader resourceInput = new BufferedReader(resource);
+            for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
             {
-                BufferedReader resourceInput = new BufferedReader(resource);
-                for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
-                {
-                    contents.append(line).append(LINE_SEPARATOR);
-                }
-                resourceInput.close();
-                resourceInput = null;
+                contents.append(line).append(LINE_SEPARATOR);
             }
+            resourceInput.close();
+            resourceInput = null;
         }
         catch (final Throwable throwable)
         {

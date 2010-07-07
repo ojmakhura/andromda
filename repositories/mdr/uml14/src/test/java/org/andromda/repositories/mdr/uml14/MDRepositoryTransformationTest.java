@@ -2,10 +2,7 @@ package org.andromda.repositories.mdr.uml14;
 
 import java.net.URL;
 import java.util.Collection;
-import java.util.Iterator;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.namespace.NamespaceComponents;
@@ -22,9 +19,8 @@ import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
 
-
 /**
- * @author <A HREF="httplo://www.amowers.com">Anthony Mowers</A>
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  * @author Chad Brandon
  */
 public class MDRepositoryTransformationTest

@@ -1,9 +1,7 @@
 package org.andromda.templateengines.velocity;
 
 import java.io.InputStream;
-
 import org.apache.velocity.exception.ResourceNotFoundException;
-
 
 /**
  * Extends the default ClasspathResourceLoader in order
@@ -17,6 +15,9 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 public class ClasspathResourceLoader
     extends org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 {
+    /**
+     * @see org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader#getResourceStream(java.lang.String)
+     */
     public synchronized InputStream getResourceStream(String name)
         throws ResourceNotFoundException
     {

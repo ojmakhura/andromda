@@ -28,8 +28,10 @@ public class ProjectUtils
 
     /**
      * Gets a project for the given <code>pom</code>.
-     *
+     * @param projectBuilder 
+     * @param session 
      * @param pom the pom from which to build the project.
+     * @param logger 
      * @return the built project.
      * @throws ProjectBuildingException
      */

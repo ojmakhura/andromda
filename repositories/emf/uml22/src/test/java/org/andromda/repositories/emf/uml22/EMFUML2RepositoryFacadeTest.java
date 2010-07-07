@@ -23,6 +23,7 @@ import org.eclipse.uml2.uml.util.UMLUtil;
  *
  * @author Steve Jerman
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class EMFUML2RepositoryFacadeTest
     extends TestCase
@@ -40,7 +41,7 @@ public class EMFUML2RepositoryFacadeTest
 
     /**
      * @param modelElement
-     * @return NamedElement.getAppliedStereotypes()
+     * @return StereotypeNames
      */
     public Collection getStereotypeNames(Object modelElement)
     {
@@ -139,9 +140,9 @@ public class EMFUML2RepositoryFacadeTest
         }
         else
         {
-        this.repository.readModel(
-            new String[] {this.modelUrl.toString()},
-            null);
+            this.repository.readModel(
+                new String[] {this.modelUrl.toString()},
+                null);
         }
         long now2 = System.currentTimeMillis();
         final ModelAccessFacade modelFacade = this.repository.getModel();

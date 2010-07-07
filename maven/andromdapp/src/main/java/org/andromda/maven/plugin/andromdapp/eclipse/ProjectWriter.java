@@ -2,13 +2,11 @@ package org.andromda.maven.plugin.andromdapp.eclipse;
 
 import java.io.File;
 import java.io.FileWriter;
-
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
-
 
 /**
  * Writes .project files for Eclipse.
@@ -18,6 +16,10 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 public class ProjectWriter
     extends EclipseWriter
 {
+    /**
+     * @param project
+     * @param logger
+     */
     public ProjectWriter(
         final MavenProject project,
         final Log logger)
@@ -27,6 +29,7 @@ public class ProjectWriter
 
     /**
      * Writes the .classpath file for Eclipse.
+     * @throws Exception 
      */
     public void write()
         throws Exception

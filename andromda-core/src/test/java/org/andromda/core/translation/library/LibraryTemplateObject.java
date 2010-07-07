@@ -9,11 +9,17 @@ public class LibraryTemplateObject
 {
     private String definitionOne;
 
+    /**
+     * @return definitionOne
+     */
     public String getDefinitionOne()
     {
         return definitionOne;
     }
 
+    /**
+     * @param definitionOne
+     */
     public void setDefinitionOne(String definitionOne)
     {
         this.definitionOne = definitionOne;
