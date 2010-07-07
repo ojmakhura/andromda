@@ -6,12 +6,10 @@ import java.text.Collator;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * A class containing utilities for metafacade manipulation.
@@ -313,6 +311,7 @@ public class MetafacadeUtils
      * The value should be stable as long as the classifier remains unchanged
      * and should change as soon as there is any change in the signature of the
      * classifier.
+     * @param object 
      *
      * @return the serial version UID of this classifier.
      */

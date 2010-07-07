@@ -1,9 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.net.URL;
-
 import junit.framework.TestCase;
-
 
 /**
  * JUnit test for {@link org.andromda.core.configuration.Configuration}

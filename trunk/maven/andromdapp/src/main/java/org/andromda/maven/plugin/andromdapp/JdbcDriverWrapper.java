@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
-
 import java.util.Properties;
-
 
 /**
  * This just wraps a regular JDBC driver so that we can successfully load
@@ -19,6 +17,9 @@ public class JdbcDriverWrapper
 {
     private Driver driver;
 
+    /**
+     * @param driver
+     */
     public JdbcDriverWrapper(Driver driver)
     {
         this.driver = driver;

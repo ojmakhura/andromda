@@ -1,11 +1,10 @@
 package org.andromda.maven.plugin.site;
 
+import java.io.File;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-
-import java.io.File;
 
 /**
  * Goal that unpacks the required AndroMDA site zip packages to suitable locations preparing
@@ -48,10 +47,11 @@ public class UnpackDocumentationMojo
     private File umlDocCarRentalSampleOutputDirectory;
     
     /**
-     * The name of the project injected from pom.xml
+     * The name of the project injected from pom.xml. Not used.
      * 
      * @parameter default-value="${project.name}"
      */
+    @SuppressWarnings("unused")
     private String projectName;
     
     /**

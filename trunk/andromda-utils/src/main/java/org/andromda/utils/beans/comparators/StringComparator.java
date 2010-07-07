@@ -1,11 +1,8 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.text.Collator;
-
 import java.util.Comparator;
-
 
 /**
  * Used to sort String values
@@ -21,6 +18,9 @@ class StringComparator
     /**
      * Used to sort String values, both objects are assumed
      * to be String instances.
+     * @param objectA 
+     * @param objectB 
+     * @return compare result
      */
     public int compare(
         final Object objectA,

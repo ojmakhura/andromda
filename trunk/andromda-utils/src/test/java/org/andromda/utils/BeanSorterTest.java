@@ -1,18 +1,13 @@
 package org.andromda.utils;
 
+import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import junit.framework.TestCase;
-
 import org.andromda.utils.beans.BeanSorter;
 import org.andromda.utils.beans.SortCriteria;
 import org.andromda.utils.beans.SortCriteria.Ordering;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
 
 /**
  * Tests {@link BeanSorter}
@@ -21,6 +16,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class BeanSorterTest
 {
+    /**
+     * 
+     */
     @Test
     public void testSort()
     {
@@ -94,8 +92,16 @@ public class BeanSorterTest
                     "C Street"))
         };
 
+    /**
+     *
+     */
     public static class Person
     {
+        /**
+         * @param firstName
+         * @param lastName
+         * @param address
+         */
         public Person(
             final String firstName,
             final String lastName,
@@ -110,39 +116,64 @@ public class BeanSorterTest
         private String lastName;
         private Address address;
 
+        /**
+         * @return address
+         */
         public Address getAddress()
         {
             return address;
         }
 
+        /**
+         * @param address
+         */
         public void setAddress(Address address)
         {
             this.address = address;
         }
 
+        /**
+         * @return firstName
+         */
         public String getFirstName()
         {
             return firstName;
         }
 
+        /**
+         * @param firstName
+         */
         public void setFirstName(String firstName)
         {
             this.firstName = firstName;
         }
 
+        /**
+         * @return lastName
+         */
         public String getLastName()
         {
             return lastName;
         }
 
+        /**
+         * @param lastName
+         */
         public void setLastName(String lastName)
         {
             this.lastName = lastName;
         }
     }
 
+    /**
+     *
+     */
     public static class Address
     {
+        /**
+         * @param streetNumber
+         * @param streetName
+         */
         public Address(
             final int streetNumber,
             final String streetName)
@@ -154,21 +185,33 @@ public class BeanSorterTest
         private int streetNumber;
         private String streetName;
 
+        /**
+         * @return streetName
+         */
         public String getStreetName()
         {
             return streetName;
         }
 
+        /**
+         * @param streetName
+         */
         public void setStreetName(String streetName)
         {
             this.streetName = streetName;
         }
 
+        /**
+         * @return streetNumber
+         */
         public int getStreetNumber()
         {
             return streetNumber;
         }
 
+        /**
+         * @param streetNumber
+         */
         public void setStreetNumber(int streetNumber)
         {
             this.streetNumber = streetNumber;

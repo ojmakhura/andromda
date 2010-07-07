@@ -635,7 +635,6 @@ public class ResourceUtils
         FileUtils.copyURLToFile(url, lOutputFile);
     }
 
-
     /**
      * Indicates whether or not the given <code>url</code> is a file.
      *

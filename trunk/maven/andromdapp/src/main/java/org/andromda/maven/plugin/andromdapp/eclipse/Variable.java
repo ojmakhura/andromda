@@ -13,11 +13,17 @@ public class Variable
 
     private String value;
 
+    /**
+     * @return name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * @return value
+     */
     public String getValue()
     {
         return value;

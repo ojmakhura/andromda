@@ -2,16 +2,13 @@ package org.andromda.ant.task;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.Map;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
-
 
 /**
  * <p/> This class wraps the AndroMDA model processor so that AndroMDA can be
@@ -107,6 +104,7 @@ public class AndroMDAGenTask
      * of the specified property if there is one.
      *
      * @param string the fileContents to perform replacement on.
+     * @return replaced properties
      */
     protected String replaceProperties(String string)
     {

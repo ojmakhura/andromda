@@ -2,13 +2,10 @@ package org.andromda.core.translation.library;
 
 import java.util.Collection;
 import java.util.Map;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
 import org.andromda.core.namespace.NamespaceComponents;
-
 
 /**
  * Implements the JUnit test suit for

@@ -1,10 +1,8 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.util.Comparator;
 import java.util.Date;
-
 
 /**
  * Used to sort by Date values
@@ -18,6 +16,9 @@ class DateComparator
     /**
      * Used to sort Date values, both objects are assumed to be assignable
      * to java.util.Date
+     * @param objectA 
+     * @param objectB 
+     * @return compare result
      */
     public int compare(
         final Object objectA,

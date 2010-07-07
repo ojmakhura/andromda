@@ -1,9 +1,7 @@
 package org.andromda.utils.beans.comparators;
 
 import java.io.Serializable;
-
 import java.util.Comparator;
-
 
 /**
  * Used to sort Number values
@@ -17,6 +15,9 @@ class NumberComparator
     /**
      * Used to sort Number values, both objects are assumed
      * to be Number instances.
+     * @param objectA 
+     * @param objectB 
+     * @return compare result
      */
     public int compare(
         final Object objectA,

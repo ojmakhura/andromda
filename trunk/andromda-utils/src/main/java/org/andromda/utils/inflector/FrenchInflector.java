@@ -1,13 +1,12 @@
 package org.andromda.utils.inflector;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Language utility for transforming french words
+ * Language utility for transforming French words
  *
  * @author Cédric Vidal
  */
@@ -17,12 +16,19 @@ public class FrenchInflector
 
     private static final List<Pattern> uncountables = new ArrayList<Pattern>();
 
+    /**
+     *
+     */
     static class Inflection
     {
         private final Pattern pattern;
 
         private final String replace;
 
+        /**
+         * @param pattern
+         * @param replace
+         */
         public Inflection(Pattern pattern, String replace)
         {
             super();
@@ -30,6 +36,10 @@ public class FrenchInflector
             this.replace = replace;
         }
 
+        /**
+         * @param regexp
+         * @param replace
+         */
         public Inflection(String regexp, String replace)
         {
             super();
@@ -37,11 +47,17 @@ public class FrenchInflector
             this.replace = replace;
         }
 
+        /**
+         * @return pattern
+         */
         public Pattern getPattern()
         {
             return pattern;
         }
 
+        /**
+         * @return replace
+         */
         public String getReplace()
         {
             return replace;

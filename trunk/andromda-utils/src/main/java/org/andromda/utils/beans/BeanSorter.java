@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.utils.beans.SortCriteria.Ordering;
 import org.andromda.utils.beans.comparators.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
-
 
 /**
  * Provides bean sorting capabilities.
@@ -29,15 +27,16 @@ public class BeanSorter
 {
     /**
      * Performs sorting of the collection by one property to
-     * sort with more than one property see {@link sort(java.util.Collection, SortCriteria[])}.
+     * sort with more than one property see {@link #sort(java.util.Collection, SortCriteria[])}.
      *
-     * @see sort(java.util.Collection, SortCriteria[])
+     * @see #sort(java.util.Collection, SortCriteria[])
      *
+     * @param <T> Collection type
      * @param beans the Collection of PersistentObjects to sort
      * @param sortBy the property to sort by (i.e. firstName, etc). Can
      *        be a nested property such as 'person.address.street'.
-     * @param ordering the ordering of the sorting (either {@link SortCriteria#ASENDING}
-     *        or {@link SortCriteria#DESCENDING})
+     * @param ordering the ordering of the sorting (either {@link Ordering#ASCENDING}
+     *        or {@link Ordering#DESCENDING})
      * @return the sorted List
      */
     public static <T> List<T> sort(
@@ -54,15 +53,14 @@ public class BeanSorter
 
     /**
      * Performs sorting of the collection by one property to
-     * sort with more than one property see {@link sort(java.util.Collection, SortCriteria[])}.
+     * sort with more than one property see {@link #sort(java.util.Collection, SortCriteria[])}.
      *
-     * @see sort(java.util.Collection, SortCriteria[])
+     * @see #sort(java.util.Collection, SortCriteria[])
      *
+     * @param <T> Collection type
      * @param beans the Collection of PersistentObjects to sort
      * @param sortBy the property to sort by (i.e. firstName, etc). Can
      *        be a nested property such as 'person.address.street'.
-     * @param ordering the ordering of the sorting (either {@link SortCriteria#ASENDING}
-     *        or {@link SortCriteria#DESCENDING})
      * @param nullsFirst a flag indicating whether or not null values should be sorted to the beginning
      *        or the ending of the list.
      * @return the sorted List
@@ -81,15 +79,16 @@ public class BeanSorter
 
     /**
      * Performs sorting of the collection by one property to
-     * sort with more than one property see {@link sort(java.util.Collection, SortCriteria[])}.
+     * sort with more than one property see {@link #sort(java.util.Collection, SortCriteria[])}.
      *
-     * @see sort(java.util.Collection, SortCriteria[])
+     * @see #sort(java.util.Collection, SortCriteria[])
      *
+     * @param <T> Collection type
      * @param beans the Collection of PersistentObjects to sort
      * @param sortBy the property to sort by (i.e. firstName, etc). Can
      *        be a nested property such as 'person.address.street'.
-     * @param ordering the ordering of the sorting (either {@link SortCriteria#ASENDING}
-     *        or {@link SortCriteria#DESCENDING})
+     * @param ordering the ordering of the sorting (either {@link Ordering#ASCENDING}
+     *        or {@link Ordering#DESCENDING})
      * @param nullsFirst a flag indicating whether or not null values should be sorted to the beginning
      *        or the ending of the list.
      * @return the sorted List
@@ -118,10 +117,10 @@ public class BeanSorter
      * sorting occurs.  Since sorting can only be done on a java.util.List.
      * </p>
      *
+     * @param <T> Collection type
      * @param beans the Collection of PersistentObjects to sort
      * @param sortBy an array of SortCriteria.  This array of SortCriteria
-     * specifies which attributes to sort by.  You can also specify whether you want
-     * {@link SortCriteria#ASCENDING} or {@link SortCriteria#DESCENDING} ordering for each attribute.
+     * specifies which attributes to sort by.
      * Attributes to sort by, MUST be simple attributes
      * (i.e. name, type, etc, they can not be complex objects, but the properties can be
      * nested simple types within associated beans).

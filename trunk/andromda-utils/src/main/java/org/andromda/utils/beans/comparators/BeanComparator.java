@@ -6,14 +6,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Properties;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.utils.beans.BeanSorter;
 import org.andromda.utils.beans.SortCriteria;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Used by BeanSorter to provide sorting capabilities for
@@ -61,6 +59,9 @@ public class BeanComparator
     private Comparator comparator = null;
     private SortCriteria sortCriteria;
 
+    /**
+     * @param sortCriteria
+     */
     public BeanComparator(SortCriteria sortCriteria)
     {
         ExceptionUtils.checkNull(
@@ -285,7 +286,7 @@ public class BeanComparator
 
     /**
      * Sets the new sortCriteria value
-     * @param string
+     * @param sortCriteria
      */
     public void setSortCriteria(final SortCriteria sortCriteria)
     {

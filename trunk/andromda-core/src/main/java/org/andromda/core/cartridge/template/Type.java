@@ -88,6 +88,11 @@ public class Type
         private String variable;
         private String value;
 
+        /**
+         * @param name
+         * @param variable
+         * @param value
+         */
         Property(
             final String name,
             final String variable,

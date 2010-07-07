@@ -1,10 +1,8 @@
 package org.andromda.core.templateengine;
 
 import java.io.Writer;
-
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * Just a mock template engine implementation

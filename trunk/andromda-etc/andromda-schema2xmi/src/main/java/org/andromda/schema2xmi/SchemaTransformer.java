@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.engine.ModelProcessorException;
 import org.andromda.core.mapping.Mappings;
@@ -46,7 +44,6 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
-
 
 /**
  * Performs the transformation of database schema to XMI.
@@ -164,6 +161,10 @@ public class SchemaTransformer
 
     /**
      * Constructs a new instance of this SchemaTransformer.
+     * @param jdbcDriver 
+     * @param jdbcConnectionUrl 
+     * @param jdbcUser 
+     * @param jdbcPassword 
      */
     public SchemaTransformer(
         String jdbcDriver,
@@ -301,7 +302,7 @@ public class SchemaTransformer
 
     /**
      * Sets the regular expression pattern to match on when deciding what attributes
-     * ti create in the XMI.
+     * to create in the XMI.
      *
      * @param columnNamePattern The pattern for filtering the column name.
      */
@@ -357,7 +358,9 @@ public class SchemaTransformer
         this.tableTaggedValue = StringUtils.trimToEmpty(tableTaggedValue);
     }
 
-    
+    /**
+     * @param taggedValues
+     */
     public void setAttributeTaggedValues(String taggedValues) {
         if (StringUtils.isNotEmpty(taggedValues)) {
             StringTokenizer tokList = new StringTokenizer(taggedValues, ",");
@@ -440,6 +443,8 @@ public class SchemaTransformer
      * @param modelManagementPackage from which we retrieve the UmlPackageClass
      *        to create a UmlPackage.
      * @param modelPackage the root UmlPackage
+     * @param packageName 
+     * @return modelPackage
      */
     protected org.omg.uml.modelmanagement.UmlPackage getOrCreatePackage(
         ModelManagementPackage modelManagementPackage,
@@ -476,6 +481,7 @@ public class SchemaTransformer
      * @param connection the Connection used to retrieve the schema metadata.
      * @param corePackage the CorePackage instance we use to create the classes.
      * @param modelPackage the package which the classes are added.
+     * @throws SQLException 
      */
     protected void createClasses(
         Connection connection,
@@ -550,7 +556,8 @@ public class SchemaTransformer
     /**
      * Creates and returns a UmlClass with the given <code>name</code> using
      * the <code>corePackage</code> to create it.
-     *
+     * @param modelPackage 
+     * @param metadata 
      * @param corePackage used to create the class.
      * @param tableName to tableName for which we'll create the appropriate
      *        class.
@@ -590,6 +597,7 @@ public class SchemaTransformer
      * @param corePackage used to create the class.
      * @param tableName the tableName for which to find columns.
      * @return the collection of new attributes.
+     * @throws SQLException 
      */
     protected Collection createAttributes(
         DatabaseMetaData metadata,
@@ -723,27 +731,44 @@ public class SchemaTransformer
         return attributes;
     }
 
-    
+    /**
+     * @param metaColumnDecPlaces
+     */
     public void setMetaColumnDecPlaces(String metaColumnDecPlaces) {
         this.metaColumnDecPlaces = metaColumnDecPlaces;
     }
 
+    /**
+     * @return metaColumnDecPlaces
+     */
     public String getMetaColumnDecPlaces() {
         return metaColumnDecPlaces;
     }
 
+    /**
+     * @param metaColumnColumnSize
+     */
     public void setMetaColumnColumnSize(String metaColumnColumnSize) {
         this.metaColumnColumnSize = metaColumnColumnSize;
     }
 
+    /**
+     * @return metaColumnColumnSize
+     */
     public String getMetaColumnColumnSize() {
         return metaColumnColumnSize;
     }
 
+    /**
+     * @param metaColumnTypeName
+     */
     public void setMetaColumnTypeName(String metaColumnTypeName) {
         this.metaColumnTypeName = metaColumnTypeName;
     }
     
+    /**
+     * @return metaColumnTypeName
+     */
     public String getMetaColumnTypeName() {
         return metaColumnTypeName;
     }
@@ -796,7 +821,8 @@ public class SchemaTransformer
      *        information.
      * @param tableName the name of the table on which the column exists.
      * @param columnName the name of the column.
-     * @param true/false on whether or not column is nullable.
+     * @return true/false on whether or not column is nullable.
+     * @throws SQLException 
      */
     protected boolean isColumnNullable(
         DatabaseMetaData metadata,
@@ -821,6 +847,7 @@ public class SchemaTransformer
      * @param metadata
      * @param tableName
      * @return collection of primary key names.
+     * @throws SQLException 
      */
     protected Collection getPrimaryKeyColumns(
         DatabaseMetaData metadata,
@@ -838,13 +865,14 @@ public class SchemaTransformer
     }
 
     /**
-     * Creates and returns a collection of associations by determing foreign
+     * Creates and returns a collection of associations by determining foreign
      * tables to the table having the given <code>tableName</code>.
      *
      * @param metadata the DatabaseMetaData from which to retrieve the columns.
      * @param corePackage used to create the class.
      * @param tableName the tableName for which to find columns.
      * @return the collection of new attributes.
+     * @throws SQLException 
      */
     protected Collection createAssociations(
         DatabaseMetaData metadata,
@@ -915,7 +943,7 @@ public class SchemaTransformer
                 foreignAggregation = AggregationKindEnum.AK_COMPOSITE;
             }
 
-            // foriegn association
+            // foreign association
             AssociationEnd foreignEnd =
                 corePackage.getAssociationEnd().createAssociationEnd(
                     endName,
@@ -964,8 +992,8 @@ public class SchemaTransformer
     }
 
     /**
-     * Creates a tagged value given the specfied <code>name</code>.
-     *
+     * Creates a tagged value given the specified <code>name</code>.
+     * @param corePackage 
      * @param name the name of the tagged value to create.
      * @param value the value to populate on the tagged value.
      * @return returns the new TaggedValue
@@ -980,7 +1008,7 @@ public class SchemaTransformer
         TaggedValue taggedValue =
             corePackage.getTaggedValue().createTaggedValue(name, VisibilityKindEnum.VK_PUBLIC, false, values);
 
-        // see if we can find the tag defintion and if so add that
+        // see if we can find the tag definition and if so add that
         // as the type.
         Object tagDefinition = ModelElementFinder.find(this.umlPackage, name);
         if (tagDefinition != null && TagDefinition.class.isAssignableFrom(tagDefinition.getClass()))
@@ -991,10 +1019,10 @@ public class SchemaTransformer
     }
 
     /**
-     * Gets or creates a stereotypes given the specfied comma separated list of
+     * Gets or creates a stereotypes given the specified comma separated list of
      * <code>names</code>. If any of the stereotypes can't be found, they
      * will be created.
-     *
+     * @param corePackage 
      * @param names comma separated list of stereotype names
      * @param baseClass the base class for which the stereotype applies.
      * @return Collection of Stereotypes
@@ -1127,5 +1155,4 @@ public class SchemaTransformer
         mult.getRange().add(range);
         return mult;
     }
-
 }

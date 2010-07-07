@@ -216,7 +216,7 @@ public class BuildMojo
                             executed = this.executeModules(input);
 
                             // - if nothing was executed, try a goal in the current project
-                            if (this.project != null && !executed && input != null && input.trim().length() > 0)
+                            if (this.project != null && !executed && input.trim().length() > 0)
                             {
                                 executed = true;
                                 final List goals = Arrays.asList(input.split("\\s+"));
@@ -341,6 +341,7 @@ public class BuildMojo
      *
      * @return the value read from standard input.
      */
+    @SuppressWarnings("null")
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

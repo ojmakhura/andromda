@@ -1,9 +1,7 @@
 package org.andromda.andromdapp;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -32,6 +30,7 @@ public class Mapping
      * Attempts to match the given <code>path</code> on one of the 
      * the from values, if a match can be made, the new path value is returned,
      * otherwise null is returned.
+     * @param path 
      * 
      * @return true/false
      */

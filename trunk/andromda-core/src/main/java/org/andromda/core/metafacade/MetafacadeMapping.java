@@ -443,6 +443,10 @@ public class MetafacadeMapping
         private String name;
         private String value;
 
+        /**
+         * @param name
+         * @param value
+         */
         Property(
             final String name,
             final String value)

@@ -5,7 +5,7 @@ import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 
 /**
- * Tests {@link org.andromda.metafacades.uml.TypeMappings)
+ * Tests {@link org.andromda.metafacades.uml.TypeMappings}
  *
  * @author Chad Brandon
  */
@@ -46,6 +46,9 @@ public class TypeMappingsTest
 
     private static final String FROM_6 = "Class<? extends FromType>";
 
+    /**
+     * 
+     */
     public void testGetTo()
     {
         Mappings mappings1 = new Mappings();

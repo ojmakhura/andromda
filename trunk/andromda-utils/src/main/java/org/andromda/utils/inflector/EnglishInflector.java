@@ -1,6 +1,5 @@
 package org.andromda.utils.inflector;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

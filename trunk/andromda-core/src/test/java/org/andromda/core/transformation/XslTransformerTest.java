@@ -1,13 +1,9 @@
 package org.andromda.core.transformation;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.configuration.Transformation;
-
 
 /**
  * Tests the {@link org.andromda.core.transformation.XslTransformer}

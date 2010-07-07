@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -17,7 +16,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
-
 
 /**
  * The abstract AndroMDA Mojo.  This should be extended
@@ -123,6 +121,7 @@ public abstract class AbstractAndroMDAMojo
      * <code>configuration</code>.
      * 
      * @param configuration the configuration to use for AndroMDA service execution
+     * @throws Exception 
      */
     protected abstract void execute(final Configuration configuration) throws Exception;
 

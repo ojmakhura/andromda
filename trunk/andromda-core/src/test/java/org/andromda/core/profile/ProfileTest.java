@@ -2,16 +2,13 @@ package org.andromda.core.profile;
 
 import java.net.URL;
 import java.util.Collection;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.namespace.NamespaceComponents;
-
 
 /**
  * Tests {@link org.andromda.core.profile.Profile}
@@ -45,7 +42,7 @@ public class ProfileTest
             "Entity",
             Profile.instance().get("ENTITY"));
         assertEquals(
-            "@andromda.tagged.value",
+            "andromda_tagged_value",
             Profile.instance().get("ANDROMDA_TAGGED_VALUE"));
         assertEquals(
             "datatype::String",

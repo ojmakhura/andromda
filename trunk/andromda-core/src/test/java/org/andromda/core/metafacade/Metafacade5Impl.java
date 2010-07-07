@@ -20,6 +20,9 @@ public class Metafacade5Impl
         super(metaObject, context);
     }
 
+    /**
+     * @return false
+     */
     public boolean isProperty()
     {
         return false;

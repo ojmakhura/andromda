@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import junit.framework.TestCase;
 
-
 /**
  * JUnit tests for {@link org.andromda.core.common.Introspector}
  *
@@ -28,7 +27,7 @@ public class IntrospectorTest
         }
         catch (IntrospectorException exception) {}
     }
-    
+
     /**
      * 
      */
@@ -55,7 +54,7 @@ public class IntrospectorTest
         }
         catch (IntrospectorException exception) {}
     }
-    
+
     /**
      * 
      */
@@ -69,7 +68,7 @@ public class IntrospectorTest
         assertFalse(Introspector.instance().isReadable(testBean, "nestedBean.intProperty"));
         assertFalse(Introspector.instance().isWritable(testBean, "nestedBean.intProperty"));
     }
-    
+
     /**
      * 
      */
@@ -82,7 +81,7 @@ public class IntrospectorTest
         assertTrue(Introspector.instance().containsValidProperty(testBean, "nestedBean.nonEmptyCollectionProperty", null));
         assertTrue(Introspector.instance().containsValidProperty(testBean, "aBCProperty", "true"));
     }
-    
+
     private static final class TestBean
     {
         private boolean abcProperty = true;
@@ -167,7 +166,7 @@ public class IntrospectorTest
             aPropertyName = propertyName;
         }
     }
-    
+
     private static final class NestedBean
     {
         private boolean booleanProperty = false;

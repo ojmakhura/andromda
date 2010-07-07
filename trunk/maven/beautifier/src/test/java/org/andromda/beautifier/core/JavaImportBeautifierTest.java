@@ -1,16 +1,12 @@
 package org.andromda.beautifier.core;
 
 import static org.junit.Assert.assertEquals;
-import de.plushnikov.doctorjim.ImportProcessor;
-import de.plushnikov.doctorjim.javaparser.ParseException;
-
-import java.io.File;
 import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import de.plushnikov.doctorjim.ImportProcessor;
+import de.plushnikov.doctorjim.javaparser.ParseException;
 
 /**
  * Tests for JavaImportBeautifier. Duplicates the tests found on 

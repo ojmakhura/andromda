@@ -1,7 +1,8 @@
 package org.andromda.repositories.mdr.uml14;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import java.net.URL;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.namespace.NamespaceComponents;
@@ -12,10 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.uml.UmlPackage;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 
 /**
  * Implements the JUnit test case for <code>org.andromda.repositories.MDRepositoryFacade</code>
@@ -52,6 +49,9 @@ public class MDRepositoryFacadeTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetModel()
     {

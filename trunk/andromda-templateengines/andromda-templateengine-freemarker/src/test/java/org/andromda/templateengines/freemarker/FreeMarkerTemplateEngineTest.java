@@ -19,6 +19,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class FreeMarkerTemplateEngineTest    
 {
+    /**
+     * @throws Exception
+     */
     @Test
     public void testDirectFreeMarker()
         throws Exception

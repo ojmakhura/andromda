@@ -451,6 +451,10 @@ public class MetafacadeFactory
         {
             for (final Object mappingObject : mappingObjects)
             {
+                if (this.getLogger().isDebugEnabled())
+                {
+                    this.getLogger().debug("MetafacadeFactory createMetafacade for namespace " + this.getNamespace() + " model " + this.getModel() + " contextName " + contextName + " mappingObject " + mappingObject);
+                }
                 metafacades.add(this.createMetafacade(
                         mappingObject,
                         contextName,

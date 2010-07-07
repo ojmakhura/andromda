@@ -563,6 +563,10 @@ public class MetafacadeMappings
      */
     static interface Condition
     {
+        /**
+         * @param mapping
+         * @return true/false
+         */
         public boolean evaluate(final MetafacadeMapping mapping);
     }
 

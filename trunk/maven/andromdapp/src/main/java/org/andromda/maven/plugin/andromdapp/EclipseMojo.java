@@ -272,10 +272,9 @@ public class EclipseMojo
 
     /**
      * Processes the project compile source roots (adds all appropriate ones to the projects)
-     * so that they're avialable to the eclipse mojos.
+     * so that they're available to the eclipse mojos.
      *
      * @param projects the projects to process.
-     * @return the source roots.
      * @throws Exception
      */
     private void processCompileSourceRoots(final List projects)

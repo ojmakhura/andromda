@@ -1,20 +1,14 @@
 package org.andromda.andromdapp;
 
-import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.io.IOUtils;
-
 
 /**
  * Represents the configuration of an AndroMDAppType.

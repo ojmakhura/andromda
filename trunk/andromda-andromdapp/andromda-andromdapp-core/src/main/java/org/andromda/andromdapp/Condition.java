@@ -3,7 +3,6 @@ package org.andromda.andromdapp;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 /**
  * Represents a prompt "condition".  That is, a prompt
  * value will be set if the condition is satisfied.
@@ -167,11 +166,11 @@ public class Condition
             final boolean equalConditionPresent = equal != null;
             final boolean notEqualConditionPresent = notEqual != null;
             value = String.valueOf(value);
-            if (equalConditionPresent)
+            if (equalConditionPresent && equal != null)
             {
                 valid = equal.equals(value);
             }
-            else if (notEqualConditionPresent)
+            else if (notEqualConditionPresent && notEqual != null)
             {
                 valid = !notEqual.equals(value);
             }            

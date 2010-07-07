@@ -1,5 +1,13 @@
 package org.andromda.maven.plugin.configuration;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.List;
+import java.util.Properties;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.apache.commons.lang.ObjectUtils;
@@ -13,16 +21,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.filtering.PropertyUtils;
 import org.codehaus.plexus.util.InterpolationFilterReader;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.List;
-import java.util.Properties;
-
 
 /**
  * An abstract Mojo for dealing with the AndroMDA configuration,
@@ -41,7 +39,7 @@ public abstract class AbstractConfigurationMojo
     private static final String MAPPINGS_PATH = "META-INF/andromda/mappings";
 
     /**
-     * Creates the Configuration instance from the {@link #configurationUri}
+     * Creates the Configuration instance from the {@link URL}
      *
      * @param configurationUri 
      * @return the configuration instance

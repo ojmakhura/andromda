@@ -12,13 +12,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Represents an instance of the AndroMDA application
@@ -158,6 +156,7 @@ public class AndroMDApp
      * Prompts the user to choose the type of application, and then runs that AndroMDAppType.
      * @throws Exception
      */
+    @SuppressWarnings("null")
     private List<File> chooseTypeAndRun(boolean write)
         throws Exception
     {
@@ -286,6 +285,7 @@ public class AndroMDApp
      *
      * @return the value read from standard input.
      */
+    @SuppressWarnings("null")
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

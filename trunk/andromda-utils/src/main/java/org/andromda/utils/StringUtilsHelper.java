@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * A utility object for doing string manipulation operations that are commonly
  * needed by the code generation templates.
@@ -163,6 +162,9 @@ public class StringUtilsHelper
     /**
      * Converts the argument to lowercase, removes all non-word characters, and
      * replaces each of those sequences by the separator.
+     * @param string 
+     * @param separator 
+     * @return separated string
      */
     public static String separate(
         final String string,
@@ -331,6 +333,8 @@ public class StringUtilsHelper
     /**
      * Formats the argument string without any indentation, the text will be
      * wrapped at the default column.
+     * @param plainText 
+     * @return formatted string
      *
      * @see #format(String, String)
      */
@@ -342,6 +346,9 @@ public class StringUtilsHelper
     /**
      * Formats the given argument with the specified indentiation, wrapping the
      * text at a 64 column margin.
+     * @param plainText 
+     * @param indentation 
+     * @return formatted string
      *
      * @see #format(String, String, int)
      */
@@ -353,9 +360,13 @@ public class StringUtilsHelper
     }
 
     /**
-     * Formats the given argument with the specified indentiation, wrapping the
+     * Formats the given argument with the specified indentation, wrapping the
      * text at the desired column margin. The returned String will not be suited
      * for display in HTML environments.
+     * @param plainText 
+     * @param indentation 
+     * @param wrapAtColumn 
+     * @return formatted string
      *
      * @see #format(String, String, int, boolean)
      */

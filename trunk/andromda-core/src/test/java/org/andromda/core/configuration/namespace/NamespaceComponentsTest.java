@@ -1,7 +1,6 @@
 package org.andromda.core.configuration.namespace;
 
 import junit.framework.TestCase;
-
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.NamespaceComponents;
 

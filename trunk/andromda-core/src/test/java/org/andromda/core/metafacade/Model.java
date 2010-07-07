@@ -1,9 +1,7 @@
 package org.andromda.core.metafacade;
 
 import java.util.Collection;
-
 import org.andromda.core.configuration.Filters;
-
 
 /**
  * @author Chad Brandon

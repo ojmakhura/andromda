@@ -6,20 +6,32 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class EscapeTag extends BodyTagSupport
 {
     private String language = null;
 
+    /**
+     * @return language
+     */
     public String getLanguage()
     {
         return language;
     }
 
+    /**
+     * @param language
+     */
     public void setLanguage(String language)
     {
         this.language = language;
     }
 
+    /**
+     * @see javax.servlet.jsp.tagext.BodyTagSupport#doAfterBody()
+     */
     public int doAfterBody() throws JspException
     {
         String escapedString = this.getBodyContent().getString();

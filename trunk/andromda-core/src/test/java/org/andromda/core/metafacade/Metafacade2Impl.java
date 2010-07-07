@@ -22,6 +22,9 @@ public class Metafacade2Impl
 
     private boolean mappingProperty = true;
 
+    /**
+     * @return mappingProperty
+     */
     public boolean isMappingProperty()
     {
         return mappingProperty;
