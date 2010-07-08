@@ -11,8 +11,15 @@
     <artifactId>andromda-samples</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA Samples</name>
+    <description>
+        Andromda sample applications
+    </description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/SAMPLES</url>
+    </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/samples</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
