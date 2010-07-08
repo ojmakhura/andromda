@@ -17,6 +17,10 @@
         includes plugin discovery (i.e. cartridges, translation-libraries),
         manufacturing of metafacades, etc.
     </description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/CORE</url>
+    </issueManagement>
     <dependencies>
         <dependency>
             <groupId>commons-collections</groupId>
