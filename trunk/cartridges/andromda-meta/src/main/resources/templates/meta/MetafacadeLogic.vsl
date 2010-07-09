@@ -9,15 +9,6 @@ package $metafacade.logicPackageName;
 #else
 #set ($pkg = "")
 #end
-
-import org.andromda.core.common.Introspector;
-import org.andromda.core.metafacade.MetafacadeBase;
-import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.metafacade.ModelValidationMessage;
-import org.apache.log4j.Logger;
-
-import java.util.Collection;
-
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
 #set ($metaclassTypeName = $metafacade.metaclass.fullyQualifiedName.replace($pkg, ""))
@@ -27,9 +18,21 @@ import java.util.Collection;
 #end
 #set ($metaclassTypeName = "Object")
 #end
-##
 #set ($superMetafacade = $metafacade.generalization)
-##
+
+import java.util.Collection;
+#if (!$superMetafacade || $metafacade.requiresInheritanceDelegatation)
+import org.andromda.core.common.Introspector;
+import org.andromda.core.metafacade.MetafacadeBase;
+#end
+#if ($metafacade.requiresInheritanceDelegatation)
+import org.andromda.core.metafacade.MetafacadeFactory;
+#end
+import org.andromda.core.metafacade.ModelValidationMessage;
+#if (!$metafacade.navigableConnectingEnds.empty || !$metafacade.getConstraints("inv").empty)
+import org.apache.log4j.Logger;
+#end
+
 /**
 $metafacade.getDocumentation(" * ")
  * MetafacadeLogic for $metafacade.fullyQualifiedName.replace($pkg, "")
@@ -76,7 +79,7 @@ public abstract class $metafacade.logicName
         this.metaObject = metaObjectIn;
     }
 
-#if (!$metafacade.navigableConnectingEnds.empty || !$modelElement.getConstraints("inv").empty)
+#if (!$metafacade.navigableConnectingEnds.empty || !$metafacade.getConstraints("inv").empty)
     /**
      * The logger instance.
      */
@@ -119,10 +122,11 @@ public abstract class $metafacade.logicName
 
 #end
 #end
-##
     /** Reset context only for non-root metafacades
      * @param context
+#if ($metafacade.requiresInheritanceDelegatation)
      * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}resetMetafacadeContext(String context)
+#end
      */
     @Override
     public void resetMetafacadeContext(String context)
@@ -142,7 +146,6 @@ public abstract class $metafacade.logicName
 #end
         }
     }
-##
 
     /**
      * @return boolean true always
@@ -243,7 +246,12 @@ $attribute.getDocumentation("     * ")
 #set ($allPostConstraints=$operation.getConstraints("post"))
     /**
      * Method to be implemented in descendants
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+#if ($operation.returnTypePresent)
      * @return $memberTypeName
+#end
      */
     protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
@@ -263,11 +271,9 @@ $attribute.getDocumentation("     * ")
 
     /**
 $operation.getDocumentation("     * ")
-#foreach ($parameter in $operation.parameters)
-#if (!$parameter.return)
+#foreach ($parameter in $operation.arguments)
      * @param $parameter.name $parameter.type
 $parameter.getDocumentation("     * ")
-#end
 #end
 #if($operation.returnTypePresent)
      * @return ${operation.implementationName}($operation.argumentNames)
@@ -304,8 +310,6 @@ $parameter.getDocumentation("     * ")
 #foreach ($associationEnd in $metafacade.associationEnds)
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable)
-##
-##    // $otherEnd.name $otherEnd.getterSetterTypeName $otherEnd.type.fullyQualifiedName $otherEnd.many $otherEnd
 #set ($memberTypeName = $otherEnd.getterSetterTypeName)
 #set ($memberType = $otherEnd.type)
 #set ($methodName = $otherEnd.getterName)
@@ -320,6 +324,7 @@ $parameter.getDocumentation("     * ")
     {
 #renderTranslation ($allPreConstraints)
     }
+
 #end
 #if (!$allPostConstraints.empty)
 #set ($handleMethodPostCondition = "${otherEnd.implementationOperationName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
@@ -327,8 +332,8 @@ $parameter.getDocumentation("     * ")
     {
 #renderTranslation ($allPostConstraints)
     }
-#end
 
+#end
 #if ($otherEnd.readOnly)
     private $memberTypeName __$memberName;
     private boolean __${memberName}Set = false;
@@ -498,7 +503,11 @@ $associationEnd.getDocumentation("     * ")
      * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
 #end
      * @param validationMessages Collection
+#if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
+     * @see ${superMetafacade.fullyQualifiedLogicImplName.replace($pkg, "")}${esc.hash}validateInvariants(Collection validationMessages)
+#else
      * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}validateInvariants(Collection validationMessages)
+#end
      */
     @Override
     public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
@@ -519,6 +528,7 @@ $associationEnd.getDocumentation("     * ")
      * The property that stores the name of the metafacade.
      */
     private static final String NAME_PROPERTY = "name";
+    private static final String FQNAME_PROPERTY = "fullyQualifiedName";
 
     /**
      * @see Object${esc.hash}toString()
@@ -530,11 +540,18 @@ $associationEnd.getDocumentation("     * ")
         toString.append("[");
         try
         {
-            toString.append(Introspector.instance().getProperty(this, NAME_PROPERTY));
+            toString.append(Introspector.instance().getProperty(this, FQNAME_PROPERTY));
         }
-        catch (final Throwable ignore)
+        catch (final Throwable tryAgain)
         {
-            // - just ignore when the metafacade doesn't have a name property
+            try
+            {
+                toString.append(Introspector.instance().getProperty(this, NAME_PROPERTY));
+            }
+            catch (final Throwable ignore)
+            {
+                // - just ignore when the metafacade doesn't have a name or fullyQualifiedName property
+            }
         }
         toString.append("]");
         return toString.toString();
