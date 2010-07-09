@@ -195,7 +195,7 @@ public class MetafacadeBase implements Comparable
         String contextIn = this.context;
         if (StringUtils.isBlank(contextIn))
         {
-            contextIn = this.getName();
+            contextIn = this.getMetafacadeName();
         }
         return contextIn;
     }
@@ -227,16 +227,16 @@ public class MetafacadeBase implements Comparable
     /**
      * Stores the namespace for this metafacade
      */
-    private String namespace = null;
+    private String metafacadeNamespace = null;
 
     /**
      * Gets the current namespace for this metafacade
      *
      * @return String
      */
-    final String getNamespace()
+    final String getMetafacadeNamespace()
     {
-        return this.namespace;
+        return this.metafacadeNamespace;
     }
 
     /**
@@ -246,7 +246,7 @@ public class MetafacadeBase implements Comparable
      */
     final void setNamespace(final String namespaceIn)
     {
-        this.namespace = namespaceIn;
+        this.metafacadeNamespace = namespaceIn;
     }
 
     /**
@@ -285,7 +285,7 @@ public class MetafacadeBase implements Comparable
         final Object value)
     {
         MetafacadeFactory.getInstance().registerProperty(
-            this.getName(),
+            this.getMetafacadeName(),
             nameIn,
             value);
     }
@@ -345,7 +345,7 @@ public class MetafacadeBase implements Comparable
         String metafacadeContext = this.getContext();
         if (this.contextRoot)
         {
-            metafacadeContext = this.getName();
+            metafacadeContext = this.getMetafacadeName();
         }
         return metafacadeContext;
     }
@@ -353,20 +353,20 @@ public class MetafacadeBase implements Comparable
     /**
      * Stores the name of the interface for this metafacade
      */
-    private String name = null;
+    private String metafacadeName = null;
 
     /**
      * Gets the name for this metafacade.
      *
      * @return the metafacade's name.
      */
-    final String getName()
+    final String getMetafacadeName()
     {
-        if (this.name == null)
+        if (this.metafacadeName == null)
         {
-            this.name = MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
+            this.metafacadeName = MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
         }
-        return this.name;
+        return this.metafacadeName;
     }
 
     /**
@@ -440,7 +440,7 @@ public class MetafacadeBase implements Comparable
     @Override
     public String toString()
     {
-        return super.toString() + '[' + this.name + ": " + this.metaObject.getClass().getName() + ']';
+        return super.toString() + '[' + this.metafacadeName + ": " + this.metaObject.getClass().getName() + ']';
     }
 
     /**

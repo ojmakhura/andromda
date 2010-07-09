@@ -357,7 +357,7 @@ public class MetafacadeFactory
             }
             // we need to set some things each time
             // we change a metafacade's namespace
-            final String metafacadeNamespace = metafacade.getNamespace();
+            final String metafacadeNamespace = metafacade.getMetafacadeNamespace();
             if (metafacadeNamespace == null || !metafacadeNamespace.equals(this.getNamespace()))
             {
                 // assign the logger and active namespace
@@ -612,7 +612,7 @@ public class MetafacadeFactory
             Map<String, Map<String, Object>> namespace = this.metafacadeNamespaces.get(this.getNamespace());
             if (namespace != null)
             {
-                metafacadeNamespace = namespace.get(metafacade.getName());
+                metafacadeNamespace = namespace.get(metafacade.getMetafacadeName());
             }
         }
         return metafacadeNamespace;
@@ -671,7 +671,7 @@ public class MetafacadeFactory
                 name))
         {
             throw new MetafacadeFactoryException(methodName + " - no property '" + name +
-                "' registered under metafacade '" + metafacade.getName() + "' for namespace '" + this.getNamespace() +
+                "' registered under metafacade '" + metafacade.getMetafacadeName() + "' for namespace '" + this.getNamespace() +
                     '\'');
         }
         return registeredProperty;
