@@ -66,7 +66,7 @@
         <jxb:serializable uid="1"/>
 #if ($cxfVersion.startsWith("2.0"))
         <!-- Bug in CXF 2.0.x: bindings are not allowing any xjc: elements. -->
-#elseif ($simpleBindingMode)
+#elseif ($simpleBindingMode && ($pluralizeAssociationEndNames || $pluralizeAttributeNames || $pluralizeParameterNames))
         <!-- XJC binding extension with simple binding, which prevents most object name collisions by assuming type is uniquely used -->
         <xjc:simple/>
 #end
