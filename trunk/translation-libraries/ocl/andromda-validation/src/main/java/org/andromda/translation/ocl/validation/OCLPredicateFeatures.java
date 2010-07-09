@@ -1,12 +1,11 @@
 package org.andromda.translation.ocl.validation;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Arrays;
 import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
 
 /**
- * Contains a single operation {@link #isPredicateFeature(String) that determines if a passed in <code>feature</code>
+ * Contains a single operation {@link #isPredicateFeature(String)} that determines if a passed in <code>feature</code>
  * matches the name of a feature that should use a predicate when being translated.
  *
  * @author Chad Brandon

@@ -1,5 +1,11 @@
 package org.andromda.translation.ocl.parser;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import org.andromda.translation.ocl.analysis.AnalysisAdapter;
 import org.andromda.translation.ocl.analysis.DepthFirstAdapter;
 import org.andromda.translation.ocl.lexer.Lexer;
@@ -24,13 +30,6 @@ import org.andromda.translation.ocl.node.PExpression;
 import org.andromda.translation.ocl.node.PFeatureCallParameterOption;
 import org.andromda.translation.ocl.node.TName;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 /**
  * This class adapts the Parser class to handle expressions in which the SableCC parser can't handle.
  */
@@ -50,7 +49,7 @@ public class OclParser
     }
 
     /**
-     * @see org.andromda.core.translation.parser.Parser#filter()
+     * @see org.andromda.translation.ocl.parser.Parser#filter()
      */
     protected void filter()
     {
@@ -69,7 +68,8 @@ public class OclParser
     {
 
         /**
-         * @see org.andromda.core.translation.parser.analysis.Analysis#caseAConcreteFeatureCallParameters(org.andromda.core.translation.parser.node.AConcreteFeatureCallParameters)
+         * @param featureCallParameters 
+         * @see #org.andromda.translation.ocl.parser.OclParser.SyntaxHandler.getParametersWithStandardDeclarator(AConcreteFeatureCallParameters featureCallParameters, PFeatureCallParameterOption[] parameterOptions)
          */
         public void caseAConcreteFeatureCallParameters(AConcreteFeatureCallParameters featureCallParameters)
         {
@@ -101,10 +101,12 @@ public class OclParser
             {
                 parameters = getParametersWithIterateDeclarator(featureCallParameters,
                         featureCallParameters.getExpression(), parameterOption);
-            } else if (isDeclarator)
+            }
+            else if (isDeclarator)
             {
                 parameters = getParametersWithStandardDeclarator(featureCallParameters, parameterOption);
-            } else
+            }
+            else
             {
                 parameters = getParametersWithoutDeclarator(featureCallParameters,
                         featureCallParameters.getExpression(), parameterOption);
@@ -153,7 +155,7 @@ public class OclParser
          * Gets AFeatureCallParameters from the standard declarator.
          *
          * @param featureCallParameters
-         * @param parameterOption
+         * @param parameterOptions
          * @return AFeatureCallParameters
          */
         protected AFeatureCallParameters getParametersWithStandardDeclarator(
@@ -234,11 +236,10 @@ public class OclParser
             params.apply(finder);
             return finder.getList();
         }
-
     }
 
     /**
-     * A tree traversal class that searchs for a name in a expression.
+     * A tree traversal class that searches for a name in a expression.
      */
     private class VariableDeclarationListFinder
             extends DepthFirstAdapter
@@ -255,7 +256,8 @@ public class OclParser
         private Map namesAndTypes = new HashMap();
 
         /**
-         * @see org.andromda.core.translation.parser.analysis.DepthFirstAdapter#inAPathName(org.andromda.core.translation.parser.node.APathName)
+         * @param name 
+         * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#orderedNames
          */
         public void inAPathName(APathName name)
         {
@@ -271,7 +273,8 @@ public class OclParser
         }
 
         /**
-         * @see org.andromda.core.translation.parser.analysis.DepthFirstAdapter#inACommaFeatureCallParameterOption(org.andromda.core.translation.parser.node.ACommaFeatureCallParameterOption)
+         * @param commaName 
+         * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#orderedNames
          */
         public void inACommaFeatureCallParameterOption(ACommaFeatureCallParameterOption commaName)
         {
@@ -280,7 +283,8 @@ public class OclParser
         }
 
         /**
-         * @see org.andromda.core.translation.parser.analysis.DepthFirstAdapter#inATypeDeclaration(org.andromda.core.translation.parser.node.ATypeDeclaration)
+         * @param type 
+         * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#namesAndTypes
          */
         public void inATypeDeclaration(ATypeDeclaration type)
         {
@@ -336,7 +340,8 @@ public class OclParser
         private TName foundName;
 
         /**
-         * @see org.andromda.core.translation.parser.analysis.Analysis#caseAPathName(org.andromda.core.translation.parser.node.APathName)
+         * @param pathName 
+         * @see org.andromda.translation.ocl.node.APathName#getName()
          */
         public void caseAPathName(APathName pathName)
         {

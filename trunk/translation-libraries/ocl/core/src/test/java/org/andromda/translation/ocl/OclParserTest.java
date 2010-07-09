@@ -3,11 +3,9 @@ package org.andromda.translation.ocl;
 import java.io.FileReader;
 import java.io.PushbackReader;
 import java.net.URL;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -42,6 +40,9 @@ public class OclParserTest
         super(testName);
     }
 
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
     public void setUp() throws Exception
     {
         super.setUp();
@@ -60,6 +61,9 @@ public class OclParserTest
         return suite;
     }
 
+    /**
+     * 
+     */
     public void testValidExpressions()
     {
         try
@@ -69,11 +73,14 @@ public class OclParserTest
             {
                 TestCase.fail("Could not load resource '" + VALID_SYNTAX + '\'');
             }
-            DepthFirstAdapter adapter = new DepthFirstAdapter();
-            Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile())));
-            OclParser parser = new OclParser(lexer);
-            Start startNode = parser.parse();
-            startNode.apply(adapter);
+            else
+            {
+                DepthFirstAdapter adapter = new DepthFirstAdapter();
+                Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile())));
+                OclParser parser = new OclParser(lexer);
+                Start startNode = parser.parse();
+                startNode.apply(adapter);
+            }
         }
         catch (Throwable th)
         {
@@ -84,6 +91,7 @@ public class OclParserTest
 
     /**
      * Runs the test suite
+     * @param args 
      */
     public static void main(String[] args)
     {

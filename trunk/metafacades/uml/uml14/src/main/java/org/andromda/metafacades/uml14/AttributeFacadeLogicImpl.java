@@ -464,6 +464,7 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
+     * @return hasStereotype(UMLProfile.STEREOTYPE_UNIQUE)
      * @see org.andromda.metafacades.uml.AttributeFacade#isUnique()
      */
     protected boolean handleIsUnique()

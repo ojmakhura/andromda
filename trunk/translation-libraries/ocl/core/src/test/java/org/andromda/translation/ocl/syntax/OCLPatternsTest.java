@@ -10,6 +10,9 @@ import junit.framework.TestCase;
 public class OCLPatternsTest
         extends TestCase
 {
+    /**
+     * 
+     */
     public void testIsCollectionOperationResultNavigationalPath()
     {
         final String validPatternOne = "attributes->first().type.fullyQualifiedName";

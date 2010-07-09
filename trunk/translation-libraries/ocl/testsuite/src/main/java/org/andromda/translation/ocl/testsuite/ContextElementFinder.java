@@ -1,5 +1,8 @@
 package org.andromda.translation.ocl.testsuite;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.translation.Expression;
@@ -9,16 +12,13 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.translation.ocl.BaseTranslator;
 import org.andromda.translation.ocl.node.AOperationContextDeclaration;
+import org.andromda.translation.ocl.node.POperation;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
 import org.andromda.translation.ocl.syntax.OperationDeclaration;
 import org.andromda.translation.ocl.syntax.VariableDeclaration;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Finds the context element defined in the OCL expression.
@@ -46,6 +46,7 @@ public class ContextElementFinder
     /**
      * Hide the default constructor
      */
+    @SuppressWarnings("unused")
     private ContextElementFinder()
     {
     }
@@ -61,7 +62,8 @@ public class ContextElementFinder
     private Object contextElement = null;
 
     /**
-     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAOperationContextDeclaration(org.andromda.core.translation.node.AOperationContextDeclaration)
+     * @param declaration 
+     * @see org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils#getOperationDeclaration(POperation)
      */
     public void inAOperationContextDeclaration(AOperationContextDeclaration declaration)
     {

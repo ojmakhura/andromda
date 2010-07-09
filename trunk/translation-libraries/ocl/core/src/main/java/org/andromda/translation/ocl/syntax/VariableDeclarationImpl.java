@@ -22,6 +22,7 @@ public class VariableDeclarationImpl
      *
      * @param name the name of the VariableDeclaratiom
      * @param type the type of the VariableDeclaration
+     * @param value  the value of the VariableDeclaration
      */
     public VariableDeclarationImpl(String name, String type, String value)
     {
