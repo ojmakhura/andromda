@@ -80,6 +80,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/lib"/>
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/wsdl"/>
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/webservice/src/test/java"/>
 
     <!--delete>
         <fileset dir="${andromda.project}/CXF/target/src/main/java" includes="**/*"/>
