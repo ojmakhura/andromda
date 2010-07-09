@@ -29,7 +29,7 @@
 #foreach ($operation in $service.allowedOperations)
 #foreach($exception in $operation.exceptions)
 #if ($exception.associationEnds.empty)
-    <!-- $exception $exception.associationEnds $exception.associationEnds.size() -->
+##    <!-- $exception $exception.associationEnds $exception.associationEnds.size() -->
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
 #else
 #set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
