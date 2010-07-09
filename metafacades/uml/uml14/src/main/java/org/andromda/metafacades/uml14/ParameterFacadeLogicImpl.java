@@ -360,6 +360,7 @@ public class ParameterFacadeLogicImpl
      *
      * @return true/false
      */
+    @SuppressWarnings("unused")
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);

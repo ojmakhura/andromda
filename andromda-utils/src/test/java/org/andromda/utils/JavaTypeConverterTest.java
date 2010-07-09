@@ -1,17 +1,28 @@
 package org.andromda.utils;
 
-import java.text.ParseException;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
+/**
+ *
+ */
 public class JavaTypeConverterTest
 {
+    /**
+     *
+     */
     public static final class ExpectedResult
     {
         private final String fromType;
         private final String toType;
         private final String expected;
 
+        /**
+         * @param fromType
+         * @param toType
+         * @param expected
+         */
         public ExpectedResult(
             String fromType,
             String toType,
@@ -1104,6 +1115,9 @@ public class JavaTypeConverterTest
         new ExpectedResult("char", "java.lang.Character", "java.lang.Character.valueOf(sourceVal)"),
     };
 
+    /**
+     * 
+     */
     @Test
     public void testTypeConversion()
     {
@@ -1116,6 +1130,9 @@ public class JavaTypeConverterTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testTypeConversionWithIgnore()
     {

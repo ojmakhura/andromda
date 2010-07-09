@@ -15,6 +15,8 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
 
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
+     * @param metaObject 
+     * @param context 
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
      */
     public RedefinableTemplateSignatureFacadeLogicImpl (Object metaObject, String context)
@@ -23,6 +25,7 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
     }
     /**
      * 
+     * @return UnsupportedOperationException
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade#getClassifier()
      */
     protected Object handleGetClassifier()

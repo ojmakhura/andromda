@@ -1,5 +1,9 @@
 package org.andromda.translation.ocl.syntax;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.translation.ocl.node.AActualParameterList;
@@ -26,11 +30,6 @@ import org.andromda.translation.ocl.node.TName;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Contains some utilities for concrete syntax value retrieval.
@@ -153,24 +152,21 @@ public class ConcreteSyntaxUtils
         {
             AVariableDeclarationList variables = (AVariableDeclarationList) variableDeclarationList;
 
-            if (variables != null)
-            {
-                // add the first one
-                declarations.add(ConcreteSyntaxUtils.newVariableDeclaration(variables.getVariableDeclaration(),
-                        variables.getVariableDeclarationValue()));
+            // add the first one
+            declarations.add(ConcreteSyntaxUtils.newVariableDeclaration(variables.getVariableDeclaration(),
+                    variables.getVariableDeclarationValue()));
 
-                // add the rest
-                List variableTails = variables.getVariableDeclarationListTail();
-                if (variableTails != null)
+            // add the rest
+            List variableTails = variables.getVariableDeclarationListTail();
+            if (variableTails != null)
+            {
+                Iterator variableTailIt = variableTails.iterator();
+                while (variableTailIt.hasNext())
                 {
-                    Iterator variableTailIt = variableTails.iterator();
-                    while (variableTailIt.hasNext())
-                    {
-                        AVariableDeclarationListTail tail = (AVariableDeclarationListTail) variableTailIt.next();
-                        declarations.add(
-                                ConcreteSyntaxUtils.newVariableDeclaration(tail.getVariableDeclaration(),
-                                        tail.getVariableDeclarationValue()));
-                    }
+                    AVariableDeclarationListTail tail = (AVariableDeclarationListTail) variableTailIt.next();
+                    declarations.add(
+                            ConcreteSyntaxUtils.newVariableDeclaration(tail.getVariableDeclaration(),
+                                    tail.getVariableDeclarationValue()));
                 }
             }
         }

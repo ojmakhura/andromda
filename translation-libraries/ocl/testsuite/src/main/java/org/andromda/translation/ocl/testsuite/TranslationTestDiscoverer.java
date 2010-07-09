@@ -1,14 +1,11 @@
 package org.andromda.translation.ocl.testsuite;
 
 import java.io.File;
-
 import java.net.URL;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -59,6 +56,7 @@ public class TranslationTestDiscoverer
 
     /**
      * This method discovers all translation tests within the given <code>directory</code>.
+     * @param directory 
      */
     public void discoverTests(final String directory)
     {
@@ -136,6 +134,7 @@ public class TranslationTestDiscoverer
 
     /**
      * Returns the discovered translation tests keyed by <code>translation<code>.
+     * @return translationTests
      */
     public Map<String, TranslationTest> getTests()
     {
