@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <translation-test>
 
     <translation name="validation.Java"/>
@@ -323,7 +322,7 @@
         <to>
             final Object contextElement = this; boolean constraintValid =
             org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age")
-            instanceof java.lang.Integer);
+            instanceof Integer);
         </to>
     </expression>
 
@@ -334,7 +333,7 @@
         </from>
         <to>
             final Object contextElement = this; boolean constraintValid =
-            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age").getClass().getName().equals(java.lang.Integer.class.getName()));
+            org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"age").getClass().getName().equals(Integer.class.getName()));
         </to>
     </expression>
 
