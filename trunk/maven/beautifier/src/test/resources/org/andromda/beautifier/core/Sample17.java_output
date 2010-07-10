@@ -2,6 +2,7 @@ package test;
 
 import java.util.Date;
 import test.bar.*;
+import test.bar.X2_Daaa.Nested_X2_Daaa;
 import test.logging.FOO_Logger;
 import test.logging.Foo_LoggerFactory;
 import test.logging.ONEINT;
@@ -10,11 +11,11 @@ public class AnotherTestResult extends FOO_Logger implements ONEINT {
     private static FOO_Logger logger =
         Foo_LoggerFactory.getInstance().getLogger(AnotherTestResult.class);
 
-    public static X2_Daaa.Nested_X2_Daaa getDaaa()
+    public static Nested_X2_Daaa getDaaa()
         throws FOO_ParamException, OtherException {
         logger.calling("getDaaa", FOO_Logger.NO_PARAMS);
 
-        return (X2_Daaa.Nested_X2_Daaa) new X2_Daaa.Nested_X2_Daaa();
+        return (Nested_X2_Daaa) new Nested_X2_Daaa();
     }
 
     protected static Foo_Daaa GetSomethingElse() {
