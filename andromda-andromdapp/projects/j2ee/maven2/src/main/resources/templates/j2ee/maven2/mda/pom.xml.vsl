@@ -255,7 +255,7 @@
                     <!-- Check model dates vs output file dates from previous gen, skip if files are later -->
                     <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
-            </plugin>           
+            </plugin>
 #if ($cxf)
             <!-- Clean any Impl files that should be overwritten each time -->
             <plugin>
@@ -360,13 +360,13 @@
         <model.uri>$model</model.uri>
 #else
 #if ($modelType.equals("uml1.4"))
-		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
 #elseif ($modelType.equals("emf-uml2"))
-		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
 #elseif ($modelType.equals("emf-uml22"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
 #elseif ($modelType.equals("uml2"))
-		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
 #end
@@ -411,7 +411,7 @@
 #else
         <webservice.generated.dir>${project.basedir}/../webservice/target/src</webservice.generated.dir>
 #end
-        <webservice.manual.java.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.java.dir> 
+        <webservice.manual.java.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.java.dir>
 #if ($axisVersion.equals("1"))
         <webservice.generated.wsdl.dir>${webservice.generated.dir}/WEB-INF/classes</webservice.generated.wsdl.dir>
 #end

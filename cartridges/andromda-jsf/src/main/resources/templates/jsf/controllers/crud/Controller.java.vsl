@@ -334,7 +334,7 @@ public abstract class ${manageable.controllerName}
             );
 #if($crudConfirmationMessages)
             this.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.created", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
-#end            
+#end
         }
         else{
 #end
@@ -543,7 +543,7 @@ public abstract class ${manageable.controllerName}
 #if($crudConfirmationMessages)
         this.addInfoMessage(${managedBeansPackage}.Messages.get("manageable.entity.deleted", new Object[]{${managedBeansPackage}.Messages.get("${manageable.messageKey}")}));
 #end
-        
+
         doSearch(form);
     }
 

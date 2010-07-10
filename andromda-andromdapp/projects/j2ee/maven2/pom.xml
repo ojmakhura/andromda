@@ -1,5 +1,6 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.andromdapp.projects</groupId>
@@ -11,7 +12,7 @@
     <name>AndroMDA J2EE Maven2 Project</name>
     <description>AndroMDA powered J2EE Maven2 Application</description>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</developerConnection>
         <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/andromda-andromdapp/projects/j2ee/maven2</url>
     </scm>

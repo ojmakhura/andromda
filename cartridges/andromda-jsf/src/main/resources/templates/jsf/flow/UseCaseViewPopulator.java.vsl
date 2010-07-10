@@ -31,19 +31,19 @@ public final class $className
         try
         {
             final String viewId = (viewPath != null && viewPath.trim().length() > 0) ? viewPath : getViewId(facesContext);
-	        final Class<?> populator = populators.get(viewId);
-	        if (populator != null)
-	        {
-	            final java.lang.reflect.Method method = populator.getMethod(
-	                "populateFormAndViewVariables",
-	                new Class[]{javax.faces.context.FacesContext.class, Object.class});
-	            method.invoke(populator, new Object[]{facesContext, form});
-	       }
-	    }
-	    catch (final Throwable throwable)
-	    {
-	    	throw new RuntimeException(throwable);
-	    }
+            final Class<?> populator = populators.get(viewId);
+            if (populator != null)
+            {
+                final java.lang.reflect.Method method = populator.getMethod(
+                    "populateFormAndViewVariables",
+                    new Class[]{javax.faces.context.FacesContext.class, Object.class});
+                method.invoke(populator, new Object[]{facesContext, form});
+           }
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
     }
 
     protected static String getViewId(final javax.faces.context.FacesContext facesContext)

@@ -95,7 +95,7 @@ public class $formPopulatorName
             }
         }
     }
-    
+
     /**
      * Populates the form from the attributes contained in the request object.
      *
@@ -131,7 +131,7 @@ public class $formPopulatorName
     public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map formatters, boolean override)
     {
         populateFormFromRequestAttributes(form, formatters, override, false);
-    }    
+    }
 
     /**
      * Populates the form from the given map of properties. If a matching property is null or an empty
