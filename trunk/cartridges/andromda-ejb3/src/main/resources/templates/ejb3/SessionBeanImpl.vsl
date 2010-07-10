@@ -25,10 +25,10 @@ package $service.packageName;
  */
 @javax.ejb.${service.type}
 #**##if ($service.seamComponentStartup)
-@org.jboss.seam.annotations.Startup#if ($stringUtils.isNotEmpty($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
+@org.jboss.seam.annotations.Startup#if ($stringUtils.isNotBlank($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
 #**##else
 // Uncomment to define Seam startup
-// @org.jboss.seam.annotations.Startup#if ($stringUtils.isNotEmpty($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
+// @org.jboss.seam.annotations.Startup#if ($stringUtils.isNotBlank($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
 
 #**##end
 #end

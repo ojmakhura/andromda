@@ -35,7 +35,7 @@ class SpringMetafacadeUtils
             fullyQualifiedName.append('.');
         }
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
-        if (StringUtils.isNotEmpty(suffix))
+        if (StringUtils.isNotBlank(suffix))
         {
             fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         }
@@ -82,7 +82,7 @@ class SpringMetafacadeUtils
                     }
                 });
             }
-            if (StringUtils.isNotEmpty(remotingTypeValue))
+            if (StringUtils.isNotBlank(remotingTypeValue))
             {
                 remotingType = remotingTypeValue;
             }
@@ -126,7 +126,7 @@ class SpringMetafacadeUtils
                 });
             }
             // interceptors are a comma-separated list of strings, go and split the list
-            if (StringUtils.isNotEmpty(interceptorsValue))
+            if (StringUtils.isNotBlank(interceptorsValue))
             {
                 interceptors = interceptorsValue.split(",");
             }
@@ -166,7 +166,7 @@ class SpringMetafacadeUtils
                     }
                 });
             }
-            if (StringUtils.isNotEmpty(remoteServicePortValue))
+            if (StringUtils.isNotBlank(remoteServicePortValue))
             {
                 remoteServicePort = remoteServicePortValue;
             }
@@ -194,7 +194,7 @@ class SpringMetafacadeUtils
         {
             String useNamedParametersValue = StringUtils.trimToEmpty((String)operation
                     .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
-            if (StringUtils.isNotEmpty(useNamedParametersValue))
+            if (StringUtils.isNotBlank(useNamedParametersValue))
             {
                 useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
             }

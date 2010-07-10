@@ -178,7 +178,7 @@ public class HibernateAssociationEndLogicImpl
             {
                 final String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
 
-                if (StringUtils.isNotEmpty(typeName))
+                if (StringUtils.isNotBlank(typeName))
                 {
                     getterSetterTypeName = typeName;
                 }

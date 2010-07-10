@@ -32,7 +32,7 @@ public class HibernateServiceLogicImpl
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append('/');

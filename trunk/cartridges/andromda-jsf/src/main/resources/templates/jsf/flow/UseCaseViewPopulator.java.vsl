@@ -1,5 +1,5 @@
 #set ($className = "${useCase.actionClassName}ViewPopulator")
-#if ($stringUtils.isNotEmpty($useCase.packageName))
+#if ($stringUtils.isNotBlank($useCase.packageName))
 package $useCase.packageName;
 #end
 

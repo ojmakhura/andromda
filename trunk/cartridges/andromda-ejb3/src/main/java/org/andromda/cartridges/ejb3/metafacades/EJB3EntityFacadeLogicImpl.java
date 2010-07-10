@@ -297,7 +297,7 @@ public class EJB3EntityFacadeLogicImpl
     {
         StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append("/");

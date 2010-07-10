@@ -19,7 +19,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <!-- jaxb-commons not included in compile or runtime classpath passed to ant - because type=pom? -->
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-dv/${cxf.version}/cxf-xjc-dv-${cxf.version}.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-ts/${cxf.version}/cxf-xjc-ts-${cxf.version}.jar"/>
-#if ($stringUtils.isNotEmpty($xjcArguments))
+#if ($stringUtils.isNotBlank($xjcArguments))
     <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb-commons">
         <include name="**/*.jar"/>
         <exclude name="**/*-sources.jar"/>
@@ -253,7 +253,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <!--arg value="-sn"/>
       <arg value="$service.name"/-->
 #end
-#if ($stringUtils.isNotEmpty($xjcArguments))
+#if ($stringUtils.isNotBlank($xjcArguments))
       <!-- Uncomment to add cxf and jaxb-commons options to client code generation in CXF project -->
       <!--arg value="-xjc$xjcArguments"/-->
 #end

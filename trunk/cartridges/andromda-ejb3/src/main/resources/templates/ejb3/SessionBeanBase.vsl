@@ -174,31 +174,31 @@ public abstract class ${service.serviceBaseName}
      */
 #*  *##if ($service.seamComponent)
 #*    *##if ($attribute.seamBijectionIn)
-    @org.jboss.seam.annotations.In#if ($stringUtils.isNotEmpty($attribute.seamBijectionInParameters))$attribute.seamBijectionInParameters#end
+    @org.jboss.seam.annotations.In#if ($stringUtils.isNotBlank($attribute.seamBijectionInParameters))$attribute.seamBijectionInParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamBijectionOut)
-    @org.jboss.seam.annotations.Out#if ($stringUtils.isNotEmpty($attribute.seamBijectionOutParameters))$attribute.seamBijectionOutParameters#end
+    @org.jboss.seam.annotations.Out#if ($stringUtils.isNotBlank($attribute.seamBijectionOutParameters))$attribute.seamBijectionOutParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamBijectionLogger)
-    @org.jboss.seam.annotations.Logger#if ($stringUtils.isNotEmpty($attribute.seamBijectionLoggerParameters))$attribute.seamBijectionLoggerParameters#end
+    @org.jboss.seam.annotations.Logger#if ($stringUtils.isNotBlank($attribute.seamBijectionLoggerParameters))$attribute.seamBijectionLoggerParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamBijectionRequestParameter)
-    @org.jboss.seam.annotations.RequestParameter#if ($stringUtils.isNotEmpty($attribute.seamBijectionRequestParameterParameters))$attribute.seamBijectionRequestParameterParameters#end
+    @org.jboss.seam.annotations.RequestParameter#if ($stringUtils.isNotBlank($attribute.seamBijectionRequestParameterParameters))$attribute.seamBijectionRequestParameterParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamDataModel)
-    @org.jboss.seam.annotations.datamodel.DataModel#if ($stringUtils.isNotEmpty($attribute.seamDataModelParameters))$attribute.seamDataModelParameters#end
+    @org.jboss.seam.annotations.datamodel.DataModel#if ($stringUtils.isNotBlank($attribute.seamDataModelParameters))$attribute.seamDataModelParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamDataModelSelection)
-    @org.jboss.seam.annotations.datamodel.DataModelSelection#if ($stringUtils.isNotEmpty($attribute.seamDataModelSelectionParameters))$attribute.seamDataModelSelectionParameters#end
+    @org.jboss.seam.annotations.datamodel.DataModelSelection#if ($stringUtils.isNotBlank($attribute.seamDataModelSelectionParameters))$attribute.seamDataModelSelectionParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamDataModelSelectionIndex)
-    @org.jboss.seam.annotations.datamodel.DataModelSelectionIndex#if ($stringUtils.isNotEmpty($attribute.seamDataModelSelectionIndexParameters))$attribute.seamDataModelSelectionIndexParameters#end
+    @org.jboss.seam.annotations.datamodel.DataModelSelectionIndex#if ($stringUtils.isNotBlank($attribute.seamDataModelSelectionIndexParameters))$attribute.seamDataModelSelectionIndexParameters#end
 
 #*    *##end
 ##
@@ -392,35 +392,35 @@ $operation.getDocumentation("     * ")
 
 #*      *##end
 #*      *##if ($operation.seamBijectionFactory)
-    @org.jboss.seam.annotations.Factory#if ($stringUtils.isNotEmpty($operation.seamBijectionFactoryParameters))$operation.seamBijectionFactoryParameters#end
+    @org.jboss.seam.annotations.Factory#if ($stringUtils.isNotBlank($operation.seamBijectionFactoryParameters))$operation.seamBijectionFactoryParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationBegin)
-    @org.jboss.seam.annotations.Begin#if ($stringUtils.isNotEmpty($operation.seamConversationBeginParameters))$operation.seamConversationBeginParameters#end
+    @org.jboss.seam.annotations.Begin#if ($stringUtils.isNotBlank($operation.seamConversationBeginParameters))$operation.seamConversationBeginParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationBeginTask)
-    @org.jboss.seam.annotations.BeginTask#if ($stringUtils.isNotEmpty($operation.seamConversationBeginTaskParameters))$operation.seamConversationBeginTaskParameters#end
+    @org.jboss.seam.annotations.BeginTask#if ($stringUtils.isNotBlank($operation.seamConversationBeginTaskParameters))$operation.seamConversationBeginTaskParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationCreateProcess)
-    @org.jboss.seam.annotations.CreateProcess#if ($stringUtils.isNotEmpty($operation.seamConversationCreateProcessParameters))$operation.seamConversationCreateProcessParameters#end
+    @org.jboss.seam.annotations.CreateProcess#if ($stringUtils.isNotBlank($operation.seamConversationCreateProcessParameters))$operation.seamConversationCreateProcessParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationEnd)
-    @org.jboss.seam.annotations.End#if ($stringUtils.isNotEmpty($operation.seamConversationEndParameters))$operation.seamConversationEndParameters#end
+    @org.jboss.seam.annotations.End#if ($stringUtils.isNotBlank($operation.seamConversationEndParameters))$operation.seamConversationEndParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationEndTask)
-    @org.jboss.seam.annotations.EndTask#if ($stringUtils.isNotEmpty($operation.seamConversationEndTaskParameters))$operation.seamConversationEndTaskParameters#end
+    @org.jboss.seam.annotations.EndTask#if ($stringUtils.isNotBlank($operation.seamConversationEndTaskParameters))$operation.seamConversationEndTaskParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationResumeProcess)
-    @org.jboss.seam.annotations.ResumeProcess#if ($stringUtils.isNotEmpty($operation.seamConversationResumeProcessParameters))$operation.seamConversationResumeProcessParameters#end
+    @org.jboss.seam.annotations.ResumeProcess#if ($stringUtils.isNotBlank($operation.seamConversationResumeProcessParameters))$operation.seamConversationResumeProcessParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationStartTask)
-    @org.jboss.seam.annotations.StartTask#if ($stringUtils.isNotEmpty($operation.seamConversationStartTaskParameters))$operation.seamConversationStartTaskParameters#end
+    @org.jboss.seam.annotations.StartTask#if ($stringUtils.isNotBlank($operation.seamConversationStartTaskParameters))$operation.seamConversationStartTaskParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamAsynchronous)
@@ -432,11 +432,11 @@ $operation.getDocumentation("     * ")
 
 #*      *##end
 #*      *##if ($operation.seamTransactionalRollback)
-    @org.jboss.seam.annotations.TransactionalRollback#if ($stringUtils.isNotEmpty($operation.seamConversationTransactionalRollbackParameters))$operation.seamConversationTransactionalRollbackParameters#end
+    @org.jboss.seam.annotations.TransactionalRollback#if ($stringUtils.isNotBlank($operation.seamConversationTransactionalRollbackParameters))$operation.seamConversationTransactionalRollbackParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamConversationWebRemote)
-    @org.jboss.seam.annotations.WebRemote#if ($stringUtils.isNotEmpty($operation.seamConversationWebRemoteParameters))$operation.seamConversationWebRemoteParameters#end
+    @org.jboss.seam.annotations.WebRemote#if ($stringUtils.isNotBlank($operation.seamConversationWebRemoteParameters))$operation.seamConversationWebRemoteParameters#end
 
 #*      *##end
 #*      *##if ($operation.seamObserver)

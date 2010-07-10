@@ -229,7 +229,7 @@ public class ConcreteSyntaxUtils
 
                 // add the first param if it exists
                 String firstParam = TranslationUtils.trimToEmpty(params.getExpression());
-                if (StringUtils.isNotEmpty(firstParam))
+                if (StringUtils.isNotBlank(firstParam))
                 {
                     parameters.add(firstParam);
                 }

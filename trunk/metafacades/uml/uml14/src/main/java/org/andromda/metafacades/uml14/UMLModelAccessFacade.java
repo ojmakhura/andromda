@@ -129,7 +129,7 @@ public class UMLModelAccessFacade
         final String methodName = "UMLModelAccessFacade.findByStereotype";
         final Collection metafacades = new ArrayList();
         stereotype = StringUtils.trimToEmpty(stereotype);
-        if (StringUtils.isNotEmpty(stereotype))
+        if (StringUtils.isNotBlank(stereotype))
         {
             if (this.model != null)
             {

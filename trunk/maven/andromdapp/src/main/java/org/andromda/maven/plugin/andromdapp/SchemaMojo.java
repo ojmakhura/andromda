@@ -478,7 +478,7 @@ public class SchemaMojo
         final String sqlPath)
         throws Exception
     {
-        if (StringUtils.isNotEmpty(sqlPath))
+        if (StringUtils.isNotBlank(sqlPath))
         {
             final URL sqlUrl = ResourceUtils.toURL(sqlPath);
             if (sqlUrl != null)

@@ -73,7 +73,7 @@ public class AttributeFacadeLogicImpl
         String defaultValue = this.metaObject.getDefault();
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type attribute = $attribute.defaultValue, requiring quotes around the value
-        if (StringUtils.isNotEmpty(defaultValue) && !this.isMany())
+        if (StringUtils.isNotBlank(defaultValue) && !this.isMany())
         {
             String typeName = this.metaObject.getType().getName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
@@ -187,7 +187,7 @@ public class AttributeFacadeLogicImpl
         boolean isMemberVariable = false;
         final String isMemberVariableAsString = (String)this.findTaggedValue(
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_ENUMERATION_MEMBER_VARIABLE);
-        if (StringUtils.isNotEmpty(isMemberVariableAsString) && BooleanUtils.toBoolean(isMemberVariableAsString))
+        if (StringUtils.isNotBlank(isMemberVariableAsString) && BooleanUtils.toBoolean(isMemberVariableAsString))
         {
             isMemberVariable = true;
         }

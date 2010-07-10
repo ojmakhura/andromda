@@ -848,7 +848,7 @@ public class ModelElementFacadeLogicImpl
         {
             validationName.append(seperator);
         }
-        if (StringUtils.isNotEmpty(this.getName()))
+        if (StringUtils.isNotBlank(this.getName()))
         {
             validationName.append(this.getName());
         }
@@ -906,7 +906,7 @@ public class ModelElementFacadeLogicImpl
     {
         // TODO: Be sure it works with RSM / MD11.5
         TemplateParameterFacade templateParameter = null;
-        if (StringUtils.isNotEmpty(parameterName))
+        if (StringUtils.isNotBlank(parameterName))
         {
             parameterName = StringUtils.trimToEmpty(parameterName);
             final Collection<TemplateParameterFacade> parameters = this.getTemplateParameters();

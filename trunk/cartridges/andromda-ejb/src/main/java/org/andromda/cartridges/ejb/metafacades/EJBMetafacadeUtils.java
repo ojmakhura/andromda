@@ -100,7 +100,7 @@ class EJBMetafacadeUtils
                     }
                 });
             }
-            if (StringUtils.isNotEmpty(viewTypeValue))
+            if (StringUtils.isNotBlank(viewTypeValue))
             {
                 viewType = viewTypeValue;
             }

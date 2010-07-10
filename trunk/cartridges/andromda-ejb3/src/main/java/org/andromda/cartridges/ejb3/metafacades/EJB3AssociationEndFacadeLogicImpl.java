@@ -250,7 +250,7 @@ public class EJB3AssociationEndFacadeLogicImpl
             if (type instanceof EJB3EntityFacade)
             {
                 final String typeName = ((EJB3EntityFacade)type).getFullyQualifiedEntityName();
-                if (StringUtils.isNotEmpty(typeName))
+                if (StringUtils.isNotBlank(typeName))
                 {
                     getterSetterTypeName = typeName;
                 }
