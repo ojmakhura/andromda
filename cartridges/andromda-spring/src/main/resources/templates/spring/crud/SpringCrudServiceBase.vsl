@@ -56,7 +56,7 @@ public final class $manageable.manageableServiceBaseName
         return toValueObject(dao.readById($identifier.name));
     }
 
-    public java.util.List read($memberList)
+    public java.util.List read(${manageable.listManageableMembersWithWrapperTypes()})
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException

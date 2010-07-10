@@ -20,7 +20,7 @@ public interface $manageable.manageableServiceName
     public $manageable.fullyQualifiedManageableValueObjectName readById(${identifier.type.fullyQualifiedName} $identifier.name)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
-    public java.util.List read($memberList)
+    public java.util.List read(${manageable.listManageableMembersWithWrapperTypes()})
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
     public java.util.List readAll()
