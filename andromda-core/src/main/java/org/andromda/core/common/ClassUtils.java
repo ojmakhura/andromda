@@ -156,7 +156,7 @@ public class ClassUtils
 
             try
             {
-                if (StringUtils.isNotEmpty(className))
+                if (StringUtils.isNotBlank(className))
                 {
                     Field field = loader.loadClass(className).getField("TYPE");
                     primitiveClass = (Class)field.get(null);

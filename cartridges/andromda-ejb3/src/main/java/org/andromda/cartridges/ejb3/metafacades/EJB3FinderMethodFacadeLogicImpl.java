@@ -177,7 +177,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     {
         boolean isNamedQuery = true;
         final String query = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_QUERY);
-        if (StringUtils.isNotEmpty(query))
+        if (StringUtils.isNotBlank(query))
         {
             isNamedQuery = false;
         }

@@ -362,7 +362,7 @@ public class SchemaTransformer
      * @param taggedValues
      */
     public void setAttributeTaggedValues(String taggedValues) {
-        if (StringUtils.isNotEmpty(taggedValues)) {
+        if (StringUtils.isNotBlank(taggedValues)) {
             StringTokenizer tokList = new StringTokenizer(taggedValues, ",");
             while (tokList.hasMoreTokens()) {
                String tok = tokList.nextToken();
@@ -452,7 +452,7 @@ public class SchemaTransformer
         String packageName)
     {
         packageName = StringUtils.trimToEmpty(packageName);
-        if (StringUtils.isNotEmpty(packageName))
+        if (StringUtils.isNotBlank(packageName))
         {
             String[] packages = packageName.split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
             if (packages != null && packages.length > 0)
@@ -519,13 +519,13 @@ public class SchemaTransformer
         if (this.classes.isEmpty())
         {
             String schemaName = "";
-            if (StringUtils.isNotEmpty(this.schema))
+            if (StringUtils.isNotBlank(this.schema))
             {
                 schemaName = " '" + this.schema + "' ";
             }
             StringBuffer warning = new StringBuffer("WARNING! No tables found in schema");
             warning.append(schemaName);
-            if (StringUtils.isNotEmpty(this.tableNamePattern))
+            if (StringUtils.isNotBlank(this.tableNamePattern))
             {
                 warning.append(" matching pattern --> '").append(this.tableNamePattern).append('\'');
             }
@@ -576,7 +576,7 @@ public class SchemaTransformer
 
         umlClass.getStereotype().addAll(this.getOrCreateStereotypes(corePackage, this.classStereotypes, "Classifier"));
 
-        if (StringUtils.isNotEmpty(this.tableTaggedValue))
+        if (StringUtils.isNotBlank(this.tableTaggedValue))
         {
             // add the tagged value for the table name
             TaggedValue taggedValue = this.createTaggedValue(corePackage, this.tableTaggedValue, tableName);
@@ -641,7 +641,7 @@ public class SchemaTransformer
                     String typeName = columnRs.getString(this.getMetaColumnTypeName());
                     String colSize = columnRs.getString(this.getMetaColumnColumnSize());
                     String decPlaces = null;
-                    if (StringUtils.isNotEmpty(this.getMetaColumnDecPlaces()))
+                    if (StringUtils.isNotBlank(this.getMetaColumnDecPlaces()))
                     {
                         decPlaces = columnRs.getString(this.getMetaColumnDecPlaces());
                     }
@@ -689,7 +689,7 @@ public class SchemaTransformer
                             null);
                     attribute.setType(typeClass);
 
-                    if (StringUtils.isNotEmpty(this.columnTaggedValue))
+                    if (StringUtils.isNotBlank(this.columnTaggedValue))
                     {
                         // add the tagged value for the column name
                         TaggedValue taggedValue =
@@ -967,7 +967,7 @@ public class SchemaTransformer
             }
             foreignEnd.setParticipant(foreignParticipant);
 
-            if (StringUtils.isNotEmpty(this.columnTaggedValue))
+            if (StringUtils.isNotBlank(this.columnTaggedValue))
             {
                 // add the tagged value for the foreign association end
                 TaggedValue taggedValue = this.createTaggedValue(corePackage, this.columnTaggedValue, fkColumnName);

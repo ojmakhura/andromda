@@ -477,7 +477,7 @@ public class OperationFacadeLogicImpl
         Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {
-            if (StringUtils.isNotEmpty(initialExceptions))
+            if (StringUtils.isNotBlank(initialExceptions))
             {
                 exceptionList.append(", ");
             }

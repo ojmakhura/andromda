@@ -300,7 +300,7 @@ public class VelocityTemplateEngine
     public String getEvaluatedExpression(final String expression, final Map<String, Object> templateObjects)
     {
         String evaluatedExpression = null;
-        if (StringUtils.isNotEmpty(expression))
+        if (StringUtils.isNotBlank(expression))
         {
             // reuse last created context, need it for processing $generateFilename
             if (this.velocityContext == null)

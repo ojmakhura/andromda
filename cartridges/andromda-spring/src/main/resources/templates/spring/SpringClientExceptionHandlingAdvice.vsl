@@ -5,7 +5,7 @@
  * You can (and have to!) safely modify it by hand.
  */
 #set ($generatedFile = "${clientExceptionHandlingAdviceName}.java")
-#if($stringUtils.isNotEmpty($springTypesPackage))
+#if($stringUtils.isNotBlank($springTypesPackage))
 package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end

@@ -68,7 +68,7 @@ public class OperationDeclarationImpl
             toString.append(StringUtils.join(this.getArguments(), ','));
         }
         toString.append(')');
-        if (StringUtils.isNotEmpty(this.getReturnType()))
+        if (StringUtils.isNotBlank(this.getReturnType()))
         {
             toString.append("::");
             toString.append(this.getReturnType());

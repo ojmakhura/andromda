@@ -155,7 +155,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 throw new RepositoryFacadeException(throwable);
             }
         }
-        /*if (StringUtils.isNotEmpty(uri))
+        /*if (StringUtils.isNotBlank(uri))
         {
                 URI resource = URI.createURI(uri);
                 Resource uriModel = this.resourceSet.getResource(resource, true);

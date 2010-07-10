@@ -89,7 +89,7 @@ public final class Introspector
                 else
                 {
                     final String valueAsString = String.valueOf(propertyValue);
-                    if (StringUtils.isNotEmpty(value))
+                    if (StringUtils.isNotBlank(value))
                     {
                         valid = valueAsString.equals(value);
                     }
@@ -488,7 +488,7 @@ public final class Introspector
             this.evaluatingObjects.put(
                 object,
                 name);
-            if (object != null || StringUtils.isNotEmpty(name))
+            if (object != null || StringUtils.isNotBlank(name))
             {
                 final Method method = this.getReadMethod(
                         object,
@@ -540,7 +540,7 @@ public final class Introspector
         final String name,
         Object value)
     {
-        if (object != null || (StringUtils.isNotEmpty(name)))
+        if (object != null || (StringUtils.isNotBlank(name)))
         {
             Class expectedType = null;
             if (value != null && object != null)

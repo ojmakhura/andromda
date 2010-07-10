@@ -22,7 +22,7 @@ public class OclParserException
     public OclParserException(String message)
     {
         super();
-        if (StringUtils.isNotEmpty(message))
+        if (StringUtils.isNotBlank(message))
         {
             extractErrorPosition(message);
         }

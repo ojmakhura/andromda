@@ -856,7 +856,7 @@ public class ModelElementFacadeLogicImpl
         {
             validationName.append(seperator);
         }
-        if (StringUtils.isNotEmpty(this.getName()))
+        if (StringUtils.isNotBlank(this.getName()))
         {
             validationName.append(this.getName());
         }
@@ -940,7 +940,7 @@ public class ModelElementFacadeLogicImpl
     protected TemplateParameterFacade handleGetTemplateParameter(String parameterName)
     {
         TemplateParameterFacade templateParameter = null;
-        if (StringUtils.isNotEmpty(parameterName))
+        if (StringUtils.isNotBlank(parameterName))
         {
             parameterName = StringUtils.trimToEmpty(parameterName);
             final Collection<TemplateParameterFacade> parameters = this.getTemplateParameters();

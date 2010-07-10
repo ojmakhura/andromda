@@ -124,7 +124,7 @@ $operation.getDocumentation("    * ")
 #end
 #if ($operation.returnTypePresent)
 ## Avoid primitive types for wrapper attribute names, reserved keywords
-#if ($stringUtils.isNotEmpty($operation.returnParameter.name))
+#if ($stringUtils.isNotBlank($operation.returnParameter.name))
 #set ($returnName=$stringUtils.capitalize($operation.returnParameter.name))
 #else
 #set ($returnName="#if ($stringUtils.isBlank($operation.returnType.packageName) || $operation.returnType.schemaType.startsWith('xs:'))_#end${operation.returnType.name}")

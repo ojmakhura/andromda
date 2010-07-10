@@ -224,7 +224,7 @@ public class EJBEntityFacadeLogicImpl
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append('/');

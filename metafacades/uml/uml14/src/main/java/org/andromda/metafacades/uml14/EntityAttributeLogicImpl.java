@@ -127,7 +127,7 @@ public class EntityAttributeLogicImpl
                 }
                 value = this.getSqlMappings().getTo(typeName);
                 final String columnLength = this.getColumnLength();
-                if (StringUtils.isNotEmpty(columnLength))
+                if (StringUtils.isNotBlank(columnLength))
                 {
                     value = EntityMetafacadeUtils.constructSqlTypeName(value, columnLength);
                 }

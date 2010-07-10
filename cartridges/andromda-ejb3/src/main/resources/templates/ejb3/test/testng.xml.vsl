@@ -3,7 +3,7 @@
 <suite name="${entityManagerName} Test Suite" verbose="2" parallel="false">
     <test name="${entityManagerName} Services Test">
         <classes>
-#if($stringUtils.isNotEmpty($ejb3TypesPackage))
+#if($stringUtils.isNotBlank($ejb3TypesPackage))
 #**##set ($testPackage = "${ejb3TypesPackage}.test.")
 #else
 #**##set ($testPackage = "")

@@ -45,7 +45,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         if (StringUtils.isEmpty(viewType))
         {
             EJB3SessionFacade sessionFacade = (EJB3SessionFacade)this.getOwner();
-            if (StringUtils.isNotEmpty(sessionFacade.getViewType()))
+            if (StringUtils.isNotBlank(sessionFacade.getViewType()))
             {
                 viewType = sessionFacade.getViewType();
             }

@@ -17,7 +17,7 @@
 #set ($principalStoreClassName = $externalPrincipalStoreClass)
 #else
 #set ($principalStoreClassName = $principalStoreName)
-#if($stringUtils.isNotEmpty($springTypesPackage))
+#if($stringUtils.isNotBlank($springTypesPackage))
 #set ($principalStoreClassName = "${springTypesPackage}.${principalStoreClassName}")
 #end
 #end

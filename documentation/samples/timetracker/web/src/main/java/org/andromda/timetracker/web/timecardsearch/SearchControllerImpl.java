@@ -55,7 +55,7 @@ public class SearchControllerImpl extends SearchController
 
         // Populate timecard summaries
         TimecardStatus status = null;
-        if (StringUtils.isNotEmpty(form.getStatus())) {
+        if (StringUtils.isNotBlank(form.getStatus())) {
             status = TimecardStatus.fromString(form.getStatus());
         }
         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(

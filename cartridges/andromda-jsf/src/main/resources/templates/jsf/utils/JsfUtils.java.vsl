@@ -1,5 +1,5 @@
 #set ($className = "JsfUtils")
-#if ($stringUtils.isNotEmpty($managedBeansPackage))
+#if ($stringUtils.isNotBlank($managedBeansPackage))
 package $managedBeansPackage;
 #end
 

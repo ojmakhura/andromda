@@ -222,7 +222,7 @@ public class SpringManageableEntityLogicImpl
      */
     private boolean hasServiceRemotePort()
     {
-        return StringUtils.isNotEmpty(this.getRemotePort());
+        return StringUtils.isNotBlank(this.getRemotePort());
     }
 
     /**
@@ -232,7 +232,7 @@ public class SpringManageableEntityLogicImpl
      */
     private boolean hasServiceRemoteContext()
     {
-        return StringUtils.isNotEmpty(this.getRemoteContext());
+        return StringUtils.isNotBlank(this.getRemoteContext());
     }
 
 }

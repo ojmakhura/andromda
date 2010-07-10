@@ -145,7 +145,7 @@ public class EntityAssociationEndLogicImpl
                 String typeName = identifier.getType().getFullyQualifiedName(true);
                 value = this.getSqlMappings().getTo(typeName);
                 final String columnLength = identifier.getColumnLength();
-                if (StringUtils.isNotEmpty(columnLength))
+                if (StringUtils.isNotBlank(columnLength))
                 {
                     value = EntityMetafacadeUtils.constructSqlTypeName(
                             value,

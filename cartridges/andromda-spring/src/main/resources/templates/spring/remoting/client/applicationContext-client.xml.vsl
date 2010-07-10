@@ -23,7 +23,7 @@
     <!-- ========================= Start of INTERCEPTOR DEFINITIONS ==================== -->
 
 #set ($exceptionHandlingAdviceName = "$clientExceptionHandlingAdviceName")
-#if($stringUtils.isNotEmpty($springTypesPackage))
+#if($stringUtils.isNotBlank($springTypesPackage))
 #set ($exceptionHandlingAdviceName = "$springTypesPackage.$exceptionHandlingAdviceName")
 #end
     <!-- Custom exception handling interceptor -->

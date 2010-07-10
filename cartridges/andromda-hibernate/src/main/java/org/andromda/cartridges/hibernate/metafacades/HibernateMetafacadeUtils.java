@@ -52,7 +52,7 @@ class HibernateMetafacadeUtils
                             }
                         });
             }
-            if (StringUtils.isNotEmpty(viewTypeValue))
+            if (StringUtils.isNotBlank(viewTypeValue))
             {
                 viewType = viewTypeValue;
             }
@@ -121,7 +121,7 @@ class HibernateMetafacadeUtils
         {
             String useNamedParametersValue = StringUtils.trimToEmpty((String)operation
                     .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
-            if (StringUtils.isNotEmpty(useNamedParametersValue))
+            if (StringUtils.isNotBlank(useNamedParametersValue))
             {
                 useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
             }

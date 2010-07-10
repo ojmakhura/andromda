@@ -314,7 +314,7 @@ public class MetafacadeMapping
      */
     final boolean hasContext()
     {
-        return StringUtils.isNotEmpty(this.context);
+        return StringUtils.isNotBlank(this.context);
     }
 
     /**
@@ -421,7 +421,7 @@ public class MetafacadeMapping
             {
                 final Property property = iterator.next();
                 toString.append(property.getName());
-                if (StringUtils.isNotEmpty(property.getValue()))
+                if (StringUtils.isNotBlank(property.getValue()))
                 {
                     toString.append(seperator);
                     toString.append(property.getValue());

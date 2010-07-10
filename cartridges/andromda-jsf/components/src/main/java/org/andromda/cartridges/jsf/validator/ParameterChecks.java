@@ -501,14 +501,14 @@ public class ParameterChecks
 
             if (StringUtils.isNotBlank(value))
             {
-                if (StringUtils.isNotEmpty(datePattern))
+                if (StringUtils.isNotBlank(datePattern))
                 {
                     result = GenericTypeValidator.formatDate(
                             value,
                             datePattern,
                             false);
                 }
-                else if (StringUtils.isNotEmpty(datePatternStrict))
+                else if (StringUtils.isNotBlank(datePatternStrict))
                 {
                     result = GenericTypeValidator.formatDate(
                             value,
@@ -951,7 +951,7 @@ public class ParameterChecks
             {
                 try
                 {
-                    if (StringUtils.isNotEmpty(timePattern))
+                    if (StringUtils.isNotBlank(timePattern))
                     {
                         final java.text.DateFormat timeFormatter = new SimpleDateFormat(timePattern);
                         timeFormatter.parse(value);

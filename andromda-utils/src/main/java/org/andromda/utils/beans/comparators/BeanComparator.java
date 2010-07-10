@@ -185,7 +185,7 @@ public class BeanComparator
         throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
     {
         Object value = null;
-        if (bean != null && StringUtils.isNotEmpty(propertyName))
+        if (bean != null && StringUtils.isNotBlank(propertyName))
         {
             int index = getNestedIndex(propertyName);
             if (index != -1)
@@ -229,7 +229,7 @@ public class BeanComparator
     private final int getNestedIndex(final String propertyName)
     {
         int index = -1;
-        if (StringUtils.isNotEmpty(propertyName))
+        if (StringUtils.isNotBlank(propertyName))
         {
             index = propertyName.indexOf('.');
         }
@@ -248,7 +248,7 @@ public class BeanComparator
             if (this.comparator == null)
             {
                 final String comparatorName = findComparatorName(type);
-                if (StringUtils.isNotEmpty(comparatorName))
+                if (StringUtils.isNotBlank(comparatorName))
                 {
                     this.comparator = (Comparator)ClassUtils.loadClass(comparatorName).newInstance();
                 }

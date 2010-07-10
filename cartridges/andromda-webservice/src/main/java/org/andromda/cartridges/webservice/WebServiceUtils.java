@@ -562,7 +562,7 @@ public class WebServiceUtils
     public Collection<PackageFacade> getPackageReferences(WebServiceLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
     {
         Collection<PackageFacade> pkgRef = new TreeSet<PackageFacade>();
-        if (StringUtils.isNotEmpty(packageName))
+        if (StringUtils.isNotBlank(packageName))
         {
             String name = null;
             PackageFacade pkg = null;
@@ -1205,7 +1205,7 @@ public class WebServiceUtils
     public Collection<ModelElementFacade> getPackageTypes(WebServiceLogicImpl service, Set<MetafacadeBase> types, String packageName, boolean follow)
     {
         Collection<ModelElementFacade> pkgTypes = new TreeSet<ModelElementFacade>(service.new TypeComparator());
-        if (StringUtils.isNotEmpty(packageName))
+        if (StringUtils.isNotBlank(packageName))
         {
             String name = null;
             String pkg = null;

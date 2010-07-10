@@ -914,7 +914,7 @@ public class WebServiceLogicImpl
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append('/');
@@ -1521,7 +1521,7 @@ public class WebServiceLogicImpl
             {
                 WebServiceOperation operation = operationIt.next();
                 String restProduces = operation.getRestProduces();
-                if (StringUtils.isNotEmpty(restProduces) && restProduces.contains("atom"))
+                if (StringUtils.isNotBlank(restProduces) && restProduces.contains("atom"))
                 {
                     restAtom = true;
                     break;
@@ -1529,7 +1529,7 @@ public class WebServiceLogicImpl
             }
             if (!restAtom)
             {
-                restAtom = StringUtils.isNotEmpty(this.getRestProduces()) && this.getRestProduces().indexOf("atom") > -1;
+                restAtom = StringUtils.isNotBlank(this.getRestProduces()) && this.getRestProduces().indexOf("atom") > -1;
             }
         }
         return restAtom;

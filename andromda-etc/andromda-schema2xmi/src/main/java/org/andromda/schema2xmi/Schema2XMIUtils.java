@@ -32,10 +32,10 @@ class Schema2XMIUtils
 
             if (!name.matches(".+\\(.+\\)"))
             {
-                if (StringUtils.isNotEmpty(length))
+                if (StringUtils.isNotBlank(length))
                 {
                     buffer.append('(').append(length);
-                    if (StringUtils.isNotEmpty(decimalPlaces))
+                    if (StringUtils.isNotBlank(decimalPlaces))
                     {
                         buffer.append(',').append(decimalPlaces);
                     }

@@ -45,7 +45,7 @@ public class SpringServiceLogicImpl
     {
         StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append('/');
@@ -63,7 +63,7 @@ public class SpringServiceLogicImpl
     {
         StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
+        if (StringUtils.isNotBlank(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
             jndiName.append('/');
@@ -325,7 +325,7 @@ public class SpringServiceLogicImpl
             this.isConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS) ? ObjectUtils.toString(this
                 .getConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS)) : null;
         String[] interceptors = null;
-        if (StringUtils.isNotEmpty(serviceInterceptorString))
+        if (StringUtils.isNotBlank(serviceInterceptorString))
         {
             interceptors = serviceInterceptorString.split(",");
         }
@@ -387,7 +387,7 @@ public class SpringServiceLogicImpl
     private boolean hasServiceRemotePort()
     {
         final String serviceRemotePort = this.getRemotePort();
-        return StringUtils.isNotEmpty(serviceRemotePort);
+        return StringUtils.isNotBlank(serviceRemotePort);
     }
 
     /**
@@ -398,7 +398,7 @@ public class SpringServiceLogicImpl
     private boolean hasServiceRemoteContext()
     {
         final String serviceRemoteContext = this.getRemoteContext();
-        return StringUtils.isNotEmpty(serviceRemoteContext);
+        return StringUtils.isNotBlank(serviceRemoteContext);
     }
 
     /**

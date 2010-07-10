@@ -9,7 +9,7 @@ locale.resolver=org.displaytag.localization.I18nStrutsAdapter
 # behaviour of common frameworks.
 locale.provider=org.displaytag.localization.I18nStrutsAdapter
 
-#if ($stringUtils.isNotEmpty($defaultTableExportTypes))
+#if ($stringUtils.isNotBlank($defaultTableExportTypes))
 #set ($csv = "false")
 #set ($pdf = "false")
 #set ($excel = "false")

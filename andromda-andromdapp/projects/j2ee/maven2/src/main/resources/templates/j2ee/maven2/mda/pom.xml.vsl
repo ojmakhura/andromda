@@ -356,7 +356,7 @@
         </plugins>
     </build>
     <properties>
-#if ($stringUtils.isNotEmpty($model))
+#if ($stringUtils.isNotBlank($model))
         <model.uri>$model</model.uri>
 #else
 #if ($modelType.equals("uml1.4"))

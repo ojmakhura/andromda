@@ -214,7 +214,7 @@ public class EntityMetafacadeUtils
         String name,
         Short nameMaxLength)
     {
-        if (StringUtils.isNotEmpty(name) && nameMaxLength != null)
+        if (StringUtils.isNotBlank(name) && nameMaxLength != null)
         {
             short max = nameMaxLength.shortValue();
             if (name.length() > max)
@@ -268,7 +268,7 @@ public class EntityMetafacadeUtils
         final String columnLength)
     {
         String value = typeName;
-        if (StringUtils.isNotEmpty(typeName))
+        if (StringUtils.isNotBlank(typeName))
         {
             final char beginChar = '(';
             final char endChar = ')';

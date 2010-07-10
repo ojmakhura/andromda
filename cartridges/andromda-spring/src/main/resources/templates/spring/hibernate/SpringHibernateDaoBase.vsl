@@ -1282,7 +1282,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #* *##set ($principalStoreType = ${externalPrincipalStoreGetterType})
 #else
 #* *##set ($principalStoreCall = "${principalStoreName}.get();")
-#* *##if($stringUtils.isNotEmpty($springTypesPackage))
+#* *##if($stringUtils.isNotBlank($springTypesPackage))
 #*     *##set ($principalStoreCall = "${springTypesPackage}.${principalStoreCall}")
 #* *##end
 #* *##set ($principalStoreType = "java.security.Principal")

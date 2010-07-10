@@ -59,7 +59,7 @@ public class ManageableEntityLogicImpl
         String manageablePackageName = "";
 
         final String parentPackage = super.getPackageName();
-        if (StringUtils.isNotEmpty(parentPackage))
+        if (StringUtils.isNotBlank(parentPackage))
         {
             manageablePackageName = parentPackage;
         }

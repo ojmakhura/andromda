@@ -192,7 +192,7 @@ public class LibraryTranslation
             if (fragment != null)
             {
                 String handlerMethod = fragment.getHandlerMethod();
-                if (StringUtils.isNotEmpty(handlerMethod))
+                if (StringUtils.isNotBlank(handlerMethod))
                 {
                     Class[] argTypes = {String.class, Object.class};
                     Method method = null;

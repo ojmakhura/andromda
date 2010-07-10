@@ -82,7 +82,7 @@ public class Merger
                         for (String from : froms)
                        {
                             from = StringUtils.trimToEmpty(from);
-                            if (StringUtils.isNotEmpty(from) && string.contains(from))
+                            if (StringUtils.isNotBlank(from) && string.contains(from))
                             {
                                 final String to = StringUtils.trimToEmpty(mapping.getTo());
                                 string = StringUtils.replace(string, from, to);

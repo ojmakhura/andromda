@@ -655,7 +655,7 @@ $attribute.getDocumentation("     * ")
 
 #*      *##else
 #*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*          *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
 #*          *##else
     @javax.persistence.OrderBy
@@ -837,7 +837,7 @@ $attribute.getDocumentation("     * ")
 
 #*      *##else
 #*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*          *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
 #*          *##else
     @javax.persistence.OrderBy

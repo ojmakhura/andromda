@@ -3,7 +3,7 @@ package $service.testPackageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedTestName,'.','/')}.java")
 
 #set ($fullyQualifiedTestServiceLocator = $testServiceLocatorName)
-#if($stringUtils.isNotEmpty($testServiceLocatorPackage))
+#if($stringUtils.isNotBlank($testServiceLocatorPackage))
 #set ($fullyQualifiedTestServiceLocator = "${testServiceLocatorPackage}.${fullyQualifiedTestServiceLocator}")
 #end
 

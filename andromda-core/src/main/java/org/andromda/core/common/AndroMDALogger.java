@@ -36,7 +36,7 @@ public class AndroMDALogger
         String defaultConfiguration = "log4j.xml";
         URL url = null;
         final String configuration = loggingConfigurationUri;
-        if (StringUtils.isNotEmpty(configuration))
+        if (StringUtils.isNotBlank(configuration))
         {
             try
             {

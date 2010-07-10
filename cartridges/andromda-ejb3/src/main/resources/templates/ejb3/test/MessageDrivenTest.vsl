@@ -6,7 +6,7 @@
 package $mdb.testPackageName;
 #end
 #set ($generatedFile = "${stringUtils.replace($mdb.fullyQualifiedMessageDrivenTestName,'.','/')}.java")
-#if($stringUtils.isNotEmpty($ejb3TypesPackage))
+#if($stringUtils.isNotBlank($ejb3TypesPackage))
 #**##set ($testPackage = "${ejb3TypesPackage}.test.")
 #else
 #**##set ($testPackage = "")

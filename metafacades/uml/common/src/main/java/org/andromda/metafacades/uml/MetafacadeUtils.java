@@ -57,7 +57,7 @@ public class MetafacadeUtils
         final String stereotype)
     {
         // Should be able to type the Collection as <ModelElementFacade>, but compilation failure results.
-        if (StringUtils.isNotEmpty(stereotype))
+        if (StringUtils.isNotBlank(stereotype))
         {
             CollectionUtils.filter(
                 modelElements,

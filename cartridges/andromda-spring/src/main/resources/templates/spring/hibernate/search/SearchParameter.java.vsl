@@ -5,7 +5,7 @@
 //
 #set ($className = "SearchParameter")
 #set ($generatedFile = "${className}.java")
-#if($stringUtils.isNotEmpty($springTypesPackage))
+#if($stringUtils.isNotBlank($springTypesPackage))
 package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
