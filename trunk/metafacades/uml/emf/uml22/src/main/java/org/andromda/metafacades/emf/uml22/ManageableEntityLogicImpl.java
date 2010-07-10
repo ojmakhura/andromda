@@ -266,15 +266,17 @@ public class ManageableEntityLogicImpl
         return criteria;
     }
 
-    /**
-     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleListManageableMembers(boolean)
-     */
-    @Override
-    protected String handleListManageableMembers(final boolean withTypes)
+    private enum ListType
+    {
+        PRIMITIVE,
+        WRAPPER;
+    }
+    
+    private String createListWithManageableMembers(ListType listType)
     {
         final StringBuilder buffer = new StringBuilder();
 
-        final List<ManageableEntityAttribute> attributes = this.getManageableAttributes();
+        final List attributes = this.getManageableAttributes();
         for (int i = 0; i < attributes.size(); i++)
         {
             if (buffer.length() > 0)
@@ -286,16 +288,21 @@ public class ManageableEntityLogicImpl
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
-                if (withTypes)
+                if(ListType.PRIMITIVE.equals(listType))
                 {
                     buffer.append(type.getFullyQualifiedName());
+                    buffer.append(' ');
+                }
+                else if(ListType.WRAPPER.equals(listType))
+                {
+                    buffer.append(type.isPrimitive()? type.getWrapperName(): type.getFullyQualifiedName());
                     buffer.append(' ');
                 }
                 buffer.append(attribute.getName());
             }
         }
 
-        final List<ManageableEntityAssociationEnd> associationEnds = this.getManageableAssociationEnds();
+        final List associationEnds = this.getManageableAssociationEnds();
         for (int i = 0; i < associationEnds.size(); i++)
         {
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEnds.get(i);
@@ -307,7 +314,7 @@ public class ManageableEntityLogicImpl
                 {
                     buffer.append(", ");
                 }
-                if (withTypes)
+                if (listType != null)
                 {
                     buffer.append("Object");
                     if (associationEnd.isMany())
@@ -320,7 +327,7 @@ public class ManageableEntityLogicImpl
             } 
             else 
             {
-                final Iterator<EntityAttribute> identifierIterator = entity.getIdentifiers().iterator();
+                final Iterator identifierIterator = entity.getIdentifiers().iterator();
                 if (identifierIterator.hasNext())
                 {
                     final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
@@ -334,7 +341,7 @@ public class ManageableEntityLogicImpl
                         final ClassifierFacade type = identifier.getType();
                         if (type != null)
                         {
-                            if (withTypes)
+                            if (listType != null)
                             {
                                 buffer.append(type.getFullyQualifiedName());
                                 if (associationEnd.isMany())
@@ -351,6 +358,24 @@ public class ManageableEntityLogicImpl
         }
 
         return buffer.toString();
+    }
+
+    /**
+     * @see org.andromda.metafacades.emf.uml22.handleListManageableMembersWithWrapperTypes()
+     */
+    @Override
+    protected String handleListManageableMembersWithWrapperTypes()
+    {
+        return createListWithManageableMembers(ListType.WRAPPER);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleListManageableMembers(boolean)
+     */
+    @Override
+    protected String handleListManageableMembers(final boolean withTypes)
+    {
+        return createListWithManageableMembers(withTypes? ListType.PRIMITIVE: null);
     }
 
     /**
