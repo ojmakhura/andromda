@@ -82,7 +82,7 @@
 
     <template
         path="templates/java/ValueObject.vsl"
-        outputPattern="{0}/{1}.java"
+        outputPattern="{0}/${className}.java"
         outlet="value-objects"
         overwrite="true">
         <modelElements variable="class">
