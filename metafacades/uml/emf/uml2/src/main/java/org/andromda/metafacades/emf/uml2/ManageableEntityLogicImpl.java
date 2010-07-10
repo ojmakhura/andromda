@@ -210,7 +210,13 @@ public class ManageableEntityLogicImpl
         return criteria;
     }
 
-    protected String handleListManageableMembers(final boolean withTypes)
+    private enum ListType
+    {
+        PRIMITIVE,
+        WRAPPER;
+    }
+    
+    private String createListWithManageableMembers(ListType listType)
     {
         final StringBuilder buffer = new StringBuilder();
 
@@ -226,9 +232,14 @@ public class ManageableEntityLogicImpl
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
-                if (withTypes)
+                if(ListType.PRIMITIVE.equals(listType))
                 {
                     buffer.append(type.getFullyQualifiedName());
+                    buffer.append(' ');
+                }
+                else if(ListType.WRAPPER.equals(listType))
+                {
+                    buffer.append(type.isPrimitive()? type.getWrapperName(): type.getFullyQualifiedName());
                     buffer.append(' ');
                 }
                 buffer.append(attribute.getName());
@@ -247,7 +258,7 @@ public class ManageableEntityLogicImpl
                 {
                     buffer.append(", ");
                 }
-                if (withTypes)
+                if (listType != null)
                 {
                     buffer.append("Object");
                     if (associationEnd.isMany())
@@ -257,8 +268,8 @@ public class ManageableEntityLogicImpl
                     buffer.append(' ');
                 }
                 buffer.append(associationEnd.getName());
-            }
-            else
+            } 
+            else 
             {
                 final Iterator identifierIterator = entity.getIdentifiers().iterator();
                 if (identifierIterator.hasNext())
@@ -274,7 +285,7 @@ public class ManageableEntityLogicImpl
                         final ClassifierFacade type = identifier.getType();
                         if (type != null)
                         {
-                            if (withTypes)
+                            if (listType != null)
                             {
                                 buffer.append(type.getFullyQualifiedName());
                                 if (associationEnd.isMany())
@@ -291,6 +302,16 @@ public class ManageableEntityLogicImpl
         }
 
         return buffer.toString();
+    }
+
+    protected String handleListManageableMembersWithWrapperTypes()
+    {
+        return createListWithManageableMembers(ListType.WRAPPER);
+    }
+    
+    protected String handleListManageableMembers(boolean withTypes)
+    {
+        return createListWithManageableMembers(withTypes? ListType.PRIMITIVE: null);
     }
 
     protected boolean handleIsManageable()
