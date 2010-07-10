@@ -123,7 +123,7 @@ public final class $manageable.manageableDaoBaseName
 #else
 #set($matchMode = 'MatchMode.START')
 #end
-    public java.util.List read($memberList)
+    public java.util.List read(${manageable.listManageableMembersWithWrapperTypes()})
     {
         final Session session = getSession(false);
 
@@ -132,9 +132,6 @@ public final class $manageable.manageableDaoBaseName
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 
 #foreach ($member in $manageable.manageableAttributes)
-#if ($member.type.primitive)
-            criteria.add(Expression.eq("$member.name", new ${member.type.wrapperName}($member.name)));
-#else
             if ($member.name != null)
 #if ($member.type.stringType)
             {
@@ -167,7 +164,6 @@ public final class $manageable.manageableDaoBaseName
             {
                 criteria.add(Expression.eq("$member.name", $member.name));
             }
-#end
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
