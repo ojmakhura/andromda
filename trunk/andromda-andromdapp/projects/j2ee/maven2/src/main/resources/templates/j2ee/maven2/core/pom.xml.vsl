@@ -200,7 +200,7 @@
             <groupId>org.jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
             <scope>provided</scope>
-        </dependency>        
+        </dependency>
 #if ($jsr181Webservice || $jaxws)
         <dependency>
             <groupId>org.jboss</groupId>
@@ -339,7 +339,7 @@
         <dependency>
             <groupId>org.apache.woden</groupId>
             <artifactId>woden-impl-om</artifactId>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-dom</artifactId>
@@ -407,8 +407,8 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <classifier>jdk15</classifier>            
-        </dependency>  
+            <classifier>jdk15</classifier>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -490,8 +490,8 @@
             </plugin>
 #else
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId> 
-                <artifactId>maven-jar-plugin</artifactId> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
                         <exclude>**/*.ref</exclude>
@@ -500,8 +500,8 @@
             </plugin>
 #end
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId> 
-                <artifactId>maven-source-plugin</artifactId> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
         <resources>

@@ -252,7 +252,7 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
 #else
-        <!-- add the database jdbc dependency -->    
+        <!-- add the database jdbc dependency -->
 #end
 #end
     </dependencies>
@@ -319,8 +319,8 @@
 #end
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId> 
-                <artifactId>maven-source-plugin</artifactId> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
 #if ($embeddedJetty)
             <plugin>

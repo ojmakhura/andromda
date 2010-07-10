@@ -526,7 +526,7 @@
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
                 <version>2.0</version>
-                <scope>runtime</scope>                
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-validator</groupId>
@@ -943,15 +943,15 @@
                 <version>1.8.0.7</version>
             </dependency>
 #else
-            <!-- add the database jdbc dependency -->    
+            <!-- add the database jdbc dependency -->
 #end
 #end
-					<dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>4.7</version>
-            <classifier>jdk15</classifier>
-        	</dependency>  
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>4.7</version>
+                <classifier>jdk15</classifier>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -1346,7 +1346,7 @@
     <application.name>$applicationName</application.name>
     <application.version>$applicationVersion</application.version>
 #if ($embeddedJetty)
-        <!-- uncomment to use the context configured datasource 
+        <!-- uncomment to use the context configured datasource
 #end
         <dataSource.name>jdbc/${application.id}</dataSource.name>
 #if ($ear)
@@ -1355,7 +1355,7 @@
         <dataSource>java:comp/env/${dataSource.name}</dataSource>
 #end
 #if ($embeddedJetty)
-        --> 
+        -->
 #end
 #if ($cxf)
         <spring.version>2.5.6.SEC01</spring.version>
@@ -1375,80 +1375,80 @@
             </activation>
             <properties>
                 <!--
-                        Change driver path and jar for appropriate database
-                        For MySQL use: mysql-connector-java-X-bin.jar
-                        For Hypersonic use: hsqldb.jar
-                        -->
+                Change driver path and jar for appropriate database
+                For MySQL use: mysql-connector-java-X-bin.jar
+                For Hypersonic use: hsqldb.jar
+                -->
                 <jdbc.driver.jar>
 #if ($ear)
 #if ($mysql)
-                        ${jboss.home}/server/default/lib/mysql-connector-java-5.0.4-bin.jar
+                    ${jboss.home}/server/default/lib/mysql-connector-java-5.0.4-bin.jar
 #elseif ($oracle)
-                        ${jboss.home}/server/default/lib/ojdbc14.jar
+                    ${jboss.home}/server/default/lib/ojdbc14.jar
 #elseif ($db2)
-                        ${jboss.home}/server/default/lib/db2java.zip
+                    ${jboss.home}/server/default/lib/db2java.zip
 #elseif ($informix)
-                        ${jboss.home}/server/default/lib/ifxjdbc.jar
+                    ${jboss.home}/server/default/lib/ifxjdbc.jar
 #elseif ($mssql)
-                        ${jboss.home}/server/default/lib/Mssqlserver.jar
+                    ${jboss.home}/server/default/lib/Mssqlserver.jar
 #elseif ($pointbase)
-                        ${jboss.home}/server/default/lib/pbclient.jar
+                    ${jboss.home}/server/default/lib/pbclient.jar
 #elseif ($postgres)
-                        ${jboss.home}/server/default/lib/postgresql.jar
+                    ${jboss.home}/server/default/lib/postgresql.jar
 #elseif ($sybase)
-                        ${jboss.home}/server/default/lib/jconn2.jar
+                    ${jboss.home}/server/default/lib/jconn2.jar
 #elseif ($sapdb)
-                        ${jboss.home}/server/default/lib/sapdbc.jar
+                    ${jboss.home}/server/default/lib/sapdbc.jar
 #elseif ($progress)
-                        ${jboss.home}/server/default/lib/progress.jar
+                    ${jboss.home}/server/default/lib/progress.jar
 #elseif ($derby)
-                        ${jboss.home}/server/default/lib/derby.jar
+                    ${jboss.home}/server/default/lib/derby.jar
 #else
-                        ${jboss.home}/server/default/lib/hsqldb.jar
+                    ${jboss.home}/server/default/lib/hsqldb.jar
 #end
 #else
 #if ($mysql)
-                        /path/to/mysql/lib/mysql-connector-java-5.0.4-bin.jar
+                    /path/to/mysql/lib/mysql-connector-java-5.0.4-bin.jar
 #elseif ($oracle)
-                        /path/to/oracle/jdbc/lib/ojdbc14.jar
+                    /path/to/oracle/jdbc/lib/ojdbc14.jar
 #elseif ($db2)
-                        /path/to/db2/java/db2java.zip
+                    /path/to/db2/java/db2java.zip
 #elseif ($informix)
-                        /path/to/informix/lib/ifxjdbc.jar
+                    /path/to/informix/lib/ifxjdbc.jar
 #elseif ($mssql)
-                        /path/to/SQLServerh/java/Mssqlserver.jar
+                    /path/to/SQLServerh/java/Mssqlserver.jar
 #elseif ($pointbase)
-                        /path/to/pointbase/lib/pbclient.jar
+                    /path/to/pointbase/lib/pbclient.jar
 #elseif ($postgres)
-                        /path/to/postgres/lib/postgresql.jar
+                    /path/to/postgres/lib/postgresql.jar
 #elseif ($sybase)
-                        /path/to/sybase/java/jconn2.jar
+                    /path/to/sybase/java/jconn2.jar
 #elseif ($sapdb)
-                        /path/to/sapdb/lib/sapdbc.jar
+                    /path/to/sapdb/lib/sapdbc.jar
 #elseif ($progress)
-                        /path/to/progress/lib/progress.jar
+                    /path/to/progress/lib/progress.jar
 #elseif ($derby)
-                        /path/to/derby/lib/derby.jar
+                    /path/to/derby/lib/derby.jar
 #else
-                        /path/to/hsqldb/lib/hsqldb.jar
+                    /path/to/hsqldb/lib/hsqldb.jar
 #end
 #end
                 </jdbc.driver.jar>
                 <!--
-                        Change driver for appropriate database
-                        For MySQL use: com.mysql.jdbc.Driver
-                        For Hypersonic use: org.hsqldb.jdbcDriver
-                        For Oracle9i use: oracle.jdbc.driver.OracleDriver
-                        For DB2 use: COM.ibm.db2.jdbc.app.DB2Driver
-                        For Informix use: com.informix.jdbc.IfxDriver
-                        For MSSQL use: com.microsoft.jdbc.sqlserver.SQLServerDriver
-                        For Pointbase use: com.pointbase.jdbc.jdbcUniversalDriver
-                        For Postgres use: org.postgresql.Driver
-                        For Sybase use: com.sybase.jdbc2.jdbc.SybDataSource
-                        For SapDB use: com.sap.dbtech.jdbc.DriverSapDB
-                        For Progress use: com.progress.sql.jdbc.JdbcProgressDriver
-                        For Derby use: org.apache.derby.jdbc.EmbeddedDriver
-                        -->
+                Change driver for appropriate database
+                For MySQL use: com.mysql.jdbc.Driver
+                For Hypersonic use: org.hsqldb.jdbcDriver
+                For Oracle9i use: oracle.jdbc.driver.OracleDriver
+                For DB2 use: COM.ibm.db2.jdbc.app.DB2Driver
+                For Informix use: com.informix.jdbc.IfxDriver
+                For MSSQL use: com.microsoft.jdbc.sqlserver.SQLServerDriver
+                For Pointbase use: com.pointbase.jdbc.jdbcUniversalDriver
+                For Postgres use: org.postgresql.Driver
+                For Sybase use: com.sybase.jdbc2.jdbc.SybDataSource
+                For SapDB use: com.sap.dbtech.jdbc.DriverSapDB
+                For Progress use: com.progress.sql.jdbc.JdbcProgressDriver
+                For Derby use: org.apache.derby.jdbc.EmbeddedDriver
+                -->
                 <jdbc.driver>
 #if ($mysql)
                     com.mysql.jdbc.Driver
@@ -1476,20 +1476,20 @@
                     org.hsqldb.jdbcDriver
 #end
                 </jdbc.driver>
-                    <!--
-                          Change connection url for appropriate database
-                          For MySQL use: jdbc:mysql://localhost:3306/$applicationId
-				For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1:1701
-				For Oracle9i use: jdbc:oracle:thin:@localhost:1521:yoursid
-				For DB2 use: jdbc:db2:$applicationId
-				For Informix use: jdbc:informix-sqli://localhost:1557/${applicationId}:INFORMIXSERVER=myserver
-				For MSSQL use: jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=$applicationId
-				For Pointbase use: jdbc:pointbase:server://@pointbase.server@:@pointbase.port/pointbase.${applicationId}@,new
-				For Postgres use: jdbc:postgresql://localhost/$applicationId
-				For Sybase use: jdbc:sybase:Tds:localhost:5000/${applicationId}?JCONNECT_VERSION=6
-				For SapDB use: jdbc:sapdb://127.0.0.1/$applicationId
-				For Progress use: jdbc:JdbcProgress:T:localhost:3305:$applicationId
-				-->
+                <!--
+                Change connection url for appropriate database
+                For MySQL use: jdbc:mysql://localhost:3306/$applicationId
+                For Hypersonic use: jdbc:hsqldb:hsql://127.0.0.1:1701
+                For Oracle9i use: jdbc:oracle:thin:@localhost:1521:yoursid
+                For DB2 use: jdbc:db2:$applicationId
+                For Informix use: jdbc:informix-sqli://localhost:1557/${applicationId}:INFORMIXSERVER=myserver
+                For MSSQL use: jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=$applicationId
+                For Pointbase use: jdbc:pointbase:server://@pointbase.server@:@pointbase.port/pointbase.${applicationId}@,new
+                For Postgres use: jdbc:postgresql://localhost/$applicationId
+                For Sybase use: jdbc:sybase:Tds:localhost:5000/${applicationId}?JCONNECT_VERSION=6
+                For SapDB use: jdbc:sapdb://127.0.0.1/$applicationId
+                For Progress use: jdbc:JdbcProgress:T:localhost:3305:$applicationId
+                -->
                 <jdbc.url>
 #if ($mysql)
                     jdbc:mysql://localhost:3306/$applicationId
@@ -1590,30 +1590,30 @@
                             <artifactId>andromdapp-maven-plugin</artifactId>
                             <version>${andromda.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
-                                          be done when developing locally), uncomment this executions element to enable
-                                          <executions>
-                                          <execution>
-                                          <id>instrument-scripts</id>
-                                          <goals>
-                                          <goal>instrument-scripts</goal>
-                                          </goals>
-                                          </execution>
-                                          </executions>
-                                          -->
+                                 be done when developing locally), uncomment this executions element to enable
+                            <executions>
+                                <execution>
+                                    <id>instrument-scripts</id>
+                                    <goals>
+                                        <goal>instrument-scripts</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            -->
                             <configuration>
                                 <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
                                 <locations>
                                     <location>
                                         <rootPath>${project.basedir}/src/main/java</rootPath>
                                         <!-- adjust these to include or exclude specific files, by default
-                                                            all files found in the rootPath are considered
-                                                            <includes>
-                                                            <include>relative/path/to/file/to/include/SomeClass.java</include>
-                                                            </includes>
-                                                            <excludes>
-                                                            <exclude>relative/path/to/file/to/include/SomeClass.java</exclude>
-                                                            </excludes>
-                                                            -->
+                                             all files found in the rootPath are considered
+                                        <includes>
+                                            <include>relative/path/to/file/to/include/SomeClass.java</include>
+                                        </includes>
+                                        <excludes>
+                                            <exclude>relative/path/to/file/to/include/SomeClass.java</exclude>
+                                        </excludes>
+                                        -->
                                     </location>
                                 </locations>
                             </configuration>
@@ -1660,11 +1660,11 @@
             <url>http://maven.it.su.se/it.su.se/maven2</url>
         </repository>
 #if ($ajaxLibrary.equals("icefaces"))
-            <repository>
-                <id>jboss</id>
-                <name>JBoss Repository</name>
-                <url>http://repository.jboss.com/maven2</url>
-            </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.com/maven2</url>
+        </repository>
 #end
         <repository>
             <id>jboss</id>

@@ -9,7 +9,7 @@
         <!-- Debug andromda processing using example log4j.xml file -->
         <!--property name="loggingConfigurationUri">file:${project.basedir}/log4j.xml</property-->
     </properties>
-    <!-- Server will load and validate model in the background automatically when anything changes. 
+    <!-- Server will load and validate model in the background automatically when anything changes.
     To start server from mda directory: mvn andromda:start-server.
     Leave commented, or else AndroMDA will try to connect each time.>
     <server>
@@ -35,7 +35,7 @@
 #if ($modelType.equals("uml1.4"))
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
-						<!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
+                        <!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
 #elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
@@ -69,10 +69,10 @@
             </models>
         </repository>
     </repositories>
-    <!-- The mappingsSearchLocations are used by the below '*MappingsUri' namespace 
-      properties (e.g. languageMappingsUri) so that we can use a "logical" name from the content 
+    <!-- The mappingsSearchLocations are used by the below '*MappingsUri' namespace
+      properties (e.g. languageMappingsUri) so that we can use a "logical" name from the content
       of any *.xml files in the search locations (instead of having to specify explicit paths...).
-      Except for 'profileMappingsUri', this approach did not seem to work as there is no 
+      Except for 'profileMappingsUri', this approach did not seem to work as there is no
       "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
       See http://galaxy.andromda.org/docs/mappings.html.
       A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
@@ -118,7 +118,7 @@
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
-                <!-- Automatically makes English names plural (generally adds s if missing). 
+                <!-- Automatically makes English names plural (generally adds s if missing).
                 default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.>
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
@@ -277,11 +277,11 @@
                 <property name="implementationLanguage">groovy</property>
 #end
 #if ($embeddedJetty)
-               <!-- uncomment to use the context configured datasource 
+               <!-- uncomment to use the context configured datasource
 #end
                 <property name="dataSource">${dataSource}</property>
 #if ($embeddedJetty)
-                --> 
+                -->
 #end
                 <property name="username">${jdbc.username}</property>
                 <property name="password">${jdbc.password}</property>

@@ -16,12 +16,12 @@
     More info on maven is available at http://maven.apache.org.
     An excellent guide (Better Builds with Maven) pdf download is available at
     http://www.devzuz.com/web/guest/products/resources#BBWM.
-    
+
     The standard lifecycle goals (each goal depends on all previous goals) are:
-    generate-sources, process-sources, compile, generate-test-*, test-compile, 
+    generate-sources, process-sources, compile, generate-test-*, test-compile,
     test, package, install, deploy. install is the default goal.
-    
-    If you want to import each subdirectory into Eclipse as an individual project, 
+
+    If you want to import each subdirectory into Eclipse as an individual project,
     follow the instructions in mda/eclipse.bat. The pom.xml files are set up for this
     option to work by default.
 
@@ -41,7 +41,7 @@
 
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
     RSM6 and RSM75 are supported by AndroMDA 3.4-SNAPSHOT. To use an existing model with a generated project:
-    - Modify mda/config/andromda.xml to point to the emx model file (only a single file is supported 
+    - Modify mda/config/andromda.xml to point to the emx model file (only a single file is supported
     per AndroMDA project)
     - Add a RSM pathmap entry (Preferences -> Modeling) for m2repository pointing to the maven repository directory
     - Add AndroMDA profiles to the model by browsing the maven pepository under org/andromda/profiles/emf/uml2
