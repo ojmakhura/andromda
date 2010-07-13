@@ -28,7 +28,7 @@ public final class $manageable.searchFormBeanClassName
     /**
 $field.getDocumentation("     * ")
      */
-    public $fieldTypeName ${field.getterName}()
+    public $fieldTypeName #if($field.type.primitive && $field.type.booleanType)get${stringUtils.upperCamelCaseName($field.name)}#else${field.getterName}#end()
     {
 #if ($field.complex)
         if (this.$field.name == null)
