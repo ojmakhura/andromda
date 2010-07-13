@@ -16,8 +16,8 @@
         </tr:inputDate>
 #elseif ($parameter.inputCheckbox)
         <tr:selectOneChoice id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false" unselectedLabel="">
-            <tr:selectItem label="#messages['yes']}" value="true"/>
-            <tr:selectItem label="#messages['no']}" value="false"/>
+            <tr:selectItem label="#{messages['yes']}" value="true"/>
+            <tr:selectItem label="#{messages['no']}" value="false"/>
         </tr:selectOneChoice>
 #elseif ($parameter.inputSelect)
 #set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
