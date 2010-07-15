@@ -1,14 +1,12 @@
 package org.andromda.cartridges.jsf.portlet.myfaces.tomahawk;
 
 import java.io.IOException;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
 import org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.support.ExtensionsResponseWrapper;
 import org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.support.HttpServletRequestWrapper;
 import org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.support.HttpServletResponseWrapper;
@@ -96,7 +94,9 @@ public class ExtensionsPortletFilter
      * @param response
      * @param chain PortletFilterChain instance
      * @throws PortletException
+     * @throws IOException 
      */
+    @SuppressWarnings("deprecation")
     public void renderFilter(
         RenderRequest request,
         RenderResponse response,
@@ -201,6 +201,7 @@ public class ExtensionsPortletFilter
      * @param response
      * @param chain PortletFilterChain instance
      * @throws PortletException
+     * @throws IOException 
      */
     public void processActionFilter(
         ActionRequest request,
@@ -286,6 +287,10 @@ public class ExtensionsPortletFilter
         this.portletConfig = portletConfig;
     }
 
+    /**
+     * @param contentType
+     * @return validContentType
+     */
     public boolean isValidContentType(String contentType)
     {
         return contentType != null

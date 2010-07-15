@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Locale;
-
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.servlet.ServletOutputStream;
@@ -17,25 +16,28 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:shinsuke@yahoo.co.jp">Shinsuke Sugaya</a>
  */
 public class HttpServletResponseWrapper
-    implements HttpServletResponse, RenderResponse
+implements HttpServletResponse, RenderResponse
 {
 
-    private RenderResponse renderResponse;
+    private final RenderResponse renderResponse;
 
+    /**
+     * @param renderResponse
+     */
     public HttpServletResponseWrapper(
-        RenderResponse renderResponse)
+        final RenderResponse renderResponse)
     {
         this.renderResponse = renderResponse;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
+     * @return renderResponse.getWriter()
+     * @throws IOException 
      * @see javax.servlet.ServletResponseWrapper#getWriter()
      */
     public PrintWriter getWriter() throws IOException
     {
-        return this.renderResponse.getWriter();
+        return renderResponse.getWriter();
     }
 
     /**
@@ -46,9 +48,7 @@ public class HttpServletResponseWrapper
      *         (StringWriter) writer; }
      */
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#flushBuffer()
      */
     public void flushBuffer() throws IOException
@@ -59,9 +59,7 @@ public class HttpServletResponseWrapper
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#getBufferSize()
      */
     public int getBufferSize()
@@ -73,9 +71,7 @@ public class HttpServletResponseWrapper
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#getCharacterEncoding()
      */
     public String getCharacterEncoding()
@@ -87,9 +83,7 @@ public class HttpServletResponseWrapper
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#getLocale()
      */
     public Locale getLocale()
@@ -101,9 +95,7 @@ public class HttpServletResponseWrapper
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#getOutputStream()
      */
     public ServletOutputStream getOutputStream() throws IOException
@@ -115,9 +107,7 @@ public class HttpServletResponseWrapper
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#isCommitted()
      */
     public boolean isCommitted()
@@ -129,9 +119,7 @@ public class HttpServletResponseWrapper
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#reset()
      */
     public void reset()
@@ -142,9 +130,7 @@ public class HttpServletResponseWrapper
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#resetBuffer()
      */
     public void resetBuffer()
@@ -156,33 +142,27 @@ public class HttpServletResponseWrapper
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#setBufferSize(int)
      */
-    public void setBufferSize(int arg0)
+    public void setBufferSize(final int arg0)
     {
         renderResponse.setBufferSize(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#setContentLength(int)
      */
-    public void setContentLength(int arg0)
+    public void setContentLength(final int arg0)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.ServletResponse#setContentType(java.lang.String)
+    /**
+     * @see javax.servlet.ServletResponse#setContentType(String)
      */
-    public void setContentType(String arg0)
+    public void setContentType(final String arg0)
     {
         if (renderResponse != null)
         {
@@ -190,103 +170,87 @@ public class HttpServletResponseWrapper
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.ServletResponse#setLocale(java.util.Locale)
      */
-    public void setLocale(Locale arg0)
+    public void setLocale(final Locale arg0)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.http.HttpServletResponse#addCookie(javax.servlet.http.Cookie)
      */
-    public void addCookie(Cookie arg0)
+    public void addCookie(final Cookie arg0)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String,
+    /**
+     * @see javax.servlet.http.HttpServletResponse#addDateHeader(String,
      *      long)
      */
-    public void addDateHeader(String arg0, long arg1)
+    public void addDateHeader(final String arg0, final long arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String,
-     *      java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#addHeader(String,
+     *      String)
      */
-    public void addHeader(String arg0, String arg1)
+    public void addHeader(final String arg0, final String arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String,
+    /**
+     * @see javax.servlet.http.HttpServletResponse#addIntHeader(String,
      *      int)
      */
-    public void addIntHeader(String arg0, int arg1)
+    public void addIntHeader(final String arg0, final int arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#containsHeader(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#containsHeader(String)
      */
-    public boolean containsHeader(String arg0)
+    public boolean containsHeader(final String arg0)
     {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#encodeRedirectUrl(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#encodeRedirectUrl(String)
+     * @deprecated
      */
-    public String encodeRedirectUrl(String arg0)
+    public String encodeRedirectUrl(final String arg0)
     {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#encodeRedirectURL(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#encodeRedirectURL(String)
      */
-    public String encodeRedirectURL(String arg0)
+    public String encodeRedirectURL(final String arg0)
     {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#encodeUrl(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#encodeUrl(String)
+     * @deprecated
      */
-    public String encodeUrl(String arg0)
+    public String encodeUrl(final String arg0)
     {
         if (renderResponse != null)
         {
@@ -295,131 +259,113 @@ public class HttpServletResponseWrapper
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#encodeURL(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#encodeURL(String)
      */
-    public String encodeURL(String arg0)
+    public String encodeURL(final String arg0)
     {
         return renderResponse.encodeURL(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.http.HttpServletResponse#sendError(int,
-     *      java.lang.String)
+     *      String)
      */
-    public void sendError(int arg0, String arg1) throws IOException
+    public void sendError(final int arg0, final String arg1) throws IOException
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.http.HttpServletResponse#sendError(int)
      */
-    public void sendError(int arg0) throws IOException
+    public void sendError(final int arg0) throws IOException
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#sendRedirect(java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#sendRedirect(String)
      */
-    public void sendRedirect(String arg0) throws IOException
+    public void sendRedirect(final String arg0) throws IOException
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String,
+    /**
+     * @see javax.servlet.http.HttpServletResponse#setDateHeader(String,
      *      long)
      */
-    public void setDateHeader(String arg0, long arg1)
+    public void setDateHeader(final String arg0, final long arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String,
-     *      java.lang.String)
+    /**
+     * @see javax.servlet.http.HttpServletResponse#setHeader(String,
+     *      String)
      */
-    public void setHeader(String arg0, String arg1)
+    public void setHeader(final String arg0, final String arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String,
+    /**
+     * @see javax.servlet.http.HttpServletResponse#setIntHeader(String,
      *      int)
      */
-    public void setIntHeader(String arg0, int arg1)
+    public void setIntHeader(final String arg0, final int arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.http.HttpServletResponse#setStatus(int,
-     *      java.lang.String)
+     *      String)
+     * @deprecated
      */
-    public void setStatus(int arg0, String arg1)
+    public void setStatus(final int arg0, final String arg1)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.servlet.http.HttpServletResponse#setStatus(int)
      */
-    public void setStatus(int arg0)
+    public void setStatus(final int arg0)
     {
 
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletResponse#addProperty(java.lang.String,
-     *      java.lang.String)
+    /**
+     * @see javax.portlet.PortletResponse#addProperty(String,
+     *      String)
      */
-    public void addProperty(String arg0, String arg1)
+    public void addProperty(final String arg0, final String arg1)
     {
         renderResponse.addProperty(arg0, arg1);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletResponse#setProperty(java.lang.String,
-     *      java.lang.String)
+    /**
+     * @see javax.portlet.PortletResponse#setProperty(String,
+     *      String)
      */
-    public void setProperty(String arg0, String arg1)
+    public void setProperty(final String arg0, final String arg1)
     {
         renderResponse.setProperty(arg0, arg1);
     }
 
+    /**
+     * @see javax.servlet.ServletResponse#getContentType()
+     */
     public String getContentType()
     {
         if (renderResponse != null)
@@ -429,64 +375,58 @@ public class HttpServletResponseWrapper
         return null;
     }
 
-    public void setCharacterEncoding(String arg0)
+    /**
+     * @see javax.servlet.ServletResponse#setCharacterEncoding(String)
+     */
+    public void setCharacterEncoding(final String arg0)
     {
-
-
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.RenderResponse#createActionURL()
      */
     public PortletURL createActionURL()
     {
-        return this.renderResponse.createActionURL();
+        return renderResponse.createActionURL();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.RenderResponse#createRenderURL()
      */
     public PortletURL createRenderURL()
     {
-        return this.createRenderURL();
+        return createRenderURL();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.RenderResponse#getNamespace()
      */
     public String getNamespace()
     {
-        return this.getNamespace();
+        return getNamespace();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.RenderResponse#getPortletOutputStream()
      */
     public OutputStream getPortletOutputStream() throws IOException
     {
-        return this.getPortletOutputStream();
+        return getPortletOutputStream();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.RenderResponse#setTitle(java.lang.String)
+    /**
+     * @see javax.portlet.RenderResponse#setTitle(String)
      */
-    public void setTitle(String title)
+    public void setTitle(final String title)
     {
-        this.renderResponse.setTitle(title);
+        renderResponse.setTitle(title);
     }
 
+    /**
+     * @return renderResponse
+     */
     public RenderResponse getResponse()
     {
-        return this.renderResponse;
+        return renderResponse;
     }
 }

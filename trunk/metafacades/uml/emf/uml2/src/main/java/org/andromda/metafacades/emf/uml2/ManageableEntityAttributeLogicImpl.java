@@ -15,6 +15,10 @@ import org.apache.commons.lang.StringUtils;
 public class ManageableEntityAttributeLogicImpl
     extends ManageableEntityAttributeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ManageableEntityAttributeLogicImpl(
         final Object metaObject,
         final String context)
@@ -23,6 +27,7 @@ public class ManageableEntityAttributeLogicImpl
     }
 
     /**
+     * @return getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_ID_DISPLAY_STRATEGY).equals("always")
      * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isDisplay()
      */
     protected boolean handleIsDisplay()
@@ -59,6 +64,7 @@ public class ManageableEntityAttributeLogicImpl
     }
 
     /**
+     * @return getType().isBlobType()
      * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isManageableGetterAvailable()
      */
     protected boolean handleIsManageableGetterAvailable()

@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FinalStateFacadeLogicImpl(
         final org.eclipse.uml2.FinalState metaObject,
         final String context)

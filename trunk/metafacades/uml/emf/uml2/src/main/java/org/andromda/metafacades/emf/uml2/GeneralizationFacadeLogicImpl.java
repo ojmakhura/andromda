@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class GeneralizationFacadeLogicImpl
     extends GeneralizationFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public GeneralizationFacadeLogicImpl(
         final org.eclipse.uml2.Generalization metaObject,
         final String context)
@@ -18,17 +22,19 @@ public class GeneralizationFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getSpecific()
      * @see org.andromda.metafacades.uml.GeneralizationFacade#getChild()
      */
-    protected java.lang.Object handleGetChild()
+    protected Object handleGetChild()
     {
         return this.metaObject.getSpecific();
     }
 
     /**
+     * @return metaObject.getGeneral()
      * @see org.andromda.metafacades.uml.GeneralizationFacade#getParent()
      */
-    protected java.lang.Object handleGetParent()
+    protected Object handleGetParent()
     {
         return this.metaObject.getGeneral();
     }

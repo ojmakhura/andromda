@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -41,6 +40,10 @@ import org.apache.commons.lang.StringUtils;
 public class JSFUseCaseLogicImpl
     extends JSFUseCaseLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFUseCaseLogicImpl(
         Object metaObject,
         String context)
@@ -49,9 +52,10 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return actionPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPath()
      */
-    protected java.lang.String handleGetPath()
+    protected String handleGetPath()
     {
         String actionPath = null;
         final FrontEndActivityGraph graph = this.getActivityGraph();
@@ -67,6 +71,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return pathRoot
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetPathRoot()
@@ -79,6 +84,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return forwardName
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetForwardName()
@@ -87,6 +93,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return titleKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getTitleKey()
      */
     protected String handleGetTitleKey()
@@ -97,6 +104,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return toPhrase(getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getTitleValue()
      */
     protected String handleGetTitleValue()
@@ -116,6 +124,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return allMessages
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllMessages()
      */
     @SuppressWarnings("unchecked")
@@ -193,35 +202,32 @@ public class JSFUseCaseLogicImpl
 
                         // - event/trigger
                         final Object trigger = action.getTrigger();
-                        if (trigger instanceof JSFEvent)
+                        if (trigger != null && trigger instanceof JSFEvent)
                         {
                             final JSFEvent event = (JSFEvent)trigger;
-                            if (event != null)
+                            // only add these when a trigger is present, otherwise it's no use having them
+                            messages.put(
+                                action.getDocumentationKey(),
+                                action.getDocumentationValue());
+
+                            // the regular trigger messages
+                            messages.put(
+                                event.getResetMessageKey(),
+                                event.getResetMessageValue());
+
+                            // this one is the same as doing: action.getMessageKey()
+                            messages.put(
+                                event.getMessageKey(),
+                                event.getMessageValue());
+
+                            // - IMAGE LINK
+
+                            /*if (action.isImageLink())
                             {
-                                // only add these when a trigger is present, otherwise it's no use having them
                                 messages.put(
-                                    action.getDocumentationKey(),
-                                    action.getDocumentationValue());
-
-                                // the regular trigger messages
-                                messages.put(
-                                    event.getResetMessageKey(),
-                                    event.getResetMessageValue());
-
-                                // this one is the same as doing: action.getMessageKey()
-                                messages.put(
-                                    event.getMessageKey(),
-                                    event.getMessageValue());
-
-                                // - IMAGE LINK
-
-                                /*if (action.isImageLink())
-                                {
-                                    messages.put(
-                                        action.getImageMessageKey(),
-                                        action.getImagePath());
-                                }*/
-                            }
+                                    action.getImageMessageKey(),
+                                    action.getImagePath());
+                            }*/
                         }
 
                         // - forwards
@@ -475,6 +481,7 @@ public class JSFUseCaseLogicImpl
    }
 
     /**
+     * @return actionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionForwards()
      */
     protected List handleGetActionForwards()
@@ -490,6 +497,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return forwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwards()
      */
     protected List handleGetForwards()
@@ -511,6 +519,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return allForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllForwards()
      */
     @SuppressWarnings("unchecked")
@@ -531,6 +540,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return upperCamelCaseName(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionClassName()
      */
     protected String handleGetActionClassName()
@@ -539,6 +549,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassPath()
      */
     protected String handleGetFullyQualifiedActionClassPath()
@@ -549,6 +560,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getControllerAction()
      */
     protected String handleGetControllerAction()
@@ -557,6 +569,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return fullyQualifiedActionClassName
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassName()
      */
     protected String handleGetFullyQualifiedActionClassName()
@@ -573,6 +586,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return formKeyValue
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFormKey()
      */
     protected String handleGetFormKey()
@@ -583,6 +597,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return initialTargetPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getInitialTargetPath()
      */
     protected String handleGetInitialTargetPath()
@@ -633,6 +648,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return required
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
@@ -652,6 +668,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return getInitialTarget() instanceof JSFView
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isInitialTargetView()
      */
     protected boolean handleIsInitialTargetView()
@@ -660,6 +677,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return required
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isInitialTargetView()
      */
     protected boolean handleIsApplicationValidationRequired()
@@ -679,6 +697,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return sameName
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isViewHasNameOfUseCase()
      */
     protected boolean handleIsViewHasNameOfUseCase()
@@ -697,6 +716,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return hasStereotype(JSFProfile.STEREOTYPE_FRONT_END_REGISTRATION)
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isRegistrationUseCase()
      */
     protected boolean handleIsRegistrationUseCase()
@@ -705,6 +725,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return useCases
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getRegistrationUseCases()
      */
     @SuppressWarnings("unchecked")
@@ -735,6 +756,7 @@ public class JSFUseCaseLogicImpl
     private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
 
     /**
+     * @return getName() + FORWARDS_CLASS_NAME_SUFFIX
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwardsClassName()
      */
     protected String handleGetForwardsClassName()
@@ -743,6 +765,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return navigationRules
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getNavigationRules()
      */
     @SuppressWarnings("unchecked")
@@ -773,6 +796,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return navigationChildren
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getNavigationChildren()
      */
     protected Collection handleGetNavigationChildren()
@@ -800,6 +824,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return navigationParents
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getNavigationParents()
      */
     protected Collection handleGetNavigationParents()
@@ -819,6 +844,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return actionRoles
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionRoles()
      */
     protected String handleGetActionRoles()
@@ -842,6 +868,9 @@ public class JSFUseCaseLogicImpl
         return rolesBuffer.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPreferences()
+     */
     @Override
     protected Object handleGetPreferences()
     {
@@ -863,30 +892,45 @@ public class JSFUseCaseLogicImpl
         return preferences;
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletEditForwardName()
+     */
     @Override
     protected String handleGetPortletEditForwardName()
     {
         return this.getWebResourceName() + "-portlet-edit";
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletEditPath()
+     */
     @Override
     protected String handleGetPortletEditPath()
     {
         return this.getPathRoot() + "/" + this.getPortletEditForwardName();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletHelpForwardName()
+     */
     @Override
     protected String handleGetPortletHelpForwardName()
     {
         return this.getWebResourceName() + "-portlet-help";
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletHelpPath()
+     */
     @Override
     protected String handleGetPortletHelpPath()
     {
         return this.getPathRoot() + "/" + this.getPortletHelpForwardName();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletViewForwardName()
+     */
     @Override
     protected String handleGetPortletViewForwardName()
     {
@@ -898,12 +942,18 @@ public class JSFUseCaseLogicImpl
         return JSFUtils.toWebResourceName(this.getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetPortletViewPath()
+     */
     @Override
     protected String handleGetPortletViewPath()
     {
         return this.getPath();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic#handleGetAllViews()
+     */
     @SuppressWarnings("unchecked")
     @Override
     protected Collection handleGetAllViews()

@@ -576,23 +576,23 @@ public class EJB3AssociationEndFacadeLogicImpl
         }
         else if (this.isComposition())
         {
-            // TODO cascade can only be null at this point
             /*
              * On the composite side of the relationship, always enforce no cascade delete
              * property indicating no cascadable propagation - overriding a default cascade
              * value
              */
-            cascade = null;
+            // TODO cascade can only be null at this point - anything else to change?
+            //cascade = null;
         }
         else if (this.isAggregation())
         {
-            // TODO cascade can only be null at this point
             /*
              * On the aggregation side of the relationship, always enforce no cascade delete
              * property indicating no cascadable propagation - overriding a default cascade
              * value
              */
-            cascade = null;
+            // TODO cascade can only be null at this point - anything else to change?
+            //cascade = null;
         }
         return cascade;
     }

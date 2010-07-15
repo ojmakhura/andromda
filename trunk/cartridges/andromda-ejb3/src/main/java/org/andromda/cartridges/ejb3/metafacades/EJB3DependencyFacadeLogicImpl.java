@@ -46,7 +46,7 @@ public class EJB3DependencyFacadeLogicImpl
     }
 
     /**
-     * @return 
+     * @return EJB3Globals.TRANSFORMATION_CONSTANT_PREFIX + this.getName().toUpperCase()
      * @see EJB3DependencyFacade#getTransformationConstantName()
      */
     @Override
@@ -56,7 +56,7 @@ public class EJB3DependencyFacadeLogicImpl
     }
 
     /**
-     * @return 
+     * @return EJB3Globals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(getName())
      * @see EJB3DependencyFacade#getTransformationMethodName()
      */
     @Override
@@ -75,7 +75,7 @@ public class EJB3DependencyFacadeLogicImpl
     }
 
     /**
-     * @return 
+     * @return circularReference
      * @see EJB3DependencyFacade#isCircularReference()
      */
     @Override

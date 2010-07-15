@@ -4,7 +4,6 @@ import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex.
  *
@@ -14,13 +13,17 @@ import org.andromda.utils.StringUtilsHelper;
 public class JBpmStateVertexLogicImpl
     extends JBpmStateVertexLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmStateVertexLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertexLogic#handleIsContainedInBusinessProcess()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#isContainedInBusinessProcess()
      */
     protected boolean handleIsContainedInBusinessProcess()
@@ -31,21 +34,26 @@ public class JBpmStateVertexLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertexLogic#handleGetNodeClassName()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#getNodeClassName()
      */
-    protected java.lang.String handleGetNodeClassName()
+    protected String handleGetNodeClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertexLogic#handleGetNodePackageName()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex#getNodePackageName()
      */
-    protected java.lang.String handleGetNodePackageName()
+    protected String handleGetNodePackageName()
     {
         return (this.getProcessDefinition() == null) ? null : this.getProcessDefinition().getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertexLogic#handleGetProcessDefinition()
+     */
     protected Object handleGetProcessDefinition()
     {
         Object processDefinition = null;

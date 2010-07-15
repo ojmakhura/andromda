@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -121,6 +122,10 @@ extends EJB3SessionFacadeLogic
 
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJB3SessionFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
@@ -138,9 +143,10 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @return operations
      * @see EJB3SessionFacade#getBusinessOperations()
      */
-    protected java.util.Collection handleGetBusinessOperations()
+    protected Collection handleGetBusinessOperations()
     {
         Collection operations = super.getOperations();
         CollectionUtils.filter(
@@ -161,9 +167,10 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @return EJB3MetafacadeUtils.getAllInstanceAttributes(this)
      * @see EJB3SessionFacade#getAllInstanceAttributes()
      */
-    protected java.util.List handleGetAllInstanceAttributes()
+    protected List handleGetAllInstanceAttributes()
     {
          return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
 
@@ -176,9 +183,10 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this)
      * @see EJB3SessionFacade#getInheritedInstanceAttributes()
      */
-    protected java.util.List handleGetInheritedInstanceAttributes()
+    protected List handleGetInheritedInstanceAttributes()
     {
         return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
 
@@ -200,7 +208,7 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
-     * @see EJB3SessionFacadeLogic#handleFilterSeamAttributes(java.util.Collection)
+     * @see EJB3SessionFacadeLogic#handleFilterSeamAttributes(Collection)
      */
     protected Collection handleFilterSeamAttributes(Collection attributes)
     {
@@ -501,25 +509,31 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getCreateMethods(this, follow)
      * @see EJB3SessionFacade#getCreateMethods(boolean)
      */
-    protected java.util.Collection handleGetCreateMethods(boolean follow)
+    protected Collection handleGetCreateMethods(boolean follow)
     {
         return EJB3MetafacadeUtils.getCreateMethods(this, follow);
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow)
      * @see EJB3SessionFacade#getEnvironmentEntries(boolean)
      */
-    protected java.util.Collection handleGetEnvironmentEntries(boolean follow)
+    protected Collection handleGetEnvironmentEntries(boolean follow)
     {
         return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3SessionFacade#getConstants(boolean)
      */
-    protected java.util.Collection handleGetConstants(boolean follow)
+    protected Collection handleGetConstants(boolean follow)
     {
         return EJB3MetafacadeUtils.getConstants(this, follow);
     }
@@ -846,7 +860,7 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
-     * @see EJB3SessionFacadeLogic#handleGetAttributesAsList(java.util.Collection, boolean, boolean)
+     * @see EJB3SessionFacadeLogic#handleGetAttributesAsList(Collection, boolean, boolean)
      */
     @Override
     protected String handleGetAttributesAsList(

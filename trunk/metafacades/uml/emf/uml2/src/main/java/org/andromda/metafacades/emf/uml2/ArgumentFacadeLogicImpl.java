@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class ArgumentFacadeLogicImpl
     extends ArgumentFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ArgumentFacadeLogicImpl(
         final Object metaObject,
         final String context)

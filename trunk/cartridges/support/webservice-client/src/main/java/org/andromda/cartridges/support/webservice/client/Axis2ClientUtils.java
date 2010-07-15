@@ -8,12 +8,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.wsdl.Definition;
 import javax.wsdl.Types;
 import javax.wsdl.extensions.schema.Schema;
 import javax.xml.namespace.QName;
-
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
@@ -143,12 +141,13 @@ public class Axis2ClientUtils
      *
      * @param definition the WSDL definition
      * @param schema the current schema from which to retrieve the om element.
-     * @param componentElement, the current componentElemnet of the WSDL definition.
+     * @param componentElement the current componentElemnet of the WSDL definition.
      * @param bean the bean to introspect
      * @param elementName the name of the element to construct.
-     * @param the factory used for element construction.
+     * @param factory the factory used for element construction.
      * @param namespaces all available namespaces.
      * @param typeMapper the {@link TypeMapper} instance to use for converting types.
+     * @return OMElement
      */
     public static OMElement getOMElement(
         final Definition definition,
@@ -177,7 +176,7 @@ public class Axis2ClientUtils
      *
      * @param definition the WSDL definition
      * @param schema the current schema from which to retrieve the om element.
-     * @param componentElement, the current componentElemnet of the WSDL definition.
+     * @param componentElement the current componentElemnet of the WSDL definition.
      * @param bean the bean to introspect
      * @param elementName the name of the element
      * @param factory the OM factory instance used to create the element.
@@ -428,7 +427,8 @@ public class Axis2ClientUtils
         }
         if (element == null)
         {
-            throw new RuntimeException('\'' + value + "' was not found on element '" + container.getAttribute(NAME) + '\'');
+            String attr = container==null ? "" : container.getAttribute(NAME);
+            throw new RuntimeException('\'' + value + "' was not found on element '" + attr + '\'');
         }
         return element;
     }

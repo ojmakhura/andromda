@@ -13,6 +13,10 @@ import org.eclipse.uml2.CallOperationAction;
 public class CallActionFacadeLogicImpl
     extends CallActionFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public CallActionFacadeLogicImpl(
         final CallOperationAction metaObject,
         final String context)
@@ -21,9 +25,10 @@ public class CallActionFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getOperation()
      * @see org.andromda.metafacades.uml.CallActionFacade#getOperation()
      */
-    protected java.lang.Object handleGetOperation()
+    protected Object handleGetOperation()
     {
         return this.metaObject.getOperation();
     }

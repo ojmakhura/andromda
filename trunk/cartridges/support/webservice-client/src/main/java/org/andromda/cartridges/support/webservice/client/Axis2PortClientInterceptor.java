@@ -2,13 +2,13 @@ package org.andromda.cartridges.support.webservice.client;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.remoting.rmi.RmiClientInterceptorUtils;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -19,12 +19,16 @@ public class Axis2PortClientInterceptor
     implements MethodInterceptor,
         InitializingBean
 {
+    /**
+     * LogFactory.getLog(Axis2PortClientInterceptor.class)
+     */
     protected final Log logger = LogFactory.getLog(Axis2PortClientInterceptor.class);
     private final Object preparationMonitor = new Object();
     private String username;
 
     /**
      * Set the username to connect to the service.
+     * @param username 
      */
     public void setUsername(String username)
     {
@@ -33,6 +37,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Return the username to connect to the service.
+     * @return username
      */
     public String getUsername()
     {
@@ -43,6 +48,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Set the password to connect to the service.
+     * @param password 
      */
     public void setPassword(String password)
     {
@@ -51,6 +57,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Return the password to connect to the service.
+     * @return password
      */
     public String getPassword()
     {
@@ -77,7 +84,7 @@ public class Axis2PortClientInterceptor
     /**
      * Gets the flag indicating whether or not the password given is in Base64.
      *
-     * return true/false
+     * @return true/false
      */
     public boolean getBase64Password()
     {
@@ -110,6 +117,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Set the interface of the service that this factory should create a proxy for.
+     * @param serviceInterface 
      */
     public void setServiceInterface(Class serviceInterface)
     {
@@ -122,6 +130,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Return the interface of the service that this factory should create a proxy for.
+     * @return serviceInterface
      */
     public Class getServiceInterface()
     {
@@ -245,6 +254,9 @@ public class Axis2PortClientInterceptor
      * Translates the method invocation into a JAX-RPC service invocation.
      * Uses traditional RMI stub invocation if a JAX-RPC port stub is available;
      * falls back to JAX-RPC dynamic calls else.
+     * @param invocation 
+     * @return invoked operation return
+     * @throws Throwable 
      * @see #getPortStub()
      * @see org.springframework.remoting.rmi.RmiClientInterceptorUtils
      * @see #performJaxRpcCall

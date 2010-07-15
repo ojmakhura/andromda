@@ -8,7 +8,10 @@ package org.andromda.cartridges.jbpm.metafacades;
 public class JBpmEndStateLogicImpl
     extends JBpmEndStateLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmEndStateLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

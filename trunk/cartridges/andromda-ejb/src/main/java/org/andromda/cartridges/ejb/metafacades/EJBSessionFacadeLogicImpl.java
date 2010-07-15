@@ -55,11 +55,17 @@ public class EJBSessionFacadeLogicImpl
         return EJBMetafacadeUtils.getViewType(this);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#handleGetInheritedInstanceAttributes()
+     */
     protected List handleGetInheritedInstanceAttributes()
     {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#handleGetAllInstanceAttributes()
+     */
     protected List handleGetAllInstanceAttributes()
     {
         return EJBMetafacadeUtils.getAllInstanceAttributes(this);
@@ -151,8 +157,9 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
+     * EJBMetafacadeUtils.allowSyntheticCreateMethod(this)
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogic#handleIsSyntheticCreateMethodAllowed()
      * @return EJBMetafacadeUtils.allowSyntheticCreateMethod(this)
-     * @see org.andromda.cartridges.ejb.metafacades.EJBMetafacadeUtils#allowSyntheticCreateMethod(org.andromda.metafacades.uml.ClassifierFacade)
      */
     protected boolean handleIsSyntheticCreateMethodAllowed()
     {

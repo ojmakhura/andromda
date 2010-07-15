@@ -18,7 +18,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -1258,20 +1257,20 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
-    @Override
     /**
      * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleGetSuperClass()
      */
+    @Override
     protected ClassifierFacade handleGetSuperClass()
     {
         final GeneralizableElementFacade superClass = this.getGeneralization();
         return (ClassifierFacade)(superClass instanceof ClassifierFacade ? superClass : null);
     }
 
-    @Override
     /**
      * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogic#handleIsEmbeddedValue()
      */
+    @Override
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);

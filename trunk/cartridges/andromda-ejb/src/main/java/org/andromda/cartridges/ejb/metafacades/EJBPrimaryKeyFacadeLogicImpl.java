@@ -1,9 +1,8 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.Collection;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
-
-import java.util.Collection;
 
 /**
  * Metaclass facade implementation.
@@ -13,11 +12,18 @@ public class EJBPrimaryKeyFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBPrimaryKeyFacadeLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogic#handleIsComplex()
+     */
     protected boolean handleIsComplex()
     {
         return getSimplePkField() == null;

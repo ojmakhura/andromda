@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.renderkit.html;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -14,7 +13,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.Renderer;
-
 import org.andromda.cartridges.jsf.Constants;
 import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
 import org.andromda.cartridges.jsf.utils.ComponentUtils;
@@ -26,6 +24,9 @@ import org.andromda.cartridges.jsf.utils.ComponentUtils;
 public class PopupRenderer
     extends Renderer
 {
+    /**
+     * hiddenPopupFrame
+     */
     public static final String POPUP_FRAME_HIDDEN = "hiddenPopupFrame";
 
     /**
@@ -55,6 +56,11 @@ public class PopupRenderer
      */
     private static final String JS_ATTRIBUTE = "andromda.jsf.js";
 
+    /**
+     * @param context
+     * @param component
+     * @throws IOException
+     */
     protected void commonJavascript(
         final FacesContext context,
         final UIComponent component)
@@ -387,7 +393,7 @@ public class PopupRenderer
     }
 
     /**
-     * @see javax.faces.render.Renderer#convertClientId(javax.faces.context.FacesContext, java.lang.String)
+     * @see javax.faces.render.Renderer#convertClientId(javax.faces.context.FacesContext, String)
      */
     public String convertClientId(
         final FacesContext context,

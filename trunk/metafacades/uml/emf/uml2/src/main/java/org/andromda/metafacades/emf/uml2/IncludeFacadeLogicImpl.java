@@ -11,6 +11,10 @@ import org.eclipse.uml2.Include;
 public class IncludeFacadeLogicImpl
     extends IncludeFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public IncludeFacadeLogicImpl(
         Include metaObject,
         String context)
@@ -19,17 +23,19 @@ public class IncludeFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getIncludingCase()
      * @see org.andromda.metafacades.uml.IncludeFacade#getBase()
      */
-    protected java.lang.Object handleGetBase()
+    protected Object handleGetBase()
     {
         return this.metaObject.getIncludingCase();
     }
 
     /**
+     * @return metaObject.getAddition()
      * @see org.andromda.metafacades.uml.IncludeFacade#getAddition()
      */
-    protected java.lang.Object handleGetAddition()
+    protected Object handleGetAddition()
     {
         return this.metaObject.getAddition();
     }

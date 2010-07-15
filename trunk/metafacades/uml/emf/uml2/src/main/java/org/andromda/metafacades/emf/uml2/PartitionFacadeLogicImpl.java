@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.StateMachine;
 
@@ -13,6 +14,10 @@ import org.eclipse.uml2.StateMachine;
 public class PartitionFacadeLogicImpl
     extends PartitionFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public PartitionFacadeLogicImpl(
         final org.eclipse.uml2.Region metaObject,
         final String context)
@@ -21,9 +26,10 @@ public class PartitionFacadeLogicImpl
     }
 
     /**
+     * @return owner instanceof StateMachine
      * @see org.andromda.metafacades.uml.PartitionFacade#getActivityGraph()
      */
-    protected java.lang.Object handleGetActivityGraph()
+    protected Object handleGetActivityGraph()
     {
         Element owner = this.metaObject.getOwner();
         if (owner instanceof StateMachine)
@@ -34,9 +40,10 @@ public class PartitionFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getSubvertices()
      * @see org.andromda.metafacades.uml.PartitionFacade#getVertices()
      */
-    protected java.util.Collection handleGetVertices()
+    protected Collection handleGetVertices()
     {
         return this.metaObject.getSubvertices();
     }

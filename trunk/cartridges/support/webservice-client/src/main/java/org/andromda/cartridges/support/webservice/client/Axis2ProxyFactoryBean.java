@@ -14,7 +14,7 @@ public class Axis2ProxyFactoryBean
     private Object serviceProxy;
 
     /**
-     * @see org.axis2test4.Axis2PortClientInterceptor#afterPropertiesSet()
+     * @see org.andromda.cartridges.support.webservice.client.Axis2PortClientInterceptor#afterPropertiesSet()
      */
     public void afterPropertiesSet()
     {

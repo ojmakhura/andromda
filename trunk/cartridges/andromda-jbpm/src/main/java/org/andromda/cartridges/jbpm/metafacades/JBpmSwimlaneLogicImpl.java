@@ -5,7 +5,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane.
  *
@@ -14,21 +13,34 @@ import org.apache.commons.lang.StringUtils;
 public class JBpmSwimlaneLogicImpl
     extends JBpmSwimlaneLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmSwimlaneLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleIsContainedInBusinessProcess()
+     */
     protected boolean handleIsContainedInBusinessProcess()
     {
         return this.getActivityGraph().getUseCase() instanceof JBpmProcessDefinition;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleGetAssignmentExpression()
+     */
     protected String handleGetAssignmentExpression()
     {
         return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_ASSIGNMENT_EXPRESSION);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleGetClazz()
+     */
     protected String handleGetClazz()
     {
         String assignmentHandlerClass = null;
@@ -45,11 +57,17 @@ public class JBpmSwimlaneLogicImpl
         return assignmentHandlerClass;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleGetAssignmentHandlerClassName()
+     */
     protected String handleGetAssignmentHandlerClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName() + "Assignment");
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleGetAssignmentHandlerPackageName()
+     */
     protected String handleGetAssignmentHandlerPackageName()
     {
         String packageName = null;
@@ -63,6 +81,9 @@ public class JBpmSwimlaneLogicImpl
         return packageName;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogic#handleGetAssignmentHandlerFullPath()
+     */
     protected String handleGetAssignmentHandlerFullPath()
     {
         return StringUtils.replace(this.getClazz(), ".", "/");

@@ -13,6 +13,10 @@ import java.util.Collection;
 public class TaggedValueFacadeLogicImpl
     extends TaggedValueFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public TaggedValueFacadeLogicImpl(
         final TagDefinition metaObject,
         final String context)
@@ -21,17 +25,19 @@ public class TaggedValueFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getValue()
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValue()
      */
-    protected java.lang.Object handleGetValue()
+    protected Object handleGetValue()
     {
         return this.metaObject.getValue();
     }
 
     /**
+     * @return metaObject.getValues()
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValues()
      */
-    protected java.util.Collection handleGetValues()
+    protected Collection handleGetValues()
     {
         Collection collection = new ArrayList();
         collection.addAll(this.metaObject.getValues());

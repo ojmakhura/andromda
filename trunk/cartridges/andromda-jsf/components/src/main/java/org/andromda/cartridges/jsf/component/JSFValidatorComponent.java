@@ -28,7 +28,6 @@ import org.apache.commons.validator.Form;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorResources;
 
-
 /**
  * A JSF component that enabled the commons-validator server side validation, as well
  * as encodes JavaScript for all client-side validations
@@ -39,6 +38,9 @@ public class JSFValidatorComponent
 {
     private static final Log logger = LogFactory.getLog(JSFValidatorComponent.class);
 
+    /**
+     * 
+     */
     public JSFValidatorComponent()
     {
         // - default constructor for faces-config.xml
@@ -54,6 +56,7 @@ public class JSFValidatorComponent
 
     /**
      * The component renders itself; therefore, this method returns null.
+     * @return null
      */
     public String getRendererType()
     {
@@ -63,6 +66,7 @@ public class JSFValidatorComponent
     /**
      * Returns the component's family. In this case, the component is not
      * associated with a family, so this method returns null.
+     * @return null
      */
     public String getFamily()
     {
@@ -525,6 +529,7 @@ public class JSFValidatorComponent
      * writes out JavaScript code to invoke those validators, in turn.
      *
      * @param context The FacesContext for this request
+     * @throws IOException 
      */
     public void encodeBegin(final FacesContext context)
         throws IOException

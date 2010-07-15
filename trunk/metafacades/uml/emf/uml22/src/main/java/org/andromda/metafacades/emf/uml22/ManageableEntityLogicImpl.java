@@ -17,8 +17,6 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
-import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
-import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -361,7 +359,7 @@ public class ManageableEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.handleListManageableMembersWithWrapperTypes()
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleListManageableMembersWithWrapperTypes()
      */
     @Override
     protected String handleListManageableMembersWithWrapperTypes()

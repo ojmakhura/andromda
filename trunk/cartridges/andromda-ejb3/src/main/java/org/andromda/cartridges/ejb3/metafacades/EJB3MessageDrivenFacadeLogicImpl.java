@@ -70,6 +70,10 @@ public class EJB3MessageDrivenFacadeLogicImpl
 
     //  ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJB3MessageDrivenFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
@@ -363,11 +367,11 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see EJB3MessageDrivenFacade#getAttributesAsList(java.util.Collection, boolean, boolean)
+     * @see EJB3MessageDrivenFacade#getAttributesAsList(Collection, boolean, boolean)
      */
     @Override
     protected String handleGetAttributesAsList(
-            java.util.Collection attributes,
+            Collection attributes,
             boolean includeTypes,
             boolean includeNames)
     {
@@ -398,9 +402,11 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3MessageDrivenFacade#getConstants(boolean)
      */
-    protected java.util.Collection handleGetConstants(boolean follow)
+    protected Collection handleGetConstants(boolean follow)
     {
         return EJB3MetafacadeUtils.getConstants(this, follow);
     }

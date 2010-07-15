@@ -218,8 +218,10 @@ public class XslTransformer
                 {
                     source = new InputSource(inputStream);
                     source.setPublicId(publicId);
-                    // Warning: potential null pointer access
-                    source.setSystemId(uri.toString());
+                    if (uri != null)
+                    {
+                        source.setSystemId(uri.toString());
+                    }
                 }
             }
             return source;

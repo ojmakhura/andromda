@@ -13,6 +13,10 @@ import org.eclipse.uml2.Transition;
 public class GuardFacadeLogicImpl
     extends GuardFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public GuardFacadeLogicImpl(
         final Constraint metaObject,
         final String context)
@@ -21,9 +25,10 @@ public class GuardFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getSpecification().stringValue()
      * @see org.andromda.metafacades.uml.GuardFacade#getBody()
      */
-    protected java.lang.String handleGetBody()
+    protected String handleGetBody()
     {
         String body = null;
         if (this.metaObject.getSpecification() != null)
@@ -33,15 +38,19 @@ public class GuardFacadeLogicImpl
         return body;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return getTransition();
     }
 
     /**
+     * @return owner
      * @see org.andromda.metafacades.uml.GuardFacade#getTransition()
      */
-    protected java.lang.Object handleGetTransition()
+    protected Object handleGetTransition()
     {
         Element owner = this.metaObject.getOwner();
         if (owner instanceof Transition)

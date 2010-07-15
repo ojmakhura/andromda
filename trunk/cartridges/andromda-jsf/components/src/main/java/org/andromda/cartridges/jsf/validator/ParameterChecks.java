@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -1074,18 +1074,21 @@ public class ParameterChecks
     public static UIComponent findChildComponent(final UIComponent component, final String id)
     {
         UIComponent child = null;
-        if (component != null && component.getId().equals(id))
+        if (component != null)
         {
-            child = component;
-        }
-        else
-        {
-            for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
+            if (component.getId().equals(id))
             {
-                child = findChildComponent((UIComponent)iterator.next(), id);
-                if (child != null)
+                child = component;
+            }
+            else
+            {
+                for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
                 {
-                    break;
+                    child = findChildComponent((UIComponent)iterator.next(), id);
+                    if (child != null)
+                    {
+                        break;
+                    }
                 }
             }
         }

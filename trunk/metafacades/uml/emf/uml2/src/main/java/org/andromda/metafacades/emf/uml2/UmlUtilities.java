@@ -1346,6 +1346,7 @@ public class UmlUtilities
     }
 
     // Sort Attributes and AssociationEnds
+    @SuppressWarnings("unused")
     private static class PropertyComparator implements Comparator<Property>
     {
         public int compare(Property property1, Property property2)

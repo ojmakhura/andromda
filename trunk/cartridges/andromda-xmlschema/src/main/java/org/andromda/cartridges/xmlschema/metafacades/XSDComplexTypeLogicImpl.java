@@ -1,6 +1,5 @@
 package org.andromda.cartridges.xmlschema.metafacades;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.xmlschema.metafacades.XSDComplexType.
  *
@@ -9,7 +8,10 @@ package org.andromda.cartridges.xmlschema.metafacades;
 public class XSDComplexTypeLogicImpl
     extends XSDComplexTypeLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public XSDComplexTypeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

@@ -17,19 +17,22 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
 
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
+     * @param metaObject 
+     * @param context 
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
      */
     public RedefinableTemplateSignatureFacadeLogicImpl (RedefinableTemplateSignature metaObject, String context)
     {
         super(metaObject, context);
     }
+
     /**
      * 
+     * @return shieldedElement(metaObject.getClassifier())
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade#getClassifier()
      */
     protected Object handleGetClassifier()
     {
         return shieldedElement(metaObject.getClassifier());
     }
-
 }

@@ -204,6 +204,7 @@ public class AttributeImpl
      * @param arg0
      * @return this.property.createNameExpression(arg0.getName(), null)
      * @see org.eclipse.uml2.Property#createNameExpression(EClass)
+     * @deprecated
      */
     public StringExpression createNameExpression(final EClass arg0)
     {
@@ -222,6 +223,7 @@ public class AttributeImpl
      * @param arg0
      * @return this.property.createOwnedComment()
      * @see org.eclipse.uml2.Property#createOwnedComment()
+     * @deprecated
      */
     public Comment createOwnedComment(final EClass arg0)
     {
@@ -272,7 +274,7 @@ public class AttributeImpl
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @return this.property.createTemplateBinding(null)
-     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding(EClass)
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding()
      */
     public TemplateBinding createTemplateBinding()
     {
@@ -284,7 +286,7 @@ public class AttributeImpl
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @param arg0
      * @return this.property.createTemplateBinding((TemplateSignature) arg0)
-     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding(EClass)
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding()
      */
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {

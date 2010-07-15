@@ -17,6 +17,10 @@ import org.eclipse.uml2.UseCase;
 public class ActivityGraphFacadeLogicImpl
     extends ActivityGraphFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ActivityGraphFacadeLogicImpl(
         final StateMachine metaObject,
         final String context)
@@ -25,6 +29,7 @@ public class ActivityGraphFacadeLogicImpl
     }
 
     /**
+     * @return getStates()
      * @see org.andromda.metafacades.uml.ActivityGraphFacade#getActionStates()
      */
     protected java.util.Collection handleGetActionStates()
@@ -35,6 +40,7 @@ public class ActivityGraphFacadeLogicImpl
     }
 
     /**
+     * @return null
      * @see org.andromda.metafacades.uml.ActivityGraphFacade#getObjectFlowStates()
      */
     protected java.util.Collection handleGetObjectFlowStates()
@@ -44,9 +50,10 @@ public class ActivityGraphFacadeLogicImpl
     }
 
     /**
+     * @return owner
      * @see org.andromda.metafacades.uml.ActivityGraphFacade#getUseCase()
      */
-    protected java.lang.Object handleGetUseCase()
+    protected Object handleGetUseCase()
     {
         Element owner = (this.metaObject).getOwner();
         if (owner instanceof UseCase)
@@ -58,6 +65,7 @@ public class ActivityGraphFacadeLogicImpl
     }
 
     /**
+     * @return getRegions()
      * @see org.andromda.metafacades.uml.ActivityGraphFacade#getPartitions()
      */
     protected java.util.Collection handleGetPartitions()

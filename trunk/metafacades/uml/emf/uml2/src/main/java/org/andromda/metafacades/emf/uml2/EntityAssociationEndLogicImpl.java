@@ -24,6 +24,10 @@ import org.apache.log4j.Logger;
 public class EntityAssociationEndLogicImpl
     extends EntityAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EntityAssociationEndLogicImpl(
         final Object metaObject,
         final String context)
@@ -38,9 +42,10 @@ public class EntityAssociationEndLogicImpl
 
     /**
      * Overridden to provide name masking.
-     *
+     * @return name
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     protected String handleGetName()
     {
         final String nameMask =
@@ -51,6 +56,7 @@ public class EntityAssociationEndLogicImpl
     }
 
     /**
+     * @return columnName
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getColumnName()
      */
     protected String handleGetColumnName()
@@ -76,14 +82,16 @@ public class EntityAssociationEndLogicImpl
     }
 
     /**
+     * @return foreignKeySuffix
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getForeignKeySuffix()
      */
-    protected java.lang.String handleGetForeignKeySuffix()
+    protected String handleGetForeignKeySuffix()
     {
         return (String)this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
     /**
+     * @return foreignIdentifier
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#isForeignIdentifier()
      */
     protected boolean handleIsForeignIdentifier()
@@ -93,9 +101,10 @@ public class EntityAssociationEndLogicImpl
     }
 
     /**
+     * @return foreignKeyConstraintName
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getForeignKeyConstraintName()
      */
-    protected java.lang.String handleGetForeignKeyConstraintName()
+    protected String handleGetForeignKeyConstraintName()
     {
         return EntityMetafacadeUtils.getForeignKeyConstraintName(
             (EntityAssociationEnd)THIS(),
@@ -105,18 +114,20 @@ public class EntityAssociationEndLogicImpl
     }
 
     /**
+     * @return columnIndex
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getColumnIndex()
      */
-    protected java.lang.String handleGetColumnIndex()
+    protected String handleGetColumnIndex()
     {
         final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
     /**
+     * @return sqlType
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getSqlType()
      */
-    protected java.lang.String handleGetSqlType()
+    protected String handleGetSqlType()
     {
         String value = null;
         if (this.getSqlMappings() != null)
@@ -180,7 +191,7 @@ public class EntityAssociationEndLogicImpl
             catch (Throwable throwable)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
-                this.logger.error(
+                EntityAssociationEndLogicImpl.logger.error(
                     errMsg,
                     throwable);
 
@@ -194,12 +205,16 @@ public class EntityAssociationEndLogicImpl
         return mappings;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.EntityAssociationEndLogic#handleIsTransient()
+     */
     protected boolean handleIsTransient()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);
     }
 
     /**
+     * @return identifiersPresent
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#isIdentifiersPresent()
      */
     protected boolean handleIsIdentifiersPresent() {
@@ -207,6 +222,7 @@ public class EntityAssociationEndLogicImpl
     }
     
     /**
+     * @return uniqueGroup
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getUniqueGroup()
      */
     protected String handleGetUniqueGroup() {

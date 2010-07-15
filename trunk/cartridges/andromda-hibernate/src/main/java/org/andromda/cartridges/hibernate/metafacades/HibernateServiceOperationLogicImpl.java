@@ -13,6 +13,10 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateServiceOperationLogicImpl
     extends HibernateServiceOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateServiceOperationLogicImpl(
         Object metaObject,
         String context)
@@ -26,7 +30,8 @@ public class HibernateServiceOperationLogicImpl
     private static final String SERVICE_OPERATION_TRANSACTION_TYPE = "serviceOperationTransactionType";
 
     /**
-     * @see org.andromda.metafacades.uml.ServiceOperationFacade#getTransactionType()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogic#handleGetTransactionType()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation#getTransactionType()
      */
     public String handleGetTransactionType()
     {

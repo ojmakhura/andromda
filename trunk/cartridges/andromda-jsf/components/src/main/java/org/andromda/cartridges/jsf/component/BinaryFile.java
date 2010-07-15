@@ -8,14 +8,25 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
+/**
+ *
+ */
 public class BinaryFile
     extends UIComponentBase
 {
     private static final Log logger = LogFactory.getLog(BinaryFile.class);
+    /**
+     * BinaryFile.class.getName()
+     */
     public static final String COMPONENT_TYPE = BinaryFile.class.getName();
+    /**
+     * org.andromda.cartridges.jsf.BinaryFile
+     */
     public static final String RENDERER_TYPE = "org.andromda.cartridges.jsf.BinaryFile";
 
+    /**
+     * 
+     */
     public BinaryFile()
     {
         super();

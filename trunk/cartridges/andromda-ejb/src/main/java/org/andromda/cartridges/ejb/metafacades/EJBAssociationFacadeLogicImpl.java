@@ -12,6 +12,10 @@ public class EJBAssociationFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBAssociationFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -19,15 +23,17 @@ public class EJBAssociationFacadeLogicImpl
 
     // --------------- attributes ---------------------
     /**
+     * @return findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE)
      * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogic#handleGetTableName()
+     * @return tableName
+     * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogic#getTableName()
      */
     public String getTableName()
     {

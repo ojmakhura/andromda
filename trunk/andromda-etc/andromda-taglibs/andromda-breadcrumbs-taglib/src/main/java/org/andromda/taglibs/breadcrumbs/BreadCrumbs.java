@@ -1,13 +1,12 @@
 package org.andromda.taglibs.breadcrumbs;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 
 /**
  *
  */
-public class BreadCrumbs extends LinkedList implements Serializable
+public class BreadCrumbs extends LinkedList
 {
     /** org.andromda.bpm4struts.breadcrumbs */
     public final static String SESSION_KEY = "org.andromda.bpm4struts.breadcrumbs";

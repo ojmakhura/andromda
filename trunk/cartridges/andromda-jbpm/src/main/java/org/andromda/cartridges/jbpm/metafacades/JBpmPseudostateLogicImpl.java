@@ -1,11 +1,10 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate.
@@ -15,12 +14,18 @@ import org.apache.commons.lang.StringUtils;
 public class JBpmPseudostateLogicImpl
     extends JBpmPseudostateLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmPseudostateLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#getName()
+     */
     public String getName()
     {
         String name = super.getName();
@@ -32,21 +37,26 @@ public class JBpmPseudostateLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetClassName()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getClassName()
      */
-    protected java.lang.String handleGetClassName()
+    protected String handleGetClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(getName());
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetSwimlane()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getSwimlane()
      */
-    protected java.lang.Object handleGetSwimlane()
+    protected Object handleGetSwimlane()
     {
         return this.getPartition();
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetDecisionHandlerPackageName()
+     */
     protected String handleGetDecisionHandlerPackageName()
     {
         String packageName = null;
@@ -64,16 +74,25 @@ public class JBpmPseudostateLogicImpl
         return packageName;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetDecisionHandlerFullPath()
+     */
     protected String handleGetDecisionHandlerFullPath()
     {
         return StringUtils.replace(this.getClazz(), ".", "/");
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetDecisionHandlerClassName()
+     */
     protected String handleGetDecisionHandlerClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogic#handleGetClazz()
+     */
     protected String handleGetClazz()
     {
         String decisionHandlerClass = null;

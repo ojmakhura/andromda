@@ -204,6 +204,9 @@ public class EntityAssociationEndLogicImpl
         return mappings;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.EntityAssociationEndLogic#handleIsTransient()
+     */
     @Override
     protected boolean handleIsTransient()
     {
@@ -219,6 +222,7 @@ public class EntityAssociationEndLogicImpl
     }
     
     /**
+     * @return findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_UNIQUE_GROUP)
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getUniqueGroup()
      */
     protected String handleGetUniqueGroup() {

@@ -370,9 +370,9 @@ public class ParameterFacadeLogicImpl
 
     /**
      * Retrieve the default value for lower multiplicity from configured property defaultMultiplicity.
-     *
      * @return 1/0
      */
+    @SuppressWarnings("unused")
     private int getDefaultMultiplicity()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY);
@@ -387,6 +387,5 @@ public class ParameterFacadeLogicImpl
     {
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
             (ClassifierFacade) this.getType(), "1");
-
     }
 }

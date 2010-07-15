@@ -95,10 +95,9 @@ public class WebServicePackageLogicImpl
         return namespace;
     }
 
-    /**
-     * 
+    /** 
      * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
-     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(WebServicePackageLogic)
+     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(PackageFacade)
      */
     protected String handleGetXmlns()
     {
@@ -118,7 +117,7 @@ public class WebServicePackageLogicImpl
     /**
      * 
      * @return new WebServiceUtils().getPackageReferences(this, true)
-     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackageReferences(WebServicePackageLogic, boolean)
+     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackageReferences(PackageFacade, boolean)
      */
     protected Collection<PackageFacade> handleGetPackages()
     {

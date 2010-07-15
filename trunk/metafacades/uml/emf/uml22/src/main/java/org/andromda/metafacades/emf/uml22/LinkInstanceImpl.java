@@ -35,10 +35,8 @@ import org.eclipse.uml2.uml.Usage;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
-
-
 /**
- * @author RJF3
+ * 
  */
 public class LinkInstanceImpl implements LinkInstance
 {
@@ -49,6 +47,9 @@ public class LinkInstanceImpl implements LinkInstance
         this.instanceSpecification = instanceSpecificationIn;
     }
 
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object object)
     {
@@ -63,293 +64,481 @@ public class LinkInstanceImpl implements LinkInstance
         return this.instanceSpecification.equals(object);
     }
 
+    /**
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode()
     {
         return this.instanceSpecification.hashCode();
     }
 
+    /**
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
         return this.getClass().getName() + '[' + this.instanceSpecification.toString() + ']';
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployments()
+     */
     public EList<Deployment> getDeployments()
     {
         return this.instanceSpecification.getDeployments();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(java.lang.String, boolean, boolean)
+     */
     public Deployment getDeployment(String string, boolean ignoreCase, boolean createOnDemand)
     {
         return this.instanceSpecification.getDeployment(string, ignoreCase, createOnDemand);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(java.lang.String)
+     */
     public Deployment getDeployment(String string)
     {
         return this.instanceSpecification.getDeployment(string);
     }
 
+    /**
+     * @param eClass
+     * @return instanceSpecification.createDeployment(eClass.getName())
+     */
     public Deployment createDeployment(EClass eClass)
     {
         return this.instanceSpecification.createDeployment(eClass.getName());
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(java.lang.String)
+     */
     public Deployment createDeployment(String eClass)
     {
         return this.instanceSpecification.createDeployment(eClass);
     }
 
+    /**
+     * @return instanceSpecification.createDeployment(null)
+     */
     public Deployment createDeployment()
     {
         return this.instanceSpecification.createDeployment(null);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElements()
+     */
     public EList<PackageableElement> getDeployedElements()
     {
         return this.instanceSpecification.getDeployedElements();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(java.lang.String)
+     */
     public PackageableElement getDeployedElement(String string)
     {
         return this.instanceSpecification.getDeployedElement(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     */
     public PackageableElement getDeployedElement(String string, boolean bool, EClass eClass)
     {
         return this.instanceSpecification.getDeployedElement(string, bool, eClass);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getSlots()
+     */
     public EList<Slot> getSlots()
     {
         return this.instanceSpecification.getSlots();
     }
 
+    /**
+     * @param eClass
+     * @return instanceSpecification.createSlot()
+     */
     public Slot createSlot(EClass eClass)
     {
         return this.instanceSpecification.createSlot();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#createSlot()
+     */
     public Slot createSlot()
     {
         return this.instanceSpecification.createSlot();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifiers()
+     */
     public EList<Classifier> getClassifiers()
     {
         return this.instanceSpecification.getClassifiers();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(java.lang.String)
+     */
     public Classifier getClassifier(String string)
     {
         return this.instanceSpecification.getClassifier(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     */
     public Classifier getClassifier(String string, boolean ignoreCase, EClass eClass)
     {
         return this.instanceSpecification.getClassifier(string, ignoreCase, eClass);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getSpecification()
+     */
     public ValueSpecification getSpecification()
     {
         return this.instanceSpecification.getSpecification();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#setSpecification(org.eclipse.uml2.uml.ValueSpecification)
+     */
     public void setSpecification(ValueSpecification valueSpecification)
     {
         this.instanceSpecification.setSpecification(valueSpecification);
     }
 
+    /**
+     * @param eClass
+     * @return instanceSpecification.createSpecification(null, null, eClass)
+     */
     public ValueSpecification createSpecification(EClass eClass)
     {
         return this.instanceSpecification.createSpecification(null, null, eClass);
     }
 
+    /**
+     * @param diagnosticChain
+     * @param map
+     * @return instanceSpecification.validateDefiningFeature(diagnosticChain, map)
+     */
     public boolean validateSlotsAreDefined(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateDefiningFeature(diagnosticChain, map);
     }
 
+    /**
+     * @param diagnosticChain
+     * @param map
+     * @return instanceSpecification.validateStructuralFeature(diagnosticChain, map)
+     */
     public boolean validateNoDuplicateSlots(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateStructuralFeature(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependencies()
+     */
     public EList<Dependency> getClientDependencies()
     {
         return this.instanceSpecification.getClientDependencies();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
+     */
     public Object eGet(EStructuralFeature eStructuralFeature, boolean b)
     {
         return this.instanceSpecification.eGet(eStructuralFeature, b);
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+     */
     public void eSet(EStructuralFeature eStructuralFeature, Object object)
     {
         this.instanceSpecification.eSet(eStructuralFeature, object);
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
+     */
     public void eUnset(EStructuralFeature eStructuralFeature)
     {
         this.instanceSpecification.eUnset(eStructuralFeature);
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+     */
     public boolean eIsSet(EStructuralFeature eStructuralFeature)
     {
         return this.instanceSpecification.eIsSet(eStructuralFeature);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.ParameterableElement#getTemplateParameter()
+     */
     public TemplateParameter getTemplateParameter()
     {
         return this.instanceSpecification.getTemplateParameter();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.ParameterableElement#setTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
+     */
     public void setTemplateParameter(TemplateParameter templateParameter)
     {
         this.instanceSpecification.setTemplateParameter(templateParameter);
     }
 
+    /**
+     * @return instanceSpecification.getOwningTemplateParameter()
+     */
     public TemplateParameter getOwningParameter()
     {
         return this.instanceSpecification.getOwningTemplateParameter();
     }
 
+    /**
+     * @param templateParameter
+     */
     public void setOwningParameter(TemplateParameter templateParameter)
     {
         this.instanceSpecification.setOwningTemplateParameter(templateParameter);
     }
 
+    /**
+     * @return instanceSpecification.getVisibility()
+     */
     public VisibilityKind getPackageableElement_visibility()
     {
         return this.instanceSpecification.getVisibility();
     }
 
+    /**
+     * @param visibilityKind
+     */
     public void setPackageableElement_visibility(VisibilityKind visibilityKind)
     {
         this.instanceSpecification.setVisibility(visibilityKind);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getVisibility()
+     */
     public VisibilityKind getVisibility()
     {
         return this.instanceSpecification.getVisibility();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#setVisibility(org.eclipse.uml2.uml.VisibilityKind)
+     */
     public void setVisibility(VisibilityKind visibilityKind)
     {
         this.instanceSpecification.setVisibility(visibilityKind);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getName()
+     */
     public String getName()
     {
         return this.instanceSpecification.getName();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#setName(java.lang.String)
+     */
     public void setName(String string)
     {
         this.instanceSpecification.setName(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getQualifiedName()
+     */
     public String getQualifiedName()
     {
         return this.instanceSpecification.getQualifiedName();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(java.lang.String)
+     */
     public Dependency getClientDependency(String string)
     {
         return this.instanceSpecification.getClientDependency(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     */
     public Dependency getClientDependency(String string, boolean ignoreCase, EClass eClass)
     {
         return this.instanceSpecification.getClientDependency(string, ignoreCase, eClass);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getNameExpression()
+     */
     public StringExpression getNameExpression()
     {
         return this.instanceSpecification.getNameExpression();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#setNameExpression(org.eclipse.uml2.uml.StringExpression)
+     */
     public void setNameExpression(StringExpression stringExpression)
     {
         this.instanceSpecification.setNameExpression(stringExpression);
     }
 
+    /**
+     * @param eClass
+     * @return instanceSpecification.createNameExpression(eClass.getName(), null)
+     */
     public StringExpression createNameExpression(EClass eClass)
     {
         return this.instanceSpecification.createNameExpression(eClass.getName(), null);
     }
 
+    /**
+     * @param name
+     * @param eClass
+     * @return instanceSpecification.createNameExpression(name, null)
+     */
     public StringExpression createNameExpression(String name, EClass eClass)
     {
         return this.instanceSpecification.createNameExpression(name, null);
     }
 
+    /**
+     * @return instanceSpecification.createNameExpression(null, null)
+     */
     public StringExpression createNameExpression()
     {
         return this.instanceSpecification.createNameExpression(null, null);
     }
 
+    /**
+     * @param diagnosticChain
+     * @param map
+     * @return instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map)
+     */
     public boolean validateNoName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#validateHasNoQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     public boolean validateHasNoQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map);
     }
 
+    /**
+     * @param diagnosticChain
+     * @param map
+     * @return instanceSpecification.validateHasQualifiedName(diagnosticChain, map)
+     */
     public boolean validateQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#validateHasQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     public boolean validateHasQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#allNamespaces()
+     */
     public EList<Namespace> allNamespaces()
     {
         return this.instanceSpecification.allNamespaces();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#isDistinguishableFrom(org.eclipse.uml2.uml.NamedElement, org.eclipse.uml2.uml.Namespace)
+     */
     public boolean isDistinguishableFrom(NamedElement namedElement, Namespace namespace)
     {
         return this.instanceSpecification.isDistinguishableFrom(namedElement, namespace);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#separator()
+     */
     public String separator()
     {
         return this.instanceSpecification.separator();
     }
 
+    /**
+     * @return instanceSpecification.getQualifiedName()
+     */
     public String qualifiedName()
     {
         return this.instanceSpecification.getQualifiedName();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#validateVisibilityNeedsOwnership(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     public boolean validateVisibilityNeedsOwnership(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateVisibilityNeedsOwnership(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getNamespace()
+     */
     public Namespace getNamespace()
     {
         return this.instanceSpecification.getNamespace();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getLabel()
+     */
     public String getLabel()
     {
         return this.instanceSpecification.getLabel();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#getLabel(boolean)
+     */
     public String getLabel(boolean b)
     {
         return this.instanceSpecification.getLabel(b);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#createDependency(org.eclipse.uml2.uml.NamedElement)
+     */
     public Dependency createDependency(NamedElement namedElement)
     {
         return this.instanceSpecification.createDependency(namedElement);
@@ -395,131 +584,214 @@ public class LinkInstanceImpl implements LinkInstance
         return this.instanceSpecification.parameterableElements();
     }*/
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getOwnedElements()
+     */
     public EList<Element> getOwnedElements()
     {
         return this.instanceSpecification.getOwnedElements();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getOwner()
+     */
     public Element getOwner()
     {
         return this.instanceSpecification.getOwner();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getOwnedComments()
+     */
     public EList<Comment> getOwnedComments()
     {
         return this.instanceSpecification.getOwnedComments();
     }
 
+    /**
+     * @param eClass
+     * @return instanceSpecification.createOwnedComment()
+     */
     public Comment createOwnedComment(EClass eClass)
     {
         return this.instanceSpecification.createOwnedComment();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#createOwnedComment()
+     */
     public Comment createOwnedComment()
     {
         return this.instanceSpecification.createOwnedComment();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     public boolean validateNotOwnSelf(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateNotOwnSelf(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
     public boolean validateHasOwner(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasOwner(diagnosticChain, map);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#allOwnedElements()
+     */
     public EList<Element> allOwnedElements()
     {
         return this.instanceSpecification.allOwnedElements();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#mustBeOwned()
+     */
     public boolean mustBeOwned()
     {
         return this.instanceSpecification.mustBeOwned();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#createEAnnotation(java.lang.String)
+     */
     public EAnnotation createEAnnotation(String string)
     {
         return this.instanceSpecification.createEAnnotation(string);
     }
 
+    /**
+     * @param stereotype
+     * @return applyStereotype(stereotype)
+     */
     public EObject apply(Stereotype stereotype)
     {
         return this.applyStereotype(stereotype);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
+     */
     public EObject applyStereotype(Stereotype stereotype)
     {
         return this.instanceSpecification.applyStereotype(stereotype);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(java.lang.String)
+     */
     public Stereotype getApplicableStereotype(String string)
     {
         return this.instanceSpecification.getApplicableStereotype(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getApplicableStereotypes()
+     */
     public EList<Stereotype> getApplicableStereotypes()
     {
         return this.instanceSpecification.getApplicableStereotypes();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getAppliedStereotype(java.lang.String)
+     */
     public Stereotype getAppliedStereotype(String string)
     {
         return this.instanceSpecification.getAppliedStereotype(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getAppliedStereotypes()
+     */
     public EList<Stereotype> getAppliedStereotypes()
     {
         return this.instanceSpecification.getAppliedStereotypes();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getModel()
+     */
     public Model getModel()
     {
         return (Model) UmlUtilities.findModel(this.instanceSpecification);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getNearestPackage()
+     */
     public Package getNearestPackage()
     {
         return this.instanceSpecification.getNearestPackage();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getValue(org.eclipse.uml2.uml.Stereotype, java.lang.String)
+     */
     public Object getValue(Stereotype stereotype, String string)
     {
         return this.instanceSpecification.getValue(stereotype, string);
     }
 
+    /**
+     * @param stereotype
+     * @return instanceSpecification.isStereotypeApplied(stereotype)
+     */
     public boolean isApplied(Stereotype stereotype)
     {
         return this.instanceSpecification.isStereotypeApplied(stereotype);
     }
 
+    /**
+     * @param stereotype
+     * @return instanceSpecification.isStereotypeRequired(stereotype)
+     */
     public boolean isRequired(Stereotype stereotype)
     {
         return this.instanceSpecification.isStereotypeRequired(stereotype);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#setValue(org.eclipse.uml2.uml.Stereotype, java.lang.String, java.lang.Object)
+     */
     public void setValue(Stereotype stereotype, String string, Object object)
     {
         this.instanceSpecification.setValue(stereotype, string, object);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#hasValue(org.eclipse.uml2.uml.Stereotype, java.lang.String)
+     */
     public boolean hasValue(Stereotype stereotype, String string)
     {
         return this.instanceSpecification.hasValue(stereotype, string);
     }
 
+    /**
+     * @param stereotype
+     * @return unapplyStereotype(stereotype)
+     */
     public EObject unapply(Stereotype stereotype)
     {
         return this.unapplyStereotype(stereotype);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
+     */
     public EObject unapplyStereotype(Stereotype stereotype)
     {
         return this.instanceSpecification.unapplyStereotype(stereotype);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#destroy()
+     */
     public void destroy()
     {
         this.instanceSpecification.destroy();
@@ -530,101 +802,161 @@ public class LinkInstanceImpl implements LinkInstance
         return this.instanceSpecification.getAppliedVersion(stereotype);
     }*/
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#addKeyword(java.lang.String)
+     */
     public boolean addKeyword(String string)
     {
         return this.instanceSpecification.addKeyword(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#getKeywords()
+     */
     public EList<String> getKeywords()
     {
         return this.instanceSpecification.getKeywords();
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#hasKeyword(java.lang.String)
+     */
     public boolean hasKeyword(String string)
     {
         return this.instanceSpecification.hasKeyword(string);
     }
 
+    /**
+     * @see org.eclipse.uml2.uml.Element#removeKeyword(java.lang.String)
+     */
     public boolean removeKeyword(String string)
     {
         return this.instanceSpecification.removeKeyword(string);
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
+     */
     public EList<EAnnotation> getEAnnotations()
     {
         return this.instanceSpecification.getEAnnotations();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
+     */
     public EAnnotation getEAnnotation(String string)
     {
         return this.instanceSpecification.getEAnnotation(string);
     }
 
+    /**
+     * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
+     */
     public EList<Adapter> eAdapters()
     {
         return this.instanceSpecification.eAdapters();
     }
 
+    /**
+     * @see org.eclipse.emf.common.notify.Notifier#eDeliver()
+     */
     public boolean eDeliver()
     {
         return this.instanceSpecification.eDeliver();
     }
 
+    /**
+     * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
+     */
     public void eSetDeliver(boolean b)
     {
         this.instanceSpecification.eSetDeliver(b);
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eIsProxy()
+     */
     public boolean eIsProxy()
     {
         return this.instanceSpecification.eIsProxy();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eClass()
+     */
     public EClass eClass()
     {
         return this.instanceSpecification.eClass();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eContainer()
+     */
     public EObject eContainer()
     {
         return this.instanceSpecification.eContainer();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eContents()
+     */
     public EList<EObject> eContents()
     {
         return this.instanceSpecification.eContents();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
+     */
     public EList<EObject> eCrossReferences()
     {
         return this.instanceSpecification.eCrossReferences();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eAllContents()
+     */
     public TreeIterator<EObject> eAllContents()
     {
         return this.instanceSpecification.eAllContents();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eContainmentFeature()
+     */
     public EReference eContainmentFeature()
     {
         return this.instanceSpecification.eContainmentFeature();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eContainingFeature()
+     */
     public EStructuralFeature eContainingFeature()
     {
         return this.instanceSpecification.eContainingFeature();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eResource()
+     */
     public Resource eResource()
     {
         return this.instanceSpecification.eResource();
     }
 
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
+     */
     public Object eGet(EStructuralFeature eStructuralFeature)
     {
         return this.instanceSpecification.eGet(eStructuralFeature);
     }
 
+    /**
+     * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
+     */
     public void eNotify(Notification notification)
     {
         this.instanceSpecification.eNotify(notification);

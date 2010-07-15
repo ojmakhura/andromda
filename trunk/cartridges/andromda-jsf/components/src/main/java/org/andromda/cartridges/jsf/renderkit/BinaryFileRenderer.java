@@ -3,12 +3,10 @@ package org.andromda.cartridges.jsf.renderkit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
-
 import org.andromda.cartridges.jsf.component.BinaryFile;
 import org.apache.commons.lang.StringUtils;
 
@@ -47,7 +45,7 @@ public class BinaryFileRenderer
             final HttpServletResponse response = this.getResponse(context);
             final OutputStream stream = response.getOutputStream();
 
-            // - reset the reponse to clear out any any headers (i.e. so
+            // - reset the response to clear out any any headers (i.e. so
             //   the user doesn't get "unable to open..." when using IE.)
             response.reset();
             final String fileName = fileComponent.getFileName();
@@ -67,32 +65,32 @@ public class BinaryFileRenderer
             {
                 response.setContentType(contentType);
             }
-            if (value instanceof String)
+            if (value != null)
             {
-                value = ((String)value).getBytes();
-            }
-            if (value instanceof byte[])
-            {
-                byte[] file = (byte[])value;
-                if (file != null)
+                if (value instanceof String)
                 {
+                    value = ((String)value).getBytes();
+                }
+                if (value instanceof byte[])
+                {
+                    byte[] file = (byte[])value;
                     response.setBufferSize(file.length);
                     response.setContentLength(file.length);
                     response.flushBuffer();
                     stream.write(file);                
                 }
-            }
-            else if (value instanceof InputStream)
-            {
-                final InputStream report = (InputStream)value;
-                final byte[] buffer = new byte[BUFFER_SIZE];
-                response.setBufferSize(BUFFER_SIZE);
-                response.flushBuffer();
-                for (int ctr = 0; (ctr = report.read(buffer)) > 0;)
+                else if (value instanceof InputStream)
                 {
-                    stream.write(buffer, 0, ctr);
+                    final InputStream report = (InputStream)value;
+                    final byte[] buffer = new byte[BUFFER_SIZE];
+                    response.setBufferSize(BUFFER_SIZE);
+                    response.flushBuffer();
+                    for (int ctr = 0; (ctr = report.read(buffer)) > 0;)
+                    {
+                        stream.write(buffer, 0, ctr);
+                    }
+                    stream.flush();
                 }
-                stream.flush();
             }
         }
     }

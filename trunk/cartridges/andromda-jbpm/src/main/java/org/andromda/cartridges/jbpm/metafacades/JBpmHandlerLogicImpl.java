@@ -1,17 +1,16 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -22,11 +21,18 @@ import java.util.List;
 public class JBpmHandlerLogicImpl
         extends JBpmHandlerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmHandlerLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleIsContainedInBusinessProcess()
+     */
     protected boolean handleIsContainedInBusinessProcess()
     {
         return this.getOwner().getStateMachineContext() instanceof ActivityGraphFacade &&
@@ -34,6 +40,9 @@ public class JBpmHandlerLogicImpl
                         instanceof JBpmProcessDefinition;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleIsAssignmentHandler()
+     */
     protected boolean handleIsAssignmentHandler()
     {
         boolean assignmentHandler = false;
@@ -48,6 +57,9 @@ public class JBpmHandlerLogicImpl
         return assignmentHandler;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleIsActionHandler()
+     */
     protected boolean handleIsActionHandler()
     {
         boolean actionHandler = false;
@@ -118,21 +130,33 @@ public class JBpmHandlerLogicImpl
         return internalActions;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleGetHandlerPackageName()
+     */
     protected String handleGetHandlerPackageName()
     {
         return this.getOwner().getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleGetHandlerFullPath()
+     */
     protected String handleGetHandlerFullPath()
     {
         return StringUtils.replace(this.getClazz(), ".", "/");
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleGetHandlerClassName()
+     */
     protected String handleGetHandlerClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogic#handleGetClazz()
+     */
     protected String handleGetClazz()
     {
         String handlerClass = null;

@@ -5,12 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
-
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
 
 
@@ -30,7 +28,7 @@ public class DateTimeConverter
     implements DateConverter
 {
     /**
-     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
      */
     public String getAsString(
         FacesContext context,
@@ -54,7 +52,7 @@ public class DateTimeConverter
     }
 
     /**
-     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
      */
     public Object getAsObject(
         FacesContext context,
@@ -125,7 +123,7 @@ public class DateTimeConverter
 
     /**
      * @see #getTimeZone()
-     * @see javax.faces.convert.DateTimeConverter#restoreState(javax.faces.context.FacesContext, java.lang.Object)
+     * @see javax.faces.convert.DateTimeConverter#restoreState(javax.faces.context.FacesContext, Object)
      */
     public void restoreState(FacesContext facesContext, Object state)
     {
@@ -165,6 +163,9 @@ public class DateTimeConverter
         return this.timeZone == null ? TimeZone.getDefault() : this.timeZone;
     }
 
+    /**
+     * andromda.faces.DateTime
+     */
     public static final String CONVERTER_ID = "andromda.faces.DateTime";
 
     /**

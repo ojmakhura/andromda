@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class SubactivityStateFacadeLogicImpl
     extends SubactivityStateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public SubactivityStateFacadeLogicImpl(
         final Object metaObject,
         final String context)
@@ -18,6 +22,7 @@ public class SubactivityStateFacadeLogicImpl
     }
 
     /**
+     * @return false
      * @see org.andromda.metafacades.uml.SubactivityStateFacade#isDynamic()
      */
     protected boolean handleIsDynamic()
@@ -27,9 +32,10 @@ public class SubactivityStateFacadeLogicImpl
     }
 
     /**
+     * @return null
      * @see org.andromda.metafacades.uml.SubactivityStateFacade#getSubmachine()
      */
-    protected java.lang.Object handleGetSubmachine()
+    protected Object handleGetSubmachine()
     {
         // TODO: add your implementation here!
         return null;

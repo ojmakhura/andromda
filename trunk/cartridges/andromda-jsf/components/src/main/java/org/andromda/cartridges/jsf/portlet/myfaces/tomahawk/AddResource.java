@@ -2,11 +2,9 @@ package org.andromda.cartridges.jsf.portlet.myfaces.tomahawk;
 
 import java.io.IOException;
 import java.util.Iterator;
-
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.myfaces.renderkit.html.util.HtmlBufferResponseWriterWrapper;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlResponseWriterImpl;
@@ -99,6 +97,9 @@ public class AddResource
         originalResponse.insert(headContents.toString().length() + 1, afterBodyContents.toString());
     }
 
+    /**
+     * @see org.apache.myfaces.renderkit.html.util.DefaultAddResource#writeResponse(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     public void writeResponse(HttpServletRequest request,
         HttpServletResponse response) throws IOException
     {

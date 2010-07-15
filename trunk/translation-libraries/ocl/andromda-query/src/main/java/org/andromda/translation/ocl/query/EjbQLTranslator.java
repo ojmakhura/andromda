@@ -1,10 +1,9 @@
 package org.andromda.translation.ocl.query;
 
-import org.andromda.core.translation.TranslationUtils;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.andromda.core.translation.TranslationUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Performs translation to the following: <ul> <li>EJB-QL</li> </ul>
@@ -91,8 +90,10 @@ public class EjbQLTranslator
     }
 
     /**
-     * Handles the replacemenht of the references to 'counter' with the incrementing counter (currently just used for
+     * Handles the replacement of the references to 'counter' with the incrementing counter (currently just used for
      * EJB-QL translation) --> may want to find a cleaner way to do this.
+     * @param fragment 
+     * @return fragment
      */
     protected String replaceCounterPattern(String fragment)
     {

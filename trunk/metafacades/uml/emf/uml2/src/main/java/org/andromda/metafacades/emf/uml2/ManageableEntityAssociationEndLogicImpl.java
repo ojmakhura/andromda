@@ -14,6 +14,10 @@ import org.andromda.metafacades.uml.ManageableEntity;
 public class ManageableEntityAssociationEndLogicImpl
     extends ManageableEntityAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ManageableEntityAssociationEndLogicImpl(
         final Object metaObject,
         final String context)
@@ -22,6 +26,7 @@ public class ManageableEntityAssociationEndLogicImpl
     }
 
     /**
+     * @return manageableIdentifier
      * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableIdentifier()
      */
     protected Object handleGetManageableIdentifier()
@@ -39,6 +44,7 @@ public class ManageableEntityAssociationEndLogicImpl
     }
 
     /**
+     * @return true
      * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#isDisplay()
      */
     protected boolean handleIsDisplay()

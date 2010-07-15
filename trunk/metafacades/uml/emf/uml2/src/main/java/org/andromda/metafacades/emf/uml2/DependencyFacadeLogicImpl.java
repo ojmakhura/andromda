@@ -14,6 +14,10 @@ import org.apache.log4j.Logger;
 public class DependencyFacadeLogicImpl
     extends DependencyFacadeLogic
 {
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public DependencyFacadeLogicImpl(
         final org.eclipse.uml2.DirectedRelationship metaObjectIn,
         final String context)
@@ -51,7 +55,7 @@ public class DependencyFacadeLogicImpl
      * @see org.andromda.metafacades.uml.DependencyFacade#getGetterName()
      */
     @Override
-    protected java.lang.String handleGetGetterName()
+    protected String handleGetGetterName()
     {
         return "get" + StringUtils.capitalize(this.getName());
     }
@@ -60,7 +64,7 @@ public class DependencyFacadeLogicImpl
      * @see org.andromda.metafacades.uml.DependencyFacade#getSetterName()
      */
     @Override
-    protected java.lang.String handleGetSetterName()
+    protected String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(this.getName());
     }
@@ -69,7 +73,7 @@ public class DependencyFacadeLogicImpl
      * @see org.andromda.metafacades.uml.DependencyFacade#getTargetElement()
      */
     @Override
-    protected java.lang.Object handleGetTargetElement()
+    protected Object handleGetTargetElement()
     {
         Object transform = null;
         org.eclipse.emf.common.util.EList elist = this.metaObject.getTargets();
@@ -79,7 +83,7 @@ public class DependencyFacadeLogicImpl
         }
         else
         {
-            this.logger.error("DependencyFacade has no targets: " + this.metaObject.getSources().toString());
+            DependencyFacadeLogicImpl.logger.error("DependencyFacade has no targets: " + this.metaObject.getSources().toString());
        }
         return transform;
     }
@@ -88,7 +92,7 @@ public class DependencyFacadeLogicImpl
      * @see org.andromda.metafacades.uml.DependencyFacade#getSourceElement()
      */
     @Override
-    protected java.lang.Object handleGetSourceElement()
+    protected Object handleGetSourceElement()
     {
         return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getSources().toArray()[0]);
     }

@@ -160,6 +160,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
+     * @return getConfiguredProperty(EJB3Globals.PERSISTENCE_CONTEXT_UNIT_NAME)
      * @see EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
      */
     protected String handleGetDefaultPersistenceContextUnitName()

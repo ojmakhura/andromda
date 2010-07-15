@@ -5,13 +5,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFForward.
@@ -22,6 +20,10 @@ public class JSFForwardLogicImpl
     extends JSFForwardLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFForwardLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -46,6 +48,7 @@ public class JSFForwardLogicImpl
     }
 
     /**
+     * @return forwardPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#getPath()
      */
     protected String handleGetPath()
@@ -64,11 +67,17 @@ public class JSFForwardLogicImpl
         return forwardPath;
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFForwardLogic#handleIsSuccessMessagesPresent()
+     */
     protected boolean handleIsSuccessMessagesPresent()
     {
         return !this.getSuccessMessages().isEmpty();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFForwardLogic#handleIsWarningMessagesPresent()
+     */
     protected boolean handleIsWarningMessagesPresent()
     {
         return !this.getWarningMessages().isEmpty();
@@ -105,17 +114,24 @@ public class JSFForwardLogicImpl
         return messages;
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFForwardLogic#handleGetSuccessMessages()
+     */
     protected Map handleGetSuccessMessages()
     {
         return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFForwardLogic#handleGetWarningMessages()
+     */
     protected Map handleGetWarningMessages()
     {
         return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     /**
+     * @return getTarget() instanceof JSFFinalState
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#isFinalStateTarget()
      */
     protected boolean handleIsFinalStateTarget()
@@ -124,6 +140,7 @@ public class JSFForwardLogicImpl
     }
 
     /**
+     * @return getName()
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#getFromOutcome()
      */
     protected String handleGetFromOutcome()

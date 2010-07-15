@@ -9,7 +9,10 @@ package org.andromda.metafacades.emf.uml2;
 public class DestinationLogicImpl
     extends DestinationLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public DestinationLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

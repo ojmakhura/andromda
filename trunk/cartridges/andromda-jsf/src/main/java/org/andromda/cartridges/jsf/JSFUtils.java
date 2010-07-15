@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,10 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.andromda.cartridges.jsf.metafacades.JSFAttribute;
 import org.andromda.cartridges.jsf.metafacades.JSFManageableEntityAttribute;
 import org.andromda.cartridges.jsf.metafacades.JSFParameter;
@@ -55,7 +53,7 @@ public class JSFUtils
 
     /**
      * Reads the validator arguments from the the given tagged value.
-     *
+     * @param validatorTaggedValue 
      * @return returns a list of String instances or an empty list
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -108,7 +106,7 @@ public class JSFUtils
 
     /**
      * Reads the validator variable names from the the given tagged value.
-     *
+     * @param validatorTaggedValue 
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -151,7 +149,8 @@ public class JSFUtils
 
     /**
      * Parses the validator name for a tagged value.
-     *
+     * @param validatorTaggedValue 
+     * @return validatorTaggedValue
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
     public static String parseValidatorName(final String validatorTaggedValue)
@@ -198,6 +197,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return this field's date format
      */
     public static String getDateFormat(String format)
@@ -215,6 +215,7 @@ public class JSFUtils
     private static final String STRICT = "strict";
 
     /**
+     * @param format 
      * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
      */
     public static boolean isStrictDateFormat(String format)
@@ -227,7 +228,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is an email format.
-     *
+     * @param format 
      * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
      */
     public static boolean isEmailFormat(String format)
@@ -240,7 +241,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is an equal format.
-     *
+     * @param format 
      * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
      */
     public static boolean isEqualFormat(String format)
@@ -252,8 +253,8 @@ public class JSFUtils
     }
 
     /**
-     * Indicates if the given <code>format</code> is a creditcard format.
-     *
+     * Indicates if the given <code>format</code> is a credit card format.
+     * @param format 
      * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
      */
     public static boolean isCreditCardFormat(final String format)
@@ -266,7 +267,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a pattern format.
-     *
+     * @param format 
      * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
      */
     public static boolean isPatternFormat(final String format)
@@ -279,7 +280,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a minlength format.
-     *
+     * @param format 
      * @return <code>true</code> if this field's value needs to consist of at least a certain
      *         number of characters, <code>false</code> otherwise
      */
@@ -293,7 +294,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a maxlength format.
-     *
+     * @param format 
      * @return <code>true</code> if this field's value needs to consist of at maximum a certain
      *         number of characters, <code>false</code> otherwise
      */
@@ -306,6 +307,9 @@ public class JSFUtils
     }
 
     /**
+     * @param string 
+     * @param index 
+     * @param limit 
      * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
      */
     public static String getToken(
@@ -339,7 +343,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a range format.
-     *
+     * @param format 
      * @return <code>true</code> if this field's value needs to be in a specific range, <code>false</code> otherwise
      */
     public static boolean isRangeFormat(final String format)
@@ -351,6 +355,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
      */
     public static boolean isByte(final ClassifierFacade type)
@@ -361,6 +366,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a short, <code>false</code> otherwise
      */
     public static boolean isShort(final ClassifierFacade type)
@@ -371,6 +377,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is an integer, <code>false</code> otherwise
      */
     public static boolean isInteger(final ClassifierFacade type)
@@ -381,6 +388,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a long integer, <code>false</code> otherwise
      */
     public static boolean isLong(final ClassifierFacade type)
@@ -391,6 +399,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a floating point, <code>false</code> otherwise
      */
     public static boolean isFloat(final ClassifierFacade type)
@@ -401,6 +410,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a double precision floating point, <code>false</code> otherwise
      */
     public static boolean isDouble(final ClassifierFacade type)
@@ -412,6 +422,7 @@ public class JSFUtils
 
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a date, <code>false</code> otherwise
      */
     public static boolean isDate(final ClassifierFacade type)
@@ -420,6 +431,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
      */
     public static boolean isTime(final ClassifierFacade type)
@@ -430,6 +442,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
      */
     public static boolean isUrl(final ClassifierFacade type)
@@ -461,6 +474,7 @@ public class JSFUtils
     }
 
     /**
+     * @param type 
      * @return <code>true</code> if the type of this field is a String, <code>false</code> otherwise
      */
     public static boolean isString(final ClassifierFacade type)
@@ -491,7 +505,7 @@ public class JSFUtils
      * @param element the element from which to retrieve the equal value.
      * @return the "equal" value.
      */
-    public static java.lang.String getEqual(final ModelElementFacade element)
+    public static String getEqual(final ModelElementFacade element)
     {
         String equal = null;
         if (element != null)
@@ -509,7 +523,7 @@ public class JSFUtils
      * @param ownerParameter the optional owner parameter (specified if the element is an attribute).
      * @return the "equal" value.
      */
-    public static java.lang.String getEqual(final ModelElementFacade element, final ParameterFacade ownerParameter)
+    public static String getEqual(final ModelElementFacade element, final ParameterFacade ownerParameter)
     {
         String equal = null;
         if (element != null)
@@ -530,7 +544,7 @@ public class JSFUtils
      * @param element the element from which to retrieve the validwhen value.
      * @return the "validwhen" value.
      */
-    public static java.lang.String getValidWhen(final ModelElementFacade element)
+    public static String getValidWhen(final ModelElementFacade element)
     {
         String validWhen = null;
         if (element != null)
@@ -542,6 +556,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return the lower limit for this field's value's range
      */
     public static String getRangeStart(final String format)
@@ -553,6 +568,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return the upper limit for this field's value's range
      */
     public static String getRangeEnd(final String format)
@@ -564,6 +580,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return the minimum number of characters this field's value must consist of
      */
     public static String getMinLengthValue(final String format)
@@ -575,6 +592,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return the maximum number of characters this field's value must consist of
      */
     public static String getMaxLengthValue(final String format)
@@ -586,6 +604,7 @@ public class JSFUtils
     }
 
     /**
+     * @param format 
      * @return the pattern this field's value must respect
      */
     public static String getPatternValue(final String format)
@@ -604,7 +623,7 @@ public class JSFUtils
      * @param type the type of the element.
      * @return the collection of validator types.
      */
-    public static java.util.Collection getValidatorTypes(
+    public static Collection getValidatorTypes(
         final ModelElementFacade element,
         final ClassifierFacade type)
     {
@@ -711,7 +730,6 @@ public class JSFUtils
                     }
                 }
             }
-
             if (JSFUtils.getValidWhen(element) != null)
             {
                 validatorTypesList.add("validwhen");
@@ -720,14 +738,14 @@ public class JSFUtils
             {
                 validatorTypesList.add("equal");
             }
-        }
 
-        // - custom (paramterized) validators are allowed here
-        final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-        {
-            String validator = String.valueOf(iterator.next());
-            validatorTypesList.add(JSFUtils.parseValidatorName(validator));
+            // - custom (paramterized) validators are allowed here
+            final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                String validator = String.valueOf(iterator.next());
+                validatorTypesList.add(JSFUtils.parseValidatorName(validator));
+            }
         }
         return validatorTypesList;
     }
@@ -855,26 +873,26 @@ public class JSFUtils
                     fieldName,
                     Arrays.asList(fieldName, equal));
             }
-        }
 
-        // - custom (parameterized) validators are allowed here
-        //   in this case we will reuse the validator arg values
-        final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-        {
-            final String validator = String.valueOf(iterator.next());
-
-            // - guaranteed to be of the same length
-            final List validatorVars = JSFUtils.parseValidatorVars(validator);
-            final List validatorArgs = JSFUtils.parseValidatorArgs(validator);
-
-            for (int ctr = 0; ctr < validatorVars.size(); ctr++)
+            // - custom (parameterized) validators are allowed here
+            //   in this case we will reuse the validator arg values
+            final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                final String validatorVar = (String)validatorVars.get(ctr);
-                final String validatorArg = (String)validatorArgs.get(ctr);
-                vars.put(
-                    validatorVar,
-                    Arrays.asList(validatorVar, validatorArg));
+                final String validator = String.valueOf(iterator.next());
+    
+                // - guaranteed to be of the same length
+                final List validatorVars = JSFUtils.parseValidatorVars(validator);
+                final List validatorArgs = JSFUtils.parseValidatorArgs(validator);
+    
+                for (int ctr = 0; ctr < validatorVars.size(); ctr++)
+                {
+                    final String validatorVar = (String)validatorVars.get(ctr);
+                    final String validatorArg = (String)validatorArgs.get(ctr);
+                    vars.put(
+                        validatorVar,
+                        Arrays.asList(validatorVar, validatorArg));
+                }
             }
         }
         return vars.values();
@@ -889,7 +907,7 @@ public class JSFUtils
      */
     public static java.util.Collection getValidatorArgs(
         final ModelElementFacade element,
-        final java.lang.String validatorType)
+        final String validatorType)
     {
         final Collection<Object> args = new ArrayList<Object>();
         if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
@@ -987,6 +1005,7 @@ public class JSFUtils
     /**
      * Indicates whether or not the format for this element is a strict date
      * format.
+     * @param element 
      * @return true/false
      */
     public static boolean isStrictDateFormat(final ModelElementFacade element)
@@ -1000,6 +1019,8 @@ public class JSFUtils
      *
      * @param element the element for which to retrieve the format.
      * @param type the type of the element.
+     * @param defaultDateFormat 
+     * @param defaultTimeFormat 
      * @return the format string (if one is present otherwise null).
      */
     public static String getFormat(
@@ -1052,6 +1073,9 @@ public class JSFUtils
 
     private String portletContainer;
 
+    /**
+     * @param portletContainer
+     */
     public void setPortletContainer(String portletContainer)
     {
         this.portletContainer = portletContainer;
@@ -1062,6 +1086,9 @@ public class JSFUtils
         return StringUtils.isNotBlank(this.portletContainer);
     }
 
+    /**
+     * @return className
+     */
     public String getRequestClassName()
     {
         final String className;
@@ -1076,6 +1103,9 @@ public class JSFUtils
         return className;
     }
 
+    /**
+     * @return className
+     */
     public String getResponseClassName()
     {
         final String className;
@@ -1090,6 +1120,9 @@ public class JSFUtils
         return className;
     }
 
+    /**
+     * @return className
+     */
     public String getSessionClassName()
     {
         final String className;
@@ -1105,6 +1138,7 @@ public class JSFUtils
     }
 
     /**
+     * @param buffer 
      * @return the calculated SerialVersionUID
      */
     public static String calcSerialVersionUID(StringBuilder buffer){
@@ -1132,6 +1166,10 @@ public class JSFUtils
         return serialVersionUID;
     }
     
+    /**
+     * @param string
+     * @return Integer.valueOf(string) * 6000
+     */
     public int calculateIcefacesTimeout(String string)
     {
         return string != null ? Integer.valueOf(string) * 6000 : 0;

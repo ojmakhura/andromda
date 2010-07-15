@@ -30,6 +30,10 @@ public class EJB3SessionOperationFacadeLogicImpl
      */
     private static final String SERVICE_OPERATION_TEST_NAME_PATTERN = "serviceOperationTestNamePattern";
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJB3SessionOperationFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);

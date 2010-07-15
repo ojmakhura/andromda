@@ -12,6 +12,10 @@ import org.eclipse.uml2.PseudostateKind;
 public class PseudostateFacadeLogicImpl
     extends PseudostateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public PseudostateFacadeLogicImpl(
         final org.eclipse.uml2.Pseudostate metaObject,
         final String context)
@@ -20,6 +24,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return getKind().getValue() == (PseudostateKind.CHOICE)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isChoice()
      */
     protected boolean handleIsChoice()
@@ -28,6 +33,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getOutgoings().size() > 1
      * @see org.andromda.metafacades.uml.PseudostateFacade#isDecisionPoint()
      */
     protected boolean handleIsDecisionPoint()
@@ -36,6 +42,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getIncomings().size() > 1
      * @see org.andromda.metafacades.uml.PseudostateFacade#isMergePoint()
      */
     protected boolean handleIsMergePoint()
@@ -44,6 +51,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getKind().getValue() == (PseudostateKind.DEEP_HISTORY)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isDeepHistory()
      */
     protected boolean handleIsDeepHistory()
@@ -52,6 +60,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getKind().getValue() == (PseudostateKind.FORK)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isFork()
      */
     protected boolean handleIsFork()
@@ -60,6 +69,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getKind().getValue() == (PseudostateKind.INITIAL)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isInitialState()
      */
     protected boolean handleIsInitialState()
@@ -68,6 +78,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getKind().getValue() == (PseudostateKind.JOIN)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isJoin()
      */
     protected boolean handleIsJoin()
@@ -76,6 +87,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return getKind().getValue() == (PseudostateKind.JUNCTION)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isJunction()
      */
     protected boolean handleIsJunction()
@@ -84,6 +96,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getKind().getValue() == (PseudostateKind.SHALLOW_HISTORY)
      * @see org.andromda.metafacades.uml.PseudostateFacade#isShallowHistory()
      */
     protected boolean handleIsShallowHistory()
@@ -92,6 +105,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return getOutgoings().size() > 1
      * @see org.andromda.metafacades.uml.PseudostateFacade#isSplit()
      */
     protected boolean handleIsSplit()
@@ -100,6 +114,7 @@ public class PseudostateFacadeLogicImpl
     }
 
     /**
+     * @return getIncomings().size() > 1
      * @see org.andromda.metafacades.uml.PseudostateFacade#isCollect()
      */
     protected boolean handleIsCollect()
@@ -107,6 +122,9 @@ public class PseudostateFacadeLogicImpl
         return (this.isJoin() || this.isFork()) && this.metaObject.getIncomings().size() > 1;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.StateVertexFacadeLogicImpl#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return this.getStateMachine();

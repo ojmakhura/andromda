@@ -10,15 +10,20 @@ public class XSDAssociationEndLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public XSDAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogic#handleGetMaxOccurs()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#getMaxOccurs()
      */
-    protected java.lang.String handleGetMaxOccurs()
+    protected String handleGetMaxOccurs()
     {
         String maxOccurs = null;
         boolean isMany = this.isMany();
@@ -34,9 +39,10 @@ public class XSDAssociationEndLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogic#handleGetMinOccurs()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#getMinOccurs()
      */
-    protected java.lang.String handleGetMinOccurs()
+    protected String handleGetMinOccurs()
     {
         String minOccurs = null;
         boolean isRequired = this.isRequired();
@@ -52,6 +58,7 @@ public class XSDAssociationEndLogicImpl
     }
     
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogic#handleIsOwnerSchemaType()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#isOwnerSchemaType()
      */
     protected boolean handleIsOwnerSchemaType()

@@ -249,7 +249,7 @@ public class TranslationTestProcessor
     {
         final String methodName = "TranslationTestProcessor.findClassifier";
         Object element = null;
-        if (StringUtils.isNotEmpty(expression))
+        if (StringUtils.isNotBlank(expression))
         {
             if (this.model == null)
             {
@@ -385,7 +385,7 @@ public class TranslationTestProcessor
     {
         translation = StringUtils.trimToEmpty(translation);
         return StringUtils.isEmpty(this.translationName) ||
-                (StringUtils.isNotEmpty(this.translationName) && this.translationName.equals(translation));
+                (StringUtils.isNotBlank(this.translationName) && this.translationName.equals(translation));
     }
 
     /**

@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.wsdl.Definition;
 import javax.wsdl.Port;
 import javax.wsdl.Service;
@@ -18,7 +17,6 @@ import javax.wsdl.extensions.soap.SOAPAddress;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLReader;
 import javax.xml.namespace.QName;
-
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
@@ -28,7 +26,6 @@ import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.HttpTransportProperties.Authenticator;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.InputSource;
-
 
 /**
  * A webservice client using Axis2 libraries that allows you to invoke operations on wrapped
@@ -305,7 +302,9 @@ public class WebServiceClient
      * given <code>arguments</code>.
      *
      * @param operationName the name of the operation to invoke.
-     * @param the arguments of the operation.
+     * @param arguments the arguments of the operation.
+     * @return invoke result
+     * @see org.andromda.cartridges.support.webservice.client.Axis2ClientUtils#deserialize(OMElement, Class, TypeMapper) 
      */
     public Object invokeBlocking(
         String operationName,
@@ -394,6 +393,10 @@ public class WebServiceClient
         omElement = null;
     }
 
+    /**
+     * @param operationName
+     * @param arguments
+     */
     public void invokeRobust(
         String operationName,
         Object[] arguments)
