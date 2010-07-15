@@ -1261,6 +1261,9 @@ public class WebServiceLogicImpl
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetAllowedOperationExceptions()
+     */
     protected Collection handleGetAllowedOperationExceptions()
     {
         final Collection exceptions = new HashSet();
@@ -1286,7 +1289,7 @@ public class WebServiceLogicImpl
     /**
      * @param pkg 
      * @return WebServiceUtils().getPkgAbbr(pkg)
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl#getPkgAbbr(WebServicePackageLogic)
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl#getPkgAbbr(PackageFacade)
      */
     public String getPkgAbbr(PackageFacade pkg) {
         return new WebServiceUtils().getPkgAbbr(pkg);
@@ -1299,6 +1302,9 @@ public class WebServiceLogicImpl
     private static final String BOOLEAN_FALSE = "false";
     private static final String BOOLEAN_TRUE = "true";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSchemaValidation()
+     */
     @Override
     protected boolean handleIsSchemaValidation()
     {
@@ -1319,6 +1325,9 @@ public class WebServiceLogicImpl
      */
     private static final String PROPERTY_SIMPLE_BINDING_MODE = "simpleBindingMode";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSimpleBindingMode()
+     */
     @Override
     protected boolean handleIsSimpleBindingMode()
     {
@@ -1507,7 +1516,7 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsRestAtom()
      */
     @Override
     protected boolean handleIsRestAtom()
@@ -1536,7 +1545,7 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetRestCount()
      */
     @Override
     protected int handleGetRestCount()

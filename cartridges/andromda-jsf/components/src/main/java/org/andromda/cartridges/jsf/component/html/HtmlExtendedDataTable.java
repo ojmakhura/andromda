@@ -2,14 +2,11 @@ package org.andromda.cartridges.jsf.component.html;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,7 +23,7 @@ public class HtmlExtendedDataTable
     extends HtmlDataTable
 {
     /**
-     * Overriden to provide population of the backingValue's items with the value's items (and
+     * Overridden to provide population of the backingValue's items with the value's items (and
      * updating the model afterwards).
      *
      * @see javax.faces.component.UIData#getValue()
@@ -61,7 +58,7 @@ public class HtmlExtendedDataTable
                     value = new ArrayList((Collection)value);
                 }
                 final List backingValues = (List)backingValue;
-                final List values = value != null ? (List)value : Collections.emptyList();
+                final List values = (List)value;
                 for (final ListIterator iterator = backingValues.listIterator(); iterator.hasNext();)
                 {
                     final Object backingValueItem = iterator.next();

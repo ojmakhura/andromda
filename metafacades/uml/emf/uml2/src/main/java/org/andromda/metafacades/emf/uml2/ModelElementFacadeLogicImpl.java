@@ -860,7 +860,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleIsBindingDependenciesPresent()
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#isBindingDependenciesPresent()
      */
     @Override
     protected boolean handleIsBindingDependenciesPresent()
@@ -879,7 +879,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleIsTemplateParametersPresent()
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#isTemplateParametersPresent()
      */
     @Override
     protected boolean handleIsTemplateParametersPresent()
@@ -890,7 +890,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleCopyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#copyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
      */
     @Override
     protected void handleCopyTaggedValues(final ModelElementFacade element)
@@ -899,7 +899,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetTemplateParameter(java.lang.String)
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#getTemplateParameter(String)
      */
     @Override
     protected Object handleGetTemplateParameter(String parameterName)
@@ -934,7 +934,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetTemplateParameters()
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#getTemplateParameters()
      */
     @Override
     protected Collection<TemplateParameter> handleGetTemplateParameters()

@@ -49,7 +49,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
-
 /**
  * Contains utilities for the Eclipse/UML2 metafacades.
  *
@@ -65,6 +64,41 @@ public class UmlUtilities
      */
     private static final Logger logger = Logger.getLogger(UmlUtilities.class);
 
+    private static List<Resource> models;
+    
+    /**
+     * Utility method to return ALL loaded models, populated by RepositoryFacade
+     * @return models
+     */
+    public static List<Resource> getModels()
+    {
+        return UmlUtilities.models;
+    }
+    
+    /**
+     * @param resources
+     */
+    public static void setModels(List<Resource> resources)
+    {
+        models = resources;
+    }
+
+    /**
+     * @param resource
+     */
+    public static void addModel(Resource resource)
+    {
+        models.add(resource);
+    }
+    
+    /**
+     * @param resource
+     */
+    public static void removeModel(Resource resource)
+    {
+        models.remove(resource);
+    }
+    
     /**
      * A transformer which transforms:
      * <ul>
@@ -1374,6 +1408,7 @@ public class UmlUtilities
     }
 
     // Sort Attributes and AssociationEnds
+    @SuppressWarnings("unused")
     private static class PropertyComparator implements Comparator<Property>
     {
         public int compare(Property property1, Property property2)

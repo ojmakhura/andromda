@@ -124,6 +124,9 @@ public class WebServiceOperationLogicImpl
     private static final String EMPTY_STRING = "";
     private static final String BOOLEAN_FALSE = "false";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetParameterStyle()
+     */
     @Override
     protected String handleGetParameterStyle()
     {
@@ -256,7 +259,7 @@ public class WebServiceOperationLogicImpl
                 if (WebServiceUtils.isSimpleType(param))
                 {
                     String paramValue = wsutils.createConstructor(param);
-                    // Only use the value if constructor returns new XXX()
+                    // Only use the value if constructor returns new Class()
                     if (paramValue.indexOf('(') > 0)
                     {
                         paramValue = paramValue.substring(paramValue.indexOf('(')+1, paramValue.indexOf(')'));
@@ -442,7 +445,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsRest()
      */
     @Override
     protected boolean handleIsRest()
@@ -474,7 +477,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRest()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#isRestAtom()
      */
     @Override
     protected boolean handleIsRestAtom()
@@ -495,7 +498,7 @@ public class WebServiceOperationLogicImpl
 
     /**
      * Return the value from WebServiceOperation andromda_webservice_operationName, or just the operation.name
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetServiceName()
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetOperationName()
      */
     @Override
     protected String handleGetOperationName()

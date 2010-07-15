@@ -36,7 +36,7 @@ public class AssociationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationFacade#getRelationName()
      */
     @Override
-    protected java.lang.String handleGetRelationName()
+    protected String handleGetRelationName()
     {
         final Collection<AssociationEndFacade> ends = this.getAssociationEnds();
         final Iterator<AssociationEndFacade> endIt = ends.iterator();

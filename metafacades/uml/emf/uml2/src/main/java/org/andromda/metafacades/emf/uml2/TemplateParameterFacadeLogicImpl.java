@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class TemplateParameterFacadeLogicImpl
     extends TemplateParameterFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public TemplateParameterFacadeLogicImpl(
         final org.eclipse.uml2.TemplateParameter metaObject,
         final String context)
@@ -18,18 +22,20 @@ public class TemplateParameterFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getParameteredElement()
      * @see org.andromda.metafacades.uml.TemplateParameterFacade#getParameter()
      */
-    protected java.lang.Object handleGetParameter()
+    protected Object handleGetParameter()
     {
         // TODO: Be sure it works with RSM / MD11.5
         return metaObject.getParameteredElement();
     }
 
     /**
+     * @return metaObject.getDefault()
      * @see org.andromda.metafacades.uml.TemplateParameterFacade#getDefaultElement()
      */
-    protected java.lang.Object handleGetDefaultElement()
+    protected Object handleGetDefaultElement()
     {
         // TODO: Be sure it works with RSM / MD11.5
         return metaObject.getDefault();

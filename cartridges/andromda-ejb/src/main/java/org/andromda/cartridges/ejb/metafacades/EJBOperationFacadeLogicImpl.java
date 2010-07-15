@@ -24,6 +24,7 @@ public class EJBOperationFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogic#handleGetTransactionType()
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#getTransactionType()
      */
     protected String handleGetTransactionType()
@@ -41,6 +42,7 @@ public class EJBOperationFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogic#handleIsBusinessOperation()
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#isBusinessOperation()
      */
     protected boolean handleIsBusinessOperation()
@@ -51,6 +53,7 @@ public class EJBOperationFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogic#handleIsSelectMethod()
      * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade#isSelectMethod()
      */
     protected boolean handleIsSelectMethod()

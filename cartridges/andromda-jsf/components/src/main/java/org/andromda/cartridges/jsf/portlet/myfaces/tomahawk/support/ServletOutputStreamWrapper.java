@@ -4,7 +4,6 @@ import java.io.CharConversionException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.MessageFormat;
-
 import javax.servlet.ServletOutputStream;
 
 /**
@@ -16,6 +15,9 @@ import javax.servlet.ServletOutputStream;
 public class ServletOutputStreamWrapper extends ServletOutputStream {
     private OutputStream outputStream;
 
+    /**
+     * @param outputStream
+     */
     public ServletOutputStreamWrapper(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
@@ -294,76 +296,59 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
         println();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see java.io.OutputStream#write(int)
      */
     public void write(int b) throws IOException {
         outputStream.write(b);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see java.io.OutputStream#close()
      */
     public void close() throws IOException {
         outputStream.close();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * @see Object#equals(Object)
      */
     public boolean equals(Object obj) {
         return outputStream.equals(obj);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see java.io.OutputStream#flush()
      */
     public void flush() throws IOException {
         outputStream.flush();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * @see Object#hashCode()
      */
     public int hashCode() {
         return outputStream.hashCode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * @see Object#toString()
      */
     public String toString() {
         return outputStream.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see java.io.OutputStream#write(byte[], int, int)
      */
     public void write(byte[] b, int off, int len) throws IOException {
         outputStream.write(b, off, len);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see java.io.OutputStream#write(byte[])
      */
     public void write(byte[] b) throws IOException {
         outputStream.write(b);
     }
-
 }

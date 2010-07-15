@@ -1,9 +1,5 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -15,12 +11,17 @@ public class JBpmNodeLogicImpl
     extends JBpmNodeLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmNodeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @return !this.getTasks().isEmpty()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmNode#isTaskNode()
      */
     protected boolean handleIsTaskNode()
@@ -29,9 +30,10 @@ public class JBpmNodeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmNodeLogic#handleGetSwimlane()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmNode#getSwimlane()
      */
-    protected java.lang.Object handleGetSwimlane()
+    protected Object handleGetSwimlane()
     {
         return this.getPartition();
     }

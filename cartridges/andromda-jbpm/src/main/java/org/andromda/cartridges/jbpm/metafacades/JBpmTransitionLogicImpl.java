@@ -4,7 +4,6 @@ import org.andromda.cartridges.jbpm.JBpmProfile;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.GuardFacade;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmTransition.
  *
@@ -13,17 +12,27 @@ import org.andromda.metafacades.uml.GuardFacade;
 public class JBpmTransitionLogicImpl
         extends JBpmTransitionLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmTransitionLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogic#handleIsContainedInBusinessProcess()
+     */
     protected boolean handleIsContainedInBusinessProcess()
     {
         return this.getSource().getStateMachine() instanceof ActivityGraphFacade &&
                 ((ActivityGraphFacade)this.getSource().getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogic#handleGetCondition()
+     */
     protected String handleGetCondition()
     {
         String decision = null;
@@ -37,6 +46,9 @@ public class JBpmTransitionLogicImpl
         return decision;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogic#handleIsTaskNode()
+     */
     protected boolean handleIsTaskNode()
     {
         return hasStereotype(JBpmProfile.STEREOTYPE_TASK);

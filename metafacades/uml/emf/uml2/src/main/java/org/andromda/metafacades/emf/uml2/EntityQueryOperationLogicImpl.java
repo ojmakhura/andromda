@@ -13,6 +13,10 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class EntityQueryOperationLogicImpl
     extends EntityQueryOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EntityQueryOperationLogicImpl(
         final Object metaObject,
         final String context)
@@ -21,9 +25,11 @@ public class EntityQueryOperationLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityQueryOperation#getQuery(java.lang.String)
+     * @param translation 
+     * @return query
+     * @see org.andromda.metafacades.uml.EntityQueryOperation#getQuery(String)
      */
-    protected java.lang.String handleGetQuery(final java.lang.String translation)
+    protected String handleGetQuery(final String translation)
     {
         ExceptionUtils.checkEmpty(
             "translation",

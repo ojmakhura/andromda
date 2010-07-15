@@ -2,7 +2,6 @@ package org.andromda.cartridges.hibernate;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-
 import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
@@ -118,6 +117,9 @@ public class HibernateUtils
         this.hibernateXmlPersistence = hibernateXmlPersistence;
     }
 
+    /**
+     * @return isXmlPersistenceActive
+     */
     public boolean isXmlPersistenceActive()
     {
         return isXmlPersistenceActive(
@@ -125,6 +127,11 @@ public class HibernateUtils
             this.hibernateXmlPersistence);
     }
 
+    /**
+     * @param hibernateVersionPropertyValue
+     * @param hibernateXMLPersistencePropertyValue
+     * @return isXmlPersistenceActive
+     */
     public static boolean isXmlPersistenceActive(
         String hibernateVersionPropertyValue,
         String hibernateXMLPersistencePropertyValue)
@@ -135,16 +142,26 @@ public class HibernateUtils
 
     private String hibernateMappingStrategy;
 
+    /**
+     * @param hibernateMappingStrategy
+     */
     public void setHibernateMappingStrategy(String hibernateMappingStrategy)
     {
         this.hibernateMappingStrategy = hibernateMappingStrategy;
     }
 
+    /**
+     * @return mapSubclassesInSeparateFile(this.hibernateMappingStrategy)
+     */
     public boolean isMapSubclassesInSeparateFile()
     {
         return mapSubclassesInSeparateFile(this.hibernateMappingStrategy);
     }
 
+    /**
+     * @param hibernateMappingStrategy
+     * @return mapSubclassesInSeparateFile
+     */
     public static boolean mapSubclassesInSeparateFile(
         String hibernateMappingStrategy)
     {

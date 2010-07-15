@@ -20,7 +20,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * <p>
  * Represents an entity EJB. </p> Metaclass facade implementation.
@@ -30,8 +29,12 @@ public class EJBEntityFacadeLogicImpl
     extends EJBEntityFacadeLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBEntityFacadeLogicImpl(
-        java.lang.Object metaObject,
+        Object metaObject,
         String context)
     {
         super(metaObject, context);
@@ -42,6 +45,9 @@ public class EJBEntityFacadeLogicImpl
      */
     private static final Logger logger = Logger.getLogger(EJBEntityFacadeLogicImpl.class);
 
+    /**
+     * @return identifiers
+     */
     public Collection handleGetIdentifiers()
     {
         Collection identifiers = new ArrayList();
@@ -73,9 +79,10 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @return getEntityRelations()
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getAllEntityRelations()
      */
-    protected java.util.Collection handleGetAllEntityRelations()
+    protected Collection handleGetAllEntityRelations()
     {
         // Only concrete entities may have EJB relations. Return
         // an empty collection for everything else
@@ -96,6 +103,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @return EJBMetafacadeUtils.getViewType(this)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getViewType()
      */
     protected String handleGetViewType()
@@ -104,9 +112,9 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEntityRelations()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetEntityRelations()
      */
-    protected java.util.Collection handleGetEntityRelations()
+    protected Collection handleGetEntityRelations()
     {
         Collection result = new ArrayList();
         for (final Iterator iterator = this.getAssociationEnds().iterator(); iterator.hasNext();)
@@ -133,7 +141,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getAllInstanceAttributes()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetAllInstanceAttributes()
      */
     protected List handleGetAllInstanceAttributes()
     {
@@ -141,7 +149,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getInheritedInstanceAttributes()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetInheritedInstanceAttributes()
      */
     protected List handleGetInheritedInstanceAttributes()
     {
@@ -149,6 +157,8 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetCreateMethods(boolean)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getCreateMethods(boolean)
      */
     protected Collection handleGetCreateMethods(boolean follow)
@@ -159,6 +169,8 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetSelectMethods(boolean)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getSelectMethods(boolean)
      */
     protected Collection handleGetSelectMethods(boolean follow)
@@ -190,6 +202,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @return getHomeInterfaceName
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getHomeInterfaceName()
      */
     protected String handleGetHomeInterfaceName()
@@ -198,6 +211,8 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return getEnvironmentEntries
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEnvironmentEntries(boolean)
      */
     protected Collection handleGetEnvironmentEntries(boolean follow)
@@ -208,6 +223,8 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return getConstants
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getConstants(boolean)
      */
     protected Collection handleGetConstants(boolean follow)
@@ -218,9 +235,10 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntity#getJndiName()
+     * @return jndiName
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getJndiName()
      */
-    protected java.lang.String handleGetJndiName()
+    protected String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
@@ -250,7 +268,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#allowSyntheticCreateMethod()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleIsSyntheticCreateMethodAllowed()
      */
     protected boolean handleIsSyntheticCreateMethodAllowed()
     {
@@ -258,7 +276,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getBusinessOperations()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#getBusinessOperations()
      */
     public Collection getBusinessOperations()
     {
@@ -281,7 +299,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getValueDependencies()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetValueDependencies()
      */
     protected Collection handleGetValueDependencies()
     {
@@ -307,7 +325,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsIdentifier(java.lang.String)
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleIsIdentifierPresent(String)
      */
     protected boolean handleIsIdentifierPresent(String identifier)
     {
@@ -325,7 +343,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsAttribute(java.lang.String)
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleIsAttributePresent(String)
      */
     protected boolean handleIsAttributePresent(String strAttr)
     {
@@ -343,7 +361,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#containsOperation(java.lang.String)
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleIsOperationPresent(String)
      */
     protected boolean handleIsOperationPresent(String op)
     {
@@ -399,7 +417,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getSqlType()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetSqlType()
      */
     protected String handleGetSqlType()
     {
@@ -412,9 +430,9 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getTransactionType()
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         String transactionType = (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))

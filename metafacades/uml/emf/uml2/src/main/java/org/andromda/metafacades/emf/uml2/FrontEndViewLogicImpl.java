@@ -17,7 +17,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndView.
  *
@@ -27,6 +26,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndViewLogicImpl
     extends FrontEndViewLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndViewLogicImpl(
         final Object metaObject,
         final String context)
@@ -35,6 +38,7 @@ public class FrontEndViewLogicImpl
     }
 
     /**
+     * @return hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW)
      * @see org.andromda.metafacades.uml.FrontEndView#isFrontEndView()
      */
     protected boolean handleIsFrontEndView()
@@ -61,6 +65,7 @@ public class FrontEndViewLogicImpl
      */
 
     /**
+     * @return useCase
      * @see org.andromda.metafacades.uml.FrontEndView#getUseCase()
      */
     protected Object handleGetUseCase()
@@ -102,6 +107,7 @@ public class FrontEndViewLogicImpl
     }
 
     /**
+     * @return getIncomings().getTrigger().getParameters()
      * @see org.andromda.metafacades.uml.FrontEndView#getVariables()
      */
     protected List handleGetVariables()
@@ -128,6 +134,7 @@ public class FrontEndViewLogicImpl
     }
 
     /**
+     * @return getActions().getParameters()
      * @see org.andromda.metafacades.uml.FrontEndView#getAllActionParameters()
      */
     protected List handleGetAllActionParameters()
@@ -143,6 +150,7 @@ public class FrontEndViewLogicImpl
     }
 
     /**
+     * @return getActions().getParameters()
      * @see org.andromda.metafacades.uml.FrontEndView#getAllFormFields()
      */
     protected List handleGetAllFormFields()
@@ -158,7 +166,8 @@ public class FrontEndViewLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.FrontEndView#getTables()
+     * @return getVariables() !isTable()
+     * @see org.andromda.metafacades.uml.FrontEndView#getTables()
      */
     protected List handleGetTables()
     {

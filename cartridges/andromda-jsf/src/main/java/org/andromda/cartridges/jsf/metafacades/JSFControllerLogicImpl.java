@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.metafacades;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -22,24 +21,30 @@ public class JSFControllerLogicImpl
     extends JSFControllerLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFControllerLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     
     /**
+     * @return implementationName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getImplementationName()
      */
-    protected java.lang.String handleGetImplementationName()
+    protected String handleGetImplementationName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
+     * @return fullyQualifiedImplementationName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getFullyQualifiedImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedImplementationName()
+    protected String handleGetFullyQualifiedImplementationName()
     {
         final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
@@ -51,6 +56,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedImplementationName().replace('.', '/')
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getFullyQualifiedImplementationPath()
      */
     protected String handleGetFullyQualifiedImplementationPath()
@@ -59,6 +65,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getBeanName()
      */
     protected String handleGetBeanName()
@@ -67,6 +74,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return references
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getSessionObjectReferences()
      */
     protected List handleGetSessionObjectReferences()
@@ -84,16 +92,14 @@ public class JSFControllerLogicImpl
     }
     
     /**
+     * @return controllerSerialVersionUID
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getControllerSerialVersionUID()
      */
-    protected java.lang.String handleGetControllerSerialVersionUID()
+    protected String handleGetControllerSerialVersionUID()
     {
            final StringBuilder buffer = new StringBuilder();
-
            buffer.append(this.getFullyQualifiedImplementationName());
-
            addSerialUIDData(buffer);
-           
            return JSFUtils.calcSerialVersionUID(buffer);
     }
 

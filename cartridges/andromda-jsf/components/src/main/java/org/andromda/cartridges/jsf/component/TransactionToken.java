@@ -17,6 +17,9 @@ public class TransactionToken
 
     private static final String RENDERER_TYPE = "org.andromda.cartridges.jsf.TransactionToken";
 
+    /**
+     * 
+     */
     public TransactionToken()
     {
         super();

@@ -186,6 +186,7 @@ public class TagDefinitionImpl
 
     /**
      * @see org.eclipse.uml2.NamedElement#createNameExpression(org.eclipse.emf.ecore.EClass)
+     * @deprecated
      */
     public StringExpression createNameExpression(final EClass arg0)
     {
@@ -323,7 +324,9 @@ public class TagDefinitionImpl
     }
 
     /**
+     * @return null
      * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding(org.eclipse.emf.ecore.EClass)
+     * @deprecated
      */
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
@@ -412,7 +415,9 @@ public class TagDefinitionImpl
     }
 
     /**
+     * @return null
      * @see org.eclipse.uml2.Element#createOwnedComment(org.eclipse.emf.ecore.EClass)
+     * @deprecated
      */
     public Comment createOwnedComment(final EClass arg0)
     {

@@ -13,6 +13,10 @@ import org.eclipse.uml2.Transition;
 public class ActionFacadeLogicImpl
     extends ActionFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ActionFacadeLogicImpl(
         final org.eclipse.uml2.Action metaObject,
         final String context)
@@ -21,23 +25,28 @@ public class ActionFacadeLogicImpl
     }
 
     /**
+     * @return owner
      * @see org.andromda.metafacades.uml.ActionFacade#getTransition()
      */
-    protected java.lang.Object handleGetTransition()
+    protected Object handleGetTransition()
     {
         final Element owner = this.metaObject.getActivity().getOwner();
         return owner instanceof Transition ? owner : null;
     }
 
     /**
+     * @return owner
      * @see org.andromda.metafacades.uml.ActionFacade#getActionState()
      */
-    protected java.lang.Object handleGetActionState()
+    protected Object handleGetActionState()
     {
         final Element owner = this.metaObject.getActivity().getOwner();
         return owner instanceof State ? owner : null;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         Object validationOwner = getTransition();

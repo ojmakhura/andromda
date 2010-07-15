@@ -1,6 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFControllerOperationLogic;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.ObjectUtils;
@@ -16,24 +15,30 @@ public class JSFControllerOperationLogicImpl
     extends JSFControllerOperationLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFControllerOperationLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @return formName
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormName()
      */
-    protected java.lang.String handleGetFormName()
+    protected String handleGetFormName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_PATTERN));
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
+     * @return fullyQualifiedFormName
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFullyQualifiedFormName()
      */
-    protected java.lang.String handleGetFullyQualifiedFormName()
+    protected String handleGetFullyQualifiedFormName()
     {
         final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
@@ -45,14 +50,16 @@ public class JSFControllerOperationLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedFormName().replace('.', '/')
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFullyQualifiedFormPath()
      */
-    protected java.lang.String handleGetFullyQualifiedFormPath()
+    protected String handleGetFullyQualifiedFormPath()
     {
         return this.getFullyQualifiedFormName().replace('.', '/');
     }
 
     /**
+     * @return formCall
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormCall()
      */
     protected String handleGetFormCall()
@@ -69,7 +76,8 @@ public class JSFControllerOperationLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getmplementationFormSignature()
+     * @return getFormSignature(false)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature()
     {
@@ -77,6 +85,7 @@ public class JSFControllerOperationLogicImpl
     }
     
     /**
+     * @return getFormSignature(true)
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormSignature()
      */
     protected String handleGetFormSignature()

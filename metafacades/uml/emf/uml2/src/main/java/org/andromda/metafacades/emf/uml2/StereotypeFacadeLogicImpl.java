@@ -10,6 +10,10 @@ package org.andromda.metafacades.emf.uml2;
 public class StereotypeFacadeLogicImpl
     extends StereotypeFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StereotypeFacadeLogicImpl(
         final org.eclipse.uml2.Stereotype metaObject,
         final String context)

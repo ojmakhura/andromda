@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionRecorder;
@@ -189,6 +190,10 @@ public class EJB3EntityFacadeLogicImpl
 
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJB3EntityFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
@@ -199,7 +204,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * This was meant to overrides the default implementation in EntityLogicImpl.java.
      * TODO: check - is it really required?
-     *
+     * @return identifiers
      * @see EJB3EntityFacade#getIdentifiers()
      */
     public Collection handleGetIdentifiers()
@@ -282,9 +287,10 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @return getEntityRelations()
      * @see EJB3EntityFacade#getAllEntityRelations()
      */
-    protected java.util.Collection handleGetAllEntityRelations()
+    protected Collection handleGetAllEntityRelations()
     {
         return this.getEntityRelations();
     }
@@ -333,17 +339,19 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @return EJB3MetafacadeUtils.getAllInstanceAttributes(this)
      * @see EJB3EntityFacade#getAllInstanceAttributes()
      */
-    protected java.util.List handleGetAllInstanceAttributes()
+    protected List handleGetAllInstanceAttributes()
     {
         return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
     }
 
     /**
+     * @return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this)
      * @see EJB3EntityFacade#getInheritedInstanceAttributes()
      */
-    protected java.util.List handleGetInheritedInstanceAttributes()
+    protected List handleGetInheritedInstanceAttributes()
     {
         return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
     }
@@ -358,11 +366,12 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @return dependencies
      * @see EJB3EntityFacade#getValueDependencies()
      *
      * NOTE: This is not required since ValueObject no longer exist and replaced with POJOs
      */
-    protected java.util.Collection handleGetValueDependencies()
+    protected Collection handleGetValueDependencies()
     {
         Collection dependencies = super.getSourceDependencies();
         CollectionUtils.filter(
@@ -385,9 +394,10 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @return entityRelations
      * @see EJB3EntityFacade#getEntityRelations()
      */
-    protected java.util.Collection handleGetEntityRelations()
+    protected Collection handleGetEntityRelations()
     {
         Collection result = new ArrayList();
         for (final Iterator endIt = this.getAssociationEnds().iterator(); endIt.hasNext();)
@@ -404,17 +414,21 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getCreateMethods(this, follow)
      * @see EJB3EntityFacade#getCreateMethods(boolean)
      */
-    protected java.util.Collection handleGetCreateMethods(boolean follow)
+    protected Collection handleGetCreateMethods(boolean follow)
     {
         return EJB3MetafacadeUtils.getCreateMethods(this, follow);
     }
 
     /**
+     * @param follow 
+     * @return selectMethods
      * @see EJB3EntityFacade#getSelectMethods(boolean)
      */
-    protected java.util.Collection handleGetSelectMethods(boolean follow)
+    protected Collection handleGetSelectMethods(boolean follow)
     {
         Collection retval = new ArrayList();
         EJB3EntityFacade entity = null;
@@ -443,17 +457,21 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow)
      * @see EJB3EntityFacade#getEnvironmentEntries(boolean)
      */
-    protected java.util.Collection handleGetEnvironmentEntries(boolean follow)
+    protected Collection handleGetEnvironmentEntries(boolean follow)
     {
         return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
     /**
+     * @param follow 
+     * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3EntityFacade#getConstants(boolean)
      */
-    protected java.util.Collection handleGetConstants(boolean follow)
+    protected Collection handleGetConstants(boolean follow)
     {
         return EJB3MetafacadeUtils.getConstants(this, follow);
     }
@@ -710,7 +728,9 @@ public class EJB3EntityFacadeLogicImpl
 
     /**
      * Override the default table name definition to lookup the tagged value first.
+     * @return tableName
      */
+    @Override
     public String getTableName()
     {
         String tableName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_ENTITY_TABLE_NAME);
@@ -949,7 +969,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see EJB3EntityFacadeLogic#handleGetAttributesAsList(java.util.Collection, boolean, boolean, boolean)
+     * @see EJB3EntityFacadeLogic#handleGetAttributesAsList(Collection, boolean, boolean, boolean)
      */
     @Override
     protected String handleGetAttributesAsList(

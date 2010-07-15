@@ -13,14 +13,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.WindowState;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadException;
@@ -38,7 +36,7 @@ import org.apache.myfaces.webapp.filter.MultipartRequestWrapper;
  * @author Sylvain Vieujot
  */
 public class MultipartPortletRequestWrapper
-    implements ActionRequest, MultipartRequest
+implements ActionRequest, MultipartRequest
 {
     private static Log log = LogFactory.getLog(MultipartPortletRequestWrapper.class);
 
@@ -50,17 +48,23 @@ public class MultipartPortletRequestWrapper
 
     private Map fileItems = null;
 
-    private int maxSize;
+    private final int maxSize;
 
-    private int thresholdSize;
+    private final int thresholdSize;
 
-    private String repositoryPath;
+    private final String repositoryPath;
 
+    /**
+     * @param request
+     * @param maxSize
+     * @param thresholdSize
+     * @param repositoryPath
+     */
     public MultipartPortletRequestWrapper(
-        ActionRequest request,
-        int maxSize,
-        int thresholdSize,
-        String repositoryPath)
+        final ActionRequest request,
+        final int maxSize,
+        final int thresholdSize,
+        final String repositoryPath)
     {
         this.request = request;
         this.maxSize = maxSize;
@@ -70,18 +74,20 @@ public class MultipartPortletRequestWrapper
 
     private void parseRequest()
     {
-        DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+        final DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 
         diskFileItemFactory.setSizeThreshold(thresholdSize);
 
         if (repositoryPath != null && repositoryPath.trim().length() > 0)
+        {
             diskFileItemFactory.setRepository(new File(repositoryPath));
+        }
 
         fileUpload = new PortletFileUpload();
         fileUpload.setFileItemFactory(diskFileItemFactory);
         fileUpload.setSizeMax(maxSize);
 
-        String charset = request.getCharacterEncoding();
+        final String charset = request.getCharacterEncoding();
         fileUpload.setHeaderEncoding(charset);
 
         List requestParameters = null;
@@ -89,34 +95,35 @@ public class MultipartPortletRequestWrapper
         {
             requestParameters = fileUpload.parseRequest(request);
         }
-        catch (FileUploadBase.SizeLimitExceededException e)
+        catch (final FileUploadBase.SizeLimitExceededException e)
         {
-
             // TODO: find a way to notify the user about the fact that the
             // uploaded file exceeded size limit
 
-            if (log.isInfoEnabled())
-                log.info("user tried to upload a file that exceeded file-size limitations.", e);
+            if (MultipartPortletRequestWrapper.log.isInfoEnabled())
+            {
+                MultipartPortletRequestWrapper.log.info("user tried to upload a file that exceeded file-size limitations.", e);
+            }
 
             requestParameters = Collections.EMPTY_LIST;
 
         }
-        catch (FileUploadException fue)
+        catch (final FileUploadException fue)
         {
-            log.error("Exception while uploading file.", fue);
+            MultipartPortletRequestWrapper.log.error("Exception while uploading file.", fue);
             requestParameters = Collections.EMPTY_LIST;
         }
 
         parametersMap = new HashMap(requestParameters.size());
         fileItems = new HashMap();
 
-        for (Iterator iter = requestParameters.iterator(); iter.hasNext();)
+        for (final Iterator iter = requestParameters.iterator(); iter.hasNext();)
         {
-            FileItem fileItem = (FileItem)iter.next();
+            final FileItem fileItem = (FileItem)iter.next();
 
             if (fileItem.isFormField())
             {
-                String name = fileItem.getFieldName();
+                final String name = fileItem.getFieldName();
 
                 // The following code avoids commons-fileupload charset problem.
                 // After fixing commons-fileupload, this code should be
@@ -134,7 +141,7 @@ public class MultipartPortletRequestWrapper
                     {
                         value = new String(fileItem.get(), charset);
                     }
-                    catch (UnsupportedEncodingException e)
+                    catch (final UnsupportedEncodingException e)
                     {
                         value = fileItem.getString();
                     }
@@ -152,22 +159,22 @@ public class MultipartPortletRequestWrapper
         }
 
         // Add the query string paramters
-        for (Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext();)
+        for (final Iterator it = request.getParameterMap().entrySet().iterator(); it.hasNext();)
         {
-            Map.Entry entry = (Map.Entry)it.next();
-            String[] valuesArray = (String[])entry.getValue();
-            for (int i = 0; i < valuesArray.length; i++)
+            final Map.Entry entry = (Map.Entry)it.next();
+            final String[] valuesArray = (String[])entry.getValue();
+            for (final String element : valuesArray)
             {
-                addTextParameter((String)entry.getKey(), valuesArray[i]);
+                addTextParameter((String)entry.getKey(), element);
             }
         }
     }
 
-    private void addTextParameter(String name, String value)
+    private void addTextParameter(final String name, final String value)
     {
         if (!parametersMap.containsKey(name))
         {
-            String[] valuesArray =
+            final String[] valuesArray =
             {
                 value
             };
@@ -175,77 +182,105 @@ public class MultipartPortletRequestWrapper
         }
         else
         {
-            String[] storedValues = (String[])parametersMap.get(name);
-            int lengthSrc = storedValues.length;
-            String[] valuesArray = new String[lengthSrc + 1];
+            final String[] storedValues = (String[])parametersMap.get(name);
+            final int lengthSrc = storedValues.length;
+            final String[] valuesArray = new String[lengthSrc + 1];
             System.arraycopy(storedValues, 0, valuesArray, 0, lengthSrc);
             valuesArray[lengthSrc] = value;
             parametersMap.put(name, valuesArray);
         }
     }
 
+    /**
+     * @see javax.portlet.PortletRequest#getParameterNames()
+     */
     public Enumeration getParameterNames()
     {
         if (parametersMap == null)
+        {
             parseRequest();
+        }
 
         return Collections.enumeration(parametersMap.keySet());
     }
 
-    public String getParameter(String name)
+    /**
+     * @see javax.portlet.PortletRequest#getParameter(String)
+     */
+    public String getParameter(final String name)
     {
         if (parametersMap == null)
+        {
             parseRequest();
+        }
 
-        String[] values = (String[])parametersMap.get(name);
+        final String[] values = (String[])parametersMap.get(name);
         if (values == null)
+        {
             return null;
+        }
         return values[0];
     }
 
-    public String[] getParameterValues(String name)
+    /**
+     * @see javax.portlet.PortletRequest#getParameterValues(String)
+     */
+    public String[] getParameterValues(final String name)
     {
         if (parametersMap == null)
+        {
             parseRequest();
+        }
 
         return (String[])parametersMap.get(name);
     }
 
+    /**
+     * @see javax.portlet.PortletRequest#getParameterMap()
+     */
     public Map getParameterMap()
     {
         if (parametersMap == null)
+        {
             parseRequest();
+        }
 
         return parametersMap;
     }
 
     // Hook for the x:inputFileUpload tag.
-    public FileItem getFileItem(String fieldName)
+    /**
+     * @see org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.support.MultipartRequest#getFileItem(String)
+     */
+    public FileItem getFileItem(final String fieldName)
     {
         if (fileItems == null)
+        {
             parseRequest();
+        }
 
         return (FileItem)fileItems.get(fieldName);
     }
 
     /**
-     * Not used internaly by MyFaces, but provides a way to handle the uploaded
+     * Not used internally by MyFaces, but provides a way to handle the uploaded
      * files out of MyFaces.
+     * @return fileItems
      */
     public Map getFileItems()
     {
         if (fileItems == null)
+        {
             parseRequest();
+        }
 
         return fileItems;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#getAttribute(java.lang.String)
+    /**
+     * @see javax.portlet.PortletRequest#getAttribute(String)
      */
-    public Object getAttribute(String arg0)
+    public Object getAttribute(final String arg0)
     {
         if (arg0.equals(MultipartRequestWrapper.UPLOADED_FILES_ATTRIBUTE))
         {
@@ -254,9 +289,7 @@ public class MultipartPortletRequestWrapper
         return request.getAttribute(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getAttributeNames()
      */
     public Enumeration getAttributeNames()
@@ -264,9 +297,7 @@ public class MultipartPortletRequestWrapper
         return request.getAttributeNames();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getAuthType()
      */
     public String getAuthType()
@@ -274,9 +305,7 @@ public class MultipartPortletRequestWrapper
         return request.getAuthType();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getContextPath()
      */
     public String getContextPath()
@@ -284,9 +313,7 @@ public class MultipartPortletRequestWrapper
         return request.getContextPath();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getLocale()
      */
     public Locale getLocale()
@@ -294,9 +321,7 @@ public class MultipartPortletRequestWrapper
         return request.getLocale();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getLocales()
      */
     public Enumeration getLocales()
@@ -304,9 +329,7 @@ public class MultipartPortletRequestWrapper
         return request.getLocales();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPortalContext()
      */
     public PortalContext getPortalContext()
@@ -314,9 +337,7 @@ public class MultipartPortletRequestWrapper
         return request.getPortalContext();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPortletMode()
      */
     public PortletMode getPortletMode()
@@ -324,9 +345,7 @@ public class MultipartPortletRequestWrapper
         return request.getPortletMode();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPortletSession()
      */
     public PortletSession getPortletSession()
@@ -334,19 +353,15 @@ public class MultipartPortletRequestWrapper
         return request.getPortletSession();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPortletSession(boolean)
      */
-    public PortletSession getPortletSession(boolean arg0)
+    public PortletSession getPortletSession(final boolean arg0)
     {
         return request.getPortletSession(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPreferences()
      */
     public PortletPreferences getPreferences()
@@ -354,29 +369,23 @@ public class MultipartPortletRequestWrapper
         return request.getPreferences();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#getProperties(java.lang.String)
+    /**
+     * @see javax.portlet.PortletRequest#getProperties(String)
      */
-    public Enumeration getProperties(String arg0)
+    public Enumeration getProperties(final String arg0)
     {
         return request.getProperties(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#getProperty(java.lang.String)
+    /**
+     * @see javax.portlet.PortletRequest#getProperty(String)
      */
-    public String getProperty(String arg0)
+    public String getProperty(final String arg0)
     {
         return request.getProperty(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getPropertyNames()
      */
     public Enumeration getPropertyNames()
@@ -384,9 +393,7 @@ public class MultipartPortletRequestWrapper
         return request.getPropertyNames();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getRemoteUser()
      */
     public String getRemoteUser()
@@ -394,9 +401,7 @@ public class MultipartPortletRequestWrapper
         return request.getRemoteUser();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getRequestedSessionId()
      */
     public String getRequestedSessionId()
@@ -404,9 +409,7 @@ public class MultipartPortletRequestWrapper
         return request.getRequestedSessionId();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getResponseContentType()
      */
     public String getResponseContentType()
@@ -414,9 +417,7 @@ public class MultipartPortletRequestWrapper
         return request.getResponseContentType();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getResponseContentTypes()
      */
     public Enumeration getResponseContentTypes()
@@ -424,9 +425,7 @@ public class MultipartPortletRequestWrapper
         return request.getResponseContentTypes();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getScheme()
      */
     public String getScheme()
@@ -434,9 +433,7 @@ public class MultipartPortletRequestWrapper
         return request.getScheme();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getServerName()
      */
     public String getServerName()
@@ -444,9 +441,7 @@ public class MultipartPortletRequestWrapper
         return request.getServerName();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getServerPort()
      */
     public int getServerPort()
@@ -454,9 +449,7 @@ public class MultipartPortletRequestWrapper
         return request.getServerPort();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getUserPrincipal()
      */
     public Principal getUserPrincipal()
@@ -464,9 +457,7 @@ public class MultipartPortletRequestWrapper
         return request.getUserPrincipal();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#getWindowState()
      */
     public WindowState getWindowState()
@@ -474,19 +465,15 @@ public class MultipartPortletRequestWrapper
         return request.getWindowState();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#isPortletModeAllowed(javax.portlet.PortletMode)
      */
-    public boolean isPortletModeAllowed(PortletMode arg0)
+    public boolean isPortletModeAllowed(final PortletMode arg0)
     {
         return request.isPortletModeAllowed(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#isRequestedSessionIdValid()
      */
     public boolean isRequestedSessionIdValid()
@@ -494,9 +481,7 @@ public class MultipartPortletRequestWrapper
         return request.isRequestedSessionIdValid();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#isSecure()
      */
     public boolean isSecure()
@@ -504,50 +489,40 @@ public class MultipartPortletRequestWrapper
         return request.isSecure();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#isUserInRole(java.lang.String)
+    /**
+     * @see javax.portlet.PortletRequest#isUserInRole(String)
      */
-    public boolean isUserInRole(String arg0)
+    public boolean isUserInRole(final String arg0)
     {
         return request.isUserInRole(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.PortletRequest#isWindowStateAllowed(javax.portlet.WindowState)
      */
-    public boolean isWindowStateAllowed(WindowState arg0)
+    public boolean isWindowStateAllowed(final WindowState arg0)
     {
         return request.isWindowStateAllowed(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#removeAttribute(java.lang.String)
+    /**
+     * @see javax.portlet.PortletRequest#removeAttribute(String)
      */
-    public void removeAttribute(String arg0)
+    public void removeAttribute(final String arg0)
     {
         request.removeAttribute(arg0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.PortletRequest#setAttribute(java.lang.String,
-     *      java.lang.Object)
+    /**
+     * @see javax.portlet.PortletRequest#setAttribute(String,
+     *      Object)
      */
-    public void setAttribute(String arg0, Object arg1)
+    public void setAttribute(final String arg0, final Object arg1)
     {
         request.setAttribute(arg0, arg1);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.ActionRequest#getCharacterEncoding()
      */
     public String getCharacterEncoding()
@@ -555,9 +530,7 @@ public class MultipartPortletRequestWrapper
         return request.getCharacterEncoding();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.ActionRequest#getContentLength()
      */
     public int getContentLength()
@@ -565,9 +538,7 @@ public class MultipartPortletRequestWrapper
         return request.getContentLength();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.ActionRequest#getContentType()
      */
     public String getContentType()
@@ -575,9 +546,7 @@ public class MultipartPortletRequestWrapper
         return request.getContentType();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.ActionRequest#getPortletInputStream()
      */
     public InputStream getPortletInputStream() throws IOException
@@ -585,9 +554,7 @@ public class MultipartPortletRequestWrapper
         return request.getPortletInputStream();
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /**
      * @see javax.portlet.ActionRequest#getReader()
      */
     public BufferedReader getReader() throws UnsupportedEncodingException, IOException
@@ -595,12 +562,10 @@ public class MultipartPortletRequestWrapper
         return request.getReader();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.portlet.ActionRequest#setCharacterEncoding(java.lang.String)
+    /**
+     * @see javax.portlet.ActionRequest#setCharacterEncoding(String)
      */
-    public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException
+    public void setCharacterEncoding(final String arg0) throws UnsupportedEncodingException
     {
         request.setCharacterEncoding(arg0);
     }

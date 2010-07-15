@@ -22,6 +22,10 @@ import org.apache.log4j.Logger;
 public class EntityAttributeLogicImpl
     extends EntityAttributeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EntityAttributeLogicImpl(
         final Object metaObject,
         final String context)
@@ -36,7 +40,7 @@ public class EntityAttributeLogicImpl
 
     /**
      * Overridden to provide name masking.
-     *
+     * @return name
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
@@ -49,17 +53,19 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return columnLength
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnLength()
      */
-    protected java.lang.String handleGetColumnLength()
+    protected String handleGetColumnLength()
     {
         return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
     }
 
     /**
+     * @return columnName
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
      */
-    protected java.lang.String handleGetColumnName()
+    protected String handleGetColumnName()
     {
         final Short maxSqlNameLength =
             Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
@@ -75,6 +81,7 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI)
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcMappings()
      */
     protected org.andromda.metafacades.uml.TypeMappings handleGetJdbcMappings()
@@ -83,9 +90,10 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return jdbcType
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
      */
-    protected java.lang.String handleGetJdbcType()
+    protected String handleGetJdbcType()
     {
         String value = null;
         if (this.getJdbcMappings() != null)
@@ -102,6 +110,7 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI)
      * @see org.andromda.metafacades.uml.EntityAttribute#getSqlMappings()
      */
     protected org.andromda.metafacades.uml.TypeMappings handleGetSqlMappings()
@@ -110,9 +119,10 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return sqlType
      * @see org.andromda.metafacades.uml.EntityAttribute#getSqlType()
      */
-    protected java.lang.String handleGetSqlType()
+    protected String handleGetSqlType()
     {
         String value = null;
         if (this.getSqlMappings() != null)
@@ -145,6 +155,7 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER)
      * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
      */
     protected boolean handleIsIdentifier()
@@ -153,6 +164,7 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return hasStereotype(UMLProfile.STEREOTYPE_UNIQUE)
      * @see org.andromda.metafacades.uml.EntityAttribute#isUnique()
      */
     protected boolean handleIsUnique()
@@ -162,9 +174,10 @@ public class EntityAttributeLogicImpl
     }
 
     /**
+     * @return columnIndex
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnIndex()
      */
-    protected java.lang.String handleGetColumnIndex()
+    protected String handleGetColumnIndex()
     {
         final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
@@ -210,12 +223,16 @@ public class EntityAttributeLogicImpl
         return mappings;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.EntityAttributeLogic#handleIsTransient()
+     */
     protected boolean handleIsTransient()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);
     }
 
     /**
+     * @return uniqueGroup
      * @see org.andromda.metafacades.uml.EntityAttribute#getUniqueGroup()
      */
     protected String handleGetUniqueGroup() {

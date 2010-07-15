@@ -10,15 +10,20 @@ public class JSFSessionObjectLogicImpl
     extends JSFSessionObjectLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFSessionObjectLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     
     /**
+     * @return '/' + getFullyQualifiedName().replace('.', '/')
      * @see org.andromda.cartridges.jsf.metafacades.JSFSessionObject#getFullPath()
      */
-    protected java.lang.String handleGetFullPath()
+    protected String handleGetFullPath()
     {
         return '/' + this.getFullyQualifiedName().replace('.', '/');
     }

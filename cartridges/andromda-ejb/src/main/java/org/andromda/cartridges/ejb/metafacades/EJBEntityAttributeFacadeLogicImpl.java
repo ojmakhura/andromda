@@ -13,15 +13,20 @@ public class EJBEntityAttributeFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBEntityAttributeFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityAttributeFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }

@@ -10,6 +10,10 @@ public class TopicLogicImpl
     extends TopicLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public TopicLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

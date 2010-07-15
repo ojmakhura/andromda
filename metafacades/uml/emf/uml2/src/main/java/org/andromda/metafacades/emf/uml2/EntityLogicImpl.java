@@ -934,12 +934,9 @@ public class EntityLogicImpl
     @Override
     protected Collection handleGetIdentifierAssociationEnds() {
         Collection associationEnds = new ArrayList(this.getAssociationEnds());
-        if (associationEnds != null)
-        {
-            MetafacadeUtils.filterByStereotype(
-                associationEnds,
-                UMLProfile.STEREOTYPE_IDENTIFIER);
-        }
+        MetafacadeUtils.filterByStereotype(
+            associationEnds,
+            UMLProfile.STEREOTYPE_IDENTIFIER);
         return associationEnds;
     }
 
@@ -955,7 +952,7 @@ public class EntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityLogic#getAllEntityReferences()
+     * @see EntityLogic#getAllEntityReferences()
      */
     @Override
     protected Collection<DependencyFacade> handleGetAllEntityReferences()
@@ -982,7 +979,7 @@ public class EntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityLogic#getEmbeddedValues()
+     * @see EntityLogic#getEmbeddedValues()
      */
     @Override
     protected Collection<AttributeFacade> handleGetEmbeddedValues()

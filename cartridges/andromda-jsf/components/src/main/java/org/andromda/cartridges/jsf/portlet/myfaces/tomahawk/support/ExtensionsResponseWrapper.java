@@ -9,13 +9,11 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Locale;
-
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-
 import org.xml.sax.InputSource;
 
 /**
@@ -23,36 +21,47 @@ import org.xml.sax.InputSource;
  * @author Chad Brandon
  */
 public class ExtensionsResponseWrapper
-    extends HttpServletResponseWrapper
-    implements RenderResponse
+extends HttpServletResponseWrapper
+implements RenderResponse
 {
     private ByteArrayOutputStream stream = null;
     private PrintWriter printWriter = null;
     private String contentType;
 
-    private RenderResponse response;
+    private final RenderResponse response;
 
+    /**
+     * @param servletResponse
+     * @param response
+     */
     public ExtensionsResponseWrapper(
-        HttpServletResponse servletResponse,
-        RenderResponse response)
+        final HttpServletResponse servletResponse,
+        final RenderResponse response)
     {
         super(servletResponse);
         this.response = response;
         stream = new ByteArrayOutputStream();
     }
 
+    /**
+     * @return stream.toByteArray()
+     */
     public byte[] getBytes()
     {
         return stream.toByteArray();
     }
 
+    /**
+     * @see Object#toString()
+     */
+    @Override
     public String toString()
     {
         try
         {
-            return this.stream.toString(getCharacterEncoding());
+            return stream.toString(getCharacterEncoding());
         }
-        catch (UnsupportedEncodingException e)
+        catch (final UnsupportedEncodingException e)
         {
             // an attempt to set an invalid character encoding would have caused
             // this exception before
@@ -63,14 +72,13 @@ public class ExtensionsResponseWrapper
 
     /**
      * This method is used by Tomcat.
-     *
-     * @throws IOException
      */
+    @Override
     public PrintWriter getWriter()
     {
         if (printWriter == null)
         {
-            OutputStreamWriter streamWriter = new OutputStreamWriter(this.stream, Charset.forName(getCharacterEncoding()));
+            final OutputStreamWriter streamWriter = new OutputStreamWriter(stream, Charset.forName(getCharacterEncoding()));
             printWriter = new PrintWriter(streamWriter, true);
         }
         return printWriter;
@@ -81,40 +89,60 @@ public class ExtensionsResponseWrapper
      *
      * @throws IOException
      */
+    @Override
     public ServletOutputStream getOutputStream() throws IOException
     {
-        return new MyServletOutputStream(this.stream);
+        return new MyServletOutputStream(stream);
     }
 
+    /**
+     * @return inputSource
+     */
     public InputSource getInputSource()
     {
-        ByteArrayInputStream bais = new ByteArrayInputStream(stream.toByteArray());
+        final ByteArrayInputStream bais = new ByteArrayInputStream(stream.toByteArray());
         return new InputSource(bais);
     }
 
     /**
      * Prevent content-length being set as the page might be modified.
      */
-    public void setContentLength(int contentLength)
+    @Override
+    public void setContentLength(final int contentLength)
     {
     }
 
-    public void setContentType(String contentType)
+    /**
+     * @see javax.servlet.ServletResponseWrapper#setContentType(String)
+     */
+    @Override
+    public void setContentType(final String contentType)
     {
         super.setContentType(contentType);
         this.contentType = contentType;
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#getContentType()
+     */
+    @Override
     public String getContentType()
     {
         return contentType;
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#flushBuffer()
+     */
+    @Override
     public void flushBuffer() throws IOException
     {
-        this.stream.flush();
+        stream.flush();
     }
 
+    /**
+     * 
+     */
     public void finishResponse()
     {
         try
@@ -125,13 +153,13 @@ public class ExtensionsResponseWrapper
             }
             else
             {
-                if (this.stream != null)
+                if (stream != null)
                 {
-                    this.stream.close();
+                    stream.close();
                 }
             }
         }
-        catch (IOException e)
+        catch (final IOException e)
         {
         }
     }
@@ -140,104 +168,160 @@ public class ExtensionsResponseWrapper
      * Used in the <code>getOutputStream()</code> method.
      */
     private class MyServletOutputStream
-        extends ServletOutputStream
+    extends ServletOutputStream
     {
-        private OutputStream outputStream;
+        private final OutputStream outputStream;
 
         public MyServletOutputStream(
-            OutputStream outputStream)
+            final OutputStream outputStream)
         {
             this.outputStream = outputStream;
         }
 
-        public void write(int b) throws IOException
+        @Override
+        public void write(final int b) throws IOException
         {
             outputStream.write(b);
         }
 
-        public void write(byte[] bytes) throws IOException
+        @Override
+        public void write(final byte[] bytes) throws IOException
         {
             outputStream.write(bytes);
         }
 
-        public void write(byte[] bytes, int off, int len) throws IOException
+        @Override
+        public void write(final byte[] bytes, final int off, final int len) throws IOException
         {
             outputStream.write(bytes, off, len);
         }
     }
 
+    /**
+     * @see javax.portlet.RenderResponse#createActionURL()
+     */
     public PortletURL createActionURL()
     {
-        return this.response.createActionURL();
+        return response.createActionURL();
     }
 
+    /**
+     * @see javax.portlet.RenderResponse#createRenderURL()
+     */
     public PortletURL createRenderURL()
     {
-        return this.response.createRenderURL();
+        return response.createRenderURL();
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#getBufferSize()
+     */
+    @Override
     public int getBufferSize()
     {
-        return this.response.getBufferSize();
+        return response.getBufferSize();
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#getCharacterEncoding()
+     */
+    @Override
     public String getCharacterEncoding()
     {
-        return this.response.getCharacterEncoding();
+        return response.getCharacterEncoding();
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#getLocale()
+     */
+    @Override
     public Locale getLocale()
     {
-        return this.response.getLocale();
+        return response.getLocale();
     }
 
+    /**
+     * @see javax.portlet.RenderResponse#getNamespace()
+     */
     public String getNamespace()
     {
-        return this.response.getNamespace();
+        return response.getNamespace();
     }
 
+    /**
+     * @see javax.portlet.RenderResponse#getPortletOutputStream()
+     */
     public OutputStream getPortletOutputStream() throws IOException
     {
-        return this.stream;
+        return stream;
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#isCommitted()
+     */
+    @Override
     public boolean isCommitted()
     {
-        return this.response.isCommitted();
+        return response.isCommitted();
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#reset()
+     */
+    @Override
     public void reset()
     {
-        this.response.reset();
+        response.reset();
     }
 
+    /**
+     * @see javax.servlet.ServletResponseWrapper#resetBuffer()
+     */
+    @Override
     public void resetBuffer()
     {
-        this.response.resetBuffer();
+        response.resetBuffer();
     }
 
-    public void setBufferSize(int bufferSize)
+    /**
+     * @see javax.servlet.ServletResponseWrapper#setBufferSize(int)
+     */
+    @Override
+    public void setBufferSize(final int bufferSize)
     {
-        this.response.setBufferSize(bufferSize);
+        response.setBufferSize(bufferSize);
     }
 
-    public void setTitle(String title)
+    /**
+     * @see javax.portlet.RenderResponse#setTitle(String)
+     */
+    public void setTitle(final String title)
     {
-        this.response.setTitle(title);
+        response.setTitle(title);
     }
 
-    public void addProperty(String arg0, String arg1)
+    /**
+     * @see javax.portlet.PortletResponse#addProperty(String, String)
+     */
+    public void addProperty(final String arg0, final String arg1)
     {
-        this.response.addProperty(arg0, arg1);
+        response.addProperty(arg0, arg1);
     }
 
-    public String encodeURL(String arg0)
+    /**
+     * @see javax.servlet.http.HttpServletResponseWrapper#encodeURL(String)
+     */
+    @Override
+    public String encodeURL(final String arg0)
     {
-        return this.response.encodeURL(arg0);
+        return response.encodeURL(arg0);
     }
 
-    public void setProperty(String arg0, String arg1)
+    /**
+     * @see javax.portlet.PortletResponse#setProperty(String, String)
+     */
+    public void setProperty(final String arg0, final String arg1)
     {
-        this.response.setProperty(arg0, arg1);
+        response.setProperty(arg0, arg1);
     }
 }

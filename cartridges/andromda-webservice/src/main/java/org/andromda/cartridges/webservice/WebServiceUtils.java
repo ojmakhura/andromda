@@ -1784,16 +1784,16 @@ public class WebServiceUtils
                     Object literal = literals.iterator().next();
                     if (literal instanceof EnumerationLiteralFacade)
                     {
-                    	EnumerationLiteralFacade enumLiteral = (EnumerationLiteralFacade) literal;
-                    	defaultValue = enumLiteral.getValue();
+                        EnumerationLiteralFacade enumLiteral = (EnumerationLiteralFacade) literal;
+                        defaultValue = enumLiteral.getValue();
                     }
                     else if (literal instanceof AttributeFacade)
                     {
-                    	AttributeFacade attrib = (AttributeFacade) literal;
+                        AttributeFacade attrib = (AttributeFacade) literal;
                         defaultValue = attrib.getEnumerationValue();
                         if (defaultValue==null)
                         {
-                        	defaultValue = attrib.getDefaultValue();
+                            defaultValue = attrib.getDefaultValue();
                         }
                     }
                     // Literal value is always a String. Remove quotes if part of default (i.e. class attribute).

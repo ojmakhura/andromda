@@ -16,11 +16,18 @@ import org.apache.commons.lang.StringUtils;
 public class JBpmActionLogicImpl
         extends JBpmActionLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmActionLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsContainedInBusinessProcess()
+     */
     protected boolean handleIsContainedInBusinessProcess()
     {
         boolean containedInBusinessProcess = false;
@@ -43,7 +50,9 @@ public class JBpmActionLogicImpl
     /**
      * We override this method in order to be able to return the call-event's operation name
      * when the event's name itself has not been specified.
+     * @return name
      */
+    @Override
     public String getName()
     {
         String name = super.getName();
@@ -61,6 +70,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsBeforeSignal()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isBeforeSignal()
      */
     protected boolean handleIsBeforeSignal()
@@ -69,6 +79,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsAfterSignal()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isAfterSignal()
      */
     protected boolean handleIsAfterSignal()
@@ -77,6 +88,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsNodeEnter()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isNodeEnter()
      */
     protected boolean handleIsNodeEnter()
@@ -85,6 +97,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsNodeLeave()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isNodeLeave()
      */
     protected boolean handleIsNodeLeave()
@@ -93,6 +106,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsTask()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isTask()
      */
     protected boolean handleIsTask()
@@ -102,6 +116,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsTimer()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isTimer()
      */
     protected boolean handleIsTimer()
@@ -110,6 +125,7 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsBlocking()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isBlocking()
      */
     protected boolean handleIsBlocking()
@@ -119,27 +135,35 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleGetDueDate()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#getDueDate()
      */
-    protected java.lang.String handleGetDueDate()
+    protected String handleGetDueDate()
     {
         return isTimer() ? (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_DUEDATE) : null;
     }
 
-    protected java.lang.String handleGetTimerRepeat()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleGetTimerRepeat()
+     */
+    protected String handleGetTimerRepeat()
     {
         return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_REPEAT);
     }
 
-    protected java.lang.String handleGetTimerTransition()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleGetTimerTransition()
+     */
+    protected String handleGetTimerTransition()
     {
         return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_TRANSITION);
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleGetClazz()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#getClazz()
      */
-    protected java.lang.String handleGetClazz()
+    protected String handleGetClazz()
     {
         String clazz = null;
         if (this.isAssignment() || this.isTimer())
@@ -164,15 +188,18 @@ public class JBpmActionLogicImpl
     }
 
     /**
+     * return null
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleGetConfigType()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#getConfigType()
      */
-    protected java.lang.String handleGetConfigType()
+    protected String handleGetConfigType()
     {
-        // @todo
+        // TODO
         return null;
     }
 
     /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmActionLogic#handleIsAssignment()
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isAssignment()
      */
     protected boolean handleIsAssignment()

@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,10 @@ import org.apache.commons.lang.StringUtils;
 public class EnumerationLiteralFacadeLogicImpl
     extends EnumerationLiteralFacadeLogic
 {
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public EnumerationLiteralFacadeLogicImpl(
         final org.eclipse.uml2.EnumerationLiteral metaObjectIn,
         final String context)
@@ -65,7 +70,7 @@ public class EnumerationLiteralFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml2.EnumerationLiteralFacade#getEnumerationValue()
+     * @see EnumerationLiteralFacade#getEnumerationValue()
      */
     @Override
     protected String handleGetEnumerationValue() 

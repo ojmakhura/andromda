@@ -9,11 +9,18 @@ public class EJBAssociationEndFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBAssociationEndFacadeLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogic#handleGetRelationType()
+     */
     public String handleGetRelationType()
     {
         String targetType;

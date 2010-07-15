@@ -2,7 +2,6 @@ package org.andromda.cartridges.jsf.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
@@ -15,15 +14,19 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class JSFPortletPreferencesLogicImpl
     extends JSFPortletPreferencesLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFPortletPreferencesLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     /**
+     * @return useCase
      * @see org.andromda.cartridges.jsf.metafacades.JSFPortletPreferences#getUseCase()
      */
-    protected java.lang.Object handleGetUseCase()
+    protected Object handleGetUseCase()
     {
         UseCaseFacade useCase = null;
         final Collection dependencies = this.getTargetDependencies();
@@ -42,5 +45,4 @@ public class JSFPortletPreferencesLogicImpl
         }
         return useCase;
     }
-
 }

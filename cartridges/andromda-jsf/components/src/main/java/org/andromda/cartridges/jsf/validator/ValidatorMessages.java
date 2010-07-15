@@ -1,12 +1,9 @@
 package org.andromda.cartridges.jsf.validator;
 
 import java.text.MessageFormat;
-
 import java.util.Locale;
 import java.util.MissingResourceException;
-
 import javax.faces.context.FacesContext;
-
 import org.andromda.cartridges.jsf.Messages;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
@@ -37,7 +34,7 @@ public class ValidatorMessages
         final Locale locale = context.getViewRoot().getLocale();
         String message = null;
         final String messageKey = action.getMsg();
-        if (message == null)
+        if (messageKey != null)
         {
             try
             {

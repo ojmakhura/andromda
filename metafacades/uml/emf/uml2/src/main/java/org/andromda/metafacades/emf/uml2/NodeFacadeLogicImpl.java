@@ -9,7 +9,10 @@ package org.andromda.metafacades.emf.uml2;
 public class NodeFacadeLogicImpl
     extends NodeFacadeLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public NodeFacadeLogicImpl (org.eclipse.uml2.Node metaObject, String context)
     {
         super (metaObject, context);

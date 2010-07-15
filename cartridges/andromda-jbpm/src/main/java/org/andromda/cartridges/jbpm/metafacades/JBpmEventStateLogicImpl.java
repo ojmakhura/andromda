@@ -1,9 +1,9 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -15,13 +15,19 @@ import java.util.Iterator;
 public class JBpmEventStateLogicImpl
     extends JBpmEventStateLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmEventStateLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
-    protected java.util.List handleGetBeforeSignals()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetBeforeSignals()
+     */
+    protected List handleGetBeforeSignals()
     {
         final List beforeSignals = new ArrayList();
 
@@ -38,7 +44,10 @@ public class JBpmEventStateLogicImpl
         return beforeSignals;
     }
 
-    protected java.util.List handleGetAfterSignals()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetAfterSignals()
+     */
+    protected List handleGetAfterSignals()
     {
         final List afterSignals = new ArrayList();
 
@@ -55,7 +64,10 @@ public class JBpmEventStateLogicImpl
         return afterSignals;
     }
 
-    protected java.util.List handleGetNodeEnters()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetNodeEnters()
+     */
+    protected List handleGetNodeEnters()
     {
         final List nodeEnters = new ArrayList();
 
@@ -72,7 +84,10 @@ public class JBpmEventStateLogicImpl
         return nodeEnters;
     }
 
-    protected java.util.List handleGetNodeLeaves()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetNodeLeaves()
+     */
+    protected List handleGetNodeLeaves()
     {
         final List nodeLeaves = new ArrayList();
 
@@ -89,7 +104,10 @@ public class JBpmEventStateLogicImpl
         return nodeLeaves;
     }
 
-    protected java.util.List handleGetTasks()
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetTasks()
+     */
+    protected List handleGetTasks()
     {
         final List tasks = new ArrayList();
 
@@ -106,6 +124,9 @@ public class JBpmEventStateLogicImpl
         return tasks;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetTimers()
+     */
     protected List handleGetTimers()
     {
         final List timers = new ArrayList();

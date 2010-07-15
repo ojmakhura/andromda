@@ -1,6 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFActivityGraphLogic;
 
 
 /**
@@ -11,7 +10,10 @@ import org.andromda.cartridges.jsf.metafacades.JSFActivityGraphLogic;
 public class JSFActivityGraphLogicImpl
     extends JSFActivityGraphLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFActivityGraphLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

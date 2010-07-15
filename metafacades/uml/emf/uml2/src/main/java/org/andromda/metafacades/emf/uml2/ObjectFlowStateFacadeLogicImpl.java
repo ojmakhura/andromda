@@ -11,6 +11,10 @@ package org.andromda.metafacades.emf.uml2;
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ObjectFlowStateFacadeLogicImpl(
         final Object metaObject,
         final String context)
@@ -19,9 +23,10 @@ public class ObjectFlowStateFacadeLogicImpl
     }
 
     /**
+     * @return null
      * @see org.andromda.metafacades.uml.ObjectFlowStateFacade#getType()
      */
-    protected java.lang.Object handleGetType()
+    protected Object handleGetType()
     {
         // TODO: add your implementation here!
         return null;

@@ -12,17 +12,21 @@ public class EJBSessionAttributeFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EJBSessionAttributeFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacadeLogic#handleGetTransactionType()
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
-
 }

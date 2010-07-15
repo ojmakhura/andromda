@@ -12,6 +12,10 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class FrontEndExceptionHandlerLogicImpl
     extends FrontEndExceptionHandlerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndExceptionHandlerLogicImpl(
         final Object metaObject,
         final String context)
@@ -20,6 +24,7 @@ public class FrontEndExceptionHandlerLogicImpl
     }
 
     /**
+     * @return hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_EXCEPTION)
      * @see org.andromda.metafacades.uml.FrontEndExceptionHandler#isFrontEndException()
      */
     protected boolean handleIsFrontEndException()

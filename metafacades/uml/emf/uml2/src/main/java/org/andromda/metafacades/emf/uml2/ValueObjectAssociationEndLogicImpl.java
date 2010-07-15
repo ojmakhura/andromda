@@ -13,6 +13,10 @@ import org.andromda.metafacades.uml.ValueObject;
 public class ValueObjectAssociationEndLogicImpl
     extends ValueObjectAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ValueObjectAssociationEndLogicImpl(
         final Object metaObject,
         final String context)
@@ -23,7 +27,7 @@ public class ValueObjectAssociationEndLogicImpl
     /**
      * Overridden to provide handling of array names within many type
      * multiplicities.
-     *
+     * @return getterSetterTypeName
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     protected String handleGetGetterSetterTypeName()
@@ -47,6 +51,7 @@ public class ValueObjectAssociationEndLogicImpl
     }
 
     /**
+     * @return getType() instanceof ValueObject
      * @see org.andromda.metafacades.uml.ValueObjectAssociationEnd#isValueObjectType()
      */
     protected boolean handleIsValueObjectType()

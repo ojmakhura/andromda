@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
 import org.apache.commons.collections.CollectionUtils;
 
 /**
@@ -9,15 +10,20 @@ import org.apache.commons.collections.CollectionUtils;
  */
 public class LinkFacadeLogicImpl extends LinkFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public LinkFacadeLogicImpl(LinkInstance metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return metaObject.getSlots()
      * @see org.andromda.metafacades.uml.LinkFacade#getLinkEnds()
      */
-    protected java.util.Collection handleGetLinkEnds()
+    protected Collection handleGetLinkEnds()
     {
         return CollectionUtils.collect(this.metaObject.getSlots(), UmlUtilities.ELEMENT_TRANSFORMER);
     }

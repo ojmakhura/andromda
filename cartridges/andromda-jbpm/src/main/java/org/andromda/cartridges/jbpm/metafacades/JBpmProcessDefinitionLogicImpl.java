@@ -1,17 +1,16 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition.
@@ -21,12 +20,18 @@ import java.util.List;
 public class JBpmProcessDefinitionLogicImpl
     extends JBpmProcessDefinitionLogic
 {
-
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JBpmProcessDefinitionLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetStates()
+     */
     protected List handleGetStates()
     {
         final List states = new ArrayList();
@@ -48,6 +53,9 @@ public class JBpmProcessDefinitionLogicImpl
         return states;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetNodes()
+     */
     protected List handleGetNodes()
     {
         final List states = new ArrayList();
@@ -69,6 +77,9 @@ public class JBpmProcessDefinitionLogicImpl
         return states;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetTaskNodes()
+     */
     protected List handleGetTaskNodes()
     {
         final List taskNodes = new ArrayList();
@@ -90,6 +101,9 @@ public class JBpmProcessDefinitionLogicImpl
         return taskNodes;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetTasks()
+     */
     protected List handleGetTasks()
     {
         final List tasks = new ArrayList();
@@ -104,11 +118,17 @@ public class JBpmProcessDefinitionLogicImpl
         return tasks;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleIsBusinessProcess()
+     */
     protected boolean handleIsBusinessProcess()
     {
         return true;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetSwimlanes()
+     */
     protected List handleGetSwimlanes()
     {
         final List swimlanes = new ArrayList();
@@ -122,6 +142,9 @@ public class JBpmProcessDefinitionLogicImpl
         return swimlanes;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetStartState()
+     */
     protected Object handleGetStartState()
     {
         Object startState = null;
@@ -135,6 +158,9 @@ public class JBpmProcessDefinitionLogicImpl
         return startState;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetEndStates()
+     */
     protected List handleGetEndStates()
     {
         final List endStates = new ArrayList();
@@ -148,6 +174,9 @@ public class JBpmProcessDefinitionLogicImpl
         return endStates;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetDecisions()
+     */
     protected List handleGetDecisions()
     {
         final List decisions = new ArrayList();
@@ -169,6 +198,9 @@ public class JBpmProcessDefinitionLogicImpl
         return decisions;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetForks()
+     */
     protected List handleGetForks()
     {
         final List forks = new ArrayList();
@@ -190,6 +222,9 @@ public class JBpmProcessDefinitionLogicImpl
         return forks;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetJoins()
+     */
     protected List handleGetJoins()
     {
         final List joins = new ArrayList();
@@ -211,6 +246,9 @@ public class JBpmProcessDefinitionLogicImpl
         return joins;
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetDescriptorFullPath()
+     */
     protected String handleGetDescriptorFullPath()
     {
         final StringBuffer pathBuffer = new StringBuffer();
@@ -226,6 +264,9 @@ public class JBpmProcessDefinitionLogicImpl
         return pathBuffer.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetNodeInterfaceName()
+     */
     protected String handleGetNodeInterfaceName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName()) + "ProcessNode";
@@ -234,6 +275,7 @@ public class JBpmProcessDefinitionLogicImpl
     /**
      * Overwritten because we want to be able to make use of the AndroMDA tagged value for use-case
      * to activity graph linking.
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#getFirstActivityGraph()
      */
     public ActivityGraphFacade getFirstActivityGraph()
     {

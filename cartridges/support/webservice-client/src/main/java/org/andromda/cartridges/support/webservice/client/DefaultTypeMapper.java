@@ -1,7 +1,6 @@
 package org.andromda.cartridges.support.webservice.client;
 
 import java.lang.reflect.Method;
-
 import org.apache.axis2.databinding.typemapping.SimpleTypeMapper;
 
 /**
@@ -12,7 +11,9 @@ import org.apache.axis2.databinding.typemapping.SimpleTypeMapper;
 public class DefaultTypeMapper
     implements TypeMapper
 {
-
+    /**
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(java.lang.Class)
+     */
     public Object getObject(Class type)
     {
         Object object = null;
@@ -30,9 +31,11 @@ public class DefaultTypeMapper
         return object;
     }
 
-
     private static final String VALUE_OF = "valueOf";
 
+    /**
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(java.lang.Class, java.lang.String)
+     */
     @SuppressWarnings("unchecked")
     public Object getObject(Class type, String value)
     {
@@ -64,11 +67,17 @@ public class DefaultTypeMapper
         return object;
     }
 
+    /**
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getStringValue(java.lang.Object)
+     */
     public String getStringValue(Object object)
     {
         return SimpleTypeMapper.getStringValue(object);
     }
 
+    /**
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#isSimpleType(java.lang.Class)
+     */
     public boolean isSimpleType(Class type)
     {
         return java.util.Calendar.class.isAssignableFrom(type) ||

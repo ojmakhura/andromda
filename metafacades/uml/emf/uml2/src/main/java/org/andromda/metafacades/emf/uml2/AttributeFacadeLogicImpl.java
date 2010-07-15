@@ -115,8 +115,8 @@ public class AttributeFacadeLogicImpl
     @Override
     protected boolean handleIsMany()
     {
-        // Because of MD11.5 (their multiplicity are String), we cannot use
-        // isMultiValued()
+        // Because of MD11.5 (their multiplicity are String), we cannot use isMultiValued()
+        @SuppressWarnings("unused")
         String name = null;
         // Name or type may be null during the model validation process.
         if (this.getType() != null)
@@ -342,6 +342,9 @@ public class AttributeFacadeLogicImpl
         return (EnumerationFacade)(this.isEnumerationLiteral() ? this.getOwner() : null);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.AttributeFacadeLogic#handleIsDefaultValuePresent()
+     */
     @Override
     protected boolean handleIsDefaultValuePresent()
     {
@@ -433,6 +436,9 @@ public class AttributeFacadeLogicImpl
             (ClassifierFacade) this.getType(), "1");
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.AttributeFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     */
     @Override
     protected Object handleFindTaggedValue(
         String name,

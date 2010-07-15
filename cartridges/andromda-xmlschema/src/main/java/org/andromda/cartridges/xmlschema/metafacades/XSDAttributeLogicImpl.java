@@ -12,15 +12,20 @@ public class XSDAttributeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public XSDAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleGetMaxOccurs()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#getMaxOccurs()
      */
-    protected java.lang.String handleGetMaxOccurs()
+    protected String handleGetMaxOccurs()
     {
         String maxOccurs = null;
         boolean isMany = this.isMany();
@@ -36,9 +41,10 @@ public class XSDAttributeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleGetMinOccurs()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#getMinOccurs()
      */
-    protected java.lang.String handleGetMinOccurs()
+    protected String handleGetMinOccurs()
     {
         String minOccurs = null;
         boolean isRequired = this.isRequired();
@@ -54,6 +60,7 @@ public class XSDAttributeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleIsXsdAttribute()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isXsdAttribute()
      */
     protected boolean handleIsXsdAttribute()
@@ -63,6 +70,7 @@ public class XSDAttributeLogicImpl
 
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isXsdElement()
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleIsXsdElement()
      */
     protected boolean handleIsXsdElement()
     {
@@ -70,6 +78,7 @@ public class XSDAttributeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleIsOwnerSchemaType()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isOwnerSchemaType()
      */
     protected boolean handleIsOwnerSchemaType()

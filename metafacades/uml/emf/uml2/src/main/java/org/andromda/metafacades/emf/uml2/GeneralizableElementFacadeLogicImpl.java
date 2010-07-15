@@ -138,6 +138,10 @@ public class GeneralizableElementFacadeLogicImpl
         return generalizations;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.GeneralizableElementFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     */
+    @SuppressWarnings("null")
     @Override
     protected Object handleFindTaggedValue(
         final String tagName,
@@ -161,6 +165,9 @@ public class GeneralizableElementFacadeLogicImpl
         return value;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.GeneralizableElementFacadeLogic#handleGetGeneralizationRoot()
+     */
     @Override
     protected GeneralizableElementFacade handleGetGeneralizationRoot()
     {

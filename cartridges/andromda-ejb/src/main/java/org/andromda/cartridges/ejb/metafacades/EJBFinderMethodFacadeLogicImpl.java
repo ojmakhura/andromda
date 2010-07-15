@@ -1,11 +1,10 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * <p>
@@ -16,12 +15,19 @@ public class EJBFinderMethodFacadeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
-    public EJBFinderMethodFacadeLogicImpl(java.lang.Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EJBFinderMethodFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
-    protected java.lang.String handleGetQuery()
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogic#handleGetQuery()
+     */
+    protected String handleGetQuery()
     {
 
         // first see if there is a query stored as a constraint
@@ -69,9 +75,10 @@ public class EJBFinderMethodFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogic#handleGetTransactionType()
      * @see org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacade#getTransactionType()
      */
-    protected java.lang.String handleGetTransactionType()
+    protected String handleGetTransactionType()
     {
         return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }

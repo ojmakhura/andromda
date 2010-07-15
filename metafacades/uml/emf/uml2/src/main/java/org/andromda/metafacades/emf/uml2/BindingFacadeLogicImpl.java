@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
 import org.eclipse.uml2.TemplateBinding;
 
 
@@ -12,6 +13,10 @@ import org.eclipse.uml2.TemplateBinding;
 public class BindingFacadeLogicImpl
     extends BindingFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public BindingFacadeLogicImpl(
         final TemplateBinding metaObject,
         final String context)
@@ -20,9 +25,10 @@ public class BindingFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getParameterSubstitutions()
      * @see org.andromda.metafacades.uml.BindingFacade#getArguments()
      */
-    protected java.util.Collection handleGetArguments()
+    protected Collection handleGetArguments()
     {
         return this.metaObject.getParameterSubstitutions();
     }
