@@ -112,6 +112,15 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>                    
+                    <executions>
+                        <execution>
+                            <id>transform</id>
+                            <phase>site</phase>
+                            <goals>
+                                <goal>transform</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                     <configuration>
                         <transformationSets>
                             <transformationSet>
