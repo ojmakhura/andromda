@@ -149,15 +149,15 @@ public abstract class PersonDaoBase
         java.util.Collection results = new java.util.ArrayList();
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            results.add(create(transform, (org.andromda.howto2.rental.Person)entityIterator.next()));
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.PersonDaoException(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                results.add(create(transform, (org.andromda.howto2.rental.Person)entityIterator.next()));
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+        }
         return results;
     }
 
@@ -222,15 +222,15 @@ public abstract class PersonDaoBase
         }
         try
         {
-		    for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-		    {
-		        update((org.andromda.howto2.rental.Person)entityIterator.next());
-		    }
-		}
-		catch (Exception ex)
-		{
-		    throw new org.andromda.howto2.rental.PersonDaoException(ex);
-		}
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                update((org.andromda.howto2.rental.Person)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+        }
     }
 
     /**
@@ -268,16 +268,16 @@ public abstract class PersonDaoBase
         }
         try
         {
-	        final org.andromda.howto2.rental.Person entity = this.load(id);
-	        if (entity != null)
-	        {
-	            this.remove(entity);
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.PersonDaoException(ex);
-	    }
+            final org.andromda.howto2.rental.Person entity = this.load(id);
+            if (entity != null)
+            {
+                this.remove(entity);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+        }
     }
 
     /**
@@ -293,15 +293,15 @@ public abstract class PersonDaoBase
         }
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            remove((org.andromda.howto2.rental.Person)entityIterator.next());
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.PersonDaoException(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                remove((org.andromda.howto2.rental.Person)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+        }
     }
 
     /**
