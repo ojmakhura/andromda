@@ -42,10 +42,10 @@
             <p>
                 The following is a very simple example of a session bean exposing all it's operations and
                 another session bean exposing only 1 of it's operations.  This is achieved
-                by modelling the <![CDATA[<<WebService>>]]> stereotype on the <code>UserService</code>
+                by modeling the <![CDATA[<<WebService>>]]> stereotype on the <code>UserService</code>
                 session bean and <![CDATA[<<WebServiceOperation>>]]> on the <code>addUser</code>
                 operation in <code>UserEndPointService</code> session bean.
-                Modelling this is similar to the WebService cartridge process.  The
+                Modeling this is similar to the WebService cartridge process.  The
                 EJB3 cartridge introduces a few extra tagged values.  The example below models the
                 <code>@andromda.webservice.operation.result.name</code> tagged value on the 
                 <code>addUser</code> operation in <code>UserService</code>.

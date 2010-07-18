@@ -36,7 +36,7 @@
                 <a href="../starting.html#My_first_AndroMDA_project">how to setup your first AndroMDA project</a>).
             </p>
             <p class="highlight">
-                Please note that the EJB3 cartridge is now included in the AndroMDAPP project which meanss you 
+                Please note that the EJB3 cartridge is now included in the AndroMDAPP project which means you 
                 can generate your project structure using that generator.
             </p>
             <p>
@@ -81,9 +81,9 @@
                 </ul>
             </p>
             <p>
-                The class we have modelled does not have any properties, however, by default, AndroMDA creates the
+                The class we have modeled does not have any properties, however, by default, AndroMDA creates the
                 <code>id</code> attribute of type <code>datatype:Long</code> if no identifier (primary key)
-                attribute has been modelled by the user.
+                attribute has been modeled by the user.
                 It is possible to override these settings in the
                 <a href="../maven-andromda-plugin/properties.html#Defining_Namespace_Properties">namespace
                 properties for Maven</a> or the
@@ -114,7 +114,7 @@
                 </p>
                 <p class="highlight">
                     Classifier scoped operations marked as query operations, known as finder methods, 
-                    modelled on entity are not rendered in the entity components, but instead added to the
+                    modeled on entity are not rendered in the entity components, but instead added to the
                     DAO components.
                 </p>
                 <p>
@@ -138,11 +138,11 @@
 	                </ul>
 	            </p>
 	            <p>
-	                Entity operations modelled as Query operations are discussed further in the
+	                Entity operations modeled as Query operations are discussed further in the
 	                <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
 	                any business logic.  The EJB3 cartridge, like other persistence modeling cartridges, 
 	                uses the session facade pattern to contain business logic in session bean operations while
-	                typical CRUD persistence operations are provided throught the DAO layer.
+	                typical CRUD persistence operations are provided through the DAO layer.
 	            </p>
 	            <p>
 	                The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
@@ -159,7 +159,7 @@
                     actual entity name.
                     To change the table name assignment in the <code>@javax.persistence.Table</code> annotation,
                     set the <code>@andromda.persistence.table</code> tag on the entity.
-                    The same tag can be modelled on a Many-To-Many association relationship.
+                    The same tag can be modeled on a Many-To-Many association relationship.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/c/uml.gif"/>
@@ -208,11 +208,11 @@
 	                </ul>
 	            </p>
                 <p>
-                    An entity identifier attribute's table generator can be modelled via the
+                    An entity identifier attribute's table generator can be modeled via the
                     <code>@andromda.persistence.generator.type</code> tag on the identifier attribute ONLY.
                     This is used to model the primary key generation strategy associated with the
                     <code>@javax.persistence.Id</code> annotation for an entity attribute.
-                    Currenly, the EJB3 cartridge supports:
+                    Currently, the EJB3 cartridge supports:
                     <ul>
                         <li>The default type is <code>AUTO</code></li>
                         <li><code>TABLE</code></li>
@@ -247,7 +247,7 @@
                 <p>
                     By default, the EJB3 cartridge and EJB 3.0 spec defines an attribute fetch type as eagerly
                     fetched.  To specify an attribute as lazy fetched, we hint to the persistence container 
-                    by modelling the <code>@andromda.persistence.fetch.type</code> tag on the attribute.  Under
+                    by modeling the <code>@andromda.persistence.fetch.type</code> tag on the attribute.  Under
                     normal circumstances, you do not need to specify this tag.
                 </p>
             </subsection>
@@ -263,9 +263,9 @@
             <subsection name="Insertable Attribute">
                 <p>
                     To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modelling the
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
                     <code>@andromda.persistence.column.insert</code> on the attribute.  By default, this is set to
-                    <code>true</code>, so it only needs to be specified if you want the column to be initialised using the
+                    <code>true</code>, so it only needs to be specified if you want the column to be initialized using the
                     database default value.
                 </p>
             </subsection>
@@ -273,7 +273,7 @@
             <subsection name="Updatable Attribute">
                 <p>
                     To include the mapped column in the SQL update statement, you set the <code>updatable</code>
-                    property on the <code>@javax.persistence.Column</code> annotation which is done by modelling the
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
                     <code>@andromda.persistence.column.update</code> on the attribute.  By default, this is set to
                     <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
                     database automatically.
@@ -376,7 +376,7 @@
             <a name="LOB_Attribute"/>
             <subsection name="LOB BLOB/CLOB Attributes">
                 <p>
-                    An attribute can be specified as either a BLOB or CLOB field.  This is modelled by setting
+                    An attribute can be specified as either a BLOB or CLOB field.  This is modeled by setting
                     the attribute type to <code>datatype::Blob</code> or <code>datatype::Clob</code>.  This will add
                     the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
                     cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
@@ -385,7 +385,7 @@
                     tagged value to the fully qualified name of the required type.
                 </p>
                 <p>
-                    For BLOB fields, the attribute type must be modelled as one of:
+                    For BLOB fields, the attribute type must be modeled as one of:
                     <ul>
                         <li>Byte[]</li>
                         <li>Serializable type</li>
@@ -393,7 +393,7 @@
                     </ul>
                 </p>
                 <p>
-                    For CLOB fields, the attribute type must be modelled as one of:
+                    For CLOB fields, the attribute type must be modeled as one of:
                     <ul>
                         <li>char[]</li>
                         <li>Character[]</li>
@@ -463,7 +463,7 @@
                 </p>
                 <p>
                     You can set the column length for the relational database table for string based columns 
-                    by modelling the <code>@andromda.persistence.column.length</code> tag on the attribute.
+                    by modeling the <code>@andromda.persistence.column.length</code> tag on the attribute.
                 </p>
                 <p>
                     If the column is defined as a decimal column (i.e. float or double), you can model the precision

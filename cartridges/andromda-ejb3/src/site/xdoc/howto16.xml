@@ -14,7 +14,7 @@
             </p>
             <p>
                 There is very little you actually need to do.  Just make sure you have the <![CDATA[<<Manageable>>]]>
-                stereotype modelled on all entities that require CRUD features and their associated
+                stereotype modeled on all entities that require CRUD features and their associated
                 entities and the cartridge will take care of everything else.  The following illustrates
                 how we introduce manageable entities into our long-running example.  Since manageable
                 entities are driven via a web/console front-end, the example lists files from both the
@@ -66,7 +66,7 @@
             </p>
             <p>
                 The CRUD related files are listed below.  The EJB3 cartridge introduces the 4 CRUD related application
-                exceptions for every entity.  The web tier doesn't explicity catch these exception, but perhaps
+                exceptions for every entity.  The web tier doesn't explicitly catch these exception, but perhaps
                 will be available down the track.  Take a look at the <code>CarManageableServiceBase</code> and
                 <code>PersonManageableServiceBase</code> bean implementations to understand the business logic
                 for implementing EJB 3.0 CRUD operations.
@@ -118,7 +118,7 @@
                         </li>
                         <li>
                             <p>
-                                You must have the actor dependencies modelled on the manageable entities for the
+                                You must have the actor dependencies modeled on the manageable entities for the
                                 actors (representing roles/groups) that are authorised access to the
                                 DAO and manageable service layers.
                             </p>
@@ -156,7 +156,7 @@
                         <li>
                             <p>
                                 Finally, the web.xml security and role elements will not be rendered unless you have
-                                modelled a front end application use case with the appropriate actor associations.
+                                modeled a front end application use case with the appropriate actor associations.
                                 Every use case must have one associated activity diagram.  For the most trivial
                                 application, this activity diagram would consist of an initial state with a 
                                 transition to a front end view action state.  The generated JSP allows you to
@@ -170,7 +170,7 @@
             <subsection name="Tips">
                 <p>
                     You should assign one attribute of every manageable entity as a <i>unique</i> attribute.  This is
-                    achieved by modelling the <![CDATA[<<Unique>>]]> stereotype on the attribute.  As a result, it
+                    achieved by modeling the <![CDATA[<<Unique>>]]> stereotype on the attribute.  As a result, it
                     will display the unique attribute value for foreign key reference columns when listing entities, 
                     rather than the complete target entity property name-value pairs.
                 </p>

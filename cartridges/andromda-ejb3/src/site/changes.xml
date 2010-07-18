@@ -423,7 +423,7 @@
         components.xml.
         This means removing @org.jboss.seam.annotations.Name and @org.jboss.seam.annotations.Scope annotations.
         Only specify the @org.hibernate.validator.NotNull annotation on identifier attributes in entity Seam pojos
-        if identifer is explicity modelled and explicity defined as not null.
+        if identifer is explicitly modeled and explicitly defined as not null.
         The ejb-jar.xml descriptor will NOT allow remote business interface declaration where the session bean
         is a Seam component.
         Add interceptors definition to ejb-jar.xml for the SeamInterceptor.
@@ -466,7 +466,7 @@
         JIRA EJB-53 - When a modelled entity with a MappedSuperclass stereotype has an association to another
         entity, the association definition in this other entity is incorrectly named.  The resolution is to
         avoid appending Embeddable to the mapped superclass and don't apply a naming pattern when a mapped superclass
-        is explicity modelled.  It is fine to apply this naming pattern when this is not explicitly modelled and
+        is explicitly modelled.  It is fine to apply this naming pattern when this is not explicitly modelled and
         instance scoped operations exist on the entity and a mapped superclass is generated.
       </action>
       <action dev="vancek" due-to="daveangulo" type="add">

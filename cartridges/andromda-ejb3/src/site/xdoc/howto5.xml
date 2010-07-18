@@ -13,7 +13,7 @@
                 This is the topic discussed on this page.
             </p>
             <p>
-                Java5 type-safe enumerations are modelled by means of a regular class in UML, only this time you need
+                Java5 type-safe enumerations are modeled by means of a regular class in UML, only this time you need
                 to use the <![CDATA[<<Enumeration>>]]> stereotype. All attributes on such an enumeration will
                 be known as enumeration literals, they will assume the default values you assign to the attributes,
                 or the name of the attribute if the default value is missing.  This will generate your Java5
@@ -110,7 +110,7 @@ STATION_WAGON : String
             <a name="Add_Data"/>
             <subsection name="Adding Data to Enumerations">
                 <p>
-                    You can now add data to eumeration literals.  This is achieved by adding member variables to
+                    You can now add data to enumeration literals.  This is achieved by adding member variables to
                     the enumeration class.
                 </p>
                 <p>
@@ -127,7 +127,7 @@ STATION_WAGON : String
                 </p>
                 <p class="highlight">
                     Remember to order this comma separated list according to the order you added the member variables.
-                    This is used in the enum class constructor to initialise the member variables.
+                    This is used in the enum class constructor to initialize the member variables.
                 </p>
             </subsection>
             <a name="Further_Reading"/>

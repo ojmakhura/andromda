@@ -23,7 +23,7 @@
             </p>
             <p>
                 The following illustrates the use of a service bean that operates on the 2 entities.
-                Notice how we have modelled dependencies from the service to the entities.  This will render 
+                Notice how we have modeled dependencies from the service to the entities.  This will render 
                 the getter accessor to the DAOs of both entities in the service and inject the corresponding
                 DAO (stateless session bean containing CRUD API for entity).
             </p>
@@ -91,12 +91,12 @@
                     deployment descriptor.
                 </p>
                 <p>
-                    If you wish, you can override this feature by modelling the <code>@andromda.service.type</code>
+                    If you wish, you can override this feature by modeling the <code>@andromda.service.type</code>
                     tagged value on the session bean class.
                 </p>
                 <p class="highlight">
                     Stateless session beans that are JBoss Seam components do not follow the above rule.  If your
-                    class is modelled as a Seam component and you have modelled attributes on this class, it will not
+                    class is modeled as a Seam component and you have modeled attributes on this class, it will not
                     be rendered as a stateful session bean, unless you specify the <code>@andromda.service.type</code>
                     tagged value.
                 </p>
@@ -144,7 +144,7 @@
             <subsection name="Environment Entry Injections">
                 <p>
                     To inject an environment entry resource value, model a service attribute with 
-                    <code>classifer</code> scope
+                    <code>classifier</code> scope
                     and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  The environment
                     entries will be defined in the session bean class and configured in the ejb-jar.xml 
                     deployment descriptor.
@@ -216,7 +216,7 @@
                 </p>
                 <p>
                     Every session bean provides the facility to override the default persistence context
-                    annotation declaration by modelling the following tagged values on the session bean class:
+                    annotation declaration by modeling the following tagged values on the session bean class:
                     <ul>
                         <li>
                             <p>
@@ -227,7 +227,7 @@
                         <li>
                             <p>
 	                            <code>@andromda.service.persistence.context.unit.type</code>
-	                            Specifiy whether a trasaction scoped or extended scoped persistence context
+	                            Specify whether a transaction scoped or extended scoped persistence context
 	                            is required for the persistence context associated with the default entity manager.
 	                        </p>
                         </li>
@@ -278,9 +278,9 @@
 	            </p>
 	            <p>
 	                Notice that <code>SecondaryEntityManager</code> has defined the 
-	                <code>@andromda.service.persistence.context.datasource</code> tagged value specifiying the
+	                <code>@andromda.service.persistence.context.datasource</code> tagged value specifying the
 	                JNDI name of the JDBC datasource used in this persistence context.  You can specify this tag 
-	                on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modelled.
+	                on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modeled.
 	            </p>
             </subsection>
             <a name="EJB_Injections"/>
@@ -299,7 +299,7 @@
                     more information, click on <a href="howto10.html">message driven beans</a>.
                 </p>
                 <p>
-                    Once you have modelled the MDB with <![CDATA[<<MessageDriven>>]]> stereotype,
+                    Once you have modeled the MDB with <![CDATA[<<MessageDriven>>]]> stereotype,
                     you can model a dependency from the source session bean to the MDB.  This will render
                     the appropriate <code>@javax.annotation.Resource</code> injections associated with JMS specific 
                     objects such as <code>QueueConnectionFactory</code>, <code>TopicConnectionFactory</code> and

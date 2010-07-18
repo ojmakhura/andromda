@@ -46,7 +46,7 @@
             </p>
             <p>
                 The following example was taken from the manageable entities howto with the caching options
-                enabled.  The manageable components are not relevent here and will not be discussed.
+                enabled.  The manageable components are not relevant here and will not be discussed.
             </p>
             <p>
                 <img src="images/org/andromda/test/17/a/uml.gif"/>
@@ -258,7 +258,7 @@
                     In many circumstance, you shouldn't enable query cache for all queries (using the 
                     <code>hibernateUseQueryCache</code> property) but enable caching
                     for required queries only.  You can enable caching for individual finder method using 
-                    the <code>@andromda.ejb.query.useCache</code> tagged value which is modelled on the
+                    the <code>@andromda.ejb.query.useCache</code> tagged value which is modeled on the
                     finder method.
                 </p>
                 <p>

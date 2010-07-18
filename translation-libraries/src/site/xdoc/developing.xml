@@ -51,7 +51,7 @@
 
                             Please enter the name to give the new translation-library (i.e. 'constraint'):
                             <strong>constraint</strong>
-                            Please enter a comma seperated list of the names of the translations (i.e.
+                            Please enter a comma separated list of the names of the translations (i.e.
                             'Hibernate-QL,EJB-QL'):
                             <strong>Oracle-SQL</strong>
                             build:start:
@@ -203,7 +203,7 @@
                                             The translation file is named 'Oracle-SQL' because if you'll remember
                                             we gave the 'translations' property a value of 'Oracle-SQL', you'll have a
                                             translation
-                                            file generated for each comma seperated value specified for the
+                                            file generated for each comma separated value specified for the
                                             'translations'
                                             property when using the
                                             <a href="../andromda-maven-plugins/andromda-translation-library-plugin/index.html">
@@ -291,7 +291,7 @@
                                             There will be a
                                             <code>TranslationTest-*.xml</code>
                                             file
-                                            generated for every comma seperated value defined by the 'translation'
+                                            generated for every comma separated value defined by the 'translation'
                                             property
                                             from the
                                             <code>translation-library:generate</code>

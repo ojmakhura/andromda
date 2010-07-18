@@ -14,13 +14,13 @@
             <p>
                 You have two basic choices on how you want to implement the lifecycle callbacks.  You can
                 annotate methods in the bean class to indicate the individual callback or you can separate
-                out the callback implemention to a listener class for entity beans or interceptor for 
+                out the callback implementation to a listener class for entity beans or interceptor for 
                 session and message-driven beans.  These options are discussed below.
             </p>
             <a name="Entity_Bean_Callbacks"/>
             <subsection name="Entity Bean Callbacks">
                 <p>
-                    You can define any number of the following callbacks in an entity bean by modelling the appropriate
+                    You can define any number of the following callbacks in an entity bean by modeling the appropriate
                     stereotype on an entity operation.  You can only define 1 lifecycle callback stereotype
                     per entity operation.
                     <table>
@@ -89,7 +89,7 @@
                     lifecycle callback if you model the callback stereotype on the entity operation. 
                 </p>
                 <p>
-                    To seperate out the callback for the entity into an entity listener class, simply model the
+                    To separate out the callback for the entity into an entity listener class, simply model the
                     <![CDATA[<<Listener>>]]> stereotype on the entity class.  This will add the
                     <code>@EntityListener</code> annotation to the class.  The associated listener class includes
                     all the lifecycle callbacks for the entity.  The listener is generated on the first
@@ -104,7 +104,7 @@
             <a name="Session_Bean_Callbacks"/>
             <subsection name="Session Bean Callbacks">
                 <p>
-                    You can define any number of the following callbacks in an session bean by modelling the
+                    You can define any number of the following callbacks in an session bean by modeling the
                     appropriate stereotype on an operation.  You can only define 1 lifecycle 
                     callback stereotype per session operation.  The lifecycle callbacks for a stateless session
                     bean is a subset of the lifecycle callbacks for a stateful session bean.
@@ -170,7 +170,7 @@
                     </table>
                 </p>
                 <p>
-                    To seperate out the callback for the session bean into an <b>interceptor</b> class, simply model the
+                    To separate out the callback for the session bean into an <b>interceptor</b> class, simply model the
                     <![CDATA[<<Listener>>]]> stereotype on the session bean.  This will add the
                     <code>@Interceptors</code> annotation to the bean base class.  The associated listener/interceptor
                     class includes all the appropriate lifecycle callbacks for the session bean.  
@@ -183,7 +183,7 @@
             <a name="Message_Driven_Bean_Callbacks"/>
             <subsection name="Message-Driven Bean Callbacks">
                 <p>
-                    You can define any number of the following callbacks in a message-driven bean by modelling the
+                    You can define any number of the following callbacks in a message-driven bean by modeling the
                     appropriate stereotype on a MDB operation.  You can only define 1 lifecycle 
                     callback stereotype per MDB operation.
                 </p>
@@ -217,7 +217,7 @@
         </section>
         <section name="Next">
             <p>
-                For a guide on how to utilise transactions in this cartridge, click <a href="howto15.html">here</a>.
+                For a guide on how to utilize transactions in this cartridge, click <a href="howto15.html">here</a>.
             </p>
         </section>
     </body>
