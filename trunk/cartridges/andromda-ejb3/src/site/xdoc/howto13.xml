@@ -18,7 +18,7 @@
             <p>
                 The following example shows how to model a default interceptor as well as 2 class level
                 interceptors for the <code>RentalService</code> bean.  Method level interceptor are
-                modelled in the same fashion, but a dependency is drawn from the session bean method rather than
+                modeled in the same fashion, but a dependency is drawn from the session bean method rather than
                 the actual session bean class.
             </p>
             <p>
@@ -85,7 +85,7 @@
             <a name="Class_Level_Interceptor"/>
             <subsection name="Class Level Interceptor">
                 <p>
-                    Class level interceptors are invoked when business methods of the modelled class are invoked,
+                    Class level interceptors are invoked when business methods of the modeled class are invoked,
                     unless class level interceptors have been excluded on business methods.
                 </p>
                 <p>
@@ -106,7 +106,7 @@
                 <p>
                     Method level interceptors are very much similar to class level interceptors, but they are
                     bound to a specific business method within a bean.  This means that they are only invoked
-                    when the modelled business methods of the bean are invoked.
+                    when the modeled business methods of the bean are invoked.
                 </p>
                 <p>
                     To define a method level interceptor, model the <![CDATA[<<Interceptor>>]]> stereotype on
@@ -149,7 +149,7 @@
                     To exclude the default interceptors, model the 
                     <code>@andromda.service.interceptor.excludeDefault</code> tagged value.  If this is applied to
                     a bean class, then the interceptor will be ignored for all methods of the bean class.  If
-                    it is modelled on a business method of a bean, then invocation of that business method
+                    it is modeled on a business method of a bean, then invocation of that business method
                     will NOT trigger invocation of the defined default interceptors.
                 </p>
                 <p>

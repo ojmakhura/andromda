@@ -86,7 +86,7 @@
             <property name="session-ejbs" required="false">
                 <documentation>
                     The outlet to which EJB support is generated. If undefined, EJB support will
-                    not be generated. Note: the EJB interfaces can be seperated from beans with <em>session-ejb-interfaces</em>.
+                    not be generated. Note: the EJB interfaces can be separated from beans with <em>session-ejb-interfaces</em>.
                 </documentation>
             </property>
             <property name="session-ejb-interfaces" required="false">

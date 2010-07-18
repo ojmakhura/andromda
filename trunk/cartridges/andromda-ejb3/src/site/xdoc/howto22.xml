@@ -10,7 +10,7 @@
                 As a developer, you are always tempted to get by with smallest amount of unit testing...some
                 even avoid the subject all together.  With the introduction of EJB 3.0, it was intended to make
                 things easier, including testing.  Setting up the right test environment was always a difficult,
-                specially when you don't always have the luxury of time to get it right!
+                especially when you don't always have the luxury of time to get it right!
             </p>
             <p>
                 The EJB3 cartridge now provides a basic test framework for your session beans.  You can now
@@ -22,7 +22,7 @@
                 Read about the <a href="http://www.testng.org/">TestNG framework</a>.
             </p>
             <p>
-                The example widely available on the internet use JUnit in combination with TestNG.  The EJB3 cartridge
+                The example widely available on the internet uses JUnit in combination with TestNG.  The EJB3 cartridge
                 only uses TestNG with Maven2.  It is currently using TestNG version 4.7-jdk15 and JBoss Embeddable
                 ALPHA_9.
             </p>
@@ -36,7 +36,7 @@
                 <p>
                     Because we consider testing such a key component of a project, there is no option to enable or
                     disable the test framework with an EJB3 project.  Everything is generated whether you want it
-                    or not.  However, all the tests will finish successuflly (as there is not implementation for them).
+                    or not.  However, all the tests will finish successfully (as there is not implementation for them).
                 </p>
                 <p>
                     All you need to do is follow the <a href="project.html">project howto</a> to generate your
@@ -44,7 +44,7 @@
                     available from AndroMDA version 3.3-SNAPSHOT onwards.
                 </p>
                 <p>
-                    The test framework will be generated as long as you have at least 1 session bean modelled
+                    The test framework will be generated as long as you have at least 1 session bean modeled
                     in your project.
                 </p>
             </subsection>
@@ -105,7 +105,7 @@
                     enabled security before running maven over your project the first time, everything will be
                     generated for you and you don't need to worry about the following.
                     If you had not
-                    enable security for your project on the first run, a relevent security context will not be
+                    enable security for your project on the first run, a relevant security context will not be
                     generated for you in this file.  Say that you want to enable security at a later point, then
                     by simply following <a href="howto8.html">the security howto</a>, you uncomment the
                     <code>securityRealm</code> property in the <b>ejb3</b> and the web framework namespaces.  You 
@@ -132,12 +132,12 @@
                     Now take a look in your source folder <code>core/src/test/java</code>.  You should have a file
                     named <code>EJB3Container.java</code> in one of the packages here.  This file starts and
                     shuts down the embeddable container before and after running any tests respectively.  It also
-                    provides helper static methods to get the <code>InitialContext</code> so you can retrive
+                    provides helper static methods to get the <code>InitialContext</code> so you can retrieve
                     the stub for the session bean (local or remote interface) from JNDI.
                 </p>
                 <p>
-                    It is important to note that if you want to propogate security credentials (principal and password)
-                    because you have enable security and secured your session beans by modelling actors to the class
+                    It is important to note that if you want to propagate security credentials (principal and password)
+                    because you have enable security and secured your session beans by modeling actors to the class
                     or operations, you must use the overloaded <code>getInitialContext</code> methods with signature 
                     that allows you to provide a username and password.  The generated tests actually provide a basic
                     template that shows you how to do this.

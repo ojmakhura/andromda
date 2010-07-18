@@ -126,8 +126,8 @@ PRIMARY KEY(PRINCIPAL_ID)
 				    
 				</p>
 			</subsection>
-            <a name="Modelling"/>
-            <subsection name="Modelling">
+            <a name="Modeling"/>
+            <subsection name="Modeling">
 				<p>
 					Now you have to define some roles for your application. This is simply done by adding actors 
 					to your model named with the role's name.
@@ -197,14 +197,14 @@ PRIMARY KEY(PRINCIPAL_ID)
                     The EJB3 cartridge provides a couple of extra security related tagged values.  The
                     <code>@andromda.service.security.denyAll</code> tagged value which can be assigned on
                     a session bean operation which specifies that no roles are permitted to execute that operation.
-                    If modelled on the session bean class and set to true, then no roles are permitted to 
+                    If modeled on the session bean class and set to true, then no roles are permitted to 
                     execute all of the operations in that session bean.  This tag overrides any roles specified
                     using actor dependencies.
                 </p>
                 <p>
                     Inversely, the <code>@andromda.service.security.permitAll</code> tagged value, if set to true
                     on a session bean operation, implies that all roles are permitted to execute that operation.
-                    If modelled on the session bean class and set to true, then all roles are permitted to execute
+                    If modeled on the session bean class and set to true, then all roles are permitted to execute
                     all opeations in that session bean.  This tag overrides any roles specified usin actor
                     dependencies.
                 </p>
@@ -213,7 +213,7 @@ PRIMARY KEY(PRINCIPAL_ID)
                     a bean will override the method permission value specified on the class itself.
                 </p>
                 <p>
-                    To specify the <code>RunAs</code> metadata annotation and explicity specify the caller's
+                    To specify the <code>RunAs</code> metadata annotation and explicitly specify the caller's
                     security identity used for the execution of the bean method, you simply need to model 
                     the <![CDATA[<<RunAs>>]]> stereotype on the actor role.  This will imply the identity of
                     the actor applies a run-as identity to the bean when making calls.  The actor's name or
@@ -223,7 +223,7 @@ PRIMARY KEY(PRINCIPAL_ID)
                     the security identity for the execution of the <code>onMessage</code> callback needs to be set.
                 </p>
                 <p>
-                    Finally, the above diagram also illustrates how dependencies can be modelled from actors to
+                    Finally, the above diagram also illustrates how dependencies can be modeled from actors to
                     entities.  This creates corresponding security infrastructure in the entity DAO components.
                     <a href="howto19.html">DAO objects</a> are generated for every entity to expose CRUD API
                     via stateless session beans.  Since your session facade business layer used the DAO components

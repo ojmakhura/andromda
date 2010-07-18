@@ -60,8 +60,8 @@
                     <b>HEAD</b> (follow <a href="installation.html">Installation</a>) and build the
                     <b>Profiles</b> project.  Once this is done, the profile will be copied to your M2 repository
                     under <i>M2_REPO/org/andromda/profiles/uml14/andromda-profile-seam/VERSION/</i>.
-                    You can then import this <i>andromda-profile-seam-VERSION.zml.zip</i> profile into your
-                    model to utilise the Seam components.
+                    You can then import this <i>andromda-profile-seam-VERSION.xml.zip</i> profile into your
+                    model to utilize the Seam components.
                 </p>
             </subsection>
             <a name="Seam_Quick_Start_Guide"/>
@@ -85,7 +85,7 @@
             <subsection name="Component Name">
 				<p>
 					If you model the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
-                    generated with the value being the class name. You can override this by modelling the 
+                    generated with the value being the class name. You can override this by modeling the 
 					<![CDATA[@andromda.seam.component.name]]> tagged value.
 				</p>
             </subsection>
@@ -120,11 +120,11 @@
                 </p>
                 <p>
                     If attribute multiplicity is 1, 1..* 
-					the <i>create</i> property is defined on the <![CDATA[@In]]> annotation.  You can explicity
+					the <i>create</i> property is defined on the <![CDATA[@In]]> annotation.  You can explicitly
                     specify this using the <![CDATA[@andromda.seam.bijection.in.create]]> tagged value.
 				</p>
                 <p>
-                    To explicity specify the name of the context variable for the <![CDATA[@In]]> annotation,
+                    To explicitly specify the name of the context variable for the <![CDATA[@In]]> annotation,
                     model the <![CDATA[@andromda.seam.bijection.in.value]]> tagged value.  This can also be used
                     to specify the JSF EL expression.  If not specified, the name will default to the component
                     attribute.  The <![CDATA[@andromda.seam.bijection.out.value]]> tagged value can be used for
@@ -178,7 +178,7 @@
                     modeled with values 'true' or 
 					'false' and if defined, adds the <i>refreshEntities</i> property to the annotation.  This will
                     indicate any invalid entity in the managed state be refreshed from the database when 
-                    validation fails.  This is used in conjuction with extended persistence context.
+                    validation fails.  This is used in conjunction with extended persistence context.
 				</p>
             </subsection>
             <subsection name="Stateful Session Bean Components">
@@ -187,7 +187,7 @@
 					the bean as a stateful session bean only if none of the attributes are modeled with Seam related
                     stereotypes or tagged values.  If you have only Seam component attributes in the session bean
                     (which by the way, is a Seam component), the bean is not defined as a SFSB.  If you wish 
-                    to explicity define this bean as a SFSB you can do this via the tagged value 
+                    to explicitly define this bean as a SFSB you can do this via the tagged value 
                     <![CDATA[@andromda.service.type]]>.
 				</p>
             </subsection>
@@ -204,15 +204,15 @@
 				</p>
                 <p>
                     The exposed attribute will have the scope of the owning component, or the <b>EVENT</b>
-                    scope if the owning component itself has a <b>STATELESS</b> scope.  You can optinally
-                    explicity define the scope using <![CDATA[@andromda.seam.data.datamodel.scope]]> tagged value.
+                    scope if the owning component itself has a <b>STATELESS</b> scope.  You can optionally
+                    explicitly define the scope using <![CDATA[@andromda.seam.data.datamodel.scope]]> tagged value.
                 </p>
             </subsection>
             <subsection name="Data Model Selection">
 				<p>
 					The <![CDATA[<<DataModelSelection>>]]> stereotype can be modeled on component attributes 
 					to inject the selected value from the <b>DataModel</b> into the attribute. The JSF
-                    DataModel is the underlying colleciton or map value.  This 
+                    DataModel is the underlying collection or map value.  This 
 					will render <![CDATA[@DataModelSelection]]> on the attribute.
                 </p>
                 <p>
@@ -229,7 +229,7 @@
 					component operations with the optional <![CDATA[@andromda.seam.bijection.factory.value]]>
 					tagged value which can be modeled on the operation to set the context variable name.
                     If this tagged value is NOT set, the default value is the property name.  You can optionally
-                    explicity specify the scope of the context variable by using the 
+                    explicitly specify the scope of the context variable by using the 
                     <![CDATA[@andromda.seam.bijection.factory.scope]]> tagged value.
 				</p>
             </subsection>

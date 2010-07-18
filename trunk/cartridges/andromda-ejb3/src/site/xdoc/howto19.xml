@@ -15,17 +15,17 @@
                 guide</a>.
             </p>
             <p>
-                For every entity class, modelled with the <![CDATA[<<Entity>>]]> stereotype, 3 DAO related
-                objects are created.  This provdes the typical CRUD API and finder method accessability for a 
+                For every entity class, modeled with the <![CDATA[<<Entity>>]]> stereotype, 3 DAO related
+                objects are created.  This provides the typical CRUD API and finder method accessability for a 
                 specific entity.
             </p>
             <p>
                 DAO's are just stateless session beans with a local interface.  The presentation layer wouldn't
                 use the DAO local interface directly.  Instead, your session beans in the business layer
-                would utilise the DAO interface for all persistence related tasks.
+                would utilize the DAO interface for all persistence related tasks.
             </p>
             <p>
-                By modelling dependencies from the service to the entities the cartridge will inject the local interface
+                By modeling dependencies from the service to the entities the cartridge will inject the local interface
                 of the DAO of the target entities in to the session bean.  You are then free to use this DAO
                 instance variable when CRUD features available in the API are required.
             </p>
@@ -61,7 +61,7 @@
                 default and makes this available for use in the subclass via the <code>context</code> protected
                 property.  This base DAO class contains the bulk of the CRUD API implementation.  It injects
                 the default <code>PersistenceContext</code> and provides the finder method implementations
-                modelled on the entity.
+                modeled on the entity.
             </p>
             <a name="Queries"/>
             <subsection name="Queries">

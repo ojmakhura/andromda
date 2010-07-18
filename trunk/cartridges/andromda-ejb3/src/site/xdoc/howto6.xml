@@ -34,11 +34,11 @@
                 entity's implementation class (they are considered to be business operations).
             </p>
             <p>
-                The documentation discussing the modelling of queries in OCL is found on the AndroMDA main
+                The documentation discussing the modeling of queries in OCL is found on the AndroMDA main
                 project in <a href="http://galaxy.andromda.org/docs/andromda-translation-libraries/index.html">
                 Translation Libraries</a> and
                 <a href="http://galaxy.andromda.org/docs/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-query-library/modeling.html">
-                Query Translation Library Modelling</a>.
+                Query Translation Library Modeling</a>.
                 The tagged value overriding queries using EJB QL directly is found here:
                 <a href="http://galaxy.andromda.org/docs/andromda-ejb-cartridge/profile.html#@andromda_ejb_query">@andromda.ejb.query</a>.
             </p>
@@ -92,7 +92,7 @@
                 the <code>isRented()</code> operation is an instance scoped method, the named queries are defined
                 in the <code>Car.java</code> implementation which extends the <code>CarEmbeddable.java</code> class.
                 As a result, adding new finder methods to the <code>Car</code> entity will not generate these
-                named query definitions since the implementation class is not overriden.  This is not the case for
+                named query definitions since the implementation class is not overridden.  This is not the case for
                 the <code>Person</code> entity since it is always regenerated.
             </p>
             <p>
@@ -100,22 +100,22 @@
                 or by specifying the query manually.  By default, unless you manually specify the query string,
                 the DAO finder methods will use named queries, so keep this in mind when performing dynamic
                 queries.  The <code>loadAll</code> DAO operation also used the generic finder method
-                named query defintion.
+                named query definition.
             </p>
             <p>
                 Currently, named queries are defined in two ways.  Either you let AndroMDA auto create
                 your basic EJB QL for you, or use OCL to configure your query.  Named queries will NOT be
-                defined if you use the <ocde>@andromda.ejb.query</ocde> tagged value.  It would be suggested
+                defined if you use the <code>@andromda.ejb.query</code> tagged value.  It would be suggested
                 that a new tagged value i.e <code>@andromda.ejb.query.named</code> be added to manually
                 set the named query, but OCL is still the preferred solution.
             </p>
         </section>
         <section name="Criteria Queries">
             <p>
-                In some circumstance it is convenient to have the option of using Hibnerate criteria 
-                queries.  This is particularly usesful for search queries which are really on-the-fly
+                In some circumstance it is convenient to have the option of using Hibernate criteria 
+                queries.  This is particularly useful for search queries which are really on-the-fly
                 queries.  If you are using <b>JBoss AS</b>, then most likely you are using Hibernate as
-                the persistence engine (unless you have changed this default behaviour).  Criteria queries
+                the persistence engine (unless you have changed this default behavior).  Criteria queries
                 are a Hibernate feature, so this is a strict requirement.
             </p>
             <p>
@@ -232,7 +232,7 @@
                 <p>
                     It's allowed to override queries such as finders in the DAO, just override the appropriate method
                     in an entity's DAO implementation class. What follows is an example of a code snippet
-                    overriding a generated EJBQL query (example taken from a ficticous <code>UserDAOImpl</code> class):
+                    overriding a generated EJBQL query (example taken from a fictitious <code>UserDAOImpl</code> class):
 <source language="java"><![CDATA[
 public List findActiveUsers(int transform)
 {

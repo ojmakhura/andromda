@@ -40,7 +40,7 @@
                     in the session bean implementation.
                 </p>
                 <p>
-                    If a session bean is marked for bean managed transaction demarcation by modelling the
+                    If a session bean is marked for bean managed transaction demarcation by modeling the
                     <code>@andromda.ejb.transaction.management</code> tagged value set to <code>BEAN</code>,
                     then the EJB3 cartridge will automatically inject an instance of <code>UserTransaction</code> 
                     into the variable <code>userTrans</code> using a <code>protected</code> visibility.  You can
@@ -49,7 +49,7 @@
                 <p>
                     The EJB3 cartridge will also use the <code>@Resource</code> annotation to setup an instance of
                     the appropriate <code>ConnectionFactory</code> and <code>Destination</code> objects for
-                    seding messages to JMS queues/topics where you have servicing message-driven beans.  By modelling
+                    sending messages to JMS queues/topics where you have servicing message-driven beans.  By modeling
                     a dependency from the source session bean to the target message-driven bean, be it a MDB
                     servicing a <code>Topic</code> or <code>Queue</code>, all the necessary injections are
                     generated.  You can find an example in the <a href="howto10.html">message-driven</a>
@@ -75,7 +75,7 @@
                 </p>
                 <p>
                     To inject an environment entry resource value, model a service or message-driven bean attribute 
-                    with <i>classifer</i> scope and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  
+                    with <i>classifier</i> scope and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  
                     The environment entries will be defined in the session or message-driven bean class and 
                     configured in the ejb-jar.xml deployment descriptor.
                     You must define a default value for these attributes in the model.
@@ -125,7 +125,7 @@
 	                <code>env-entry-name</code> in <code>ejb-jar.xml</code> for the environment entry.
 	            </p>
 	            <p>
-	                Notice here that the <code>Person</code> entity has 2 lifecycle callbacks.  We have modelled
+	                Notice here that the <code>Person</code> entity has 2 lifecycle callbacks.  We have modeled
 	                then using stereotypes on instance scoped operations.  Click on
 	                <a href="howto14.html">lifecycle callbacks</a> to find out more.
 	            </p>

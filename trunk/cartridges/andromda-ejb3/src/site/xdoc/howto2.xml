@@ -18,7 +18,7 @@
                 visibility of an association end.
             </p>
             <p>
-                In UML, relationships are modelled using associations, and associations themselves have different
+                In UML, relationships are modeled using associations, and associations themselves have different
                 properties, which will be discussed here.
             </p>
             <p>
@@ -27,7 +27,7 @@
                 onto a platform specific datatype (you can find them in the <code>datatype</code> package).
             </p>
             <p>
-                Draw an association between both entities you have just modelled. Set the multiplicity at the end
+                Draw an association between both entities you have just modeled. Set the multiplicity at the end
                 of the car to <code>[0..*]</code> and name the other end <code>'owner'</code>.
                 If we run AndroMDA over your model, this is what we expect to see.
             </p>
@@ -41,7 +41,7 @@
                     <li>birthDate of type <code>datatype::Date</code></li>
                 </ul>
                 Please note that also for this entity an identifier will be added by default. 
-                If you explicitely want to add an identifier you should model the <![CDATA[<<Identifier>>]]> 
+                If you explicitly want to add an identifier you should model the <![CDATA[<<Identifier>>]]> 
                 stereotype on an attribute. Refer to <a href="howto1.html">Entities</a> for more information.
             </p>
             <p>
@@ -121,7 +121,7 @@
             <a name="Cascading"/>
             <subsection name="Cascading">
                 <p>
-                    You can set the cascade option on all association ends by modelling the
+                    You can set the cascade option on all association ends by modeling the
                     <code>@andromda.persistence.cascade.type</code> tagged value on the target association end.
                     The cascadable options are:
                     <ul>
@@ -171,7 +171,7 @@
             <a name="Fetch_Type"/>
             <subsection name="Fetch Type">
                 <p>
-                    The fetch type tagged value <code>@andromda.persistence.fetch.type</code> can be modelled on
+                    The fetch type tagged value <code>@andromda.persistence.fetch.type</code> can be modeled on
                     all association ends.  To set the fetch type on an end, you model this tagged value on
                     the target association end.  The following default are the default fetch types for the
                     available relationships:
@@ -213,7 +213,7 @@
             <a name="Ordering_Collection_Valued_Association"/>
             <subsection name="Ordering Collection Valued Association">
                 <p>
-                    You can order the elements of a collection valued association by modelling the
+                    You can order the elements of a collection valued association by modeling the
                     <code>@andromda.persistence.orderBy</code> tagged value on the target association end.
                     A few notes to consider:
                     <ul>
@@ -225,7 +225,7 @@
                         </li>
                         <li>
                             <p>
-	                            If the ordering tagged value is modelled but no ordering element is supplied, this
+	                            If the ordering tagged value is modeled but no ordering element is supplied, this
 	                            renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
 	                            to the container to assume ordering by primary key as per the spec.
 	                        </p>

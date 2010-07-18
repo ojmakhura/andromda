@@ -50,13 +50,13 @@
             <a name="Mapped_Superclasses"/>
 			<subsection name="Mapped Superclasses">
                 <p>
-                    To explicity define an entity as a mapped superclass, model the <![CDATA[<<Entity>>]]> <b>AND</b>
+                    To explicitly define an entity as a mapped superclass, model the <![CDATA[<<Entity>>]]> <b>AND</b>
                     <![CDATA[<<MappedSuperclass>>]]> stereotypes on the class.  (Note: The cartridge did attempt to 
                     avoid the need to model the <![CDATA[<<Entity>>]]> stereotype, however this caused issue with UML2
                     models)
                 </p>
                 <p class="highlight">
-                    You must explicity define your identifier(s) either in the mapped superclass or in 
+                    You must explicitly define your identifier(s) either in the mapped superclass or in 
                     the subclass entity.
                 </p> 
                 <p>
@@ -214,11 +214,11 @@
                 </p>
                 <p>
                     You can set the discriminator column length if the colum type is specified as
-                    <code>STRING</code> by modelling the <code>@andromda.persistence.discriminator.column.length</code>
+                    <code>STRING</code> by modeling the <code>@andromda.persistence.discriminator.column.length</code>
                     tagged value on the root class.  The default is 10.
                 </p>
                 <p>
-                    In some cases, you may want to explicity define the SQL fragment when generating the DDL
+                    In some cases, you may want to explicitly define the SQL fragment when generating the DDL
                     for the discriminator column.  To do this, simply model the
                     <code>@andromda.persistence.discriminator.colum.definition</code> tagged value on the
                     root class.
