@@ -149,15 +149,15 @@ public abstract class CarDaoBase
         java.util.Collection results = new java.util.ArrayList();
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            results.add(create(transform, (org.andromda.howto2.rental.Car)entityIterator.next()));
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.CarDaoException(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                results.add(create(transform, (org.andromda.howto2.rental.Car)entityIterator.next()));
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.CarDaoException(ex);
+        }
         return results;
     }
 
@@ -257,15 +257,15 @@ public abstract class CarDaoBase
         }
         try
         {
-		    for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-		    {
-		        update((org.andromda.howto2.rental.Car)entityIterator.next());
-		    }
-		}
-		catch (Exception ex)
-		{
-		    throw new org.andromda.howto2.rental.CarDaoException(ex);
-		}
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                update((org.andromda.howto2.rental.Car)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.CarDaoException(ex);
+        }
     }
 
     /**
@@ -303,16 +303,16 @@ public abstract class CarDaoBase
         }
         try
         {
-	        final org.andromda.howto2.rental.Car entity = this.load(id);
-	        if (entity != null)
-	        {
-	            this.remove(entity);
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.CarDaoException(ex);
-	    }
+            final org.andromda.howto2.rental.Car entity = this.load(id);
+            if (entity != null)
+            {
+                this.remove(entity);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.CarDaoException(ex);
+        }
     }
 
     /**
@@ -328,15 +328,15 @@ public abstract class CarDaoBase
         }
         try
         {
-	        for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
-	        {
-	            remove((org.andromda.howto2.rental.Car)entityIterator.next());
-	        }
-	    }
-	    catch (Exception ex)
-	    {
-	        throw new org.andromda.howto2.rental.CarDaoException(ex);
-	    }
+            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            {
+                remove((org.andromda.howto2.rental.Car)entityIterator.next());
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new org.andromda.howto2.rental.CarDaoException(ex);
+        }
     }
 
     /**
