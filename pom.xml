@@ -603,6 +603,28 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                <inherited>true</inherited>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <configuration>
+                    <includePom>true</includePom>
+                    <includes>
+                        <include>${project.basedir}/src/main/uml/**</include>
+                        <include>${project.basedir}/src/main/uml2/**</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
@@ -769,11 +791,6 @@
             <name>AndroMDA Repository</name>
             <url>http://www.andromda.org/maven2</url>
         </repository>
-        <!--repository>
-            <id>fornax.repository</id>
-            <name>Fornax Repository</name>
-            <url>http://www.fornax-platform.org/m2/repository</url>
-        </repository-->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -786,11 +803,6 @@
             <name>AndroMDA Repository</name>
             <url>http://www.andromda.org/maven2</url>
         </pluginRepository>
-        <!--pluginRepository>
-            <id>fornax.plugin.repository</id>
-            <name>Fornax Plugin Repository</name>
-            <url>http://www.fornax-platform.org/m2/repository</url>
-        </pluginRepository-->
     </pluginRepositories>
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
@@ -803,13 +815,29 @@
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
         <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository
-        <bootstrap.artifacts>true</bootstrap.artifacts>-->
+        <bootstrap.artifacts>true</bootstrap.artifacts-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.version>2.2.1</maven.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <plexus.util.version>1.5.9</plexus.util.version>
     </properties>
+    <modules>
+        <module>andromda-core</module>
+        <module>andromda-utils</module>
+        <module>andromda-templateengines</module>
+        <module>repositories</module>
+        <module>andromda-andromdapp</module>
+        <module>ant</module>
+        <module>maven</module>
+        <module>profiles</module>
+        <module>cartridges</module>
+        <module>metafacades</module>
+        <module>andromda-etc</module>
+        <module>translation-libraries</module>
+        <module>documentation</module>
+        <module>samples</module>                
+    </modules>
     <profiles>
         <profile>
             <!-- This profile configuration is needed to install a model-archive-plugin.
@@ -821,8 +849,9 @@
                 <module>maven/model-archiver</module>
             </modules>
         </profile>
-        <profile>
-            <!--Profile configuration for light build. It builds all modules without source and javadoc packaging-->
+        <!--Profile configuration for light build. It builds all modules without source and javadoc packaging.
+        Note: activeByDefault means it is DEACTIVATED if another profile is specifically activated i.e. through -Pprofile. -->
+        <!--profile>
             <id>andromda-lite</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -842,9 +871,8 @@
                 <module>translation-libraries</module>
                 <module>documentation</module>
                 <module>samples</module>
-                <module>andromda-distribution</module>
             </modules>
-        </profile>
+        </profile-->
         <profile>
             <!--Profile configuration for local builds-->
             <id>local</id>
@@ -873,6 +901,23 @@
         <profile>
             <!--Profile configuration for server builds-->
             <id>server</id>
+            <modules>
+                <module>andromda-core</module>
+                <module>andromda-utils</module>
+                <module>andromda-templateengines</module>
+                <module>repositories</module>
+                <module>andromda-andromdapp</module>
+                <module>ant</module>
+                <module>maven</module>
+                <module>profiles</module>
+                <module>cartridges</module>
+                <module>metafacades</module>
+                <module>andromda-etc</module>
+                <module>translation-libraries</module>
+                <module>documentation</module>
+                <module>samples</module>
+                <module>distribution</module>
+            </modules>
             <build>
                 <plugins>
                     <plugin>
@@ -932,24 +977,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to repository -->
-                        <inherited>true</inherited>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.1.1</version>
-                        <configuration>
-                            <includePom>true</includePom>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <!-- Automatically attach javadoc to build artifact as artifact-version-javadoc.jar and deploy to repository -->
                         <inherited>true</inherited>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -972,9 +999,9 @@
         <profile>
             <!--Profileconfiguration for site builds-->
             <id>andromda-site</id>
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
+            <!--activation>
+                <activeByDefault>true</activeByDefault>
+            </activation-->
             <modules>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
@@ -989,7 +1016,8 @@
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
                 <module>documentation</module>
-                <!--module>samples</module-->                
+                <!--module>samples</module>                
+                <module>andromda-distribution</module-->
             </modules>
             <properties>
                 <invoker.skip>true</invoker.skip>
@@ -997,6 +1025,7 @@
                 <andromda.run.skip>true</andromda.run.skip>
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
+                <andromda.translation.test.skip>true</andromda.translation.test.skip>
             </properties>
             <build>
                 <plugins>
@@ -1252,11 +1281,12 @@
                 <andromda.run.skip>true</andromda.run.skip>
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
+                <andromda.translation.test.skip>true</andromda.translation.test.skip>
             </properties>
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-site-plugin</artifactId>                        
+                        <artifactId>maven-site-plugin</artifactId>
                         <configuration>
                             <locales>en</locales>
                         </configuration>
