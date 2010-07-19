@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -238,7 +237,7 @@ public class AttributeImpl
     public TemplateSignature createOwnedTemplateSignature()
     {
         //return this.property.createOwnedTemplateSignature();
-        logger.error("AttributeImpl.createOwnedTemplateSignature is UML14 only");
+        logger.error("Attribute.createOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.getQualifiedName());
         return null;
     }
 
@@ -250,7 +249,7 @@ public class AttributeImpl
     public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
         //return this.property.createOwnedTemplateSignature(arg0);
-        logger.error("AttributeImpl.createOwnedTemplateSignature(EClass) is UML14 only");
+        logger.error("Attribute.createOwnedTemplateSignature(EClass) has been removed from UML2 3.x, fix " + this.getQualifiedName());
         return null;
     }
 
@@ -280,7 +279,7 @@ public class AttributeImpl
     public TemplateBinding createTemplateBinding()
     {
         //return this.property.createTemplateBinding(null);
-        logger.error("AttributeImpl.property.createTemplateBinding is UML14 only");
+        logger.error("Attribute.property.createTemplateBinding has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -292,7 +291,7 @@ public class AttributeImpl
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
         //return this.property.createTemplateBinding((TemplateSignature) arg0);
-        logger.error("AttributeImpl.property.createTemplateBinding(EClass) is UML14 only");
+        logger.error("Attribute.property.createTemplateBinding(EClass) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -759,7 +758,7 @@ public class AttributeImpl
     public TemplateSignature getOwnedTemplateSignature()
     {
         //return this.property.getOwnedTemplateSignature();
-        logger.error("AttributeImpl.property.getOwnedTemplateSignature() is UML14 only");
+        logger.error("Attribute.property.getOwnedTemplateSignature() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -888,7 +887,7 @@ public class AttributeImpl
     public EList getTemplateBindings()
     {
         //return this.property.getTemplateBindings();
-        logger.error("AttributeImpl.property.getTemplateBindings() is UML14 only");
+        logger.error("AttributeImpl.property.getTemplateBindings() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1149,7 +1148,7 @@ public class AttributeImpl
     public EList<ParameterableElement> parameterableElements()
     {
         //return this.property.parameterableElements();
-        logger.error("AttributeImpl.property.parameterableElements() is UML14 only");
+        logger.error("AttributeImpl.property.parameterableElements() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1341,7 +1340,7 @@ public class AttributeImpl
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
         //this.property.setOwnedTemplateSignature(arg0);
-        logger.error("AttributeImpl.property.setOwnedTemplateSignature(TemplateSignature) is UML14 only");
+        logger.error("Attribute.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
     }
 
     /**
@@ -2310,7 +2309,7 @@ public class AttributeImpl
     public TemplateBinding createTemplateBinding(TemplateSignature signature)
     {
         //return this.property.createTemplateBinding(signature);
-        logger.error("AttributeImpl.property.createTemplateBinding(TemplateSignature) is UML14 only");
+        logger.error("Attribute.property.createTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2322,7 +2321,7 @@ public class AttributeImpl
     public TemplateBinding getTemplateBinding(TemplateSignature signature)
     {
         //return this.property.getTemplateBinding(signature);
-        logger.error("AttributeImpl.property.getTemplateBinding(TemplateSignature) is UML14 only");
+        logger.error("Attribute.property.getTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2335,7 +2334,7 @@ public class AttributeImpl
     public TemplateBinding getTemplateBinding(TemplateSignature signature, boolean createOnDemand)
     {
         //return this.property.getTemplateBinding(signature, createOnDemand);
-        logger.error("AttributeImpl.property.getTemplateBinding(TemplateSignature, boolean) is UML14 only");
+        logger.error("Attribute.property.getTemplateBinding(TemplateSignature, boolean) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2346,7 +2345,7 @@ public class AttributeImpl
     public boolean isTemplate()
     {
         //return this.property.isTemplate();
-        logger.error("AttributeImpl.property.isTemplate() is UML14 only");
+        logger.error("Attribute.property.isTemplate has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return false;
     }
 }
