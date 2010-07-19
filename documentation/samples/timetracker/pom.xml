@@ -98,15 +98,12 @@
             <!-- This dependency provides the ability to implement your
                  business logic in an interpreted manner during development on
                  your local machine -->
-            <!-- commented out because the groovy jar does not have a pom and it makes maven fail -->
-            <!--
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
                 <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
-            -->
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
