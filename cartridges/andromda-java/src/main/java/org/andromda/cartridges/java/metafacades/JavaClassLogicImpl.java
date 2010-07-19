@@ -95,7 +95,7 @@ public class JavaClassLogicImpl
 
     /**
      * @return templateParams
-     * @see org.andromda.cartridges.java.metafacades.JavaClassLogic#handleGetTemplateParams()
+     * @see org.andromda.cartridges.java.metafacades.JavaClassLogic#getTemplateParameters()
      */
     //@Override
     protected String handleGetTemplateParams()

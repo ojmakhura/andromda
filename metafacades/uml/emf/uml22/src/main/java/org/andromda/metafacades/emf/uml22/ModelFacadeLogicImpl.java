@@ -282,6 +282,9 @@ public class ModelFacadeLogicImpl
             UmlUtilities.findModel(this.metaObject));
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelFacadeLogic#handleGetAllTransitions()
+     */
     @Override
     protected Collection<TransitionFacade> handleGetAllTransitions()
     {

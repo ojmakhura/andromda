@@ -465,6 +465,9 @@ public class AssociationEndFacadeLogicImpl
         return this.getMultiplicityRangeLower();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.AssociationEndFacadeLogic#handleIsDerived()
+     */
     @Override
     protected boolean handleIsDerived()
     {

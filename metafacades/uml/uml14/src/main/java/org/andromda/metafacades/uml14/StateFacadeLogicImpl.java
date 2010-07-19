@@ -19,6 +19,9 @@ public class StateFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateFacadeLogic#handleGetDeferrableEvents()
+     */
     protected Collection handleGetDeferrableEvents()
     {
         return metaObject.getDeferrableEvent();

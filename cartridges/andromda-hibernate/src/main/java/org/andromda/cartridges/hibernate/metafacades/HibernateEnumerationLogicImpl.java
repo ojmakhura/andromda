@@ -40,19 +40,19 @@ public class HibernateEnumerationLogicImpl
         return String.valueOf(this.getConfiguredProperty(ENUMERATION_NAME_PATTERN));
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getFullyQualifiedHibernateType()
      */
+    @Override
     protected String handleGetFullyQualifiedHibernateType()
     {
         return JavaTypeConverter.getJavaLangTypeName(super.getFullyQualifiedName());
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getEnumerationName()
      */
+    @Override
     protected String handleGetEnumerationName()
     {
         return StringUtils.trimToEmpty(this.getEnumerationNamePattern()).replaceAll(
@@ -60,10 +60,10 @@ public class HibernateEnumerationLogicImpl
             super.getName());
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getFullyQualifiedHibernateEnumerationType()
      */
+    @Override
     protected String handleGetFullyQualifiedHibernateEnumerationType()
     {
         return HibernateMetafacadeUtils.getFullyQualifiedName(
@@ -84,10 +84,10 @@ public class HibernateEnumerationLogicImpl
         }
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getVersion()
      */
+    @Override
     protected int handleGetVersion()
     {
         return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));

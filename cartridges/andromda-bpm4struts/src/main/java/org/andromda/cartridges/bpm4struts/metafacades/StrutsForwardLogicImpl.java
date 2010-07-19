@@ -36,22 +36,34 @@ public class StrutsForwardLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetGuardName()
+     */
     protected String handleGetGuardName()
     {
         final GuardFacade guard = this.getGuard();
         return (guard == null) ? null : guard.getName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleIsEnteringPage()
+     */
     protected boolean handleIsEnteringPage()
     {
         return this.isEnteringView();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetForwardName()
+     */
     protected String handleGetForwardName()
     {
         return StringUtilsHelper.toResourceMessageKey(this.resolveName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetForwardPath()
+     */
     protected String handleGetForwardPath()
     {
         String forwardPath = null;
@@ -69,11 +81,17 @@ public class StrutsForwardLogicImpl
         return forwardPath;
     }
 
+    /**
+     * @return lowerCamelCaseName(resolveName())
+     */
     protected String handleGetActionMethodName()
     {
         return StringUtilsHelper.lowerCamelCaseName(this.resolveName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetTargetNameKey()
+     */
     protected String handleGetTargetNameKey()
     {
         if (this.isEnteringPage())
@@ -108,16 +126,25 @@ public class StrutsForwardLogicImpl
         return forwardName;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleIsExitingPage()
+     */
     protected boolean handleIsExitingPage()
     {
         return this.isExitingView();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleIsSuccessMessagesPresent()
+     */
     protected boolean handleIsSuccessMessagesPresent()
     {
         return !this.getSuccessMessages().isEmpty();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleIsWarningMessagesPresent()
+     */
     protected boolean handleIsWarningMessagesPresent()
     {
         return !this.getWarningMessages().isEmpty();
@@ -153,16 +180,25 @@ public class StrutsForwardLogicImpl
         return messages;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetSuccessMessages()
+     */
     protected Map handleGetSuccessMessages()
     {
         return this.getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetWarningMessages()
+     */
     protected Map handleGetWarningMessages()
     {
         return this.getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogic#handleGetStrutsActivityGraph()
+     */
     protected Object handleGetStrutsActivityGraph()
     {
         return this.getFrontEndActivityGraph();

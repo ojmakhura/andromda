@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.behavioralelements.commonbehavior.Action;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.commonbehavior.Action;
 
 /**
  * Metaclass facade implementation.
@@ -21,6 +21,9 @@ public class ActionStateFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ActionStateFacadeLogic#handleGetEntry()
+     */
     protected Action handleGetEntry()
     {
         return metaObject.getEntry();

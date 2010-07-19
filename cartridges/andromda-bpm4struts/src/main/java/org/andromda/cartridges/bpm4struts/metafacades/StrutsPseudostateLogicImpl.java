@@ -32,6 +32,9 @@ public class StrutsPseudostateLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @return getStateMachine() instanceof StrutsActivityGraph
+     */
     protected boolean handleIsContainedInFrontEndUseCase()
     {
         return this.getStateMachine() instanceof StrutsActivityGraph;

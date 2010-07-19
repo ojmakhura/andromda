@@ -2,7 +2,6 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
@@ -29,10 +28,10 @@ public class HibernateFinderMethodLogicImpl
         super(metaObject, context);
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#getQuery()
      */
+    @Override
     protected String handleGetQuery()
     {
         // first see if we can retrieve the query from the super class as an OCL
@@ -106,10 +105,10 @@ public class HibernateFinderMethodLogicImpl
      */
     private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
 
-    @Override
     /**
-     * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#isUseNamedParameters()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#isUseNamedParameters()
      */
+    @Override
     protected boolean handleIsUseNamedParameters()
     {
         boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue()
@@ -123,10 +122,10 @@ public class HibernateFinderMethodLogicImpl
      */
     private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#isUseQueryCache()
      */
+    @Override
     protected boolean handleIsUseQueryCache()
     {
         boolean useQueryCache =

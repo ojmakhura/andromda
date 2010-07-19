@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.behavioralelements.commonbehavior.CallAction;
+import org.omg.uml.foundation.core.Operation;
 
 /**
  * MetafacadeLogic implementation.
@@ -23,6 +23,9 @@ public class CallActionFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.CallActionFacadeLogic#handleGetOperation()
+     */
     protected Operation handleGetOperation()
     {
         return metaObject.getOperation();

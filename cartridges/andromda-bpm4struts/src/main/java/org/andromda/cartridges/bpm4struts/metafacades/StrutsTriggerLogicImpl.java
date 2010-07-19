@@ -4,8 +4,6 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -52,6 +50,9 @@ public class StrutsTriggerLogicImpl
         return getTitleKey() + ".reset";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetMessageKey()
+     */
     protected String handleGetResetMessageKey()
     {
         return getResetTitleKey() + ".message";
@@ -90,41 +91,65 @@ public class StrutsTriggerLogicImpl
         return triggerKey;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetTriggerValue()
+     */
     protected String handleGetTriggerValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetTitleValue()
+     */
     protected String handleGetTitleValue()
     {
         return getTriggerValue();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetTitleValue()
+     */
     protected String handleGetResetTitleValue()
     {
         return "Reset";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetMessageValue()
+     */
     protected String handleGetResetMessageValue()
     {
         return "Reset";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetResetNotAllowedTitleValue()
+     */
     protected String handleGetResetNotAllowedTitleValue()
     {
         return "You are not allowed to reset";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetNotAllowedTitleValue()
+     */
     protected String handleGetNotAllowedTitleValue()
     {
         return "You are not allowed to call this action";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleIsActionTrigger()
+     */
     protected boolean handleIsActionTrigger()
     {
         return this.getStrutsAction() != null;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogic#handleGetStrutsAction()
+     */
     protected Object handleGetStrutsAction()
     {
         StrutsAction triggerAction = null;

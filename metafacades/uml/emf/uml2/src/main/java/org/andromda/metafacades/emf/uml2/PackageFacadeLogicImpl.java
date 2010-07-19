@@ -118,6 +118,9 @@ public class PackageFacadeLogicImpl
             UmlUtilities.ELEMENT_TRANSFORMER);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.PackageFacadeLogic#handleGetTablePrefix()
+     */
     @Override
     protected String handleGetTablePrefix()
     {

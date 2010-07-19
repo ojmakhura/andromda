@@ -66,6 +66,9 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         return instance;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl#handleGetName()
+     */
     protected String handleGetName()
     {
         return this.valueSet ? (this.value == null ? null : value.toString()) : super.handleGetName();

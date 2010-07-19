@@ -33,10 +33,10 @@ public class HibernateTypeLogicImpl
         super(metaObject, context);
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateType#getFullyQualifiedHibernateType()
      */
+    @Override
     protected String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();

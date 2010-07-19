@@ -1,8 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.statemachines.Guard;
 import org.omg.uml.behavioralelements.statemachines.Transition;
 import org.omg.uml.foundation.datatypes.BooleanExpression;
-import org.omg.uml.behavioralelements.statemachines.Guard;
 
 /**
  * MetafacadeLogic implementation.
@@ -24,11 +24,17 @@ public class GuardFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.GuardFacadeLogic#handleGetTransition()
+     */
     protected Transition handleGetTransition()
     {
         return metaObject.getTransition();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.GuardFacadeLogic#handleGetBody()
+     */
     protected String handleGetBody()
     {
         final BooleanExpression expression = metaObject.getExpression();

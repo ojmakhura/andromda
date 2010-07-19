@@ -1034,6 +1034,9 @@ public class ClassifierFacadeLogicImpl
         return AssociationClass.class.isAssignableFrom(this.metaObject.getClass());
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAssociatedClasses()
+     */
     protected Collection<ClassifierFacade> handleGetAssociatedClasses()
     {
         final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
@@ -1048,6 +1051,9 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetAllAssociatedClasses()
+     */
     protected Collection<ClassifierFacade> handleGetAllAssociatedClasses()
     {
         final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
@@ -1061,12 +1067,18 @@ public class ClassifierFacadeLogicImpl
         return associatedClasses;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetSuperClass()
+     */
     protected ClassifierFacade handleGetSuperClass()
     {
         final GeneralizableElementFacade superClass = this.getGeneralization();
         return (ClassifierFacade)(superClass instanceof ClassifierFacade ? superClass : null);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleIsEmbeddedValue()
+     */
     protected boolean handleIsEmbeddedValue()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);

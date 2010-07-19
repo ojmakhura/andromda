@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -68,6 +67,9 @@ public class StrutsJspLogicImpl
             "/");
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetMessageKey()
+     */
     protected String handleGetMessageKey()
     {
         final StringBuilder messageKey = new StringBuilder();
@@ -86,37 +88,58 @@ public class StrutsJspLogicImpl
         return messageKey.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetMessageValue()
+     */
     protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetTitleKey()
+     */
     protected String handleGetTitleKey()
     {
         return getMessageKey() + ".title";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetTitleValue()
+     */
     protected String handleGetTitleValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetDocumentationKey()
+     */
     protected String handleGetDocumentationKey()
     {
         return getMessageKey() + ".documentation";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetDocumentationValue()
+     */
     protected String handleGetDocumentationValue()
     {
         return (!this.isDocumentationPresent()) ? "" 
             : StringUtilsHelper.toResourceMessage(this.getDocumentation(""));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         return getMessageKey() + ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
@@ -130,11 +153,17 @@ public class StrutsJspLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetOnlineHelpPagePath()
+     */
     protected String handleGetOnlineHelpPagePath()
     {
         return this.getFullPath() + "_help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetOnlineHelpActionPath()
+     */
     protected String handleGetOnlineHelpActionPath()
     {
         final StringBuilder buffer = new StringBuilder();
@@ -151,6 +180,9 @@ public class StrutsJspLogicImpl
         return buffer.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetFullPath()
+     */
     protected String handleGetFullPath()
     {
         return '/' +
@@ -158,6 +190,9 @@ public class StrutsJspLogicImpl
                 '.', '/');
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleIsValidationRequired()
+     */
     protected boolean handleIsValidationRequired()
     {
         final Collection actions = getActions();
@@ -172,6 +207,9 @@ public class StrutsJspLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleIsDateFieldPresent()
+     */
     protected boolean handleIsDateFieldPresent()
     {
         final Collection actions = getActions();
@@ -186,6 +224,9 @@ public class StrutsJspLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleIsCalendarRequired()
+     */
     protected boolean handleIsCalendarRequired()
     {
         final Collection actions = getActions();
@@ -237,6 +278,9 @@ public class StrutsJspLogicImpl
         return actions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetNonActionForwards()
+     */
     protected List handleGetNonActionForwards()
     {
         final List actions = new ArrayList();
@@ -253,11 +297,17 @@ public class StrutsJspLogicImpl
         return actions;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetPageVariables()
+     */
     protected List handleGetPageVariables()
     {
         return this.getVariables();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetIncomingActions()
+     */
     protected List handleGetIncomingActions()
     {
         final List incomingActionsList = new ArrayList();
@@ -328,11 +378,17 @@ public class StrutsJspLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#handleGetCssFileName()
+     */
     protected String handleGetCssFileName()
     {
         return getFullPath() + ".css";
     }
 
+    /**
+     * @return nonTableActions
+     */
     protected List handleGetNonTableActions()
     {
         final List nonTableActions = new ArrayList();

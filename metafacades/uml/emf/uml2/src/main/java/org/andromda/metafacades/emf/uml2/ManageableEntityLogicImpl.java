@@ -22,7 +22,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ManageableEntity.
@@ -75,6 +74,9 @@ public class ManageableEntityLogicImpl
         return manageablePackageName;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageablePackagePath()
+     */
     protected String handleGetManageablePackagePath()
     {
         return StringUtils.replace(
@@ -83,6 +85,9 @@ public class ManageableEntityLogicImpl
             "/");
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableAssociationEnds()
+     */
     protected List handleGetManageableAssociationEnds()
     {
         final Set manageableAssociationEnds = new LinkedHashSet(); // linked
@@ -144,11 +149,17 @@ public class ManageableEntityLogicImpl
         return !this.isAbstract();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableServiceName()
+     */
     protected String handleGetManageableServiceName()
     {
         return this.getName() + "ManageableService";
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableServiceFullPath()
+     */
     protected String handleGetManageableServiceFullPath()
     {
         return '/' +
@@ -158,11 +169,17 @@ public class ManageableEntityLogicImpl
             "/");
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetFullyQualifiedManageableServiceName()
+     */
     protected String handleGetFullyQualifiedManageableServiceName()
     {
         return this.getManageablePackageName() + this.getNamespaceSeparator() + this.getManageableServiceName();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableServiceAccessorCall()
+     */
     protected String handleGetManageableServiceAccessorCall()
     {
         final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
@@ -176,32 +193,50 @@ public class ManageableEntityLogicImpl
             this.getManageableServiceName());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleIsRead()
+     */
     protected boolean handleIsRead()
     {
         return true;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleIsUpdate()
+     */
     protected boolean handleIsUpdate()
     {
         return this.getManageableIdentifier() != null; // @todo
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleIsDelete()
+     */
     protected boolean handleIsDelete()
     {
         return this.getManageableIdentifier() != null; // @todo
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableAttributes()
+     */
     protected List handleGetManageableAttributes()
     {
         ArrayList attList = new ArrayList(this.getAttributes(true));
         return attList;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableIdentifier()
+     */
     protected Object handleGetManageableIdentifier()
     {
         return this.getIdentifiers(true).iterator().next();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetManageableMembers()
+     */
     protected List handleGetManageableMembers()
     {
         final List criteria = new ArrayList();
@@ -304,21 +339,33 @@ public class ManageableEntityLogicImpl
         return buffer.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleListManageableMembersWithWrapperTypes()
+     */
     protected String handleListManageableMembersWithWrapperTypes()
     {
         return createListWithManageableMembers(ListType.WRAPPER);
     }
     
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleListManageableMembers(boolean)
+     */
     protected String handleListManageableMembers(boolean withTypes)
     {
         return createListWithManageableMembers(withTypes? ListType.PRIMITIVE: null);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleIsManageable()
+     */
     protected boolean handleIsManageable()
     {
         return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES));
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetReferencingManageables()
+     */
     protected List handleGetReferencingManageables()
     {
         final Set referencingManageables = new LinkedHashSet();
@@ -342,6 +389,9 @@ public class ManageableEntityLogicImpl
         return new ArrayList(referencingManageables);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetDisplayAttribute()
+     */
     protected Object handleGetDisplayAttribute()
     {
         AttributeFacade displayAttribute = null;
@@ -378,6 +428,9 @@ public class ManageableEntityLogicImpl
         return displayAttribute;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetUsers()
+     */
     protected List handleGetUsers()
     {
         final Set users = new LinkedHashSet();
@@ -418,6 +471,9 @@ public class ManageableEntityLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetMaximumListSize()
+     */
     protected int handleGetMaximumListSize()
     {
         int maximumListSize;
@@ -460,6 +516,9 @@ public class ManageableEntityLogicImpl
         return maximumListSize;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetPageSize()
+     */
     protected int handleGetPageSize()
     {
         int pageSize;
@@ -502,6 +561,9 @@ public class ManageableEntityLogicImpl
         return pageSize;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleIsResolveable()
+     */
     protected boolean handleIsResolveable()
     {
         boolean resolveable;
@@ -544,6 +606,9 @@ public class ManageableEntityLogicImpl
         return resolveable;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ManageableEntityLogic#handleGetAllManageables()
+     */
     protected List handleGetAllManageables()
     {
         final Set allManageableEntities = new TreeSet(new ManageableComparator());

@@ -298,7 +298,7 @@ public abstract class BaseTranslator
         // final processing
     }
 
-    /* The Following Are Overriden Parser Generated Methods */
+    /* The Following Are Overridden Parser Generated Methods */
 
     /**
      * Sets the kind and name of the expression for <code>inv</code> expressions. If subclasses override this method,

@@ -23,6 +23,9 @@ public class AssociationClassFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.AssociationClassFacadeLogic#handleGetConnectionAssociationEnds()
+     */
     protected Collection handleGetConnectionAssociationEnds()
     {
         return this.metaObject.getConnection();

@@ -6,7 +6,6 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttribute.
  *
@@ -72,6 +71,9 @@ public class StrutsManageableEntityAttributeLogicImpl
         return dateFormat;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetDateFormat()
+     */
     protected String handleGetDateFormat()
     {
         String dateFormat = this.internalGetDateFormat();
@@ -93,28 +95,43 @@ public class StrutsManageableEntityAttributeLogicImpl
         return dateFormat;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleIsStrictDateFormat()
+     */
     protected boolean handleIsStrictDateFormat()
     {
         final String dateFormat = this.internalGetDateFormat();
         return (dateFormat != null && dateFormat.trim().startsWith("strict"));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleIsNeedsFileUpload()
+     */
     protected boolean handleIsNeedsFileUpload()
     {
         return this.getType() != null && this.getType().isBlobType();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleIsHidden()
+     */
     protected boolean handleIsHidden()
     {
         return !this.isDisplay() || Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetWidgetType()
+     */
     protected String handleGetWidgetType()
     {
         final Object widgetTag = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
         return (widgetTag == null) ? Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetFieldColumnCount()
+     */
     protected Integer handleGetFieldColumnCount()
     {
         Integer columnCount = null;
@@ -140,6 +157,9 @@ public class StrutsManageableEntityAttributeLogicImpl
         return columnCount;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetFieldRowCount()
+     */
     protected Integer handleGetFieldRowCount()
     {
         Integer rowCount = null;
@@ -165,16 +185,25 @@ public class StrutsManageableEntityAttributeLogicImpl
         return rowCount;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleIsSafeNamePresent()
+     */
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         return this.getMessageKey() + ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         return (!this.isDocumentationPresent()) ? "No field documentation has been specified" : 

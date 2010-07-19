@@ -37,6 +37,9 @@ public class WSDLTypeAttributeLogicImpl
      */
     private static final String PROPERTY_XML_ADAPTER = "schemaValidation";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic#handleGetXmlAdapter()
+     */
     @Override
     protected String handleGetXmlAdapter()
     {
@@ -53,6 +56,9 @@ public class WSDLTypeAttributeLogicImpl
      */
     private static final String PROPERTY_XML_TYPE = "schemaValidation";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic#handleGetXmlSchemaType()
+     */
     @Override
     protected String handleGetXmlSchemaType()
     {
@@ -73,6 +79,9 @@ public class WSDLTypeAttributeLogicImpl
      */
     private static final String USE_ATTRIBUTES = "useAttributes";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic#handleIsAttribute()
+     */
     @Override
     protected boolean handleIsAttribute()
     {
@@ -89,6 +98,9 @@ public class WSDLTypeAttributeLogicImpl
         return isAttribute;
     }
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic#handleIsElement()
+     */
     @Override
     protected boolean handleIsElement()
     {

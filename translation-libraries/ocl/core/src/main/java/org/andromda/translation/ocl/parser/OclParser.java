@@ -36,6 +36,9 @@ import org.andromda.translation.ocl.node.TName;
 public class OclParser
         extends Parser
 {
+    /**
+     * 
+     */
     protected Node oclNode;
 
     /**
@@ -58,6 +61,9 @@ public class OclParser
         node = oclNode;
     }
 
+    /**
+     * 
+     */
     protected SyntaxHandler handler = new SyntaxHandler();
 
     /**

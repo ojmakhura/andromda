@@ -343,9 +343,9 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Returns true if the Seam stereotype is modelled on the class.
+     * Returns true if the Seam stereotype is modeled on the class.
      *
-     * @param classifier The classifier to lookup if the stereotype is modelled
+     * @param classifier The classifier to lookup if the stereotype is modeled
      * @return True is stereotype exists, false otherwise
      */
     static boolean isSeamComponent(ClassifierFacade classifier)

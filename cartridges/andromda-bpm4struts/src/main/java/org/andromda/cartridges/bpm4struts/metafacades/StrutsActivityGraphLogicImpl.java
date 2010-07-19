@@ -25,6 +25,9 @@ public class StrutsActivityGraphLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogic#handleGetFirstAction()
+     */
     protected Object handleGetFirstAction()
     {
         Object firstAction = null;

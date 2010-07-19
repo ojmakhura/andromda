@@ -91,6 +91,10 @@ public class PackageFacadeLogicImpl
         return metaObject.getOwnedElement();
     }
 
+    /**
+     * return ""
+     * @see org.andromda.metafacades.uml14.PackageFacadeLogic#handleGetTablePrefix()
+     */
     @Override
     protected String handleGetTablePrefix()
     {

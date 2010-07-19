@@ -86,6 +86,9 @@ public class WebServiceParameterLogicImpl
      */
     private static final String USE_ATTRIBUTES = "useAttributes";
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#handleIsAttribute()
+     */
     @Override
     protected boolean handleIsAttribute()
     {
@@ -102,6 +105,9 @@ public class WebServiceParameterLogicImpl
         return isAttribute;
     }
 
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic#handleIsElement()
+     */
     @Override
     protected boolean handleIsElement()
     {

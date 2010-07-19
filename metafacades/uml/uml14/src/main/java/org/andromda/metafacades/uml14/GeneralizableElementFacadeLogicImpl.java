@@ -174,6 +174,9 @@ public class GeneralizableElementFacadeLogicImpl
         return value;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.GeneralizableElementFacadeLogic#handleGetGeneralizationRoot()
+     */
     protected GeneralizableElementFacade handleGetGeneralizationRoot()
     {
         return this.getGeneralization() == null

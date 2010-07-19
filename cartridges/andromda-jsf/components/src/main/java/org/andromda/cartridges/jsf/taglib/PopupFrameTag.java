@@ -226,6 +226,9 @@ public class PopupFrameTag
             args);
     }
 
+    /**
+     * @see javax.faces.webapp.UIComponentTag#setProperties(javax.faces.component.UIComponent)
+     */
     @Override
     protected void setProperties(UIComponent component)
     {

@@ -21,6 +21,9 @@ public class LinkFacadeLogicImpl
         super (metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.LinkFacadeLogic#handleGetLinkEnds()
+     */
     protected Collection handleGetLinkEnds()
     {
         return this.metaObject.getConnection();

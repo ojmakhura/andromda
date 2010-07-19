@@ -26,6 +26,9 @@ public class StrutsExceptionHandlerLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_EXCEPTION)
+     */
     protected boolean handleIsFrontEndException()
     {
         return this.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_EXCEPTION);
@@ -75,6 +78,9 @@ public class StrutsExceptionHandlerLogicImpl
             return "";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogic#handleGetMessageKey()
+     */
     protected String handleGetMessageKey()
     {
         final UseCaseFacade useCase = this.getUseCase();
