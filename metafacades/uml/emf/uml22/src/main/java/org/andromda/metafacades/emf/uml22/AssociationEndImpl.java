@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -240,7 +239,7 @@ public class AssociationEndImpl
     public TemplateSignature createOwnedTemplateSignature()
     {
         //return this.property.createOwnedTemplateSignature();
-        logger.error("AssociationEndImpl.createOwnedTemplateSignature is UML14 only");
+        logger.error("AssociationEnd.createOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -253,7 +252,7 @@ public class AssociationEndImpl
     public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
         //return this.property.createOwnedTemplateSignature(arg0);
-        logger.error("AssociationEndImpl.createOwnedTemplateSignature(arg0) is UML14 only");
+        logger.error("AssociationEndImpl.createOwnedTemplateSignature(EClass) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -296,7 +295,7 @@ public class AssociationEndImpl
     public TemplateBinding createTemplateBinding()
     {
         //return this.property.createTemplateBinding(null);
-        logger.error("AssociationEndImpl.createTemplateBinding is UML14 only");
+        logger.error("AssociationEnd.createTemplateBinding has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -307,7 +306,7 @@ public class AssociationEndImpl
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
         //return this.property.createTemplateBinding((TemplateSignature) arg0);
-        logger.error("AssociationEndImpl.createTemplateBinding(arg0) is UML14 only");
+        logger.error("AssociationEnd.createTemplateBinding(EClass) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -772,7 +771,7 @@ public class AssociationEndImpl
     public TemplateSignature getOwnedTemplateSignature()
     {
         //return this.property.getOwnedTemplateSignature();
-        logger.error("AssociationEndImpl.getOwnedTemplateSignature is UML14 only");
+        logger.error("AssociationEnd.getOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -892,14 +891,14 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement 
-     * AssociationEndImpl.property.validateUpperGt0 is UML14 only.
+     * AssociationEndImpl.property.validateUpperGt0 has been removed from UML2 3.x.
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBindings()
      */
     public EList getTemplateBindings()
     {
         //return this.property.getTemplateBindings();
-        logger.error("AssociationEndImpl.getTemplateBindings is UML14 only");
+        logger.error("AssociationEnd.getTemplateBindings has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1150,13 +1149,13 @@ public class AssociationEndImpl
     }
 
     /**
-     * AssociationEndImpl.property.parameterableElements is UML14 only
+     * AssociationEndImpl.property.parameterableElements has been removed from UML2 3.x
      * @return null
      */
     public EList<ParameterableElement> parameterableElements()
     {
         //return this.property.parameterableElements();
-        logger.error("AssociationEndImpl.property.parameterableElements is UML14 only");
+        logger.error("AssociationEnd.property.parameterableElements has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1337,14 +1336,14 @@ public class AssociationEndImpl
     }
 
     /**
-     * AssociationEndImpl.property.setOwnedTemplateSignature(arg0) is UML14 only
+     * AssociationEndImpl.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName()
      * Always returns null.
      * @param arg0 
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
         //this.property.setOwnedTemplateSignature(arg0);
-        logger.error("AssociationEndImpl.property.setOwnedTemplateSignature(arg0) is UML14 only");
+        logger.error("AssociationEndImpl.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
     }
 
     /**
@@ -1664,8 +1663,7 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /** UML2 3.0: Property no longer inherits from TemplateableElement 
-     * AssociationEndImpl.property.validateUpperGt0 is UML14 only.
+    /**
      * @param arg0 
      * @param arg1 
      * @return property.getUpper() > 0
@@ -2266,7 +2264,7 @@ public class AssociationEndImpl
     public TemplateBinding createTemplateBinding(TemplateSignature signature)
     {
         //return this.property.createTemplateBinding(signature);
-        logger.error("AssociationEndImpl.property.createTemplateBinding(TemplateSignature) is UML14 only");
+        logger.error("AssociationEndImpl.property.createTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2278,7 +2276,7 @@ public class AssociationEndImpl
     public TemplateBinding getTemplateBinding(TemplateSignature signature)
     {
         //return this.property.getTemplateBinding(signature);
-        logger.error("AssociationEndImpl.property.getTemplateBinding(TemplateSignature) is UML14 only");
+        logger.error("AssociationEndImpl.property.getTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2291,19 +2289,19 @@ public class AssociationEndImpl
     public TemplateBinding getTemplateBinding(TemplateSignature signature, boolean createOnDemand)
     {
         //return this.property.getTemplateBinding(signature, createOnDemand);
-        logger.error("AssociationEndImpl.property.getTemplateBinding(TemplateSignature, boolean) is UML14 only");
+        logger.error("AssociationEndImpl.property.getTemplateBinding(TemplateSignature, boolean) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * AssociationEndImpl.property.isTemplate is UML14 only.
+     * AssociationEndImpl.property.isTemplate has been removed from UML2 3.x
      * @return false
      * @see org.eclipse.uml2.uml.TemplateableElement#isTemplate()
      */
     public boolean isTemplate()
     {
         //return this.isTemplate();
-        logger.error("AssociationEndImpl.property.isTemplate is UML14 only");
+        logger.error("AssociationEndImpl.property.isTemplate has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return false;
     }
 }
