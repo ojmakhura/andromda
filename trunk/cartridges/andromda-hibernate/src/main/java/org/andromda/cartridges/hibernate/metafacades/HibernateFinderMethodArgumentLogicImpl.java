@@ -30,10 +30,10 @@ public class HibernateFinderMethodArgumentLogicImpl
      */
     private static final String USE_SPECIALIZED_SETTERS = "hibernateQueryUseSpecializedSetters";
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument#getQueryArgumentNameSetter()
      */
+    @Override
     protected String handleGetQueryArgumentNameSetter()
     {
         StringBuffer setterName = new StringBuffer();

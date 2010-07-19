@@ -68,11 +68,17 @@ public class UseCaseFacadeLogicImpl
         return this.metaObject.getExtends();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl#handleGetName()
+     */
     protected String handleGetName()
     {
         return StringUtilsHelper.toSingleLine(super.handleGetName());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.UseCaseFacadeLogic#handleGetIncludes()
+     */
     protected Collection handleGetIncludes()
     {
         return this.metaObject.getIncludes();

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.collections.Predicate;
@@ -12,9 +11,9 @@ import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.State;
+import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
-import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.StateMachineFacade.
@@ -160,6 +159,10 @@ public class StateMachineFacadeLogicImpl
         return getSubvertices(filter);
     }
 
+    /**
+     * @param collectionFilter
+     * @return subvertices
+     */
     protected Collection getSubvertices(Predicate collectionFilter)
     {
         final CompositeState compositeState = (CompositeState)metaObject.getTop();

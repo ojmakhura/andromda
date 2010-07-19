@@ -43,6 +43,9 @@ public class StrutsParameterLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetStrutsAction()
+     */
     protected Object handleGetStrutsAction()
     {
         Object actionObject = null;
@@ -59,6 +62,9 @@ public class StrutsParameterLogicImpl
         return actionObject;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetStyleId()
+     */
     protected String handleGetStyleId()
     {
         String styleId = null;
@@ -85,6 +91,9 @@ public class StrutsParameterLogicImpl
         return styleId;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetJsp()
+     */
     protected Object handleGetJsp()
     {
         Object jspObject = null;
@@ -111,6 +120,9 @@ public class StrutsParameterLogicImpl
         return jspObject;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetFormFields()
+     */
     protected List handleGetFormFields()
     {
         final List formFields;
@@ -262,22 +274,34 @@ public class StrutsParameterLogicImpl
             : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetDocumentationKey()
+     */
     protected String handleGetDocumentationKey()
     {
         return this.getMessageKey() + ".documentation";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetDocumentationValue()
+     */
     protected String handleGetDocumentationValue()
     {
         return (!this.isDocumentationPresent()) ? "" : 
             StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         return this.getMessageKey() + ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
@@ -462,6 +486,9 @@ public class StrutsParameterLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsCalendarRequired()
+     */
     protected boolean handleIsCalendarRequired()
     {
         return isDate() && "true".equals(String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)));
@@ -478,6 +505,9 @@ public class StrutsParameterLogicImpl
         return (action != null) && action.getActionParameters().contains(this);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetCollectionImplementationType()
+     */
     protected String handleGetCollectionImplementationType()
     {
         String typeName = null;
@@ -501,6 +531,9 @@ public class StrutsParameterLogicImpl
         return typeName;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTableDecoratorRequired()
+     */
     protected boolean handleIsTableDecoratorRequired()
     {
         boolean required = false;
@@ -534,6 +567,9 @@ public class StrutsParameterLogicImpl
         return super.isTable() && !this.isSelectable() && !this.isHiddenField();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsAllGlobalTableActionsHaveSameParameter()
+     */
     protected boolean handleIsAllGlobalTableActionsHaveSameParameter()
     {
         boolean sameParameter = true;
@@ -565,21 +601,33 @@ public class StrutsParameterLogicImpl
         return sameParameter;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableFormActions()
+     */
     protected List handleGetTableFormActions()
     {
         return this.internalGetTableActions(false, true, false);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableHyperlinkActions()
+     */
     protected List handleGetTableHyperlinkActions()
     {
         return this.internalGetTableActions(true, false, false);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableGlobalActions()
+     */
     protected Collection handleGetTableGlobalActions()
     {
         return this.internalGetTableActions(false, false, true);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableGlobalActionParameter()
+     */
     protected Object handleGetTableGlobalActionParameter()
     {
         Object parameter = null;
@@ -597,6 +645,9 @@ public class StrutsParameterLogicImpl
         return parameter;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTableFormActionSharingWidgets()
+     */
     protected boolean handleIsTableFormActionSharingWidgets()
     {
         // @todo (wouter)
@@ -654,6 +705,9 @@ public class StrutsParameterLogicImpl
         return new ArrayList(tableActions);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableDecoratorFullyQualifiedName()
+     */
     protected String handleGetTableDecoratorFullyQualifiedName()
     {
         String name = getTableDecoratorPackageName();
@@ -661,12 +715,18 @@ public class StrutsParameterLogicImpl
         return name + getTableDecoratorClassName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableDecoratorPackageName()
+     */
     protected String handleGetTableDecoratorPackageName()
     {
         final StrutsJsp jsp = getJsp();
         return (jsp == null) ? null : jsp.getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableDecoratorClassName()
+     */
     protected String handleGetTableDecoratorClassName()
     {
         String tableDecoratorClassName = null;
@@ -681,11 +741,17 @@ public class StrutsParameterLogicImpl
         return tableDecoratorClassName;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableDecoratorFullPath()
+     */
     protected String handleGetTableDecoratorFullPath()
     {
         return getTableDecoratorFullyQualifiedName().replace('.', '/');
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableExportTypes()
+     */
     protected String handleGetTableExportTypes()
     {
         return Bpm4StrutsUtils.getDisplayTagExportTypes(
@@ -693,11 +759,17 @@ public class StrutsParameterLogicImpl
             (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTableExportable()
+     */
     protected boolean handleIsTableExportable()
     {
         return this.getTableExportTypes().indexOf("none") == -1;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTableSortable()
+     */
     protected boolean handleIsTableSortable()
     {
         final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
@@ -706,6 +778,9 @@ public class StrutsParameterLogicImpl
             : Bpm4StrutsUtils.isTrue(String.valueOf(taggedValue));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTableHyperlinkColumn()
+     */
     protected boolean handleIsTableHyperlinkColumn()
     {
         boolean tableHyperlinkColumn = false;
@@ -731,6 +806,9 @@ public class StrutsParameterLogicImpl
         return tableHyperlinkColumn;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnActions(java.lang.String)
+     */
     protected List<StrutsAction> handleGetTableColumnActions(final String columnName)
     {
         final List<StrutsAction> columnActions = new ArrayList<StrutsAction>();
@@ -848,6 +926,9 @@ public class StrutsParameterLogicImpl
         return tableColumns;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageKey(java.lang.String)
+     */
     protected String handleGetTableColumnMessageKey(String columnName)
     {
         StringBuilder messageKey = null;
@@ -872,11 +953,17 @@ public class StrutsParameterLogicImpl
         return (messageKey == null) ? null : messageKey.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageValue(java.lang.String)
+     */
     protected String handleGetTableColumnMessageValue(String columnName)
     {
         return (isTable()) ? StringUtilsHelper.toPhrase(columnName) : null;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableMaxRows()
+     */
     protected int handleGetTableMaxRows()
     {
         final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
@@ -894,6 +981,9 @@ public class StrutsParameterLogicImpl
         return pageSize;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetWidgetType()
+     */
     protected String handleGetWidgetType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
@@ -978,6 +1068,9 @@ public class StrutsParameterLogicImpl
      */
     static final String HIDDEN_INPUT_TYPE = "hidden";
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsFile()
+     */
     protected boolean handleIsFile()
     {
         boolean file = false;
@@ -990,6 +1083,9 @@ public class StrutsParameterLogicImpl
         return file;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsMultiple()
+     */
     protected boolean handleIsMultiple()
     {
         boolean multiple = false;
@@ -1002,16 +1098,25 @@ public class StrutsParameterLogicImpl
         return multiple;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetBackingListName()
+     */
     protected String handleGetBackingListName()
     {
         return getName() + "BackingList";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetValueListResetValue()
+     */
     protected String handleGetValueListResetValue()
     {
         return constructArray();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsSelectable()
+     */
     protected boolean handleIsSelectable()
     {
         boolean selectable = false;
@@ -1254,6 +1359,9 @@ public class StrutsParameterLogicImpl
         return (format == null) ? null : format.trim();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetValidatorTypes()
+     */
     protected Collection handleGetValidatorTypes()
     {
         final Collection validatorTypesList = new ArrayList();
@@ -1573,46 +1681,73 @@ public class StrutsParameterLogicImpl
         return "reset" + StringUtils.capitalize(StringUtils.trimToEmpty(this.getName()));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsPassword()
+     */
     protected boolean handleIsPassword()
     {
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsCombobox()
+     */
     protected boolean handleIsCombobox()
     {
         return "select".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsCheckbox()
+     */
     protected boolean handleIsCheckbox()
     {
         return "checkbox".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTextField()
+     */
     protected boolean handleIsTextField()
     {
         return "text".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTextArea()
+     */
     protected boolean handleIsTextArea()
     {
         return "textarea".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsMultibox()
+     */
     protected boolean handleIsMultibox()
     {
         return "multibox".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsRadioButton()
+     */
     protected boolean handleIsRadioButton()
     {
         return "radio".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsHiddenField()
+     */
     protected boolean handleIsHiddenField()
     {
         return "hidden".equals(this.getWidgetType());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsHyperlink()
+     */
     protected boolean handleIsHyperlink()
     {
         return "link".equals(this.getWidgetType());
@@ -1845,6 +1980,9 @@ public class StrutsParameterLogicImpl
         return (this.isTable() && this.getJsp() != null) ? this.getJsp() : super.getValidationOwner();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsSortableBy()
+     */
     protected boolean handleIsSortableBy()
     {
         boolean sortableBy = true;
@@ -1877,6 +2015,9 @@ public class StrutsParameterLogicImpl
         return this.isValidatorTime();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetFieldColumnCount()
+     */
     protected Integer handleGetFieldColumnCount()
     {
         Integer columnCount = null;
@@ -1902,6 +2043,9 @@ public class StrutsParameterLogicImpl
         return columnCount;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetFieldRowCount()
+     */
     protected Integer handleGetFieldRowCount()
     {
         Integer rowCount = null;
@@ -1927,6 +2071,9 @@ public class StrutsParameterLogicImpl
         return rowCount;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsSafeNamePresent()
+     */
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());

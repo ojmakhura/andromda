@@ -57,16 +57,25 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         return StringUtilsHelper.toPhrase(messageValue);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleIsSafeNamePresent()
+     */
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         return this.getMessageKey() + ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         return (!this.isDocumentationPresent()) ? "No field documentation has been specified" : 

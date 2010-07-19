@@ -752,11 +752,17 @@ public class OperationFacadeLogicImpl
         return facade;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.OperationFacadeLogic#handleIsOverriding()
+     */
     protected boolean handleIsOverriding()
     {
         return this.getOverriddenOperation() != null;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.OperationFacadeLogic#handleGetOverriddenOperation()
+     */
     protected OperationFacade handleGetOverriddenOperation()
     {
         OperationFacade overriddenOperation = null;

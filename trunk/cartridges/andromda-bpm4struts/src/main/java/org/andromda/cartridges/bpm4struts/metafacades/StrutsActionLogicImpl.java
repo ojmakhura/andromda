@@ -32,8 +32,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -139,17 +137,26 @@ public class StrutsActionLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionName()
+     */
     protected String handleGetActionName()
     {
         return getFormBeanName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionInput()
+     */
     protected String handleGetActionInput()
     {
         final StateVertexFacade source = getSource();
         return (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsMultipartFormData()
+     */
     protected boolean handleIsMultipartFormData()
     {
         boolean multipartFormPost = false;
@@ -166,12 +173,18 @@ public class StrutsActionLogicImpl
         return multipartFormPost;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsFormPost()
+     */
     protected boolean handleIsFormPost()
     {
         final Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
         return value == null || Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_FORM.equals(value);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsHyperlink()
+     */
     protected boolean handleIsHyperlink()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
@@ -179,6 +192,9 @@ public class StrutsActionLogicImpl
             .equalsIgnoreCase(value == null ? null : value.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsImageLink()
+     */
     protected boolean handleIsImageLink()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
@@ -186,22 +202,34 @@ public class StrutsActionLogicImpl
             .equalsIgnoreCase(value == null ? null : value.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsTableAction()
+     */
     protected boolean handleIsTableAction()
     {
         return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_TABLE
             .equals(this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE));
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsTableRowAction()
+     */
     protected boolean handleIsTableRowAction()
     {
         return this.isTableLink() && !this.isTableAction();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsTableLink()
+     */
     protected boolean handleIsTableLink()
     {
         return this.getTableLinkParameter() != null;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetTableLinkParameter()
+     */
     protected Object handleGetTableLinkParameter()
     {
         StrutsParameter tableLinkParameter = null;
@@ -225,6 +253,9 @@ public class StrutsActionLogicImpl
         return tableLinkParameter;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetTableNonColumnFormParameters()
+     */
     protected List handleGetTableNonColumnFormParameters()
     {
         List tableNonColumnActionParameters = null;
@@ -256,6 +287,9 @@ public class StrutsActionLogicImpl
         return tableNonColumnActionParameters;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetTableLinkName()
+     */
     protected String handleGetTableLinkName()
     {
         String tableLink = null;
@@ -275,6 +309,9 @@ public class StrutsActionLogicImpl
         return tableLink;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetTableLinkColumnName()
+     */
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
@@ -296,16 +333,25 @@ public class StrutsActionLogicImpl
         return tableLink;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetImagePath()
+     */
     protected String handleGetImagePath()
     {
         return getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName()) + ".gif";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionPath()
+     */
     protected String handleGetActionPath()
     {
         return getActionPathRoot() + '/' + getActionClassName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionPathRoot()
+     */
     protected String handleGetActionPathRoot()
     {
         String actionPathRoot = null;
@@ -334,6 +380,9 @@ public class StrutsActionLogicImpl
         return actionPathRoot;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionScope()
+     */
     protected String handleGetActionScope()
     {
         return "request";
@@ -395,6 +444,9 @@ public class StrutsActionLogicImpl
         return roleUsers;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionClassName()
+     */
     protected String handleGetActionClassName()
     {
         String name = null;
@@ -416,16 +468,25 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.upperCamelCaseName(name);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionType()
+     */
     protected String handleGetActionType()
     {
         return getPackageName() + '.' + getActionClassName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFormBeanClassName()
+     */
     protected String handleGetFormBeanClassName()
     {
         return getActionClassName() + Bpm4StrutsGlobals.FORM_IMPLEMENTATION_SUFFIX;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFormBeanName()
+     */
     protected String handleGetFormBeanName()
     {
         String formBeanName = null;
@@ -440,11 +501,17 @@ public class StrutsActionLogicImpl
         return formBeanName;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFormValidationMethodName()
+     */
     protected String handleGetFormValidationMethodName()
     {
         return "validate" + this.getActionClassName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetMessageKey()
+     */
     protected String handleGetMessageKey()
     {
         String messageKey = null;
@@ -458,6 +525,9 @@ public class StrutsActionLogicImpl
         return messageKey;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetImageMessageKey()
+     */
     protected String handleGetImageMessageKey()
     {
         return getMessageKey() + ".image";
@@ -501,17 +571,26 @@ public class StrutsActionLogicImpl
             "1".equalsIgnoreCase(string);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsUseCaseStart()
+     */
     protected boolean handleIsUseCaseStart()
     {
         StateVertexFacade source = getSource();
         return source instanceof PseudostateFacade && ((PseudostateFacade) source).isInitialState();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFullActionPath()
+     */
     protected String handleGetFullActionPath()
     {
         return getPackagePath() + '/' + getActionClassName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFullTilePath()
+     */
     protected String handleGetFullTilePath()
     {
         return isUseCaseStart()
@@ -536,11 +615,17 @@ public class StrutsActionLogicImpl
         return packagePath;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFullFormBeanPath()
+     */
     protected String handleGetFullFormBeanPath()
     {
         return '/' + (getPackageName() + '/' + getFormBeanClassName()).replace('.', '/');
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsValidationRequired()
+     */
     protected boolean handleIsValidationRequired()
     {
         final Collection actionParameters = getActionParameters();
@@ -555,6 +640,9 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsDateFieldPresent()
+     */
     protected boolean handleIsDateFieldPresent()
     {
         final Collection actionParameters = getActionParameters();
@@ -569,6 +657,9 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleIsCalendarRequired()
+     */
     protected boolean handleIsCalendarRequired()
     {
         final Collection actionParameters = getActionParameters();
@@ -583,16 +674,25 @@ public class StrutsActionLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFormBeanPackageName()
+     */
     protected String handleGetFormBeanPackageName()
     {
         return getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetFormBeanType()
+     */
     protected String handleGetFormBeanType()
     {
         return getFormBeanPackageName() + '.' + getFormBeanClassName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDocumentationKey()
+     */
     protected String handleGetDocumentationKey()
     {
         final StrutsTrigger trigger = getActionTrigger();
@@ -600,12 +700,18 @@ public class StrutsActionLogicImpl
             ".documentation";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDocumentationValue()
+     */
     protected String handleGetDocumentationValue()
     {
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         return (value == null) ? "" : value;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         final StrutsTrigger trigger = getActionTrigger();
@@ -613,6 +719,9 @@ public class StrutsActionLogicImpl
             ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
@@ -625,24 +734,36 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionForwards()
+     */
     protected List handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
         return new ArrayList(actionForwards.values());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDecisionTransitions()
+     */
     protected List handleGetDecisionTransitions()
     {
         if (decisionTransitions == null) initializeCollections();
         return new ArrayList(decisionTransitions);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionStates()
+     */
     protected List handleGetActionStates()
     {
         if (actionStates == null) initializeCollections();
         return new ArrayList(actionStates);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionExceptions()
+     */
     protected List<FrontEndExceptionHandler> handleGetActionExceptions()
     {
         final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet();
@@ -682,17 +803,26 @@ public class StrutsActionLogicImpl
         return input;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetController()
+     */
     protected Object handleGetController()
     {
         final StrutsActivityGraph graph = this.getStrutsActivityGraph();
         return graph == null ? null : graph.getController();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionTrigger()
+     */
     protected Object handleGetActionTrigger()
     {
         return this.getTrigger();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionFormFields()
+     */
     protected List handleGetActionFormFields()
     {
         final Map formFieldMap = new HashMap();
@@ -796,6 +926,9 @@ public class StrutsActionLogicImpl
         return new ArrayList(formFieldMap.values());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDeferredOperations()
+     */
     protected List handleGetDeferredOperations()
     {
         final Collection deferredOperations = new LinkedHashSet();
@@ -826,12 +959,18 @@ public class StrutsActionLogicImpl
         return new ArrayList(deferredOperations);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionParameters()
+     */
     protected List handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.emptyList() : new ArrayList(trigger.getParameters());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetInterUseCaseParameters(org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState)
+     */
     protected List handleGetInterUseCaseParameters(StrutsFinalState finalState)
     {
         List parameters;

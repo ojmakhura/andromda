@@ -3,8 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
-import org.omg.uml.behavioralelements.statemachines.Transition;
 import org.omg.uml.behavioralelements.commonbehavior.Action;
+import org.omg.uml.behavioralelements.statemachines.Transition;
 
 /**
  * MetafacadeLogic implementation.
@@ -25,6 +25,9 @@ public class ActionFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ActionFacadeLogic#handleGetTransition()
+     */
     protected Transition handleGetTransition()
     {
         Transition effectTransition = null;
@@ -42,6 +45,9 @@ public class ActionFacadeLogicImpl
         return effectTransition;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ActionFacadeLogic#handleGetActionState()
+     */
     protected ActionState handleGetActionState()
     {
         ActionState entryState = null;

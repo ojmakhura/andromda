@@ -209,6 +209,9 @@ public class EntityAttributeLogicImpl
         return mappings;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.EntityAttributeLogic#handleIsTransient()
+     */
     protected boolean handleIsTransient()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);

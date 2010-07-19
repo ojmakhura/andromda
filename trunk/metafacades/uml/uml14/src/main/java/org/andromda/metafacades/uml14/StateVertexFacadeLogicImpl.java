@@ -2,7 +2,6 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.activitygraphs.Partition;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
@@ -28,6 +27,9 @@ public class StateVertexFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogic#handleGetStateMachine()
+     */
     protected StateMachine handleGetStateMachine()
     {
         // throws NullPointer if metaObject has no Container... Need to check for null on return.
@@ -38,16 +40,25 @@ public class StateVertexFacadeLogicImpl
         return metaObject.getContainer().getStateMachine();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogic#handleGetContainer()
+     */
     protected CompositeState handleGetContainer()
     {
         return metaObject.getContainer();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogic#handleGetIncomings()
+     */
     protected Collection handleGetIncomings()
     {
         return metaObject.getIncoming();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogic#handleGetOutgoings()
+     */
     protected Collection handleGetOutgoings()
     {
         return metaObject.getOutgoing();
@@ -61,6 +72,9 @@ public class StateVertexFacadeLogicImpl
         return getStateMachine();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogic#handleGetPartition()
+     */
     protected Partition handleGetPartition()
     {
         Partition thePartition = null;

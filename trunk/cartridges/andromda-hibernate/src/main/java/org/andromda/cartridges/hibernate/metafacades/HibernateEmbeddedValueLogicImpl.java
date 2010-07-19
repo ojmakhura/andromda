@@ -28,10 +28,10 @@ public class HibernateEmbeddedValueLogicImpl
         super(metaObject, context);
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue#isImmutable()
      */
+    @Override
     protected boolean handleIsImmutable()
     {
         boolean immutable = false;
@@ -43,10 +43,10 @@ public class HibernateEmbeddedValueLogicImpl
         return immutable;
     }
 
-    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue#getImplementationName()
      */
+    @Override
     protected String handleGetImplementationName()
     {
         final String implNamePattern =

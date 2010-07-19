@@ -63,7 +63,7 @@ public class JSFGlobals
     public static final String FORM_BEAN_PATTERN = "formBeanPattern";
     
     /**
-     * Stores the default form scope which can be overriden with a tagged value.
+     * Stores the default form scope which can be overridden with a tagged value.
      */
     public static final String FORM_SCOPE = "formScope";
     

@@ -33,6 +33,9 @@ public class TransitionFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleGetEffect()
+     */
     @Override
     protected Action handleGetEffect()
     {
@@ -55,18 +58,27 @@ public class TransitionFacadeLogicImpl
         return effectAction;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleGetSource()
+     */
     @Override
     protected Vertex handleGetSource()
     {
         return this.metaObject.getSource();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleGetTarget()
+     */
     @Override
     protected Vertex handleGetTarget()
     {
         return this.metaObject.getTarget();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleGetTrigger()
+     */
     @Override
     protected Behavior handleGetTrigger()
     {
@@ -75,18 +87,27 @@ public class TransitionFacadeLogicImpl
         return this.metaObject.getEffect();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleGetGuard()
+     */
     @Override
     protected Constraint handleGetGuard()
     {
         return this.metaObject.getGuard();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsTriggerPresent()
+     */
     @Override
     protected boolean handleIsTriggerPresent()
     {
         return this.metaObject.getEffect() != null;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsExitingDecisionPoint()
+     */
     @Override
     protected boolean handleIsExitingDecisionPoint()
     {
@@ -94,6 +115,9 @@ public class TransitionFacadeLogicImpl
         return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isDecisionPoint();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsEnteringDecisionPoint()
+     */
     @Override
     protected boolean handleIsEnteringDecisionPoint()
     {
@@ -101,18 +125,30 @@ public class TransitionFacadeLogicImpl
         return target instanceof PseudostateFacade && ((PseudostateFacade)target).isDecisionPoint();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsExitingActionState()
+     */
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsExitingActionState()
+     */
     @Override
     protected boolean handleIsExitingActionState()
     {
         return this.getSource() instanceof ActionStateFacade;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsEnteringActionState()
+     */
     @Override
     protected boolean handleIsEnteringActionState()
     {
         return this.getTarget() instanceof ActionStateFacade;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsExitingInitialState()
+     */
     @Override
     protected boolean handleIsExitingInitialState()
     {
@@ -120,6 +156,9 @@ public class TransitionFacadeLogicImpl
         return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isInitialState();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.TransitionFacadeLogic#handleIsEnteringFinalState()
+     */
     @Override
     protected boolean handleIsEnteringFinalState()
     {

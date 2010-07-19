@@ -40,21 +40,33 @@ public class StrutsUseCaseLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetTitleKey()
+     */
     protected String handleGetTitleKey()
     {
         return StringUtilsHelper.toResourceMessageKey(normalizeMessages() ? getTitleValue() : getName()) + ".title";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetTitleValue()
+     */
     protected String handleGetTitleValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetOnlineHelpKey()
+     */
     protected String handleGetOnlineHelpKey()
     {
         return StringUtilsHelper.toResourceMessageKey(getName()) + ".online.help";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetOnlineHelpValue()
+     */
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
@@ -67,6 +79,9 @@ public class StrutsUseCaseLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetActionPath()
+     */
     protected String handleGetActionPath()
     {
         String actionPath = null;
@@ -83,6 +98,9 @@ public class StrutsUseCaseLogicImpl
         return actionPath;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetActionPathRoot()
+     */
     protected String handleGetActionPathRoot()
     {
         String actionPathRoot = null;
@@ -123,6 +141,9 @@ public class StrutsUseCaseLogicImpl
         return selfTargetting;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetActionRoles()
+     */
     protected String handleGetActionRoles()
     {
         final Collection users = this.getRoles();
@@ -153,11 +174,17 @@ public class StrutsUseCaseLogicImpl
         return Collections.emptyList();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetPages()
+     */
     protected List handleGetPages()
     {
         return this.getViews();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetAllPages()
+     */
     protected List handleGetAllPages()
     {
         final List pagesList = new ArrayList();
@@ -172,6 +199,9 @@ public class StrutsUseCaseLogicImpl
         return pagesList;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetFormFields()
+     */
     protected List handleGetFormFields()
     {
         final List formFields = new ArrayList(); // parameter names are supposed to be unique
@@ -194,6 +224,9 @@ public class StrutsUseCaseLogicImpl
         return formFields;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleIsValidationRequired()
+     */
     protected boolean handleIsValidationRequired()
     {
         final Collection allPages = this.getAllPages();
@@ -208,6 +241,9 @@ public class StrutsUseCaseLogicImpl
         return false;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleIsApplicationValidationRequired()
+     */
     protected boolean handleIsApplicationValidationRequired()
     {
         final Collection useCases = this.getAllUseCases();
@@ -223,7 +259,7 @@ public class StrutsUseCaseLogicImpl
     }
 
     /**
-     * Overriden because StrutsAction does not extend FrontEndAction.
+     * Overridden because StrutsAction does not extend FrontEndAction.
      *
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getActions()
      */
@@ -248,21 +284,33 @@ public class StrutsUseCaseLogicImpl
         return new ArrayList(actions);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetPageVariables()
+     */
     protected List handleGetPageVariables()
     {
         return this.getViewVariables();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleIsApplicationUseCase()
+     */
     protected boolean handleIsApplicationUseCase()
     {
         return this.isEntryUseCase();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetCssFileName()
+     */
     protected String handleGetCssFileName()
     {
         return this.getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(this.getName()) + ".css";
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetApplicationHierarchyRoot()
+     */
     protected TreeNode handleGetApplicationHierarchyRoot()
     {
         final UseCaseNode root = new UseCaseNode(this);
@@ -270,6 +318,9 @@ public class StrutsUseCaseLogicImpl
         return root;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetHierarchyRoot()
+     */
     protected TreeNode handleGetHierarchyRoot()
     {
         UseCaseNode hierarchy = null;
@@ -397,6 +448,9 @@ public class StrutsUseCaseLogicImpl
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetAllMessages()
+     */
     protected Map handleGetAllMessages()
     {
         final boolean normalize = this.normalizeMessages();
@@ -590,6 +644,9 @@ public class StrutsUseCaseLogicImpl
         return messages;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetOnlineHelpPagePath()
+     */
     protected String handleGetOnlineHelpPagePath()
     {
         final StringBuilder buffer = new StringBuilder();
@@ -606,6 +663,9 @@ public class StrutsUseCaseLogicImpl
         return buffer.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetOnlineHelpActionPath()
+     */
     protected String handleGetOnlineHelpActionPath()
     {
         final StringBuilder buffer = new StringBuilder();

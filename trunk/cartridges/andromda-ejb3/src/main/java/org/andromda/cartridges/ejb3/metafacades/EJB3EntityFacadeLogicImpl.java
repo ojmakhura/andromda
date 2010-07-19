@@ -237,7 +237,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * This overrides the default implementation in EntityLogicImpl.java.
      *
-     * This provides the means to check super classes, even those modelled
+     * This provides the means to check super classes, even those modeled
      * as mapped superclasses, as well as entities.
      *
      * Gets all identifiers for this entity. If 'follow' is true, and if
@@ -1010,7 +1010,7 @@ public class EJB3EntityFacadeLogicImpl
                     if (includeTypes)
                     {
                         /**
-                         * If attribute is a LOB and lob type is overriden, then use
+                         * If attribute is a LOB and lob type is overridden, then use
                          * overriding lob type.
                          */
                         if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))

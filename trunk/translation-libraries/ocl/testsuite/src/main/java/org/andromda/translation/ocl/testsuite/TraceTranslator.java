@@ -169,11 +169,11 @@ public class TraceTranslator
 
                 if (methodName.startsWith(INA_PREFIX))
                 {
-                    // add the new overriden "inA" methods
+                    // add the new overridden "inA" methods
                     this.methods.put(method, this.getInAMethodBody(method));
                 } else if (methodName.startsWith(OUTA_PREFIX))
                 {
-                    // add the new overriden "outA" methods
+                    // add the new overridden "outA" methods
                     this.methods.put(method, this.getOutAMethodBody(method));
                 } else if (methodName.startsWith(CASE_PREFIX))
                 {

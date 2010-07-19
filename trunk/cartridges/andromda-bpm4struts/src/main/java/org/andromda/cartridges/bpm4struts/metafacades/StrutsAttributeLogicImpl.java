@@ -50,6 +50,9 @@ public class StrutsAttributeLogicImpl
         return dateFormat;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAttributeLogic#handleGetDummyValue(int)
+     */
     protected String handleGetDummyValue(int seed)
     {
         String dummyValue = null;
@@ -80,6 +83,9 @@ public class StrutsAttributeLogicImpl
         return dummyValue;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAttributeLogic#handleIsSafeNamePresent()
+     */
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());

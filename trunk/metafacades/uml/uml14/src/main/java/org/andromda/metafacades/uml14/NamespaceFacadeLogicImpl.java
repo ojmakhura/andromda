@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-
 import org.omg.uml.foundation.core.Namespace;
 
 
@@ -27,6 +26,9 @@ public class NamespaceFacadeLogicImpl
     }
 
     // ------------- relations ------------------
+    /**
+     * @see org.andromda.metafacades.uml14.NamespaceFacadeLogic#handleGetOwnedElements()
+     */
     protected Collection handleGetOwnedElements()
     {
         return ((Namespace)metaObject).getOwnedElement();

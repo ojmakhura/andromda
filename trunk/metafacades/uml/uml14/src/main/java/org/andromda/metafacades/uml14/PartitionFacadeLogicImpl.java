@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
-import org.omg.uml.behavioralelements.statemachines.StateVertex;
 import org.omg.uml.behavioralelements.activitygraphs.Partition;
+import org.omg.uml.behavioralelements.statemachines.StateVertex;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.PartitionFacade.
@@ -36,6 +36,9 @@ public class PartitionFacadeLogicImpl
         return metaObject.getActivityGraph();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.PartitionFacadeLogic#handleGetVertices()
+     */
     protected Collection<StateVertex> handleGetVertices()
     {
         Collection<StateVertex> vertices = new ArrayList<StateVertex>();

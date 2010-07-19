@@ -294,7 +294,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
-     * Overriden since a transition doesn't exist in a package.
+     * Overridden since a transition doesn't exist in a package.
      *
      * @see org.andromda.metafacades.emf.uml2.ModelElementFacadeLogic#handleGetPackageName()
      */

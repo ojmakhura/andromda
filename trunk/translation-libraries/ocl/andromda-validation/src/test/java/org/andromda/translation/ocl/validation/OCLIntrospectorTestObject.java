@@ -48,6 +48,9 @@ public class OCLIntrospectorTestObject
         return argTwo;
     }
 
+    /**
+     * 
+     */
     protected static String propertyOne = "One";
 
     /**
@@ -58,6 +61,9 @@ public class OCLIntrospectorTestObject
         return propertyOne;
     }
 
+    /**
+     * 
+     */
     protected static Integer propertyTwo = 2;
 
     /**

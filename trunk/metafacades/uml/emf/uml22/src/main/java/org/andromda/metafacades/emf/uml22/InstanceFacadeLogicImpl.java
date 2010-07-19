@@ -68,6 +68,9 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         return instance;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleGetName()
+     */
     @Override
     protected String handleGetName()
     {

@@ -22,8 +22,6 @@ import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation.
  *
@@ -43,21 +41,33 @@ public class StrutsControllerOperationLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetInterfaceName()
+     */
     protected String handleGetInterfaceName()
     {
         return StringUtilsHelper.upperCamelCaseName(getName()) + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetInterfacePackageName()
+     */
     protected String handleGetInterfacePackageName()
     {
         return getOwner().getPackageName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetInterfaceType()
+     */
     protected String handleGetInterfaceType()
     {
         return getInterfacePackageName() + '.' + getInterfaceName();
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetInterfaceFullPath()
+     */
     protected String handleGetInterfaceFullPath()
     {
         return '/' + getInterfaceType().replace('.', '/');
@@ -131,6 +141,9 @@ public class StrutsControllerOperationLogicImpl
         return new ArrayList(deferringActions);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetController()
+     */
     protected Object handleGetController()
     {
         final Object owner = getOwner();
@@ -252,6 +265,9 @@ public class StrutsControllerOperationLogicImpl
         return allArgumentsHaveFormFields;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleIsBackEndServiceOperationMatchingParameters()
+     */
     protected boolean handleIsBackEndServiceOperationMatchingParameters()
     {
         boolean matches = true;
@@ -280,6 +296,9 @@ public class StrutsControllerOperationLogicImpl
         return matches;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleGetBackEndServiceOperation()
+     */
     protected Object handleGetBackEndServiceOperation()
     {
         Object operation = null;
@@ -299,6 +318,9 @@ public class StrutsControllerOperationLogicImpl
         return operation;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogic#handleIsCallingBackEnd()
+     */
     protected boolean handleIsCallingBackEnd()
     {
         return getBackEndServiceOperation() != null;

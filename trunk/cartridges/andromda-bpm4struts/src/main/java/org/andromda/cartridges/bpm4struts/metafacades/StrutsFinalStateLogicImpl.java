@@ -54,6 +54,9 @@ public class StrutsFinalStateLogicImpl
         return name;
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogic#handleGetFullPath()
+     */
     protected String handleGetFullPath()
     {
         String fullPath = null;

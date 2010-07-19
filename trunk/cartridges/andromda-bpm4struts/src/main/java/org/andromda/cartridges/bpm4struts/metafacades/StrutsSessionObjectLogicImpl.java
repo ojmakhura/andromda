@@ -19,14 +19,19 @@ public class StrutsSessionObjectLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogic#handleGetSessionKey()
+     */
     protected String handleGetSessionKey()
     {
         return StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogic#handleGetFullPath()
+     */
     protected String handleGetFullPath()
     {
         return '/' + getFullyQualifiedName().replace('.', '/');
     }
-
 }

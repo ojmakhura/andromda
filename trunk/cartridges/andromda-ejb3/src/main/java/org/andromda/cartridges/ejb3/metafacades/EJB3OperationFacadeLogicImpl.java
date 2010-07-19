@@ -92,7 +92,7 @@ public class EJB3OperationFacadeLogicImpl
         return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_REMOVE);
     }
 
-    /*
+    /**
      * @see EJB3OperationFacadeLogic#handleIsPostRemove()
      */
     @Override

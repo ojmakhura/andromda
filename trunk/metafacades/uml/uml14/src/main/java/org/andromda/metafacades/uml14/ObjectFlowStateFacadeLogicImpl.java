@@ -1,9 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.Classifier;
-import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 
 /**
  * Metaclass facade implementation.
@@ -44,6 +44,9 @@ public class ObjectFlowStateFacadeLogicImpl
         return stateMachine;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ObjectFlowStateFacadeLogic#handleGetType()
+     */
     protected Classifier handleGetType()
     {
         return metaObject.getType();

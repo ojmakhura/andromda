@@ -222,6 +222,9 @@ public class EntityAttributeLogicImpl
         return mappings;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.EntityAttributeLogic#handleIsTransient()
+     */
     @Override
     protected boolean handleIsTransient()
     {
