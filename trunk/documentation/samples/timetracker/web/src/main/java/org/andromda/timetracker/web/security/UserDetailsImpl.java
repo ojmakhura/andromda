@@ -6,56 +6,90 @@ import org.acegisecurity.userdetails.UserDetails;
 import org.andromda.timetracker.vo.UserDetailsVO;
 import org.andromda.timetracker.vo.UserRoleVO;
 
+/**
+ *
+ */
 public class UserDetailsImpl implements UserDetails {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6988882087567807592L;
     private UserDetailsVO userDetailsVO;
     private GrantedAuthority[] authorities;
 
-    public UserDetailsImpl(UserDetailsVO userDetailsVO) {
-        this.userDetailsVO = userDetailsVO;
+    /**
+     * @param userDetailsVOIn
+     */
+    public UserDetailsImpl(UserDetailsVO userDetailsVOIn) {
+        this.userDetailsVO = userDetailsVOIn;
         this.authorities = null; // lazily initialized
     }
 
+    /**
+     * @return userDetailsVO
+     */
     public UserDetailsVO getUserDetailsVO() {
-        return userDetailsVO;
+        return this.userDetailsVO;
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getUsername()
+     */
     public String getUsername() {
-        return userDetailsVO.getUsername();
+        return this.userDetailsVO.getUsername();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getPassword()
+     */
     public String getPassword() {
-        return userDetailsVO.getPassword();
+        return this.userDetailsVO.getPassword();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
+     */
     public boolean isAccountNonExpired() {
-        return userDetailsVO.isIsActive();
+        return this.userDetailsVO.isIsActive();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
+     */
     public boolean isAccountNonLocked() {
-        return userDetailsVO.isIsActive();
+        return this.userDetailsVO.isIsActive();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
+     */
     public boolean isCredentialsNonExpired() {
-        return userDetailsVO.isIsActive();
+        return this.userDetailsVO.isIsActive();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isEnabled()
+     */
     public boolean isEnabled() {
-        return userDetailsVO.isIsActive();
+        return this.userDetailsVO.isIsActive();
     }
 
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
+     */
     public GrantedAuthority[] getAuthorities() {
 
         // Authorities are initialized lazily
-        if (authorities == null)
+        if (this.authorities == null)
         {
-            UserRoleVO[] roles = userDetailsVO.getRoles();
-            authorities = new GrantedAuthorityImpl[roles.length];
+            UserRoleVO[] roles = this.userDetailsVO.getRoles();
+            this.authorities = new GrantedAuthorityImpl[roles.length];
             for (int i=0; i<roles.length; i++)
             {
-                authorities[i] = new GrantedAuthorityImpl(roles[i].toString());
+                this.authorities[i] = new GrantedAuthorityImpl(roles[i].toString());
             }
         }
-        return authorities;
+        return this.authorities;
     }
 }
