@@ -15,7 +15,7 @@
     </description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
+        <url>http://www.andromda.org/jira/browse/OCL</url>
     </issueManagement>
     <scm>
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-query</connection>
@@ -37,7 +37,7 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.andromda.translationlibraries</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -11,6 +11,10 @@
     <packaging>pom</packaging>
     <name>AndroMDA Template Engines</name>
     <description>The collection of Template Engine implementations.</description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/TEMPENG</url>
+    </issueManagement>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

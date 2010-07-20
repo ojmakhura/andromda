@@ -12,7 +12,7 @@
     <description>Translates OCL into validation code for any platform.</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
+        <url>http://www.andromda.org/jira/browse/OCL</url>
     </issueManagement>
     <scm>
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/andromda-validation</connection>
@@ -20,11 +20,6 @@
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
-        <!--dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
-        </dependency-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
@@ -39,19 +34,6 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency-->
     </dependencies>
     <build>
         <plugins>

@@ -12,10 +12,10 @@
     <description>Generates XSD Schemas</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10061</url>
+        <url>http://www.andromda.org/jira/browse/XMLSCHEMA</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-xmlschema</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-xmlschema</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-xmlschema</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -51,6 +51,8 @@
         </plugins>
     </build>
     <properties>
+        <uml2.model.uri>file:${src.dir}/uml2/XmlSchemaMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/XmlSchemaCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/XmlSchemaMetafacadeModel.xml.zip!/XmlSchemaMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/XmlSchemaCartridgeTestModel.xml.zip!/XmlSchemaCartridgeTestModel.xml</test.model.uri>
     </properties>
