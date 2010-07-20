@@ -812,7 +812,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>4.7</version>
+                <version>5.9</version>
                 <scope>test</scope>
                 <classifier>jdk15</classifier>
                 <exclusions>
@@ -1907,7 +1907,8 @@
                     </formats>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- Compare APIs to a previous version, uncomment when a release version exists -->
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
                 <version>2.2.2</version>
@@ -1915,7 +1916,7 @@
                 <configuration>
                     <minSeverity>info</minSeverity>
                 </configuration>
-            </plugin>
+            </plugin-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
