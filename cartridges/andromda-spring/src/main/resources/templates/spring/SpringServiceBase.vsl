@@ -266,6 +266,9 @@ public abstract class $service.baseName
 #end
     /**
      * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
+#foreach ($parameter in $operation.arguments)
+     * @param $parameter.name $parameter.type.fullyQualifiedName
+#end
      * @return $operation.implementationReturnTypeName
      * @throws Exception
      */
