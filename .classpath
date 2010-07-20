@@ -31,6 +31,7 @@
     <classpathentry kind="src" path="cartridges/andromda-jbpm/target/src"/>
 	<classpathentry kind="src" path="cartridges/andromda-jsf/src/main/java"/>
     <classpathentry kind="src" path="cartridges/andromda-jsf/target/src"/>
+	<classpathentry kind="src" path="cartridges/andromda-jsf/components/src/main/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-meta/src/main/java"/>
     <classpathentry kind="src" path="cartridges/andromda-meta/target/src"/>
 	<classpathentry kind="src" path="cartridges/andromda-spring/src/main/java"/>
@@ -76,7 +77,6 @@
     <classpathentry kind="src" path="translation-libraries/ocl/core/src/test/java"/>
     <classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/main/java"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar" sourcepath="/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar" sourcepath="/M2_REPO/ant/ant/1.6.5/ant-1.6.5-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar" sourcepath="/M2_REPO/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2.jar" sourcepath="/M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar"/>
@@ -94,11 +94,12 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/de/plushnikov/doctor-jim/1.0-SNAPSHOT/doctor-jim-1.0-SNAPSHOT.jar" sourcepath="M2_REPO/de/plushnikov/doctor-jim/1.0-SNAPSHOT/doctor-jim-1.0-SNAPSHOT-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" sourcepath="/M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/groovy/groovy-all-1.0-jsr/06/groovy-all-1.0-jsr-06.jar" sourcepath="/M2_REPO/groovy/groovy-all-1.0-jsr/06/groovy-all-1.0-jsr-06-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/javax/portlet/portlet-api/1.0/portlet-api-1.0.jar" sourcepath="/M2_REPO/javax/portlet/portlet-api/1.0/portlet-api-1.0-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar" sourcepath="/M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" sourcepath="/M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/jboss/javassist/2.6/javassist-2.6.jar" sourcepath="/M2_REPO/jboss/javassist/2.6/javassist-2.6-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/4.7/junit-4.7.jar" sourcepath="/M2_REPO/junit/junit/4.7/junit-4.7-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="/M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar" sourcepath="/M2_REPO/junit/junit/4.8.1/junit-4.8.1-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar" sourcepath="/M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jmi/jmi/20030918/jmi-20030918.jar" sourcepath="/M2_REPO/jmi/jmi/20030918/jmi-20030918-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/jmi/jmiuml/1.4di/jmiuml-1.4di.jar" sourcepath="/M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di-sources.jar">
         <attributes>
@@ -112,9 +113,6 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/org/andromda/thirdparty/netbeans/mdr/openide-util/20050711/openide-util-20050711.jar" sourcepath="/M2_REPO/org/netbeans/mdr/openide-util/20050711/openide-util-20050711-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/ant/ant/1.8.0/ant-1.8.0.jar" sourcepath="/M2_REPO/org/apache/ant/ant/1.8.0/ant-1.8.0-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/axis2/axis2/1.2/axis2-1.2.jar" sourcepath="/M2_REPO/org/apache/axis2/axis2/1.2/axis2-1.2-sources.jar"/>
-    <!--classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-core/1.0-alpha-8/doxia-core-1.0-alpha-8.jar" sourcepath="/M2_REPO/org/apache/maven/doxia/doxia-core/1.0-alpha-8/doxia-core-1.0-alpha-8-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-module-apt/1.0-alpha-10/doxia-module-apt-1.0-alpha-10.jar" sourcepath="/M2_REPO/org/apache/maven/doxia/doxia-module-apt/1.0-alpha-10/doxia-module-apt-1.0-alpha-10-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/doxia/doxia-sink-api/1.1/doxia-sink-api-1.1.jar"/-->
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-archiver/2.4/maven-archiver-2.4.jar" sourcepath="/M2_REPO/org/apache/maven/maven-archiver/2.4/maven-archiver-2.4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1.jar" sourcepath="/M2_REPO/org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar" sourcepath="/M2_REPO/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1-sources.jar"/>
@@ -134,8 +132,9 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/maven/shared/maven-filtering/1.0-beta-3/maven-filtering-1.0-beta-3.jar" sourcepath="/M2_REPO/org/apache/maven/shared/maven-filtering/1.0-beta-3/maven-filtering-1.0-beta-3-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/myfaces/core/myfaces-api/1.1.5/myfaces-api-1.1.5.jar" sourcepath="M2_REPO/org/apache/myfaces/core/myfaces-api/1.1.5/myfaces-api-1.1.5-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/myfaces/core/myfaces-impl/1.1.5/myfaces-impl-1.1.5.jar" sourcepath="M2_REPO/org/apache/myfaces/core/myfaces-impl/1.1.5/myfaces-impl-1.1.5-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/myfaces/tomahawk/tomahawk/1.1.6/tomahawk-1.1.6.jar" sourcepath="M2_REPO/org/apache/myfaces/tomahawk/tomahawk/1.1.6/tomahawk-1.1.6-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/velocity/velocity/1.6.3/velocity-1.6.3.jar" sourcepath="/M2_REPO/org/apache/velocity/velocity/1.6.3/velocity-1.6.3-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/myfaces/tomahawk/tomahawk/1.1.7/tomahawk-1.1.7.jar" sourcepath="M2_REPO/org/apache/myfaces/tomahawk/tomahawk/1.1.7/tomahawk-1.1.7-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/portals/bridges/portals-bridges-portletfilter/1.0.4/portals-bridges-portletfilter-1.0.4.jar" sourcepath="M2_REPO/org/apache/portals/bridges/portals-bridges-portletfilter/1.0.4/portals-bridges-portletfilter-1.0.4-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/velocity/velocity/1.6.4/velocity-1.6.4.jar" sourcepath="/M2_REPO/org/apache/velocity/velocity/1.6.4/velocity-1.6.4-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/velocity/velocity-tools/2.0-beta4/velocity-tools-2.0-beta4.jar" sourcepath="/M2_REPO/org/apache/velocity/velocity-tools/2.0-beta4/velocity-tools-2.0-beta4-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/apache/ws/commons/axiom/axiom-api/1.2.7/axiom-api-1.2.7.jar" sourcepath="/M2_REPO/org/apache/ws/commons/axiom/axiom-api/1.2.7/axiom-api-1.2.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar" sourcepath="/M2_REPO/org/beanshell/bsh/2.0b4/bsh-2.0b4-sources.jar"/>
