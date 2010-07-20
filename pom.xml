@@ -20,7 +20,7 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
         <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/</url>
     </scm>
@@ -486,11 +486,11 @@
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
+                        <!--compilerVersion>1.5</compilerVersion>
+                        <compilerArgument>-Xlint</compilerArgument-->
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
                         <fork>true</fork>
-                        <!--compilerVersion>1.5</compilerVersion>
-                        <compilerArgument>-Xlint</compilerArgument-->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -626,6 +626,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>enforce-jdk</id>
@@ -838,6 +839,25 @@
         <module>documentation</module>
         <module>samples</module>                
     </modules>
+    <!-- Configuration for local builds, overridden for server builds -->
+    <distributionManagement>
+        <repository>
+            <id>andromda-repository</id>
+            <name>AndroMDA Repository</name>
+            <url>file:/var/www/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>andromda-snapshots</id>
+            <name>AndroMDA Snapshot Repository</name>
+            <url>file:/var/www/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <site>
+            <id>website</id>
+            <url>file:/var/www/docs</url>
+        </site>
+    </distributionManagement>
     <profiles>
         <profile>
             <!-- This profile configuration is needed to install a model-archive-plugin.
@@ -873,12 +893,9 @@
                 <module>samples</module>
             </modules>
         </profile-->
-        <profile>
             <!--Profile configuration for local builds-->
+        <!--profile>
             <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <distributionManagement>
                 <repository>
                     <id>andromda-repository</id>
@@ -897,7 +914,7 @@
                     <url>file:/var/www/docs</url>
                 </site>
             </distributionManagement>
-        </profile>
+        </profile-->
         <profile>
             <!--Profile configuration for server builds-->
             <id>server</id>
@@ -1065,6 +1082,29 @@
                         <version>2.1</version>
                     </plugin>
                     <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.2</version>
+                        <inherited>true</inherited>
+                        <reportSets>
+                          <reportSet>
+                            <reports>
+                              <report>dependencies</report>
+                              <report>dependency-convergence</report>
+                              <report>dependency-management</report>
+                              <report>index</report>
+                              <report>plugin-management</report>
+                              <report>summary</report>
+                              <report>project-team</report>
+                              <report>mailing-list</report>
+                              <report>cim</report>
+                              <report>issue-tracking</report>
+                              <report>license</report>
+                              <report>scm</report>
+                            </reports>
+                          </reportSet>
+                        </reportSets>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>2.7</version>
                         <reportSets>
@@ -1072,6 +1112,12 @@
                                 <id>non-aggregate</id>
                                 <configuration>
                                     <show>package</show>
+                                    <version>true</version>
+                                    <javadocVersion>${source.version}</javadocVersion>
+                                    <failOnError>false</failOnError>
+                                    <linksource>true</linksource>
+                                    <serialwarn>true</serialwarn>
+                                    <detectLinks/>
                                     <links>
                                         <link>http://java.sun.com/javase/6/docs/api/</link>
                                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
@@ -1319,6 +1365,30 @@
                     <plugin>
                         <artifactId>maven-jxr-plugin</artifactId>
                         <version>2.1</version>
+                        <inherited>true</inherited>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.2</version>
+                        <inherited>true</inherited>
+                        <reportSets>
+                          <reportSet>
+                            <reports>
+                              <report>dependencies</report>
+                              <report>dependency-convergence</report>
+                              <report>dependency-management</report>
+                              <report>index</report>
+                              <report>plugin-management</report>
+                              <report>summary</report>
+                              <report>project-team</report>
+                              <report>mailing-list</report>
+                              <report>cim</report>
+                              <report>issue-tracking</report>
+                              <report>license</report>
+                              <report>scm</report>
+                            </reports>
+                          </reportSet>
+                        </reportSets>
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -1328,6 +1398,12 @@
                                 <id>non-aggregate</id>
                                 <configuration>
                                     <show>package</show>
+                                    <version>true</version>
+                                    <javadocVersion>${source.version}</javadocVersion>
+                                    <failOnError>false</failOnError>
+                                    <linksource>true</linksource>
+                                    <serialwarn>true</serialwarn>
+                                    <detectLinks/>
                                     <links>
                                         <link>http://java.sun.com/javase/6/docs/api/</link>
                                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
@@ -1418,6 +1494,7 @@
                             <xmlOutput>true</xmlOutput>
                             <effort>Default</effort>
                             <threshold>Normal</threshold>
+                            <failOnError>false</failOnError>
                         </configuration>
                     </plugin>
                 </plugins>
