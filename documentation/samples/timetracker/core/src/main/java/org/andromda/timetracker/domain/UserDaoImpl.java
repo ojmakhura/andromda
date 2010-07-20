@@ -19,6 +19,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#toUserVO(User, UserVO)
      */
+    @Override
     public void toUserVO(
         User sourceEntity,
         UserVO targetVO)
@@ -31,6 +32,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#toUserVO(User)
      */
+    @Override
     public UserVO toUserVO(final User entity)
     {
         // @todo verify behavior of toUserVO
@@ -72,8 +74,9 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(UserVO, User)
+     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(UserVO, User, boolean)
      */
+    @Override
     public void userVOToEntity(
         UserVO sourceVO,
         User targetEntity,
@@ -86,6 +89,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(User, UserDetailsVO)
      */
+    @Override
     public void toUserDetailsVO(
         User sourceEntity,
         UserDetailsVO targetVO)
@@ -108,6 +112,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(User)
      */
+    @Override
     public UserDetailsVO toUserDetailsVO(final User entity)
     {
         // @todo verify behavior of toUserDetailsVO
@@ -149,8 +154,9 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO, User)
+     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO, User, boolean)
      */
+    @Override
     public void userDetailsVOToEntity(
         UserDetailsVO sourceVO,
         User targetEntity,
@@ -160,6 +166,7 @@ public class UserDaoImpl
         super.userDetailsVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 
+    @Override
     protected User handleGetUserDetails(String username) throws Exception {
 
         User user = (User)getSession().createQuery(
