@@ -76,6 +76,9 @@
     <property reference="XMLIntegerAdapter"/>
     <property reference="XMLDecimalAdapter"/>
     <property reference="jaxb-gen"/>
+    <property reference="pluralizeAssociationEndNames"/>
+    <property reference="pluralizeAttributeNames"/>
+    <property reference="pluralizeParameterNames"/>
     <!-- cartridge-property merge-point -->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
@@ -109,6 +112,9 @@
     <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
     <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
     <condition name="simpleBindingMode">$simpleBindingMode.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
+    <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
