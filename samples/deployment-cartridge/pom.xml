@@ -51,8 +51,8 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
-                            <configurationUri>file:${basedir}/conf/andromda.xml</configurationUri>
+                            <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                            <configurationUri>file:${project.basedir}/conf/andromda.xml</configurationUri>
                             <lastModifiedCheck>true</lastModifiedCheck>
                         </configuration>
                     </execution>
@@ -79,6 +79,8 @@
         </plugins>
     </build>
     <properties>
+        <uml2.model.uri>file:${src.dir}/uml2/DeploymentMetafacadeModel.uml2</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/DeploymentCartridgeTestModel.uml2</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/DeploymentMetafacadeModel.xml.zip!/DeploymentMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/DeploymentCartridgeTestModel.xml.zip!/DeploymentCartridgeTestModel.xml</test.model.uri>
     </properties>
