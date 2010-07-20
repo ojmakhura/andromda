@@ -33,6 +33,27 @@ public class JavaClassLogicImpl
     }
 
     /**
+     * If WebFault stereotype, change name from XXException to XXFault. Class should
+     * also have XXException stereotype so that the corresponding Exception referencing the 
+     * fault is also created.
+     * @param fault true if name is to be converted to Fault version, for VO Template only
+     * @return the class name.
+     */
+    public String getName(boolean fault)
+    {
+        String name = super.getName();
+        if (fault && this.hasStereotype("WebFault"))
+        {
+            name = name.replace("Exception", "Fault");
+            if (!name.contains("Fault"))
+            {
+                name += "Fault";
+            }
+        }
+        return name;
+    }
+
+    /**
      * @return InterfaceImplementionName
      * @see org.andromda.cartridges.java.metafacades.JavaClass#getInterfaceImplementationName()
      */
