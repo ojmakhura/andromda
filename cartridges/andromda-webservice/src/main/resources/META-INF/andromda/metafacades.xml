@@ -79,6 +79,9 @@
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServicePackageLogicImpl">
+        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServicePackageLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
