@@ -16,10 +16,10 @@
     </description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10004</url>
+        <url>http://www.andromda.org/jira/browse/UMLMETA</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/emf/uml22</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/emf/uml22</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/emf/uml22</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -126,6 +126,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.2.2</version>
                 <!-- Compare the current code against current version -->
                 <configuration>
                     <comparisonVersion>${project.version}</comparisonVersion>
