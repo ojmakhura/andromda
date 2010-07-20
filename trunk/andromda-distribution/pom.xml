@@ -11,8 +11,12 @@
     <packaging>pom</packaging>
     <name>AndroMDA Distribution</name>
     <description>Provides the assembly of the AndroMDA distribution</description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/SITE</url>
+    </issueManagement>
     <dependencies>
-        <!--Andromda core modulle-->
+        <!--Andromda core module-->
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>

@@ -12,7 +12,7 @@
     <description>Produces Entity and Session EJBs from a model.</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10011</url>
+        <url>http://www.andromda.org/jira/browse/EJB</url>
     </issueManagement>
     <scm>
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb</connection>
@@ -84,6 +84,8 @@
         </plugins>
     </build>
     <properties>
+        <uml2.model.uri>file:${src.dir}/uml2/EJBMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/EJBCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/EJBMetafacadeModel.xml.zip!/EJBMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJBCartridgeTestModel.xml.zip!/EJBCartridgeTestModel.xml</test.model.uri>
     </properties>

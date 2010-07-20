@@ -208,7 +208,7 @@
                     UML editor that exports <code>UML:AssociationClass</code> in a XMI 1.1 compliant way.
                     MagicDraw 9.x is not compliant in that respect but, there is an XSLT stylesheet that normalizes MagicDraw 9.x models
                     into a <code>UML:AssociationClass</code> XMI 1.1 compliant file. It's available under
-                    <a href="http://galaxy.andromda.org/jira/browse/UMLMETA-28">JIRA issue UMLMETA-28</a>. You can tell AndroMDA to apply that
+                    <a href="http://www.andromda.org/jira/browse/UMLMETA-28">JIRA issue UMLMETA-28</a>. You can tell AndroMDA to apply that
                     XSLT before processing in the configuration using <a href="configuration.html#transformations">transformations</a>.
                     Patch from Cédric Vidal.
                 ]]>

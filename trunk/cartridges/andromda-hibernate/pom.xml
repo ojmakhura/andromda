@@ -12,10 +12,10 @@
     <description>Produces Hibernate entities optionally services implemented as Session EJB facades.</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10012</url>
+        <url>http://www.andromda.org/jira/browse/HIB</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-hibernate</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-hibernate</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-hibernate</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -57,6 +57,8 @@
         </plugins>
     </build>
     <properties>
+        <uml2.model.uri>file:${src.dir}/uml2/HibernateMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/HibernateCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/HibernateMetafacadeModel.xml.zip!/HibernateMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/HibernateCartridgeTestModel.xml.zip!/HibernateCartridgeTestModel.xml</test.model.uri>
     </properties>

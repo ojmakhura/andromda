@@ -12,10 +12,10 @@
     <description>Generates Spring with Hibernate support</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10060</url>
+        <url>http://www.andromda.org/jira/browse/SPRING</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-spring</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-spring</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-spring</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -82,6 +82,8 @@
         </plugins>
     </build>
     <properties>
+        <uml2.model.uri>file:${src.dir}/uml2/SpringMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/SpringCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/SpringMetafacadeModel.xml.zip!/SpringMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/SpringCartridgeTestModel.xml.zip!/SpringCartridgeTestModel.xml</test.model.uri>
     </properties>

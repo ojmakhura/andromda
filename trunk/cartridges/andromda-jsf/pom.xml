@@ -15,10 +15,10 @@
     </description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10100</url>
+        <url>http://www.andromda.org/jira/browse/JSF</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-jsf</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-jsf</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-jsf</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -75,7 +75,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <!--executions>
+                <executions>
                     <execution>
                         <id>jsf-uml2</id>
                         <phase>generate-test-sources</phase>
@@ -90,7 +90,7 @@
                             <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
                         </configuration>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

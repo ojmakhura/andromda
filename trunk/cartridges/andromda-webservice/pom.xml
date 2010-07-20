@@ -12,10 +12,10 @@
     <description>Produces Apache Axis WSDD (Web Service Deployment Descriptors and WSDLs) used in conjunction with Session EJBs generated from 'Service' stereotypes (or just plain POJOs) defined within a model.</description>
     <issueManagement>
         <system>jira</system>
-        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10021</url>
+        <url>http://www.andromda.org/jira/browse/WS</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-webservice</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-webservice</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-webservice</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -153,7 +153,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <!--executions>
+                <executions>
                     <execution>
                         <id>cxf-uml2</id>
                         <phase>generate-test-sources</phase>
@@ -168,7 +168,7 @@
                             <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
                         </configuration>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -177,9 +177,10 @@
         </plugins>
     </build>
     <properties>
-        <!--uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
+        <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/WebServiceMetafacadeModel.uml</uml2.model.uri>
-        <uml2.test.model.uri>file:${test.src.dir}/uml2/WebServiceCartridgeTestModel.uml</uml2.test.model.uri-->
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/WebServiceCartridgeTestModel.uml</uml2.test.model.uri>
+        <!--uml2.test.model.uri>jar:file:${test.src.dir}/uml2/JavaCartridgeTestModel.xml.zip!/JavaCartridgeTestModel.xml</uml2.test.model.uri-->
         <model.uri>jar:file:${src.dir}/uml/WebServiceMetafacadeModel.xml.zip!/WebServiceMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</test.model.uri>
     </properties>

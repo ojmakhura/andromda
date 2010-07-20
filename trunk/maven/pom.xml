@@ -13,8 +13,12 @@
     <description>
         The AndroMDA Maven plugins
     </description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/MAVEN</url>
+    </issueManagement>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
