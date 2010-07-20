@@ -18,6 +18,13 @@
                 <value>ValueObject</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="WEB_FAULT">
+                <documentation>
+                     Produces XML Serializable Exceptions used with JAXB or WebServices.
+                </documentation>
+                <value>WebFault</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="ENUMERATION">
                 <documentation>
                      Produces type-safe Java enumeration objects.
