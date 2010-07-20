@@ -444,7 +444,7 @@
         Update the cartridge to reflect the changes for MDB in JBoss 4.0.5.GA.  These changes include rename of
         activation config from durability to subscriptionDurability, the addition of mdb-subscription-id in jboss.xml
         when a topic is durable, removal of minPoolSize activation config and rename of maxPoolSize to maxSession
-        activation config.  Reference http://galaxy.andromda.org/forum/viewtopic.php?p=21537#21537.
+        activation config.  Reference http://forum.andromda.org/viewtopic.php?p=21537#21537.
       </action>
       <action dev="vancek" due-to="khwalk" type="fix">
         JIRA EJB-54 - Fix entity level annotations for multiple level single table inheritance hierarchy.  When generating a one
