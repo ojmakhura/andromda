@@ -11,7 +11,7 @@
     <name>AndroMDA EMF UML2 2.X Repository</name>
     <description>This EMF UML2 2.x repository module allows AndroMDA to load Eclipse .uml models into EMF.</description>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/repositories/emf/uml2</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -86,6 +86,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.2.2</version>
                 <configuration>
                     <!-- Compare the current code against current version -->
                     <comparisonVersion>${project.version}</comparisonVersion>

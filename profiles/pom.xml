@@ -15,7 +15,7 @@
         be referenced from a model.
     </description>
     <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles</connection>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
@@ -34,13 +34,13 @@
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
                     <version>${project.version}</version>
-                    <dependencies>
+                    <!--dependencies>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
                             <version>${plexus.util.version}</version>
                         </dependency>
-                    </dependencies>
+                   </dependencies-->
                 </plugin>
             </plugins>
         </pluginManagement>
