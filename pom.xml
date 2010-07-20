@@ -234,7 +234,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.7</version>
+                <version>4.8.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -636,7 +636,7 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[1.5.0,]</version>
+                                    <version>[1.6.0,]</version>
                                 </requireJavaVersion>
                             </rules>
                             <fail>true</fail>
@@ -823,41 +823,6 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <plexus.util.version>1.5.9</plexus.util.version>
     </properties>
-    <modules>
-        <module>andromda-core</module>
-        <module>andromda-utils</module>
-        <module>andromda-templateengines</module>
-        <module>repositories</module>
-        <module>andromda-andromdapp</module>
-        <module>ant</module>
-        <module>maven</module>
-        <module>profiles</module>
-        <module>cartridges</module>
-        <module>metafacades</module>
-        <module>andromda-etc</module>
-        <module>translation-libraries</module>
-        <module>documentation</module>
-        <module>samples</module>                
-    </modules>
-    <!-- Configuration for local builds, overridden for server builds -->
-    <distributionManagement>
-        <repository>
-            <id>andromda-repository</id>
-            <name>AndroMDA Repository</name>
-            <url>file:/var/www/maven2</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>andromda-snapshots</id>
-            <name>AndroMDA Snapshot Repository</name>
-            <url>file:/var/www/maven2</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-        <site>
-            <id>website</id>
-            <url>file:/var/www/docs</url>
-        </site>
-    </distributionManagement>
     <profiles>
         <profile>
             <!-- This profile configuration is needed to install a model-archive-plugin.
@@ -871,7 +836,7 @@
         </profile>
         <!--Profile configuration for light build. It builds all modules without source and javadoc packaging.
         Note: activeByDefault means it is DEACTIVATED if another profile is specifically activated i.e. through -Pprofile. -->
-        <!--profile>
+        <profile>
             <id>andromda-lite</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -892,10 +857,13 @@
                 <module>documentation</module>
                 <module>samples</module>
             </modules>
-        </profile-->
-            <!--Profile configuration for local builds-->
-        <!--profile>
+        </profile>
+        <!--Profile configuration for local builds-->
+        <profile>
             <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <distributionManagement>
                 <repository>
                     <id>andromda-repository</id>
@@ -914,27 +882,10 @@
                     <url>file:/var/www/docs</url>
                 </site>
             </distributionManagement>
-        </profile-->
+        </profile>
         <profile>
             <!--Profile configuration for server builds-->
             <id>server</id>
-            <modules>
-                <module>andromda-core</module>
-                <module>andromda-utils</module>
-                <module>andromda-templateengines</module>
-                <module>repositories</module>
-                <module>andromda-andromdapp</module>
-                <module>ant</module>
-                <module>maven</module>
-                <module>profiles</module>
-                <module>cartridges</module>
-                <module>metafacades</module>
-                <module>andromda-etc</module>
-                <module>translation-libraries</module>
-                <module>documentation</module>
-                <module>samples</module>
-                <module>distribution</module>
-            </modules>
             <build>
                 <plugins>
                     <plugin>
@@ -1014,7 +965,7 @@
             </build>
         </profile>
         <profile>
-            <!--Profileconfiguration for site builds-->
+            <!--Profile configuration for site builds-->
             <id>andromda-site</id>
             <!--activation>
                 <activeByDefault>true</activeByDefault>
@@ -1033,8 +984,7 @@
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
                 <module>documentation</module>
-                <!--module>samples</module>                
-                <module>andromda-distribution</module-->
+                <!--module>samples</module-->
             </modules>
             <properties>
                 <invoker.skip>true</invoker.skip>
@@ -1500,6 +1450,7 @@
                 </plugins>
             </reporting>
         </profile>
+        <!-- This turns off the andromda-lite and local profiles when enabled -->
         <profile>
             <id>maven-3</id>
             <activation>
