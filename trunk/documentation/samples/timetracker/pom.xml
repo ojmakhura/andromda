@@ -8,6 +8,17 @@
     <version>3.4-SNAPSHOT</version>
     <name>TimeTracker</name>
     <description>The TimeTracker Project.</description>
+    <scm>
+        <connection></connection>
+        <url></url>
+    </scm>
+    <organization>
+      <name></name>
+      <url></url>
+    </organization>
+    <ciManagement>
+        <system></system>
+    </ciManagement>
     <developers>
         <developer>
             <id></id>
@@ -404,18 +415,6 @@
                         </filesets>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <artifactId>maven-ear-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-ejb-plugin</artifactId>
-                    <version>2.2.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1-beta-1</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -461,6 +460,7 @@
             For Progress use: org.hibernate.dialect.ProgressDialect
             For Derby use: org.hibernate.dialect.DerbyDialect
         -->
+        <andromda.version>3.4-SNAPSHOT</andromda.version>
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <application.id>timetracker</application.id>
