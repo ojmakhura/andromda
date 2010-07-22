@@ -152,7 +152,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
-    <copy todir="${andromda.project}/webservice/src/main/java/$dir" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+    <copy todir="${andromda.project}/webservice/src/test/java/$dir" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java/$dir">
         <include name="**/*_Client.java"/>
         <include name="**/*_Server.java"/>
@@ -165,7 +165,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
     <copy todir="${andromda.project}/CXF/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
-      <fileset dir="${andromda.project}/webservice/target/src/test/java">
+      <fileset dir="${andromda.project}/webservice/src/test/java">
         <include name="**/*_WSClient.java"/>
         <include name="**/*WSTest.java"/>
         <include name="**/cxf*.xml"/>

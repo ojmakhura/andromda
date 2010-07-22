@@ -12,7 +12,7 @@
 package ${service.packageName}.test;
 #end
 
-import junit.framework.Test;
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ${service.fullyQualifiedName}SEI;
 
@@ -23,46 +23,30 @@ $service.getDocumentation(" * ")
 public class ${service.name}WSTest
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Test
+#else
+    extends junit.framework.TestCase
 #end
 {
-    private String name = null;
     private Object scenario = null;
 
     /**
      * Constructor with service name
-     * @param nameIn Service name to be tested
+     * @param name Service name to be tested
      */
-    public ${service.name}WSTest(String nameIn)
+    public ${service.name}WSTest(String name)
     {
-        super();
-        this.name = nameIn;
+        super(name);
     }
 
     /**
      * Constructor with service name and scenario - allows running one scenario data line from spreadsheet
-     * @param nameIn Service name to be tested
+     * @param name Service name to be tested
      * @param scenarioIn the first column of the spreadsheet
      */
-    public ${service.name}WSTest(String nameIn, Object scenarioIn)
+    public ${service.name}WSTest(String name, Object scenarioIn)
     {
-        this(nameIn);
+        super(name);
         this.setScenario(scenarioIn);
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /**
-     * @param nameIn the name to set
-     */
-    public void setName(String nameIn)
-    {
-        this.name = nameIn;
     }
 
     /**
@@ -110,7 +94,7 @@ $operation.getDocumentation("    * ")
 #end
     */
     @Test
-    public $returnType $operation.name
+    public $returnType test${stringUtils.capitalize(${operation.operationName})}
     (
 #if (!$operation.arguments.empty)
 #set ($comma = "")
