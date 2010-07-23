@@ -256,7 +256,7 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
-#if ($ear)
+#if ($ear && !$cxf)
                 <scope>provided</scope>
 #end
             </dependency>
@@ -891,7 +891,7 @@
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
-                <version>7.1.1.v20100517</version>
+                <version>7.1.5.v20100705</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1047,8 +1047,17 @@
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
-                    <version>7.1.1.v20100517</version>
+                    <version>7.1.5.v20100705</version>
 #if ($cxf)
+                    <configuration>
+                        <scanIntervalSeconds>10</scanIntervalSeconds>
+                        <webAppSourceDirectory>${project.basedir}/WebContent</webAppSourceDirectory>
+                        <webAppConfig>
+                            <contextPath>/$applicationId</contextPath>
+                        </webAppConfig>
+                        <stopPort>9966</stopPort>
+                        <stopKey>foo</stopKey>
+                    </configuration>
                     <executions>
                         <execution>
                             <id>start-jetty</id>
@@ -1059,6 +1068,7 @@
                             </goals>
                             <configuration>
                                 <scanIntervalSeconds>0</scanIntervalSeconds>
+                                <daemon>true</daemon>
                             </configuration>
                         </execution>
                         <execution>
@@ -1070,41 +1080,6 @@
                             </goals>
                         </execution>
                     </executions>
-                    <configuration>
-                        <scanIntervalSeconds>10</scanIntervalSeconds>
-                        <daemon>true</daemon>
-                      <!-- Configure the webapp -->
-                      <webAppSourceDirectory>${project.basedir}/WebContent</webAppSourceDirectory>
-                      <webXml>${project.basedir}/WebContent/WEB-INF/web.xml</webXml>
-                      <classesDirectory>${project.basedir}/target/classes</classesDirectory>
-                      <!--contextPath>/biggerstrongerbetterfaster</contextPath>
-                      <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
-                      <overrideWebXml>src/main/resources/override-web.xml</overrideWebXml-->
-
-                      <!-- OR, as of jetty6.1.6rc0, you can use the webAppConfig element instead
-                      <webAppConfig>
-                        <contextPath>/test</contextPath>
-                        <tempDirectory>${project.build.directory}/work</tempDirectory>
-                        <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
-                        <overrideDescriptor>src/main/resources/override-web.xml</overrideDescriptor>
-                      </webAppConfig>
-                      -->
-                      <!-- configure the container                >
-                      <jettyConfig>/my/special/jetty.xml</jettyConfig -->
-                     <!--connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                          <port>8080</port>
-                          <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                      </connectors-->
-                      <!--requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-                        <filename>target/yyyy_mm_dd.request.log</filename>
-                        <retainDays>90</retainDays>
-                        <append>true</append>
-                        <extended>false</extended>
-                        <logTimeZone>GMT</logTimeZone>
-                      </requestLog-->
-                    </configuration>
 #end
                 </plugin>
 #end
@@ -1341,10 +1316,10 @@
 #else
         <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
 #end
-    <application.id>$applicationId</application.id>
-    <application.package>$applicationPackage</application.package>
-    <application.name>$applicationName</application.name>
-    <application.version>$applicationVersion</application.version>
+        <application.id>$applicationId</application.id>
+        <application.package>$applicationPackage</application.package>
+        <application.name>$applicationName</application.name>
+        <application.version>$applicationVersion</application.version>
 #if ($embeddedJetty)
         <!-- uncomment to use the context configured datasource
 #end
