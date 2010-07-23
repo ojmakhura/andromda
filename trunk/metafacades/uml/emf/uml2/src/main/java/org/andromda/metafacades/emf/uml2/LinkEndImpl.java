@@ -26,8 +26,14 @@ import org.eclipse.uml2.ValueSpecification;
  */
 public class LinkEndImpl implements LinkEnd
 {
+    /**
+     *
+     */
     final Slot slot;
 
+    /**
+     * @param slot
+     */
     LinkEndImpl(final Slot slot)
     {
         this.slot = slot;

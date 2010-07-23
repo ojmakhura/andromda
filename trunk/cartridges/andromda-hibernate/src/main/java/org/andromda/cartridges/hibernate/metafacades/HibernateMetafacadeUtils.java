@@ -24,7 +24,8 @@ class HibernateMetafacadeUtils
      * Gets the view type for the passed in <code>classifier</code>. If the
      * view type can be retrieved from the <code>classifier</code>, then that
      * is used, otherwise the <code>defaultViewType</code> is returned.
-     *
+     * @param classifier
+     * @param defaultViewType
      * @return String the view type name.
      */
     static String getViewType(
@@ -91,8 +92,10 @@ class HibernateMetafacadeUtils
 
     /**
      * filters all static operations
+     * @param operations
+     * @return businessOperations
      */
-    static java.util.Collection filterBusinessOperations(Collection operations)
+    static Collection filterBusinessOperations(Collection operations)
     {
         Collection businessOperations =
             new FilteredCollection(operations)

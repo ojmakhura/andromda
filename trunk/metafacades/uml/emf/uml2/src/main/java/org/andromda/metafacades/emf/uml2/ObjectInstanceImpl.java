@@ -38,8 +38,14 @@ import org.eclipse.uml2.VisibilityKind;
  */
 public class ObjectInstanceImpl implements ObjectInstance
 {
+    /**
+     *
+     */
     final InstanceSpecification instanceSpecification;
 
+    /**
+     * @param instanceSpecification
+     */
     ObjectInstanceImpl(InstanceSpecification instanceSpecification)
     {
         this.instanceSpecification = instanceSpecification;

@@ -25,7 +25,7 @@ class EJBMetafacadeUtils
 
     /**
      * Gets all create methods for the given <code>classifier</code>.
-     *
+     * @param classifier
      * @param follow if true, all super type create methods are also retrieved
      * @return Collection of create methods found.
      */
@@ -57,7 +57,7 @@ class EJBMetafacadeUtils
     /**
      * Gets the interface name for the passed in <code>classifier</code>. Returns 'LocalHome' if the mode element has
      * the entity stereotype, returns 'Home' otherwise.
-     *
+     * @param classifier
      * @return the interface name.
      */
     static String getHomeInterfaceName(ClassifierFacade classifier)
@@ -78,7 +78,7 @@ class EJBMetafacadeUtils
     /**
      * Gets the view type for the passed in <code>classifier</code>. Returns 'local' if the model element has the entity
      * stereotype, also checks the ejb tagged value and if there is no value defined, returns 'remote'.
-     *
+     * @param classifier
      * @return String the view type name.
      */
     static String getViewType(ClassifierFacade classifier)
@@ -115,8 +115,7 @@ class EJBMetafacadeUtils
     /**
      * Gets all the inherited instance attributes, excluding the instance attributes directory from this
      * <code>classifier</code>.
-     *
-     * @param classifer the ClassifierFacade from which to retrieve the inherited attributes.
+     * @param classifier the ClassifierFacade from which to retrieve the inherited attributes.
      * @return a list of ordered attributes.
      */
     static List getInheritedInstanceAttributes(ClassifierFacade classifier)

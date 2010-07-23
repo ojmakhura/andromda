@@ -62,7 +62,7 @@ class EJB3MetafacadeUtils
     /**
      * Gets the interface name for the passed in <code>classifier</code>. Returns 'LocalHome' if the mode element has
      * the entity stereotype, returns 'Home' otherwise.
-     *
+     * @param classifier
      * @return the interface name.
      */
     static String getHomeInterfaceName(ClassifierFacade classifier)
@@ -232,7 +232,7 @@ class EJB3MetafacadeUtils
      * implementation.
      *
      * @param transType
-     * @return
+     * @return transactionType
      */
     static String convertTransactionType(String transType)
     {
@@ -365,7 +365,7 @@ class EJB3MetafacadeUtils
      *     If the Classifier is an entity or stateful session bean, then returns CONVERSATION
      *
      * @param classifier The classifier to lookup the scope type tagged value
-     * @paam stateless Whether the classifier is a stateless session bean
+     * @param stateless Whether the classifier is a stateless session bean
      * @return The scope type as a String
      */
     static String getSeamComponentScopeType(ClassifierFacade classifier, boolean stateless)

@@ -46,7 +46,7 @@ public final class Bpm4StrutsUtils
 
     /**
      * Reads the validator arguments from the the given tagged value.
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -97,7 +97,7 @@ public final class Bpm4StrutsUtils
     /**
      * Reads the validator variable names from the the given tagged value.
      *
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -137,7 +137,7 @@ public final class Bpm4StrutsUtils
     /**
      * Parses the validator name for a tagged value.
      *
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return validatorTaggedValue.substring(0, leftParen
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -161,7 +161,7 @@ public final class Bpm4StrutsUtils
     /**
      * Sorts a collection of Manageable entities according to their 'manageableName' property.
      * Returns a new collection.
-     * @param collection 
+     * @param collection
      * @return Collections.sort(sorted, new ManageableEntityComparator())
      */
     public static Collection sortManageables(Collection collection)
@@ -252,7 +252,7 @@ public final class Bpm4StrutsUtils
 
     /**
      * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
-     * @param string 
+     * @param string
      * @return true if yes, true, on, 1
      */
     public static boolean isTrue(String string)
@@ -263,10 +263,16 @@ public final class Bpm4StrutsUtils
             "1".equalsIgnoreCase(string);
     }
 
+    /**
+     *
+     */
     final static class ManageableEntityComparator
         implements Comparator, Serializable
     {
         private static final long serialVersionUID = 1L;
+        /**
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         public int compare(
             Object left,
             Object right)

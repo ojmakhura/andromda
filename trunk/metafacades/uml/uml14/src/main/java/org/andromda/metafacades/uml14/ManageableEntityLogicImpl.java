@@ -166,7 +166,7 @@ public class ManageableEntityLogicImpl
     {
         final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
         final String accessorImplementation =
-            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) 
+            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property))
                 : "${application.package}.ManageableServiceLocator.instance().get{1}()";
         return accessorImplementation.replaceAll(
             "\\{0\\}",
@@ -231,7 +231,7 @@ public class ManageableEntityLogicImpl
         PRIMITIVE,
         WRAPPER;
     }
-    
+
     private String createListWithManageableMembers(ListType listType)
     {
         final StringBuilder buffer = new StringBuilder();
@@ -284,8 +284,8 @@ public class ManageableEntityLogicImpl
                     buffer.append(' ');
                 }
                 buffer.append(associationEnd.getName());
-            } 
-            else 
+            }
+            else
             {
                 final Iterator identifierIterator = entity.getIdentifiers().iterator();
                 if (identifierIterator.hasNext())
@@ -327,7 +327,7 @@ public class ManageableEntityLogicImpl
     {
         return createListWithManageableMembers(ListType.WRAPPER);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml14.ManageableEntityLogic#handleListManageableMembers(boolean)
      */
@@ -600,9 +600,15 @@ public class ManageableEntityLogicImpl
         return new ArrayList<ClassifierFacade>(allManageableEntities);
     }
 
+    /**
+     *
+     */
     final static class ManageableComparator
         implements Comparator
     {
+        /**
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         public int compare(Object left, Object right)
         {
             final ModelElementFacade leftEntity = (ModelElementFacade)left;
