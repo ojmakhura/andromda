@@ -11,7 +11,7 @@ import org.andromda.metafacades.uml.PackageFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ *
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServicePackage.
  *
  * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage
@@ -23,8 +23,8 @@ public class WebServicePackageLogicImpl
 
     /**
      * Public constructor for WebServicePackageLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage
      */
     public WebServicePackageLogicImpl (Object metaObject, String context)
@@ -38,7 +38,7 @@ public class WebServicePackageLogicImpl
     private static final String DEFAULT_ATTRIBUTE_FORM = "UNQUALIFIED";
 
     /**
-     * 
+     *
      * @return findTaggedValue(WebServiceGlobals.ATTRIBUTE_FORM_DEFAULT) or DEFAULT_ATTRIBUTE_FORM
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getAttributeFormDefault()
      */
@@ -58,7 +58,7 @@ public class WebServicePackageLogicImpl
     private static final String DEFAULT_ELEMENT_FORM = "QUALIFIED";
 
     /**
-     * 
+     *
      * @return findTaggedValue(WebServiceGlobals.ELEMENT_FORM_DEFAULT) or DEFAULT_ELEMENT_FORM
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getElementFormDefault()
      */
@@ -72,9 +72,12 @@ public class WebServicePackageLogicImpl
         return style;
     }
 
+    /**
+     * reverseNamespace
+     */
     static final String REVERSE_NAMESPACE = "reverseNamespace";
     /**
-     * 
+     *
      * @return findTaggedValue(WebServiceGlobals.XML_NAMESPACE) or REVERSE_NAMESPACE
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getNamespace()
      */
@@ -95,13 +98,13 @@ public class WebServicePackageLogicImpl
         return namespace;
     }
 
-    /** 
+    /**
      * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(PackageFacade)
      */
     protected String handleGetXmlns()
     {
-        WebServiceUtils utils = new WebServiceUtils(); 
+        WebServiceUtils utils = new WebServiceUtils();
         String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
         if (StringUtils.isEmpty(namespace))
         {
@@ -115,7 +118,7 @@ public class WebServicePackageLogicImpl
     }
 
     /**
-     * 
+     *
      * @return new WebServiceUtils().getPackageReferences(this, true)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getPackageReferences(PackageFacade, boolean)
      */
@@ -133,7 +136,7 @@ public class WebServicePackageLogicImpl
      */
     protected String handleGetPackageAbbr()
     {
-        WebServiceUtils utils = new WebServiceUtils(); 
+        WebServiceUtils utils = new WebServiceUtils();
         String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
         if (StringUtils.isEmpty(namespace))
         {
@@ -161,8 +164,8 @@ public class WebServicePackageLogicImpl
     }
 
     /**
-     * 
-     * @param follow 
+     *
+     * @param follow
      * @return WebServiceUtils.getPackageReferences(this, follow)
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getPackageReferences(boolean)
      */

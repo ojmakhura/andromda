@@ -11,7 +11,6 @@ import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Contains utilities for the AndroMDA meta cartridge.
  *
@@ -46,11 +45,17 @@ public class MetaCartridgeUtils
     {
         private final Collator collator = Collator.getInstance();
 
+        /**
+         *
+         */
         FullyQualifiedNameComparator()
         {
             this.collator.setStrength(Collator.PRIMARY);
         }
 
+        /**
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         public int compare(
             final Object objectA,
             final Object objectB)
@@ -67,7 +72,7 @@ public class MetaCartridgeUtils
     /**
      * Retrieves the fully qualified constraint name given the constraint (this includes the
      * full name of the context element and the constraint to which it applies).
-     * 
+     *
      * @param constraint the constraint of which to retrieve the name.
      * @return the fully qualified name.
      */

@@ -233,7 +233,7 @@ public class WebServiceLogicImpl
         // (such as association ends) we
         // add the non array types to the types
         types.addAll(nonArrayTypes);
-        
+
         this.elementSet = types;
         //setPkgAbbr(types);
         return types;
@@ -406,7 +406,7 @@ public class WebServiceLogicImpl
         }
         return rtn;
     }
-    
+
     /**
      * Creates a list of sorted unique package names and namespace abbreviations for each one.
      * Run this after running getTypeMappingElements(), to populate the namespace Map.
@@ -465,7 +465,7 @@ public class WebServiceLogicImpl
                 //System.out.println(this.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName());
                 namespaceCount++;
             }
-        } 
+        }
         this.packageAbbr = pkgAbbr;
         return pkgAbbr;
     }
@@ -474,7 +474,7 @@ public class WebServiceLogicImpl
      * Cross reference between package name and collection of foreign package referenced elements
      */
     private Map packageRefs = new HashMap();
-    
+
     /**
      * Get a unique list of packages referenced by the referring package
      * @param pkg PackageName to find related packages for xs:schema import
@@ -493,7 +493,7 @@ public class WebServiceLogicImpl
         //}
         return (TreeSet)this.packageRefs.get(pkg);
     }
-    
+
     /**
      * Creates a list of referenced packages for each package.
      * Run this after running getTypeMappingElements(), to populate the namespace Map.
@@ -531,8 +531,7 @@ public class WebServiceLogicImpl
                             }
                             catch (Exception e)
                             {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
+                                logger.error("WebServiceLogicImpl.setPkgRefs getAttributes: " + e);
                             }
                         }
                     }
@@ -557,8 +556,7 @@ public class WebServiceLogicImpl
                             }
                             catch (RuntimeException e)
                             {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
+                                logger.error("WebServiceLogicImpl.setPkgRefs getNavigableConnectingEnds: " + e);
                             }
                         }
                     }
@@ -571,8 +569,7 @@ public class WebServiceLogicImpl
             }
             catch (Exception e)
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.error("WebServiceLogicImpl.setPkgRefs types: " + e);
             }
         }
         // Copy package names and collection of related packages to package references list
@@ -621,7 +618,7 @@ public class WebServiceLogicImpl
                 packageRefs.put(pkg, pkgRef);
             }
         } */
-        
+
         // Add references from the operations of the service package itself
         for (final Iterator iterator = this.getOperations().iterator(); iterator.hasNext();)
         {
@@ -644,7 +641,7 @@ public class WebServiceLogicImpl
         }
         return packageRefs;
     }
-    
+
     private void addPkgRef(String pkg, String pkgRef, ModelElementFacade type)
     {
         TreeSet pkgRefSet;
@@ -860,6 +857,9 @@ public class WebServiceLogicImpl
         }
     }
 
+    /**
+     * namespacePrefix
+     */
     static final String NAMESPACE_PREFIX = "namespacePrefix";
 
     /**
@@ -871,6 +871,9 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
     }
 
+    /**
+     * qualifiedNameLocalPartPattern
+     */
     static final String QNAME_LOCAL_PART_PATTERN = "qualifiedNameLocalPartPattern";
 
     /**
@@ -882,6 +885,9 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
     }
 
+    /**
+     * namespacePattern
+     */
     static final String NAMESPACE_PATTERN = "namespacePattern";
 
     /**
@@ -894,6 +900,9 @@ public class WebServiceLogicImpl
         return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
     }
 
+    /**
+     * reverseNamespace
+     */
     static final String REVERSE_NAMESPACE = "reverseNamespace";
 
     /**
@@ -1009,11 +1018,17 @@ public class WebServiceLogicImpl
     {
         private final Collator collator = Collator.getInstance();
 
+        /**
+         *
+         */
         OperationNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
 
+        /**
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         public int compare(
             Object objectA,
             Object objectB)
@@ -1287,7 +1302,7 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * @param pkg 
+     * @param pkg
      * @return WebServiceUtils().getPkgAbbr(pkg)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl#getPkgAbbr(PackageFacade)
      */

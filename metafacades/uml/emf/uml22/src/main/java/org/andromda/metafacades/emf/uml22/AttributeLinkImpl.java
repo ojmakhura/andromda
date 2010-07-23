@@ -35,8 +35,14 @@ import org.eclipse.uml2.uml.ValueSpecification;
  */
 public class AttributeLinkImpl implements AttributeLink
 {
+    /**
+     *
+     */
     final Slot slot;
 
+    /**
+     * @param slotIn
+     */
     AttributeLinkImpl(final Slot slotIn)
     {
         this.slot = slotIn;

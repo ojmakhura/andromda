@@ -37,8 +37,14 @@ import org.eclipse.uml2.VisibilityKind;
  */
 public class LinkInstanceImpl implements LinkInstance
 {
+    /**
+     *
+     */
     final InstanceSpecification instanceSpecification;
 
+    /**
+     * @param instanceSpecification
+     */
     LinkInstanceImpl(InstanceSpecification instanceSpecification)
     {
         this.instanceSpecification = instanceSpecification;

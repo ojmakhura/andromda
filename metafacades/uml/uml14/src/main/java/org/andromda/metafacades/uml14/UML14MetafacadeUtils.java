@@ -49,7 +49,7 @@ public class UML14MetafacadeUtils
      * Finds a given model element in the model having the specified
      * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
      * </strong> be found, <code>null</code> will be returned instead.
-     * 
+     *
      * @param fullyQualifiedName the fully qualified name of the element to
      *        search for.
      * @param separator the PSM separator used for qualifying the name (example
@@ -214,7 +214,7 @@ public class UML14MetafacadeUtils
      * having the given <code>fullyQualifiedTypeName</code>, with the
      * specified visibility, if no type can be found with the given name, no
      * type is set.
-     * 
+     *
      * @param name the new name
      * @param fullyQualifiedTypeName the name of the fully qualified type
      * @param visibility the visibility name
@@ -236,7 +236,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Indicates whether or not the attribute exists on the given </code>classifier</code>.
-     * 
+     *
      * @param classifier the classifier to check
      * @param name the name of the attribute
      * @return true/false
@@ -285,6 +285,8 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns the first use-case it can find with the given name.
+     * @param name
+     * @return findFirstUseCaseWithNameAndStereotype(name, null)
      */
     static UseCase findFirstUseCaseWithName(String name)
     {
@@ -294,6 +296,9 @@ public class UML14MetafacadeUtils
     /**
      * Returns the first use-case it can find with the given name and stereotype, if the stereotype is not specified (it
      * is null) it will be ignored and the returned use-case may have any arbitrary stereotype.
+     * @param name
+     * @param stereotypeName
+     * @return useCaseWithNameAndStereotype
      */
     static UseCase findFirstUseCaseWithNameAndStereotype(String name, String stereotypeName)
     {
@@ -318,6 +323,8 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns the first activity graph it can find with the given name.
+     * @param name
+     * @return findFirstActivityGraphWithNameAndStereotype(name, null)
      */
     static ActivityGraph findFirstActivityGraphWithName(String name)
     {
@@ -327,6 +334,9 @@ public class UML14MetafacadeUtils
     /**
      * Returns the first activity graph it can find with the given name and stereotype, if the stereotype is not
      * specified (it is null) it will be ignored and the returned activity graph may have any arbitrary stereotype.
+     * @param name
+     * @param stereotypeName
+     * @return graphWithNameAndStereotype
      */
     static ActivityGraph findFirstActivityGraphWithNameAndStereotype(String name, String stereotypeName)
     {
@@ -351,9 +361,9 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns true if the given model element has a tag with the given name and value, returns false otherwise.
-     * @param element 
-     * @param tag 
-     * @param value 
+     * @param element
+     * @param tag
+     * @param value
      * @return tagPresent
      */
     static boolean isTagPresent(ModelElement element, String tag, Object value)
@@ -395,12 +405,20 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns true if the given model element has a hyperlink with the given value, returns false otherwise.
+     * @param element
+     * @param value
+     * @return isTagPresent(element, "hyperlinkModel", value)
      */
     static boolean isHyperlinkPresent(ModelElement element, Object value)
     {
         return isTagPresent(element, "hyperlinkModel", value);
     }
 
+    /**
+     * @param element
+     * @param stereotypeName
+     * @return stereotypePresent
+     */
     static boolean isStereotypePresent(ModelElement element, String stereotypeName)
     {
         boolean stereotypePresent = false;
@@ -421,6 +439,9 @@ public class UML14MetafacadeUtils
     /**
      * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
      * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     * @param tag
+     * @param value
+     * @return useCaseWithTaggedValue
      */
     static UseCase findUseCaseWithTaggedValueOrHyperlink(String tag, String value)
     {
@@ -444,6 +465,9 @@ public class UML14MetafacadeUtils
     /**
      * Returns the first class this method can find with the given tagged value or hyperlink. Both arguments are used to
      * look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     * @param tag
+     * @param value
+     * @return classWithTaggedValue
      */
     static UmlClass findClassWithTaggedValueOrHyperlink(String tag, String value)
     {
@@ -463,6 +487,10 @@ public class UML14MetafacadeUtils
         return classWithTaggedValue;
     }
 
+    /**
+     * @param useCase
+     * @return finalStates
+     */
     static Collection<FinalState> findFinalStatesWithNameOrHyperlink(UseCase useCase)
     {
         List finalStates = new ArrayList();
@@ -647,11 +675,11 @@ public class UML14MetafacadeUtils
                 .findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
     }
-    
+
     /**
      * This method removes all duplicates within the <code>elements</code> collection while at the same
      * time copying tagged values from duplicates to the one remaining element with the given name.
-     * 
+     *
      * @param elements the elements to remove duplicates and copy tagged values to.
      * @return the elements with duplicates removed.
      */
@@ -673,7 +701,7 @@ public class UML14MetafacadeUtils
                 map.put(
                     name,
                     element);
-            }   
+            }
         }
         return new ArrayList<ModelElementFacade>(map.values());
     }

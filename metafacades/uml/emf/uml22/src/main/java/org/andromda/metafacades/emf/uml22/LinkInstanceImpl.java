@@ -36,12 +36,18 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 /**
- * 
+ *
  */
 public class LinkInstanceImpl implements LinkInstance
 {
+    /**
+     *
+     */
     final InstanceSpecification instanceSpecification;
 
+    /**
+     * @param instanceSpecificationIn
+     */
     LinkInstanceImpl(InstanceSpecification instanceSpecificationIn)
     {
         this.instanceSpecification = instanceSpecificationIn;

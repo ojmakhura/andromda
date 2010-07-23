@@ -35,12 +35,18 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 /**
- * 
+ *
  */
 public class ObjectInstanceImpl implements ObjectInstance
 {
+    /**
+     *
+     */
     final InstanceSpecification instanceSpecification;
 
+    /**
+     * @param instanceSpecification
+     */
     ObjectInstanceImpl(InstanceSpecification instanceSpecification)
     {
         this.instanceSpecification = instanceSpecification;
@@ -993,7 +999,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     public void unsetName()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -1002,7 +1008,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     public void unsetVisibility()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -1201,6 +1207,6 @@ public class ObjectInstanceImpl implements ObjectInstance
     public void setOwningTemplateParameter(TemplateParameter value)
     {
         // TODO Auto-generated method stub
-        
+
     }
 }
