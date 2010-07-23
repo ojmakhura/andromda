@@ -70,10 +70,11 @@
          |     |
          |     +-- pom.xml
          |     |        contains the AndroMDA dependencies and configuration (cartridges, translation-libraries, etc)
-         |     +-- /src
+         |     +-- /src/main/uml
+         |     |        contains the UML model from which AndroMDA will generate code
+         |     +-- /src/main/config/mappings
          |     |        additional sources such as merge-mappings can be
-         |     |        placed here, check out the /main/uml directory, it contains
-         |     |        the UML model from which AndroMDA will generate code
+         |     |        placed here
          |     +-- /src/main/config/andromda.xml
          |              configures AndroMDA and its components, most
          |              importantly the cartridges which are listed in
