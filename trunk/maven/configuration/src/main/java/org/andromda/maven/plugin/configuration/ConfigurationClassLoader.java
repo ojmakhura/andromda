@@ -4,7 +4,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * A custom class loader nessary to avoid class loading errors
+ * A custom class loader necessary to avoid class loading errors
  * when running within Maven2.
  *
  * @author Chad Brandon
@@ -24,7 +24,7 @@ public class ConfigurationClassLoader
     }
 
     /**
-     * @see java.lang.ClassLoader#loadClass(java.lang.String)
+     * @see ClassLoader#loadClass(String)
      */
     public Class loadClass(final String name)
         throws ClassNotFoundException
@@ -35,7 +35,7 @@ public class ConfigurationClassLoader
     }
 
     /**
-     * @see java.lang.ClassLoader#loadClass(java.lang.String, boolean)
+     * @see ClassLoader#loadClass(String, boolean)
      */
     protected Class loadClass(
         final String name,
