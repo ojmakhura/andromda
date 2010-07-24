@@ -33,13 +33,12 @@ import org.eclipse.uml2.ValueSpecification;
 import org.eclipse.uml2.VisibilityKind;
 
 /**
- * @author RJF3
  *
  */
 public class ObjectInstanceImpl implements ObjectInstance
 {
     /**
-     *
+     * 
      */
     final InstanceSpecification instanceSpecification;
 

@@ -46,7 +46,7 @@ public class MetaCartridgeUtils
         private final Collator collator = Collator.getInstance();
 
         /**
-         *
+         * 
          */
         FullyQualifiedNameComparator()
         {

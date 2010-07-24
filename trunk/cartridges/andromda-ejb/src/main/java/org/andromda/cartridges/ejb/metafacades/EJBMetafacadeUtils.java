@@ -25,7 +25,7 @@ class EJBMetafacadeUtils
 
     /**
      * Gets all create methods for the given <code>classifier</code>.
-     * @param classifier
+     * @param classifier 
      * @param follow if true, all super type create methods are also retrieved
      * @return Collection of create methods found.
      */

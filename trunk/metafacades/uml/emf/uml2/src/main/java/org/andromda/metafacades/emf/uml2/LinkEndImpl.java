@@ -27,7 +27,7 @@ import org.eclipse.uml2.ValueSpecification;
 public class LinkEndImpl implements LinkEnd
 {
     /**
-     *
+     * 
      */
     final Slot slot;
 

@@ -58,8 +58,8 @@ class SpringMetafacadeUtils
     /**
      * Gets the remoting type for the passed in <code>classifier</code>. If the remoting type can be retrieved from the
      * <code>classifier</code>, then that is used, otherwise the <code>defaultRemotingType</code> is returned.
-     * @param classifier
-     * @param defaultServiceRemotingType
+     * @param classifier 
+     * @param defaultServiceRemotingType 
      * @return String the remoting type name.
      */
     @SuppressWarnings("null")

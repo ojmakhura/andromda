@@ -1019,7 +1019,7 @@ public class WebServiceLogicImpl
         private final Collator collator = Collator.getInstance();
 
         /**
-         *
+         * 
          */
         OperationNameComparator()
         {

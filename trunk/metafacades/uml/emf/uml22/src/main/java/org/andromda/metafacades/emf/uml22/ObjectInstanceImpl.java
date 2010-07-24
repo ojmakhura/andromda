@@ -40,7 +40,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class ObjectInstanceImpl implements ObjectInstance
 {
     /**
-     *
+     * 
      */
     final InstanceSpecification instanceSpecification;
 

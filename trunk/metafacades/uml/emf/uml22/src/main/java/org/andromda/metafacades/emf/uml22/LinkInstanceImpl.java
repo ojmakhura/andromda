@@ -41,7 +41,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class LinkInstanceImpl implements LinkInstance
 {
     /**
-     *
+     * 
      */
     final InstanceSpecification instanceSpecification;
 
