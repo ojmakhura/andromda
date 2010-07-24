@@ -1,13 +1,9 @@
 package org.andromda.maven.plugin.translationlibrary;
 
 import java.io.File;
-
 import java.net.URL;
-
 import java.util.List;
-
 import junit.framework.TestResult;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -19,7 +15,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
-
 
 /**
  * Provides the ability to compare cartridge output with existing output.
@@ -106,7 +101,7 @@ public class TranslationLibraryTestMojo
      *
      * @parameter expression="${project.build.plugins}"
      * @required
-     * @readonlya
+     * @readonly
      */
     protected List plugins;
 

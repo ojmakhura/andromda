@@ -1,13 +1,9 @@
 package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
-
 import java.net.URL;
-
 import java.util.List;
-
 import junit.framework.TestResult;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
@@ -18,7 +14,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
-
 
 /**
  * The bootstrap version of the translation-library test.
@@ -105,7 +100,7 @@ public class TranslationLibraryTestMojo
      *
      * @parameter expression="${project.build.plugins}"
      * @required
-     * @readonlya
+     * @readonly
      */
     protected List plugins;
 
