@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        <a href="run-mojo.html">bootstrap:run</a>
+				    </td>
+				    <td>
+				        <p>
+					        This is exactly the same as the regular AndroMDAMojo in the
+                            andromda-maven-plugin, however this is the <em>bootstrap</em>
+                            plugin which is used to run AndroMDA in bootstrap mode (with the
+                            bootstrap artifacts).
+                        </p>
+				    </td>
+			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="test-translation-library-mojo.html">bootstrap:test-translation-library</a>
+                    </td>
+                    <td>
+                        <p>
+                            The bootstrap version of the translation-library test.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">bootstrap:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+			</table>
+		</section>
+  	</body>
+</document>

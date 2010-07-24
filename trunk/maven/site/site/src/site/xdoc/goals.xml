@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Site Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        <a href="copy-documentation-mojo.html">andromda-site:copy-documentation</a>
+				    </td>
+				    <td>
+				        <p>
+					        Copies the required AndroMDA site files to suitable
+                            locations preparing for deployment.
+                        </p>
+				    </td>
+			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="namespace-xsl-mojo.html">andromda-site:namespace-xsl</a>
+                    </td>
+                    <td>
+                        <p>
+                            Perform the transformation of the namespace XSL document to
+                            namespace.xml xdoc format within the site plugin.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="profile-xsl-mojo.html">andromda-site:profile-xsl</a>
+                    </td>
+                    <td>
+                        <p>
+                            Perform the transformation of the profile XSL document to
+                            profile.xml xdoc format within the site plugin.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="unpack-documentation-mojo.html">andromda-site:unpack-documentation</a>
+                    </td>
+                    <td>
+                        <p>
+                            Unpacks the required AndroMDA site zip packages to suitable locations
+                            preparing for deployment.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">andromda-site:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+			</table>
+		</section>
+  	</body>
+</document>

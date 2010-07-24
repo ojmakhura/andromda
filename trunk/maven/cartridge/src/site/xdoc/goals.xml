@@ -17,7 +17,7 @@
       			</tr>
       			<tr>
       				<td nowrap="nowrap">
-      					cartridge:test
+      					<a href="test-mojo.html">cartridge:test</a>
       				</td>
       				<td>
 	        			<p>
@@ -28,7 +28,18 @@
 	        			</p>
       				</td>
       			</tr>
-      			<tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="update-mojo.html">cartridge:update</a>
+                    </td>
+                    <td>
+                        <p>
+                            Updates the cartridge expected output with the current cartridge
+                            output. Invoke it when you are inside the cartridge root directory.
+                        </p>
+                    </td>
+                </tr>
+      			<!--tr>
       				<td nowrap="nowrap">
       					cartridge:generate-howto-artifacts
       				</td>
@@ -38,7 +49,7 @@
                             "how-to" tutorial for a given cartridge.	
 	        			</p>
       				</td>
-      			</tr>
+      			</tr-->
       		</table>
     	</section>
   	</body>

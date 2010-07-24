@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        <a href="emx-mojo.html">model-archiver:emx</a>
+				    </td>
+				    <td>
+				        <p>
+					        Builds archived model emx files: Rational Software Modeler model.
+                        </p>
+				    </td>
+			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="epx-mojo.html">model-archiver:epx</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model epx files: Rational Software Modeler profile.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="profile.uml-mojo.html">model-archiver:profile.uml</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model profile.uml files: UML2 profile model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="library.uml-mojo.html">model-archiver:library.uml</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model library.uml files: UML2 library model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="uml-mojo.html">model-archiver:uml</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model uml files: UML2 .uml model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="uml2-mojo.html">model-archiver:uml2</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model uml files: UML2 (1.x) .uml2 model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="xml-mojo.html">model-archiver:xml</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds archived model xml files: UML .xml model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="xml.zip-mojo.html">model-archiver:xml.zip</a>
+                    </td>
+                    <td>
+                        <p>
+                            Builds MagicDraw model xml.zip files: UML .xml.zip model files.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">model-archiver:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+			</table>
+		</section>
+  	</body>
+</document>

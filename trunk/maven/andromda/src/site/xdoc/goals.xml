@@ -13,7 +13,7 @@
 		        </tr>
 			    <tr>
 				    <td nowrap="nowrap">
-				        andromda:run
+				        <a href="run-mojo.html">andromda:run</a>
 				    </td>
 				    <td>
 				        <p>
@@ -25,7 +25,19 @@
                         </p>
 				    </td>
 			    </tr>
-			    <tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="export2emf-mojo.html">andromda:export2emf</a>
+                    </td>
+                    <td>
+                        <p>
+                            Exports the MagicDraw project file to EMF XMI (requires valid
+                            MagicDraw installation in MD_HOME, but only if target files are not
+                            up-to-date)
+                        </p>
+                    </td>
+                </tr>
+			    <!--tr>
 				    <td nowrap="nowrap">
 				        andromda:schema2xmi
 				    </td>
@@ -38,10 +50,10 @@
 					        information on how to configure this goal.
 					    </p>
 				    </td>
-			    </tr>
+			    </tr-->
 			    <tr>
 				    <td nowrap="nowrap">
-				        andromda:start-server
+				        <a href="start-server-mojo.html">andromda:start-server</a>
 				    </td>
 				    <td>
 				        <p>
@@ -57,7 +69,7 @@
 			    </tr>
 			    <tr>
 				    <td nowrap="nowrap">
-				        andromda:stop-server
+				        <a href="stop-server-mojo.html">andromda:stop-server</a>
 				    </td>
 				    <td>
 				        <p>
@@ -67,6 +79,16 @@
                         </p>
 				    </td>
 			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">andromda:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
 			</table>
 		</section>
   	</body>
