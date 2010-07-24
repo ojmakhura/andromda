@@ -17,7 +17,7 @@
       			</tr>
       			<tr>
       				<td nowrap="nowrap">
-      					translation-library:test
+      					<a href="test-mojo.html">translation-library:test</a>
       				</td>
       				<td>
 	        			<p>
@@ -53,6 +53,7 @@
       				<td>
       					Generates the entire initial directory structure and any required files
       					to begin development of a Translation-Library.
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
       			<tr>
@@ -66,6 +67,7 @@
 		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
 		        			<strong>translations</strong> properties in order to run this goal 
 		        			(i.e <em>maven translation-library:generate-translation-tests -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+                            THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
 		        		</p>      					
       				</td>
       			</tr>
@@ -79,6 +81,7 @@
 		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
 		        			<strong>translations</strong> properties in order to run this goal 
 		        			(i.e <em>maven translation-library:generate-translator -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+                            THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
 		        		</p>         					
       				</td>
       			</tr>
@@ -95,6 +98,7 @@
 		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> property in order to run this goal 
 		        			(i.e <em>maven translation-library:generate-translator-exception -Dlibrary=query</em>).
 		        		</p>         					
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
       			<tr>
@@ -108,6 +112,7 @@
 		        			<strong>translations</strong> properties in order to run this goal 
 		        			(i.e <em>translation-library:generate-translation-library-descriptor -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
 		        		</p>         					
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
       			<tr>
@@ -121,6 +126,7 @@
 		        			<strong>translations</strong> properties in order to run this goal 
 		        			(i.e <em>maven translation-library:generate-translations -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
 		        		</p>         					
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
       			<tr>
@@ -134,6 +140,7 @@
 		        			<strong>translations</strong> properties in order to run this goal 
 		        			(i.e <em>translation-library:generate-translation-library-pom -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
 		        		</p>         					
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
       			<tr>
@@ -151,8 +158,19 @@
 						 <strong>NOTE:</strong> two properties are required to run it <code>regex</code> which
 						 specifies the regular expression to test and <code>exp</code>, which is the expression
 						 to test against.
+                        THIS GOAL HAS BEEN REMOVED FROM THE PLUGIN.
       				</td>
       			</tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">translation-library:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
       		</table>
     	</section>
   	</body>

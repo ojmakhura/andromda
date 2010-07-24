@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        <a href="generate-cartridge-howto-mojo.html">andromda-site-cartridge:generate-cartridge-howto</a>
+				    </td>
+				    <td>
+				        <p>
+					        Runs AndroMDA over the howto model to generate the
+                            cartridge java source files which are referenced via the cartridge
+                            xhtml docs. It also unpacks the cartridge related archive files,
+                            such as the howto pictures for the cartridge site documentation, to
+                            target/site/howto locations preparing for deployment.
+                        </p>
+				    </td>
+			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">andromda-site-cartridge:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+			</table>
+		</section>
+  	</body>
+</document>

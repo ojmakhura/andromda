@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        <a href="install-mojo.html">bootstrap-install:install</a>
+				    </td>
+				    <td>
+				        <p>
+					        Provides the installation of bootstrap artifacts.
+                        </p>
+				    </td>
+			    </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">bootstrap-install:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+			</table>
+		</section>
+  	</body>
+</document>
