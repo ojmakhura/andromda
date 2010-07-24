@@ -62,7 +62,7 @@ class EJB3MetafacadeUtils
     /**
      * Gets the interface name for the passed in <code>classifier</code>. Returns 'LocalHome' if the mode element has
      * the entity stereotype, returns 'Home' otherwise.
-     * @param classifier
+     * @param classifier 
      * @return the interface name.
      */
     static String getHomeInterfaceName(ClassifierFacade classifier)

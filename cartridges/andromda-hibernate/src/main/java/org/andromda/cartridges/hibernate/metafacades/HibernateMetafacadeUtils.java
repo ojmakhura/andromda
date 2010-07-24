@@ -24,8 +24,8 @@ class HibernateMetafacadeUtils
      * Gets the view type for the passed in <code>classifier</code>. If the
      * view type can be retrieved from the <code>classifier</code>, then that
      * is used, otherwise the <code>defaultViewType</code> is returned.
-     * @param classifier
-     * @param defaultViewType
+     * @param classifier 
+     * @param defaultViewType 
      * @return String the view type name.
      */
     static String getViewType(
