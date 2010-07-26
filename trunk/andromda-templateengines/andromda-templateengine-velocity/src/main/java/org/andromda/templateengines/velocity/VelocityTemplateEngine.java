@@ -19,6 +19,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.log.Log4JLogChute;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.apache.velocity.tools.generic.EscapeTool;
 import java.io.File;
@@ -45,12 +46,12 @@ public class VelocityTemplateEngine
     implements TemplateEngine
 {
     /**
-     * null logger
+     * Log4J logger
      */
     protected static Logger logger = null;
 
     /**
-     * null appender
+     * Log4J appender
      */
     protected FileAppender appender = null;
 
@@ -104,7 +105,8 @@ public class VelocityTemplateEngine
     private final Collection<File> mergedTemplateFiles = new ArrayList<File>();
 
     /**
-     * @param namespace 
+     * Initialized the engine
+     * @param namespace
      * @throws Exception 
      * @see org.andromda.core.templateengine.TemplateEngine#initialize(String)
      */
@@ -168,6 +170,8 @@ public class VelocityTemplateEngine
 
     /**
      * Adds any properties found within META-INF/'plugin name'-velocity.properties
+     * @param pluginName name of the plugin
+     * @throws java.io.IOException if resource could not be found
      */
     private void addProperties(String pluginName)
         throws IOException
@@ -252,16 +256,14 @@ public class VelocityTemplateEngine
      */
     private void loadVelocityContext(final Map<String, Object> templateObjects)
     {
-        if (templateObjects != null && !templateObjects.isEmpty())
+        if (templateObjects != null)
         {    
             // copy the templateObjects to the velocityContext
-            for (final String name : templateObjects.keySet())
+            for (Map.Entry<String, Object> entry : templateObjects.entrySet())
             {
-                final Object value = templateObjects.get(name);
-                this.velocityContext.put(name, value);
+                this.velocityContext.put(entry.getKey(), entry.getValue());
             }
         }
-
         // add velocity tools (Escape tool)
         this.velocityContext.put("esc", new EscapeTool());
     }
