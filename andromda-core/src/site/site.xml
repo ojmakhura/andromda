@@ -9,11 +9,12 @@
         <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
-	<body>
-    	<links>
-    	    <item name="Home" href="../index.html"/>
-      		<item name="Core" href="/index.html"/>
-    	</links>
+    <body>
+        <links>
+            <item name="Home" href="../index.html"/>
+            <item name="Core" href="/index.html"/>
+        </links>
+        <menu ref="parent"/>
         <menu ref="reports"/>
-  	</body>
+    </body>
 </project>

@@ -6,31 +6,28 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
 	<body>
-    	<links>
-    	    <item name="Home" href="../index.html"/>
-      		<item name="Maven Plugins" href="/index.html"/>
-    	</links>
+    	<menu ref="parent"/>
 		<!--menu name="Overview">
 			<item name="About" href="/index.html"/>
 			<item name="Developing" href="/developing.html"/>
 			<item name="Configuring" href="/configuring.html"/>
     	</menu-->
     	<menu name="Available Plugins">
-            <item name="Andromda" href="/andromda/index.html"/>
-            <item name="Andromdapp" href="/andromdapp/index.html"/>
-            <item name="Model Archiver" href="/model-archiver/index.html"/>
-            <item name="Beautifier" href="/beautifier/index.html"/>
-            <item name="Bootstrap" href="/bootstrap/index.html"/>
-            <item name="Bootstrap Install" href="/bootstrap-install/index.html"/>
-            <item name="Cartridge" href="/cartridge/index.html"/>
-            <item name="Translation Library" href="/translation-library/index.html"/>
-            <item name="Configuration" href="/configuration/index.html"/>
-            <item name="Cartridge Site" href="/site/cartridge/index.html"/>
-            <item name="Site" href="/site/site/index.html"/>
+            <item name="Andromda" href="/andromda-maven-plugin/index.html"/>
+            <item name="Andromdapp" href="/andromdapp-maven-plugin/index.html"/>
+            <item name="Model Archiver" href="/andromda-model-archiver-plugin/index.html"/>
+            <item name="Beautifier" href="/andromda-beautifier-plugin/index.html"/>
+            <item name="Bootstrap" href="/andromda-bootstrap-plugin/index.html"/>
+            <item name="Bootstrap Install" href="/andromda-bootstrap-install-plugin/index.html"/>
+            <item name="Cartridge" href="/andromda-cartridge-plugin/index.html"/>
+            <item name="Translation Library" href="/andromda-translation-library-plugin/index.html"/>
+            <item name="Configuration" href="/andromda-configuration-mojo/index.html"/>
+            <item name="Cartridge Site" href="/andromda-site-plugins/andromda-site-cartridge-plugin/index.html"/>
+            <item name="Site" href="/andromda-site-plugins/andromda-site-plugin/index.html"/>
     	</menu>
         <menu ref="reports"/>
   	</body>

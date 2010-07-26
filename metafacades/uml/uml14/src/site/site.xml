@@ -6,16 +6,17 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
-	<body>
-    	<links>
-      		<item name="UML 1.4 Metafacades" href="/index.html"/>
-    	</links>
-     	<menu name="Overview">
+    <body>
+        <links>
+            <item name="UML 1.4 Metafacades" href="/index.html"/>
+        </links>
+        <menu ref="parent"/>
+        <menu name="Overview">
             <item name="Namespace" href="namespace.html"/>
-    	</menu>
-    	<menu ref="reports"/>
-  	</body>
+        </menu>
+        <menu ref="reports"/>
+    </body>
 </project>

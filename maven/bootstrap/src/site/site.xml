@@ -6,15 +6,16 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
     <body>
-    	<links>
-    		<item name="AndroMDA Bootstrap Plugin" href="/index.html"/>
-    	</links>
+        <links>
+            <item name="AndroMDA Bootstrap Plugin" href="index.html"/>
+        </links>
+        <menu ref="parent"/>
         <menu name="Overview">
-      		<item name="Goals" href="/goals.html"/>
+            <item name="Goals" href="goals.html"/>
         </menu>
         <menu ref="reports"/>
     </body>
