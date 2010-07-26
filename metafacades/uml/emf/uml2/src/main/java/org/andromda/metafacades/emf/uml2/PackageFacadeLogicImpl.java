@@ -45,9 +45,9 @@ public class PackageFacadeLogicImpl
         final String fullyQualifiedName)
     {
         Object modelElement = null;
-        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
+        if (logger.isDebugEnabled())
         {
-            PackageFacadeLogicImpl.logger.debug("Looking for >> " + fullyQualifiedName);
+            logger.debug("Looking for >> " + fullyQualifiedName);
         }
         modelElement =
             UmlUtilities.findByFullyQualifiedName(
@@ -65,9 +65,9 @@ public class PackageFacadeLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                     false);
         }
-        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
+        if (logger.isDebugEnabled())
         {
-            PackageFacadeLogicImpl.logger.debug("Found: '" + modelElement + '\'');
+            logger.debug("Found: '" + modelElement + '\'');
         }
         return (ModelElementFacade)this.shieldedElement(modelElement);
     }
