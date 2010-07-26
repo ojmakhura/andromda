@@ -62,7 +62,7 @@ public class EntityLogicImpl
      * A collection of MOF ids for entities that have dynamic identifiers
      * present.
      */
-    private static final Collection dynamicIdentifiersPresent = new ArrayList();
+    private static final Collection<String> dynamicIdentifiersPresent = new ArrayList<String>();
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
