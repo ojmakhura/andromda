@@ -6,21 +6,19 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
-	<body>
+    <body>
         <!-- <pdf href="andromda-bpm4struts-cartridge.pdf"/> -->
-    	<links>
-      		<item name="Bpm4Struts" href="/index.html"/>
-    	</links>
-		<menu name="Documentation">
+        <menu ref="parent"/>
+        <menu name="Documentation">
             <item name="Introduction" href="/index.html"/>
             <item name="Profile" href="/profile.html"/>
             <item name="Namespace" href="/namespace.html"/>
-			<item name="User guide" href="/user-guide.html"/>
+            <item name="User guide" href="/user-guide.html"/>
             <item name="FAQ" href="/faq.html"/>
-    	</menu>
+        </menu>
         <menu name="How-to">
             <item name="Introduction" href="/howto.html"/>
             <item name="Use-Cases" href="/howto1.html"/>
@@ -35,9 +33,9 @@
             <item name="I18n" href="/howto10.html"/>
             <item name="Tips &amp; Tricks" href="/tips.html"/>
         </menu>
-    	<menu name="Samples">
-    		<item name="Online-store" href="/samples.html#online-store"/>
-    	</menu>
-    	<menu ref="reports"/>
-  	</body>
+        <menu name="Samples">
+            <item name="Online-store" href="/samples.html#online-store"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
 </project>

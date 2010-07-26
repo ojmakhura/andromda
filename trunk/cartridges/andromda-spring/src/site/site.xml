@@ -6,14 +6,12 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
-	<body>
+    <body>
         <!-- <pdf href="andromda-spring-cartridge.pdf"/> -->
-    	<links>
-    		<item name="Spring" href="/index.html"/>
-    	</links>
+        <menu ref="parent"/>
         <menu name="Overview">
             <item name="Profile" href="/profile.html"/>
             <item name="Namespace" href="/namespace.html"/>
@@ -31,5 +29,5 @@
             <item name="Tips &amp; Tricks" href="/tips.html"/>
         </menu>
         <menu ref="reports"/>
-  	</body>
+    </body>
 </project>

@@ -6,25 +6,21 @@
         <version>3.4-SNAPSHOT</version>
     </skin>
     <bannerLeft>
-        <name></name>
+        <name/>
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
     <body>
-    	<links>
-    		<item name="EJB3" href="index.html"/>
-      		<item name="Cartridges" href="http://www.andromda.org/docs/andromda-cartridges/index.html"/>
-      		<item name="AndroMDA" href="http://www.andromda.org"/>
-    	</links>
-    	<menu name="Overview">
-    		<item name="About EJB3 Cartridge" href="index.html"/>
-    		<item name="Installation" href="installation.html"/>
-    		<item name="New Project" href="project.html"/>
-    		<item name="Samples" href="samples.html"/>
-    	</menu>
-    	<menu name="Model">
-    		<item name="Profile" href="profile.html"/>
-    		<item name="Namespace" href="namespace.html"/>
-    	</menu>
+        <menu ref="parent"/>
+        <menu name="Overview">
+            <item name="About EJB3 Cartridge" href="index.html"/>
+            <item name="Installation" href="installation.html"/>
+            <item name="New Project" href="project.html"/>
+            <item name="Samples" href="samples.html"/>
+        </menu>
+        <menu name="Model">
+            <item name="Profile" href="profile.html"/>
+            <item name="Namespace" href="namespace.html"/>
+        </menu>
         <menu name="How-to">
             <item name="Introduction" href="howto.html"/>
             <item name="Entity" href="howto1.html"/>
@@ -51,12 +47,12 @@
             <item name="Test Framework" href="howto22.html"/>
             <item name="Tips &amp; Tricks" href="tips.html"/>
         </menu>
-    	<menu name="Support">
-    	    <item name="FAQ" href="faq.html"/>
-    	    <item name="Change Report" href="changes-report.html"/>
-    	    <item name="EJB Forum" href="http://forum.andromda.org/viewforum.php?f=17"/>
-    	    <item name="JIRA EJB" href="http://www.andromda.org/jira/browse/EJB"/>
-    	</menu>
+        <menu name="Support">
+            <item name="FAQ" href="faq.html"/>
+            <item name="Change Report" href="changes-report.html"/>
+            <item name="EJB Forum" href="http://forum.andromda.org/viewforum.php?f=17"/>
+            <item name="JIRA EJB" href="http://www.andromda.org/jira/browse/EJB"/>
+        </menu>
         ${reports}
     </body>
 </project>
