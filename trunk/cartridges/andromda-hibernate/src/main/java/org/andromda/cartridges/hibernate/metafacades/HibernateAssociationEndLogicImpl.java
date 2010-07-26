@@ -66,7 +66,7 @@ public class HibernateAssociationEndLogicImpl
     /**
      * Stores the valid collection types
      */
-    private static final Collection collectionTypes = new ArrayList();
+    private static final Collection<String> collectionTypes = new ArrayList<String>();
 
     static
     {
