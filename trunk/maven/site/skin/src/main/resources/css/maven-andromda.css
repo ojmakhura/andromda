@@ -131,9 +131,12 @@ body
     text-align: center;
 }
 
-/*
-#footer xright {}
-*/
+
+#footer .xright 
+{
+    float:right;
+}
+
 
 .highlight
 {
