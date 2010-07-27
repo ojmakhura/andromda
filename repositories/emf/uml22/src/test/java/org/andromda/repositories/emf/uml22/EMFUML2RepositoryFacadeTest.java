@@ -128,15 +128,15 @@ public class EMFUML2RepositoryFacadeTest
     {
         long now = System.currentTimeMillis();
         // Load from org.eclipse.uml2.resources jar.
-        URL url = this.getClass().getClassLoader().getResource("profiles/Standard.profile.uml");
+        URL url = this.getClass().getResource("profiles/Standard.profile.uml");
         if (url!=null)
         {
             this.repository.readModel(
                 new String[] {this.modelUrl.toString()},
                 new String[] {url.toString(), 
-                    this.getClass().getClassLoader().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
-                    this.getClass().getClassLoader().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
-                    this.getClass().getClassLoader().getResource("metamodels/UML.metamodel.uml").toString()});
+                    this.getClass().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
+                    this.getClass().getResource("metamodels/UML.metamodel.uml").toString()});
         }
         else
         {
