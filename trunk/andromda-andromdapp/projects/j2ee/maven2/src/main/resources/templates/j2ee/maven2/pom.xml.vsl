@@ -1133,6 +1133,7 @@
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <stagingDirectory>${applicationParentDirectory.replace('\', '/')}/${applicationId}/target/site</stagingDirectory>
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
@@ -1693,6 +1694,10 @@
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
 #end
+        <site>
+            <id>website</id>
+            <url>file:/site</url>
+        </site>
     </distributionManagement>
 #end
     <!-- Comment to disable project reporting using default maven plugins -->
