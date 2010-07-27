@@ -59,7 +59,7 @@ public class ClassUtils
 
     /**
      * Loads and returns the class having the className. Will load but normal classes and the classes representing
-     * primatives.
+     * primitives.
      *
      * @param className the name of the class to load.
      * @return Class the loaded class
@@ -81,7 +81,7 @@ public class ClassUtils
         Class loadedClass;
         try
         {
-            // check and see if its a primitive and if so convert it
+            // check and see if it's a primitive and if so convert it
             if (ClassUtils.isPrimitiveType(className))
             {
                 loadedClass = getPrimitiveClass(
