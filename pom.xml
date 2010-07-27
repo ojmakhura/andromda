@@ -459,7 +459,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-container-default</artifactId>
-                <version>1.5.1</version>
+                <version>1.5.4</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
@@ -819,9 +819,10 @@
         <bootstrap.artifacts>true</bootstrap.artifacts-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.version>2.2.1</maven.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <plexus.util.version>1.5.9</plexus.util.version>
+        <maven.version>2.2.1</maven.version>
+        <!--maven.version>3.0-beta-1</maven.version-->
+        <plexus.util.version>2.0.5</plexus.util.version>
     </properties>
     <profiles>
         <profile>
@@ -967,9 +968,6 @@
         <profile>
             <!--Profile configuration for site builds-->
             <id>andromda-site</id>
-            <!--activation>
-                <activeByDefault>true</activeByDefault>
-            </activation-->
             <modules>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
@@ -993,6 +991,7 @@
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
                 <andromda.translation.test.skip>true</andromda.translation.test.skip>
+                <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
             </properties>
             <build>
                 <plugins>
@@ -1022,7 +1021,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <reporting>
@@ -1278,6 +1277,7 @@
                 <skipProcessing>true</skipProcessing>
                 <maven.test.skip>true</maven.test.skip>
                 <andromda.translation.test.skip>true</andromda.translation.test.skip>
+                <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
             </properties>
             <build>
                 <plugins>
@@ -1374,6 +1374,10 @@
                         </reportSets>
                     </plugin>
                     <plugin>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>2.5</version>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>2.5</version>
                         <configuration>
@@ -1401,6 +1405,11 @@
                                 <ruleset>/rulesets/unusedcode.xml</ruleset>
                             </rulesets>
                         </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jdepend-maven-plugin</artifactId>
+                        <version>2.0-beta-2</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -1451,11 +1460,11 @@
             </reporting>
         </profile>
         <!-- This turns off the andromda-lite and local profiles when enabled -->
+        <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
         <profile>
             <id>maven-3</id>
             <activation>
                 <file>
-                    <!--  This employs that the basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
                     <exists>${basedir}</exists>
                 </file>
             </activation>
