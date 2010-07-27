@@ -356,14 +356,14 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * Indicates whether or not we should pluralize association end names.
+     * Indicates whether or not we should pluralize parameter names.
      *
      * @return true/false
      */
     @SuppressWarnings("unused")
-    private boolean isPluralizeAssociationEndNames()
+    private boolean isPluralizeParameterNames()
     {
-        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
+        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_PARAMETER_NAMES);
         return value != null && Boolean.valueOf(String.valueOf(value));
     }
 }
