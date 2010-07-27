@@ -112,7 +112,7 @@ $operation.getDocumentation("    * ")
 #if (!$useArrayWrapper && $parameter.many)
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
 #else
-        // $useArrayWrapper $parameter.many $parameter.upper
+##        // $useArrayWrapper $parameter.many $parameter.upper
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
