@@ -1,6 +1,5 @@
 package org.andromda.cartridges.webservice;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,6 +36,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.log4j.Logger;
 
 /**
@@ -2170,7 +2170,7 @@ public class WebServiceUtils
         return StringUtils.reverseDelimited(packageName, WebServiceGlobals.NAMESPACE_DELIMITER);
     }
 
-    private static SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+    private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
     
     /**
      * Returns the current Date in the specified format.
@@ -2180,13 +2180,13 @@ public class WebServiceUtils
      */
     public static String getDate(String format)
     {
-        if (df == null || !format.equals(df.toLocalizedPattern()))
+        if (df == null || !format.equals(df.getPattern()))
         {
-            df = new SimpleDateFormat(format);
+            df = FastDateFormat.getInstance(format);
         }
         return df.format(new Date());
     }
-    
+
     /**
      * Returns the current Date in the specified format.
      *

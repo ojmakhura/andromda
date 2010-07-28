@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,10 +25,10 @@ import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
+import org.apache.commons.lang.time.FastDateFormat;
 
 /**
- * Utilties for use within the JSF cartridge.
+ * Utilities for use within the JSF cartridge.
  *
  * @author Chad Brandon
  */
@@ -210,6 +211,23 @@ public class JSFUtils
             format,
             0,
             1);
+    }
+
+    private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
+    
+    /**
+     * Returns the current Date in the specified format.
+     *
+     * @param format The format for the output date
+     * @return the current date in the specified format.
+     */
+    public static String getDate(String format)
+    {
+        if (df == null || !format.equals(df.getPattern()))
+        {
+            df = FastDateFormat.getInstance(format);
+        }
+        return df.format(new Date());
     }
 
     private static final String STRICT = "strict";

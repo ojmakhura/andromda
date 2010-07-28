@@ -1,8 +1,8 @@
 package org.andromda.cartridges.java;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.FastDateFormat;
 
 /**
  * Contains utilities used within the WebService cartridge.
@@ -13,7 +13,7 @@ public class JavaUtils
 {
 
     /**
-     * The namespace delimiter (seperates namespaces).
+     * The namespace delimiter (separates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';
 
@@ -28,22 +28,23 @@ public class JavaUtils
         return StringUtils.reverseDelimited(packageName, NAMESPACE_DELIMITER);
     }
     
-    private static SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+    private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
+    
     /**
-     * Returns the current Date in the specified format. $conversionUtils does not seem to work in vsl.
+     * Returns the current Date in the specified format.
      *
      * @param format The format for the output date
      * @return the current date in the specified format.
      */
     public static String getDate(String format)
     {
-        if (df == null || !format.equals(df.toLocalizedPattern()))
+        if (df == null || !format.equals(df.getPattern()))
         {
-            df = new SimpleDateFormat(format);
+            df = FastDateFormat.getInstance(format);
         }
         return df.format(new Date());
     }
-    
+
     /**
      * Returns the current Date in the specified format.
      *
