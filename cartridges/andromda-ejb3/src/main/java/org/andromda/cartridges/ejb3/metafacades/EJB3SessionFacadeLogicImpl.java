@@ -96,7 +96,7 @@ extends EJB3SessionFacadeLogic
     private static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
 
     /**
-     * The default view type accessability for the session bean.
+     * The default view type accessibility for the session bean.
      */
     public static final String SERVICE_DEFAULT_VIEW_TYPE = "serviceViewType";
 

@@ -4,10 +4,8 @@ package org.andromda.timetracker.web.timecardsearch;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.andromda.timetracker.domain.TimecardStatus;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
