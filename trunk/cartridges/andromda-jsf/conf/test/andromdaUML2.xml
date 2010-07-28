@@ -2,21 +2,18 @@
   <properties>
     <property name="cartridgeFilter">jsf</property>
     <property name="failOnValidationErrors">false</property>
+    <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
+    <property name="cartridgeFilter">${filter}</property -->
+    <!-- Debug andromda processing using example log4jUML2.xml file>
+    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4jUML2.xml</property -->
   </properties>
   <repositories>
     <repository name="emf-uml22">
       <models>
         <model type="emf-uml22">
-          <uri>file:${project.basedir}/src/uml2/JSFMetafacadeModel.uml</uri>
+          <uri>file:${project.basedir}/src/test/uml2/JSFCartridgeTestModel.uml</uri>
           <moduleSearchLocations>
             <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location>
-            <!--repository name="netBeansMDR">
-      <models>
-        <model>
-          <uri>${uml2.test.model.uri}</uri>
-          <moduleSearchLocations>
-            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location-->
           </moduleSearchLocations>
           <modelPackages>
             <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>

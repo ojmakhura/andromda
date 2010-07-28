@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLStandardProfile="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/UMLStandardProfile/_iMSlMJqJEd-df-Hu2EsiuA/0 UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA">
+  <uml:Profile xmi:id="_iUe34ZqJEd-df-Hu2EsiuA" name="andromda-common" metamodelReference="_iUe4UJqJEd-df-Hu2EsiuA">
+    <eAnnotations xmi:id="_iUe34pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_iUe345qJEd-df-Hu2EsiuA" name="andromdacommon" nsURI="http:///schemas/andromdacommon/_iUe34JqJEd-df-Hu2EsiuA/0" nsPrefix="andromdacommon">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_iUe35JqJEd-df-Hu2EsiuA" name="TernaryBoolean">
+          <eAnnotations xmi:id="_iUe35ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4U5qJEd-df-Hu2EsiuA"/>
+          <eLiterals xmi:id="_iUe35pqJEd-df-Hu2EsiuA" name="default"/>
+          <eLiterals xmi:id="_iUe355qJEd-df-Hu2EsiuA" name="true" value="1"/>
+          <eLiterals xmi:id="_iUe36JqJEd-df-Hu2EsiuA" name="false" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe36ZqJEd-df-Hu2EsiuA" name="Mapped">
+          <eAnnotations xmi:id="_iUe36pqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4u5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe365qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe37JqJEd-df-Hu2EsiuA" name="Role">
+          <eAnnotations xmi:id="_iUe37ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4v5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe37pqJEd-df-Hu2EsiuA" name="andromda_role_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe375qJEd-df-Hu2EsiuA" name="base_Actor" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Actor"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe38JqJEd-df-Hu2EsiuA" name="Exception">
+          <eAnnotations xmi:id="_iUe38ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4xZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe38pqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe385qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe39JqJEd-df-Hu2EsiuA" name="SimpleClass">
+          <eAnnotations xmi:id="_iUe39ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4zZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe39pqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe395qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe3-JqJEd-df-Hu2EsiuA" name="MapsWith">
+          <eAnnotations xmi:id="_iUe3-ZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe41ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe3-pqJEd-df-Hu2EsiuA" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Dependency"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe3-5qJEd-df-Hu2EsiuA" name="Future">
+          <eAnnotations xmi:id="_iUe3_JqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe42ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe3_ZqJEd-df-Hu2EsiuA" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe3_pqJEd-df-Hu2EsiuA" name="ExceptionRef">
+          <eAnnotations xmi:id="_iUe3_5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe43ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4AJqJEd-df-Hu2EsiuA" name="base_Dependency" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Dependency"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4AZqJEd-df-Hu2EsiuA" name="DocOnly">
+          <eAnnotations xmi:id="_iUe4ApqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe44ZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4A5qJEd-df-Hu2EsiuA" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4BJqJEd-df-Hu2EsiuA" name="UnexpectedException" eSuperTypes="_iUe38JqJEd-df-Hu2EsiuA">
+          <eAnnotations xmi:id="_iUe4BZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe45ZqJEd-df-Hu2EsiuA"/>
+          <eAnnotations xmi:id="_iUe4BpqJEd-df-Hu2EsiuA" source="duplicates">
+            <contents xmi:type="ecore:EAttribute" xmi:id="_iUe4B5qJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+              <eAnnotations xmi:id="_iUe4CJqJEd-df-Hu2EsiuA" source="redefines" references="_iUe38pqJEd-df-Hu2EsiuA"/>
+              <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            </contents>
+            <contents xmi:type="ecore:EReference" xmi:id="_iUe4CZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+              <eAnnotations xmi:id="_iUe4CpqJEd-df-Hu2EsiuA" source="redefines" references="_iUe385qJEd-df-Hu2EsiuA"/>
+              <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+            </contents>
+          </eAnnotations>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4C5qJEd-df-Hu2EsiuA" name="ApplicationException" eSuperTypes="_iUe38JqJEd-df-Hu2EsiuA">
+          <eAnnotations xmi:id="_iUe4DJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe47pqJEd-df-Hu2EsiuA"/>
+          <eAnnotations xmi:id="_iUe4DZqJEd-df-Hu2EsiuA" source="duplicates">
+            <contents xmi:type="ecore:EAttribute" xmi:id="_iUe4DpqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+              <eAnnotations xmi:id="_iUe4D5qJEd-df-Hu2EsiuA" source="redefines" references="_iUe38pqJEd-df-Hu2EsiuA"/>
+              <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            </contents>
+            <contents xmi:type="ecore:EReference" xmi:id="_iUe4EJqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+              <eAnnotations xmi:id="_iUe4EZqJEd-df-Hu2EsiuA" source="redefines" references="_iUe385qJEd-df-Hu2EsiuA"/>
+              <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+            </contents>
+          </eAnnotations>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4EpqJEd-df-Hu2EsiuA" name="Enumeration">
+          <eAnnotations xmi:id="_iUe4E5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe495qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4FJqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4FZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4FpqJEd-df-Hu2EsiuA" name="EnvEntry">
+          <eAnnotations xmi:id="_iUe4F5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe4_5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4GJqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4GZqJEd-df-Hu2EsiuA" name="Keywords">
+          <eAnnotations xmi:id="_iUe4GpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5ApqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4G5qJEd-df-Hu2EsiuA" name="override" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4HJqJEd-df-Hu2EsiuA" name="synchronized" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4HZqJEd-df-Hu2EsiuA" name="transient" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4HpqJEd-df-Hu2EsiuA" name="volatile" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4H5qJEd-df-Hu2EsiuA" name="deprecated" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4IJqJEd-df-Hu2EsiuA" name="none" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4IZqJEd-df-Hu2EsiuA" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Operation"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4IpqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4I5qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4JJqJEd-df-Hu2EsiuA" name="Nullable">
+          <eAnnotations xmi:id="_iUe4JZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5GZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4JpqJEd-df-Hu2EsiuA" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4J5qJEd-df-Hu2EsiuA" name="SuppressWarnings">
+          <eAnnotations xmi:id="_iUe4KJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5HZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4KZqJEd-df-Hu2EsiuA" name="unchecked" ordered="false" lowerBound="1" defaultValueLiteral="true">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4KpqJEd-df-Hu2EsiuA" name="fallthrough" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4K5qJEd-df-Hu2EsiuA" name="javadoc" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4LJqJEd-df-Hu2EsiuA" name="serial" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4LZqJEd-df-Hu2EsiuA" name="finally" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4LpqJEd-df-Hu2EsiuA" name="all" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4L5qJEd-df-Hu2EsiuA" name="unused" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4MJqJEd-df-Hu2EsiuA" name="emptyBlock" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4MZqJEd-df-Hu2EsiuA" name="null" ordered="false" lowerBound="1" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4MpqJEd-df-Hu2EsiuA" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4M5qJEd-df-Hu2EsiuA" name="ValueObject">
+          <eAnnotations xmi:id="_iUe4NJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5TpqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4NZqJEd-df-Hu2EsiuA" name="andromda_xml_bindingAnnotations" ordered="false" lowerBound="1" eType="_iUe35JqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4NpqJEd-df-Hu2EsiuA" name="andromda_generateEqualPropertiesMethod" ordered="false" lowerBound="1" eType="_iUe35JqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4N5qJEd-df-Hu2EsiuA" name="andromda_xml_attributes" ordered="false" lowerBound="1" eType="_iUe35JqJEd-df-Hu2EsiuA" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4OJqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4OZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4OpqJEd-df-Hu2EsiuA" name="Singleton">
+          <eAnnotations xmi:id="_iUe4O5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5XZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4PJqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4PZqJEd-df-Hu2EsiuA" name="Ignore">
+          <eAnnotations xmi:id="_iUe4PpqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5YZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4P5qJEd-df-Hu2EsiuA" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4QJqJEd-df-Hu2EsiuA" name="Facade">
+          <eAnnotations xmi:id="_iUe4QZqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5ZZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4QpqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4Q5qJEd-df-Hu2EsiuA" name="Factory">
+          <eAnnotations xmi:id="_iUe4RJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5aZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4RZqJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4RpqJEd-df-Hu2EsiuA" name="MapsTo">
+          <eAnnotations xmi:id="_iUe4R5qJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5bZqJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4SJqJEd-df-Hu2EsiuA" name="domain_attribute_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4SZqJEd-df-Hu2EsiuA" name="domain_class_name" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4SpqJEd-df-Hu2EsiuA" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Property"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_iUe4S5qJEd-df-Hu2EsiuA" name="Serializable">
+          <eAnnotations xmi:id="_iUe4TJqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_iUe5d5qJEd-df-Hu2EsiuA"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_iUe4TZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4TpqJEd-df-Hu2EsiuA" name="base_Interface" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Interface"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_iUe4T5qJEd-df-Hu2EsiuA" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_iUe4UJqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUe4UZqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_iUe4UpqJEd-df-Hu2EsiuA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_iUe4U5qJEd-df-Hu2EsiuA" name="TernaryBoolean">
+      <ownedLiteral xmi:id="_iUe4VJqJEd-df-Hu2EsiuA" name="default"/>
+      <ownedLiteral xmi:id="_iUe4VZqJEd-df-Hu2EsiuA" name="true"/>
+      <ownedLiteral xmi:id="_iUe4VpqJEd-df-Hu2EsiuA" name="false"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4V5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe415qJEd-df-Hu2EsiuA _iUe4WJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4WJqJEd-df-Hu2EsiuA" name="extension_MapsWith" visibility="private" type="_iUe41ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4V5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4WZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4WpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4W5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4XJqJEd-df-Hu2EsiuA _iUe4y5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4XJqJEd-df-Hu2EsiuA" name="extension_Exception" visibility="private" type="_iUe4xZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4W5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4XZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4XpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4X5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4YJqJEd-df-Hu2EsiuA _iUe4vZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4YJqJEd-df-Hu2EsiuA" name="extension_Mapped" visibility="private" type="_iUe4u5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4X5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4YZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4YpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4Y5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4ZJqJEd-df-Hu2EsiuA _iUe5fZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4ZJqJEd-df-Hu2EsiuA" name="extension_Serializable" visibility="private" type="_iUe5d5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4Y5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4ZZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4ZpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4Z5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5fpqJEd-df-Hu2EsiuA _iUe4aJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4aJqJEd-df-Hu2EsiuA" name="extension_Serializable" visibility="private" type="_iUe5d5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4Z5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4aZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4apqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4a5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5Y5qJEd-df-Hu2EsiuA _iUe4bJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4bJqJEd-df-Hu2EsiuA" name="extension_Ignore" visibility="private" type="_iUe5YZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4a5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4bZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4bpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4b5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5W5qJEd-df-Hu2EsiuA _iUe4cJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4cJqJEd-df-Hu2EsiuA" name="extension_ValueObject" visibility="private" type="_iUe5TpqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4b5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4cZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4cpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4c5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe47JqJEd-df-Hu2EsiuA _iUe4dJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4dJqJEd-df-Hu2EsiuA" name="extension_UnexpectedException" visibility="private" type="_iUe45ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4c5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4dZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4dpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4d5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4eJqJEd-df-Hu2EsiuA _iUe5G5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4eJqJEd-df-Hu2EsiuA" name="extension_Nullable" visibility="private" type="_iUe5GZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4d5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4eZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4epqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4e5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5a5qJEd-df-Hu2EsiuA _iUe4fJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4fJqJEd-df-Hu2EsiuA" name="extension_Factory" visibility="private" type="_iUe5aZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4e5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4fZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4fpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4f5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5X5qJEd-df-Hu2EsiuA _iUe4gJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4gJqJEd-df-Hu2EsiuA" name="extension_Singleton" visibility="private" type="_iUe5XZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4f5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4gZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4gpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4g5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4hJqJEd-df-Hu2EsiuA _iUe4_ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4hJqJEd-df-Hu2EsiuA" name="extension_Enumeration" visibility="private" type="_iUe495qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4g5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4hZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4hpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4h5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4iJqJEd-df-Hu2EsiuA _iUe405qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4iJqJEd-df-Hu2EsiuA" name="extension_SimpleClass" visibility="private" type="_iUe4zZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4h5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4iZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4ipqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4i5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4jJqJEd-df-Hu2EsiuA _iUe5FZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4jJqJEd-df-Hu2EsiuA" name="extension_Keywords" visibility="private" type="_iUe5ApqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4i5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4jZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4jpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4j5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4kJqJEd-df-Hu2EsiuA _iUe5FpqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4kJqJEd-df-Hu2EsiuA" name="extension_Keywords" visibility="private" type="_iUe5ApqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4j5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4kZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4kpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4k5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4lJqJEd-df-Hu2EsiuA _iUe5F5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4lJqJEd-df-Hu2EsiuA" name="extension_Keywords" visibility="private" type="_iUe5ApqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4k5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4lZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4lpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4l5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe425qJEd-df-Hu2EsiuA _iUe4mJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4mJqJEd-df-Hu2EsiuA" name="extension_Future" visibility="private" type="_iUe42ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4l5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4mZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4mpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4m5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4nJqJEd-df-Hu2EsiuA _iUe445qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4nJqJEd-df-Hu2EsiuA" name="extension_DocOnly" visibility="private" type="_iUe44ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4m5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4nZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4npqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4n5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5AJqJEd-df-Hu2EsiuA _iUe4oJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4oJqJEd-df-Hu2EsiuA" name="extension_EnvEntry" visibility="private" type="_iUe4_5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4n5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4oZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4opqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4o5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe5dZqJEd-df-Hu2EsiuA _iUe4pJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4pJqJEd-df-Hu2EsiuA" name="extension_MapsTo" visibility="private" type="_iUe5bZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4o5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4pZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4ppqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4p5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4qJqJEd-df-Hu2EsiuA _iUe5Z5qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4qJqJEd-df-Hu2EsiuA" name="extension_Facade" visibility="private" type="_iUe5ZZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4p5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4qZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4qpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4q5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4rJqJEd-df-Hu2EsiuA _iUe49ZqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4rJqJEd-df-Hu2EsiuA" name="extension_ApplicationException" visibility="private" type="_iUe47pqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4q5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4rZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4rpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4r5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4sJqJEd-df-Hu2EsiuA _iUe435qJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4sJqJEd-df-Hu2EsiuA" name="extension_ExceptionRef" visibility="private" type="_iUe43ZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4r5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4sZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4spqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4s5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4w5qJEd-df-Hu2EsiuA _iUe4tJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4tJqJEd-df-Hu2EsiuA" name="extension_Role" visibility="private" type="_iUe4v5qJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4s5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4tZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4tpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_iUe4t5qJEd-df-Hu2EsiuA" name="" memberEnd="_iUe4uJqJEd-df-Hu2EsiuA _iUe5TJqJEd-df-Hu2EsiuA">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_iUe4uJqJEd-df-Hu2EsiuA" name="extension_SuppressWarnings" visibility="private" type="_iUe5HZqJEd-df-Hu2EsiuA" aggregation="composite" association="_iUe4t5qJEd-df-Hu2EsiuA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4uZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4upqJEd-df-Hu2EsiuA" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe4u5qJEd-df-Hu2EsiuA" name="Mapped">
+      <ownedComment xmi:id="_iUe4vJqJEd-df-Hu2EsiuA" body="A transfer object class that maps its attributes to 1-n attributes of 1-n source domain classes. Applying this stereotype produces a Mapper class for the related transfer object with transfer methods for each mapped attribute." annotatedElement="_iUe4u5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe4vZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4X5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe4vpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe4v5qJEd-df-Hu2EsiuA" name="Role">
+      <ownedComment xmi:id="_iUe4wJqJEd-df-Hu2EsiuA" body="Stereotype containing role.name value." annotatedElement="_iUe4v5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe4wZqJEd-df-Hu2EsiuA" name="andromda_role_name" visibility="private">
+        <ownedComment xmi:id="_iUe4wpqJEd-df-Hu2EsiuA" body="Defines the role name (if it should be different than the actual name of the actor that represents the role)." annotatedElement="_iUe4wZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe4w5qJEd-df-Hu2EsiuA" name="base_Actor" visibility="private" association="_iUe4s5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Actor"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe4xJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe4xZqJEd-df-Hu2EsiuA" name="Exception">
+      <ownedComment xmi:id="_iUe4xpqJEd-df-Hu2EsiuA" body="The base exception stereotype, all exception stereotypes extend from this stereotype." annotatedElement="_iUe4xZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe4x5qJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe4yJqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe4x5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4yZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4ypqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe4y5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4W5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe4zJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe4zZqJEd-df-Hu2EsiuA" name="SimpleClass">
+      <ownedComment xmi:id="_iUe4zpqJEd-df-Hu2EsiuA" body="Generate a class with modeled attributes/methods. If there are methods, a delegate class is also created. The same process used to generate classes without any stereotypes (if enabled), can also generate the class with additional stereotypes applied." annotatedElement="_iUe4zZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe4z5qJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe40JqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe4z5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe40ZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe40pqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe405qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4h5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe41JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe41ZqJEd-df-Hu2EsiuA" name="MapsWith">
+      <ownedComment xmi:id="_iUe41pqJEd-df-Hu2EsiuA" body="For a relationship/association involving a transfer object and a domian object, indicates the [domain] class at the directed end of the association has attributes that are 'mapped' to attrributes in the corresponding transfer object. For a property of a transfer object class, indicates the property is to be mapped to a property of the same name in the domain class." annotatedElement="_iUe41ZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe415qJEd-df-Hu2EsiuA" name="base_Dependency" visibility="private" association="_iUe4V5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe42JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe42ZqJEd-df-Hu2EsiuA" name="Future">
+      <ownedComment xmi:id="_iUe42pqJEd-df-Hu2EsiuA" body="This element will be implemented in the future. Ignore for Code generation." annotatedElement="_iUe42ZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe425qJEd-df-Hu2EsiuA" name="base_Element" visibility="private" association="_iUe4l5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe43JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe43ZqJEd-df-Hu2EsiuA" name="ExceptionRef">
+      <ownedComment xmi:id="_iUe43pqJEd-df-Hu2EsiuA" body="A reference to exception, you would use this if you did NOT want to generate the exception but instead generate a reference to an exception that you woulid then implement." annotatedElement="_iUe43ZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe435qJEd-df-Hu2EsiuA" name="base_Dependency" visibility="private" association="_iUe4r5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Dependency"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe44JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe44ZqJEd-df-Hu2EsiuA" name="DocOnly">
+      <ownedComment xmi:id="_iUe44pqJEd-df-Hu2EsiuA" body="This element is for documentation purposes only, not for code generation." annotatedElement="_iUe44ZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe445qJEd-df-Hu2EsiuA" name="base_Element" visibility="private" association="_iUe4m5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe45JqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe45ZqJEd-df-Hu2EsiuA" name="UnexpectedException">
+      <ownedComment xmi:id="_iUe45pqJEd-df-Hu2EsiuA" body="An exception thrown when an unexpected exception occurs. Extends RuntimeException, not declared as part of method signature." annotatedElement="_iUe45ZqJEd-df-Hu2EsiuA"/>
+      <generalization xmi:id="_iUe455qJEd-df-Hu2EsiuA" isSubstitutable="false" general="_iUe4xZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe46JqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe46ZqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe46JqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe46pqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe465qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe47JqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4c5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe47ZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe47pqJEd-df-Hu2EsiuA" name="ApplicationException">
+      <ownedComment xmi:id="_iUe475qJEd-df-Hu2EsiuA" body="Represents a exception that could occur during normal application flow. Extends Exception, declared as part of method signature, must be caught by calling method." annotatedElement="_iUe47pqJEd-df-Hu2EsiuA"/>
+      <generalization xmi:id="_iUe48JqJEd-df-Hu2EsiuA" isSubstitutable="false" general="_iUe4xZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe48ZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe48pqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe48ZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe485qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe49JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe49ZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4q5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe49pqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe495qJEd-df-Hu2EsiuA" name="Enumeration">
+      <ownedComment xmi:id="_iUe4-JqJEd-df-Hu2EsiuA" body="Allows the definition of an enumeration type.  Enumerations can only contain attributes with optional default values.  If the default value is not specified, the name of the attribute will be used for the enumeration value as well as the literal name." annotatedElement="_iUe495qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe4-ZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe4-pqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe4-ZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe4-5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe4_JqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe4_ZqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4g5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe4_pqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe4_5qJEd-df-Hu2EsiuA" name="EnvEntry">
+      <ownedAttribute xmi:id="_iUe5AJqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUe4n5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5AZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5ApqJEd-df-Hu2EsiuA" name="Keywords">
+      <ownedComment xmi:id="_iUe5A5qJEd-df-Hu2EsiuA" body="Keyword modifiers which affect the generated code, that have no specific place in the UML model. Default for all taggedValues is false. UML2 should use the Keyword values within the UML model instead of this stereotype.&#xA;" annotatedElement="_iUe5ApqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5BJqJEd-df-Hu2EsiuA" name="override" visibility="private">
+        <ownedComment xmi:id="_iUe5BZqJEd-df-Hu2EsiuA" body="Modify method with @Override keyword annotation" annotatedElement="_iUe5BJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5BpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5B5qJEd-df-Hu2EsiuA" name="synchronized" visibility="private">
+        <ownedComment xmi:id="_iUe5CJqJEd-df-Hu2EsiuA" body="Modify method with synchronized declaration." annotatedElement="_iUe5B5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5CZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5CpqJEd-df-Hu2EsiuA" name="transient" visibility="private">
+        <ownedComment xmi:id="_iUe5C5qJEd-df-Hu2EsiuA" body="Modify method with transient declaration." annotatedElement="_iUe5CpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5DJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5DZqJEd-df-Hu2EsiuA" name="volatile" visibility="private">
+        <ownedComment xmi:id="_iUe5DpqJEd-df-Hu2EsiuA" body="Modify method declaration with volatile declaration." annotatedElement="_iUe5DZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5D5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5EJqJEd-df-Hu2EsiuA" name="deprecated" visibility="private">
+        <ownedComment xmi:id="_iUe5EZqJEd-df-Hu2EsiuA" body="Modify method declaration with @Deprecated annotation / javadoc." annotatedElement="_iUe5EJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5EpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5E5qJEd-df-Hu2EsiuA" name="none" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5FJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5FZqJEd-df-Hu2EsiuA" name="base_Operation" visibility="private" association="_iUe4i5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5FpqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUe4j5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5F5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4k5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5GJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5GZqJEd-df-Hu2EsiuA" name="Nullable">
+      <ownedComment xmi:id="_iUe5GpqJEd-df-Hu2EsiuA" body="Placed on a parameter to indicate whether or not a null parameter should be allowed." annotatedElement="_iUe5GZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5G5qJEd-df-Hu2EsiuA" name="base_Parameter" visibility="private" association="_iUe4d5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5HJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5HZqJEd-df-Hu2EsiuA" name="SuppressWarnings">
+      <ownedComment xmi:id="_iUe5HpqJEd-df-Hu2EsiuA" body="Add @SuppressWarnings annotation for various compiler warnings." annotatedElement="_iUe5HZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5H5qJEd-df-Hu2EsiuA" name="unchecked" visibility="private">
+        <ownedComment xmi:id="_iUe5IJqJEd-df-Hu2EsiuA" body="Suppress unchecked type conversion compiler warning." annotatedElement="_iUe5H5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5IZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5IpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5I5qJEd-df-Hu2EsiuA" name="" value="true"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5JJqJEd-df-Hu2EsiuA" name="fallthrough" visibility="private">
+        <ownedComment xmi:id="_iUe5JZqJEd-df-Hu2EsiuA" body="Suppress possible fallthrough warning" annotatedElement="_iUe5JJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5JpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5J5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5KJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5KZqJEd-df-Hu2EsiuA" name="javadoc" visibility="private">
+        <ownedComment xmi:id="_iUe5KpqJEd-df-Hu2EsiuA" body="Suppress invalid javadoc compiler warning" annotatedElement="_iUe5KZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5K5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5LJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5LZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5LpqJEd-df-Hu2EsiuA" name="serial" visibility="private">
+        <ownedComment xmi:id="_iUe5L5qJEd-df-Hu2EsiuA" body="Suppress missing SerialVersionUID compiler warning" annotatedElement="_iUe5LpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5MJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5MZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5MpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5M5qJEd-df-Hu2EsiuA" name="finally" visibility="private">
+        <ownedComment xmi:id="_iUe5NJqJEd-df-Hu2EsiuA" body="Suppress finally block not completing normally compiler warning." annotatedElement="_iUe5M5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5NZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5NpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5N5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5OJqJEd-df-Hu2EsiuA" name="all" visibility="private">
+        <ownedComment xmi:id="_iUe5OZqJEd-df-Hu2EsiuA" body="Suppress all compiler warnings" annotatedElement="_iUe5OJqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5OpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5O5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5PJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5PZqJEd-df-Hu2EsiuA" name="unused" visibility="private">
+        <ownedComment xmi:id="_iUe5PpqJEd-df-Hu2EsiuA" body="Suppress unused code compiler warning." annotatedElement="_iUe5PZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5P5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5QJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5QZqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5QpqJEd-df-Hu2EsiuA" name="emptyBlock" visibility="private">
+        <ownedComment xmi:id="_iUe5Q5qJEd-df-Hu2EsiuA" body="Suppress uncommented empty block compiler warning." annotatedElement="_iUe5QpqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5RJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5RZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5RpqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5R5qJEd-df-Hu2EsiuA" name="null" visibility="private">
+        <ownedComment xmi:id="_iUe5SJqJEd-df-Hu2EsiuA" body="Suppress potential missing or redundant null check compiler warning" annotatedElement="_iUe5R5qJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5SZqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5SpqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_iUe5S5qJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5TJqJEd-df-Hu2EsiuA" name="base_Element" visibility="private" association="_iUe4t5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5TZqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5TpqJEd-df-Hu2EsiuA" name="ValueObject">
+      <ownedComment xmi:id="_iUe5T5qJEd-df-Hu2EsiuA" body="Allows the object to be exposed as a value object.  Value objects are those objects that will be presented to the calling client." annotatedElement="_iUe5TpqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5UJqJEd-df-Hu2EsiuA" name="andromda_xml_bindingAnnotations" visibility="private" type="_iUe4U5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe5UZqJEd-df-Hu2EsiuA" body="Turn on/off Xml binding annotations for a ValueObject which is turned on by default globally. Default=unspecified, use global settings. If no global settings, default is off." annotatedElement="_iUe5UJqJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe5UpqJEd-df-Hu2EsiuA" name="" instance="_iUe4VJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5U5qJEd-df-Hu2EsiuA" name="andromda_generateEqualPropertiesMethod" visibility="private" type="_iUe4U5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe5VJqJEd-df-Hu2EsiuA" body="Generate equalProperties method in ValueObject, overriding global default value." annotatedElement="_iUe5U5qJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe5VZqJEd-df-Hu2EsiuA" name="" instance="_iUe4VJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5VpqJEd-df-Hu2EsiuA" name="andromda_xml_attributes" visibility="private" type="_iUe4U5qJEd-df-Hu2EsiuA">
+        <ownedComment xmi:id="_iUe5V5qJEd-df-Hu2EsiuA" body="Generate @XmlAttribute annotations for simple/primitive types and wrappers. Overrides global default configuration setting xmlAttributes for this class only." annotatedElement="_iUe5VpqJEd-df-Hu2EsiuA"/>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_iUe5WJqJEd-df-Hu2EsiuA" name="" instance="_iUe4VJqJEd-df-Hu2EsiuA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5WZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe5WpqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe5WZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5W5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4b5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5XJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5XZqJEd-df-Hu2EsiuA" name="Singleton">
+      <ownedComment xmi:id="_iUe5XpqJEd-df-Hu2EsiuA" body="Create a singleton implementation for the class, with static attributes/methods and method delegate implementation." annotatedElement="_iUe5XZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5X5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4f5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5YJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5YZqJEd-df-Hu2EsiuA" name="Ignore">
+      <ownedComment xmi:id="_iUe5YpqJEd-df-Hu2EsiuA" body="Ignore this Element for code generation - exclude. Element is not needed for documentation, and will not be implemented in the future." annotatedElement="_iUe5YZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5Y5qJEd-df-Hu2EsiuA" name="base_Element" visibility="private" association="_iUe4a5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5ZJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5ZZqJEd-df-Hu2EsiuA" name="Facade">
+      <ownedComment xmi:id="_iUe5ZpqJEd-df-Hu2EsiuA" body="Creates a Facade class with mappings of underlying class attributes plus delegates for all methods." annotatedElement="_iUe5ZZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5Z5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4p5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5aJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5aZqJEd-df-Hu2EsiuA" name="Factory">
+      <ownedComment xmi:id="_iUe5apqJEd-df-Hu2EsiuA" body="Creates a Factory implementation for the Interface/class hierarchy, delegating to an implementation to determine which instance to return." annotatedElement="_iUe5aZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5a5qJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4e5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5bJqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5bZqJEd-df-Hu2EsiuA" name="MapsTo">
+      <ownedComment xmi:id="_iUe5bpqJEd-df-Hu2EsiuA" body="For a relationship/association involving a transfer object and a domian object, indicates the [domain] class at the directed end of the association has attributes that are 'mapped' to attrributes in the corresponding transfer object. For a property of a transfer object class, indicates the property is to be mapped to a property of the same name in the domain class." annotatedElement="_iUe5bZqJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5b5qJEd-df-Hu2EsiuA" name="domain_attribute_name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5cJqJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5cZqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5cpqJEd-df-Hu2EsiuA" name="domain_class_name" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5c5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5dJqJEd-df-Hu2EsiuA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5dZqJEd-df-Hu2EsiuA" name="base_Property" visibility="private" association="_iUe4o5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5dpqJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_iUe5d5qJEd-df-Hu2EsiuA" name="Serializable">
+      <ownedComment xmi:id="_iUe5eJqJEd-df-Hu2EsiuA" body="This class is serializable" annotatedElement="_iUe5d5qJEd-df-Hu2EsiuA"/>
+      <ownedAttribute xmi:id="_iUe5eZqJEd-df-Hu2EsiuA" name="andromda_serialVersionUID" visibility="private">
+        <ownedComment xmi:id="_iUe5epqJEd-df-Hu2EsiuA" body="Override the default generated serialVersionUID value." annotatedElement="_iUe5eZqJEd-df-Hu2EsiuA"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iUe5e5qJEd-df-Hu2EsiuA" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iUe5fJqJEd-df-Hu2EsiuA" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5fZqJEd-df-Hu2EsiuA" name="base_Interface" visibility="private" association="_iUe4Y5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iUe5fpqJEd-df-Hu2EsiuA" name="base_Class" visibility="private" association="_iUe4Z5qJEd-df-Hu2EsiuA">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_iUe5f5qJEd-df-Hu2EsiuA" content="" location="" format=""/>
+    </packagedElement>
+    <profileApplication xmi:id="_iUxy15qJEd-df-Hu2EsiuA">
+      <eAnnotations xmi:id="_iUxy2JqJEd-df-Hu2EsiuA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gpqJEd-df-Hu2EsiuA"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_iUe5gJqJEd-df-Hu2EsiuA"/>
+    </profileApplication>
+  </uml:Profile>
+  <UMLStandardProfile:modelLibrary xmi:id="_iUxy2ZqJEd-df-Hu2EsiuA" base_Package="_iUe34ZqJEd-df-Hu2EsiuA"/>
+</xmi:XMI>
