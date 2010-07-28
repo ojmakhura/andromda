@@ -65,7 +65,7 @@ public class EJB3EntityFacadeLogicImpl
     private static final String ENTITY_DISCRIMINATOR_COLUMN_NAME = "entityDiscriminatorColumnName";
 
     /**
-     * The default view type accessability for an entity POJO bean
+     * The default view type accessibility for an entity POJO bean
      */
     public static final String ENTITY_DEFAULT_VIEW_TYPE = "entityViewType";
 
@@ -245,7 +245,7 @@ public class EJB3EntityFacadeLogicImpl
      * inheritance chain will be performed, and the identifiers from
      * the first super class having them will be used.
      *
-     * @param follow a flag indicating whether or not the inheritance hiearchy
+     * @param follow a flag indicating whether or not the inheritance hierarchy
      *        should be followed
      * @return the collection of identifiers.
      */
@@ -1505,11 +1505,11 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * Constructs a comma seperated list of attribute type names from the passed in collection of
+     * Constructs a comma separated list of attribute type names from the passed in collection of
      * <code>attributes</code>.
      *
      * @param attributes the attributes to construct the list from.
-     * @return the comma seperated list of attribute types.
+     * @return the comma separated list of attribute types.
      */
     private String getTypeList(final Collection attributes)
     {
@@ -1549,10 +1549,10 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * Constructs a comma seperated list of attribute names from the passed in collection of <code>attributes</code>.
+     * Constructs a comma separated list of attribute names from the passed in collection of <code>attributes</code>.
      *
      * @param properties the properties to construct the list from.
-     * @return the comma seperated list of attribute names.
+     * @return the comma separated list of attribute names.
      */
     private String getNameList(final Collection properties)
     {

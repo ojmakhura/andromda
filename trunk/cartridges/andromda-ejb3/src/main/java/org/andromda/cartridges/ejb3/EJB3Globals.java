@@ -244,7 +244,7 @@ public class EJB3Globals
     public static final String MDB_SUBSCRIPTION_NONDURABLE = "NonDurable";
 
     /**
-     * The namespace delimiter (seperates namespaces).
+     * The namespace delimiter (separates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';
 

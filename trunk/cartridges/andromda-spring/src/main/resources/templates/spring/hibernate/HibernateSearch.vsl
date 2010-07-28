@@ -156,7 +156,7 @@ public class $criteriaSearchBaseName
      * <code>${criteriaSearchBaseName}Parameter.EQUALS_COMPARATOR</code>.
      *
      * @param parameterValue The value of the parameter.
-     * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
+     * @param parameterPattern The pattern of the parameter (dot-separated path e.g. person.address.street).
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
     public void addParameter(Object parameterValue, String parameterPattern)
@@ -172,7 +172,7 @@ public class $criteriaSearchBaseName
      * using the <code>${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR</code>.
      *
      * @param parameterValue The value of the parameter.
-     * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
+     * @param parameterPattern The pattern of the parameter (dot-separated path e.g. person.address.street).
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
     public void addParameter(String parameterValue, String parameterPattern)
