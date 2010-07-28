@@ -2,14 +2,12 @@
   <properties>
     <property name="cartridgeFilter">jsf</property>
     <property name="failOnValidationErrors">false</property>
+    <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all>
+    <property name="cartridgeFilter">${filter}</property -->
+    <!-- Debug andromda processing using example log4j.xml file>
+    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property -->
   </properties>
   <repositories>
-    <!--repository name="emf-uml22">
-      <models>
-        <model type="emf-uml22">
-          <uri>file:${project.basedir}/src/uml2/JSFMetafacadeModel.uml</uri>
-          <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location-->
     <repository name="netBeansMDR">
       <models>
         <model>
