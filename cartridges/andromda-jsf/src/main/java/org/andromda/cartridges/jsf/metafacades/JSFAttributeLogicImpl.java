@@ -171,35 +171,35 @@ public class JSFAttributeLogicImpl
             {
                 return "(byte)" + name.hashCode();
             }
-            if ("java.lang.Integer".equals(typeName))
+            if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
             {
                 return "new Integer((int)" + name.hashCode() + ")";
             }
-            if ("java.lang.Boolean".equals(typeName))
+            if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
             {
                 return "Boolean.FALSE";
             }
-            if ("java.lang.Long".equals(typeName))
+            if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
             {
                 return "new Long((long)" + name.hashCode() + ")";
             }
-            if ("java.lang.Character".equals(typeName))
+            if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
             {
                 return "new Character(char)" + name.hashCode() + ")";
             }
-            if ("java.lang.Float".equals(typeName))
+            if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
             {
                 return "new Float((float)" + name.hashCode() / hashCode() + ")";
             }
-            if ("java.lang.Double".equals(typeName))
+            if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
             {
                 return "new Double((double)" + name.hashCode() / hashCode() + ")";
             }
-            if ("java.lang.Short".equals(typeName))
+            if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
             {
                 return "new Short((short)" + name.hashCode() + ")";
             }
-            if ("java.lang.Byte".equals(typeName))
+            if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
             {
                 return "new Byte((byte)" + name.hashCode() + ")";
             }
