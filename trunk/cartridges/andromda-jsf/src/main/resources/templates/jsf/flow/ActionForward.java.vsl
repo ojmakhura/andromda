@@ -31,6 +31,14 @@ public class $action.actionClassName
 #set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
 #end
 #set ($controller = $action.controller)
+## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
+##        // action=$action
+##        // activityGraph=$action.activityGraph
+##foreach ($state in $action.activityGraph.states)
+##        // state=$state transition=$state.transition
+##end
+## Returns null in UML2 model
+##        // controller=$action.activityGraph.controller
         $controller.fullyQualifiedName controller =
             ($controller.fullyQualifiedName)${facesContextUtilsFullyQualifiedName}.resolveVariable(
                 request, response,
