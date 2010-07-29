@@ -13,7 +13,7 @@
 #set ($valueListName = $field.getValueListName($ownerParameter))
 #set ($backingListName = $field.getBackingListName($ownerParameter))
 #end
-#set ($listType = "java.lang.Object[]")
+#set ($listType = "Object[]")
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListMethod = $stringUtils.capitalize($valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($labelListName))
@@ -29,7 +29,7 @@
      * @see #${getterField}()
      * @see #get${valueListMethod}()
      * @see #get${labelListMethod}()
-     * @see #set${labelListMethod}(java.util.Collection,java.lang.String,java.lang.String)
+     * @see #set${labelListMethod}(java.util.Collection,String,String)
      */
     public $listType get${backingListMethod}();
 

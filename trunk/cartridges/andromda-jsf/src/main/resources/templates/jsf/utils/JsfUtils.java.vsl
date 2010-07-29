@@ -264,7 +264,7 @@ public class $className
      */
     public static String[] getAttributeNames(final Object object)
     {
-        final java.util.Collection<java.lang.String> names = new java.util.ArrayList<String>();
+        final java.util.Collection<String> names = new java.util.ArrayList<String>();
         try
         {
             if (object != null)
@@ -277,7 +277,7 @@ public class $className
                     {
                         while (enumeration.hasMoreElements())
                         {
-                            names.add(java.lang.String.valueOf(enumeration.nextElement()));
+                            names.add(String.valueOf(enumeration.nextElement()));
                         }
                     }
                 }
@@ -290,7 +290,7 @@ public class $className
         {
             throw new RuntimeException(exception);
         }
-        return names.toArray(new java.lang.String[0]);
+        return names.toArray(new String[0]);
     }
 
     /**

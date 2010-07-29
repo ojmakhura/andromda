@@ -42,19 +42,19 @@ public class $formPopulatorName
                 final java.util.Map parameters = org.apache.commons.beanutils.PropertyUtils.describe(fromForm);
                 for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
                 {
-                    final String name = (java.lang.String)iterator.next();
+                    final String name = (String)iterator.next();
                     if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name))
                     {
                         // - the property name used for checking whether or not the property value has been set
                         final String isSetPropertyName = name + "Set";
-                        java.lang.Boolean isToFormPropertySet = null;
-                        java.lang.Boolean isFromFormPropertySet = null;
+                        Boolean isToFormPropertySet = null;
+                        Boolean isFromFormPropertySet = null;
                         // - only if override isn't true do we care whether or not the to property has been populated
                         if (!override)
                         {
                             if (org.apache.commons.beanutils.PropertyUtils.isReadable(toForm, isSetPropertyName))
                             {
-                                isToFormPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, isSetPropertyName);
+                                isToFormPropertySet = (Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, isSetPropertyName);
                             }
                         }
                         // - only if override is set to true, we check to see if the from form property has been set
@@ -62,7 +62,7 @@ public class $formPopulatorName
                         {
                             if (org.apache.commons.beanutils.PropertyUtils.isReadable(fromForm, isSetPropertyName))
                             {
-                                isFromFormPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(fromForm, isSetPropertyName);
+                                isFromFormPropertySet = (Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(fromForm, isSetPropertyName);
                             }
                         }
                         if (!override || (override && isFromFormPropertySet != null && isFromFormPropertySet.booleanValue()))
@@ -73,7 +73,7 @@ public class $formPopulatorName
                                     org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(toForm, name);
                                 if (toDescriptor != null)
                                 {
-                                    java.lang.Object fromValue = parameters.get(name);
+                                    Object fromValue = parameters.get(name);
                                     // - only populate if not null
                                     if (fromValue != null)
                                     {
@@ -226,7 +226,7 @@ public class $formPopulatorName
                                 final String isSetPropertyName = name + "Set";
                                 if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, isSetPropertyName))
                                 {
-                                    final boolean isPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
+                                    final boolean isPropertySet = (Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
                                     if (isPropertySet)
                                     {
                                         populateProperty = false;
@@ -295,7 +295,7 @@ public class $formPopulatorName
                                                 {
                                                     message.append("; " + valueTypeName + " is not assignable to " + propertyTypeName);
                                                 }
-                                                throw new java.lang.IllegalArgumentException(message + ": " + exception.toString());
+                                                throw new IllegalArgumentException(message + ": " + exception.toString());
                                             }
                                         }
                                     }

@@ -738,7 +738,7 @@ public abstract class ${manageable.controllerName}
      * @param name the variable name
      * @return the resolved variable or null if not found.
      */
-    protected java.lang.Object resolveVariable(final String name)
+    protected Object resolveVariable(final String name)
     {
         org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
         Object variable = adfContext.getPageFlowScope().get(name);

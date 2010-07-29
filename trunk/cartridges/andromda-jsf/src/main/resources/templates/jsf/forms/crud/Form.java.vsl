@@ -159,7 +159,7 @@ $field.getDocumentation("     * ")
 #set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
 #else
 #if($member.type.identifiers.size() > 1)
-#set ($fieldType = "java.lang.Object")
+#set ($fieldType = "Object")
 #else
 #set ($fieldType = $member.type.identifiers.get(0).type.fullyQualifiedName)
 #end
@@ -223,8 +223,8 @@ $member.getDocumentation("     * ")
     /**
      * The current collection of messages stored within this form.
      */
-    private java.util.Map<java.lang.String, javax.faces.application.FacesMessage> $formMessagesProperty =
-        new java.util.LinkedHashMap<java.lang.String, javax.faces.application.FacesMessage>();
+    private java.util.Map<String, javax.faces.application.FacesMessage> $formMessagesProperty =
+        new java.util.LinkedHashMap<String, javax.faces.application.FacesMessage>();
 
 
     /**

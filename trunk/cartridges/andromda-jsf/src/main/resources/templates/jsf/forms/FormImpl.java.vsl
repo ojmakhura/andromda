@@ -151,8 +151,8 @@ $field.getDocumentation("     * ")
     /**
      * Stores any date or time formatters for this form.
      */
-    private final java.util.Map<java.lang.String, java.text.DateFormat> dateTimeFormatters =
-        new java.util.HashMap<java.lang.String, java.text.DateFormat>();
+    private final java.util.Map<String, java.text.DateFormat> dateTimeFormatters =
+        new java.util.HashMap<String, java.text.DateFormat>();
 
     /**
      * Gets any date and time formatters (keyed by property name)
@@ -160,7 +160,7 @@ $field.getDocumentation("     * ")
      *
      * @return the Map containing any date and time formatters.
      */
-    public java.util.Map<java.lang.String, java.text.DateFormat> getDateTimeFormatters()
+    public java.util.Map<String, java.text.DateFormat> getDateTimeFormatters()
     {
         return this.dateTimeFormatters;
     }
@@ -168,8 +168,8 @@ $field.getDocumentation("     * ")
     /**
      * The current collection of messages stored within this form.
      */
-    private transient java.util.Map<java.lang.String, javax.faces.application.FacesMessage> $formMessagesProperty =
-        new java.util.LinkedHashMap<java.lang.String, javax.faces.application.FacesMessage>();
+    private transient java.util.Map<String, javax.faces.application.FacesMessage> $formMessagesProperty =
+        new java.util.LinkedHashMap<String, javax.faces.application.FacesMessage>();
 
 
     /**
@@ -196,7 +196,7 @@ $field.getDocumentation("     * ")
     {
         if (this.${formMessagesProperty} == null)
         {
-            this.${formMessagesProperty} = new java.util.LinkedHashMap<java.lang.String, javax.faces.application.FacesMessage>();
+            this.${formMessagesProperty} = new java.util.LinkedHashMap<String, javax.faces.application.FacesMessage>();
         }
         return this.${formMessagesProperty}.values();
     }

@@ -5,15 +5,17 @@
 package $managedBeansPackage;
 #end
 
+import java.io.Serializable;
 import java.util.List;
-import java.lang.StringBuilder;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import org.apache.commons.beanutils.MethodUtils;
 
 /**
  * @author Leif Johansson
  */
 public class $className
-    implements java.io.Serializable
+    implements Serializable
 {
     private String label = null;
     private String outcome = null;
@@ -117,8 +119,8 @@ public class $className
             return true;
         }
 
-        javax.faces.context.ExternalContext ctx =
-            javax.faces.context.FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ctx = 
+            FacesContext.getCurrentInstance().getExternalContext();
 
         if (ctx.getUserPrincipal() == null)
         { // not logged in
@@ -135,7 +137,6 @@ public class $className
                 return true;
             }
         }
-
         return false;
     }
 
@@ -143,7 +144,7 @@ public class $className
     {
         try
         {
-            return (java.lang.String)MethodUtils.invokeMethod(
+            return (String)MethodUtils.invokeMethod(
                 getControllerBean(),
                 getControllerAction(),
                 null);

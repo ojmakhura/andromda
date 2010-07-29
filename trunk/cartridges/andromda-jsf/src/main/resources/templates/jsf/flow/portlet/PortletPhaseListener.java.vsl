@@ -124,7 +124,7 @@ public class $className
 
     private void populateView(javax.faces.event.PhaseEvent event, String viewId)
     {
-        final java.lang.Object session = event.getFacesContext().getExternalContext().getSession(false);
+        final Object session = event.getFacesContext().getExternalContext().getSession(false);
         if (!this.isViewPopulated(session, viewId))
         {
 #if (!$useCases.empty)
