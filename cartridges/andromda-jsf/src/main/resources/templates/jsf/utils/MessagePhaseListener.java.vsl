@@ -81,7 +81,7 @@ public class $className
                     final javax.faces.application.FacesMessage.Severity severity = context.getMaximumSeverity();
                     if (severity != null && severity.getOrdinal() >= javax.faces.application.FacesMessage.SEVERITY_ERROR.getOrdinal())
                     {
-                        final java.lang.Object request = context.getExternalContext().getRequest();
+                        final Object request = context.getExternalContext().getRequest();
                         if (request instanceof $jsfUtils.requestClassName)
                         {
                             String messagesTitle = (String)form.getClass().getMethod("get${stringUtils.capitalize($formMessagesProperty)}Title", (Class[])null).invoke(form, (Object[])null);
@@ -94,7 +94,7 @@ public class $className
                     }
                     form.getClass().getMethod("clear${stringUtils.capitalize($formMessagesProperty)}", (Class[])null).invoke(form, (Object[])null);
                     form.getClass().getMethod("set${stringUtils.capitalize($formMessagesProperty)}Title",
-                        new Class[]{java.lang.String.class}).invoke(form, new Object[]{null});
+                        new Class[]{String.class}).invoke(form, new Object[]{null});
                 }
             }
             catch (final Exception exception)

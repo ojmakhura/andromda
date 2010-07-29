@@ -188,11 +188,11 @@ public class $view.populator
                 final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variable.name");
                 if ($readableVariable)
                 {
-                    java.lang.Boolean propertySet = null;
+                    Boolean propertySet = null;
                     final String isSetPropertyName = "${variable.name}Set";
                     if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, isSetPropertyName))
                     {
-                        propertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
+                        propertySet = (Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
                     }
                     // - only set the property if its been set, or we can't tell if it has
                     if (propertySet == null || propertySet)

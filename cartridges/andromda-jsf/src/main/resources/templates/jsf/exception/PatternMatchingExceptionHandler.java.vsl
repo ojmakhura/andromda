@@ -43,7 +43,7 @@ public class $patternMatchingExceptionHandler
      */
     public String handleException(final Throwable throwable) throws Throwable
     {
-        final java.lang.Throwable cause =  this.findRootCause(throwable);
+        final Throwable cause =  this.findRootCause(throwable);
         String matched = null;
         if (cause != null && cause.getMessage() != null)
         {
@@ -55,7 +55,7 @@ public class $patternMatchingExceptionHandler
                     matched = matcher.group(3);
                 }
             }
-            catch (java.lang.IllegalStateException ex)
+            catch (IllegalStateException ex)
             {
                 // no match was found ignore
             }
@@ -82,7 +82,7 @@ public class $patternMatchingExceptionHandler
     public Object[] getMessageArguments(final Throwable throwable) throws Throwable
     {
         Object[] arguments = null;
-        final java.lang.Throwable cause =  this.findRootCause(throwable);
+        final Throwable cause =  this.findRootCause(throwable);
         if (cause != null && cause.getMessage() != null)
         {
             if (org.apache.commons.beanutils.PropertyUtils.isReadable(cause, MESSAGE_ARGUMENTS))
@@ -97,7 +97,7 @@ public class $patternMatchingExceptionHandler
      * Finds the root cause of the parent exception
      * by traveling up the exception hierachy.
      */
-    private final java.lang.Throwable findRootCause(Throwable throwable)
+    private final Throwable findRootCause(Throwable throwable)
     {
         final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
         if (rootCause != null)

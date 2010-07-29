@@ -15,13 +15,13 @@
     /**
      * Stores the values.
      */
-    private java.lang.Object[] $valueListName;
+    private Object[] $valueListName;
 
     /**
      * Stores the labels
      */
-    private java.lang.Object[] $labelListName;
-#set ($listType = "java.lang.Object[]")
+    private Object[] $labelListName;
+#set ($listType = "Object[]")
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListMethod = $stringUtils.capitalize($valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($labelListName))
@@ -45,7 +45,7 @@
 
         for (int ctr = 0; ctr < length; ctr++)
         {
-            backingList[ctr] = new javax.faces.model.SelectItem(values[ctr], java.lang.String.valueOf(labels[ctr]));
+            backingList[ctr] = new javax.faces.model.SelectItem(values[ctr], String.valueOf(labels[ctr]));
         }
         return backingList;
     }
@@ -70,7 +70,7 @@
         this.$labelListName = $labelListName;
     }
 
-#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, java.lang.String valueProperty, java.lang.String labelProperty)")
+#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)")
     @SuppressWarnings("unchecked")
     public void $setBackingListMethodSignature
     {
@@ -78,8 +78,8 @@
         this.${labelListName} = null;
         if (items != null)
         {
-            this.${valueListName} = new java.lang.Object[items.size()];
-            this.${labelListName} = new java.lang.Object[items.size()];
+            this.${valueListName} = new Object[items.size()];
+            this.${labelListName} = new Object[items.size()];
 
             try
             {
@@ -90,7 +90,7 @@
                 int ctr = 0;
                 for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
                 {
-                    final java.lang.Object item = iterator.next();
+                    final Object item = iterator.next();
                     this.${valueListName}[ctr] = valueProperty == null ? item :
                         org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty.trim());
                     if (labelProperties == null)

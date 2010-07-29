@@ -45,7 +45,7 @@ $attribute.getDocumentation("     * ")
     {
 #if (!$attribute.type.arrayType)
 #if (!$attribute.type.stringType)
-        final java.lang.String value = this.getPreferences().getValue("$attribute.name", null);
+        final String value = this.getPreferences().getValue("$attribute.name", null);
 #* *##if ($attribute.type.primitive)
 #set($preferenceTypeName = $attribute.type.wrapperName)
 #* *##else
@@ -61,7 +61,7 @@ $attribute.getDocumentation("     * ")
         return this.getPreferences().getValue("$attribute.name",#if ($attribute.defaultValue) ${attribute.defaultValue}#else null#end);
 #end
 #else
-        final java.lang.String[] stringValues = this.getPreferences().getValues("$attribute.name", null);
+        final String[] stringValues = this.getPreferences().getValues("$attribute.name", null);
 #set ($arrayType = $attribute.type.nonArray)
 #if ($arrayType.wrapperName)
 #set ($typeName = $arrayType.wrapperName)
@@ -72,7 +72,7 @@ $attribute.getDocumentation("     * ")
         final java.util.Collection<${typeName}> values = new java.util.ArrayList<${typeName}>();
         if (stringValues != null)
         {
-            for (final java.lang.String stringValue : stringValues)
+            for (final String stringValue : stringValues)
             {
                 values.add(${typeName}.valueOf(stringValue));
             }
@@ -96,12 +96,12 @@ $attribute.getDocumentation("     * ")
     {
 #if (!$attribute.type.arrayType)
 #if ($attribute.type.primitive)
-        final java.lang.String value = java.lang.String.valueOf($attribute.name);
+        final String value = String.valueOf($attribute.name);
 #else
-        java.lang.String value = null;
+        String value = null;
         if ($attribute.name != null)
         {
-            value = java.lang.String.valueOf($attribute.name);
+            value = String.valueOf($attribute.name);
         }
 #end
         this.getPreferences().setValue("$attribute.name", value);
@@ -109,15 +109,15 @@ $attribute.getDocumentation("     * ")
 #set ($valuesVariable = "$attribute.name")
 #set ($arrayType = $attribute.type.nonArray)
 #if (!$arrayType.stringType)
-        java.lang.String[] values = null;
+        String[] values = null;
         if (includeCommunicationMediums != null)
         {
             final java.util.Collection<String> valuesCollection = new java.util.ArrayList<String>();
-            for (java.lang.Integer value : includeCommunicationMediums)
+            for (Integer value : includeCommunicationMediums)
             {
-                valuesCollection.add(java.lang.String.valueOf(value));
+                valuesCollection.add(String.valueOf(value));
             }
-            values = valuesCollection.toArray(new java.lang.String[0]);
+            values = valuesCollection.toArray(new String[0]);
         }
 #set ($valuesVariable = "values")
 #end

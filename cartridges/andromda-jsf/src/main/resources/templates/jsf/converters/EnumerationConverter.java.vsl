@@ -12,27 +12,27 @@ public class $enumeration.converterName
     implements javax.faces.convert.Converter
 {
     /**
-     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
      */
     public String getAsString(
         javax.faces.context.FacesContext context,
         javax.faces.component.UIComponent component,
-        java.lang.Object value)
+        Object value)
         throws javax.faces.convert.ConverterException
     {
         return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
     }
 
     /**
-     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
      */
     public Object getAsObject(
         javax.faces.context.FacesContext context,
         javax.faces.component.UIComponent component,
-        java.lang.String value)
+        String value)
         throws javax.faces.convert.ConverterException
     {
-#if(${enumeration.literalType.fullyQualifiedName} == "java.lang.String")
+#if(${enumeration.literalType.fullyQualifiedName} == "String")
         return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromValue(value) : null;
 #elseif ($enumeration.literalType.primitive)
         if(value == null || value.trim().length() == 0)
