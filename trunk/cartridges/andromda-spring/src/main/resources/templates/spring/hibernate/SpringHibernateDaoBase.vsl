@@ -1195,19 +1195,19 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #foreach ($property in $valueObjectRef.targetElement.allProperties)
 #* *##foreach ($entityProperty in $entityProperties)
 #*    *##if ($property.name.equals($entityProperty.name) && (!$entity.compositeIdentifier || !$entityProperty.identifier))
-#*      *##if(${entityProperty.many} && !${property.type.arrayType})
+#*      *##set ($entityPropertyGetterValue = false)
+#*      *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
+#*      *##if ($entityPropertyGetterValue)
+#*        *##if(${entityProperty.many} && !${property.type.arrayType})
         target.${property.getterName}().clear();
         if(null!=source.${entityProperty.getterName}()) {
             target.${property.getterName}().addAll(source.${entityProperty.getterName}());
         }
-#*      *##else
-#*        *##set ($entityPropertyGetterValue = false)
-#*        *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
-#*        *##if ($entityPropertyGetterValue)
-        target.${property.setterName}($entityPropertyGetterValue);
 #*        *##else
-        // No conversion for target.${property.name} (can't convert source.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
+        target.${property.setterName}($entityPropertyGetterValue);
 #*        *##end
+#*      *##else
+        // No conversion for target.${property.name} (can't convert source.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
 #*      *##end
 #*    *##end
 #* *##end
@@ -1244,7 +1244,10 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #* *##if (!$entityProperty.readOnly)
 #*    *##foreach ($property in $valueObjectRef.targetElement.allProperties)
 #*        *##if ($property.name.equals($entityProperty.name) && (!$entity.compositeIdentifier || !$entityProperty.identifier))
-#*            *##if(${entityProperty.many} && !${property.type.arrayType})
+#*           *##set ($propertyGetterValue = false)
+#*            *##set ($propertyGetterValue = $converter.typeConvert($property.getterSetterTypeName, "source.${property.getterName}()", $entityProperty.getterSetterTypeName))
+#*            *##if ($propertyGetterValue)
+#*              *##if(${entityProperty.many} && !${property.type.arrayType})
         if (copyIfNull || source.${property.getterName}() != null)
         {
             target.${entityProperty.getterName}().clear();
@@ -1252,18 +1255,15 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 target.${entityProperty.getterName}().addAll(source.${property.getterName}());
             }
         }
-#*            *##else
-#*               *##set ($propertyGetterValue = false)
-#*                *##set ($propertyGetterValue = $converter.typeConvert($property.getterSetterTypeName, "source.${property.getterName}()", $entityProperty.getterSetterTypeName))
-#*                *##if ($propertyGetterValue)
+#*              *##else
         if (copyIfNull || source.${property.getterName}() != $property.type.javaNullString)
         {
             target.${entityProperty.setterName}($propertyGetterValue);
         }
-#*                *##else
-        // No conversion for target.${entityProperty.name} (can't convert source.${property.getterName}():${property.getterSetterTypeName} to $entityProperty.getterSetterTypeName)
-#*                 *##end
 #*            *##end
+#*          *##else
+        // No conversion for target.${entityProperty.name} (can't convert source.${property.getterName}():${property.getterSetterTypeName} to $entityProperty.getterSetterTypeName)
+#*          *##end
 #*        *##end
 #*    *##end
 #**##end
