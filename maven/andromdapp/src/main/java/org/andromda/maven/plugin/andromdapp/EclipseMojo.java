@@ -3,6 +3,7 @@ package org.andromda.maven.plugin.andromdapp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -174,14 +175,12 @@ public class EclipseMojo
             try
             {
                 final MavenProject rootProject = this.getRootProject();
-                final ProjectWriter projectWriter = new ProjectWriter(rootProject,
-                        this.getLog());
+                final ProjectWriter projectWriter = new ProjectWriter(rootProject, this.getLog());
                 projectWriter.write();
-                final Map originalCompileSourceRoots = this.collectProjectCompileSourceRoots();
-                final List projects = this.collectProjects();
+                final Map<MavenProject, Collection<String>> originalCompileSourceRoots = this.collectProjectCompileSourceRoots();
+                final List<MavenProject> projects = this.collectProjects();
                 this.processCompileSourceRoots(projects);
-                final ClasspathWriter classpathWriter = new ClasspathWriter(rootProject,
-                        this.getLog());
+                final ClasspathWriter classpathWriter = new ClasspathWriter(rootProject, this.getLog());
                 classpathWriter.write(
                     projects,
                     this.repositoryVariableName,
@@ -195,11 +194,10 @@ public class EclipseMojo
                     this.variables,
                     this.classpathMerge);
                 // - reset to the original source roots
-                for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+                for (final MavenProject project : projects)
                 {
-                    final MavenProject project = (MavenProject)iterator.next();
                     project.getCompileSourceRoots().clear();
-                    project.getCompileSourceRoots().addAll((List)originalCompileSourceRoots.get(project));
+                    project.getCompileSourceRoots().addAll(originalCompileSourceRoots.get(project));
                 }
             }
             catch (Throwable throwable)
@@ -214,19 +212,18 @@ public class EclipseMojo
      *
      * @return a collection of collections
      */
-    private Map collectProjectCompileSourceRoots()
+    private Map<MavenProject, Collection<String>> collectProjectCompileSourceRoots()
         throws Exception
     {
-        final Map sourceRoots = new LinkedHashMap();
-        for (final Iterator iterator = this.collectProjects().iterator(); iterator.hasNext();)
+        final Map<MavenProject, Collection<String>> sourceRoots = new LinkedHashMap<MavenProject, Collection<String>>();
+        for (final MavenProject project : this.collectProjects())
         {
-            final MavenProject project = (MavenProject)iterator.next();
-            sourceRoots.put(project, new ArrayList(project.getCompileSourceRoots()));
+            sourceRoots.put(project, new ArrayList<String>(project.getCompileSourceRoots()));
         }
         return sourceRoots;
     }
 
-    private List projects = new ArrayList();
+    private List<MavenProject> projects = new ArrayList<MavenProject>();
 
     /**
      * Collects all projects from all POMs within the current project.
@@ -235,7 +232,7 @@ public class EclipseMojo
      *
      * @throws MojoExecutionException
      */
-    private List collectProjects()
+    private List<MavenProject> collectProjects()
         throws Exception
     {
         if (projects.isEmpty())
@@ -277,13 +274,12 @@ public class EclipseMojo
      * @param projects the projects to process.
      * @throws Exception
      */
-    private void processCompileSourceRoots(final List projects)
+    private void processCompileSourceRoots(final List<MavenProject> projects)
         throws Exception
     {
-        for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+        for (final MavenProject project : projects)
         {
-            final MavenProject project = (MavenProject)iterator.next();
-            final Set compileSourceRoots = new LinkedHashSet(project.getCompileSourceRoots());
+            final Set<String> compileSourceRoots = new LinkedHashSet<String>(project.getCompileSourceRoots());
             compileSourceRoots.addAll(this.getExtraSourceDirectories(project));
             final String testSourceDirectory = project.getBuild().getTestSourceDirectory();
             if (StringUtils.isNotBlank(testSourceDirectory))
@@ -306,9 +302,9 @@ public class EclipseMojo
      * @param project the maven project from which to retrieve the extra source directories.
      * @return the list of extra source directories.
      */
-    private List getExtraSourceDirectories(final MavenProject project)
+    private List<String> getExtraSourceDirectories(final MavenProject project)
     {
-        final List sourceDirectories = new ArrayList();
+        final List<String> sourceDirectories = new ArrayList<String>();
         final Build build = project.getBuild();
         if (build != null)
         {
@@ -316,9 +312,8 @@ public class EclipseMojo
             if (pluginManagement != null && !pluginManagement.getPlugins().isEmpty())
             {
                 Plugin multiSourcePlugin = null;
-                for (final Iterator iterator = pluginManagement.getPlugins().iterator(); iterator.hasNext();)
+                for (final Plugin plugin : pluginManagement.getPlugins())
                 {
-                    final Plugin plugin = (Plugin)iterator.next();
                     if (MULTI_SOURCE_PLUGIN_ARTIFACT_ID.equals(plugin.getArtifactId()))
                     {
                         multiSourcePlugin = plugin;
@@ -385,7 +380,7 @@ public class EclipseMojo
                 if (executions != null && !executions.isEmpty())
                 {
                     // - there should only be one execution so we get the first one
-                    final PluginExecution execution = (PluginExecution)plugin.getExecutions().iterator().next();
+                    final PluginExecution execution = plugin.getExecutions().iterator().next();
                     configuration = (Xpp3Dom)execution.getConfiguration();
                 }
             }
