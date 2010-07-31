@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-core</artifactId>
+    <packaging>pom</packaging>
+    <name>$applicationName Core Business Tier</name>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-common</artifactId>
+            <version>${pom.version}</version>
+            <scope>compile</scope>
+        </dependency>
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-workflow</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+#end
+#if ($nspring)
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>3.2-RC1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
+            <version>3.2-RC1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>3.2-RC1-SNAPSHOT</version>
+        </dependency>
+#end
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-multi-source-plugin</artifactId>
+            </plugin>
+#if ($nspring || $nhibernate)
+<!--To be developed
+            <plugin>
+                <artifactId>andromdanetapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <driver>${db.driver}</driver>
+                    <driverDll>${db.driver.dll}</driverDll>
+                    <connectionString>${db.connectString}</connectionString>
+                    <dbUsername>${db.username}</dbUsername>
+                    <dbPassword>${db.password}</dbPassword>
+                    <properties>
+                        <property>
+                            <name>mappingsLocation</name>
+                            <value>${project.basedir}/target/src</value>
+                        </property>
+                        <property>
+                            <name>mappingFileExtension</name>
+                            <value>hbm.xml</value>
+                        </property>
+                        <property>
+                            <name>createOutputPath</name>
+                            <value>${project.basedir}/../web/target/schema-create.sql</value>
+                        </property>
+                        <property>
+                            <name>dropOutputPath</name>
+                            <value>${project.basedir}/../web/target/schema-drop.sql</value>
+                        </property>
+                    </properties>
+You might need to execute additional scripts, just uncomment and add them here:
+                    <scripts>
+                        <script>${project.basedir}/path/to/scripts/script1.sql</script>
+                        <script>${project.basedir}/path/to/scripts/script2.sql</script>
+                    </scripts>
+                </configuration>
+            </plugin>
+-->
+#end
+        </plugins>
+        <resources>
+            <resource>
+                <directory>target/src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>

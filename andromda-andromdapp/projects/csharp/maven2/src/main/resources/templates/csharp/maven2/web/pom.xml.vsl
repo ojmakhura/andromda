@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-web</artifactId>
+    <packaging>pom</packaging>
+    <name>${applicationName} Web</name>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-common</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+#if (!$transactionPersistenceType.equals("none"))
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+#end
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>../${pom.artifactId}-${pom.version}</targetPath>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-multi-source-plugin</artifactId>
+            </plugin>
+#if($visualStudioVersion.equals("2005"))
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>2.1</version>
+              <configuration>
+                <filesets>
+                  <fileset>
+                    <directory>${basedir}/App_Code</directory>
+                    <includes>
+                      <include>target</include>
+                    </includes>
+                  </fileset>
+                </filesets>
+              </configuration>
+            </plugin>
+#end
+        </plugins>
+    </build>
+</project>

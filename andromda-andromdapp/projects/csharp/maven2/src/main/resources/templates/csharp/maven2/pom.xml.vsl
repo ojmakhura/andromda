@@ -1,0 +1,264 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>$applicationPackage</groupId>
+    <artifactId>$applicationId</artifactId>
+    <packaging>pom</packaging>
+    <version>$applicationVersion</version>
+    <name>$applicationName</name>
+    <description>The $applicationName Project.</description>
+    <scm>
+        <connection></connection>
+        <url></url>
+    </scm>
+    <organization>
+      <name></name>
+      <url></url>
+    </organization>
+    <ciManagement>
+        <system>continuum</system>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <configuration>
+                    <address></address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <developers>
+        <developer>
+            <id></id>
+            <name>$author</name>
+            <email></email>
+            <organization></organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone></timezone>
+        </developer>
+    </developers>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-multi-source-plugin</artifactId>
+                    <version>$andromdaVersion</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sourceDirectories>
+                                    <directory>target/src</directory>
+                                </sourceDirectories>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-maven-plugin</artifactId>
+                    <version>$andromdaVersion</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <modules>
+        <module>common</module>
+#if (${transactionPersistenceType} != "none")
+        <module>core</module>
+#end
+#if ($web)
+        <module>web</module>
+#end
+#if ($webservice)
+        <module>webservice</module>
+#end
+        <module>mda</module>
+    </modules>
+    <properties>
+		<!--
+		# Change this to generate to the correct MDA database mappings
+		# For SQL Server use: MSSQL
+		# For MySql use: MySQL
+		# For Hypersonic use: HypersonicSql
+		# For Oracle9i use: Oracle9i-->
+		<sql.mappings>MSSQL</sql.mappings>
+
+		<!--# For SQL Server use: net.sf.hibernate.dialect.SQLServerDialect
+		# For MySql use: net.sf.hibernate.dialect.MySQLDialect
+		# For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
+		# For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect-->
+		<hibernate.db.dialect>net.sf.hibernate.dialect.SQLServerDialect</hibernate.db.dialect>
+
+		<!--# The default strategy to use when using inhertiance-->
+		<hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+		<hibernate.db.showSql>true</hibernate.db.showSql>
+
+        <application.id>${project.artifactId}</application.id>
+        <application.package>${project.groupId}</application.package>
+        <!--dataSource.name>jdbc/${applicationId}</dataSource.name-->
+
+		<application.version>${applicationVersion}</application.version>
+		<application.name>${applicationName}</application.name>
+		<andromdapluginsVersion>1.0-SNAPSHOT</andromdapluginsVersion>
+	</properties>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+#if ($webservice)
+                <!-- Change this to the host on which your webservice will be deployed -->
+                <webservice.host>localhost</webservice.host>
+                <!-- Change this the port on which your webservice will be deploy -->
+                <webservice.port>8080</webservice.port>
+#end
+            </properties>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>andromdapp-maven-plugin</artifactId>
+                            <version>3.2-SNAPSHOT</version>
+                            <!-- provides the injection of the script wrapper support into the class files (this should only
+                                 be done when developing locally), uncomment this executions element to enable
+                            <executions>
+                                <execution>
+                                    <id>instrument-scripts</id>
+                                    <goals>
+                                        <goal>instrument-scripts</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            -->
+                            <configuration>
+                                <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
+                                <locations>
+                                    <location>
+                                        <rootPath>${pom.basedir}/src/main/java</rootPath>
+                                        <!-- adjust these to include or exclude specific files, by default
+                                             all files found in the rootPath are considered
+                                        <includes>
+                                            <include>relative/path/to/file/to/include/SomeClass.java</include>
+                                        </includes>
+                                        <excludes>
+                                            <exclude>relative/path/to/file/to/include/SomeClass.java</exclude>
+                                        </excludes>
+                                        -->
+                                    </location>
+                                </locations>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>development</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+        <profile>
+            <id>validation</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>val</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+    </profiles>
+    <repositories>
+        <repository>
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://team.andromda.org/maven2</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://team.andromda.org/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <prerequisites>
+        <maven>2.0.1</maven>
+    </prerequisites>
+</project>
