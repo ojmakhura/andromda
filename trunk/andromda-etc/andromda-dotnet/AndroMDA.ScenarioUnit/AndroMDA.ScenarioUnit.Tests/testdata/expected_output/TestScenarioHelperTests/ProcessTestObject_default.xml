@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>0</Id>
+  <FirstName>a</FirstName>
+  <LastName>b</LastName>
+  <Child xsi:type="TestDerivedObject">
+    <Id>0</Id>
+    <FirstName>c</FirstName>
+    <LastName>e</LastName>
+    <MiddleInitial>d</MiddleInitial>
+  </Child>
+</TestObject>

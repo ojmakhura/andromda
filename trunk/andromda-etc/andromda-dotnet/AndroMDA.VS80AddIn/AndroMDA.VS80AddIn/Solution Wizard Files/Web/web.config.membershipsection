@@ -1,0 +1,14 @@
+<membership defaultProvider="DomainMembershipProvider">
+	<providers>
+		<clear/>
+		<add	name="DomainMembershipProvider" 
+				type="${wizard.projects.web.common.name}.DomainMembershipProvider, ${wizard.projects.web.common.name}" 
+				enablePasswordRetrieval="false" 
+				enablePasswordReset="false" 
+				requiresUniqueEmail="true" 
+				requiresQuestionAndAnswer="false" 
+				minRequiredPasswordLength="1" 
+				minRequiredNonalphanumericCharacters="0" 
+				hashAlgorithmType="SHA1" passwordFormat="Hashed"/>
+	</providers>
+</membership>

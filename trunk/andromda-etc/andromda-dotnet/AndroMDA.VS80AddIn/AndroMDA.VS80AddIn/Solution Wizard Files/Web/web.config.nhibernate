@@ -1,0 +1,12 @@
+<nhibernate>
+	<!-- properties -->
+	<add key="hibernate.connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+	<add key="hibernate.dialect" value="${wizard.database.nhibernatedialect}"/>
+	<add key="hibernate.connection.driver_class" value="${wizard.hibernate.connection.driver_class}"/>
+	<add key="hibernate.connection.connection_string" value="server=localhost;database=${wizard.database.name};Integrated Security=SSPI;"/>
+	<add key="hibernate.use_outer_join" value="true"/>
+	<add key="hibernate.query.substitutions" value="true 1, false 0, yes 'Y', no 'N'"/>
+	<add key="hibernate.cache.provider_class" value="NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache"/>
+	<add key="hibernate.show_sql" value="false"/>
+	<add key="nhibernate.mapping_assembly" value="${wizard.projects.core.name}"/>
+</nhibernate>

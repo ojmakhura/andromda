@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>${wizard.application.name.nospaces}</groupId>
+        <artifactId>${wizard.application.name.nospaces}</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>${wizard.application.name.nospaces}-mda</artifactId>
+    <name>${wizard.application.name.nospaces} MDA</name>
+
+    <!-- AndroMDA Configuration -->
+    <properties>
+
+        <model.uri>file:${project.build.sourceDirectory}/${wizard.application.model.uri}</model.uri>
+
+        <resources.dir>${pom.basedir}/resources</resources.dir>
+    
+        <conf.dir>${pom.basedir}/conf</conf.dir>
+
+        <!-- cartridge output locations -->
+        <core.dir>${pom.basedir}/../${wizard.projects.core.dir}</core.dir>
+        <core.generated.dir>${pom.basedir}/../${wizard.projects.core.dir}/target</core.generated.dir>
+        <core.manual.dir>${pom.basedir}/../${wizard.projects.core.dir}/src</core.manual.dir>
+        <core.assembly.name>${wizard.projects.core.name}</core.assembly.name>
+
+        <common.dir>${pom.basedir}/../${wizard.projects.common.dir}</common.dir>
+        <common.generated.dir>${pom.basedir}/../${wizard.projects.common.dir}/target</common.generated.dir>
+        <common.assembly.name>${wizard.projects.common.name}</common.assembly.name>
+
+        <web.dir>${pom.basedir}/../${wizard.projects.web.dir}</web.dir>
+        <web.generated.dir>${pom.basedir}/../${wizard.projects.web.dir}/target/src</web.generated.dir>
+        <web.manual.dir>${pom.basedir}/../${wizard.projects.web.dir}/src/main</web.manual.dir>
+
+        <schemaexport.dir>${pom.basedir}/../${wizard.projects.schemaexport.dir}</schemaexport.dir>
+        <schemaexport.available>${wizard.projects.schemaexport.create}</schemaexport.available>
+
+        <!-- hibernate configuration -->
+        <sql.mappings>${wizard.database.mappingtype}</sql.mappings>
+
+        <!-- default strategy to use when using inhertiance -->
+        <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+        <hibernate.db.showSql>true</hibernate.db.showSql>
+
+        <!-- hibernate generator class to use for identifiers -->
+        <hibernate.generatorClass>native</hibernate.generatorClass>
+
+        <filter></filter>
+
+    </properties>   
+
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <type>xml.zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-nspring-cartridge</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-nhibernate-cartridge</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-cs-cartridge</artifactId>
+        </dependency>
+#if ($wizard_cartridges_aspnet_configure)
+            <dependency>
+                <groupId>org.andromda.cartridges</groupId>
+                <artifactId>andromda-aspdotnet-cartridge</artifactId>
+            </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>${project.basedir}/src/uml</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${core.generated.dir}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>${common.generated.dir}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>${web.generated.dir}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>${web.dir}/App_Code</directory>
+                            <includes>
+                                <include>target</include>
+                            </includes>
+                       </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,150 @@
+    <andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/*">${settings.localRepository}/org/andromda/profiles</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+
+                <property name="dotNetVersion">2.0</property>
+                <property name="visualStudioVersion">2005</property>
+
+                <property name="defaultIdentifierType">datatype::long</property>
+                <property name="toDoTag">TODO:</property>
+                <property name="commonAssemblyName">${common.assembly.name}</property>
+                <property name="coreAssemblyName">${core.assembly.name}</property>
+
+                <property name="mergeLocation">${resources.dir}</property>
+
+                <!-- Mappings file paths -->
+
+                <property name="languageMappingsUri">Cs</property>
+                <property name="wrapperMappingsUri">CsWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/MergeMappings.xml</property>
+
+                <!-- You can specify your own mapping files to fine tune the generated code.
+                     One primary use of this is to change the SqlMappings to generate unicode
+                     support in the database.  You can find the default mappings inside the
+                     andromda-maven-plugin-3.3-SNAPSHOT.jar file, in META-INF/andromda/mappings.
+                     This file usually resides in:
+                     {maven2.repository}/org/andromda/maven/plugins/andromda-maven-plugin/3.3-SNAPSHOT
+                     
+                     Copy these mapping files into mda/conf/mappings and then uncomment the lines below.
+                -->
+                
+                <!--
+                <property name="languageMappingsUri">file:${conf.dir}/mappings/CsMappings.xml</property>
+                <property name="wrapperMappingsUri">file:${conf.dir}/mappings/CsWrapperMappings.xml</property>
+                <property name="sqlMappingsUri">file:${conf.dir}/mappings/${sql.mappings}Mappings.xml</property>
+                -->
+
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+
+                <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">uppercamelcase</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+
+            </properties>
+        </namespace>
+        <namespace name="cs">
+            <properties>
+
+                <!-- File output locations -->
+                <property name="enumerations">${common.generated.dir}</property>
+                <property name="exceptions">${common.generated.dir}</property>
+                <property name="value-objects">${common.generated.dir}</property>
+                <property name="interfaces">${common.generated.dir}</property>
+
+                <property name="mergeLocation">${resources.dir}</property>
+
+            </properties>
+        </namespace>
+        <namespace name="nhibernate">
+            <properties>
+
+                <!-- NHibernate settings -->
+                <property name="hibernateVersion">2</property>
+
+                <!-- uncomment this to use the default NHibernate mappings file that ships with AndroMDA (for NH v1.1 and lower) -->
+                <!--property name="hibernateTypeMappingsUri">NHibernate</property-->
+
+                <property name="hibernateTypeMappingsUri">file:${conf.dir}/mappings/NHibernateTypeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/MergeMappings.xml</property>
+
+                <property name="mergeLocation">${resources.dir}</property>
+
+                <!-- File output locations -->
+                <property name="entities">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.dir}</property>
+                <property name="configuration">${core.generated.dir}</property>
+                <property name="cache">${core.generated.dir}</property>
+
+            </properties>
+        </namespace>
+        <namespace name="nspring">
+            <properties>
+
+                <!-- Location/namespace of DaoFactory.cs -->
+                <property name="springTypesPackage">${wizard.solution.name}.Domain</property>
+
+                <!-- File output locations -->
+                <property name="daos">${core.generated.dir}</property>
+                <property name="dao-impls">${core.manual.dir}</property>
+                <property name="services">${core.generated.dir}</property>
+                <property name="service-interfaces">${core.generated.dir}</property>
+                <property name="service-impls">${core.manual.dir}</property>
+
+            </properties>
+        </namespace>
+
+#if ($wizard_cartridges_aspnet_configure)
+        <namespace name="aspdotnet">
+            <properties>
+                <property name="web">${web.dir}</property>
+                <property name="web_generated">${web.generated.dir}</property>
+                <property name="web_manual">${web.manual.dir}</property>
+                <property name="webAssemblyName">${groupId}.Web</property>
+                <property name="AssemblyTitle">${web.dir}</property>
+                <property name="AssemblyDescription"></property>
+                <property name="AssemblyConfiguration"></property>
+                <property name="AssemblyCompany"></property>
+                <property name="AssemblyProduct"></property>
+                <property name="AssemblyCopyright"></property>
+                <property name="AssemblyTrademark"></property>
+                <property name="AssemblyCulture"></property>
+                <property name="AssemblyVersion">1.0.*</property>
+                <property name="AssemblyDelaySign">true</property>
+                <property name="AssemblyKeyFile"></property>
+                <property name="AssemblyKeyName"></property>
+            </properties>
+        </namespace>        
+#end
+
+    </namespaces>
+</andromda>
