@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Maven Plugin">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name/>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+    <title>AndroMDANetApp Maven Plugin</title>
+    <body>
+        <links>
+            <item name="AndroMDANetApp Maven Plugin" href="index.html"/>
+        </links>
+        <menu ref="parent"/>
+        <menu name="Overview">
+            <item name="Goals" href="goals.html"/>
+            <item name="Properties" href="properties.html"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>
