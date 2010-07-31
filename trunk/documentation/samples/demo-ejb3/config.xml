@@ -1,0 +1,5 @@
+<!-- C:\jboss\jboss-head\ejb3\docs\tutorial\webservice>wscompile.bat -import -keep -mapping jaxrpc-mapping.xml -s src config.xml -->
+
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config"> 
+<wsdl location="http://localhost/ejb3demo-ws/services/CustomerService?wsdl" packageName="org.andromda.demo.ejb3.customer"/>
+</configuration>

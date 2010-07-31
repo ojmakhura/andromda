@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://www.jboss.org/jbossws-tools" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:schemaLocation="http://www.jboss.org/jbossws-tools http://www.jboss.org/jbossws-tools/schema/jbossws-tool_1_0.xsd">
+    <wsdl-java file="http://localhost/ejb3demo-ws/services/CustomerService?wsdl">
+        <mapping file="jaxrpc-mapping.xml"/>
+    </wsdl-java>
+</configuration>   
+
+ 
+<!-- C:\jboss\jboss-head\ejb3\docs\tutorial\webservice>wscompile.bat -import -keep -mapping jaxrpc-mapping.xml -s src config.xml -->
+
+<!-- 
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config"> 
+<wsdl location="http://localhost:8080/ejb3demo3-ws/services/TicketService?wsdl" packageName="org.andromda.demo3.ejb3"/>
+</configuration>
+ -->
+
+<!-- 
+<configuration xmlns="http://java.sun.com/xml/ns/jax-rpc/ri/config">
+    <service name="TestService"
+             targetNamespace="http://org.andromda.demo3.ejb3.test/TicketService"
+             typeNamespace="http://org.andromda.demo3.ejb3.test/TicketService/types"
+             packageName="org.andromda.demo3.ejb3.test">
+        <interface name="org.andromda.demo3.ejb3.test.TicketServiceWSInterface"/>
+    </service>
+</configuration>
+ -->
