@@ -1,0 +1,104 @@
+Steps to install M2 version of .Net cartridges
+Note: You must have installed and configured Maven 2.0.x (M2) prior to executing these steps.
+
+1. Download source from andromda-plugins
+	Download the source files from the andromda project at SourceForge.net
+	(http://andromda.svn.sourceforge.net/andromda/)
+	You'll need the source code from the following folders:
+		maven2
+		andromdapp
+		cartridges (except andromda-database and andromda-ejb3)
+
+	All projects in the andromda-plugins site can be built by executing 'mvn install' from 
+	the root folder. This will build all .Net cartridges as well as the andromda-database, 
+	and andromda-ejb3 cartridges. If you don't want to build everything, then follow
+	the steps 2-4. If you build the entire andromda-plugins, then skip to step 5
+
+		
+2. Build the .Net Maven plugin 
+	From an M2 command prompt, change to the andromda-plugins/maven2/plugins folder.
+	Execute 'mvn install'. [This builds and installs the M2 plugin.]
+	
+	You should see results similar to this:
+		[INFO] ------------------------------------------------------------------------
+		[INFO] Reactor Summary:
+		[INFO] ------------------------------------------------------------------------
+		[INFO] AndroMDA Plugins ...................................... SUCCESS [9.016s]
+		[INFO] AndroMDA .NET Application Generator Maven Plugin ...... SUCCESS [1:05.510s]
+		[INFO] ------------------------------------------------------------------------
+		[INFO] ------------------------------------------------------------------------
+		[INFO] BUILD SUCCESSFUL
+		[INFO] ------------------------------------------------------------------------
+		
+3. Build the .Net Project Generator
+	From an M2 command prompt, change to the andromda-plugins/andromdapp folder.
+	Execute 'mvn install'. [This builds and installs the M2 .Net project generator.]
+	
+	You should see results similar to this:
+		[INFO] ------------------------------------------------------------------------
+		[INFO] Reactor Summary:
+		[INFO] ------------------------------------------------------------------------
+		[INFO] AndroMDA Plugin Application Generator Resources ....... SUCCESS [2.457s]
+		[INFO] AndroMDA .NET Application Generator Projects .......... SUCCESS [0.030s]
+		[INFO] AndroMDA .NET C# Maven2 Project ....................... SUCCESS [5.034s]
+		[INFO] ------------------------------------------------------------------------
+		[INFO] ------------------------------------------------------------------------
+		[INFO] BUILD SUCCESSFUL
+		[INFO] ------------------------------------------------------------------------
+		
+4. Build the .Net cartridges
+	From an M2 command prompt, change to the andromda-plugins/cartridges folder.
+	Then execute 'mvn install' from each of the following directories:
+		andromda-cs
+		andromda-nhibernate
+		andromda-nspring
+		
+5. Create an AndroMDA .Net project.
+	Now you're ready to create an AndroMDA project using the .Net generator. If you'll be 
+	using Visual Studio, you'll first want to create the solution/project structure in VS.
+	(see the 'Create a Visual Studio Solution' section 
+	at http://team.andromda.org/contrib/starting-dotnet.html)
+	
+	From an M2 command prompt, type 'mvn andromdanetapp:generate'. This will run the 
+	.Net generator which will prompt you for some information about the project you
+	want to generate. 
+	
+	The following is an example of the questions and answers for a sample .Net project:
+	
+		[INFO] [andromdanetapp:generate]
+		INFO  [AndroMDA] discovered andromdapp type --> 'richclient'
+		INFO  [AndroMDA] discovered andromdapp type --> 'dotnet'
+		INFO  [AndroMDA] discovered andromdapp type --> 'j2ee'
+		
+		Please choose the type of application to generate [richclient, dotnet, j2ee]
+		dotnet
+		
+		Please enter the location in which your new application will be created (i.e. c:
+		/csharp/development):
+		c:\temp\workspace\
+		
+		Please enter your first and last name (i.e. Naresh Bhatia):
+		Eric Crutchfield
+		
+		Please enter the name of your .NET project (i.e. Time Tracker):
+		Test App 1
+		
+		Please enter an id for your .NET project (i.e. timetracker):
+		testapp1
+		
+		Please enter the root namespace for your .NET project (i.e. org.andromda.samples
+		.timetracker):
+		crutch.testapp
+		
+		Please enter a version for your project (i.e. 1.0-SNAPSHOT):
+		1.0
+		
+		What version of the .Net Framework will you be targeting? [1.1, 2.0]:
+		2.0
+		
+		Please enter the type of transactional/persistence cartridge to use. Note: The s
+		pring cartridge uses nhibernate. [nhibernate, nspring, none]:
+		nspring
+		
+		Do you want to generate an ASP.NET application? [yes, no]:
+		yes
