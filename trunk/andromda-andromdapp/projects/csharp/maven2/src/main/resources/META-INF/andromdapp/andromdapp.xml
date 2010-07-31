@@ -1,0 +1,178 @@
+<andromdapp type="dotnet" root="$applicationParentDirectory/$applicationId">
+    <resourceLocations>
+        <location>templates/csharp/maven2</location>
+    </resourceLocations>
+    <conditionalOutput>
+<!-- This would be nice to have in a future version
+        <conditions>
+            <condition id="workflow" equal="true"/>
+            <output patterns="**/*">workflow/</output>
+        </conditions>
+-->
+        <conditions>
+            <condition id="webservice" equal="true"/>
+            <output patterns="**/*">webservice/</output>
+        </conditions>
+        <conditions>
+            <condition id="web" equal="true"/>
+            <output patterns="**/*">web/</output>
+        </conditions>
+        <conditions>
+            <condition id="web" equal="true"/>
+            <condition id="uipWeb" equal="true"/>
+            <output>lib/Microsoft.ApplicationBlocks.UIProcess.dll</output>
+        </conditions>
+<!-- Probably will want to add this in a future version
+        <conditions>
+            <condition id="web" equal="true"/>
+            <output>mda/src/main/config/mappings/WebMergeMappings.xml.vsl</output>
+        </conditions>
+-->
+        <conditions>
+            <condition id="transactionPersistenceType" notEqual="none"/>
+            <output patterns="**/*">core/</output>
+            <output>lib/NHibernate.dll</output>
+            <output>lib/AndroMDA.NHibernateSupport.dll</output>
+            <output>lib/Bamboo.Prevalence.dll</output>
+            <output>lib/Castle.DynamicProxy.dll</output>
+            <output>lib/HashCodeProvider.dll</output>
+            <output>lib/Iesi.Collections.dll</output>
+            <output>lib/NHibernate.Caches.Prevalence.dll</output>
+            <output>lib/NHibernate.Caches.SysCache.dll</output>
+        </conditions>
+        <conditions>
+            <condition id="transactionPersistenceType" notEqual="none"/>
+			<condition id="dotNetVersion" equal="2.0"/>
+            <output>lib/NHibernate.Nullables2.dll</output>
+        </conditions>
+        <conditions>
+            <condition id="model" present="false"/>
+            <output>mda/src/main/uml/${applicationId}.xmi.vsl</output>
+        </conditions>
+        <conditions>
+            <condition id="configurationUri" present="false"/>
+            <output>mda/conf/andromda.xml</output>
+        </conditions>
+    </conditionalOutput>
+    <mappings>
+        <mapping>
+            <from>empty-model.xmi</from>
+            <to>${applicationId}.xmi.vsl</to>
+        </mapping>
+    </mappings>
+    <instructions>readme.txt</instructions>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <prompts>
+        <promptGroup name="Basic Project Information">
+            <documentation>
+                Provides the basic project information.
+            </documentation>
+            <prompt id="applicationParentDirectory">
+                <text>Please enter the location in which your new application will be created (i.e. c:/csharp/development)</text>
+                <shortText>Application location</shortText>
+            </prompt>
+            <prompt id="author">
+                <text>Please enter your first and last name (i.e. Naresh Bhatia)</text>
+                <shortText>Author</shortText>
+            </prompt>
+            <prompt id="applicationName">
+                <text>Please enter the name of your .NET project (i.e. Time Tracker)</text>
+                <shortText>Application name</shortText>
+            </prompt>
+            <prompt id="applicationId">
+                <text>Please enter an id for your .NET project (i.e. timetracker)</text>
+                <shortText>Application ID</shortText>
+            </prompt>
+            <prompt id="applicationPackage">
+                <text>Please enter the root namespace for your .NET project (i.e. org.andromda.samples.timetracker)</text>
+                <shortText>Application namespace</shortText>
+            </prompt>
+            <prompt id="applicationVersion">
+                <text>Please enter a version for your project (i.e. 1.0-SNAPSHOT)</text>
+                <shortText>Version</shortText>
+            </prompt>
+            <prompt id="dotNetVersion" setResponseAsTrue="true">
+                <text>What version of the .Net Framework will you be targeting?</text>
+                <shortText>.NET Framework version</shortText>
+                <responses>
+                    <response>1.1</response>
+                    <response>2.0</response>
+                </responses>
+            </prompt>
+            <!--prompt id="vsSolution" setResponseAsTrue="true">
+                <text>Would you like a VS Solution file generated?</text>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt-->
+        </promptGroup>
+        <promptGroup name="Component Types">
+            <documentation>
+                Provides the choice of components with the application.
+            </documentation>
+            <prompt id="transactionPersistenceType" setResponseAsTrue="true">
+                <text>Please enter the type of transactional/persistence cartridge to use. Note: The spring cartridge uses nhibernate.</text>
+                <shortText>Persistence framework</shortText>
+                <responses>
+                    <response>nhibernate</response>
+                    <response>nspring</response>
+                    <response>none</response>
+                </responses>
+            </prompt>
+<!--
+            <prompt id="workflow">
+                <text>Will your project need workflow engine capabilities? (it uses jBPM and Hibernate3)?</text>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+                <conditions>
+                    <condition equal="yes">
+                        <setProperty id="hibernateVersion">3</setProperty>
+                    </condition>
+                </conditions>
+            </prompt>
+            <prompt id="hibernateVersion">
+                <text>Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x)</text>
+                <preconditions type="or">
+                    <condition id="transactionPersistenceType" equal="spring"/>
+                    <condition id="transactionPersistenceType" equal="hibernate"/>
+                </preconditions>
+                <responses>
+                    <response>2</response>
+                    <response>3</response>
+                </responses>
+            </prompt>
+-->
+            <prompt id="web">
+                <text>Do you want to generate an ASP.NET application?</text>
+                <shortText>Web interface</shortText>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
+<!--
+            <prompt id="uipWeb" setResponseAsTrue="true">
+                <text>Would you like your web user interface to use the User Interface Process Application Block?</text>
+                <preconditions>
+                    <condition id="web" equal="true"/>
+                </preconditions>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
+            <prompt id="webservice">
+                <text>Would you like to be able to expose your services as web services?</text>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
+-->
+        </promptGroup>
+    </prompts>
+</andromdapp>

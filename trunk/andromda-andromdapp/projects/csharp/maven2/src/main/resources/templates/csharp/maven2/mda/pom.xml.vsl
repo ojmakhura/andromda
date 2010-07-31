@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-mda</artifactId>
+    <packaging>pom</packaging>
+    <name>$applicationName MDA</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <type>xml.zip</type>
+        </dependency>
+#if ($nspring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-nspring-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+#end
+#if ($nhibernate || $nspring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-nhibernate-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+#end
+#if ($workflow)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jbpm-cartridge</artifactId>
+        </dependency>
+#end
+#if ($webservice)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-webservice-cartridge</artifactId>
+        </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-cs-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+#if ($web)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-aspdotnet-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+#end
+#if ($nspring)
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>3.2-SNAPSHOT</version>
+        </dependency>
+#end
+#if (!$transactionPersistenceType.equals("none"))
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+            <version>3.2-SNAPSHOT</version>
+        </dependency>
+#end
+    </dependencies>
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+#if ($stringUtils.isNotBlank($configurationUri))
+                <configuration>
+                    <configurationUri>$configurationUri</configurationUri>
+                </configuration>
+#end
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+#if ($stringUtils.isNotEmpty($model))
+        <model.uri>$model</model.uri>
+#else
+        <model.uri>file:${project.build.sourceDirectory}/${applicationId}.xmi</model.uri>
+#end
+        <filter></filter>
+        <conf.dir>${pom.basedir}/conf</conf.dir>
+        <!-- cartridge output locations -->
+#if (!$transactionPersistenceType.equals("none"))
+        <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src</core.generated.dir>
+        <core.manual.dir>${project.build.sourceDirectory}/../../../../core/src/main/cs</core.manual.dir>
+#end
+#if ($web)
+        <web.dir>${project.build.sourceDirectory}/../../../../web</web.dir>
+        <web.generated.dir>${project.build.sourceDirectory}/../../../../web/target/src</web.generated.dir>
+        <web.manual.dir>${project.build.sourceDirectory}/../../../../web/src/main</web.manual.dir>
+#end
+#if ($workflow)
+        <workflow.generated.dir>${project.build.sourceDirectory}/../../../../workflow/target/src</workflow.generated.dir>
+        <workflow.manual.dir>${project.build.sourceDirectory}/../../../../workflow/src/main</workflow.manual.dir>
+#end
+#if ($webservice)
+        <webservice.generated.dir>${project.build.sourceDirectory}/../../../../webservice/target/src</webservice.generated.dir>
+        <webservice.generated.wsdl.dir>${webservice.generated.dir}/wsdl</webservice.generated.wsdl.dir>
+#end
+        <common.generated.dir>${project.build.sourceDirectory}/../../../../common/target/src</common.generated.dir>
+#if ($nhibernate || $nspring)
+        <!-- hibernate configuration -->
+        <!-- default strategy to use when using inhertiance -->
+        <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+        <hibernate.db.showSql>true</hibernate.db.showSql>
+        <!-- hibernate generator class to use for identifiers -->
+        <hibernate.generatorClass>native</hibernate.generatorClass>
+#end
+    </properties>
+</project>
