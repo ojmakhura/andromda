@@ -1,0 +1,1 @@
+o:\dev\jboss-5.0.0.Alpha\bin\wstools.bat -cp ".;./core/target/src" -config jbosswsConfig.xml

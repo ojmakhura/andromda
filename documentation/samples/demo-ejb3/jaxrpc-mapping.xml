@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd">
+  <package-mapping>
+    <package-type>org.andromda.demo.ejb3.customer</package-type>
+    <namespaceURI>http://org.andromda.demo.ejb3/customer</namespaceURI>
+  </package-mapping>
+  <java-xml-type-mapping>
+    <java-type>org.andromda.demo.ejb3.customer.CustomerException</java-type>
+    <root-type-qname xmlns:typeNS="http://org.andromda.demo.ejb3/customer">typeNS:CustomerException</root-type-qname>
+    <qname-scope>complexType</qname-scope>
+    <variable-mapping>
+      <java-variable-name>message</java-variable-name>
+      <xml-element-name>message</xml-element-name>
+    </variable-mapping>
+  </java-xml-type-mapping>
+  <java-xml-type-mapping>
+    <java-type>org.andromda.demo.ejb3.customer.CustomerArray</java-type>
+    <root-type-qname xmlns:typeNS="http://org.andromda.demo.ejb3/customer">typeNS:Customer.Array</root-type-qname>
+    <qname-scope>complexType</qname-scope>
+    <variable-mapping>
+      <java-variable-name>value</java-variable-name>
+      <xml-element-name>value</xml-element-name>
+    </variable-mapping>
+  </java-xml-type-mapping>
+  <java-xml-type-mapping>
+    <java-type>org.andromda.demo.ejb3.customer.Customer</java-type>
+    <root-type-qname xmlns:typeNS="http://org.andromda.demo.ejb3/customer">typeNS:Customer</root-type-qname>
+    <qname-scope>complexType</qname-scope>
+    <variable-mapping>
+      <java-variable-name>id</java-variable-name>
+      <xml-element-name>id</xml-element-name>
+    </variable-mapping>
+    <variable-mapping>
+      <java-variable-name>name</java-variable-name>
+      <xml-element-name>name</xml-element-name>
+    </variable-mapping>
+    <variable-mapping>
+      <java-variable-name>password</java-variable-name>
+      <xml-element-name>password</xml-element-name>
+    </variable-mapping>
+    <variable-mapping>
+      <java-variable-name>username</java-variable-name>
+      <xml-element-name>username</xml-element-name>
+    </variable-mapping>
+  </java-xml-type-mapping>
+  <java-xml-type-mapping>
+    <java-type>org.andromda.demo.ejb3.customer.Customer[]</java-type>
+    <anonymous-type-qname>http://org.andromda.demo.ejb3/customer:Customer.Array&gt;value[0,unbounded]</anonymous-type-qname>
+    <qname-scope>complexType</qname-scope>
+  </java-xml-type-mapping>
+  <exception-mapping>
+    <exception-type>org.andromda.demo.ejb3.customer.CustomerException</exception-type>
+    <wsdl-message xmlns:exMsgNS="http://org.andromda.demo.ejb3/customer">exMsgNS:CustomerException</wsdl-message>
+    <constructor-parameter-order>
+      <element-name>message</element-name>
+    </constructor-parameter-order>
+  </exception-mapping>
+  <service-interface-mapping>
+    <service-interface>org.andromda.demo.ejb3.customer.CustomerService</service-interface>
+    <wsdl-service-name xmlns:serviceNS="http://org.andromda.demo.ejb3/customer">serviceNS:CustomerService</wsdl-service-name>
+    <port-mapping>
+      <port-name>CustomerServiceWSInterfacePort</port-name>
+      <java-port-name>CustomerServiceWSInterfacePort</java-port-name>
+    </port-mapping>
+  </service-interface-mapping>
+  <service-endpoint-interface-mapping>
+    <service-endpoint-interface>org.andromda.demo.ejb3.customer.CustomerServiceWSInterface</service-endpoint-interface>
+    <wsdl-port-type xmlns:portTypeNS="http://org.andromda.demo.ejb3/customer">portTypeNS:CustomerServiceWSInterface</wsdl-port-type>
+    <wsdl-binding xmlns:bindingNS="http://org.andromda.demo.ejb3/customer">bindingNS:CustomerServiceWSInterfaceBinding</wsdl-binding>
+    <service-endpoint-method-mapping>
+      <java-method-name>addCustomer</java-method-name>
+      <wsdl-operation>AddCustomer</wsdl-operation>
+      <method-param-parts-mapping>
+        <param-position>0</param-position>
+        <param-type>org.andromda.demo.ejb3.customer.Customer</param-type>
+        <wsdl-message-mapping>
+          <wsdl-message xmlns:wsdlMsgNS="http://org.andromda.demo.ejb3/customer">wsdlMsgNS:CustomerServiceWSInterface_AddCustomer</wsdl-message>
+          <wsdl-message-part-name>Customer</wsdl-message-part-name>
+          <parameter-mode>IN</parameter-mode>
+        </wsdl-message-mapping>
+      </method-param-parts-mapping>
+    </service-endpoint-method-mapping>
+    <service-endpoint-method-mapping>
+      <java-method-name>getAllCustomers</java-method-name>
+      <wsdl-operation>GetAllCustomers</wsdl-operation>
+      <wsdl-return-value-mapping>
+        <method-return-value>org.andromda.demo.ejb3.customer.CustomerArray</method-return-value>
+        <wsdl-message xmlns:wsdlMsgNS="http://org.andromda.demo.ejb3/customer">wsdlMsgNS:CustomerServiceWSInterface_GetAllCustomersResponse</wsdl-message>
+        <wsdl-message-part-name>result</wsdl-message-part-name>
+      </wsdl-return-value-mapping>
+    </service-endpoint-method-mapping>
+  </service-endpoint-interface-mapping>
+</java-wsdl-mapping>

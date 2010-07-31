@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <mbean code="org.jboss.mq.server.jmx.Queue"
+	       name="jboss.mq.destination:service=Queue,name=EmailSenderMDBBean">
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+        <attribute name="JNDIName">queue/emailSender</attribute>
+    </mbean>
+    <mbean code="org.jboss.mq.server.jmx.Queue"
+	       name="jboss.mq.destination:service=Queue,name=PaymentProcessorMDBBean">
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+        <attribute name="JNDIName">queue/ejb3demo2/payment</attribute>
+    </mbean>
+<!-- jboss mq destinations merge-point -->
+    
+</server>
