@@ -1,0 +1,5 @@
+<roleManager enabled="true" cacheRolesInCookie="true" cookieName=".DRPRoles" defaultProvider="DomainRoleProvider">
+	<providers>
+		<add name="DomainRoleProvider" type="${wizard.projects.web.common.name}.DomainRoleProvider, ${wizard.projects.web.common.name}" />
+	</providers>
+</roleManager>

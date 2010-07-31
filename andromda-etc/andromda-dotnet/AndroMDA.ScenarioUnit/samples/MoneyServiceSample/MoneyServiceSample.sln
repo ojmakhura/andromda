@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyServiceSample", "MoneyServiceSample\MoneyServiceSample.csproj", "{9454A3E4-098B-4559-86E4-A6257887726E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyServiceTests", "MoneyServiceTests\MoneyServiceTests.csproj", "{9D05B523-5603-4300-BA05-EB01FA5EC85C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9454A3E4-098B-4559-86E4-A6257887726E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9454A3E4-098B-4559-86E4-A6257887726E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9454A3E4-098B-4559-86E4-A6257887726E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9454A3E4-098B-4559-86E4-A6257887726E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D05B523-5603-4300-BA05-EB01FA5EC85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D05B523-5603-4300-BA05-EB01FA5EC85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D05B523-5603-4300-BA05-EB01FA5EC85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D05B523-5603-4300-BA05-EB01FA5EC85C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

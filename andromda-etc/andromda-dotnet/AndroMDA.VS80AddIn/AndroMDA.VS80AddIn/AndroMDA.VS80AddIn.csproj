@@ -1,0 +1,476 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{93AB0FE0-3A0F-44E5-A4A0-AFBCAB0C8049}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>AndroMDA.VS80AddIn</AssemblyName>
+    <RootNamespace>AndroMDA.VS80AddIn</RootNamespace>
+    <ApplicationIcon>AddIn.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\Documents and Settings\cmical\My Documents\Visual Studio 2005\AddIns\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IncrementalBuild>false</IncrementalBuild>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IncrementalBuild>false</IncrementalBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.VCCodeModel, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.VCProject, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.VCProjectEngine, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="NVelocity, Version=0.5.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="VsWebSite.Interop, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\AboutCommand.cs" />
+    <Compile Include="Commands\AddInCommandBase.cs" />
+    <Compile Include="Commands\AndroMDALogoCommand.cs" />
+    <Compile Include="Commands\CreateEntityVOConvertorCommand.cs" />
+    <Compile Include="Commands\PropertyMapperCommand.cs" />
+    <Compile Include="Commands\RunSchemaExportCommand.cs" />
+    <Compile Include="Commands\ReloadMDAConfigCommand.cs" />
+    <Compile Include="Commands\OpenModelCommand.cs" />
+    <Compile Include="Commands\ResyncCommand.cs" />
+    <Compile Include="Commands\GenerateCodeCommand.cs" />
+    <Compile Include="Commands\RunSolutionWizardCommand.cs" />
+    <Compile Include="Commands\StopCommand.cs" />
+    <Content Include="Solution Wizard Files\Membership\DomainMembershipProvider.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Membership\DomainMembershipUser.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Membership\DomainRoleProvider.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\SchemaExport\SchemaExport.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\SchemaExport\TestDataManager.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Membership\MembershipService.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Membership\UserDao.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Utils\ConfigFile.cs" />
+    <Compile Include="Connect.cs" />
+    <Compile Include="Controls\MDAProjectSetupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MDAProjectSetupControl.designer.cs">
+      <DependentUpon>MDAProjectSetupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScrollableListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConversionCodeGenerator.cs" />
+    <Compile Include="Dialogs\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutDialog.designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PropertyMapperDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PropertyMapperDialog.Designer.cs">
+      <DependentUpon>PropertyMapperDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maven\Maven1Proxy.cs" />
+    <Compile Include="Maven\Maven2Proxy.cs" />
+    <Compile Include="Maven\MavenProxy.cs" />
+    <Compile Include="MDAProject.cs" />
+    <Compile Include="MDASolutionManager.cs" />
+    <Compile Include="OptionsPages\AboutOptionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsPages\AboutOptionsPage.designer.cs">
+      <DependentUpon>AboutOptionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsPages\ExternalToolsOptionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsPages\ExternalToolsOptionsPage.designer.cs">
+      <DependentUpon>ExternalToolsOptionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsPages\GeneralOptionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsPages\GeneralOptionsPage.designer.cs">
+      <DependentUpon>GeneralOptionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsPages\MDAOptionPageProperties.cs" />
+    <Compile Include="OptionsPages\SolutionExplorerOptionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsPages\SolutionExplorerOptionsPage.designer.cs">
+      <DependentUpon>SolutionExplorerOptionsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\CodeModelUtils.cs" />
+    <Compile Include="WizardSolutionProcessor.cs" />
+    <Compile Include="AddInSettings.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\SettingsManager.cs" />
+    <Compile Include="SharpZipLib\Checksums\Adler32.cs" />
+    <Compile Include="SharpZipLib\Checksums\CRC32.cs" />
+    <Compile Include="SharpZipLib\Checksums\IChecksum.cs" />
+    <Compile Include="SharpZipLib\Checksums\StrangeCRC.cs" />
+    <Compile Include="SharpZipLib\Core\FileSystemScanner.cs" />
+    <Compile Include="SharpZipLib\Core\INameTransform.cs" />
+    <Compile Include="SharpZipLib\Core\NameFilter.cs" />
+    <Compile Include="SharpZipLib\Core\PathFilter.cs" />
+    <Compile Include="SharpZipLib\Encryption\PkzipClassic.cs" />
+    <Compile Include="SharpZipLib\SharpZipBaseException.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Deflater.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Inflater.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="SharpZipLib\Zip\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="SharpZipLib\Zip\FastZip.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipConstants.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipEntry.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipException.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipFile.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipInputStream.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipNameTransform.cs" />
+    <Compile Include="SharpZipLib\Zip\ZipOutputStream.cs" />
+    <Compile Include="Utils\AddInUtils.cs" />
+    <Compile Include="Utils\AsyncOperation.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\VSExternalToolEventArgs.cs" />
+    <Compile Include="Utils\ValidationUtils.cs" />
+    <Compile Include="Utils\VSExternalToolProxy.cs" />
+    <Compile Include="Utils\VSSolutionUtils.cs" />
+    <Compile Include="VS80AddIn.cs" />
+    <Compile Include="Wizards\MDASolutionWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizards\MDASolutionWizard.designer.cs">
+      <DependentUpon>MDASolutionWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\Support\Header.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\Support\HeaderDesigner.cs" />
+    <Compile Include="Wizards\Support\InfoContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\Support\InfoContainerDesigner.cs" />
+    <Compile Include="Wizards\Support\InfoPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\Support\InfoPageDesigner.cs" />
+    <Compile Include="Wizards\Support\PageCollection.cs" />
+    <Compile Include="Wizards\Support\PageEventHandler.cs" />
+    <Compile Include="Wizards\Support\Wizard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\Support\WizardDesigner.cs" />
+    <Compile Include="Wizards\Support\WizardPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Wizards\Support\WizardPageDesigner.cs" />
+    <Compile Include="Wizards\WelcomeWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizards\WelcomeWizard.designer.cs">
+      <DependentUpon>WelcomeWizard.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="EnvDTE">
+      <Guid>{80CC9F66-E7D8-4DDD-85B6-D9E6CD0E93E2}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="EnvDTE80">
+      <Guid>{1A31287A-4D7D-413E-8E32-3B374931BD89}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="Microsoft.VisualStudio.CommandBars">
+      <Guid>{1CBA492E-7263-47BB-87FE-639000619B15}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\MDAProjectSetupControl.resx">
+      <DependentUpon>MDAProjectSetupControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PropertyMapperDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PropertyMapperDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsPages\AboutOptionsPage.resx">
+      <DependentUpon>AboutOptionsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsPages\ExternalToolsOptionsPage.resx">
+      <DependentUpon>ExternalToolsOptionsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsPages\GeneralOptionsPage.resx">
+      <DependentUpon>GeneralOptionsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsPages\SolutionExplorerOptionsPage.resx">
+      <DependentUpon>SolutionExplorerOptionsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\MDASolutionWizard.resx">
+      <DependentUpon>MDASolutionWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\Support\Header.resx">
+      <DependentUpon>Header.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\Support\InfoContainer.resx">
+      <DependentUpon>InfoContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\Support\InfoPage.resx">
+      <DependentUpon>InfoPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\Support\Wizard.resx">
+      <DependentUpon>Wizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\Support\WizardPage.resx">
+      <DependentUpon>WizardPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\WelcomeWizard.resx">
+      <DependentUpon>WelcomeWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AndroMDA.VS80AddIn.AddIn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AddIn.ico" />
+    <Content Include="Solution Wizard Files\Lib\AndroMDA.NHibernateSupport.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\AndroMDA.ScenarioUnit.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\Bamboo.Prevalence.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\Castle.DynamicProxy.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\Iesi.Collections.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\log4net.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\NHibernate.Caches.Prevalence.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\NHibernate.Caches.SysCache.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\NHibernate.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\Nullables.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\Nullables.NHibernate.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\nunit.core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\nunit.framework.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Lib\NXUnit.Framework.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\mda\conf\andromda.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\mda\conf\mappings\MergeMappings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\mda\conf\mappings\NHibernateTypeMappings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\mda\pom.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Solution Wizard Files\mda\src\uml\empty-model.membership.xmi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Solution Wizard Files\mda\src\uml\empty-model.xmi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\pom.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Welcome Wizard Files\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Welcome Wizard Files\build.properties">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\indicator_arrows.gif" />
+    <None Include="Resources\link_add.png" />
+    <None Include="Resources\expand.gif" />
+    <None Include="Resources\expandall.gif" />
+    <None Include="Resources\issue.gif" />
+    <None Include="Resources\link_break.gif" />
+    <None Include="Resources\indicator_waitanim.gif" />
+    <None Include="Resources\about_logo.jpg" />
+    <None Include="Resources\rightbox.bmp" />
+    <None Include="Resources\orange.bmp" />
+    <Content Include="Solution Wizard Files\Tests\nhibernate.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\SchemaExport\nhibernate.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Common\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Core\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\mda\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\nhibernate.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\SchemaExport\App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\SchemaExport\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Tests\App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\Bin\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\cvsignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\web.config.membershipsection">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\web.config.nhibernate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Solution Wizard Files\Web\web.config.rolesection">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Solution Wizard Files\mda\resources\templates\cs\" />
+    <Folder Include="Solution Wizard Files\mda\resources\templates\nhibernate\" />
+    <Folder Include="Solution Wizard Files\mda\resources\templates\nspring\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
