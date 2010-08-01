@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Starter App</title>
+    </properties>
+    <body>
+        <section name="Create TimeTracker Application">
+
+            <p>
+                Now that you have your environment setup you can start using AndroMDA in your projects.
+                This section will guide you through creating the base TimeTracker solution. These
+                are the same steps you would follow when you are starting your own application.
+                Please note the TimeTracker completed sample is available here:<a
+                    href="Northwind.TimeTracker.zip">
+                Northwind.TimeTracker.zip</a>.
+            </p>
+
+            <p>
+                Couple of tips before we start:
+            </p>
+            <ul>
+                <li>Please follow the instructions in this tutorial very carefully and precisely.
+                    <strong>
+                        Do not
+                    </strong>
+                    take any shortcuts, as doing so will only waste your time. There
+                    is a reason for every step in the tutorial. You will not find any fluff here!
+                </li>
+                <li>It is recommended to use the latest version of FireFox or Internet Explorer to read
+                    this tutorial.
+                </li>
+            </ul>
+        </section>
+        <section name="Create the Solution">
+            <ol>
+                <li>Run Visual Studio 2005</li>
+                <li>Select
+                    <strong>File</strong>
+                    |
+                    <strong>New Project</strong>
+                </li>
+                <li>Create a new blank solution, found under<strong>Other Project Types | Visual Studio
+                    Solutions</strong>. Name the solution<b>Northwind.TimeTracker</b>.
+                    <div align="center">
+                        <img src="screenshots/VS2005NewSolution.jpg" alt="New Solution Dialog"/>
+                    </div>
+                </li>
+                <li>Click
+                    <strong>Ok</strong>
+                </li>
+            </ol>
+        </section>
+        <section name="Run the Solution Wizard">
+            <ol>
+                <li>Click the
+                    <strong>Run MDA Solution Wizard</strong>
+                    <img src="screenshots/VS2005SolutionWizard.jpg" alt="Run MDA Solution Wizard"/>
+                    and click
+                    <strong>Next</strong>
+                    to exit the welcome page.
+                </li>
+                <li>Accept the default project name of
+                    <strong>Northwind.TimeTracker</strong>
+                    click
+                    <strong>Next</strong>.
+                </li>
+                <li>Accept the default common project name of
+                    <strong>Northwind.TimeTracker.Common</strong>
+                    and click<strong>Next</strong>.
+                </li>
+                <li>Accept the default core project name of
+                    <strong>Northwind.TimeTracker.Core</strong>
+                    and click<strong>Next</strong>.
+                </li>
+                <li>Accept the default checked
+                    <strong>Create schema export project</strong>
+                    option
+                    and the default project name of
+                    <strong>Northwind.TimeTracker.SchemaExport</strong>
+                    and click<strong>Next</strong>.
+                </li>
+                <li>Check the
+                    <strong>Configure web project</strong>
+                    box and accept the default project
+                    name of<strong>Northwind.TimeTracker.Web</strong>. Check the
+                    <strong>Add membership
+                        support
+                    </strong>
+                    box and click<strong>Next</strong>.
+                </li>
+                <li>Accept the default web common project name of
+                    <strong>Northwind.TimeTracker.Web.Common</strong>
+                    and click<strong>Next</strong>.
+                </li>
+                <li>Verify that your project settings look like the screenshot below, and click
+                    <strong>
+                        Next
+                    </strong>
+                    to run the wizard.
+                    <div>
+                        <img src="screenshots/VS2005SolutionWizardSettings.jpg" alt="Solution Wizard Settings"/>
+                    </div>
+                </li>
+                <li>Your solution is now configured for use with AndroMDA. Here is a list of what was
+                    created for you:
+                    <ul>
+                        <li>
+                            <strong>mda</strong>
+                            directory: AndroMDA configuration files and an empty model. Because we checked membership
+                            support basic user and roles entities were added automatically.
+                        </li>
+                        <li><strong>Northwind.TimeTracker.Web</strong>: Web site with nhibernate support
+                        </li>
+                        <li><strong>Northwind.TimeTracker.Common</strong>: Common project. This is where AndroMDA
+                            generates value objecst and enumerations
+                        </li>
+                        <li><strong>Northwind.TimeTracker.Core</strong>: Core project. This is where AndroMDA
+                            generates entities, nhibernate mappings, services, and data access objects.
+                        </li>
+                        <li>
+                            <strong>Northwind.TimeTracker.SchemaExport</strong>: A console application that
+                            will generate database schema from your model. It can optionally export the schema
+                            to a running database.
+                        </li>
+                        <li>
+                            <strong>Northwind.TimeTracker.Web.Common</strong>: Project for classes and controls
+                            the web site will use. Because we checked membership support an ASP.NET 2.0 MembershipProvider
+                            that uses the user and role entities was created for us, and the web site is pre-configured
+                            to use it.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+        <section name="Open the UML Model">
+            <ol>
+                <li>Click the
+                    <b>Open Model</b>
+                    button to open your project's UML model.
+                    <div>
+                        <img src="screenshots/VS2005OpenModel.jpg" alt="Open Model Button"/>
+                    </div>
+                </li>
+                <li>MagicDraw will open and it will automatically load the model that was generated
+                    by the add-in. An initial package structure was created by the add-in using the
+                    name of the solution you selected. Additionally a
+                    <strong>User</strong>
+                    entity and
+                    some supporting classes were created and added to the model because the membership
+                    support option was selected.
+                    <div>
+                        <img src="screenshots/MagicDrawInitialModel.jpg" alt="Initial Model"/>
+                    </div>
+                </li>
+            </ol>
+            <p>
+                Leave MagicDraw open for now, as we will be adding to the model.
+            </p>
+
+        </section>
+        <section name="Creating the TimeTracker Database">
+
+            <p>
+                We need to create a database for TimeTracker to store the timecards. While you can
+                use any type of database NHibernate supports in your project, this tutorial will
+                focus on SQL Server 2000, 2005 and MSDE. Here are the steps to creating a database
+                for TimeTracker:
+            </p>
+        </section>
+        <section name="Creating the Database with SQL Server 2000/2005">
+            <ol>
+                <li>Run Enterprise Manager (2000) or SQL Server management Console (2005)</li>
+                <li>Expand your local server (2000) or connect to your local server (2005)</li>
+                <li>Right click the Databases folder and select
+                    <strong>Create new database</strong>
+                </li>
+                <li>Enter the database name
+                    <strong>NorthwindTimeTracker</strong>
+                    and click<strong>
+                        Ok</strong>.
+                </li>
+            </ol>
+        </section>
+        <section name="Creating the Database with MSDE">
+            <ol>
+                <li>Open a console window by clicking
+                    <strong>Start</strong>
+                    |<strong>Run</strong>,
+                    typing<strong>cmd</strong>, and clicking <strong>Ok</strong>.
+                </li>
+                <li>Type
+                    <strong>osql -U sa -P password -S localhost\myinstance</strong>
+                    with your MSDE
+                    login credentials and
+                    <strong>myinstance</strong>
+                    changed to your instance name.
+                </li>
+                <li>Type the following to create a database called<strong>NorthwindTimeTracker</strong>:
+                    <pre>1> use master
+                        2:> go
+                        1> CREATE DATABASE NorthwindTimeTracker
+                        2> go
+                        The CREATE DATABASE process is allocating 0.63 MB on disk 'NorthwindTimeTracker'.
+                        The CREATE DATABASE process is allocating 0.49 MB on disk 'NorthwindTimeTracker_log'.
+                    </pre>
+                </li>
+            </ol>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Entities</title>
+    </properties>
+    <body>
+        <section name="Entities">
+
+            <p>
+                In this section you will create your first entity using AndroMDA. We will create
+                an entity called
+                <strong>Timecard</strong>
+                that will represent a timecard in the
+                application. We will associate it with the
+                <strong>User</strong>
+                object, which will
+                be the person that submitted the timecard. Our finished entity diagram will look
+                like this:
+            </p>
+
+            <div align="center">
+                <img src="images/SimpleEntityDiagram.jpg" alt="Entity Diagram"/>
+            </div>
+
+            <p>
+                Note that we have marked the
+                <strong>Timecard</strong>
+                class with a stereotype of
+                <strong>Entity</strong>. This tells AndroMDA that
+                <strong>Timecard</strong>
+                is an
+                Entity as opposed to other type of model elements such as Enumeration or EmbeddedValue.
+                Stereotypes determine what pattern of code AndroMDA will generate for a model element.
+                More specifically, they determine which AndroMDA code generation templates will
+                be triggered.
+            </p>
+
+            <p>
+                Also nte that we have marked the attributes to be of type
+                <strong>Date</strong>
+                and<strong>String</strong>. These are not .NET types, but rather in model driven
+                architecture the model is kept independent of technology and hence all model elements
+                are defined in terms of platform independent types. So Date and String in this context
+                are platform independent types. When we run AndroMDA to generate code, it will translate
+                platform independent types into platform dependent types such as
+                <strong>System.String</strong>
+                and
+                <strong>System.DateTime</strong>
+                . If we were to use the same model to generate
+                a Java application, AndroMDA will translate String into<strong>java.lang.String</strong>,
+                which is the Java equivalent of<strong>System.String</strong>. As you can see,
+                a key advantage of the model driven approach is that your investment in the business
+                models is preserved even as technologies come and go.
+            </p>
+
+            <p>
+                Now lets add the
+                <strong>Timecard</strong>
+                entity to the model:
+            </p>
+            <ol>
+                <li>Create a new diagram by right clicking on the
+                    <b>Domain</b>
+                    package and clicking
+                    <strong>New Diagram</strong>
+                    |<strong>Class Diagram</strong>. Set the name of the
+                    diagram to
+                    <strong>Entity Diagram</strong>
+                    and click<strong>Ok</strong>.
+                </li>
+                <li>Click the
+                    <strong>Class</strong>
+                    tool
+                    <img src="screenshots/MagicDrawClassTool.jpg" alt="Class Tool"/>
+                    in the toolbar and make a new class on the diagram surface. Double click on the
+                    class, name it<strong>Timecard</strong>, and add the
+                    <strong>Entity</strong>
+                    stereotype
+                    to it.
+                </li>
+                <li>Right click on the
+                    <strong>TimecardVO</strong>
+                    object and select<strong>Insert
+                        new attribute</strong>. Add three public attributes to the class by:
+                    <ul>
+                        <li>One called
+                            <strong>startDate</strong>
+                            of type<strong>Date</strong>.
+                        </li>
+                        <li>One called
+                            <strong>comments</strong>
+                            of type<strong>String</strong>.
+                        </li>
+                    </ul>
+                </li>
+                <li>We now want to relate the the User entity to the Timecard entity. Drag the
+                    <strong>
+                        User
+                    </strong>
+                    class onto the diagram. If it looks very cluttered you can right click
+                    on it and select<strong>Symbol Properties</strong>. Uncheck the
+                    <strong>Show Tagged
+                        Values
+                    </strong>
+                    option under
+                    <strong>General</strong>
+                    and also uncheck
+                    <strong>Show
+                        Attributes Properties
+                    </strong>
+                    in the
+                    <strong>Attributes</strong>
+                    section.
+                    Finally click<strong>Ok</strong>, right click on the
+                    <strong>User</strong>
+                    class
+                    again, and select<strong>Autosize</strong>.
+                </li>
+                <li>Because each user can submit many timecards, we need to create an association that
+                    defines this relationship. Click the
+                    <strong>Association</strong>
+                    tool
+                    <img src="screenshots/MagicDrawAssociationTool.jpg" alt="Association Tool"/>
+                    and draw an association between the
+                    <strong>Timecard</strong>
+                    class and the
+                    <strong>
+                        User
+                    </strong>
+                    class.
+                </li>
+                <li>Set the association multiplicity to
+                    <strong>*</strong>
+                    on the timecard end of the
+                    association by right clicking on the association end near the
+                    <strong>Timecard</strong>
+                    entity and selecting<strong>*</strong>.
+                </li>
+                <li>Set the name of the timecards association endpoint by right clicking on the association
+                    end near the
+                    <strong>Timecard</strong>
+                    entity and select<strong>Edit name</strong>.
+                    Name the end<strong>+timecards</strong>.
+                </li>
+                <li>Set the association multiplicity to
+                    <strong>1</strong>
+                    on the user end of the association
+                    by right clicking on the association end near the
+                    <strong>User</strong>
+                    entity and
+                    selecting<strong>1</strong>.
+                </li>
+                <li>Set the name of the submitter association endpoint by right clicking on the association
+                    end near the
+                    <strong>User</strong>
+                    entity and select<strong>Edit name</strong>.
+                    Name the end<strong>+submitter</strong>.
+                </li>
+            </ol>
+        </section>
+    </body>
+</document>

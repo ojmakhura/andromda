@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Value Objects</title>
+    </properties>
+    <body>
+        <section name="Value Objects">
+
+            <p>
+                We will now add a value object called
+                <strong>TimecardVO</strong>
+                to the model.
+                This will be the value object for the
+                <strong>Timecard</strong>
+                entity and we will
+                keep it simple by mapping it one-to-one with the
+                <strong>Timecard</strong>
+                entity.
+                The model for the
+                <strong>TimecardVO</strong>
+                looks like this:
+            </p>
+
+            <div align="center">
+                <img src="Images/SimpleValueObjectDiagram.jpg" alt="Value Object Diagram"/>
+            </div>
+            <p>
+                The TimeTracker front end will receive
+                <strong>TimecardVO</strong>
+                objects from
+                the time tracking service. Typically items that the front end will need to display
+                are put in value objects. For example we could add a string with the submitting
+                user's name to<strong>TimecardVO</strong>, even though this information may or
+                may not be stored in the actual
+                <strong>Timecard</strong>
+                entity.
+            </p>
+            <ol>
+                <li>Create a new diagram by right clicking on the
+                    <b>VO</b>
+                    package and clicking
+                    <strong>
+                        New Diagram
+                    </strong>
+                    |<strong>Class Diagram</strong>. Set the name of the diagram
+                    to
+                    <strong>Value Object Diagram</strong>
+                    and click<strong>Ok</strong>.
+                </li>
+                <li>Click the
+                    <strong>Class</strong>
+                    tool
+                    <img src="screenshots/MagicDrawClassTool.jpg" alt="Class Tool"/>
+                    in the toolbar and make a new class on the surface. Double click on the class, name
+                    it<strong>TimecardVO</strong>, and add the
+                    <strong>Value Object</strong>
+                    stereotype
+                    to it.
+                </li>
+                <li>Right click on the
+                    <strong>TimecardVO</strong>
+                    object and select<strong>Insert
+                        new attribute</strong>. Add three public attributes to the class by:
+                    <ul>
+                        <li>One called
+                            <strong>id</strong>
+                            of type<strong>Long</strong>.
+                        </li>
+                        <li>One called
+                            <strong>startDate</strong>
+                            of type<strong>Date</strong>.
+                        </li>
+                        <li>One called
+                            <strong>comments</strong>
+                            of type<strong>String</strong>.
+                        </li>
+                    </ul>
+                </li>
+                <li>Drag the
+                    <strong>Timecard</strong>
+                    class onto the diagram. Click the
+                    <strong>Dependency</strong>
+                    tool
+                    <img src="screenshots/MagicDrawDependencyTool.jpg" alt="Dependency Tool"/>
+                    and draw a dependency from the
+                    <strong>Timecard</strong>
+                    class to the
+                    <strong>TimecardVO</strong>
+                    class. Adding this dependency will tell AndroMDA that the
+                    <strong>Timecard</strong>
+                    entity will be converted to
+                    <strong>TimecardVO</strong>
+                    objects, and it will generate
+                    helper code in the generated
+                    <strong>TimecardDao</strong>
+                    data access class to support
+                    translation between them.
+                </li>
+                <li>Click the
+                    <strong>Class</strong>
+                    tool
+                    <img src="screenshots/MagicDrawClassTool.jpg" alt="Class Tool"/>
+                    in the toolbar and make a new class on the surface. Double click on the class and
+                    name it<strong>TimecardVO[]</strong>. We do not need to add a stereotype to it.
+                    This will create a type that we can use to return collections of
+                    <strong>TimecardVO</strong>
+                    objects from service methods.
+                </li>
+            </ol>
+        </section>
+    </body>
+</document>

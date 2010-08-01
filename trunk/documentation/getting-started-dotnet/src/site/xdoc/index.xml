@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Introduction</title>
+    </properties>
+    <body>
+        <section name="Introduction">
+            <p>
+                Understanding new tools and technologies can be a daunting task. AndroMDA is no
+                exception. This tutorial serves as a gentle introduction to the power of AndroMDA.
+                We will show you step-by-step how to set up your development environment and build
+                your first .Net application. Instead of mechanically going through a series of steps,
+                we will focus on ideas and concepts. Armed with this knowledge you will be ready
+                to take on real world challenges. Please set aside half a day of quality uninterrupted
+                time to learn AndroMDA as there is lot to learn. Then brew a good cup of coffee
+                and immerse yourself in the wonderful world of Model Driven Architecture.
+            </p>
+        </section>
+        <section name="What is AndroMDA?">
+
+            <p>
+                AndroMDA (pronounced "Andromeda") is an extensible generator framework that adheres
+                to the Model Driven Architecture (MDA) paradigm. It transforms UML models into deployable
+                components for your favorite platform. While AndroMDA ships with cartridges that
+                can generate code for several platforms and technologies, this tutorial will focus
+                on generating a Microsoft .Net 2.0 application.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="images/AndromdaArchDotNet.jpg" alt="AndroMDA Architecture"/>
+                </div>
+            </p>
+
+            <p>
+                The paragraph above might have sounded like a lot of acronyms and marketing speak,
+                but using AndroMDA means one main thing:<b>write less code</b>. Not only that,
+                AndroMDA also lets you
+                <b>create better applications</b>
+                and maintain better order
+                on large projects. By generating as much code as possible it helps you enforce best
+                practices as well letting developers focus on higher level problems instead of spending
+                time on repetitive plumbing code. Additionally, AndroMDA can generate
+                <b>highly customized
+                    enterprise quality code
+                </b>
+                to meet your project's specific needs.
+            </p>
+
+            <p>
+                During development of large applications most architects and developers already
+                create class diagrams and data diagrams. Typically these diagrams are made in tools
+                like Visio, and the resulting artifacts are static pictures. When code changes,
+                the diagrams must be updated. With AdnroMDA, these diagrams become a living part
+                of your application. They are used to generate large portions of your application,
+                and hence always reflect the current state of the system. When you need to modify
+                your application, you change the model first, regenerate the code, and then add
+                or update custom code as necessary. You get a production quality application out
+                of assets that you had to create anyway.
+            </p>
+
+            <p>
+                AndroMDA provides several cartridges out-of-the-box. For example, the NHibernate
+                and NSpring cartridges generate robust service and data layers for your application.
+                In addition, database schema can be exported to script files, allowing the creation
+                of your application's database. There is also an easy way to map your model to an
+                existing schema if your database has already been defined. If you wish to generate
+                custom artifacts from your model you can write a custom cartridge to accomplish
+                this.
+            </p>
+        </section>
+        <section name="When to use AndroMDA?">
+
+            <p>
+                AndroMDA is an extremely useful tool, but you should know when to use it.
+            </p>
+        </section>
+        <section name="AndroMDA is a great choice when">
+            <ul>
+                <li>You are starting a new project</li>
+                <li>You want to save time by generating as much code as possible</li>
+                <li>You are building an application that stores its data in a database</li>
+            </ul>
+        </section>
+        <section name="AndroMDA might not be the best choice if">
+            <ul>
+                <li>Your applicaiton uses an existing database that cannot be easily mapped to an object
+                    model (for example, it does not use primary keys and object relationships are not
+                    clear)
+                </li>
+                <li>You already have a mature application with existing business objects and the incremental
+                    effort to model existing components is too high to provide enough value
+                </li>
+            </ul>
+        </section>
+        <section name="What's Next?">
+
+            <p>
+                Now that you understand what AndroMDA is and when you should use it, let's review
+                some foundational concepts that form the basis of modern enterprise applications.
+                After reviewing these concepts we will discuss how AndroMDA implements them in the
+                applications it generates. Click <a href="application-architecture.html">here</a> to explore this topic.
+            </p>
+
+        </section>
+    </body>
+</document>

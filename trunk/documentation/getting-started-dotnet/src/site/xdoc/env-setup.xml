@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Environment Setup</title>
+    </properties>
+    <body>
+        <section name="Environment Setup">
+
+            <p>
+                Here we will download and install the components required for development with AndroMDA.
+                This tutorial assumes that you have:
+            </p>
+            <ul>
+                <li>
+                    <strong>Microsoft Visual Studio 2005</strong>
+                    installed. Note that the Express edition
+                    will
+                    <strong>not</strong>
+                    work as it does not have add-in support.
+                </li>
+                <li>
+                    <strong>Microsoft SQL Server</strong>
+                    installed. Any version will work (2000, 2005,
+                    MSDE, etc.)
+                </li>
+            </ul>
+
+            <p>
+                There are a number of directories involved with the various pieces of software installed.
+                The default installation paths for these programs are listed below. Please feel
+                free to change the installation paths depending on your configuration and personal
+                preferences. For exampl, you may choose to install programs on the D: drive isntead
+                of the C: drive. However, note that some programs don't work well if there are spaces
+                in their pathname so it is advisable to stick to the general recommendations listed
+                below.
+            </p>
+            <table>
+                <tr>
+                    <th>
+                        Default/Recommended Path
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Java\jre1.6.0_xx</code>
+                    </td>
+                    <td>Java Runtime Engine (xx is the update number)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Java\jdk1.6.0_xx</code>
+                    </td>
+                    <td>Java Development Kit (xx is the update number)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Documents and Settings\<strong>your user name</strong>\.m2
+                        </code>
+                    </td>
+                    <td>Maven local repository</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
+                    </td>
+                    <td>Maven</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Microsoft SQL Server</code>
+                    </td>
+                    <td>Microsoft SQL Server</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Microsoft Visual Studio 8</code>
+                    </td>
+                    <td>Microsoft Visual Studio</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\Android VS</code>
+                    </td>
+                    <td>Android/VS</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>C:\Program Files\MagicDraw UML Community Edition</code>
+                    </td>
+                    <td>MagicDraw</td>
+                </tr>
+            </table>
+            <p>
+                As you follow the software install instructions select the default options in the
+                installers unless otherwise instructed.
+            </p>
+        </section>
+        <section name="Install the Java Runtime">
+            <p>
+                AndroMDA is written in Java and needs the Java runtime to execute.<strong>Don't get
+                nervous</strong>, you won't have to worry about it after it is installed or
+                write any Java code.
+            </p>
+            <p>
+                <ol>
+                    <li>Download either the
+                        <b>JRE 6.0</b>
+                        from
+                        <a href="http://java.com/de/download/index.jsp">http://java.com/de/download/index.jsp</a>
+                        or the
+                        <b>J2SE Development Kit 6.0</b>
+                        from
+                        <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">
+                            http://www.oracle.com/technetwork/java/javase/downloads/index.html
+                        </a>
+                    </li>
+                    <li>Run the installer</li>
+                </ol>
+            </p>
+        </section>
+        <section name="Install Maven">
+            <p>
+                Maven is a build tool similar to
+                <a href="http://ant.apache.org/">ant</a>
+                and<a
+                    href="http://nant.sf.net/">nant</a>. It is used to run AndroMDA.
+            </p>
+            <p>
+                <ol>
+                    <li>Download the Maven binary zip from<a href="http://maven.apache.org/download.html">
+                        http://maven.apache.org/download.html</a>. At the time of this writing this is<b>apache-maven-2.2.1-bin.zip</b>.
+                    </li>
+                    <li>Create a folder for maven (example:
+                        <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
+                    </li>
+                    <li>Unpack the maven zip into this folder</li>
+                </ol>
+            </p>
+        </section>
+        <section name="Configure the Environment">
+            <p>
+                <ol>
+                    <li>Open the windows
+                        <strong>Control Panel</strong>
+                        then the
+                        <strong>System</strong>
+                        control panel. Click the
+                        <strong>Advanced</strong>
+                        tab and click the
+                        <strong>Environment
+                            Variables
+                        </strong>
+                        button. Ensure the following environment variables are set:
+                        <table class="envtable">
+                            <tr>
+                                <th>
+                                    Variable
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                                <th>
+                                    Example
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>M2_HOME</code>
+                                </td>
+                                <td>Maven installation directory</td>
+                                <td>
+                                    <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
+                                </td>
+                            </tr>
+                            <tr class="altrow">
+                                <td>
+                                    <code>JAVA_HOME</code>
+                                </td>
+                                <td>Java installation directory</td>
+                                <td>
+                                    <code>C:\Program Files\Java\jdk1.6.0_xx</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>PATH</code>
+                                </td>
+                                <td>The system search path. You need to add the M2_HOME\bin and JAVA_HOME\bin to the path.</td>
+                                <td>
+                                    <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>It is recommended you restart after making these changes</li>
+                </ol>
+            </p>
+        </section>
+        <section name="Install MagicDraw 9.5/16.5 Community Edition">
+
+            <p>
+                AndroMDA reads UML 1.4 models that have been saved in XMI 1.2 format and UML 2.0 models saved in uml2.2 format. MagicDraw
+                9.5 is a UML 1.4 modeling tool that saves XMI model files. MagicDraw 11.x and newer is a UML 2 modeling tool that saves uml model files.
+            </p>
+            <p>
+                <ol>
+                    <li>Download the MagicDraw 16.8 (or newer) Community Edition installer from<a
+                            href="http://www.magicdraw.com/main.php?ts=download_democmd_show_community=1menu=download_community">
+                        http://www.magicdraw.com/</a>.
+                    </li>
+                    <li>Run the installer.&nbsp; Make sure to select the install application specific JRE
+                        option.
+                    </li>
+                    <li>Run MagicDraw</li>
+                    <li>Click the Options menu and select Environment.&nbsp; Select the Path Variables option
+                        in the tree on the left.
+                    </li>
+                    <li>Click the Add button and enter the values below. Be sure to replace
+                        <b>your user
+                            name
+                        </b>
+                        with your system username.
+                        <table>
+                            <tr>
+                                <th>
+                                    Field Name
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>maven2.repository</td>
+                            </tr>
+                            <tr class="altrow">
+                                <td>Value</td>
+                                <td>
+                                    <code>C:\Documents and Settings\<b>your user name</b>\.m2\repository
+                                    </code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>Maven 2 Repository</td>
+                            </tr>
+                        </table>
+                        <div align="center">
+                            <img src="screenshots/MagicDrawConfig.gif" alt="MagicDraw Environment Config Screenshot"/>
+                        </div>
+                    </li>
+                    <li>
+                        <i>(optional)</i>
+                        In the main MagicDraw window select
+                        <strong>Options</strong>
+                        |
+                        <strong>Look and Feel</strong>
+                        |
+                        <strong>Windows</strong>
+                        to enable a more windows-like
+                        interface.
+                    </li>
+                </ol>
+            </p>
+        </section>
+        <section name="Install Android/VS">
+
+            <p>Android/VS is a Visual Studio 2005 add-in that makes working with AndroMDA and Visual Studio much easier.</p>
+            <p>
+                <ol>
+                    <li>Download the latest version of the Android/VS installer from
+                        <a href="http://sourceforge.net/project/showfiles.php?group_id=154568">
+                            http://sourceforge.net/projects/andromdaplugins/files/Android_VS/
+                        </a>
+                    </li>
+                    <li>Run the installer</li>
+                </ol>
+            </p>
+        </section>
+    </body>
+</document>
