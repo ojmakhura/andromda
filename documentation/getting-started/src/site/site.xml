@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Getting started">
+<project name="Getting started Java">
     <skin>
         <groupId>org.andromda.maven.plugins.site</groupId>
         <artifactId>andromda-site-skin</artifactId>
@@ -10,18 +10,18 @@
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
 	<body>
-        <menu name="Getting Started">
-            <item name="Introduction" href="/java/index.html"/>
-            <item name="Sample Application" href="/java/sample-application.html"/>
-            <item name="Environment Setup" href="/java/env-setup.html"/>
-            <item name="Starter App" href="/java/create-application.html"/>
-            <item name="Entities" href="/java/create-entity.html"/>
-            <item name="Value Objects" href="/java/create-value-object.html"/>
-            <item name="Services" href="/java/create-service.html"/>
-            <item name="Console App" href="/java/create-console-app.html"/>
-            <item name="Associations" href="/java/create-association.html"/>
-            <item name="Complete the Model" href="/java/complete-timetracker-model.html"/>
-            <item name="Enhance Console App" href="/java/enhance-console-app.html"/>
+        <menu name="Getting Started Java">
+            <item name="Introduction" href="index.html"/>
+            <item name="Sample Application" href="sample-application.html"/>
+            <item name="Environment Setup" href="env-setup.html"/>
+            <item name="Starter App" href="create-application.html"/>
+            <item name="Entities" href="create-entity.html"/>
+            <item name="Value Objects" href="create-value-object.html"/>
+            <item name="Services" href="create-service.html"/>
+            <item name="Console App" href="create-console-app.html"/>
+            <item name="Associations" href="create-association.html"/>
+            <item name="Complete the Model" href="complete-timetracker-model.html"/>
+            <item name="Enhance Console App" href="enhance-console-app.html"/>
         </menu>
         <menu ref="reports"/>
   	</body>
