@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Core">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name/>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+    <body>
+        <menu ref="parent"/>
+        <menu name="App Generator">
+            <item name="Core" href="../../../andromda-andromdapp-core/index.html"/>
+            <item name="Projects" href="../../index.html"/>            
+            <item name="J2EE Generator" href="/index.html"/>
+            <item name="RichClient Generator" href="../../richclient/andromda-andromdapp-project-richclient-ant/index.html"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>

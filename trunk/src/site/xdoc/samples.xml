@@ -16,13 +16,14 @@
                 includes several:
                 <ul>
                     <li>
+                        <a href="andromda-documentation/andromda-getting-started-java/java/index.html">Timetracker</a>
+                    </li>
+                    <li>
                         <a href="animal-quiz.html">Animal Quiz</a>
                     </li>
-                    <!--
                     <li>
                         <a href="car-rental-system.html">Car Rental System</a>
                     </li>
-                    -->
                     <li>
                         <!--
                         use this instead when the page is present: <a href="online-store.html">Online Store</a>
@@ -136,7 +137,7 @@
                     <strong>MUST</strong> install
                     <a href="http://maven.apache.org">Maven2</a>.
                     To build all, just change to the samples directory, and type
-                    <em>maven</em>.
+                    <em>mvn</em>.
                     To build a single sample (i.e. animal-quiz), just change to the samples/animal-quiz
                     directory and again type
                     <em>maven</em>.  That's all there is too it!
@@ -158,8 +159,8 @@
             </subsection>
             <subsection name="Need more help?">
                 <p>
-                    In case of difficulties, please subscribe to the
-                    <a href="http://lists.sourceforge.net/lists/listinfo/andromda-user">andromda-user</a> mailing list
+                    In case of difficulties, please view the forum at
+                    <a href="http://galaxy.andromda.org/forum">http://galaxy.andromda.org/forum</a> 
                     and post your questions there.
                 </p>
             </subsection>
