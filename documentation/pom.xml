@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -15,7 +16,7 @@
     <scm>
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/documentation</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/documentation</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
+        <url>http://andromda.svn.sourceforge.net/viewvc/andromda/trunk/documentation</url>
     </scm>
     <modules>
         <module>samples/timetracker</module>
@@ -24,5 +25,6 @@
         <module>samples/timetracker-ejb3</module>
         -->
         <module>getting-started</module>
+        <module>getting-started-dotnet</module>
     </modules>
 </project>

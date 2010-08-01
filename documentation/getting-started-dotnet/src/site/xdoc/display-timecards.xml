@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Display Timecards</title>
+    </properties>
+    <body>
+        <section name="Display Timecards">
+            <p>
+                Now that we have our model created and saved, we can write some code to see some
+                results. First we will generate code with AndroMDA, and then we will implement the
+                <strong>GetAllTimecards</strong>
+                service method. After that we will export the schema
+                to our TimeTracker database and finally we will create a screen that lists all the
+                timecards in the database. Please note the TimeTracker completed sample is available
+                here:<a href="Northwind.TimeTracker.zip">Northwind.TimeTracker.zip</a>.
+            </p>
+        </section>
+        <section name="Generate Code">
+
+            <p>
+                First we will generate code from our model. Switch to Visual Studio and you can
+                either select the
+                <strong>Build</strong>
+                |
+                <strong>Rebuild All</strong>
+                option or
+                you can click the
+                <strong>Generate</strong>
+                <img src="screenshots/VS2005Generate.jpg" alt="Generate"/>
+                button. This will run AndroMDA inside a Visual Studio tool window and generate the
+                entity classes, hibernate mappings, data access objects, and service interfaces
+                and base classes.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="screenshots/VS2005GeneratedFiles.jpg" alt="GeneratedFiles"/>
+                </div>
+            </p>
+
+            <p>
+                When this operation is complete you will see a number of files generated. Files
+                that you don't need to edit and are always generated are placed in the
+                <strong>target</strong>
+                directory. Files that require you to fill in some code will be placed in the
+                <strong>
+                    src
+                </strong>
+                directory if they don't exist. If they do exist they will not be
+                overwritten so your changes will be preserved.
+            </p>
+
+        </section>
+        <section name="Writing the Entity to VO Conversion Code">
+
+            <p>
+                The first thing we need to do is write some code that will convert between
+                <strong>Timecard</strong>
+                entities and
+                <strong>TimecardVO</strong>
+                value objects.
+            </p>
+            <ol>
+                <li>Open the
+                    <strong>TimecardDaoImpl.cs</strong>
+                    file.
+                </li>
+                <li>Note the generated file already has created the method stubs ready for us to implement.
+                    Fill these methods in. Your final code should look like this:
+                    <pre>
+                        using Northwind.TimeTracker.VO;
+
+                        public class TimecardDaoImpl : TimecardDaoBase
+                        {
+                            public override TimecardVO ToTimecardVO(Timecard entity)
+                            {
+                                // Entity to VO conversion
+                                TimecardVO valueObject = new TimecardVO();
+
+                                valueObject.StartDate = entity.StartDate;
+                                valueObject.Comments = entity.Comments;
+                                valueObject.Id = entity.Id;
+
+                                return valueObject;
+                            }
+
+                            public override Timecard TimecardVOToEntity(TimecardVO timecardVO)
+                            {
+                                // VO to entity conversion
+                                Timecard entity = Timecard.Factory.newInstance();
+
+                                entity.StartDate = timecardVO.StartDate;
+                                entity.Comments = timecardVO.Comments;
+
+                                return entity;
+                            }
+                        }
+                    </pre>
+                </li>
+            </ol>
+        </section>
+        <section name="Implement the Service Method">
+
+            <p>
+                Now we can implement the method in our<strong>TimeTrackingService</strong>.
+            </p>
+            <ol>
+                <li>Open the
+                    <strong>TimeTrackingServiceImpl.cs</strong>
+                    file.
+                </li>
+                <li>Note the generated file already has created the method stubs ready for us to implement.
+                    In addition, the service base class already has a method called<strong>GetAllTimecards()</strong>.
+                    When called, it will start a NHibernate transaction and then call our method:<strong>
+                        HandleGetAllTimecards()</strong>. Here is one example implementation of the
+                    <strong>GetAllTimecards</strong>
+                    method:
+                    <pre>
+                        using System.Collections;
+                        using Northwind.TimeTracker.VO;
+
+                        public class TimeTrackingServiceImpl : TimeTrackingServiceBase
+                        {
+                            protected override TimecardVO[] HandleGetAllTimecards()
+                            {
+                                IList timecards = this.TimecardDao.LoadAll();
+                                IList timecardVOs = this.TimecardDao.ToTimecardVOList(timecards);
+                                TimecardVO[] voarray = new TimecardVO[timecardVOs.Count];
+                                timecardVOs.CopyTo(voarray, 0);
+                                return voarray;
+                            }
+                        }
+                    </pre>
+                </li>
+            </ol>
+        </section>
+        <section name="Generate Database Schema">
+            <p>
+                Now we will generate the database schema to store the timecards.
+            </p>
+            <ol>
+                <li>Click the
+                    <strong>Export Schema</strong>
+                    <img src="screenshots/VS2005Generate.jpg" alt="Generate" />
+                    button. This will run the schema export console project in Visual Studio. The AndroMDA
+                    Visual Studio add-in defaults are set to pass the export option so it will write
+                    the schema to your database.
+                </li>
+                <li>After the schema is created, we need to create some test data. Run the following
+                    SQL in any tool (query analyzer, management studio, Toad, etc.) You can also run
+                    the
+                    <strong>database/testdata.sql</strong>
+                    file that is in the completed downloadable
+                    solution.
+                    <pre>
+                        DELETE FROM TIMECARD
+                        DELETE FROM AppUser
+                        SET IDENTITY_INSERT AppUser ON
+                        INSERT INTO AppUser (ID, UserName, Password, Email, IsActive, Comment, CreationDate)
+                        VALUES (1, 'bob', 'n/a', 'bob@bob.net', 1, '', getdate())
+                        SET IDENTITY_INSERT AppUser OFF
+                        SET IDENTITY_INSERT TIMECARD ON
+                        INSERT INTO TIMECARD (ID, START_DATE, COMMENTS, SUBMITTER_FK)
+                        VALUES (1, getdate(), 'This is the first timecard', 1)
+                        INSERT INTO TIMECARD (ID, START_DATE, COMMENTS, SUBMITTER_FK)
+                        VALUES (2, getdate(), 'This is another timecard', 1)
+                        SET IDENTITY_INSERT TIMECARD OFF
+                        GO
+                    </pre>
+                </li>
+            </ol>
+        </section>
+        <section name="Create a Test Page">
+            <p>
+                Now that we have our service code, database schema, and test data we can create
+                a web page that lists all the timecards.
+            </p>
+            <ol>
+                <li>Right click on the web project
+                    <strong>Northwind.TimeTracker.Web</strong>
+                    and select
+                    <strong>Add new item</strong>
+                </li>
+                <li>Select
+                    <strong>Web Form</strong>
+                    and accept the default name of
+                    <strong>Default.aspx</strong>
+                    by clicking<strong>Add</strong>.
+                </li>
+                <li>Add a grid to the page by adding the following code to<strong>Default.aspx</strong>:
+                    <pre>
+                        &lt;asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false"&gt;
+                        &lt;Columns&gt;
+                        &lt;asp:BoundField DataField="ID" HeaderText="ID"/&gt;
+                        &lt;asp:BoundField DataField="StartDate" HeaderText="StartDate"/&gt;
+                        &lt;asp:BoundField DataField="Comments" HeaderText="Comments"/&gt;
+                        &lt;/Columns&gt;
+                        &lt;/asp:GridView&gt;
+                    </pre>
+                </li>
+                <li>Add the code to get the timecards and bind to the grid by adding the following code
+                    to<strong>Default.aspx.cs</strong>:
+                    <pre>
+                        using Northwind.TimeTracker.Service;
+                        using Northwind.TimeTracker.VO;
+
+                        public partial class _Default : System.Web.UI.Page
+                        {
+                            protected void Page_Load(object sender, EventArgs e)
+                            {
+                                if (!IsPostBack)
+                                {
+                                    ITimeTrackingService service = new TimeTrackingServiceImpl();
+                                    TimecardVO[] timecards = service.GetAllTimecards();
+                                    GridView1.DataSource = timecards;
+                                    GridView1.DataBind();
+                                }
+                            }
+                        }
+                    </pre>
+                </li>
+                <li>Right click on the web project and select
+                    <strong>View in browser</strong>
+                </li>
+            </ol>
+            <p>
+                You should see a list of 2 timecards. Congratulations, you have created your first
+                application using AndroMDA!
+            </p>
+        </section>
+    </body>
+</document>

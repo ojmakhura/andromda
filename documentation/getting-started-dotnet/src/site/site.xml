@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Getting started">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name/>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+        <menu name="Getting Started dotNet">
+            <item name="Introduction" href="index.html"/>
+            <item name="Application Architecture" href="application-architecture.html"/>
+            <item name="Sample Application" href="sample-application.html"/>
+            <item name="Environment Setup" href="env-setup.html"/>
+            <item name="Starter App" href="create-application.html"/>
+            <item name="Entities" href="create-entity.html"/>
+            <item name="Value Objects" href="create-value-object.html"/>
+            <item name="Services" href="create-service.html"/>
+            <item name="Display Timecards" href="display-timecards.html"/>
+        </menu>
+        <menu ref="reports"/>
+  	</body>
+</project>

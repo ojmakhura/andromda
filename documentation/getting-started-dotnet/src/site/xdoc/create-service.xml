@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Services</title>
+    </properties>
+    <body>
+        <section name="Services">
+
+            <p>
+                We now have the the entities and value objects modeled and we need to add services
+                that will operate on these objects. Here we will create the<strong>TimeTrackingService</strong>.
+                For this tutorial we will create one method on the service called
+                <strong>GetAllTimecards</strong>
+                method which will return all the timecards in the system. The model for the
+                <strong>
+                    TimeTrackingService
+                </strong>
+                looks like this:
+            </p>
+
+            <div align="center">
+                <img src="Images/SimpleServiceDiagram.jpg" alt="Service Diagram"/>
+            </div>
+            <ol>
+                <li>Create a new diagram by right clicking on the
+                    <b>Service</b>
+                    package and clicking
+                    <strong>New Diagram</strong>
+                    |<strong>Class Diagram</strong>. Set the name of the
+                    diagram to
+                    <strong>Service Diagram</strong>
+                    and click<strong>Ok</strong>.
+                </li>
+                <li>Click the
+                    <strong>Class</strong>
+                    tool
+                    <img src="screenshots/MagicDrawClassTool.jpg" alt="Class Tool"/>
+                    in the toolbar and make a new class on the surface. Double click on the class, name
+                    it<strong>TimeTrackingService</strong>, and add the
+                    <strong>Service</strong>
+                    stereotype
+                    to it.
+                </li>
+                <li>Right click on the
+                    <strong>TimeTrackingService</strong>
+                    class and select<strong>
+                        Insert New Operation</strong>. Add a method called
+                    <strong>GetAllTimecards()</strong>
+                    that returns type<strong>TimecardVO[]</strong>.
+                    <p>
+                        <i>Note</i>: Sometimes if you type
+                        <strong>TimecardVO[]</strong>
+                        on the diagram
+                        surface, MagicDraw will set the type to
+                        <strong>TimecardVO</strong>
+                        with a return
+                        type modifier of<strong>[]</strong>. This is incorrect, as you want the return
+                        type to be
+                        <strong>TimecardVO[]</strong>
+                        with no return type modifier set. This
+                        can be changed by double clicking on the method name and using the
+                        <strong>Operation
+                            Specification
+                        </strong>
+                        dialog.
+                    </p>
+                </li>
+                <li>Drag the
+                    <strong>Timecard</strong>
+                    class onto the diagram. Click the
+                    <strong>Dependency</strong>
+                    tool
+                    <img src="screenshots/MagicDrawDependencyTool.jpg" alt="Dependency Tool"/>
+                    and draw a dependency from the
+                    <strong>TimeTrackingService</strong>
+                    class to the
+                    <strong>Timecard</strong>
+                    class. Adding this dependency tells AndroMDA to make it
+                    easy to access the timecard data access class from methods inside in the
+                    <strong>TimeTrackingService</strong>
+                    class.
+                </li>
+                <li>Save your model by clicking the
+                    <strong>Save</strong>
+                    <img src="screenshots/MagicDrawSaveTool.jpg" alt="Save Tool"/>
+                    tool.
+                </li>
+            </ol>
+        </section>
+    </body>
+</document>
