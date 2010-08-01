@@ -5,7 +5,10 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">			
-			<action dev="catforce" type="fix" issue="CORE-118,CORE-145">
+			<action dev="catforce,bobfields" type="update">
+                 Updated documentation of Andromda
+            </action>
+            <action dev="catforce" type="fix" issue="CORE-118,CORE-145">
                  Fix implementation of  ResourceUtils.writeUrlToFile.
             </action>      
         	<action dev="catforce" type="fix" issue="ANDROMDAPP-50">
