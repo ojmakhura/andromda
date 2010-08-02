@@ -47,7 +47,6 @@
         </namespace>
         <namespace name="ejb3">
             <properties>
-                <property name="overwrite">true</property>
                 <property name="dataSourceName">DefaultDS</property>
                 <property name="dataSource">java:/DefaultDS</property>
                 <property name="username">auser</property>
