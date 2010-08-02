@@ -38,7 +38,12 @@
 #**##foreach($envEntry in $service.getEnvironmentEntries(true))
             <env-entry>
                 <env-entry-name>${envEntry.name}</env-entry-name>
-                <env-entry-type>#if ($envEntry.type.primitive)${envEntry.type.wrapperName}#else${envEntry.type.fullyQualifiedName}#end</env-entry-type>
+#if ($envEntry.type.primitive)
+#set ($typeName = ${envEntry.type.wrapperName})
+#else
+#set ($typeName = ${envEntry.type.fullyQualifiedName})
+#end
+                <env-entry-type>$converter.getJavaLangTypeName($typeName)</env-entry-type>
                 <env-entry-value>${envEntry.defaultValue.replace('"','')}</env-entry-value>
             </env-entry>
 #**##end
@@ -137,7 +142,12 @@
 #**##foreach($envEntry in $mdb.getEnvironmentEntries(true))
             <env-entry>
                 <env-entry-name>${envEntry.name}</env-entry-name>
-                <env-entry-type>#if ($envEntry.type.primitive)${envEntry.type.wrapperName}#else${envEntry.type.fullyQualifiedName}#end</env-entry-type>
+#if ($envEntry.type.primitive)
+#set ($typeName = ${envEntry.type.wrapperName})
+#else
+#set ($typeName = ${envEntry.type.fullyQualifiedName})
+#end
+                <env-entry-type>$converter.getJavaLangTypeName($typeName)</env-entry-type>
                 <env-entry-value>${envEntry.defaultValue.replace('"','')}</env-entry-value>
             </env-entry>
 #**##end
