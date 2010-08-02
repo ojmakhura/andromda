@@ -158,7 +158,7 @@ class EJBMetafacadeUtils
      * @param classifier the classifier from which to retrieve the env-entries
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
      *                   env-entries.
-     * @return the collection of enviroment entries
+     * @return the collection of environment entries
      */
     static Collection getEnvironmentEntries(ClassifierFacade classifier, boolean follow)
     {
@@ -193,7 +193,7 @@ class EJBMetafacadeUtils
      * @param classifier the classifier from which to retrieve the constants
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
      *                   constants.
-     * @return the collection of enviroment entries
+     * @return the collection of environment entries
      */
     static Collection getConstants(ClassifierFacade classifier, boolean follow)
     {

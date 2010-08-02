@@ -343,7 +343,7 @@ public class Axis2ClientUtils
     private static final String XSI_PREFIX = "xsi";
 
     /**
-     * Used to seperate a namespace prefix and name in a QName.
+     * Used to separate a namespace prefix and name in a QName.
      */
     private static final String NS_SEPARATOR = ":";
 

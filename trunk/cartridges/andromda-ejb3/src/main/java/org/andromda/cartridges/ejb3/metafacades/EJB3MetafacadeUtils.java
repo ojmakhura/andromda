@@ -167,13 +167,13 @@ class EJB3MetafacadeUtils
 
     /**
      * Gets all environment entries for the specified <code>classifier</code>. If <code>follow</code> is true, then a
-     * search up the inheritance hierachy will be performed and all super type environment entries will also be
+     * search up the inheritance hierarchy will be performed and all super type environment entries will also be
      * retrieved.
      *
      * @param classifier the classifier from which to retrieve the env-entries
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
      *                   env-entries.
-     * @return the collection of enviroment entries
+     * @return the collection of environment entries
      */
     static Collection<AttributeFacade> getEnvironmentEntries(
             ClassifierFacade classifier,
@@ -275,7 +275,7 @@ class EJB3MetafacadeUtils
      * @param classifier the classifier from which to retrieve the constants
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
      *                   constants.
-     * @return the collection of enviroment entries
+     * @return the collection of environment entries
      */
     static Collection getConstants(
             ClassifierFacade classifier,
