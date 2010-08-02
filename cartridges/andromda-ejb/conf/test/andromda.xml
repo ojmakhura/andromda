@@ -18,6 +18,7 @@
   <namespaces>
     <namespace name="default">
       <properties>
+        <property name="overwrite">true</property>
         <property name="languageMappingsUri">Java</property>
         <property name="wrapperMappingsUri">JavaWrapper</property>
         <property name="enableTemplating">false</property>
@@ -32,7 +33,6 @@
     </namespace>
     <namespace name="ejb">
       <properties>
-        <property name="overwrite">true</property>
         <property name="jdbcMappingsUri">JDBC</property>
         <property name="sqlMappingsUri">Oracle9i</property>
         <property name="entity-beans">${test.output.dir}</property>

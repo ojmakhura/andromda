@@ -17,8 +17,7 @@
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
     
-    <!-- cartridge-templateObject merge-point-->
-
+    <property reference="toDoTag"/>
     <property reference="driver"/>
     <property reference="username"/>
     <property reference="password"/>
@@ -81,6 +80,7 @@
         overwrite="true"
         lastModifiedCheck="true"/>
         
+    <!-- cartridge-templateObject merge-point-->
     
     <!-- Entity Bean Templates -->
 
