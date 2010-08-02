@@ -11,14 +11,10 @@
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
 	<body>
     	<menu ref="parent"/>
-		<!--menu name="Overview">
-			<item name="About" href="/index.html"/>
-			<item name="Developing" href="/developing.html"/>
-			<item name="Configuring" href="/configuring.html"/>
-    	</menu-->
     	<menu name="Available Plugins">
             <item name="Andromda" href="/andromda-maven-plugin/index.html"/>
             <item name="Andromdapp" href="/andromdapp-maven-plugin/index.html"/>
+            <item name="Andromdanetapp" href="/andromdanetapp-maven-plugin/index.html"/>
             <item name="Model Archiver" href="/andromda-model-archiver-plugin/index.html"/>
             <item name="Beautifier" href="/andromda-beautifier-plugin/index.html"/>
             <item name="Bootstrap" href="/andromda-bootstrap-plugin/index.html"/>
