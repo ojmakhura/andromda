@@ -1,5 +1,5 @@
 <andromda xmlns="http://andromda.org/core/configuration">
-    <!-- See http://galaxy.andromda.org/docs/configuration.html for andromda.xml properties documentation -->
+    <!-- See http://docs.andromda.org/configuration.html for andromda.xml properties documentation -->
     <properties>
         <property name="modelValidation">${validation}</property>
         <property name="xmlValidation">true</property>
@@ -74,7 +74,7 @@
       of any *.xml files in the search locations (instead of having to specify explicit paths...).
       Except for 'profileMappingsUri', this approach did not seem to work as there is no
       "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
-      See http://galaxy.andromda.org/docs/mappings.html.
+      See http://docs.andromda.org/mappings.html.
       A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
       It can be used to customize mappings from UML to Java datatypes used by all cartridges. -->
     <mappingsSearchLocations>
@@ -142,7 +142,7 @@
             </properties>
         </namespace>
 #if ($ejb)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-ejb-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-ejb-cartridge/namespace.html -->
         <namespace name="ejb">
             <properties>
                 <property name="entity-beans">${core.generated.dir}</property>
@@ -231,7 +231,7 @@
             </properties>
         </namespace>
 #elseif ($hibernate)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateVersion">$hibernateVersion</property>
@@ -270,7 +270,7 @@
             </properties>
         </namespace>
 #elseif ($spring)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
         <namespace name="spring">
             <properties>
 #if ($groovy)
@@ -337,7 +337,7 @@
 #end
             </properties>
         </namespace>
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateEnableCache">false</property>
@@ -358,7 +358,7 @@
         </namespace>
 #end
 #if ($workflow)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-jbpm-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jbpm-cartridge/namespace.html -->
         <namespace name="jbpm">
             <properties>
                 <property name="definitions">${workflow.generated.dir}</property>
@@ -373,7 +373,7 @@
         </namespace>
 #end
 #if ($webservice && !$jsr181Webservice)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-webservice-cartridge/namespace.html -->
         <namespace name="webservice">
             <properties>
                 <property name="soapStack">$soapStack</property>
@@ -444,7 +444,7 @@
             </properties>
         </namespace>
 #end
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-java-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-java-cartridge/namespace.html -->
         <namespace name="java">
             <properties>
 #if ($cxf)
@@ -472,7 +472,7 @@
             </properties>
         </namespace>
 #if ($struts)
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html -->
         <namespace name="bpm4struts">
             <properties>
                 <property name="defaultDateFormat">MM/dd/yyyy</property>
@@ -522,7 +522,7 @@
             </properties>
         </namespace>
 #else
-        <!-- See http://galaxy.andromda.org/docs/andromda-cartridges/andromda-jsf-cartridge/namespace.html -->
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-jsf-cartridge/namespace.html -->
         <namespace name="jsf">
             <properties>
 #if ($webservice && !$jsr181Webservice && !$cxf)
