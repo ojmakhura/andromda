@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            TimeTracker Tour
+        </title>
+    </properties>
+    <body>
+        <section name="TimeTracker Tour">
+
+            <p>
+                Before we start building TimeTracker from scratch, let's take a test drive of the
+                finished application. This will give you a good feel for what you are about to embark
+                on and also give you some direction in case you get stuck. You will also get hands
+                on experience with various development procedures, such as administering MySQL and
+                JBoss. These will be helpful when you start building your application from scratch.
+            </p>
+
+            <p>
+                Follow these steps to build and run TimeTracker:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Download the source for the
+                    <a href="timetracker-completed.zip">
+                        finished application
+                    </a>
+                    and unzip it at <tt>C:\</tt>. You will get a directory
+                    called<tt>C:\timetracker-completed</tt>.
+                    <i>Note: If you decide to unzip the tutorial
+                        at a different location, make sure there are no spaces in your pathname - otherwise
+                        Maven will run into build problems.
+                    </i>
+                </li>
+                <li>If you downloaded a version of MySql driver other than 5.0.4, then you must edit
+                    the file<tt>C:\timetracker-completed\pom.xml</tt>. Look for the two instances
+                    of
+                    <tt>5.0.4</tt>
+                    and change them to the version of your MySQL driver.
+                </li>
+                <li>Open a Command Prompt in the directory <tt>C:\timetracker-completed</tt>.
+                </li>
+                <li>Execute the command
+                    <tt>mvn install</tt>
+                    to build the application. This step
+                    downloads all the libraries needed to build the TimeTracker application from remote
+                    Maven repositories. These libraries have been specified in the various
+                    <tt>pom.xml</tt>
+                    files under the TimeTracker source tree. Due to the sheer number and size of these
+                    libraries, this step will take a significant amount of time. However, be assured
+                    that your next build will be much faster because all the necessary dependencies
+                    will be available locally. Note that sometimes due to bad Internet connectivity
+                    or server load, Maven may not be able to download all dependencies in one go. If
+                    your build fails due to this reason, try to issue the command again until you get
+                    a successful build.
+                </li>
+                <li>Let this Command Prompt remain open for subsequent steps.</li>
+                <li>Now that we have built the application, let us create a database schema to store
+                    its data. We will create a schema called
+                    <tt>timetracker</tt>
+                    and a user called
+                    <tt>timetracker</tt>
+                    who has full access to this schema.
+                    <ul>
+                        <li>Open MySQL Administrator. Login in as root.</li>
+                        <li>Click
+                            <tt>Catalogs</tt>
+                            in the left navigation bar.
+                        </li>
+                        <li>Right click in the lower left panel (called Schemata) and select
+                            <tt>Create NewSchema</tt>.
+                        </li>
+                        <li>Enter the schema name as
+                            <tt>timetracker</tt>
+                            and click OK.
+                        </li>
+                        <li>Click
+                            <tt>User Administration</tt>
+                            in the left navigation bar.
+                        </li>
+                        <li>Click
+                            <tt>New User</tt>
+                            and add a new user called timetracker with password
+                            timetracker.
+                        </li>
+                        <li>Select the
+                            <tt>Schema Privileges</tt>
+                            tab and then click the timetracker schema.
+                        </li>
+                        <li>Click the
+                            <tt>&lt;&lt;</tt>
+                            button to assign all privileges to the timetracker
+                            user and click<tt>Apply Changes</tt>.
+                        </li>
+                        <li>Close MySQL Administrator.</li>
+                    </ul>
+                </li>
+                <li>Now let's populate the timetracker schema with the tables required by the application.
+                    To do this run the following command in the Command Prompt opened earlier:
+                    <br/>
+                    <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=create</tt>
+                </li>
+                <li>Now that the tables have been created we need to populate the tables with some sample
+                    data. Follow the steps below to do this:
+                    <ol style="list-style-type: decimal">
+                        <li>Open MySQL Query Browser. Login as timetracker.</li>
+                        <li>Select File &gt; OpenScript and open the following script file:
+                            <tt>C:\timetracker-completed\app\src\main\sql\static-data-insert.sql</tt>.
+                            Click the Execute button to on the top right to execute the script and populate
+                            static data in the database (users and tasks).
+                        </li>
+                        <li>Now open the script file
+                            <tt>test-data-insert.sql</tt>
+                            in the same directory
+                            and execute it. This will insert test data in the database (timecards and time allocations).
+                        </li>
+                        <li>Close MySQL Query Browser.</li>
+                    </ol>
+                </li>
+                <li>Let's start the JBoss server so we can deploy the TimeTracker application to it.
+                    To do this, open a second Command Prompt in the JBoss bin directory (<tt>C:\jboss-4.0.4\bin</tt>)
+                    and execute the command <tt>run</tt>. JBoss will take some time to start up.
+                    Wait for a message similar to this to make sure JBoss has started successfully:
+                    <br/>
+                    <tt>19:50:01,285 INFO [Server] JBoss (MX MicroKernel) [4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA
+                        date=200605151000)] Started in 39s:517ms</tt>.
+                </li>
+                <li>Now we are ready to deploy the finished application to the JBoss server. Go to the
+                    previous Command Prompt (in the directory <tt>C:\timetracker-completed</tt>)
+                    and execute the command:
+                    <br/>
+                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                    <br/>
+                    You will notice that the TimeTracker EAR (Executable Archive) file is copied over
+                    to the JBoss deploy directory (<tt>C:\jboss-4.0.4\server\default\deploy</tt>)
+                    and the JBoss console displays several messages indicating that it is deploying
+                    the application. Wait for a message similar to this to make sure TimeTracker has
+                    started successfully:
+                    <br/>
+                    <tt>19:59:53,767 INFO [EARDeployer] Started J2EE application: file:/D:/jboss-4.0.4/server/default/deploy/timetracker-1.0-SNAPSHOT.ear</tt>
+                </li>
+                <li>Now we are ready to test the application. Open a browser and make it point to http://localhost:8080/timetracker.
+                    (If you have changed the JBoss HTTP port, then replace 8080 with the appropriate
+                    port number.) The login page should appear.
+                </li>
+                <li>Enter
+                    <tt>nbhatia</tt>
+                    as the username and
+                    <tt>cooldude</tt>
+                    as the password.
+                    Click the
+                    <i>Login</i>
+                    button. The TimeTracker home page should appear with links
+                    to various sections of the application.
+                </li>
+                <li>Click on<i>Search Timecards</i>. The search screen should appear. Try changing
+                    the search criteria and click the
+                    <i>Search</i>
+                    button. The
+                    <i>Search Results</i>
+                    panel should show appropriate results. Note that the remaining TimeTracker screens
+                    are under construction.
+                </li>
+                <li>When you are satisfied with the TimeTracker tour, you may stop the JBoss Server
+                    by typing Control-C in the JBoss Command Prompt.
+                </li>
+                <li>We can now drop all the tables in the TimeTracker database in preparation of your
+                    turn to build the application from scratch. To do this, simply go to the first Command
+                    Prompt in the
+                    <tt>C:\timetracker-completed</tt>
+                    directory and excute the following
+                    command:
+                    <br/>
+                    <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=drop</tt>
+                </li>
+            </ol>
+            <p>
+                Well, now that you have seen the TimeTracker application in action, are you ready
+                to recreate it from scratch? I am hearing a resounding yes! Alright, click
+                <a href="development-approach.html">here</a> to go ahead.
+            </p>
+        </section>
+    </body>
+</document>

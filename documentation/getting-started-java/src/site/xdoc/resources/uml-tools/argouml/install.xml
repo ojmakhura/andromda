@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="tfmorris@tigris.org">Tom Morris</author>
         <title>ArgoUML Installation</title>
+        <author email="tfmorris@tigris.org">Tom Morris</author>
     </properties>
 
     <body>
-
         <section name="ArgoUML Insallation">
             <p>
                 This page provides directions to download and install ArgoUML,
@@ -20,19 +19,16 @@
                 is not affiliated with ArgoUML in any way.
             </p>
 
-            <p>
-                Follow the instructions below to install ArgoUML.
-                <ol>
-                  <li>Go to the
-                      <a href="http://argouml.tigris.org/" >
-                      ArgoUML release site</a>
-                  </li>
-                  <li>
-                      Download and install ArgoUML for your machine.
-                  </li>
-                </ol>
-            </p>
+            <p>Follow the instructions below to install ArgoUML.</p>
+            <ol>
+              <li>Go to the
+                  <a href="http://argouml.tigris.org/" >
+                  ArgoUML release site</a>
+              </li>
+              <li>
+                  Download and install ArgoUML for your machine.
+              </li>
+            </ol>
         </section>
-
     </body>
 </document>

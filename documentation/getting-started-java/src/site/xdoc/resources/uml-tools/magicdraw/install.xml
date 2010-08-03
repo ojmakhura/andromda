@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="naresh@andromda.org">Naresh Bhatia</author>
         <title>MagicDraw Installation</title>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
     </properties>
 
     <body>
@@ -23,19 +24,17 @@
                 is not affiliated with MagicDraw in any way.
             </p>
 
-            <p>
-                Follow the instructions below to install MagicDraw 9.5 Community Edition.
-                <ul>
-                  <li>Go to the
-                      <a href="ftp://ftp.magicdraw.com/pub/MagicDraw/community_edition/9.5_sp1/" target="_blank">
-                      MagicDraw ftp site</a>
-                  </li>
-                  <li>
-                      Download and install MagicDraw 9.5 for your machine. <code>MD_UML_95_sp1_CE_win.exe</code>
-                      is the preferred installer for Windows machines.
-                  </li>
-                </ul>
-            </p>
+            <p>Follow the instructions below to install MagicDraw 9.5 Community Edition.</p>
+            <ul>
+              <li>Go to the
+                  <a href="ftp://ftp.magicdraw.com/pub/MagicDraw/community_edition/9.5_sp1/">
+                  MagicDraw ftp site</a>
+              </li>
+              <li>
+                  Download and install MagicDraw 9.5 for your machine. <code>MD_UML_95_sp1_CE_win.exe</code>
+                  is the preferred installer for Windows machines.
+              </li>
+            </ul>            
         </section>
 
     </body>

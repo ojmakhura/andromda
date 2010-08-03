@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserVO
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserVO">
+
+            <p>
+                This page provides directions to create the
+                <tt>UserVO</tt>
+                using ArgoUML.
+                The model is shown below for your reference.
+            </p>
+
+            <div align="center">
+                <img src="images/UserVO.png" alt="UserVO"/>
+            </div>
+            <p>
+                <img src="images/VoPackage.png" alt="Containment Tree"/>
+            </p>
+            <p>
+                We will create
+                <tt>UserVO</tt>
+                and
+                <tt>UserVO[]</tt>
+                in a package named
+                <tt>org.andromda.timetracker.vo</tt>. When finished, the containment tree in
+                ArgoUML will look like the screen shot on the right.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Start ArgoUML.</li>
+                <li>Select FileOpen Project... and traverse to the location that you where you
+                    saved the AndroMDA profile. (If you didn't save the profile locally yet, get it
+                    now from<a
+                               href="http://argouml.tigris.org/source/browse/*checkout*/argouml/trunk/src/model-mdr/src/org/argouml/model/mdr/profiles/andromda-profile-32-noextensions.xmi">
+                        this link</a>.) Click Open to open this model and then choose
+                    FileSave As... and save in the newly created AndroMDA project at
+                    C:/timetracker/mda/src/main/uml/timetracker.zargo
+                </li>
+                <li>It is critical to also update the root pom.xml to reference the proper model,
+                    more specifically you will need to make the
+                    <tt>model.uri</tt>
+                    element point to
+                    jar:file:${project.basedir}/src/main/uml/timetracker.zargo!/timetracker.xmi;
+                    you will need to do this because the default value points to a plain XMI file instead
+                    of the XMI file contained in a ZIP archive (the .zargo file saved by ArgoUML)
+                </li>
+                <li>The TimeTracker model will now open showing the only class diagram present in this
+                    model. The title of this diagram is &quot;DataTypes&quot;. This diagram contains
+                    platform independent datatypes that should be used in your UML model.
+                </li>
+                <li>In the Containment Tree on the left, click on the root element called Data
+                    to select it and change its name to &quot;TimeTracker&quot; in the property panel at the
+                    bottom of the screen. .
+                </li>
+                <li>Now right-click on the TimeTracker model and select Add Package. A new package will
+                    be created under the TimeTracker model element with no name so it is displayed
+                    as (unnamed Package). Select this new package and name it
+                    <tt>org.andromda.timetracker</tt>
+                    using the name field of the property panel.
+                    AndroMDA will map this package to a Java package with the same name.
+                    Note: Make sure the package name is exactly<tt>org.andromda.timetracker</tt>,
+                    with no leading or trailing spaces. We have found that some browsers introduce a
+                    leading space in the package name if you copy it from this page!
+                </li>
+                <li>Now create a package called
+                    <tt>vo</tt>
+                    under<tt>org.andromda.timetracker</tt>.
+                    We will create our value objects in this package. Note that AndroMDA does not require
+                    this package structure. We are doing it simply to separate our value objects from
+                    other type of objects such as business entities, services etc.
+                </li>
+                <li>In the Containment Tree on the left, right-click on the
+                    <tt>vo</tt>
+                    package
+                    and select Create DiagramNew Class Diagram. Select the newly created diagram
+                    (you may need to expand the vo package in the explorer tree to see it) and name it
+                    <tt>Value Objects</tt>. You should now have a blank diagram in the main editing
+                    pane.
+                </li>
+                <li>In the toolbar above the class diagram click on the Class tool .
+                    <img src="images/ToolNewClass.png" alt="Class Tool"/>
+                    Now click anywhere inside the diagram. A new class will be created. The class will
+                    be automatically selected as indicated by the 4 knobs around it. (If you somehow
+                    deselected the class, then select it again by clicking on it.) Now type the word
+                    &quot;UserVO&quot;. This word will be entered as the name of the class.
+                </li>
+                <li>Let's add some documentation for the
+                    <tt>UserVO</tt>
+                    class. It is always a good
+                    idea to document your model. Documentation added to model elements such as classes,
+                    attributes and methods is carried over to the code as comments. In the property
+                    panel at the bottom of the screen, click on the Documentation tab. Add the
+                    following sentence in the Documentation field: &quot;This class represents
+                    a value object that carries information about a TimeTracker user.&quot;
+                </li>
+                <li>Now add the stereotype
+                    <tt>ValueObject</tt>
+                    to class<tt>UserVO</tt>. To
+                    do this, right-click on the class and select Apply Stereotype. In the next level menu,
+                    check ValueObject. You can also do this by selecting the Stereotype tab on the
+                    property panel, selecting the ValueObject stereotype in the Available Stereotypes
+                    column and click the &gt;&gt; button to move it to the Applied Stereotypes
+                    column. Use whichever tool is most comfortable for your style of work.
+                    The
+                    <tt>UserVO</tt>
+                    class will now have the
+                    <tt>ValueObject</tt>
+                    stereotype.
+                    <img src="images/ApplyStereotype.png" alt="Apply Stereotype"/>
+                </li>
+                <li>Let's add
+                    <tt>id</tt>
+                    as an attribute of<tt>UserVO</tt>. Right-click on
+                    the
+                    <tt>UserVO</tt>
+                    class and select Insert New Attribute. A new attribute is
+                    inserted with the specification &quot;+newAttr : int&quot;. Write over this specification with
+                    this new one: &quot;+id : Long&quot; (be sure to delete the minus sign in front of the name).
+                    Note that attributes
+                    are always generated as private members of a class. However the visibilities of
+                    the associated getter and setter are determined by the visibility of the attribute
+                    specification. In this case we have specified public visibility (by using the plus
+                    sign) and hence the getter and setter for the
+                    <tt>id</tt>
+                    attribute will be
+                    public.
+                </li>
+                <li>Attributes can also be added from the property panel by using the New Attribute
+                    tool.
+                    <img src="images/ToolNewAttribute.png" alt="New Attribute Tool"/>
+                </li>
+                <li>Now add three more public attributes called<tt>username</tt>,
+                    <tt>firstName</tt>
+                    and
+                    <tt>lastName</tt>
+                    to the
+                    <tt>UserVO</tt>
+                    class. Make them
+                    <tt>String</tt>
+                    type.
+                </li>
+                <li>Add a new class to the diagram and name it<tt>UserVO[]</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown above exactly. (It is okay if
+                    your class shows an empty operation compartment. This can be hidden very easily).
+                </li>
+                <li>Make sure that the ArgoUML explorer pane matches the screen shot shown above.</li>
+                <li>Save your
+                    <tt>TimeTracker</tt>
+                    model by selecting File &gt; Save Project.
+                </li>
+            </ol>
+            <p>
+                Congratulations! You have now specified the
+                <tt>UserVO</tt>
+                value object of
+                the
+                <tt>TimeTracker</tt>
+                application. We are now ready to generate some code.
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+        </section>
+    </body>
+</document>

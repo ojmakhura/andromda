@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserService to User Dependency
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserService to User Dependency">
+
+            <p>
+                This page provides directions to create the dependency from
+                <tt>UserService</tt>
+                to
+                <tt>User</tt>
+                using RSM.
+            </p>
+
+
+            <ol style="list-style-type: decimal">
+                <li>Open the
+                    <tt>Services</tt>
+                    class diagram in the
+                    <tt>service</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>User</tt>
+                    class on to the
+                    diagram. Warning: It is important to bring in the existing
+                    <tt>User</tt>
+                    class
+                    from the
+                    <tt>domain</tt>
+                    package into this diagram.
+                    <b>Don't</b>
+                    create a new
+                    <tt>User</tt>
+                    class in this diagram.
+                </li>
+                <li>Right-click on the
+                    <tt>User</tt>
+                    class. Uncheck
+                    <i>Filter &gt; Display / Hide Compartment &gt; Attributes compartment</i>
+                    and
+                    <i>Filter &gt; Display / Hide Compartment &gt; Operation compartment</i>. This will close the attribute and operation
+                    compartments.
+                </li>
+                <li>Select the
+                    <i>Dependency</i>
+                    relationship from the toolbar (7th icon from the class diagram group)
+                    and create a dependency from
+                    <tt>UserService</tt>
+                    to<tt>User</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by double-clicking on
+                    <tt>timetracker.emx</tt>
+                    and clicking on
+                    <i>File &gt; Save</i>
+                    (<i>Ctrl + S</i>).
+                </li>
+                <li>
+                    Select<i>File &gt; Export...</i>. Choose
+                    <i>UML2 Model</i>
+                    and then click on<i>Next</i>.
+                    As
+                    <i>source</i>
+                    select
+                    <tt>/TimeTracker/timetracker.emx</tt>
+                    and as
+                    <i>destination</i>
+                    browse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                </li>
+            </ol>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

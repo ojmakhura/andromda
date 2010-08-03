@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create Search Timecards Use Case
+        </title>
+    </properties>
+    <body>
+        <section name="Create Search Timecards Use Case">
+
+            <p>
+                This page provides directions to create the
+                <tt>Search Timecards</tt>
+                use case
+                along with its state machine diagram and the<tt>SearchController</tt>. Note that all three elements
+                mentioned here will be placed in the package<tt>org.andromda.timetracker.web.timecardsearch</tt>.
+            </p>
+
+            <p>
+                Let's start by creating the
+                <tt>Search Timecards</tt>
+                use case.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Create a package under the
+                    <tt>timetracker</tt>
+                    model by right-clicking on it
+                    in the containment tree and selecting New Element &gt; Package. Name this new package
+                    <tt>Use Cases</tt>
+                    because we will create our use case diagrams here.
+                </li>
+                <li>In the
+                    <tt>Use Cases</tt>
+                    package, create a use case diagram by right clicking
+                    on it and selecting New Diagram &gt; Use Case Diagram. Type in the name
+                    <tt>Application Use Cases</tt>
+                    for this diagram and press Enter
+                </li>
+                <li>In the toolbar on the left of the use case diagram click on the Use Case icon (2nd
+                    icon from Use Case Diagram group). Now click anywhere inside the diagram.
+                    A new use case will be created. Type the phrase &quot;Search Timecards&quot; to name the use case.
+                    Note that the use case is created under the
+                    <tt>Use Cases</tt>
+                    package in the containment tree.
+                    This is not the final location of the use case, but we will move later to the correct
+                    location.
+                </li>
+                <li>Right click on the use case and give it two stereotypes as discussed earlier:
+                    <tt>
+                        FrontEndUseCase
+                    </tt>
+                    and<tt>FrontEndApplication</tt>.
+                </li>
+            </ol>
+            <p>
+                Now lets create the package
+                <tt>org.andromda.timetracker.web.timecardsearch</tt>
+                which is the final destination of our front-end elements.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Create a package called
+                    <tt>web</tt>
+                    under<tt>org.andromda.timetracker</tt>.
+                </li>
+                <li>Create a package called
+                    <tt>timecardsearch</tt>
+                    under<tt>web</tt>.
+                </li>
+                <li>Drag the
+                    <tt>Search Timecards</tt>
+                    use case under the
+                    <tt>timecardsearch</tt>
+                    package.
+                </li>
+                <li>Right-click on the
+                    <tt>Search Timecards</tt>
+                    use case and choose
+                    <i>New Diagram
+                        &gt; State Diagram
+                    </i>
+                    to create an state diagram. Name it<tt>Search Timecards State Machine Diagram</tt>.
+                    This action automatically creates a state machine in the
+                    <tt>Search Timecards</tt>
+                    use case
+                    and associates the create state diagram to the state machine.
+                </li>
+                <li>Rename the state machine by selecting it and pressing F2. Type in
+                    <tt>Search Timecards State Machine</tt>
+                </li>
+                <li>Now create a class called
+                    <tt>SearchController</tt>
+                    under the
+                    <tt>Search Timecards State Machine</tt>
+                    state machine. Do this by right-clicking on<tt>Search Timecards State Machine</tt>, choose
+                    <i>New Element
+                        &gt; Class</i>.
+                </li>
+            </ol>
+
+            <p>
+                We are done with the basic structure for the web page. Now let's create the page
+                flow on the<tt>Search Timecards State Machine Diagram</tt>. Open this diagram and
+                follow the steps below. Use the tool bar on the left to create various elements
+                on the diagram. Use the tool tips and the status bar to identify the tool bar icons.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Create an Initial State at the top.</li>
+                <li>Drop a state below it. Type
+                    <tt>Populate Search Screen</tt>
+                    as the name for this state.
+                </li>
+                <li>Create a transition from the initial state to the
+                    <tt>Populate Search Screen</tt>
+                    state.
+                </li>
+                <li>Drop another action state below<tt>Populate Search Screen</tt>. Name it<tt>Search Timecards</tt>.
+                    Since this state represents a screen, give it the stereotype of<tt>FrontEndView</tt>.
+                </li>
+                <li>Create a transition from
+                    <tt>Populate Search Screen</tt>
+                    to
+                    <tt>Search Timecards</tt>
+                    and another in the reverse direction. In other words, the use case simply switches
+                    between the two states - of course, most of the time it stays in the
+                    <tt>Search Timecards</tt>
+                    state, waiting for user input.
+                </li>
+                <li>
+                    Right click on the transition out of
+                    <tt>Search Timecards</tt>
+                    and open its
+                    specification.
+                </li>
+                <li>Find the sub-panel
+                    <i>Effect</i>
+                </li>
+                <li>Specify
+                    <tt>Activity</tt>
+                    as the type of behavior of the effect.
+                </li>
+                <li>Enter the word
+                    <tt>search</tt>
+                    in the name field and click<i>OK</i>.
+                </li>
+            </ol>
+            <p>
+                The effect modeled on the transition out of
+                <tt>Search Timecards</tt>
+                will make
+                AndroMDA render a form in the Search Criteria panel. This form will submit 5 parameters to server: submitter, approver,
+                status, start date minimum and start date maximum. Follow the steps below to specify these parameters.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Right click on the
+                    <tt>search</tt>
+                    activity and open its specification.
+                </li>
+                <li>Click on the Parameters tab.</li>
+                <li>
+                    Click
+                    <i>Create</i>
+                    to add the first parameter. The Parameter Specification dialog
+                    comes up. Enter
+                    <tt>submitter</tt>
+                    as the name of the parameter and
+                    <tt>Long</tt>
+                    as its type (note that it is<tt>Long</tt>, not<tt>long</tt>). Now click
+                    on the
+                    <i>Tag Values</i>
+                    tab and click on the tagged value named<tt>@andromda.presentation.web.view.field.type</tt>.
+                    This tagged value tells AndroMDA what type of field
+                    <tt>submitter</tt>
+                    is. Since
+                    submitter is a drop-down box, i.e. selection, we need to set the value of this tag
+                    to<tt>select</tt>. To do this, click the
+                    <i>Add Value</i>
+                    button. The
+                    value is shown in the right panel and is already set to<tt>select</tt>. So
+                    just click<i>Back</i>.
+                </li>
+                <li>
+                    Add the second parameter called
+                    <tt>approver</tt>
+                    with type of<tt>Long</tt>.
+                    Again set the tagged value
+                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    to<tt>select</tt>.
+                </li>
+                <li>
+                    Add the third parameter called
+                    <tt>status</tt>
+                    with type of<tt>String</tt>.
+                    Again set the tagged value
+                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    to<tt>select</tt>.
+                </li>
+                <li>
+                    Add the fourth parameter called
+                    <tt>startDateMinimum</tt>
+                    with type of<tt>
+                    Date</tt>. This time set the tagged value
+                    <tt>@andromda.presentation.web.view.field.calendar</tt>
+                    to<tt>true</tt>. This will make sure that you will get a text field for the
+                    date along with a calendar widget on its side.
+                </li>
+                <li>
+                    Add the fifth parameter called
+                    <tt>startDateMaximum</tt>
+                    with type of<tt>
+                    Date</tt>. Again set the tagged value
+                    <tt>@andromda.presentation.web.view.field.calendar</tt>
+                    to<tt>true</tt>.
+                </li>
+                <li>Click
+                    <i>Close</i>
+                    to dismiss the dialog box.
+                </li>
+            </ol>
+            
+            <p>
+                We are now almost done with our activity diagram except for one thing. The state machine
+                still has to call the
+                <tt>SearchController</tt>
+                to populate the submitter
+                and approver drop-downs. To do this we will first specify a method on
+                <tt>SearchController</tt>
+                called<tt>populateSearchScreen()</tt>. Follow the steps below to add this method:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>In the containment tree, right-click on
+                    <tt>SearchController</tt>
+                    and select
+                    <i>New &gt; Operation</i>.
+                </li>
+                <li>Enter
+                    <tt>populateSearchScreen</tt>
+                    as the name of the operation.
+                </li>
+                <li>Double click on the operation to open the Operation Specification dialog.</li>
+                <li>Specify the return type as<tt>void</tt>.
+                </li>
+                <li>Click on the Parameters tab.</li>
+                <li>Add the same 5 parameters that you added to the effect above - the names and types
+                    should match exactly. But don't add the tag values.
+                    That's how AndroMDA knows how to call the controller method.
+                </li>
+                <li>
+                    <b>Tips &amp; Tricks</b>: You can simply copy the five parameters from
+                    <tt>search</tt>
+                    activity
+                    to the
+                    <tt>populateSearchScreen</tt>
+                    operation. To do this:
+                    <ol style="list-style-type: decimal">
+                        <li>
+                            In the containment tree, select the five parameters in the
+                            <tt>search</tt>
+                            activity. Copy them (<i>Ctrl + C</i>).
+                        </li>
+                        <li>
+                            Select the
+                            <tt>populateSearchScreen</tt>
+                            operation and
+                            paste the parameters (<i>Ctrl + V</i>).
+                        </li>
+                        <li>
+                            Right click on each pasted parameter,<i>Edit Stereotype</i>,
+                            <i>Clear All</i>
+                            and finally<i>Apply</i>. This will remove their stereotype thus their tag value.
+                        </li>
+                    </ol>
+                </li>
+                <li>Click
+                    <i>Close</i>
+                    to close the dialog.
+                </li>
+            </ol>
+            <p>
+                Now that we have an appropriate controller method, let's call it from the state machine
+                diagram.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Right-click on the
+                    <tt>Populate Search Screen</tt>
+                    state and open its
+                    specification.
+                </li>
+                <li>Find the sub-panel
+                    <i>Entry</i>
+                </li>
+                <li>Specify
+                    <tt>Activity</tt>
+                    as the type of behavior of the entry.
+                </li>
+                <li>Right click on the activity and open its specification.</li>
+                <li>Click on the
+                    <tt>Node</tt>
+                    editing area. A + and a - symbol will appear. Click on the +.
+                    Select Call Operation Action
+                </li>
+                <li>Name the action
+                    <tt>Call populateSearchScreen()</tt>
+                </li>
+                <li>By clicking on ... in the operation field, a dialog box will appear. Select the
+                    <tt>populateSearchScreen()</tt>
+                    method and click<i>OK</i>.
+                </li>
+                <li>Click
+                    <i>Close</i>
+                    to dismiss the dialog box.
+                </li>
+            </ol>
+
+            <p>
+                There is just one more thing left. The
+                <tt>SearchController</tt>
+                needs to be
+                able to call the service layer to get the list of users. To add this capability,
+                we need to create a dependency from the
+                <tt>SearchController</tt>
+                to the<tt>UserService</tt>.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Open the
+                    <tt>Services</tt>
+                    diagram in the
+                    <tt>service</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>SearchController</tt>
+                    class
+                    on to the diagram.
+                </li>
+                <li>Draw a dependency from
+                    <tt>SearchController</tt>
+                    to<tt>UserService</tt>.
+                </li>
+            </ol>
+            <p>
+                We have now completely modeled the Search Criteria panel. Save your model, and export it,
+                as usual.
+            </p>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

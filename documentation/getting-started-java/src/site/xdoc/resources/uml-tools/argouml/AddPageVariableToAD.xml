@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Add Page Variable to Activity Diagram
+        </title>
+    </properties>
+    <body>
+        <section name="Add Page Variable to Activity Diagram">
+
+            <p>
+                This page provides directions to add the
+                <tt>timecardSummaries</tt>
+                page variable
+                to the
+                <tt>Search Timecards</tt>
+                activity diagram. The activity diagram is shown
+                below for reference. Note that ArgoUML does not show information about the transition
+                trigger (page variable) on the diagram itself.
+            </p>
+
+            <p>
+                <img src="images/SearchTimecardsAD1.png" alt="Search Timecards Activity Diagram"/>
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Click on the transition out of
+                    <tt>Populate Search Screen</tt>
+                    and go to its
+                    property panel at the bottom of the screen.
+                </li>
+                <li>Right-click in the field called &quot;Trigger&quot; and select NewSignal Event.</li>
+                <li>Leave the name field as blank - this is the only difference between modeling an
+                    event (coming out of a view) and a page variable.
+                </li>
+                <li>Click on the New Parameter tool
+                    <img src="images/ToolNewParameter.png" alt="New Parameter Tool"/>.
+                </li>
+                <li>In the Parameter property panel, enter
+                    <tt>timecardSummaries</tt>
+                    as the name of the parameter and
+                    <tt>TimecardSummaryVO[]</tt>
+                    as its type.
+                </li>
+                <li>Click on the Tagged Values tab and click first blank field in the left column and
+                    select the type
+                    <tt>@andromda.presentation.view.table.columns</tt>
+                    from the
+                    pulldown menu. This tagged value tells AndroMDA to render the page variable as a
+                    table. In the value column to the right, enter the following column names for
+                    the value:
+                    <br/>
+                    <tt>id, submitterName, approverName, status, startDate</tt>
+                    <br/>
+                    This tells AndroMDA to display 5 columns in the table corresponding to the 5 attributes
+                    of<tt>TimecardSummaryVO</tt>. (Note that the TimeTracker prototype does
+                    not have an
+                    <tt>Id</tt>
+                    column in the results table. However, we add it here
+                    so that the
+                    <tt>id</tt>
+                    is available to each row.)
+                </li>
+            </ol>
+            <p>
+                We have now added the
+                <tt>timecardSummaries</tt>
+                page variable to the
+                <tt>Search
+                    Timecards
+                </tt>
+                activity diagram. Please go back to the main tutorial page
+                and continue from where you left off.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create User to UserVO Dependency
+        </title>
+    </properties>
+    <body>
+        <section name="Create User to UserVO Dependency">
+
+            <p>
+                This page provides directions to create the dependency from
+                <tt>User</tt>
+                to
+                <tt>UserVO</tt>
+                using ArgoUML. The model is shown below for your reference.
+            </p>
+
+            <div align="center">
+                <img src="images/UserToUserVODependency.png" alt="User To UserVO Dependency"/>
+            </div>
+            <ol style="list-style-type: decimal">
+                <li>Select the Value Objects class diagram in the
+                    <tt>vo</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>User</tt>
+                    class on to the
+                    diagram. Warning: It is important to bring in the existing
+                    <tt>User</tt>
+                    class
+                    from the
+                    <tt>domain</tt>
+                    package into this diagram. DO NOT create a new
+                    <tt>User</tt>
+                    class in this diagram. Doing so will create a new class in the
+                    <tt>vo</tt>
+                    package
+                    - this is not our intention. All we need is a reference to the existing
+                    <tt>User</tt>
+                    class in the
+                    <tt>domain</tt>
+                    package.
+                </li>
+                <li>Select the Dependency tool
+                    <img src="images/ToolNewDependency.png" alt="Dependency Tool"/>
+                    from the toolbar. Now left-click the mouse on the
+                    <tt>User</tt>
+                    class, drag
+                    it to the
+                    <tt>UserVO</tt>
+                    class and release the mouse. A dependency relationship
+                    is added between the two classes. The drawing direction is significant, so make
+                    sure you drag from
+                    <tt>User</tt>
+                    to<tt>UserVO</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown above exactly.</li>
+                <li>Save your
+                    <tt>TimeTracker</tt>
+                    model by selecting FileSave Project.
+                </li>
+            </ol>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+        </section>
+    </body>
+</document>

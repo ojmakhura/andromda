@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Add Page Variable to State Machine
+        </title>
+    </properties>
+    <body>
+        <section name="Add Page Variable to State Machine">
+
+            <p>
+                This page provides directions to add the
+                <tt>timecardSummaries</tt>
+                page variable
+                to the
+                <tt>Search Timecards</tt>
+                state machine.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Right click on the transition out of
+                    <tt>Populate Search Screen</tt>
+                    and open
+                    its specification.
+                </li>
+                <li>Find the panel called
+                    <i>Effect</i>
+                    select
+                    <i>Activity</i>
+                    as behavior type.
+                </li>
+                <li>Right click on the
+                    <i>Behavior Element</i>
+                    and open its specification.
+                </li>
+                <li>Click on the parameters tab.</li>
+                <li>Leave the name field as blank - this is the only difference between modeling an
+                    event (coming out of a view) and a page variable (entering in a view).
+                </li>
+                <li>Click
+                    <i>Add</i>
+                    to add parameter - this parameter will represent a page variable.
+                    The Parameter Specification dialog comes up. Enter
+                    <tt>timecardSummaries</tt>
+                    as the name of the parameter and
+                    <tt>TimecardSummaryVO[]</tt>
+                    as its type.
+                </li>
+                <li>Click on the Tagged Values tab and click on the tagged value named
+                    <tt>@andromda.presentation.view.table.columns</tt>.
+                    This tagged value tells AndroMDA to render the page variable as a table. Click the
+                    <i>Add Value</i>
+                    button. Enter the following values in the right panel, by clicking on the
+                    <i>+</i>
+                    button:
+                    <ul>
+                        <li>
+                            <tt>id</tt>
+                        </li>
+                        <li>
+                            <tt>submitterName</tt>
+                        </li>
+                        <li>
+                            <tt>approverName</tt>
+                        </li>
+                        <li>
+                            <tt>status</tt>
+                        </li>
+                        <li>
+                            <tt>startDate</tt>
+                        </li>
+                    </ul>
+                    This tells AndroMDA to display 5 columns in the table corresponding to the 5 attributes
+                    of<tt>TimecardSummaryVO</tt>. Click on
+                    <i>Close</i>
+                    to add this parameter and close the
+                    dialog box. (Note that the TimeTracker prototype does not have an
+                    <tt>Id</tt>
+                    column in the results table. However, we add it here so that the
+                    <tt>id</tt>
+                    is available to each row.)
+                </li>
+            </ol>
+            <p>
+                We have now added the
+                <tt>timecardSummaries</tt>
+                page variable to the
+                <tt>Search Timecards</tt>
+                state machine.
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

@@ -12,17 +12,23 @@
 	<body>
         <menu name="Getting Started Java">
             <item name="Introduction" href="index.html"/>
+            <item name="Application Architecture" href="application-architecture.html"/>
             <item name="Sample Application" href="sample-application.html"/>
             <item name="Environment Setup" href="env-setup.html"/>
+            <item name="TimeTracker Tour" href="timetracker-tour.html"/>
+            <item name="Development Approach" href="development-approach.html"/>
             <item name="Starter App" href="create-application.html"/>
-            <item name="Entities" href="create-entity.html"/>
-            <item name="Value Objects" href="create-value-object.html"/>
-            <item name="Services" href="create-service.html"/>
-            <item name="Console App" href="create-console-app.html"/>
-            <item name="Associations" href="create-association.html"/>
-            <item name="Complete the Model" href="complete-timetracker-model.html"/>
-            <item name="Enhance Console App" href="enhance-console-app.html"/>
+            <item name="UserService Definition" href="userService-definition.html"/>
+            <item name="UserService Implementation" href="userService-implementation.html"/>
+            <item name="Search Criteria Panel" href="search-criteria-panel.html"/>
+            <item name="TimeTrackingService Definition" href="timetrackingservice-definition.html"/>
+            <item name="TimeTrackingService Implementation" href="timetrackingservice-implementation.html"/>
+            <item name="Search Results Panel" href="search-results-panel.html"/>
+            <item name="Details Column" href="details-column.html"/>
+            <item name="Customizing the Look and Feel" href="look-and-feel.html"/>
+            <item name="Integrating with Acegi Security System" href="security.html"/>
+            <item name="Where to go from here?" href="finish.html"/>
         </menu>
         <menu ref="reports"/>
   	</body>
-</project>
+</project>        

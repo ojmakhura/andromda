@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserService
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserService">
+
+            <p>
+                This page provides directions to create the
+                <tt>UserService</tt>
+                using MagicDraw 15.5.
+            </p>
+
+            <p>
+                We will create
+                <tt>UserService</tt>
+                in a package named<tt>org.andromda.timetracker.service</tt>.
+            </p>
+            
+            <ol style="list-style-type: decimal">
+                <li>In the
+                    <tt>timetracker</tt>
+                    model create a package called
+                    <tt>service</tt>
+                    under<tt>
+                        org.andromda.timetracker</tt>.
+                </li>
+                <li>In the Containment Tree on the left, right-click on the
+                    <tt>service</tt>
+                    package
+                    and select
+                    <i>New Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window. Type in
+                    <tt>Services</tt>
+                    as the name of this diagram
+                    and press Enter.
+                </li>
+                <li>Add a new class to the diagram and name it<tt>UserService</tt>.
+                </li>
+                <li>Add the stereotype called
+                    <tt>Service</tt>
+                    to<tt>UserService</tt>.
+                </li>
+                <li>Let's add the
+                    <tt>getAllUsers()</tt>
+                    method to<tt>UserService</tt>. Right-click
+                    on the
+                    <tt>UserService</tt>
+                    class and select<i>Insert New Operation</i>. A new operation
+                    is inserted with the specification<tt>+unnamed1()</tt>. Write over this specification
+                    with this new one:<tt>+getAllUsers()</tt>. Do not specify the return value right now because
+                    MagicDraw gets confused with the
+                    <tt>UserVO[]</tt>
+                    syntax. After typing the
+                    operation click outside the class exit the edit mode.
+                </li>
+                <li>Now double-click the operation to open the Operation Specification dialog box.</li>
+                <li>Choose
+                    <tt>UserVO[]</tt>
+                    in the Return Type drop-down and then click<i>OK</i>.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right.</li>
+                <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                    Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+
+            <p>
+                We are now ready to generate code for the<tt>UserService</tt>. Please go back
+                to the main tutorial page and continue from where you left off.
+            </p>
+
+
+        </section>
+    </body>
+</document>

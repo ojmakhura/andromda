@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            TimeTrackingService Implementation
+        </title>
+    </properties>
+    <body>
+        <section name="TimeTrackingService Implementation">
+
+            <p>
+                In this section we will implement the
+                <tt>TimeTrackingService</tt>
+                and make
+                sure it passes the tests.
+            </p>
+
+            <p>
+                We will first need to enhance our domain model to support the new value objects
+                <tt>TimecardSearchCriteriaVO</tt>
+                and<tt>TimecardSummaryVO</tt>. Note that
+                <tt>TimecardSearchCriteriaVO</tt>
+                is simply a data transfer object that specifies
+                search parameters. There is no domain entity needed to express this concept. However
+                <tt>TimecardSummaryVO</tt>
+                represents a timecard entity and must be added to
+                the domain model. The diagram below shows the model of this entity.
+            </p>
+            <p>
+
+                <img src="images/Timecard.jpg" alt="Timecard"/>
+            </p>
+            <p>
+                <tt>Timecard</tt>
+                has two associations with the
+                <tt>User</tt>
+                entiry:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>submitter: the person who has submits the timecard</li>
+                <li>approver: the person who approves the timecard</li>
+            </ol>
+            <p>
+                The arrows on the two associations indicate that both associations are navigable
+                from
+                <tt>Timecard</tt>
+                to<tt>Person</tt>, i.e. the timecard keeps references
+                to its submitter and approver. Note that two-way navigability is indicated by not
+                having arrows at either end of the association. The numbers and stars at the ends
+                of the associations indicate their multiplicity. The top association indicates that
+                a timecard can have one submitter, but a submitter can submit many timecards (shown
+                by the &quot;*&quot;). Similarly the bottom association indicates that a timecard can have
+                zero or one approver, but an approver can approve many timecards. We allow for zero
+                approvers on a timecard so that the decision to assign an approver can be delayed
+                until the timecard is submitted.
+            </p>
+            <p>
+                We have also added a method called
+                <tt>findByCriteria()</tt>
+                on the
+                <tt>Timecard</tt>
+                entity.
+                <tt>TimeTrackingService</tt>
+                will essentially use this method to find
+                timecards. Note the underline on the
+                <tt>findByCriteria()</tt>
+                method - it represents
+                a &quot;classifier&quot; scope in UML. If there was no underline on the method that would
+                imply &quot;instance&quot; scope. This is an important concept in AndroMDA, so pay attention.
+                <b>A method with classifier scope is a general purpose utility method which operates
+                    on one or more entities. Such methods are generated in the DAO classes. A method
+                    with instance scope is a method on the entity itself and is generated in the Entity
+                    and EntityImpl classes.
+                </b>
+            </p>
+            <p>
+                We are now ready to add the
+                <tt>Timecard</tt>
+                entity to the TimeTracker model
+                along with the two associations to the
+                <tt>User</tt>
+                entity. Please follow one
+                of the links below to edit the model with the UML tool of your choice.
+            </p>
+            <ul>
+                <li>
+                    <a href="resources/uml-tools/argouml/TimecardEntity.html">ArgoUML</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/magicdraw/TimecardEntity.html">MagicDraw</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/rsm/TimecardEntity.html">RSM 6</a>
+                </li>
+            </ul>
+            <p>
+                Next add a dependency from the
+                <tt>Timecard</tt>
+                entity to the
+                <tt>TimecardSummaryVO</tt>
+                as shown below. As you know, this dependency tells AndroMDA to generate conversion
+                methods between
+                <tt>Timecard</tt>
+                and
+                <tt>TimecardSummaryVO</tt>
+                objects.
+                The conversion methods are generated in<tt>TimecardDaoBase</tt>. However, note
+                that
+                <tt>TimecardSummaryVO</tt>
+                contains attributes fetched from another entity,
+                namely<tt>User</tt>, so we will have to override the default conversion methods
+                to fill in these additional attributes.
+            </p>
+            <div align="center">
+                <img src="images/TimecardToTimecardSummaryVODependency.jpg"
+                     alt="Timecard To TimecardSummaryVO Dependency"/>
+            </div>
+            <p>
+                Next add a dependency from
+                <tt>TimeTrackingService</tt>
+                to the
+                <tt>Timecard</tt>
+                entity as shown below. As you know, this dependency tells AndroMDA to give
+                <tt>TimeTrackingService</tt>
+                access to the
+                <tt>Timecard</tt>
+                entity.
+            </p>
+            <div align="center">
+                <img src="images/TimeTrackingServiceToTimecardDependency.jpg"
+                     alt="TimeTrackingService To Timecard Dependency"/>
+            </div>
+            <p>
+                Now let's ask AndroMDA to generate code for the
+                <tt>Timecard</tt>
+                entity:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Execute the command
+                    <tt>mvn install</tt>
+                    in the Command Prompt. Note that the
+                    build will not succeed because the test will still fail, however the code generation
+                    part should succeed.
+                </li>
+            </ol>
+            <p>
+                <b>Eclipse Users:</b>
+                Open the AndroMDA generated
+                <tt>.classpath</tt>
+                file. Note that AndroMDA does not add
+                <tt>TestNG</tt>
+                to the classpath. Add
+                the following entry to this file to make sure
+                <tt>TestNG</tt>
+                is in the classpath.
+                Furthermore, if you do not want AndroMDA to overwrite the modified
+                <tt>.classpath</tt>
+                file, simply disable its generation by commenting out the
+                <tt>andromdapp-maven-plugin</tt>
+                section in
+                <tt>mda\pom.xml</tt>
+                (look at the completed solution to see how this
+                is done).
+            </p>
+            <source>
+                &lt;classpathentry kind=&quot;var&quot; path=&quot;M2_REPO/org/testng/testng/4.7/testng-4.7-jdk15.jar&quot;/&gt;
+            </source>
+            <p>
+                Now let's start by implementing the
+                <tt>findByCriteria()</tt>
+                method. Add the
+                bold lines shown in the listing below to your
+                <tt>TimeTrackingServiceImpl</tt>
+                class.
+            </p>
+            <source>
+<![CDATA[
+    // license-header java merge-point
+    /**
+     * This is only generated once! It will never be overwritten.
+     * You can (and have to!) safely modify it by hand.
+     */
+    package org.andromda.timetracker.service;
+
+    import java.util.List;
+
+    import org.andromda.timetracker.vo.TimecardSummaryVO;
+
+    /**
+     * @see org.andromda.timetracker.service.TimeTrackingService
+     */
+    public class TimeTrackingServiceImpl
+        extends org.andromda.timetracker.service.TimeTrackingServiceBase
+    {
+
+        /**
+         * @see org.andromda.timetracker.service.TimeTrackingService#findTimecards(...)
+         */
+        protected org.andromda.timetracker.vo.TimecardSummaryVO[] handleFindTimecards(
+                org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
+            throws java.lang.Exception
+        {
+            List timecards = getTimecardDao().findByCriteria(criteria);
+            getTimecardDao().toTimecardSummaryVOCollection(timecards);
+            return (TimecardSummaryVO[])timecards.toArray(new TimecardSummaryVO[0]);
+        }
+    }
+]]>
+            </source>
+            <p>
+                We first make a call to the
+                <tt>findByCriteria()</tt>
+                method in<tt>TimecardDao</tt>.
+                Remember this was a classifier scope method that we added to the
+                <tt>Timecard</tt>
+                entity? We will implement this method manually.
+                <tt>findByCriteria()</tt>
+                returns
+                a list of matching
+                <tt>Timecard</tt>
+                entities. However,
+                <tt>handleFindTimecards()</tt>
+                needs to return an array of
+                <tt>TimecardSummaryVO</tt>
+                objects. So we first
+                use a
+                <tt>TimecardDao</tt>
+                helper method to convert the entity list to a VO
+                collection, then we convert this collection to an array and return it.
+            </p>
+            <p>
+                Now implement the
+                <tt>handleFindByCriteria()</tt>
+                method in
+                <tt>TimecardDaoImpl.java</tt>
+                as shown below. We also show the imports needed for this method. Note that the code
+                uses a Hibernate
+                <i>criteria</i>
+                query to implement the search functionality.
+                However, we will not go into the details of the implementation as it is outside
+                the scope of this tutorial.
+            </p>
+            <source>
+<![CDATA[
+package org.andromda.timetracker.domain;
+
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
+
+/**
+ * @see org.andromda.timetracker.domain.Timecard
+ */
+public class TimecardDaoImpl
+    extends org.andromda.timetracker.domain.TimecardDaoBase
+{
+    ...
+    protected java.util.List handleFindByCriteria(
+        org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
+    {
+        // Create the timecard criteria
+        Criteria timecardCriteria = this.getSession()
+            .createCriteria(Timecard.class)
+            .setFetchMode("submitter", FetchMode.JOIN)
+            .setFetchMode("approver", FetchMode.JOIN);
+
+        // Add submitter criteria
+        if (criteria.getSubmitterId() != null) {
+            timecardCriteria.createCriteria("submitter")
+                .add(Restrictions.idEq(criteria.getSubmitterId()));
+        }
+
+        // Add approver criteria
+        if (criteria.getApproverId() != null) {
+            timecardCriteria.createCriteria("approver")
+                .add(Restrictions.idEq(criteria.getApproverId()));
+        }
+
+        // Add status criteria
+        if (criteria.getStatus() != null) {
+        	timecardCriteria.add(Restrictions.eq("status", criteria.getStatus()));
+        }
+
+        // Add startDateMin criteria
+        if (criteria.getStartDateMin() != null) {
+        	timecardCriteria.add(
+        	    Restrictions.ge("startDate", criteria.getStartDateMin()));
+        }
+
+        // Add startDateMax criteria
+        if (criteria.getStartDateMax() != null) {
+        	timecardCriteria.add(
+        	    Restrictions.le("startDate", criteria.getStartDateMax()));
+        }
+
+        java.util.List timecards = timecardCriteria.list();
+        if (logger.isDebugEnabled()) {
+            logger.debug(timecards.size() + " timecards found");
+        }
+        return timecards;
+    }
+    ...
+}
+]]>
+            </source>
+            <p>
+                Now change the default implementation of
+                <tt>toTimecardSummaryVO()</tt>
+                in
+                <tt>
+                    TimecardDaoImpl
+                </tt>
+                since it is not correct. Note that this method will be
+                called by
+                <tt>TimeTrackerService.findByCriteria()</tt>
+                to convert
+                <tt>Timecard</tt>
+                entities. Currently,
+                <tt>toTimecardSummaryVO()</tt>
+                simply calls the corresponding
+                method in its parent class (<tt>TimecardDaoBase</tt>). If you remember, the
+                default converter implementations in
+                <tt>DaoBase</tt>
+                classes are very simplistic.
+                Specifically, the
+                <tt>TimecardDaoBase</tt>
+                class copies only
+                <tt>Timecard</tt>
+                attributes to<tt>TimecardSummaryVO</tt>; it does not fill in the attributes
+                that come from related entities, namely
+                <tt>submitterName</tt>
+                and<tt>approverName</tt>.
+                So modify
+                <tt>toTimecardSummaryVO()</tt>
+                in
+                <tt>TimecardDaoImpl</tt>
+                as
+                shown below, filling in the remaining attributes.
+            </p>
+            <source>
+<![CDATA[
+    public void toTimecardSummaryVO(
+        org.andromda.timetracker.domain.Timecard sourceEntity,
+        org.andromda.timetracker.vo.TimecardSummaryVO targetVO)
+    {
+        super.toTimecardSummaryVO(sourceEntity, targetVO);
+        targetVO.setSubmitterName(sourceEntity.getSubmitter().getUsername());
+        if (sourceEntity.getApprover() != null) {
+            targetVO.setApproverName(sourceEntity.getApprover().getUsername());
+        }
+    }
+]]>
+            </source>
+            <p>
+                The last thing we need to do is to create the
+                <tt>Timecard</tt>
+                table in the
+                database and populate it with data. Follow the steps below to accomplish this:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Run the following command in the Command Prompt, asking AndroMDA to create our database
+                    schema:
+                    <br/>
+                    <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=create</tt>
+                    <br/>
+                    Make sure you get a
+                    <tt>BUILD SUCCESSFUL</tt>
+                    message
+                </li>
+                <li>Open MySQL Query Browser. Login as timetracker. You should see the
+                    <tt>user</tt>
+                    and
+                    <tt>timecard</tt>
+                    tables in the
+                    <tt>timetracker</tt>
+                    schema.
+                </li>
+                <li>Select File &gt; New Script Tab and paste the following SQL script in the new tab.
+                    <source>
+<![CDATA[
+    insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+    values (1, 'nbhatia', 'Naresh', 'Bhatia');
+    insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+    values (2, 'lcoude', 'Louis', 'Coude');
+    insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+    values (3, 'ecrutchfield', 'Eric', 'Crutchfield');
+    insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+    values (4, 'cmicali', 'Chris', 'Micali');
+
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 1, 'Approved', '2006/05/15', 'Timecard 01', 1, 2);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 2, 'Approved', '2006/05/15', 'Timecard 02', 2, 3);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 3, 'Approved', '2006/05/15', 'Timecard 03', 3, 4);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 4, 'Approved', '2006/05/15', 'Timecard 04', 4, 1);
+
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 5, 'Rejected', '2006/05/22', 'Timecard 05', 1, 2);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 6, 'Rejected', '2006/05/22', 'Timecard 06', 2, 3);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 7, 'Rejected', '2006/05/22', 'Timecard 07', 3, 4);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 8, 'Rejected', '2006/05/22', 'Timecard 08', 4, 1);
+
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values ( 9, 'Submitted', '2006/05/29', 'Timecard 09', 1, 2);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (10, 'Submitted', '2006/05/29', 'Timecard 10', 2, 3);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (11, 'Submitted', '2006/05/29', 'Timecard 11', 3, 4);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (12, 'Submitted', '2006/05/29', 'Timecard 12', 4, 1);
+
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (13, 'Draft', '2006/06/05', 'Timecard 13', null, 2);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (14, 'Draft', '2006/06/05', 'Timecard 14', null, 3);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (15, 'Draft', '2006/06/05', 'Timecard 15', null, 4);
+    insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+    values (16, 'Draft', '2006/06/05', 'Timecard 16', null, 1);
+]]>
+                    </source>
+                </li>
+                <li>Click the Execute button on the top right.</li>
+            </ol>
+            <p>
+                Well, we think that
+                <tt>TimeTrackingService</tt>
+                is now completely implemented.
+                Let's execute the command below to run the tests again and see what happens:
+            </p>
+            <source>
+                C:\timetracker&gt;mvn -f core/pom.xml test
+                ...
+                ...
+                -------------------------------------------------------
+                T E S T S
+                -------------------------------------------------------
+                Running Services Test
+                Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.272 sec
+
+                Results :
+                Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+
+                [INFO] ------------------------------------------------------------------------
+                [INFO] BUILD SUCCESSFUL
+                [INFO] ------------------------------------------------------------------------
+                [INFO] Total time: 30 seconds
+                [INFO] Finished at: Fri Aug 11 21:05:53 EDT 2006
+                [INFO] Final Memory: 6M/14M
+                [INFO] ------------------------------------------------------------------------
+            </source>
+            <p>
+                Great! All tests passed. Open
+                <tt>C:\timetracker\core\timetracker-test.log</tt>
+                to see the results. You should see the following output:
+            </p>
+            <source>
+                21:05:46.850 INFO - Initializing ServiceLocator
+                21:05:46.870 INFO - Initializing UserService
+                21:05:51.767 INFO - Initializing ServiceLocator
+                21:05:51.767 INFO - Initializing TimeTrackingService
+                21:05:51.858 INFO - testFindAllTimecards:
+                ...
+                21:05:52.819 DEBUG - 16 timecards found
+                21:05:52.859 INFO - Submitter Approver Status Start Date
+                21:05:52.869 INFO - nbhatia cmicali Approved 05/15/06
+                21:05:52.869 INFO - nbhatia cmicali Rejected 05/22/06
+                21:05:52.869 INFO - nbhatia cmicali Submitted 05/29/06
+                21:05:52.869 INFO - nbhatia null Draft 06/05/06
+                21:05:52.869 INFO - lcoude nbhatia Approved 05/15/06
+                21:05:52.869 INFO - lcoude nbhatia Rejected 05/22/06
+                21:05:52.869 INFO - lcoude nbhatia Submitted 05/29/06
+                21:05:52.869 INFO - lcoude null Draft 06/05/06
+                21:05:52.869 INFO - ecrutchfield lcoude Approved 05/15/06
+                21:05:52.869 INFO - ecrutchfield lcoude Rejected 05/22/06
+                21:05:52.869 INFO - ecrutchfield lcoude Submitted 05/29/06
+                21:05:52.869 INFO - ecrutchfield null Draft 06/05/06
+                21:05:52.869 INFO - cmicali ecrutchfield Approved 05/15/06
+                21:05:52.869 INFO - cmicali ecrutchfield Rejected 05/22/06
+                21:05:52.869 INFO - cmicali ecrutchfield Submitted 05/29/06
+                21:05:52.869 INFO - cmicali null Draft 06/05/06
+                21:05:52.879 INFO - testFindTimecardsForSubmitter:
+                ...
+                21:05:52.959 DEBUG - 4 timecards found
+                21:05:52.959 INFO - Submitter Approver Status Start Date
+                21:05:52.969 INFO - nbhatia cmicali Approved 05/15/06
+                21:05:52.969 INFO - nbhatia cmicali Rejected 05/22/06
+                21:05:52.969 INFO - nbhatia cmicali Submitted 05/29/06
+                21:05:52.969 INFO - nbhatia null Draft 06/05/06
+                ...
+            </source>
+            <subsection name="What's Next?">
+                <p>
+                    Now that
+                    <tt>TimeTrackingService.findByCriteria()</tt>
+                    method is working, let's
+                    try to use it from the front-end. Click <a href="search-results-panel.html">here</a> to implement
+                    the search results panel of the search screen, which needs to call this method.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

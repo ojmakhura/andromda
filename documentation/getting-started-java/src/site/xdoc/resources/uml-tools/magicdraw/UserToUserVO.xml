@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create User to UserVO Dependency
+        </title>
+    </properties>
+    <body>
+        <section name="Create User to UserVO Dependency">
+
+            <p>
+                This page provides directions to create the dependency from
+                <tt>User</tt>
+                to
+                <tt>UserVO</tt>
+                using MagicDraw 15.5.
+            </p>
+
+
+            <ol style="list-style-type: decimal">
+                <li>Open the
+                    <tt>Value Objects</tt>
+                    class diagram in the
+                    <tt>vo</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>User</tt>
+                    class on to the
+                    diagram. Warning: It is important to bring in the existing
+                    <tt>User</tt>
+                    class
+                    from the
+                    <tt>domain</tt>
+                    package into this diagram.
+                    <b>Don't</b>
+                    create a new
+                    <tt>User</tt>
+                    class in this diagram. Doing so will create a new class in the
+                    <tt>vo</tt>
+                    package
+                    - this is not our intention. All we need is a reference to the existing
+                    <tt>User</tt>
+                    class in the
+                    <tt>domain</tt>
+                    package.
+                </li>
+                <li>Select the
+                    <i>Dependency</i>
+                    relationship from the toolbar (5th icon from the common group). Now left-click
+                    the mouse on the
+                    <tt>User</tt>
+                    class, drag it to the
+                    <tt>UserVO</tt>
+                    class
+                    and release the mouse. A dependency relationship is added between the two classes.
+                    When clicking and releasing the mouse make sure you are in the region of the class
+                    name and not over an attribute or a method, otherwise you will be creating dependencies
+                    between attributes and/or methods!
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                    Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>
