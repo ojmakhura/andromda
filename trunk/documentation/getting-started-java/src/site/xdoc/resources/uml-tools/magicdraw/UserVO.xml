@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserVO
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserVO">
+
+            <p>
+                This page provides directions to create the<tt>UserVO</tt>.
+            </p>
+
+            <p>
+                Let's take a look at the initial content of the freshly generated model.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Start MagicDraw 15.5.</li>
+                <li>Select
+                    <i>File &gt; Open Project...</i>
+                    and traverse to<tt>C:/timetracker/mda/src/main/uml/timetracker.xml</tt>.
+                    Click
+                    <i>Open</i>
+                    to open this model.
+                </li>
+            </ol>
+            <p>
+                On the left of the window, there is the containment tree. It displays the objects
+                that make, together, the model. AndroMDA sees the model like it is displayed here (and not
+                through the several diagrams). By making sure that the content of your model is matching the pictures
+                shown during this tutorial, you'll avoid a lot of errors.
+            </p>
+            <p>
+                As you can see, the model is not empty. Some of work has already be done for you. Let's review the initial
+                content of the model.
+            </p>
+            <ul>
+                <li>
+                    <tt>UML standard profile</tt>: This module contains (as its name says) the standard profile
+                    from UML2. In previous AndroMDApp generated models, this module was removed. For UML2 models,
+                    it is necessary because it define the metaclasses where stereotypes are applied.
+                </li>
+                <li>
+                    <tt>datatype</tt>: This package contains some platform independent datatypes
+                    that have be used in your UML model. AndroMDA will map then to platform specific datatypes.
+                    <i>Important</i>: A common source of errors is to use UML's datatypes instead of these.
+                    When specifying datatypes, make sure that they come from this package. Example: use
+                    <tt>datatype::String</tt>
+                    instead of<tt>String</tt>.
+                </li>
+                <li>
+                    <tt>org.andromda.profile</tt>: This collection of profiles define all the stereotypes and
+                    tag values that will be used by AndroMDA for generating code.
+                </li>
+            </ul>
+            <p>
+                Note: all this content is not
+                <i>included</i>
+                in the xml file. It's only
+                <i>references</i>
+                to
+                files located into your maven 2 repository.
+            </p>
+            <p>
+                MagicDraw has the concept of a hierarchy of models. Each model in the hierarchy can be broken
+                out and stored as a separate file. This allows multiple developers to work on different
+                parts of a master model. Let's create a new model for TimeTracker.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>In the Containment Tree on the left, right-click on the root element called Data
+                    and select<i>New Element &gt; Model</i>. A new model will be created under the root element
+                    with an edit box to its side. Type in
+                    <tt>timetracker</tt>
+                    as the name of this model.
+                </li>
+            </ol>
+            <p>
+                As said previously, AndroMDA can't read MagicDraw MagicDraw 15.5 models directly. You have to export it
+                to another file format: EMF-UML2.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>
+                    Select<i>File &gt; Export &gt; EMF UML2 XMI</i>. Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+            <p>
+                If you want to see the result of this export, open the folder
+                <tt>C:/timetracker/mda/src/main/uml</tt>
+                in explorer.
+                Let's look closer at its content.
+            </p>
+            <ul>
+                <li><tt>timetracker.xml</tt>: the MagicDraw 15.5 model file.
+                </li>
+                <li>
+                    <tt>timetracker.uml2</tt>: the
+                    <tt>timetracker</tt>
+                    model in EMF/UML2 format. It's the file
+                    that will be processed by AndroMDA.
+                </li>
+                <li>10 files ending with<tt>.profile.uml2</tt>: the different profiles used by
+                    <tt>timetracker.uml2</tt>
+                </li>
+            </ul>
+            <p>
+                As you can see, all modules on which your model depends are present in this directory. This explained why the
+                <tt>moduleSearchPath</tt>
+                section in
+                <tt>andromda.xml</tt>
+                is empty.
+            </p>
+            <p>
+                If you have installed the
+                <a href="http://www.eclipse.org/uml2">uml2 plugin</a>
+                for Eclipse, you can open
+                <i>timetracker.uml2</i>
+                to look at its content. You'll see almost the same objects than those in containment tree.
+            </p>
+            <blockquote>
+                <b>Important</b>: Always use the
+                <i>timetracker.xml</i>
+                file for editing. After edition, don't forget to export the model
+                to EMF/UML2. AndroMDA won't take your changes into account if you don't export your model.
+            </blockquote>
+            <p>
+                Let's start the 'real' work. We will create
+                <tt>UserVO</tt>
+                and
+                <tt>UserVO[]</tt>
+                in a package named
+                <tt>org.andromda.timetracker.vo</tt>. When finished, the containment tree in
+                MagicDraw will look like the screen shot on the bottom of this page.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Now right-click on the timetracker model you just created and select New Element
+                    &gt; Package. A new package will be created under the
+                    <tt>timetracker</tt>
+                    model element with
+                    an edit box to its side. Type in
+                    <tt>org.andromda.timetracker</tt>
+                    as the name
+                    of the package. AndroMDA will map this package to a Java package with the same name.
+                    Note: Make sure the package name is exactly<tt>org.andromda.timetracker</tt>,
+                    with no leading or trailing spaces. We have found that some browsers introduce a
+                    leading space in the package name if you copy it from this page!
+                </li>
+                <li>Now create a package called
+                    <tt>vo</tt>
+                    under<tt>org.andromda.timetracker</tt>.
+                    We will create our value objects in this package. Note that AndroMDA does not require
+                    this package structure. We are doing it simply to separate our value objects from
+                    other type of objects such as business entities, services etc.
+                </li>
+                <li>In the Containment Tree on the left, right-click on the
+                    <tt>vo</tt>
+                    package
+                    and select<i>New Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window.
+                    You can see that the diagram's name is being edited. Type in
+                    <tt>Value Objects</tt>
+                    as the name of
+                    this diagram and press Enter.
+                </li>
+                <li>In the toolbar on the left of the class diagram click on the
+                    <i>Class icon</i>
+                    (1st icon
+                    from the class diagram group). Now click anywhere inside the diagram. A new class will be created.
+                    The class will be automatically selected as indicated by the 4 knobs around it.
+                    (If you somehow deselected the class, then select it again by clicking on it.) Now
+                    type the word<tt>UserVO</tt>. This word will be entered as the name of the class.
+                </li>
+                <li>Let's add some documentation for the
+                    <tt>UserVO</tt>
+                    class. It is always a good
+                    idea to document your model. Documentation added to model elements such as classes,
+                    attributes and methods is carried over to the code as comments. Double-click on
+                    the
+                    <tt>UserVO</tt>
+                    class to bring up the Class Specification dialog. Add the
+                    following sentence in the Documentation field and click<i>OK</i>:
+                    <tt>This class represents
+                        a value object that carries information about a TimeTracker user.
+                    </tt>
+                </li>
+                <li>Now add the stereotype
+                    <tt>ValueObject</tt>
+                    to class<tt>UserVO</tt>. To
+                    do this, right-click on the class and select<i>Stereotype</i>. In the next level menu,
+                    check
+                    <tt>ValueObject</tt>
+                    and click<i>Apply</i>. The
+                    <tt>UserVO</tt>
+                    class will now have the
+                    <tt>ValueObject</tt>
+                    stereotype.
+                </li>
+                <li>
+                    <b>Tips &amp; Tricks</b>: AndroMDA profiles define a lot of profiles. On the widget displaying
+                    all available stereotypes, start to type the name of the searched Stereotype. By typing<tt>Va</tt>,
+                    only
+                    <tt>ValueObject</tt>
+                    is displayed.
+                </li>
+                <li>Let's add
+                    <tt>id</tt>
+                    as an attribute of<tt>UserVO</tt>. Right-click on the
+                    <tt>UserVO</tt>
+                    class and select<i>Insert New Attribute</i>. A new attribute is inserted with the
+                    specification<tt>-unnamed1</tt>. Write over this specification with this new one:
+                    <tt>+id
+                        : Long
+                    </tt>
+                    (be sure to delete the minus sign in front of the name). Do not press Enter
+                    after typing this attribute (that will create another attribute). Instead click
+                    outside the class to finish entering the attribute. Note that attributes are always
+                    generated as private members of a class. However the visibilities of the associated
+                    getter and setter are determined by the visibility of the attribute specification.
+                    In this case we have specified public visibility (by using the plus sign) and hence
+                    the getter and setter for the
+                    <tt>id</tt>
+                    attribute will be public.
+                    <blockquote>
+                        <b>Tips &amp; Tricks</b>: MagicDraw 15.5 provides an auto completion feature for choosing an element type.
+                        To use it, simply type in
+                        <tt>+id:L</tt>
+                        and press<i>ctrl + space</i>.
+                        MagicDraw 15.5 will then show you different possible completions: choose<tt>Long</tt>.
+                    </blockquote>
+                </li>
+                <li>Now add three more public attributes called<tt>username</tt>,
+                    <tt>firstName</tt>
+                    and
+                    <tt>lastName</tt>
+                    to the
+                    <tt>UserVO</tt>
+                    class. Make them
+                    <tt>String</tt>
+                    type. In your model two different types called String are available (see above).
+                    Use the one displayed<tt>String [datatype]</tt>.
+                </li>
+                <li>Add a new class to the diagram and name it<tt>UserVO[]</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right exactly. (It is okay if
+                    your class shows an empty operation compartment. This can be hidden very easily).
+                </li>
+                <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
+                <li>
+                    <b>Tips &amp; Tricks</b>: MagicDraw MagicDraw 15.5 displays objects that have changed since
+                    the last save in blue.
+                </li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                    Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+
+            <p>
+                Congratulations! You have now specified the
+                <tt>UserVO</tt>
+                value object of
+                the
+                <tt>TimeTracker</tt>
+                application. We are now ready to generate some code.
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

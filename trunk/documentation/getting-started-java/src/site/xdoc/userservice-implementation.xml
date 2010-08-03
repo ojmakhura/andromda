@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            UserService Implementation
+        </title>
+    </properties>
+    <body>
+        <section name="UserService Implementation">
+
+            <p>
+                In this section we will implement the
+                <tt>UserService</tt>
+                and make sure it
+                passes the tests.
+            </p>
+
+            <p>
+                As discussed under <a href="application-architecture.html">Application Architecture</a>,
+                the value object is a special packaging of attributes
+                from one more more entities, with the purpose of shielding the entities from other
+                tiers of the application and/or external applications. To implement the
+                <tt>getAllUsers()</tt>
+                method in<tt>UserService</tt>, we will now define a
+                <tt>User</tt>
+                entity.
+                To keep things simple, we will do a straight one-to-one mapping of attributes in
+                <tt>UserVO</tt>
+                to the attributes in the
+                <tt>User</tt>
+                entity. The model
+                of the
+                <tt>User</tt>
+                entity is shown on the right. Note that we have not explicitly
+                modeled the
+                <tt>id</tt>
+                attribute -- all entities are assumed to have an
+                <tt>id</tt>
+                attribute of type<tt>Long</tt>. You need to model an
+                <tt>id</tt>
+                only if
+                this default assumption is not true, i.e. your
+                <tt>id</tt>
+                attribute has a different
+                name or type.
+                <img src="images/User.jpg" alt="User"/>
+            </p>
+            <p>
+                Note that AndroMDA will map the
+                <tt>User</tt>
+                entity to a database table called
+                <tt>USER</tt>. However
+                <tt>USER</tt>
+                happens to be a reserved word in several
+                databases. So we will force AndroMDA to map this entity to a table called<tt>USERS</tt>.
+                This exercise will also show you how to override AndroMDA's default code generation
+                behavior.
+            </p>
+            <p>
+                Now let us enter the
+                <tt>User</tt>
+                entity in the TimeTracker model. Please follow
+                one of the links below to edit the model with the UML tool of your choice.
+            </p>
+            <ul>
+                <li>
+                    <a href="resources/uml-tools/argouml/UserEntity.html">ArgoUML</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/magicdraw/UserEntity.html">MagicDraw</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/rsm/UserEntity.html">RSM 6</a>
+                </li>
+            </ul>
+            <p>
+
+                <img src="images/UserToUserVODependency.jpg" alt="User To UserVO Dependency"/>
+            </p>
+            <p>
+                Next we will add couple of dependency relationships to our model to tell AndroMDA
+                about dependencies between some of the elements we have modeled. The first is the
+                dependency from the
+                <tt>User</tt>
+                entity to the<tt>UserVO</tt>. This dependency
+                is shown on the right and tells AndroMDA to generate conversion methods between
+                <tt>User</tt>
+                and
+                <tt>UserVO</tt>
+                objects. The conversion methods are generated
+                in<tt>UserDaoBase</tt>, the data access object for the
+                <tt>User</tt>
+                entity.
+                They take care of simple conversions, however if your value objects are complicated
+                (for example, if they have attributes fetched from related entities), then you will
+                have to override the default conversion methods to fill in the additional attributes.
+                Anyway, our
+                <tt>UserVO</tt>
+                is simple enough that the default conversion methods
+                work perfectly!
+            </p>
+            <p>
+                Please follow one of the links below to enter this new dependency in the model.
+            </p>
+            <ul>
+                <li>
+                    <a href="resources/uml-tools/argouml/UserToUserVO.html">ArgoUML</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/magicdraw/UserToUserVO.html">MagicDraw</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/rsm/UserToUserVO.html">RSM 6</a>
+                </li>
+            </ul>
+            <p>
+                Next add a dependency from
+                <tt>UserService</tt>
+                to the
+                <tt>User</tt>
+                entity.
+                This dependency is shown below and tells AndroMDA to give
+                <tt>UserService</tt>
+                access to the
+                <tt>User</tt>
+                entity. From an implementation perspective, this
+                injects a
+                <tt>UserDao</tt>
+                instance into<tt>UserService</tt>. As you may
+                have guessed,
+                <tt>UserDao</tt>
+                is the data access object that allows its clients
+                to read and write
+                <tt>User</tt>
+                entities from the database.
+            </p>
+            <div align="center">
+               <img src="images/UserServiceToUserDependency.jpg" alt="UserService To User Dependency"/>
+            </div>
+            <p>
+                Please follow one of the links below to enter this new dependency in the model.
+            </p>
+            <ul>
+                <li>
+                    <a href="resources/uml-tools/argouml/UserServiceToUser.html">ArgoUML</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/magicdraw/UserServiceToUser.html">MagicDraw</a>
+                </li>
+                <li>
+                    <a href="resources/uml-tools/rsm/UserServiceToUser.html">RSM 6</a>
+                </li>
+            </ul>
+            <p>
+                Now let's ask AndroMDA to generate code for the
+                <tt>User</tt>
+                entity:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Execute the command
+                    <tt>mvn install</tt>
+                    in the Command Prompt. Note that the
+                    build will not succeed because the test will still fail, however the code generation
+                    part should succeed.
+                </li>
+            </ol>
+            <p>
+                Open the folder C:/timetracker/core/target/src/org/andromda/timetracker/domain in
+                Windows Explorer. Note that there are 5 files generated in this folder as a result
+                of creating the single
+                <tt>User</tt>
+                entity in the application model.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>
+                    <b>User.java:</b>
+                    This is the primary class that implements the
+                    <tt>
+                        User
+                    </tt>
+                    entity. It contains the 3 attributes from the model along with their
+                    getters and setters. AndroMDA automatically adds an
+                    <tt>id</tt>
+                    attribute that
+                    represents the unique identifier for
+                    <tt>User</tt>
+                    instances in the database.
+                    In addition, AndroMDA generates
+                    <tt>equals()</tt>
+                    and
+                    <tt>hashCode()</tt>
+                    methods for the entity. Note that
+                    <tt>User</tt>
+                    is an abstract class - it cannot
+                    be instantiated. The
+                    <tt>UserImpl</tt>
+                    class described below, is a concrete
+                    class that extends<tt>User</tt>. It can be instantiated using the factory methods
+                    embedded in the
+                    <tt>User</tt>
+                    class.
+                </li>
+                <li>
+                    <b>UserImpl.java:</b>
+                    As mentioned above
+                    <tt>UserImpl</tt>
+                    is a concrete
+                    extension of the
+                    <tt>User</tt>
+                    class. It is meant to be a container for any
+                    custom code that developers would like to add to the
+                    <tt>User</tt>
+                    entity.
+                </li>
+                <li>
+                    <b>UserDao.java:</b>
+                    Data access objects for any entity are created as
+                    a trio of classes: an interface, an abstract base class and a concrete implementation.
+                    <tt>UserDao</tt>
+                    is the interface for the
+                    <tt>User</tt>
+                    data access object.
+                    It specifies CRUD methods for the DAO.
+                </li>
+                <li>
+                    <b>UserDaoBase.java:</b>
+                    <tt>UserDaoBase</tt>
+                    implements all of the
+                    CRUD methods specified in the
+                    <tt>UserDao</tt>
+                    interface class.
+                </li>
+                <li>
+                    <b>User.hbm.xml:</b>
+                    This is the Hibernate mapping file that maps the
+                    <tt>User</tt>
+                    entity to its relational representation in the database.
+                </li>
+            </ol>
+            <p>
+                Now open the folder C:/timetracker/core/src/main/java/org/andromda/timetracker/domain
+                in Windows Explorer. Note that there is 1 additional file generated in this folder:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>
+                    <b>UserDaoImpl.java:</b>
+                    <tt>UserDaoImpl</tt>
+                    is a concrete extension
+                    of the
+                    <tt>UserDaoBase</tt>
+                    class created in the target folder above. It is
+                    meant to be a container for any custom code that developers would like to add to
+                    the
+                    <tt>User</tt>
+                    data access object.
+                </li>
+            </ol>
+            <p>
+                Note that the
+                <tt>target</tt>
+                folder is intended for auto generated files only.
+                None of the files in this folder should be modified by hand because code regeneration
+                will wipe them out completely, thus deleting all your changes. It is also a best
+                practice not to check this code into your source repository. Instead let your build
+                script generate it on the fly.
+            </p>
+            <p>
+                By now you must be wondering where to add your custom code. We already said above
+                that developers can add custom code into
+                <tt>UserImpl.java</tt>
+                and<tt>UserDaoImpl.java</tt>.
+                But why is
+                <tt>UserImpl.java</tt>
+                generated in the
+                <tt>target</tt>
+                folder
+                then? Well, AndroMDA is pretty smart. You have given it no indication that you want
+                to write custom code in<tt>UserImpl.java</tt>. As long as that is the case
+                it will keep generating the
+                <tt>UserImpl.java</tt>
+                class in the target folder.
+                However, as soon as you tell AndroMDA that you want to write some custom code in
+                this class, it will generate the class in the
+                <tt>src</tt>
+                folder under the
+                core project. Now you are free to modify the
+                <tt>UserImpl.java</tt>
+                class and
+                add any code to it. AndroMDA will never overwrite files in the project
+                <tt>src</tt>
+                folder. They are auto-generated only once for your convenience.
+            </p>
+            <p>
+                Talking about custom code, note that so far we have not written even a single line
+                of custom code to implement the<tt>UserService</tt>! AndroMDA has done most
+                of the work for us, e.g. creation of the<tt>UserService</tt>,<tt>UserVO</tt>,
+                <tt>UserDao</tt>, Hibernate mapping file and so on. All that is really left
+                is to fill in the &quot;handle&quot; method in<tt>UserServiceImpl</tt>. To do this, add
+                the bold lines shown in the listing below to your
+                <tt>UserServiceImpl</tt>
+                class.
+            </p>
+            <source>
+                // license-header java merge-point
+                /**
+                * This is only generated once! It will never be overwritten.
+                * You can (and have to!) safely modify it by hand.
+                */
+                package org.andromda.timetracker.service;
+
+                import java.util.Collection;
+
+                import org.andromda.timetracker.domain.UserDao;
+                import org.andromda.timetracker.vo.UserVO;
+
+                /**
+                * @see org.andromda.timetracker.service.UserService
+                */
+                public class UserServiceImpl extends org.andromda.timetracker.service.UserServiceBase
+                {
+                    /**
+                    * @see org.andromda.timetracker.service.UserService#getAllUsers()
+                    */
+                    protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers() throws java.lang.Exception
+                    {
+                        Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
+                        return (UserVO[])userVOs.toArray(new UserVO[0]);
+                    }
+                }
+            </source>
+            <p>
+                Here we make a direct call to the
+                <tt>loadAll()</tt>
+                method in
+                <tt>UserDao</tt>
+                which is completely implemented in<tt>UserDaoBase</tt>. We supply the
+                <tt>UserDao.TRANSFORM_USERVO</tt>
+                parameter to the
+                <tt>loadAll()</tt>
+                method which asks the method to convert
+                the
+                <tt>User</tt>
+                entities to
+                <tt>UserVO</tt>
+                objects before returning.
+                We then convert the returned collection to an array as required by the method signature
+                and return this array. That's it! You see how simple it was to implement this method,
+                no need to write DAOs or convert database records to objects, AndroMDA takes care
+                of all this for you.
+            </p>
+            <p>
+                Well, we think that
+                <tt>UserService</tt>
+                is now completely implemented. Let's
+                test it. Execute the command below to run<tt>UserServiceTest</tt>. Note that
+                this time we do not execute
+                <tt>mvn install</tt>
+                because this command regenerates
+                code and rebuilds the entire application. Since we have not made any model changes
+                after the last build, it makes sense to just run the
+                <tt>test</tt>
+                target in
+                the
+                <tt>core</tt>
+                project.
+            </p>
+            <source>
+                C:\timetracker&gt;mvn -f core/pom.xml test
+                ...
+                ...
+                -------------------------------------------------------
+                T E S T S
+                -------------------------------------------------------
+                Running Services Test
+                SQL Error: 1146, SQLState: 42S02
+                &lt;b&gt;Table 'timetracker.user' doesn't exist&lt;/b&gt;
+                Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.996 sec --- FAILURE!
+
+                Results :
+                Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+
+                [INFO] ------------------------------------------------------------------------
+                [ERROR] BUILD FAILURE
+                [INFO] ------------------------------------------------------------------------
+                [INFO] There are test failures.
+                [INFO] ------------------------------------------------------------------------
+                [INFO] For more information, run Maven with the -e switch
+                [INFO] ------------------------------------------------------------------------
+                [INFO] Total time: 1 minute 2 seconds
+                [INFO] Finished at: Wed Jun 28 16:32:02 EDT 2006
+                [INFO] Final Memory: 26M/53M
+                [INFO] ------------------------------------------------------------------------
+            </source>
+            <p>
+                Aha, we forgot to create our
+                <tt>user</tt>
+                table in the database. Follow the
+                steps below to create this table, populate it with test data and then run the test
+                again.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Run the following command in the Command Prompt, asking AndroMDA to create our database
+                    schema:
+                    <br/>
+                    <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=create</tt>
+                    <br/>
+                    Make sure you get a
+                    <tt>BUILD SUCCESSFUL</tt>
+                    message
+                </li>
+                <li>Open MySQL Query Browser. Login as timetracker. You should see the
+                    <tt>user</tt>
+                    table in the
+                    <tt>timetracker</tt>
+                    schema.
+                </li>
+                <li>Select File &gt; New Script Tab and paste the following SQL script in the new tab.
+                    <source>
+                        insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+                        values (1, 'nbhatia', 'Naresh', 'Bhatia');
+                        insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+                        values (2, 'lcoude', 'Louis', 'Coude');
+                        insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+                        values (3, 'ecrutchfield', 'Eric', 'Crutchfield');
+                        insert into USERS (ID, USERNAME, FIRST_NAME, LAST_NAME)
+                        values (4, 'cmicali', 'Chris', 'Micali');
+                    </source>
+                </li>
+                <li>Click the Execute button on the top right.</li>
+                <li>Now rerun the test:
+                    <br/>
+                    <tt>mvn -f core/pom.xml test</tt>
+                    <br/>
+                    You will see that the test runs successfully - yeah!
+                </li>
+                <li>Open
+                    <tt>C:\timetracker\core\timetracker-test.log</tt>
+                    to see results logged
+                    by the test. You should see the usernames printed out at the end of this file:
+                    <source>
+                        16:59:28.362 INFO - nbhatia
+                        16:59:28.362 INFO - lcoude
+                        16:59:28.362 INFO - ecrutchfield
+                        16:59:28.362 INFO - cmicali
+                    </source>
+                </li>
+            </ol>
+            <subsection name="What's Next?">
+                <p>
+                    Now that
+                    <tt>UserService.getAllUsers()</tt>
+                    method is working, let's try to
+                    use it from the front-end. Click <a href="search-criteria-panel.thml">here</a> to implement the search
+                    criteria panel of the search screen, which needs to call this method.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

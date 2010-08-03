@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Integrating with Acegi Security System
+        </title>
+    </properties>
+    <body>
+        <section name="Integrating with Acegi Security System">
+
+            <p>
+                In this section we will add security to TimeTracker by integrating it with the Acegi
+                Security System. The integration will ensure that only authenticated users can access
+                secured pages. Currently all pages in TimeTracker are specified to be secure, except
+                of course the Login page. Even if the user has bookmarked a page and tries to view
+                it directly without presenting her credentials, Acegi will intercept the request
+                and present the Login page. Once the credentials are presented and verified, user
+                will be directed to the page she was trying to access.
+            </p>
+
+            <p>
+                We chose Acegi Security System because it provides a portable and effective security
+                framework for enterprise applications. Look at the
+                <a href="http://www.acegisecurity.org/">Acegi Security Home Page</a>
+                to understand its key features.
+                Also look at the
+                <a href="http://www.acegisecurity.org/faq.html">Frequently Asked Questions</a>
+                to understand what Acegi provides over alternate solutions
+                such as web.xml security and JAAS. You may also want to read the
+                <a href="http://www.acegisecurity.org/docbook/acegi.html">Overall Architecture</a>
+                section of the Acegi Reference Guide.
+                Armed with all this knowledge, let's get down to business. Remember that if you
+                run into problems, you can always compare your implementation with the completed
+                solution to figure out what's going on.
+            </p>
+            <subsection name="SecurityService">
+                <p>
+                    We will first create a new service called
+                    <tt>SecurityService</tt>
+                    that allows
+                    the front-end to verify user credentials. We chose not to add this functionality
+                    to the
+                    <tt>UserService</tt>
+                    because of the confidential nature of this information.
+                    <tt>UserService</tt>
+                    may be something you want to expose to the outside world,
+                    but definately not passwords and other secure information of similar nature. Follow
+                    the steps below to add
+                    <tt>SecurityService</tt>
+                    to TimeTracker.
+                </p>
+                <ol style="list-style-type: decimal">
+                    <li>In the
+                        <tt>Domain Objects</tt>
+                        diagram, add an enumeration called<tt>Role</tt>.
+                        This enumeration represents the roles that authenticated users can play. Make sure
+                        that
+                        <tt>Role</tt>
+                        is created under the
+                        <tt>org.andromda.timetracker.domain</tt>
+                        package.
+                        <br/>
+
+                        <img src="images/Role.jpg" alt="Role"/>
+                    </li>
+                    <li>Again, in the
+                        <tt>Domain Objects</tt>
+                        diagram, enhance the
+                        <tt>User</tt>
+                        entity with additional attributes to support security. Note that Acegi only requires
+                        the
+                        <tt>username</tt>
+                        and
+                        <tt>password</tt>
+                        fields, we have added the other
+                        attributes just to show how Acegi can support additional security requirements.
+                        <br/>
+
+                        <img src="images/UserRole.jpg" alt="UserRole"/>
+                    </li>
+                    <li>Now add the
+                        <tt>UserRole</tt>
+                        entity and the one-to-many relationship between
+                        <tt>User</tt>
+                        and<tt>UserRole</tt>.
+                    </li>
+                    <li>We are now ready to create the value objects that will be used by the<tt>SecurityService</tt>.
+                        Create<tt>UserDetailsVO</tt>,
+                        <tt>UserRoleVO</tt>
+                        and
+                        <tt>UserRoleVO[]</tt>
+                        in the
+                        <tt>Value Objects</tt>
+                        diagram as shown below. Note that
+                        <tt>UserDetailsVO</tt>
+                        extends
+                        <tt>UserVO</tt>
+                        using a
+                        <i>Generalization</i>
+                        relationship. Next create
+                        the dependency relationships as shown in the diagram. Note that the Dependency
+                        from User to UserRole needs to be created in addition to the Association
+                        which already connects them.
+                        <br/>
+
+                        <img src="images/UserDetailsVO.jpg" alt="UserDetailsVO"/>
+                    </li>
+                    <li>We are finally ready to create the<tt>SecurityService</tt>. Add
+                        <tt>SecurityService</tt>
+                        to the
+                        <tt>Services</tt>
+                        diagram as shown below. Also add the dependency to
+                        the
+                        <tt>User</tt>
+                        entity.
+                        <br/>
+
+                        <img src="images/SecurityService.jpg" alt="SecurityService"/>
+                    </li>
+                    <li>Add a method to the
+                        <tt>User</tt>
+                        entity to allow eager fetching of a
+                        <tt>
+                            User
+                        </tt>
+                        along with its roles - all in one database hit. Here's the specification
+                        for this method:
+                        <br/>
+                        <tt>+getUserDetails(username : String) : User</tt>
+                        <br/>
+                        Since we want this method to be generated in the DAO, change its scope to
+                        <tt>classifier</tt>
+                        (or, for ArgoUML select the
+                        <tt>static</tt>
+                        modifier).
+                    </li>
+                    <li>That completes all the changes to the model. Now let's generate code:
+                        <br/>
+                        <tt>mvn install</tt>
+                        <br/>
+                        The tests will fail because the database schema has changed.
+                    </li>
+                    <li>Drop the database schema and create a new one:
+                        <br/>
+                        <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=drop,create</tt>
+                    </li>
+                    <li>Populate the new schema with the following test data.
+                        <source>
+                            -- Password is 'cooldude' encoded using MD5
+                            insert into USERS
+                            (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
+                            EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
+                            values (1, 'nbhatia', '756slLjeNViurJBGI5JeqA==', 'Naresh', 'Bhatia',
+                            'nbhatia@northwind.com', 1, '2006/01/01 09:00', null);
+                            insert into USERS
+                            (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
+                            EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
+                            values (2, 'lcoude', '756slLjeNViurJBGI5JeqA==', 'Louis', 'Coude',
+                            'lcoude@northwind.com', 1, '2006/01/01 09:00', null);
+                            insert into USERS
+                            (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
+                            EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
+                            values (3, 'ecrutchfield', '756slLjeNViurJBGI5JeqA==', 'Eric', 'Crutchfield',
+                            'ecrutchfield@northwind.com', 1, '2006/01/01 09:00', null);
+                            insert into USERS
+                            (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
+                            EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
+                            values (4, 'cmicali', '756slLjeNViurJBGI5JeqA==', 'Chris', 'Micali',
+                            'cmicali@northwind.com', 1, '2006/01/01 09:00', null);
+
+                            insert into USER_ROLE (ID, ROLE, USER_FK)
+                            values (1, 'StandardUser', 1);
+                            insert into USER_ROLE (ID, ROLE, USER_FK)
+                            values (2, 'Administrator', 1);
+                            insert into USER_ROLE (ID, ROLE, USER_FK)
+                            values (3, 'StandardUser', 2);
+                            insert into USER_ROLE (ID, ROLE, USER_FK)
+                            values (4, 'StandardUser', 3);
+                            insert into USER_ROLE (ID, ROLE, USER_FK)
+                            values (5, 'StandardUser', 4);
+
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 1, 'Approved', '2006/05/15', 'Timecard 01', 1, 2);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 2, 'Approved', '2006/05/15', 'Timecard 02', 2, 3);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 3, 'Approved', '2006/05/15', 'Timecard 03', 3, 4);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 4, 'Approved', '2006/05/15', 'Timecard 04', 4, 1);
+
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 5, 'Rejected', '2006/05/22', 'Timecard 05', 1, 2);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 6, 'Rejected', '2006/05/22', 'Timecard 06', 2, 3);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 7, 'Rejected', '2006/05/22', 'Timecard 07', 3, 4);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 8, 'Rejected', '2006/05/22', 'Timecard 08', 4, 1);
+
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values ( 9, 'Submitted', '2006/05/29', 'Timecard 09', 1, 2);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (10, 'Submitted', '2006/05/29', 'Timecard 10', 2, 3);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (11, 'Submitted', '2006/05/29', 'Timecard 11', 3, 4);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (12, 'Submitted', '2006/05/29', 'Timecard 12', 4, 1);
+
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (13, 'Draft', '2006/06/05', 'Timecard 13', null, 2);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (14, 'Draft', '2006/06/05', 'Timecard 14', null, 3);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (15, 'Draft', '2006/06/05', 'Timecard 15', null, 4);
+                            insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
+                            values (16, 'Draft', '2006/06/05', 'Timecard 16', null, 1);
+                        </source>
+                    </li>
+                    <li>Now build the application again by executing<tt>mvn install</tt>. This time
+                        the tests should pass.
+                    </li>
+                    <li>Let's now implement the
+                        <tt>UserDaoImpl.handleGetUserDetails()</tt>
+                        method.
+                        Open the file
+                        <tt>core\src\main\java\org\andromda\timetracker\domain\UserDaoImpl.java</tt>
+                        and add the following implentation for<tt>handleGetUserDetails()</tt>:
+                        <br/>
+                        <source>
+                            protected User handleGetUserDetails(String username) throws Exception {
+                            User user = (User)getSession().createQuery(
+                            &quot;from org.andromda.timetracker.domain.User user &quot; +
+                            &quot;left join fetch user.roles &quot; +
+                            &quot;where user.username = :username&quot;)
+                            .setParameter(&quot;username&quot;, username)
+                            .uniqueResult();
+                            return user;
+                            }
+                        </source>
+                    </li>
+                    <li>Add the following imports at the top of<tt>UserDaoImpl.java</tt>:
+                        <br/>
+                        <source>
+                            import java.util.Collection;
+                            import org.andromda.timetracker.vo.UserRoleVO;
+                        </source>
+                    </li>
+                    <li>We now need to override the default implementation of<tt>UserDaoImpl.toUserDetailsVO()</tt>.
+                        The reason for this is to include the attributes from the associated
+                        <tt>UserRole</tt>
+                        objects into<tt>UserDetailsVO</tt>. Here's the implentation for the method:
+                        <br/>
+                        <source>
+                            public void toUserDetailsVO(
+                            org.andromda.timetracker.domain.User sourceEntity,
+                            org.andromda.timetracker.vo.UserDetailsVO targetVO)
+                            {
+                            super.toUserDetailsVO(sourceEntity, targetVO);
+
+                            // Convert roles
+                            Collection srcRoles = sourceEntity.getRoles();
+                            UserRoleVO[] targetRoles = new UserRoleVO[srcRoles.size()];
+                            int i=0;
+                            for (Object srcRole : srcRoles)
+                            {
+                            targetRoles[i] = getUserRoleDao().toUserRoleVO((UserRole)srcRole);
+                            i++;
+                            }
+                            targetVO.setRoles(targetRoles);
+                            }
+                        </source>
+                    </li>
+                    <li>Finally, we need to add the implementation for
+                        <tt>SecurityServiceImpl.handleGetUserDetails()</tt>.
+                        Open the file
+                        <tt>core\src\main\java\org\andromda\timetracker\service\SecurityServiceImpl.java</tt>
+                        and the following code:
+                        <br/>
+                        <source>
+                            import org.andromda.timetracker.domain.User;
+                            import org.andromda.timetracker.vo.UserDetailsVO;
+                            ...
+                            protected UserDetailsVO handleGetUserDetails(String username)
+                            throws java.lang.Exception
+                            {
+                            UserDetailsVO userDetailsVO = null;
+                            User user = getUserDao().getUserDetails(username);
+                            if (user != null)
+                            {
+                            userDetailsVO = getUserDao().toUserDetailsVO(user);
+                            }
+                            return userDetailsVO;
+                            }
+                        </source>
+                    </li>
+                </ol>
+            </subsection>
+            <subsection name="Acegi Integration">
+                <p>
+                    We are now ready to introduce Acegi as a dependency for TimeTracker.
+                </p>
+                <ol style="list-style-type: decimal">
+                    <li>Edit the file
+                        <tt>C:\timetracker\pom.xml</tt>
+                        and add the following dependency
+                        under the
+                        <tt>dependencyManagement</tt>
+                        section. If you are unsure where to
+                        add this section, just look in the
+                        <tt>pom.xml</tt>
+                        file under the completed
+                        application.
+                        <br/>
+                        <source>
+                            &lt;dependency&gt;
+                            &lt;groupId&gt;org.acegisecurity&lt;/groupId&gt;
+                            &lt;artifactId&gt;acegi-security&lt;/artifactId&gt;
+                            &lt;version&gt;1.0.1&lt;/version&gt;
+                            &lt;exclusions&gt;
+                            &lt;exclusion&gt;
+                            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+                            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;exclusion&gt;
+                            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                            &lt;artifactId&gt;spring-remoting&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;exclusion&gt;
+                            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                            &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;exclusion&gt;
+                            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                            &lt;artifactId&gt;spring-support&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;/exclusions&gt;
+                            &lt;/dependency&gt;
+                        </source>
+                        NOTE: If you get an runtime error from your application server
+                        saying it can't find
+                        <tt>org/apache/commons/codec/binary/Base64</tt>
+                        when you try to log in, you may need to comment out the exclusion
+                        for<tt>commons-codec</tt>.
+                    </li>
+                    <li>Now edit the file
+                        <tt>C:\timetracker\web\pom.xml</tt>
+                        and add the following
+                        dependency under the
+                        <tt>dependencies</tt>
+                        section. Again, if you are unsure
+                        where to add this section, just look in the
+                        <tt>web\pom.xml</tt>
+                        file under
+                        the completed application.
+                        <br/>
+                        <source>
+                            &lt;dependency&gt;
+                            &lt;groupId&gt;org.acegisecurity&lt;/groupId&gt;
+                            &lt;artifactId&gt;acegi-security&lt;/artifactId&gt;
+                            &lt;/dependency&gt;
+                        </source>
+                    </li>
+                    <li>We need several changes in the
+                        <tt>WebMergeMappings.xml</tt>
+                        file under<tt>
+                            mda\src\main\config\mappings</tt>. These changes will trigger the inclusion of
+                        Acegi filter chain in the web container. Copy the
+                        <tt>WebMergeMappings.xml</tt>
+                        from the completed tutorial to your version.
+                    </li>
+                    <li>Next we need to implement the
+                        <tt>UserDetailsService</tt>
+                        which is used by Acegi
+                        to access
+                        <tt>UserDetails</tt>
+                        from the database. For us, this will be a very
+                        simple service that delegates to the
+                        <tt>SecurityService</tt>
+                        that we designed
+                        in the TimeTracker model. Copy the directory
+                        <tt>web\src\main\java\org\andromda\timetracker\web\security</tt>
+                        from the completed solution to your implementation. This directory contains two
+                        very simple Java files that implement the<tt>UserDetailsService</tt>.
+                    </li>
+                    <li>Delete the
+                        <tt>jsp</tt>
+                        directory under<tt>C:\timetracker\web\src\main</tt>.
+                        Remember that this is where we had cutomized the look and feel of the application.
+                        Well now we have to add some more files to this directory (such as the custom login
+                        page and Acegi configuration file). For the purpose of this tutorial, it is simpler
+                        to just delete this directory and copy over a fresh one.
+                    </li>
+                    <li>Download
+                        <a href="custom-look-and-feel2.zip">custom-look-and-feel2.zip</a>
+                        and unzip it at<tt>C:\timetracker\web\src\main</tt>.
+                        You will get a sub-directory under
+                        <tt>main</tt>
+                        called<tt>jsp</tt>.
+                    </li>
+                </ol>
+            </subsection>
+            <subsection name="Build and deploy TimeTracker">
+                <ol style="list-style-type: decimal">
+                    <li>Execute the commands
+                        <tt>mvn clean</tt>
+                        followed by
+                        <tt>mvn install</tt>
+                        in the Command Prompt.
+                    </li>
+                    <li>Make sure the JBoss server is running.</li>
+                    <li>Deploy the application:
+                        <br/>
+                        <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                    </li>
+                    <li>Open a browser and make it point to http://localhost:8080/timetracker. This time
+                        the login page will appear because the search page is configured as a secure page.
+                    </li>
+                    <li>Log in with the username
+                        <tt>nbhatia</tt>
+                        and password<tt>cooldude</tt>.
+                        The browser will now show the search page.
+                    </li>
+                </ol>
+            </subsection>
+            <subsection name="What's Next?">
+                <p>
+                    Congratulations! You have made it successfully to the end of this tutorial.
+                    Click <a href="finish.html">here</a> to find out where to go from here.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

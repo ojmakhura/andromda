@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserService to User Dependency
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserService to User Dependency">
+
+            <p>
+                This page provides directions to create the dependency from
+                <tt>UserService</tt>
+                to
+                <tt>User</tt>
+                using ArgoUML. The model is shown below for your reference.
+            </p>
+
+            <div align="center">
+                <img src="images/UserServiceToUserDependency.png" alt="UserService To User Dependency"/>
+            </div>
+            <ol style="list-style-type: decimal">
+                <li>Select the Services class diagram in the
+                    <tt>service</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>User</tt>
+                    class on to the
+                    diagram.
+                    <br/>
+                    <b>Warning:</b>
+                    It is important to bring in the existing
+                    <tt>User</tt>
+                    class
+                    from the
+                    <tt>domain</tt>
+                    package into this diagram. DO NOT create a new
+                    <tt>User</tt>
+                    class in this diagram.
+                </li>
+                <li>Select the dependency relationship from the toolbar and create a dependency from
+                    <tt>UserService</tt>
+                    to<tt>User</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown above exactly.</li>
+                <li>Save your
+                    <tt>TimeTracker</tt>
+                    model by selecting FileSave Project.
+                </li>
+            </ol>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+        </section>
+    </body>
+</document>

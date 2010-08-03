@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create User Entity
+        </title>
+    </properties>
+    <body>
+        <section name="Create User Entity">
+
+            <p>
+                This page provides directions to create the
+                <tt>User</tt>
+                entity using MagicDraw 15.5.
+            </p>
+
+            <p>
+                We will create
+                <tt>User</tt>
+                in a package named<tt>org.andromda.timetracker.domain</tt>.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>In the TimeTracker model create a package called
+                    <tt>domain</tt>
+                    under<tt>
+                        org.andromda.timetracker</tt>.
+                </li>
+                <li>In the Containment Tree on the left, right-click on the
+                    <tt>domain</tt>
+                    package
+                    and select<i>New Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window.
+                    Type in
+                    <tt>Domain Objects</tt>
+                    as the name of this diagram and press Enter.
+                </li>
+                <li>Add a new class to the diagram and name it<tt>User</tt>.
+                </li>
+                <li>Add the stereotype called
+                    <tt>Entity</tt>
+                    (The one from AndroMDA Profile, starting with an 'E' and
+                    not the one from UML2 Standard Profile, starting with an 'e') to<tt>User</tt>.
+                </li>
+                <li>Add the 3 attributes to<tt>User</tt>.
+                </li>
+                <li>Double click on the class to open the class specification.</li>
+                <li>Click on the
+                    <i>Tagged Values</i>
+                    tab and then click on the tagged value named
+                    <tt>@andromda.persistence.table</tt>. This tagged value allows you to override
+                    the default table name for the entity. Click the
+                    <i>Add Value</i>
+                    button. Enter
+                    the value
+                    <tt>USERS</tt>
+                    in the right panel. Click
+                    <i>OK</i>
+                    to add this tagged value
+                    to the
+                    <tt>User</tt>
+                    entity.
+                </li>
+                <li>
+                    <b>Note</b>: In our UML2 profile, each tag value has it own stereotype. Having such a stereotype
+                    applied on an element will make AndroMDA consider this element tagged by the corresponding tag value.
+                    If there is no specified value (but the stereotype is applied) AndroMDA will use the default value, defined
+                    in the profile. Keep this in mind, when removing a tag value: unapply the stereotype as well.
+                </li>
+                <li>
+                    Note that the tagged value shows up in the diagram and its owning stereotype
+                    <tt>@andromda.persistence.table</tt>.
+                    You can make MagicDraw 15.5 hide the tagged values, but you can't select which stereotypes
+                    you want to be displayed. If you want to hide the tag value, right-click
+                    on the entity and choose<i>Presentation Options</i>, then deselect<i>Show Tagged
+                    Values</i>. You may want to hide stereotypes as well:
+                    <tt>Entity</tt>
+                    stereotype has an icon
+                    which will remain displayed.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right (depending on the choice you made just before).</li>
+                <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                    Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+
+            <p>
+                Now go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Add Page Variable to State Machine
+        </title>
+    </properties>
+    <body>
+        <section name="Add Page Variable to State Machine">
+
+            <p>
+                This page provides directions to add the
+                <tt>timecardSummaries</tt>
+                page variable
+                to the
+                <tt>Search Timecards</tt>
+                state machine.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Right click on the transition out of
+                    <tt>Search Timecards</tt>
+                    and choose<i>Add UML
+                        &gt; Attribute</i>. It will create an Activity as the effect of the transition.
+                </li>
+                <li>Rename it as blank - this is the only difference between modeling an
+                    event (coming out of a view) and a page variable (entering in a view).
+                </li>
+                <li>Right click on the newly created activity (in the model explorer) and open its properties.</li>
+                <li>Click on the
+                    <i>ImportPackage</i>
+                    tab.
+                </li>
+                <li>Click on the button on the right to add a package import. Select the
+                    <tt>timetracker</tt>
+                    model
+                    and click on<i>OK</i>.
+                </li>
+                <li>Click on the
+                    <i>Parameters</i>
+                    tab.
+                </li>
+                <li>Click on the button on the right (the one with a red circle) to add a parameter.
+                    Enter
+                    <tt>timecardSummaries</tt>
+                    as the name of the parameter and choose
+                    <tt>TimecardSummaryVO[]</tt>
+                    as its type.
+                </li>
+                <li>Select the
+                    <tt>timecardSummaries</tt>
+                    parameter and apply it the
+                    <tt>andromda_presentation_view_table_columns</tt>
+                    stereotype.
+                    This tagged value tells AndroMDA to render the page variable as a table. Open the in the
+                    <i>Stereotype</i>
+                    tab and on the
+                    <i>...</i>
+                    button in the right of<tt>andromda_presentation_view_table_columns</tt>.
+                    Enter the following values in the dialog, by clicking on the
+                    <i>Insert new String</i>
+                    button:
+                    <ul>
+                        <li>
+                            <tt>id</tt>
+                        </li>
+                        <li>
+                            <tt>submitterName</tt>
+                        </li>
+                        <li>
+                            <tt>approverName</tt>
+                        </li>
+                        <li>
+                            <tt>status</tt>
+                        </li>
+                        <li>
+                            <tt>startDate</tt>
+                        </li>
+                    </ul>
+                    This tells AndroMDA to display 5 columns in the table corresponding to the 5 attributes
+                    of<tt>TimecardSummaryVO</tt>. Click on<i>Close</i>.
+                    (Note that the TimeTracker prototype does not have an
+                    <tt>Id</tt>
+                    column in the results table. However, we add it here so that the
+                    <tt>id</tt>
+                    is available to each row.)
+                </li>
+            </ol>
+            <p>
+                We have now added the
+                <tt>timecardSummaries</tt>
+                page variable to the
+                <tt>Search Timecards</tt>
+                state machine.
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

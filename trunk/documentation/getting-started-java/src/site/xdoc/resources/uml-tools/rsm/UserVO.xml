@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserVO
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserVO">
+
+            <p>
+                This page provides directions to create the
+                <tt>UserVO</tt>
+                using RSM.
+            </p>
+
+            <p>
+                Let's take a look at the initial content of the freshly generated model.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Start RSM.</li>
+                <li>The AndroMDApp generated model is not meant to be edited directly: we have to import it into RSM.
+                    Since AndroMDA will use only the exported file, you have the choice on which project you want to store the .emx model.
+                    <ol style="list-style-type: decimal">
+                        <li>An independant project in your RSM workspace</li>
+                        <li>The Java project containing your Andromda project</li>
+                    </ol>
+                    For this tutorial, we'll choose the first option. Click on
+                    <i>File &gt; New... &gt; Project</i>. Choose
+                    <i>Simple &gt; Project</i>
+                    and click on<i>Next</i>. Type in
+                    <tt>TimeTracker</tt>
+                    as the name and click<i>OK</i>.
+                </li>
+                <li>Select<i>File &gt; Import...</i>. Choose
+                    <i>UML2 Model</i>
+                    and then click on<i>Next</i>. Click on the upper
+                    <i>Browse...</i>
+                    and traverse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                    Click
+                    <i>Open</i>
+                    to open this file. Then click on the second
+                    <i>Browse...</i>
+                    and choose the
+                    <tt>TimeTracker</tt>
+                    project.
+                    Check the box
+                    <i>Open imported models</i>
+                    and click on
+                    <i>Done</i>
+                </li>
+            </ol>
+            <p>
+                On the left of the window, there is the model explorer. It displays the objects
+                that make, together, the model. AndroMDA sees the model like it is displayed here (and not
+                through the several diagrams). By making sure that the content of your model is matching the pictures
+                shown during this tutorial, you'll avoid a lot of errors.
+            </p>
+            <p>
+                As you can see, the model is not empty. Some of work has already be done for you. Let's review the initial
+                content of the model.
+            </p>
+            <ul>
+                <li>
+                    <tt>UML2</tt>: This module contains the standard datatypes for UML2.
+                </li>
+                <li>
+                    <tt>Basic, Intermediate, Complete, Default, Deployement</tt>: These modules are the standard profiles applied to a UML2 model.
+                </li>
+                <li>
+                    <tt>AndroMDA Datatypes</tt>: This package contains some platform independent datatypes
+                    that have be used in your UML model. AndroMDA will map then to platform specific datatypes.
+                    <i>Important</i>: A common source of errors is to use UML's datatypes instead of these.
+                    When specifying datatypes, make sure that they come from this package. Example: use
+                    <tt>datatype::String</tt>
+                    instead of<tt>String</tt>.
+                </li>
+                <li>
+                    <tt>AndroMDA Profile</tt>: This collection of profiles define all the stereotypes and
+                    tag values that will be used by AndroMDA for generating code.
+                </li>
+            </ul>
+            <p>
+                Note: all this content is not
+                <i>included</i>
+                in the .uml2 file. They're only
+                <i>references</i>
+                to
+                files located into your maven 2 repository.
+            </p>
+            <p>
+                We have to rename the model to<tt>timetracker</tt>. Otherwise, the exported file won't be called
+                <tt>timetracker.uml2</tt>.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>In the model explorer on the left, open the
+                    <tt>timetracker.emx</tt>
+                    and select the model called<tt>model</tt>. Press F2 and type in
+                    <tt>timetracker</tt>
+                    as the name of this model.
+                </li>
+            </ol>
+            <p>
+                As said previously, AndroMDA can't read RSM models directly. You have to export it
+                to another file format: EMF-UML2.
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by double-clicking on
+                    <tt>timetracker.emx</tt>
+                    and clicking on
+                    <i>File &gt; Save</i>
+                    (<i>Ctrl + S</i>).
+                </li>
+                <li>
+                    Select<i>File &gt; Export...</i>. Choose
+                    <i>UML2 Model</i>
+                    and then click on<i>Next</i>.
+                    As
+                    <i>source</i>
+                    select
+                    <tt>/TimeTracker/timetracker.emx</tt>
+                    and as
+                    <i>destination</i>
+                    browse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                </li>
+            </ol>
+            <blockquote>
+                <b>Important</b>: Always use the
+                <i>timetracker.emx</i>
+                file for editing. After edition, don't forget to export the model
+                to EMF/UML2. AndroMDA won't take your changes into account if you don't export your model.
+            </blockquote>
+            <p>
+                Let's start the 'real' work. We will create
+                <tt>UserVO</tt>
+                and
+                <tt>UserVO[]</tt>
+                in a package named
+                <tt>org.andromda.timetracker.vo</tt>. When finished, the model explorer in
+                RSM will look like the screen shot on the bottom of this page.
+            </p>
+
+            <ol style="list-style-type: decimal">
+                <li>Now right-click on the
+                    <tt>timetracker</tt>
+                    model and select<i>Add UML Entity
+                        &gt; Package</i>. A new package will be created under the
+                    <tt>timetracker</tt>
+                    model element with
+                    an edit box to its side. Type in
+                    <tt>org.andromda.timetracker</tt>
+                    as the name
+                    of the package. AndroMDA will map this package to a Java package with the same name.
+                    Note: Make sure the package name is exactly<tt>org.andromda.timetracker</tt>,
+                    with no leading or trailing spaces. We have found that some browsers introduce a
+                    leading space in the package name if you copy it from this page!
+                </li>
+                <li>Now create a package called
+                    <tt>vo</tt>
+                    under<tt>org.andromda.timetracker</tt>.
+                    We will create our value objects in this package. Note that AndroMDA does not require
+                    this package structure. We are doing it simply to separate our value objects from
+                    other type of objects such as business entities, services etc.
+                </li>
+                <li>In the model explorer on the left, right-click on the
+                    <tt>vo</tt>
+                    package
+                    and select<i>Add Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window.
+                    You can see that the diagram's name is being edited. Type in
+                    <tt>Value Objects</tt>
+                    as the name of
+                    this diagram and press Enter.
+                </li>
+                <li>
+                    Note: Depending on your configuration, RSM add automatically a diagram
+                    to created package. Simply delete them or use them. It is up to you.
+                </li>
+                <li>In the toolbar on the left of the class diagram click on the
+                    <i>Class icon</i>
+                    (2nd icon
+                    from the class diagram group). Now click anywhere inside the diagram. A new class will be created.
+                    Click on
+                    <tt>Class1</tt>
+                    to make RSM display an editing box for the name of the class. Now
+                    type the word
+                    <tt>UserVO</tt>
+                    and press Enter.
+                </li>
+                <li>Let's add some documentation for the
+                    <tt>UserVO</tt>
+                    class. It is always a good
+                    idea to document your model. Documentation added to model elements such as classes,
+                    attributes and methods is carried over to the code as comments. Select
+                    the
+                    <tt>UserVO</tt>
+                    class. In the
+                    <i>Properties</i>
+                    tab, click on<i>Documentation</i>.
+                    Enter the following words in the field:
+                    <tt>This class represents
+                        a value object that carries information about a TimeTracker user.
+                    </tt>
+                </li>
+                <li>Now add the stereotype
+                    <tt>ValueObject</tt>
+                    to class<tt>UserVO</tt>. To
+                    do this, select the class and in the
+                    <i>Properties</i>
+                    tab, click on<i>Stereotype</i>.
+                    In this sub-panel, click on<i>Add Stereotypes...</i>. A popup dialog will appear,
+                    check
+                    <tt>ValueObject</tt>
+                    and click<i>OK</i>. The
+                    <tt>UserVO</tt>
+                    class will now have the
+                    <tt>ValueObject</tt>
+                    stereotype.
+                    <blockquote>
+                        <b>Tips &amp; Tricks</b>: AndroMDA profiles define a lot of stereotypes and tag values.
+                        Some of them are not needed during this tutorial:<tt>Meta</tt>,<tt>Process</tt>,
+                        <tt>Webservice</tt>
+                        and<tt>Xml</tt>. You may remove them: it will make the selection of
+                        stereotypes easier (since a lot of them won't be displayed anymore).
+                        <ol style="list-style-type: decimal">
+                            <li>
+                                Select the
+                                <tt>timetracker</tt>
+                                model. On the
+                                <i>Properties</i>
+                                tab, activate
+                                the
+                                <i>Profiles</i>
+                                sub-panel.
+                            </li>
+                            <li>
+                                Select the
+                                <tt>Meta</tt>
+                                profile and click on<i>Delete Profil</i>. Do the same
+                                for<tt>Process</tt>,
+                                <tt>Webservice</tt>
+                                and
+                                <tt>Xml</tt>
+                                profiles.
+                            </li>
+                        </ol>
+                    </blockquote>
+                </li>
+                <li>Let's add
+                    <tt>id</tt>
+                    as an attribute of<tt>UserVO</tt>. Place your mouse on the
+                    <tt>UserVO</tt>
+                    class and wait until a 'tooltip' appears above it. Click
+                    on the little red square. A new attribute is inserted with the
+                    specification<tt>&lt;&lt;&gt;&gt;Attribute1</tt>. Write over this specification with this new one:
+                    <tt>+id</tt>
+                    and press Enter. The red square become a green circle, meaning the attribute is 'public'.
+                    Note that attributes are always
+                    generated as private members of a class. However the visibilities of the associated
+                    getter and setter are determined by the visibility of the attribute specification.
+                    In this case we have specified public visibility (by using the plus sign) and hence
+                    the getter and setter for the
+                    <tt>id</tt>
+                    attribute will be public.
+                </li>
+                <li>
+                    Select the attribute<i>id</i>, and in the
+                    <i>Properties</i>
+                    tab, click on<i>General</i>.
+                    In this sub-panel, click on<i>Select Type...</i>. A popup dialog will appear,
+                    select
+                    <tt>AndroMDA Datatypes::datatype::Long</tt>
+                    and click<i>OK</i>.
+                </li>
+                <li>Now add three more public attributes called<tt>username</tt>,
+                    <tt>firstName</tt>
+                    and
+                    <tt>lastName</tt>
+                    to the
+                    <tt>UserVO</tt>
+                    class. Make them
+                    <tt>String</tt>
+                    type. In your model two different types called String are available (see above).
+                    Use the one from<tt>AndroMDA Datatypes::datatype</tt>.
+                </li>
+                <li>Add a new class to the diagram and name it<tt>UserVO[]</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right exactly. (It is okay if
+                    your class shows an empty operation compartment. This can be hidden very easily).
+                </li>
+                <li>Make sure that the RSM model explorer the screen shot shown below.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by double-clicking on
+                    <tt>timetracker.emx</tt>
+                    and clicking on
+                    <i>File &gt; Save</i>
+                    (<i>Ctrl + S</i>).
+                </li>
+                <li>
+                    Select<i>File &gt; Export...</i>. Choose
+                    <i>UML2 Model</i>
+                    and then click on<i>Next</i>.
+                    As
+                    <i>source</i>
+                    select
+                    <tt>/TimeTracker/timetracker.emx</tt>
+                    and as
+                    <i>destination</i>
+                    browse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                </li>
+            </ol>
+
+            <p>
+                Congratulations! You have now specified the
+                <tt>UserVO</tt>
+                value object of
+                the
+                <tt>TimeTracker</tt>
+                application. We are now ready to generate some code.
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

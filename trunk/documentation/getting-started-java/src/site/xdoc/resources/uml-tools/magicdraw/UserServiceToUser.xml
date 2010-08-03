@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Create UserService to User Dependency
+        </title>
+    </properties>
+    <body>
+        <section name="Create UserService to User Dependency">
+
+            <p>
+                This page provides directions to create the dependency from
+                <tt>UserService</tt>
+                to
+                <tt>User</tt>
+                using MagicDraw 15.5.
+            </p>
+
+
+            <ol style="list-style-type: decimal">
+                <li>Open the
+                    <tt>Services</tt>
+                    class diagram in the
+                    <tt>service</tt>
+                    package.
+                </li>
+                <li>From the Containment Tree on the left, drag the
+                    <tt>User</tt>
+                    class on to the
+                    diagram. Warning: It is important to bring in the existing
+                    <tt>User</tt>
+                    class
+                    from the
+                    <tt>domain</tt>
+                    package into this diagram.
+                    <b>Don't</b>
+                    create a new
+                    <tt>User</tt>
+                    class in this diagram.
+                </li>
+                <li>Click on the
+                    <tt>User</tt>
+                    class to select it. You will see two &quot;minus&quot; icons
+                    on the left. Click on each of these icons. This will close the attribute and operation
+                    compartments and the entity will take of the shape of a circle.
+                </li>
+                <li>Select the
+                    <i>Dependency</i>
+                    relationship from the toolbar (5th icon from the common group)
+                    and create a dependency from
+                    <tt>UserService</tt>
+                    to<tt>User</tt>.
+                </li>
+                <li>Make sure your class diagram matches the one shown on the right.</li>
+                <li>Save your
+                    <tt>timetracker</tt>
+                    model by selecting<i>File &gt; Save Project</i>.
+                </li>
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                    Choose
+                    <tt>C:/timetracker/mda/src/main/uml</tt>
+                    as export directory and click<i>Open</i>.
+                </li>
+            </ol>
+            <p>
+                Please go back to the main tutorial page and continue from where you left off.
+            </p>
+
+        </section>
+    </body>
+</document>

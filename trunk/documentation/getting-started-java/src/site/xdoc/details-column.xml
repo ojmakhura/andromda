@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>
+            Details Column
+        </title>
+    </properties>
+    <body>
+        <section name="Details Column">
+
+            <p>
+                In this section we will add the details column to the results table. This column
+                will have buttons that will take you to the Timecard Details page when clicked.
+                The modified activity diagram for this functionality is shown below:
+            </p>
+
+            <div align="center">
+                <img src="images/SearchTimecardsAD3.jpg" alt="Search Timecards Activity Diagram"/>
+            </div>
+            <p>
+                This activity diagram has no new modeling concepts, so we will give you just the
+                high level steps to construct it. In general, we are trying to create a
+                <tt>details</tt>
+                trigger coming out of the
+                <tt>Search Timecards</tt>
+                view. The
+                <tt>details</tt>
+                trigger will contain an
+                <tt>id</tt>
+                parameter that indicates which timecard
+                was clicked. We need to pass this
+                <tt>id</tt>
+                to the next use case called<tt>
+                Timecard Details</tt>. However, since
+                <tt>id</tt>
+                is not a very descriptive
+                name we would like to convert it to a page variable called<tt>timecardId</tt>,
+                which will be passed to the next page. The activity called
+                <tt>Initialize Timecard Id</tt>
+                transforms the
+                <tt>id</tt>
+                parameter to the
+                <tt>timecardId</tt>
+                page variable. So, without further delay, here are the steps to update your activity
+                diagram:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>First create the action state called<tt>Initialize Timecard Id</tt>. Remember
+                    that the
+                    <i>Name</i>
+                    of the action state should be
+                    <tt>Initialize Timecard Id</tt>
+                    (not just its label). This is done by double-clicking the state and entering the
+                    name in the action state specification.
+                </li>
+                <li>Create a transition from
+                    <tt>Search Timecards</tt>
+                    to<tt>Initialize Timecard
+                        Id</tt>. Create a signal trigger on this transition called
+                    <tt>details</tt>
+                    and add a parameter to it called
+                    <tt>id</tt>
+                    of type<tt>Long</tt>. (This
+                    is similar to adding the
+                    <tt>search</tt>
+                    trigger out of<tt>Search Timecards</tt>.)
+                </li>
+                <li>Add a tag to the
+                    <tt>id</tt>
+                    parameter called
+                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    and set its value to<tt>link</tt>. This tag ensures that the
+                    <tt>id</tt>
+                    column in the table will be a link instead of the default text box.
+                </li>
+                <li>Add a tag on the transition (not on the trigger) called
+                    <tt>@andromda.presentation.web.action.tablelink</tt>
+                    and set its value to<tt>timecardSummaries</tt>. This tag ensures that the
+                    <tt>
+                        details
+                    </tt>
+                    trigger will occur on the table that displays<tt>timecardSummaries</tt>.
+                    Also since we are not specifying any attribute in this value (such as<tt>timecardSummaries.id</tt>)
+                    a separate column will be created with buttons named<tt>Details</tt>.
+                </li>
+                <li>Create a final state.</li>
+                <li>Add a transition from
+                    <tt>Initialize Timecard Id</tt>
+                    to the final state.
+                </li>
+                <li>Create a page variable called
+                    <tt>timecardId</tt>
+                    of type
+                    <tt>Long</tt>
+                    on this transition. Remember that page variables are created by first creating a
+                    signal trigger with no name and adding the page variable as a parameter on this
+                    trigger. (This is similar to adding the
+                    <tt>timecardSummaries</tt>
+                    page variable.)
+                </li>
+                <li>Switch to the
+                    <tt>Services</tt>
+                    diagram for a second and add the following method
+                    to the
+                    <tt>SearchController</tt>
+                    <br/>
+                    <tt>+initializeTimecardId(id : Long, timecardId : Long) : void</tt>
+                </li>
+                <li>Switch back to the activity diagram and call the
+                    <tt>initializeTimecardId()</tt>
+                    method from the
+                    <tt>Initialize Timecard Id</tt>
+                    action state. Remember that
+                    the call should be added as a deferrable event. (This is similar to adding the
+                    <tt>
+                        populateSearchScreen()
+                    </tt>
+                    call to the
+                    <tt>Populate Search Screen</tt>
+                    action state.)
+                    <i>MagicDraw users: You can create and call the
+                        <tt>SearchController.initializeTimecardId()</tt>
+                        method, all in one step, when editing the call trigger. This is done using the &quot;New
+                        Button&quot; on the right of the combobox. It's a shortcut that frees you from switching
+                        to another diagram.
+                    </i>
+                </li>
+                <li>We need to connect the final state to the next use case which is<tt>Timecard
+                    Details</tt>. To do this, simply open the specification for the final state by
+                    double-clicking on it. In the
+                    <i>Name</i>
+                    field, enter<tt>Timecard Details</tt>.
+                    AndroMDA does a name match to connect the final state to the target use case (which
+                    we have not created yet).
+                </li>
+            </ol>
+            <p>
+                That completes the
+                <tt>Search Timecards</tt>
+                activity diagram. Of course, we
+                still need to create the
+                <tt>Timecard Details</tt>
+                use case, otherwise AndroMDA
+                will complain that it cannot find the target for the final state in the
+                <tt>Search
+                    Timecards
+                </tt>
+                activity diagram. Follow the steps below to create a very simple
+                <tt>Timecard Details</tt>
+                use case:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Open the use case diagram called<tt>Application Use Cases</tt>.
+                </li>
+                <li>Add a new use case and call it<tt>Timecard Details</tt>. Give it the
+                    <tt>
+                        FrontEndUseCase
+                    </tt>
+                    stereotype.
+                </li>
+                <li>In the model, create a new package under
+                    <tt>org.andromda.timetracker.web</tt>
+                    and call it<tt>timecarddetails</tt>.
+                </li>
+                <li>Move the
+                    <tt>Timecard Details</tt>
+                    use case from the
+                    <tt>Use Cases</tt>
+                    package to the
+                    <tt>timecarddetails</tt>
+                    package that we just created. This can
+                    be done in the Containment Tree.
+                </li>
+                <li>Now create a class called
+                    <tt>TimecardController</tt>
+                    under the
+                    <tt>timecarddetails</tt>
+                    package.
+                </li>
+                <li>Create a new activity diagram under the
+                    <tt>Timecard Details</tt>
+                    use case and
+                    name it<tt>Timecard Details Activity Diagram</tt>.
+                </li>
+                <li>Connect the
+                    <tt>TimecardController</tt>
+                    to the activity diagram using the procedure
+                    specific to your modeling tool. (This is similar to the way we connected the
+                    <tt>SearchController</tt>
+                    to the
+                    <tt>Search Timecards</tt>
+                    activity diagram.)
+                </li>
+                <li>Open the
+                    <tt>Timecard Details</tt>
+                    activity diagram and enter the following
+                    elements to it. Note that the page variable
+                    <tt>timecardId</tt>
+                    gets its value
+                    from the previous use case (<tt>Search Timecards</tt>).
+                </li>
+            </ol>
+            <div align="center">
+                <img src="images/TimecardDetailsAD1.jpg" alt="Timecard Details Activity Diagram"/>
+            </div>
+            <p>
+                Now let's ask AndroMDA to generate code for the modified model:
+            </p>
+            <ol style="list-style-type: decimal">
+                <li>Execute the commands
+                    <tt>mvn clean</tt>
+                    followed by
+                    <tt>mvn install</tt>
+                    in the Command Prompt. The build will fail complaining about the
+                    <tt>SearchControllerImpl</tt>
+                    class because we have not implemented the
+                    <tt>initializeTimecardId()</tt>
+                    method.
+                </li>
+                <li>Open
+                    <tt>SearchControllerImpl.java</tt>
+                    and add the following code to it.
+                    <source>
+                        public final void initializeTimecardId(
+                        ActionMapping mapping,
+                        org.andromda.timetracker.web.timecardsearch.InitializeTimecardIdForm form,
+                        HttpServletRequest request,
+                        HttpServletResponse response)
+                        throws Exception
+                        {
+                        form.setTimecardId(form.getId());
+                        }
+                    </source>
+                </li>
+                <li>Build only the web project to make sure the code added above is compiled and packaged.
+                    Here's how:
+                    <br/>
+                    <tt>mvn -f web/pom.xml install</tt>
+                </li>
+                <li>Make sure the JBoss server is running.</li>
+                <li>Deploy the application:
+                    <br/>
+                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                </li>
+                <li>Open a browser and make it point to http://localhost:8080/timetracker. The TimeTracker
+                    search page should appear with
+                    <tt>Details</tt>
+                    buttons in the results panel.
+                    <i>Note: You may have to click your browser's refresh button to clear its cache and
+                        grab a fresh copy of the page.
+                    </i>
+                </li>
+                <li>Click on one of the
+                    <tt>Details</tt>
+                    buttons. The browser should forward to
+                    the
+                    <tt>Timecard Details</tt>
+                    page. Notice that
+                    <tt>id</tt>
+                    is passed as
+                    a parameter in the URL.
+                </li>
+            </ol>
+            <p>
+                Below is a screen shot of the Search screen so far.
+            </p>
+            <div align="center">
+                <img src="images/SearchResultsPanel2.jpg" alt="Search Results Panel"/>
+            </div>
+            <subsection name="What's Next?">
+                <p>
+                    We have now implemented the full functionality of the search screen. All that remains
+                    is the look and feel as specified by the TimeTracker prototype.
+                    Click <a href="look-and-feel.html">here</a> to start customizing the look and feel.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
