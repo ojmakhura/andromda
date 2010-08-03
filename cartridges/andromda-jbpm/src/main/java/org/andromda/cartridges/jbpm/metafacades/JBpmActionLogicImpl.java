@@ -7,7 +7,6 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmAction.
  *
@@ -172,7 +171,7 @@ public class JBpmActionLogicImpl
 
             if (handler instanceof JBpmHandler)
             {
-                final StringBuffer clazzBuffer = new StringBuffer();
+                final StringBuilder clazzBuffer = new StringBuilder();
                 final String packageName = handler.getOwner().getPackageName();
                 clazzBuffer.append(packageName);
                 if (StringUtils.isNotBlank(packageName))

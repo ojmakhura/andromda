@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -35,7 +34,6 @@ import org.apache.log4j.Logger;
 public class TraceTranslator
         extends BaseTranslator
 {
-
     private static final Logger logger = Logger.getLogger(TraceTranslator.class);
 
     private static final String INA_PREFIX = "inA";
@@ -269,7 +267,7 @@ public class TraceTranslator
     protected String getCaseMethodBody(CtMethod method)
     {
         ExceptionUtils.checkNull("method", method);
-        StringBuffer methodBody = new StringBuffer("{");
+        StringBuilder methodBody = new StringBuilder("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
@@ -290,7 +288,7 @@ public class TraceTranslator
     protected String getInAMethodBody(CtMethod method)
     {
         ExceptionUtils.checkNull("method", method);
-        StringBuffer methodBody = new StringBuffer("{");
+        StringBuilder methodBody = new StringBuilder("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
@@ -311,7 +309,7 @@ public class TraceTranslator
     protected String getOutAMethodBody(CtMethod method)
     {
         ExceptionUtils.checkNull("method", method);
-        StringBuffer methodBody = new StringBuffer("{");
+        StringBuilder methodBody = new StringBuilder("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
@@ -370,7 +368,7 @@ public class TraceTranslator
     protected String getMethodTrace(CtMethod method)
     {
         ExceptionUtils.checkNull("method", method);
-        StringBuffer buf = new StringBuffer("if (logger.isInfoEnabled()) {logger.info(\"");
+        StringBuilder buf = new StringBuilder("if (logger.isInfoEnabled()) {logger.info(\"");
         buf.append("\" + methodName + \" --> ");
         //javaassist names the arguments $1,$2,$3, etc.
         buf.append("'\" + org.andromda.core.translation.TranslationUtils.trimToEmpty($1) + \"'\");}");
@@ -525,5 +523,4 @@ public class TraceTranslator
             logger.error(th);
         }
     }
-
 }

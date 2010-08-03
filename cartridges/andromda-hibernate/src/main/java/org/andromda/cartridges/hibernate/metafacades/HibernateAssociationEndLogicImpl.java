@@ -17,7 +17,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
@@ -201,12 +200,12 @@ public class HibernateAssociationEndLogicImpl
                 lBuffer.append('<');
                 if (this.isMap())
                 {
-                    lBuffer.append(this.getCollectionIndexType());                    
+                    lBuffer.append(this.getCollectionIndexType());
                     lBuffer.append(", ");
                 }
                 lBuffer.append(this.getType().getFullyQualifiedName());
                 lBuffer.append('>');
-                getterSetterTypeName = lBuffer.toString();            
+                getterSetterTypeName = lBuffer.toString();
             }
         }
 
@@ -329,7 +328,7 @@ public class HibernateAssociationEndLogicImpl
             // is aggregation or composition
             if (this.isMany2Many() && !inverse)
             {
-                if (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()) 
+                if (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition())
                 {
                     inverse = true;
                 }
@@ -632,7 +631,7 @@ public class HibernateAssociationEndLogicImpl
     @Override
     protected String handleGetCollectionTypeImplementation()
     {
-        StringBuffer implementation = new StringBuffer();
+        StringBuilder implementation = new StringBuilder();
 
         if (this.isMany())
         {

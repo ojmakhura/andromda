@@ -184,7 +184,7 @@ public final class $manageable.manageableServiceBaseName
         throws ${manageable.fullyQualifiedManageableServiceReadExceptionName}
     {
         String logicalOperator = "";
-        StringBuffer buf = new StringBuffer("from ${manageable.entityName} as entity");
+        StringBuilder buf = new StringBuilder("from ${manageable.entityName} as entity");
 #**##foreach ($member in $manageable.manageableAssociationEnds)
 #*  *##if ($member.many)
         buf.append(" join entity.${member.name} as ${member.type.name} ");

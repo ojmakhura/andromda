@@ -245,9 +245,9 @@ public class ModelProcessor
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
-                
+
                 final Map<String, Cartridge> cartridgesByNamespace = this.loadCartridgesByNamespace(cartridges);
-                
+
                 // - we want to process by namespace so that the order within the configuration is kept
                 final Collection<Namespace> namespaces = this.namespaces.getNamespaces();
 
@@ -264,13 +264,13 @@ public class ModelProcessor
                              // - set the active namespace on the shared factory and profile instances
                             this.factory.setNamespace(cartridgeName);
                             cartridge.initialize();
-    
+
                             // - process each model with the cartridge
                             for (Model model : models)
                             {
                                 AndroMDALogger.info("Processing cartridge " + cartridge.getNamespace() + " on model " + model);
-   
-                                // - set the namespace on the metafacades instance so we know the 
+
+                                // - set the namespace on the metafacades instance so we know the
                                 //   correct facades to use
                                 this.factory.setModel(
                                     this.repositories.getImplementation(repositoryName).getModel(),
@@ -312,10 +312,10 @@ public class ModelProcessor
         }
         return messages;
     }
-    
+
     /**
      * Loads the given list of <code>cartridges</code> into a map keyed by namespace.
-     * 
+     *
      * @param cartridges the cartridges loaded.
      * @return the loaded cartridge map.
      */
@@ -344,9 +344,9 @@ public class ModelProcessor
         // - first, print the AndroMDA header
         this.printConsoleHeader();
 
-        // - second, configure this model processor 
+        // - second, configure this model processor
         // - the ordering of this step is important: it needs to occur
-        //   before everything else in the framework is initialized so that 
+        //   before everything else in the framework is initialized so that
         //   we have all configuration information available (such as the
         //   namespace properties)
         this.configure(configuration);
@@ -481,8 +481,8 @@ public class ModelProcessor
         // - log all error messages
         if (messages != null && !messages.isEmpty())
         {
-            final StringBuffer header =
-                new StringBuffer("Model Validation Failed - " + messages.size() + " VALIDATION ERROR");
+            final StringBuilder header =
+                new StringBuilder("Model Validation Failed - " + messages.size() + " VALIDATION ERROR");
             if (messages.size() > 1)
             {
                 header.append('S');
@@ -850,7 +850,7 @@ public class ModelProcessor
         public int compare(
             final ModelValidationMessage objectA,
             final ModelValidationMessage objectB)
-        {            
+        {
             return collator.compare(
                 objectA.getMetafacadeClass().getName(),
                 objectB.getMetafacadeClass().getName());

@@ -28,9 +28,9 @@ public class GroovyScriptWrapper
     /**
      * StubClass is always the generated class (not any subclasses),
      * while stub may be an instance of a subclassed scripted class.
-     * @param stub 
-     * @param scriptPath 
-     * @throws InstantiationError 
+     * @param stub
+     * @param scriptPath
+     * @throws InstantiationError
      */
     public GroovyScriptWrapper(
         Object stub,
@@ -70,13 +70,13 @@ public class GroovyScriptWrapper
         }
         catch (final Throwable throwable)
         {
-            throw new java.lang.RuntimeException(throwable);
+            throw new RuntimeException(throwable);
         }
     }
-    
+
     /**
      * Retrieves the appropriate class loader instance as the parent of the groovyClassLoader.
-     * 
+     *
      * @return the class loader instance.
      */
     private ClassLoader getClassLoader()
@@ -105,7 +105,7 @@ public class GroovyScriptWrapper
         throws FileNotFoundException
     {
         Reader resource = new FileReader(file);
-        final StringBuffer contents = new StringBuffer();
+        final StringBuilder contents = new StringBuilder();
         try
         {
             BufferedReader resourceInput = new BufferedReader(resource);

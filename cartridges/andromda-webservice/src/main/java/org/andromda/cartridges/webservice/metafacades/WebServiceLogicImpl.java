@@ -39,7 +39,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebService.
  *
@@ -921,7 +920,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetEjbJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotBlank(jndiNamePrefix))
         {
@@ -1019,7 +1018,7 @@ public class WebServiceLogicImpl
         private final Collator collator = Collator.getInstance();
 
         /**
-         * 
+         *
          */
         OperationNameComparator()
         {
@@ -1027,7 +1026,7 @@ public class WebServiceLogicImpl
         }
 
         /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         * @see java.util.Comparator#compare(Object, Object)
          */
         public int compare(
             Object objectA,

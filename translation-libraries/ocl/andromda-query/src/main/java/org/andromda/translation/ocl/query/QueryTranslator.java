@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 public class QueryTranslator
         extends BaseTranslator
 {
-
     /**
      * Contains the select clause of the query.
      */
@@ -60,7 +59,7 @@ public class QueryTranslator
     /**
      * Helps out with 'includesAll', replaces the {1} in the expression fragment when a declarator is encountered (i.e.
      * '| <variable name>')
-     * @param declarator 
+     * @param declarator
      */
     public void inAStandardDeclarator(AStandardDeclarator declarator)
     {
@@ -88,7 +87,7 @@ public class QueryTranslator
 
     /**
      * Override to handle any propertyCall expressions ( i.e. includes( <expression>), select( <expression>), etc.)
-     * @param expression 
+     * @param expression
      * @see BaseTranslator#handleTranslationFragment(Object)
      */
     public void inAPropertyCallExpression(APropertyCallExpression expression)
@@ -98,7 +97,7 @@ public class QueryTranslator
 
     /**
      * Override to handle any featureCall expressions ( i.e. sortedBy( <expression>), etc.)
-     * @param expression 
+     * @param expression
      * @see BaseTranslator#handleTranslationFragment(Object)
      */
     public void inAFeatureCall(AFeatureCall expression)
@@ -113,7 +112,7 @@ public class QueryTranslator
 
     /**
      * Override to deal with logical 'and, 'or', 'xor, ... expressions.
-     * @param logicalExpressionTail 
+     * @param logicalExpressionTail
      * @see BaseTranslator#handleTranslationFragment(Object)
      */
     public void inALogicalExpressionTail(ALogicalExpressionTail logicalExpressionTail)
@@ -123,7 +122,7 @@ public class QueryTranslator
 
     /**
      * Override to deal with relational ' <, '>', '=', ... expressions.
-     * @param relationalExpressionTail 
+     * @param relationalExpressionTail
      * @see BaseTranslator#handleTranslationFragment(Object)
      */
     public void inARelationalExpressionTail(ARelationalExpressionTail relationalExpressionTail)
@@ -133,7 +132,7 @@ public class QueryTranslator
 
     /**
      * Override to deal with entering parenthesis expressions '( <expression>)'.
-     * @param expression 
+     * @param expression
      * @see org.andromda.core.translation.Expression#appendToTranslatedExpression(Object)
      */
     public void inAParenthesesPrimaryExpression(AParenthesesPrimaryExpression expression)
@@ -144,7 +143,7 @@ public class QueryTranslator
 
     /**
      * Override to deal with leaving parenthesis expressions '( <expression>)'.
-     * @param expression 
+     * @param expression
      * @see org.andromda.core.translation.Expression#appendToTranslatedExpression(Object)
      */
     public void outAParenthesesPrimaryExpression(AParenthesesPrimaryExpression expression)

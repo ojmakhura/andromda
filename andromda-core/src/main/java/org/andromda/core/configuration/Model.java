@@ -13,7 +13,6 @@ import java.util.Map;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Stores the model information for each model that AndroMDA will process.
  *
@@ -365,7 +364,7 @@ public class Model
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {
@@ -391,8 +390,8 @@ public class Model
 
     /**
      * Creates the unique key that identifies this model
-     * (its made up of a list of all the uris for this model
-     * concatinated).
+     * (its made up of a list of all the URIs for this model
+     * concatenated).
      *
      * @return the unique key
      */
@@ -400,7 +399,7 @@ public class Model
     {
         if (StringUtils.isBlank(this.key))
         {
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
             for (final Iterator<URL> iterator = this.uris.iterator(); iterator.hasNext();)
             {
                 final URL uri = iterator.next();

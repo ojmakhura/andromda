@@ -42,11 +42,11 @@ public class ConcreteSyntaxUtils
     private static final Logger logger = Logger.getLogger(ConcreteSyntaxUtils.class);
 
     /**
-     * Iterates through the passed in list and concates all the values of objects toString value to a StringBuffer and
+     * Iterates through the passed in list and concatenates all the values of objects toString value to a StringBuffer and
      * returns the StringBuffer.
      *
-     * @param list the List of objects to concatinate.
-     * @return StringBuffer the concatinated contents of the list.
+     * @param list the List of objects to concatenate.
+     * @return StringBuffer the concatenated contents of the list.
      */
     public static StringBuffer concatContents(List list)
     {
@@ -275,11 +275,11 @@ public class ConcreteSyntaxUtils
     }
 
     /**
-     * Concatinates the type from the passed in name and pathNameTail.
+     * Concatenates the type from the passed in name and pathNameTail.
      *
      * @param name         the starting name of the type
      * @param pathNameTail the tail pieces of the name
-     * @return String the concatinated name.
+     * @return String the concatenated name.
      */
     public static String getType(TName name, List pathNameTail)
     {
@@ -297,7 +297,7 @@ public class ConcreteSyntaxUtils
      */
     public static String getPrimaryExpression(APropertyCallExpression expression)
     {
-        StringBuffer primaryExpression = new StringBuffer();
+        StringBuilder primaryExpression = new StringBuilder();
         if (expression != null)
         {
             // append the first part of the primary expression
@@ -368,7 +368,7 @@ public class ConcreteSyntaxUtils
      */
     public static String getArrowFeatureCallResultNavigationalPath(APropertyCallExpression expression)
     {
-        StringBuffer path = new StringBuffer();
+        StringBuilder path = new StringBuilder();
         if (OCLPatterns.isCollectionOperationResultNavigationalPath(expression))
         {
             List featureCalls = getFeatureCalls(expression);

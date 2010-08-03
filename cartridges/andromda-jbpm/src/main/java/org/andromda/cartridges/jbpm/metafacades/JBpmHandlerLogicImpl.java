@@ -12,7 +12,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmHandler.
  *
@@ -161,7 +160,7 @@ public class JBpmHandlerLogicImpl
     {
         String handlerClass = null;
 
-        final StringBuffer clazzBuffer = new StringBuffer();
+        final StringBuilder clazzBuffer = new StringBuilder();
         if (StringUtils.isNotBlank(this.getHandlerPackageName()))
         {
             clazzBuffer.append(this.getHandlerPackageName());

@@ -1,7 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import java.util.Collection;
-
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -11,7 +10,6 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Contains utilities for use with Hibernate metafacades.
@@ -24,8 +22,8 @@ class HibernateMetafacadeUtils
      * Gets the view type for the passed in <code>classifier</code>. If the
      * view type can be retrieved from the <code>classifier</code>, then that
      * is used, otherwise the <code>defaultViewType</code> is returned.
-     * @param classifier 
-     * @param defaultViewType 
+     * @param classifier
+     * @param defaultViewType
      * @return String the view type name.
      */
     static String getViewType(
@@ -80,7 +78,7 @@ class HibernateMetafacadeUtils
         String name,
         String suffix)
     {
-        StringBuffer fullyQualifiedName = new StringBuffer(StringUtils.trimToEmpty(packageName));
+        StringBuilder fullyQualifiedName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (StringUtils.isNotBlank(packageName))
         {
             fullyQualifiedName.append('.');

@@ -251,7 +251,7 @@ public class JBpmProcessDefinitionLogicImpl
      */
     protected String handleGetDescriptorFullPath()
     {
-        final StringBuffer pathBuffer = new StringBuffer();
+        final StringBuilder pathBuffer = new StringBuilder();
 
         if (StringUtils.isNotBlank(this.getPackagePath()))
         {

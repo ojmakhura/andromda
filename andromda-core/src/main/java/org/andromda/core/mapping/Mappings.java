@@ -15,7 +15,6 @@ import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 /**
  * <p> An object responsible for mapping multiple <code>from</code> values to
  * single <code>to</code>. The public constructor should NOT be used to
@@ -132,7 +131,7 @@ public class Mappings
             {
                 try
                 {
-                    // since we didn't find the parent in the logical 
+                    // since we didn't find the parent in the logical
                     // mappings, try a relative path
                     parentMappings = getInstance(new File(mappings.getCompletePath(mappings.extendsUri)));
                 }
@@ -511,7 +510,7 @@ public class Mappings
      * Constructs the complete path from the given <code>relativePath</code>
      * and the resource of the parent {@link Mappings#getResource()} as the root
      * of the path.
-     * @param relativePath 
+     * @param relativePath
      * @return the complete path.
      */
     final String getCompletePath(final String relativePath)
@@ -519,7 +518,7 @@ public class Mappings
         String completePath = this.completePaths.get(relativePath);
         if (completePath == null)
         {
-            final StringBuffer path = new StringBuffer();
+            final StringBuilder path = new StringBuilder();
             if (this.mappings != null)
             {
                 final URL resource = this.getResource();

@@ -45,7 +45,7 @@ public class JBpmSwimlaneLogicImpl
     {
         String assignmentHandlerClass = null;
 
-        final StringBuffer clazzBuffer = new StringBuffer();
+        final StringBuilder clazzBuffer = new StringBuilder();
         if (StringUtils.isNotBlank(this.getAssignmentHandlerPackageName()))
         {
             clazzBuffer.append(this.getAssignmentHandlerPackageName());

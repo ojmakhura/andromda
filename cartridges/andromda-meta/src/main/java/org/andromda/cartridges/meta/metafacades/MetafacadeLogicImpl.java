@@ -217,7 +217,7 @@ public class MetafacadeLogicImpl
      */
     private String getMetafacadeSupportClassName(String name)
     {
-        StringBuffer fullyQualifiedName = new StringBuffer(this.getLogicPackageName());
+        StringBuilder fullyQualifiedName = new StringBuilder(this.getLogicPackageName());
         if (StringUtils.isNotBlank(fullyQualifiedName.toString()))
         {
             fullyQualifiedName.append('.');
@@ -340,7 +340,7 @@ public class MetafacadeLogicImpl
                 }
                 final String declaration = method.buildMethodDeclaration(true);
 
-                // don't add the new method data if we already have the 
+                // don't add the new method data if we already have the
                 // declaration from a previous generalization.
                 if (!declarationSet.contains(declaration))
                 {
@@ -357,7 +357,7 @@ public class MetafacadeLogicImpl
                 final OperationFacade operation = (OperationFacade)iterator.next();
                 final UMLOperationData method = new UMLOperationData(fullyQualifiedName, operation);
 
-                // don't add the new method data if we already have the 
+                // don't add the new method data if we already have the
                 // declaration from a previous generalization.
                 final String declaration = method.buildMethodDeclaration(true);
                 if (!declarationSet.contains(declaration))
@@ -460,7 +460,7 @@ public class MetafacadeLogicImpl
         implements Comparator
     {
         /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         * @see java.util.Comparator#compare(Object, Object)
          */
         public int compare(
             Object objectA,
@@ -487,7 +487,7 @@ public class MetafacadeLogicImpl
             if (object instanceof Metafacade)
             {
                 final Metafacade metafacade = (Metafacade)object;
-                allParents.addAll(metafacade.getAllParents());    
+                allParents.addAll(metafacade.getAllParents());
             }
         }
         return allParents;

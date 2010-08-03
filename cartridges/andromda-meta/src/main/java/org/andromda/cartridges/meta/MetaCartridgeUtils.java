@@ -46,7 +46,7 @@ public class MetaCartridgeUtils
         private final Collator collator = Collator.getInstance();
 
         /**
-         * 
+         *
          */
         FullyQualifiedNameComparator()
         {
@@ -54,7 +54,7 @@ public class MetaCartridgeUtils
         }
 
         /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         * @see java.util.Comparator#compare(Object, Object)
          */
         public int compare(
             final Object objectA,
@@ -78,7 +78,7 @@ public class MetaCartridgeUtils
      */
     public static String getFullyQualifiedConstraintName(final ConstraintFacade constraint)
     {
-        final StringBuffer name = new StringBuffer();
+        final StringBuilder name = new StringBuilder();
         if (constraint != null)
         {
             final ModelElementFacade contextElement = constraint.getContextElement();

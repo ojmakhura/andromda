@@ -157,7 +157,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetCreateMethods(boolean)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getCreateMethods(boolean)
      */
@@ -169,7 +169,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#handleGetSelectMethods(boolean)
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getSelectMethods(boolean)
      */
@@ -211,7 +211,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return getEnvironmentEntries
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEnvironmentEntries(boolean)
      */
@@ -223,7 +223,7 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return getConstants
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getConstants(boolean)
      */
@@ -240,7 +240,7 @@ public class EJBEntityFacadeLogicImpl
      */
     protected String handleGetJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
         if (StringUtils.isNotBlank(jndiNamePrefix))
         {

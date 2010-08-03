@@ -2,7 +2,6 @@ package org.andromda.schema2xmi;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Provides formatting functions, when converting SQL names to model names.
  *
@@ -40,7 +39,7 @@ public class SqlToModelNameFormatter
      */
     public static String toCamelCase(String name)
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String[] tokens = name.split("_|\\s+");
         if (tokens != null && tokens.length > 0)
         {

@@ -9,7 +9,6 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceOperation.
  *
@@ -39,7 +38,7 @@ public class WebServiceOperationLogicImpl
         return this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
         this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION);
     }
-    
+
     /**
      * The prefix given to the test implementation operation names.
      */
@@ -83,7 +82,7 @@ public class WebServiceOperationLogicImpl
         return this.getTestImplementationOperationNamePrefix() +
         StringUtils.capitalize(this.getTestSignature());
     }
-    
+
     /**
      * The prefix given to the junit test operations.
      */
@@ -199,7 +198,7 @@ public class WebServiceOperationLogicImpl
     protected String handleGetRestPath()
     {
         String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
-        StringBuffer pathBuffer = new StringBuffer();
+        StringBuilder pathBuffer = new StringBuilder();
         if (!this.isRest() || StringUtils.isBlank(path) || path.equals(DEFAULT))
         {
             pathBuffer.append(QUOTE).append(SLASH).append(this.getName().toLowerCase()).append(SLASH);
@@ -244,7 +243,7 @@ public class WebServiceOperationLogicImpl
     protected String handleGetRestTestPath()
     {
         String path = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH);
-        StringBuffer pathBuffer = new StringBuffer();
+        StringBuilder pathBuffer = new StringBuilder();
         WebServiceLogic service = (WebServiceLogic)this.getService();
         String servicePath = service.getRestPath();
         WebServiceUtils wsutils = new WebServiceUtils();

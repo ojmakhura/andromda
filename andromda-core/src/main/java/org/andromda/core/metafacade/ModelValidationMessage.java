@@ -1,13 +1,10 @@
 package org.andromda.core.metafacade;
 
 import java.io.Serializable;
-
 import java.util.List;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Stores the validation messages that are collected during model validation.
@@ -21,7 +18,7 @@ public class ModelValidationMessage
      * Constructs a new instance of MetafacadeValidationMessage taking a
      * <code>metafacade</code> instance and a <code>message</code>
      * indicating what has been violated.
-     * 
+     *
      * @param metafacade the metafacade being validated.
      * @param message the message to to communitate about the validation.
      */
@@ -31,13 +28,13 @@ public class ModelValidationMessage
     {
         this(metafacade, null, message);
     }
-    
+
     /**
      * Constructs a new instance of MetafacadeValidationMessage taking a
      * <code>metafacade</code> instance the <code>name</code> of the
      * validation constraint and the actual <code>message</code> text indicating
      * what has been violated.
-     * 
+     *
      * @param metafacade the metafacade being validated.
      * @param name the name of the model element being validated.
      * @param message the message to to communitate about the validation.
@@ -53,22 +50,22 @@ public class ModelValidationMessage
         this.name = name;
         this.message = message;
     }
-    
+
     /**
      * Stores the actual name of the constraint (if there is one).
      */
     private String name;
-    
+
     /**
      * Gets the name of the validation constraint.
-     * 
+     *
      * @return the constraint name.
      */
     public String getName()
     {
         return this.name;
     }
-    
+
     /**
      * Stores the actual message text.
      */
@@ -76,7 +73,7 @@ public class ModelValidationMessage
 
     /**
      * Gets the actual message text.
-     * 
+     *
      * @return Returns the message.
      */
     public String getMessage()
@@ -104,7 +101,7 @@ public class ModelValidationMessage
         if (this.metafacadeName == null)
         {
             final String seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-            final StringBuffer name = new StringBuffer();
+            final StringBuilder name = new StringBuilder();
             for (
                 MetafacadeBase metafacade = this.metafacade; metafacade != null;
                 metafacade = (MetafacadeBase)metafacade.getValidationOwner())
@@ -154,11 +151,11 @@ public class ModelValidationMessage
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {
-        final StringBuffer toString = new StringBuffer();
+        final StringBuilder toString = new StringBuilder();
         toString.append('[');
         toString.append(this.getMetafacadeName());
         toString.append(']');
@@ -168,7 +165,7 @@ public class ModelValidationMessage
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     public int hashCode()
     {
@@ -176,7 +173,7 @@ public class ModelValidationMessage
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     public boolean equals(Object object)
     {

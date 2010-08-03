@@ -102,8 +102,8 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
-     * @param withPrefix 
-     * @param preserveArray 
+     * @param withPrefix
+     * @param preserveArray
      * @return WebServiceUtils.getSchemaType
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getSchemaType(boolean, boolean)
      * @see org.andromda.cartridges.webservice.WebServiceUtils#getSchemaType(org.andromda.metafacades.uml.ClassifierFacade, TypeMappings, String, String, String, boolean, boolean)
@@ -129,7 +129,7 @@ public class WSDLEnumerationTypeLogicImpl
      */
     protected String handleGetWsdlArrayName()
     {
-        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
+        StringBuilder name = new StringBuilder(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
         name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }

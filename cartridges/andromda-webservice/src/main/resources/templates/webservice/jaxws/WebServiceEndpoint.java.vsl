@@ -151,7 +151,7 @@ $operation.getDocumentation("    * ")
 ##        // TODO: Add boundary logging for message in / out
 #if (!$operation.arguments.empty)
 
-        StringBuffer missing = new StringBuffer();
+        StringBuilder missing = new StringBuilder();
 #end
 
 #set ($propertyNum=0)
