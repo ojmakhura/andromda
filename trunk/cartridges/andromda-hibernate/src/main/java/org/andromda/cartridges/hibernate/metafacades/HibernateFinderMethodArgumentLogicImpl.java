@@ -2,7 +2,6 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument.
@@ -36,7 +35,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     @Override
     protected String handleGetQueryArgumentNameSetter()
     {
-        StringBuffer setterName = new StringBuffer();
+        StringBuilder setterName = new StringBuilder();
         boolean specializedSetters =
             Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS))).booleanValue();
         ClassifierFacade classifier = this.getType();

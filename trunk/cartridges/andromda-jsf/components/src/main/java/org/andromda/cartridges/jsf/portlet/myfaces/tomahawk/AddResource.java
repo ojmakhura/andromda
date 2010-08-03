@@ -57,7 +57,7 @@ public class AddResource
         originalResponse.insert(headerInsertPosition, headContents.toString());
 
         // TODO: fix this
-        /*StringBuffer buf = new StringBuffer();
+        /*StringBuilder buf = new StringBuilder();
         Set bodyInfos = getBodyOnloadInfos();
         if (bodyInfos.size() > 0)
         {

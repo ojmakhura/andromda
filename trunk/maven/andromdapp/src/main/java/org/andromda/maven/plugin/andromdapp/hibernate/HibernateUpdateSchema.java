@@ -46,7 +46,7 @@ public class HibernateUpdateSchema
         final String password = this.getProperty(
                 options,
                 "jdbcPassword");
-        final StringBuffer contents = new StringBuffer();
+        final StringBuilder contents = new StringBuilder();
         contents.append("hibernate.connection.driver_class=").append(driverClass).append('\n');
         contents.append("hibernate.connection.url=").append(connectionUrl).append('\n');
         contents.append("hibernate.connection.username=").append(username).append('\n');
@@ -71,7 +71,7 @@ public class HibernateUpdateSchema
     /**
      * Sets the current context class loader from the given
      * <code>jdbcDriverJar</code>
-     * @param options 
+     * @param options
      * @return jdbcDriverJarLoader
      * @throws MalformedURLException
      */

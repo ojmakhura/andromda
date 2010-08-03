@@ -4,7 +4,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 /**
  * Stores the translated expression,
  *
@@ -69,7 +68,7 @@ public class Expression
      *
      * @param position the position at which to insert
      * @param object   the
-     * @see java.lang.StringBuffer#insert(int,java.lang.String)
+     * @see StringBuffer#insert(int,String)
      */
     public void insertInTranslatedExpression(
         final int position,
@@ -190,7 +189,7 @@ public class Expression
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

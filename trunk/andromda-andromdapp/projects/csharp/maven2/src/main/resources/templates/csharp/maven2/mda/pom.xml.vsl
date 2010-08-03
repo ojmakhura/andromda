@@ -91,7 +91,7 @@
         </plugins>
     </build>
     <properties>
-#if ($stringUtils.isNotEmpty($model))
+#if ($stringUtils.isNotBlank($model))
         <model.uri>$model</model.uri>
 #else
         <model.uri>file:${project.build.sourceDirectory}/${applicationId}.xmi</model.uri>

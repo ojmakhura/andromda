@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 public class VariableDeclarationImpl
         implements VariableDeclaration
 {
-
     private String name;
     private String type;
     private String value;
@@ -63,7 +62,7 @@ public class VariableDeclarationImpl
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer(this.getName());
+        StringBuilder toString = new StringBuilder(this.getName());
         if (StringUtils.isNotBlank(this.getType()))
         {
             toString.append(':');
@@ -71,5 +70,4 @@ public class VariableDeclarationImpl
         }
         return toString.toString();
     }
-
 }

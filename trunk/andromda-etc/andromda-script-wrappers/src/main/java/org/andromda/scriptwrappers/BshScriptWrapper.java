@@ -1,16 +1,13 @@
 package org.andromda.scriptwrappers;
 
 import java.lang.reflect.Method;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import bsh.EvalError;
 import bsh.Interpreter;
 import bsh.Primitive;
-
 
 /**
  * This is a wrapper class for a BeanShell script. The generated Java classes contain a private
@@ -28,9 +25,9 @@ public class BshScriptWrapper
     /**
      * StubClass is always the generated class (not any subclasses),
      * while stub may be an instance of a subclassed scripted class.
-     * @param stub 
-     * @param scriptPath 
-     * @throws InstantiationError 
+     * @param stub
+     * @param scriptPath
+     * @throws InstantiationError
      */
     public BshScriptWrapper(
         Object stub,
@@ -98,7 +95,7 @@ public class BshScriptWrapper
                 exception.printStackTrace();
                 throw new InstantiationError("Problems instantiating script '" + scriptPath + "':" + exception);
             }
-            final StringBuffer arguments = new StringBuffer();
+            final StringBuilder arguments = new StringBuilder();
             if (args != null)
             {
                 for (int ctr = 1; ctr <= args.length; ctr++)
@@ -126,7 +123,7 @@ public class BshScriptWrapper
         }
         catch (EvalError exception)
         {
-            throw new java.lang.RuntimeException(exception);
+            throw new RuntimeException(exception);
         }
     }
 

@@ -3,7 +3,6 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateService.
@@ -30,7 +29,7 @@ public class HibernateServiceLogicImpl
     @Override
     protected String handleGetEjbJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotBlank(jndiNamePrefix))
         {

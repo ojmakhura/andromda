@@ -7,11 +7,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * A single child mapping instance belonging to a Mappings instance. It doesn't make sense to instantiate this class by
@@ -56,7 +54,7 @@ public class Mapping
      */
     public String getTo()
     {
-        final StringBuffer to = new StringBuffer();
+        final StringBuilder to = new StringBuilder();
         if (StringUtils.isNotBlank(this.to))
         {
             to.append(this.to);

@@ -3,7 +3,6 @@ package org.andromda.repositories.emf.uml22;
 import java.net.URL;
 import java.util.Map;
 import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
 import org.andromda.metafacades.emf.uml22.UMLModelAccessFacade;
@@ -32,7 +31,7 @@ import org.eclipse.uml2.uml.resource.XMI2UMLResource;
 /**
  * Implements an AndroMDA object model repository by using the <a
  * href="http://www.eclipse.org/uml2/">Eclipse UML2 API set </a>.
- * 
+ *
  * @author Steve Jerman
  * @author Chad Brandon
  * @author Matthias Bohlen (native IBM RSM file reading)
@@ -47,7 +46,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
 
     /**
      * Perform required registrations for EMF/UML2.
-     * 
+     *
      * @see org.andromda.core.repository.RepositoryFacade#open()
      */
     @Override
@@ -119,7 +118,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
 
         // if IBM's metamodel jars are on the classpath, we can register the package factories.
         // This appears to have no effect, emx models are processed anyway.
-        //boolean registered = 
+        //boolean registered =
             registerOptionalRsmMetamodels(proxyResourceSet.getPackageRegistry());
         // RSM profiles Default and Deployment.epx are dependencies referred to by com/ibm/rsm/7.5/pom.
         // UML2 Standard resources are located under org/eclipse/uml2/uml/resources, referred to by metafacade dependency so it is in the plugin classpath.
@@ -130,7 +129,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         // ResourceUtils.getResource, getContextClassLoader does not work for the plugin classloader dependencies in maven3
         if (url!=null)
         {
-            // Need to create a pathmap location map for UML2 Resources, to load standard profiles. 
+            // Need to create a pathmap location map for UML2 Resources, to load standard profiles.
             String path = url.getPath().substring(0, url.getPath().indexOf("libraries"));
             URI uri = URI.createURI("jar:" + path);
 
@@ -169,10 +168,10 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 URI.createURI(UMLPackage.eNS_URI));
         uriMap.put(URI.createURI("http://schema.omg.org/spec/UML/2.3"),
                 URI.createURI(UMLPackage.eNS_URI));
-        // Add pathmap for RSM UML2_MSL_PROFILES in com/ibm/xtools/uml/msl/7.10.500/msl-7.10.500.jar 
+        // Add pathmap for RSM UML2_MSL_PROFILES in com/ibm/xtools/uml/msl/7.10.500/msl-7.10.500.jar
         url = this.getClass().getResource("/profiles/Default.epx");
         if (url!=null)
-        {            
+        {
             // Need to create a pathmap location map for UML2_MSL_PROFILES, to load additional RSM profiles.
             String path = url.getPath().substring(0, url.getPath().indexOf("profiles"));
             URI uri = URI.createURI("jar:" + path);
@@ -184,14 +183,14 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         // Add pathmap for RUP_PROFILES in com/ibm/xtools/modeler/ui/templates/7.5.500/templates-7.5.500.jar
         url = this.getClass().getResource("/profiles/RUPAnalysis.epx");
         if (url!=null)
-        {            
+        {
             String path = url.getPath().substring(0, url.getPath().indexOf("profiles"));
             URI uri = URI.createURI("jar:" + path);
             //URIConverter.URI_MAP.put(URI.createURI("pathmap://UML2_MSL_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
             // UML2_MSL_PROFILES are used in IBM RSM models.
             uriMap.put(URI.createURI("pathmap://RUP_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
         }
-        
+
         //TODO This doesn't seem to help to resolve the pathmap.
         // moduleSearchLocations values must be added to andromda.xml
         //TODO Enable <pathmaps><pathmap name= value=/> in andromda.xml configuration
@@ -223,9 +222,9 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
      * To read IBM Rational Software Modeler (RSM) files (*.emx, *.epx, ...) directly,
      * we need to register two additional metamodels for annotation elements
      * which are referenced inside the UML2 models created by IBM RSM.
-     * 
+     *
      * @param registry the registry in which metamodels should be registered
-     * @return 
+     * @return
      */
     private boolean registerOptionalRsmMetamodels(EPackage.Registry registry)
     {
@@ -240,7 +239,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     /**
      * Register a metamodel in EMF so that models based on that metamodel can
      * be loaded correctly. This appears to have no effect on model processing.
-     * 
+     *
      * @param registry EMF package registry
      * @param ePackageClassName the class name of the package to be registered
      */
@@ -274,7 +273,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
 
     /**
      * Overridden to check that the model is of the correct type.
-     * 
+     *
      * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(String)
      */
     @Override
@@ -319,7 +318,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     }
 
     /**
-     * @param uri 
+     * @param uri
      * @return this.modelFacade
      * @see org.andromda.core.repository.RepositoryFacade#getModel()
      */
@@ -337,7 +336,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
                 throw new RepositoryFacadeException(throwable);
             }
         }
-        if (StringUtils.isNotEmpty(uri))
+        if (StringUtils.isNotBlank(uri))
         {
             URI resource = URI.createURI(uri);
             Resource uriModel = this.resourceSet.getResource(resource, true);

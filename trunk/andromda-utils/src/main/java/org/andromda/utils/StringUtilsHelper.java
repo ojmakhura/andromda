@@ -72,7 +72,7 @@ public class StringUtilsHelper
         }
 
         final String[] parts = splitAtNonWordCharacters(string);
-        final StringBuffer conversionBuffer = new StringBuffer();
+        final StringBuilder conversionBuffer = new StringBuilder();
         for (String part : parts)
         {
             if (part.length() < 2)
@@ -89,7 +89,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Removes the last occurance of the oldValue found within the string.
+     * Removes the last occurrence of the oldValue found within the string.
      *
      * @param string the String to remove the <code>value</code> from.
      * @param value  the value to remove.
@@ -101,7 +101,7 @@ public class StringUtilsHelper
     {
         if (string != null && value != null)
         {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             int index = string.lastIndexOf(value);
             if (index != -1)
             {
@@ -162,8 +162,8 @@ public class StringUtilsHelper
     /**
      * Converts the argument to lowercase, removes all non-word characters, and
      * replaces each of those sequences by the separator.
-     * @param string 
-     * @param separator 
+     * @param string
+     * @param separator
      * @return separated string
      */
     public static String separate(
@@ -176,7 +176,7 @@ public class StringUtilsHelper
         }
 
         final String[] parts = splitAtNonWordCharacters(string);
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         for (int i = 0; i < parts.length - 1; i++)
         {
@@ -333,7 +333,7 @@ public class StringUtilsHelper
     /**
      * Formats the argument string without any indentation, the text will be
      * wrapped at the default column.
-     * @param plainText 
+     * @param plainText
      * @return formatted string
      *
      * @see #format(String, String)
@@ -346,8 +346,8 @@ public class StringUtilsHelper
     /**
      * Formats the given argument with the specified indentiation, wrapping the
      * text at a 64 column margin.
-     * @param plainText 
-     * @param indentation 
+     * @param plainText
+     * @param indentation
      * @return formatted string
      *
      * @see #format(String, String, int)
@@ -363,9 +363,9 @@ public class StringUtilsHelper
      * Formats the given argument with the specified indentation, wrapping the
      * text at the desired column margin. The returned String will not be suited
      * for display in HTML environments.
-     * @param plainText 
-     * @param indentation 
-     * @param wrapAtColumn 
+     * @param plainText
+     * @param indentation
+     * @param wrapAtColumn
      * @return formatted string
      *
      * @see #format(String, String, int, boolean)

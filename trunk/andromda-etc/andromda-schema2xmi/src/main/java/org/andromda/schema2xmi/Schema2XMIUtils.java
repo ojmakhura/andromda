@@ -2,7 +2,6 @@ package org.andromda.schema2xmi;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Contains utilities for the Schema2XMI tool.
  *
@@ -25,7 +24,7 @@ class Schema2XMIUtils
         final String length,
         final String decimalPlaces)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         if (name != null)
         {
             buffer.append(name);

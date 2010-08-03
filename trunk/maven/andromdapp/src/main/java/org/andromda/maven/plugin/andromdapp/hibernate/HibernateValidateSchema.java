@@ -1,12 +1,11 @@
 package org.andromda.maven.plugin.andromdapp.hibernate;
 
-import org.andromda.core.common.ResourceWriter;
-import org.andromda.core.common.Constants;
-
-import java.util.Map;
-import java.util.List;
-import java.util.Random;
 import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import org.andromda.core.common.Constants;
+import org.andromda.core.common.ResourceWriter;
 
 /**
  * Provides the ability to validate a schema from Hibernate
@@ -53,7 +52,7 @@ public class HibernateValidateSchema
         final String password = this.getRequiredProperty(
                 options,
                 "jdbcPassword");
-        final StringBuffer contents = new StringBuffer();
+        final StringBuilder contents = new StringBuilder();
         contents.append("hibernate.connection.driver_class=").append(driverClass).append('\n');
         contents.append("hibernate.connection.url=").append(connectionUrl).append('\n');
         contents.append("hibernate.connection.username=").append(username).append('\n');

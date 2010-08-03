@@ -133,27 +133,27 @@ public class SchemaTransformer
      */
     private String metaColumnTypeName = "TYPE_NAME";
 
-    
+
     /**
      * The metadata column name needed to retrieve the database column size field.
      */
     private String metaColumnColumnSize = "COLUMN_SIZE";
 //    private String metaColumnColumnSize = "PRECISION";
-    
-    
+
+
     /**
      * The metadata column name needed to retrieve the database column number of decimal places
      */
     private String metaColumnDecPlaces = null;
 //    private String metaColumnDecPlaces = "SCALE";
-    
-    
+
+
     /**
      * The set of additional tagged values that are (optionally) added to each attribute
      * in the generated model.
      */
     private HashMap attributeTaggedValues = new HashMap();
-    
+
     /**
      * Stores the version of XMI that will be produced.
      */
@@ -161,10 +161,10 @@ public class SchemaTransformer
 
     /**
      * Constructs a new instance of this SchemaTransformer.
-     * @param jdbcDriver 
-     * @param jdbcConnectionUrl 
-     * @param jdbcUser 
-     * @param jdbcPassword 
+     * @param jdbcDriver
+     * @param jdbcConnectionUrl
+     * @param jdbcUser
+     * @param jdbcPassword
      */
     public SchemaTransformer(
         String jdbcDriver,
@@ -375,8 +375,8 @@ public class SchemaTransformer
             } // while
         }
     }
-    
-    
+
+
     /**
      * Sets the version of XMI that will be produced.
      *
@@ -396,7 +396,7 @@ public class SchemaTransformer
      * The model thats currently being processed
      */
     private Model model;
-    
+
 
     /**
      * Performs the actual translation of the Schema to the XMI and returns the
@@ -443,7 +443,7 @@ public class SchemaTransformer
      * @param modelManagementPackage from which we retrieve the UmlPackageClass
      *        to create a UmlPackage.
      * @param modelPackage the root UmlPackage
-     * @param packageName 
+     * @param packageName
      * @return modelPackage
      */
     protected org.omg.uml.modelmanagement.UmlPackage getOrCreatePackage(
@@ -481,7 +481,7 @@ public class SchemaTransformer
      * @param connection the Connection used to retrieve the schema metadata.
      * @param corePackage the CorePackage instance we use to create the classes.
      * @param modelPackage the package which the classes are added.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected void createClasses(
         Connection connection,
@@ -523,7 +523,7 @@ public class SchemaTransformer
             {
                 schemaName = " '" + this.schema + "' ";
             }
-            StringBuffer warning = new StringBuffer("WARNING! No tables found in schema");
+            StringBuilder warning = new StringBuilder("WARNING! No tables found in schema");
             warning.append(schemaName);
             if (StringUtils.isNotBlank(this.tableNamePattern))
             {
@@ -556,8 +556,8 @@ public class SchemaTransformer
     /**
      * Creates and returns a UmlClass with the given <code>name</code> using
      * the <code>corePackage</code> to create it.
-     * @param modelPackage 
-     * @param metadata 
+     * @param modelPackage
+     * @param metadata
      * @param corePackage used to create the class.
      * @param tableName to tableName for which we'll create the appropriate
      *        class.
@@ -597,7 +597,7 @@ public class SchemaTransformer
      * @param corePackage used to create the class.
      * @param tableName the tableName for which to find columns.
      * @return the collection of new attributes.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected Collection createAttributes(
         DatabaseMetaData metadata,
@@ -608,7 +608,7 @@ public class SchemaTransformer
         final Collection attributes = new ArrayList();
         final ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
         final Collection primaryKeyColumns = this.getPrimaryKeyColumns(metadata, tableName);
-        
+
         ResultSetMetaData colMeta = columnRs.getMetaData();
         int colCount = colMeta.getColumnCount();
 
@@ -656,7 +656,7 @@ public class SchemaTransformer
                         typeClass = this.getOrCreateDataType(corePackage, type);
                     }
 
-                    // - See if we can find a type matching a mapping for a JDBC type 
+                    // - See if we can find a type matching a mapping for a JDBC type
                     //   (if we haven't found a database specific one)
                     if (typeClass == null)
                     {
@@ -699,7 +699,7 @@ public class SchemaTransformer
                             attribute.getTaggedValue().add(taggedValue);
                         }
                     }
-                    
+
                     // Add the attribute specific tagged values (if any)...
                     if (!attributeTaggedValues.isEmpty())
                     {
@@ -717,7 +717,7 @@ public class SchemaTransformer
                             }
                         } // while
                     }
-                    
+
                     if (primaryKeyColumns.contains(columnName))
                     {
                         attribute.getStereotype().addAll(
@@ -765,7 +765,7 @@ public class SchemaTransformer
     public void setMetaColumnTypeName(String metaColumnTypeName) {
         this.metaColumnTypeName = metaColumnTypeName;
     }
-    
+
     /**
      * @return metaColumnTypeName
      */
@@ -822,7 +822,7 @@ public class SchemaTransformer
      * @param tableName the name of the table on which the column exists.
      * @param columnName the name of the column.
      * @return true/false on whether or not column is nullable.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected boolean isColumnNullable(
         DatabaseMetaData metadata,
@@ -847,7 +847,7 @@ public class SchemaTransformer
      * @param metadata
      * @param tableName
      * @return collection of primary key names.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected Collection getPrimaryKeyColumns(
         DatabaseMetaData metadata,
@@ -872,7 +872,7 @@ public class SchemaTransformer
      * @param corePackage used to create the class.
      * @param tableName the tableName for which to find columns.
      * @return the collection of new attributes.
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected Collection createAssociations(
         DatabaseMetaData metadata,
@@ -993,7 +993,7 @@ public class SchemaTransformer
 
     /**
      * Creates a tagged value given the specified <code>name</code>.
-     * @param corePackage 
+     * @param corePackage
      * @param name the name of the tagged value to create.
      * @param value the value to populate on the tagged value.
      * @return returns the new TaggedValue
@@ -1022,7 +1022,7 @@ public class SchemaTransformer
      * Gets or creates a stereotypes given the specified comma separated list of
      * <code>names</code>. If any of the stereotypes can't be found, they
      * will be created.
-     * @param corePackage 
+     * @param corePackage
      * @param names comma separated list of stereotype names
      * @param baseClass the base class for which the stereotype applies.
      * @return Collection of Stereotypes

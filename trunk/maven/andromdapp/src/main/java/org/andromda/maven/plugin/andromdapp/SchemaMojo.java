@@ -43,7 +43,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-
 /**
  * Provides the ability to drop database schemas.
  *
@@ -324,7 +323,7 @@ public class SchemaMojo
     /**
      * Sets the current context class loader from the given runtime classpath
      * elements.
-     * @param classpathFiles 
+     * @param classpathFiles
      * @throws MalformedURLException
      */
     protected void initializeClasspathFromClassPathElements(final Set classpathFiles)
@@ -492,7 +491,7 @@ public class SchemaMojo
                 }
                 final InputStream stream = sqlUrl.openStream();
                 final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer sql = new StringBuffer();
+                StringBuilder sql = new StringBuilder();
                 for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
                 {
                     if (line.startsWith("//"))
@@ -514,7 +513,7 @@ public class SchemaMojo
                                     STATEMENT_END,
                                     ""));
                         }
-                        sql = new StringBuffer();
+                        sql = new StringBuilder();
                     }
                     sql.append('\n');
                 }

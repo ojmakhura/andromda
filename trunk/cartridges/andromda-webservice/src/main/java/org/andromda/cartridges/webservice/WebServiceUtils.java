@@ -78,7 +78,7 @@ public class WebServiceUtils
      * Cross reference between package name and namespace abbreviation, used to annotate foreign schema elements
      */
     private static Map<PackageFacade, String> packageAbbr = new TreeMap<PackageFacade, String>();
-    
+
     /**
      * Creates a list of referenced packages for the service. Populates pkgAbbr static map.
      * I tried this in the WebServiceLogicImpl metafacade but couldn't get repeatable results.
@@ -92,7 +92,7 @@ public class WebServiceUtils
     {
         return setPkgAbbr(service, types, follow);
     }
-    
+
     /** Adds the package namespace abbreviation for this package
      * @param pkg Package for which to get the abbreviation. Uses a static Map so that
      * all schemas globally for this model will use the same namespace abbreviations
@@ -118,7 +118,7 @@ public class WebServiceUtils
         }
         return packageAbbr;
     }
-    
+
     /** Get the package namespace abbreviation for this package
      * @param pkg Package for which to get the abbreviation. Uses a static Map so that
      * all schemas globally for this model will use the same namespace abbreviations
@@ -168,7 +168,7 @@ public class WebServiceUtils
         }
         return rtn;
     }
-    
+
     /**
      * Creates a list of sorted unique package names and namespace abbreviations for each one.
      * Run this after running getTypeMappingElements(), to populate the namespace Map.
@@ -191,7 +191,7 @@ public class WebServiceUtils
         {
             if (!pkgSet.contains(pkg))
             {
-                pkgSet.add(pkg);                                    
+                pkgSet.add(pkg);
             }
             if (!packageAbbr.containsKey(pkg))
             {
@@ -215,7 +215,7 @@ public class WebServiceUtils
                 {
                     if (!pkgSet.contains(pkg))
                     {
-                        pkgSet.add(pkg);                                    
+                        pkgSet.add(pkg);
                     }
                     if (!packageAbbr.containsKey(pkg))
                     {
@@ -236,7 +236,7 @@ public class WebServiceUtils
                 {
                     if (!pkgSet.contains(pkg))
                     {
-                        pkgSet.add(pkg);                                    
+                        pkgSet.add(pkg);
                     }
                     if (!packageAbbr.containsKey(pkg))
                     {
@@ -256,7 +256,7 @@ public class WebServiceUtils
                 {
                     if (!pkgSet.contains(pkg))
                     {
-                        pkgSet.add(pkg);                                    
+                        pkgSet.add(pkg);
                     }
                     if (!packageAbbr.containsKey(pkg))
                     {
@@ -300,7 +300,7 @@ public class WebServiceUtils
                             {
                                 if (!pkgSet.contains(pkg))
                                 {
-                                    pkgSet.add(pkg);                                    
+                                    pkgSet.add(pkg);
                                 }
                                 if (!packageAbbr.containsKey(pkg))
                                 {
@@ -333,7 +333,7 @@ public class WebServiceUtils
                             {
                                 if (!pkgSet.contains(pkg))
                                 {
-                                    pkgSet.add(pkg);                                    
+                                    pkgSet.add(pkg);
                                 }
                                 if (!packageAbbr.containsKey(pkg))
                                 {
@@ -386,7 +386,7 @@ public class WebServiceUtils
                             {
                                 if (!pkgSet.contains(pkg))
                                 {
-                                    pkgSet.add(pkg);                                    
+                                    pkgSet.add(pkg);
                                 }
                                 if (!packageAbbr.containsKey(pkg))
                                 {
@@ -419,7 +419,7 @@ public class WebServiceUtils
                             {
                                 if (!pkgSet.contains(pkg))
                                 {
-                                    pkgSet.add(pkg);                                    
+                                    pkgSet.add(pkg);
                                 }
                                 if (!packageAbbr.containsKey(pkg))
                                 {
@@ -459,7 +459,7 @@ public class WebServiceUtils
                         {
                             if (!pkgSet.contains(pkg))
                             {
-                                pkgSet.add(pkg);                                    
+                                pkgSet.add(pkg);
                             }
                             if (!packageAbbr.containsKey(pkg))
                             {
@@ -495,7 +495,7 @@ public class WebServiceUtils
                                 {
                                     if (!pkgSet.contains(pkg))
                                     {
-                                        pkgSet.add(pkg);                                    
+                                        pkgSet.add(pkg);
                                     }
                                     if (!packageAbbr.containsKey(pkg))
                                     {
@@ -528,7 +528,7 @@ public class WebServiceUtils
                 {
                     if (!pkgSet.contains(pkg))
                     {
-                        pkgSet.add(pkg);                                    
+                        pkgSet.add(pkg);
                     }
                     if (!packageAbbr.containsKey(pkg))
                     {
@@ -549,7 +549,7 @@ public class WebServiceUtils
         }
         return pkgSet;
     }
-    
+
     /**
      * Creates a list of referenced packages for each package.
      * Run this after running getTypeMappingElements(), to populate the namespace Map and referenced imports from each namespace.
@@ -913,7 +913,7 @@ public class WebServiceUtils
         }
         return pkgRef;
     }
-    
+
     /**
      * Creates a list of referenced packages for each package.
      * Populates schema reference list for import
@@ -1040,7 +1040,7 @@ public class WebServiceUtils
                     }
                     /*else if (facade.isEnumeration() || facade.hasStereotype("Enumeration"))
                     {
-                        
+
                     }*/
                 }
             }
@@ -1645,7 +1645,7 @@ public class WebServiceUtils
         /*if (parent != null)
         {
             // See if a named dependency exists with the same facadeName
-            for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();) 
+            for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();)
             {
                 ModelElementFacade dependency = (ModelElementFacade) iterator.next();
                 if (dependency.getName().equals(facade.getName()) && dependency instanceof DependencyFacade)
@@ -1730,7 +1730,7 @@ public class WebServiceUtils
             if (parent != null && StringUtils.isEmpty(defaultValue) && ("String".equals(typeName) || "java.lang.String".equals(typeName)))
             {
                 // See if a named dependency exists with the same facadeName
-                for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();) 
+                for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();)
                 {
                     ModelElementFacade dependency = (ModelElementFacade) iterator.next();
                     if (dependency.getName().equals(facade.getName()) && dependency instanceof DependencyFacade)
@@ -1738,7 +1738,7 @@ public class WebServiceUtils
                         facade = ((DependencyFacade)dependency).getTargetElement();
                         // DependencyFacade type comes back empty for UML2::Integer
                         // Need to get metaObject Name property and verify it is not null.
-                        if (facade instanceof WSDLTypeLogic) 
+                        if (facade instanceof WSDLTypeLogic)
                         {
                             WSDLTypeLogic wsdlType = (WSDLTypeLogic) facade;
                             if (logger.isDebugEnabled())
@@ -1753,7 +1753,7 @@ public class WebServiceUtils
                                 break;
                             }
                         }
-                        if (facade instanceof ClassifierFacade) 
+                        if (facade instanceof ClassifierFacade)
                         {
                             type = (ClassifierFacade) facade;
                         }
@@ -1973,10 +1973,10 @@ public class WebServiceUtils
      */
     private Collection<PackageFacade> getServiceDescendantPackages(ModelElementFacade element, Collection<PackageFacade> pkgRef, Collection<ModelElementFacade> added)
     {
-        if (element==null) return pkgRef;                
+        if (element==null) return pkgRef;
         ModelElementFacade pkg = element.getPackage();
         if (pkg==null || pkg.getFullyQualifiedName().indexOf('.') < 1
-            || pkg.getFullyQualifiedName().startsWith("java.util.")) return pkgRef;                
+            || pkg.getFullyQualifiedName().startsWith("java.util.")) return pkgRef;
         //name = ex.getName();
         if (!pkgRef.contains(pkg) && pkg instanceof PackageFacade)
         {
@@ -2068,7 +2068,7 @@ public class WebServiceUtils
                     pkgRef = getServiceDescendantPackages(arg.getType(), pkgRef, added);
                 }
             }
-            
+
         }
         // Don't put current package into package reference list
         pkgRef.remove(service.getPackage());
@@ -2171,7 +2171,7 @@ public class WebServiceUtils
     }
 
     private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
-    
+
     /**
      * Returns the current Date in the specified format.
      *
@@ -2196,15 +2196,15 @@ public class WebServiceUtils
     {
         return df.format(new Date());
     }
-    
+
     /**
      * Determine how a model type is mapped to a java implementation type.
      * Used to resolve conflicts between java and webservice type mappings.
      * i.e. webservice maps Integer as BigInteger and Date/Time/DateTime as Calendar, so
      * Value Object attributes will not match webservice attribute types.
      * Called from vsl $webServiceUtils.getTypeMapping($service.
-     * @param mappings 
-     * @param from 
+     * @param mappings
+     * @param from
      *
      * @return the String mapping type to.
      */
@@ -2222,7 +2222,7 @@ public class WebServiceUtils
      * It finds the mapped schema type from the passed in
      * <code>schemaTypeMappings</code>.
      * </p>
-     * 
+     *
      * @param type the ClassifierFacade instance
      * @param schemaTypeMappings contains the mappings from model datatypes to
      *        schema datatypes.
@@ -2247,7 +2247,7 @@ public class WebServiceUtils
         boolean withPrefix,
         boolean preserveArray)
     {
-        StringBuffer schemaType = new StringBuffer();
+        StringBuilder schemaType = new StringBuilder();
         String modelName = type.getFullyQualifiedName(true);
         if (schemaTypeMappings != null)
         {
@@ -2284,7 +2284,7 @@ public class WebServiceUtils
                 }
             }
             // remove any array '[]' suffix
-            schemaType = new StringBuffer(schemaType.toString().replaceAll("\\[\\]", ""));
+            schemaType = new StringBuilder(schemaType.toString().replaceAll("\\[\\]", ""));
             if (preserveArray && type.isArrayType())
             {
                 int insertIndex = namespacePrefix.length();
@@ -2294,7 +2294,7 @@ public class WebServiceUtils
                     {
                         // add the prefix for any normal XSD types
                         // that may not have been set above
-                        schemaType.insert(0, namespacePrefix);                     
+                        schemaType.insert(0, namespacePrefix);
                     }
                     else
                     {
@@ -2316,7 +2316,7 @@ public class WebServiceUtils
     /**
      * <p> Returns true if java.lang.* or java.util.* datatype and not many*
      * </p>
-     * 
+     *
      * @param element the ClassifierFacade instance
      * @return if type is one of the PrimitiveTypes and not an array/list
      */

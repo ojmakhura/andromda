@@ -195,7 +195,7 @@ public class Translation
                             0,
                             endIndex);
                 }
-                StringBuffer toReplace = new StringBuffer(begin);
+                StringBuilder toReplace = new StringBuilder(begin);
                 toReplace.append(fragmentName);
                 toReplace.append(end);
                 translated =
@@ -211,7 +211,7 @@ public class Translation
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

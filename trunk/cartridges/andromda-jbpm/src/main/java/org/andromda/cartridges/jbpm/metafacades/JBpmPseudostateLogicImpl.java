@@ -99,7 +99,7 @@ public class JBpmPseudostateLogicImpl
 
         if (this.isDecisionPoint())
         {
-            final StringBuffer clazzBuffer = new StringBuffer();
+            final StringBuilder clazzBuffer = new StringBuilder();
             if (StringUtils.isNotBlank(this.getDecisionHandlerPackageName()))
             {
                 clazzBuffer.append(this.getDecisionHandlerPackageName());

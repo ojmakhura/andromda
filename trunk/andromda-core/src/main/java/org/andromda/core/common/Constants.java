@@ -2,7 +2,6 @@ package org.andromda.core.common;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Stores any constants used throughout the
  * AndroMDA codebase.
@@ -24,7 +23,7 @@ public class Constants
     {
         // - initialize the TEMPORARY_DIRECTORY
         final String tmpDir = System.getProperty("java.io.tmpdir");
-        final StringBuffer directory = new StringBuffer(tmpDir);
+        final StringBuilder directory = new StringBuilder(tmpDir);
         if (!directory.toString().endsWith("/"))
         {
             directory.append('/');
@@ -37,7 +36,7 @@ public class Constants
         directory.append(".andromda/");
         TEMPORARY_DIRECTORY = directory.toString();
     }
-    
+
     /**
      * The name of the metafacades component.
      */

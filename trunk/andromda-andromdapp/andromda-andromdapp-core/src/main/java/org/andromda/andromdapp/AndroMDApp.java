@@ -176,7 +176,7 @@ public class AndroMDApp
         {
             if (this.types.size() > 1)
             {
-                final StringBuffer typesChoice = new StringBuffer("[");
+                final StringBuilder typesChoice = new StringBuilder("[");
                 for (final Iterator<String> iterator = validTypes.iterator(); iterator.hasNext();)
                 {
                     final String type = iterator.next();

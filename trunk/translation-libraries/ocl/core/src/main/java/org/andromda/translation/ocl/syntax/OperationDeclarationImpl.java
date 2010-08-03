@@ -61,7 +61,7 @@ public class OperationDeclarationImpl
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer(this.getName());
+        StringBuilder toString = new StringBuilder(this.getName());
         toString.append('(');
         if (this.getArguments().length > 0)
         {

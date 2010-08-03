@@ -1,9 +1,7 @@
 package org.andromda.maven.plugin.andromdapp.script;
 
 import java.io.File;
-
 import java.net.URL;
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
@@ -11,10 +9,8 @@ import javassist.CtMethod;
 import javassist.LoaderClassPath;
 import javassist.Modifier;
 import javassist.NotFoundException;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * This class instruments a given class file in order for it be scripted.  A class modified
@@ -78,7 +74,7 @@ public class ScriptClassGenerator
                 pool.insertClassPath(new LoaderClassPath(contextClassLoader));
             }
             final CtClass ctClass = pool.get(className);
-            
+
             // - make sure the class isn't frozen
             ctClass.defrost();
 
@@ -175,8 +171,8 @@ public class ScriptClassGenerator
     {
         CtClass[] argumentTypes = method.getParameterTypes();
         final int argumentNumber = argumentTypes.length;
-        final StringBuffer arguments =
-            new StringBuffer("final Object[] arguments = new Object[" + argumentNumber + "];");
+        final StringBuilder arguments =
+            new StringBuilder("final Object[] arguments = new Object[" + argumentNumber + "];");
         for (int ctr = 1; ctr <= argumentNumber; ctr++)
         {
             final CtClass argumentType = argumentTypes[ctr - 1];
@@ -196,7 +192,7 @@ public class ScriptClassGenerator
     private String getWrapperTypeName(CtClass ctClass)
     {
         final String typeName = ctClass.getName();
-        StringBuffer name = new StringBuffer(typeName);
+        StringBuilder name = new StringBuilder(typeName);
         if ("int".equalsIgnoreCase(typeName))
         {
             name.append("eger");

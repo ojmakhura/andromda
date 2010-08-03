@@ -22,13 +22,13 @@ public class EJBSessionFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJBSessionFacadeLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public EJBSessionFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return getCreateMethods
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getCreateMethods(boolean)
      */
@@ -72,7 +72,7 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return getEnvironmentEntries
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
      */
@@ -82,7 +82,7 @@ public class EJBSessionFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return getConstants
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getConstants(boolean)
      */
@@ -97,7 +97,7 @@ public class EJBSessionFacadeLogicImpl
      */
     protected String handleGetJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
         if (StringUtils.isNotBlank(jndiNamePrefix))
         {

@@ -12,7 +12,6 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}
  * (that is: instances of this class below to an instance of {@link MetafacadeMappings}).
@@ -346,7 +345,7 @@ public class MetafacadeMapping
     /**
      * Indicates whether or not the <code>mapping</code> matches this mapping. It matches on the following: <ul>
      * <li>metafacadeClass</li> <li>mappingClassName</li> <li>stereotypes</li> </ul>
-     * @param mapping 
+     * @param mapping
      * @return match this.getMappingClassName().equals(mapping.getMappingClassName())
      */
     final boolean match(final MetafacadeMapping mapping)
@@ -415,7 +414,7 @@ public class MetafacadeMapping
          */
         public String toString()
         {
-            final StringBuffer toString = new StringBuffer();
+            final StringBuilder toString = new StringBuilder();
             char seperator = ':';
             for (final Iterator<Property> iterator = this.getProperties().iterator(); iterator.hasNext();)
             {
