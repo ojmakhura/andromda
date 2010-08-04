@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Manageable Entity Namespace</title>
     </properties>
@@ -15,7 +16,7 @@
                 <tr>
                     <td>manageableServiceAccessorPattern</td>
                     <td>how the service should be accessed from the backend</td>
-                    <td>Yes, use something like <code><manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern></code></td>
+                    <td>Yes, use something like <![CDATA[<code><manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern></code>]]></td>
                 </tr>
                 <tr>
                     <td>defaultResolveable</td>
@@ -42,7 +43,7 @@
                     <td>manageableIdDisplayStrategy</td>
                     <td>Denotes the strategy for displaying entities' identifiers, values may be
                         <code>auto</code>, <code>always</code> and <code>never</code>. the <code>auto</code>
-                        value means the identifier will be displayed when it has been explicitely modeled.</td>
+                        value means the identifier will be displayed when it has been explicitly modeled.</td>
                     <td>No, default is <code>auto</code></td>
                 </tr>
                 <tr>

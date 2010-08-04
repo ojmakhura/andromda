@@ -311,7 +311,7 @@
                 <documentation>
                     Automatically export schema DDL to the database when the SessionFactory
                     is created. With create-drop, the database schema will be dropped when
-                    the SessionFactory is closed explicitely. Permitted values are:
+                    the SessionFactory is closed explicitly. Permitted values are:
                     <ol>
                         <li>update</li>
                         <li>create</li>

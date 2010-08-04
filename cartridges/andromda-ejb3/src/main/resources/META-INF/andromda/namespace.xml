@@ -753,7 +753,7 @@
 						</li>
 						<li>
 							If ths property is defined, its value is
-							generated at each occurence of a UML
+							generated at each occurrence of a UML
 							composition as the inverse side is not
 							marked with a cascade annotation element
 							which indicates no cascade propgation.
@@ -773,7 +773,7 @@
 						</li>
 						<li>
 							If the property is defined, its valie is
-							generated at each occurence of a UML
+							generated at each occurrence of a UML
 							aggregation ad the inverse side is not
 							marked with a cascade annotation element
 							which indicates no cascade propogation.
@@ -976,7 +976,7 @@
             <property name="webServiceDefaultStyle">
                 <default>rpc</default>
                 <documentation>
-                    The default style given all web services (if not defined seperately
+                    The default style given all web services (if not defined separately
                     on each web service). Possible choices are:
                     <ul>
                         <li>rpc</li>
@@ -987,7 +987,7 @@
             <property name="webServiceDefaultUse">
                 <default>literal</default>
                 <documentation>
-                    The default use given all web services (if not defined seperately
+                    The default use given all web services (if not defined separately
                     on each web service). Possible choices are:
                     <ul>
                         <li>literal</li>

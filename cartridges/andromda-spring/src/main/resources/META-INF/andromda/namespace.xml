@@ -631,7 +631,7 @@
                 <documentation>
                     The default beanReafFactoryId to be used in the ServiceLocator. By default the beanRefFactoryId
                     is used (if EJB is not activated). If EJB is activated the beanRefFactoryEjbId is used.
-                    With the serviceLocatorDefaultFactoryId this behaviour can be explicit overridden.
+                    With the serviceLocatorDefaultFactoryId this behavior can be explicit overridden.
                 </documentation>
             </property>
             <property name="manageableServiceLocatorName">
@@ -695,7 +695,7 @@
                     Enables to turn off the caching of the jndi datasource (value <code>false</code>) if using the default
                     data source class <code>org.springframework.jndi.JndiObjectFactoryBean</code>.
                     Usefull for allowing hot redeployment of JNDI objects. If not specified,
-                    no additional code is generated with default behaviour <strong>cache enabled</strong>.
+                    no additional code is generated with default behavior <strong>cache enabled</strong>.
                 </documentation>
             </property>
             <property name="jdbcDataSourceClass">
@@ -1065,7 +1065,7 @@
                 <documentation>
                     Automatically export schema DDL to the database when the SessionFactory
                     is created. With create-drop, the database schema will be dropped when
-                    the SessionFactory is closed explicitely. Permitted values are:
+                    the SessionFactory is closed explicitly. Permitted values are:
                     <ol>
                         <li>update</li>
                         <li>create</li>
@@ -1191,12 +1191,12 @@
             </property>
             <property name="acegiAuthenticationManager" required="false">
                 <documentation>
-                    The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).
+                    The bean name of the acegi authentication manager (defined in a separate applicationContext outside of the generated one).
                 </documentation>
             </property>
             <property name="acegiRunAsManager" required="false">
                 <documentation>
-                    The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
+                    The bean name of the acegi run as manager (defined in a separate applicationContext outside of the generated one).
                 </documentation>
             </property>
         </propertyGroup>
