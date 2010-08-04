@@ -38,7 +38,7 @@ import org.eclipse.uml2.VisibilityKind;
 public class ObjectInstanceImpl implements ObjectInstance
 {
     /**
-     * 
+     *
      */
     final InstanceSpecification instanceSpecification;
 
@@ -51,7 +51,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     public boolean equals(Object object)
     {
@@ -67,7 +67,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     public int hashCode()
     {
@@ -75,7 +75,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {
@@ -91,7 +91,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.DeploymentTarget#getDeployment(java.lang.String)
+     * @see org.eclipse.uml2.DeploymentTarget#getDeployment(String)
      */
     public Deployment getDeployment(String string)
     {
@@ -124,7 +124,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.DeploymentTarget#getDeployedElement(java.lang.String)
+     * @see org.eclipse.uml2.DeploymentTarget#getDeployedElement(String)
      */
     public PackageableElement getDeployedElement(String string)
     {
@@ -165,7 +165,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.InstanceSpecification#getClassifier(java.lang.String)
+     * @see org.eclipse.uml2.InstanceSpecification#getClassifier(String)
      */
     public Classifier getClassifier(String string)
     {
@@ -229,7 +229,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, Object)
      */
     public void eSet(EStructuralFeature eStructuralFeature, Object object)
     {
@@ -325,7 +325,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.NamedElement#setName(java.lang.String)
+     * @see org.eclipse.uml2.NamedElement#setName(String)
      */
     public void setName(String string)
     {
@@ -341,7 +341,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.NamedElement#getClientDependency(java.lang.String)
+     * @see org.eclipse.uml2.NamedElement#getClientDependency(String)
      */
     public Dependency getClientDependency(String string)
     {
@@ -608,7 +608,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#createEAnnotation(java.lang.String)
+     * @see org.eclipse.uml2.Element#createEAnnotation(String)
      */
     public EAnnotation createEAnnotation(String string)
     {
@@ -624,7 +624,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getApplicableStereotype(java.lang.String)
+     * @see org.eclipse.uml2.Element#getApplicableStereotype(String)
      */
     public Stereotype getApplicableStereotype(String string)
     {
@@ -640,7 +640,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getAppliedStereotype(java.lang.String)
+     * @see org.eclipse.uml2.Element#getAppliedStereotype(String)
      */
     public Stereotype getAppliedStereotype(String string)
     {
@@ -672,7 +672,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getValue(org.eclipse.uml2.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.Element#getValue(org.eclipse.uml2.Stereotype, String)
      */
     public Object getValue(Stereotype stereotype, String string)
     {
@@ -696,7 +696,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#setValue(org.eclipse.uml2.Stereotype, java.lang.String, java.lang.Object)
+     * @see org.eclipse.uml2.Element#setValue(org.eclipse.uml2.Stereotype, String, Object)
      */
     public void setValue(Stereotype stereotype, String string, Object object)
     {
@@ -704,7 +704,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#hasValue(org.eclipse.uml2.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.Element#hasValue(org.eclipse.uml2.Stereotype, String)
      */
     public boolean hasValue(Stereotype stereotype, String string)
     {
@@ -736,7 +736,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#addKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#addKeyword(String)
      */
     public void addKeyword(String string)
     {
@@ -752,7 +752,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#hasKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#hasKeyword(String)
      */
     public boolean hasKeyword(String string)
     {
@@ -760,7 +760,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.uml2.Element#removeKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#removeKeyword(String)
      */
     public void removeKeyword(String string)
     {
@@ -776,7 +776,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(String)
      */
     public EAnnotation getEAnnotation(String string)
     {

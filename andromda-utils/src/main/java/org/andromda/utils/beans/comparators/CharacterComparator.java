@@ -17,9 +17,9 @@ class CharacterComparator
 
     /**
      * Used to sort Character values, both objects are assumed to be assignable
-     * to java.lang.Character
-     * @param objectA 
-     * @param objectB 
+     * to Character
+     * @param objectA
+     * @param objectB
      * @return comparison result
      */
     public int compare(

@@ -1,10 +1,5 @@
 package org.andromda.maven.plugin.cartridge;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestListener;
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +7,10 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestListener;
+import org.apache.commons.io.FileUtils;
 
 /**
  * Formats the cartridge test results into the correct format.
@@ -44,7 +42,7 @@ public class CartridgeTestFormatter
     private boolean testFailureIgnore = false;
 
     /**
-     * 
+     *
      */
     public CartridgeTestFormatter()
     {
@@ -69,7 +67,7 @@ public class CartridgeTestFormatter
     private int numberOfErrors = 0;
 
     /**
-     * @see junit.framework.TestListener#addError(junit.framework.Test, java.lang.Throwable)
+     * @see junit.framework.TestListener#addError(junit.framework.Test, Throwable)
      */
     public void addError(
         Test test,
@@ -131,7 +129,7 @@ public class CartridgeTestFormatter
 
     /**
      * The testsuite started.
-     * @param name 
+     * @param name
      */
     public void startTestSuite(final String name)
     {

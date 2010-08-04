@@ -136,7 +136,7 @@ public class GeneralizableElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.GeneralizableElementFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.emf.uml22.GeneralizableElementFacadeLogic#handleFindTaggedValue(String, boolean)
      */
     @Override
     protected Object handleFindTaggedValue(

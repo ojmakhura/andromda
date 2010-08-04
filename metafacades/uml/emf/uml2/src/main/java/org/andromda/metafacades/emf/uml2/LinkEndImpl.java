@@ -27,7 +27,7 @@ import org.eclipse.uml2.ValueSpecification;
 public class LinkEndImpl implements LinkEnd
 {
     /**
-     * 
+     *
      */
     final Slot slot;
 
@@ -40,7 +40,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     public boolean equals(final Object object)
     {
@@ -56,7 +56,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     public int hashCode()
     {
@@ -64,7 +64,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {
@@ -96,7 +96,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Slot#getValue(java.lang.String)
+     * @see org.eclipse.uml2.Slot#getValue(String)
      */
     public ValueSpecification getValue(String string)
     {
@@ -136,7 +136,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, Object)
      */
     public void eSet(EStructuralFeature eStructuralFeature, Object object)
     {
@@ -233,7 +233,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#createEAnnotation(java.lang.String)
+     * @see org.eclipse.uml2.Element#createEAnnotation(String)
      */
     public EAnnotation createEAnnotation(String string)
     {
@@ -249,7 +249,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getApplicableStereotype(java.lang.String)
+     * @see org.eclipse.uml2.Element#getApplicableStereotype(String)
      */
     public Stereotype getApplicableStereotype(String string)
     {
@@ -265,7 +265,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getAppliedStereotype(java.lang.String)
+     * @see org.eclipse.uml2.Element#getAppliedStereotype(String)
      */
     public Stereotype getAppliedStereotype(String string)
     {
@@ -297,7 +297,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#getValue(org.eclipse.uml2.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.Element#getValue(org.eclipse.uml2.Stereotype, String)
      */
     public Object getValue(Stereotype stereotype, String string)
     {
@@ -321,7 +321,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#setValue(org.eclipse.uml2.Stereotype, java.lang.String, java.lang.Object)
+     * @see org.eclipse.uml2.Element#setValue(org.eclipse.uml2.Stereotype, String, Object)
      */
     public void setValue(Stereotype stereotype, String string, Object object)
     {
@@ -329,7 +329,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#hasValue(org.eclipse.uml2.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.Element#hasValue(org.eclipse.uml2.Stereotype, String)
      */
     public boolean hasValue(Stereotype stereotype, String string)
     {
@@ -361,7 +361,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#addKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#addKeyword(String)
      */
     public void addKeyword(String string)
     {
@@ -377,7 +377,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#hasKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#hasKeyword(String)
      */
     public boolean hasKeyword(String string)
     {
@@ -385,7 +385,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.Element#removeKeyword(java.lang.String)
+     * @see org.eclipse.uml2.Element#removeKeyword(String)
      */
     public void removeKeyword(String string)
     {
@@ -401,7 +401,7 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(String)
      */
     public EAnnotation getEAnnotation(String string)
     {

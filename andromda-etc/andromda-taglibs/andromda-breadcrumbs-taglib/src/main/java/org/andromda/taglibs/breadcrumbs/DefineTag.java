@@ -22,7 +22,7 @@ public class DefineTag extends TagSupport
     }
 
     /**
-     * @see javax.servlet.jsp.tagext.TagSupport#setId(java.lang.String)
+     * @see javax.servlet.jsp.tagext.TagSupport#setId(String)
      */
     public void setId(String id)
     {

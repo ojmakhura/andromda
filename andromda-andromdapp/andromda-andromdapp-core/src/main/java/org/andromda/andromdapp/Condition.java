@@ -173,13 +173,13 @@ public class Condition
             else if (notEqualConditionPresent && notEqual != null)
             {
                 valid = !notEqual.equals(value);
-            }            
+            }
         }
         return valid;
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

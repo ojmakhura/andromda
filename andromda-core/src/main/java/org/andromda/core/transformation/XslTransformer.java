@@ -111,7 +111,7 @@ public class XslTransformer
         implements URIResolver
     {
         /**
-         * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
+         * @see javax.xml.transform.URIResolver#resolve(String, String)
          */
         public Source resolve(
             final String href,

@@ -44,7 +44,7 @@ public class HtmlPopupFrame
     private String scrolling;
 
     /**
-     * 
+     *
      */
     public HtmlPopupFrame()
     {
@@ -555,7 +555,7 @@ public class HtmlPopupFrame
     }
 
     /**
-     * @see javax.faces.component.UICommand#restoreState(javax.faces.context.FacesContext, java.lang.Object)
+     * @see javax.faces.component.UICommand#restoreState(javax.faces.context.FacesContext, Object)
      */
     public void restoreState(
         FacesContext _context,

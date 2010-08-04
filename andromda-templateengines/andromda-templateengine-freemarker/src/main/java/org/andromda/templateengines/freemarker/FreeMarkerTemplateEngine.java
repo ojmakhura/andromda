@@ -10,11 +10,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.Template;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.templateengine.TemplateEngine;
@@ -23,11 +18,13 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-
+import freemarker.template.Configuration;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.Template;
 
 /**
  * The TemplateEngine implementation for the FreeMarker template processor.
- * 
+ *
  * @author Chad Brandon
  * @author Olaf Muliawan
  * @author Matthias Bohlen (usage of context classloader so that it works in Maven environments)
@@ -49,7 +46,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
     protected Configuration configuration = null;
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String,
+     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(String,
      *      java.util.Map, java.io.Writer)
      */
     public void processTemplate(String templateFile, Map<String, Object> templateObjects, Writer output) throws Exception
@@ -117,7 +114,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(String)
      */
     public void addMacroLibrary(String macroLibrary)
     {
@@ -125,7 +122,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(String)
      */
     public void setMergeLocation(String mergeLocation)
     {
@@ -137,7 +134,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
     private static final String STRING_TEMPLATE = "stringTemplate";
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String,
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(String,
      *      java.util.Map)
      */
     public String getEvaluatedExpression(final String expression, Map<String, Object> templateObjects)
@@ -172,7 +169,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
 
     /**
      * Opens a log file for this plugin.
-     * 
+     *
      * @throws IOException
      *             if the file cannot be opened
      */

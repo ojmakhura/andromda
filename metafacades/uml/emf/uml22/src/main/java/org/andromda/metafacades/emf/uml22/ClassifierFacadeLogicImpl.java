@@ -866,7 +866,6 @@ public class ClassifierFacadeLogicImpl
         return operations;
     }
 
-
     private static Collection<Operation> resolveInterfaceOperationsRecursively(Interface classifier)
     {
         final Collection<Operation> operations = new LinkedHashSet<Operation>(classifier.getOwnedOperations());   // preserve ordering
@@ -1217,7 +1216,7 @@ public class ClassifierFacadeLogicImpl
         return this.metaObject.getOwnedTemplateSignature().getOwnedParameters().size() > 0;
     }
 
-    /** Not implemented 
+    /** Not implemented
      * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleCopyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
      */
     protected void handleCopyTaggedValues(final ModelElementFacade element)
@@ -1225,7 +1224,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleGetTemplateParameter(java.lang.String)
+     * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl#handleGetTemplateParameter(String)
      */
     protected DataType handleGetTemplateParameter(final String parameterName)
     {
@@ -1255,7 +1254,7 @@ public class ClassifierFacadeLogicImpl
                 || this.metaObject.getOwnedTemplateSignature().getOwnedParameters()==null)
         {
             return new ArrayList<TemplateParameter>();
-        }            
+        }
         return this.metaObject.getOwnedTemplateSignature().getOwnedParameters();
     }
 

@@ -10,7 +10,7 @@ public class Model
     implements ModelAccessFacade
 {
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(Object)
      */
     public void setModel(Object model)
     {
@@ -25,7 +25,7 @@ public class Model
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(Object)
      */
     public String getName(Object modelElement)
     {
@@ -33,7 +33,7 @@ public class Model
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(Object)
      */
     public String getPackageName(Object modelElement)
     {
@@ -41,7 +41,7 @@ public class Model
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(Object)
      */
     public Collection getStereotypeNames(Object modelElement)
     {
@@ -49,7 +49,7 @@ public class Model
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(java.lang.String)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(String)
      */
     public Collection findByStereotype(String stereotype)
     {

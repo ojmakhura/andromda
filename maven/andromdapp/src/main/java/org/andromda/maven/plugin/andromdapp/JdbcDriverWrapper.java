@@ -26,7 +26,7 @@ public class JdbcDriverWrapper
     }
 
     /**
-     * @see java.sql.Driver#acceptsURL(java.lang.String)
+     * @see java.sql.Driver#acceptsURL(String)
      */
     public boolean acceptsURL(String url)
         throws SQLException
@@ -35,7 +35,7 @@ public class JdbcDriverWrapper
     }
 
     /**
-     * @see java.sql.Driver#connect(java.lang.String, java.util.Properties)
+     * @see java.sql.Driver#connect(String, java.util.Properties)
      */
     public Connection connect(
         String url,
@@ -64,7 +64,7 @@ public class JdbcDriverWrapper
     }
 
     /**
-     * @see java.sql.Driver#getPropertyInfo(java.lang.String, java.util.Properties)
+     * @see java.sql.Driver#getPropertyInfo(String, java.util.Properties)
      */
     public DriverPropertyInfo[] getPropertyInfo(
         String url,

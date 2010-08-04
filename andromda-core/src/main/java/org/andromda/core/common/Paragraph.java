@@ -84,7 +84,7 @@ public class Paragraph
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

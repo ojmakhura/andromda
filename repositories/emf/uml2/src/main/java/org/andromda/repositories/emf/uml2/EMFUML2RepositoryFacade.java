@@ -21,7 +21,7 @@ import org.eclipse.uml2.util.UML2Resource;
 /**
  * Implements an AndroMDA object model repository by using the <a
  * href="http://www.eclipse.org/uml2/">Eclipse UML2 API set </a>.
- * 
+ *
  * @author Steve Jerman
  * @author Chad Brandon
  * @author Matthias Bohlen (native IBM RSM file reading)
@@ -36,7 +36,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
 
     /**
      * Perform required registrations for EMF/UML2.
-     * 
+     *
      * @see org.andromda.core.repository.RepositoryFacade#open()
      */
     @Override
@@ -71,7 +71,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
      * To read IBM Rational Software Modeler (RSM) files (*.emx, *.epx, ...) directly,
      * we need to register two additional metamodels for annotation elements
      * which are referenced inside the UML2 models created by IBM RSM.
-     * 
+     *
      * @param registry the registry in which metamodels should be registered
      */
     private void registerOptionalRsmMetamodels(EPackage.Registry registry)
@@ -83,7 +83,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     /**
      * Register a metamodel in EMF so that models based on that metamodel can
      * be loaded correctly.
-     * 
+     *
      * @param registry EMF package registry
      * @param ePackageClassName the class name of the package to be registered
      */
@@ -109,8 +109,8 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
 
     /**
      * Overridden to check that the model is of the correct type.
-     * 
-     * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(java.lang.String)
+     *
+     * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(String)
      */
     @Override
     protected void readModel(final String uri)
@@ -137,7 +137,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     }
 
     /**
-     * @param uri 
+     * @param uri
      * @return this.modelFacade
      * @see org.andromda.core.repository.RepositoryFacade#getModel()
      */

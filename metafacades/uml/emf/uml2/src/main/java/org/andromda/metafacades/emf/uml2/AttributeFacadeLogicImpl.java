@@ -15,7 +15,6 @@ import org.eclipse.uml2.Class;
 import org.eclipse.uml2.MultiplicityElement;
 import org.eclipse.uml2.Type;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.AttributeFacade.
@@ -432,12 +431,12 @@ public class AttributeFacadeLogicImpl
     protected int handleGetLower()
     {
         // MD11.5 Exports multiplicity as String
-        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
             (ClassifierFacade) this.getType(), "1");
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml2.AttributeFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.emf.uml2.AttributeFacadeLogic#handleFindTaggedValue(String, boolean)
      */
     @Override
     protected Object handleFindTaggedValue(

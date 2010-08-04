@@ -23,7 +23,7 @@ public class BeanProperties
     }
 
     /**
-     * @see java.util.Dictionary#get(java.lang.Object)
+     * @see java.util.Dictionary#get(Object)
      */
     public Object get(Object key)
     {

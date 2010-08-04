@@ -41,7 +41,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class LinkInstanceImpl implements LinkInstance
 {
     /**
-     * 
+     *
      */
     final InstanceSpecification instanceSpecification;
 
@@ -54,7 +54,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object object)
@@ -71,7 +71,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode()
@@ -80,7 +80,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     @Override
     public String toString()
@@ -97,7 +97,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(java.lang.String, boolean, boolean)
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String, boolean, boolean)
      */
     public Deployment getDeployment(String string, boolean ignoreCase, boolean createOnDemand)
     {
@@ -105,7 +105,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(java.lang.String)
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String)
      */
     public Deployment getDeployment(String string)
     {
@@ -122,7 +122,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(java.lang.String)
+     * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(String)
      */
     public Deployment createDeployment(String eClass)
     {
@@ -146,7 +146,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(java.lang.String)
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String)
      */
     public PackageableElement getDeployedElement(String string)
     {
@@ -154,7 +154,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String, boolean, org.eclipse.emf.ecore.EClass)
      */
     public PackageableElement getDeployedElement(String string, boolean bool, EClass eClass)
     {
@@ -195,7 +195,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(java.lang.String)
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String)
      */
     public Classifier getClassifier(String string)
     {
@@ -203,7 +203,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String, boolean, org.eclipse.emf.ecore.EClass)
      */
     public Classifier getClassifier(String string, boolean ignoreCase, EClass eClass)
     {
@@ -272,7 +272,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
+     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, Object)
      */
     public void eSet(EStructuralFeature eStructuralFeature, Object object)
     {
@@ -368,7 +368,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.NamedElement#setName(java.lang.String)
+     * @see org.eclipse.uml2.uml.NamedElement#setName(String)
      */
     public void setName(String string)
     {
@@ -384,7 +384,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(java.lang.String)
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String)
      */
     public Dependency getClientDependency(String string)
     {
@@ -392,7 +392,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(java.lang.String, boolean, org.eclipse.emf.ecore.EClass)
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String, boolean, org.eclipse.emf.ecore.EClass)
      */
     public Dependency getClientDependency(String string, boolean ignoreCase, EClass eClass)
     {
@@ -664,7 +664,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#createEAnnotation(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#createEAnnotation(String)
      */
     public EAnnotation createEAnnotation(String string)
     {
@@ -689,7 +689,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(String)
      */
     public Stereotype getApplicableStereotype(String string)
     {
@@ -705,7 +705,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#getAppliedStereotype(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#getAppliedStereotype(String)
      */
     public Stereotype getAppliedStereotype(String string)
     {
@@ -737,7 +737,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#getValue(org.eclipse.uml2.uml.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#getValue(org.eclipse.uml2.uml.Stereotype, String)
      */
     public Object getValue(Stereotype stereotype, String string)
     {
@@ -763,7 +763,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#setValue(org.eclipse.uml2.uml.Stereotype, java.lang.String, java.lang.Object)
+     * @see org.eclipse.uml2.uml.Element#setValue(org.eclipse.uml2.uml.Stereotype, String, Object)
      */
     public void setValue(Stereotype stereotype, String string, Object object)
     {
@@ -771,7 +771,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#hasValue(org.eclipse.uml2.uml.Stereotype, java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#hasValue(org.eclipse.uml2.uml.Stereotype, String)
      */
     public boolean hasValue(Stereotype stereotype, String string)
     {
@@ -809,7 +809,7 @@ public class LinkInstanceImpl implements LinkInstance
     }*/
 
     /**
-     * @see org.eclipse.uml2.uml.Element#addKeyword(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#addKeyword(String)
      */
     public boolean addKeyword(String string)
     {
@@ -825,7 +825,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#hasKeyword(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#hasKeyword(String)
      */
     public boolean hasKeyword(String string)
     {
@@ -833,7 +833,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#removeKeyword(java.lang.String)
+     * @see org.eclipse.uml2.uml.Element#removeKeyword(String)
      */
     public boolean removeKeyword(String string)
     {
@@ -849,7 +849,7 @@ public class LinkInstanceImpl implements LinkInstance
     }
 
     /**
-     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(String)
      */
     public EAnnotation getEAnnotation(String string)
     {

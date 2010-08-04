@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * A global cache for metafacades. Used by the {@link MetafacadeFactory}when constructing or retrieving metafacade
  * instances. If the cache constains the metafacade it should not be constructed again.
@@ -116,7 +115,7 @@ public final class MetafacadeCache
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

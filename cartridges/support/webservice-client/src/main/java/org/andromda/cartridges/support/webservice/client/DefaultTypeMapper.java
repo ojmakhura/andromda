@@ -12,7 +12,7 @@ public class DefaultTypeMapper
     implements TypeMapper
 {
     /**
-     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(java.lang.Class)
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(Class)
      */
     public Object getObject(Class type)
     {
@@ -34,7 +34,7 @@ public class DefaultTypeMapper
     private static final String VALUE_OF = "valueOf";
 
     /**
-     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(java.lang.Class, java.lang.String)
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getObject(Class, String)
      */
     @SuppressWarnings("unchecked")
     public Object getObject(Class type, String value)
@@ -47,7 +47,7 @@ public class DefaultTypeMapper
                 if (type.isEnum())
                 {
                     object = type.getMethod(
-                        VALUE_OF, new Class[]{java.lang.String.class}).invoke(
+                        VALUE_OF, new Class[]{String.class}).invoke(
                             type, value);
                 }
                 else
@@ -68,7 +68,7 @@ public class DefaultTypeMapper
     }
 
     /**
-     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getStringValue(java.lang.Object)
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#getStringValue(Object)
      */
     public String getStringValue(Object object)
     {
@@ -76,7 +76,7 @@ public class DefaultTypeMapper
     }
 
     /**
-     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#isSimpleType(java.lang.Class)
+     * @see org.andromda.cartridges.support.webservice.client.TypeMapper#isSimpleType(Class)
      */
     public boolean isSimpleType(Class type)
     {

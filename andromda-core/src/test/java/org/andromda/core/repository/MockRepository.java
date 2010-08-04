@@ -33,7 +33,7 @@ public class MockRepository
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(String[], String[])
      */
     public void readModel(String[] uris, String[] moduleSearchPath)
     {
@@ -49,21 +49,21 @@ public class MockRepository
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], String[], String[])
      */
     public void readModel(InputStream[] streams, String[] uris, String[] moduleSearchPath)
     {
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String, String, String)
      */
     public void writeModel(Object model, String outputLocation, String version, String encoding)
     {
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String, String)
      */
     public void writeModel(Object model, String outputLocation, String version)
     {
