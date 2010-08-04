@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<!--document-->
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - Samples</title>
-        <gennews>no</gennews>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <!--gennews>no</gennews-->
     </properties>
 
     <body>
@@ -27,25 +29,23 @@
             <p class="std">
                 In order to get the most out of this sample you should take note of the following points:
             </p>
-            <p class="std">
-                <ul>
-                    <li>Any web container able to deploy EAR bundles should work.</li>
-                    <li>Point your browser to the following URL:
-                        <a href="http://127.0.0.1:8080/OnlineStore/" target="_blank">
-                        http://127.0.0.1:8080/OnlineStore/</a>
-                    </li>
-                </ul>
-            </p>
+            <ul>
+                <li>Any web container able to deploy EAR bundles should work.</li>
+                <li>Point your browser to the following URL:
+                    <a href="http://127.0.0.1:8080/OnlineStore/" target="_blank">
+                    http://127.0.0.1:8080/OnlineStore/</a>
+                </li>
+            </ul>
             <p class="std">
                 Follow this link to see this sample application running, what you will see is purely generated from
                 UML using bpm4struts, no manual implementation has been added.
-                <ul>
-                    <li>
-                        <a href="http://team.andromda.org/OnlineStore/" target="_blank">
-                        http://team.andromda.org/OnlineStore/</a>
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li>
+                    <a href="http://team.andromda.org/OnlineStore/" target="_blank">
+                    http://team.andromda.org/OnlineStore/</a>
+                </li>
+            </ul>
         </section>
 
     </body>

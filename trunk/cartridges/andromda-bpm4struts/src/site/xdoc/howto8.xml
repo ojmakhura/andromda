@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Tables</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -151,18 +152,16 @@
                 <p>
                     Let's list the things to do in order to successfully make use of this feature:
                 </p>
-                <p>
-                    <ol>
-                        <li>make sure you have a table page-variable</li>
-                        <li>have an action with a single event parameter, make sure this parameter carries the same
-                            name as one of the table columns, it will be that column's value that will be sent when the
-                            checkbox for the row is checked</li>
-                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tagged value on
-                            the action transition</li>
-                        <li>add the <code>@andromda.presentation.web.action.type=table</code> tagged value on
-                            the action transition</li>
-                    </ol>
-                </p>
+                <ol>
+                    <li>make sure you have a table page-variable</li>
+                    <li>have an action with a single event parameter, make sure this parameter carries the same
+                        name as one of the table columns, it will be that column's value that will be sent when the
+                        checkbox for the row is checked</li>
+                    <li>add the <code>@andromda.presentation.web.action.tablelink</code> tagged value on
+                        the action transition</li>
+                    <li>add the <code>@andromda.presentation.web.action.type=table</code> tagged value on
+                        the action transition</li>
+                </ol>
                 <p>
                     In summary: this will result in the cartridge having generated code that will place a checkbox in
                     front of each row, the checkbox carries the value of the table column with the same name as the
@@ -209,32 +208,30 @@
                 UML model</a>, opens in MagicDraw only).
             </p>
             <p>
-                <img src="howto/org/andromda/test/online-store-table.gif"/>
+                <img src="howto/org/andromda/test/online-store-table.gif" alt="howto/org/andromda/test/online-store-table.gif"/>
             </p>
             <subsection name="The 'id' hyperlink">
                 <p>
                     In the <code>id</code> column you can see an hyperlink for each row. This has been achieved by
                     modeling the following things:
                 </p>
-                <p>
-                    <ul>
-                        <li>model an event going out of the page</li>
-                        <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
-                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event,
-                            the value should be the name of the table separated from the column name using a dot, ie.
-                            <code>itemList.id</code>. Not specifying the column name will make put this link in
-                            a separate column on the right.
-                        </li>
-                        <li>add the <code>@andromda.presentation.web.action.type=hyperlink</code> tag to the event,
-                            this denotes this action to be rendered as an hyperlink pointing to the target
-                            Struts action.
-                        </li>
-                        <li>add the <code>@andromda.presentation.web.view.field.type=link</code> tagged
-                            value to the 'id' event trigger parameter. Unless you do this the
-                            field will be rendered using the default widget which will be a text-input field.
-                        </li>
-                    </ul>
-                </p>
+                <ul>
+                    <li>model an event going out of the page</li>
+                    <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
+                    <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event,
+                        the value should be the name of the table separated from the column name using a dot, ie.
+                        <code>itemList.id</code>. Not specifying the column name will make put this link in
+                        a separate column on the right.
+                    </li>
+                    <li>add the <code>@andromda.presentation.web.action.type=hyperlink</code> tag to the event,
+                        this denotes this action to be rendered as an hyperlink pointing to the target
+                        Struts action.
+                    </li>
+                    <li>add the <code>@andromda.presentation.web.view.field.type=link</code> tagged
+                        value to the 'id' event trigger parameter. Unless you do this the
+                        field will be rendered using the default widget which will be a text-input field.
+                    </li>
+                </ul>
                 <p>
                     This feature is interesting when you want to see the details of a specific item in the list.
                 </p>
@@ -257,19 +254,17 @@
                 <p>
                     All these elements make up a specific event, which has been modeled like this:
                 </p>
-                <p>
-                    <ul>
-                        <li>model an event going out of the page, call it <code>buy</code></li>
-                        <li>for each field model a parameter, specify the appropriate widget for each of these
-                            parameters (go <a href="howto2.html#Event_Parameters">here</a> if you don't remember
-                            how to do that), in this example <code>edition</code> is a 'select' and
-                            <code>available</code> is a 'multibox'
-                        </li>
-                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event, the value should
-                            be the name of the table
-                        </li>
-                    </ul>
-                </p>
+                <ul>
+                    <li>model an event going out of the page, call it <code>buy</code></li>
+                    <li>for each field model a parameter, specify the appropriate widget for each of these
+                        parameters (go <a href="howto2.html#Event_Parameters">here</a> if you don't remember
+                        how to do that), in this example <code>edition</code> is a 'select' and
+                        <code>available</code> is a 'multibox'
+                    </li>
+                    <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event, the value should
+                        be the name of the table
+                    </li>
+                </ul>
                 <p class="highlight">
                     If you wish to include the <code>title</code> parameter but you don't want to have it rendered
                     as an input field, then simply use the <code>@andromda.presentation.web.view.field.type=plaintext</code>

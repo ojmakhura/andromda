@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Spring - HowTo (2)</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -32,7 +33,7 @@
                 Run AndroMDA again on your model, this is what you should see:
             </p>
             <p>
-                <img src="howto/org/andromda/test/2/uml.gif"/>
+                <img src="howto/org/andromda/test/2/uml.gif" alt="howto/org/andromda/test/2/uml.gif"/>
             </p>
             <p>
                 It's possible to draw a dependency from one entity to another, this will generate an accessor
@@ -41,64 +42,60 @@
             <p>
                 In this example we have added two attributes: name of type <code>datatype::String</code>
                 and birthDate of type <code>datatype::Date</code>; please note that also for this entity
-                an identifier will be added by default. If you explicitely want to add an identifier you should
+                an identifier will be added by default. If you explicitly want to add an identifier you should
                 add the <![CDATA[<<Identifier>>]]> stereotype to an attribute.
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Car.java"><code>Car.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/2/CarImpl.java"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/2/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/PersonImpl.java"><code>PersonImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/2/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Car.java"><code>Car.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/2/CarImpl.java"><code>CarImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/2/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/2/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/2/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+            </ul>
             <p>
                 As you can see the relationships have been generated in the code:
-                <ul>
-                    <li>Person.getCars() : Collection</li>
-                    <li>Car.getOwner() : Person</li>
-                </ul>
-                By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
-                a few examples where the multiplicity is greater than one:
-                <ul>
-                    <li>car: cars</li>
-                    <li>property: properties</li>
-                    <li>toy: toys</li>
-                    <li>animal: animals</li>
-                    <li>bus: busses</li>
-                </ul>
-                You can override these names by adding your own names to the association ends, in our example
-                you might set the name of the association end at the side of the person to <code>owner</code>,
-                this will emit the following output during generation:
-                <ul>
-                    <li>Person.getCars() : Collection</li>
-                    <li>Car.getOwner() : Person</li>
-                </ul>
             </p>
+            <ul>
+                <li>Person.getCars() : Collection</li>
+                <li>Car.getOwner() : Person</li>
+            </ul>
+            <p>By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
+            a few examples where the multiplicity is greater than one:</p>
+            <ul>
+                <li>car: cars</li>
+                <li>property: properties</li>
+                <li>toy: toys</li>
+                <li>animal: animals</li>
+                <li>bus: busses</li>
+            </ul>
+            <p>You can override these names by adding your own names to the association ends, in our example
+            you might set the name of the association end at the side of the person to <code>owner</code>,
+            this will emit the following output during generation:</p>
+            <ul>
+                <li>Person.getCars() : Collection</li>
+                <li>Car.getOwner() : Person</li>
+            </ul>
             <p>
                 Optionally you may indicate the relationship is part of an <code>aggregate</code> or
                 <code>composite</code> association. You should use aggregation when an entity is part of another one but the
                 latter one does not need the former to exist.
-                <ul>
-                    <li>aggregation: lazy-loaded, no cascade</li>
-                    <li>composition: eager-loaded, cascade update</li>
-                </ul>
             </p>
+            <ul>
+                <li>aggregation: lazy-loaded, no cascade</li>
+                <li>composition: eager-loaded, cascade update</li>
+            </ul>
             <p>
                 Don't forget to properly set the multiplicity on the association ends, this will ensure
                 the proper code is generated.

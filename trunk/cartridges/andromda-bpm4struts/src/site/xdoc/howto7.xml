@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Calling Back-End Services</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -34,21 +35,21 @@
             <p>
                 One could argue why not calling service operations directly from the activity graph, here are a few
                 reasons:
-                <ol>
-                    <li>Activity graphs can have only one context at a time, so your deferred calls would
-                        be limited to a single service
-                    </li>
-                    <li>Operation signatures do not always perfectly map, parameter names and types might be different;
-                        generally speaking it is good practice to have an intermediate layer in which you
-                        can handle these differences.
-                    </li>
-                    <li>Often you will not want to directly expose exceptions from the back-end to your presentation
-                        layer, this can also be handled in the controller.
-                    </li>
-                </ol>
             </p>
+            <ol>
+                <li>Activity graphs can have only one context at a time, so your deferred calls would
+                    be limited to a single service
+                </li>
+                <li>Operation signatures do not always perfectly map, parameter names and types might be different;
+                    generally speaking it is good practice to have an intermediate layer in which you
+                    can handle these differences.
+                </li>
+                <li>Often you will not want to directly expose exceptions from the back-end to your presentation
+                    layer, this can also be handled in the controller.
+                </li>
+            </ol>
             <p>
-                <img src="howto/org/andromda/test/back-end.gif"/>
+                <img src="howto/org/andromda/test/back-end.gif" alt="howto/org/andromda/test/back-end.gif"/>
             </p>
         </section>
         <section name="Next">

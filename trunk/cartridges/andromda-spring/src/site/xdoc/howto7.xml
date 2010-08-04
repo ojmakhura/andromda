@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - HowTo - Exceptions</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -28,39 +29,35 @@
                 from that operation to the exception.
             </p>
             <p>
-                <img src="howto/org/andromda/test/7/uml.gif"/>
+                <img src="howto/org/andromda/test/7/uml.gif" alt="howto/org/andromda/test/7/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
+            </ul>
         </section>
         <section name="Next">
             <p>

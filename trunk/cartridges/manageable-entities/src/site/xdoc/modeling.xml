@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Manageable Entity Modeling</title>
     </properties>
@@ -31,26 +32,24 @@
             </subsection>
 
             <subsection name="Supported Tagged Values">
-                <p>
-                    <table cellpadding="5" rules="all">
-                        <tr>
-                            <th>Tagged value</th>
-                            <th>Model element</th>
-                            <th>Default value</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr>
-                            <td>@andromda.struts.view.field.type</td>
-                            <td>An attribute of a <![CDATA[<<Manageable>>]]> entity</td>
-                            <td>text</td>
-                            <td>
-                                Denotes the widget to use when rendering the column and input field for the
-                                corresponding attribute. Takes <code>hidden</code>, <code>text</code> or
-                                <code>textarea</code>.
-                            </td>
-                        </tr>
-                    </table>
-                </p>
+                <table cellpadding="5" rules="all">
+                    <tr>
+                        <th>Tagged value</th>
+                        <th>Model element</th>
+                        <th>Default value</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.type</td>
+                        <td>An attribute of a <![CDATA[<<Manageable>>]]> entity</td>
+                        <td>text</td>
+                        <td>
+                            Denotes the widget to use when rendering the column and input field for the
+                            corresponding attribute. Takes <code>hidden</code>, <code>text</code> or
+                            <code>textarea</code>.
+                        </td>
+                    </tr>
+                </table>
             </subsection>
 
         </section>

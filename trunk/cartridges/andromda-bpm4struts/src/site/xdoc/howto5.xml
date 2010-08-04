@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Session Objects</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -29,7 +30,7 @@
                 shared between controller classes.
             </p>
             <p>
-                <img src="howto/org/andromda/test/session-objects.gif"/>
+                <img src="howto/org/andromda/test/session-objects.gif" alt="howto/org/andromda/test/session-objects.gif"/>
             </p>
         </section>
         <section name="Nice to know">
@@ -38,7 +39,7 @@
                     Taking the example from the image above you will see it is very easy to access the object in the
                     session from within the controller, this is what is generated in the controller's abtract parent
                     (generated JavaDoc information removed to improve readability):
-<source language="java"><!--
+<source><!--
 protected final LoginSession getLoginSession(HttpServletRequest request)
 {
     LoginSession object = null;
@@ -101,7 +102,7 @@ protected final void removeLoginSession(HttpServletRequest request)
                     an attribute in any scope, just remember the session object is stored using a name following
                     the Java naming convention for variables (<code>LoginSession.SESSION_KEY</code>):
                 </p>
-<source language="java"><!--
+<source><!--
 public class LoginSession implements Serializable
 {
     public final static String SESSION_KEY = "loginSession";

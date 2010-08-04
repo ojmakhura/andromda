@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
+        <title>AndroMDA Metafacades</title>
         <author email="mattes3@users.sourceforge.net">Matthias Bohlen</author>
         <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
-        <title>AndroMDA Metafacades</title>
     </properties>
 
     <body>
@@ -54,7 +55,7 @@
             <p>
                 Look at this UML diagram to get the idea:
             </p>
-            <img src="images/PersonExample.jpg" />
+            <img src="images/PersonExample.jpg" alt="images/PersonExample.jpg"/>
             <p>
                 To see the complete UML metamodel, read 
                 <a href="resources/UML14Metamodel.pdf">UML14Metamodel.pdf</a>.
@@ -67,9 +68,9 @@
         <section name="Metaclasses are 'data only'">
             <p> 
                 Now that we have all these nice little AST objects representing our 
-                model, we notice that they all have very little behaviour - they 
+                model, we notice that they all have very little behavior - they 
                 are just data holders for the metainformation from our model. It 
-                would certainly be nice to attach behaviour to them to support
+                would certainly be nice to attach behavior to them to support
                 code generation. For example: 
                 A <code>UMLClass</code> metaobject that represents an 
                 <code><![CDATA[<<Entity>>]]></code> could validate itself and check 
@@ -79,7 +80,7 @@
                 Now, why don't we simply write a class <code>EntityClass</code> that 
                 extends the class <code>UMLClass</code>? Just like this:
             </p> 
-<source language="java"><!--
+<source><!--
 public class EntityClass extends UMLClass {
     public void validate() throws ... {
         // throw exception here if PrimaryKey not found...
@@ -87,7 +88,7 @@ public class EntityClass extends UMLClass {
 }
 --></source>
                 <p>Another example:</p>
-<source language="java"><!--
+<source><!--
 public class SpecialAttribute extends Attribute {
     public String getGetterName() {
         return "get" + uppercaseFirstLetter(getName());
@@ -145,7 +146,7 @@ public class SpecialAttribute extends Attribute {
                 related to the metaclass interfaces and their implementation in 
                 bytecode:
             </p>
-            <img src="images/FacadePrinciples.jpg" />
+            <img src="images/FacadePrinciples.jpg" alt="images/FacadePrinciples.jpg"/>
             <p>
                 You can see that the facade hides the metaobject and
                 enhances it with its own methods. The next figure shows
@@ -154,7 +155,7 @@ public class SpecialAttribute extends Attribute {
                 metafacades that ship with the AndroMDA distribution (in
                 the subdirectory "metafacades"):
             </p>
-            <img src="images/FacadeLayer.jpg" />
+            <img src="images/FacadeLayer.jpg" alt="images/FacadeLayer.jpg"/>
             <p>
                 Templates within a cartridge call metafacades. Those can
                 be contained in the same cartridge or in the base metafacades
@@ -167,11 +168,11 @@ public class SpecialAttribute extends Attribute {
 
         <section name="Almost a real world example: EJB metafacades">
             <p>
-                Metafacades carry behaviour that supports code generation.
+                Metafacades carry behavior that supports code generation.
                 The following picture shows you a concrete example for this:
                 operations of metafacades used for EJB code generation.
             </p>
-            <img src="images/EJBFacades.jpg" />
+            <img src="images/EJBFacades.jpg" alt="images/EJBFacades.jpg"/>
             <p>
                 At the top of the diagram, you see a simplified version of
                 the base metafacade <code>ClassifierFacade</code>. (By the way:
@@ -198,7 +199,7 @@ public class SpecialAttribute extends Attribute {
                 bean class - I omit a lot of complexity here and reduce it
                 to the essence of method generation:
             </p>
-<source language="velocity"><!--
+<source><!--
 #foreach ( $operation in $class.operations)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
@@ -231,7 +232,7 @@ public class SpecialAttribute extends Attribute {
                 Last example: The most interesting statement in the code snippet
                 above is:
             </p>
-<source language="velocity"><!--
+<source><!--
 #set ($returnType = $op.returnType.fullyQualifiedName)
 --></source>
             <p>

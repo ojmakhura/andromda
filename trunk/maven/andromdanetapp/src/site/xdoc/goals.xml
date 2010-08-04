@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 	<properties>
     	<title>AndroMDANetApp Maven Plug-in Goals</title>
   	</properties>
   	<body>
-		<goals>
-			<goal>
-				<name>andromdanetapp:generate</name>
-				<description>
-					Launches the AndroMDA application generator which allows you.
-					to choose what type of project you want to generate.
-					When you run this goal, you will be prompted to choose
-					which type of application you want generated (e.g. j2ee, dotnet).
-					After choosing 'dotnet' you will be prompted to enter some 
-					application values before your application will be generated.
-				</description>
-			</goal>
-		</goals>
+        <section name="Goals">
+            <table>
+                <tr>
+                    <th>Goal</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="run-mojo.html">andromdanetapp:generate</a>
+                    </td>
+                    <td>
+                        <p>
+                            Launches the AndroMDA application generator which allows you.
+                            to choose what type of project you want to generate.
+                            When you run this goal, you will be prompted to choose
+                            which type of application you want generated (e.g. j2ee, dotnet).
+                            After choosing 'dotnet' you will be prompted to enter some 
+                            application values before your application will be generated.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap="nowrap">
+                        <a href="help-mojo.html">bootstrap:help</a>
+                    </td>
+                    <td>
+                        <p>
+                            Command line help and parameters.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </section>
   	</body>
 </document>

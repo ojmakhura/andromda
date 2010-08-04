@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
+        <title>The Car Rental System sample application</title>
         <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
         <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
-        <title>The Car Rental System sample application</title>
     </properties>
 
     <body>
@@ -50,24 +51,24 @@
             <subsection name="The Implementation">
                 <p>
                      This sample was generated using the following cartridges:
-                    <table>
-                        <tr>
-                            <th>Tier</th>
-                            <th>Technology</th>
-                            <th>Cartridge</th>
-                        </tr>
-                        <tr>
-                            <td>Persistence (Entity Beans) and Business (Stateless Session EJBs)</td>
-                            <td>EJB 2.0 (Stateless Session and Entity EJBs)</td>
-                            <td>andromda-ejb-cartridge</td>
-                        </tr>
-                        <tr>
-                            <td>Presentation</td>
-                            <td>Struts 1.2.4</td>
-                            <td>andromda-bpm4struts-cartridge</td>
-                        </tr>
-                    </table>
                 </p>
+                <table>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Technology</th>
+                        <th>Cartridge</th>
+                    </tr>
+                    <tr>
+                        <td>Persistence (Entity Beans) and Business (Stateless Session EJBs)</td>
+                        <td>EJB 2.0 (Stateless Session and Entity EJBs)</td>
+                        <td>andromda-ejb-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Presentation</td>
+                        <td>Struts 1.2.4</td>
+                        <td>andromda-bpm4struts-cartridge</td>
+                    </tr>
+                </table>
             </subsection>
             <subsection name="Building and Deploying">
                 <p>
@@ -96,27 +97,27 @@
             </p>
             <p>
                 You may now begin to explore the application:
-                <ol>
-                    <li>
-                        Login as an administrator
-                    </li>
-                    <li>
-                        Create things such as car types, cars and customers
-                    </li>
-                    <li>
-                        Logout
-                    </li>
-                    <li>
-                        Login as a customer and reserve the cars created from
-                        step 2 car(s) for certain date(s).
-                    </li>
-                    <li>
-                        Finally, you may start a JDBC browser to have a look at the 
-                        database tables with their beautiful CMR relationships in 
-                        the disguise of foreign keys
-                    </li>
-                </ol>
             </p>
+            <ol>
+                <li>
+                    Login as an administrator
+                </li>
+                <li>
+                    Create things such as car types, cars and customers
+                </li>
+                <li>
+                    Logout
+                </li>
+                <li>
+                    Login as a customer and reserve the cars created from
+                    step 2 car(s) for certain date(s).
+                </li>
+                <li>
+                    Finally, you may start a JDBC browser to have a look at the 
+                    database tables with their beautiful CMR relationships in 
+                    the disguise of foreign keys
+                </li>
+            </ol>
             <p class="highlight">
                 When you log in as administrator for the first time, the system will prompt
                 you for a new username and password.  Please memorize these for the next

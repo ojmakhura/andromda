@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - Samples</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Samples">
@@ -10,13 +11,11 @@
                 To help understand the EJB3 cartridge, the following sample applications have been provided.
                 All these samples are located in the <i>andromda-plugins</i> project on SF.net.
             </p>
-            <p>
-                <ul>
-                    <li><a href="samples.html#Samples_Demo_EJB3">Demo EJB3</a></li>
-                    <li><a href="samples.html#Seam_Booking">Seam Booking Example</a></li>
-                    <li><a href="samples.html#Timetracker_EJB3">Timetracker EJB3</a></li>
-                </ul>
-            </p>
+            <ul>
+                <li><a href="samples.html#Samples_Demo_EJB3">Demo EJB3</a></li>
+                <li><a href="samples.html#Seam_Booking">Seam Booking Example</a></li>
+                <li><a href="samples.html#Timetracker_EJB3">Timetracker EJB3</a></li>
+            </ul>
             <a name="Samples_Demo_EJB3"/>
             <subsection name="Demo EJB3 Sample">
 	            <p>
@@ -38,12 +37,12 @@
 	            <p>
 	                Once you have build the sample, you need to create the database called <code>demo-ejb3</code>.
 	                You can then deploy the following to JBoss.
+                </p>
 	                <ul>
 	                    <li>demo-ejb3/app/target/demo-ejb3-ds.xml</li>
 	                    <li>demo-ejb3/app/target/demo-ejb3-mq-destinations-service.xml</li>
 	                    <li>demo-ejb3/app/target/demo-ejb3-1.0-SNAPSHOT.ear</li>
 	                </ul>
-	            </p>
 	            <p>
 	                The demo also contains simple clients that you can alter and execute to better understand 
 	                the functionality in each demo sub-package.
@@ -70,11 +69,11 @@
 	            <p>
 	                Once you have build the sample, you need to create the database called <code>booking-seam</code>.
 	                You can then deploy the following to JBoss.
-	                <ul>
-	                    <li>booking-seam/app/target/booking-seam-ds.xml</li>
-	                    <li>booking-seam/app/target/booking-seam-1.0-SNAPSHOT.ear</li>
-	                </ul>
-	            </p>
+                </p>
+                <ul>
+                    <li>booking-seam/app/target/booking-seam-ds.xml</li>
+                    <li>booking-seam/app/target/booking-seam-1.0-SNAPSHOT.ear</li>
+                </ul>
 	            <p>
 	                This example does not contain any view components at this time.  As JBoss Seam functionality
                     improves, this project will serve as a complete example for both EJB 3.0 Seam components and
@@ -103,11 +102,11 @@
 	            <p>
 	                Once you have build the sample, you need to create the database called <code>timetracker</code>.
 	                You can then deploy the following to JBoss.
-	                <ul>
-	                    <li>timetracker-ejb3/app/target/timetracker-ejb3-ds.xml</li>
-	                    <li>timetracker-ejb3/app/target/timetracker-ejb3-1.0-SNAPSHOT.ear</li>
-	                </ul>
-	            </p>
+                </p>
+                <ul>
+                    <li>timetracker-ejb3/app/target/timetracker-ejb3-ds.xml</li>
+                    <li>timetracker-ejb3/app/target/timetracker-ejb3-1.0-SNAPSHOT.ear</li>
+                </ul>
 	            <p>
 	                Once you have deployed the EAR file, you can use the <code>sql.txt</code> MySQL script
                     to import the data into your database.  This file is located in the root directory of this

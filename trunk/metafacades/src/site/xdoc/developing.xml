@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document> 
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"> 
 	<properties>
     	<title>Developing Metafacades</title> 
     </properties>
@@ -131,7 +132,7 @@ src/uml
             <p>
                 Here, you see a picture of some typical metafacades:
             </p>
-            <img src="images/MetafacadePIM.jpg" />
+            <img src="images/MetafacadePIM.jpg" alt="images/MetafacadePIM.jpg"/>
             <p>
                 A metafacade can have attributes, operations and associations
                 to other metafacade classes. It can also depend on a metaclass

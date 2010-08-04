@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
+    <title>AndroMDA Cartridges</title>
     <author email="chdbrandon@yahoo.com">Chad Brandon</author>
     <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
-    <title>AndroMDA Cartridges</title>
   </properties>
 
   <body>
@@ -34,7 +35,7 @@
           this is VERY simple, you just add the AndroMDA maven plugin and cartridge(s)
           as dependencies to your project.xml file and then run the plugin goal
           <em>andromda:run</em>, that's it!
-          <source language="xml"><![CDATA[
+          <source><![CDATA[
 <dependencies>
     ...
     <dependency>
@@ -68,7 +69,7 @@
             <a href="../andromda-maven-plugins/andromdapp-maven-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in
             <code>&lt;your-project&gt;/mda/conf/andromda.xml</code>):
         </p>
-        <source language="xml"><![CDATA[
+        <source><![CDATA[
  ...
  <namespace name="bpm4struts">
      <properties>
@@ -101,7 +102,7 @@
         This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the
         cartridge-dependency and create a new mappings file in which to map what you want merged.
       </p>
-      <source language="xml">
+      <source>
 <![CDATA[...
  <namespace name="bpm4struts">
      ...
@@ -115,7 +116,7 @@
         definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from
         <![CDATA[<from/>]]> definition):
      </p>
-     <source language="xml">
+     <source>
 &lt;mappings name="Bpm4StrutsMergeMappings"&gt;
     ...
     &lt;mapping&gt;
@@ -147,8 +148,8 @@
         says we want to replace anything matching <em># custom-messages merge-point</em> with the combined contents of the files
         <em>../../../web/conf/resources/custom-resources1.properties</em> and <em>../../../web/conf/resources/custom-resources2.properties</em>
         (please take note of the nested <strong><![CDATA[<path/>]]></strong> elements, these tell AndroMDA to treat the contents of
-        the <em>to</em> element as the concatinated contents of the files defined by the paths).
-        <source language="xml">
+        the <em>to</em> element as the concatenated contents of the files defined by the paths).
+        <source>
 &lt;mappings name="Bpm4StrutsMergeMappings"&gt;
     ...
     &lt;mapping&gt;
@@ -257,7 +258,7 @@
       <p>
         Let's have a look at part of a typical cartridge descriptor:
       </p>
-      <source language="xml"><![CDATA[
+      <source><![CDATA[
 <cartridge>
 
     <templateEngine>
@@ -392,7 +393,7 @@
           You can also define property references within your template objects.
           In order to do this, you'll need to make sure you have a java bean setter matching each
           reference name.  For example:
-          <source language="xml">
+          <source>
 <![CDATA[<templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
     <property reference="hibernateVersion"/>
 </templateObject>]]>
@@ -506,9 +507,8 @@
              </td>
           </tr>
           <tr>
-              <a name="outputToSingleFile"/>
               <td>
-                  outputToSingleFile
+                  <a name="outputToSingleFile">outputToSingleFile</a>
               </td>
               <td>
                   Specifies whether you want to output all aggregated
@@ -523,9 +523,8 @@
               </td>
           </tr>
           <tr>
-            <a name="outputOnEmptyElements"/>
               <td>
-                  outputOnEmptyElements
+                  <a name="outputOnEmptyElements">outputOnEmptyElements</a>
               </td>
               <td>
                   This attribute only makes sense when
@@ -546,7 +545,7 @@
             The <code><![CDATA[<modelElements/>]]></code> element is nested directly within
             the <a href="#template"><code><![CDATA[<template/>]]></code></a> element, it is used to
             instruct each <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
-            elements it should process.  The <code><![CDATA[<modelElements/>]]></code> ecloses the
+            elements it should process.  The <code><![CDATA[<modelElements/>]]></code> encloses the
             <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>.
         </p>
         <table>
@@ -585,9 +584,8 @@
             <th>Required?</th>
           </tr>
           <tr>
-            <a name="stereotype"/>
             <td>
-                stereotype
+                <a name="stereotype">stereotype</a>
             </td>
             <td>
                 Defines the name of the stereotype the model element must have in order to be made
@@ -613,7 +611,7 @@
                 the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong>
                 entities and services available as <code>$ejbs</code> in a velocity template (since
                 <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
-                <source language="xml"><![CDATA[
+                <source><![CDATA[
 ...
 <template
     path="templates/ejb-jar.xml.vsl"
@@ -644,7 +642,7 @@
             to be made available to a <a href="#template"><code><![CDATA[<template/>]]></code></a>.
             For example, this could make each metafacade of type
             <code>org.andromda.cartridges.webservice.metafacades.WebService</code> available to a template:
-<source language="xml"><![CDATA[
+<source><![CDATA[
 ...
 <template
     path="templates/webservice/wsdl/wrapped-wsdl.vsl"
@@ -686,20 +684,21 @@
             There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
             that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>.  These properties
             are used for two purposes: 
-            <ol>
-                <li>
-                    They are used to specify what <em>valid</em> properties the <a href="../andromda-metafacades/index.html">metafacade</a>
-                    <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
-                    in case of a collection property) or be equal to, in order for the model element to be made available to a
-                    <a href="#template"><code><![CDATA[<template/>]]></code></a>
-               </li>
-               <li>
-                   They're used to define additional elements that should be processed by a template.
-               </li>
-           </ol>
-           Here's an example of the first and most common use, the following would make each model element with a metafacade of 
-           type <em>org.andromda.core.uml.ClassifierFacade</em> with the property <em>enumeration</em> equal to <code>true</code> available to a template:
-<source language="xml"><![CDATA[
+       </p>
+        <ol>
+            <li>
+                They are used to specify what <em>valid</em> properties the <a href="../andromda-metafacades/index.html">metafacade</a>
+                <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
+                in case of a collection property) or be equal to, in order for the model element to be made available to a
+                <a href="#template"><code><![CDATA[<template/>]]></code></a>
+           </li>
+           <li>
+               They're used to define additional elements that should be processed by a template.
+           </li>
+       </ol>
+       <p>Here's an example of the first and most common use, the following would make each model element with a metafacade of 
+       type <em>org.andromda.core.uml.ClassifierFacade</em> with the property <em>enumeration</em> equal to <code>true</code> available to a template:</p>
+<source><![CDATA[
 ...
 <modelElements variable="enumeration">
     <modelElement>
@@ -710,13 +709,13 @@
 </modelElements>
 ...
 ]]></source>
-            Here's example of the second use (note that the property still must be valid in order to be made available to the template, in the
+            <p>Here's example of the second use (note that the property still must be valid in order to be made available to the template, in the
             case of this example that would mean the <em>navigableConnectingEnds</em> collection has at least one or more elements).  
             The following would process a template for each <em>associationEnd</em> in the collection of <em>navigableConnectingEnds</em>
             on the entity.   It will also make the <em>entity</em> variable (in addition to the <em>associationEnd</em> variable) available
             to each processed template.  This is useful in cases where you have a property on your metafacade that is something other than
-            one or more metafacade instances; doing something like this allows you to process those related objects within a template.
-<source language="xml"><![CDATA[
+            one or more metafacade instances; doing something like this allows you to process those related objects within a template.</p>
+<source><![CDATA[
 ...
 <modelElements variable="entity">
     <modelElement>
@@ -727,13 +726,12 @@
 </modelElements>
 ...
 ]]></source>
-        </p>
         <p class="highlight">
             Another VERY useful application of these properties, is to determine when and when not to
             output a file (for example you may only want to output a WSDL for a web service that has <strong>at least</strong>
             one exposed operation), so in that case you'd map a nested property checking for the exposed operations like
             the example directly below:
-<source language="xml"><![CDATA[
+<source><![CDATA[
 ...
 <modelElements variable="services">
     <modelElement>
@@ -748,7 +746,7 @@
         <p class="highlight">
             Its important to note that you are NOT required to specify a property's value when using the nested
             <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then the
-            properties needs to be <em>valid</em>, meaning the follwing things: it's non-null, it has
+            properties needs to be <em>valid</em>, meaning the following things: it's non-null, it has
             one or more elements if its a collection type property, or has a value of <code>true</code>
             if a boolean type.
         </p>
@@ -764,7 +762,7 @@
                     name
                 </td>
                 <td>
-                    The name of the property to check the exitence of (there must be a valid java bean accessor on the metafacade).
+                    The name of the property to check the existence of (there must be a valid java bean accessor on the metafacade).
                 </td>
                 <td>
                     Yes
@@ -863,7 +861,7 @@
             location defined by the <em>resource</em> outlet within
             the <code>lib</code> directory.
         </p>
-        <source language="xml">
+        <source>
 <![CDATA[
 <resource
     path="**/*.jar"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>AndroMDA Translation-Libraries</title>
         <author email="chdbrandon@yahoo.com">Chad Brandon</author>
@@ -125,7 +126,7 @@
                 snippet that shows how you could look up and translate an OCL query into EJB-QL
                 (assuming you had the query translation-library on your classpath) for an EJB
                 metafacade getQuery method:
-                <source language="java">
+                <source>
                     <![CDATA[
     public String handleGetQuery()
     {

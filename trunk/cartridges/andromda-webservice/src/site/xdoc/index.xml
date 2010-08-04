@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document> 
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"> 
   <properties>
     <title>AndroMDA - WebService - Introduction</title>
     <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
@@ -13,29 +14,29 @@
 		</p>
 		<p>
 			A couple of <strong>IMPORTANT</strong> things to note:
-			<ul>
-				<li>
-			        If you want to expose a Stateless Session EJB as the provider 
-					(i.e. if your 
-					<a href="profile.html#@andromda_webService_provider">@andromda.webService.provider</a>
-					is <code>EJB</code> or the <code>defaultProvider</code> namespace property is set 
-                    to <code>EJB</code>), this cartridge <strong>MUST</strong> be used in conjunction 
-                    with either the <a href="../andromda-ejb-cartridge/index.html">Hibernate</a>,
-			        <a href="../andromda-ejb-cartridge/index.html">EJB</a>, or 
-                    <a href="../andromda-spring-cartridge/index.html">Spring</a> cartridge. 					
-				</li>
-				<li>
-			        If you want to expose a POJO (Plain
-			        Old Java Object) service as the provider  (i.e. if your 
-					<a href="profile.html#@andromda_webService_provider">@andromda.webService.provider</a>
-					is <code>RPC</code>), you'll need to use this cartridge with
-			        either the <a href="../andromda-spring-cartridge/index.html">Spring</a> cartridge or the  
-                    <a href="../andromda-java-cartridge/index.html">Java</a> cartridge, both can generate
-                    POJO services for you.  			
-				</li>
-			</ul> 
-		</p>
-        <p class="highlight">
+        </p>
+		<ul>
+			<li>
+		        If you want to expose a Stateless Session EJB as the provider 
+				(i.e. if your 
+				<a href="profile.html#@andromda_webService_provider">@andromda.webService.provider</a>
+				is <code>EJB</code> or the <code>defaultProvider</code> namespace property is set 
+                to <code>EJB</code>), this cartridge <strong>MUST</strong> be used in conjunction 
+                with either the <a href="../andromda-ejb-cartridge/index.html">Hibernate</a>,
+		        <a href="../andromda-ejb-cartridge/index.html">EJB</a>, or 
+                <a href="../andromda-spring-cartridge/index.html">Spring</a> cartridge. 					
+			</li>
+			<li>
+		        If you want to expose a POJO (Plain
+		        Old Java Object) service as the provider  (i.e. if your 
+				<a href="profile.html#@andromda_webService_provider">@andromda.webService.provider</a>
+				is <code>RPC</code>), you'll need to use this cartridge with
+		        either the <a href="../andromda-spring-cartridge/index.html">Spring</a> cartridge or the  
+                <a href="../andromda-java-cartridge/index.html">Java</a> cartridge, both can generate
+                POJO services for you.  			
+			</li>
+		</ul> 
+		<p class="highlight">
             Please note that when using the Spring cartridge <em>without EJB</em>, you'll need to set the 
             <a href="namespace.html#rpcClassNamePattern">rpcClassNamePattern</a> to be
             <code>{0}.{1}WSDelegator</code>

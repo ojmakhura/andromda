@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - Message Driven Beans</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Message Driven Beans">
@@ -14,19 +15,17 @@
             </p>
             <p>
                 The EJB 3.0 spec states:
-                <i>
-                    <p>
-                        A message-driven bean instance has no state for a specific client.  However, the instance
-                        variables of the message-driven bean instance can contain state across the handling of 
-                        client messages.  Examples of such state include an open database connection and a reference
-                        to an enterprise bean.
-                    </p>
-                    <p>
-                        A further goal of the message-driven bean model is to allow for the concurrent processing of
-                        a stream of messages by means of container-provided pooling of message-driven bean
-                        instances.
-                    </p>
-                </i>
+            </p>
+            <p>
+                <i>A message-driven bean instance has no state for a specific client.  However, the instance
+                variables of the message-driven bean instance can contain state across the handling of 
+                client messages.  Examples of such state include an open database connection and a reference
+                to an enterprise bean.</i>
+            </p>
+            <p>
+                <i>A further goal of the message-driven bean model is to allow for the concurrent processing of
+                a stream of messages by means of container-provided pooling of message-driven bean
+                instances.</i>
             </p>
             <p>
                 Like a session bean, the EJB3 cartridge generates a message driven bean class which should NOT be
@@ -54,46 +53,42 @@
                 explained further down.
             </p>
 			<p>
-				<img src="images/org/andromda/test/10/a/uml.gif"/>
+				<img src="images/org/andromda/test/10/a/uml.gif" alt="images/org/andromda/test/10/a/uml.gif"/>
 			</p>
-			<p>
-				<ul>
-					<li class="gen">Auto-generated source that does not need manual editing</li>
-					<li class="impl">Auto-generated source that should be edited manually</li>
-					<li class="changed">File that is affected by the modifications applied in this section</li>
-				</ul>
-			</p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto10/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarType.java"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto10/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto10/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto10/a/RentalServiceBean.java"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceBase.java"><code>PaymentServiceBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceRemote.java"><code>PaymentServiceRemote.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceDelegate.java"><code>PaymentServiceDelegate.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceBean.java"><code>PaymentServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceException.java"><code>PaymentServiceException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentProcessorMDBBean.java"><code>PaymentProcessorMDBBean.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentProcessorMDBBeanImpl.java"><code>PaymentProcessorMDBBeanImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
-                </ul>
-            </p>
+			<ul>
+				<li class="gen">Auto-generated source that does not need manual editing</li>
+				<li class="impl">Auto-generated source that should be edited manually</li>
+				<li class="changed">File that is affected by the modifications applied in this section</li>
+			</ul>
+		    <ul>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto10/a/Car.java"><code>Car.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarType.java"><code>CarType.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto10/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto10/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto10/a/RentalServiceBean.java"><code>RentalServiceBeanImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto10/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceBase.java"><code>PaymentServiceBase.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceRemote.java"><code>PaymentServiceRemote.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceDelegate.java"><code>PaymentServiceDelegate.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceBean.java"><code>PaymentServiceBean.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentServiceException.java"><code>PaymentServiceException.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentProcessorMDBBean.java"><code>PaymentProcessorMDBBean.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto10/a/PaymentProcessorMDBBeanImpl.java"><code>PaymentProcessorMDBBeanImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                <li class="gen"><a class="changed" href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
+            </ul>
             <p>
                 The dependency from the <code>RentalService</code> session bean to the <code>PaymentProcessor</code>
                 MDB injects the required connection factory and destination objects into the session bean.
@@ -106,27 +101,27 @@
                     For every message-driven bean, you <i>MUST</i> specify the destination type for the servicing
                     MDB.  This is achieved by simply modeling the <code>@andromda.ejb.mdb.destination.type</code>
                     tagged value on the MDB class.  Your options are:
-                    <ul>
-                        <li>
-                            <p>
-                                <b>javax.jms.Queue</b>
-                            </p>
-                            <p>
-                                If you have only ONE listener on a destination, then you specify the destination
-                                type as a Queue.
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <b>javax.jms.Topic</b>
-                            </p>
-                            <p>
-                                If you have multiple subscribers on a destination, then you specify the destination
-                                as a Topic.
-                            </p>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <p>
+                            <b>javax.jms.Queue</b>
+                        </p>
+                        <p>
+                            If you have only ONE listener on a destination, then you specify the destination
+                            type as a Queue.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <b>javax.jms.Topic</b>
+                        </p>
+                        <p>
+                            If you have multiple subscribers on a destination, then you specify the destination
+                            as a Topic.
+                        </p>
+                    </li>
+                </ul>
             </subsection>
             <a name="Destination"/>
             <subsection name="Destination">
@@ -161,11 +156,11 @@
                     Queues are always durable by default.  The durability only needs to specified on Topics.
                     By default, Topics are <b>non-durable</b>.
                     Your options are:
-                    <ul>
-                        <li>Durable</li>
-                        <li>NonDurable</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>Durable</li>
+                    <li>NonDurable</li>
+                </ul>
             </subsection>
             <a name="Listener_Interceptor"/>
             <subsection name="Listener Interceptor">
@@ -189,10 +184,12 @@
                 <p>
                     If the MDB is specified using container-managed transaction demarcation, you can specify
                     the transaction attribute type to either:
-                    <ul>
-                        <li>REQUIRED</li>
-                        <li>NOT_SUPPORTED</li>
-                    </ul>
+                </p>
+                <ul>
+                    <li>REQUIRED</li>
+                    <li>NOT_SUPPORTED</li>
+                </ul>
+                <p>
                     By default, the EJB3 cartridge will generate the <code>@TransactionAttribute</code>
                     annotation, setting the attribute type to <code>REQUIRED</code>.  To override this default
                     value, you can model the <code>@andromda.ejb.transaction.type</code> tagged value on
@@ -211,9 +208,11 @@
             </subsection>
             <a name="Message_Driven_Context"/>
             <subsection name="Message Driven Context">
+                <p>
                 The EJB3 cartridge injects the <code>MessageDrivenContext</code> into every MDB using the
                 <code>@Resource</code> annotation by default.  The <code>MessageDrivenContext</code> instance, 
                 named <code>context</code>, provides the following methods:
+                </p>
                 <ul>
                     <li>setRollbackOnly</li>
                     <li>getRollbackOnly</li>
@@ -228,9 +227,11 @@
             </subsection>
             <a name="Session_Bean_Injection"/>
             <subsection name="Session Bean Injection">
+                <p>
                 To inject a session bean into the MDB, model a dependency from the MDB to the destination
                 session bean.  As a result, the <code>EJB</code> annotation will be generation on the
                 attribute declaring the injected destination session bean.
+                </p>
             </subsection>
             <a name="Resource_Injection"/>
             <subsection name="Resource Injections">
@@ -267,7 +268,7 @@
                     The EJB3 cartridge will create the default MQ destinations XML descriptor which can be
                     hot deployed to the JBoss container for creating your queues or topics.  The following
                     is a very basic example with a single queue mbean definition.
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
     <mbean code="org.jboss.mq.server.jmx.Queue"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo Entities</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Entities">
@@ -26,7 +27,7 @@
                 that exactly.
             </p>
             <p>
-                <img src="images/org/andromda/test/1/a/uml.gif"/>
+                <img src="images/org/andromda/test/1/a/uml.gif" alt="images/org/andromda/test/1/a/uml.gif"/>
             </p>
             <p>
                 You can now try to generate code
@@ -48,38 +49,34 @@
                 The EJB3 cartridge changes the conventional entity creation hierarchy.  Instead of generating
                 an entity base class with an entity implementation class, there are 2 ways the EJB3 cartridge
                 can generate your entity POJOs.
-                <ul>
-                    <li>
-                        In most cases, your entities will only model classifier scoped finder methods.  If there
-                        are no classifier scoped operations, then the cartridge auto generates (and will regenerate)
-                        your entity components for you.  The entity components include the entity POJO and
-                        the DAO components associated with the entity.
-                    </li>
-                    <li>
-                        The alternative is to have an embeddable/mapped superclass with an entity class that inherits 
-                        from this mapped superclass.  This is the case where the entity models instance
-                        scoped operations and are involved in non-inheriting hierarchies.
-                        However once you introduce inheritance, this changes. To find out more about inheritance, 
-                        go to the <a href="howto9.html">inheritance</a> section.
-                    </li>
-                </ul>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li>
+                    In most cases, your entities will only model classifier scoped finder methods.  If there
+                    are no classifier scoped operations, then the cartridge auto generates (and will regenerate)
+                    your entity components for you.  The entity components include the entity POJO and
+                    the DAO components associated with the entity.
+                </li>
+                <li>
+                    The alternative is to have an embeddable/mapped superclass with an entity class that inherits 
+                    from this mapped superclass.  This is the case where the entity models instance
+                    scoped operations and are involved in non-inheriting hierarchies.
+                    However once you introduce inheritance, this changes. To find out more about inheritance, 
+                    go to the <a href="howto9.html">inheritance</a> section.
+                </li>
+            </ul>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/Car.java"><code>Car.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+            </ul>
             <p>
                 The class we have modeled does not have any properties, however, by default, AndroMDA creates the
                 <code>id</code> attribute of type <code>datatype:Long</code> if no identifier (primary key)
@@ -118,25 +115,21 @@
                     DAO components.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/b/uml.gif"/>
+                    <img src="images/org/andromda/test/1/b/uml.gif" alt="images/org/andromda/test/1/b/uml.gif"/>
 	            </p>
-	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-	                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/howto1/b/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto1/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
 	            <p>
 	                Entity operations modeled as Query operations are discussed further in the
 	                <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
@@ -162,25 +155,21 @@
                     The same tag can be modeled on a Many-To-Many association relationship.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/c/uml.gif"/>
+                    <img src="images/org/andromda/test/1/c/uml.gif" alt="images/org/andromda/test/1/c/uml.gif"/>
                 </p>
-	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/c/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-            </subsection>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/c/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/c/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
+	        </subsection>
             <a name="Primary_Key_Identifiers"/>
             <subsection name="Primary Key - Identifier">
                 <p>
@@ -189,37 +178,33 @@
                     <code>@javax.persistence.Id</code> annotation is added to the attribute getter method.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/d/uml.gif"/>
+                    <img src="images/org/andromda/test/1/d/uml.gif" alt="images/org/andromda/test/1/d/uml.gif"/>
                 </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+	            <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/d/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
 	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/d/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-                <p>
                     An entity identifier attribute's table generator can be modeled via the
                     <code>@andromda.persistence.generator.type</code> tag on the identifier attribute ONLY.
                     This is used to model the primary key generation strategy associated with the
                     <code>@javax.persistence.Id</code> annotation for an entity attribute.
                     Currently, the EJB3 cartridge supports:
-                    <ul>
-                        <li>The default type is <code>AUTO</code></li>
-                        <li><code>TABLE</code></li>
-                        <li><code>SEQUENCE</code></li>
-                        <li><code>NONE</code></li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>The default type is <code>AUTO</code></li>
+                    <li><code>TABLE</code></li>
+                    <li><code>SEQUENCE</code></li>
+                    <li><code>NONE</code></li>
+                </ul>
                 <p>
                     The table generator name can be set using the <code>@andromda.persistence.generator.name</code> tag.
                     This must be a unique name which is referenced by one or more classes to be the generator
@@ -286,16 +271,16 @@
                     for an entity, you model the <![CDATA[<<Version>>]]> stereotype on this attribute.  
                     This can only apply to ONE attribute per class.  Attributes with this stereotype
                     will not be updated by the persistent container.  The attribute can only of the following types:
-                    <ul>
-                        <li>int</li>
-                        <li>short</li>
-                        <li>long</li>
-                        <li>Integer</li>
-                        <li>Short</li>
-                        <li>Long</li>
-                        <li>Timestamp</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>int</li>
+                    <li>short</li>
+                    <li>long</li>
+                    <li>Integer</li>
+                    <li>Short</li>
+                    <li>Long</li>
+                    <li>Timestamp</li>
+                </ul>
             </subsection>
             <a name="Attribute_Multiplicity"/>
             <subsection name="Attribute Multiplicity">
@@ -309,25 +294,21 @@
                     attribute which means <code>name</code> can be null.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/e/uml.gif"/>
+                    <img src="images/org/andromda/test/1/e/uml.gif" alt="images/org/andromda/test/1/e/uml.gif"/>
                 </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/e/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
 	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/e/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-                <p>
                     Please note that some UML tools have a default multiplicity value for attributes when not
                     specified by the user, these default values may differ from tool to tool.
                 </p>
@@ -341,25 +322,21 @@
                     The following entity defines 3 constants for type.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/f/uml.gif"/>
+                    <img src="images/org/andromda/test/1/f/uml.gif" alt="images/org/andromda/test/1/f/uml.gif"/>
                 </p>
-	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/f/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-            </subsection>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/f/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/f/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
+	        </subsection>
             <a name="Nullable_Parameters"/>
             <subsection name="Nullable Parameters">
                 <p>
@@ -386,46 +363,42 @@
                 </p>
                 <p>
                     For BLOB fields, the attribute type must be modeled as one of:
-                    <ul>
-                        <li>Byte[]</li>
-                        <li>Serializable type</li>
-                        <li>java.sql.Blob</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>Byte[]</li>
+                    <li>Serializable type</li>
+                    <li>java.sql.Blob</li>
+                </ul>
                 <p>
                     For CLOB fields, the attribute type must be modeled as one of:
-                    <ul>
-                        <li>char[]</li>
-                        <li>Character[]</li>
-                        <li>String</li>
-                        <li>java.sql.Clob</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>char[]</li>
+                    <li>Character[]</li>
+                    <li>String</li>
+                    <li>java.sql.Clob</li>
+                </ul>
                 <p>
                     The default fetch type for a LOB typed attribute is lazy.  To assign a LOB attribute
                     to be eagerly fetched, model the <code>@andromda.persistence.fetch.type</code> tag on the
                     attribute.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/g/uml.gif"/>
+                    <img src="images/org/andromda/test/1/g/uml.gif" alt="images/org/andromda/test/1/g/uml.gif"/>
                 </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/g/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
 	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/g/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-                <p>
                     This example models the attribute named <code>type</code> as a CLOB where the corresponding 
                     column in the table will be of type <code>String</code> and the cartridge will set the fetch type for the 
                     attribute to <b>eagerly</b> fetch.  The attribute <code>information</code> is defined as a LOB,
@@ -439,25 +412,21 @@
                     entity attributes.
                 </p>
                 <p>
-                    <img src="images/org/andromda/test/1/h/uml.gif"/>
+                    <img src="images/org/andromda/test/1/h/uml.gif" alt="images/org/andromda/test/1/h/uml.gif"/>
                 </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/hg/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/hg/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                </ul>
 	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto1/hg/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/hg/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto1/h/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-	                </ul>
-	            </p>
-                <p>
                     To change the default naming schema for the relational table column, model the
                     <code>@andromda.persistence.column</code> tag on the attribute.
                 </p>

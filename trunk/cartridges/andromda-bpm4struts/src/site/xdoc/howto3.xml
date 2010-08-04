@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Controllers</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -24,23 +25,21 @@
                 use-case it corresponds to. Therefore we have two options, depending on the maturity of the UML
                 tool you are using:
             </p>
-            <p>
-                <ul>
-                    <li>Assign this class as the context of the activity graph (MagicDraw supports this),
-                        this is a standard UML feature that, unfortunately, is often overlooked by CASE tools vendors.
-                    </li>
-                    <li>Add a tagged value to the controller, pointing to the use-case, like this:
-                        <code>@andromda.presentation.controller.usecase=My UseCase</code> (the value is the name
-                        of the use-case).
-                    </li>
-                </ul>
-            </p>
+            <ul>
+                <li>Assign this class as the context of the activity graph (MagicDraw supports this),
+                    this is a standard UML feature that, unfortunately, is often overlooked by CASE tools vendors.
+                </li>
+                <li>Add a tagged value to the controller, pointing to the use-case, like this:
+                    <code>@andromda.presentation.controller.usecase=My UseCase</code> (the value is the name
+                    of the use-case).
+                </li>
+            </ul>
             <p>
                 Either one of these options will do, we recommend using the former because that way you won't need
                 to update the tagged value whenever you decide to change the name of the use-case (which can be a pain).
             </p>
             <p>
-                <img src="howto/org/andromda/test/controllers.gif"/>
+                <img src="howto/org/andromda/test/controllers.gif" alt="howto/org/andromda/test/controllers.gif"/>
             </p>
             <subsection name="Operation parameters">
                 <p>
@@ -61,10 +60,10 @@
                     in the diagram, as in the image below.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/deferring-param.gif"/>
+                    <img src="howto/org/andromda/test/deferring-param.gif" alt="howto/org/andromda/test/deferring-param.gif"/>
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/deferring-param-ctrl.gif"/>
+                    <img src="howto/org/andromda/test/deferring-param-ctrl.gif" alt="howto/org/andromda/test/deferring-param-ctrl.gif"/>
                 </p>
                 <p>
                     Not only page-variables can be controlled like this, it would also work for any existing

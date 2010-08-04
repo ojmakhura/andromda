@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Activity Graphs</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -39,7 +40,7 @@
                     contain exactly one initial state.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/initial-states.gif"/>
+                    <img src="howto/org/andromda/test/initial-states.gif" alt="howto/org/andromda/test/initial-states.gif"/>
                 </p>
             </subsection>
             <subsection name="Action States">
@@ -64,7 +65,7 @@
                     transition.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/action-states.gif"/>
+                    <img src="howto/org/andromda/test/action-states.gif" alt="howto/org/andromda/test/action-states.gif"/>
                 </p>
                 <p>
                     Most of the time you'll want exactly a single outgoing transition for your server-side
@@ -91,18 +92,16 @@
                 </p>
                 <p>
                     Using these tagged values a transition may be marked to carry a message to the (indirectly)
-                    targetted <![CDATA[<<FrontEndView>>]]> action state:
+                    targeted <![CDATA[<<FrontEndView>>]]> action state:
                 </p>
-                <p>
-                    <ul>
-                        <li><code>@andromda.struts.action.success.message</code>: Write a message that will be
-                            displayed in a green box. This message will be stored into the default
-                            resource bundle.</li>
-                        <li><code>@andromda.struts.action.warning.message</code>: Write a message that will be
-                            displayed in a yellow box. This message will be stored into the default
-                            resource bundle.</li>
-                    </ul>
-                </p>
+                <ul>
+                    <li><code>@andromda.struts.action.success.message</code>: Write a message that will be
+                        displayed in a green box. This message will be stored into the default
+                        resource bundle.</li>
+                    <li><code>@andromda.struts.action.warning.message</code>: Write a message that will be
+                        displayed in a yellow box. This message will be stored into the default
+                        resource bundle.</li>
+                </ul>
                 <p>
                     It is possible to model exceptions to the process logic, in doing so you express how the system
                     should behave in case something goes wrong. You just need to add the
@@ -130,7 +129,7 @@
                     not support setting the type of the trigger.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/event-parameters.gif"/>
+                    <img src="howto/org/andromda/test/event-parameters.gif" alt="howto/org/andromda/test/event-parameters.gif"/>
                 </p>
                 <p>
                     Different tagged values exist to control the generation of the type of the event parameter.
@@ -162,13 +161,13 @@
                             </p>
                             <p>
                                 Any action that is entering the page on which this parameter is an event parameter
-                                will have the possiblity to populate the list. In order to do this you would simply
+                                will have the possibility to populate the list. In order to do this you would simply
                                 defer to a controller operation which has as argument a parameter with the exact same
                                 name and type as the event parameter, defer to this operation somewhere <em>before</em>
                                 entering the <![CDATA[<<FrontEndView>>]]> action state. This will result in
-                                the controller having the possiblity to set the values and labels for the
+                                the controller having the possibility to set the values and labels for the
                                 selectable field.
-<source language="java"><!--
+<source><!--
 public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
 {
     Object[] values = {"1","2","3","4"};
@@ -189,7 +188,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                                 There is another method available for selectable event parameters that is equivalent
                                 to the above but is easier to use when the labels and values are encapsulated
                                 in value objects:
-<source language="java"><!--
+<source><!--
 public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
 {
     // the next list contains value objects
@@ -246,13 +245,13 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                             </p>
                             <p>
                                 In the example above one would have:
-                                <ul>
-                                    <li>0: cd</li>
-                                    <li>1: dvd</li>
-                                    <li>2: book</li>
-                                    <li>3: hardware</li>
-                                </ul>
                             </p>
+                            <ul>
+                                <li>0: cd</li>
+                                <li>1: dvd</li>
+                                <li>2: book</li>
+                                <li>3: hardware</li>
+                            </ul>
                         </td></tr>
                         <tr><td>
                             <strong>File upload</strong>
@@ -293,7 +292,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     In doing so the modeled parameters will be available in the generated JSP page.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/page-variables.gif"/>
+                    <img src="howto/org/andromda/test/page-variables.gif" alt="howto/org/andromda/test/page-variables.gif"/>
                 </p>
                 <p>
                     Page variables can be rendered in tabular format, this is an advanced feature which
@@ -326,7 +325,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     cartridge and might show it on screen for clarity.
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/decision-points.gif"/>
+                    <img src="howto/org/andromda/test/decision-points.gif" alt="howto/org/andromda/test/decision-points.gif"/>
                 </p>
             </subsection>
             <subsection name="Final States">
@@ -341,7 +340,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     to the next use-case (this is not supported in all UML tools).
                 </p>
                 <p>
-                    <img src="howto/org/andromda/test/final-states.gif"/>
+                    <img src="howto/org/andromda/test/final-states.gif" alt="howto/org/andromda/test/final-states.gif"/>
                 </p>
             </subsection>
             <subsection name="Sending parameters across use-cases">
@@ -351,14 +350,10 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     leading into a final state and the parameters will automagically be available in the target
                     use-case.
                 </p>
-                <p>
-                    <h4>This is the first use-case</h4>
-                    <img src="howto/org/andromda/test/inter-usecase-source.gif"/>
-                </p>
-                <p>
-                    <h4>This is the second use-case</h4>
-                    <img src="howto/org/andromda/test/inter-usecase-target.gif"/>
-                </p>
+                <h4>This is the first use-case</h4>
+                <img src="howto/org/andromda/test/inter-usecase-source.gif" alt="howto/org/andromda/test/inter-usecase-source.gif"/>
+                <h4>This is the second use-case</h4>
+                <img src="howto/org/andromda/test/inter-usecase-target.gif" alt="howto/org/andromda/test/inter-usecase-target.gif"/>
                 <p class="highlight">
                     Respect the fact that use-cases are supposed to be loosely coupled: do not assume incoming
                     parameters to always be present and check for <code>null</code>, this will improve your
@@ -388,7 +383,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                 <p>
                     The generated <code>struts-config.xml</code> descriptor will contain a <code>form-bean</code>
                     entry per generated Form. Here's an example:
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <form-beans>
     ...
     <form-bean
@@ -401,7 +396,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                 <p>
                      Each action will have a corresponding
                     <code>action-mapping</code> entry, like this:
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <action-mappings>
     ...
     <action
@@ -440,7 +435,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     operation. Please notice exception handling is taken care of. Such methods start with an underscore
                     not to cause naming conflicts with existing Struts
                     <a href="http://struts.apache.org/api/org/apache/struts/action/Action.html">Action</a> methods.
-<source language="java"><![CDATA[
+<source><![CDATA[
 private ActionForward _loadItemsForSale(
         ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
     throws Exception
@@ -491,7 +486,7 @@ private ActionForward _loadItemsForSale(
                 <div class="screenshot">
                     <table>
                         <tr>
-                            <td><img src="howto/org/andromda/test/screenshots/thumb1.gif"/></td>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb1.gif" alt="howto/org/andromda/test/screenshots/thumb1.gif"/></td>
                             <td>
                                 <a href="howto/org/andromda/test/screenshots/screen1.gif">(Larger View)</a>
                                 <p>
@@ -505,7 +500,7 @@ private ActionForward _loadItemsForSale(
                             </td>
                         </tr>
                         <tr>
-                            <td><img src="howto/org/andromda/test/screenshots/thumb2.gif"/></td>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb2.gif" alt="howto/org/andromda/test/screenshots/thumb2.gif"/></td>
                             <td>
                                 <a href="howto/org/andromda/test/screenshots/screen2.gif">(Larger View)</a>
                                 <p>
@@ -518,7 +513,7 @@ private ActionForward _loadItemsForSale(
                             </td>
                         </tr>
                         <tr>
-                            <td><img src="howto/org/andromda/test/screenshots/thumb3.gif"/></td>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb3.gif" alt="howto/org/andromda/test/screenshots/thumb3.gif"/></td>
                             <td>
                                 <a href="howto/org/andromda/test/screenshots/screen3.gif">(Larger View)</a>
                                 <p>
@@ -530,7 +525,7 @@ private ActionForward _loadItemsForSale(
                             </td>
                         </tr>
                         <tr>
-                            <td><img src="howto/org/andromda/test/screenshots/thumb4.gif"/></td>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb4.gif" alt="howto/org/andromda/test/screenshots/thumb4.gif"/></td>
                             <td>
                                 <a href="howto/org/andromda/test/screenshots/screen4.gif">(Larger View)</a>
                                 <p>

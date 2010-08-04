@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
+        <title>AndroMDA - What is it?</title>
         <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
         <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
         <author email="wouter@andromda.org">Wouter Zoons</author>
-        <title>AndroMDA - What is it?</title>
     </properties>
 
     <body>
@@ -39,16 +40,14 @@
                 <p>
                     Additionally AndroMDA ships with a few tools to make your life easier:
                 </p>
-                <p>
-                    <ul>
-                        <li>As already mentioned, we have a tool to generate project templates such as for J2EE:
-                            <a href="andromda-maven-plugins/andromdapp-maven-plugin/index.html">andromdapp:generate</a>,
-                            this is a maven plugin.</li>
-                        <li><a href="andromda-schema2xmi/index.html">Schema2XMI</a>
-                            is able to read your database and build an XMI file from it,
-                            which can then be used to load as a UML model.</li>
-                    </ul>
-                </p>
+                <ul>
+                    <li>As already mentioned, we have a tool to generate project templates such as for J2EE:
+                        <a href="andromda-maven-plugins/andromdapp-maven-plugin/index.html">andromdapp:generate</a>,
+                        this is a maven plugin.</li>
+                    <li><a href="andromda-schema2xmi/index.html">Schema2XMI</a>
+                        is able to read your database and build an XMI file from it,
+                        which can then be used to load as a UML model.</li>
+                </ul>
             </subsection>
             <subsection name="Tell me a little bit more about MDA and code generation">
                 <p>
@@ -67,14 +66,12 @@
                     is a one-or-one mapping of the MM into a more formal language such as UML.
                     This approach has several obvious advantages:
                 </p>
-                <p>
-                    <ul>
-                        <li>It is a very straightforward translation process</li>
-                        <li>The developer/architect keeps focus on the business logic, not the underlying technology</li>
-                        <li>The PIM can be reused later, it is not bound to any existing platform</li>
-                        <li>The PIM is a useful medium to communicate ideas to others</li>
-                    </ul>
-                </p>
+                <ul>
+                    <li>It is a very straightforward translation process</li>
+                    <li>The developer/architect keeps focus on the business logic, not the underlying technology</li>
+                    <li>The PIM can be reused later, it is not bound to any existing platform</li>
+                    <li>The PIM is a useful medium to communicate ideas to others</li>
+                </ul>
                 <p>
                     The next step is to have a way to transform the PIM into program code,
                     the MDA way of doing this is to gradually refine the model into a more
@@ -112,35 +109,33 @@
                 <p>
                     We invite you to get to know AndroMDA, here are three links that will point you in the right direction:
                 </p>
-                <p>
-                    <ul>
-                        <li><a href="starting.html">Getting started</a></li>
-                        <li><a href="samples.html">AndroMDA Samples</a></li>
-                        <li><a href="releases.html">Releases</a></li>
-                    </ul>
-                </p>
+                <ul>
+                    <li><a href="starting.html">Getting started</a></li>
+                    <li><a href="samples.html">AndroMDA Samples</a></li>
+                    <li><a href="releases.html">Releases</a></li>
+                </ul>
             </subsection>
             <subsection name="Why would you want to use it ?">
                 <p>
                     You would want to use AndroMDA for a number of reasons:
-                    <ol>
-                        <li>
-                            It elimates the need to write redundant code.
-                        </li>
-                        <li>
-                            Your project models
-                            <strong>WILL</strong> reflect your code.
-                        </li>
-                        <li>
-                            Projects are documented/diagrammed in a standard platform independant way
-                            making it much easier/faster to adapt to ever rapidly changing technologies.
-                        </li>
-                        <li>
-                            You'll have artifacts (your models) that allow much easier communication
-                            with the business side of things.
-                        </li>
-                    </ol>
                 </p>
+                <ol>
+                    <li>
+                        It eliminates the need to write redundant code.
+                    </li>
+                    <li>
+                        Your project models
+                        <strong>WILL</strong> reflect your code.
+                    </li>
+                    <li>
+                        Projects are documented/diagrammed in a standard platform independent way
+                        making it much easier/faster to adapt to ever rapidly changing technologies.
+                    </li>
+                    <li>
+                        You'll have artifacts (your models) that allow much easier communication
+                        with the business side of things.
+                    </li>
+                </ol>
             </subsection>
             <subsection name="How does it compare to other tools ?">
                 <p>
@@ -150,54 +145,52 @@
                     we let the product speak for itself, we believe that a great product can only
                     be achieved when strict criteria are met! This is what AndroMDA guarantees:
                 </p>
-                <p>
-                    <ul class="textList">
-                        <li>
-                            <strong>Community driven</strong>: Development is driven by community support,
-                            our userbase is world-wide, anyone can participate in the development process, be it by
-                            submitting patches, requesting features or filing bugs.
-                        </li>
-                        <li>
-                            <strong>Vision</strong>: A few core developers keep the development process in tight
-                            control, it is important AndroMDA doesn't get bloated with features and the ones
-                            that are added will properly be maintained and supported.
-                        </li>
-                        <li>
-                            <strong>Pragmatic</strong>: Instead of blindly implementing specifications we support
-                            features people actually need.
-                        </li>
-                        <li>
-                            <strong>Open</strong>: You will simply *never* get stuck using AndroMDA, it is possible
-                            to customize the runtime behavior at any point. This is perhaps one of the most important
-                            aspects of a tool that is designed to help you with your projects.
-                        </li>
-                        <li>
-                            <strong>Modular</strong>: AndroMDA is a micro-kernel supporting plugins
-                            for different types of components, AndroMDA ships with a default implementation for each
-                            of these components. Any one of them can be replaced by a customized one.
-                        </li>
-                        <li>
-                            <strong>Docs</strong>: Up-to-date documentation reflects the state of the product, we
-                            have two websites, one for the stable releases and one for the nightly builds.
-                        </li>
-                        <li>
-                            <strong>Responsiveness</strong>: Users appreciate it when they know their questions
-                            will be answered. Developers on our mailing list are known to respond to any email within
-                            the day; actually, most of the time replies to emails are received within the hour,
-                            this is achieved by people from different timezones monitoring the list.
-                        </li>
-                        <li>
-                            <strong>Release often</strong>: People have access to the latest changes
-                            in development as well as access to stable releases. These stable releases are to be
-                            updated once a month (as per AndroMDA 3.0 final).
-                        </li>
-                        <li>
-                            <strong>Testing</strong>: AndroMDA is under constant development, and improvements are
-                            added on a daily basis. It is mandatory that we make sure nothing ever gets broken without
-                            us knowing, for this reason we run regression tests on all components.
-                        </li>
-                    </ul>
-                </p>
+                <ul class="textList">
+                    <li>
+                        <strong>Community driven</strong>: Development is driven by community support,
+                        our userbase is world-wide, anyone can participate in the development process, be it by
+                        submitting patches, requesting features or filing bugs.
+                    </li>
+                    <li>
+                        <strong>Vision</strong>: A few core developers keep the development process in tight
+                        control, it is important AndroMDA doesn't get bloated with features and the ones
+                        that are added will properly be maintained and supported.
+                    </li>
+                    <li>
+                        <strong>Pragmatic</strong>: Instead of blindly implementing specifications we support
+                        features people actually need.
+                    </li>
+                    <li>
+                        <strong>Open</strong>: You will simply *never* get stuck using AndroMDA, it is possible
+                        to customize the runtime behavior at any point. This is perhaps one of the most important
+                        aspects of a tool that is designed to help you with your projects.
+                    </li>
+                    <li>
+                        <strong>Modular</strong>: AndroMDA is a micro-kernel supporting plugins
+                        for different types of components, AndroMDA ships with a default implementation for each
+                        of these components. Any one of them can be replaced by a customized one.
+                    </li>
+                    <li>
+                        <strong>Docs</strong>: Up-to-date documentation reflects the state of the product, we
+                        have two websites, one for the stable releases and one for the nightly builds.
+                    </li>
+                    <li>
+                        <strong>Responsiveness</strong>: Users appreciate it when they know their questions
+                        will be answered. Developers on our mailing list are known to respond to any email within
+                        the day; actually, most of the time replies to emails are received within the hour,
+                        this is achieved by people from different timezones monitoring the list.
+                    </li>
+                    <li>
+                        <strong>Release often</strong>: People have access to the latest changes
+                        in development as well as access to stable releases. These stable releases are to be
+                        updated once a month (as per AndroMDA 3.0 final).
+                    </li>
+                    <li>
+                        <strong>Testing</strong>: AndroMDA is under constant development, and improvements are
+                        added on a daily basis. It is mandatory that we make sure nothing ever gets broken without
+                        us knowing, for this reason we run regression tests on all components.
+                    </li>
+                </ul>
             </subsection>
         </section>
     </body>

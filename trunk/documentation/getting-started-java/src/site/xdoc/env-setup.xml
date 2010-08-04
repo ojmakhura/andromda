@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="naresh@andromda.org">Naresh Bhatia</author>
         <title>Environment Setup</title>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
     </properties>
 
     <body>
@@ -17,45 +18,45 @@
                 on the D: drive instead of the C: drive. However, note that some programs don't work well if there are spaces
                 in their pathname. So, try to stick to the suggestions below as much as possible.
             </p>
+            <table>
+                <tr>
+                    <th>Recommended Path</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
+                    <td>Maven local repository</td>
+                </tr>
+                <tr>
+                    <td>C:\Program Files\Apache Software Foundation\maven-2.2.1</td>
+                    <td>Maven program</td>
+                </tr>
+                <tr>
+                    <td>C:\Program Files\Java\jdk1.6.0_xx</td>
+                    <td>Java Development Kit (xx is the update number)</td>
+                </tr>
+                <tr>
+                    <td>C:\Program Files\Java\jre1.6.0_xx</td>
+                    <td>Java Runtime Engine (xx is the update number)</td>
+                </tr>
+                <tr>
+                    <td>C:\Program Files\MySQL\MySQL Server 5.0</td>
+                    <td>MySQL database server</td>
+                </tr>
+                <tr>
+                    <td>C:\Program Files\JetBrains\IntelliJ IDEA 9.0.2</td>
+                    <td>IntelliJ IDEA IDE (optional)</td>
+                </tr>
+                <tr>
+                    <td>C:\eclipse</td>
+                    <td>Eclipse IDE (optional)</td>
+                </tr>
+                <tr>
+                    <td>C:\jboss-4.0.5</td>
+                    <td>JBoss Application Server</td>
+                </tr>
+            </table>
             <p>
-                <table>
-                    <tr>
-                        <th>Recommended Path</th>
-                        <th>Purpose</th>
-                    </tr>
-                    <tr>
-                        <td>C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
-                        <td>Maven local repository</td>
-                    </tr>
-                    <tr>
-                        <td>C:\Program Files\Apache Software Foundation\maven-2.2.1</td>
-                        <td>Maven program</td>
-                    </tr>
-                    <tr>
-                        <td>C:\Program Files\Java\jdk1.6.0_xx</td>
-                        <td>Java Development Kit (xx is the update number)</td>
-                    </tr>
-                    <tr>
-                        <td>C:\Program Files\Java\jre1.6.0_xx</td>
-                        <td>Java Runtime Engine (xx is the update number)</td>
-                    </tr>
-                    <tr>
-                        <td>C:\Program Files\MySQL\MySQL Server 5.0</td>
-                        <td>MySQL database server</td>
-                    </tr>
-                    <tr>
-                        <td>C:\Program Files\JetBrains\IntelliJ IDEA 9.0.2</td>
-                        <td>IntelliJ IDEA IDE (optional)</td>
-                    </tr>
-                    <tr>
-                        <td>C:\eclipse</td>
-                        <td>Eclipse IDE (optional)</td>
-                    </tr>
-                    <tr>
-                        <td>C:\jboss-4.0.5</td>
-                        <td>JBoss Application Server</td>
-                    </tr>
-                </table>
                 You will also be asked to set up several environment variables. Please set these as SYSTEM variables using the Control Panel
                 (Control Panel > System > Advanced > Environment Variables). Note that if you change the installation path of any program
                 then you must make sure that the associated environment variable is changed accordingly.
@@ -75,66 +76,66 @@
                     the directory where you installed the JDK. It is possible you have this
                     variable set already, but just to make sure here's how to check.
                 </p>
-                <p>
-                    <ol>
-                        <li>
-                            Go to the control panel and double-click on<code>System</code>.
-                            If you are a Windows XP user it's possible you have to open
-                            <code>Performance and Maintenance</code>
-                            before you will see
-                            the
-                            <code>System</code>
-                            icon.
-                        </li>
-                        <li>
-                            Go to the
-                            <code>Advanced</code>
-                            tab and click on
-                            <code>Environment Variables</code>
-                        </li>
-                        <li>
-                            Make sure you have set the
-                            <code>JAVA_HOME</code>
-                            variable set
-                            and it is pointing to the directory where you installed the JDK.
-                            If not, add/edit the variable and set it to the correct value,
-                            e.g. C:\Program Files\Java\jdk1.6.0_xx. You may add the variable
-                            to the list of user variables or system variables.
-                        </li>
-                    </ol>
-                </p>
+                <ol>
+                    <li>
+                        Go to the control panel and double-click on<code>System</code>.
+                        If you are a Windows XP user it's possible you have to open
+                        <code>Performance and Maintenance</code>
+                        before you will see
+                        the
+                        <code>System</code>
+                        icon.
+                    </li>
+                    <li>
+                        Go to the
+                        <code>Advanced</code>
+                        tab and click on
+                        <code>Environment Variables</code>
+                    </li>
+                    <li>
+                        Make sure you have set the
+                        <code>JAVA_HOME</code>
+                        variable set
+                        and it is pointing to the directory where you installed the JDK.
+                        If not, add/edit the variable and set it to the correct value,
+                        e.g. C:\Program Files\Java\jdk1.6.0_xx. You may add the variable
+                        to the list of user variables or system variables.
+                    </li>
+                </ol>
             </subsection>
 
             <subsection name="Install Maven">
                 <p>
                     <a href="http://maven.apache.org/">Maven2</a>
                     is our preferred tool for building and deploying applications generated by AndroMDA. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting, and documentation from a central piece of information. If you are familiar with Ant, Maven is very similar except that it contains additional functionality:
+                </p>
 
-                    <ol>
-                        <li>
-                            A hierarchical build environment, where properties configured in a POM file (pom.xml) flow down to POM files of all child projects.
-                        </li>
-                        <li>
-                            Standardized build tasks (clean, build, install, deploy, etc.)
-                        </li>
-                        <li>
-                            Dependency specifications for build and deploy tasks - for all internal and external libraries; tied to a specific released versions of dependent libraries
-                        </li>
-                        <li>
-                            A repository containing all versioned dependencies. This repository is used during the build and deploy processes (very similar to the .NET Global Assembly Cache concept).
-                        </li>
-                    </ol>
+                <ol>
+                    <li>
+                        A hierarchical build environment, where properties configured in a POM file (pom.xml) flow down to POM files of all child projects.
+                    </li>
+                    <li>
+                        Standardized build tasks (clean, build, install, deploy, etc.)
+                    </li>
+                    <li>
+                        Dependency specifications for build and deploy tasks - for all internal and external libraries; tied to a specific released versions of dependent libraries
+                    </li>
+                    <li>
+                        A repository containing all versioned dependencies. This repository is used during the build and deploy processes (very similar to the .NET Global Assembly Cache concept).
+                    </li>
+                </ol>
 
-                    Install Maven 2.2.1 by following the steps below.
+                <p>Install Maven 2.2.1 by following the steps below.</p>
 
-                    <ol>
-                        <li>
-                            Click here and download Maven 2.2.1 or newer.
-                        </li>
-                        <li>
-                            Unzip this file at C:\Program Files\Apache Software Foundation. A directory called maven-2.2.1 will be created which contains the Maven program.
-                        </li>
-                    </ol>
+                <ol>
+                    <li>
+                        Click here and download Maven 2.2.1 or newer.
+                    </li>
+                    <li>
+                        Unzip this file at C:\Program Files\Apache Software Foundation. A directory called maven-2.2.1 will be created which contains the Maven program.
+                    </li>
+                </ol>
+                <p>
                     Note: If you are behind a proxy server, you will have to configure Maven to use the proxy. The details can be found here.
                 </p>
             </subsection>
@@ -147,75 +148,71 @@
                     <code>JAVA_HOME</code>
                     here just for completeness.
                 </p>
-                <p>
-                    <table>
-                        <tr>
-                            <th>Property</th>
-                            <th>Value</th>
-                            <th>Required?</th>
-                        </tr>
-                        <tr>
-                            <td>JAVA_HOME</td>
-                            <td>Java installation directory, e.g.
-                                <code>C:\Program Files\Java\jdk1.6.xx</code>
-                            </td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>MAVEN_HOME</td>
-                            <td>Maven installation directory, e.g.
-                                <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
-                                (this may have already been set by the Maven installer)
-                            </td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>M2_REPO</td>
-                            <td>Maven local repository, e.g. C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>MAVEN_OPTS</td>
-                            <td>Parameters to pass to the Java VM when running Maven. Set this
-                                value to:
-                                <code>-XX:MaxPermSize=128m -Xmx512m</code>
-                                (required to build large maven projects such as AndroMDA itself)
-                            </td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td>PATH</td>
-                            <td>This makes sure the system will search for console commands in
-                                the directories listed here. If this property already exists you
-                                should simply add
-                                <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>
-                            </td>
-                            <td>Yes</td>
-                        </tr>
-                    </table>
-                </p>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>JAVA_HOME</td>
+                        <td>Java installation directory, e.g.
+                            <code>C:\Program Files\Java\jdk1.6.xx</code>
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>M2_HOME</td>
+                        <td>Maven installation directory, e.g.
+                            <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
+                            (this may have already been set by the Maven installer)
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>M2_REPO</td>
+                        <td>Maven local repository, e.g. C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>MAVEN_OPTS</td>
+                        <td>Parameters to pass to the Java VM when running Maven. Set this
+                            value to:
+                            <code>-XX:MaxPermSize=128m -Xmx512m</code>
+                            (required to build large maven projects such as AndroMDA itself)
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>PATH</td>
+                        <td>This makes sure the system will search for console commands in
+                            the directories listed here. If this property already exists you
+                            should simply add
+                            <code>%JAVA_HOME%\bin;%M2_HOME%\bin</code>
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                </table>
             </subsection>
 
 
             <subsection name="Install AndroMDA Application plugin">
                 <p>
                     Next we will download and install the AndroMDA Application plugin
-                    to the MAVEN_HOME/plugins directory. This plugin allows creation of
+                    to the M2_HOME/plugins directory. This plugin allows creation of
                     Java starter applications that use AndroMDA. This is the only AndroMDA
                     artifact that we will install explicitly. All other artifacts, such
                     as AndroMDA cartridges, will be automatically downloaded by the
                     Maven scripts generated by the plugin.
                 </p>
 
-                <p>
-                    <ul>
-                        <li>Click <A href="http://andromda.googlegroups.com/web/andromdapp-maven-plugin-install-3.3.zip"
-                                     target="_self mce_href=http://andromda.googlegroups.com/web/andromdapp-maven-plugin-install-3.3.zip">here</A> to download the the AndroMDA plugin installer.</li>
-                        <li>Unzip the contents of the installer into your Maven repository at C:\Documents and Settings\<STRONG>your user name</STRONG>\.m2\repository.</li>
-                        <li>Verify that the following directory was created:C:\Documents and Settings\<STRONG>your user name</STRONG>\.m2\repository\org\andromda\maven\plugins\andromdapp-maven-plugin</li>
-                        <li>Create a temporary directory, e.g. C:\andromda-temp.</li>
-                        <li>Create a file called pom.xml in this directory with the following content.
-                            <source><![CDATA[
+                <ul>
+                    <li>Click <a href="http://andromda.googlegroups.com/web/andromdapp-maven-plugin-install-3.3.zip">here</a> to download the the AndroMDA plugin installer.</li>
+                    <li>Unzip the contents of the installer into your Maven repository at C:\Documents and Settings\<strong>your user name</strong>\.m2\repository.</li>
+                    <li>Verify that the following directory was created:C:\Documents and Settings\<strong>your user name</strong>\.m2\repository\org\andromda\maven\plugins\andromdapp-maven-plugin</li>
+                    <li>Create a temporary directory, e.g. C:\andromda-temp.</li>
+                    <li>Create a file called pom.xml in this directory with the following content.
+                        <source><![CDATA[
 <project xmlns="http://maven.apache.org/POM/4.0.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -254,14 +251,13 @@
 </pluginRepositories>
 </project>
                                 ]]>
-                            </source>
-                        </li>
-                        <li>Open a Command Prompt in the directory where you created this pom.xml and
-                            run the command mvn without any arguments. Make sure the command completes successfully
-                            by displaying the BUILD SUCCESSFUL message.</li>
-                        <li>You can now delete the temporary directory you created in step 1.</li>
-                    </ul>
-                </p>
+                        </source>
+                    </li>
+                    <li>Open a Command Prompt in the directory where you created this pom.xml and
+                        run the command mvn without any arguments. Make sure the command completes successfully
+                        by displaying the BUILD SUCCESSFUL message.</li>
+                    <li>You can now delete the temporary directory you created in step 1.</li>
+                </ul>
             </subsection>
 
             <subsection name="Install a UML tool">
@@ -291,46 +287,46 @@
                     assume that you have installed one of the following databases. If you have
                     installed another database then you will have to change the Hibernate
                     configuration accordingly.
-                    <ul>
-                        <li>
-                            <strong>MySQL 5.0:</strong>
-                            MySQL is an open source database. You can download it from
-                            <a href="http://dev.mysql.com/downloads/mysql/5.0.html"
-                              >here</a>. We recommend
-                            downloading the full Windows installation - not just the "Essentials". In addition, download and install
-                            <a href="http://dev.mysql.com/downloads/administrator/1.1.html"
-                              >MySQL Administrator
-                            </a>
-                            as well as <a href="http://dev.mysql.com/downloads/query-browser/1.1.html"
-                                        >MySQL Query Browser</a>.
-                            These are GUI based tools that will make your development much easier. Finally, download and unzip
-                            <a href="http://dev.mysql.com/downloads/connector/j/3.1.html"
-                              >MySQL Connector/J
-                            </a>
-                            (the MySQL JDBC driver) in a convenient directory. For the purpose of this tutorial we will assume that
-                            you have installed the driver at
-                            <code>C:\Program Files\MySQL\mysql-connector-java-3.1.12</code>.
-                        </li>
-
-                        <li>
-                            <strong>PostgreSQL 8.1:</strong>
-                            PostgreSQL is an open source database. You can download it from
-                            <a href="http://www.postgresql.org/ftp/binary/v8.1.2/win32/"
-                              >here</a>. The Postgres
-                            installation contains a GUI based administrative tool called pgAdmin III. JDBC drivers are also
-                            included as part of the installation.
-                        </li>
-
-                        <li>
-                            <strong>Oracle 9i:</strong>
-                            Oracle 9i is an commercial database sold by
-                            <a href="http://www.oracle.com">Oracle</a>. We assume that you
-                            have the necessary distribution media to install it. Oracle 9i includes a GUI
-                            based administrative tool called Enterprise Manager. JDBC drivers are also
-                            included as part of the installation.
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <strong>MySQL 5.0:</strong>
+                        MySQL is an open source database. You can download it from
+                        <a href="http://dev.mysql.com/downloads/mysql/5.0.html"
+                          >here</a>. We recommend
+                        downloading the full Windows installation - not just the "Essentials". In addition, download and install
+                        <a href="http://dev.mysql.com/downloads/administrator/1.1.html"
+                          >MySQL Administrator
+                        </a>
+                        as well as <a href="http://dev.mysql.com/downloads/query-browser/1.1.html"
+                                    >MySQL Query Browser</a>.
+                        These are GUI based tools that will make your development much easier. Finally, download and unzip
+                        <a href="http://dev.mysql.com/downloads/connector/j/3.1.html"
+                          >MySQL Connector/J
+                        </a>
+                        (the MySQL JDBC driver) in a convenient directory. For the purpose of this tutorial we will assume that
+                        you have installed the driver at
+                        <code>C:\Program Files\MySQL\mysql-connector-java-3.1.12</code>.
+                    </li>
+
+                    <li>
+                        <strong>PostgreSQL 8.1:</strong>
+                        PostgreSQL is an open source database. You can download it from
+                        <a href="http://www.postgresql.org/ftp/binary/v8.1.2/win32/"
+                          >here</a>. The Postgres
+                        installation contains a GUI based administrative tool called pgAdmin III. JDBC drivers are also
+                        included as part of the installation.
+                    </li>
+
+                    <li>
+                        <strong>Oracle 9i:</strong>
+                        Oracle 9i is an commercial database sold by
+                        <a href="http://www.oracle.com">Oracle</a>. We assume that you
+                        have the necessary distribution media to install it. Oracle 9i includes a GUI
+                        based administrative tool called Enterprise Manager. JDBC drivers are also
+                        included as part of the installation.
+                    </li>
+                </ul>
             </subsection>
 
             <subsection name="Install Eclipse (Optional)">
@@ -342,26 +338,26 @@
                     <a href="http://www.eclipse.org/downloads/">here</a>.
                     We recommend downloading the Eclipse Europa Package called "Eclipse IDE for Java EE Developers".
                     Follow the steps below to install and configure Eclipse:
-                    <ul>
-                        <li>Unzip the downloaded archive to a suitable location on your hard drive. The recommended location is C:\eclipse.</li>
-                        <li>Edit the file eclipse.ini under C:\eclipse to increase the memory available for Eclipse. Here are the suggested contents for this file:
-                            <source>
-                            -vmargs
-                            -Xms256m
-                            -Xmx512m
-                            -XX:PermSize=128m
-                            -XX:MaxPermSize=256m
-                            </source>
-                        </li>
-                        <li>Start Eclipse by double-clicking on eclipse.exe.</li>
-                        <li>Eclipse asks for a folder where it can store your projects. This folder is called the Eclipse workspace. Set the workspace to a location where you generally creates projects, such as C:\Projects.</li>
-                        <li>Choose Preferences from the Window Menu.</li>
-                        <li>In the left pane, select Java &gt; Build Path &gt; Classpath Variables.</li>
-                        <li>Click New.</li>
-                        <li>Add M2_REPO in the Name field and the path of your M2 repository in the Path field (for example, C:\Documents and Settings\<STRONG>your user name</STRONG>\.m2\repository). This value is needed in order to import Maven generated project configurations.</li>
-                        <li>Click OK twice to close the dialog boxes.</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>Unzip the downloaded archive to a suitable location on your hard drive. The recommended location is C:\eclipse.</li>
+                    <li>Edit the file eclipse.ini under C:\eclipse to increase the memory available for Eclipse. Here are the suggested contents for this file:
+                        <source>
+                        -vmargs
+                        -Xms256m
+                        -Xmx512m
+                        -XX:PermSize=128m
+                        -XX:MaxPermSize=256m
+                        </source>
+                    </li>
+                    <li>Start Eclipse by double-clicking on eclipse.exe.</li>
+                    <li>Eclipse asks for a folder where it can store your projects. This folder is called the Eclipse workspace. Set the workspace to a location where you generally creates projects, such as C:\Projects.</li>
+                    <li>Choose Preferences from the Window Menu.</li>
+                    <li>In the left pane, select Java &gt; Build Path &gt; Classpath Variables.</li>
+                    <li>Click New.</li>
+                    <li>Add M2_REPO in the Name field and the path of your M2 repository in the Path field (for example, C:\Documents and Settings\<strong>your user name</strong>\.m2\repository). This value is needed in order to import Maven generated project configurations.</li>
+                    <li>Click OK twice to close the dialog boxes.</li>
+                </ul>
                 
             </subsection>
         </section>

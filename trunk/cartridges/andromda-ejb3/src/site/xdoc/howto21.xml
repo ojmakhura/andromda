@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - JBoss Seam Integration</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="JBoss Seam Integration">
@@ -273,26 +274,26 @@
 					to indicate a long-running conversation has started.  This will render a <![CDATA[@Begin]]> 
                     annotation on the operation. The following tagged values can be defined within the context of this
                     component:
-                    <ul>
-                        <li><![CDATA[@andromda.seam.conversation.begin.flushmode]]></li>
-                        <li><![CDATA[@andromda.seam.conversation.begin.ifoutcome]]> - Can have multiple values</li>
-                        <li><![CDATA[@andromda.seam.conversation.begin.join]]></li>
-                        <li><![CDATA[@andromda.seam.conversation.begin.nested]]></li>
-                        <li><![CDATA[@andromda.seam.conversation.begin.pageflow]]></li>
-                    </ul>
-				</p>
+                </p>
+                <ul>
+                    <li><![CDATA[@andromda.seam.conversation.begin.flushmode]]></li>
+                    <li><![CDATA[@andromda.seam.conversation.begin.ifoutcome]]> - Can have multiple values</li>
+                    <li><![CDATA[@andromda.seam.conversation.begin.join]]></li>
+                    <li><![CDATA[@andromda.seam.conversation.begin.nested]]></li>
+                    <li><![CDATA[@andromda.seam.conversation.begin.pageflow]]></li>
+                </ul>
             </subsection>
             <subsection name="Ending a Conversation">
 				<p>
 					The <![CDATA[<<End>>]]> stereotype can be modeled on Seam component operations 
 					to indicate the end of a long running conversation. The following tagged values can be
                     defined within the context of this component:
-                    <ul>
-                        <li><![CDATA[@andromda.seam.conversation.end.ifoutcome]]> - can have multiple values</li>
-					    <li><![CDATA[@andromda.seam.conversation.end.evenifexception]]></li>
-                        <li><![CDATA[@andromda.seam.conversation.end.beforeredirect]]></li>
-                   </ul>
-				</p>
+                </p>
+                <ul>
+                    <li><![CDATA[@andromda.seam.conversation.end.ifoutcome]]> - can have multiple values</li>
+				    <li><![CDATA[@andromda.seam.conversation.end.evenifexception]]></li>
+                    <li><![CDATA[@andromda.seam.conversation.end.beforeredirect]]></li>
+               </ul>
             </subsection>
             <subsection name="jBPM Tasks and Processes">
 				<p>

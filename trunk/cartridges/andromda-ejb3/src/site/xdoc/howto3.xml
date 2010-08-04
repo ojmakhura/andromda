@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo Service</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Services">
@@ -33,36 +34,32 @@
                 eliminates much of the complexity.
             </p>
             <p>
-                <img src="images/org/andromda/test/3/a/uml.gif"/>
+                <img src="images/org/andromda/test/3/a/uml.gif" alt="images/org/andromda/test/3/a/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto3/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto3/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto3/a/Car.java"><code>Car.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto3/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto3/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+            </ul>
             <p>
                 There are a few other things you can do with these services, these features will be presented
                 in the sections ahead.
@@ -112,12 +109,12 @@
                     To create a local view interface and register this with the container, you model the
                     <code>@andromda.ejb.viewType</code> on the session bean operation or at the class level
                     of the session bean.  Your options are:
-                    <ul>
-                        <li>remote - This is the default and doesn't need to be specified</li>
-                        <li>local - Assigns to class/operation to the local view interface</li>
-                        <li>both - This class/operations are available via the local and remote interfaces</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>remote - This is the default and doesn't need to be specified</li>
+                    <li>local - Assigns to class/operation to the local view interface</li>
+                    <li>both - This class/operations are available via the local and remote interfaces</li>
+                </ul>
                 <p>
                     If you have operations that exist in both the local and remote interfaces, your service
                     delegate class will allow you to select how you want to invoke your bean operations. 
@@ -217,22 +214,22 @@
                 <p>
                     Every session bean provides the facility to override the default persistence context
                     annotation declaration by modeling the following tagged values on the session bean class:
-                    <ul>
-                        <li>
-                            <p>
-	                            <code>@andromda.service.persistence.context.unit.name</code>
-	                            Override the unit name for the default persistence context.
-	                        </p>
-                        </li>
-                        <li>
-                            <p>
-	                            <code>@andromda.service.persistence.context.unit.type</code>
-	                            Specify whether a transaction scoped or extended scoped persistence context
-	                            is required for the persistence context associated with the default entity manager.
-	                        </p>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <p>
+                            <code>@andromda.service.persistence.context.unit.name</code>
+                            Override the unit name for the default persistence context.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <code>@andromda.service.persistence.context.unit.type</code>
+                            Specify whether a transaction scoped or extended scoped persistence context
+                            is required for the persistence context associated with the default entity manager.
+                        </p>
+                    </li>
+                </ul>
                 <p>
                     To inject another persistence context, associated with a different entity manager, you need
                     to model a new class with the <![CDATA[<<PersistenceContext>>]]> stereotype and draw
@@ -245,37 +242,33 @@
                     The following example shows a new persistence context <code>securityEntityManager</code>.
                 </p>
 	            <p>
-	                <img src="images/org/andromda/test/3/b/uml.gif"/>
+	                <img src="images/org/andromda/test/3/b/uml.gif" alt="images/org/andromda/test/3/b/uml.gif"/>
 	            </p>
-	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto3/b/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto3/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="howto/META-INF/persistence.xml"><code>persistence.xml</code></a></li>
-	                </ul>
-	            </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto3/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto3/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto3/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto3/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/META-INF/persistence.xml"><code>persistence.xml</code></a></li>
+                </ul>
 	            <p>
 	                Notice that <code>SecondaryEntityManager</code> has defined the 
 	                <code>@andromda.service.persistence.context.datasource</code> tagged value specifying the

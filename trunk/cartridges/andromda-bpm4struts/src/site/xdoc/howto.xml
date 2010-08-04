@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -24,30 +25,30 @@
             </p>
             <p>
                 In this how-to we will cover the following topics:
-                <ul>
-                    <li><a href="howto1.html">UseCases</a></li>
-                    <li>
-                        <a href="howto2.html">Activity Graphs</a>
-                        <ul>
-                            <li><a href="howto2.html#Initial_States">Initial states</a></li>
-                            <li><a href="howto2.html#Action_States">Action states</a></li>
-                            <li><a href="howto2.html#Transitions">Transitions</a></li>
-                            <li><a href="howto2.html#Event_Parameters">Event Parameters</a></li>
-                            <li><a href="howto2.html#Page_Variables">Page Variables</a></li>
-                            <li><a href="howto2.html#Decision_Points">Decision Points</a></li>
-                            <li><a href="howto2.html#Final_States">Final States</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="howto3.html">Controllers</a></li>
-                    <li><a href="howto4.html">Custom Code</a></li>
-                    <li><a href="howto5.html">Session Objects</a></li>
-                    <li><a href="howto6.html">Security</a></li>
-                    <li><a href="howto7.html">Calling Back-End Services</a></li>
-                    <li><a href="howto8.html">Tables</a></li>
-                    <li><a href="howto9.html">Other Content</a></li>
-                    <li><a href="howto10.html">Internationalization</a></li>
-                </ul>
             </p>
+            <ul>
+                <li><a href="howto1.html">UseCases</a></li>
+                <li>
+                    <a href="howto2.html">Activity Graphs</a>
+                    <ul>
+                        <li><a href="howto2.html#Initial_States">Initial states</a></li>
+                        <li><a href="howto2.html#Action_States">Action states</a></li>
+                        <li><a href="howto2.html#Transitions">Transitions</a></li>
+                        <li><a href="howto2.html#Event_Parameters">Event Parameters</a></li>
+                        <li><a href="howto2.html#Page_Variables">Page Variables</a></li>
+                        <li><a href="howto2.html#Decision_Points">Decision Points</a></li>
+                        <li><a href="howto2.html#Final_States">Final States</a></li>
+                    </ul>
+                </li>
+                <li><a href="howto3.html">Controllers</a></li>
+                <li><a href="howto4.html">Custom Code</a></li>
+                <li><a href="howto5.html">Session Objects</a></li>
+                <li><a href="howto6.html">Security</a></li>
+                <li><a href="howto7.html">Calling Back-End Services</a></li>
+                <li><a href="howto8.html">Tables</a></li>
+                <li><a href="howto9.html">Other Content</a></li>
+                <li><a href="howto10.html">Internationalization</a></li>
+            </ul>
             <p>
                 You can download the UML model containing all models for all sections
                 <a href="howto/HowToModel.xml.zip">here</a>.

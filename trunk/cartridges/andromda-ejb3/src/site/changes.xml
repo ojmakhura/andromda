@@ -1,4 +1,6 @@
 <document>
+<!--document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"-->
   <properties>
     <title>EJB3 Cartridge Plugin Project</title>
     <author email="vance@andromda.org">Vance Karimi</author>
@@ -38,7 +40,7 @@
         Many-to-Many association owning side JoinTable - JoinColumn name property fixed. JIRA EJB-25
       </action>
       <action dev="vancek" type="fix">
-        NamedQuery definition to pick up firstResult and maxResult arguments modelled with these
+        NamedQuery definition to pick up firstResult and maxResult arguments modeled with these
         stereotypes and NOT include then in where clause.
       </action>
       <action dev="vancek" type="add">
@@ -80,14 +82,14 @@
       </action>
       <action dev="vancek" type="fix">
         Don't restrict rendering of accessor methods for session bean attributes that only have 'public'
-        visibility.  Accessors generated for all attributes for all visilities.
+        visibility.  Accessors generated for all attributes for all visibilities.
       </action>
       <action dev="vancek" type="add">
         Introduce JBoss Seam components corresponding with Seam 1.0.0-CR3.
         Always generate a local interface for a session bean if it is a Seam component.
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
-        JIRA EJB-27 - If a session bean operation is modelled for the local view type interface, a local interface is 
+        JIRA EJB-27 - If a session bean operation is modeled for the local view type interface, a local interface is 
         NOT generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
         determine their view type individually and return a view type for the session bean to accomodate local,
         remote and both.
@@ -109,7 +111,7 @@
         Added FAQ support section menu to site.
       </action>
       <action dev="vancek" type="fix">
-        Remove references to attributes modelled with a @Version annotation (optimistic lock value for entity) in 
+        Remove references to attributes modeled with a @Version annotation (optimistic lock value for entity) in 
         manageable service components.  Initial work removed attribute from getAttributes, but that caused problems
         from the manageable web tier action methods create and update. To account for this, allow the attribute as
         argument to the methods, but do not call the corresponding setter.
@@ -134,7 +136,7 @@
       </action>
       <action dev="vancek" type="fix">
         Ignore the argument on create and update methods of DAO implementation components where the corresponding 
-        entity attribute is modelled as an optimistic lock value with the Version stereotype.  This should be improved
+        entity attribute is modeled as an optimistic lock value with the Version stereotype.  This should be improved
         to eliminate the attribute when retrieving the attribute collection.
       </action>
       <action dev="vancek" type="update">
@@ -147,7 +149,7 @@
       <action dev="vancek" type="fix">
         In the findAll method of the manageable service base implementation, the query now includes 'left join fetch'
         for all related 'many' association ends where the target entity does not define a display attribute (where
-        the attribute is modelled with the Unique stereotype).
+        the attribute is modeled with the Unique stereotype).
       </action>
       <action dev="vancek" type="update">
         Updated the metafacade definitions of EJB3AssociationEndFacadeLogicImpl, EJB3AssociationEndFacadeLogicImpl
@@ -284,7 +286,7 @@
       </action>
       <action dev="vancek" due-to="sverker" type="fix">
         JIRA EJB-42 - Fix IllegalStateException "it is illegal to inject UserTransaction into a CMT bean" where a 
-        session bean is modelled with bean managed transactions.  This fix sets the <b>transaction-type</b>
+        session bean is modeled with bean managed transactions.  This fix sets the <b>transaction-type</b>
         for the session to <b>Bean</b> instead of <b>Container</b>.  This does not affect manageable entity session
         POJOs as they remain container managed transaction demarcation.
       </action>
@@ -315,7 +317,7 @@
       </action>
       <action dev="vancek" due-to="harwey" type="fix">
         JIRA EJB-46 - Missing javax.ejb.Timer attribute for method on session bean
-        modelled as a timeout callback.
+        modeled as a timeout callback.
       </action>
       <action dev="vancek" due-to="turekvl" type="fix">
         Fix in GlobalMacros.vm to prevent compareTo action on entity properties with Collection/List/Set types.
@@ -365,7 +367,7 @@
         Add support for the JBoss Embedded EJB3 server for testing using TestNG.  Cartridge will generate all
         required microcontainer configuration files, an EJB3Container intitialiser that starts and shuts down
         the container before and after all tests, a testng.xml config file and basic test class per session bean
-        modelled.  The embeddable container version is ALPHA_9.
+        modeled.  The embeddable container version is ALPHA_9.
       </action>
       <action dev="vancek" type="fix">
         Finally added cartridge tests!
@@ -382,16 +384,16 @@
         and EJB3EntityAttributeFacade respectively.  This enables the ability to model a mapped superclass by modelling
         only the MappedSuperclass stereotype.  The existing way required the Entity stereotype as well as the 
         MappedSuperclass stereotype.  This excludes a mapped superclass in the group of manageable entities, if entities 
-        are modelled as Manageable as well.  
+        are modeled as Manageable as well.  
         Also added 2 constraints to the EJB3EntityFacade class.  These constraints override
         the default identifier check and generalization check constraints in the parent Entity metafacade.
       </action>
       <action dev="vancek" due-to="Wzzl" type="fix">
         Set default topic subscription durability as NonDurable in case a Topic does not have the subscription
-        durability TV modelled.
+        durability TV modeled.
       </action>
       <action dev="vancek" due-to="heapifyman" type="fix">
-        Fix entity constructor generation when no attributes modelled but operation and associations exist.
+        Fix entity constructor generation when no attributes modeled but operation and associations exist.
       </action>
       <action dev="vancek" due-to="jonnyBgood" type="fix">
         Fix support for abstract super entity (add super to class declaration) even when super entity is not a 
@@ -400,7 +402,7 @@
       </action>
       <action dev="vancek" type="fix">
         If transaction type specified on the class level and not on the method level, do not generate the
-        @TransactionAttribute on the method.  Similarly, if not modelled on the class level, do not generate it there.
+        @TransactionAttribute on the method.  Similarly, if not modeled on the class level, do not generate it there.
         It doesn't make sense to have this annotation at the class level of the parent bean as class level annotations
         are not inherited.
       </action>
@@ -463,10 +465,10 @@
         the @andromda.hibernate.cascade tagged value.
       </action>
       <action dev="vancek" due-to="khwalk" type="fix">
-        JIRA EJB-53 - When a modelled entity with a MappedSuperclass stereotype has an association to another
+        JIRA EJB-53 - When a modeled entity with a MappedSuperclass stereotype has an association to another
         entity, the association definition in this other entity is incorrectly named.  The resolution is to
         avoid appending Embeddable to the mapped superclass and don't apply a naming pattern when a mapped superclass
-        is explicitly modelled.  It is fine to apply this naming pattern when this is not explicitly modelled and
+        is explicitly modeled.  It is fine to apply this naming pattern when this is not explicitly modeled and
         instance scoped operations exist on the entity and a mapped superclass is generated.
       </action>
       <action dev="vancek" due-to="daveangulo" type="add">
@@ -492,7 +494,7 @@
       <action dev="vancek" due-to="darquerus" type="add">
         JIRA EJB-59 - Add support for setting the join table for unidirectional one-to-many associations.  Currently,
         this exists for many-to-many associations using the JoinTable annotation.  
-        Existing users must be aware that this will change the default behaviour of the cartridge for the join 
+        Existing users must be aware that this will change the default behavior of the cartridge for the join 
         table name.  The EJB 3.0 spec defines the join table name with the owning side first and underscore 
         separated. AndroMDA (not the EJB3 cartridge) defines the inverse end first with a digit two (2) as the 
         separater and truncates the name by the specified length in the andromda.xml namespace property 
@@ -533,7 +535,7 @@
         (get).
       </action>
       <action dev="vancek" due-to="chawax " type="fix">
-        JIRA EJB-70 - When a dependency is drawn to a target session bean modelled with Seam and Service stereotypes,
+        JIRA EJB-70 - When a dependency is drawn to a target session bean modeled with Seam and Service stereotypes,
         then instead of using the @EJB annotation, use the Seam @In annotation. This applies when the source
         session bean is also a Seam component.
       </action>
@@ -541,7 +543,7 @@
         JIRA EJB-53 - After applying the patch to add EJB3MappedSuperclassFacade metafacades which extend
         EJB3EntityFacade and avoid the need to also model the Entity stereotype (as well as the MappedSuperclass),
         several bugs appeared where dynamic identifiers were created regardless of the condition and explicitly
-        modelled identifiers were ignored.  This only affected UML2 models.  This patch reverses a part of that
+        modeled identifiers were ignored.  This only affected UML2 models.  This patch reverses a part of that
         patched; such that we still require to model the Entity stereotype as well as the MappedSuperclass
         stereotype on all mapped superclasses.
       </action>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - User Guide</title>
-        <gennews>no</gennews>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <!--gennews>no</gennews-->
     </properties>
 
     <body>
@@ -101,7 +102,7 @@
                 throws a java.lang.Exception it will be handled and the message will be forwarded to the
                 page which triggered the action, so you will simply return back to the page. This default
                 exception handler will not be implied if there is at least one exception handler
-                explicitely specified.
+                explicitly specified.
             </p>
             <h3>Initial States</h3>
             <p>
@@ -123,9 +124,7 @@
                 may carry deferrable events, these events can call the operations from the controller class. The
                 cartridge will render methods for these calls into the actions.
             </p>
-            <p>
-                <h3>Final State</h3>
-            </p>
+            <h3>Final State</h3>
             <p>
                 A final state in an activity graph represents the end of the use-case. Because a typical web
                 application not simply stops showing pages you will need to indicate to which use-case to go next.
@@ -139,9 +138,7 @@
                 Alternatively, if your CASE tool supports it (such as is the case with MagicDraw), you may put a
                 hyperlink on the final state and make it point to the use-case. 
             </p>
-            <p>
-                <h3>Swimlanes</h3>
-            </p>
+            <h3>Swimlanes</h3>
             <p>
                 This feature is completely optional, but I recommend using it on your diagrams for clarity. Divide
                 your activity graph into partitions using swimlanes, you will have one for
@@ -189,50 +186,48 @@
                 @andromda.presentation.web.view.field.type tagged value. Depending on that value the
                 parameter will be treated differently.
             </p>
-            <p>
-                <table cellpadding="5" rules="all">
-                    <tr>
-                        <th>Type</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>text</td>
-                        <td>renders a textfield, this is the default widget</td>
-                    </tr>
-                    <tr>
-                        <td>textarea</td>
-                        <td>renders a widget that allows a block of text in multiple lines to be entered</td>
-                    </tr>
-                    <tr>
-                        <td>select</td>
-                        <td>This will render a listbox or combobox. If the parameter is a collection or array you will
-                            have the possiblity to select multiple values, otherwise you will have a combobox where
-                            only one value at a time can be selected</td>
-                    </tr>
-                    <tr>
-                        <td>checkbox</td>
-                        <td>renders a checkbox, if the field is a boolean value this widget will be rendered
-                            by default</td>
-                    </tr>
-                    <tr>
-                        <td>radio</td>
-                        <td>renders radiobuttons, by default there are 3 of them; use the
-                            <code>@andromda.struts.view.field.radio</code> tagged value, it denotes the number of choices
-                            for this parameter: the value you enter for that tagged value will determine the number of
-                            radiobuttons that will be rendered.
-                            Alternatively you can use a comma-separated list of property values instead of an
-                            integer</td>
-                    </tr>
-                    <tr>
-                        <td>password</td>
-                        <td>renders a password field, each character typed will be rendered as an asterisk</td>
-                    </tr>
-                    <tr>
-                        <td>hidden</td>
-                        <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
-                    </tr>
-                </table>
-            </p>
+            <table cellpadding="5" rules="all">
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>text</td>
+                    <td>renders a textfield, this is the default widget</td>
+                </tr>
+                <tr>
+                    <td>textarea</td>
+                    <td>renders a widget that allows a block of text in multiple lines to be entered</td>
+                </tr>
+                <tr>
+                    <td>select</td>
+                    <td>This will render a listbox or combobox. If the parameter is a collection or array you will
+                        have the possiblity to select multiple values, otherwise you will have a combobox where
+                        only one value at a time can be selected</td>
+                </tr>
+                <tr>
+                    <td>checkbox</td>
+                    <td>renders a checkbox, if the field is a boolean value this widget will be rendered
+                        by default</td>
+                </tr>
+                <tr>
+                    <td>radio</td>
+                    <td>renders radiobuttons, by default there are 3 of them; use the
+                        <code>@andromda.struts.view.field.radio</code> tagged value, it denotes the number of choices
+                        for this parameter: the value you enter for that tagged value will determine the number of
+                        radiobuttons that will be rendered.
+                        Alternatively you can use a comma-separated list of property values instead of an
+                        integer</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>renders a password field, each character typed will be rendered as an asterisk</td>
+                </tr>
+                <tr>
+                    <td>hidden</td>
+                    <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
+                </tr>
+            </table>
         </section>
 
     </body>

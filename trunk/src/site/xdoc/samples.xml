@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
         <title>AndroMDA - Samples</title>
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
     </properties>
 
     <body>
@@ -14,27 +15,27 @@
                 AndroMDA would be very difficult to grasp without at least one
                 sample application.  Therefore, the distribution
                 includes several:
-                <ul>
-                    <li>
-                        <a href="andromda-documentation/andromda-getting-started-java/java/index.html">Timetracker</a>
-                    </li>
-                    <li>
-                        <a href="animal-quiz.html">Animal Quiz</a>
-                    </li>
-                    <li>
-                        <a href="car-rental-system.html">Car Rental System</a>
-                    </li>
-                    <li>
-                        <!--
-                        use this instead when the page is present: <a href="online-store.html">Online Store</a>
-                        -->
-                        <a href="andromda-cartridges/andromda-bpm4struts-cartridge/samples.html#online-store">Online Store</a>
-                    </li>
-                    <li>
-                        <a href="andromda-cartridges/andromda-manageable-entities/index.html">CRUD Sample (Manageable Entities)</a>
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li>
+                    <a href="andromda-documentation/andromda-getting-started-java/java/index.html">Timetracker</a>
+                </li>
+                <li>
+                    <a href="animal-quiz.html">Animal Quiz</a>
+                </li>
+                <li>
+                    <a href="car-rental-system.html">Car Rental System</a>
+                </li>
+                <li>
+                    <!--
+                    use this instead when the page is present: <a href="online-store.html">Online Store</a>
+                    -->
+                    <a href="andromda-cartridges/andromda-bpm4struts-cartridge/samples.html#online-store">Online Store</a>
+                </li>
+                <li>
+                    <a href="andromda-cartridges/andromda-manageable-entities/index.html">CRUD Sample (Manageable Entities)</a>
+                </li>
+            </ul>
             <subsection name="Where can I find the samples?">
                 <p>
                     The models and source code of each sample are located within the
@@ -52,84 +53,84 @@
                 </p>
                 <p>
                     Each sample is made up  of the modules explained here:
-                    <ul>
-                        <li>
-                            /mda
-                            <p class="highlight">
-                                This is the
-                                <strong>most important</strong> module, as it contains the
-                                project's model.  This module is used by AndroMDA to generate code
-                                into all other modules.
-                            </p>
-                            <p>
-                                What happens within this module is this:
-                                <ol>
-                                    <li>
-                                        maven calls the
-                                        <strong>andromda:run</strong> goal of the
-                                        <a href="andromda-maven-plugins/andromda-maven-plugin/index.html">AndroMDA maven plugin</a>
-                                    </li>
-                                    <li>
-                                        The plugin tells AndroMDA to load the model located in the
-                                        <code>mda/src/uml</code>.
-                                    </li>
-                                    <li>
-                                        The AndroMDA plugins (cartridges, and translation-libraries)
-                                        declared within the mda/project.xml file let AndroMDA know exactly
-                                        what stuff it needs to generate when processing the model.
-                                    </li>
-                                    <li>
-                                        AndroMDA runs and the files/resources are generated to the locations
-                                        defined by the namespace properties within the plugin dependencies.
-                                    </li>
-                                    <li>
-                                        Make sure to also check out the <code>conf/andromda.xml</code> file,
-                                        which configures AndroMDA and its components.
-                                    </li>
-                                </ol>
-                            </p>
-                        </li>
-                        <li>
-                            /app
-                            <p>
-                                Contains files required to create the
-                                <strong>ear</strong> bundle.
-                                Typically you will find application deployment descriptors in this
-                                directory, as well as DDL scripts to initialize/drop your schema 
-                                (if you're using hibernate/spring).
-                            </p>
-                        </li>
-                        <li>
-                            /common
-                            <p>
-                                Contains common sources that can be shared between the different
-                                modules in the project. Typically you will find utility classes
-                                in this directory.
-                            </p>
-                        </li>
-                        <li>
-                            /core
-                            <p>
-                                Contains the persistence and business/transaction management layer.
-                                This contains generated source from either the hibernate, spring,
-                                or ejb cartridges.
-                            </p>
-                        </li>
-                        <li>
-                            /web
-                            <p>
-                                Contains sources required to build the presentation layer.
-                            </p>
-                        </li>
-                        <li>
-                            /webservice
-                            <p>
-                                Contains any source, descriptors, or other necessary files
-                                required for webservice support.
-                            </p>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        /mda
+                        <p class="highlight">
+                            This is the
+                            <strong>most important</strong> module, as it contains the
+                            project's model.  This module is used by AndroMDA to generate code
+                            into all other modules.
+                        </p>
+                        <p>
+                            What happens within this module is this:
+                        </p>
+                        <ol>
+                            <li>
+                                maven calls the
+                                <strong>andromda:run</strong> goal of the
+                                <a href="andromda-maven-plugins/andromda-maven-plugin/index.html">AndroMDA maven plugin</a>
+                            </li>
+                            <li>
+                                The plugin tells AndroMDA to load the model located in the
+                                <code>mda/src/uml</code>.
+                            </li>
+                            <li>
+                                The AndroMDA plugins (cartridges, and translation-libraries)
+                                declared within the mda/project.xml file let AndroMDA know exactly
+                                what stuff it needs to generate when processing the model.
+                            </li>
+                            <li>
+                                AndroMDA runs and the files/resources are generated to the locations
+                                defined by the namespace properties within the plugin dependencies.
+                            </li>
+                            <li>
+                                Make sure to also check out the <code>conf/andromda.xml</code> file,
+                                which configures AndroMDA and its components.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        /app
+                        <p>
+                            Contains files required to create the
+                            <strong>ear</strong> bundle.
+                            Typically you will find application deployment descriptors in this
+                            directory, as well as DDL scripts to initialize/drop your schema 
+                            (if you're using hibernate/spring).
+                        </p>
+                    </li>
+                    <li>
+                        /common
+                        <p>
+                            Contains common sources that can be shared between the different
+                            modules in the project. Typically you will find utility classes
+                            in this directory.
+                        </p>
+                    </li>
+                    <li>
+                        /core
+                        <p>
+                            Contains the persistence and business/transaction management layer.
+                            This contains generated source from either the hibernate, spring,
+                            or ejb cartridges.
+                        </p>
+                    </li>
+                    <li>
+                        /web
+                        <p>
+                            Contains sources required to build the presentation layer.
+                        </p>
+                    </li>
+                    <li>
+                        /webservice
+                        <p>
+                            Contains any source, descriptors, or other necessary files
+                            required for webservice support.
+                        </p>
+                    </li>
+                </ul>
             </subsection>
             <subsection name="How do I build the samples?">
                 <p>

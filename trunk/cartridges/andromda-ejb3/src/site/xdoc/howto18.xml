@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo WebService</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="WebService">
@@ -23,7 +24,7 @@
             </p>
             <p>
                 The project generator will add the following properties to your andromda.xml ejb3 namespace.
-<source language="xml"><![CDATA[
+<source><![CDATA[
         <namespace name="ejb3">
             <properties>
                 ...
@@ -51,38 +52,34 @@
                 <code>addUser</code> operation in <code>UserService</code>.
             </p>
             <p>
-                <img src="images/org/andromda/test/18/a/uml.gif"/>
+                <img src="images/org/andromda/test/18/a/uml.gif" alt="images/org/andromda/test/18/a/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/User.java"><code>User.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDao.java"><code>UserDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoBase.java"><code>UserDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoImpl.java"><code>UserDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoException.java"><code>UserDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceBase.java"><code>UserEndPointServiceBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceBean.java"><code>UserEndPointServiceBean.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceRemote.java"><code>UserEndPointServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceDelegate.java"><code>UserEndPointServiceDelegate.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceException.java"><code>UserEndPointServiceException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceWSInterface.java"><code>UserEndPointServiceWSInterface.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceBase.java"><code>UserServiceBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceBean.java"><code>UserServiceBean.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceRemote.java"><code>UserServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceDelegate.java"><code>UserServiceDelegate.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceException.java"><code>UserServiceException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceWSInterface.java"><code>UserServiceWSInterface.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserException.java"><code>UserException.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/User.java"><code>User.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDao.java"><code>UserDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoBase.java"><code>UserDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoImpl.java"><code>UserDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserDaoException.java"><code>UserDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceBase.java"><code>UserEndPointServiceBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceBean.java"><code>UserEndPointServiceBean.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceRemote.java"><code>UserEndPointServiceRemote.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceDelegate.java"><code>UserEndPointServiceDelegate.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceException.java"><code>UserEndPointServiceException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserEndPointServiceWSInterface.java"><code>UserEndPointServiceWSInterface.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceBase.java"><code>UserServiceBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceBean.java"><code>UserServiceBean.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceRemote.java"><code>UserServiceRemote.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceDelegate.java"><code>UserServiceDelegate.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceException.java"><code>UserServiceException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserServiceWSInterface.java"><code>UserServiceWSInterface.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto18/a/UserException.java"><code>UserException.java</code></a></li>
+            </ul>
             <p>
                 The <code>UserServiceBean</code> and <code>UserEndPointServiceBean</code> implementations
                 contain the <code>@WebService</code>
@@ -103,7 +100,7 @@
                     <code>jaxrpc-mapping.xml</code>.  The config below assumes JBoss is running
                     on the localhost and you have deployed your project exposing web service endpoints on
                     the location specified below.
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <configuration xmlns="http://www.jboss.org/jbossws-tools">
     <wsdlToJava wsdlLocation="http://localhost:8080/howtomodel-ws/services/UserService?wsdl">
         <mapping fileName="jaxrpc-mapping.xml"/>
@@ -156,13 +153,13 @@ port.process(user");
                 <p>
                     Currently, the following tags are not available in the WebService profile;
                     therefore, you must add them to your model if you wish to use them.
-                    <ul>
-                        <li><a href="profile.html#@andromda.webservice.parameter.style">@andromda.webservice.parameter.style</a></li>
-                        <li><a href="profile.html#@andromda.webservice.parameter.oneway">@andromda.webservice.operation.oneway</a></li>
-                        <li><a href="profile.html#@andromda.webservice.parameter.name">@andromda.webservice.operation.name</a></li>
-                        <li><a href="profile.html#@andromda.webservice.parameter.result.name">@andromda.webservice.operation.result.name</a></li>
-                    </ul>
                 </p>
+                <ul>
+                    <li><a href="profile.html#@andromda.webservice.parameter.style">@andromda.webservice.parameter.style</a></li>
+                    <li><a href="profile.html#@andromda.webservice.parameter.oneway">@andromda.webservice.operation.oneway</a></li>
+                    <li><a href="profile.html#@andromda.webservice.parameter.name">@andromda.webservice.operation.name</a></li>
+                    <li><a href="profile.html#@andromda.webservice.parameter.result.name">@andromda.webservice.operation.result.name</a></li>
+                </ul>
             </subsection>
         </section>
         <section name="Next">

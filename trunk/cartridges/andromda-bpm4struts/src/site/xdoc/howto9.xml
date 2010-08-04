@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Other Content</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -20,13 +21,13 @@
                 care of the HTTP response.
             </p>
             <p>
-                <img src="howto/org/andromda/test/other-content.gif"/>
+                <img src="howto/org/andromda/test/other-content.gif" alt="howto/org/andromda/test/other-content.gif"/>
             </p>
             <p>
                 Notice how the action state without any outgoing transitions is deferring to a controller operation.
                 The code you execute in this operation could look like this:
             </p>
-<source language="java"><!--
+<source><!--
 public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse response) throws Exception
 {
     final byte[] imageBytes = getUserService().getPicture(form.getUserId());
@@ -41,7 +42,7 @@ public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse re
                 content which is controlled by you. The most interesting way of calling this action is by doing
                 something like this:
             </p>
-<source language="xml"><!--
+<source><!--
 ...
     <html:img action="/MyUseCase/ShowUserDetailsShowUserPicture" ... />
 ...

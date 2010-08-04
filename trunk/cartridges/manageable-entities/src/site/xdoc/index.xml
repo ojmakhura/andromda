@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Manageable Entities - Introduction</title>
-        <gennews>no</gennews>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <!--gennews>no</gennews-->
     </properties>
 
     <body>
@@ -18,7 +19,7 @@
                 updating and deleting.
             </p>
             <p class="highlight">
-                Please NOTE that the manageable entites feature <strong>MUST</strong> use the 
+                Please NOTE that the manageable entities feature <strong>MUST</strong> use the 
                 <a href="../andromda-spring-cartridge/index.html">Spring Cartridge</a>
                 in order to take advantage of data access object(DAO) feature of Spring.
             </p>
@@ -34,38 +35,36 @@
                 AndroMDA supports this, and can generate the complete set of required files and resources as to be
                 able to manage the entities. Here's what's currently supported:
             </p>
+            <ol>
+                <li>Inserting new data (create)</li>
+                <li>Searching for data based on any of the entity's attributes and associations (read)</li>
+                <li>Updating existing data (update)</li>
+                <li>Binary data can be uploaded and downloaded</li>
+                <li>Data can be exported to Excel, CSV, XML and PDF</li>
+                <li>Deleting data, possibly many at once (delete)</li>
+                <li>Hide database specific details from the user, such as auto-generated identifiers or entire
+                    columns</li>
+                <li>Easily switch to another entity</li>
+                <li>Easily switch to an entity referred to by the current entity</li>
+                <li>Easily switch to an entity refering to the current entity</li>
+                <li>Allowing actors to be associated to an entity when <code>security</code> has been enabled,
+                    this will authenticate only those users with the corresponding role</li>
+                <li>Fetched records are pageable</li>
+                <li>Fetched records are sortable</li>
+                <li>Generated code easily integrates into an existing AndroMDA generated application by
+                    making use of the same stylesheets and XML deployment descriptors</li>
+                <li>Generated code is optimized for performance; since the only thing it needs to do is very
+                    straightforward it has been stripped of all generic overhead so that only the minimum set
+                    of objects is created, a minimal set of SQL queries are executed (there's still room for
+                    improvement though, and will be optimized even more in the future)</li>
+                <li>The generated pages are internationalized and translation should be as simple as
+                    adding a new resource bundle</li>
+                <li>No manual coding is required: you run AndroMDA on your model and you deploy</li>
+                <li>Tuning the generation process can be done by means of namespace properties and tagged
+                    values</li>
+            </ol>
             <p>
-                <ol>
-                    <li>Inserting new data (create)</li>
-                    <li>Searching for data based on any of the entity's attributes and associations (read)</li>
-                    <li>Updating existing data (update)</li>
-                    <li>Binary data can be uploaded and downloaded</li>
-                    <li>Data can be exported to Excel, CSV, XML and PDF</li>
-                    <li>Deleting data, possibly many at once (delete)</li>
-                    <li>Hide database specific details from the user, such as auto-generated identifiers or entire
-                        columns</li>
-                    <li>Easily switch to another entity</li>
-                    <li>Easily switch to an entity referred to by the current entity</li>
-                    <li>Easily switch to an entity refering to the current entity</li>
-                    <li>Allowing actors to be associated to an entity when <code>security</code> has been enabled,
-                        this will authenticate only those users with the corresponding role</li>
-                    <li>Fetched records are pageable</li>
-                    <li>Fetched records are sortable</li>
-                    <li>Generated code easily integrates into an existing AndroMDA generated application by
-                        making use of the same stylesheets and XML deployment descriptors</li>
-                    <li>Generated code is optimized for performance; since the only thing it needs to do is very
-                        straightforward it has been stripped of all generic overhead so that only the minimum set
-                        of objects is created, a minimal set of SQL queries are executed (there's still room for
-                        improvement though, and will be optimized even more in the future)</li>
-                    <li>The generated pages are internationalized and translation should be as simple as
-                        adding a new resource bundle</li>
-                    <li>No manual coding is required: you run AndroMDA on your model and you deploy</li>
-                    <li>Tuning the generation process can be done by means of namespace properties and tagged
-                        values</li>
-                </ol>
-            </p>
-            <p>
-                <img src="images/crud-thumb.gif"/>
+                <img src="images/crud-thumb.gif" alt="images/crud-thumb.gif"/>
                 <a href="images/crud-screen.gif">(Larger View)</a>
             </p>
             <p>
@@ -120,7 +119,7 @@
             </p>
             <p>
                 Make sure the bpm4struts cartridge knows how to call the back-end, set this namespace property:
-                <code><manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern></code>.
+                <![CDATA[<code><manageableServiceAccessorPattern>]]>${pom.package}.ManageableServiceLocator.instance().get{1}()<![CDATA[</manageableServiceAccessorPattern></code>]]>.
                 (when not using EJB session beans, this feature's compatibility has not yet been fully tested with
                 EJBs enabled)
             </p>
