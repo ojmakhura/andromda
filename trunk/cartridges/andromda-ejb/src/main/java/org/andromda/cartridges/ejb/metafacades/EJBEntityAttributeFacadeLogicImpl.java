@@ -34,7 +34,7 @@ public class EJBEntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
      */
-    public java.lang.String getGetterName()
+    public String getGetterName()
     {
         return "get" + StringUtils.capitalize(super.getName());
     }

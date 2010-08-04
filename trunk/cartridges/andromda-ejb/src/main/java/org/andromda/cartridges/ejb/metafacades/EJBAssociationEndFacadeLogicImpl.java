@@ -13,7 +13,7 @@ public class EJBAssociationEndFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJBAssociationEndFacadeLogicImpl(java.lang.Object metaObject, String context)
+    public EJBAssociationEndFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

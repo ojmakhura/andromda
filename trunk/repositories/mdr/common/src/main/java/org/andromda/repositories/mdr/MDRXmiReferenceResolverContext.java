@@ -2,23 +2,18 @@ package org.andromda.repositories.mdr;
 
 import java.io.File;
 import java.io.InputStream;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-
 import javax.jmi.reflect.RefPackage;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.netbeans.api.xmi.XMIInputConfig;
 import org.netbeans.lib.jmi.xmi.XmiContext;
-
 
 /**
  * This class supports the expansion of XML HREF references to other modules within a model. The result of the resolver
@@ -52,7 +47,7 @@ public class MDRXmiReferenceResolverContext
     }
 
     /**
-     * @see org.netbeans.lib.jmi.xmi.XmiContext#toURL(java.lang.String)
+     * @see org.netbeans.lib.jmi.xmi.XmiContext#toURL(String)
      */
     public URL toURL(final String systemId)
     {
@@ -154,7 +149,7 @@ public class MDRXmiReferenceResolverContext
                             }
                             catch (final MalformedURLException exception)
                             {
-                                // ignore 
+                                // ignore
                             }
                         }
                     }

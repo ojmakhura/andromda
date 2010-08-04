@@ -25,7 +25,6 @@ import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Represents an AndroMDApp type (j2ee, .net, etc).
  *
@@ -897,7 +896,7 @@ public class AndroMDAppType
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

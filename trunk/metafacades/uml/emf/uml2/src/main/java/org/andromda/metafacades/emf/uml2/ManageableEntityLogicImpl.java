@@ -632,7 +632,7 @@ public class ManageableEntityLogicImpl
         implements Comparator
     {
         /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         * @see java.util.Comparator#compare(Object, Object)
          */
         public int compare(
             final Object left,

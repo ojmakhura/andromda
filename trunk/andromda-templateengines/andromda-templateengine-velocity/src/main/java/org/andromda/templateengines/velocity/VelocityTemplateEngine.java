@@ -1,5 +1,17 @@
 package org.andromda.templateengines.velocity;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ExceptionUtils;
@@ -22,18 +34,6 @@ import org.apache.velocity.runtime.log.Log4JLogChute;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.apache.velocity.tools.generic.EscapeTool;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * The TemplateEngine implementation for VelocityTemplateEngine template processor.
@@ -107,7 +107,7 @@ public class VelocityTemplateEngine
     /**
      * Initialized the engine
      * @param namespace
-     * @throws Exception 
+     * @throws Exception
      * @see org.andromda.core.templateengine.TemplateEngine#initialize(String)
      */
     public void initialize(final String namespace)
@@ -135,7 +135,7 @@ public class VelocityTemplateEngine
 
         // Configure Velocity logger
         engineProperties.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
-              "org.apache.velocity.runtime.log.Log4JLogChute" );                                    
+              "org.apache.velocity.runtime.log.Log4JLogChute" );
         engineProperties.setProperty(Log4JLogChute.RUNTIME_LOG_LOG4J_LOGGER, logger.getName());
 
         // Let this template engine know about the macro libraries.
@@ -231,7 +231,7 @@ public class VelocityTemplateEngine
         {
             template = this.velocityEngine.getTemplate(templateFile);
 
-            // We check to see if the namespace requires a merge, and if so 
+            // We check to see if the namespace requires a merge, and if so
             final Merger merger = Merger.instance();
             if (merger.requiresMerge(this.namespace))
             {
@@ -247,17 +247,17 @@ public class VelocityTemplateEngine
         }
         template.merge(velocityContext, output);
     }
-    
+
     /**
-     * Loads the internal {@link #velocityContext} from the 
+     * Loads the internal {@link #velocityContext} from the
      * given Map of template objects.
-     * 
+     *
      * @param templateObjects Map containing objects to add to the template context.
      */
     private void loadVelocityContext(final Map<String, Object> templateObjects)
     {
         if (templateObjects != null)
-        {    
+        {
             // copy the templateObjects to the velocityContext
             for (Map.Entry<String, Object> entry : templateObjects.entrySet())
             {
@@ -295,9 +295,9 @@ public class VelocityTemplateEngine
      * The log tag used for evaluation (this can be any abitrary name).
      */
     private static final String LOG_TAG = "logtag";
-    
+
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(String, java.util.Map)
      */
     public String getEvaluatedExpression(final String expression, final Map<String, Object> templateObjects)
     {
@@ -310,7 +310,7 @@ public class VelocityTemplateEngine
                 this.velocityContext = new VelocityContext();
                 this.loadVelocityContext(templateObjects);
             }
-            
+
             try
             {
                 final StringWriter writer = new StringWriter();
@@ -334,7 +334,7 @@ public class VelocityTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#addMacroLibrary(String)
      */
     public void addMacroLibrary(String libraryName)
     {
@@ -342,7 +342,7 @@ public class VelocityTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#setMergeLocation(String)
      */
     public void setMergeLocation(String mergeLocation)
     {
@@ -364,7 +364,7 @@ public class VelocityTemplateEngine
             logger.removeAppender(appender);
         }
     }
-        
+
     /**
      * Opens a log file for this namespace.
      *

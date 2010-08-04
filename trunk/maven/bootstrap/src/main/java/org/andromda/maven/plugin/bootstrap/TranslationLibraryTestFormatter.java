@@ -36,7 +36,7 @@ public class TranslationLibraryTestFormatter
     private PrintWriter reportWriter;
 
     /**
-     * 
+     *
      */
     public TranslationLibraryTestFormatter()
     {
@@ -61,7 +61,7 @@ public class TranslationLibraryTestFormatter
     private int numberOfErrors = 0;
 
     /**
-     * @see junit.framework.TestListener#addError(junit.framework.Test, java.lang.Throwable)
+     * @see junit.framework.TestListener#addError(junit.framework.Test, Throwable)
      */
     public void addError(
         Test test,
@@ -123,7 +123,7 @@ public class TranslationLibraryTestFormatter
 
     /**
      * The testsuite started.
-     * @param name 
+     * @param name
      */
     public void startTestSuite(final String name)
     {

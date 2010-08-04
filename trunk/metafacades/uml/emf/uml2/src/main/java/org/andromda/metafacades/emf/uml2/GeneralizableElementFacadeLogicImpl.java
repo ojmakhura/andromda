@@ -139,7 +139,7 @@ public class GeneralizableElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.emf.uml2.GeneralizableElementFacadeLogic#handleFindTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.emf.uml2.GeneralizableElementFacadeLogic#handleFindTaggedValue(String, boolean)
      */
     @SuppressWarnings("null")
     @Override

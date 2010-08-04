@@ -2,7 +2,6 @@ package org.andromda.core.namespace;
 
 import java.net.URL;
 
-
 /**
  * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.
  *
@@ -17,7 +16,7 @@ public abstract class BaseNamespaceComponent
     private String namespace;
 
     /**
-     * @see org.andromda.core.namespace.NamespaceComponent#setNamespace(java.lang.String)
+     * @see org.andromda.core.namespace.NamespaceComponent#setNamespace(String)
      */
     public void setNamespace(final String namespace)
     {

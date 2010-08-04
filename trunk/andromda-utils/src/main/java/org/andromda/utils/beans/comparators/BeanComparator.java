@@ -75,7 +75,7 @@ public class BeanComparator
     private boolean assignableTypes = false;
 
     /**
-     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     * @see java.util.Comparator#compare(Object, Object)
      */
     public int compare(
         final Object objectA,

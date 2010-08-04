@@ -16,7 +16,7 @@ public class EJBPrimaryKeyFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public EJBPrimaryKeyFacadeLogicImpl(java.lang.Object metaObject, String context)
+    public EJBPrimaryKeyFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

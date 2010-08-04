@@ -1,10 +1,8 @@
 package org.andromda.utils.beans;
 
 import java.util.Collection;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
-
 
 /**
  * Used to contain sort criteria.
@@ -189,7 +187,7 @@ public class SortCriteria
         }
 
         /**
-         * @see java.lang.Object#toString()
+         * @see Object#toString()
          */
         public String toString()
         {

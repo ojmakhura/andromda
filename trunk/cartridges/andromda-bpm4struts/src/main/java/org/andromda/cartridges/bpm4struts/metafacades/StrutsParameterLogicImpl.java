@@ -287,7 +287,7 @@ public class StrutsParameterLogicImpl
      */
     protected String handleGetDocumentationValue()
     {
-        return (!this.isDocumentationPresent()) ? "" : 
+        return (!this.isDocumentationPresent()) ? "" :
             StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 
@@ -338,11 +338,11 @@ public class StrutsParameterLogicImpl
                 .append("target=\"_jdk\">");
             buffer.append(dateFormat).append("</a> ");
 
-            if (isStrictDateFormat()) 
-            { 
+            if (isStrictDateFormat())
+            {
                 buffer.append("This format is strict in the sense that the parser will not use any heuristics in ")
                 .append("order to guess the intended date in case the input would not perfectly match the format");
-            } 
+            }
             else
             {
                 buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in ")
@@ -559,7 +559,7 @@ public class StrutsParameterLogicImpl
 
     /**
      * Override to not allow selectable parameters to be considered tables.
-     * 
+     *
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#isTable()
      */
     public boolean isTable()
@@ -807,7 +807,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnActions(java.lang.String)
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnActions(String)
      */
     protected List<StrutsAction> handleGetTableColumnActions(final String columnName)
     {
@@ -841,7 +841,7 @@ public class StrutsParameterLogicImpl
 
     /**
      * Overridden since StrutsAction doesn't extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
     public Collection getTableColumns()
@@ -927,7 +927,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageKey(java.lang.String)
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageKey(String)
      */
     protected String handleGetTableColumnMessageKey(String columnName)
     {
@@ -954,7 +954,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageValue(java.lang.String)
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleGetTableColumnMessageValue(String)
      */
     protected String handleGetTableColumnMessageValue(String columnName)
     {
@@ -1290,7 +1290,7 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsStrictDateFormat()
     {
         final String format = this.getValidatorFormat();
-        return format == null 
+        return format == null
             ? Bpm4StrutsUtils.isTrue((String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_STRICT_DATETIMEFORMAT))
             : this.isStrictDateFormat(format);
     }
@@ -1435,7 +1435,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @param validatorType 
+     * @param validatorType
      * @return ${var: + value}
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(String)
      */

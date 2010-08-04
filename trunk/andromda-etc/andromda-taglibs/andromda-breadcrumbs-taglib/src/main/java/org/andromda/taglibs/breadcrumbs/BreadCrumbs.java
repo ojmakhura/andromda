@@ -16,7 +16,7 @@ public class BreadCrumbs extends LinkedList
     private int maxSize = -1;
 
     /**
-     * 
+     *
      */
     public BreadCrumbs()
     {
@@ -71,7 +71,7 @@ public class BreadCrumbs extends LinkedList
     }
 
     /**
-     * @see LinkedList#add(int, java.lang.Object)
+     * @see LinkedList#add(int, Object)
      */
     public void add(int index, Object element)
     {
@@ -80,7 +80,7 @@ public class BreadCrumbs extends LinkedList
     }
 
     /**
-     * @see LinkedList#add(java.lang.Object)
+     * @see LinkedList#add(Object)
      */
     public boolean add(Object element)
     {
@@ -90,7 +90,7 @@ public class BreadCrumbs extends LinkedList
     }
 
     /**
-     * @see LinkedList#addFirst(java.lang.Object)
+     * @see LinkedList#addFirst(Object)
      */
     public void addFirst(Object element)
     {
@@ -99,7 +99,7 @@ public class BreadCrumbs extends LinkedList
     }
 
     /**
-     * @see LinkedList#addLast(java.lang.Object)
+     * @see LinkedList#addLast(Object)
      */
     public void addLast(Object element)
     {

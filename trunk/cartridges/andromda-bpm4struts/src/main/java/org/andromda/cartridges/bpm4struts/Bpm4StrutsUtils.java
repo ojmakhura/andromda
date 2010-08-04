@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Contains utilities for bpm4struts.
  *
@@ -271,7 +270,7 @@ public final class Bpm4StrutsUtils
     {
         private static final long serialVersionUID = 1L;
         /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         * @see java.util.Comparator#compare(Object, Object)
          */
         public int compare(
             Object left,

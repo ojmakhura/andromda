@@ -2,11 +2,9 @@ package org.andromda.core.translation.library;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
 
 /**
  * A Translation "fragment" of a translation file. This fragment belongs to a Translation object.
@@ -157,7 +155,7 @@ public class Fragment
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

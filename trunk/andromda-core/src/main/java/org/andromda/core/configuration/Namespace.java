@@ -1,12 +1,10 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 
 /**
  * A configurable namespace object. These are passed to Plugin instances (Cartridges, etc.).
@@ -106,7 +104,7 @@ public class Namespace
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

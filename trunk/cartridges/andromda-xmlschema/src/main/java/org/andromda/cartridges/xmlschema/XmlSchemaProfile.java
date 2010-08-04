@@ -3,7 +3,6 @@ package org.andromda.cartridges.xmlschema;
 import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * <p>
  * The XML Schema cartridge profile. Contains the profile information (tagged values, and stereotypes) for the XML
@@ -23,7 +22,7 @@ public class XmlSchemaProfile
      * <p>
      * Represents a complex element type. </p>
      */
-    public static final java.lang.String STEREOTYPE_XML_SCHEMA_TYPE = profile.get("XML_SCHEMA_TYPE");
+    public static final String STEREOTYPE_XML_SCHEMA_TYPE = profile.get("XML_SCHEMA_TYPE");
 
     /* ---------------- Tagged Values ------------------- */
 
@@ -33,7 +32,7 @@ public class XmlSchemaProfile
      * its either false, or not defined, then it will be assumed that the UML attribute should be represented as an XML
      * Schema element instead. </p>
      */
-    public static final java.lang.String STEREOTYPE_XML_ATTRIBUTE = profile.get("XML_ATTRIBUTE");
+    public static final String STEREOTYPE_XML_ATTRIBUTE = profile.get("XML_ATTRIBUTE");
 
     /**
      * Shouldn't be instantiated.

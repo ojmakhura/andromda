@@ -2,10 +2,8 @@ package org.andromda.metafacades.uml;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-
 
 /**
  * Filters a collection of objects so that the collection contains only those
@@ -34,7 +32,7 @@ public abstract class FilteredCollection
     }
 
     /**
-     * @see org.apache.commons.collections.Predicate#evaluate(java.lang.Object)
+     * @see org.apache.commons.collections.Predicate#evaluate(Object)
      */
     public abstract boolean evaluate(Object object);
 }

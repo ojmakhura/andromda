@@ -274,7 +274,7 @@ public abstract class BasePlugin
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {
