@@ -433,7 +433,7 @@
             <element name="SEAM_COMPONENT">
                 <documentation>
                     Indicates this bean is a Seam component object.  This
-                    must be set before anything else is modelled on the class.
+                    must be set before anything else is modeled on the class.
                 </documentation>
                 <value>Seam</value>
                 <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
@@ -1348,7 +1348,7 @@
 					This can be set on the session bean or on
 					individual operations.
 					If set on the session bean, all operations will
-					inherit this behaviour.
+					inherit this behavior.
 					The permit all tagged value will override
 					the roles allowed.  If both are set, only the
 					permit all tagged value is rendered.
@@ -1371,7 +1371,7 @@
 					This can be set on the session bean or on
 					individual operations.
 					If set on the session bean, all operations will
-					inherit this behaviour.
+					inherit this behavior.
 					The deny all tagged value will override
 					the roles allowed.  If both are set, only the
 					deny all tagged value is rendered.
@@ -1432,7 +1432,7 @@
 			</element>
 			<element name="DEFAULT_INTERCEPTOR">
 			    <documentation>
-			        Defines the modelled interceptor as a default 
+			        Defines the modeled interceptor as a default 
 			        interceptor for all business methods of all 
 			        session and message driven beans within this 
 			        deployment.
