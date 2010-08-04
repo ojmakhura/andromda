@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - TestNG with JBoss Embeddable EJB3 Microcontainer</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="TestNG with JBoss Embeddable EJB3 Microcontainer">
@@ -53,29 +54,25 @@
                 <p>
                     The following are typical testing configuration files generated for an <i>ejb3</i> project.
                 </p>
-                <p>
-                    <ul>
-                        <li class="gen">Auto-generated source that does not need manual editing</li>
-                        <li class="impl">Auto-generated source that should be edited manually</li>
-                        <li class="changed">File that is affected by the modifications applied in this section</li>
-                    </ul>
-                </p>
-                <p>
-                    <ul>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/default.persistence.properties"><code>default.persistence.properties</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/ejb3-interceptors-aop.xml"><code>ejb3-interceptors-aop.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/embedded-jboss-beans.xml"><code>embedded-jboss-beans.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/jboss-jms-beans.xml"><code>jboss-jms-beans.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/jndi.properties"><code>jndi.properties</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/log4j.xml"><code>log4j.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/login-config.xml"><code>login-config.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/security-beans.xml"><code>security-beans.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/roles.properties"><code>roles.properties</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/users.properties"><code>users.properties</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/testng.xml"><code>testng.xml</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/testjms.xml"><code>testjms.xml</code></a></li>
-                    </ul>
-                </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/default.persistence.properties"><code>default.persistence.properties</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/ejb3-interceptors-aop.xml"><code>ejb3-interceptors-aop.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/embedded-jboss-beans.xml"><code>embedded-jboss-beans.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/jboss-jms-beans.xml"><code>jboss-jms-beans.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/jndi.properties"><code>jndi.properties</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/log4j.xml"><code>log4j.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/login-config.xml"><code>login-config.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/security-beans.xml"><code>security-beans.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/roles.properties"><code>roles.properties</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/users.properties"><code>users.properties</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/testng.xml"><code>testng.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/testjms.xml"><code>testjms.xml</code></a></li>
+                </ul>
                 <p>
                     When you first run <i>mvn</i> over your project, the cartridge will generate all the
                     JBoss Embeddable container configuration files in <code>core/src/test/resources</code>.
@@ -112,7 +109,7 @@
                     must then copy the last <code>application-policy</code> section of the <code>login-config.xml</code>
                     and change the name property to your <code>application.id</code>.  If your project application id
                     name is <b>howtomodel</b>, the <code>login-config.xml</code> should contain the following:
-<source language="xml"><![CDATA[
+<source><![CDATA[
   <application-policy name="howtomodel">
     <authentication>
       <login-module code="org.jboss.security.auth.spi.UsersRolesLoginModule"

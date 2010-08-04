@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Developing a Translation-Library</title>
     </properties>
@@ -134,23 +135,23 @@
                             to
                             that directory and take a look at what has been generated (the following table shows what
                             you'll find):
-                            <ul>
-                                <li>
-                                    <strong>IMPORTANT:</strong>
-                                    each one of the resources that is generated at once by the
-                                    maven
-                                    <em>translation-library:generate</em>
-                                    goal can be generated seperately (you
-                                    may want to do this after you've started working on your Translation-Library, if you
-                                    want to add a new Translation, Translator, etc.). Please see the
-                                    <a href="../andromda-maven-plugins/andromda-translation-library-plugin/goals.html">
-                                        AndroMDA Translation-Library Plugin
-                                    </a>
-                                    documentation
-                                    for more information.
-                                </li>
-                            </ul>
                         </p>
+                        <ul>
+                            <li>
+                                <strong>IMPORTANT:</strong>
+                                each one of the resources that is generated at once by the
+                                maven
+                                <em>translation-library:generate</em>
+                                goal can be generated separately (you
+                                may want to do this after you've started working on your Translation-Library, if you
+                                want to add a new Translation, Translator, etc.). Please see the
+                                <a href="../andromda-maven-plugins/andromda-translation-library-plugin/goals.html">
+                                    AndroMDA Translation-Library Plugin
+                                </a>
+                                documentation
+                                for more information.
+                            </li>
+                        </ul>
                         <code>cd constraint</code>
                         <table>
                             <tr>
@@ -230,9 +231,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <a name="#constraintTranslator"/>
+                                
                                 <td>
-                                    src/java/org/andromda/translation/constraint/ConstraintTranslator.java
+                                    <a href="#constraintTranslator">src/java/org/andromda/translation/constraint/ConstraintTranslator.java</a>
                                 </td>
                                 <td>
                                     This is the java
@@ -322,24 +323,24 @@
                             </code>
                             mailing list, because something obviously isn't right. If all the previous steps have
                             succeeded, you're
-                            ready to start developing, congradulations! Go on to the next section
+                            ready to start developing, congratulations! Go on to the next section
                             <a href="#developingTranslationLibrary">Adding Translation Capabilities to your
                                 Translation-Library</a>.
-                            <ul>
-                                <li>
-                                    <strong>NOTE:</strong>
-                                    If you're using
-                                    <a href="http://www.eclipse.org">Eclipse</a>
-                                    as your IDE you can execute the default
-                                    <a href="http://maven.apache.org/reference/plugins/eclipse/">Eclipse plugin</a>
-                                    goal:
-                                    <em>'maven eclipse'</em>
-                                    within your Translation-Library directory and this will generate the
-                                    necessary files for you to import your Translation-Library directory as an Eclipse
-                                    project.
-                                </li>
-                            </ul>
                         </p>
+                        <ul>
+                            <li>
+                                <strong>NOTE:</strong>
+                                If you're using
+                                <a href="http://www.eclipse.org">Eclipse</a>
+                                as your IDE you can execute the default
+                                <a href="http://maven.apache.org/reference/plugins/eclipse/">Eclipse plugin</a>
+                                goal:
+                                <em>'maven eclipse'</em>
+                                within your Translation-Library directory and this will generate the
+                                necessary files for you to import your Translation-Library directory as an Eclipse
+                                project.
+                            </li>
+                        </ul>
                     </li>
                 </ol>
             </subsection>
@@ -360,7 +361,7 @@
                             that expresses "within all LegalAgreements, documentTitle must be unique".
                         </p>
                         <a name="constraintExpression"/>
-                        <source language="xml">
+                        <source>
                             <![CDATA[
 <expression>
     <from>
@@ -548,7 +549,7 @@
                             <a href="../andromda-core/apidocs/org/andromda/core/translation/BaseTranslator.html#handleTranslationFragment(org.andromda.core.parser.node.Node)">
                                 handleTranslationFragment(Node node)</a>.
                             Like so:
-                            <source language="java">
+                            <source>
                                 <![CDATA[
 package org.andromda.translation.constraint;
 
@@ -663,7 +664,7 @@ public class ConstraintTranslator
                                 <a href="descriptor-schema.html">descriptor</a>.
                             </li>
                         </ul>
-                        <source language="xml">
+                        <source>
                             <![CDATA[
 <!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->	
 <fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
@@ -683,7 +684,7 @@ public class ConstraintTranslator
                             kind
                             element from the previous step) to the expression being translated.
                         </p>
-                        <source language="java">
+                        <source>
                             <![CDATA[
 package org.andromda.translation.constraint;
 
@@ -765,7 +766,7 @@ public class ConstraintTranslator
                             add some content to the <![CDATA[<to/>]]> element body. What we are adding is
                             what the 'from' element should be translated 'to' in Oracle SQL:
                         </p>
-                        <source language="xml">
+                        <source>
                             <![CDATA[
 <expression>
     <from>
@@ -813,72 +814,72 @@ public class ConstraintTranslator
                     goal) by repeating the steps above. To summarize
                     you'll repeat the following steps over and over again until you have the translator
                     and translations supporting the language you want.
-                    <ol>
-                        <strong>
-                            <em>Summary of Steps:</em>
-                        </strong>
-                        <li>
-                            <a href="#generatingTranslationLibrary">Generate</a>
-                            a Translation-Library if you don't have one.
-                        </li>
-                        <li>
-                            Add an OCL expression to a
-                            <a href="#constraintExpression"><![CDATA[<from/>]]></a>
-                            element
-                            in your translation test file (Add another <![CDATA[<expression/>]]> element to your test
-                            file if
-                            you already have one being used for a different test, take a look at the
-                            <a href="translation-test-schema.html">schema</a>
-                            for what a
-                            <em>TranslationTest-*.xml</em>
-                            can contain).
-                        </li>
-                        <li>
-                            Execute the translation test with command
-                            <a href="#executeTranslationTestWithTrace">maven translation-library:test -Dtrace=true</a>
-                            and decide what parser generated method you need to override in your
-                            <a href="#constraintTranslator">Translator</a>
-                            to handle a fragment of the expression: .
-                        </li>
-                        <li>
-                            Override the
-                            <a href="#overridingParserGeneratedMethod">parser generated method</a>
-                            and provide the method to handle a translation fragment.
-                        </li>
-                        <li>
-                            Edit your translation template and fill in
-                            the name, handlerMethod, kind name and kind body to your
-                            <a href="#editingTranslationFragment">translation fragment</a>
-                            (or add another fragment
-                            if you already have the first generated fragment defined, see the
-                            <a href="translation-schema.html">schema</a>
-                            for more information) .
-                        </li>
-                        <li>
-                            Add the
-                            <a href="#addingHandlerMethodToTranslator">handlerMethod</a>
-                            from the translation
-                            fragment (from previous step) to your<a href="#constraintTranslator">Translator</a>.
-                        </li>
-                        <li>
-                            Add the expected translated output to your translation test file as the body
-                            of the
-                            <a href="#addExpectedTranslatedValue"><![CDATA[<to/>]]></a>
-                            element.
-                        </li>
-                        <li>
-                            Execute the translation test with command
-                            <a href="#executeTranslationTestWithTrace">maven translation-library:test</a>
-                            and see if the expressions equal each other and if the tests pass.
-                        </li>
-                        <li>
-                            Repeat steps
-                            <strong>2 - 8</strong>
-                            until you have the translator and translations
-                            supporting the language you want.
-                        </li>
-                    </ol>
                 </p>
+                    <strong>
+                        <em>Summary of Steps:</em>
+                    </strong>
+                <ol>
+                    <li>
+                        <a href="#generatingTranslationLibrary">Generate</a>
+                        a Translation-Library if you don't have one.
+                    </li>
+                    <li>
+                        Add an OCL expression to a
+                        <a href="#constraintExpression"><![CDATA[<from/>]]></a>
+                        element
+                        in your translation test file (Add another <![CDATA[<expression/>]]> element to your test
+                        file if
+                        you already have one being used for a different test, take a look at the
+                        <a href="translation-test-schema.html">schema</a>
+                        for what a
+                        <em>TranslationTest-*.xml</em>
+                        can contain).
+                    </li>
+                    <li>
+                        Execute the translation test with command
+                        <a href="#executeTranslationTestWithTrace">maven translation-library:test -Dtrace=true</a>
+                        and decide what parser generated method you need to override in your
+                        <a href="#constraintTranslator">Translator</a>
+                        to handle a fragment of the expression: .
+                    </li>
+                    <li>
+                        Override the
+                        <a href="#overridingParserGeneratedMethod">parser generated method</a>
+                        and provide the method to handle a translation fragment.
+                    </li>
+                    <li>
+                        Edit your translation template and fill in
+                        the name, handlerMethod, kind name and kind body to your
+                        <a href="#editingTranslationFragment">translation fragment</a>
+                        (or add another fragment
+                        if you already have the first generated fragment defined, see the
+                        <a href="translation-schema.html">schema</a>
+                        for more information) .
+                    </li>
+                    <li>
+                        Add the
+                        <a href="#addingHandlerMethodToTranslator">handlerMethod</a>
+                        from the translation
+                        fragment (from previous step) to your<a href="#constraintTranslator">Translator</a>.
+                    </li>
+                    <li>
+                        Add the expected translated output to your translation test file as the body
+                        of the
+                        <a href="#addExpectedTranslatedValue"><![CDATA[<to/>]]></a>
+                        element.
+                    </li>
+                    <li>
+                        Execute the translation test with command
+                        <a href="#executeTranslationTestWithTrace">maven translation-library:test</a>
+                        and see if the expressions equal each other and if the tests pass.
+                    </li>
+                    <li>
+                        Repeat steps
+                        <strong>2 - 8</strong>
+                        until you have the translator and translations
+                        supporting the language you want.
+                    </li>
+                </ol>
                 <ul>
                     <li>
                         <strong>NOTE:</strong>

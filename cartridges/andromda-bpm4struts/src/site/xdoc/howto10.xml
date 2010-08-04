@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - i18n</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -43,7 +44,7 @@
                     In order to render labels from this bundle you will need to write something like this
                     (replace <code>label.key</code> by the actual properties' key):
                 </p>
-<source language="xml"><![CDATA[
+<source><![CDATA[
     <bean:message key="label.key"/>
 ]]></source>
             </subsection>
@@ -72,7 +73,7 @@
                     Next, tell AndroMDA to merge this file into the generated resource bundle, 
                     it is sufficient to add the following to <code>/mda/src/main/config/mappings/WebMergeMappings.xml</code>:
                 </p>
-<source language="xml"><!--
+<source><!--
     <mapping>
         <from><![CDATA[# custom-messages merge-point]]></from>
         <to>
@@ -123,7 +124,7 @@
                     <a href="samples.html#online-store">online store</a> sample, you're looking at a fragment
                     from the <code>my.onlinestore.purchase.EnterUserDetailsPurchaseForm</code> class.
                 </p>
-<source language="java"><![CDATA[
+<source><![CDATA[
     private final static java.text.DateFormat deliveryDateDateFormatter = new java.text.SimpleDateFormat("dd-MM-yyyy");
 
     /**

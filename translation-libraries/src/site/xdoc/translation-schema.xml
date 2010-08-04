@@ -1,4 +1,5 @@
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Translation Schema</title>
     </properties>
@@ -7,7 +8,7 @@
             <p>
                 Each Translation template must comply with the following XSD Schema:
             </p>
-            <source language="xml">
+            <source>
                 <![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- the translation 'fragment' -->

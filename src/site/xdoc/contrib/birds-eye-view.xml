@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="joel@lighthouse-pmg.com">Joel Kozikowski</author>
         <title>AndroMDA - A bird's eye view</title>
+        <author email="joel@lighthouse-pmg.com">Joel Kozikowski</author>
     </properties>
 
     <body>
@@ -28,12 +29,11 @@
                     output.  Using a series of template files (which you can customize if you wish), AndroMDA can
                     produce source code from a UML model in any programming language.  Default templates exist to
                     generate Java code (and in particular J2EE code).</p>
-                <p>There are two primary components used in the AndroMDA system:
-                    <ol>
-                        <li>The AndroMDA code generation engine.</li>
-                        <li>Apache's Maven project builder and management system.</li>
-                    </ol>
-                </p>
+                <p>There are two primary components used in the AndroMDA system:</p>
+                <ol>
+                    <li>The AndroMDA code generation engine.</li>
+                    <li>Apache's Maven project builder and management system.</li>
+                </ol>
                 <p>The AndroMDA code generator is actually a generic code generation engine. The engine is a platform
                     that hosts code modules (called cartridges) that do the actual code generation.  An AndroMDA
                     cartridge is a collection of source code template files and Java helper classes (called Metafacades)
@@ -81,7 +81,7 @@
                         </b>
                         . This file is where you save your UML model.
                     </li>
-                    <li>Generate code by issuing one of the following commands from your project's root directory:</li>
+                    <li>Generate code by issuing one of the following commands from your project's root directory:
                     <ol>
                         <li>
                             <b>maven mda</b>
@@ -100,7 +100,7 @@
                             <b>maven install</b>
                             )
                         </li>
-                    </ol>
+                    </ol></li>
                     <li>Hand code any methods requiring manual implementation in the source files found in
                         <b>&lt;
                             <i>projectDir</i>
@@ -243,19 +243,15 @@
                     out of the box support for that particular tool).
                 </p>
                 <p class="highlight">
-                    <em>
-                        <p>
-                            Note from the editor: While it is true that AndroMDA works best with MagicDraw there is
-                            no dependency what-so-ever, not in the code, not in any of the transformations. AndroMDA
-                            works fine with other tools such as Poseidon, Aris UML, etc.. Sometimes there's a
-                            restriction due to the poor UML support in certain areas such as activity graphs, but
-                            that's not an AndroMDA problem, it's the tool not properly supporting UML and/or XMI.
-                        </p>
-                        <p>
-                            The AndroMDA team is more than willing to make sure users can use their UML tool
-                            or preference, especially when that tool is open-source or free.
-                        </p>
-                    </em>
+                    <em>Note from the editor: While it is true that AndroMDA works best with MagicDraw there is
+                    no dependency what-so-ever, not in the code, not in any of the transformations. AndroMDA
+                    works fine with other tools such as Poseidon, Aris UML, etc.. Sometimes there's a
+                    restriction due to the poor UML support in certain areas such as activity graphs, but
+                    that's not an AndroMDA problem, it's the tool not properly supporting UML and/or XMI.</em>
+                </p>
+                <p>
+                    <em>The AndroMDA team is more than willing to make sure users can use their UML tool
+                    or preference, especially when that tool is open-source or free.</em>
                 </p>
                 <p>AndroMDA code generation is driven by UML
                     <i>stereotypes</i>
@@ -608,7 +604,7 @@
                         overwrite, we would make the following addition in the andromda.xml file:
                     </li>
                 </ol>
-                <source language="xml"><![CDATA[
+                <source><![CDATA[
 <namespace name="hibernate">
    ...
    <properties>

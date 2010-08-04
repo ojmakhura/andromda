@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   	<properties>
     	<title>AndroMDA Development Maven Plugin Properties</title>
   	</properties>
@@ -39,9 +40,8 @@
                             </p>
                         </td>
                     </tr>
-                    <a name="andromda.cartridge.test.archive"/>
                     <tr>
-                        <td>andromda.cartridge.test.archive</td>
+                        <td><a name="andromda.cartridge.test.archive">andromda.cartridge.test.archive</a></td>
                         <td>                        
                             No, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>
                         </td>
@@ -89,7 +89,7 @@
                     to the <code><![CDATA[<properties/>]]></code> section of the dependency
                     (or else it will be ignored), like the example below.
 				</p>
-				<source language="xml">
+				<source>
                     <![CDATA[
 <dependency>
     <groupId>andromda</groupId>

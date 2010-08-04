@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - Security</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -27,10 +28,10 @@
             </p>
             <p>
                 To facilitate the modeling of the user groups using actors, these actors are allowed to generalize
-                other actors, thereby explicitely inheriting the privileges of the parent actor.
+                other actors, thereby explicitly inheriting the privileges of the parent actor.
             </p>
             <p>
-                <img src="howto/org/andromda/test/security.gif"/>
+                <img src="howto/org/andromda/test/security.gif" alt="howto/org/andromda/test/security.gif"/>
             </p>
             <p class="highlight">
                 Use-cases without any actors associated to them will always be accessible, the application
@@ -80,7 +81,7 @@
                     If you have enabled security the <code>web.xml</code> descriptor will contain sections
                     describing the security on the level of each individual use-case, the use-case and actor
                     relationships shown in the diagram above would yield output like this:
-<source language="xml"><!--
+<source><!--
 <security-constraint>
     <web-resource-collection>
         <web-resource-name>Purchase Items resources</web-resource-name>
@@ -121,7 +122,7 @@
                 </p>
                 <p>
                     And the section describing the roles:
-<source language="xml"><!--
+<source><!--
 <security-role>
     <role-name>admin</role-name>
 </security-role>
@@ -139,7 +140,7 @@
                     A login page will always be generated automatically, but this time it will be presented
                     to you when you are trying to access one of the application's resources, this might be an action,
                     an image, a JSP or anything else which it will try to locate within the application's path.
-<source language="xml"><!--
+<source><!--
 <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>other</realm-name>
@@ -155,7 +156,7 @@
                 <div class="screenshot">
                     <table>
                         <tr>
-                            <td><img src="howto/org/andromda/test/screenshots/thumb5.gif"/></td>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb5.gif" alt="howto/org/andromda/test/screenshots/thumb5.gif"/></td>
                             <td>
                                 <a href="howto/org/andromda/test/screenshots/screen5.gif">(Larger View)</a>
                                 <p>

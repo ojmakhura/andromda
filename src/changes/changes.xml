@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document>
+<!--document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"-->
     <properties>        
         <title>Recent AndroMDA changes</title>
     </properties>
@@ -770,7 +771,7 @@
             <action dev="draftdog" type="fix" issue="BPM-160">
                 Client-side validation for dates have been improved, the default one which is taken from
                 <![CDATA[<code>commons-validator</code>]]> only supports a very limited subset of the features one
-                would expect. We are now explicitely overriding this JavaScript routine in
+                would expect. We are now explicitly overriding this JavaScript routine in
                 <![CDATA[<code>validator-rules.xml</code>]]>.
             </action>
             <action dev="draftdog" type="fix" issue="BPM-157">

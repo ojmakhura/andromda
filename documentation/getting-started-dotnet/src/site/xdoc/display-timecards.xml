@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Display Timecards</title>
     </properties>
@@ -33,12 +34,10 @@
                 and base classes.
             </p>
 
-            <p>
-                <div align="center">
-                    <img src="screenshots/VS2005GeneratedFiles.jpg" alt="GeneratedFiles"/>
-                </div>
-            </p>
-
+            <div align="center">
+                <img src="screenshots/VS2005GeneratedFiles.jpg" alt="GeneratedFiles"/>
+            </div>
+            
             <p>
                 When this operation is complete you will see a number of files generated. Files
                 that you don't need to edit and are always generated are placed in the

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="chad@andromda.org">Chad Brandon</author>
         <title>AndroMDA Profiles</title>
+        <author email="chad@andromda.org">Chad Brandon</author>
     </properties>
     <body>
         <section name="AndroMDA Profiles">
@@ -27,7 +28,7 @@
             <p>
                 Lets have a look at the contents of what a typical profile.xml file might contain (this snippet was taken from
                 the UML metafacades <em>META-INF/andromda/profile.xml</em> file):
-                <source language="xml">
+                <source>
 <![CDATA[
 <profile>
     <elements>
@@ -99,7 +100,7 @@
                     <![CDATA[<<entity>>]]> instead of the default <![CDATA[<<Entity>>]]>  (the <em>ENTITY</em> profile constant
                     is defined in the profile.xml of the UML metafacades jar which we saw above).  Once we provide
                     this customized mappings file AndroMDA will now recognize model elements with the stereotype <![CDATA[<<entity>>]]> :
-                    <source language="xml">
+                    <source>
 <![CDATA[
 <profile>
     ...
@@ -112,7 +113,7 @@
                     </source>
                     After writing your profile, you'd then define the location of this mappings file as the namespace property <em>profileMappingsUri</em>
                     (within the mda/conf/andromda.xml file), like we do here (notice that the path must be a URI):
-                    <source language="xml">
+                    <source>
 <![CDATA[
 <namespace name="default">
     <properties>

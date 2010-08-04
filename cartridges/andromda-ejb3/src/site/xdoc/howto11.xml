@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - Environment Entry Injection</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Injection">
@@ -61,18 +62,18 @@
                 <p>
                     Setting up an environment entry configuration parameter is very simple using the EJB3
                     cartridge.  The environment entry value may have one of the following Java types:
-                    <ul>
-                        <li>String</li>
-                        <li>Character</li>
-                        <li>Integer</li>
-                        <li>Boolean</li>
-                        <li>Double</li>
-                        <li>Byte</li>
-                        <li>Short</li>
-                        <li>Long</li>
-                        <li>Float</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>String</li>
+                    <li>Character</li>
+                    <li>Integer</li>
+                    <li>Boolean</li>
+                    <li>Double</li>
+                    <li>Byte</li>
+                    <li>Short</li>
+                    <li>Long</li>
+                    <li>Float</li>
+                </ul>
                 <p>
                     To inject an environment entry resource value, model a service or message-driven bean attribute 
                     with <i>classifier</i> scope and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  
@@ -84,40 +85,36 @@
                     The following example illustrates how you can inject environment entries into session beans.
                 </p>
 	            <p>
-	                <img src="images/org/andromda/test/11/a/uml.gif"/>
+	                <img src="images/org/andromda/test/11/a/uml.gif" alt="images/org/andromda/test/11/a/uml.gif"/>
 	            </p>
-	            <p>
-	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
-	                </ul>
-	            </p>
-	            <p>
-	                <ul>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto11/a/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarType.java"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto11/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto11/a/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto11/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto11/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto11/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto11/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
-	                    <li class="gen"><a href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
-	                </ul>
-	            </p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+                <ul>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto11/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto11/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto11/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto11/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto11/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto11/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto11/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto11/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
+                </ul>
 	            <p>
 	                The two important files to look at are <code>RentalServiceBean.java</code> and
 	                <code>ejb-jar.xml</code>.  The <code>RentalServiceBean.java</code> injects the resource using

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - HowTo - UseCases</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -31,7 +32,7 @@
                 <![CDATA[<<FrontEndApplication>>]]> stereotype. One and only one use-case must be labeled this way.
             </p>
             <p>
-                <img src="howto/org/andromda/test/use-cases.gif"/>
+                <img src="howto/org/andromda/test/use-cases.gif" alt="howto/org/andromda/test/use-cases.gif"/>
             </p>
         </section>
         <section name="Nice to know">
@@ -43,7 +44,7 @@
                 <p>
                     Per use-case the generated <code>struts-config.xml</code> will contain a
                     <code>global-forward</code>, like this:
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <global-forwards>
     ...
     <forward

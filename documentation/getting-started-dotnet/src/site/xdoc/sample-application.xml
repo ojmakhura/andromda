@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Sample Application</title>
     </properties>
@@ -9,7 +10,7 @@
 
             <p>
                 The AndroMDA tutorial uses a sample application to explain how to use AndroMDA.
-                This application is called TimeTracker. Before we dive into the design and implimentation
+                This application is called TimeTracker. Before we dive into the design and implementation
                 of TimeTracker, we need to understand the business problem it is trying to solve.
             </p>
 

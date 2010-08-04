@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - Tips</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -83,7 +84,7 @@
             <p>
                 Here's an example that will prompt for PDF download, notice how the preferred file name has
                 been specified:
-<source language="java">
+<source>
 <!--
 byte[] exportBytes = getReportingService().getReport(reportId);
 
@@ -112,7 +113,7 @@ response.getOutputStream().write(exportBytes);
                 (i.e. <em>datatype::Integer</em> for example), then within a customized Java mappings file
                 for the Bpm4Struts namespace just map this number type to a java.lang.String.
                 For example, here we add the mapping for <em>datatype::Integer</em>
-<source language="xml">
+<source>
 <![CDATA[
 <mappings name="Java">
     ...
@@ -125,7 +126,7 @@ response.getOutputStream().write(exportBytes);
 ]]>
 </source>
                 and then specify the mapping in the bpm4struts namespace, like so:
-<source language="xml">
+<source>
 <![CDATA[
 <namespace name="bpm4struts">
     <properties>
@@ -169,18 +170,18 @@ response.getOutputStream().write(exportBytes);
                 </p>
                 <p>
                     This problem cannot be solved, but a few workarounds exist:
-                    <ul>
-                        <li>Move the deployment directory closer to the root of the drive</li>
-                        <li>Shorten the name of the JSP page on which the loading fails</li>
-                        <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
-                            if you set the <code>explodeOnDeploy</code> property to <code>true</code>
-                            in <code>/app/project.properties</code>. The next time you deploy using the maven
-                            <code>deploy</code> goal, a directory containing everything be deployed
-                            instead of a single EAR bundle.
-                        </li>
-                        <li>Move to a Unix-based system, such as Linux.</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>Move the deployment directory closer to the root of the drive</li>
+                    <li>Shorten the name of the JSP page on which the loading fails</li>
+                    <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
+                        if you set the <code>explodeOnDeploy</code> property to <code>true</code>
+                        in <code>/app/project.properties</code>. The next time you deploy using the maven
+                        <code>deploy</code> goal, a directory containing everything be deployed
+                        instead of a single EAR bundle.
+                    </li>
+                    <li>Move to a Unix-based system, such as Linux.</li>
+                </ul>
             </subsection>
             <subsection name="Compatibility">
                 <p>

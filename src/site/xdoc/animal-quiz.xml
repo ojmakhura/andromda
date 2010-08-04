@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - The Animal Quiz sample application</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -17,34 +18,34 @@
             </p>
             <p>
                 This sample consists of a single use case generated using the following cartridges:
-                <table>
-                    <tr>
-                        <th>Tier</th>
-                        <th>Technology</th>
-                        <th>Cartridge</th>
-                    </tr>
-                    <tr>
-                        <td>Persistence (Hibernate Cartridge)</td>
-                        <td>Hibernate 2.x</td>
-                        <td>andromda-hibernate-cartridge</td>
-                    </tr>
-                    <tr>
-                        <td>Service/Business (Spring Cartridge)</td>
-                        <td>Spring 1.2.x</td>
-                        <td>andromda-spring-cartridge</td>
-                    </tr>
-                    <tr>
-                        <td>Web Services</td>
-                        <td>Axis 1.2 (wrapped style)</td>
-                        <td>andromda-webservice-cartridge</td>
-                    </tr>
-                    <tr>
-                        <td>Presentation</td>
-                        <td>Struts 1.2.4</td>
-                        <td>andromda-bpm4struts-cartridge</td>
-                    </tr>
-                </table>
             </p>
+            <table>
+                <tr>
+                    <th>Tier</th>
+                    <th>Technology</th>
+                    <th>Cartridge</th>
+                </tr>
+                <tr>
+                    <td>Persistence (Hibernate Cartridge)</td>
+                    <td>Hibernate 2.x</td>
+                    <td>andromda-hibernate-cartridge</td>
+                </tr>
+                <tr>
+                    <td>Service/Business (Spring Cartridge)</td>
+                    <td>Spring 1.2.x</td>
+                    <td>andromda-spring-cartridge</td>
+                </tr>
+                <tr>
+                    <td>Web Services</td>
+                    <td>Axis 1.2 (wrapped style)</td>
+                    <td>andromda-webservice-cartridge</td>
+                </tr>
+                <tr>
+                    <td>Presentation</td>
+                    <td>Struts 1.2.4</td>
+                    <td>andromda-bpm4struts-cartridge</td>
+                </tr>
+            </table>
             <p>
                 Make sure to initialize your database by issuing <code>maven create-schema</code> at the command prompt.
                 This will execute

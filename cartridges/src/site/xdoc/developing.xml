@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
+        <title>Developing a Cartridge</title>
         <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
         <author email="chdbrandon@yahoo.com">Chad Brandon</author>
-        <title>Developing a Cartridge</title>
     </properties>
       <body>
           <section name="Developing a Cartridge">
@@ -48,7 +49,7 @@
                     to make available to the template in your cartridge's andromda-cartridge.xml,
                     like so:
                 </p>
-                <source language="xml"><![CDATA[
+                <source><![CDATA[
 <template
     path="templates/MetafacadeLogic.vsl"
     outputPattern="$generatedFile"

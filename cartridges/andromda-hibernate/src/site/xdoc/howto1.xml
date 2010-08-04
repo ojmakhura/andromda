@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="carloslcuenca@users.sourceforge.net">Carlos Cuenca</author>
         <title>AndroMDA - Hibernate - HowTo - Second Level Cache</title>
+        <author email="carloslcuenca@users.sourceforge.net">Carlos Cuenca</author>
     </properties>
 
     <body>
@@ -49,19 +50,19 @@
                 <p>
                     The cache settings provide support for customizing the cache configuration. The namespace properties
                     for the cache settings are as following:
-                    <ul>
-                        <li>
-                            <a href="namespace.html#hibernateCacheProvider">hibernateCacheProvider</a>: Specifies the cache
-                            provider implementation that will be used for caching services. Default value is
-                            <code>net.sf.hibernate.cache.EhCacheProvider</code>
-                        </li>
-                        <li>
-                            <a href="namespace.html#hibernateQueryCacheFactory">hibernateQueryCacheFactory</a>: Factory class for
-                            the caching queries. Default value is
-                            <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#hibernateCacheProvider">hibernateCacheProvider</a>: Specifies the cache
+                        provider implementation that will be used for caching services. Default value is
+                        <code>net.sf.hibernate.cache.EhCacheProvider</code>
+                    </li>
+                    <li>
+                        <a href="namespace.html#hibernateQueryCacheFactory">hibernateQueryCacheFactory</a>: Factory class for
+                        the caching queries. Default value is
+                        <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>
+                    </li>
+                </ul>
                 <p class="highlight">
                     Currently the cartridge only includes the dependencies for working with EhCache
                 </p>
@@ -69,26 +70,26 @@
             <subsection name="Activation">
                 <p>
                     To enable cache features on generated files, the following namespace properties should be used.
-                    <ul>
-                        <li>
-                            <a href="namespace.html#cache">cache</a>: you will need to specify this property in
-                            order to let the cartridge know where to output cache configuration files.
-                        </li>
-                        <li>
-                            <a href="namespace.html#hibernateEnableCache">hibernateEnableCache</a>: this property activates
-                            the caching features within the cartridge. When enabled, all Hibernate mapping files will
-                            be created with the required cache settings, the EhCache descriptor file will be generated, and the
-                            Hibernate configuration file property <code>hibernate.cache.use_query_cache</code> 
-                            will be set to <code>true</code>.
-                        </li>
-                        <li>
-                            <a href="namespace.html#hibernateEnableAssociationsCache">hibernateEnableAssociationsCache</a>: this
-                            property activates the custom cache settings for each association. When enabled,
-                            each association ends can contain its own specific configuration.
-                            default values for undefined properties are allowed.
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#cache">cache</a>: you will need to specify this property in
+                        order to let the cartridge know where to output cache configuration files.
+                    </li>
+                    <li>
+                        <a href="namespace.html#hibernateEnableCache">hibernateEnableCache</a>: this property activates
+                        the caching features within the cartridge. When enabled, all Hibernate mapping files will
+                        be created with the required cache settings, the EhCache descriptor file will be generated, and the
+                        Hibernate configuration file property <code>hibernate.cache.use_query_cache</code> 
+                        will be set to <code>true</code>.
+                    </li>
+                    <li>
+                        <a href="namespace.html#hibernateEnableAssociationsCache">hibernateEnableAssociationsCache</a>: this
+                        property activates the custom cache settings for each association. When enabled,
+                        each association ends can contain its own specific configuration.
+                        default values for undefined properties are allowed.
+                    </li>
+                </ul>
             </subsection>
             <subsection name="Entities">
                 <p>
@@ -96,95 +97,95 @@
                     These properties will be applied by default (that is,
                     if there is no specific tagged value on the entity that overrides the value). Namespace properties
                     for entities are:
-                    <ul>
-                        <li>
-                            <a href="namespace.html#hibernateEntityCache">hibernateEntityCache</a>: The cartridge default
-                            settings for this property is <code>read-write</code>, other possible values are
-                            <code>nonstrict-read-write</code>and
-                            <code>read-only</code>
-                        </li>
-                    </ul>
-                    This property can be overridden using the following tagged value:
-                    <ul>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_entity_cache">@andromda.hibernate.entity.cache
-                            </a>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#hibernateEntityCache">hibernateEntityCache</a>: The cartridge default
+                        settings for this property is <code>read-write</code>, other possible values are
+                        <code>nonstrict-read-write</code>and
+                        <code>read-only</code>
+                    </li>
+                </ul>
+                <p>This property can be overridden using the following tagged value:</p>
+                <ul>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_entity_cache">@andromda.hibernate.entity.cache
+                        </a>
+                    </li>
+                </ul>
                 <h3>EhCache Configuration for Entities</h3>
                 <p>
                     Namespace properties and tagged values are available to customize
                     <a href="http://ehcache.sourceforge.net/documentation/">EhCache Configuration</a>.
                     Namespace properties for EhCache configuration are:
-                    <ul>
-                        <li>
-                            <a href="namespace.html#ehCacheMaxElementsInMemory">ehCacheMaxElementsInMemory</a>: Defines the
-                            default maximum number of objects that will be created in memory
-                        </li>
-                        <li>
-                            <a href="namespace.html#ehCacheEternal">ehCacheEternal</a>: Defines a default value for
-                            the eternal parameter.
-                        </li>
-                        <li>
-                            <a href="namespace.html#ehCacheTimeToIdleSeconds">ehCacheTimeToIdleSeconds</a>: Defines the default
-                            time to idle for an element before it expires.
-                        </li>
-                        <li>
-                            <a href="namespace.html#ehCacheTimeToLiveSeconds">ehCacheTimeToLiveSeconds</a>: Defines the default
-                            time to live for an element before it expires.
-                        </li>
-                        <li>
-                            <a href="namespace.html#ehCacheOverflowToDisk">ehCacheOverflowToDisk</a>: Defines the default
-                            value for the overflow to disk property.
-                        </li>
-                    </ul>
-                    The corresponding tagged values to overwrite the default values are:
-                    <ul>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_ehcache_maxElementsInMemory">
-                                @andromda.hibernate.ehcache.maxElementsInMemory</a>
-                        </li>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_ehcache_eternal">
-                                @andromda.hibernate.ehcache.eternal</a>
-                        </li>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_ehcache_timeToIdleSeconds">
-                                @andromda.hibernate.ehcache.timeToIdleSeconds</a>
-                        </li>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_ehcache_timeToLiveSeconds">
-                                @andromda.hibernate.ehcache.timeToLiveSeconds</a>
-                        </li>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_ehcache_overflowToDisk">
-                                @andromda.hibernate.ehcache.overflowToDisk</a>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#ehCacheMaxElementsInMemory">ehCacheMaxElementsInMemory</a>: Defines the
+                        default maximum number of objects that will be created in memory
+                    </li>
+                    <li>
+                        <a href="namespace.html#ehCacheEternal">ehCacheEternal</a>: Defines a default value for
+                        the eternal parameter.
+                    </li>
+                    <li>
+                        <a href="namespace.html#ehCacheTimeToIdleSeconds">ehCacheTimeToIdleSeconds</a>: Defines the default
+                        time to idle for an element before it expires.
+                    </li>
+                    <li>
+                        <a href="namespace.html#ehCacheTimeToLiveSeconds">ehCacheTimeToLiveSeconds</a>: Defines the default
+                        time to live for an element before it expires.
+                    </li>
+                    <li>
+                        <a href="namespace.html#ehCacheOverflowToDisk">ehCacheOverflowToDisk</a>: Defines the default
+                        value for the overflow to disk property.
+                    </li>
+                </ul>
+                <p>The corresponding tagged values to overwrite the default values are:</p>
+                <ul>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_ehcache_maxElementsInMemory">
+                            @andromda.hibernate.ehcache.maxElementsInMemory</a>
+                    </li>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_ehcache_eternal">
+                            @andromda.hibernate.ehcache.eternal</a>
+                    </li>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_ehcache_timeToIdleSeconds">
+                            @andromda.hibernate.ehcache.timeToIdleSeconds</a>
+                    </li>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_ehcache_timeToLiveSeconds">
+                            @andromda.hibernate.ehcache.timeToLiveSeconds</a>
+                    </li>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_ehcache_overflowToDisk">
+                            @andromda.hibernate.ehcache.overflowToDisk</a>
+                    </li>
+                </ul>
             </subsection>
             <subsection name="Associations">
                 <p>
                     Associations caching configuration can be configured individually. The namespace default property
                     can be overridden using the tagged value.
                     Namespace property for EhCache configuration is:
-                    <ul>
-                        <li>
-                            <a href="namespace.html#hibernateAssociationCache">hibernateAssociationCache</a>: The cartridge
-                            default settings for this property is <code>read-write</code>, other possible values are
-                            <code>nonstrict-read-write</code>and
-                            <code>read-only</code>
-                        </li>
-                    </ul>
-                    Tagged value:
-                    <ul>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_association_cache">
-                                @andromda.hibernate.association.cache</a>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#hibernateAssociationCache">hibernateAssociationCache</a>: The cartridge
+                        default settings for this property is <code>read-write</code>, other possible values are
+                        <code>nonstrict-read-write</code>and
+                        <code>read-only</code>
+                    </li>
+                </ul>
+                <p>Tagged value:</p>
+                <ul>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_association_cache">
+                            @andromda.hibernate.association.cache</a>
+                    </li>
+                </ul>
             </subsection>
             <subsection name="Finder Methods">
                 <p>
@@ -192,22 +193,22 @@
                     When enabled the generated code will contain an additional
                     <code>query.setCacheable(true)</code>line.
                     The namespace property for finder methods is:
-                    <ul>
-                        <li>
-                            <a href="namespace.html#hibernateUseQueryCache">hibernateUseQueryCache</a>: The cartridge default
-                            settings for this property is <code>read-write</code>, other possible values are
-                            <code>nonstrict-read-write</code>and
-                            <code>read-only</code>
-                        </li>
-                    </ul>
-                    This default value will be used for all the queries that are not overridden using the tagged value:
-                    <ul>
-                        <li>
-                            <a href="profile.html#@andromda_hibernate_query_useCache">
-                                @andromda.hibernate.query.useCache</a>
-                        </li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>
+                        <a href="namespace.html#hibernateUseQueryCache">hibernateUseQueryCache</a>: The cartridge default
+                        settings for this property is <code>read-write</code>, other possible values are
+                        <code>nonstrict-read-write</code>and
+                        <code>read-only</code>
+                    </li>
+                </ul>
+                <p>This default value will be used for all the queries that are not overridden using the tagged value:</p>
+                <ul>
+                    <li>
+                        <a href="profile.html#@andromda_hibernate_query_useCache">
+                            @andromda.hibernate.query.useCache</a>
+                    </li>
+                </ul>
             </subsection>
         </section>
     </body>

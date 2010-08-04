@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo Inheritance</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Inheritance">
             <p>
                 The EJB 3.0 specification introduces inheritance:
             </p>
-            <i>
-                <p>
-              An entity may inherit from another entity class. Entities support inheritance, polymorphic
-              associations, and polymorphic queries.
-                </p>
-                <p>
-              Both abstract and concrete classes can be entities.  Both abstract and concrete classes can be
-              annotated with the <code>Entity</code> annotation, mapped as entities, and queried for as entities.
-                </p>
-                <p>
-            		Entities can extend non-entity classes and non-entity classes can extend entity classes.
-                </p>
-            </i>
+            
+            <p>
+              <i>An entity may inherit from another entity class. Entities support inheritance, polymorphic
+              associations, and polymorphic queries.</i>
+            </p>
+            <p>
+              <i>Both abstract and concrete classes can be entities.  Both abstract and concrete classes can be
+              annotated with the <code>Entity</code> annotation, mapped as entities, and queried for as entities.</i>
+            </p>
+            <p>
+       	      <i>Entities can extend non-entity classes and non-entity classes can extend entity classes.</i>
+            </p>
+            
             <p>
                 The following howto should give you a basic understanding on how to model your inheritance
                 hierarchies using the EJB3 cartridge.
@@ -64,39 +65,35 @@
                     superclass contains the identifier which is automatically used by the <code>Car</code> entity.
                 </p>
 				<p>
-					<img src="images/org/andromda/test/9/a/uml.gif"/>
+					<img src="images/org/andromda/test/9/a/uml.gif" alt="images/org/andromda/test/9/a/uml.gif"/>
 				</p>
-				<p>
-					<ul>
-						<li class="gen">Auto-generated source that does not need manual editing</li>
-						<li class="impl">Auto-generated source that should be edited manually</li>
-						<li class="changed">File that is affected by the modifications applied in this section</li>
-					</ul>
-				</p>
-                <p>
-                    <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/Vehicle.java"><code>Vehicle.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/howto9/a/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarType.java"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalException.java"><code>RentalException.java</code></a></li>
-                    </ul>
-                </p>
+				<ul>
+					<li class="gen">Auto-generated source that does not need manual editing</li>
+					<li class="impl">Auto-generated source that should be edited manually</li>
+					<li class="changed">File that is affected by the modifications applied in this section</li>
+				</ul>
+                <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/Vehicle.java"><code>Vehicle.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto9/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/a/RentalException.java"><code>RentalException.java</code></a></li>
+                </ul>
                 <p>
                     It's worthwhile to note that only a <code>Vehicle</code> class is generated which 
                     contains all the mapping information.  In this case, because the <code>Vehicle</code> class
@@ -147,43 +144,39 @@
                     hierarchy between entities, unless specified otherwise.
                 </p>
 				<p>
-					<img src="images/org/andromda/test/9/b/uml.gif"/>
+					<img src="images/org/andromda/test/9/b/uml.gif" alt="images/org/andromda/test/9/b/uml.gif"/>
 				</p>
-				<p>
-					<ul>
-						<li class="gen">Auto-generated source that does not need manual editing</li>
-						<li class="impl">Auto-generated source that should be edited manually</li>
-						<li class="changed">File that is affected by the modifications applied in this section</li>
-					</ul>
-				</p>
-                <p>
-                    <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/Vehicle.java"><code>Vehicle.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDao.java"><code>VehicleDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoBase.java"><code>VehicleDaoBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoImpl.java"><code>VehicleDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoException.java"><code>VehicleDaoException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a class="changed" href="howto/org/andromda/test/howto9/b/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarType.java"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                        <li class="impl"><a href="howto/org/andromda/test/howto9/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalException.java"><code>RentalException.java</code></a></li>
-                    </ul>
-                </p>
+				<ul>
+					<li class="gen">Auto-generated source that does not need manual editing</li>
+					<li class="impl">Auto-generated source that should be edited manually</li>
+					<li class="changed">File that is affected by the modifications applied in this section</li>
+				</ul>
+			    <ul>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/Vehicle.java"><code>Vehicle.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDao.java"><code>VehicleDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoBase.java"><code>VehicleDaoBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoImpl.java"><code>VehicleDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/VehicleDaoException.java"><code>VehicleDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto9/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="howto/org/andromda/test/howto9/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="howto/org/andromda/test/howto9/b/RentalException.java"><code>RentalException.java</code></a></li>
+                </ul>
                 <p>
                     Notice in the previous example where <code>Vehicle</code> was defined as a mapped superclass,
                     no DAO components were generated.  In this example, <code>Vehicle</code> is an entity and the
@@ -206,12 +199,12 @@
                     To specify the discriminator colum type, you model the 
                     <code>@andromda.persistence.discriminator.type</code> tagged value on the root class.  Your column
                     type options are:
-                    <ul>
-                        <li>STRING</li>
-                        <li>INTEGER</li>
-                        <li>CHAR</li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>STRING</li>
+                    <li>INTEGER</li>
+                    <li>CHAR</li>
+                </ul>
                 <p>
                     You can set the discriminator column length if the colum type is specified as
                     <code>STRING</code> by modeling the <code>@andromda.persistence.discriminator.column.length</code>
@@ -281,15 +274,15 @@
                 <p>
                     The PFD EJB 3.0 spec says:
                 </p>
-                <i>
-                    <p>
-                		Support for the table per class inheritance mapping strategy is optional in this release.
-                    </p>
-                    <p>
-		                Support for the combination of inheritance strategies within a single entity inheritance 
-		                hierarchy is not required by this specification.
-		            </p>
-                </i>
+                
+                <p>
+            		<i>Support for the table per class inheritance mapping strategy is optional in this release.</i>
+                </p>
+                <p>
+	                <i>Support for the combination of inheritance strategies within a single entity inheritance 
+	                hierarchy is not required by this specification.</i>
+	            </p>
+                
             </subsection>
         </section>
         <section name="Next">

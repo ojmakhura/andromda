@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - Installation &amp; Configuration</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Installation">
@@ -40,30 +41,30 @@
 	                Once you have met the requirements above, checkout the latest EJB3 cartridge from
 	                CVS HEAD.  
 	                You have two options:
-	                <ul>
-	                    <li>
-                            Follow the anonymous CVS access at
-                			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
-                			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
-                			<code>HEAD</code>.
-	                	</li>
-	                	<li>
-                	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
-                	    	create a new repository with connection type (pserver), username (anonymous),
-                	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
-                	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
-                	    	<code>andromda-plugins</code>.
-	                	</li>
-	                </ul>  
-	                Note that this will check out all cartridges and plugins 
-	                which are not relevant to the EJB3 cartridge, but will ease the your build process.
-	            </p>
+                </p>
+                <ul>
+                    <li>
+                        Follow the anonymous CVS access at
+            			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
+            			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
+            			<code>HEAD</code>.
+                	</li>
+                	<li>
+            	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
+            	    	create a new repository with connection type (pserver), username (anonymous),
+            	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
+            	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
+            	    	<code>andromda-plugins</code>.
+                	</li>
+                </ul>  
+                <p>Note that this will check out all cartridges and plugins 
+                which are not relevant to the EJB3 cartridge, but will ease the your build process.</p>
 	        </subsection>
             <a name="Building_the_Cartridge"/>
             <subsection name="Building the Cartridge">
 	            <p>
 	                Once you have checked out the <code>andromda-plugins</code> project, you can simply build 
-	                the <b>andromda-ejb3</b> catridge in <code>andromda-plugins/cartridges/andromda-ejb3</code>
+	                the <b>andromda-ejb3</b> cartridge in <code>andromda-plugins/cartridges/andromda-ejb3</code>
 	                by running <i>mvn</i> in the latter location.
 	            </p>
 	        </subsection>
@@ -87,10 +88,12 @@
 	            <p>
 	                You will need to check out <i>maven-plugins</i> from Maven <b>trunk</b>.  You only required
                     the following plugins, so you can disable the other modules if you wish.
-	                <ul>
-	                    <li>maven-changes-plugin</li>
-	                    <li>maven-changelog-plugin</li>
-	                </ul>
+                </p>
+                <ul>
+                    <li>maven-changes-plugin</li>
+                    <li>maven-changelog-plugin</li>
+                </ul>
+                <p>
 	                Once you have built them (mvn install), these plugins will reside in your local repo.
 	            </p>
 	            <p>

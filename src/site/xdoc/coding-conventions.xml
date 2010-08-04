@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
+        <title>AndroMDA Developer Coding / Patching Conventions</title>
         <author email="chad@andromda.org">Chad Brandon</author>
         <author email="wouter@andromda.org">Wouter Zoons</author>
-        <title>AndroMDA Developer Coding / Patching Conventions</title>
     </properties>
 
     <body>
@@ -19,12 +20,10 @@
                 line after the if statement, then you should write all your code to have
                 that convention.
             </p>
-            <p>
-                <ul>
-                    <li><a href="#AndroMDA_Developer_Coding_Conventions">Coding conventions</a></li>
-                    <li><a href="#Submitting_Patches">How to submit a patch</a></li>
-                </ul>
-            </p>
+            <ul>
+                <li><a href="#AndroMDA_Developer_Coding_Conventions">Coding conventions</a></li>
+                <li><a href="#Submitting_Patches">How to submit a patch</a></li>
+            </ul>
         </section>
 
         <section name="AndroMDA Developer Coding Conventions">
@@ -61,8 +60,8 @@
                             <strong>Brackets:</strong> All brackets (class, method, if, try, etc)
                             must begin and end on a new line. Example :
                         </p>
-                      <source language="java">
-public class SomeClass
+                      <source>
+<![CDATA[public class SomeClass
 {
     public void someMethod()
     {
@@ -71,6 +70,7 @@ public class SomeClass
         }
     }
 }
+]]>
                         </source>
                     </li>
                     <li>
@@ -80,12 +80,12 @@ public class SomeClass
                             ("(ClassifierFacade) element"), instead they should be written
                             written like the following:
                         </p>
-                        <source language="java">
+                        <source>
 if (this.isComposition()) 
 {
 }
                         </source>
-                        <source language="java">
+                        <source>
 ClassifierFacade classifier = (ClassifierFacade)element;
                         </source>
                     </li>
@@ -95,7 +95,7 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                             instead of while loops (because this allows the iterator itself to be scoped
                             into that block). Example:
                        </p>
-                       <source language="java">
+                       <source>
 for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
 {
     final ModelElement stereotype = (ModelElement)stereotypeIterator.next();
@@ -129,7 +129,7 @@ for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeItera
                             <strong>Exiting Methods:</strong> There should be only a single
                             point of exit out of a method (i.e. a single return statement).
                         </p>
-                        <source language="java">
+                        <source>
 public int getEntityCount()
 {
     // don't do this:
@@ -164,7 +164,7 @@ public int getEntityCount()
                     <li>
                         <strong>Instance Variables:</strong> Instance variables should not have any
                         prefix and must be referenced using the <em>this</em> object. Example :
-                        <source language="java">
+                        <source>
 public class SomeClass
 {
     private String someString;
@@ -181,7 +181,7 @@ public class SomeClass
                         prefix indicating the type (<code>strClassName</code> for a <code>String</code>).
                         When more than one parameter is present in the list we write each one of them on a new line
                         and indent. Where possible we make the parameter <code>final</code>. For example :
-                        <source language="java">
+                        <source>
 public void someMethod(
     final String className,
     final int count)
@@ -208,7 +208,7 @@ public void someMethod(
                             indentation). When ever a <code>break</code> keyword would be missing it should be
                             replaced by a comment indicating the <code>fall-through</code>. If the default action
                             is to not perform anything then please put this in a comment so people know it's on purpose.
-                            <source language="java">
+                            <source>
 switch(myValue)
 {
     case 1 :
@@ -232,7 +232,7 @@ switch(myValue)
                             <strong>Logging:</strong> Do <strong>NOT</strong> use System.out.println()
                             for debugging purposes in your code, instead use a log4j logger.
                         </p>
-                        <source language="java">
+                        <source>
 try
 {
    ...
@@ -248,7 +248,7 @@ catch (Exception ex)
                             <strong>Exception Recording:</strong> Do <strong>NOT</strong> use ex.printStackTrace()
                             for debugging purposes in your code, instead use the provided ExceptionRecorder class.
                         </p>
-                        <source language="java">
+                        <source>
 try
 {
    ...
@@ -262,7 +262,7 @@ catch (Exception ex)
 						<p>
 							This will create a .exc file with the stacktrace and additional
 							debugging and environment information:
-<pre>
+                        <source>
 ------- AndroMDA Exception Recording -------
 Version ........: 3.4-SNAPSHOT
 Error ..........: Error performing ModelProcessor.process with model(s) --> 'jar:file:/home/martin/ews30andromda/workspace/andromda-all/cartridges/andromda-webservice/src/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml'
@@ -275,8 +275,7 @@ Run JDK ........: Sun Microsystems Inc.1.4.2_07-b05
 Main Exception .: Error performing MDRepositoryFacade.readModel
 Root Exception .: java.lang.OutOfMemoryError
 java.lang.OutOfMemoryError
-	
-</pre>							
+                        </source>
 						</p>
                     </li>
                 </ul>

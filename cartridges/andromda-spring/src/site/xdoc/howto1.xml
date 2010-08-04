@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Spring - HowTo (1)</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -28,7 +29,7 @@
                 that exactly.
             </p>
             <p>
-                <img src="howto/org/andromda/test/1/a/uml.gif"/>
+                <img src="howto/org/andromda/test/1/a/uml.gif" alt="howto/org/andromda/test/1/a/uml.gif"/>
             </p>
             <p>
                 You can now try to generate code
@@ -42,23 +43,19 @@
                 the <code>/core/target/src</code> project subdirectory, no manual implementation will need
                 to be added at this point.
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/CarImpl.java"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/1/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/Car.java"><code>Car.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/CarImpl.java"><code>CarImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/1/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+            </ul>
             <p>
                 The class we have modeled does not have any properties, however, we notice it having an 'id'
                 attribute, where is it coming from ? Well, by default AndroMDA configures the Spring cartridge
@@ -77,25 +74,21 @@
                 the corresponding DAO, in UML diagrams those operations are underlined when shown.
             </p>
             <p>
-                <img src="howto/org/andromda/test/1/b/uml.gif"/>
+                <img src="howto/org/andromda/test/1/b/uml.gif" alt="howto/org/andromda/test/1/b/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/Car.java"><code>Car.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/1/b/CarImpl.java"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/Car.java"><code>Car.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/1/b/CarImpl.java"><code>CarImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+            </ul>
             <p>
                 So far we have modeled some very basic stuff, let's add a bit of complexity in the next sections.
             </p>

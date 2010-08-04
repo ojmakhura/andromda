@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - Interceptors</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Interceptor">
@@ -22,43 +23,39 @@
                 the actual session bean class.
             </p>
             <p>
-                <img src="images/org/andromda/test/13/a/uml.gif"/>
+                <img src="images/org/andromda/test/13/a/uml.gif" alt="images/org/andromda/test/13/a/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto13/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarType.java"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto13/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto13/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/howto13/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalException.java"><code>RentalException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/DefaultInterceptor.java"><code>DefaultInterceptor.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/LogInterceptor.java"><code>LogInterceptor.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/AdminCheckerInterceptor.java"><code>AdminCheckerInterceptor.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto13/a/Car.java"><code>Car.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarType.java"><code>CarType.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto13/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto13/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/howto13/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto13/a/RentalException.java"><code>RentalException.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/META-INF/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                <li class="gen"><a href="howto/META-INF/jboss.xml"><code>jboss.xml</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/DefaultInterceptor.java"><code>DefaultInterceptor.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/LogInterceptor.java"><code>LogInterceptor.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto13/a/AdminCheckerInterceptor.java"><code>AdminCheckerInterceptor.java</code></a></li>
+            </ul>
             <a name="Default_Interceptors"/>
             <subsection name="Default Interceptor">
                 <p>
@@ -123,16 +120,14 @@
                 <p>
                     The following shows the ordering of default, class and method level interceptors.
                 </p>
-                <p>
-                    <ul>
-                        <li>Default Interceptors - Invoked before all other interceptors</li>
-                        <li>
-                            Class Level Interceptors - Invoked in the chain after default interceptors and before
-                            method level interceptors.
-                        </li>
-                        <li>Method Level Interceptors - Invoked in the chain after all class level interceptors.</li>
-                    </ul>
-                </p>
+                <ul>
+                    <li>Default Interceptors - Invoked before all other interceptors</li>
+                    <li>
+                        Class Level Interceptors - Invoked in the chain after default interceptors and before
+                        method level interceptors.
+                    </li>
+                    <li>Method Level Interceptors - Invoked in the chain after all class level interceptors.</li>
+                </ul>
                 <p>
                     The above are the ordering for externally defined interceptors.  If you define
                     class interceptor methods within your bean, then these are the last interceptors

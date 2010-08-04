@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Modeling example">
@@ -22,222 +23,222 @@
             </p>
             <p>
                 In this how-to we will cover the following topics:
-                <ul>
-                    <li>
-                        <a href="installation.html">Installation &amp; Configuration</a>
-                        <ul>
-                            <li><a href="installation.html#Requirements">Requirements</a></li>
-                            <li><a href="installation.html#Getting_the_Cartridge">Getting the Cartridge</a></li>
-                            <li><a href="installation.html#Building_the_Cartridge">Building the Cartridge</a></li>
-                            <li><a href="installation.html#Building_Documentation">Building Documentation</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto1.html">Entities</a>
-                        <ul>
-                            <li><a href="howto1.html#Entity_Operations">Entity Operations</a></li>
-                            <li><a href="howto1.html#Entity_Relation_Table">Entity Relation Table</a></li>
-                            <li><a href="howto1.html#Primary_Key_Identifiers">Primary Key Identifier</a></li>
-                            <li><a href="howto1.html#Unique_Attributes">Unique Attributes</a></li>
-                            <li><a href="howto1.html#Attribute_Fetch_Type">Attribute Fetch Type</a></li>
-                            <li><a href="howto1.html#Transient_Attribute">Transient Attribute</a></li>
-                            <li><a href="howto1.html#Insertable_Attribute">Insertable Attribute</a></li>
-                            <li><a href="howto1.html#Updatable_Attribute">Updatable Attribute</a></li>
-                            <li><a href="howto1.html#Version_Attribute">Version Attribute</a></li>
-                            <li><a href="howto1.html#Attribute_Multiplicity">Attribute Multiplicity</a></li>
-                            <li><a href="howto1.html#Constant_Attribute">Constant Attribute</a></li>
-                            <li><a href="howto1.html#Nullable_Parameters">Nullable Parameters</a></li>
-                            <li><a href="howto1.html#LOB_Attribute">LOB BLOB/CLOB Attributes</a></li>
-                            <li><a href="howto1.html#Column_Specifics">Column Specifics</a></li>
-                            <li><a href="howto1.html#Listener_Callback">Listener Callback</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto19.html">Data Access Objects</a>
-                        <ul>
-                            <li><a href="howto19.html#Queries">Queries</a></li>
-                            <li><a href="howto19.html#View_Interface">View Interface</a></li>
-                            <li><a href="howto19.html#Transactions">Transactions</a></li>
-                            <li><a href="howto19.html#Security">Security</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto2.html">Relationships</a>
-                        <ul>
-                            <li><a href="howto2.html#Cascading">Cascading</a></li>
-                            <li><a href="howto2.html#Fetch_Type">Fetch Type</a></li>
-                            <li><a href="howto2.html#Ordering_Collection_Valued_Association">Ordering Collection Valued Association</a></li>
-                            <li><a href="howto2.html#Join_Table_Many_To_Many_And_One_To_Many">Join Table for Many-To-Many and One-To-Many Relationships</a></li>
-                            <li><a href="howto2.html#Aggregation_Composition">Aggregation and Composition</a></li>
-                            <li><a href="howto2.html#Transient_Relationships">Transient Relationships</a></li>
-                            <li><a href="howto2.html#Foreign_Key_Column_Names_And_Foreign_Key_Constraint_Names">Foreign Key Column Names and Foreign Key Constraint Names</a></li>
-                            <li><a href="howto2.html#Tips">Tips</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto3.html">Services</a>
-                        <ul>
-                            <li><a href="howto3.html#Session_Type">Session Type</a></li>
-                            <li><a href="howto3.html#View_Interface">View Interfaces</a></li>
-                            <li><a href="howto3.html#Transactions">Transactions</a></li>
-                            <li><a href="howto3.html#Security">Security</a></li>
-                            <li><a href="howto3.html#Environment_Entry_Injection">Environment Entry Injections</a></li>
-                            <li><a href="howto3.html#Nullable_Parameter">Nullable Parameters</a></li>
-                            <li><a href="howto3.html#Session_Delegate">Session Delegate</a></li>
-                            <li><a href="howto3.html#Listener_Callback">Listener Callback</a></li>
-                            <li><a href="howto3.html#Interceptors">Interceptors</a></li>
-                            <li><a href="howto3.html#JNDI_Bindings">JNDI Bindings</a></li>
-                            <li><a href="howto3.html#Persistence_Context_Entity_Manager">Persistence Context Entity Manager</a></li>
-                            <li><a href="howto3.html#EJB_Injections">EJB Injections</a></li>
-                            <li><a href="howto3.html#JMS_Injections">JMS Injections</a></li>
-                            <li><a href="howto3.html#EJB_Timer_Service">EJB Timer Service</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto4.html">Composite Primary Key</a>
-                    </li>
-                    <li>
-                        <a href="howto5.html">Non-Persistent Type-Safe Enumerations</a>
-                        <ul>
-                            <li><a href="howto5.html#Literals">Literal</a></li>
-                            <li><a href="howto5.html#Enumeration_Types">Enumeration Types</a></li>
-                            <li><a href="howto5.html#Add_Data">Adding Data to Enumerations</a></li>
-                            <li><a href="howto5.html#Further_Reading">Further Reading</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto6.html">Queries &amp; Finder Methods</a>
-                    </li>
-                    <li>
-                        <a href="howto7.html">Exception Handling</a>
-                    </li>
-                    <li>
-                        <a href="howto8.html">Security</a>
-                        <ul>
-                            <li><a href="howto8.html#Configuration">Configuration</a></li>
-                            <li><a href="howto8.html#Modeling">Modeling</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto9.html">Inheritance</a>
-                        <ul>
-                            <li><a href="howto9.html#Non_Inheriting_Entities">Non Inheriting Entities</a></li>
-                            <li><a href="howto9.html#Mapped_Superclasses">Mapped Superclass</a></li>
-                            <li><a href="howto9.html#Single_Table_Strategy">Single Table Strategy</a></li>
-                            <li><a href="howto9.html#Discriminator_Components">Discriminator Components</a></li>
-                            <li><a href="howto9.html#Table_Per_Class_Strategy">Table Per Class Strategy</a></li>
-                            <li><a href="howto9.html#Table_Join_Strategy">Table Join Strategy</a></li>
-                            <li><a href="howto9.html#Helpful_Hints">Helpful Hints</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto10.html">Message-Driven Beans</a>
-                        <ul>
-                            <li><a href="howto10.html#Destination_Type">Destination Type</a></li>
-                            <li><a href="howto10.html#Destination">Destination</a></li>
-                            <li><a href="howto10.html#Acknowledge_Mode">Acknowledge Mode</a></li>
-                            <li><a href="howto10.html#Message_Selector">Message Selector</a></li>
-                            <li><a href="howto10.html#Subscription_Durability">Subscription Durability</a></li>
-                            <li><a href="howto10.html#Listener_Interceptor">Listener Interceptor</a></li>
-                            <li><a href="howto10.html#Transaction_Context">Transaction Context</a></li>
-                            <li><a href="howto10.html#Security">Security</a></li>
-                            <li><a href="howto10.html#Message_Driven_Context">Message Driven Context</a></li>
-                            <li><a href="howto10.html#Session_Bean_Injection">Session Bean Injection</a></li>
-                            <li><a href="howto10.html#Resource_Injection">Resource Injections</a></li>
-                            <li><a href="howto10.html#Singleton_MDB">Singleton MDB</a></li>
-                            <li><a href="howto10.html#MQ_Destinations_Descriptor">MQ Destinations Descriptor</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto11.html">Injection</a>
-                        <ul>
-                            <li><a href="howto11.html#Dependency_Injection">Dependency Injection</a></li>
-                            <li><a href="howto11.html#Simple_Environment_Entry_Injection">Simple Environment Entry Injection</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto12.html">Service Patterns</a>
-                        <ul>
-                            <li><a href="howto12.html#Service_Locator">Service Locator</a></li>
-                            <li><a href="howto12.html#Service_Delegate">Service Delegate</a></li>
-                            <li><a href="howto12.html#Further_Reading">Further Reading</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto13.html">Interceptors</a>
-                        <ul>
-                            <li><a href="howto13.html#Default_Interceptors">Default Interceptors</a></li>
-                            <li><a href="howto13.html#Class_Level_Interceptor">Class Level Interceptor</a></li>
-                            <li><a href="howto13.html#Method_Level_Interceptor">Method Level Interceptor</a></li>
-                            <li><a href="howto13.html#Interceptor_Ordering">Interceptor Ordering</a></li>
-                            <li><a href="howto13.html#Interceptor_Exclusion">Interceptor Exclusion</a></li>
-                            <li><a href="howto13.html#Interceptor_Tips">Interceptor Tips</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto14.html">Lifecycle Callbacks</a>
-                        <ul>
-                            <li><a href="howto14.html#Entity_Bean_Callbacks">Entity Bean Callbacks</a></li>
-                            <li><a href="howto14.html#Session_Bean_Callbacks">Session Bean Callbacks</a></li>
-                            <li><a href="howto14.html#Message_Driven_Bean_Callbacks">Message Driven Bean Callbacks</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto15.html">Transactions</a>
-                        <ul>
-                            <li><a href="howto15.html#Transaction_Type">Transaction Type</a></li>
-                            <li><a href="howto15.html#Transaction_Demarcation">Transaction Demarcation</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto16.html">Manageable Entities</a>
-                        <ul>
-                            <li><a href="howto16.html#Manageable_Entities_Security">Security</a></li>
-                            <li><a href="howto16.html#Manageable_Entities_Tips">Tips</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto17.html">Caching and Clustering</a>
-                        <ul>
-                            <li><a href="howto17.html#Cache_Config">Cache Configuration</a></li>
-                            <li><a href="howto17.html#Entity_Cache">Entity Caching</a></li>
-                            <li><a href="howto17.html#Association_Cache">Association Caching</a></li>
-                            <li><a href="howto17.html#Query_Cache">Query Caching</a></li>
-                            <li><a href="howto17.html#Clustering">Clustering Session Beans</a></li>
-                            <li><a href="howto17.html#Further_Reading">Further Reading</a></li>
-                        </ul>
-                    </li>
-                    <li>
-	                    <a href="howto18.html">WebService</a>
-	                    <ul>
-	                        <li><a href="howto18.html#WebService_Client">WebService Client</a></li>
-	                        <li><a href="howto18.html#Helpful_Hints">Helpful Hints</a></li>
-	                    </ul>
-                    </li>
-                    <li>
-                        <a href="howto20.html">Embeddable Value Objects</a>
-                        <ul>
-                            <li><a href="howto20.html#Helpful_Hints">Helpful Hints</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto21.html">JBoss Seam</a>
-                        <ul>
-                            <li><a href="howto21.html#Seam_Roadmap">Seam Roadmap</a></li>
-                            <li><a href="howto21.html#Project_Generator">Project Generator</a></li>
-                            <li><a href="howto21.html#Seam_Profile">EJB3 Seam Profile</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="howto22.html">TestNG with JBoss Embeddable EJB3 Microcontainer</a>
-                        <ul>
-                            <li><a href="howto22.html#Setup">Setup</a></li>
-                            <li><a href="howto22.html#Configuration">Configuration</a></li>
-                            <li><a href="howto22.html#Session_Tests">Session Tests</a></li>
-                        </ul>
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li>
+                    <a href="installation.html">Installation &amp; Configuration</a>
+                    <ul>
+                        <li><a href="installation.html#Requirements">Requirements</a></li>
+                        <li><a href="installation.html#Getting_the_Cartridge">Getting the Cartridge</a></li>
+                        <li><a href="installation.html#Building_the_Cartridge">Building the Cartridge</a></li>
+                        <li><a href="installation.html#Building_Documentation">Building Documentation</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto1.html">Entities</a>
+                    <ul>
+                        <li><a href="howto1.html#Entity_Operations">Entity Operations</a></li>
+                        <li><a href="howto1.html#Entity_Relation_Table">Entity Relation Table</a></li>
+                        <li><a href="howto1.html#Primary_Key_Identifiers">Primary Key Identifier</a></li>
+                        <li><a href="howto1.html#Unique_Attributes">Unique Attributes</a></li>
+                        <li><a href="howto1.html#Attribute_Fetch_Type">Attribute Fetch Type</a></li>
+                        <li><a href="howto1.html#Transient_Attribute">Transient Attribute</a></li>
+                        <li><a href="howto1.html#Insertable_Attribute">Insertable Attribute</a></li>
+                        <li><a href="howto1.html#Updatable_Attribute">Updatable Attribute</a></li>
+                        <li><a href="howto1.html#Version_Attribute">Version Attribute</a></li>
+                        <li><a href="howto1.html#Attribute_Multiplicity">Attribute Multiplicity</a></li>
+                        <li><a href="howto1.html#Constant_Attribute">Constant Attribute</a></li>
+                        <li><a href="howto1.html#Nullable_Parameters">Nullable Parameters</a></li>
+                        <li><a href="howto1.html#LOB_Attribute">LOB BLOB/CLOB Attributes</a></li>
+                        <li><a href="howto1.html#Column_Specifics">Column Specifics</a></li>
+                        <li><a href="howto1.html#Listener_Callback">Listener Callback</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto19.html">Data Access Objects</a>
+                    <ul>
+                        <li><a href="howto19.html#Queries">Queries</a></li>
+                        <li><a href="howto19.html#View_Interface">View Interface</a></li>
+                        <li><a href="howto19.html#Transactions">Transactions</a></li>
+                        <li><a href="howto19.html#Security">Security</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto2.html">Relationships</a>
+                    <ul>
+                        <li><a href="howto2.html#Cascading">Cascading</a></li>
+                        <li><a href="howto2.html#Fetch_Type">Fetch Type</a></li>
+                        <li><a href="howto2.html#Ordering_Collection_Valued_Association">Ordering Collection Valued Association</a></li>
+                        <li><a href="howto2.html#Join_Table_Many_To_Many_And_One_To_Many">Join Table for Many-To-Many and One-To-Many Relationships</a></li>
+                        <li><a href="howto2.html#Aggregation_Composition">Aggregation and Composition</a></li>
+                        <li><a href="howto2.html#Transient_Relationships">Transient Relationships</a></li>
+                        <li><a href="howto2.html#Foreign_Key_Column_Names_And_Foreign_Key_Constraint_Names">Foreign Key Column Names and Foreign Key Constraint Names</a></li>
+                        <li><a href="howto2.html#Tips">Tips</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto3.html">Services</a>
+                    <ul>
+                        <li><a href="howto3.html#Session_Type">Session Type</a></li>
+                        <li><a href="howto3.html#View_Interface">View Interfaces</a></li>
+                        <li><a href="howto3.html#Transactions">Transactions</a></li>
+                        <li><a href="howto3.html#Security">Security</a></li>
+                        <li><a href="howto3.html#Environment_Entry_Injection">Environment Entry Injections</a></li>
+                        <li><a href="howto3.html#Nullable_Parameter">Nullable Parameters</a></li>
+                        <li><a href="howto3.html#Session_Delegate">Session Delegate</a></li>
+                        <li><a href="howto3.html#Listener_Callback">Listener Callback</a></li>
+                        <li><a href="howto3.html#Interceptors">Interceptors</a></li>
+                        <li><a href="howto3.html#JNDI_Bindings">JNDI Bindings</a></li>
+                        <li><a href="howto3.html#Persistence_Context_Entity_Manager">Persistence Context Entity Manager</a></li>
+                        <li><a href="howto3.html#EJB_Injections">EJB Injections</a></li>
+                        <li><a href="howto3.html#JMS_Injections">JMS Injections</a></li>
+                        <li><a href="howto3.html#EJB_Timer_Service">EJB Timer Service</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto4.html">Composite Primary Key</a>
+                </li>
+                <li>
+                    <a href="howto5.html">Non-Persistent Type-Safe Enumerations</a>
+                    <ul>
+                        <li><a href="howto5.html#Literals">Literal</a></li>
+                        <li><a href="howto5.html#Enumeration_Types">Enumeration Types</a></li>
+                        <li><a href="howto5.html#Add_Data">Adding Data to Enumerations</a></li>
+                        <li><a href="howto5.html#Further_Reading">Further Reading</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto6.html">Queries &amp; Finder Methods</a>
+                </li>
+                <li>
+                    <a href="howto7.html">Exception Handling</a>
+                </li>
+                <li>
+                    <a href="howto8.html">Security</a>
+                    <ul>
+                        <li><a href="howto8.html#Configuration">Configuration</a></li>
+                        <li><a href="howto8.html#Modeling">Modeling</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto9.html">Inheritance</a>
+                    <ul>
+                        <li><a href="howto9.html#Non_Inheriting_Entities">Non Inheriting Entities</a></li>
+                        <li><a href="howto9.html#Mapped_Superclasses">Mapped Superclass</a></li>
+                        <li><a href="howto9.html#Single_Table_Strategy">Single Table Strategy</a></li>
+                        <li><a href="howto9.html#Discriminator_Components">Discriminator Components</a></li>
+                        <li><a href="howto9.html#Table_Per_Class_Strategy">Table Per Class Strategy</a></li>
+                        <li><a href="howto9.html#Table_Join_Strategy">Table Join Strategy</a></li>
+                        <li><a href="howto9.html#Helpful_Hints">Helpful Hints</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto10.html">Message-Driven Beans</a>
+                    <ul>
+                        <li><a href="howto10.html#Destination_Type">Destination Type</a></li>
+                        <li><a href="howto10.html#Destination">Destination</a></li>
+                        <li><a href="howto10.html#Acknowledge_Mode">Acknowledge Mode</a></li>
+                        <li><a href="howto10.html#Message_Selector">Message Selector</a></li>
+                        <li><a href="howto10.html#Subscription_Durability">Subscription Durability</a></li>
+                        <li><a href="howto10.html#Listener_Interceptor">Listener Interceptor</a></li>
+                        <li><a href="howto10.html#Transaction_Context">Transaction Context</a></li>
+                        <li><a href="howto10.html#Security">Security</a></li>
+                        <li><a href="howto10.html#Message_Driven_Context">Message Driven Context</a></li>
+                        <li><a href="howto10.html#Session_Bean_Injection">Session Bean Injection</a></li>
+                        <li><a href="howto10.html#Resource_Injection">Resource Injections</a></li>
+                        <li><a href="howto10.html#Singleton_MDB">Singleton MDB</a></li>
+                        <li><a href="howto10.html#MQ_Destinations_Descriptor">MQ Destinations Descriptor</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto11.html">Injection</a>
+                    <ul>
+                        <li><a href="howto11.html#Dependency_Injection">Dependency Injection</a></li>
+                        <li><a href="howto11.html#Simple_Environment_Entry_Injection">Simple Environment Entry Injection</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto12.html">Service Patterns</a>
+                    <ul>
+                        <li><a href="howto12.html#Service_Locator">Service Locator</a></li>
+                        <li><a href="howto12.html#Service_Delegate">Service Delegate</a></li>
+                        <li><a href="howto12.html#Further_Reading">Further Reading</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto13.html">Interceptors</a>
+                    <ul>
+                        <li><a href="howto13.html#Default_Interceptors">Default Interceptors</a></li>
+                        <li><a href="howto13.html#Class_Level_Interceptor">Class Level Interceptor</a></li>
+                        <li><a href="howto13.html#Method_Level_Interceptor">Method Level Interceptor</a></li>
+                        <li><a href="howto13.html#Interceptor_Ordering">Interceptor Ordering</a></li>
+                        <li><a href="howto13.html#Interceptor_Exclusion">Interceptor Exclusion</a></li>
+                        <li><a href="howto13.html#Interceptor_Tips">Interceptor Tips</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto14.html">Lifecycle Callbacks</a>
+                    <ul>
+                        <li><a href="howto14.html#Entity_Bean_Callbacks">Entity Bean Callbacks</a></li>
+                        <li><a href="howto14.html#Session_Bean_Callbacks">Session Bean Callbacks</a></li>
+                        <li><a href="howto14.html#Message_Driven_Bean_Callbacks">Message Driven Bean Callbacks</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto15.html">Transactions</a>
+                    <ul>
+                        <li><a href="howto15.html#Transaction_Type">Transaction Type</a></li>
+                        <li><a href="howto15.html#Transaction_Demarcation">Transaction Demarcation</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto16.html">Manageable Entities</a>
+                    <ul>
+                        <li><a href="howto16.html#Manageable_Entities_Security">Security</a></li>
+                        <li><a href="howto16.html#Manageable_Entities_Tips">Tips</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto17.html">Caching and Clustering</a>
+                    <ul>
+                        <li><a href="howto17.html#Cache_Config">Cache Configuration</a></li>
+                        <li><a href="howto17.html#Entity_Cache">Entity Caching</a></li>
+                        <li><a href="howto17.html#Association_Cache">Association Caching</a></li>
+                        <li><a href="howto17.html#Query_Cache">Query Caching</a></li>
+                        <li><a href="howto17.html#Clustering">Clustering Session Beans</a></li>
+                        <li><a href="howto17.html#Further_Reading">Further Reading</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto18.html">WebService</a>
+                    <ul>
+                        <li><a href="howto18.html#WebService_Client">WebService Client</a></li>
+                        <li><a href="howto18.html#Helpful_Hints">Helpful Hints</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto20.html">Embeddable Value Objects</a>
+                    <ul>
+                        <li><a href="howto20.html#Helpful_Hints">Helpful Hints</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto21.html">JBoss Seam</a>
+                    <ul>
+                        <li><a href="howto21.html#Seam_Roadmap">Seam Roadmap</a></li>
+                        <li><a href="howto21.html#Project_Generator">Project Generator</a></li>
+                        <li><a href="howto21.html#Seam_Profile">EJB3 Seam Profile</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="howto22.html">TestNG with JBoss Embeddable EJB3 Microcontainer</a>
+                    <ul>
+                        <li><a href="howto22.html#Setup">Setup</a></li>
+                        <li><a href="howto22.html#Configuration">Configuration</a></li>
+                        <li><a href="howto22.html#Session_Tests">Session Tests</a></li>
+                    </ul>
+                </li>
+            </ul>
             <p>
                 To learn how to install the EJB3 cartridge click <a href="installation.html">here</a>.
             </p>

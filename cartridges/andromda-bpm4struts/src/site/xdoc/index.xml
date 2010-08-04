@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - Introduction</title>
-        <gennews>no</gennews>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <!--gennews>no</gennews-->
     </properties>
 
     <body>
@@ -105,25 +106,25 @@
             </p>
             <p>
                 The generated files include:
-                <ul>
-                    <li>struts-config.xml</li>
-                    <li>jsp pages</li>
-                    <li>error pages for the most common HTTP error codes as well as for uncaught exceptions</li>
-                    <li>action classes</li>
-                    <li>form bean classes</li>
-                    <li>resource message properties</li>
-                    <li>web.xml</li>
-                    <li>validation.xml</li>
-                    <li>validator-rules.xml</li>
-                    <li>javascript validation routines</li>
-                    <li>a welcome file redirecting to the first use-case</li>
-                    <li>tiles-defs.xml and a default implementation</li>
-                    <li>breadcrumbs</li>
-                    <li>online help pages</li>
-                    <li>calendar date-selection popup windows</li>
-                    <li>roles.properties and users.properties</li>
-                </ul>
             </p>
+            <ul>
+                <li>struts-config.xml</li>
+                <li>jsp pages</li>
+                <li>error pages for the most common HTTP error codes as well as for uncaught exceptions</li>
+                <li>action classes</li>
+                <li>form bean classes</li>
+                <li>resource message properties</li>
+                <li>web.xml</li>
+                <li>validation.xml</li>
+                <li>validator-rules.xml</li>
+                <li>javascript validation routines</li>
+                <li>a welcome file redirecting to the first use-case</li>
+                <li>tiles-defs.xml and a default implementation</li>
+                <li>breadcrumbs</li>
+                <li>online help pages</li>
+                <li>calendar date-selection popup windows</li>
+                <li>roles.properties and users.properties</li>
+            </ul>
             <h3>I18n through message resource bundles</h3>
             <p>
                 Struts will automatically load the appropriate resource bundle for
@@ -132,15 +133,15 @@
             <p>
                 Bpm4struts will generate a default resource bundle generated in the language used for modeling.
                 In order to port this file to another language you will need to simply:
-                <ul>
-                    <li> copy it into the same directory, suffix the filename with something as "_fr", "_nl", "_de"
-                        (see
-                        <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html">
-                        java.util.ResourceBundle</a> for more details)
-                    </li>
-                    <li> translate all the message values (leave the message keys untouched)</li>
-                </ul>
             </p>
+            <ul>
+                <li> copy it into the same directory, suffix the filename with something as "_fr", "_nl", "_de"
+                    (see
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html">
+                    java.util.ResourceBundle</a> for more details)
+                </li>
+                <li> translate all the message values (leave the message keys untouched)</li>
+            </ul>
             <h3>Role-based security</h3>
             <p>
                 For each user there will be a role, depending on the use-cases associated to that user
@@ -182,12 +183,12 @@
                 A very common feature in web pages is the displaying of tabular data. Bpm4struts directly supports
                 this feature through the use of the 'displaytag' tag library. You will be able to have control
                 over the following features:
-                <ul>
-                    <li>Paging: by default pages of 15 entries are rendered, this value can be changed</li>
-                    <li>Exporting: the data can be exported to XML, CSV or Excel</li>
-                    <li>Sorting: you will be able to sort any column you want</li>
-                </ul>
             </p>
+            <ul>
+                <li>Paging: by default pages of 15 entries are rendered, this value can be changed</li>
+                <li>Exporting: the data can be exported to XML, CSV or Excel</li>
+                <li>Sorting: you will be able to sort any column you want</li>
+            </ul>
             <h3>Online help</h3>
             <p>
                 For each page an online help will be generated that is accessible from a link
@@ -238,20 +239,24 @@
                 of going to an action first. An example of this occurring is when Struts declaratively handles
                 an exception, in this case it needs to directly forward to a JSP page. There are two reasons for
                 this:
-                <ol>
-                    <li>By calling another action you risk the chance of having another exception, or even
-                        the same exception again.</li>
-                    <li>It is often simply not possible to determine which was the action that
-                        forwarded to the JSP page, maybe there are two, or even three.</li>
-                </ol>
+            </p>
+            <ol>
+                <li>By calling another action you risk the chance of having another exception, or even
+                    the same exception again.</li>
+                <li>It is often simply not possible to determine which was the action that
+                    forwarded to the JSP page, maybe there are two, or even three.</li>
+            </ol>
+            <p>
                 Consider this scenario, it might make things more clear:
-                <ol>
-                    <li>You are on a JSP page with a form</li>
-                    <li>Submit the form to an action</li>
-                    <li>The action executes and throws an exception</li>
-                    <li>The exception is handled by Struts</li>
-                    <li>Struts forwards control back to the JSP page to display an error message</li>
-                </ol>
+            </p>
+            <ol>
+                <li>You are on a JSP page with a form</li>
+                <li>Submit the form to an action</li>
+                <li>The action executes and throws an exception</li>
+                <li>The exception is handled by Struts</li>
+                <li>Struts forwards control back to the JSP page to display an error message</li>
+            </ol>
+            <p>
                 What happens if there are beans on this page that cannot be found in the request ?
                 If you want to go to the action prior to the JSP page, are you sure you can always determine
                 which one it is ?

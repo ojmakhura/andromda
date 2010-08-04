@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Spring - Tips</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -25,8 +26,8 @@
             </p>
             <p>
                 So basically this snippet is a good example of an implementation of a service operation, there is
-                no need to catch any exception and rethrow it:
-<source language="java"><![CDATA[
+                no need to catch any exception and re-throw it:
+<source><![CDATA[
 protected PersonDetails handleGet(Long id) throws Exception
 {
     return (PersonDetails)getPersonDao().load(PersonDao.TRANSFORM_PERSONDETAILS, id);
@@ -44,7 +45,7 @@ protected PersonDetails handleGet(Long id) throws Exception
                 With the change of a single line it is possible to enable or disable the usage of stateless session
                 EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this
                 (this is done in <code>mda/conf/andromda.xml</code>):
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <namespace name="spring">
     <properties>
         ...
@@ -76,7 +77,7 @@ protected PersonDetails handleGet(Long id) throws Exception
                   and the following is another Spring Service method,
                   it would raise a <code>net.sf.hibernate.LazyInitializationException</code>:
             </p>
-<source language="java"><![CDATA[
+<source><![CDATA[
 protected boolean doSomethingWithUserGroups(User user) throws Exception
 {
     ...
@@ -104,7 +105,7 @@ javax.naming.NameNotFoundException: UserTransaction not bound
         at org.jnp.server.NamingServer.lookup(NamingServer.java:278)
 </source>
                 To get around this, place the following 2 properties in your <em>spring</em> namespace:
-                <source language="xml"><![CDATA[
+                <source><![CDATA[
 
 <namespace name="spring">
     ...
@@ -127,7 +128,7 @@ javax.naming.NameNotFoundException: UserTransaction not bound
                 To prevent the spring cartridge from generating java code you have to exclude the packages with a
                 process="false" statement in the andromda configuration just in your appropriate
                 <code>&lt;model&gt;</code> tag:
-                <source language="xml"><![CDATA[
+                <source><![CDATA[
 <modelPackages>
     <modelPackage process="false">de::my::foreign.package::name</modelPackage>
 </modelPackages>

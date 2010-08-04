@@ -1,7 +1,8 @@
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA Server Howto</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
     <body>
   		<section name="AndroMDA Server Howto">
@@ -15,18 +16,16 @@
                 minimizing the resources needed to keep track of the latest changes. There are
                 at least two advantages:
             </p>
-            <p>
-                <ol>
-                    <li>Since the model is kept in memory all the time, the initialization routines
-                        required to load it need only to be executed once. Especially in the
-                        case where you're regenerating multiple times per day the performance gain
-                        is tremendous.</li>
-                    <li>Changes to the model are loaded in the background, in a seperate process,
-                        and this is done automatically when the server detects the model has been
-                        changed. That way the new model will already have been reloaded by the
-                        time you want to generate code from it.</li>
-                </ol>
-            </p>
+            <ol>
+                <li>Since the model is kept in memory all the time, the initialization routines
+                    required to load it need only to be executed once. Especially in the
+                    case where you're regenerating multiple times per day the performance gain
+                    is tremendous.</li>
+                <li>Changes to the model are loaded in the background, in a separate process,
+                    and this is done automatically when the server detects the model has been
+                    changed. That way the new model will already have been reloaded by the
+                    time you want to generate code from it.</li>
+            </ol>
             <subsection name="Configuration">
                 <p>
                     In order to properly launch the server you'll need to configure it
@@ -41,7 +40,7 @@
                 <p>
                     Just make sure the server is listening on a port which isn't in use.
                     Typically the configuration will look like this:
-<source language="xml"><![CDATA[
+<source><![CDATA[
     <server>
         <host>localhost</host>
         <port>4446</port>
@@ -71,23 +70,21 @@
                     as described in the
                     <a href="../starting.html#My_first_AndroMDA_project">Getting Started</a> page.
                 </p>
-                <p>
-                    <ol>
-                        <li>Open a console and go to the root of your project</li>
-                        <li>Open another console and go to the root of your project</li>
-                        <li>In the first console type <code>maven start-andromda-server</code></li>
-                        <li>Watch the server initializing and loading the model</li>
-                        <li>In the second console type <code>maven mda</code> to generate code
-                            from the model (most of the time you'll want to build the entire
-                            project by simply typing <code>maven</code>, in this example
-                            we're performing the code generation part only)</li>
-                        <li>Open the UML model with your favorite UML editor, apply a change and
-                            save it</li>
-                        <li>Watch the server instance in the first console reloading the model</li>
-                        <li>Regenerate the code</li>
-                        <li>You can keep doing this until you are done modeling...</li>
-                    </ol>
-                </p>
+                <ol>
+                    <li>Open a console and go to the root of your project</li>
+                    <li>Open another console and go to the root of your project</li>
+                    <li>In the first console type <code>maven start-andromda-server</code></li>
+                    <li>Watch the server initializing and loading the model</li>
+                    <li>In the second console type <code>maven mda</code> to generate code
+                        from the model (most of the time you'll want to build the entire
+                        project by simply typing <code>maven</code>, in this example
+                        we're performing the code generation part only)</li>
+                    <li>Open the UML model with your favorite UML editor, apply a change and
+                        save it</li>
+                    <li>Watch the server instance in the first console reloading the model</li>
+                    <li>Regenerate the code</li>
+                    <li>You can keep doing this until you are done modeling...</li>
+                </ol>
                 <p class="highlight">
                     Don't forget Maven allows the <code>-o</code> flag which will instruct it not
                     to download any dependencies, you should use it once you are certain all

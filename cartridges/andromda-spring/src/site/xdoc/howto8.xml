@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="jev@bdal.de">Jens Vagts</author>
         <title>AndroMDA - HowTo - Security</title>
+        <author email="jev@bdal.de">Jens Vagts</author>
     </properties>
 
     <body>
@@ -22,7 +23,7 @@
 				<p>
 					The authentication has to be configured in a separate security context file. The following presents a small example,
 					for more details have a look at the <a href="http://acegisecurity.sourceforge.net/docbook/acegi.html#security-authentication">Acegi reference</a>.
-<source language="xml"><![CDATA[
+<source><![CDATA[
 <beans>
     <bean id="myUserDetailsService" class="com.mycompany.MyUserDetailsServiceImpl">
         <!-- get access to the user entity -->
@@ -68,7 +69,7 @@
 					This prefix is optional for the actor naming and will be automatically added to the generated code, if missing in the model (recommended).
 				</p>
 				<p>
-					<img src="howto/org/andromda/test/8/a/uml.gif"/>
+					<img src="howto/org/andromda/test/8/a/uml.gif" alt="howto/org/andromda/test/8/a/uml.gif"/>
 				</p>
 				<p>
 					The next thing to do is to draw a dependency from a role actor to a <![CDATA[<<Service>>]]> or
@@ -76,7 +77,7 @@
 					service operations. To grant access to single operation(s) draw the dependency from the actor to the operations(s).
 				</p>
 				<p>
-					<img src="howto/org/andromda/test/8/b/uml.gif"/>
+					<img src="howto/org/andromda/test/8/b/uml.gif" alt="howto/org/andromda/test/8/b/uml.gif"/>
 				</p>
 				<p>
 					AndroMDA now generates a security interceptor with a list of all operations and its assigned roles to the
@@ -84,39 +85,35 @@
 					Each service call will then be intercepted by the <a href="namespace.html#acegiServiceSecurityInterceptor">acegiServiceSecurityInterceptor</a>.
 					The default interceptor <code>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</code> only calls the service method implementation if
 					it successfully authenticated the <code>SecurityContext</code> stored within the <code>ContextHolder.</code>
-					More details on this behaviour can be found in the <a href="http://acegisecurity.sourceforge.net/docbook/acegi.html#security-interception">Acegi Reference</a>.
+					More details on this behavior can be found in the <a href="http://acegisecurity.sourceforge.net/docbook/acegi.html#security-interception">Acegi Reference</a>.
 				</p>
-				<p>
-					<ul>
-						<li class="gen">Auto-generated source that does not need manual editing</li>
-						<li class="impl">Auto-generated source that should be edited manually</li>
-						<li class="changed">File that is affected by the modifications applied in this section</li>
-					</ul>
-				</p>
-				<p>
-					<ul>
-						<li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
-						<li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-						<li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-						<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
-						<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-						<li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
-						<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
-						<li class="gen"><a class="resources" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
-						<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
-					</ul>
-				</p>
+				<ul>
+					<li class="gen">Auto-generated source that does not need manual editing</li>
+					<li class="impl">Auto-generated source that should be edited manually</li>
+					<li class="changed">File that is affected by the modifications applied in this section</li>
+				</ul>
+				<ul>
+					<li class="gen"><a href="howto/org/andromda/test/7/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/Car.java"><code>Car.java</code></a></li>
+					<li class="impl"><a href="howto/org/andromda/test/7/CarImpl.java"><code>CarImpl.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/CarDao.java"><code>CarDao.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+					<li class="impl"><a href="howto/org/andromda/test/7/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/CarType.java"><code>CarType.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/Person.java"><code>Person.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/PersonDao.java"><code>PersonDao.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalService.java"><code>RentalService.java</code></a></li>
+					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+					<li class="impl"><a href="howto/org/andromda/test/7/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+					<li class="gen"><a class="resources" href="howto/org/andromda/test/7/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+					<li class="gen"><a href="howto/org/andromda/test/7/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
+				</ul>
 			</subsection>
         </section>
     </body>

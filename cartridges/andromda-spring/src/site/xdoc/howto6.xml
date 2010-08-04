@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - HowTo - Queries</title>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
     </properties>
 
     <body>
@@ -49,42 +50,38 @@
                 <a href="/profile.html#@andromda_hibernate_query">@andromda.hibernate.query</a>.
             </p>
             <p>
-                <img src="howto/org/andromda/test/6/uml.gif"/>
+                <img src="howto/org/andromda/test/6/uml.gif" alt="howto/org/andromda/test/6/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a href="howto/org/andromda/test/6/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/Car.java"><code>Car.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/6/CarImpl.java"><code>CarImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/6/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/CarType.java"><code>CarType.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarSearchCriteria.java"><code>CarSearchCriteria.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearch.java"><code>CriteriaSearch.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearchParameter.java"><code>CriteriaSearchParameter.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearchConfiguration.java"><code>CriteriaSearchConfiguration.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/PersonImpl.java"><code>PersonImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/6/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/6/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/RentalService.java"><code>RentalService.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
-                    <li class="impl"><a href="howto/org/andromda/test/6/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a href="howto/org/andromda/test/6/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/Car.java"><code>Car.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/6/CarImpl.java"><code>CarImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarDao.java"><code>CarDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/6/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/CarType.java"><code>CarType.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/6/CarSearchCriteria.java"><code>CarSearchCriteria.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearch.java"><code>CriteriaSearch.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearchParameter.java"><code>CriteriaSearchParameter.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/spring/CriteriaSearchConfiguration.java"><code>CriteriaSearchConfiguration.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/6/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/6/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/RentalService.java"><code>RentalService.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                <li class="impl"><a href="howto/org/andromda/test/6/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/6/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
+            </ul>
         </section>
         <section name="Criteria Queries">
             <p>
@@ -104,7 +101,7 @@
             <p>
                 These criteria objects allow to set the maximum number of elements to fetch, just do something
                 like this:
-<source language="java"><![CDATA[
+<source><![CDATA[
    // we need to find cars with name 'audi' only
    CarSearchCriteria searchCriteria = new CarSearchCriteria(null, "audi");
    // after 1200 cars are found we stop searching
@@ -126,7 +123,7 @@
                     It's allowed to override queries such as finders in the DAO, just override the appropriate method
                     in an entity's DAO implementation class. What follows is an example of a code snippet
                     overriding a generated HQL query (example taken from a ficticous <code>UserDAOImpl</code> class):
-<source language="java"><![CDATA[
+<source><![CDATA[
 public List findActiveUsers(int transform)
 {
     // the next query is user-specified and overrides the one generated in super.findActiveUsers(int transform)

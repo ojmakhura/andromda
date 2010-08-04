@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo DAO</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Data Access Objects (DAO)">
@@ -33,24 +34,20 @@
                 The following example, illustrates a typical entity POJO and its generated DAO components.
             </p>
             <p>
-                <img src="images/org/andromda/test/19/a/uml.gif"/>
+                <img src="images/org/andromda/test/19/a/uml.gif" alt="images/org/andromda/test/19/a/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto19/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+            </ul>
             <p>
                 Since the <code>Person</code> entity contains finder methods, the <code>PersonDaoImpl</code>
                 is generated once only to <code>core/src/main/java</code>. You can override or add any method 

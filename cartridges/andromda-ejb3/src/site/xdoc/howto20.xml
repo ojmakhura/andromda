@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
-        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
         <title>AndroMDA - EJB3 - HowTo Embeddable Objects</title>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
     </properties>
     <body>
         <section name="Embeddable Objects">
@@ -24,41 +25,37 @@
                 in the embedded value object.
             </p>
             <p>
-                <img src="images/org/andromda/test/20/a/uml.gif"/>
+                <img src="images/org/andromda/test/20/a/uml.gif" alt="images/org/andromda/test/20/a/uml.gif"/>
             </p>
-            <p>
-                <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
-                </ul>
-            </p>
-            <p>
-                <ul>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto20/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></li>
-                    <li class="impl"><a class="changed" href="howto/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="howto/META-INF/orm.xml"><code>orm.xml</code></a></li>
-                </ul>
-            </p>
+            <ul>
+                <li class="gen">Auto-generated source that does not need manual editing</li>
+                <li class="impl">Auto-generated source that should be edited manually</li>
+                <li class="changed">File that is affected by the modifications applied in this section</li>
+            </ul>
+            <ul>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto20/a/Person.java"><code>Person.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                <li class="gen"><a href="howto/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></li>
+                <li class="impl"><a class="changed" href="howto/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></li>
+                <li class="gen"><a class="changed" href="howto/META-INF/orm.xml"><code>orm.xml</code></a></li>
+            </ul>
             <p>
                 You can model basic features on your embeddable class attributes and these will be reflected in the
                 generated embeddable value object.  These features are much the same as described in the
                 <a href="howto1.html">howto for entities</a>. The following is a brief list of annotations
                 and some properties that are available on embeddable attributes.
-                <ul>
-                    <li>@Transient</li>
-                    <li>@Version</li>
-                    <li>@Lob with @Basic settings to fetch type</li>
-                    <li>@Column with properties unique, nullable, insertable, updatable, length, columnDefinition, precision and scale</li>
-                    <li>@Temporal</li>
-                    <li>@Enumerated</li>
-                </ul>
             </p>
+            <ul>
+                <li>@Transient</li>
+                <li>@Version</li>
+                <li>@Lob with @Basic settings to fetch type</li>
+                <li>@Column with properties unique, nullable, insertable, updatable, length, columnDefinition, precision and scale</li>
+                <li>@Temporal</li>
+                <li>@Enumerated</li>
+            </ul>
             <a name="Helpful_Hints"/>
             <subsection name="Helpful Hints">
                 <p>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>Introduction</title>
     </properties>
@@ -27,12 +28,10 @@
                 on generating a Microsoft .Net 2.0 application.
             </p>
 
-            <p>
-                <div align="center">
-                    <img src="images/AndromdaArchDotNet.jpg" alt="AndroMDA Architecture"/>
-                </div>
-            </p>
-
+            <div align="center">
+                <img src="images/AndromdaArchDotNet.jpg" alt="AndroMDA Architecture"/>
+            </div>
+            
             <p>
                 The paragraph above might have sounded like a lot of acronyms and marketing speak,
                 but using AndroMDA means one main thing:<b>write less code</b>. Not only that,

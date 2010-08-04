@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
+        <title>Building AndroMDA</title>
         <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
         <author email="chdbrandon@yahoo.com">Chad Brandon</author>
-        <title>Building AndroMDA</title>
     </properties>
 
     <body>
@@ -13,26 +14,26 @@
         <section name="Building AndroMDA">
             <p>
                 Building AndroMDA from the source is quite easy, just follow these steps:
-                <ol>
-                    <li>
-                        Make sure you have
-                        <a href="http://maven.apache.org">Maven2</a> installed correctly
-                        and MAVEN_HOME/bin is in your PATH (so that Windows finds "mvn.bat" and *nix
-                        finds "mvn").
-                    </li>
-                    <li>
-                        Unpack
-                        <code>andromda-distribution-*-source.zip</code> into a directory of your choice.
-                    </li>
-                    <li>
-                        "MAVEN_OPTS=-XX:MaxPermSize=256m -Xmx512m" must be set in your environment variables.
-                    </li>
-                    <li>
-                        Change to the directory where you unpacked the contents, and then type:
-                        <code>maven</code>
-                    </li>
-                </ol>
             </p>
+            <ol>
+                <li>
+                    Make sure you have
+                    <a href="http://maven.apache.org">Maven2</a> installed correctly
+                    and M2_HOME/bin is in your PATH (so that Windows finds "mvn.bat" and *nix
+                    finds "mvn").
+                </li>
+                <li>
+                    Unpack
+                    <code>andromda-distribution-*-source.zip</code> into a directory of your choice.
+                </li>
+                <li>
+                    "MAVEN_OPTS=-XX:MaxPermSize=256m -Xmx512m" must be set in your environment variables.
+                </li>
+                <li>
+                    Change to the directory where you unpacked the contents, and then type:
+                    <code>maven</code>
+                </li>
+            </ol>
             <p>
                 That's it! The contents will be installed into your local maven repository.
             </p>
@@ -49,56 +50,50 @@
                 in the different sub-projects, that's because we are using the Maven
                 <a href="http://maven.apache.org/reference/plugins/multiproject/">Multi-Project plugin</a>.
             </p>
-            <p>
-                <ul>
-                    <li>Using the <code>-o</code> command line parameter will tell Maven to work offline and not to download any
-                        dependencies, this will speed up the build process.</li>
-                    <li>It's possible to disable the tests by using <code>-Dmaven.test.skip=true</code>.</li>
-                </ul>
-            </p>
+            <ul>
+                <li>Using the <code>-o</code> command line parameter will tell Maven to work offline and not to download any
+                    dependencies, this will speed up the build process.</li>
+                <li>It's possible to disable the tests by using <code>-Dmaven.test.skip=true</code>.</li>
+            </ul>
             <subsection name="Global goals">
                 <p>
                     These goals can be executed in the root of the AndroMDA source tree.
                 </p>
-                <p>
-                    <ul class="textList">
-                        <li><code>mvn</code><br/>
-                            Calls the default goal: <code>install</code> (see below).
-                        </li>
-                        <li><code>mvn clean</code><br/>
-                            Cleans everything: deletes <code>/target</code> directories, <code>*.log*</code> files
-                            and files with the <code>.exc</code> extension.
-                        </li>
-                        <li><code>mvn install</code><br/>
-                            Builds and installs all AndroMDA components (without *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
-                        </li>
-                        <li><code>mvn install -Pandromda-full,local</code><br/>
-                            Builds and installs all AndroMDA components (including *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
-                        </li>
-                        <li><code>mvn deploy</code><br/>
-                            Deploys all libraries into the local directory.
-                        </li>
-                        <li><code>mvn site -Pandromda-site</code><br/>
-                            Builds the documentation for all modules
-                        </li>
-                        <li><code>mvn site:deploy -Pandromda-site,local</code><br/>
-                            Deploys the documentation to local directory
-                        </li>
-                    </ul>
-                </p>
+                <ul class="textList">
+                    <li><code>mvn</code><br/>
+                        Calls the default goal: <code>install</code> (see below).
+                    </li>
+                    <li><code>mvn clean</code><br/>
+                        Cleans everything: deletes <code>/target</code> directories, <code>*.log*</code> files
+                        and files with the <code>.exc</code> extension.
+                    </li>
+                    <li><code>mvn install</code><br/>
+                        Builds and installs all AndroMDA components (without *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
+                    </li>
+                    <li><code>mvn install -Pandromda-full,local</code><br/>
+                        Builds and installs all AndroMDA components (including *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
+                    </li>
+                    <li><code>mvn deploy</code><br/>
+                        Deploys all libraries into the local directory.
+                    </li>
+                    <li><code>mvn site -Pandromda-site</code><br/>
+                        Builds the documentation for all modules
+                    </li>
+                    <li><code>mvn site:deploy -Pandromda-site,local</code><br/>
+                        Deploys the documentation to local directory
+                    </li>
+                </ul>
             </subsection>
             <subsection name="Plugin goals">
                 <p>
                     Some helpful goals:
                 </p>
-                <p>
-                    <ul class="textList">
-                        <li><code>mvn andromda-cartridge:update</code><br/>
-                            Updates the cartridge expected output with the current cartridge output. Invoke it
-                            when you are inside the cartridge root directory.
-                        </li>
-                    </ul>
-                </p>
+                <ul class="textList">
+                    <li><code>mvn andromda-cartridge:update</code><br/>
+                        Updates the cartridge expected output with the current cartridge output. Invoke it
+                        when you are inside the cartridge root directory.
+                    </li>
+                </ul>
             </subsection>
         </section>
     </body>

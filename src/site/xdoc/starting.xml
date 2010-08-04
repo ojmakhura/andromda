@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
+        <title>AndroMDA - Installation</title>
         <author email="wouter@andromda.org">Wouter Zoons</author>
         <author email="cwbrandon@users.sourceforge.new">Chad Brandon</author>
-        <title>AndroMDA - Installation</title>
     </properties>
     <body>
         <section name="Getting started with AndroMDA">
@@ -22,13 +23,11 @@
             <p>
                 On this page you will learn:
             </p>
-            <p>
-                <ul>
-                    <li>what software is needed to run AndroMDA,</li>
-                    <li>how to configure environment variables for these software components,</li>
-                    <li> and how to make AndroMDA setup a template J2EE project for you</li>
-                </ul>
-            </p>
+            <ul>
+                <li>what software is needed to run AndroMDA,</li>
+                <li>how to configure environment variables for these software components,</li>
+                <li> and how to make AndroMDA setup a template J2EE project for you</li>
+            </ul>
         </section>
 
         <section name="Requirements">
@@ -53,12 +52,10 @@
                     plugin. Don't worry if you are not familiar with Maven, you will not need to write your own Maven
                     specific files, AndroMDA will do all of that for you out-of-the-box.
                 </p>
-                <p>
-                    <ul>
-                        <li><a href="http://maven.apache.org" target="_blank">http://maven.apache.org</a></li>
-                        <li><a href="http://ant.apache.org" target="_blank">http://ant.apache.org</a></li>
-                    </ul>
-                </p>
+                <ul>
+                    <li><a href="http://maven.apache.org" target="_blank">http://maven.apache.org</a></li>
+                    <li><a href="http://ant.apache.org" target="_blank">http://ant.apache.org</a></li>
+                </ul>
                 <p>
                     This getting started guide will assume you followed our recommendation and chose Maven. The
                     Ant users may follow this link for more information: <a href="anttask.html">AndroMDA Ant Task</a>.
@@ -102,11 +99,11 @@
                     UML/MDA developer.
                     Both of these tools are commercial and have a free Community Edition that can be downloaded at no cost,
                     please note that these editions are <i>not</i> open-source.
-                    <ul>
-                        <li>MagicDraw: <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a></li>
-                        <li>Poseidon: <a href="http://www.gentleware.com" target="_blank">http://www.gentleware.com/</a></li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>MagicDraw: <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a></li>
+                    <li>Poseidon: <a href="http://www.gentleware.com" target="_blank">http://www.gentleware.com/</a></li>
+                </ul>
                 <p class="highlight">
                     For use with AndroMDA we recommend MagicDraw, it is fast, relatively light-weight and provides the best
                     support for almost any UML feature. We aren't affiliated with any of these products in any way... if
@@ -132,16 +129,14 @@
                     It's possible you have this environment variable already set, but just to make sure here's where
                     you can set them under Windows.
                 </p>
-                <p>
-                    <ol>
-                        <li>Go to the control panel and double-click on <code>System</code>, if you are a Windows XP user
-                            it's possible you have to open <code>Performance and Maintenance</code> before you will see
-                            the <code>System</code> icon.
-                        </li>
-                        <li>Go to the <code>Advanced</code> tab and click on <code>Environment Variables</code></li>
-                        <li>Make sure you have set the properties listed below (if not already present)</li>
-                    </ol>
-                </p>
+                <ol>
+                    <li>Go to the control panel and double-click on <code>System</code>, if you are a Windows XP user
+                        it's possible you have to open <code>Performance and Maintenance</code> before you will see
+                        the <code>System</code> icon.
+                    </li>
+                    <li>Go to the <code>Advanced</code> tab and click on <code>Environment Variables</code></li>
+                    <li>Make sure you have set the properties listed below (if not already present)</li>
+                </ol>
                 <p>
                     In the dialog that you just opened you should add/edit the variable <code>JAVA_HOME</code> and set it
                     the Java SDK installation directory, eg. C:\j2sdk1.5.
@@ -151,17 +146,17 @@
                 <p>
                     Next we will install Maven and configure it to download dependencies from the AndroMDA server
                     whenever it needs to.
-                    <ol>
-                        <li>Download Maven from this site:
-                            <a href="http://maven.apache.org/download.html" target="_blank">http://maven.apache.org/download.html</a>
-                        </li>
-                        <li>Install the downloaded binary. (We will assume you installed it in <code>C:\apps\maven</code>)</li>
-                        <li>If the installation would complain that the JAVA_HOME environment is not set then make sure
-                            you have correctly set it and close Windows Explorer or
-                            <a href="http://www.ghisler.com" target="_blank">Total Commander</a>, whatever
-                            it is you are using and start it again.</li>                        
-                    </ol>
                 </p>
+                <ol>
+                    <li>Download Maven from this site:
+                        <a href="http://maven.apache.org/download.html" target="_blank">http://maven.apache.org/download.html</a>
+                    </li>
+                    <li>Install the downloaded binary. (We will assume you installed it in <code>C:\apps\maven</code>)</li>
+                    <li>If the installation would complain that the JAVA_HOME environment is not set then make sure
+                        you have correctly set it and close Windows Explorer or
+                        <a href="http://www.ghisler.com" target="_blank">Total Commander</a>, whatever
+                        it is you are using and start it again.</li>                        
+                </ol>
             </subsection>
             <subsection name="JBoss/Tomcat">
                 <p class="highlight">
@@ -171,36 +166,36 @@
                 <p>
                     The JBoss application server can be used to deploy your generated EAR applications, follow these simple steps
                     to install and configure:
-                    <ol>
-                        <li>Download JBoss from this site:
-                            <a href="http://www.jboss.org/downloads/index" target="_blank">http://www.jboss.org/downloads/index</a>
-                            Version 4.0.x should do the job.
-                        </li>
-                        <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jboss-4.0.1sp1</code></li>
-                    </ol>
                 </p>
+                <ol>
+                    <li>Download JBoss from this site:
+                        <a href="http://www.jboss.org/downloads/index" target="_blank">http://www.jboss.org/downloads/index</a>
+                        Version 4.0.x should do the job.
+                    </li>
+                    <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jboss-4.0.1sp1</code></li>
+                </ol>
                 <h4>Tomcat</h4>
                 <p>
                     The Tomcat servlet container can be used to deploy your generated WAR applications, follow these simple steps
                     to install and configure:
-                    <ol>
-                        <li>Download Tomcat from this site:
-                            <a href="http://jakarta.apache.org/tomcat" target="_blank">http://jakarta.apache.org/tomcat</a>
-                            Version 5.x should do the job.
-                        </li>
-                        <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jakarta-tomcat-5.5.9</code></li>
-                    </ol>
-                </p>                
+                </p>
+                <ol>
+                    <li>Download Tomcat from this site:
+                        <a href="http://jakarta.apache.org/tomcat" target="_blank">http://jakarta.apache.org/tomcat</a>
+                        Version 5.x should do the job.
+                    </li>
+                    <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jakarta-tomcat-5.5.9</code></li>
+                </ol>
             </subsection>
             <subsection name="MagicDraw/Poseidon">
                 <p>
                     Download at least one of these tools, they will allow you to model your application in UML and export
                     it into a format that AndroMDA understands (UML 1.4).
-                    <ul>
-                        <li>MagicDraw: <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a></li>
-                        <li>Poseidon: <a href="http://www.gentleware.com" target="_blank">http://www.gentleware.com</a></li>
-                    </ul>
                 </p>
+                <ul>
+                    <li>MagicDraw: <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a></li>
+                    <li>Poseidon: <a href="http://www.gentleware.com" target="_blank">http://www.gentleware.com</a></li>
+                </ul>
             </subsection>
             <subsection name="Environment variables">
                 <p>
@@ -208,44 +203,42 @@
                     it is strongly recommended to set the following variables before continuing. We repeat
                     <code>JAVA_HOME</code> here just for completeness.
                 </p>
-                <p>
-                    <table>
-                        <tr>
-                            <th>Property</th>
-                            <th>Value</th>
-                            <th>Required?</th>
-                        </tr>
-                        <tr>
-                            <td>JAVA_HOME</td>
-                            <td>Java installation directory, eg. <code>C:\j2sdk1.4.2_08</code>.</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>MAVEN_HOME</td>
-                            <td>Maven installation directory, eg. <code>C:\apps\maven</code>, this might have already
-                                been set by the Maven installer.</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>JBOSS_HOME</td>
-                            <td>JBoss installation directory, eg. <code>C:\apps\jboss-4.0.1sp1</code>.</td>
-                            <td>No (unless you're deploying to Jboss)</td>
-                        </tr>
-                        <tr>
-                            <td>CATALINA_HOME</td>
-                            <td>Tomcat installation directory, eg. <code>C:\apps\jakarta-tomcat-5.5.9.</code></td>
-                            <td>No (unless you're deploying to Tomcat)</td>
-                        </tr>
-                        <tr>
-                            <td>PATH</td>
-                            <td>This makes sure the system will search for console commands in the
-                                directories listed here. If this property already exists you should simply add
-                                <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>.
-                            </td>
-                            <td>Yes</td>
-                        </tr>
-                    </table>
-                </p>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                        <th>Required?</th>
+                    </tr>
+                    <tr>
+                        <td>JAVA_HOME</td>
+                        <td>Java installation directory, eg. <code>C:\j2sdk1.4.2_08</code>.</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>M2_HOME</td>
+                        <td>Maven installation directory, eg. <code>C:\apps\maven</code>, this might have already
+                            been set by the Maven installer.</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>JBOSS_HOME</td>
+                        <td>JBoss installation directory, eg. <code>C:\apps\jboss-4.0.1sp1</code>.</td>
+                        <td>No (unless you're deploying to Jboss)</td>
+                    </tr>
+                    <tr>
+                        <td>CATALINA_HOME</td>
+                        <td>Tomcat installation directory, eg. <code>C:\apps\jakarta-tomcat-5.5.9.</code></td>
+                        <td>No (unless you're deploying to Tomcat)</td>
+                    </tr>
+                    <tr>
+                        <td>PATH</td>
+                        <td>This makes sure the system will search for console commands in the
+                            directories listed here. If this property already exists you should simply add
+                            <code>%JAVA_HOME%\bin;%M2_HOME%\bin</code>.
+                        </td>
+                        <td>Yes</td>
+                    </tr>
+                </table>
             </subsection>
         </section>
 
@@ -450,57 +443,55 @@ BUILD SUCCESSFUL
                 Here are some pointers on how to proceed from here (please note there will be slight differences if 
                 you generated a standalone war):
             </p>
-            <p>
-                <ol>
-                    <li>Go into the created <code>andromdaexample</code> subdirectory</li>
-                    <li>Call <code>maven</code> here, it will download all dependencies and build your project. Here
-                        are a few commands you can call:
-                        <ul>
-                            <li>maven <em>(runs the default goal: 'install')</em></li>
-                            <li>maven install <em>(builds all components, an .ear bundle can be found in /app/target)
-                                </em></li>
-                            <li>maven mda <em>(runs AndroMDA on the UML model)</em></li>
-                            <li>maven mda -Dfilter=spring,java <em>(runs AndroMDA, only using the spring and java
-                                cartridges, in that order)</em></li>
-                            <li>maven core <em>(builds the core component, usually hibernate,ejb or spring)</em></li>
-                            <li>maven web <em>(builds the web component)</em></li>
-                            <li>maven core web <em>(builds the core and web components, in that order)</em></li>
-                            <li>maven mda -Dfilter=spring core deploy <em>(regenerates the spring code, rebuilds
-                                the core component, bundles the .ear and deploys)</em></li>
-                        </ul>
-                        For more goals take a look in <code>/maven.xml</code>.
-                    </li>
-                    <li>All components will build an artifact, check out the <code>/target</code> directory
-                        in each separate component.</li>
-                    <li>All required J2EE and other dependencies will be downloaded, after a while the build
-                        should successfully end. This process might take a while to complete, 3-4 minutes if you have
-                        a fast internet connection.
-                    </li>
-                    <li>Subsequent calls to <code>maven</code> may specify the <code>-o</code> flag, denoting
-                        you want to build offline because you are sure all dependencies are already downloaded.
-                        Building offline with Maven will be much faster, approximately 30 secs.</li>
-                    <li>Start your favorite UML tool and open the empty UML model that has been created
-                        for you, you can find it in the <code>mda/src/uml</code> subdirectory, in our example it is
-                        called <code>AndroMDAExampleModel.xmi</code>.</li>
-                    <li>MagicDraw will prompt you for a file with a name starting with <code>andromda-profile</code>
-                        and extension <code>.xml.zip</code>, it will have been downloaded by Maven during the build
-                        process and stored in your local Maven repository, eg.
-                        <code>C:\Documents and Settings\foo\.maven\repository\andromda\xml.zips</code></li>. You might
-                        wonder what this file is about: it contains all datatypes, stereotypes and tagged values
-                        that are known to work with any of the AndroMDA cartridges. If this confuses you then just think
-                        of it as a free addon-package that will make it significantly easier for you to model your
-                        application. It is completely optional though, but not using it will mean more work for you.
-                    <li>You are now ready to start modeling, depending on which
-                        <a href="andromda-cartridges/index.html">AndroMDA cartridges</a> you are using
-                        you might need to know a few things in order to properly model, for that you will need
-                        to learn how each cartridge works. Read the <a href="howto-guides.html">howto guides</a>
-                        to quickly get up to speed modeling with AndroMDA, they will explain you what to do with the
-                        UML model in order to have your components generated for you.</li>
-                    <li>Good luck, questions can be posted on the
-                        <a href="http://forum.andromda.org/">AndroMDA Forums</a>, please make sure to pick the
-                        right forum for your question.</li>
-                </ol>
-            </p>
+            <ol>
+                <li>Go into the created <code>andromdaexample</code> subdirectory</li>
+                <li>Call <code>maven</code> here, it will download all dependencies and build your project. Here
+                    are a few commands you can call:
+                    <ul>
+                        <li>maven <em>(runs the default goal: 'install')</em></li>
+                        <li>maven install <em>(builds all components, an .ear bundle can be found in /app/target)
+                            </em></li>
+                        <li>maven mda <em>(runs AndroMDA on the UML model)</em></li>
+                        <li>maven mda -Dfilter=spring,java <em>(runs AndroMDA, only using the spring and java
+                            cartridges, in that order)</em></li>
+                        <li>maven core <em>(builds the core component, usually hibernate,ejb or spring)</em></li>
+                        <li>maven web <em>(builds the web component)</em></li>
+                        <li>maven core web <em>(builds the core and web components, in that order)</em></li>
+                        <li>maven mda -Dfilter=spring core deploy <em>(regenerates the spring code, rebuilds
+                            the core component, bundles the .ear and deploys)</em></li>
+                    </ul>
+                    For more goals take a look in <code>/maven.xml</code>.
+                </li>
+                <li>All components will build an artifact, check out the <code>/target</code> directory
+                    in each separate component.</li>
+                <li>All required J2EE and other dependencies will be downloaded, after a while the build
+                    should successfully end. This process might take a while to complete, 3-4 minutes if you have
+                    a fast internet connection.
+                </li>
+                <li>Subsequent calls to <code>maven</code> may specify the <code>-o</code> flag, denoting
+                    you want to build offline because you are sure all dependencies are already downloaded.
+                    Building offline with Maven will be much faster, approximately 30 secs.</li>
+                <li>Start your favorite UML tool and open the empty UML model that has been created
+                    for you, you can find it in the <code>mda/src/uml</code> subdirectory, in our example it is
+                    called <code>AndroMDAExampleModel.xmi</code>.</li>
+                <li>MagicDraw will prompt you for a file with a name starting with <code>andromda-profile</code>
+                    and extension <code>.xml.zip</code>, it will have been downloaded by Maven during the build
+                    process and stored in your local Maven repository, eg.
+                    <code>C:\Documents and Settings\foo\.maven\repository\andromda\xml.zips</code>.
+                    This file contains all datatypes, stereotypes and tagged values
+                    that are known to work with any of the AndroMDA cartridges. If this confuses you then just think
+                    of it as a free addon-package that will make it significantly easier for you to model your
+                    application. It is completely optional though, but not using it will mean more work for you.</li>
+                <li>You are now ready to start modeling, depending on which
+                    <a href="andromda-cartridges/index.html">AndroMDA cartridges</a> you are using
+                    you might need to know a few things in order to properly model, for that you will need
+                    to learn how each cartridge works. Read the <a href="howto-guides.html">howto guides</a>
+                    to quickly get up to speed modeling with AndroMDA, they will explain you what to do with the
+                    UML model in order to have your components generated for you.</li>
+                <li>Good luck, questions can be posted on the
+                    <a href="http://forum.andromda.org/">AndroMDA Forums</a>, please make sure to pick the
+                    right forum for your question.</li>
+            </ol>
         </section>
 
         <section name="Where to go from here ?">

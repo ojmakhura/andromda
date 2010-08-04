@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
     <properties>
-        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
         <title>AndroMDA - Homepage</title>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
     </properties>
 
     <body>
@@ -53,18 +54,16 @@
             <p>
                 This is a <strong>*very*</strong> simplistic representation of what AndroMDA can do for you:
             </p>
-            <p>
-                <div align="center">
-                    <p style="margin-top: 80px;">
-                        <img src="images/example-classes.gif" style="padding-right: 50px;"/>
-                        <img src="images/output-classes.gif"/>
-                    </p>
-                    <p style="margin-top: 80px;">
-                        <img src="images/example-activity.gif" style="padding-right: 50px;"/>
-                        <img src="images/output-activity.gif"/>
-                     </p>
-                </div>
-            </p>
+            <div align="center">
+                <p style="margin-top: 80px;">
+                    <img src="images/example-classes.gif" alt="images/example-classes.gif" style="padding-right: 50px;"/>
+                    <img src="images/output-classes.gif" alt="images/output-classes.gif"/>
+                </p>
+                <p style="margin-top: 80px;">
+                    <img src="images/example-activity.gif" alt="images/example-activity.gif" style="padding-right: 50px;"/>
+                    <img src="images/output-activity.gif" alt="images/output-activity.gif"/>
+                 </p>
+            </div>
         </section>
 
     </body>
