@@ -14,7 +14,7 @@ Customize as necessary - it is generated once only, when the project is created.
   M2_REPO = Maven2 repository directory
   M2_HOME = Maven2 home installation directory
   MAVEN_OPTS = Command line options when running maven. Suggested: -XX:MaxPermSize=128m -Xmx512m
-  Reference: http://galaxy.andromda.org/index.php?option=com_content&task=view&id=105&Itemid=89 -->
+  Reference: http://www.andromda.org/index.php?option=com_content&view=article&id=105:environment-setup&catid=42:getting-started-java&Itemid=89 -->
   <property name="m2repo" value="${env.M2_REPO}"/>
   <property name="m2home" value="${env.M2_HOME}"/>
   <property name="m2opts" value="${env.MAVEN_OPTS}"/>
