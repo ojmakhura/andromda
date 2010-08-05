@@ -69,7 +69,7 @@ public class StrutsFinalStateLogicImpl
             if (taggedValue == null)
             {
                 String name = getName();
-                if (name != null && ((name.charAt(0) == '/') || name.startsWith("http://")))
+                if (StringUtils.isNotBlank(name) && ((name.charAt(0) == '/') || name.startsWith("http://")))
                 {
                     fullPath = name;
                 }
@@ -137,7 +137,7 @@ public class StrutsFinalStateLogicImpl
     }
     
     /**
-     * @return getIncomings()getActions()
+     * @return getIncomings().getActions()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl#handleGetActions()
      */
     // TODO StateVertexFacade.handleGetActions calls getOutgoings. Why?
