@@ -46,7 +46,7 @@ protected PersonDetails handleGet(Long id) throws Exception
     <modelPackage process="false">de::my::foreign.package::name</modelPackage>
 </modelPackages>
                 ]]></source>
-                (look at http://team.andromda.org/docs/configuration.html#modelPackage)
+                (look at http://www.andromda.org/docs/configuration.html#modelPackage)
                 The EJB3 cartridge should generate the <code>@EJB</code> injections from the dependency for the 
                 source class.
             </p>

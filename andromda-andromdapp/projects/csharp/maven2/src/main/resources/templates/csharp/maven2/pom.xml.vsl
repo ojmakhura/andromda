@@ -44,7 +44,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>3.8.1</version>
+                <version>4.7</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -60,18 +60,19 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-multi-source-plugin</artifactId>
-                    <version>$andromdaVersion</version>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.5</version>
                     <executions>
                         <execution>
+                            <phase>generate-sources</phase>
                             <goals>
                                 <goal>add-source</goal>
                             </goals>
                             <configuration>
-                                <sourceDirectories>
-                                    <directory>target/src</directory>
-                                </sourceDirectories>
+                                <sources>
+                                    <source>target/src</source>
+                                </sources>
                             </configuration>
                         </execution>
                     </executions>
@@ -85,6 +86,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -149,7 +158,7 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>3.2-SNAPSHOT</version>
+                            <version>$andromdaVersion</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                  be done when developing locally), uncomment this executions element to enable
                             <executions>
@@ -248,17 +257,17 @@
         <repository>
             <id>andromda</id>
             <name>AndroMDA Repository</name>
-            <url>http://team.andromda.org/maven2</url>
+            <url>http://wwww.andromda.org/maven2</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>andromda</id>
             <name>AndroMDA Repository</name>
-            <url>http://team.andromda.org/maven2</url>
+            <url>http://www.andromda.org/maven2</url>
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>2.0.1</maven>
+        <maven>2.2.1</maven>
     </prerequisites>
 </project>

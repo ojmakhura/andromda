@@ -133,7 +133,7 @@ javax.naming.NameNotFoundException: UserTransaction not bound
     <modelPackage process="false">de::my::foreign.package::name</modelPackage>
 </modelPackages>
                 ]]></source>
-                (look at http://team.andromda.org/docs/configuration.html#modelPackage)
+                (look at http://www.andromda.org/docs/configuration.html#modelPackage)
                 The spring cartridge will generate the dependency code for the source class (property class with
                 getter/setter) and the bean-ref tag in the spring application context file. The only thing you now
                 have to do is to provide the "foreign" spring bean definition file to your application context (in the

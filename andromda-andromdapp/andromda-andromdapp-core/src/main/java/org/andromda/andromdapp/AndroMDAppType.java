@@ -561,7 +561,7 @@ public class AndroMDAppType
             if (path.startsWith(exclusionPath))
             {
                 final String[] patterns = (String[]) exclusions.get(exclusionPath);
-                // See http://galaxy.andromda.org/forum/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
+                // See http://forum.andromda.org/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
                 exclude = ResourceUtils.matchesAtLeastOnePattern(
                         exclusionPath,
                         patterns);
