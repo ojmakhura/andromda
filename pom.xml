@@ -494,6 +494,18 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                    <configuration>
+                        <includePom>true</includePom>
+                        <!--includes>
+                            <include>${project.basedir}/src/main/uml/**</include>
+                            <include>${project.basedir}/src/main/uml2/**</include>
+                        </includes-->
+                    </configuration>
+                </plugin>
+                <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>2.2-beta-5</version>
                 </plugin>
@@ -602,18 +614,9 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
+             <plugin>
                 <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
-                <inherited>true</inherited>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <configuration>
-                    <includePom>true</includePom>
-                    <includes>
-                        <include>${project.basedir}/src/main/uml/**</include>
-                        <include>${project.basedir}/src/main/uml2/**</include>
-                    </includes>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
