@@ -96,7 +96,7 @@
         </dependency>
 #else
 #if ($cxf)
-        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://galaxy.andromda.org/forum/viewtopic.php?t=5747)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->
         <dependency>
             <groupId>cglib</groupId>
@@ -210,7 +210,7 @@
 #end
 #if ($hibernate)
 #if ($cxf)
-        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://galaxy.andromda.org/forum/viewtopic.php?t=5747)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->
         <dependency>
             <groupId>cglib</groupId>

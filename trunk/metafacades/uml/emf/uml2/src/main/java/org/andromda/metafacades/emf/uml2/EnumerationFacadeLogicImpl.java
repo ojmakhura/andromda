@@ -88,7 +88,7 @@ public class EnumerationFacadeLogicImpl
     {
         // To Check: could be sufficient to return the collection of attributes only
         //           without filtering
-        // http://galaxy.andromda.org/jira/browse/UMLMETA-87
+        // http://www.andromda.org/jira/browse/UMLMETA-87
         final Collection variables = (this.metaObject instanceof Enumeration
                 ? ((Enumeration)this.metaObject).getOwnedAttributes()
                 : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER));

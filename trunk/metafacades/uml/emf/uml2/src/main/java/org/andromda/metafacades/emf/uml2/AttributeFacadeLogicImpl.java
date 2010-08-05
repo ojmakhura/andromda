@@ -359,7 +359,7 @@ public class AttributeFacadeLogicImpl
     protected String handleGetName()
     {
         final String mask = String.valueOf(this.getConfiguredProperty(
-            // http://galaxy.andromda.org/jira/browse/UMLMETA-88
+            // http://www.andromda.org/jira/browse/UMLMETA-88
             this.getOwner() instanceof EnumerationFacade && !this.isEnumerationMember()
                 ? UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK
                 : UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK ));

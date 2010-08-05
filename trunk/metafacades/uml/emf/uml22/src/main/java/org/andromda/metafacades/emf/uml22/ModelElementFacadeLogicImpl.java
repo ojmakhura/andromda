@@ -495,7 +495,7 @@ public class ModelElementFacadeLogicImpl
                 {
                     // 'tagged values' can have arrays of strings as well as
                     // strings as values.
-                    /* http://galaxy.andromda.org/jira/browse/UMLMETA-89
+                    /* http://www.andromda.org/jira/browse/UMLMETA-89
                     Object value = taggedValue.getValue();
                     if (value instanceof Collection)
                     {
