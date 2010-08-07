@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Model and generate PSM metaclasses ">
+            <p>In one of the previous steps, "Identify and design PSM metaclasses", you have already found your key
+                concepts of the target platform for which you want to generate code in the end. You will have modeled 
+                them using class diagrams. Assign the <b>stereotype &lt;&lt;PSMmetaclass&gt;&gt;</b> to each one of those classes
+                and put them into a separate package called <b>*.psm</b> to keep them separate from the metafacade classes which are yet to come.
+            </p>
+
+            <p>The AndroMDA Java cartridge will generate a value object-like Java class for each &lt;&lt;PSMmetaclass&gt;&gt;.
+                So, make sure that the build process for your cartridge project activates <b>both the andromda-meta and the andromda-java cartridges</b>.</p>
+
+            <p>Note: You need at least AndroMDA release 3.2 to have the stereotype &lt;&lt;PSMmetaclass&gt;&gt;.
+                In the earlier releases of AndroMDA, you write the PSM metaclasses by hand or generate them using the stereotype
+                &lt;&lt;ValueObject>> which is somewhat crude.
+            </p>
+        </section>
+    </body>
+</document>

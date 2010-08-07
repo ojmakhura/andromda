@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Identifying the PSM metaclasses ">
+            <p>When you have found the core concepts of your target platform, design them into classes, the PSM metaclasses. They will form the PSM metamodel.</p>                
+            <ul>
+                <li>
+                    <p>Inside a PSM metaclass… </p>
+                    <ul>
+                        <li>attributes capture target contents </li>
+                        <li>associations define logical target structure </li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Later on, templates will transform PSM metaobjects to text format </p>
+                    <ul>
+
+                        <li>PSM metaclass will need methods to return values which fill the placeholders in template scripts </li>
+                        <li>Design those methods a little later when you know more about your PSM metaclass </li>
+                    </ul>
+                </li>
+            </ul>            
+            <p>For our deployment cartridge sample, the PSM metamodel looks like this: </p>
+            <img src="deploymentpsm.gif" alt="Deployment PSM"/>
+            <p>With this metamodel, you have a clear understanding of what an Ant build file contains (at least for the scope of this tutorial): </p>
+            <ul>
+                <li>A project can have a default target, a name and any number of targets. </li>
+                <li>A target can have a list of other targets it depends on, a name and any number of task calls. </li>
+                <li>A task call is a call to a named task which can be a compiler or a jar task</li>
+            </ul>
+
+        </section>
+    </body>
+</document>

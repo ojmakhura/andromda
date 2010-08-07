@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Designing metafacade classes">
+            <ol>
+                <li>A metafacade wraps a metaclass from the original PIM metamodel
+                    <ul>
+                        <li>Example: org.andromda.metafacades.uml.ClassifierFacade wraps org.omg.uml.foundation.core.Classifier</li>
+                    </ul>
+                </li>
+                <li>Identify or create new metafacade
+                    <ul>
+                        <li>Find an existing metafacade that wraps your PIM source element (from your transformation table)</li>
+                        <li>specialize that existing metafacade class (see DeploymentPackageFacade in the sample below)</li>
+                        <li>if there is none, create a new metafacade class and model a wrapping dependency from the metafacade class to the desired metaclass</li>
+                        <li>use a combination of both (see NodeFacade in the sample below)</li>
+                    </ul>
+                </li>
+                <li>Add your transformation operations to your own metafacade class</li>
+            </ol>
+            <p>
+                If there is no PIM metaclass that matches your needs, you should also model a new &lt;&lt;metaclass&gt;&gt;
+                (see Node, Component and Artifact in the sample below).
+            </p>
+        </section>
+        <section name="Modeling metafacades">
+            <ol>
+                <li>Open the empty MagicDraw model in src/uml of your cartridge</li>
+                <li>Use the existing metafacade module andromda-metafacades-uml-*.xml.zip
+                    <ol>
+                        <li>you'll find it in your Maven repository in the folder org/andromda/metafacades/andromda-metafacades-uml/*</li>
+                    </ol>
+                </li>
+                <li>Go ahead
+                    <ol>
+                        <li>Create a package</li>
+                        <li>Create a class diagram</li>
+                        <li>Create &lt;&lt;metafacade&gt;&gt; classes</li>
+                        <li>Add attributes, associations, operations</li>
+                    </ol>
+                </li>
+            </ol>
+            <p>AndroMDA's meta cartridge will transform all those metafacade attributes, associations and operations into Java methods which you will have to implement.
+                The algorithms inside those methods come from the transformation rules you have recorded in your transformation table.
+            </p>
+            <p>For our sample deployment cartridge, the metafacade model looks like this:</p>
+            <img src="deploymentmetafacadeclassdi.gif" alt="Deployment metafacade class diagramm"/>
+
+            <p>I have used the following inheritance relationships:</p>
+            <img src="deploymentmetafacadeinherit.gif" alt="Deployment metafacade inheritance"/>
+
+            <p>This only works because in the UML metamodel, Node, Component and Artifact all specialize Classifier.
+                That way, I can reuse all the operations in ClassifierFacade which is included in the AndroMDA distribution.
+            </p>
+
+        </section>
+        <section name="Writing metafacades">
+            <p>Make sure your cartridge POM (see pom.xml) contains a dependency to the andromda-meta cartridge. Then:</p>
+            <ol>
+                <li>Run AndroMDA to get source code for your metafacades. Watch it: which Java files appear on disk?
+                    <ol>
+                        <li>Each metafacade consists of one interface, one (auto-generated) base class and one (hand-written) implementation class.</li>
+                        <li>Each method xxx() inside your metafacade interface must be implemented by a handleXxx() method in the implementation class.</li>
+                    </ol>
+                </li>
+                <li>Compile and watch Eclipse's error message:
+                    <b>"*Impl does not implement abstract method handleXxx()..."</b>
+                </li>
+                <li>Implement the handleXXX() methods in the *LogicImpl class</li>
+                <li>compile again</li>
+            </ol>
+            <p>As an example, look at the code which is contained in our deployment cartridge metafacades:</p>
+
+            <p>
+                <b>NodeFacadeLogicImpl.java:</b>
+            </p>
+            <source>
+                <![CDATA[
+    protected Project handleTransformToAntProject()
+    {
+        ArrayList compilationTasks = new ArrayList();
+        ArrayList deploymentTasks = new ArrayList();
+        for (Iterator iter = getDeployedComponents().iterator(); iter.hasNext();)
+        {
+            ComponentFacade element = (ComponentFacade) iter.next();
+            compilationTasks.addAll(element.getTasksForCompilationPhase());
+            deploymentTasks.addAll(element.getTasksForDeploymentPhase());
+        }
+        Target compilationTarget = new Target("compile", null, compilationTasks);
+        Target deploymentTarget = new Target("deploy", "compile", deploymentTasks);
+        ArrayList allTargets = new ArrayList(2);
+        allTargets.add(compilationTarget);
+        allTargets.add(deploymentTarget);
+        Project p = new Project(getFullyQualifiedName(), "deploy", allTargets);
+        return p;
+    }
+]]>
+            </source>
+            <p>
+                <b>ComponentFacadeLogicImpl.java:</b>
+            </p>
+            <source>
+                <![CDATA[
+    protected java.util.Collection handleGetManifestingArtifacts()
+    {
+        ArrayList result = new ArrayList();
+        Collection dependencies = getTargetDependencies();
+        for (Iterator iter = dependencies.iterator(); iter.hasNext();)
+        {
+            DependencyFacade element = (DependencyFacade) iter.next();
+            if (element.hasStereotype(DeploymentProfile.STEREOTYPE_MANIFEST))
+            {
+                result.add(element.getSourceElement());
+            }
+        }
+        return result;
+    }
+
+    protected Collection handleGetTasksForDeploymentPhase()
+    {
+        ArrayList result = new ArrayList();
+        Collection manifestingArtifacts = getManifestingArtifacts();
+        for (Iterator iter = manifestingArtifacts.iterator(); iter.hasNext();)
+        {
+            ArtifactFacade element = (ArtifactFacade) iter.next();
+            result.addAll(element.getTasksForDeploymentPhase());
+        }
+        return result;
+    }
+
+    protected Collection handleGetTasksForCompilationPhase()
+    {
+        ArrayList result = new ArrayList();
+        Collection manifestingArtifacts = getManifestingArtifacts();
+        for (Iterator iter = manifestingArtifacts.iterator(); iter.hasNext();)
+        {
+            ArtifactFacade element = (ArtifactFacade) iter.next();
+            result.addAll(element.getTasksForCompilationPhase());
+        }
+        return result;
+    }
+]]>
+            </source>
+            <p>
+                <b>ArtifactFacadeLogicImpl.java:</b>
+            </p>
+
+            <source>
+                <![CDATA[
+    protected java.util.Collection handleGetWrappedPackages()
+    {
+        ArrayList result = new ArrayList();
+        Collection dependencies = getSourceDependencies();
+        for (Iterator iter = dependencies.iterator(); iter.hasNext();)
+        {
+            DependencyFacade element = (DependencyFacade) iter.next();
+            if (element.hasStereotype(DeploymentProfile.STEREOTYPE_WRAPS))
+            {
+                result.add(element.getTargetElement());
+            }
+        }
+        return result;
+    }
+
+    protected Collection handleGetTasksForCompilationPhase()
+    {
+        ArrayList result = new ArrayList();
+        Collection wrappedPackages = getWrappedPackages();
+        for (Iterator iter = wrappedPackages.iterator(); iter.hasNext();)
+        {
+            DeployedPackageFacade element = (DeployedPackageFacade) iter.next();
+            result.addAll(element.getTasksForCompilationPhase());
+        }
+        return result;
+    }
+
+    protected Collection handleGetTasksForDeploymentPhase()
+    {
+        ArrayList packages = new ArrayList();        // find all packages which deploy in this artifact
+        Collection wrappedPackages = getWrappedPackages();
+        for (Iterator iter = wrappedPackages.iterator(); iter.hasNext();)
+        {
+            DeployedPackageFacade element = (DeployedPackageFacade) iter.next();
+            packages.add(element.getFullyQualifiedName());
+        }     // jar all packages into one jar
+        JarTaskCall taskCall = new JarTaskCall(packages, getName(), "jar");
+        ArrayList result = new ArrayList(1);
+        result.add(taskCall);
+        return result;
+    }
+]]>          </source>
+            <p>Now you have seen that the transformation rules which you identified earlier have been coded into metafacade classes.
+                Each transformation rule translates one or more PIM objects into one or more PSM objects.
+                These PSM metaobjects are now ready to be processed by templates. So, it's just the right time to show you how to write templates.
+            </p>
+
+        </section>
+    </body>
+</document>
