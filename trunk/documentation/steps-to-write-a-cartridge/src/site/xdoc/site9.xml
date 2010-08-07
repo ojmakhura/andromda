@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Writing deployment descriptors ">
+            <p>This item should describe how cartridge.xml, metafacades.xml and profile.xml are written.</p>
+            <p>TODO</p>
+        </section>
+    </body>
+</document>

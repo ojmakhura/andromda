@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="The main process for analysis, design and implementation of cartridges ">
+            <p>The basic process for cartridge development consists of the following steps:</p>
+            <ol>
+                <li>Analyze target technology</li>
+                <li>Identify, design and generate PSM metaclasses</li>
+                <li>Identify transformation rules</li>
+                <li>Model, generate and write metafacades</li>
+                <li>Write templates</li>
+                <li>Write deployment descriptors</li>
+                <li>Create UML profile as a modeling guide for your users</li>
+                <li>Design cartridge test model using the profile</li>
+                <li>Test cartridge</li>
+                <li>Deploy cartridge</li>
+            </ol>
+            <p>
+                There are also some supporting activities that you need to do in order to get your cartridge and make others use it:
+            </p>
+            <ol>
+                <li>Create empty cartridge and initialize build environment</li>
+                <li>Think about versioning and releasing your cartridge in sync with the project teams who use it</li>
+            </ol>
+            <p>We will now go one step after the other so that you can see how everything works.</p>            
+        </section>
+    </body>
+</document>

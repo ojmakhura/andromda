@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Writing templates">
+            <p>OK, until now you know the following:</p>
+            <ol>
+                <li>a model is parsed into an AST</li>
+                <li>AST is made of metaobjects (instances of metaclasses)</li>
+                <li>metaobjects are wrapped with metafacades</li>
+                <li>metafacades return PSM metaobjects which are ready to fill a template</li>
+                <li>you'll now learn how to write templates that transform PSM objects to text</li>
+            </ol>
+
+            <p>We'll have a look at the sample template which transforms the contents of a Project object into an XML file for Ant.
+                The template is written in the Velocity template language and looks like this:
+            </p>
+
+            <p>
+                <b>AntProject.vsl:</b>
+            </p>
+            <source>
+                <![CDATA[
+#set ($project = $node.transformToAntProject())
+<project name="$project.name"
+         default="$project.defaultTargetName">#foreach ($target in $project.targets)#if ($target.dependencyList)
+    <target name="$target.name" depends="$target.dependencyList">#else
+    <target name="$target.name">#end#foreach ($task in $target.taskcalls)#if ($task.taskName == "javac")
+        <javac package="$task.packageToBeCompiled"/>#elseif($task.taskName == "jar")
+        <jar name="$task.jarName">#foreach ($package in $task.packagesToBeJarred)<package
+                name="$package"/>#end
+        </jar>
+        #end#end
+    </target>
+    #end
+</project>
+]]>
+            </source>
+            <p>You see that a template basically consists of:</p>
+            <ol>
+                <li>the text you want to see in your output file</li>
+                <li>placeholders where concrete names and values will be filled in</li>
+                <li>metalevel statements like #set, #if and #for to allow navigation along the structure of the PSM metaobjects</li>
+            </ol>
+            <p>The template language is documented in the docs of the Apache Velocity project or the Freemarker project, depending on which template engine you use.</p>
+
+            <p>This is the second template which is contained in the sample deployment cartridge. It generates a simple deployment report about all nodes, components and artifacts.</p>
+
+            <p>
+                <b>DeploymentReport.vsl:</b>
+            </p>
+            <source>
+                <![CDATA[
+<deployment-report generation-date="$date">
+    #foreach ($node in $nodes)
+    <node name="$node.name">
+        #foreach ($component in $node.deployedComponents)
+        <component name="$component.name">
+            #foreach ($artifact in $component.manifestingArtifacts)
+            <artifact name="$artifact.name">
+                #foreach ($package in $artifact.wrappedPackages)<package
+                    name="$package.fullyQualifiedName"></package>
+                #end
+            </artifact>
+            #end
+        </component>
+        #end
+    </node>
+    #end
+</deployment-report>
+]]>
+            </source>
+            <p>I think you now get the basic idea about how templates work.</p>
+        </section>
+    </body>
+</document>

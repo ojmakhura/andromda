@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Identifying transformation rules">
+            <p>Now, the next question is: If I know my PIM (platform independent model)
+                and my PSM (platform specific model), then how do I transform PIM elements to PSM elements and to code?
+                Think of this in two steps:
+            </p>
+            <ul>
+                <li>Ask yourself
+                    <ol>
+                        <li>Which PIM elements will be translated to which PSM elements?</li>
+                        <li>How is the relationship? 1:1, 1:n, n:m?</li>
+                        <li>How can I formalize a rule that translates PIM metaobjects into PSM metaobjects?</li>
+                    </ol>
+                </li>
+                <li>And now the final question:
+                    <ol>
+                        <li>What would a PIM metaobject need to transform itself into PSM metaobjects?</li>
+                        <li>The answer will tell you which metafacades you need in your cartridge!</li>
+                    </ol>
+                </li>
+            </ul>
+            <p>When you find the transformation rules for your cartridge, record them as a table on a piece of paper.
+                In the case of our deployment sample, you might want to record the following transformation rules:
+            </p>
+
+            <table>
+                <tr>
+                    <td>Source element in PIM</td>
+                    <td>Target elements in PSM</td>
+                    <td>Transformation</td>
+                </tr>
+                <tr>
+                    <td>Node</td>
+                    <td>Project</td>
+                    <td>one project for each node in the system</td>
+                </tr>
+                <tr>
+                    <td>Node</td>
+                    <td>Target</td>
+                    <td>one "compile" and one "deploy" target per node which contain all tasks for all artifacts and packages of this node</td>
+                </tr>
+                <tr>
+                    <td>Artifact</td>
+                    <td>Task</td>
+                    <td>one &lt;jar&gt; task for each artifact</td>
+                </tr>
+                <tr>
+                    <td>Package</td>
+                    <td>Task</td>
+                    <td>one &lt;javac&gt; task for each package</td>
+                </tr>
+            </table>
+
+            <p>Now, think of a transformation rule as an operation inside a PIM metafacade. Let those operations return PSM metaobjects. The algorithm inside the operation implements the PIM-to-PSM transformation.</p>
+
+            <p>Design the transformation rules you have found as methods of one or more metafacade classes. Then apply the three-step process:</p>
+            <ol>
+                <li>Model metafacades using UML</li>
+                <li>Generate code for them using AndroMDA's cartridge andromda-meta</li>
+                <li>Implement them in Java</li>
+            </ol>
+        </section>
+    </body>
+</document>

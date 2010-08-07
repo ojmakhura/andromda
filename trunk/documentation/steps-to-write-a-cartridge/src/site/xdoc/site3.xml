@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>10 steps to write a cartridge</title>
+    </properties>
+    <body>
+        <section name="10 steps to write a cartridge">
+            <p>This article shows you how to write an AndroMDA cartridge in 10 distinct steps,
+                using a sample cartridge which generates an Ant-like build script from a UML deployment model.
+                This is why the tutorial cartridge is called "andromda-deployment".
+            </p>
+        </section>
+        <section name="Analyzing the target technology (PSM)">
+            <p>Hint: PSM means "platform specific model".</p>                
+            <p>First of all, analyze the target technology for which you want to generate the code. Ask yourself some questions:</p>
+            <ul>
+                <li>
+                    <p>What are the core concepts in my target technology?</p>
+                    <ul>
+
+                        <li>Java: classes, interfaces, methods, …</li>
+                        <li>MS Excel: sheets, cells and their contents</li>
+                        <li>Database: tables, rows, columns, keys</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>What are the formats in which the target technology expresses itself?</p>
+                    <ul>
+
+                        <li>Java: source code</li>
+                        <li>MS Excel: proprietary binary or readable XML</li>
+                        <li>Database: DDL scripts, SQL scripts with test data</li>
+                        <li>currently, it's not possible to generate binaries!</li>
+                    </ul>
+                </li>
+            </ul>            
+            <p>The answers to these questions are the results of target technology analysis. The results are twofold:</p>
+            <ul>
+                <li>PSM core concepts -- they will be candidates for PSM metaclasses</li>
+                <li>File formats -- they will determine the format of your templates</li>
+            </ul>
+            <p>In the case of our deployment cartridge, the platform that we describe in our PSM is the Ant platform. So, the PSM core concepts are:</p>
+            <ul>
+                <li>Project: description of something that can be built</li>
+                <li>Target: a certain goal which should be reached during the build process, e.g. "compile", "jar" or "deploy"</li>
+                <li>Task: some distinct algorithm that is run during the build, e.g. the Java compiler or the Jar utility</li>
+            </ul>
+            <p>The file format involved is a simple XML format that can contain projects, targets and tasks. I am lazy in this tutorial, so I will not generate fully functional Ant scripts but only something conceptually similar so that you can see the intention.</p>
+
+        </section>
+    </body>
+</document>
