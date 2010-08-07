@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<document>
-<!--document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd"-->
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
     <properties>
         <title>AndroMDA Configuration</title>
         <author email="chad@andromda.org">Chad Brandon</author>
@@ -302,6 +300,7 @@
 </andromda>]]>
                     </source>
                 </p>
+                </subsection>
                 <subsection name="">
                     <h2>
                         <a name="host"><![CDATA[<host>]]></a>
@@ -373,7 +372,6 @@
                         </source>
                     </p>
                 </subsection>
-            </subsection>
             <subsection name="">
                 <h2>
                     <a name="repositories"><![CDATA[<repositories>]]></a>
@@ -485,7 +483,7 @@
                     </source>
                 </p>
             </subsection>
-            <subsection name="">
+            <subsection name="Model">
                 <h2>
                     <a name="model"><![CDATA[<model>]]></a>
                 </h2>
@@ -531,6 +529,7 @@
                         </td>
                     </tr>
                 </table>
+                </subsection>
                 <subsection name="Models">
                     <h2>
                         <a name="uri"><![CDATA[<uri>]]></a>
@@ -547,7 +546,7 @@
                         </source>
                     </p>
                 </subsection>
-                <subsection name="">
+                <subsection name="Transformations">
                 <h2>
                     <a name="transformations"><![CDATA[<transformations>]]></a>
                 </h2>
@@ -572,18 +571,18 @@
                 </p>
             </subsection>
             <subsection name="Transformation">
+                <h2>
+                    <a name="transformation"><![CDATA[<transformation>]]></a>
+                </h2>
+                <p>
+                    The <code><![CDATA[<transformation/>]]></code> is a <em>required</em>
+                    element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
+                    modeling processing occurs.  Note, that as many
+                    transformations can be specified as you like, the transformations will be applied
+                    in the order that they are specified in your andromda.xml.  Also note that any imports
+                    are assumed to be relative to the transformation itself.
+                </p>
                 <table>
-                    <h2>
-                        <a name="transformation"><![CDATA[<transformation>]]></a>
-                    </h2>
-                    <p>
-                        The <code><![CDATA[<transformation/>]]></code> is a <em>required</em>
-                        element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
-                        modeling processing occurs.  Note, that as many
-                        transformations can be specified as you like, the transformations will be applied
-                        in the order that they are specified in your andromda.xml.  Also note that any imports
-                        are assumed to be relative to the transformation itself.
-                    </p>
                     <tr>
                         <td>
                             <strong>Attribute</strong>
@@ -609,7 +608,8 @@
                         </td>
                     </tr>
                  </table>
-                <subsection name="">
+                </subsection>
+                <subsection name="Uri">
                     <h2>
                         <a name="uri"><![CDATA[<uri>]]></a>
                     </h2>
@@ -622,9 +622,8 @@
 </transformation>]]>
                             </source>
                         </p>
-                    </subsection>
                 </subsection>
-                <subsection name="">
+                <subsection name="ModuleSearchLocations">
                     <h2>
                         <a name="moduleSearchLocations"><![CDATA[<moduleSearchLocations>]]></a>
                     </h2>
@@ -642,7 +641,7 @@
                         </source>
                     </p>
                 </subsection>
-                <subsection name="">
+                <subsection name="ModelPackages">
                     <h2>
                         <a name="modelPackages"><![CDATA[<modelPackages>]]></a>
                     </h2>
@@ -689,32 +688,32 @@
                         </tr>
                     </table>
                 </subsection>
-                <subsection name="">
+                <subsection name="ModelPackage">
                     <h2>
                         <a name="modelPackage"><![CDATA[<modelPackage>]]></a>
                     </h2>
-                    <table>
-                        <p>
-                            The <em>optional</em> <code><![CDATA[<modelPackage>]]></code> is used in
-                            conjunction with the <code><a href="#processAll">processAll</a></code>
-                            attribute of the <code><a href="#modelPackages"><![CDATA[<modelPackages>]]></a></code>
-                            element.  By default all packages are processed. Therefore it is recommended to
-                            turn off the packages which should be not processed.  In other words,
-                            if you don't want to generate code from a certain package of a model,
-                            then you can create a modelPackage for that package, set the <em>process</em> attribute
-                            to <code>false</code>, and any model elements in that package will not be processed.
-                        </p>
-                        <p class="highlight">
-                            Note that you can use wild card matching within the modelPackage element.  For example:
-                        </p>
-                        <source>
+                    <p>
+                        The <em>optional</em> <code><![CDATA[<modelPackage>]]></code> is used in
+                        conjunction with the <code><a href="#processAll">processAll</a></code>
+                        attribute of the <code><a href="#modelPackages"><![CDATA[<modelPackages>]]></a></code>
+                        element.  By default all packages are processed. Therefore it is recommended to
+                        turn off the packages which should be not processed.  In other words,
+                        if you don't want to generate code from a certain package of a model,
+                        then you can create a modelPackage for that package, set the <em>process</em> attribute
+                        to <code>false</code>, and any model elements in that package will not be processed.
+                    </p>
+                    <p class="highlight">
+                        Note that you can use wild card matching within the modelPackage element.  For example:
+                    </p>
+                    <source>
 <![CDATA[<modelPackages>
-    ...
-    <modelPackage process="false">my::package::bar::*</modelPackage>                                
-    <modelPackage process="false">my::package::bar**</modelPackage>
-    ...
-</modelPackages>]]>                                
-                        </source>
+...
+<modelPackage process="false">my::package::bar::*</modelPackage>
+<modelPackage process="false">my::package::bar**</modelPackage>
+...
+</modelPackages>]]>
+                    </source>
+                    <table>
                         <tr>
                             <td>
                                 <strong>Attribute</strong>
@@ -739,32 +738,32 @@
                                 <code>true</code>.
                             </td>
                         </tr>
-                        <subsection name="Example">
-                            <p>
-                                The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
-                                element:
-                            </p>
-                            <source>
+                        </table>
+                    </subsection>
+                    <subsection name="Example">
+                        <p>
+                            The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
+                            element:
+                        </p>
+                        <source>
 <![CDATA[<modelPackages>
   ...
     <modelPackage>my::package::foo</modelPackage>
     <modelPackage process="false">my::package::bar</modelPackage>
   ...
 </modelPackages>]]></source>
-                                <p>
-                                    The above is equivalent to:
-                                </p>
-                                <source>
+                        <p>
+                            The above is equivalent to:
+                        </p>
+                        <source>
 <![CDATA[<modelPackages>
   ...
     <modelPackage process="false">my::package::bar</modelPackage>
   ...
 </modelPackages>]]>
-                            </source>
-                        </subsection>
-                    </table>
+                        </source>
                 </subsection>
-                <subsection name="">
+                <subsection name="Constraints">
                     <h2>
                         <a name="constraints"><![CDATA[<constraints>]]></a>
                     </h2>
@@ -812,7 +811,7 @@
                         </tr>
                     </table>
                 </subsection>
-                <subsection name="">
+                <subsection name="Constraint">
                     <h2>
                         <a name="constraint"><![CDATA[<constraint>]]></a>
                     </h2>
@@ -865,33 +864,32 @@
                                 No. Defaults to <code>true</code>.
                             </td>
                         </tr>
-                        <subsection name="Example">
-                            <p>
-                                The below example demonstrates the correct use of the <![CDATA[<constraint>]]>
-                                element:
-                            </p>
-                            <source>
+                        </table>
+                    </subsection>
+                    <subsection name="Example">
+                        <p>
+                            The below example demonstrates the correct use of the <![CDATA[<constraint>]]>
+                            element:
+                        </p>
+                        <source>
 <![CDATA[<constraints>
     ...
     <constraint>my::package::foo</constraint>
     <constraint enforce="false">my::package::bar**</constraint>
     ...
 </constraints>]]></source>
-                                <p>
-                                    The above is equivalent to:
-                                </p>
-                                <source>
+                        <p>
+                            The above is equivalent to:
+                        </p>
+                        <source>
 <![CDATA[<constraints enforceAll="false">
     ...
     <constraint enforce="true">my::package::foo</constraint>
     ...
 </constraints>]]>
-                            </source>
-                        </subsection>
-                    </table>
+                    </source>
                 </subsection>
-            </subsection>
-            <subsection name="">
+            <subsection name="MappingsSearchLocations">
                 <h2>
                     <a name="mappingsSearchLocations"><![CDATA[<mappingsSearchLocations>]]></a>
                 </h2>
@@ -941,7 +939,7 @@
 </andromda>]]>
                 </source>
             </subsection>
-            <subsection name="">
+            <subsection name="Namespaces">
                 <h2>
                     <a name="namespaces"><![CDATA[<namespaces>]]></a>
                 </h2>
@@ -960,7 +958,7 @@
                             </source>
                 </p>
             </subsection>
-            <subsection name="">
+            <subsection name="Namespace">
                 <h2>
                     <a name="namespace"><![CDATA[<namespace>]]></a>
                 </h2>
@@ -1018,7 +1016,7 @@
                     </source>
                 </p>
             </subsection>
-            <subsection name="">
+            <subsection name="Properties">
                 <h2>
                     <a name="properties"><![CDATA[<properties>]]></a>
                 </h2>
@@ -1034,7 +1032,7 @@
                     </source>
                 </p>
             </subsection>
-            <subsection name="">
+            <subsection name="Property">
                 <h2>
                     <a name="property"><![CDATA[<property>]]></a>
                 </h2>
@@ -1049,6 +1047,7 @@
     ...
 </properties>]]>
                     </source>
+                    </p>
                     <h3>Attributes</h3>
                     <table>
                         <tr>
@@ -1088,7 +1087,6 @@
                             </td>
                         </tr>
                     </table>
-                </p>
             </subsection>
         </section>
     </body>
