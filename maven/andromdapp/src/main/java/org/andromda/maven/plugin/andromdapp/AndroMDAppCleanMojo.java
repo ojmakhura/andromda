@@ -41,7 +41,7 @@ public class AndroMDAppCleanMojo
         catch (final NoClassDefFoundError ncdfe)
         {
             ClassLoader cl = this.getClass().getClassLoader();
-            // Its a RealmClassLoader but its a private class and so cant reference grrr !!!
+            // Its a RealmClassLoader but its a private class and so can't reference grrr !!!
             // but it extends URLClassLoader
             System.err.println( "classloader:" + cl );
             if ( cl instanceof URLClassLoader ) {
