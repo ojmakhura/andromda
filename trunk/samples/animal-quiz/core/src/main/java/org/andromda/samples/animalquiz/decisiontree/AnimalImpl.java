@@ -9,7 +9,7 @@ package org.andromda.samples.animalquiz.decisiontree;
  * @see org.andromda.samples.animalquiz.decisiontree.Animal
  */
 public class AnimalImpl
-    extends org.andromda.samples.animalquiz.decisiontree.Animal
+    extends Animal
 {
     /** 
      * The serial version UID of this class. Needed for serialization. 
@@ -19,14 +19,14 @@ public class AnimalImpl
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.Animal#getPrompt()
      */
-    public java.lang.String getPrompt()
+    public String getPrompt()
     {
         return "Is it " + formatAnimalWithPredicate(getName()) + " ?";
     }
 
     private String formatAnimalWithPredicate(String name)
     {
-        final StringBuffer formattedBuffer = new StringBuffer();
+        final StringBuilder formattedBuffer = new StringBuilder();
 
         formattedBuffer.append("a ");
         formattedBuffer.append(name);
@@ -45,5 +45,4 @@ public class AnimalImpl
 
         return formattedBuffer.toString();
     }
-
 }
