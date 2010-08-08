@@ -460,7 +460,7 @@
             For Progress use: org.hibernate.dialect.ProgressDialect
             For Derby use: org.hibernate.dialect.DerbyDialect
         -->
-        <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <andromda.version>${project.version}</andromda.version>
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <application.id>timetracker</application.id>

@@ -5,22 +5,22 @@
     <parent>
         <groupId>org.andromda.demo.ejb3</groupId>
         <artifactId>demo-ejb3</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>demo-ejb3-web</artifactId>
     <packaging>war</packaging>
     <name>Demo EJB3 Web</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>ejb</type>
             <scope>provided</scope>
        </dependency>
@@ -72,7 +72,7 @@
           <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>itext</groupId>
+            <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
         </dependency>
         <dependency>
@@ -113,13 +113,12 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>../${pom.artifactId}-${pom.version}</targetPath>
+                <targetPath>../${project.artifactId}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -131,11 +130,11 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy todir="${pom.basedir}/target/src" overwrite="true" failonerror="false">
-                            <fileset dir="${pom.basedir}/src/main/jsp">
+                        <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/jsp">
                                 <include name="**/*"/>
                             </fileset>
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
                             </fileset>                            
@@ -148,17 +147,16 @@
                 <artifactId>andromda-multi-source-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
                     <excludes>**/*.java</excludes>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
 </project>

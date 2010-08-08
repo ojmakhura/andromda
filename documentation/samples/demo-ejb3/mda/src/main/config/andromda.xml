@@ -13,8 +13,9 @@
                 <model>
                     <uri>${model.uri}</uri>
                     <moduleSearchLocations>
-		 				<location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
-                        <location patterns="**/*.xml.zip,**/*.xml">${basedir}/../../profiles/uml-1.4</location>
+                        <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+                        <!--location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location-->
 					</moduleSearchLocations>
                 </model>
             </models>
@@ -29,7 +30,7 @@
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
-                <property name="ejbJndiNamePrefix">${application.id}-${pom.version}</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
                  <!-- these masking properties allow you to configure the way
                       your model element names are generated -->
                 <property name="classifierNameMask">none</property>
@@ -44,6 +45,12 @@
         </namespace>
         <namespace name="ejb3">
             <properties>
+                <property name="dataSourceName">${dataSource.name}</property>
+                <property name="dataSource">${dataSource}</property>
+                <property name="username">${jdbc.username}</property>
+                <property name="password">${jdbc.password}</property>
+                <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
                 <property name="entity-beans">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.dir}</property>
                 <property name="entity-config">${core.generated.dir}</property>
@@ -55,10 +62,13 @@
                 <property name="daos">${core.generated.dir}</property>
                 <property name="dao-impls">${core.manual.dir}</property>
                 <property name="commons">${common.generated.dir}</property>
-                <property name="user-types">${core.generated.dir}</property>
+                <property name="user-types">${common.generated.dir}</property>
                 <property name="services">${core.generated.dir}</property>
                 <property name="application-config">${application.config.dir}</property>
                 <property name="application-metainf">${application.metainf.dir}</property>
+                <property name="test-config">${core.manual.test.resources}</property>
+                <property name="tests">${core.generated.test.dir}</property>
+                <property name="test-impls">${core.manual.test.dir}</property>
                 <property name="ejb3TypesPackage">${application.package}</property>
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">${application.id}</property>
@@ -76,7 +86,7 @@
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                  -->
-                <property name="jndiNamePrefix">${application.id}-${pom.version}</property>
+                <property name="jndiNamePrefix">${application.id}-${project.version}</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateUseQueryCache">false</property>
@@ -93,6 +103,7 @@
                 <property name="webServiceEnabled">true</property>
                 <property name="webServiceContextRoot">/${application.id}-ws</property>
                 <property name="webServiceUrlPattern">/services</property>
+                <property name="persistenceProviderExtensions">hibernate</property>
                 <!-- uncomment to enable JBoss Seam
                 <property name="seamEnabled">true</property>
                 -->

@@ -4,22 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.timetracker</groupId>
-        <artifactId>timetracker</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>timetracker-ejb3</artifactId>
+        <version>3.4-SNAPSHOT</version>
     </parent>
-    <artifactId>timetracker-client</artifactId>
+    <artifactId>timetracker-ejb3-client</artifactId>
     <packaging>jar</packaging>
-    <name>Timetracker Client</name>
+    <name>Timetracker EJB3 Client</name>
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>timetracker-common</artifactId>
+            <artifactId>timetracker-ejb3-common</artifactId>
             <version>${pom.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
         	<groupId>${pom.groupId}</groupId>
-        	<artifactId>timetracker-core</artifactId>
+        	<artifactId>timetracker-ejb3-core</artifactId>
         	<version>${pom.version}</version>
         	<type>ejb</type>
         	<scope>compile</scope>

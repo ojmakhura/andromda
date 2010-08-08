@@ -5,21 +5,21 @@
     <parent>
         <groupId>org.andromda.timetracker</groupId>
         <artifactId>timetracker</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
-    <artifactId>timetracker-app</artifactId>
+    <artifactId>timetracker-ejb3-app</artifactId>
     <packaging>ear</packaging>
     <name>TimeTracker Application</name>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${pom.groupId}</groupId>
-                <artifactId>timetracker-common</artifactId>
+                <artifactId>timetracker-ejb3-common</artifactId>
                 <version>${pom.version}</version> 
                 <exclusions>
                     <exclusion>
                         <groupId>${pom.groupId}</groupId>
-                        <artifactId>timetracker-mda</artifactId>
+                        <artifactId>timetracker-ejb3-mda</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.andromda.profiles.uml14</groupId>
@@ -33,7 +33,8 @@
             </dependency>
             <dependency>
                 <groupId>${pom.groupId}</groupId>
-                <artifactId>timetracker-core</artifactId>
+                <artifactId>timetracker-ejb3-core</artifactId>
+                <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>net.sf.ehcache</groupId>
@@ -69,18 +70,18 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>timetracker-common</artifactId>
+            <artifactId>timetracker-ejb3-common</artifactId>
             <version>${pom.version}</version>            
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>timetracker-core</artifactId>
+            <artifactId>timetracker-ejb3-core</artifactId>
             <version>${pom.version}</version>  
             <type>ejb</type>          
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>timetracker-web</artifactId>
+            <artifactId>timetracker-ejb3-web</artifactId>
             <version>${pom.version}</version>            
             <type>war</type>
         </dependency>
@@ -115,16 +116,16 @@
                     <modules>
                         <javaModule>
                             <groupId>${pom.groupId}</groupId>
-                            <artifactId>timetracker-common</artifactId>
+                            <artifactId>timetracker-ejb3-common</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </javaModule>
                         <ejbModule>
                             <groupId>${pom.groupId}</groupId>
-                            <artifactId>timetracker-core</artifactId>
+                            <artifactId>timetracker-ejb3-core</artifactId>
                         </ejbModule>
                         <webModule>
                             <groupId>${pom.groupId}</groupId>
-                            <artifactId>timetracker-web</artifactId>
+                            <artifactId>timetracker-ejb3-web</artifactId>
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>
                     </modules>
