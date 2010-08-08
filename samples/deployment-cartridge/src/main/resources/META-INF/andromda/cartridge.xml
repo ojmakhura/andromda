@@ -1,6 +1,8 @@
 <cartridge>
      <templateObject name="date" className="java.util.Date" /> 
 
+     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
+
      <template
         path="templates/deployment/DeploymentReport.vsl"
         outputPattern="DeploymentReport.xml"
