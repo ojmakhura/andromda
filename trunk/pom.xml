@@ -499,10 +499,6 @@
                     <version>2.1.2</version>
                     <configuration>
                         <includePom>true</includePom>
-                        <!--includes>
-                            <include>${project.basedir}/src/main/uml/**</include>
-                            <include>${project.basedir}/src/main/uml2/**</include>
-                        </includes-->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -639,8 +635,13 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
+                                    <message>You need at least Java 1.6!</message>
                                     <version>[1.6.0,]</version>
                                 </requireJavaVersion>
+                                <requirePluginVersions>
+                                    <message>Best Practice is to always define plugin versions!</message>
+                                    <banSnapshots>false</banSnapshots>
+                                </requirePluginVersions>
                             </rules>
                             <fail>true</fail>
                         </configuration>
@@ -858,7 +859,7 @@
                 <module>metafacades</module>
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
-                <module>documentation</module>
+                <module>andromda-documentation</module>
                 <module>samples</module>
             </modules>
         </profile>
@@ -942,7 +943,7 @@
                 <module>metafacades</module>
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
-                <module>documentation</module>
+                <module>andromda-documentation</module>
                 <module>samples</module>
                 <module>andromda-distribution</module>
             </modules>
@@ -984,7 +985,7 @@
                 <module>metafacades</module>
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
-                <module>documentation</module>
+                <module>andromda-documentation</module>
                 <!--module>samples</module-->
             </modules>
             <properties>
@@ -1277,7 +1278,7 @@
                 <module>metafacades</module>
                 <module>andromda-etc</module>
                 <module>translation-libraries</module>
-                <module>documentation</module>
+                <module>andromda-documentation</module>
             </modules>
             <properties>
                 <invoker.skip>true</invoker.skip>
@@ -1467,11 +1468,23 @@
                             <failOnError>false</failOnError>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <inherited>false</inherited>
+                        <artifactId>maven-changes-plugin</artifactId>
+                        <version>2.3</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>changes-report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
                 </plugins>
             </reporting>
         </profile>
         <!-- This turns off the andromda-lite and local profiles when enabled -->
-        <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+        <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363)
         <profile>
             <id>maven-3</id>
             <activation>
@@ -1491,5 +1504,6 @@
                 </pluginManagement>
             </build>
         </profile>
+        -->
     </profiles>
 </project>
