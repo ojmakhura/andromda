@@ -34,13 +34,6 @@
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
                     <version>${project.version}</version>
-                    <!--dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>${plexus.util.version}</version>
-                        </dependency>
-                   </dependencies-->
                 </plugin>
             </plugins>
         </pluginManagement>
