@@ -5,19 +5,17 @@
     <groupId>org.andromda.demo.ejb3</groupId>
     <artifactId>demo-ejb3</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.4-SNAPSHOT</version>
     <name>Demo EJB3</name>
     <description>The Demo EJB3 Project.</description>
     <scm>
-        <connection></connection>
-        <url></url>
     </scm>
     <organization>
       <name></name>
       <url></url>
     </organization>
     <ciManagement>
-        <system>continuum</system>
+        <system>cruisecontrol</system>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -44,32 +42,32 @@
             <dependency>
                 <groupId>org.andromda.profiles.uml14</groupId>
     			<artifactId>andromda-profile</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>xml.zip</type>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-ejb3-cartridge</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-java-cartridge</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-bpm4struts-cartridge</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <!-- This dependency provides the ability to implement your
@@ -78,28 +76,28 @@
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
-                <version>3.4-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.7.0</version>
+                <version>1.8.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
-                <version>3.1</version>
+                <version>3.2.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.1</version>
+                <version>2.5</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.0.4</version>
+                <version>1.1.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -180,12 +178,12 @@
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.hibernate</groupId>-->
-<!--                <artifactId>hibernate-client</artifactId>-->
-<!--                <version>3.3.1.GA</version>-->
-<!--                <scope>provided</scope>-->
-<!--            </dependency>-->
+            <!--dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-client</artifactId>
+                <version>3.3.1.GA</version>
+                <scope>provided</scope>
+            </dependency-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
@@ -242,9 +240,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>itext</groupId>
+                <groupId>com.lowagie</groupId>
                 <artifactId>itext</artifactId>
-                <version>0.99</version>
+                <version>2.1.7</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -272,9 +270,30 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>4.7</version>
+                <scope>test</scope>
+                <classifier>jdk15</classifier>
+                <exclusions>
+                    <exclusion>
+                        <groupId>qdox</groupId>
+                        <artifactId>qdox</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>bsh</groupId>
+                        <artifactId>bsh</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.beanshell</groupId>
+                        <artifactId>bsh</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>struts</groupId>
                 <artifactId>struts</artifactId>
-                <version>1.2.7</version>
+                <version>1.2.9</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-chain</groupId>
@@ -324,7 +343,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-multi-source-plugin</artifactId>
-                    <version>3.4-SNAPSHOT</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -341,20 +360,18 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>3.4-SNAPSHOT</version>
+                    <version>${project.version}</version>
                 </plugin>
-                <plugin>
+                <!--plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromdapp-maven-plugin</artifactId>
-                    <version>3.4-SNAPSHOT</version>
-                </plugin>
+                    <version>${project.version}</version>
+                </plugin-->
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.4.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.5</source>
@@ -433,7 +450,7 @@
         <application.id>demo-ejb3</application.id>
         <application.package>org.andromda.demo.ejb3</application.package>
         <application.name>Demo EJB3</application.name>
-        <application.version>1.0-SNAPSHOT</application.version>
+        <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
     </properties>
@@ -515,7 +532,7 @@
                         <plugin>
                             <groupId>org.andromda.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>3.4-SNAPSHOT</version>
+                            <version>${project.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                  be done when developing locally), uncomment this executions element to enable
                             <executions>
@@ -531,7 +548,7 @@
                                 <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
                                 <locations>
                                     <location>
-                                        <rootPath>${pom.basedir}/src/main/java</rootPath>
+                                        <rootPath>${project.basedir}/src/main/java</rootPath>
                                         <!-- adjust these to include or exclude specific files, by default
                                              all files found in the rootPath are considered
                                         <includes>
@@ -622,6 +639,6 @@
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>2.0.1</maven>
+        <maven>2.0.10</maven>
     </prerequisites>
 </project>

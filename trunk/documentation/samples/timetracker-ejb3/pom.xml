@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.andromda.timetracker</groupId>
-    <artifactId>timetracker</artifactId>
+    <artifactId>timetracker-ejb3</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.4-SNAPSHOT</version>
     <name>TimeTracker EJB3</name>
     <description>The TimeTracker EJB3 Project.</description>
     <scm>
@@ -44,32 +44,32 @@
             <dependency>
                 <groupId>org.andromda.profiles.uml14</groupId>
                 <artifactId>andromda-profile</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <type>xml.zip</type>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-ejb3-cartridge</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-java-cartridge</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -92,7 +92,7 @@
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <!-- This dependency provides the ability to implement your
@@ -101,28 +101,28 @@
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
-                <version>3.3</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.7.0</version>
+                <version>1.8.3</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
-                <version>3.1</version>
+                <version>3.2.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.1</version>
+                <version>2.5</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.0.4</version>
+                <version>1.1.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -262,9 +262,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>itext</groupId>
+                <groupId>com.lowagie</groupId>
                 <artifactId>itext</artifactId>
-                <version>0.99</version>
+                <version>2.1.7</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -303,7 +303,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -330,7 +330,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.12</version>
+            <version>1.2.16</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -347,7 +347,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-multi-source-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -364,20 +364,17 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromdapp-maven-plugin</artifactId>
-                    <version>3.3</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.5</source>
@@ -470,10 +467,10 @@
             mySQL
         </jboss.typeMappings>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
-        <application.id>timetracker</application.id>
+        <application.id>timetracker-ejb3</application.id>
         <application.package>org.andromda.timetracker</application.package>
-        <application.name>TimeTracker</application.name>
-        <application.version>1.0-SNAPSHOT</application.version>
+        <application.name>TimeTrackerEJB3</application.name>
+        <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
     </properties>
@@ -567,7 +564,7 @@
                                 <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
                                 <locations>
                                     <location>
-                                        <rootPath>${pom.basedir}/src/main/java</rootPath>
+                                        <rootPath>${project.basedir}/src/main/java</rootPath>
                                         <!-- adjust these to include or exclude specific files, by default
                                              all files found in the rootPath are considered
                                         <includes>
@@ -652,6 +649,6 @@
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>2.0.1</maven>
+        <maven>2.0.10</maven>
     </prerequisites>
 </project>

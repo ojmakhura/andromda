@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda.demo.ejb3</groupId>
         <artifactId>demo-ejb3</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>demo-ejb3-mda</artifactId>
     <packaging>pom</packaging>
@@ -50,7 +50,7 @@
                     <configurationUri>${pom.basedir}/src/main/config/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
                 <executions>
@@ -67,22 +67,25 @@
                         <exclude>webservice/pom.xml</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
     <properties>
-		<model.uri>file:${pom.basedir}/src/main/uml/demo-ejb3.xmi</model.uri>
+		<model.uri>file:${project.basedir}/src/main/uml/demo-ejb3.xmi</model.uri>
         <filter></filter>
         <validation>true</validation>
-        <conf.dir>${pom.basedir}/src/main/config</conf.dir>
+        <conf.dir>${project.basedir}/src/main/config</conf.dir>
         <!-- cartridge output locations -->
-        <core.generated.dir>${pom.basedir}/../core/target/src</core.generated.dir>
-        <core.manual.dir>${pom.basedir}/../core/src/main/java</core.manual.dir>
-        <web.generated.dir>${pom.basedir}/../web/target/src</web.generated.dir>
-        <web.manual.dir>${pom.basedir}/../web/src/main</web.manual.dir>
+        <core.generated.dir>${project.basedir}/../core/target/src</core.generated.dir>
+        <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
+        <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
+        <core.generated.test.dir>${project.basedir}/../core/target/src</core.generated.test.dir>
+        <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
+        <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
+        <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir> 
-        <common.generated.dir>${pom.basedir}/../common/target/src</common.generated.dir>      
-        <application.config.dir>${pom.basedir}/../app/src/main/config</application.config.dir>
-        <application.metainf.dir>${pom.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
+        <common.generated.dir>${project.basedir}/../common/target/src</common.generated.dir>      
+        <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
+        <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
     </properties>
 </project>

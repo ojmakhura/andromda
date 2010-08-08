@@ -5,16 +5,16 @@
     <parent>
         <groupId>org.andromda.demo.ejb3</groupId>
         <artifactId>demo-ejb3</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>demo-ejb3-core</artifactId>
     <packaging>ejb</packaging>
     <name>Demo EJB3 Core Business Tier</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -80,6 +80,43 @@
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
         </dependency>
+        <!--dependency>
+  	        <groupId>net.sf.ehcache</groupId>
+  	        <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+       	    <groupId>org.jboss.microcontainer</groupId>
+       	    <artifactId>hibernate-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.microcontainer</groupId>
+            <artifactId>jboss-ejb3-all</artifactId>
+        </dependency>
+        <dependency>
+      	    <groupId>org.jboss.microcontainer</groupId>
+       	    <artifactId>thirdparty-all</artifactId>
+        </dependency-->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>4.7</version>
+                <scope>test</scope>
+                <classifier>jdk15</classifier>
+                <exclusions>
+                    <exclusion>
+                        <groupId>qdox</groupId>
+                        <artifactId>qdox</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>bsh</groupId>
+                        <artifactId>bsh</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.beanshell</groupId>
+                        <artifactId>bsh</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
     </dependencies>
     <build>
         <plugins>
