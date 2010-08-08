@@ -144,7 +144,7 @@ public abstract class $entity.daoBaseName
     public $entityCollectionType loadAll()
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
-        return #if ($enableTemplating)($entityCollectionType)#end#**#this.loadAll(TRANSFORM_NONE);
+        return#if ($enableTemplating)($entityCollectionType)#end this.loadAll(TRANSFORM_NONE);
     }
 
     /**
@@ -211,9 +211,9 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${rootDaoType}${esc.hash}create($entityCollectionType)
      */
-#**##if ($enableTemplating)
+#if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
-#**##end
+#end
     public $entityCollectionType create(final $entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
@@ -223,9 +223,9 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${rootDaoType}${esc.hash}create(int, $entityCollectionType)
      */
-#**##if ($enableTemplating)
+#if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
-#**##end
+#end
     public java.util.Collection create(final int transform, final $entityCollectionType entities)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
@@ -249,16 +249,17 @@ public abstract class $entity.daoBaseName
         return results;
     }
 
-#**##if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
-#*  *##set ($attributes = $entity.getInstanceAttributes(true, $entity.usingAssignedIdentifier))
-#*  *##if (!$attributes.empty)
+#if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
+#set ($attributes = $entity.getInstanceAttributes(true, $entity.usingAssignedIdentifier))
+#if (!$attributes.empty)
     /**
      * @see ${rootDaoType}${esc.hash}create(${entity.getInstanceAttributeTypeList(true, false)})
      */
     public $rootEntityType create(
 #*    *##foreach($attribute in $attributes)
-        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),#end)
-#*    *##end
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),
+#end
+#*    *##end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getInstanceAttributeNameList(true, $entity.usingAssignedIdentifier)});
@@ -270,8 +271,9 @@ public abstract class $entity.daoBaseName
     public Object create(
         final int transform,
 #*    *##foreach($attribute in $attributes)
-        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),#end)
-#*    *##end
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityHasNext),
+#end
+#*    *##end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
@@ -294,8 +296,9 @@ public abstract class $entity.daoBaseName
      */
     public $rootEntityType create(
 #*    *##foreach($property in $requiredProperties)
-        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),#end)
-#*    *##end
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),
+#end
+#*    *##end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,$entity.usingAssignedIdentifier)});
@@ -307,8 +310,9 @@ public abstract class $entity.daoBaseName
     public Object create(
         final int transform,
 #*    *##foreach($property in $requiredProperties)
-        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),#end)
-#*    *##end
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityHasNext),
+#end
+#*    *##end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
@@ -319,7 +323,7 @@ public abstract class $entity.daoBaseName
     }
 
 #*  *##end
-#**##end
+#end
 #end
     /**
      * @see ${rootDaoType}${esc.hash}update($entity.fullyQualifiedEntityName)
@@ -396,21 +400,21 @@ public abstract class $entity.daoBaseName
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
 #foreach ($identifier in $entity.identifiers)
-#**##if(!$identifier.type.primitive)
+#if(!$identifier.type.primitive)
         if ($identifier.name == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$identifier.name' can not be null");
         }
-#**##end
+#end
 #end
 #if (!$entity.compositePrimaryKeyPresent)
-#**##set ($loadCall = "this.load($identifier.name)")
+#set ($loadCall = "this.load($identifier.name)")
 #else
-#**##set ($loadCall = "this.load(#foreach ($identifier in $entity.identifiers)$identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)")
+#set ($loadCall = "this.load(#foreach ($identifier in $entity.identifiers)$identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)")
 #end
 #if ($entity.generalization)
-#**##set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
+#set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
         try
         {
@@ -451,26 +455,26 @@ public abstract class $entity.daoBaseName
     }
 
 #foreach ($finder in $entity.getQueryOperations(true))
-#**##set ($returnType = $finder.returnType.fullyQualifiedName)
+#set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
      * @see ${rootDaoType}${esc.hash}$finder.getSignature(false)
      */
     $finder.visibility $returnType $finder.signature
-#**##if ($finder.exceptionsPresent)
+#if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##else
+#else
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
-#**##end
+#end
     {
-#**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#**##if ($finder.returnTypePresent)
+#set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
+#if ($finder.returnTypePresent)
 #*  *##if (!$finder.returnType.collectionType)
 #*    *##set ($finderCall = "($returnType)$finderCall")
 #*  *##end
         return $finderCall
-#**##else
+#else
         $finderCall
-#**##end
+#end
     }
 
     /**
