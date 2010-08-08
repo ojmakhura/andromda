@@ -10,9 +10,6 @@ package org.andromda.demo.ejb3.animal;
  *
  * Add any manual implementation within this class.  This class will NOT
  * be overwritten with incremental changes.
- *
- * 
- *
  */
 
 @javax.persistence.Entity
@@ -60,10 +57,8 @@ public class Animal
     {
         super(name, type, carnivor);
     }
-    
 
     // -------------- Entity Methods -----------------
-    
 
     // --------------- Lifecycle callbacks -----------------
 
@@ -95,13 +90,13 @@ public class Animal
         {
             cmp = this.getName().compareTo(o.getName());
         }
-        else
+        /*else
         {
             if (this.getType() != null)
             {
                 cmp = (cmp != 0 ? cmp : this.getType().compareTo(o.getType()));
             }
-        }
+        }*/
         return cmp;
     }
 }
