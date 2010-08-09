@@ -54,12 +54,12 @@ public class OclParserException
      * Extracts the error positioning from exception message, if possible. Assumes SableCC detail message format: "["
      * <line>"," <col>"]" <error message>.
      *
-     * @param message the mssage to exract.
+     * @param message the message to extract.
      */
     private void extractErrorPosition(String message)
     {
         this.messageBuffer = new StringBuffer();
-        if (message.charAt(0) == '[')
+        if (StringUtils.isNotBlank(message) && message.charAt(0) == '[')
         {
             // Positional data seems to be available
             StringTokenizer tokenizer = new StringTokenizer(message.substring(1), ",]");
@@ -78,7 +78,8 @@ public class OclParserException
                 this.errorLine = -1;
                 this.errorColumn = -1;
             }
-        } else
+        }
+        else
         {
             // No positional information
             this.messageBuffer.append(message);
