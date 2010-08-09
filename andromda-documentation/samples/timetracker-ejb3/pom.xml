@@ -17,7 +17,7 @@
       <url></url>
     </organization>
     <ciManagement>
-        <system>continuum</system>
+        <system>cruisecontrol</system>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -49,27 +49,10 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-ejb3-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-java-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.andromda</groupId>
-                <artifactId>andromda-utils</artifactId>
+                <artifactId>andromda-core</artifactId>
                 <version>${project.version}</version>
+                <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -115,6 +98,29 @@
                 <version>3.2.1</version>
             </dependency>
             <dependency>
+                <groupId>antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>2.7.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>2.0</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.2.1</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>2.5</version>
@@ -123,6 +129,23 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.0.ga</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -210,50 +233,10 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>1.2</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>3.2.0.ga</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
                 <version>3.2.0.ga</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>antlr</groupId>
-                <artifactId>antlr</artifactId>
-                <version>2.7.2</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-digester</groupId>
-                <artifactId>commons-digester</artifactId>
-                <version>1.7</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>1.1.4</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.0</version>
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -336,7 +319,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>3.1.13</version>
+            <version>5.0.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -345,18 +328,19 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-multi-source-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.4</version>
                     <executions>
                         <execution>
+                            <phase>generate-sources</phase>
                             <goals>
                                 <goal>add-source</goal>
                             </goals>
                             <configuration>
-                                <sourceDirectories>
-                                    <directory>target/src</directory>
-                                </sourceDirectories>
+                                <sources>
+                                    <source>target/src</source>
+                                </sources>
                             </configuration>
                         </execution>
                     </executions>
@@ -367,24 +351,25 @@
                     <version>${project.version}</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromdapp-maven-plugin</artifactId>
                     <version>${project.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.4.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.2</version>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
                     </configuration>
                 </plugin>
                 <plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
                    <artifactId>maven-surefire-plugin</artifactId>
-                   <version>2.2</version>
+                    <version>2.5</version>
                    <configuration>
                        <suiteXmlFiles>
                            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -397,6 +382,22 @@
                            </property>
                         </systemProperties>
                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}</directory>
+                                <includes>
+                                    <include>*.exc</include>
+                                    <include>*.log</include>
+                                </includes>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -548,7 +549,7 @@
                         <plugin>
                             <groupId>org.andromda.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>3.3</version>
+                            <version>${project.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                  be done when developing locally), uncomment this executions element to enable
                             <executions>
