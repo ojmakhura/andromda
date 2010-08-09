@@ -20,7 +20,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-dv/${cxf.version}/cxf-xjc-dv-${cxf.version}.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-ts/${cxf.version}/cxf-xjc-ts-${cxf.version}.jar"/>
 #if ($stringUtils.isNotBlank($xjcArguments))
-    <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb2_commons/jaxb-commons">
+    <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb2_commons">
         <include name="**/*.jar"/>
         <exclude name="**/*-sources.jar"/>
         <exclude name="**/*-javadoc.jar"/>
