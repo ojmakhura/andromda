@@ -153,6 +153,7 @@ public final class $manageable.manageableDaoBaseName
                 else
                 {
                     calendar.add(java.util.Calendar.DATE, 1);
+                    calendar.add(java.util.Calendar.MILLISECOND, -1);
                     criteria.add(Expression.between("$member.name", $member.name, calendar.getTime()));
                 }
             }
