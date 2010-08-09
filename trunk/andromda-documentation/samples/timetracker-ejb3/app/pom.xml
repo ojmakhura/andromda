@@ -13,12 +13,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${pom.groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>timetracker-ejb3-common</artifactId>
-                <version>${pom.version}</version> 
+                <version>${project.version}</version> 
                 <exclusions>
                     <exclusion>
-                        <groupId>${pom.groupId}</groupId>
+                        <groupId>${project.groupId}</groupId>
                         <artifactId>timetracker-ejb3-mda</artifactId>
                     </exclusion>
                     <exclusion>
@@ -69,20 +69,20 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-common</artifactId>
-            <version>${pom.version}</version>            
+            <version>${project.version}</version>            
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-core</artifactId>
-            <version>${pom.version}</version>  
+            <version>${project.version}</version>  
             <type>ejb</type>          
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-web</artifactId>
-            <version>${pom.version}</version>            
+            <version>${project.version}</version>            
             <type>war</type>
         </dependency>
         <dependency>
@@ -91,7 +91,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${application.id}-${pom.version}</finalName>
+        <finalName>${application.id}-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/config</directory>
@@ -100,31 +100,30 @@
             </resource>
             <resource>
                 <directory>src/main/application</directory>
-                <targetPath>../${application.id}-${pom.version}</targetPath>
+                <targetPath>../${application.id}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.3</version>
                 <configuration>
                     <includes>**/*.xml</includes>
                     <excludes>**/jboss-app.xml</excludes>
                     <version>1.4</version>
                     <modules>
-                        <javaModule>
-                            <groupId>${pom.groupId}</groupId>
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-ejb3-common</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
-                        </javaModule>
+                        </jarModule>
                         <ejbModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-ejb3-core</artifactId>
                         </ejbModule>
                         <webModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-ejb3-web</artifactId>
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>

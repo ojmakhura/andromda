@@ -19,14 +19,20 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-ejb3-cartridge</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
@@ -50,7 +56,7 @@
                     <configurationUri>${project.basedir}/src/main/config/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
                 <executions>
@@ -72,7 +78,7 @@
                         ]]>
                     </classpathMerge>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
     <properties>

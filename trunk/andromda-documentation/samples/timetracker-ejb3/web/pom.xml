@@ -12,15 +12,15 @@
     <name>TimeTracker Web</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>ejb</type>
             <scope>provided</scope>
        </dependency>
@@ -60,23 +60,23 @@
             <artifactId>oro</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces</groupId>
+            <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
+            <version>2.0.1</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces</groupId>
+            <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
+            <version>1.1.9</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>oracle.adf.view.faces</groupId>
+            <groupId>com.oracle.adf</groupId>
             <artifactId>adf-faces-api</artifactId>
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
             <version>unknown</version>
@@ -87,7 +87,7 @@
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge-components</artifactId>
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
+            <version>${andromda.version}</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath>
         </dependency>
@@ -98,13 +98,14 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>itext</groupId>
+            <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
         </dependency>
         <dependency>
@@ -145,14 +146,14 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>../${pom.artifactId}-${pom.version}</targetPath>
+                <targetPath>../${project.artifactId}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
@@ -163,32 +164,32 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy todir="${pom.basedir}/target/src" overwrite="true" failonerror="false">
-                            <fileset dir="${pom.basedir}/src/main/xhtml">
+                        <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/xhtml">
                                 <include name="**/*"/>
                             </fileset>
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
                             </fileset>                            
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="skins/**"/>
                             </fileset>	
                         </copy>
                         <!-- place any facelet tag files in ${pom.basedir}/src/main/xml/tags -->
-                        <copy todir="${pom.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
-                            <fileset dir="${pom.basedir}/src/main/xml/tags"/>
+                        <copy todir="${project.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/xml/tags"/>
                         </copy>
                     </tasks>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-multi-source-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1-beta-1</version>
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
                     <excludes>**/*.java</excludes>
