@@ -631,7 +631,7 @@
                 <documentation>
                     The default beanReafFactoryId to be used in the ServiceLocator. By default the beanRefFactoryId
                     is used (if EJB is not activated). If EJB is activated the beanRefFactoryEjbId is used.
-                    With the serviceLocatorDefaultFactoryId this behavior can be explicit overridden.
+                    With the serviceLocatorDefaultFactoryId this behavior can be explicitly overridden.
                 </documentation>
             </property>
             <property name="manageableServiceLocatorName">
