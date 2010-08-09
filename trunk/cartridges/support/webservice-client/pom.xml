@@ -215,7 +215,7 @@
                                 <jarjar jarfile="${project.build.directory}/${project.artifactId}-${project.version}.jar">
                                     <fileset dir="${project.basedir}/src/main/resources"/>
                                     <zipfileset src="${project.build.directory}/webservice-client.jar"
-                                                excludes="**/*/axis2_default.xml,
+                                        excludes="**/*/axis2_default.xml,
                                                   **/*/javax.xml.stream.XMLInputFactory,
                                                   **/*/javax.xml.stream.XMLOutputFactory,
                                                   **/*/pom.xml,
