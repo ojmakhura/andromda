@@ -127,8 +127,6 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 #set ($getterName = "${parameter.getterName}")
 #set ($setterName = "${parameter.setterName}")
 #end
-## TODO UML2 maps to ParameterableElement, not Parameter. No methods getterSetterTypeName, get/setterName in UML2,
-## returns JavaClassLogicImpl with parameter name, not type
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
     /**
@@ -140,7 +138,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 #if ($parameter.many && !$parameter.type.arrayType)
         if (this.${parameter.name} == null)
         {
-## TODO: make it better
+## TODO: this.${parameter.name} = new $umlUtils.getImplCollection($returnType)();
             this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<#if(${parameter.type.primitive})${parameter.type.wrapperName}#else${parameter.type.fullyQualifiedName}#end>#end();
         }
 #end
@@ -215,6 +213,9 @@ $attribute.getDocumentation("     * ")
 #end
 #set ($returnType = $attribute.getterSetterTypeName)
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
+#if ($attribute.type.primitive)
+    protected boolean set$stringUtils.capitalize($attribute.name) = false;
+#end
 #end
 
 #end
@@ -271,6 +272,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 #foreach ($property in $class.requiredConstructorParameters)
         this.${property.name} = ${property.name}In;
+#if ($property.type.primitive)
+        this.set$stringUtils.capitalize($property.name) = true;
+#end
 #end
     }
 
@@ -301,6 +305,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 #foreach ($property in $class.properties)
         this.${property.name} = ${property.name}In;
+#if ($property.type.primitive)
+        this.set$stringUtils.capitalize($property.name) = true;
+#end
 #end
 #if ($class.allProperties.empty)
         // documented empty block - avoid compiler warning
@@ -321,6 +328,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 #foreach ($property in $class.properties)
         this.${property.name} = otherBean.${property.getterName}();
+#if ($property.type.primitive)
+        this.set$stringUtils.capitalize($property.name) = true;
+#end
 #end
     }
 
@@ -341,6 +351,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
 #foreach ($property in $class.properties)
             this.${property.setterName}(otherBean.${property.getterName}());
+#if ($property.type.primitive)
+            this.set$stringUtils.capitalize($property.name) = true;
+#end
 #end
         }
 #end
@@ -365,7 +378,7 @@ $attribute.getDocumentation("     * ")
 #if ($attribute.many && !$attribute.type.arrayType)
         if (this.${attribute.name} == null)
         {
-## Todo: make it better
+## Todo: this.${attribute.name} = new $umlUtils.getImplCollection($returnType)();
             this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();
         }
 #end
@@ -405,6 +418,17 @@ $attribute.getDocumentation("     * ")
 #end
     }
 
+#if ($attribute.type.primitive)
+    /**
+     * Return true if the primitive attribute $attribute.name is set, through the setter or constructor
+     * @return true if the attribute value has been set
+     */
+    public boolean isSet$stringUtils.capitalize($attribute.name)()
+    {
+        return this.set$stringUtils.capitalize($attribute.name);
+    }
+
+#end
 #end
 #end
 ## Generate the relation methods.
@@ -429,6 +453,7 @@ $connectingEnd.getDocumentation("     * ")
 #if ($connectingEnd.many && !$connectingEnd.getterSetterTypeName.endsWith("[]"))
         if (this.${connectingEnd.name} == null)
         {
+##TODO      this.${connectingEnd.name} = new $umlUtils.getImplCollection($connectingEnd.getterSetterTypeName)();
             this.${connectingEnd.name} = new java.util.ArrayList#if($enableTemplating)<${connectingEnd.type.fullyQualifiedName}>#end();
         }
 #end

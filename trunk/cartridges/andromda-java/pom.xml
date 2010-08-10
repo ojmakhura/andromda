@@ -9,8 +9,7 @@
     <artifactId>andromda-java-cartridge</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA JavaCartridge</name>
-    <description>Produces generic Java code, such as: value objects, enumerations, exceptions, interfaces, etc.
-    </description>
+    <description>Produces generic Java code, such as: value objects, enumerations, exceptions, interfaces, etc.</description>
     <issueManagement>
         <system>jira</system>
         <url>http://www.andromda.org/jira/browse/JAVA</url>
@@ -67,7 +66,7 @@
                 <artifactId>andromda-cartridge-plugin</artifactId>
                 <version>${project.version}</version>
                 <executions>
-                    <execution>
+                    <!--execution>
                         <id>uml14</id>
                         <phase>generate-test-sources</phase>
                         <goals>
@@ -76,7 +75,7 @@
                         <configuration>
                             <configurationUri>file:${basedir}/conf/test/andromda.xml</configurationUri>
                         </configuration>
-                    </execution>
+                    </execution-->
                     <execution>
                         <id>uml2</id>
                         <phase>generate-test-sources</phase>
