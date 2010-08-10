@@ -197,6 +197,12 @@
             <version>${cxf.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+           <groupId>org.apache.cxf</groupId>
+           <artifactId>cxf-tools</artifactId>
+           <version>${cxf.version}</version>
+           <scope>runtime</scope>
+        </dependency>
 #end
     </dependencies>
     <profiles>
