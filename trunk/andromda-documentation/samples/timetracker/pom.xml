@@ -77,30 +77,6 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-spring-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-hibernate-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-java-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-bpm4struts-cartridge</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
                 <version>${project.version}</version>
@@ -179,7 +155,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring</artifactId>
-                <version>1.2.9</version>
+                <version>2.5.6</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>servlet-api</artifactId>
@@ -466,7 +442,7 @@
         <application.id>timetracker</application.id>
         <application.package>org.andromda.timetracker</application.package>
         <application.name>TimeTracker</application.name>
-        <application.version>1.0-SNAPSHOT</application.version>
+        <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
