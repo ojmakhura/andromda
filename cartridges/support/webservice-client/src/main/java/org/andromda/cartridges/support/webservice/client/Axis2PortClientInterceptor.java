@@ -8,14 +8,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.remoting.rmi.RmiClientInterceptorUtils;
 
 
 /**
  * Interceptor for accessing a specific port of a web service.
+ * Change from RootBeanDefinition to GenericBeanDefinition when using Spring 2.5
  */
 public class Axis2PortClientInterceptor
-    extends org.springframework.beans.factory.support.AbstractBeanDefinition
+    extends org.springframework.beans.factory.support.RootBeanDefinition
     implements MethodInterceptor,
         InitializingBean
 {
@@ -295,5 +298,12 @@ public class Axis2PortClientInterceptor
                 exception,
                 this.getServiceInterface().getName());
         }
+    }
+
+    /**
+     * @see org.springframework.beans.factory.support.RootBeanDefinition#cloneBeanDefinition()
+     */
+    public AbstractBeanDefinition cloneBeanDefinition() {
+        return new RootBeanDefinition(this);
     }
 }
