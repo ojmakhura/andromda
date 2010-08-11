@@ -1,6 +1,6 @@
 
     
-    A n d r o M D A  -  3.3-SNAPSHOT
+    A n d r o M D A  -  3.4-SNAPSHOT
 
 
     AndroMDA is an open-source MDA framework distributed under the BSD license.
@@ -209,11 +209,14 @@
             runs AndroMDA using only the Java cartridge, rebuilds the core
             module and web module and deploys afterwards
             
-        %> mvn -N andromdapp:build -Dconsole
+        %> mvn -N andromdapp:build -Dconsole   ---> or if this does not work try this:
+           mvn -N org.andromda.maven.plugins:andromdapp-maven-plugin:build -Dconsole
             
             runs the AndroMDApp build goal in 'console' mode, once running, this allows you to execute any goal or subproject
             goal in the manner described above without having to specify the andromdapp:build goal or 
             restarting maven (i.e. you can run the mda goal by typing 'mda', build the core module by type 'core', etc).
+            The general syntax is <module name>:[goal1+goal2+goal3]. So if you wanted to clean only the web module
+            you would type 'web:[clean]'.
 
 
     Please note that you may use the '-o' flag at any time to avoid
