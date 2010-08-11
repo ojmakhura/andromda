@@ -369,9 +369,7 @@
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
 #elseif ($modelType.equals("emf-uml2"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
-#elseif ($modelType.equals("emf-uml22"))
-        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
-#elseif ($modelType.equals("uml2"))
+#elseif ($modelType.equals("emf-uml22") || $modelType.equals("uml2"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>

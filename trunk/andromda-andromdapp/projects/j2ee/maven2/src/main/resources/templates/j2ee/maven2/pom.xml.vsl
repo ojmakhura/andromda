@@ -1630,11 +1630,6 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
-        <repository>
-            <id>stockholm</id>
-            <name>University Of Stockholm Repository</name>
-            <url>http://maven.it.su.se/it.su.se/maven2</url>
-        </repository>
 #if ($ajaxLibrary.equals("icefaces"))
         <repository>
             <id>jboss</id>

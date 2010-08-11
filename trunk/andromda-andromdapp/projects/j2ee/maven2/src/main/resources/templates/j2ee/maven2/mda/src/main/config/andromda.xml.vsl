@@ -31,6 +31,8 @@
                 <model type="emf-uml22">
 #end
                     <uri>${model.uri}</uri>
+                    <!-- List any additional referenced models needed for code generation here, even if already referenced internally within the model file -->
+                    <!--uri>file:${project.basedir}/uml/AdditionalModel.emx</uri-->
                     <moduleSearchLocations>
 #if ($modelType.equals("uml1.4"))
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
@@ -132,6 +134,7 @@
                 <property name="XMLDateAdapter"></property>
                 <property name="XMLDateTimeAdapter"></property>
                 <property name="XMLTimeAdapter"></property>
+                <!-- Needed to prevent Integer - BigInteger mismatch with CXF JAXB generated client code -->
                 <!--property name="XMLIntegerAdapter"></property>
                 <property name="XMLLongAdapter"></property-->
                 <!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
