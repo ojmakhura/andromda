@@ -413,6 +413,9 @@ $attribute.getDocumentation("     * ")
     public#if($generateChainedSetters&&!$XMLOutput) ${className}#else void#end ${attribute.setterName}(final $returnType value)
     {
         this.${attribute.name} = value;
+#if ($attribute.type.primitive)
+        this.set$stringUtils.capitalize($attribute.name) = true;
+#end
 #if($generateChainedSetters&&!$XMLOutput)
         return this;
 #end
