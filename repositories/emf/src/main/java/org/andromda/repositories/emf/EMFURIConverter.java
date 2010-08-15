@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
  * @author Chad Brandon
  * @author Bob Fields
  */
+@SuppressWarnings("deprecation")
 public class EMFURIConverter
     extends URIConverterImpl
 {
@@ -77,10 +78,11 @@ public class EMFURIConverter
                     {
                         Date now1 = new Date();
                         final URI fileURI = EMFRepositoryFacadeUtils.createUri(ResourceUtils.normalizePath(searchPath));
-                        //long ms1 = new Date().getTime() - now1.getTime();
+                        long ms1 = new Date().getTime() - now1.getTime();
                         if (fileURI != null && fileURI.lastSegment() != null && fileURI.lastSegment().equals(resourceName))
                         {
-                            //AndroMDALogger.info("referenced model --> '" + fileURI + "' " + now1 + " ms");
+                            String ms = (ms1 > 100 ? ms1 + " ms" : "");
+                            AndroMDALogger.info("referenced model --> '" + fileURI + "' " + ms);
                             normalizedUri = fileURI;
                             this.normalizedUris.put(
                                 uri,
@@ -101,9 +103,9 @@ public class EMFURIConverter
                                 {
                                     stream = url.openStream();
                                     stream.close();
-                                    //long ms = new Date().getTime() - now.getTime();
-                                    //long ms2 = new Date().getTime() - now.getTime();
-                                    //AndroMDALogger.info("referenced model --> '" + url + "' " + ms + " ms");
+                                    long ms2 = new Date().getTime() - now.getTime();
+                                    String ms = (ms2 > 100 ? ms2 + " ms" : "");
+                                    AndroMDALogger.info("referenced model --> '" + url + "' " + ms);
                                 }
                                 catch (final Exception exception)
                                 {
@@ -120,7 +122,10 @@ public class EMFURIConverter
                                     this.normalizedUris.put(
                                         uri,
                                         normalizedUri);
-                                    AndroMDALogger.debug("loaded model --> '" + url + "' " + ms2 + " ms");
+                                    if (AndroMDALogger.isDebugEnabled())
+                                    {
+                                        AndroMDALogger.debug("loaded model --> '" + url + "' " + ms2 + " ms");
+                                    }
                                     break;
                                 }
                             }
@@ -132,7 +137,11 @@ public class EMFURIConverter
                                 exception);
                         }
                         long ms2 = new Date().getTime() - now1.getTime();
-                        AndroMDALogger.debug("loaded model --> '" + fileURI + "' " + ms2 + " ms");
+                        String ms = (ms2 > 100 ? ms2 + " ms" : "");
+                        if (AndroMDALogger.isDebugEnabled())
+                        {
+                            AndroMDALogger.debug("loaded model --> '" + fileURI + "' " + ms);
+                        }
                     }
 
                     // - if the normalized URI isn't part of the module search path,

@@ -186,12 +186,15 @@ public class UMLModelAccessFacade
                 }
             }
         }
-        int elementSize = elements.size();
-        logger.debug("Finding stereotype <<" + name + ">> in elements " +
+        final int elementSize = elements.size();
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Finding stereotype <<" + name + ">> in elements " +
                 elements.size());
+        }
         // - filter any elements before we turn them into metafacades (for performance reasons)
         this.filterElements(elements);
-        if (elements.size()<elementSize)
+        if (logger.isDebugEnabled() && elements.size()<elementSize)
         {
             logger.debug("Filtered out " + (elementSize-elements.size()) + " elements");
         }

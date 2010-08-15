@@ -101,7 +101,7 @@ public class ModelFacadeLogicImpl
         Collection<StateMachine> agfCollection =
             UmlUtilities.getAllMetaObjectsInstanceOf(
                 StateMachine.class,
-                UmlUtilities.findModel(this.metaObject));
+                UmlUtilities.getModels());
 
         for (Iterator<StateMachine> it = agfCollection.iterator(); it.hasNext() && agfFound == null;)
         {
@@ -163,7 +163,7 @@ public class ModelFacadeLogicImpl
         Collection<FinalState> fsCollection =
             UmlUtilities.getAllMetaObjectsInstanceOf(
                 FinalState.class,
-                UmlUtilities.findModel(this.metaObject));
+                UmlUtilities.getModels());
         CollectionUtils.filter(
             fsCollection,
             new Predicate()
@@ -225,7 +225,7 @@ public class ModelFacadeLogicImpl
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             Actor.class,
-            UmlUtilities.findModel(this.metaObject));
+            UmlUtilities.getModels());
     }
 
     /**
@@ -236,7 +236,7 @@ public class ModelFacadeLogicImpl
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             UseCase.class,
-            UmlUtilities.findModel(this.metaObject));
+            UmlUtilities.getModels());
     }
 
     /**
@@ -249,7 +249,7 @@ public class ModelFacadeLogicImpl
         Collection allActionStates =
             UmlUtilities.getAllMetaObjectsInstanceOf(
                 State.class,
-                UmlUtilities.findModel(this.metaObject));
+                UmlUtilities.getModels());
         CollectionUtils.filter(
             allActionStates,
             new Predicate()
@@ -280,7 +280,7 @@ public class ModelFacadeLogicImpl
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             Class.class,
-            UmlUtilities.findModel(this.metaObject));
+            UmlUtilities.getModels());
     }
 
     /**
@@ -291,6 +291,6 @@ public class ModelFacadeLogicImpl
     {
         return UmlUtilities.getAllMetaObjectsInstanceOf(
             Transition.class,
-            UmlUtilities.findModel(this.metaObject));
+            UmlUtilities.getModels());
     }
 }

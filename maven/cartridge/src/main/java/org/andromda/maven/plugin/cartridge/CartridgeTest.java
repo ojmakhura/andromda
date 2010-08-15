@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
  * @author Ralf Wirdemann
  * @author Chad Brandon
  * @author Michail Plushnikov
+ * @author Bob Fields
  */
 public class CartridgeTest
     extends TestCase
@@ -324,7 +325,7 @@ public class CartridgeTest
     }
     
     /**
-     * Releases any resources help by this cartridge test instance.
+     * Releases any resources held by this cartridge test instance.
      */
     public void shutdown()
     {
