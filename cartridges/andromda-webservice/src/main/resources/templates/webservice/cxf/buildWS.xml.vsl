@@ -66,11 +66,13 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <record name="${project}/mda/wsgen${NOW}.log" action="start"/>
     <echo message="running wsgen for each generated webservice class"/>
     <!-- wsgen throws an exception if directories don't exist -->
+    <mkdir dir="${andromda.project}/common/src"/>
     <mkdir dir="${andromda.project}/common/target/classes"/>
     <mkdir dir="${andromda.project}/common/target/src/main/java"/>
     <mkdir dir="${andromda.project}/core/src/test/java"/>
     <mkdir dir="${andromda.project}/core/target/classes"/>
     <mkdir dir="${andromda.project}/core/target/src/main/java"/>
+    <mkdir dir="${andromda.project}/CXF/src"/>
     <mkdir dir="${andromda.project}/CXF/target/src/main/java"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/lib"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/wsdl"/>
