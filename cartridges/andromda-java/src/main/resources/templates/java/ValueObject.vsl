@@ -105,7 +105,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
     implements Comparable#if($enableTemplating)<$className>#end
 
 #end
-    {
+{
 #if ($serializable)
     /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${class.serialVersionUID}L;
