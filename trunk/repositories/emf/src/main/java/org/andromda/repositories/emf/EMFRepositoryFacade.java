@@ -42,7 +42,7 @@ public abstract class EMFRepositoryFacade
      * Stores the resources (i.e. models) loaded into EMF.
      */
     protected ResourceSet resourceSet;
-    
+
     /**
      * 
      */
@@ -107,6 +107,7 @@ public abstract class EMFRepositoryFacade
                     //logger.debug("EMFRepositoryFacade.readModel.resolve: " + modelResource.getURI());
                     // Duplicate call to EcoreUtil.resolveAll(modelResource);
                     //long now = System.currentTimeMillis();
+                    //for (EObject eObject : modelResource.getAllContents())
                     for (Iterator<EObject> i = modelResource.getAllContents();  i.hasNext(); )
                     {
                         //long now1 = System.currentTimeMillis();
@@ -119,9 +120,9 @@ public abstract class EMFRepositoryFacade
                                 //long now2 = System.currentTimeMillis();
                                 //EObject crossRef = 
                                     crossRefIterator.next();
-                            //EObject resolved = EcoreUtil.resolve(crossRef, this.resourceSet);
-                            //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + crossRef.toString() + " = " + EcoreUtil.getURI(crossRef) + " " + (System.currentTimeMillis()-now2) + " ms");
-                        }
+                                //EObject resolved = EcoreUtil.resolve(crossRef, this.resourceSet);
+                                //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + crossRef.toString() + " = " + EcoreUtil.getURI(crossRef) + " " + (System.currentTimeMillis()-now2) + " ms");
+                            }
                             catch (Exception ex)
                             {
                                 logger.error("EMFRepositoryFacade.readModel.resolveAll on " + eObject + ": " + ex);
@@ -149,7 +150,7 @@ public abstract class EMFRepositoryFacade
     }
 
     /**
-     * Creates and returns a new resource suitable suitable for loading models into EMF.
+     * Creates and returns a new resource suitable for loading models into EMF.
      * This callback is used when (re-)initializing this repository so that it can be reused between different
      * AndroMDA runs, once a resource set is used for a model it becomes 'polluted' so that subsequent models
      * will see things from the previous runs, which might mess up the processing.
@@ -174,7 +175,7 @@ public abstract class EMFRepositoryFacade
     /**
      * @see org.andromda.core.repository.RepositoryFacade#readModel(String[], String[])
      */
-    public final void readModel(
+    public void readModel(
         String[] modelUris,
         String[] moduleSearchPaths)
     {

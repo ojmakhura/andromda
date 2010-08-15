@@ -675,7 +675,7 @@ public class ModelElementFacadeLogicImpl
         ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class,
-                this.metaObject.getModel()));
+                UmlUtilities.getModels()));
         CollectionUtils.filter(
             dependencies,
             new Predicate()
@@ -728,7 +728,7 @@ public class ModelElementFacadeLogicImpl
     protected Collection<Constraint> handleGetConstraints()
     {
         ArrayList<Constraint> constraints = new ArrayList<Constraint>();
-        constraints.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, this.metaObject.getModel()));
+        constraints.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, UmlUtilities.getModels()));
 
         CollectionUtils.filter(
                 constraints,
@@ -754,8 +754,7 @@ public class ModelElementFacadeLogicImpl
         // This way, the code is the "same" as getTargettingDependencies
         ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
-                DirectedRelationship.class,
-                this.metaObject.getModel()));
+                DirectedRelationship.class, UmlUtilities.getModels()));
         CollectionUtils.filter(
             dependencies,
             new Predicate()
@@ -1122,7 +1121,7 @@ public class ModelElementFacadeLogicImpl
 
             // we'll be constructing the parameter list in this buffer
             // add the name we've constructed so far
-            final StringBuilder buffer = new StringBuilder(fullName + '<');
+            final StringBuilder buffer = new StringBuilder(fullName).append('<');
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)

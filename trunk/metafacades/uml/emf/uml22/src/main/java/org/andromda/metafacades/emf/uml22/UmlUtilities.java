@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -64,13 +65,13 @@ public class UmlUtilities
      */
     private static final Logger logger = Logger.getLogger(UmlUtilities.class);
 
-    private static List<Resource> models;
+    private static List<Package> models = new ArrayList<Package>();
     
     /**
      * Utility method to return ALL loaded models, populated by RepositoryFacade
      * @return models
      */
-    public static List<Resource> getModels()
+    public static List<Package> getModels()
     {
         return UmlUtilities.models;
     }
@@ -78,15 +79,15 @@ public class UmlUtilities
     /**
      * @param resources
      */
-    public static void setModels(List<Resource> resources)
+    public static void setModels(List<Package> resources)
     {
-        models = resources;
+        models = Collections.synchronizedList(resources);
     }
 
     /**
      * @param resource
      */
-    public static void addModel(Resource resource)
+    public static void addModel(Package resource)
     {
         models.add(resource);
     }
@@ -94,7 +95,7 @@ public class UmlUtilities
     /**
      * @param resource
      */
-    public static void removeModel(Resource resource)
+    public static void removeModel(Package resource)
     {
         models.remove(resource);
     }
@@ -180,7 +181,59 @@ public class UmlUtilities
             }
         };
 
-    private static final Map allMetaObjectsCache = new HashMap();
+    private static final Map<String,List> allMetaObjectsCache = Collections.synchronizedMap(new HashMap<String,List>());
+
+    /**
+     * List all meta objects instances of a given meta class It's a way to
+     * achieve refAllOfType method in a JMI implementation. Please take care of the
+     * fact that properties are not transformed here.
+     *
+     * @param metaClass The meta class we're looking for its instances
+     * @param models     The models where we're searching
+     * @return a list of objects owned by model, instance of metaClass
+     */
+    public static List getAllMetaObjectsInstanceOf(
+        final Class metaClass,
+        final List<Package> models)
+    {
+        if (metaClass==null)
+        {
+            return new ArrayList();
+        }
+        List metaObjects = (List)allMetaObjectsCache.get(metaClass.getCanonicalName());
+        if (metaObjects == null)
+        {
+            metaObjects = new ArrayList();
+
+            for (Package model : models)
+            {
+                if (model!=null)
+                {
+                    //for (Object metaObject : model.eAllContents())
+                    for (Iterator<EObject> it = model.eAllContents(); it.hasNext();)
+                    {
+                        EObject metaObject = it.next();
+                        if (metaClass.isInstance(metaObject))
+                        {
+                            metaObjects.add(metaObject);
+                            if (logger.isDebugEnabled())
+                            {
+                                logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObject.getClass());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
+        }
+        allMetaObjectsCache.put(metaClass.getCanonicalName(), metaObjects);
+
+        return metaObjects;
+    }
 
     /**
      * List all meta objects instances of a given meta class It's a way to
@@ -191,7 +244,7 @@ public class UmlUtilities
      * @param model     The model where we're searching
      * @return a list of objects owned by model, instance of metaClass
      */
-    public static List getAllMetaObjectsInstanceOf(
+    private static List getAllMetaObjectsInstanceOf(
         final Class metaClass,
         final Package model)
     {
@@ -199,37 +252,20 @@ public class UmlUtilities
         {
             return new ArrayList();
         }
-        // TODO: populate cache from all referenced models, not just the model containing the metaClass
-        String modelName = null; // There are cases where the getModel value might be null
-        if (model==null) modelName=""; else modelName=model.getName();
-        // Workaround - make cache key a combo of class+model names
-        List metaObjects = (List)allMetaObjectsCache.get(metaClass.getCanonicalName()+modelName);
-        if (metaObjects == null)
-        {
-            metaObjects = new ArrayList();
+        List metaObjects = new ArrayList();
 
-            if (model!=null)
+        if (model!=null)
+        {
+            //for (Object metaObject : model.eAllContents())
+            for (Iterator<EObject> it = model.eAllContents(); it.hasNext();)
             {
-                for (Iterator<EObject> it = model.eAllContents(); it.hasNext();)
+                EObject metaObject = it.next();
+                if (metaClass.isInstance(metaObject))
                 {
-                    Object metaObject = it.next();
-                    if (metaClass.isInstance(metaObject))
-                    {
-                        metaObjects.add(metaObject);
-                        /*if (logger.isDebugEnabled())
-                        {
-                            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObject.getClass());
-                        }*/
-                    }
+                    metaObjects.add(metaObject);
                 }
             }
         }
-
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
-        }
-        allMetaObjectsCache.put(metaClass.getCanonicalName()+modelName, metaObjects);
 
         return metaObjects;
     }
@@ -705,7 +741,7 @@ public class UmlUtilities
         final Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
         for (Stereotype stereo : stereotypes)
         {
-            if (stereo.getName().equals(TAGGED_VALUES_STEREOTYPE))
+            if (TAGGED_VALUES_STEREOTYPE.equals(stereo.getName()))
             {
                 List tagNames = (List)element.getValue(
                         stereo,
@@ -1255,20 +1291,20 @@ public class UmlUtilities
             }
             else if (!type.isPrimitive())
             {
-                if (defaultMultiplicity != null && defaultMultiplicity.startsWith("0"))
+                if (StringUtils.isNotBlank(defaultMultiplicity) && (defaultMultiplicity.charAt(0) == '0'))
                 {
-                    value = Integer.valueOf(0);
+                    value = 0;
                 }
                 else
                 {
-                    value = Integer.valueOf(1);
+                    value = 1;
                 }
             }
             // Defaults to 1 if a Primitive
         }
         else
         {
-            value = parseMultiplicity(multValue, Integer.valueOf(defaultMultiplicity));
+            value = parseMultiplicity(multValue, Integer.parseInt(defaultMultiplicity));
         }
         return value;
     }
@@ -1346,7 +1382,7 @@ public class UmlUtilities
         boolean result = requestedName.equals(tagValueName);
         if (!result)
         {
-            if(requestedName.startsWith("@"))
+            if (requestedName.charAt(0) == '@')
             {
                 // let's try rsm guess
                 String rsmName = requestedName.substring(1);

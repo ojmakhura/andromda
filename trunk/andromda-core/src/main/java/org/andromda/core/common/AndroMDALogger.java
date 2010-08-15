@@ -165,6 +165,16 @@ public class AndroMDALogger
     }
 
     /**
+     * Returns true if the logger is debug enabled. Use before AndroMDALogger.debug calls
+     * where String concatenation or object manipulation in the method call occurs.
+     * @return true if the underlying logger is debug enabled
+     */
+    public static boolean isDebugEnabled()
+    {
+        return logger.isDebugEnabled();
+    }
+
+    /**
      * Resets the logger to the default name.
      */
     public static void reset()

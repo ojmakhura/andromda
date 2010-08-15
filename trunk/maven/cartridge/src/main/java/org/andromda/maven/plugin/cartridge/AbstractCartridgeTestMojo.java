@@ -1,5 +1,10 @@
 package org.andromda.maven.plugin.cartridge;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
@@ -10,13 +15,6 @@ import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 
 /**
  * Abstract base mojo for cartridge tests. Must be subclassed.
@@ -188,11 +186,11 @@ public abstract class AbstractCartridgeTestMojo
         {
             if (this.testFailureIgnore)
             {
-                this.getLog().error(this.project.getArtifactId() + "Error unpacking file " + file + "to " + location, throwable);
+                this.getLog().error(this.project.getArtifactId() + ": Error unpacking file: " + file + " to " + location, throwable);
             }
             else if (throwable instanceof IOException || throwable instanceof ArchiverException)
             {
-                throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, throwable);
+                throw new MojoExecutionException("Error unpacking file: " + file + " to: " + location, throwable);
             }
         }
     }

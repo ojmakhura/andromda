@@ -6,6 +6,7 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
 import org.andromda.metafacades.emf.uml22.UMLModelAccessFacade;
+import org.andromda.metafacades.emf.uml22.UmlUtilities;
 import org.andromda.repositories.emf.EMFRepositoryFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -272,7 +273,19 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     }
 
     /**
-     * Overridden to check that the model is of the correct type.
+     * Read all models, clear UMLUtilities model list
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(String[], String[])
+     */
+    public final void readModel(
+        String[] modelUris,
+        String[] moduleSearchPaths)
+    {
+        UmlUtilities.getModels().clear();
+        super.readModel(modelUris, moduleSearchPaths);
+    }
+
+    /**
+     * Overridden to check that the model is of the correct type: UML2 top level Model element can also be Package.
      *
      * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(String)
      */
@@ -305,6 +318,15 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
             else if (!(modelPackage instanceof Model) && !(modelPackage instanceof org.eclipse.uml2.uml.Package))
             {
                 throw new RepositoryFacadeException("Model '" + uri + "' package " + modelPackage + " is not a valid EMF UML2 model");
+            }
+            // Save a reference to all models in the UML22 metafacades, except for profile references
+            if (!uri.contains("profile.") && !uri.contains("_Profile."))
+            {
+                org.eclipse.uml2.uml.Package pkg = (org.eclipse.uml2.uml.Package)modelPackage;
+                if (!UmlUtilities.getModels().contains(pkg))
+                {
+                    UmlUtilities.getModels().add(pkg);
+                }
             }
         }
     }
