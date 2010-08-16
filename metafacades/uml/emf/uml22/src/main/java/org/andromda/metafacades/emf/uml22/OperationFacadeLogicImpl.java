@@ -162,6 +162,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
+     * Finds both exceptions and exception dependency references
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptions()
      */
     @Override
@@ -245,7 +246,7 @@ public class OperationFacadeLogicImpl
         if (logger.isDebugEnabled())
         {
             String rtnFQN = this.getReturnType().getFullyQualifiedName(true);
-            boolean voidType = "void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()));
+            final boolean voidType = "void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()));
             String voidRtn = this.getReturnType().getFullyQualifiedName();
             logger.debug("OperationFacadeLogicImpl.handleIsReturnTypePresent rtnFQN=" + rtnFQN + " voidType=" + voidType + " voidRtn=" + voidRtn + " hasReturnType=" + hasReturnType);
         }
@@ -475,6 +476,7 @@ public class OperationFacadeLogicImpl
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
         StringBuilder exceptionList = new StringBuilder(initialExceptions);
+        // TODO getExceptions = Collection<ClassifierFacade> or <ModelElementFacade>?
         Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {
@@ -663,7 +665,7 @@ public class OperationFacadeLogicImpl
         // RJF3 True if either the operation is many or the return parameter is many
         final ParameterFacade returnParameter = this.getReturnParameter();
         // Parameter may be null during model validation
-        boolean returnMany = returnParameter!=null && (returnParameter.getUpper() > 1 ||
+        final boolean returnMany = returnParameter!=null && (returnParameter.getUpper() > 1 ||
             returnParameter.getUpper() == LiteralUnlimitedNatural.UNLIMITED
             || returnParameter.getType().isArrayType());
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
@@ -727,6 +729,7 @@ public class OperationFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity Not implemented for UML1.4
+     * @return multiplicity upperBound
      */
     @Override
     protected int handleGetUpper()
@@ -738,6 +741,7 @@ public class OperationFacadeLogicImpl
 
     /**
      * Get the UML lower multiplicity Not implemented for UML1.4
+     * @return multiplicity lowerBound
      */
     @Override
     protected int handleGetLower()
@@ -751,6 +755,7 @@ public class OperationFacadeLogicImpl
 
     /**
      * Get the first UML2 ReturnResult parameter. Not implemented for UML1.4
+     * @return ReturnResult parameter
      */
     @Override
     public ParameterFacade handleGetReturnParameter()

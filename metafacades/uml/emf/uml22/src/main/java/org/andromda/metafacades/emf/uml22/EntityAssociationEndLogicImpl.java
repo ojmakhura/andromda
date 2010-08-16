@@ -74,7 +74,7 @@ public class EntityAssociationEndLogicImpl
                     columnNamePrefix,
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                    ((Entity)this.getType()).getMaxSqlNameLength(),
+                    Short.valueOf(((Entity)this.getType()).getMaxSqlNameLength()),
                     this.getForeignKeySuffix(),
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }

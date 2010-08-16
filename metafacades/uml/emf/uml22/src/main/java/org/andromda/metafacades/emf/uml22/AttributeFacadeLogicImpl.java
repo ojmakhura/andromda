@@ -85,7 +85,7 @@ public class AttributeFacadeLogicImpl
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
         }
-        if (defaultValue==null) defaultValue="";
+        if (defaultValue==null) {defaultValue="";}
         return defaultValue;
     }
 
@@ -410,6 +410,7 @@ public class AttributeFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity Not implemented for UML1.4
+     * @return int upperMultiplicity, based UML multiplicity, default 1
      */
     @Override
     protected int handleGetUpper()
@@ -420,13 +421,14 @@ public class AttributeFacadeLogicImpl
 
     /**
      * Get the UML lower multiplicity Not implemented for UML1.4
+     * @return int lowerMultiplicity, based on primitive/wrapped type and UML multiplicity, default 1
      */
     @Override
     protected int handleGetLower()
     {
         // MD11.5 Exports multiplicity as String
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
-            (ClassifierFacade) this.getType(), "1");
+            this.getType(), "1");
             //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
             //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }

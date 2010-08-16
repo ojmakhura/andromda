@@ -53,11 +53,11 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         }
         else if (valueSpecification instanceof LiteralInteger)
         {
-            instance.value = ((LiteralInteger) valueSpecification).getValue();
+            instance.value = Integer.valueOf(((LiteralInteger) valueSpecification).getValue());
         }
         else if (valueSpecification instanceof LiteralBoolean)
         {
-            instance.value = ((LiteralBoolean) valueSpecification).isValue();
+            instance.value = Boolean.valueOf(((LiteralBoolean) valueSpecification).isValue());
         }
         else
         {
@@ -79,6 +79,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
 
     /**
      * In case we wrap a value specification we just want to be able to print out that value when calling toString()
+     * @return String getName
      */
     @Override
     public String toString()

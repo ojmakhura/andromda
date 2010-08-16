@@ -190,9 +190,8 @@ public class ClassifierFacadeLogicImpl
         final Collection allRequiredConstructorParameters = new ArrayList();
 
         final Collection<GeneralizableElementFacade> generalizations = this.getGeneralizations();
-        for (Iterator<GeneralizableElementFacade> parents = generalizations.iterator(); parents.hasNext();)
+        for ( GeneralizableElementFacade parent : generalizations)
         {
-            final Object parent = parents.next();
             if (parent instanceof ClassifierFacade)
             {
                 allRequiredConstructorParameters.addAll(
@@ -840,9 +839,9 @@ public class ClassifierFacadeLogicImpl
                 }
             };
 
-            for (Iterator abstractionIterator = dependencies.iterator(); abstractionIterator.hasNext();)
+            for (Dependency dependency : dependencies)
             {
-                final Abstraction abstraction = (Abstraction)abstractionIterator.next();
+                final Abstraction abstraction = (Abstraction)dependency;
                 final List<NamedElement> suppliers = abstraction.getSuppliers();
                 for (int i = 0; i < suppliers.size(); i++)
                 {

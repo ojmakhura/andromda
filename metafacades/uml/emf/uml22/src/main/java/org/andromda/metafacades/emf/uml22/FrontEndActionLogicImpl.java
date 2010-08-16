@@ -369,7 +369,7 @@ public class FrontEndActionLogicImpl
                     final Object finalStateObject = finalStateIterator.next();
 
                     // we need to test for the type because a non
-                    // struts-use-case final state might accidently
+                    // struts-use-case final state might accidentally
                     // link to this use-case (for example: the user
                     // temporarily wants to disable code generation
                     // for a specific use-case and is not removing the

@@ -53,6 +53,7 @@ public class EnumerationFacadeLogicImpl
     }
 
     /**
+     * Return type can be either EnumerationLiteral or AttributeFacade
      * @see org.andromda.metafacades.uml.EnumerationFacade#getLiterals()
      */
     @Override

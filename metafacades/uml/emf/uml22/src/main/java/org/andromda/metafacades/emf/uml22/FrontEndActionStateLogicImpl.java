@@ -74,15 +74,12 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     {
         TransitionFacade forward = null;
 
-        for (final Iterator iterator = this.getOutgoings().iterator(); iterator
-                .hasNext()
-                && forward == null;)
+        for (TransitionFacade transition : this.getOutgoings())
         {
-            final TransitionFacade transition = (TransitionFacade)iterator
-                    .next();
             if (!(transition instanceof FrontEndExceptionHandler))
             {
                 forward = transition;
+                break;
             }
         }
         return forward;
