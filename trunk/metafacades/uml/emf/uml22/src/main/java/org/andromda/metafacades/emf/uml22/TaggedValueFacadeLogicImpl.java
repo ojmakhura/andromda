@@ -37,9 +37,9 @@ public class TaggedValueFacadeLogicImpl
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValues()
      */
     @Override
-    protected Collection handleGetValues()
+    protected Collection<Object> handleGetValues()
     {
-        Collection collection = new ArrayList();
+        Collection<Object> collection = new ArrayList<Object>();
         collection.addAll(this.metaObject.getValues());
         return collection;
     }

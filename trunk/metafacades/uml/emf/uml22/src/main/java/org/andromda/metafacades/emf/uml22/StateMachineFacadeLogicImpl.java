@@ -184,9 +184,8 @@ public class StateMachineFacadeLogicImpl
     {
         Collection<Region> regions = this.metaObject.getRegions();
         Collection<Vertex> subvertices = new LinkedList<Vertex>();
-        for (Iterator it = regions.iterator(); it.hasNext();)
+        for (Region region : regions)
         {
-            Region region = (Region)it.next();
             subvertices.addAll(region.getSubvertices());
         }
         return this.filter(
@@ -199,9 +198,8 @@ public class StateMachineFacadeLogicImpl
         final Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
-        for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
+        for (Object object : collection)
         {
-            final Object object = iterator.next();
             if (collectionFilter.evaluate(object))
             {
                 filteredCollection.add(object);

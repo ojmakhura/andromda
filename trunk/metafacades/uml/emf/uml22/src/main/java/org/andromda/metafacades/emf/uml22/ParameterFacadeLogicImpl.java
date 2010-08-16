@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -62,7 +61,7 @@ public class ParameterFacadeLogicImpl
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
         }
-        if (defaultValue==null) defaultValue="";
+        if (defaultValue==null) {defaultValue="";}
         return defaultValue;
     }
 
@@ -106,7 +105,7 @@ public class ParameterFacadeLogicImpl
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-        || this.getType().isArrayType() || this.getType().isCollectionType();
+        || (this.getType() != null && (this.getType().isArrayType() || this.getType().isCollectionType()));
     }
 
     /**
@@ -121,11 +120,8 @@ public class ParameterFacadeLogicImpl
         {
             return "NONE";
         }
-        else
-        {
-            return effect.getLiteral();
-            //return effect.getName();
-        }
+        return effect.getLiteral();
+        //return effect.getName();
     }
 
     /**
@@ -363,6 +359,7 @@ public class ParameterFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity
+     * @return int upperMultiplicity, based on UML multiplicity, default 1
      */
     @Override
     protected int handleGetUpper()
@@ -384,12 +381,13 @@ public class ParameterFacadeLogicImpl
 
     /**
      * Get the UML lower multiplicity
+     * @return int lowerMultiplicity, based on primitive/wrapped type and UML multiplicity, default 1
      */
     @Override
     protected int handleGetLower()
     {
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
-            (ClassifierFacade) this.getType(), "1");
+            this.getType(), "1");
     //      Throws no property 'defaultMultiplicity' registered under metafacade 'org.andromda.metafacades.uml.ParameterFacade' for namespace
     //    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }

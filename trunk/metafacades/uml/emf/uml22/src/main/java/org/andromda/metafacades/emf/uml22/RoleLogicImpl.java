@@ -92,7 +92,10 @@ public class RoleLogicImpl
             for (final Iterator<AssociationEndFacade> iterator = associationEnds.iterator(); iterator.hasNext() && !present;)
             {
                 final AssociationEndFacade associationEnd = iterator.next();
-                present = associationEnd.getOtherEnd().getType() instanceof FrontEndUseCase;
+                if (associationEnd.getOtherEnd() != null && associationEnd.getOtherEnd().getType() != null)
+                {
+                    present = associationEnd.getOtherEnd().getType() instanceof FrontEndUseCase;
+                }
             }
 
             // - a generalized role is still a role, and therefore is associated

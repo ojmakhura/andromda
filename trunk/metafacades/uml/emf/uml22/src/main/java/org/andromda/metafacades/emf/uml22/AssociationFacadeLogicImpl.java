@@ -118,10 +118,7 @@ public class AssociationFacadeLogicImpl
         {
             return this.getAssociationEnds().get(1);
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /**

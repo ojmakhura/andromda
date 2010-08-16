@@ -329,6 +329,7 @@ public class AssociationEndFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity Not implemented for UML1.4
+     * @return int upperMultiplicity, based on UML multiplicity, default 1
      */
     @Override
     protected int handleGetUpper()

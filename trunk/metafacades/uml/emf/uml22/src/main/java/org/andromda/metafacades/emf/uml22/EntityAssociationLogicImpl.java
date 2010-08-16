@@ -62,7 +62,7 @@ public class EntityAssociationLogicImpl
                             tableNamePrefix,
                             this,
                             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                            ((Entity)type).getMaxSqlNameLength(),
+                            Short.valueOf(((Entity)type).getMaxSqlNameLength()),
                             this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
                 }
             }
@@ -86,8 +86,8 @@ public class EntityAssociationLogicImpl
     }
 
     /**
-     * It is an entity association if both ends are entities (have the entity
-     * stereotype
+     * It is an entity association if both ends are entities (have the entity stereotype)
+     * @return boolean isEntityAssociation
      */
     @Override
     protected boolean handleIsEntityAssociation()
