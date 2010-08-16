@@ -107,11 +107,6 @@
         </dependency> -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>${applicationId}-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
             <version>${project.version}</version>
         </dependency>
