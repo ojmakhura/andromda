@@ -3,9 +3,6 @@ package org.andromda.cartridges.meta.metafacades;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 
-import java.util.Iterator;
-
-
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @since 25.02.2004
@@ -27,13 +24,12 @@ public class UMLOperationData
             metafacadeName,
             operation.getVisibility(),
             operation.isAbstract(),
-            operation.getReturnType().getFullyQualifiedName(),
+            operation.getGetterSetterReturnTypeName(),
             operation.getName(),
             operation.getDocumentation("    * "));
 
-        for (final Iterator iterator = operation.getArguments().iterator(); iterator.hasNext();)
+        for (ParameterFacade parameter : operation.getArguments())
         {
-            final ParameterFacade parameter = (ParameterFacade)iterator.next();
             addArgument(
                 new ArgumentData(
                     parameter.getType().getFullyQualifiedName(),

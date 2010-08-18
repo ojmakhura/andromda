@@ -41,7 +41,7 @@ public class MetafacadeGeneralizationLogicImpl
         {
             try
             {
-                precedence = new Integer(value);
+                precedence = Integer.valueOf(value);
             }
             catch (NumberFormatException ex)
             {
@@ -81,7 +81,7 @@ public class MetafacadeGeneralizationLogicImpl
         {
             // if we have more than one generalization for the metafacade
             // then we expose the super facade accessors.
-            Collection generalizations = child.getGeneralizations();
+            Collection<GeneralizableElementFacade> generalizations = child.getGeneralizations();
             if ((generalizations != null) && (generalizations.size() > 1))
             {
                 visibility = "protected";

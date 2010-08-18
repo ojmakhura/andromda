@@ -3,6 +3,7 @@ package org.andromda.cartridges.meta.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
@@ -18,8 +19,8 @@ public class MethodData implements Comparable
     private String name;
     private String returnTypeName;
     private String documentation;
-    private final ArrayList arguments = new ArrayList();
-    private final ArrayList exceptions = new ArrayList();
+    private final List arguments = new ArrayList();
+    private final List exceptions = new ArrayList();
 
     /**
      * @param metafacadeNameIn
@@ -130,14 +131,14 @@ public class MethodData implements Comparable
                 declaration += ", ";
             }
         }*/
-        declaration += ")";
+        declaration += ')';
 
         if (!this.exceptions.isEmpty())
         {
             declaration += " throws ";
-            for (final Iterator iterator = this.exceptions.iterator(); iterator.hasNext();)
+            for (final Iterator<String> iterator = this.exceptions.iterator(); iterator.hasNext();)
             {
-                String exception = (String)iterator.next();
+                String exception = iterator.next();
                 declaration += exception;
                 if (iterator.hasNext())
                 {
@@ -169,9 +170,9 @@ public class MethodData implements Comparable
     {
         String declaration = "";
 
-        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
+        for (final Iterator<ArgumentData> iterator = this.arguments.iterator(); iterator.hasNext();)
         {
-            final ArgumentData argument = (ArgumentData)iterator.next();
+            final ArgumentData argument = iterator.next();
             if (modifier!=null)
             {
                 declaration += modifier + ' ';
@@ -194,7 +195,7 @@ public class MethodData implements Comparable
     {
         String call = getName() + '(';
 
-        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
+        for (final Iterator<ArgumentData> iterator = this.arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
             call += argument.getName();
@@ -203,7 +204,7 @@ public class MethodData implements Comparable
                 call += ", ";
             }
         }
-        call += ")";
+        call += ')';
         return call;
     }
 
@@ -217,16 +218,16 @@ public class MethodData implements Comparable
     {
         String key = ((this.returnTypeName != null) ? (this.returnTypeName + ' ') : "") + this.name + '(';
 
-        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
+        for (final Iterator<ArgumentData> iterator = this.arguments.iterator(); iterator.hasNext();)
         {
-            final ArgumentData argument = (ArgumentData)iterator.next();
+            final ArgumentData argument = iterator.next();
             key += argument.getFullyQualifiedTypeName();
             if (iterator.hasNext())
             {
-                key += ",";
+                key += ',';
             }
         }
-        key += ")";
+        key += ')';
 
         return key;
     }
@@ -277,7 +278,7 @@ public class MethodData implements Comparable
     public int compareTo(final Object object)
     {
         MethodData other = (MethodData)object;
-        int result = getMetafacadeName().compareTo(other.getMetafacadeName());
+        final int result = getMetafacadeName().compareTo(other.getMetafacadeName());
 
         // Use the characteristic key in order to have a deterministic order, starting with method name and number of arguments
         return (result != 0) ? result : (name + arguments.size() + ", " + buildCharacteristicKey())
