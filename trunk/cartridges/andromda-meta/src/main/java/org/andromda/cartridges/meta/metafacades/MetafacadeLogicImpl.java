@@ -87,7 +87,7 @@ public class MetafacadeLogicImpl
         for (DependencyFacade dep : classifier.getSourceDependencies())
         {
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
-            Collection stereotypes = target.getStereotypeNames();
+            Collection<String> stereotypes = target.getStereotypeNames();
             if ((stereotypes != null) && (!stereotypes.isEmpty()))
             {
                 String stereotypeName = (String)stereotypes.iterator().next();
@@ -211,8 +211,7 @@ public class MetafacadeLogicImpl
      * <code>metamodelVersionPackage</code> (i.e. the package for the specific
      * meta model version). Support classes are the 'Logic' classes.
      *
-     * @param metamodelVersionPackage the version of the meta model
-     * @param the name of the class to append to the package.
+     * @param name the name of the class to append to the package.
      * @return the new metafacade support class name.
      */
     private String getMetafacadeSupportClassName(String name)
@@ -259,10 +258,10 @@ public class MetafacadeLogicImpl
                 this.featureMap = new HashMap();
                 if (includeSuperclasses && this.getGeneralizations() != null)
                 {
-                    for (final Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+                    for (GeneralizableElementFacade general : this.getGeneralizations())
                     {
                         final Map methodDataMap = new HashMap();
-                        final ClassifierFacade metafacade = (ClassifierFacade)iterator.next();
+                        final ClassifierFacade metafacade = (ClassifierFacade)general;
                         for (ClassifierFacade classifier = metafacade; classifier instanceof Metafacade;
                              classifier = (ClassifierFacade)classifier.getGeneralization())
                         {
@@ -310,7 +309,7 @@ public class MetafacadeLogicImpl
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods
-            for (final Iterator iterator = facade.getProperties().iterator(); iterator.hasNext();)
+            for (final Iterator<Object> iterator = facade.getProperties().iterator(); iterator.hasNext();)
             {
                 final ModelElementFacade property = (ModelElementFacade)iterator.next();
                 MethodData method = null;
@@ -352,9 +351,8 @@ public class MetafacadeLogicImpl
             }
 
             // translate UML operations to methods
-            for (final Iterator iterator = facade.getOperations().iterator(); iterator.hasNext();)
+            for (OperationFacade operation : facade.getOperations())
             {
-                final OperationFacade operation = (OperationFacade)iterator.next();
                 final UMLOperationData method = new UMLOperationData(fullyQualifiedName, operation);
 
                 // don't add the new method data if we already have the
@@ -445,7 +443,7 @@ public class MetafacadeLogicImpl
     protected int handleGetGeneralizationCount()
     {
         int count = 0;
-        final Collection generalizations = this.getGeneralizations();
+        final Collection<GeneralizableElementFacade> generalizations = this.getGeneralizations();
         if (generalizations != null)
         {
             count = generalizations.size();
@@ -479,11 +477,10 @@ public class MetafacadeLogicImpl
     protected Collection handleGetAllParents()
     {
         Set allParents = new LinkedHashSet();
-        final Collection parents = this.getGeneralizations();
+        final Collection<GeneralizableElementFacade> parents = this.getGeneralizations();
         allParents.addAll(parents);
-        for (final Iterator iterator = parents.iterator(); iterator.hasNext();)
+        for (Object object : parents)
         {
-            final Object object = iterator.next();
             if (object instanceof Metafacade)
             {
                 final Metafacade metafacade = (Metafacade)object;
