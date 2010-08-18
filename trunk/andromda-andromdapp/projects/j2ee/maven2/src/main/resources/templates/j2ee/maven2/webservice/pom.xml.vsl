@@ -41,7 +41,7 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
             <exclusions>
-            <!-- Spring components cause classloader issue with Jetty test, just include spring bundle -->
+                <!-- Spring components cause classloader issue with Jetty test, just include spring bundle -->
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-core</artifactId>

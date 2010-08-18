@@ -1335,7 +1335,7 @@
 #end
 #if ($cxf)
         <spring.version>2.5.6.SEC01</spring.version>
-        <cxf.version>2.2.9</cxf.version>
+        <cxf.version>2.2.10</cxf.version>
 #elseif ($spring && $springVersion.equals("2"))
         <spring.version>2.5.6.SEC01</spring.version>
 #end
