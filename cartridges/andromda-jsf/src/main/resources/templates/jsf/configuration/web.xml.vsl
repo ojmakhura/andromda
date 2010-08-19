@@ -319,6 +319,11 @@
         -->
     </filter>
 
+    <!-- ODS export filter -->
+    <filter>
+        <filter-name>ODSFilter</filter-name>
+        <filter-class>${managedBeansPackage}.ODSFilter</filter-class>
+    </filter>
 #if ($standalone)
     <!-- Trinidad Filter -->
     <filter>
@@ -344,8 +349,18 @@
     </filter>
 #end
 #end
-#if ($standalone)
+
     <!-- filter-mapping merge-point -->
+
+    <filter-mapping>
+        <filter-name>ODSFilter</filter-name>
+        <url-pattern>*.${odsExportExtension}</url-pattern>
+    </filter-mapping>
+#if ($standalone)
+    <filter-mapping>
+        <filter-name>Trinidad Filter</filter-name>
+        <url-pattern>*.${odsExportExtension}</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>Trinidad Filter</filter-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
@@ -385,10 +400,6 @@
         <url-pattern>/faces/*</url-pattern>
     </filter-mapping>
 
-    <!-- Listener, that does all the startup work (configuration, init). -->
-    <listener>
-        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-    </listener>
 #if ($liferayPortlet)
     <listener>
         <listener-class>com.liferay.portal.kernel.servlet.PortletContextListener</listener-class>
@@ -455,6 +466,10 @@
     <servlet-mapping>
         <servlet-name>AndroMDA JSF Servlet</servlet-name>
         <url-pattern>/jsf/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.${odsExportExtension}</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -533,10 +548,6 @@
     <!-- resource-ref merge-point -->
     <!-- security-constraint merge-point -->
 
-#if ($standalone && !$applicationUseCases.empty)
-#set($applicationUseCase = $applicationUseCases.iterator().next())
-#end
-#set ($useCases = $applicationUseCase.allUseCases)
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Raw-JSF-Pages</web-resource-name>
@@ -544,14 +555,7 @@
                 Prevent access to raw pages that are for JSF pages.
                 (No roles, so no direct access)
             </description>
-#foreach ($useCase in $useCases)
-#foreach ($view in $useCase.views)
-            <url-pattern>${view.path}.${jsfUtils.viewExtension}</url-pattern>
-#end
-#end
-#foreach ($manageable in $manageables)
-            <url-pattern>${manageable.viewFullPath}.${jsfUtils.viewExtension}</url-pattern>
-#end
+            <url-pattern>*.${jsfUtils.viewExtension}</url-pattern>
         </web-resource-collection>
         <auth-constraint>
         </auth-constraint>
@@ -559,9 +563,9 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+
 #if ($securityEnabled)
-#foreach ($applicationUseCase in $applicationUseCases)
-#foreach ($useCase in $applicationUseCase.allUseCases)
+#foreach ($useCase in $useCases)
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>$useCase.name resources</web-resource-name>
@@ -585,8 +589,6 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-
-#end
 
 #end
 #foreach ($manageable in $manageables)
@@ -626,7 +628,7 @@
 #end
     </login-config>
 
-#foreach ($user in $applicationUseCase.allRoles)
+#foreach ($user in $roles)
     <security-role>
         <role-name>$user.name</role-name>
     </security-role>

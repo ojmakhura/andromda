@@ -409,6 +409,15 @@ public class JSFManageableEntityLogicImpl
     }
 
     /**
+     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() + "-ods-export"
+     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getViewFullPath()
+     */
+    protected String handleGetOdsExportFullPath()
+    {
+           return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase()+"-ods-export";
+    }
+
+    /**
      * @return isValidationRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#isValidationRequired()
      */

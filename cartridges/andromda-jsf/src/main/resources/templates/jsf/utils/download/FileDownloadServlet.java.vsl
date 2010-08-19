@@ -213,13 +213,16 @@ public class FileDownloadServlet
         {
             logger.error("Could not load file from '" + fileName + "'");
         }
-        try
+        else
         {
-            CONTENT_TYPES.load(stream);
-        }
-        catch (final Throwable throwable)
-        {
-            logger.error(throwable);
+            try
+            {
+                CONTENT_TYPES.load(stream);
+            }
+            catch (final Throwable throwable)
+            {
+                logger.error(throwable);
+            }
         }
         try
         {
