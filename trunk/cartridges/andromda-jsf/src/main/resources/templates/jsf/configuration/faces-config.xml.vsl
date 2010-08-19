@@ -54,10 +54,6 @@
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 #end
-#if(!$applicationUseCases.empty)
-#set($applicationUseCase = $applicationUseCases.iterator().next())
-#end
-#set ($useCases = $applicationUseCase.allUseCases)
     <!-- forms -->
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
@@ -334,6 +330,13 @@
 #if (!$portlet && $navigationUsesRedirect)
             <redirect/>
 #end
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>${manageable.odsExportFullPath}</from-outcome>
+            <to-view-id>${manageable.odsExportFullPath}.${odsExportExtension}</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 #end

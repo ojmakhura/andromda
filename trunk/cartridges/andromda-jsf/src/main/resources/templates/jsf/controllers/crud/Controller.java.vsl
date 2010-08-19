@@ -566,6 +566,14 @@ public abstract class ${manageable.controllerName}
 
 #end
     /**
+    * Export as ODS spreadsheed
+    */
+    public String odsExport()
+    {
+        return "${manageable.odsExportFullPath}";
+    }
+    
+    /**
     * Helper method to fill the autocomplete component list.
     */
     public void fillAutocomplete(javax.faces.event.ActionEvent event)
@@ -630,7 +638,7 @@ public abstract class ${manageable.controllerName}
      *
      * @return the manageable form.
      */
-    protected ${manageable.formBeanType} getForm()
+    public ${manageable.formBeanType} getForm()
     {
         return (${manageable.formBeanType})this.resolveVariable("${manageable.formBeanName}");
     }

@@ -104,6 +104,12 @@
                     The extension used for the application's handling of JSF pages.
                 </documentation>
             </property>
+            <property name="odsExportExtension">
+                <default>ods</default>
+                <documentation>
+                    The extension used for the ODS (Open Document Spreadsheet) export.
+                </documentation>
+            </property>
             <property name="fileUploadMaxMemoryPerRequest">
                 <default>512000</default>
                 <documentation>

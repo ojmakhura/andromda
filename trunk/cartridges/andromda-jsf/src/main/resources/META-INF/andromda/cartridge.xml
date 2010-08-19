@@ -31,6 +31,7 @@
     <property reference="messageResources"/>
     <property reference="welcomeFileName"/>
     <property reference="facesServletExtension"/>
+    <property reference="odsExportExtension"/>
     <property reference="managedBeansPackage"/>
     <property reference="preferencesClassName"/>
     <property reference="preferencesBeanName"/>
@@ -216,11 +217,6 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements>
-            <modelElement variable="applicationUseCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
-                    <property name="entryUseCase"/>
-                </type>
-            </modelElement>
             <modelElement variable="useCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
@@ -252,10 +248,8 @@
                     <property name="useCase"/>
                 </type>
             </modelElement>
-            <modelElement variable="applicationUseCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
-                    <property name="entryUseCase"/>
-                </type>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
             <modelElement variable="enumerations">
                 <type name="org.andromda.cartridges.jsf.metafacades.JSFEnumeration"/>
@@ -572,6 +566,12 @@
     <template
         path="templates/jsf/utils/JsfUtils.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/ODSFilter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ODSFilter.java"
         outlet="managed-beans"
         overwrite="true"/>
 
@@ -909,6 +909,30 @@
 
     <template
         path="templates/jsf/views/facelets/crud/view.xhtml.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/crud/view.xhtml.vsl"
+        outputPattern="$generatedFile"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/crud/export-ods.xhtml.vsl"
         outputPattern="$generatedFile"
         outlet="views"
         overwrite="true">
