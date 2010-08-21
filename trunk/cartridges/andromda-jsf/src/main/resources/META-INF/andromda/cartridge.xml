@@ -920,18 +920,6 @@
     </template>
 
     <template
-        path="templates/jsf/views/facelets/crud/view.xhtml.vsl"
-        outputPattern="$generatedFile"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/jsf/views/facelets/crud/export-ods.xhtml.vsl"
         outputPattern="$generatedFile"
         outlet="views"
