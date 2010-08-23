@@ -19,8 +19,8 @@ public class MethodData implements Comparable
     private String name;
     private String returnTypeName;
     private String documentation;
-    private final List arguments = new ArrayList();
-    private final List exceptions = new ArrayList();
+    private final List<ArgumentData> arguments = new ArrayList<ArgumentData>();
+    private final List<String> exceptions = new ArrayList<String>();
 
     /**
      * @param metafacadeNameIn
@@ -57,7 +57,7 @@ public class MethodData implements Comparable
     /**
      * @return arguments
      */
-    public Collection getArguments()
+    public Collection<ArgumentData> getArguments()
     {
         return this.arguments;
     }
@@ -73,7 +73,7 @@ public class MethodData implements Comparable
     /**
      * @return exceptions
      */
-    public Collection getExceptions()
+    public Collection<String> getExceptions()
     {
         return this.exceptions;
     }
@@ -283,5 +283,14 @@ public class MethodData implements Comparable
         // Use the characteristic key in order to have a deterministic order, starting with method name and number of arguments
         return (result != 0) ? result : (name + arguments.size() + ", " + buildCharacteristicKey())
             .compareTo(other.getName() + other.getArguments().size() + ", " + other.buildCharacteristicKey());
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        return this.buildMethodDeclaration(false);
     }
 }

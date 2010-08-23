@@ -173,7 +173,8 @@ public abstract class $metafacade.logicName
     * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
     * @return $memberTypeName
     */
-    protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
+## Need to associate metafacade type to shielded element type for underlying handleCollection return type
+    protected abstract#if ($attribute.many)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${attribute.implementationOperationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
 #set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
@@ -253,7 +254,8 @@ $attribute.getDocumentation("     * ")
      * @return $memberTypeName
 #end
      */
-    protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
+## Need to associate metafacade type to shielded element type for underlying handleCollection return type
+    protected abstract#if ($operation.many)#if($operation.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${operation.implementationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
 #set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
@@ -360,7 +362,7 @@ $associationEnd.getDocumentation("     * ")
         ${indent}// $associationEnd.name has no pre constraints
 #end
 #if ($otherEnd.many)
-        ${indent}Collection result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
+       ${indent}#if($otherEnd.ordered) java.util.List#else java.util.Collection#end result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
 #else
         ${indent}Object result = this.shieldedElement(${otherEnd.implementationOperationName}($typedArgumentList));
 #end
@@ -502,7 +504,7 @@ $associationEnd.getDocumentation("     * ")
      * Constraint: $constraint.getDocumentation("     * ")
      * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
 #end
-     * @param validationMessages Collection
+     * @param validationMessages Collection<ModelValidationMessage>
 #if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
      * @see ${superMetafacade.fullyQualifiedLogicImplName.replace($pkg, "")}${esc.hash}validateInvariants(Collection validationMessages)
 #else

@@ -24,12 +24,12 @@ public class MetaCartridgeUtils
      * @param modelElements the collection of model elements to sort.
      * @return the sorted collection.
      */
-    public static Collection sortByFullyQualifiedName(Collection modelElements)
+    public static Collection<ModelElementFacade> sortByFullyQualifiedName(Collection<ModelElementFacade> modelElements)
     {
-        List sortedElements = null;
+        List<ModelElementFacade> sortedElements = null;
         if (modelElements != null)
         {
-            sortedElements = new ArrayList(modelElements);
+            sortedElements = new ArrayList<ModelElementFacade>(modelElements);
             Collections.sort(
                 sortedElements,
                 new FullyQualifiedNameComparator());
