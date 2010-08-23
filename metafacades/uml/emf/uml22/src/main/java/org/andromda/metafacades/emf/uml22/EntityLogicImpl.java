@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -61,7 +62,7 @@ public class EntityLogicImpl
      * A collection of MOF ids for entities that have dynamic identifiers
      * present.
      */
-    private static final Collection dynamicIdentifiersPresent = new ArrayList();
+    private static final Collection<String> dynamicIdentifiersPresent = Collections.synchronizedList(new ArrayList<String>());
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -192,7 +193,7 @@ public class EntityLogicImpl
         // to avoid using uninitialized facades
         //
         // (Wouter, Sept. 20 2006) also see other UML implementations
-        if (!umlClass.getGeneralizations().isEmpty()) return;
+        if (!umlClass.getGeneralizations().isEmpty()) {return;}
 
         if (umlClass.getAttribute(name, umlClass) == null)
         {
@@ -247,7 +248,7 @@ public class EntityLogicImpl
     @Override
     protected boolean handleIsIdentifiersPresent()
     {
-        final Collection<AttributeFacade> identifiers = this.getIdentifiers(true);
+        final Collection<EntityAttribute> identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
     }
 
@@ -274,7 +275,7 @@ public class EntityLogicImpl
             tableNamePrefix,
             this,
             UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-            this.getMaxSqlNameLength(),
+            Short.valueOf(this.getMaxSqlNameLength()),
             this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
@@ -300,7 +301,7 @@ public class EntityLogicImpl
     {
         final StringBuilder buffer = new StringBuilder("(");
 
-        final Set attributes = new LinkedHashSet(this.getAttributes());
+        final Set<AttributeFacade> attributes = new LinkedHashSet<AttributeFacade>(this.getAttributes());
 
         for (ClassifierFacade superClass = (ClassifierFacade)this.getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
@@ -315,18 +316,18 @@ public class EntityLogicImpl
         if (!attributes.isEmpty())
         {
             String separator = "";
-            for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+            for (AttributeFacade attribute : attributes)
             {
-                final EntityAttribute attribute = (EntityAttribute)iterator.next();
-                if (withIdentifiers || !attribute.isIdentifier())
+                final EntityAttribute entityAttribute = (EntityAttribute)attribute;
+                if (withIdentifiers || !entityAttribute.isIdentifier())
                 {
                     buffer.append(separator);
-                    if (attribute.getType() != null)
+                    if (entityAttribute.getType() != null)
                     {
-                        buffer.append(attribute.getType().getFullyQualifiedName());
+                        buffer.append(entityAttribute.getType().getFullyQualifiedName());
                     }
                     buffer.append(' ');
-                    buffer.append(attribute.getName());
+                    buffer.append(entityAttribute.getName());
                     separator = ", ";
                 }
             }
@@ -437,16 +438,16 @@ public class EntityLogicImpl
      * Constructs a comma separated list of attribute type names from the passed
      * in collection of <code>attributes</code>.
      *
-     * @param attributes
-     *            the attributes to construct the list from.
+     * @param properties
+     *            the attributes and associationEnds to construct the list from.
      * @return the comma separated list of attribute types.
      */
-    private String getTypeList(final Collection attributes)
+    private String getTypeList(final Collection properties)
     {
         final StringBuilder list = new StringBuilder();
         final String comma = ", ";
         CollectionUtils.forAllDo(
-            attributes,
+            properties,
             new Closure()
             {
                 public void execute(final Object object)
@@ -485,7 +486,7 @@ public class EntityLogicImpl
      * collection of <code>attributes</code>.
      *
      * @param properties
-     *            the attributes to construct the list from.
+     *            the attributes and associationEnds to construct the list from.
      * @return the comma separated list of attribute names.
      */
     private String getNameList(final Collection properties)
@@ -621,11 +622,11 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean, boolean)
      */
     @Override
-    protected Collection handleGetAttributes(
+    protected Collection<AttributeFacade> handleGetAttributes(
         final boolean follow,
         final boolean withIdentifiers)
     {
-        final Collection attributes = this.getAttributes(follow);
+        final Collection<AttributeFacade> attributes = this.getAttributes(follow);
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -647,12 +648,12 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getAttributes(boolean, boolean)
      */
     @Override
-    protected Collection handleGetAttributes(
+    protected Collection<AttributeFacade> handleGetAttributes(
         final boolean follow,
         final boolean withIdentifiers,
         final boolean withDerived)
     {
-        final Collection attributes = this.getAttributes(follow);
+        final Collection<AttributeFacade> attributes = this.getAttributes(follow);
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -706,11 +707,11 @@ public class EntityLogicImpl
      *      boolean)
      */
     @Override
-    protected Collection handleGetRequiredAttributes(
+    protected Collection<AttributeFacade> handleGetRequiredAttributes(
         final boolean follow,
         final boolean withIdentifiers)
     {
-        final Collection attributes = this.getAttributes(
+        final Collection<AttributeFacade> attributes = this.getAttributes(
                 follow,
                 withIdentifiers,
                 false);
@@ -779,6 +780,7 @@ public class EntityLogicImpl
 
     /**
      * Gets the maximum name length SQL names may be
+     * @return UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH
      */
     @Override
     protected short handleGetMaxSqlNameLength()
@@ -860,7 +862,7 @@ public class EntityLogicImpl
     @Override
     public List<AssociationEndFacade> handleGetAssociationEnds()
     {
-        final List<AssociationEndFacade> associationEnds = (List)this.shieldedElements(super.handleGetAssociationEnds());
+        final List<AssociationEndFacade> associationEnds = this.shieldedElements(super.handleGetAssociationEnds());
         CollectionUtils.filter(
             associationEnds,
             new Predicate()
@@ -944,8 +946,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifierAssociationEnds()
      */
     @Override
-    protected Collection handleGetIdentifierAssociationEnds() {
-        Collection associationEnds = new ArrayList(this.getAssociationEnds());
+    protected Collection<AssociationEndFacade> handleGetIdentifierAssociationEnds() {
+        Collection<AssociationEndFacade> associationEnds = new ArrayList(this.getAssociationEnds());
         MetafacadeUtils.filterByStereotype(
             associationEnds,
             UMLProfile.STEREOTYPE_IDENTIFIER);

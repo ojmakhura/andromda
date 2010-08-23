@@ -826,9 +826,8 @@ public class EntityLogicImpl
             final Collection<AttributeFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
                     true);
-            for (final Iterator<AttributeFacade> iterator = identifiers.iterator(); iterator.hasNext();)
+            for (AttributeFacade identifier : identifiers)
             {
-                final AttributeFacade identifier = iterator.next();
                 this.createIdentifier(
                     identifier.getName(),
                     identifier.getType().getFullyQualifiedName(true),
