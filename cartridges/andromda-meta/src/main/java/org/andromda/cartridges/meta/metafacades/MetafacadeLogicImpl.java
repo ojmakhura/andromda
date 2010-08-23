@@ -38,17 +38,17 @@ public class MetafacadeLogicImpl
 {
     /**
      * This defines the metamodel version package name (i.e.
-     * org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) used
+     * org.andromda.metafacades.uml14, org.andromda.metafacades.um22, etc) used
      * by this cartridge to create the generated impl package name, if left
      * empty then the impl package will be the same as the metafacade package
      * (therefore we default to an empty name)
      */
     private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
-    private Map featureMap = null;
+    private Map<ClassifierFacade, Collection<MethodData>> featureMap = null;
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(MetafacadeLogic.class);
+    private static final Logger logger = Logger.getLogger(MetafacadeLogicImpl.class);
 
     /**
      * @param metaObjectIn
@@ -229,7 +229,7 @@ public class MetafacadeLogicImpl
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeLogic#handleGetMethodDataForPSM(org.andromda.metafacades.uml.ClassifierFacade)
      */
     @Override
-    protected Collection handleGetMethodDataForPSM(ClassifierFacade facade)
+    protected Collection<MethodData> handleGetMethodDataForPSM(ClassifierFacade facade)
     {
         return this.getMethodDataForPSM(facade, true);
     }
@@ -238,7 +238,7 @@ public class MetafacadeLogicImpl
      * @see org.andromda.cartridges.meta.metafacades.Metafacade#getMethodDataForPSM()
      */
     @Override
-    protected Collection handleGetMethodDataForPSM()
+    protected Collection<MethodData> handleGetMethodDataForPSM()
     {
         return this.getMethodDataForPSM(null, false);
     }
@@ -246,37 +246,35 @@ public class MetafacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.Metafacade#getMethodDataForPSM(boolean)
      */
-    private final Collection getMethodDataForPSM(
+    private final Collection<MethodData> getMethodDataForPSM(
         final ClassifierFacade facade,
         final boolean includeSuperclasses)
     {
         try
         {
-            final Set declarationSet = new LinkedHashSet();
+            final Set<String> declarationSet = new LinkedHashSet<String>();
             if (this.featureMap == null)
             {
-                this.featureMap = new HashMap();
+                this.featureMap = new HashMap<ClassifierFacade, Collection<MethodData>>();
                 if (includeSuperclasses && this.getGeneralizations() != null)
                 {
                     for (GeneralizableElementFacade general : this.getGeneralizations())
                     {
-                        final Map methodDataMap = new HashMap();
+                        final Map<String, MethodData> methodDataMap = new HashMap<String, MethodData>();
                         final ClassifierFacade metafacade = (ClassifierFacade)general;
                         for (ClassifierFacade classifier = metafacade; classifier instanceof Metafacade;
                              classifier = (ClassifierFacade)classifier.getGeneralization())
                         {
                             this.getAllFeatures(methodDataMap, declarationSet, (Metafacade)classifier);
                         }
-                        this.featureMap.put(
-                            metafacade,
-                            methodDataMap.values());
+                        this.featureMap.put(metafacade, (Collection<MethodData>) methodDataMap.values());
                     }
                 }
             }
-            final List result = new ArrayList();
+            final List<MethodData> result = new ArrayList<MethodData>();
             if (this.featureMap != null)
             {
-                Collection features = (Collection)this.featureMap.get(facade);
+                Collection<MethodData> features = this.featureMap.get(facade);
                 if (features != null)
                 {
                     result.addAll(features);
@@ -284,7 +282,7 @@ public class MetafacadeLogicImpl
             }
             if (!includeSuperclasses)
             {
-                final Map methodDataMap = new HashMap();
+                final Map<String, MethodData> methodDataMap = new HashMap<String, MethodData>();
                 this.getAllFeatures(methodDataMap, declarationSet, this);
                 result.addAll(methodDataMap.values());
             }
@@ -298,8 +296,8 @@ public class MetafacadeLogicImpl
     }
 
     private final void getAllFeatures(
-        final Map methodDataMap,
-        final Set declarationSet,
+        final Map<String, MethodData> methodDataMap,
+        final Set<String> declarationSet,
         final Metafacade facade)
     {
         try
@@ -309,7 +307,7 @@ public class MetafacadeLogicImpl
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods
-            for (final Iterator<Object> iterator = facade.getProperties().iterator(); iterator.hasNext();)
+            for (final Iterator<ModelElementFacade> iterator = facade.getProperties().iterator(); iterator.hasNext();)
             {
                 final ModelElementFacade property = (ModelElementFacade)iterator.next();
                 MethodData method = null;
@@ -474,9 +472,9 @@ public class MetafacadeLogicImpl
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeLogic#getAllParents()
      */
     @Override
-    protected Collection handleGetAllParents()
+    protected Collection<GeneralizableElementFacade> handleGetAllParents()
     {
-        Set allParents = new LinkedHashSet();
+        Set<GeneralizableElementFacade> allParents = new LinkedHashSet<GeneralizableElementFacade> ();
         final Collection<GeneralizableElementFacade> parents = this.getGeneralizations();
         allParents.addAll(parents);
         for (Object object : parents)

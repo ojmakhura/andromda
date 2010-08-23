@@ -5,7 +5,6 @@
   <groupId>org.andromda.bootstrap.metafacades</groupId>
   <artifactId>andromda-metafacades-uml14</artifactId>
   <version>3.4-SNAPSHOT</version>
-  <packaging>jar</packaging>
   <name>AndroMDA UML 1.4 Metafacades</name>
   <description>The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
   		implementations.  These implement the common UML metafacades.</description>
@@ -36,12 +35,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>3.2.1</version>
@@ -51,6 +44,12 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

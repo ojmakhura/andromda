@@ -5,9 +5,8 @@
   <groupId>org.andromda.bootstrap.metafacades</groupId>
   <artifactId>andromda-metafacades-uml</artifactId>
   <version>3.4-SNAPSHOT</version>
-  <packaging>jar</packaging>
   <name>AndroMDA UML Common Metafacades</name>
-  <description>The common UML metafacades.  This is the set of core UML metafacades used to provide access UML meta models.</description>
+  <description>The common UML metafacades. This is the set of core UML metafacades used to provide access UML meta models.</description>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -23,15 +22,21 @@
   </licenses>
   <dependencies>
     <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.5</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

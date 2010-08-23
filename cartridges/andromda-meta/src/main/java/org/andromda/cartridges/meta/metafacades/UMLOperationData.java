@@ -32,7 +32,7 @@ public class UMLOperationData
         {
             addArgument(
                 new ArgumentData(
-                    parameter.getType().getFullyQualifiedName(),
+                    parameter.getGetterSetterTypeName(),
                     parameter.getName()));
         }
     }
