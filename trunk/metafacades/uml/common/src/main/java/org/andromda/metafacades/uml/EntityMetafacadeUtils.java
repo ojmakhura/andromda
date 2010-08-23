@@ -238,16 +238,18 @@ public class EntityMetafacadeUtils
      * @param entity the entity for which to retrieve the identifiers
      * @param follow a flag indicating whether or not the inheritance hierarchy
      *        should be followed
-     * @return the collection of identifiers.
+     * @return the collection of entity identifier attributes.
      */
     public static Collection<AttributeFacade> getIdentifiers(
         final Entity entity,
         final boolean follow)
     {
-        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>(entity.getAttributes());
+        final Collection attributes = new ArrayList(entity.getAttributes());
         MetafacadeUtils.filterByStereotype(
-            identifiers,
+            attributes,
             UMLProfile.STEREOTYPE_IDENTIFIER);
+        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>();
+        identifiers.addAll(attributes);
 
         return (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity
             ? getIdentifiers((Entity)entity.getGeneralization(), follow)
@@ -259,9 +261,9 @@ public class EntityMetafacadeUtils
      * <code>columnLength</code>.
      *
      * @param typeName the actual type name (usually retrieved from a mappings
-     *        file, ie NUMBER(19).
+     *        file, i.e. NUMBER(19).
      * @param columnLength the length of the column.
-     * @return the new name co
+     * @return the new name construct
      */
     public static String constructSqlTypeName(
         final String typeName,
