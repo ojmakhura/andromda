@@ -17,7 +17,7 @@
 #if(!$member.hidden && !$member.inputFile)
                     <table:table-cell office:value-type="string">
                         <text:p>
-                            <h:outputText value="#{messages['$member.messageKey']}">
+                            <h:outputText value="#{messages['$member.messageKey']}" escape="false">
 #if ($member.type.dateType)
                                 <f:convertDateTime pattern="$defaultDateFormat"/>
 #end
@@ -31,7 +31,7 @@
 #if(!$field.many)
                     <table:table-cell office:value-type="string">
                         <text:p>
-                            <h:outputText value="#{messages['$field.type.viewTitleKey']}"/>
+                            <h:outputText value="#{messages['$field.type.viewTitleKey']}" escape="false"/>
                         </text:p>
                     </table:table-cell>
 #end
@@ -45,9 +45,9 @@
                     <table:table-cell office:value-type="string">
 #if($member.type.enumeration)
                         <c:set var="key" value="${member.type.messageKey}.#{row.${member.name}.value}"/>
-                        <h:outputText value="#{messages[key]}"/>
+                        <text:p><h:outputText value="#{messages[key]}" escape="false"/></text:p>
 #else
-                        <text:p><h:outputText value="#{row.${member.name}}"></h:outputText></text:p>
+                        <text:p><h:outputText value="#{row.${member.name}}" escape="false"/></text:p>
 #end
                     </table:table-cell>
 #end
@@ -56,7 +56,7 @@
 #if($field.type.hasStereotype("Manageable"))
 #if(!$field.many)
                     <table:table-cell office:value-type="string">
-                        <h:outputText value="#{row.${field.name}}" converter="$field.type.converterType"/>
+                        <text:p><h:outputText value="#{row.${field.name}}" converter="$field.type.converterType" escape="false"/></text:p>
                     </table:table-cell>
 #end
 #end
