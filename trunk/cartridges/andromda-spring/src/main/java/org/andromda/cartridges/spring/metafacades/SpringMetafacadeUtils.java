@@ -1,5 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -105,11 +107,11 @@ class SpringMetafacadeUtils
      *
      * @return String[] the interceptors.
      */
-    static String[] getServiceInterceptors(ClassifierFacade classifier,
-        String[] defaultInterceptors)
+    static Collection<String> getServiceInterceptors(ClassifierFacade classifier,
+            Collection<String> defaultInterceptors)
     {
         ExceptionUtils.checkNull("classifier", classifier);
-        String[] interceptors = null;
+        Collection<String> interceptors = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
             String interceptorsValue = (String)classifier.findTaggedValue(
@@ -129,10 +131,10 @@ class SpringMetafacadeUtils
             // interceptors are a comma-separated list of strings, go and split the list
             if (StringUtils.isNotBlank(interceptorsValue))
             {
-                interceptors = interceptorsValue.split(",");
+                interceptors = Arrays.asList(interceptorsValue.split(","));
             }
         }
-        if (interceptors == null || interceptors.length == 0)
+        if (interceptors == null || interceptors.isEmpty())
         {
             interceptors = defaultInterceptors;
         }

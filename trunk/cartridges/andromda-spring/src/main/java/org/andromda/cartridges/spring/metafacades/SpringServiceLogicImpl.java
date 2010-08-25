@@ -1,6 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.andromda.cartridges.spring.SpringProfile;
@@ -319,15 +320,15 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleGetInterceptors()
      */
-    protected String[] handleGetInterceptors()
+    protected Collection<String> handleGetInterceptors()
     {
         String serviceInterceptorString =
             this.isConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS) ? ObjectUtils.toString(this
                 .getConfiguredProperty(SpringGlobals.SERVICE_INTERCEPTORS)) : null;
-        String[] interceptors = null;
+        Collection<String> interceptors = null;
         if (StringUtils.isNotBlank(serviceInterceptorString))
         {
-            interceptors = serviceInterceptorString.split(",");
+            interceptors = Arrays.asList(serviceInterceptorString.split(","));
         }
         return SpringMetafacadeUtils.getServiceInterceptors(this, interceptors);
     }
