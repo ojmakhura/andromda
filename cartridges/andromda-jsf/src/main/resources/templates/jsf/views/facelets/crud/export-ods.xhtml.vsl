@@ -17,11 +17,7 @@
 #if(!$member.hidden && !$member.inputFile)
                     <table:table-cell office:value-type="string">
                         <text:p>
-                            <h:outputText value="#{messages['$member.messageKey']}" escape="false">
-#if ($member.type.dateType)
-                                <f:convertDateTime pattern="$defaultDateFormat"/>
-#end
-                            </h:outputText>
+                            <h:outputText value="#{messages['$member.messageKey']}" escape="false"/>
                         </text:p>
                     </table:table-cell>
 #end
