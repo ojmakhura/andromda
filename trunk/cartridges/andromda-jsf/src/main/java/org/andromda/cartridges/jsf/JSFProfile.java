@@ -36,6 +36,8 @@ public class JSFProfile
     public static final String TAGGEDVALUE_INPUT_TYPE = profile.get("INPUT_TYPE");
     /** INPUT_TABLELINK */
     public static final String TAGGEDVALUE_INPUT_TABLELINK = profile.get("INPUT_TABLELINK");
+    /** EXCEPTION_TYPE */
+    public static final String TAGGEDVALUE_EXCEPTION_TYPE = profile.get("EXCEPTION_TYPE");
     /** ACTION_REDIRECT */
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
     /** INPUT_REQUIRED */
