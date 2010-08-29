@@ -20,16 +20,14 @@
     </documentation>
     <elements>
         <elementGroup name="Stereotypes">
-        <!--
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
                     Modeled on a transition it designates an exception occuring while processing an action,
-                    must exit an action state and enter a JSP page.
+                    must exit an action state and enter a <![CDATA[<<FrontEndView>>]]>.
                 </documentation>
                 <value>FrontEndException</value>
                 <appliedOnElement>Transition</appliedOnElement>
             </element>
-        -->
             <element name="FRONT_END_REGISTRATION">
                 <documentation>
                     Modeled on a use case, this stereotype indicates that this use case

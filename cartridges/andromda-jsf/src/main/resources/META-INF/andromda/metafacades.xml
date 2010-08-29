@@ -40,6 +40,12 @@
         <property reference="formScope"/>
         <property reference="actionFormKey"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFExceptionHandlerLogicImpl">
+        <mapping>
+            <property name="frontEndException"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFForwardLogicImpl">
         <mapping>
             <property name="containedInFrontEndUseCase"/>
@@ -166,4 +172,5 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
     </metafacade>
+
 </metafacades>
