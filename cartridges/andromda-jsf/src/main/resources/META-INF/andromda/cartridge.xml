@@ -559,8 +559,8 @@
 
     <template
         path="templates/jsf/utils/download/contenttypes.properties.vsl"
-        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${fileName}.properties"
-        outlet="managed-beans"
+        outputPattern="WEB-INF/classes/$stringUtils.replace($managedBeansPackage, '.', '/')/${fileName}.properties"
+        outlet="configuration"
         overwrite="true"/>
 
     <template
