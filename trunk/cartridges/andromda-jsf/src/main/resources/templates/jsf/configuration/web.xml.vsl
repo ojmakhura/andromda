@@ -599,7 +599,7 @@
                 This collection secures all views and resources
                 as well as the actions called in the "Manage ${manageable.name}" use-case
             </description>
-            <url-pattern>${manageable.viewFullPath}.${jsfUtils.viewExtension}</url-pattern>
+            <url-pattern>${manageable.viewFullPath}.${facesServletExtension}</url-pattern>
         </web-resource-collection>
 #if (!$manageable.roles.empty || $stringUtils.isNotBlank($defaultRole))
         <auth-constraint>
