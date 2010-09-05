@@ -115,6 +115,20 @@ $operation.getDocumentation("     * ")
     }
 
 #end
+#set ($formPopulationOperationRequired = !$action.formFields.empty)
+    /*
+#if($action.exitingInitialState)
+     * This method is called when the use case '${controller.useCase.name}' starts.
+#else
+     * This method is called when '${action.trigger.name}' is triggered in the view '${action.source.name}'.
+#end
+     * It can be safely overriden in descendant classes.
+     */
+    protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form#end)
+    {
+        //this method can be overriden
+    }
+
     public String ${action.triggerName}()
     {
         return ${action.triggerName}((javax.faces.event.FacesEvent)null);
@@ -130,7 +144,6 @@ $operation.getDocumentation("     * ")
         this.${action.triggerName}((javax.faces.event.FacesEvent)event);
     }
 
-#set ($formPopulationOperationRequired = !$action.formFields.empty)
 #if ($formPopulationOperationRequired)
     @SuppressWarnings("unchecked")
 #end
@@ -182,6 +195,9 @@ $operation.getDocumentation("     * ")
             ${indent}${managedBeansPackage}.${formPopulatorName}.populateFormFromPropertyMap(
             ${indent}    form, form.getDateTimeFormatters(), this.getContext().getExternalContext().getRequestParameterMap());
 #end
+            //trigger method execution
+            ${indent}${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
+            
             ${indent}forward = #processTransition($action)
 #if ($portlet)
             ${indent}this.setLastForward(forward);
