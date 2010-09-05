@@ -823,4 +823,26 @@ public class JSFActionLogicImpl
         }
         return false;
     }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getActionTriggerMethodName()
+     */
+    @Override
+    protected String handleGetTriggerMethodName() {
+        final StringBuilder methodName = new StringBuilder();
+        if (this.isExitingInitialState())
+        {
+            final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(useCase.getName())+"_started");
+        }
+        else
+        {
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(this.getSource().getName()));
+            methodName.append('_');
+            final EventFacade trigger = this.getTrigger();
+            final String suffix = trigger == null ? this.getTarget().getName() : trigger.getName();
+            methodName.append(StringUtilsHelper.lowerCamelCaseName(suffix));
+        }
+        return "_"+methodName.toString();
+    }
 }
