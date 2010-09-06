@@ -1,0 +1,647 @@
+// license-header java merge-point
+#set ($className = "ControllerBase")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Base class for all controllers
+ */
+public abstract class ControllerBase
+{
+    
+    public static final String USE_CASE_FORMS_KEY="org.andromda.cartridges.jsf.USE_CASE_FORMS";
+    public static final String USE_CASE_PAGE_VARIABLES_KEY="org.andromda.cartridges.jsf.PAGE_VARIABLES";
+    public static final String USE_CASE_PARAMETERS_KEY="org.andromda.cartridges.jsf.USE_CASE_PARAMETERS";
+    public static final String FORM_KEY="$actionFormKey";
+    
+    /*
+     * Returns the forms associated with this controller in the #if($portlet) session#else pageFlowScope#end.
+     */
+    @SuppressWarnings("unchecked")
+    public static java.util.Map<String,Object> getForms(#if($portlet) $jsfUtils.sessionClassName session#else java.util.Map<String,Object> pageFlowScope#end)
+    {
+#if($standalone)
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_FORMS_KEY);
+#else
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)session.getAttribute(USE_CASE_FORMS_KEY);
+#end
+        if(result == null){
+            result=new java.util.HashMap<String, Object>();
+#if($standalone)
+            pageFlowScope.put(USE_CASE_FORMS_KEY, result);
+#else
+            session.setAttribute(USE_CASE_FORMS_KEY, result);
+#end
+        }
+        return result;
+    }
+    
+    /*
+     * Returns the forms associated with this controller.
+     */
+    @SuppressWarnings("unchecked")
+    public java.util.Map<String,Object> getForms()
+    {
+#if($standalone)
+        return ControllerBase.getForms(this.getPageFlowScope());
+#else
+        return ControllerBase.getForms(getSession(false));
+#end
+    }
+    
+    public Object getForm(final String formName)
+    {
+        try
+        {
+            return org.apache.commons.beanutils.PropertyUtils.getProperty(this, formName);
+        } catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    /*
+     * Returns the page variables associated with this controller, in the#if($portlet) session#else pageFlowScope#end.
+     */
+    @SuppressWarnings("unchecked")
+    public static java.util.Map<String,Object> getPageVariables(#if($portlet) $jsfUtils.sessionClassName session#else java.util.Map<String,Object> pageFlowScope#end)
+    {
+#if($standalone)
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PAGE_VARIABLES_KEY);
+#else
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)session.getAttribute(USE_CASE_PAGE_VARIABLES_KEY);
+#end
+        if(result == null){
+            result=new java.util.HashMap<String, Object>();
+#if($standalone)
+            pageFlowScope.put(USE_CASE_PAGE_VARIABLES_KEY, result);
+#else
+            session.setAttribute(USE_CASE_PAGE_VARIABLES_KEY, result);
+#end
+        }
+        return result;
+    }
+    
+    /*
+     * Returns the page variables associated with this controller, in the#if($portlet) session#else pageFlowScope#end.
+     */
+    @SuppressWarnings("unchecked")
+    public java.util.Map<String,Object> getPageVariables()
+    {
+#if($standalone)
+        return ControllerBase.getPageVariables(this.getPageFlowScope());
+#else
+        return ControllerBase.getPageVariables(getSession(false));
+#end
+    }
+    
+    /*
+     * Returns true if there is at least one use case parameter.
+     */
+    @SuppressWarnings("unchecked")
+    public boolean hasUseCaseParameters()
+    {
+#if($standalone)
+        final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
+        java.util.Map<String,Object> parameters=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
+#else
+        java.util.Map<String,Object> parameters=(java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
+#end
+        return parameters != null && !parameters.isEmpty();
+    }
+    
+    /*
+     * Returns the use case parameters associated with this controller, in the current#if($portlet) session#else pageFlowScope#end.
+     */
+    @SuppressWarnings("unchecked")
+    public java.util.Map<String,Object> getUseCaseParameters()
+    {
+#if($standalone)
+        final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
+#else
+        java.util.Map<String,Object> result=(java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
+#end
+        if(result == null){
+            result=new java.util.HashMap<String, Object>();
+#if($standalone)
+            pageFlowScope.put(USE_CASE_PARAMETERS_KEY, result);
+#else
+            getSession(false).setAttribute(USE_CASE_PARAMETERS_KEY, result);
+#end
+        }
+        return result;
+    }
+    
+    /*
+     * Removes all the forms and page variables from the current#if($portlet) session#else pageFlowScope#end.
+     */
+    protected void resetUseCaseFormsAndPageVariables()
+    {
+#if($portlet)##if standalone, it is using the Trinidad's pageFlowScope, no need to reset it
+        final $jsfUtils.sessionClassName session=getSession(false);
+        session.removeAttribute(USE_CASE_FORMS_KEY);
+        session.removeAttribute(USE_CASE_PAGE_VARIABLES_KEY);
+#else
+        final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
+        pageFlowScope.remove(USE_CASE_FORMS_KEY);
+        pageFlowScope.remove(USE_CASE_PAGE_VARIABLES_KEY);
+#end
+    }
+
+    /*
+     * Removes all the forms and page variables from the current#if($portlet) session#else pageFlowScope#end.
+     */
+    protected void resetUseCaseParameters()
+    {
+#if($portlet)##if standalone, it is using the Trinidad's pageFlowScope, no need to reset it
+        final $jsfUtils.sessionClassName session=getSession(false);
+        session.removeAttribute(USE_CASE_PARAMETERS_KEY);
+#else
+        final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
+        pageFlowScope.remove(USE_CASE_PARAMETERS_KEY);
+#end
+    }
+
+    /**
+     * Gets the current faces context.  This object is the point
+     * from which to retrieve any request, session, etc information.
+     *
+     * @return the JSF faces context instance.
+     */
+    public javax.faces.context.FacesContext getContext()
+    {
+        return javax.faces.context.FacesContext.getCurrentInstance();
+    }
+
+    /**
+     * A helper method that gets the current request from the faces
+     * context.
+     *
+     * @return the current request instance.
+     */
+    protected $jsfUtils.requestClassName getRequest()
+    {
+        return ($jsfUtils.requestClassName)this.getContext().getExternalContext().getRequest();
+    }
+
+    /**
+     * A helper method that gets the current reponse from the faces
+     * context.
+     *
+     * @return the current response instance.
+     */
+    protected $jsfUtils.responseClassName getResponse()
+    {
+        return ($jsfUtils.responseClassName)this.getContext().getExternalContext().getResponse();
+    }
+
+    /**
+     * A helper method that gets the current session from the faces
+     * context.
+     *
+     * @param create If the create parameter is true, create (if necessary) and return a
+     *        session instance associated with the current request. If the create
+     *        parameter is false return any existing session instance associated with the
+     *        current request, or return null if there is no such session.
+     * @return the current session instance.
+     */
+    protected $jsfUtils.sessionClassName getSession(final boolean create)
+    {
+        return ($jsfUtils.sessionClassName)this.getContext().getExternalContext().getSession(create);
+    }
+
+    /**
+     * Attempts to resolve the variable, given, the <code>name</code> of
+     * the variable using the faces context variable resolver instance.
+     *
+     * @return the resolved variable or null if not found.
+     */
+    protected java.lang.Object resolveVariable(final String name)
+    {
+        final javax.faces.context.FacesContext context = this.getContext();
+        return context != null ? context.getApplication().getVariableResolver().resolveVariable(context, name) : null;
+    }
+
+    protected void setForm(final String formKey, final Object form, boolean includeInSession)
+    {
+        getForms().put(formKey,form);
+        if (includeInSession)
+        {
+            this.setSessionAttribute(formKey, form);
+        }
+    }
+
+    /**
+     * Finds the root cause of the given <code>throwable</code> and
+     * adds the message taken from that cause to the faces context messages.
+     *
+     * @param throwable the exception information to add.
+     */
+    protected final void addExceptionMessage(
+        Throwable throwable)
+    {
+        String message = null;
+        final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        if (rootCause != null)
+        {
+            message = rootCause.toString();
+        }
+        if (message == null || message.trim().length() == 0)
+        {
+            message = throwable.toString();
+        }
+        this.addErrorMessage(message);
+    }
+
+    /**
+     * Adds the given error <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addErrorMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);
+    }
+
+    /**
+     * Adds the given warning <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addWarningMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);
+    }
+
+    /**
+     * Adds the given info <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addInfoMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);
+    }
+
+    /**
+     * Adds the given fatal <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addFatalMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);
+    }
+
+    /**
+     * Adds a message to the faces context (which will show up on your view when using the
+     * lt;h:messages/gt; tag).
+     *
+     * @param severity the severity of the message
+     * @param message the message to add.
+     */
+    protected void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
+    {
+        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
+        final Object form = this.resolveVariable(FORM_KEY);
+        if (form != null)
+        {
+            try
+            {
+                final java.lang.reflect.Method method = form.getClass().getMethod(
+                    "add${stringUtils.capitalize($formMessagesProperty)}",
+                    new Class[]{javax.faces.application.FacesMessage.class});
+                method.invoke(form, new Object[]{facesMessage});
+            }
+            catch (final Exception exception)
+            {
+                throw new RuntimeException(exception);
+            }
+        }
+    }
+
+    /**
+     * Sets the messages title to use on the next view.
+     *
+     * @param messagesTitle the title to use.
+     */
+    protected void setMessagesTitle(final String messagesTitle)
+    {
+        final Object form = this.resolveVariable(FORM_KEY);
+        if (form != null)
+        {
+            try
+            {
+                final java.lang.reflect.Method method = form.getClass().getMethod(
+                    "set${stringUtils.capitalize($formMessagesProperty)}Title",
+                    new Class[]{java.lang.String.class});
+                method.invoke(form, new Object[]{messagesTitle});
+            }
+            catch (final Exception exception)
+            {
+                throw new RuntimeException(exception);
+            }
+        }
+    }
+
+    /**
+     * Gets the maximum severity of the messages stored in the current form.
+     *
+     * @return the maximum message severity.
+     */
+    protected javax.faces.application.FacesMessage.Severity getMaximumMessageSeverity()
+    {
+        javax.faces.application.FacesMessage.Severity maximumSeverity = null;
+        final Object form = this.resolveVariable(FORM_KEY);
+        if (form != null)
+        {
+            try
+            {
+                final java.lang.reflect.Method method = form.getClass().getMethod(
+                    "getMaximumMessageSeverity",
+                    (Class[])null);
+                maximumSeverity = (javax.faces.application.FacesMessage.Severity)method.invoke(form, (Object[])null);
+            }
+            catch (final Exception exception)
+            {
+                throw new RuntimeException(exception);
+            }
+        }
+        return maximumSeverity;
+    }
+    
+    /**
+     * Retrieves the current action form while making sure the form is of the given
+     * <code>type</code>.  If the action form is found, but not of the given type, null will
+     * be returned.
+     *
+     * @param type the type of form to retrieve.
+     * @return the found form.
+     */
+    @SuppressWarnings("unchecked")
+    protected Object getCurrentActionForm(final Class type)
+    {
+        Object form = this.getCurrentActionForm();
+        if (!type.isInstance(form))
+        {
+            form = null;
+        }
+        return form;
+    }
+
+    /**
+     * Retrieves the current action form instance.
+     *
+     * @return the current action form instance.
+     */
+    protected Object getCurrentActionForm()
+    {
+        return this.resolveVariable(FORM_KEY);
+    }
+
+    /**
+     * The name of the request attribute that stores the attributes from the current action event.
+     */
+    protected static final String ACTION_EVENT_ATTRIBUTES = "actionEventAttributes";
+
+    /**
+     * This method just captures the event attributes and sets them into the request
+     * so that we can retrieve in controller action operation and use to populate form.
+     *
+     * @param event the action event.
+     */
+    public void action(javax.faces.event.ActionEvent event)
+    {
+        this.setRequestAttribute(ACTION_EVENT_ATTRIBUTES, event.getComponent().getAttributes());
+    }
+
+    protected void setRequestAttribute(final String name, final Object object)
+    {
+        ${managedBeansPackage}.JsfUtils.setAttribute(this.getContext().getExternalContext().getRequest(), name, object);
+    }
+
+    protected Object getRequestAttribute(final String name)
+    {
+        return ${managedBeansPackage}.JsfUtils.getAttribute(this.getContext().getExternalContext().getRequest(), name);
+    }
+
+    protected void setSessionAttribute(final String name, final Object object)
+    {
+        ${managedBeansPackage}.JsfUtils.setAttribute(this.getContext().getExternalContext().getSession(false), name, object);
+    }
+
+    protected Object getSessionAttribute(final String name)
+    {
+        return ${managedBeansPackage}.JsfUtils.getAttribute(this.getContext().getExternalContext().getSession(false), name);
+    }
+
+    /**
+     * Returns an javax.faces.event.FacesEvent parameter value, from its name
+     *
+     * @param parameterName the name of the parameter.
+     * @param event the FacesEvent holding the parameter.
+     */
+    protected Object getParameterValue(String parameterName, javax.faces.event.FacesEvent event)
+    {
+        for(Object uiObject : event.getComponent().getChildren()){
+            if(uiObject instanceof javax.faces.component.UIParameter){
+                final javax.faces.component.UIParameter param = (javax.faces.component.UIParameter)uiObject;
+                if(param.getName().equals(parameterName)) {
+                    return param.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets the current action form instance.
+     *
+     */
+    protected void setCurrentActionForm(Object form)
+    {
+        this.setRequestAttribute(FORM_KEY, form);
+#if($standalone)
+        this.getPageFlowScope().put(FORM_KEY, form);
+#end
+    }
+
+    /**
+     * Force the component to get its value from the backing bean before rendering
+     *
+     * @param uic the parent UIComponent.
+     */
+    protected void resetEditableComponentsValues(javax.faces.component.UIComponent uic)
+    {
+        if(uic instanceof javax.faces.component.EditableValueHolder)
+        {
+            final javax.faces.component.EditableValueHolder evh=(javax.faces.component.EditableValueHolder)uic;
+            evh.setValue(null);
+            evh.setSubmittedValue(null);
+            evh.setLocalValueSet(false);
+            evh.setValid(true);
+        }
+        for(Object component: uic.getChildren())
+        {
+            resetEditableComponentsValues((javax.faces.component.UIComponent)component);
+        }
+    }
+
+    /**
+     * Force all the editable components to get its values from the backing bean before rendering
+     */
+    protected void resetAllEditableComponentsValues()
+    {
+        resetEditableComponentsValues(this.getContext().getViewRoot());
+    }
+#if ($portlet)
+
+    /**
+     * Sets the given form into the {@link javax.portlet.PortletSession#hash()APPLICATION_SCOPE}.
+     *
+     * @param form the form to set into the application scope (useful when you need to pass
+     *                           the form to another portlet or to the webapp outside of the portlet.
+     */
+    protected void setFormInSessionApplicationScope(final Object form)
+    {
+        if (this.getContext().getExternalContext().getSession(false) instanceof javax.portlet.PortletSession)
+        {
+            this.getSession(false).setAttribute(FORM_KEY, form, javax.portlet.PortletSession.APPLICATION_SCOPE);
+        }
+    }
+
+    /**
+     * Gets the current action response.
+     *
+     * @return the current action response.
+     */
+    protected javax.portlet.ActionResponse getActionResponse()
+    {
+        javax.portlet.ActionResponse actionResponse = null;
+        if (this.getResponse() instanceof javax.portlet.ActionResponse)
+        {
+            actionResponse = (javax.portlet.ActionResponse)this.getResponse();
+        }
+        return actionResponse;
+    }
+
+    protected void setPortletMode(final javax.portlet.PortletMode mode)
+        throws javax.portlet.PortletModeException
+    {
+        final javax.portlet.ActionResponse actionResponse = this.getActionResponse();
+        if (actionResponse != null)
+        {
+            actionResponse.setPortletMode(mode);
+        }
+    }
+
+    /**
+     * Indicates whether or not the current transaction is valid (i.e. checks
+     * that the transaction token - if available - is different than what is stored
+     * for the last transaction token).
+     * @param actionName the action name.
+     * @return whether or not transaction is valid
+     */
+    protected boolean isTransactionValid(final String actionName)
+    {
+        boolean valid = true;
+        final String transactionTokeName = this.getTransactionTokenName();
+        if (transactionTokeName != null)
+        {
+            final javax.faces.component.UIComponent command = ${managedBeansPackage}.JsfUtils.findCommand(
+                javax.faces.context.FacesContext.getCurrentInstance().getViewRoot(), actionName);
+            final String currentToken = command != null ? (String)command.getAttributes().get(transactionTokeName) : null;
+            if (currentToken != null)
+            {
+                final String lastToken = (String)this.getSessionAttribute(
+                    transactionTokeName);
+                valid = !currentToken.equals(lastToken);
+                if (valid)
+                {
+                    this.setSessionAttribute(
+                        transactionTokeName, currentToken);
+                }
+            }
+        }
+        return valid;
+    }
+
+    /**
+     * Gets the name of the attribute that stores the transaction token.
+     *
+     * @return the name of the transaction token or null if not available.
+     */
+    protected String getTransactionTokenName()
+    {
+        String transactionTokenName = null;
+        try
+        {
+            final Class transactionTokenClass = Thread.currentThread().getContextClassLoader().loadClass(
+                "org.andromda.cartridges.jsf.component.TransactionToken");
+            transactionTokenName = (String)transactionTokenClass.getField("TRANSACTION_TOKEN").get(null);
+        }
+        catch (Exception exception)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug(exception);
+            }
+        }
+        return transactionTokenName;
+    }
+
+    /**
+     * The variable that stores the last forward.
+     */
+    protected static final String LAST_FORWARD = "AndroMDA_LastForward";
+
+    /**
+     * Gets the current value of the last forward.
+     *
+     * @return the last forward.
+     */
+    protected String getLastForward()
+    {
+        return (String)this.getSessionAttribute(LAST_FORWARD);
+    }
+
+    /**
+     * Sets the current value of the last forward.
+     *
+     * @param forward the last forward
+     */
+    protected void setLastForward(String forward)
+    {
+        if (forward != null)
+        {
+            this.setSessionAttribute(LAST_FORWARD, forward);
+        }
+    }
+#end
+#if($standalone)
+
+    protected java.util.Map<String,Object> getPageFlowScope()
+    {
+        return org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance().getPageFlowScope();
+    }
+#end
+#if($trinidad)
+
+    /**
+     * Updates the table value in the view root.
+     */
+    protected void updateTableValue(org.apache.myfaces.trinidad.context.RequestContext requestContext, javax.faces.component.UIComponent viewRoot, String id, Object value)
+    {
+        javax.faces.component.UIComponent component = org.apache.myfaces.trinidad.util.ComponentUtils.findRelativeComponent(viewRoot, id);
+        if(component instanceof org.apache.myfaces.trinidad.component.UIXIterator)//just in case the view was changed
+        {
+            ((org.apache.myfaces.trinidad.component.UIXIterator) component).setValue(value);
+        }
+    }
+#end
+
+    // controller-base merge-point
+    
+}
