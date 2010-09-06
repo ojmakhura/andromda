@@ -21,6 +21,11 @@
     </tag>
 #end
     <function>
+        <function-name>getConverter</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>javax.faces.convert.Converter getConverter(java.lang.String)</function-signature>
+    </function>
+    <function>
         <function-name>valueFromConverter</function-name>
         <function-class>${managedBeansPackage}.JsfUtils</function-class>
         <function-signature>java.lang.String valueFromConverter(java.lang.Object, java.lang.String, java.lang.String)</function-signature>

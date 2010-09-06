@@ -262,6 +262,7 @@ public class $className
      * @param object the object on which to get all attribute names.
      * @return an array of all attribute names.
      */
+    @SuppressWarnings("unchecked")
     public static String[] getAttributeNames(final Object object)
     {
         final java.util.Collection<String> names = new java.util.ArrayList<String>();
@@ -350,6 +351,7 @@ public class $className
      * @param actionMethod the action method (i.e. controller.myMethod)
      * @return the component or null of not found.
      */
+    @SuppressWarnings("unchecked")
     public static javax.faces.component.UICommand findCommand(final javax.faces.component.UIComponent component, final String actionMethod)
     {
         javax.faces.component.UICommand found = null;
@@ -378,6 +380,25 @@ public class $className
             }
         }
         return found;
+    }
+
+    /**
+     * Returns the converter identified by converterId
+     * @converterId the id of the converter to be used
+     * @return the Converter instance
+     */
+    public static javax.faces.convert.Converter getConverter(
+            final String converterId)
+    {
+        if(StringUtils.isEmpty(converterId))
+        {
+            return null;
+        }
+        else
+        {
+            final javax.faces.context.FacesContext facesContext=javax.faces.context.FacesContext.getCurrentInstance();
+            return facesContext.getApplication().createConverter(converterId);
+        }
     }
 
     /**
