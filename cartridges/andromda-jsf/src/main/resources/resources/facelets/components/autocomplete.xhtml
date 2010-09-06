@@ -21,13 +21,19 @@
     <c:set var="onloadFunc" value="_#{autocompleteVarName}_onloadFunc"/>
     <c:set var="jsInputHiddenId" value="#{jsIdPrefix}#{id}"/>
 
-    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true" contentStyle="display:none"/>
+    <!-- The inputText is duplicated to allow the valueChangeListener... I could not find a better way -->
+    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true" contentStyle="display:none" 
+        autoSubmit="#{autoSubmit}" immediate="#{immediate}" 
+        valueChangeListener="#{valueChangeListenerBean[valueChangeListenerName]}"  
+        rendered="#{(not empty valueChangeListenerBean) or (not empty valueChangeListenerName)}"
+        />
+    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true" contentStyle="display:none" 
+        autoSubmit="#{autoSubmit}" immediate="#{immediate}" 
+        rendered="#{(empty valueChangeListenerBean) and (empty valueChangeListenerName)}"
+        />
 
     <trh:script rendered="#{empty __autocompleteClassAlreadyRendered__ || !__autocompleteCommonFunctionsAlreadyRendered__}">
         function __JSFAutoComplete__( orgValue, orgEditValue, inputHiddenId, componentsIdPrefix, onchange, autocompleteVarName) {
-            this.orgValue=orgValue;
-            this.orgEditValue=orgEditValue;
-            this.hiddenEditValue=orgEditValue;
             this.componentsIdPrefix=componentsIdPrefix;
             this.timeout=null;
             this.lineArray=null;
@@ -38,9 +44,19 @@
             this.action=document.getElementById(this.componentsIdPrefix+':action');
             this.hidden=document.getElementById(inputHiddenId);
             this.autocompleteVarName = autocompleteVarName;
-            this.edit.value=this.orgEditValue;
-            this.hidden.value=this.orgValue;
             this.tableId=this.componentsIdPrefix+':table'; //since the table is rendered (or not) dinamically, we keep the id instead of the instance.
+            if(orgValue == null &amp;&amp; orgEditValue == null){ //keep the current components values
+                this.orgValue=this.hidden.value;
+                this.orgEditValue=this.edit.value;
+                this.hiddenEditValue=this.edit.value;
+            } else { //force the new values
+                this.orgValue=orgValue;
+                this.orgEditValue=orgEditValue;
+                this.hiddenEditValue=orgEditValue;
+                
+                this.hidden.value=this.orgValue;
+                this.edit.value=this.orgEditValue;
+            }
         }
         
         __JSFAutoComplete__.prototype.showResultTable= function( ignoreEdit ){
@@ -60,9 +76,25 @@
             this.orgEditValue = this.hiddenEditValue;
             this.hiddenEditValue = editValue;
             this.edit.value=editValue;             //the order matters
+
             this.hidden.value=hiddenValue; 
+            this.onchangeFunc();
+            
             this.hideResultTable();
-            if(this.onchange != '') eval(this.onchange);
+        }
+
+        __JSFAutoComplete__.prototype.onchangeFunc= function(){
+                if(this.onchange != ''){
+                    if( eval('function __JSFAutoComplete__onchange(){ '+this.onchange+' }; window.__JSFAutoComplete__OnChangeValue=__JSFAutoComplete__onchange();') ){
+                        if( window.__JSFAutoComplete__OnChangeValue &amp;&amp; this.hidden.onchange){
+                            this.hidden.onchange();
+                        }
+                    }
+                } else {
+                        if( this.hidden.onchange ){
+                            this.hidden.onchange();
+                        }
+                }
         }
         
         __JSFAutoComplete__.prototype.hideResultTable= function(){
@@ -254,7 +286,8 @@
             onkeydown="return #{autocompleteVarName}.editKeydown(event);"
             onchange="#{autocompleteVarName}.checkChangeEdit(); return true;"
             onblur="window.clearTimeout(#{autocompleteVarName}.timeout); #{autocompleteVarName}.checkEmptyEdit();#{autocompleteVarName}.timeout=window.setTimeout('#{autocompleteVarName}.hideResultTable();',100);#{autocompleteVarName}.resetOrgValues();"
-            value="#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}"/>
+            value="#{value}" converter="#{ajsfc:getConverter(itemConverterId)}">
+        </h:inputText>
         <tr:commandButton blocking="true" id="action" styleClass="autocomplete-button" actionListener="#{locateBackingBean[locateActionListenerName]}"
             partialSubmit="true" text="" immediate="true" onclick="#{autocompleteVarName}_addPPRListener(); return true;">
             <f:param name="searchFieldRequestParamName" value="#{jsEditId}"/>
@@ -273,22 +306,23 @@
                 </div>
             </tr:column>
         </tr:table>
-        <trh:script type="text/script">
-            var #{autocompleteVarName} = new __JSFAutoComplete__('#{value}','#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}','#{jsInputHiddenId}','#{componentsIdPrefix}','#{onchange}','#{autocompleteVarName}');
+        <trh:script>
+            //when the page in being rendered, the values are set to null to keep the value already rendered in the fields.
+            var #{autocompleteVarName} = new __JSFAutoComplete__(null,null,"#{jsInputHiddenId}","#{componentsIdPrefix}","#{onchange}","#{autocompleteVarName}");
             var #{flagIsPPR};
             
             function #{autocompleteVarName}_addPPRListener()
-		{
-		    TrPage.getInstance().getRequestQueue().addStateChangeListener(#{autocompleteVarName}_pprMonitor);
-		}
-	    
-	    function #{autocompleteVarName}_pprMonitor(state)
-		{
-            if(state != TrRequestQueue.STATE_BUSY){
-                TrPage.getInstance().getRequestQueue().removeStateChangeListener(#{autocompleteVarName}_pprMonitor);
+            {
+                TrPage.getInstance().getRequestQueue().addStateChangeListener(#{autocompleteVarName}_pprMonitor);
             }
-            #{autocompleteVarName}.pprMonitor(state);
-		}
+        
+            function #{autocompleteVarName}_pprMonitor(state)
+            {
+                if(state != TrRequestQueue.STATE_BUSY){
+                    TrPage.getInstance().getRequestQueue().removeStateChangeListener(#{autocompleteVarName}_pprMonitor);
+                }
+                #{autocompleteVarName}.pprMonitor(state);
+            }
             
         </trh:script>
     </tr:subform>
@@ -296,7 +330,7 @@
         if(typeof #{flagIsPPR} == 'undefined'){//only occurs if the page was refreshed
             #{flagIsPPR} = true;
         } else { //PPR
-            #{autocompleteVarName} = new __JSFAutoComplete__('#{value}','#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}','#{jsInputHiddenId}','#{componentsIdPrefix}','#{onchange}','#{autocompleteVarName}');            
+            #{autocompleteVarName} = new __JSFAutoComplete__("#{value}","#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}","#{jsInputHiddenId}","#{componentsIdPrefix}","#{onchange}","#{autocompleteVarName}");            
             #{autocompleteVarName}.hidden.value='#{value}';
             #{autocompleteVarName}.edit.value='#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}';
         }
