@@ -820,6 +820,33 @@
 
     <!-- manageable -->
 
+        <template
+        path="templates/jsf/utils/ControllerBase.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+        
+        <template
+        path="templates/jsf/utils/JsfVariableResolver.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/configuration/crud-functions-taglib.xml.vsl"
+        outputPattern="WEB-INF/crud-functions-taglib.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="standalone">
+        <modelElements>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <template
         path="templates/jsf/converters/crud/EntityConverter.java.vsl"
         outputPattern="$generatedFile"

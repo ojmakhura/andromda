@@ -7,6 +7,7 @@ package $manageable.manageablePackageName;
  * Javaserver Faces Controller of the ${manageable.name} CRUD management.
  */
 public abstract class ${manageable.controllerName}
+    extends ${managedBeansPackage}.ControllerBase
 {
     private static final org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${manageable.controllerName}.class);
 
@@ -17,15 +18,15 @@ public abstract class ${manageable.controllerName}
     */
     public String init()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
+        this.resetUseCaseFormsAndPageVariables();
+    
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doInit(form);
             }
             catch (final Throwable throwable)
@@ -93,15 +94,13 @@ public abstract class ${manageable.controllerName}
     */
     public void load(javax.faces.event.ActionEvent event)
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doLoad(${idParamClass}.valueOf(((javax.faces.component.UIParameter)event.getComponent().findComponent("${manageable.manageableIdentifier.name}")).getValue().toString()),form);
             }
             catch (final Throwable throwable)
@@ -148,15 +147,13 @@ public abstract class ${manageable.controllerName}
     */
     public String cancel()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doCancel(form);
             }
             catch (final Throwable throwable)
@@ -194,15 +191,13 @@ public abstract class ${manageable.controllerName}
     */
     public String startNew()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doStartNew(form);
             }
             catch (final Throwable throwable)
@@ -280,15 +275,13 @@ public abstract class ${manageable.controllerName}
     */
     public String save()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doSave(form);
             }
             catch (final Throwable throwable)
@@ -317,7 +310,7 @@ public abstract class ${manageable.controllerName}
     {
 
 #if ($manageable.create)
-        if(form.${manageable.manageableIdentifier.getterName}() == null){
+        if(form.${manageable.manageableIdentifier.getterName}() == null || form.${manageable.manageableIdentifier.getterName}()==0){
             form.${manageable.manageableIdentifier.setterName}(
                 ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
@@ -371,15 +364,13 @@ public abstract class ${manageable.controllerName}
     */
     public String saveAndNew()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doSave(form);
                 this.doStartNew(form);
             }
@@ -409,15 +400,13 @@ public abstract class ${manageable.controllerName}
     */
     public String search()
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doSearch(form);
             }
             catch (final Throwable throwable)
@@ -444,7 +433,7 @@ public abstract class ${manageable.controllerName}
     public void doSearch(${manageable.formBeanType} form)
         throws Exception
     {
-
+        @SuppressWarnings("rawtypes")
         final java.util.List list;
         //if all search fields are null, call readAll()
         if(
@@ -513,15 +502,13 @@ public abstract class ${manageable.controllerName}
     */
     public void delete(javax.faces.event.ActionEvent event)
     {
-        final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper = new ${managedBeansPackage}.AdfFacesContextWrapper();
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
 
             try
             {
-                contextWrapper.getCurrentInstance().getPageFlowScope().put("${actionFormKey}", form);
-
+                this.setCurrentActionForm(form);
                 this.doDelete(${idParamClass}.valueOf(((javax.faces.component.UIParameter)event.getComponent().findComponent("${manageable.manageableIdentifier.name}")).getValue().toString()),form);
             }
             catch (final Throwable throwable)
@@ -579,9 +566,10 @@ public abstract class ${manageable.controllerName}
     public void fillAutocomplete(javax.faces.event.ActionEvent event)
     {
         final javax.faces.context.FacesContext facesContext = this.getContext();
-        final java.util.Map parameters = facesContext.getExternalContext().getRequestParameterMap();
+        final java.util.Map<String,String> parameters = facesContext.getExternalContext().getRequestParameterMap();
         final Object fieldValue = parameters.get(this.getParameterValue("searchFieldRequestParamName",event));
         try{
+            @SuppressWarnings("rawtypes")
             final java.util.List list = ${manageable.manageableServiceAccessorCall}.read(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
@@ -591,7 +579,9 @@ public abstract class ${manageable.controllerName}
 #else
 #if($member.type.primitive)
                 ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.wrapperName}.valueOf(fieldValue.toString())
-#else
+#elseif($member.type.enumeration)
+                ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.fullyQualifiedName}.fromString(fieldValue.toString())
+#else                
                 ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.fullyQualifiedName}.valueOf(fieldValue.toString())
 #end
 #end
@@ -611,6 +601,23 @@ public abstract class ${manageable.controllerName}
         }
     }
 
+    /**
+    * Loads an instance of ${manageable.Name}.
+    *
+    * @return ${manageable.valueObjectClassName} from the loaded entity.
+    */
+    static public ${manageable.valueObjectClassName} load(${idParamClass} ${manageable.manageableIdentifier.name})
+    {
+        try
+        {
+            return ${manageable.manageableServiceAccessorCall}.readById(${manageable.manageableIdentifier.name});
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
     /**
     * Helper method to fill the select component list.
     *
@@ -633,244 +640,22 @@ public abstract class ${manageable.controllerName}
         return result;
     }
 
+    public static final String FORM_BEAN_NAME="${manageable.formBeanName}";
+    
     /**
-     * Resolves "${manageable.formBeanName}" variable in all contexts.
+     * Resolves "${manageable.formBeanName}".
      *
      * @return the manageable form.
      */
     public ${manageable.formBeanType} getForm()
     {
-        return (${manageable.formBeanType})this.resolveVariable("${manageable.formBeanName}");
-    }
-
-    /**
-     * Force the component to get its value from the backing bean before rendering
-     *
-     * @param uic the parent UIComponent.
-     */
-    private void resetEditableComponentsValues(javax.faces.component.UIComponent uic)
-    {
-        if(uic instanceof javax.faces.component.EditableValueHolder)
-        {
-            final javax.faces.component.EditableValueHolder evh=(javax.faces.component.EditableValueHolder)uic;
-            evh.setValue(null);
-            evh.setSubmittedValue(null);
-            evh.setLocalValueSet(false);
-            evh.setValid(true);
+        final java.util.Map<String,Object> forms=getForms();
+        ${manageable.formBeanType} form=(${manageable.formBeanType})forms.get(FORM_BEAN_NAME);
+        if(form == null){
+            form = new ${manageable.formBeanType}();
+            forms.put(FORM_BEAN_NAME,form);
         }
-        for(Object component: uic.getChildren())
-        {
-            resetEditableComponentsValues((javax.faces.component.UIComponent)component);
-        }
-    }
-
-    /**
-     * Force all the editable components to get its values from the backing bean before rendering
-     */
-    private void resetAllEditableComponentsValues()
-    {
-        resetEditableComponentsValues(this.getContext().getViewRoot());
-    }
-
-    /**
-     * Returns an javax.faces.event.FacesEvent parameter value, from its name
-     *
-     * @param parameterName the name of the parameter.
-     * @param event the FacesEvent holding the parameter.
-     */
-    protected Object getParameterValue(String parameterName, javax.faces.event.FacesEvent event)
-    {
-        for(Object uiObject : event.getComponent().getChildren()){
-            if(uiObject instanceof javax.faces.component.UIParameter){
-                final javax.faces.component.UIParameter param = (javax.faces.component.UIParameter)uiObject;
-                if(param.getName().equals(parameterName)) {
-                    return param.getValue();
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the current faces context.  This object is the point
-     * from which to retrieve any request, session, etc information.
-     *
-     * @return the JSF faces context instance.
-     */
-    protected javax.faces.context.FacesContext getContext()
-    {
-        return javax.faces.context.FacesContext.getCurrentInstance();
-    }
-
-    /**
-     * A helper method that gets the current request from the faces
-     * context.
-     *
-     * @return the current HttpServletRequest instance.
-     */
-    protected javax.servlet.http.HttpServletRequest getRequest()
-    {
-        return (javax.servlet.http.HttpServletRequest)this.getContext().getExternalContext().getRequest();
-    }
-
-    /**
-     * A helper method that gets the current reponse from the faces
-     * context.
-     *
-     * @return the current HttpServletReponse instance.
-     */
-    protected javax.servlet.http.HttpServletResponse getResponse()
-    {
-        return (javax.servlet.http.HttpServletResponse)this.getContext().getExternalContext().getResponse();
-    }
-
-    /**
-     * A helper method that gets the current session from the faces
-     * context.
-     *
-     * @param create If the create parameter is true, create (if necessary) and return a
-     *        session instance associated with the current request. If the create
-     *        parameter is false return any existing session instance associated with the
-     *        current request, or return null if there is no such session.
-     * @return the current HttpSession instance.
-     */
-    protected javax.servlet.http.HttpSession getSession(final boolean create)
-    {
-        return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
-    }
-
-    /**
-     * Attempts to resolve the variable, given, the <code>name</code> of
-     * the variable using the faces context variable resolver instance.
-     *
-     * @param name the variable name
-     * @return the resolved variable or null if not found.
-     */
-    protected Object resolveVariable(final String name)
-    {
-        org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
-        Object variable = adfContext.getPageFlowScope().get(name);
-        // - if we couldn't get the variable from the regular ADF context, see if
-        //   the session contains an ADF context with the variable
-        if (variable == null)
-        {
-            final javax.servlet.http.HttpSession session = this.getSession(false);
-            if (session != null)
-            {
-                final ${managedBeansPackage}.AdfFacesContextWrapper contextWrapper =
-                    (${managedBeansPackage}.AdfFacesContextWrapper)session.getAttribute("AndroMDAADFContext");
-                adfContext = contextWrapper != null ? contextWrapper.getCurrentInstance() : null;
-            }
-            variable = adfContext != null ? adfContext.getPageFlowScope().get(name) : null;
-        }
-        // - finally try resolving it in the standard JSF manner
-        if (variable == null)
-        {
-            final javax.faces.context.FacesContext context = this.getContext();
-            variable = context != null ? context.getApplication().getVariableResolver().resolveVariable(context, name) : null;
-        }
-        return variable;
-    }
-
-    /**
-     * Finds the root cause of the given <code>throwable</code> and
-     * adds the message taken from that cause to the faces context messages.
-     *
-     * @param throwable the exception information to add.
-     */
-    protected final void addExceptionMessage(
-        Throwable throwable)
-    {
-        String message = null;
-        final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
-        if (rootCause != null)
-        {
-            message = rootCause.toString();
-        }
-        if (message == null || message.trim().length() == 0)
-        {
-            message = throwable.toString();
-        }
-        this.addErrorMessage(message);
-    }
-
-    /**
-     * Adds the given error <code>message</code> to the current faces context.
-     *
-     * @param message the message to add.
-     */
-    protected void addErrorMessage(final String message)
-    {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);
-    }
-
-    /**
-     * Adds the given warning <code>message</code> to the current faces context.
-     *
-     * @param message the message to add.
-     */
-    protected void addWarningMessage(final String message)
-    {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);
-    }
-
-    /**
-     * Adds the given info <code>message</code> to the current faces context.
-     *
-     * @param message the message to add.
-     */
-    protected void addInfoMessage(final String message)
-    {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);
-    }
-
-    /**
-     * Adds the given fatal <code>message</code> to the current faces context.
-     *
-     * @param message the message to add.
-     */
-    protected void addFatalMessage(final String message)
-    {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);
-    }
-
-    /**
-     * Adds a message to the faces context (which will show up on your view when using the
-     * lt;h:messages/gt; tag).
-     *
-     * @param severity the severity of the message
-     * @param message the message to add.
-     */
-    protected void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
-    {
-        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
-        final org.apache.myfaces.trinidad.context.RequestContext adfContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
-        final Object form = adfContext.getPageFlowScope().get("${actionFormKey}");
-        if (form != null)
-        {
-            try
-            {
-                final java.lang.reflect.Method method = form.getClass().getMethod(
-                    "add${stringUtils.capitalize($formMessagesProperty)}",
-                    new Class[]{javax.faces.application.FacesMessage.class});
-                method.invoke(form, new Object[]{facesMessage});
-            }
-            catch (final Exception exception)
-            {
-                throw new RuntimeException(exception);
-            }
-        }
-    }
-
-    /**
-     * Creates a new request attribute.
-     *
-     * @param name the attribute name.
-     * @param object the attribute value.
-     */
-    protected void setRequestAttribute(final String name, final Object object)
-    {
-        ${managedBeansPackage}.JsfUtils.setAttribute(this.getContext().getExternalContext().getRequest(), name, object);
+        return form;
     }
 
     // crud-controller merge-point
