@@ -22,6 +22,9 @@
 
 <faces-config>
     <application>
+        <variable-resolver>
+            ${managedBeansPackage}.JsfVariableResolver
+        </variable-resolver>
 #if ($portlet)
 #if ($icefaces)
         <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
@@ -64,16 +67,6 @@
         <managed-bean-scope>$action.formScope</managed-bean-scope>
     </managed-bean>
 #end
-#end
-#end
-    <!-- crud forms -->
-#foreach ($manageable in $manageables)
-#if (!$action.formFields.empty)
-    <managed-bean>
-        <managed-bean-name>${manageable.formBeanName}</managed-bean-name>
-        <managed-bean-class>${manageable.formBeanType}</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 #end
 #end
     <!-- controllers -->
