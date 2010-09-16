@@ -269,6 +269,18 @@ $operation.getDocumentation("     * ")
 #foreach ($actionState in $action.actionStates)
     /**
 $actionState.getDocumentation("     * ")
+     *
+     * It can be safely overriden in descendant classes, 
+     * you should return the forward unless you want to change the default flow.
+     */
+    protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form,#end String forward)
+    {
+        //this method can be overriden
+        return forward;
+    }
+    
+    /**
+$actionState.getDocumentation("     * ")
      */
     private String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
         throws Throwable
@@ -301,42 +313,6 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
 #end
 #end
 ${ident}        forward = #processTransition($actionState.forward)
-#if($trinidad)
-##it can be optmized if we pass the start view, to know if the dest view is the org view, and only updating the viewroot in this case
-#if($actionState.forward.enteringView)
-#set($destView=$actionState.forward.target)
-#if(!$destView.variables.empty)
-
-${ident}        //update the viewRoot
-${ident}        final javax.faces.component.UIComponent viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-${ident}        final org.apache.myfaces.trinidad.context.RequestContext requestContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
-#foreach($variable in $destView.variables)
-#if ($variable.table)
-${ident}        updateTableValue(requestContext, viewRoot, "$variable.name", form.${variable.getterName}());
-#else
-#if($variable.attributes.empty)
-${ident}        updateComponentValue(requestContext, viewRoot, "$variable.name", form.${variable.getterName}());
-#else
-${ident}        final ${variable.type.fullyQualifiedName} ${variable.name}=form.${variable.getterName}();
-${ident}        if(${variable.name} == null)
-${ident}        {
-#foreach ($attribute in $variable.attributes)
-${ident}            updateComponentValue(requestContext, viewRoot, "$attribute.getFormPropertyId($variable)", null);
-#end
-${ident}        }
-${ident}        else
-${ident}        {
-#foreach ($attribute in $variable.attributes)
-${ident}            updateComponentValue(requestContext, viewRoot, "$attribute.getFormPropertyId($variable)", ${variable.name}.${attribute.getterName}());
-#end
-${ident}        }
-#end
-#end
-#end
-
-#end
-#end
-#end
 #if(!$exceptions.empty)
         }
         catch(Throwable t)
@@ -371,6 +347,43 @@ ${ident}        }
             }
         }
 #* *##end
+#end
+#end
+        forward = ${actionState.actionMethodName}(#if (!$action.formFields.empty)form,#end forward);
+#if($trinidad)
+##it can be optmized if we pass the start view, to know if the dest view is the org view, and only updating the viewroot in this case
+#if($actionState.forward.enteringView)
+#set($destView=$actionState.forward.target)
+#if(!$destView.variables.empty)
+
+        //update the viewRoot
+        final javax.faces.component.UIComponent viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+        final org.apache.myfaces.trinidad.context.RequestContext requestContext = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance();
+#foreach($variable in $destView.variables)
+#if ($variable.table)
+        updateTableValue(requestContext, viewRoot, "$variable.name", form.${variable.getterName}());
+#else
+#if($variable.attributes.empty)
+        updateComponentValue(requestContext, viewRoot, "$variable.name", form.${variable.getterName}());
+#else
+        final ${variable.type.fullyQualifiedName} ${variable.name}=form.${variable.getterName}();
+        if(${variable.name} == null)
+        {
+#foreach ($attribute in $variable.attributes)
+            updateComponentValue(requestContext, viewRoot, "$attribute.getFormPropertyId($variable)", null);
+#end
+        }
+        else
+        {
+#foreach ($attribute in $variable.attributes)
+            updateComponentValue(requestContext, viewRoot, "$attribute.getFormPropertyId($variable)", ${variable.name}.${attribute.getterName}());
+#end
+        }
+#end
+#end
+#end
+
+#end
 #end
 #end
         return forward;
