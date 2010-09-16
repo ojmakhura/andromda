@@ -310,7 +310,7 @@ public abstract class ${manageable.controllerName}
     {
 
 #if ($manageable.create)
-        if(form.${manageable.manageableIdentifier.getterName}() == null || form.${manageable.manageableIdentifier.getterName}()==0){
+        if(form.${manageable.manageableIdentifier.getterName}() == null#if($manageable.manageableIdentifier.type.integerType || $manageable.manageableIdentifier.type.longType) || form.${manageable.manageableIdentifier.getterName}()==0#end){
             form.${manageable.manageableIdentifier.setterName}(
                 ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
