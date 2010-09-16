@@ -177,19 +177,19 @@
                 <f:facet name="header">
                     <h:panelGroup>
                         <tr:commandLink action="#{${manageable.controllerBeanName}.odsExport}" inlineStyle="display:#{empty ${formName}.${manageable.listName}?'none':''}">
-                            <tr:image source="/skins/#{preferences.skin}/images/spreadsheet.png" shortDesc="#{messages['export.spreadsheet']}" inlineStyle="border-style:none" />
+                            <tr:image source="/images/spreadsheet.png" shortDesc="#{messages['export.spreadsheet']}" inlineStyle="border-style:none" />
                         </tr:commandLink>
                     </h:panelGroup>
                 </f:facet>
                 <h:panelGroup>
                     <tr:commandLink id="loadAction" actionListener="#{${manageable.controllerBeanName}.load}" partialSubmit="true" immediate="true">
-                       <tr:image source="/skins/#{${preferencesBeanName}.skin}/images/tableLoad.gif" shortDesc="#{messages['action.load']}" inlineStyle="border-style:none" />
+                       <tr:image source="/images/tableLoad.gif" shortDesc="#{messages['action.load']}" inlineStyle="border-style:none" />
                        <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
                     </tr:commandLink>
 #if ($manageable.delete)
                     <tr:spacer width="10" height="1"/>
                     <tr:commandLink id="deleteAction" actionListener="#{${manageable.controllerBeanName}.delete}" partialSubmit="true" immediate="true">
-                        <tr:image source="/skins/#{${preferencesBeanName}.skin}/images/tableDelete.gif" shortDesc="#{messages['action.delete']}" inlineStyle="border-style:none" />
+                        <tr:image source="/images/tableDelete.gif" shortDesc="#{messages['action.delete']}" inlineStyle="border-style:none" />
                         <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
                     </tr:commandLink>
 #end

@@ -67,12 +67,16 @@
             </f:facet>
 #end
             <f:facet name="navigationGlobal">
+#if ($enablePreferences || $stringUtils.isNotBlank($securityRealm))
                 <tr:navigationPane hint="tabs">
+#if ($enablePreferences)
                     <tr:commandNavigationItem text="#{messages['menu.preferences']}" action="preferences" immediate="true"/>
+#end
 #if ($stringUtils.isNotBlank($securityRealm))
                     <tr:commandNavigationItem text="#{messages['logout.action']}" action="logout" rendered="#{!empty remoteUser}" immediate="true"/>
 #end
                 </tr:navigationPane>
+#end
             </f:facet>
 ##using breadcrumbs ?
 ##            <f:facet name="location">
