@@ -201,9 +201,11 @@
        <list-entries>
           <value-class>${managedBeansPackage}.NavigationItem</value-class>
 #foreach ($useCase in $useCases)
+#if(!$useCase.registrationUseCase)
 #set ($parents = $useCase.navigationParents)
 #if ($parents.empty)
           <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
+#end
 #end
 #end
 #foreach ($manageable in $manageables)
@@ -361,10 +363,12 @@
         <managed-bean-name>$preferencesBeanName</managed-bean-name>
         <managed-bean-class>${managedBeansPackage}.${preferencesClassName}</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+#if($useSkin)
         <managed-property>
             <property-name>skin</property-name>
             <value>$skin</value>
         </managed-property>
+#end
 #if ($stringUtils.isNotBlank($maxTableRows))
         <managed-property>
             <property-name>maxTableRows</property-name>

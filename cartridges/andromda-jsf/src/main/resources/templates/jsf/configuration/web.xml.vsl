@@ -575,7 +575,7 @@
             </description>
             <url-pattern>${useCase.pathRoot}/*</url-pattern>
         </web-resource-collection>
-#if ($useCase.secured || $stringUtils.isNotBlank($defaultRole))
+#if ($useCase.secured || ($stringUtils.isNotBlank($defaultRole) && !$useCase.registrationUseCase))
         <auth-constraint>
 #if ($stringUtils.isNotBlank($defaultRole))
             <role-name>${defaultRole}</role-name>

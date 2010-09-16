@@ -12,24 +12,29 @@
     </ui:insert>
 
     <trh:body>
-        <ui:insert name="title"/>
-        <tr:panelPage>
-            <f:facet name="branding">
-                <ui:insert name="header">
-                    <ui:include src="header.xhtml"/>
-                </ui:insert>
-            </f:facet>
-            <f:facet name="appCopyright">
-                <ui:insert name="footer">
-                    <ui:include src="footer.xhtml"/>
-                </ui:insert>
-            </f:facet>
-            <div id="pageContent">
-                <tr:panelHeader text="#{title}">
-                    <ui:insert name="content"/>
-                </tr:panelHeader>
-            </div>
-        </tr:panelPage>
+        <tr:form usesUpload="#{usesUpload}" partialTriggers="#{partialTriggers}">
+            <ui:insert name="title"/>
+            <tr:panelPage>
+                <f:facet name="branding">
+                    <ui:insert name="header">
+                        <ui:include src="header.xhtml"/>
+                    </ui:insert>
+                </f:facet>
+                <f:facet name="infoStatus">
+                    <ui:include src="messages.xhtml"/>
+                </f:facet>
+                <f:facet name="appCopyright">
+                    <ui:insert name="footer">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </f:facet>
+                <div id="pageContent">
+                    <tr:panelHeader text="#{title}">
+                        <ui:insert name="content"/>
+                    </tr:panelHeader>
+                </div>
+            </tr:panelPage>
+        </tr:form>
     </trh:body>
 
 </html>
