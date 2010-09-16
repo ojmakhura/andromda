@@ -6,7 +6,9 @@
     <client-validation-disabled>true</client-validation-disabled>
 
     <accessibility-mode>default</accessibility-mode>
+#if($useSkin)
     <skin-family>#if($enablePreferences)#{preferences.skin}#else$skin#end</skin-family>
+#end
     <!--  Uncomment any of these to enable them -->
     <!-- accessibility-mode>inaccessible</accessibility-mode -->
     <!-- oracle-help-servlet-url>http://helponline.oracle.com/jdeveloper/help/</oracle-help-servlet-url -->

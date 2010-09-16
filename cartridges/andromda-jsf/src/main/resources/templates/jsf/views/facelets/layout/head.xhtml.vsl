@@ -10,6 +10,9 @@
 <trh:head>
     <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8"/>
     <title>#{messages['application.name']}<c:if test="${!empty viewTitle}"> ~ ${viewTitle}</c:if></title>
+#if($useAutocompleteLookup)
+    <link rel="stylesheet" type="text/css" href="${facesContext.externalContext.request.contextPath}/css/autocomplete/autocomplete.css" />
+#end
 #if ($outputCustomResources)
     <link rel="stylesheet" type="text/css" href="${facesContext.externalContext.request.contextPath}/css/custom.css" />
 #end

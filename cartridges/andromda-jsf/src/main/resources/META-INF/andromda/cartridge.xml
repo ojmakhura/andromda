@@ -95,7 +95,9 @@
         #if ($enableMyFacesDevelopmentSupport.equalsIgnoreCase("true"))true#end
     </condition>
     <condition name="outputLibraries">$stringUtils.isNotBlank($libraries)</condition>
-    <condition name="enablePreferences">#if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer))true#end</condition>
+    <condition name="enablePreferences">
+        #if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer) &amp;&amp; !$skin.equalsIgnoreCase("none"))true#end
+    </condition>
     <condition name="clientValidation">$clientValidation.equalsIgnoreCase("true")</condition>
     <condition name="formSerialization">$formSerialization.equalsIgnoreCase("true")</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
@@ -103,6 +105,9 @@
     <condition name="portlet">$stringUtils.isNotBlank($portletContainer)</condition>
     <condition name="liferayPortlet">$portletContainer.equals("liferay")</condition>
     <condition name="standalone">$stringUtils.isBlank($portletContainer)</condition>
+    <condition name="useSkin">
+        #if (!$skin.equalsIgnoreCase("none") &amp;&amp; $stringUtils.isBlank($portletContainer))true#end
+    </condition>
     <condition name="paginationSupportEnabled">$stringUtils.isNotBlank($paginationResultClassName)</condition>
     <condition name="standalonePaginationSupportEnabled">
         #if ($stringUtils.isNotBlank($paginationResultClassName) &amp;&amp; $stringUtils.isBlank($portletContainer))true#end
@@ -125,42 +130,42 @@
         outputPattern="skins/beach/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/skins/beach/images/*"
         outputPattern="skins/beach/images/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/skins/purple/*"
         outputPattern="skins/purple/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/skins/purple/images/*"
         outputPattern="skins/purple/images/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/skins/default/*"
         outputPattern="skins/default/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/skins/default/images/*"
         outputPattern="skins/default/images/{0}"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <resource
         path="resources/views/js/*.*"
@@ -194,6 +199,13 @@
         outlet="views"
         overwrite="true"
         outputCondition="portlet"/>
+
+    <resource
+        path="resources/views/css/autocomplete/*"
+        outputPattern="css/autocomplete/{0}"
+        outlet="views"
+        overwrite="true"
+        outputCondition="useAutocompleteLookup"/>
 
     <resource
         path="resources/facelets/components/autocomplete.xhtml"
@@ -274,7 +286,7 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        outputCondition="standalone"/>
+        outputCondition="useSkin"/>
 
     <template
         path="templates/jsf/configuration/validator-rules.xml.vsl"
@@ -338,28 +350,12 @@
     <template
         path="templates/jsf/controllers/ControllerImpl.java.vsl"
         outputPattern="$generatedFile"
-        outlet="controllers"
-        overwrite="false">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndController">
-                    <property name="useCase"/>
-                    <property name="operations.empty"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/jsf/controllers/ControllerImpl.java.vsl"
-        outputPattern="$generatedFile"
         outlet="controller-impls"
         overwrite="false">
         <modelElements variable="controller">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndController">
                     <property name="useCase"/>
-                    <property name="operations"/>
                 </type>
             </modelElement>
         </modelElements>
