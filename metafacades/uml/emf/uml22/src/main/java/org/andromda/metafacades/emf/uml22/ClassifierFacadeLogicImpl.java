@@ -90,7 +90,7 @@ public class ClassifierFacadeLogicImpl
         }
         catch (Exception ignore)
         {
-            logger.error("classifierNameMask not found in " + this.toString());
+            logger.warn("classifierNameMask not found in " + this.toString());
             nameMask = "none";
         }
         return NameMasker.mask(super.handleGetName(), nameMask);
