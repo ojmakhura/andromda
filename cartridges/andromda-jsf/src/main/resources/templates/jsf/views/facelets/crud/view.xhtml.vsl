@@ -155,7 +155,7 @@
         </f:facet>
         </tr:panelFormLayout>
         <tr:spacer width="1" height="10"/>
-        <tr:table id="searchResult" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${formName}.${manageable.listName}}" rows="#{${preferencesBeanName}.maxTableRows}" width="90%" inlineStyle="display:#{${formName}.${manageable.listName} == null? 'none': ''}" partialTriggers="searchResult:deleteAction ::searchAction">
+        <tr:table id="searchResult" allDetailsEnabled="true" var="row" rowBandingInterval="1" value="#{${formName}.${manageable.listName}}" rows="#if($enablePreferences)#{${preferencesBeanName}.maxTableRows}#else${maxTableRows}#end" width="90%" inlineStyle="display:#{${formName}.${manageable.listName} == null? 'none': ''}" partialTriggers="searchResult:deleteAction ::searchAction">
             <f:facet name="footer">
                 <h:panelGroup>
                     <tr:outputText value="#{fn:length(${formName}.${manageable.listName})}">

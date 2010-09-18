@@ -12,6 +12,7 @@ package $managedBeansPackage;
 public class $preferencesClassName
     implements java.io.Serializable
 {
+#if ($useSkin)
     /**
      * The skin to apply.
      */
@@ -27,6 +28,7 @@ public class $preferencesClassName
         this.skin = skin;
     }
 
+#end
     /**
      * The maximum rows displayed in a table.
      */
@@ -45,7 +47,7 @@ public class $preferencesClassName
         }
         catch (Exception ex)
         {
-            this.maxTableRows = 1;
+            this.maxTableRows = ${maxTableRows};
         }
     }
 

@@ -256,6 +256,21 @@
         <property-name>aliasList</property-name>
         <list-entries>
           <value-class>java.lang.String</value-class>
+#if ($enablePreferences)
+#if (!$applicationUseCases.empty)
+#set ($defaultAppPath="${applicationUseCases.iterator().next().path}.${jsfUtils.viewExtension}")
+#elseif (!$useCases.empty)
+#set ($defaultAppPath="${useCases.iterator().next().path}.${jsfUtils.viewExtension}")
+#elseif (!$manageables.empty)
+#set ($defaultAppPath="${manageables.iterator().next().actionFullPath}.${jsfUtils.viewExtension}")
+#else
+#set ($defaultAppPath="")
+#end
+#if ($defaultAppPath != "")
+          <value>/preferences/preferences.${jsfUtils.viewExtension}</value>
+          <value>${defaultAppPath}</value>
+#end
+#end
 #foreach ($useCase in $useCases)
           <!-- $useCase.titleValue views -->
 #foreach ($view in $useCase.views)
@@ -369,12 +384,10 @@
             <value>$skin</value>
         </managed-property>
 #end
-#if ($stringUtils.isNotBlank($maxTableRows))
         <managed-property>
             <property-name>maxTableRows</property-name>
-            <value>$maxTableRows</value>
+            <value>${maxTableRows}</value>
         </managed-property>
-#end
     </managed-bean>
 #end
 
