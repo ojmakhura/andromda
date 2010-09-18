@@ -96,7 +96,7 @@
     </condition>
     <condition name="outputLibraries">$stringUtils.isNotBlank($libraries)</condition>
     <condition name="enablePreferences">
-        #if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer) &amp;&amp; !$skin.equalsIgnoreCase("none"))true#end
+        #if($enablePreferences.equalsIgnoreCase("true") &amp;&amp; $stringUtils.isBlank($portletContainer))true#end
     </condition>
     <condition name="clientValidation">$clientValidation.equalsIgnoreCase("true")</condition>
     <condition name="formSerialization">$formSerialization.equalsIgnoreCase("true")</condition>
@@ -268,6 +268,11 @@
             </modelElement>
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+            </modelElement>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -485,7 +490,7 @@
         outputPattern="$generatedFile"
         outlet="managed-beans"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="enablePreferences"/>
 
     <template
         path="templates/jsf/utils/Messages.java.vsl"
@@ -796,7 +801,7 @@
         outputPattern="preferences/preferences.xhtml"
         outlet="views"
         overwrite="true"
-        outputCondition="standalone"/>
+        outputCondition="enablePreferences"/>
 
     <template
         path="templates/jsf/views/facelets/login.xhtml.vsl"
