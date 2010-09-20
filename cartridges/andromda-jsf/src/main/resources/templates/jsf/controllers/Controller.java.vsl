@@ -120,6 +120,7 @@ $operation.getDocumentation("     * ")
 #if($action.exitingInitialState)
      * This method is called when the use case '${controller.useCase.name}' starts.
 #else
+$action.trigger.getDocumentation("     * ")
      * This method is called when '${action.trigger.name}' is triggered in the view '${action.source.name}'.
 #end
      * It can be safely overriden in descendant classes.
@@ -269,7 +270,6 @@ $operation.getDocumentation("     * ")
 #foreach ($actionState in $action.actionStates)
     /**
 $actionState.getDocumentation("     * ")
-     *
      * It can be safely overriden in descendant classes, 
      * you should return the forward unless you want to change the default flow.
      */
@@ -345,8 +345,8 @@ ${ident}        forward = #processTransition($actionState.forward)
                 //no match, throw the exception
                 throw t;
             }
-        }
 #* *##end
+        }
 #end
 #end
         forward = ${actionState.actionMethodName}(#if (!$action.formFields.empty)form,#end forward);
