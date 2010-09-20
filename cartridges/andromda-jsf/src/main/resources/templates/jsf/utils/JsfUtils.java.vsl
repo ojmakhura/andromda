@@ -262,7 +262,7 @@ public class $className
      * @param object the object on which to get all attribute names.
      * @return an array of all attribute names.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public static String[] getAttributeNames(final Object object)
     {
         final java.util.Collection<String> names = new java.util.ArrayList<String>();
@@ -300,7 +300,7 @@ public class $className
      * @param url the URL from which to extract parameters.
      * @return the Map of parameters.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static java.util.Map<String, Object> extractParameters(final String url)
     {
         final java.util.Map<String, Object> parameterMap = new java.util.LinkedHashMap<String, Object>();
@@ -351,7 +351,7 @@ public class $className
      * @param actionMethod the action method (i.e. controller.myMethod)
      * @return the component or null of not found.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "deprecation", "rawtypes" })
     public static javax.faces.component.UICommand findCommand(final javax.faces.component.UIComponent component, final String actionMethod)
     {
         javax.faces.component.UICommand found = null;
@@ -483,5 +483,93 @@ public class $className
             }
         }
         throw new RuntimeException("Parameter "+parameterName+" not found");
+    }
+
+    /**
+     * Returns an array of SelectItem from the values/names of the enumeration
+     * @prefix a String prefix to be used to load the name from the messages
+     * @enumClassName the enumeration class name
+     * @return the array of SelectItem
+     */
+    @SuppressWarnings("rawtypes")
+    public static javax.faces.model.SelectItem[] getEnumSelectItems(final String prefix, final String enumClassName)
+    {
+        try 
+        {
+            final javax.faces.model.SelectItem[] result; 
+            final Class<?> enumClass=${className}.class.getClassLoader().loadClass(enumClassName);
+            if(enumClass.isEnum())
+            {
+                final Enum[] values=(Enum[])enumClass.getMethod("values", (Class<?>[])null).invoke(null, (Object[])null);
+                result=new javax.faces.model.SelectItem[values.length];
+                int i=0;
+                for(final Enum value:values)
+                {
+                    result[i]=new javax.faces.model.SelectItem(value,Messages.get(prefix+value.name()));
+                    i++;
+                }
+            }
+            else
+            {
+                final java.util.List values=(java.util.List)enumClass.getMethod("values", (Class<?>[])null).invoke(null, (Object[])null);
+                final int sz=values.size();
+                final java.util.List names=(java.util.List)enumClass.getMethod("names", (Class<?>[])null).invoke(null, (Object[])null);
+                result=new javax.faces.model.SelectItem[sz];
+                for(int i=0; i<sz; i++)
+                {
+                    result[i]=new javax.faces.model.SelectItem(values.get(i),Messages.get(prefix+names.get(i)));
+                }
+            }
+            
+            return result;
+        } 
+        catch (Exception e) 
+        {
+            throw new RuntimeException(enumClassName+" is not an Andromda generated enumeration.",e);
+        }
+    }
+
+    /**
+     * Returns the messages.properties message of the enumeration value
+     * @prefix a String prefix to be used to load the name from the messages
+     * @enumValue the value
+     * @return the String from the messages.properties
+     */
+    @SuppressWarnings("rawtypes")
+    public static String getEnumMessage(final String prefix, final Object enumValue)
+    {
+        if(enumValue == null)
+        {
+            return StringUtils.EMPTY;
+        }
+        else
+        {
+            final Class<?> enumClass=enumValue.getClass();
+            if(enumClass.isEnum())
+            {
+                return Messages.get(prefix+((Enum)enumValue).name());
+            }
+            else
+            {
+                try
+                {
+                    final java.util.List values=(java.util.List)enumClass.getMethod("values", (Class<?>[])null).invoke(null, (Object[])null);
+                    final int sz=values.size();
+                    final java.util.List names=(java.util.List)enumClass.getMethod("names", (Class<?>[])null).invoke(null, (Object[])null);
+                    for(int i=0; i<sz; i++)
+                    {
+                        if(values.get(i).equals(enumValue))
+                        {
+                            return Messages.get(prefix+names.get(i));
+                        }
+                    }
+                }
+                catch (Exception e) 
+                {
+                    throw new RuntimeException(enumValue.getClass().getCanonicalName()+" is not an Andromda generated enumeration.",e);
+                }
+            }
+            return null;
+        }    
     }
 }

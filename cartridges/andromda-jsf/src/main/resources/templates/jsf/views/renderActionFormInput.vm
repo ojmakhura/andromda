@@ -44,9 +44,13 @@
 #set ($selectBoxType = "selectManyListbox")
 #end
         <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly" valuePassThru="true"#if ($multiSelect) size="$defaultMultiSelectSize"#end#if($trinidad) partialTriggers="$actionId"#end>
+#if ($parameter.type.enumeration)
+            <f:selectItems value="#{ajsfc:getEnumSelectItems('${parameter.type.messageKey}.','${parameter.type.fullyQualifiedName}')}"/>
+#else
             <c:if test="${!empty ${backingListName}}">
                 <f:selectItems value="#{${backingListName}}" />
             </c:if>
+#end
         </tr:$selectBoxType>
 #elseif ($parameter.inputFile)
         <tr:inputFile id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" columns="50"#if($trinidad) partialTriggers="$actionId"#end/>

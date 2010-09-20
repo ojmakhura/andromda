@@ -56,14 +56,7 @@
 #end
         <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
             <f:converter converterId="${parameter.type.fullyQualifiedName}"/>
-#foreach ($literal in $field.type.literals)
-##To be reviewed: actually this is done this way because $literal.value does not work
-#set($literalValue = $literal.defaultValue.replace("'","").replace('"',''))
-#if($literalValue == "")
-#set($literalValue = $literal.name)
-#end
-            <f:selectItem itemLabel="#{messages['${parameter.type.messageKey}.${literal.name}']}" itemValue="${literalValue}" />
-#end
+            <f:selectItems value="#{ajsfc:getEnumSelectItems('${parameter.type.messageKey}.','${parameter.type.fullyQualifiedName}')}"/>
         </tr:$selectBoxType>
 #elseif(!$parameter.inputFile && !$parameter.inputHidden)
         <tr:inputText id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="false" readOnly="false"#if($parameter.maxLength) maximumLength="$parameter.maxLength"#end>
@@ -202,8 +195,7 @@
                     <tr:outputText value="#{messages['$member.messageKey']}"/>
                 </f:facet>
 #if($member.type.enumeration)
-                <c:set var="key" value="${member.type.messageKey}.#{row.${member.name}.value}"/>
-                <tr:outputText value="#{messages[key]}">
+                <tr:outputText value="#{ajsfc:getEnumMessage('${member.type.messageKey}.',row.${member.name})}">
 #else
                 <tr:outputText value="#{row.${member.name}}">
 #end
@@ -251,14 +243,7 @@
 #end
             <tr:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$field.messageKey']}:" required="$field.required" readOnly="$field.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#else unselectedLabel=""#end>
                 <f:converter converterId="${field.type.fullyQualifiedName}"/>
-#foreach ($literal in $field.type.literals)
-##To be reviewed: actually this is done this way because $literal.value does not work
-#set($literalValue = $literal.defaultValue.replace("'","").replace('"',''))
-#if($literalValue == "")
-#set($literalValue = $literal.name)
-#end
-                <f:selectItem itemLabel="#{messages['${field.type.messageKey}.${literal.name}']}" itemValue="${literalValue}" />
-#end
+                <f:selectItems value="#{ajsfc:getEnumSelectItems('${field.type.messageKey}.','${field.type.fullyQualifiedName}')}"/>
             </tr:$selectBoxType>
 #else
 #renderActionInput($field "")
