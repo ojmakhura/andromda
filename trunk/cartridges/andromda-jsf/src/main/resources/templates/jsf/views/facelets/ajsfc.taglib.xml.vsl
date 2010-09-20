@@ -40,4 +40,14 @@
         <function-class>${managedBeansPackage}.JsfUtils</function-class>
         <function-signature>java.lang.String[] splitPartialTriggers(java.lang.Object)</function-signature>
     </function>
+    <function>
+        <function-name>getEnumSelectItems</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>javax.faces.model.SelectItem[] getEnumSelectItems(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>getEnumMessage</function-name>
+        <function-class>${managedBeansPackage}.JsfUtils</function-class>
+        <function-signature>java.lang.String getEnumMessage(java.lang.String, java.lang.Object)</function-signature>
+    </function>
 </facelet-taglib>
