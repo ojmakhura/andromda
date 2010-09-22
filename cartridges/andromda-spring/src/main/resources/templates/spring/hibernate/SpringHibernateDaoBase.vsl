@@ -1388,5 +1388,45 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
     }
 
+#foreach ($attribute in $attributes)
+#if ($attribute.unique)
+#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+    /**
+     * {@inheritDoc}
+     */
+    public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
+    {
+        final $fullyQualifiedSearchClassName search=new $fullyQualifiedSearchClassName(
+            new ${springTypesPackage}.SearchParameter[]{
+                new ${springTypesPackage}.SearchParameter("${attribute.name}",${attribute.name},${springTypesPackage}.SearchParameter.EQUAL_COMPARATOR)
+            }
+        );
+
+        final java.util.Set#if($enableTemplating)<#if($daoInheritance)? extends #end${rootEntityType}>#end searchResult=this.search(search);
+        switch(searchResult.size()){
+            case 0: return null;
+            case 1: return#if(!$enableTemplating) ($entity.fullyQualifiedName)#end searchResult.iterator().next();
+            default: throw new org.hibernate.NonUniqueResultException(searchResult.size());
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name})
+    {
+        final ${entity.fullyQualifiedEntityName} entity=this.$searchUniqueMethod(${attribute.name});
+        if(entity == null)
+        {
+            return null;
+        }
+        else
+        {
+            return transformEntity(transform, entity);
+        }
+    }
+    
+#end
+#end
     // spring-hibernate-dao-base merge-point
 }

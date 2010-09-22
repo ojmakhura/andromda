@@ -728,5 +728,26 @@ $operation.getDocumentation("     * ")
      */
     public void transformEntities(final int transform, final java.util.Collection#if($enableTemplating)<?>#end entities);
 
+#set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+#foreach ($attribute in $attributes)
+#if ($attribute.unique)
+#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
+    /**
+     * Searchs for a single instance of ${entity.fullyQualifiedEntityName}.
+     * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'
+     * @return a single instance of ${entity.fullyQualifiedEntityName}.
+     */
+    public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
+    
+    /**
+     * Searchs for a single instance of ${entity.fullyQualifiedEntityName}.
+     * @param transform the transformation flag.
+     * @param ${attribute.name} the unique ${attribute.name} to be used in the search.
+     * @return a value object according the transformation flag.   
+     */
+    public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name});
+
+#end
+#end
     // spring-dao merge-point
 }
