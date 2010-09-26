@@ -6,7 +6,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:a="http://www.andromda.org/cartridges/jsf"
       xmlns:tr="http://myfaces.apache.org/trinidad">
 <ui:composition>
 #set ($targetColumns = $table.targettedTableColumnNames)
@@ -33,7 +32,7 @@
             <tr:commandLink id="${action.triggerName}Action" action="#{${action.controller.beanName}.${action.triggerName}}" actionListener="#{${action.controller.beanName}.action}"#if($trinidad) partialSubmit="true"#end>
                 <tr:outputText value="#{row.${columnName}}">
 #if ($column.type.dateType)
-                    <a:convertDateTime pattern="$defaultDateFormat"/>
+                    <f:convertDateTime pattern="$defaultDateFormat"/>
 #end
                 </tr:outputText>
 #renderTableCommandLinkParameters(false)
@@ -41,7 +40,7 @@
 #else
             <tr:outputText value="#{row.${columnName}}">
 #if ($column.type.dateType)
-                <a:convertDateTime pattern="$defaultDateFormat"/>
+                <f:convertDateTime pattern="$defaultDateFormat"/>
 #end
             </tr:outputText>
 #end
@@ -54,7 +53,7 @@
             </f:facet>
             <tr:outputText value="#{row}">
 #if ($column.type.dateType)
-                <a:convertDateTime pattern="$defaultDateFormat"/>
+                <f:convertDateTime pattern="$defaultDateFormat"/>
 #end
             </tr:outputText>
         </tr:column>

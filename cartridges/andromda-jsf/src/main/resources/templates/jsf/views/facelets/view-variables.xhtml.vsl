@@ -21,7 +21,7 @@
 #else
     <tr:outputText id="${variable.name}" value="#{${variable.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
 #if ($variable.type.dateType)
-        <a:convertDateTime pattern="$variable.format"/>
+        <f:convertDateTime pattern="$variable.format"/>
 #end
     </tr:outputText>
 #end
@@ -30,7 +30,7 @@
     <tr:outputText value="#{messages['$attribute.messageKey']} :"/>
     <tr:outputText id="$attribute.getFormPropertyId($variable)" value="#{${variable.name}.${attribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
 #if ($attribute.type.dateType)
-        <a:convertDateTime pattern="$attribute.format"/>
+        <f:convertDateTime pattern="$attribute.format"/>
 #end
     </tr:outputText>
 #end
@@ -42,7 +42,7 @@
         <tr:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
         <tr:outputText id="$itemAttribute.getFormPropertyId($variable)" value="#{item.${itemAttribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
 #if ($itemAttribute.type.dateType)
-            <a:convertDateTime pattern="$itemAttribute.format"/>
+            <f:convertDateTime pattern="$itemAttribute.format"/>
 #end
         </tr:outputText>
 #end
@@ -52,7 +52,7 @@
     <tr:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
     <tr:outputText id="$itemAttribute.getFormPropertyId($variable)" value="#{item.${itemAttribute.name}}"#if($trinidad && $partialTriggers.length() > 0) partialTriggers="$partialTriggers"#end>
 #if ($itemAttribute.type.dateType)
-        <a:convertDateTime pattern="$itemAttribute.format"/>
+        <f:convertDateTime pattern="$itemAttribute.format"/>
 #end
     </tr:outputText>
 #end
