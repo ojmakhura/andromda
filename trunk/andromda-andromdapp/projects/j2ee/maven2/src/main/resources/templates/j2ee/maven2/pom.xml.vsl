@@ -79,7 +79,7 @@
             </dependency>
 #end
 #end
-#if ($jsf)
+#if ($web)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
@@ -411,49 +411,7 @@
             </dependency>
 #end
 #if (!$ejb && !$ejb3)
-#if ($hibernateVersion.equals("2"))
-            <dependency>
-                <groupId>net.sf.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>2.1.8</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>2.0.2</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>1.4.3</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>odmg</groupId>
-                <artifactId>odmg</artifactId>
-                <version>3.0</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>1.1</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>dom4j</groupId>
-                <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-#elseif ($spring || $hibernate)
+#if ($spring || $hibernate)
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
@@ -471,17 +429,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring</artifactId>
-#if ($springVersion.equals("1"))
-                <version>1.2.9</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                    </exclusion>
-                </exclusions>
-#else
                 <version>${spring.version}</version>
-#end
             </dependency>
             <!-- Uncomment out three below if using JMS>
             <dependency>
@@ -563,50 +511,7 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($struts)
-            <dependency>
-                <groupId>struts</groupId>
-                <artifactId>struts</artifactId>
-                <version>1.2.9</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-chain</groupId>
-                        <artifactId>commons-chain</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-digester</groupId>
-                        <artifactId>commons-digester</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>struts-menu</groupId>
-                <artifactId>struts-menu</artifactId>
-                <version>2.3</version>
-            </dependency>
-            <dependency>
-                <groupId>displaytag</groupId>
-                <artifactId>displaytag</artifactId>
-                <version>1.0</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>taglibs</groupId>
-                        <artifactId>standard</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-#end
-#if ($jsf)
-#if ($jbossSeam)
+#if ($web && $jbossSeam)
             <!-- MyFaces Dependencies -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
@@ -620,7 +525,6 @@
                 <version>1.1.5</version>
                 <scope>provided</scope>
             </dependency>
-#end
 #end
 #if ($axis)
             <dependency>
@@ -1103,8 +1007,6 @@
         spring=$spring
         webservice=$webservice
         web=$web
-        struts=$struts
-        jsf=$jsf
         cxf=$cxf
         rest=$rest
         ear=$ear
@@ -1181,51 +1083,6 @@
 #end
         </sql.mappings>
 #if ($hibernate || $spring || $ejb3)
-#if ($hibernateVersion.equals("2"))
-        <!--
-        Change this for the appropriate database
-        For MySql use: net.sf.hibernate.dialect.MySQLDialect
-        For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
-        For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
-        For DB2 use: net.sf.hibernate.dialect.DB2Dialect
-        For Informix use: net.sf.hibernate.dialect.InformixDialect
-        For MSSQL use: net.sf.hibernate.dialect.SQLServerDialect
-        For Pointbase use: net.sf.hibernate.dialect.PointbaseDialect
-        For Postgres use: net.sf.hibernate.dialect.PostgreSQLDialect
-        For Sybase use: net.sf.hibernate.dialect.SybaseDialect
-        For Sybase Anywhere use: net.sf.hibernate.dialect.SybaseAnywhereDialect
-        For SapDB use: net.sf.hibernate.dialect.SAPDBDialect
-        For Progress use: net.sf.hibernate.dialect.ProgressDialect
-        For Derby use: net.sf.hibernate.dialect.DerbyDialect
-        -->
-        <hibernate.dialect>
-#if ($mysql)
-            net.sf.hibernate.dialect.MySQLDialect
-#elseif ($oracle)
-            net.sf.hibernate.dialect.Oracle9Dialect
-#elseif ($db2)
-            net.sf.hibernate.dialect.DB2Dialect
-#elseif ($informix)
-            net.sf.hibernate.dialect.InformixDialect
-#elseif ($mssql)
-            net.sf.hibernate.dialect.SQLServerDialect
-#elseif ($pointbase)
-            net.sf.hibernate.dialect.PointbaseDialect
-#elseif ($postgres)
-            net.sf.hibernate.dialect.PostgreSQLDialect
-#elseif ($sybase)
-            net.sf.hibernate.dialect.SybaseDialect
-#elseif ($sapdb)
-            net.sf.hibernate.dialect.SAPDBDialect
-#elseif ($progress)
-            net.sf.hibernate.dialect.ProgressDialect
-#elseif ($derby)
-            net.sf.hibernate.dialect.DerbyDialect
-#else
-            net.sf.hibernate.dialect.HSQLDialect
-#end
-        </hibernate.dialect>
-#else
         <!--
         Change this for the appropriate database
         For MySql use: org.hibernate.dialect.MySQLDialect
@@ -1272,7 +1129,6 @@
             org.hibernate.dialect.HSQLDialect
 #end
         </hibernate.dialect>
-#end
 #end
 #if ($ejb || $ejb3)
         <!--
@@ -1339,10 +1195,10 @@
         -->
 #end
 #if ($cxf)
-        <spring.version>2.5.6.SEC01</spring.version>
+        <spring.version>2.5.6.SEC02</spring.version>
         <cxf.version>2.2.10</cxf.version>
-#elseif ($spring && $springVersion.equals("2"))
-        <spring.version>2.5.6.SEC01</spring.version>
+#elseif ($spring)
+        <spring.version>2.5.6.SEC02</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>

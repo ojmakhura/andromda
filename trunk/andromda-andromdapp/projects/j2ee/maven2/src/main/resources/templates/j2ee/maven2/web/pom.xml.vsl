@@ -72,16 +72,7 @@
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
         </dependency>
-#if ($struts)
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-        </dependency>
-#elseif ($jsf)
+#if ($web)
 #if ($jbossSeam)
         <dependency>
             <groupId>org.jboss</groupId>
@@ -262,7 +253,7 @@
     </dependencies>
     <build>
 #if ($war)
-        <finalName>${application.id}-${project.version}</finalName>
+        <finalName>${application.id}</finalName>
 #end
         <resources>
             <resource>
@@ -337,7 +328,7 @@
                         <baseResource implementation="org.mortbay.resource.ResourceCollection">
                             <resourcesAsCSV>${project.basedir}/src/main/webapp, ${project.basedir}/target/src/main/webapp</resourcesAsCSV>
                         </baseResource>
-                        <contextPath>/${application.id}-${project.version}</contextPath>
+                        <contextPath>/${application.id}</contextPath>
                     </webAppConfig>
                 </configuration>
             </plugin>
