@@ -133,21 +133,12 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#if ($struts)
-        <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-bpm4struts-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-#elseif ($jsf)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-#end
 #if ($jbossSeam)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
@@ -436,11 +427,7 @@
 #if ($hibernate || $spring)
         <!-- hibernate configuration -->
 #if ($hibernate)
-#if ($hibernateVersion == "2")
-        <hibernate.transaction.manager.lookup>net.sf.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
-#else
         <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
-#end
 #end
         <!-- default strategy to use when using inhertiance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>

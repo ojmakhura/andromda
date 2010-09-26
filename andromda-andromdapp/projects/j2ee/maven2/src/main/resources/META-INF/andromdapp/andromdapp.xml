@@ -7,7 +7,7 @@
         <li><b>Persistence</b>: You can select the transaction/persistence framework that best suits your needs (EJB, EJB3, Spring, Hibernate)</li>
         <li><b>Workflow capabilities</b>: Add JBoss JBPM support to your application</li>
         <li><b>Webservices</b>: Enable web services for your project and choose an appropriate web service framework</li>
-        <li><b>Web front-end</b>: If your project needs a web based user interface, you can choose between JSF and Struts</li>
+        <li><b>Web front-end</b>: If your project needs a web based user interface, you can choose between JSF standalone and JSF portlet</li>
         ]]>
     </documentation>
     <resourceLocations>
@@ -279,28 +279,11 @@ rsm6 or rsm7 for .emx files)</text>
                     </condition>
                 </conditions>
             </prompt-->
-            <prompt id="springVersion">
-                <text>Please enter the Spring version to use (enter '1' for 1.x or '2' for 2.x)</text>
-                <shortText>Spring Framework version</shortText>
-                <preconditions>
-                    <condition id="transactionPersistenceType" equal="spring"/>
-                </preconditions>
-                <responses>
-                    <response>1</response>
-                    <response>2</response>
-                </responses>
-                <conditions>
-                    <condition equal="2">
-                        <setProperty id="hibernateVersion">3</setProperty>
-                    </condition>
-                </conditions>
-            </prompt>
             <prompt id="implementationLanguage" setResponseAsTrue="true">
                 <text>Please enter the programming language to be used in service and dao implementations</text>
                 <shortText>Implementation language</shortText>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="spring"/>
-                    <condition id="springVersion" equal="2"/>
                 </preconditions>
                 <responses>
                     <response>java</response>
@@ -335,23 +318,6 @@ rsm6 or rsm7 for .emx files)</text>
                     <response>yes</response>
                     <response>no</response>
                 </responses>
-                <conditions>
-                    <condition equal="yes">
-                        <setProperty id="hibernateVersion">3</setProperty>
-                    </condition>
-                </conditions>
-            </prompt>
-            <prompt id="hibernateVersion">
-                <text>Please enter the hibernate version number (enter '2' for 2.x or '3' for 3.x)</text>
-                <shortText>Hibernate version</shortText>
-                <preconditions type="or">
-                    <condition id="transactionPersistenceType" equal="spring"/>
-                    <condition id="transactionPersistenceType" equal="hibernate"/>
-                </preconditions>
-                <responses>
-                    <response>2</response>
-                    <response>3</response>
-                </responses>
             </prompt>
             <prompt id="web">
                 <text>Will your project have a web user interface?</text>
@@ -361,22 +327,11 @@ rsm6 or rsm7 for .emx files)</text>
                     <response>no</response>
                 </responses>
             </prompt>
-            <prompt id="webType" setResponseAsTrue="true">
-                <text>Would you like your web user interface to use JSF or Struts?</text>
-                <shortText>Web interface technology</shortText>
-                <preconditions>
-                    <condition id="web" equal="true"/>
-                </preconditions>
-                <responses>
-                    <response>jsf</response>
-                    <response>struts</response>
-                </responses>
-            </prompt>
             <prompt id="jsfApplicationType" setResponseAsTrue="true">
                 <text>Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
-                    <condition id="webType" equal="jsf"/>
+                    <condition id="web" equal="true"/>
                 </preconditions>
                 <responses>
                     <response>standalone</response>
@@ -424,7 +379,6 @@ rsm6 or rsm7 for .emx files)</text>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
                     <condition id="web" equal="true"/>
-                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>

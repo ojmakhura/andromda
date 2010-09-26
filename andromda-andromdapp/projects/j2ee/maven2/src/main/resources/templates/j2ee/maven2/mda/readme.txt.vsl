@@ -228,11 +228,7 @@
          |     |        .war file
          |     +-- /target
 #if ($ear)
-#if ($struts)
-         |              any Struts classes, JSPs, resource bundles and
-#else
          |              any JSF classes, JSPs, resource bundles and
-#end
          |              configuration files are generated here
 #else
          |              a deployable war is bundled here

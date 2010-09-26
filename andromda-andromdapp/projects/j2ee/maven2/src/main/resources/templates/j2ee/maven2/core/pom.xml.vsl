@@ -69,32 +69,6 @@
         </dependency>
 #end
 #end
-#if ($hibernateVersion.equals("2"))
-        <dependency>
-            <groupId>net.sf.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>odmg</groupId>
-            <artifactId>odmg</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-#else
 #if ($cxf)
         <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
         for purpose of this fix, so that we can be compatible with the cxf webservices -->
@@ -133,7 +107,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
         </dependency>
-#end
 #end
 #end
         <dependency>

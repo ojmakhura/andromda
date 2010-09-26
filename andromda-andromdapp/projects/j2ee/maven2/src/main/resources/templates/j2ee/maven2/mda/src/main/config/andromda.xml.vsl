@@ -50,7 +50,7 @@
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
-#if ($jsf || $struts)
+#if ($web)
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
                          types in required (multiplicy > 0) parameters or VO attibutes-->
                     <constraints>
@@ -115,7 +115,7 @@
                 <property name="parameterNameMask">none</property -->
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
 #if ($spring)
-                <property name="hibernateVersion">$hibernateVersion</property>
+                <property name="hibernateVersion">3</property>
 #end
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
@@ -237,7 +237,7 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
         <namespace name="hibernate">
             <properties>
-                <property name="hibernateVersion">$hibernateVersion</property>
+                <property name="hibernateVersion">3</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
@@ -250,15 +250,9 @@
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="compositionDefinesEagerLoading">true</property>
-#if ($hibernateVersion == "2")
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</property>
-#else
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
-#end
                 <property name="entities">${common.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
                 <property name="entity-mappings">${core.generated.dir}</property>
@@ -294,17 +288,10 @@
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
-#if ($hibernateVersion == "2")
-                <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
-                <property name="localTransactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-#else
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
-#end
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
 #if ($war)
                 <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
@@ -390,7 +377,7 @@
                 <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #else
-                <property name="springVersion">$springVersion</property>
+                <property name="springVersion">2.5</property>
                 <property name="schemaTypeMappingsUri">XmlSchema</property>
                 <property name="languageMappingsUri">Java</property>
 #end
@@ -474,33 +461,7 @@
                 <property name="interfaces">${common.generated.dir}</property>
             </properties>
         </namespace>
-#if ($struts)
-        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html -->
-        <namespace name="bpm4struts">
-            <properties>
-                <property name="defaultDateFormat">MM/dd/yyyy</property>
-                <property name="normalizeMessages">true</property>
-                <property name="forms">${web.generated.java.dir}</property>
-                <property name="pages">${web.generated.web.dir}</property>
-                <property name="actions">${web.generated.java.dir}</property>
-                <property name="controllers">${web.generated.java.dir}</property>
-                <property name="controller-impls">${web.manual.java.dir}</property>
-                <property name="decorators">${web.manual.java.dir}</property>
-                <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
-                <property name="configuration">${web.generated.web.dir}/WEB-INF</property>
-                <!-- uncomment to enable web tier security
-                <property name="securityRealm">${application.id}</property>
-                 -->
-#if ($ejb)
-                <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
-#else
-                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
-#end
-                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
-                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
-            </properties>
-        </namespace>
-#elseif ($jsf)
+#if ($web)
 #if ($jbossSeam)
         <namespace name="seam">
             <properties>
