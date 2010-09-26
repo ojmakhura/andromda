@@ -81,9 +81,7 @@
       xmlns:a="http://www.andromda.org/cartridges/jsf"
 #end
       xmlns:tr="http://myfaces.apache.org/trinidad"
-#if ($useAutocompleteLookup)
       xmlns:ajsfc="http://www.andromda.org/cartridges/jsf/facelets"
-#end
       >
 
 #set($formName = $manageable.formBeanName)

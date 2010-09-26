@@ -136,7 +136,7 @@
 #elseif ($column.inputText)
                     <h:inputText id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
 #if ($column.type.timeType)
-                        <a:convertDateTime pattern="$column.format"/>
+                        <f:convertDateTime pattern="$column.format"/>
 #end
                     </h:inputText>
 #else
