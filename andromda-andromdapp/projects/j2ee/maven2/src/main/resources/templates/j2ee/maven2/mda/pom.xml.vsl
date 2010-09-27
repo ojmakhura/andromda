@@ -133,12 +133,21 @@
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
+#if ($struts)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($jsf)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
+#end
 #if ($jbossSeam)
         <dependency>
             <groupId>org.andromda.cartridges</groupId>

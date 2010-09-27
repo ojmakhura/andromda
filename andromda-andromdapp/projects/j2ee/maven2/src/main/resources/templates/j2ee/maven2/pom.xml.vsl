@@ -79,7 +79,7 @@
             </dependency>
 #end
 #end
-#if ($web)
+#if ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
@@ -511,7 +511,50 @@
                 <scope>runtime</scope>
             </dependency>
 #end
-#if ($web && $jbossSeam)
+#if ($struts)
+            <dependency>
+                <groupId>struts</groupId>
+                <artifactId>struts</artifactId>
+                <version>1.2.9</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-chain</groupId>
+                        <artifactId>commons-chain</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-digester</groupId>
+                        <artifactId>commons-digester</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>struts-menu</groupId>
+                <artifactId>struts-menu</artifactId>
+                <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>displaytag</groupId>
+                <artifactId>displaytag</artifactId>
+                <version>1.0</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>taglibs</groupId>
+                        <artifactId>standard</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+#end
+#if ($jsf)
+#if ($jbossSeam)
             <!-- MyFaces Dependencies -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
@@ -525,6 +568,7 @@
                 <version>1.1.5</version>
                 <scope>provided</scope>
             </dependency>
+#end
 #end
 #if ($axis)
             <dependency>
@@ -1007,6 +1051,8 @@
         spring=$spring
         webservice=$webservice
         web=$web
+        struts=$struts
+        jsf=$jsf
         cxf=$cxf
         rest=$rest
         ear=$ear
