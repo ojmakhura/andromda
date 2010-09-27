@@ -327,11 +327,22 @@ rsm6 or rsm7 for .emx files)</text>
                     <response>no</response>
                 </responses>
             </prompt>
+            <prompt id="webType" setResponseAsTrue="true">
+                <text>Would you like your web user interface to use JSF or Struts?</text>
+                <shortText>Web interface technology</shortText>
+                <preconditions>
+                    <condition id="web" equal="true"/>
+                </preconditions>
+                <responses>
+                    <response>jsf</response>
+                    <response>struts</response>
+                </responses>
+            </prompt>
             <prompt id="jsfApplicationType" setResponseAsTrue="true">
                 <text>Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)?</text>
                 <shortText>Web interface technology</shortText>
                 <preconditions>
-                    <condition id="web" equal="true"/>
+                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses>
                     <response>standalone</response>
@@ -379,6 +390,7 @@ rsm6 or rsm7 for .emx files)</text>
                 <preconditions>
                     <condition id="transactionPersistenceType" equal="ejb3"/>
                     <condition id="web" equal="true"/>
+                    <condition id="webType" equal="jsf"/>
                 </preconditions>
                 <responses type="java.lang.Boolean">
                     <response>yes</response>
