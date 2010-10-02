@@ -405,7 +405,7 @@
                 <property name="defaultParameterStyle">wrapped</property>
                 <!--Use minOccurs=0 for elements and required=false for attributes, instead of nillable=true-->
                 <property name="makeNillable">false</property>
-                <!--WSDL imports XSD, package must be stereotyped with 'packageMap' so that xsd file is created.-->
+                <!--WSDL imports XSD, package must be stereotyped with 'XMLSchema' so that imported xsd file is created.-->
                 <property name="importedXSD">true</property>
                 <property name="simpleBindingMode">true</property>
                 <!-- CXF XJC binding arguments, using Jaxb2 commons plugins which must be added to %JAXB_HOME%\commons directory. Suggested value:

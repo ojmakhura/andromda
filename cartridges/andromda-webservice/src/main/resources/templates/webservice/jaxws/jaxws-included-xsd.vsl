@@ -386,13 +386,11 @@ $type.getDocumentation("                ", 100, false)
 #if ((!$useAttributes) || ($isMany) || (!$attribute.type.schemaType.startsWith("xs:")))
                 <xs:element name="$attribute.name" type="$schemaType"${use}${maxOccurs}>
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
-                  <xs:annotation>
-                    <xs:documentation>
+                  <xs:annotation><xs:documentation>
 #if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
 $attribute.getDocumentation("                        ", 100, false)
 #if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))]]>#end
-                    </xs:documentation>
-                  </xs:annotation>
+                  </xs:documentation></xs:annotation>
 #end
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #elseif ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
@@ -400,7 +398,9 @@ $attribute.getDocumentation("                        ", 100, false)
                       <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
                     </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
 #end
+#if ((!$useAttributes) || ($isMany) || (!$attribute.type.schemaType.startsWith("xs:")))
                 </xs:element>
+#end
 #*     *##end
 ##if (!$otherEnds.empty)
 ##                <!-- Model associationEnds -->
@@ -486,13 +486,13 @@ $attribute.getDocumentation("                        ", 100, false)
                     <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
                   </jxb:baseType></jxb:property></xs:appinfo>
 #end
-                </xs:annotation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #elseif ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
                 <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
                   <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
                 </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
 #end
+                </xs:annotation>
             </xs:attribute>
 #end
 #end
