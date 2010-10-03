@@ -31,14 +31,14 @@
                 </li>
                 <li>
                     Change to the directory where you unpacked the contents, and then type:
-                    <code>maven</code>
+                    <code>mvn</code>
                 </li>
             </ol>
             <p>
                 That's it! The contents will be installed into your local maven repository.
             </p>
             <p class="highlight">
-                The same rules apply if you want to build from SVN version. Just checkout the
+                The same rules apply if you want to build from the SVN version. Just checkout the
                 <code>andromda</code> module from
                 <a href="http://sourceforge.net/scm/?type=svn&amp;group_id=73047">AndroMDA SVN</a>, and
                 proceed as before.
@@ -54,6 +54,9 @@
                 <li>Using the <code>-o</code> command line parameter will tell Maven to work offline and not to download any
                     dependencies, this will speed up the build process.</li>
                 <li>It's possible to disable the tests by using <code>-Dmaven.test.skip=true</code>.</li>
+                <li>Or to run the tests and ignore failures by using <code>-Dmaven.test.failure.ignore=true</code>
+                 or <code>-fae</code> (fail at end).</li>
+                <li>See the <a href="http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html">maven-surefire-plugin</a> for details.</li>
             </ul>
             <subsection name="Global goals">
                 <p>
@@ -68,16 +71,19 @@
                         and files with the <code>.exc</code> extension.
                     </li>
                     <li><code>mvn install</code><br/>
-                        Builds and installs all AndroMDA components (without *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
+                        Builds and installs all AndroMDA components (without *-javadoc.jar and distribution) and samples into the local Maven repository.
                     </li>
                     <li><code>mvn install -Pandromda-full,local</code><br/>
-                        Builds and installs all AndroMDA components (including *-source.jar and *-javadoc.jar) and samples into the local Maven repository.
+                        Builds and installs all AndroMDA components (including *-javadoc.jar and distribution) and samples into the local Maven repository.
                     </li>
                     <li><code>mvn deploy</code><br/>
                         Deploys all libraries into the local directory.
                     </li>
                     <li><code>mvn site -Pandromda-site</code><br/>
-                        Builds the documentation for all modules
+                        Builds the documentation for all modules. Skips code generation and tests. Run after mvn install, without clean.
+                    </li>
+                    <li><code>mvn site -Pandromda-site-lite</code><br/>
+                        Builds the documentation for all modules. Same as andromda-site without checkstyle, JIRA, SCM changes reports.
                     </li>
                     <li><code>mvn site:deploy -Pandromda-site,local</code><br/>
                         Deploys the documentation to local directory
@@ -92,6 +98,9 @@
                     <li><code>mvn andromda-cartridge:update</code><br/>
                         Updates the cartridge expected output with the current cartridge output. Invoke it
                         when you are inside the cartridge root directory.
+                    </li>
+                    <li><code>mvn -Dbootstrap.artifacts=true</code><br/>
+                        Creates repository/metafacade/meta-cartridge bootstrap artifacts used to generate code for UML metafacades and meta cartridge.
                     </li>
                 </ul>
             </subsection>
