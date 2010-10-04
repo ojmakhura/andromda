@@ -212,9 +212,9 @@ public class FrontEndParameterLogicImpl
      *
      * @return the collection of attributes.
      */
-    private Collection getNonArrayAttributes()
+    private Collection<AttributeFacade> getNonArrayAttributes()
     {
-        final Collection nonArrayAttributes = new ArrayList();
+        final Collection<AttributeFacade> nonArrayAttributes = new ArrayList<AttributeFacade>();
         final ClassifierFacade type = this.getType();
         if (type != null && type.isArrayType())
         {

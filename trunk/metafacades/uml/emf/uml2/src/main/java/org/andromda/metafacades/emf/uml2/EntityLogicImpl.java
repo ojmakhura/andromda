@@ -140,7 +140,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers(boolean)
      */
     @Override
-    protected Collection<AttributeFacade> handleGetIdentifiers(final boolean follow)
+    protected Collection<EntityAttribute> handleGetIdentifiers(final boolean follow)
     {
         return EntityMetafacadeUtils.getIdentifiers(
             this,
@@ -823,10 +823,10 @@ public class EntityLogicImpl
         if (end != null && end.getType() instanceof Entity)
         {
             final Entity foreignEntity = (Entity)end.getOtherEnd().getType();
-            final Collection<AttributeFacade> identifiers = EntityMetafacadeUtils.getIdentifiers(
+            final Collection<EntityAttribute> identifiers = EntityMetafacadeUtils.getIdentifiers(
                     foreignEntity,
                     true);
-            for (AttributeFacade identifier : identifiers)
+            for (EntityAttribute identifier : identifiers)
             {
                 this.createIdentifier(
                     identifier.getName(),

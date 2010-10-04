@@ -10,7 +10,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
+import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 
 /**
  * Extends the default URIConverterImpl to be able to discover the physical path of URIs when
@@ -21,7 +21,8 @@ import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
  */
 @SuppressWarnings("deprecation")
 public class EMFURIConverter
-    extends URIConverterImpl
+    extends ExtensibleURIConverterImpl
+    // Use URIConverterImpl for UML2 2.x
 {
     /**
      * Creates a new instance of EMFURIConverter taking the <code>moduleSearchPaths</code>
