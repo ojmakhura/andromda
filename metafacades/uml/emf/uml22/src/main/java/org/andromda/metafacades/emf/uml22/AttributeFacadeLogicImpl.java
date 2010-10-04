@@ -250,11 +250,12 @@ public class AttributeFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = this.getType().getWrapperName();
                 }
-                // Don't apply templating to modeled array types
-                if (type.endsWith("[]"))
+                // Allow List<Type[]> implementations.
+                /*// Don't apply templating to modeled array types
+                if (this.getType().isArrayType())
                 {
                     type = type.substring(0, type.length()-2);
-                }
+                }*/
                 name += '<' + type + '>';
             }
         }
