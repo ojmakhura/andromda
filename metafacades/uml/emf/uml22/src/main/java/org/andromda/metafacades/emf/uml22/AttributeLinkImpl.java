@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -9,6 +10,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -694,5 +696,14 @@ public class AttributeLinkImpl implements AttributeLink
     public EList<DirectedRelationship> getTargetDirectedRelationships(EClass eClass)
     {
         return this.slot.getTargetDirectedRelationships(eClass);
+    }
+
+    /**
+     * UML2 3.1 (Eclipse 3.6) only
+     * @see org.eclipse.emf.ecore.EObject#eInvoke(org.eclipse.emf.ecore.EOperation, org.eclipse.emf.common.util.EList)
+     */
+    public Object eInvoke(EOperation arg0, EList<?> arg1) throws InvocationTargetException
+    {
+        return this.slot.eInvoke(arg0, arg1);
     }
 }

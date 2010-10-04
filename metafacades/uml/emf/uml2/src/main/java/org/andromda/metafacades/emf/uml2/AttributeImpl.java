@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -1714,5 +1716,14 @@ public class AttributeImpl
         return this.property.validateVisibilityNeedsOwnership(
             arg0,
             arg1);
+    }
+
+    /**
+     * @see org.eclipse.emf.ecore.EObject#eInvoke(org.eclipse.emf.ecore.EOperation, org.eclipse.emf.common.util.EList)
+     */
+    public Object eInvoke(EOperation arg0, EList arg1) throws InvocationTargetException
+    {
+        // UML2 3.1 stub
+        return null;
     }
 }

@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -90,11 +89,11 @@ public class TemplateParameterFacadeLogicImpl
         ClassifierFacade getType2r = null;
         ClassifierTemplateParameter param = (ClassifierTemplateParameter)this.metaObject;
         // param.getConstrainingClassifiers()) for UML2 3.0
-        Classifier type = param.getConstrainingClassifier();
-        /*if (type==null && param.getConstrainingClassifiers().size()==1)
+        Classifier type = param.getConstrainingClassifier(this.getName());
+        if (type==null && param.getConstrainingClassifiers()!=null && param.getConstrainingClassifiers().size()==1)
         {
             type = param.getConstrainingClassifiers().get(0);
-        }*/
+        }
         Object result = this.shieldedElement(type);
         try
         {

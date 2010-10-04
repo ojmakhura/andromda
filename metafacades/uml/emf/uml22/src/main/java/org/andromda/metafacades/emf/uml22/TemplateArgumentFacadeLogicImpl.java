@@ -1,7 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.eclipse.uml2.uml.ParameterableElement;
 import org.eclipse.uml2.uml.TemplateParameterSubstitution;
 
@@ -32,12 +30,13 @@ public class TemplateArgumentFacadeLogicImpl
     protected ParameterableElement handleGetElement()
     {
         // TODO: Be sure it works with RSM / MD11.5
-        // It may be ownedActual
-        Collection<ParameterableElement> actuals = new ArrayList<ParameterableElement>(this.metaObject.getActuals());
+        // It may be ownedActual. UML2 3.0 uses getActual(). v2 uses getActuals()
+        return this.metaObject.getActual();
+        /*Collection<ParameterableElement> actuals = new ArrayList<ParameterableElement>(this.metaObject.getActuals());
         if (actuals.isEmpty())
         {
             return null;
         }
-        return actuals.iterator().next();
+        return actuals.iterator().next();*/
     }
 }

@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
@@ -9,6 +10,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,7 +48,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
  * Implementation of AssociationEnd. We extend Property, we keep a reference to
  * the original property, and we defer almost all method calls to it.
  *
- * @author CÃ©dric Jeanneret
+ * @author Cédric Jeanneret
  * @author Bob Fields
  */
 public class AssociationEndImpl
@@ -2303,5 +2305,14 @@ public class AssociationEndImpl
         //return this.isTemplate();
         logger.error("AssociationEndImpl.property.isTemplate has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return false;
+    }
+
+    /**
+     * UML2 3.1 (Eclipse 3.6) only
+     * @see org.eclipse.emf.ecore.EObject#eInvoke(org.eclipse.emf.ecore.EOperation, org.eclipse.emf.common.util.EList)
+     */
+    public Object eInvoke(EOperation arg0, EList<?> arg1) throws InvocationTargetException
+    {
+        return this.property.eInvoke(arg0, arg1);
     }
 }
