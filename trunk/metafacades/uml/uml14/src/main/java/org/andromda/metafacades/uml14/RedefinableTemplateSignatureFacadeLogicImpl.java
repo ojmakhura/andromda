@@ -12,7 +12,6 @@ package org.andromda.metafacades.uml14;
 public class RedefinableTemplateSignatureFacadeLogicImpl
     extends RedefinableTemplateSignatureFacadeLogic
 {
-
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
      * @param metaObject 

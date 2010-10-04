@@ -240,7 +240,7 @@ public class EntityMetafacadeUtils
      *        should be followed
      * @return the collection of entity identifier attributes.
      */
-    public static Collection<AttributeFacade> getIdentifiers(
+    public static Collection<EntityAttribute> getIdentifiers(
         final Entity entity,
         final boolean follow)
     {
@@ -248,7 +248,7 @@ public class EntityMetafacadeUtils
         MetafacadeUtils.filterByStereotype(
             attributes,
             UMLProfile.STEREOTYPE_IDENTIFIER);
-        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>();
+        final Collection<EntityAttribute> identifiers = new ArrayList<EntityAttribute>();
         identifiers.addAll(attributes);
 
         return (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity
