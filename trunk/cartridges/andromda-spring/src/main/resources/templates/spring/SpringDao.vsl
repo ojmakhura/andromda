@@ -448,6 +448,9 @@ public interface $entity.daoName
 #set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
 $operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
      * @throws $exception.fullyQualifiedName
@@ -467,6 +470,14 @@ $operation.getDocumentation("     * ")
      * additional argument called <code>queryString</code>. This <code>queryString</code>
      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
      * </p>
+     * @param queryString
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -486,6 +497,15 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -501,6 +521,16 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
+     * @param queryString
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -524,6 +554,14 @@ $operation.getDocumentation("     * ")
      * then finder results <strong>WILL BE</strong> passed through an operation which can optionally
      * transform the entities (into value objects for example). By default, transformation does
      * not occur.
+     * @param transform
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      * </p>
      */
 #if ($operation.exceptionsPresent)
@@ -541,6 +579,16 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
+     * @param transform
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -556,6 +604,15 @@ $operation.getDocumentation("     * ")
      * additional argument called <code>queryString</code>. This <code>queryString</code>
      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
      * </p>
+     * @param transform
+     * @param queryString
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -572,6 +629,17 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
+     * @param transform
+     * @param queryString
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(int transform, String queryString, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
@@ -597,6 +665,14 @@ $operation.getDocumentation("     * ")
      * transform the entities (into value objects for example). By default, transformation does
      * not occur.
      * </p>
+     * @param transform
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
@@ -613,6 +689,16 @@ $operation.getDocumentation("     * ")
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
      * </p>
+     * @param transform
+     * @param pageNumber
+     * @param pageSize
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(final int transform, final int pageNumber, final int pageSize#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
@@ -628,6 +714,13 @@ $operation.getDocumentation("     * ")
 #set ($returnType = "$operation.getterSetterReturnTypeName")
     /**
 $operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name
+#end
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType $operation.signature
@@ -733,14 +826,14 @@ $operation.getDocumentation("     * ")
 #if ($attribute.unique)
 #set ($searchUniqueMethod = "searchUnique${stringUtils.capitalise($attribute.name)}")
     /**
-     * Searchs for a single instance of ${entity.fullyQualifiedEntityName}.
+     * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'
      * @return a single instance of ${entity.fullyQualifiedEntityName}.
      */
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
     
     /**
-     * Searchs for a single instance of ${entity.fullyQualifiedEntityName}.
+     * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
      * @param transform the transformation flag.
      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.
      * @return a value object according the transformation flag.   
