@@ -287,7 +287,7 @@ public class MetafacadeFactory
         {
             final String message =
                 "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() +
-                "' with mappingObject of type --> '" + mapping.getMappingClassName() + '\'';
+                "' with mappingObject of type --> '" + mapping.getMappingClassNames() + '\'';
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }

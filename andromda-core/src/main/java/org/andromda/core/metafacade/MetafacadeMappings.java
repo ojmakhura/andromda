@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
@@ -366,7 +369,7 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(final MetafacadeMapping mapping)
                     {
-                        return mapping.getMappingClassName().equals(metaclassName);
+                        return mapping.getMappingClassNames().contains(metaclassName);
                     }
                 }) != null;
         MetafacadeMapping mapping = null;
@@ -384,7 +387,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (mapping.getMappingClassNames().contains(metaclassName) && mapping.hasContext() &&
                                     mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid =
@@ -406,7 +409,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (mapping.getMappingClassNames().contains(metaclassName) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
                                     !inProcessMappings.contains(mapping))
                                 {
@@ -442,7 +445,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (mapping.getMappingClassNames().contains(metaclassName) && mapping.hasContext() &&
                                     !mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid = getContextHierarchy(context).contains(mapping.getContext());
@@ -462,7 +465,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
+                                if (mapping.getMappingClassNames().contains(metaclassName) && mapping.hasStereotypes() &&
                                     !mapping.hasContext() && !mapping.hasMappingProperties())
                                 {
                                     valid = stereotypes!=null && stereotypes.containsAll(mapping.getStereotypes());
@@ -482,7 +485,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (mapping.getMappingClassNames().contains(metaclassName) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
                                     (!inProcessMappings.contains(mapping)))
                                 {
@@ -514,7 +517,7 @@ public class MetafacadeMappings
                         {
                             public boolean evaluate(final MetafacadeMapping mapping)
                             {
-                                return metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasContext() &&
+                                return mapping.getMappingClassNames().contains(metaclassName) && !mapping.hasContext() &&
                                 !mapping.hasStereotypes() && !mapping.hasMappingProperties();
                             }
                         });
@@ -949,9 +952,14 @@ public class MetafacadeMappings
             {
                 if (mapping.isMappingClassNamePresent())
                 {
-                    MetafacadeMappings.allMetafacadeMappingInstances.put(
-                            mapping.getMetafacadeClass(),
-                            mapping.getMappingClassName());
+                    Set<String> mappingClassNames = MetafacadeMappings.allMetafacadeMappingInstances.get(mapping.getMetafacadeClass());
+                    if (mappingClassNames == null)
+                    {
+                        mappingClassNames = new HashSet<String>();
+                        MetafacadeMappings.allMetafacadeMappingInstances.put(mapping.getMetafacadeClass(), mappingClassNames);
+                    }
+                    
+                    mappingClassNames.addAll(mapping.getMappingClassNames());
                 }
             }
         }
@@ -1037,15 +1045,15 @@ public class MetafacadeMappings
     /**
      * Stores all metafacade mapping instances
      */
-    private static final Map<Class, String> allMetafacadeMappingInstances = new HashMap<Class, String>();
+    private static final Map<Class, Set<String>> allMetafacadeMappingInstances = new HashMap<Class, Set<String>>();
 
     /**
      * Stores every metafacade mapping instance, this is used from
-     * {@link MetafacadeUtils#getInheritedMappingClassName(MetafacadeMapping)}.
+     * {@link MetafacadeUtils#getInheritedMappingClassNames(MetafacadeMapping)}.
      *
      * @return all metafacade mapping instances.
      */
-    static Map<Class, String> getAllMetafacadeMappingInstances()
+    static Map<Class, Set<String>> getAllMetafacadeMappingInstances()
     {
         return allMetafacadeMappingInstances;
     }
