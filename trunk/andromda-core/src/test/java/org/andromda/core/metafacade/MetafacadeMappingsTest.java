@@ -332,8 +332,7 @@ public class MetafacadeMappingsTest
             METAFACADE_5,
             null);
         assertNotNull(mapping);
-        assertEquals(MAPPING_OBJECT_6.getClass().getName(), mapping
-            .getMappingClassName());
+        assertTrue(mapping.getMappingClassNames().contains(MAPPING_OBJECT_6.getClass().getName()));
         assertEquals(METAFACADE_5, mapping.getContext());
         group = mapping.getMappingProperties();
         mappingProperties = group.getProperties();

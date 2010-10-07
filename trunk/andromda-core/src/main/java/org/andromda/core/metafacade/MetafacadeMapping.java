@@ -2,12 +2,15 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
@@ -54,25 +57,25 @@ public class MetafacadeMapping
     }
 
     /**
-     * The name of the mapping class for which this mapping applies. The {@link #context},{@link #stereotypes}and this
-     * name make up the identifying key for this mapping.
+     * The names of the mapping classes for which this mapping applies. The {@link #context},{@link #stereotypes}and this
+     * names make up the identifying key for this mapping.
      */
-    private String mappingClassName = null;
+    private Set<String> mappingClassNames = new HashSet<String>();
 
     /**
-     * Gets the name of the metaobject class used for this mapping.
+     * Gets the names of the metaobject classes used for this mapping.
      *
-     * @return Returns the mappingClassName.
+     * @return Returns the mappingClassNames.
      */
-    protected String getMappingClassName()
+    protected  Set<String> getMappingClassNames()
     {
         // - if we have a mappingClassName defined, we use it
-        if (StringUtils.isBlank(this.mappingClassName))
+        if (this.mappingClassNames.isEmpty())
         {
             // - attempt to get the inherited mapping since it doesn't exist on this class
-            this.mappingClassName = MetafacadeUtils.getInheritedMappingClassName(this);
+            this.mappingClassNames = MetafacadeUtils.getInheritedMappingClassNames(this);
         }
-        return this.mappingClassName;
+        return this.mappingClassNames;
     }
 
     /**
@@ -82,7 +85,7 @@ public class MetafacadeMapping
      */
     final boolean isMappingClassNamePresent()
     {
-        return StringUtils.isNotBlank(this.mappingClassName);
+        return !this.mappingClassNames.isEmpty();
     }
 
     /**
@@ -92,7 +95,11 @@ public class MetafacadeMapping
      */
     public void setMappingClassName(final String mappingClassName)
     {
-        this.mappingClassName = StringUtils.trimToEmpty(mappingClassName);
+        if(!StringUtils.isBlank(mappingClassName))
+        {
+            this.mappingClassNames.clear();
+            this.mappingClassNames.add(StringUtils.trimToEmpty(mappingClassName));
+        }
     }
 
     /**
@@ -355,9 +362,9 @@ public class MetafacadeMapping
             this.getStereotypes().equals(mapping.getStereotypes()) && this.getContext().equals(mapping.getContext());
 
         // - if they match and the mappingClassNames are both non-null, verify they match
-        if (match && this.mappingClassName != null && mapping != null && mapping.mappingClassName != null)
+        if (match && !this.mappingClassNames.isEmpty() && mapping != null && !mapping.mappingClassNames.isEmpty())
         {
-            match = this.getMappingClassName().equals(mapping.getMappingClassName());
+            match = this.getMappingClassNames().equals(mapping.getMappingClassNames());
         }
         return match;
     }
@@ -367,7 +374,7 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return super.toString() + '[' + this.getMetafacadeClass() + "], mappingClassName[" + this.mappingClassName +
+        return super.toString() + '[' + this.getMetafacadeClass() + "], mappingClassName[" + this.mappingClassNames +
         "], properties[" + this.getMappingProperties() + "], stereotypes" + this.stereotypes + ", context[" +
         this.context + "], propertiesReferences" + this.getPropertyReferences();
     }

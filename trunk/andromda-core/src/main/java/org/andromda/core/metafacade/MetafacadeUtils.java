@@ -2,11 +2,17 @@ package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.configuration.Namespaces;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.log4j.Logger;
 
 
@@ -120,28 +126,145 @@ final class MetafacadeUtils
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
         return (MetafacadeBase)constructor.newInstance(mappingObject, context);
     }
+    
+    /**
+     * Compute the set of UML implementation class names that are in both parameters sets. If class A1 is in set1 and class A2 is in set2 with A1 extending A2, A1
+     * must be on the result set.
+     * 
+     * @param nameSet1 the first set
+     * @param nameSet2 the second set
+     * @return the intersection of the 2 sets.
+     */
+    private static Set<String> intersection(Set<String> nameSet1, Set<String> nameSet2)
+    {
+       Set<String> results = new HashSet<String>();
+       if(nameSet1 == null || nameSet2 == null)
+       {
+           return results;
+       }
+       
+       Map<Class<?>, String> classesToName = new HashMap<Class<?>, String>();
+       Set<Class<?>> classesSet1 = getClassesFromNames(nameSet1, classesToName);
+       Set<Class<?>> classesSet2 = getClassesFromNames(nameSet2, classesToName);
+          
+       for(Class<?> classToCheck : classesSet1)
+       {
+           for(Class<?> expectedResult : classesSet2)
+           {
+               if(classToCheck.isAssignableFrom(expectedResult))
+               {
+                   results.add(classesToName.get(expectedResult));
+               } 
+               else if(expectedResult.isAssignableFrom(classToCheck))
+               {
+                   results.add(classesToName.get(classToCheck));
+               }
+           }
+       }
+       return results;
+    }
 
     /**
-     * Retrieves the inherited mapping class name for the given <code>mapping</code> by traveling 
-     * up the inheritance hierarchy to find the first one that has the mapping class name declared.
-     *
-     * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve its mapping class.
-     * @return the name of the mapping class.
+     * Convert a set of class names into a set of class objects. The mapping between the class object and the class name is kept into the classesToName map. If the class name cannot
+     * be directly converted in a class, try to remove a prefix starting with a $. This is necessary because implementation classes for UML 1.4 are created dynamically and are not
+     * available at the time this method is called, one must then instantiate the class object for the interface of the implementation class.
+     * 
+     * @param nameSet the set of class names.
+     * @param classesToName the map that must keep the relation between class object and class names.
+     * @return the set of class objects.
      */
-    public static String getInheritedMappingClassName(final MetafacadeMapping mapping)
+    private static Set<Class<?>> getClassesFromNames(Set<String> nameSet, Map<Class<?>, String> classesToName)
+    {
+        final Set<Class<?>> classesSet = new HashSet<Class<?>>();
+        for(final String name : nameSet)
+        {
+            try
+            {
+                Class<?> cl = Class.forName(name);
+                classesToName.put(cl, name);
+                classesSet.add(cl);
+            }
+            catch (ClassNotFoundException e1)
+            {
+                // Workaround for UML 1.4, where implementation class, ending with $Impl are created dynamically and are not available at the time this method is called.
+                try
+                {
+                    String instanciatedName = name;
+                    if(instanciatedName.endsWith("$Impl"))
+                    {
+                        instanciatedName = name.substring(0, name.lastIndexOf("$Impl"));
+                    }
+                    Class<?> cl = Class.forName(instanciatedName);
+                    classesToName.put(cl, name);
+                    classesSet.add(cl);
+                }   
+                catch (ClassNotFoundException e2)
+                {
+                    throw new RuntimeException(e2);
+                }
+            }
+        }
+        return classesSet;
+    }
+    
+    /**
+     * Retrieves the inherited mapping class names for the given metafacade class by traveling 
+     * up the inheritance hierarchy to find the ones that have the mapping class name declared.
+     * 
+     * @param metafacadeClass the matafacade class to retrieve the mapping class names.
+     * @param metafacadeImpls lookup for metafacade implementation names.
+     * @param mappingInstances mapping classes for common metafacades.
+     * @return the inherited mapping class names for the given metafacade class.
+     */
+    private static Set<String> getInheritedMappingClassNames(final Class metafacadeClass, final MetafacadeImpls metafacadeImpls, final Map<Class, Set<String>> mappingInstances )
+    {
+        Set<String> result = null;
+        if(metafacadeClass != null)
+        {
+            if(metafacadeClass.isInterface())
+            {
+                result = mappingInstances.get(metafacadeImpls.getMetafacadeImplClass(metafacadeClass.getName()));
+            }
+            if(result == null)
+            {
+                for(Class currentInterface : metafacadeClass.getInterfaces())
+                {
+                    Set<String> subInheritedMappingClassNames = getInheritedMappingClassNames(currentInterface, metafacadeImpls, mappingInstances);
+                    if(subInheritedMappingClassNames != null)
+                    {
+                        if(result == null)
+                        {
+                            result = subInheritedMappingClassNames;
+                        }
+                        else
+                        {
+                            result = intersection(result, subInheritedMappingClassNames);
+                        }
+                    }
+                }
+            }
+            if(result == null)
+            {
+                result = getInheritedMappingClassNames(metafacadeClass.getSuperclass(), metafacadeImpls, mappingInstances);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Retrieves the inherited mapping class names for the given <code>mapping</code> by traveling 
+     * up the inheritance hierarchy to find the ones that have the mapping class name declared.
+     *
+     * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve its mapping classes.
+     * @return the names of the mapping classes.
+     */
+    public static Set<String> getInheritedMappingClassNames(final MetafacadeMapping mapping)
     {
         final Class metafacadeClass = mapping.getMetafacadeClass();
-        final Collection<Class> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
         final MetafacadeImpls metafacadeImpls = MetafacadeImpls.instance();
-        final Map<Class, String> mappingInstances = MetafacadeMappings.getAllMetafacadeMappingInstances();
-        String className = null;
-        for (final Iterator<Class> iterator = interfaces.iterator(); iterator.hasNext() && className == null;)
-        {
-            final String metafacadeInterface = iterator.next().getName();
-            final Class metafacadeImplClass = metafacadeImpls.getMetafacadeImplClass(metafacadeInterface);
-            className = mappingInstances.get(metafacadeImplClass);
-        }
-        if (className == null)
+        final Map<Class, Set<String>> mappingInstances = MetafacadeMappings.getAllMetafacadeMappingInstances();
+        final Set<String> className = getInheritedMappingClassNames(metafacadeClass, metafacadeImpls, mappingInstances);
+        if (className == null || className.isEmpty())
         {
             throw new MetafacadeMappingsException("No mapping class could be found for '" + metafacadeClass.getName() +
                     '\'');
