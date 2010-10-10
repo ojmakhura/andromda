@@ -4,15 +4,11 @@ import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.configuration.Namespaces;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.log4j.Logger;
 
 
@@ -269,6 +265,7 @@ final class MetafacadeUtils
             throw new MetafacadeMappingsException("No mapping class could be found for '" + metafacadeClass.getName() +
                     '\'');
         }
+        MetafacadeUtils.getLogger().debug("inheritedMappingClassName " + metafacadeClass.getName() + "=" + className);
         return className;
     }
     

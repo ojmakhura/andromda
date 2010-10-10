@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmi:id="_16_5_4_2e90116_1263696571584_136644_390" name="Profile_for_jBPMCartridgeTestModel1" metamodelReference="_0metamodelReferenceProfile_for_jBPMCartridgeTestModel1">
+  <eAnnotations xmi:id="_CrnhGgMTEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_CrnhGwMTEd-FmaSLa4y-cw" name="Profile_for_jBPMCartridgeTestModel1" nsURI="http:///schemas/Profile_for_jBPMCartridgeTestModel1/_CrgL4AMTEd-FmaSLa4y-cw/0" nsPrefix="Profile_for_jBPMCartridgeTestModel1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_CrnhHAMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_assignment_expression">
+        <eAnnotations xmi:id="_CrnhHQMTEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_5_4_2e90116_1263696571584_12768_391"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_CrnhHgMTEd-FmaSLa4y-cw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_CrnhHwMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_assignment_expression" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_CrnhIAMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_duedate">
+        <eAnnotations xmi:id="_CrnhIQMTEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_5_4_2e90116_1263696571585_583753_399"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_CrnhIgMTEd-FmaSLa4y-cw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_CrnhIwMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_duedate" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_CrnhJAMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_transition">
+        <eAnnotations xmi:id="_CrnhJQMTEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_5_4_2e90116_1263696571587_281754_409"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_CrnhJgMTEd-FmaSLa4y-cw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_CrnhJwMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_transition" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_CrnhKAMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_repeat">
+        <eAnnotations xmi:id="_CrnhKQMTEd-FmaSLa4y-cw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_5_4_2e90116_1263696571589_748731_416"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_CrnhKgMTEd-FmaSLa4y-cw" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_CrnhKwMTEd-FmaSLa4y-cw" name="andromda_process_jbpm_timer_repeat" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_0metamodelReferenceProfile_for_jBPMCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypesProfile_for_jBPMCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_jBPMCartridgeTestModel1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_5_4_2e90116_1263696571584_12768_391" name="andromda_process_jbpm_assignment_expression">
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571584_56705_393" name="base_Element" visibility="private" association="_16_5_4_2e90116_1263696571584_83684_392">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571585_832388_397" name="andromda_process_jbpm_assignment_expression" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_5_4_2e90116_1263696571584_83684_392" name="" memberEnd="_16_5_4_2e90116_1263696571584_56705_393 _16_5_4_2e90116_1263696571584_580669_394">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_5_4_2e90116_1263696571584_580669_394" name="extension_" visibility="private" type="_16_5_4_2e90116_1263696571584_12768_391" aggregation="composite" association="_16_5_4_2e90116_1263696571584_83684_392">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_4_2e90116_1263696571584_42238_396" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_4_2e90116_1263696571584_919157_395" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_5_4_2e90116_1263696571585_583753_399" name="andromda_process_jbpm_timer_duedate">
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571585_894540_401" name="base_Element" visibility="private" association="_16_5_4_2e90116_1263696571585_98109_400">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571586_827626_405" name="andromda_process_jbpm_timer_duedate" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_5_4_2e90116_1263696571585_98109_400" name="" memberEnd="_16_5_4_2e90116_1263696571585_894540_401 _16_5_4_2e90116_1263696571585_795138_402">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_5_4_2e90116_1263696571585_795138_402" name="extension_" visibility="private" type="_16_5_4_2e90116_1263696571585_583753_399" aggregation="composite" association="_16_5_4_2e90116_1263696571585_98109_400">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_4_2e90116_1263696571585_101757_404" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_4_2e90116_1263696571585_760262_403" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_5_4_2e90116_1263696571587_281754_409" name="andromda_process_jbpm_timer_transition">
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571587_918911_411" name="base_Element" visibility="private" association="_16_5_4_2e90116_1263696571587_761576_410">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571587_774432_415" name="andromda_process_jbpm_timer_transition" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_5_4_2e90116_1263696571587_761576_410" name="" memberEnd="_16_5_4_2e90116_1263696571587_542341_412 _16_5_4_2e90116_1263696571587_918911_411">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_5_4_2e90116_1263696571587_542341_412" name="extension_" visibility="private" type="_16_5_4_2e90116_1263696571587_281754_409" aggregation="composite" association="_16_5_4_2e90116_1263696571587_761576_410">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_4_2e90116_1263696571587_654631_414" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_4_2e90116_1263696571587_163501_413" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_5_4_2e90116_1263696571589_748731_416" name="andromda_process_jbpm_timer_repeat">
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571589_201745_418" name="base_Element" visibility="private" association="_16_5_4_2e90116_1263696571589_381456_417">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_16_5_4_2e90116_1263696571589_113895_422" name="andromda_process_jbpm_timer_repeat" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <nestedClassifier xmi:type="uml:Extension" xmi:id="_16_5_4_2e90116_1263696571589_381456_417" name="" memberEnd="_16_5_4_2e90116_1263696571589_279599_419 _16_5_4_2e90116_1263696571589_201745_418">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_5_4_2e90116_1263696571589_279599_419" name="extension_" visibility="private" type="_16_5_4_2e90116_1263696571589_748731_416" aggregation="composite" association="_16_5_4_2e90116_1263696571589_381456_417">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_4_2e90116_1263696571589_896398_421" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_4_2e90116_1263696571589_254534_420" name=""/>
+      </ownedEnd>
+    </nestedClassifier>
+  </packagedElement>
+</uml:Profile>
