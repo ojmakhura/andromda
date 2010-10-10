@@ -12,7 +12,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
@@ -1040,6 +1039,7 @@ public class MetafacadeMappings
         {
             throw new MetafacadeMappingsException(throwable);
         }
+        this.getLogger().debug("initializeMappings " + " size=" + MetafacadeMappings.allMetafacadeMappingInstances.size());
     }
 
     /**

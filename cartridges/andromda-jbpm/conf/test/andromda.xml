@@ -2,8 +2,17 @@
   <properties>
     <property name="cartridgeFilter">jbpm</property>
     <property name="failOnValidationErrors">false</property>
+    <!-- Debug andromda processing using example log4j.xml file -->
+    <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property>
   </properties>
   <repositories>
+    <!--repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>file:${basedir}/src/test/uml2/JBPMCartridgeTestModel.uml</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations-->
     <repository name="netBeansMDR">
       <models>
         <model>

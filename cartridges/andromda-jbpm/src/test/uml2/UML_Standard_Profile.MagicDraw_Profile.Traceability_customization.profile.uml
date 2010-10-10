@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DSLCustomization="http:///schemas/DSLCustomization/_h0QY0KMSEd-WNNEF1Mb0Dg/0" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_h0K5QKMSEd-WNNEF1Mb0Dg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http:///schemas/DSLCustomization/_h0QY0KMSEd-WNNEF1Mb0Dg/0 UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_h04rx6MSEd-WNNEF1Mb0Dg http:///schemas/MagicDrawProfile/_h0K5QKMSEd-WNNEF1Mb0Dg/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_h05TcKMSEd-WNNEF1Mb0Dg">
+  <uml:Profile xmi:id="_16_6_8f90291_1254846042821_86742_517" name="Traceability customization" metamodelReference="_16_8beta_8f90291_1257514702156_396350_406">
+    <eAnnotations xmi:id="_h04F1qMSEd-WNNEF1Mb0Dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_h04F16MSEd-WNNEF1Mb0Dg" name="Traceabilitycustomization" nsURI="http:///schemas/Traceabilitycustomization/_h0Rm8KMSEd-WNNEF1Mb0Dg/0" nsPrefix="Traceabilitycustomization"/>
+    </eAnnotations>
+    <eAnnotations xmi:id="_h2PV0KMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+      <details xmi:id="_h2PV0aMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_6_8f90291_1254846042821_86742_517"/>
+    </eAnnotations>
+    <ownedComment xmi:id="_16_8beta_8f90291_1257781318390_663299_1420" body="Traceability customization for UML, specifying needed derived properties expressions for analysing elements realization and specification. You can discover the specifications and realization of a element in higher and lover level of abstraction through any relationships and properties those are already used in project for traceability." annotatedElement="_16_6_8f90291_1254846042821_86742_517">
+      <eAnnotations xmi:id="_h2P84aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+        <details xmi:id="_h2P84qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257781318390_663299_1420"/>
+      </eAnnotations>
+    </ownedComment>
+    <packageImport xmi:id="_16_8beta_8f90291_1257514702156_396350_406">
+      <eAnnotations xmi:id="_h2PV0qMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+        <details xmi:id="_h2P84KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257514702156_396350_406"/>
+      </eAnnotations>
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0primitiveTypesTraceability_customization">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesTraceability_customization">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_16_8beta_8f90291_1262793671275_521921_1415" name="Properties descriptors">
+      <eAnnotations xmi:id="_h2P846MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+        <details xmi:id="_h2P85KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1262793671275_521921_1415"/>
+      </eAnnotations>
+      <packagedElement xmi:type="uml:Package" xmi:id="_16_8beta_8f90291_1257522508384_891550_507" name="Realization">
+        <eAnnotations xmi:id="_h2P85aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+          <details xmi:id="_h2P85qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257522508384_891550_507"/>
+        </eAnnotations>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257601884641_372155_918" name="Classifier Manifested by Artifacts">
+          <eAnnotations xmi:id="_h2P856MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2P86KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601884641_372155_918"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601884641_637785_920" name="manifestedByArtifacts" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2P86aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2P86qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601884641_637785_920"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257601884641_139690_924" body="Property shows the artifact that concretely renders one or more model elements." annotatedElement="_16_8beta_8f90291_1257601884641_637785_920">
+              <eAnnotations xmi:id="_h2P866MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P87KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601884641_139690_924"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Artifact"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523708_533421_1324" name="" value="*">
+              <eAnnotations xmi:id="_h2P87aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P87qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_533421_1324"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523708_390875_1323" name="">
+              <eAnnotations xmi:id="_h2P876MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P88KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_390875_1323"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257601435805_285564_884" name="Use Case Realizing Use Cases">
+          <eAnnotations xmi:id="_h2P88aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2P88qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601435805_285564_884"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601435805_252834_886" name="realizingUseCases" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2P886MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2P89KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601435805_252834_886"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257601435805_511052_890" body="Property shows the realizing use cases of the given use case in the lower level of abstraction thus demonstrating how the use case is implemented. For example, the Requirements Use Case realizes the Business Use Case." annotatedElement="_16_8beta_8f90291_1257601435805_252834_886">
+              <eAnnotations xmi:id="_h2P89aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P89qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601435805_511052_890"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424300_782482_1292" name="" value="*">
+              <eAnnotations xmi:id="_h2P896MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P8-KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_782482_1292"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424300_978863_1291" name="">
+              <eAnnotations xmi:id="_h2P8-aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P8-qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_978863_1291"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601435805_348419_887" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2P8-6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2P8_KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601435805_348419_887"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257601435805_412173_892" name="Realization" visibility="private">
+              <eAnnotations xmi:id="_h2P8_aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P8_qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601435805_412173_892"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257526379630_900586_653" name="Classifier Realizing Interactions">
+          <eAnnotations xmi:id="_h2P8_6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2P9AKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257526379630_900586_653"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257526379630_794090_655" name="realizingInteractions" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2P9AaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2P9AqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257526379630_794090_655"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257526379630_984771_659" body="Property shows the interactions wherein the classifier is used as an object type or the interactions that are owned by classifier." annotatedElement="_16_8beta_8f90291_1257526379630_794090_655">
+              <eAnnotations xmi:id="_h2P9A6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P9BKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257526379630_984771_659"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interaction"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494402190_342896_1256" name="" value="*">
+              <eAnnotations xmi:id="_h2P9BaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P9BqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494402190_342896_1256"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494402190_366966_1255" name="">
+              <eAnnotations xmi:id="_h2P9B6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2P9CKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494402190_366966_1255"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257598514420_8124_735" name="Classifier Realizing Activities">
+          <eAnnotations xmi:id="_h2P9CaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2Qj8KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598514420_8124_735"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257598514420_310678_740" name="realizingActivities" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2Qj8aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2Qj8qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598514420_310678_740"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257598514436_156357_749" body="Property shows the activities wherein the classifier is used as an object type or the activities that are owned by classifier." annotatedElement="_16_8beta_8f90291_1257598514420_310678_740">
+              <eAnnotations xmi:id="_h2Qj86MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2Qj9KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598514436_156357_749"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494396706_960986_1246" name="" value="*">
+              <eAnnotations xmi:id="_h2Qj9aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2Qj9qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494396706_960986_1246"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494396706_319987_1245" name="">
+              <eAnnotations xmi:id="_h2Qj96MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2Qj-KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494396706_319987_1245"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257598514420_469545_741" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2Qj-aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2Qj-qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598514420_469545_741"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257598514436_331303_751" name="Realization" visibility="private">
+              <eAnnotations xmi:id="_h2Qj-6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2Qj_KMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598514436_331303_751"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257606113035_237110_1195" name="Interface Realizing Classifiers">
+          <eAnnotations xmi:id="_h2Qj_aMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2Qj_qMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606113035_237110_1195"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257606113035_709667_1197" name="realizingClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2Qj_6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2QkAKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606113035_709667_1197"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257606113035_581035_1201" body="Property shows the classifier conforming to the contract specified by the interface and related with this interface through the interface realization relation." annotatedElement="_16_8beta_8f90291_1257606113035_709667_1197">
+              <eAnnotations xmi:id="_h2QkAaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkAqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606113035_581035_1201"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424284_563906_1286" name="" value="*">
+              <eAnnotations xmi:id="_h2QkA6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkBKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_563906_1286"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424284_662033_1285" name="">
+              <eAnnotations xmi:id="_h2QkBaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkBqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_662033_1285"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257606113035_321517_1198" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2QkB6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2QkCKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606113035_321517_1198"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257606113035_921941_1203" name="Realization" visibility="private">
+              <eAnnotations xmi:id="_h2QkCaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkCqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606113035_921941_1203"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257604728446_635239_1123" name="Component Realizing Classifiers">
+          <eAnnotations xmi:id="_h2QkC6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2QkDKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604728446_635239_1123"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257604728446_225411_1125" name="realizingClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2QkDaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2QkDqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604728446_225411_1125"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257604728446_758294_1129" body="Property shows the classifiers that realize the components through the component realization relation." annotatedElement="_16_8beta_8f90291_1257604728446_225411_1125">
+              <eAnnotations xmi:id="_h2QkD6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkEKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604728446_758294_1129"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424269_152882_1280" name="" value="*">
+              <eAnnotations xmi:id="_h2QkEaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkEqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424269_152882_1280"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424269_313563_1279" name="">
+              <eAnnotations xmi:id="_h2QkE6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkFKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424269_313563_1279"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257604728446_924602_1126" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2QkFaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2QkFqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604728446_924602_1126"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257604728446_628687_1131" name="Realization" visibility="private">
+              <eAnnotations xmi:id="_h2QkF6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2QkGKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604728446_628687_1131"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_6_321204c2_1257342406156_172304_345" name="Use Case Realizing Behaviors">
+          <eAnnotations xmi:id="_h2RLAKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RLAaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_6_321204c2_1257342406156_172304_345"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257517266955_33972_361" name="realizingBehaviors" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RLAqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RLA6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257517266955_33972_361"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257524105665_336193_424" body="Property shows the use case implementation in behaviors: State Machine, Activity, Interaction, and others. " annotatedElement="_16_8beta_8f90291_1257517266955_33972_361">
+              <eAnnotations xmi:id="_h2RLBKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLBaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524105665_336193_424"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424300_687562_1288" name="" value="*">
+              <eAnnotations xmi:id="_h2RLBqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLB6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_687562_1288"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424300_750714_1287" name="">
+              <eAnnotations xmi:id="_h2RLCKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLCaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_750714_1287"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257603299340_938717_986" name="Class Realizing Components">
+          <eAnnotations xmi:id="_h2RLCqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RLC6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603299340_938717_986"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257603299340_461480_988" name="realizingComponents" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RLDKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RLDaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603299340_461480_988"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257603299340_239342_992" body="Property shows the component representing the class realization, usually in the Implementation model." annotatedElement="_16_8beta_8f90291_1257603299340_461480_988">
+              <eAnnotations xmi:id="_h2RLDqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLD6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603299340_239342_992"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494402190_24016_1258" name="" value="*">
+              <eAnnotations xmi:id="_h2RLEKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLEaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494402190_24016_1258"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494402190_188576_1257" name="">
+              <eAnnotations xmi:id="_h2RLEqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLE6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494402190_188576_1257"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257603728786_427344_1057" name="Classifier Realizing Classifiers">
+          <eAnnotations xmi:id="_h2RLFKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RLFaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603728786_427344_1057"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257603728786_548789_1059" name="moreSpecificClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RLFqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RLF6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603728786_548789_1059"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257603728786_497081_1063" body="Property shows the more specific classifier related with more general classifier through generalization. Each instance of the specific classifier is also an indirect instance of the general classifier. Thus, the specific classifier inherits the features of the more general classifier." annotatedElement="_16_8beta_8f90291_1257603728786_548789_1059">
+              <eAnnotations xmi:id="_h2RLGKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLGaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603728786_497081_1063"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494396706_780814_1248" name="" value="*">
+              <eAnnotations xmi:id="_h2RLGqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLG6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494396706_780814_1248"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494396706_762460_1247" name="">
+              <eAnnotations xmi:id="_h2RLHKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLHaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494396706_762460_1247"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257776077493_894734_1346" name="Classifier All Realizing Classifiers">
+          <eAnnotations xmi:id="_h2RLHqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RLH6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257776077493_894734_1346"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257776077493_572762_1348" name="allMoreSpecificClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RLIKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RLIaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257776077493_572762_1348"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257776077508_306210_1352" body="Property shows all more specific classifiers directly and indirectly related with more general classifier through generalization." annotatedElement="_16_8beta_8f90291_1257776077493_572762_1348">
+              <eAnnotations xmi:id="_h2RLIqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLI6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257776077508_306210_1352"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494383877_875172_1234" name="" value="*">
+              <eAnnotations xmi:id="_h2RLJKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLJaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494383877_875172_1234"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494383877_394808_1233" name="">
+              <eAnnotations xmi:id="_h2RLJqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RLJ6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494383877_394808_1233"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257524801725_389368_434" name="Use Case Realizing Classes">
+          <eAnnotations xmi:id="_h2RLKKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RyEKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_389368_434"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257524801725_125434_437" name="realizingClasses" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RyEaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RyEqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_125434_437"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257524801725_415988_444" body="Property shows the class representing the use case realization, usually in the Design model." annotatedElement="_16_8beta_8f90291_1257524801725_125434_437">
+              <eAnnotations xmi:id="_h2RyE6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyFKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_415988_444"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424300_926192_1290" name="" value="*">
+              <eAnnotations xmi:id="_h2RyFaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyFqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_926192_1290"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424300_158575_1289" name="">
+              <eAnnotations xmi:id="_h2RyF6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyGKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424300_158575_1289"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257609276643_799601_1464" name="Element All Realizing Elements">
+          <eAnnotations xmi:id="_h2RyGaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RyGqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257609276643_799601_1464"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257609276643_869831_1466" name="allRealizingElements" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RyG6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RyHKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257609276643_869831_1466"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257609276643_478208_1470" body="Property shows all realizing elements lower level of abstraction through multilevel relations how the element is implemented." annotatedElement="_16_8beta_8f90291_1257609276643_869831_1466">
+              <eAnnotations xmi:id="_h2RyHaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyHqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257609276643_478208_1470"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424284_305588_1282" name="" value="*">
+              <eAnnotations xmi:id="_h2RyH6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyIKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_305588_1282"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424284_427420_1281" name="">
+              <eAnnotations xmi:id="_h2RyIaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyIqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_427420_1281"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257606652436_53189_1301" name="Element Realizing Elements">
+          <eAnnotations xmi:id="_h2RyI6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RyJKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606652436_53189_1301"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257606652436_349640_1303" name="realizingElements" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RyJaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RyJqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606652436_349640_1303"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257606652436_558514_1307" body="Property shows realizing element in lower level of abstraction thus demonstrating how the element is implemented." annotatedElement="_16_8beta_8f90291_1257606652436_349640_1303">
+              <eAnnotations xmi:id="_h2RyJ6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyKKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606652436_558514_1307"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494424284_203534_1284" name="" value="*">
+              <eAnnotations xmi:id="_h2RyKaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyKqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_203534_1284"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494424284_197920_1283" name="">
+              <eAnnotations xmi:id="_h2RyK6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyLKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494424284_197920_1283"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257606652436_261806_1304" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2RyLaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RyLqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606652436_261806_1304"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257606652436_362998_1309" name="Realization" visibility="private">
+              <eAnnotations xmi:id="_h2RyL6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyMKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257606652436_362998_1309"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_16_8beta_8f90291_1257598450888_37641_733" name="Specification">
+        <eAnnotations xmi:id="_h2RyMaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+          <details xmi:id="_h2RyMqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257598450888_37641_733"/>
+        </eAnnotations>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1260099600534_896002_1514" name="Activity Specifying Classifiers">
+          <eAnnotations xmi:id="_h2RyM6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2RyNKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099600534_896002_1514"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1260099804913_256561_1617" name="specifyingClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2RyNaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2RyNqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099804913_256561_1617"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1260099804913_679577_1620" body="Property shows, what classifiers are used in the activity as the object types or the classifier that owns activity." annotatedElement="_16_8beta_8f90291_1260099804913_256561_1617">
+              <eAnnotations xmi:id="_h2RyN6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyOKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099804913_679577_1620"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523693_264940_1322" name="" value="*">
+              <eAnnotations xmi:id="_h2RyOaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyOqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523693_264940_1322"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523693_822316_1321" name="">
+              <eAnnotations xmi:id="_h2RyO6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2RyPKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523693_822316_1321"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1260099804913_988593_1618" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2SZIKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2SZIaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099804913_988593_1618"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1260099804913_907769_1622" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2SZIqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZI6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099804913_907769_1622"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257601240848_568501_848" name="Use Case Specifying Use Cases ">
+          <eAnnotations xmi:id="_h2SZJKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2SZJaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601240848_568501_848"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601240848_694889_850" name="specifyingUseCases" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2SZJqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2SZJ6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601240848_694889_850"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257601240848_29333_854" body="Property shows the use case that specifies the given use case in the higher level of abstraction. For example, the Business Use Case specifies the Requirements Use Case." annotatedElement="_16_8beta_8f90291_1257601240848_694889_850">
+              <eAnnotations xmi:id="_h2SZKKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZKaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601240848_29333_854"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523708_538157_1328" name="" value="*">
+              <eAnnotations xmi:id="_h2SZKqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZK6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_538157_1328"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523708_366123_1327" name="">
+              <eAnnotations xmi:id="_h2SZLKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZLaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_366123_1327"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601240848_873749_851" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2SZLqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2SZL6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601240848_873749_851"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257601240848_416433_856" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2SZMKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZMaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601240848_416433_856"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257601888548_369888_952" name="Artifact Manifesting Classifiers">
+          <eAnnotations xmi:id="_h2SZMqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2SZM6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601888548_369888_952"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601888548_629113_954" name="manifestedInArtifacts" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2SZNKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2SZNaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601888548_629113_954"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257601888548_861078_958" body="Property shows the concrete physical rendering of one or more model elements by an artifact." annotatedElement="_16_8beta_8f90291_1257601888548_629113_954">
+              <eAnnotations xmi:id="_h2SZNqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZN6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601888548_861078_958"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494379424_17227_1228" name="" value="*">
+              <eAnnotations xmi:id="_h2SZOKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZOaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494379424_17227_1228"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494379424_780755_1227" name="">
+              <eAnnotations xmi:id="_h2SZOqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZO6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494379424_780755_1227"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257601888548_673534_955" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2SZPKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2SZPaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601888548_673534_955"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257601888548_814691_960" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2SZPqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2SZP6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257601888548_814691_960"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_6_321204c2_1257343769595_567901_526" name="Behavior Specifying Use Case">
+          <eAnnotations xmi:id="_h2SZQKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2SZQaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_6_321204c2_1257343769595_567901_526"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257523383994_159011_383" name="specifyingUseCases" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TAMKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TAMaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257523383994_159011_383"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257524411124_152203_433" body="Property shows the specification of behavior, which implements this behavior." annotatedElement="_16_8beta_8f90291_1257523383994_159011_383">
+              <eAnnotations xmi:id="_h2TAMqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAM6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524411124_152203_433"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523708_573453_1326" name="" value="*">
+              <eAnnotations xmi:id="_h2TANKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TANaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_573453_1326"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523708_823550_1325" name="">
+              <eAnnotations xmi:id="_h2TANqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAN6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523708_823550_1325"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257523384010_576111_384" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2TAOKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TAOaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257523384010_576111_384"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257524138931_290797_425" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2TAOqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAO6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524138931_290797_425"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257604856230_189887_1159" name="Classifier Specifying Components">
+          <eAnnotations xmi:id="_h2TAPKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TAPaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604856230_189887_1159"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257604856230_575506_1161" name="specifyingComponents" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TAPqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TAP6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604856230_575506_1161"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257604856230_684354_1165" body="Property shows the components that are realized by classifiers through the component realization relation." annotatedElement="_16_8beta_8f90291_1257604856230_575506_1161">
+              <eAnnotations xmi:id="_h2TAQKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAQaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257604856230_684354_1165"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523693_182345_1320" name="" value="*">
+              <eAnnotations xmi:id="_h2TAQqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAQ6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523693_182345_1320"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523693_483305_1319" name="">
+              <eAnnotations xmi:id="_h2TARKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TARaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523693_483305_1319"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257524801725_734919_435" name="Class Specifying Use Cases">
+          <eAnnotations xmi:id="_h2TARqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TAR6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_734919_435"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257524801725_327328_440" name="specifyingUseCases" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TASKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TASaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_327328_440"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257524801725_686533_449" body="Property shows the use case representing the class specification, usually from the Requirements model." annotatedElement="_16_8beta_8f90291_1257524801725_327328_440">
+              <eAnnotations xmi:id="_h2TASqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAS6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_686533_449"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523740_985333_1338" name="" value="*">
+              <eAnnotations xmi:id="_h2TATKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TATaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523740_985333_1338"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523740_756202_1337" name="">
+              <eAnnotations xmi:id="_h2TATqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAT6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523740_756202_1337"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257524801725_249948_441" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2TAUKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TAUaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_249948_441"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257524801725_470935_451" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2TAUqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAU6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257524801725_470935_451"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1260099600550_889307_1515" name="Interaction Specifying Classifiers">
+          <eAnnotations xmi:id="_h2TAVKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TAVaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099600550_889307_1515"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1260099793944_749549_1580" name="specifyingClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TAVqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TAV6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099793944_749549_1580"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1260099793944_31815_1583" body="Property shows what classifiers are used in the interaction as the object types or the classifier that owns interaction." annotatedElement="_16_8beta_8f90291_1260099793944_749549_1580">
+              <eAnnotations xmi:id="_h2TAWKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TAWaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099793944_31815_1583"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523724_244035_1330" name="" value="*">
+              <eAnnotations xmi:id="_h2TnQKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnQaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_244035_1330"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523724_58500_1329" name="">
+              <eAnnotations xmi:id="_h2TnQqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnQ6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_58500_1329"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1260099793944_523261_1581" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2TnRKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TnRaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099793944_523261_1581"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1260099793944_290274_1585" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2TnRqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnR6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1260099793944_290274_1585"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257608351672_157007_1423" name="Element All Specifying Elements">
+          <eAnnotations xmi:id="_h2TnSKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TnSaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257608351672_157007_1423"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257608351672_386324_1425" name="allSpecifyingElements" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TnSqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TnS6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257608351672_386324_1425"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257608351672_990932_1429" body="Property shows all the specifying elements of the given element in the all higher levels of abstraction through multilevel relations thus validating the existence of this element." annotatedElement="_16_8beta_8f90291_1257608351672_386324_1425">
+              <eAnnotations xmi:id="_h2TnTKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnTaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257608351672_990932_1429"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523724_584675_1334" name="" value="*">
+              <eAnnotations xmi:id="_h2TnTqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnT6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_584675_1334"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523724_542572_1333" name="">
+              <eAnnotations xmi:id="_h2TnUKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnUaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_542572_1333"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257777133904_244038_1385" name="Classifier All Generalizing Classifiers">
+          <eAnnotations xmi:id="_h2TnUqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TnU6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257777133904_244038_1385"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257777133904_454489_1387" name="allMoreGeneralClassifiers" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TnVKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TnVaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257777133904_454489_1387"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257777133904_657720_1391" body="Property shows all more general classifiers directly and indirectly related with more specific classifier through generalization." annotatedElement="_16_8beta_8f90291_1257777133904_454489_1387">
+              <eAnnotations xmi:id="_h2TnVqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnV6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257777133904_657720_1391"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523677_977735_1316" name="" value="*">
+              <eAnnotations xmi:id="_h2TnWKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnWaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523677_977735_1316"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523677_318779_1315" name="">
+              <eAnnotations xmi:id="_h2TnWqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnW6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523677_318779_1315"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257603962463_6749_1093" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2TnXKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TnXaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603962463_6749_1093"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257603962463_507883_1098" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2TnXqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnX6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603962463_507883_1098"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257603302247_321027_1020" name="Component Specifying Classes">
+          <eAnnotations xmi:id="_h2TnYKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2TnYaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603302247_321027_1020"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257603302247_446137_1022" name="specifyingClasses" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2TnYqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2TnY6MSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603302247_446137_1022"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257603302247_240533_1026" body="Property shows the class representing the component specification, usually from the Design model." annotatedElement="_16_8beta_8f90291_1257603302247_446137_1022">
+              <eAnnotations xmi:id="_h2TnZKMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2TnZaMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603302247_240533_1026"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523740_121701_1336" name="" value="*">
+              <eAnnotations xmi:id="_h2TnZqMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOUKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523740_121701_1336"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523740_595812_1335" name="">
+              <eAnnotations xmi:id="_h2UOUaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOUqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523740_595812_1335"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257603302247_606802_1023" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2UOU6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2UOVKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603302247_606802_1023"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257603302247_894850_1028" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2UOVaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOVqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257603302247_894850_1028"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_16_8beta_8f90291_1257607854444_668462_1347" name="Element Specifying Elements">
+          <eAnnotations xmi:id="_h2UOV6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+            <details xmi:id="_h2UOWKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257607854444_668462_1347"/>
+          </eAnnotations>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257607854459_722546_1349" name="specifyingElements" visibility="private" isOrdered="true">
+            <eAnnotations xmi:id="_h2UOWaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2UOWqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257607854459_722546_1349"/>
+            </eAnnotations>
+            <ownedComment xmi:id="_16_8beta_8f90291_1257607854459_79205_1353" body="Property shows the specifying elements of the given element in one-step higher level of abstraction thus validating the existance of this element." annotatedElement="_16_8beta_8f90291_1257607854459_722546_1349">
+              <eAnnotations xmi:id="_h2UOW6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOXKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257607854459_79205_1353"/>
+              </eAnnotations>
+            </ownedComment>
+            <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8beta_8f90291_1261494523724_301311_1332" name="" value="*">
+              <eAnnotations xmi:id="_h2UOXaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOXqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_301311_1332"/>
+              </eAnnotations>
+            </upperValue>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8beta_8f90291_1261494523724_894318_1331" name="">
+              <eAnnotations xmi:id="_h2UOX6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOYKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1261494523724_894318_1331"/>
+              </eAnnotations>
+            </lowerValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_16_8beta_8f90291_1257607854459_401476_1350" name="Traceability" visibility="private">
+            <eAnnotations xmi:id="_h2UOYaMSEd-WNNEF1Mb0Dg" source="MagicDraw">
+              <details xmi:id="_h2UOYqMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257607854459_401476_1350"/>
+            </eAnnotations>
+            <qualifier xmi:id="_16_8beta_8f90291_1257607854459_571886_1355" name="Specification" visibility="private">
+              <eAnnotations xmi:id="_h2UOY6MSEd-WNNEF1Mb0Dg" source="MagicDraw">
+                <details xmi:id="_h2UOZKMSEd-WNNEF1Mb0Dg" key="md_id" value="_16_8beta_8f90291_1257607854459_571886_1355"/>
+              </eAnnotations>
+            </qualifier>
+          </ownedAttribute>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationTraceability_customization">
+      <eAnnotations xmi:id="_h1RFcqMSEd-WNNEF1Mb0Dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_h05TcKMSEd-WNNEF1Mb0Dg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationTraceability_customization">
+      <eAnnotations xmi:id="_h1V98aMSEd-WNNEF1Mb0Dg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_h04rx6MSEd-WNNEF1Mb0Dg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
+  </uml:Profile>
+  <MagicDrawProfile:ED xmi:id="_h1RsgKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257604856230_189887_1159" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257604856230_189887_1159"/>
+  <MagicDrawProfile:ED xmi:id="_h1RsgaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1260099600534_896002_1514" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1260099600534_896002_1514"/>
+  <MagicDrawProfile:ED xmi:id="_h1RsgqMSEd-WNNEF1Mb0Dg" base_Element="_16_6_321204c2_1257343769595_567901_526" ed="Architect, Enterprise" base_Class="_16_6_321204c2_1257343769595_567901_526"/>
+  <MagicDrawProfile:ED xmi:id="_h1Rsg6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601435805_285564_884" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257601435805_285564_884"/>
+  <MagicDrawProfile:ED xmi:id="_h1RshKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257526379630_900586_653" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257526379630_900586_653"/>
+  <MagicDrawProfile:ED xmi:id="_h1RshaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257608351672_157007_1423" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257608351672_157007_1423"/>
+  <MagicDrawProfile:ED xmi:id="_h1RshqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257776077493_894734_1346" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257776077493_894734_1346"/>
+  <MagicDrawProfile:ED xmi:id="_h1Rsh6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603299340_938717_986" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257603299340_938717_986"/>
+  <MagicDrawProfile:ED xmi:id="_h1STkKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257609276643_799601_1464" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257609276643_799601_1464"/>
+  <MagicDrawProfile:ED xmi:id="_h1STkaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257777133904_244038_1385" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257777133904_244038_1385"/>
+  <MagicDrawProfile:ED xmi:id="_h1STkqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257606113035_237110_1195" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257606113035_237110_1195"/>
+  <MagicDrawProfile:ED xmi:id="_h1STk6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601240848_568501_848" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257601240848_568501_848"/>
+  <MagicDrawProfile:ED xmi:id="_h1STlKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257607854444_668462_1347" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257607854444_668462_1347"/>
+  <MagicDrawProfile:ED xmi:id="_h1STlaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603302247_321027_1020" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257603302247_321027_1020"/>
+  <MagicDrawProfile:ED xmi:id="_h1STlqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601888548_369888_952" ed="Architect, Enterprise " base_Class="_16_8beta_8f90291_1257601888548_369888_952"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6oKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601884641_372155_918" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257601884641_372155_918"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6oaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257604728446_635239_1123" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257604728446_635239_1123"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6oqMSEd-WNNEF1Mb0Dg" base_Element="_16_6_321204c2_1257342406156_172304_345" ed="Architect, Enterprise" base_Class="_16_6_321204c2_1257342406156_172304_345"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6o6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603728786_427344_1057" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257603728786_427344_1057"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6pKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257606652436_53189_1301" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257606652436_53189_1301"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6paMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257524801725_734919_435" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257524801725_734919_435"/>
+  <MagicDrawProfile:ED xmi:id="_h1S6pqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257524801725_389368_434" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257524801725_389368_434"/>
+  <MagicDrawProfile:ED xmi:id="_h1ThsKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1260099600550_889307_1515" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1260099600550_889307_1515"/>
+  <MagicDrawProfile:ED xmi:id="_h1ThsaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257598514420_8124_735" ed="Architect, Enterprise" base_Class="_16_8beta_8f90291_1257598514420_8124_735"/>
+  <DSLCustomization:Customization xmi:id="_h1WlAKMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1260099600534_896002_1514">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1WlAaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257601435805_285564_884">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1WlAqMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257526379630_900586_653">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#BehavioredClassifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1WlA6MSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257609276643_799601_1464">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1WlBKMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257606113035_237110_1195">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1WlBaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257601240848_568501_848">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XMEaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257607854444_668462_1347">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interaction"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XMEqMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257601884641_372155_918">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XME6MSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257604728446_635239_1123">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XMFaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257603728786_427344_1057">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XMFqMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257606652436_53189_1301">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#BehavioredClassifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XzIKMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257524801725_389368_434">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XzIaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257598514420_8124_735">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#BehavioredClassifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XzIqMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257604856230_189887_1159">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1XzI6MSEd-WNNEF1Mb0Dg" base_Class="_16_6_321204c2_1257343769595_567901_526">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZBQaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257608351672_157007_1423">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#NamedElement"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZoUKMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257603299340_938717_986">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZoUaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257776077493_894734_1346">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZoUqMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257777133904_244038_1385">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZoVKMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257603302247_321027_1020">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Component"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1ZoVaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257601888548_369888_952">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Artifact"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1aPYqMSEd-WNNEF1Mb0Dg" base_Class="_16_6_321204c2_1257342406156_172304_345">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#UseCase"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1aPZaMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1257524801725_734919_435">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:Customization xmi:id="_h1a2caMSEd-WNNEF1Mb0Dg" base_Class="_16_8beta_8f90291_1260099600550_889307_1515">
+    <customizationTarget href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interaction"/>
+  </DSLCustomization:Customization>
+  <DSLCustomization:propertyGroup xmi:id="_h1a2cqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257604728446_924602_1126" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1a2c6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257598514420_469545_741" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1a2dKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601435805_412173_892">
+    <properties>realizingBehaviors</properties>
+    <properties>realizingClasses</properties>
+    <properties>realizingUseCases</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1a2daMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257604728446_628687_1131">
+    <properties>realizingClassifiers</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1a2d6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257603962463_6749_1093" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdgKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257607854459_401476_1350" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdgqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1260099793944_290274_1585">
+    <properties>specifyingClassifiers</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdg6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257524801725_249948_441" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdhKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1260099804913_988593_1618" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdhaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257606652436_261806_1304" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdhqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601435805_348419_887" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1bdh6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257524801725_470935_451">
+    <properties>specifyingUseCases</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1cEkKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257606113035_921941_1203">
+    <properties>realizingClassifiers</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1cEkaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257598514436_331303_751">
+    <properties>allMoreSpecificClassifiers</properties>
+    <properties>manifestedByArtifacts</properties>
+    <properties>moreSpecificClassifiers</properties>
+    <properties>realizingActivities</properties>
+    <properties>realizingComponents</properties>
+    <properties>realizingInteractions</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1cEk6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601240848_873749_851" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1cElaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257523384010_576111_384" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1cElqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257524138931_290797_425">
+    <properties>specifyingUseCases</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1cEl6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257606113035_321517_1198" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1croKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257607854459_571886_1355">
+    <properties>allSpecifyingElements</properties>
+    <properties>specifyingElements</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1croaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601888548_814691_960">
+    <properties>manifestedInArtifacts</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1croqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257606652436_362998_1309">
+    <properties>allRealizingElements</properties>
+    <properties>realizingElements</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1cro6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601888548_673534_955" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1crpKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1260099804913_907769_1622">
+    <properties>specifyingClassifiers</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1crpaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257603302247_606802_1023" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1crpqMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1260099793944_523261_1581" useAsNode="true"/>
+  <DSLCustomization:propertyGroup xmi:id="_h1crp6MSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257603962463_507883_1098">
+    <properties>allMoreGeneralClassifiers</properties>
+    <properties>Base Classifiers</properties>
+    <properties>moreGeneralClassifiers</properties>
+    <properties>Realized Interfaces</properties>
+    <properties>specifyingComponents</properties>
+    <properties>specifyingInterfaces</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1dSsKMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257603302247_894850_1028">
+    <properties>specifyingClasses</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:propertyGroup xmi:id="_h1dSsaMSEd-WNNEF1Mb0Dg" base_Property="_16_8beta_8f90291_1257601240848_416433_856">
+    <properties>specifyingUseCases</properties>
+  </DSLCustomization:propertyGroup>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dSsqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257606113035_709667_1197" isReadOnly="true">
+    <expression>Realization; Relation; Realization; Target to source; Component;</expression>
+    <expression>InterfaceRealization; Relation; InterfaceRealization; Target to source; Classifier;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dSs6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603728786_548789_1059" isReadOnly="true">
+    <expression>Generalization; Relation; Generalization; Target to source; Classifier;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dStKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601435805_252834_886" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Target to source; UseCase;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dStaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257524801725_125434_437" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Target to source; Class;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dStqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257606652436_349640_1303" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Target to source; NamedElement;</expression>
+    <expression>Activities in those classifier is used as types of Nodes; MetaChain; Classifier._typedElementOfType.ObjectNode.activity;</expression>
+    <expression>Interactions in those classifier is used a type; MetaChain; Classifier._typedElementOfType.Property._lifelineOfRepresents.Lifeline.interaction;</expression>
+    <expression>ComponentRealization; Relation; ComponentRealization; Target to source; Classifier;</expression>
+    <expression>ownedBehavior; Property; BehavioredClassifier.ownedBehavior; Source to target; Activity, StateMachine, Interaction;</expression>
+    <expression>InterfaceRealization; Relation; InterfaceRealization; Target to source; Classifier;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1dSt6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257777133904_454489_1387" isReadOnly="true">
+    <expression>All Generalization;Binary;com.nomagic.magicdraw.derivedproperty.RecursiveExpression(Classifier.Base Classifiers, Classifier.allMoreGeneralClassifiers);</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5wKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257526379630_794090_655" isReadOnly="true">
+    <expression>Owned Behavior;Property;BehavioredClassifier.ownedBehavior;Source to target;Interaction;</expression>
+    <expression>Interactions in those classifier is used a type;MetaChain;Classifier._typedElementOfType.Property._lifelineOfRepresents.Lifeline.interaction;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5waMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1260099804913_256561_1617" isReadOnly="true">
+    <expression>Owned Behavior;Property;BehavioredClassifier.ownedBehavior;Target to source;Classifier;</expression>
+    <expression>Classifiers used by Activities as types of Nodes;MetaChain;Activity.node.ObjectNode.type;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5wqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257607854459_722546_1349" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Source to target; NamedElement;</expression>
+    <expression>Owned Behavior; Property; BehavioredClassifier.ownedBehavior; Target to source; Element;</expression>
+    <expression>Classifiers used by Activities as types of Nodes; MetaChain; Activity.node.ObjectNode.type;</expression>
+    <expression>Classifiers used by Interaction as type of lifeline; MetaChain; Interaction.lifeline.Lifeline.type;</expression>
+    <expression>ComponentRealization; Relation; ComponentRealization; Source to target; Component;</expression>
+    <expression>InterfaceRealization; Relation; InterfaceRealization; Source to target; Interface;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5w6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257604728446_225411_1125" isReadOnly="true">
+    <expression>ComponentRealization; Relation; ComponentRealization; Target to source; Classifier;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5xKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601884641_637785_920" isReadOnly="true">
+    <expression>Manifestation; Relation; Manifestation; Target to source; Artifact;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5xaMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257517266955_33972_361" isReadOnly="true">
+    <expression>ownedBehavior; Property; BehavioredClassifier.ownedBehavior; Source to target;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5xqMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603302247_446137_1022" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Source to target; Class;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5x6MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601240848_694889_850" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Source to target; UseCase;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1d5yKMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257601888548_629113_954" isReadOnly="true">
+    <expression>Manifestation; Relation; Manifestation; Source to target; Classifier;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg0KMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257604856230_575506_1161" isReadOnly="true">
+    <expression>ComponentRealization; Relation; ComponentRealization; Source to target; Component;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg0aMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257524801725_327328_440" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Source to target; UseCase;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg0qMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257598514420_310678_740" isReadOnly="true">
+    <expression>Owned Behavior;Property;BehavioredClassifier.ownedBehavior;Source to target;Activity;</expression>
+    <expression>Activities in those classifier is used as types of Nodes;MetaChain;Classifier._typedElementOfType.ObjectNode.activity;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg06MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257776077493_572762_1348" isReadOnly="true">
+    <expression>All Generalization; Binary; com.nomagic.magicdraw.derivedproperty.RecursiveExpression(Classifier.moreSpecificClassifiers, Classifier.allMoreSpecificClassifiers);</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg1KMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257608351672_386324_1425" isReadOnly="true">
+    <expression>All Specifying Elements;Binary;com.nomagic.magicdraw.derivedproperty.RecursiveExpression(NamedElement.specifyingElements,NamedElement.allSpecifyingElements);</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg1aMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257523383994_159011_383" isReadOnly="true">
+    <expression>Owned Behavior; Property; BehavioredClassifier.ownedBehavior; Target to source; UseCase;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg1qMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1260099793944_749549_1580" isReadOnly="true">
+    <expression>Owned Behavior;Property;BehavioredClassifier.ownedBehavior;Target to source;Classifier;</expression>
+    <expression>Classifiers used by Interaction as type of lifeline;MetaChain;Interaction.lifeline.Lifeline.type;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg16MSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257609276643_869831_1466" isReadOnly="true">
+    <expression>All Realizing Elements;Binary;com.nomagic.magicdraw.derivedproperty.RecursiveExpression(NamedElement.realizingElements, NamedElement.allRealizingElements);</expression>
+  </DSLCustomization:derivedPropertySpecification>
+  <DSLCustomization:derivedPropertySpecification xmi:id="_h1eg2KMSEd-WNNEF1Mb0Dg" base_Element="_16_8beta_8f90291_1257603299340_461480_988" isReadOnly="true">
+    <expression>Abstraction; Relation; Abstraction; Target to source; Component;</expression>
+  </DSLCustomization:derivedPropertySpecification>
+</xmi:XMI>
