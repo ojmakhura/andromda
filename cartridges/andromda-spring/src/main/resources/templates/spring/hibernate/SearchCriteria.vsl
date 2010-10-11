@@ -38,9 +38,6 @@ public class $class.name
     public ${class.name}${parenthesis}
 #foreach ($property in $class.properties)
 #set ($typeName = $property.type.fullyQualifiedName)
-#if ($property.many)
-#set ($typeName = "java.util.Collection")
-#end
         $typeName ${property.name}#if($velocityHasNext),#else)
 #end
 
