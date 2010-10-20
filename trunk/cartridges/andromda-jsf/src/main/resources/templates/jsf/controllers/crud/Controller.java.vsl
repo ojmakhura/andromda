@@ -446,10 +446,8 @@ public abstract class ${manageable.controllerName}
             ${and} org.apache.commons.collections.CollectionUtils.isEmpty(form.getSearchForm().${member.getterName}())
 #elseif($member.type.arrayType)
             ${and} org.apache.commons.lang.ArrayUtils.isEmpty(form.getSearchForm().${member.getterName}())
-#elseif($member.type.booleanType)
-            ${and} form.getSearchForm().get${stringUtils.upperCamelCaseName($member.name)}() == null
 #else
-            ${and} form.getSearchForm().${member.getterName}() == null
+            ${and} form.getSearchForm().#if($member.type.primitive && $member.type.booleanType)get${stringUtils.upperCamelCaseName($member.name)}#else${member.getterName}#end() == null
 #end
 #set ($and = '&&')
 #end
@@ -461,11 +459,7 @@ public abstract class ${manageable.controllerName}
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if(!$member.hidden)##isn't working the ($manageable.searchable($member))
-#if($member.type.booleanType)
-            ${comma}form.getSearchForm().get${stringUtils.upperCamelCaseName($member.name)}()
-#else
-            ${comma}form.getSearchForm().${member.getterName}()
-#end
+            ${comma}form.getSearchForm().#if($member.type.primitive && $member.type.booleanType)get${stringUtils.upperCamelCaseName($member.name)}#else${member.getterName}#end()
 #else
             ${comma}null
 #end
