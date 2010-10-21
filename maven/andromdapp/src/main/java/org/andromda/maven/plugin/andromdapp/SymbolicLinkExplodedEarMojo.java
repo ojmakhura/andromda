@@ -101,12 +101,9 @@ public class SymbolicLinkExplodedEarMojo
             {
                 final Artifact artifact = (Artifact)iterator.next();
                 artifacts.put(
-                    artifact.getFile().toString().replaceAll(
-                        ".*(\\\\|//)",
-                        ""),
+                    artifact.getFile().getName(),
                     artifact);
             }
-
             if (earDirectory.exists() && earDirectory.isDirectory())
             {
                 String linkCommand;
@@ -136,9 +133,7 @@ public class SymbolicLinkExplodedEarMojo
                 for (int ctr = 0; ctr < files.length; ctr++)
                 {
                     final File file = files[ctr];
-                    final String fileName = file.toString().replaceAll(
-                            ".*(\\\\|//)",
-                            "");
+                    final String fileName = file.getName();
                     final Artifact artifact = (Artifact)artifacts.get(fileName);
                     if (artifact == null)
                     {
@@ -165,7 +160,6 @@ public class SymbolicLinkExplodedEarMojo
                             new File(artifact.getFile().toString().replaceAll(
                                     "\\." + artifact.getType(),
                                     ""));
-
                         final String command;
                         if (!isWindows)
                         {
