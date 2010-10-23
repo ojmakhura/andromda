@@ -180,8 +180,15 @@ public class SymbolicLinkExplodedEarMojo
                         {
                             targetFile.delete();
                         }
-                        this.getLog().info("linking " + explodedArtifactDirectory + " to " + targetFile);
-                        Runtime.getRuntime().exec(command);
+                        if (targetFile.isDirectory())
+                        {
+                            this.getLog().info("NOT linking " + explodedArtifactDirectory + " to " + targetFile + " (already linked)");
+                        }
+                        else
+                        {
+                            this.getLog().info("linking " + explodedArtifactDirectory + " to " + targetFile);
+                            Runtime.getRuntime().exec(command);
+                        }
                     }
                 }
 
@@ -203,14 +210,21 @@ public class SymbolicLinkExplodedEarMojo
                 }
                 final File applicationContextXml = new File(explodedEarDirectory, "META-INF/application.xml");
                 FileUtils.touch(applicationContextXml);
-                this.getLog().info("linking " + explodedEarDirectory + " to " + targetFile);
 
                 // - remove the ear file if it exists
                 if (targetFile.isFile())
                 {
                     targetFile.delete();
                 }
-                Runtime.getRuntime().exec(command);
+                if (targetFile.isDirectory())
+                {
+                    this.getLog().info("NOT linking " + explodedEarDirectory + " to " + targetFile + " (already linked)");
+                }
+                else
+                {
+                    this.getLog().info("linking " + explodedEarDirectory + " to " + targetFile);
+                    Runtime.getRuntime().exec(command);
+                }
             }
         }
         catch (Exception exception)
