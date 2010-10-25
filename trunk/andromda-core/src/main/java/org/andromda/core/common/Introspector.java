@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -384,6 +386,11 @@ public final class Introspector
     private final Map propertyDescriptorsCache = new HashMap();
 
     /**
+     * The pattern for property names.
+     */
+    private Pattern propertyNamePattern = Pattern.compile("\\p{Lower}\\p{Upper}.*");
+    
+    /**
      * Retrieves the property descriptor for the given type and name of
      * the property.
      *
@@ -419,7 +426,7 @@ public final class Introspector
 
                     // - handle names that start with a lowercased letter and have an uppercase as the second letter
                     final String compareName =
-                        name.matches("\\p{Lower}\\p{Upper}.*") ? StringUtils.capitalize(name) : name;
+                        propertyNamePattern.matcher(name).matches() ? StringUtils.capitalize(name) : name;
                     if (descriptor.getName().equals(compareName))
                     {
                         propertyDescriptor = descriptor;
