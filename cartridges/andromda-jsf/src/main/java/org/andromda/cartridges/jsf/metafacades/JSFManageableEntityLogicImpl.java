@@ -425,10 +425,13 @@ public class JSFManageableEntityLogicImpl
     {
            for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
            {
-               final JSFManageableEntityAttribute attribute = (JSFManageableEntityAttribute)iterator.next();
-               if (attribute.isValidationRequired())
-               {
-                   return true;
+               final Object attribute = iterator.next();
+               if(attribute instanceof JSFManageableEntityAttribute){
+                   final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+                   if (jsfAttribute.isValidationRequired())
+                   {
+                       return true;
+                   }
                }
            }
            return false;
@@ -610,9 +613,15 @@ public class JSFManageableEntityLogicImpl
    {
        for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
        {
-           final JSFManageableEntityAttribute attribute = (JSFManageableEntityAttribute)iterator.next();
-           if(attribute.isNeedsFileUpload())
-               return true;
+           final Object attribute = iterator.next();
+           if(attribute instanceof JSFManageableEntityAttribute)
+           {    
+               final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+               if(jsfAttribute.isNeedsFileUpload())
+               {
+                   return true;
+               }
+           }
        }
        return false;
    }
