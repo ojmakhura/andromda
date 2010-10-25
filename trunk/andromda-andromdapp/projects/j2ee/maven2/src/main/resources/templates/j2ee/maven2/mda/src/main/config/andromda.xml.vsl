@@ -21,10 +21,6 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-        <repository name="emf-uml2">
-            <models>
-                <model type="emf-uml2">
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <repository name="emf-uml22">
             <models>
@@ -40,10 +36,6 @@
                         <!-- Change to UML_Standard_Profile in local MagicDraw installation directory:
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
-#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-                        <location patterns="**/*.uml2,**/*.e*x">${project.basedir}/src/main/uml</location>
-                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
-                        <location patterns="**/${andromda.version}/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
                         <location patterns="**/*.uml,**/*.e*x">${project.basedir}/src/main/uml</location>
                         <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
@@ -186,7 +178,6 @@
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
                 <property name="entityManagerJTADataSource">${dataSource}</property>
-                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
 #if($hibernate)
                 <property name="persistenceProviderExtensions">hibernate</property>
@@ -240,8 +231,6 @@
                 <property name="hibernateVersion">3</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
-                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${application.package}</property>
@@ -284,8 +273,7 @@
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
                 <property name="connectionUrl">${jdbc.url}</property>
-                <property name="hibernateDialect">${hibernate.dialect}</property>
-                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
