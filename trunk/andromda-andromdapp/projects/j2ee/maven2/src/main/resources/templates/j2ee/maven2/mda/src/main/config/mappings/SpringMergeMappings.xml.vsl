@@ -6,23 +6,12 @@
     use the following merge points.
 -->
 <mappings name="SpringMerge">
-#if ($embeddedJetty)
     <mapping>
         <from><![CDATA[<!-- applicationContext hibernateProperties merge-point -->]]></from>
         <to>
             <![CDATA[
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- add specific (non-supported in the Spring cartridge) hibernate properties here -->
             ]]>
         </to>
     </mapping>
-#else
-    <mapping>
-        <from><![CDATA[<!-- applicationContext hibernateProperties merge-point -->]]></from>
-        <to>
-            <![CDATA[
-                <!-- add specific hibernate properties here -->
-            ]]>
-        </to>
-    </mapping>
-#end
 </mappings>
