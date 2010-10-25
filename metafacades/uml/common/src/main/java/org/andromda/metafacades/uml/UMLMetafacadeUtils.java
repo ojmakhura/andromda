@@ -2,10 +2,8 @@ package org.andromda.metafacades.uml;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
@@ -247,98 +245,6 @@ public class UMLMetafacadeUtils
         return matcher.matches();
     }
     
-    // TODO extract the mappings into the configurable metafacade namespace in UMLProfile
-    private static Map<String, String> implCollection = new HashMap<String, String>();
-    /**
-     * Transforms the declared type to implementation type for a declared Collection.
-     * Default: Collection=LinkedList, List=ArrayList, Set=HashSet, SortedSet=TreeSet.
-     * Retains the generics and package in the template declaration, if any
-     * 
-     * @param input the declared Collection type to be transformed into an implementation type
-     * @return the Collection implementation declaration.
-     */
-    public static String getImplCollection(final String input)
-    {
-        synchronized (implCollection)
-        {
-            // Populate collection map based on profile.xml settings
-            // TODO Use mapped implementation type instead of model types
-            if (implCollection.isEmpty())
-            {
-                // Put all mappings into Map, removing the initial 'datatype::'
-                //implCollection.put("List", "ArrayList");
-                //implCollection.put("Set", "HashSet");
-                //implCollection.put("SortedSet", "TreeSet");
-                //implCollection.put("Map", "HashMap");
-                //implCollection.put("SortedMap", "TreeMap");
-                implCollection.put(UMLProfile.COLLECTION_TYPE_NAME.substring(
-                        UMLProfile.COLLECTION_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.COLLECTION_IMPL_TYPE_NAME.substring(
-                        UMLProfile.COLLECTION_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-                implCollection.put(UMLProfile.LIST_TYPE_NAME.substring(
-                        UMLProfile.LIST_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.LIST_IMPL_TYPE_NAME.substring(
-                        UMLProfile.LIST_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-                implCollection.put(UMLProfile.MAP_TYPE_NAME.substring(
-                        UMLProfile.MAP_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.MAP_IMPL_TYPE_NAME.substring(
-                        UMLProfile.MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-                implCollection.put(UMLProfile.ORDERED_MAP_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_MAP_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-                implCollection.put(UMLProfile.ORDERED_SET_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_SET_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-                implCollection.put(UMLProfile.SET_TYPE_NAME.substring(
-                        UMLProfile.SET_TYPE_NAME.lastIndexOf(':')+1), 
-                    UMLProfile.SET_IMPL_TYPE_NAME.substring(
-                        UMLProfile.SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
-            }
-        }
-        String collectionImpl = input;
-        // No transformation if no package on fullyQualifiedName
-        if (input.indexOf('.') > 0)
-        {
-            String collectionType = null;
-            String genericType = null;
-            String pkg = null;
-            if (input.indexOf('<') > 0)
-            {
-                collectionType = input.substring(0, input.indexOf('<'));
-                genericType = input.substring(input.indexOf('<'));
-            }
-            else
-            {
-                collectionType = input;
-                genericType = "";
-            }
-            if (collectionType.indexOf('.') > 0)
-            {
-                pkg = collectionType.substring(0, collectionType.lastIndexOf('.')+1);
-                collectionType = collectionType.substring(collectionType.lastIndexOf('.')+1);
-            }
-            else
-            {
-                pkg = "java.util.";
-                logger.info("UMLMetafacadeUtils pkg not found for " + collectionType);
-            }
-            String implType = implCollection.get(collectionType);
-            if (implType == null)
-            {
-                logger.info("UMLMetafacadeUtils colectionImpl not found for " + collectionType);
-                collectionImpl = pkg + "ArrayList" + genericType;
-            }
-            else
-            {
-                //logger.info("UMLMetafacadeUtils translated from " + collectionType + " to " + implType);
-                collectionImpl = pkg + implType + genericType;
-            }
-        }
-        return collectionImpl;
-    }
-
     /**
      * Determines if the class/package should be generated. Will not be generated if it has any
      * stereotypes: documentation, docOnly, Future, Ignore, analysis, perspective,

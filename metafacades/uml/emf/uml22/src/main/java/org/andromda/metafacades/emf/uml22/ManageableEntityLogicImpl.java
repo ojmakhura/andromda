@@ -431,12 +431,16 @@ public class ManageableEntityLogicImpl
         for (final Iterator<AttributeFacade> attributeIterator = attributes.iterator();
             attributeIterator.hasNext() && displayAttribute == null;)
         {
-            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
             // TODO: UML2 migrated models automatically mark all * attributes as unique. Different display attributes are selected from UML14 and UML2 migrated models.
             // This selects the first attribute that is unique as the display value.
-            if (attribute.isUnique())
+            final Object attribute = attributeIterator.next();
+            if(attribute instanceof EntityAttribute)//can get attributes from ancestor classes
             {
-                displayAttribute = attribute;
+                final EntityAttribute entityAttribute = (EntityAttribute)attribute;
+                if (entityAttribute.isUnique())
+                {
+                    displayAttribute = entityAttribute;
+                }
             }
         }
 

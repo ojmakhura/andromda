@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -159,6 +160,15 @@ public class ParameterFacadeLogicImpl
             // Multiplicity in return type is only supported in UML2
             return this.getType().getFullyQualifiedName();
         }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeNameImpl()
+     */
+    @Override
+    protected String handleGetGetterSetterTypeNameImpl()
+    {
+        return getGetterSetterTypeName();
     }
 
     /**

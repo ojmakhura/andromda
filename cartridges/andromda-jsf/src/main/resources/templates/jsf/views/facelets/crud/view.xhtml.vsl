@@ -20,7 +20,7 @@
             <tr:selectItem label="#{messages['no']}" value="false"/>
         </tr:selectOneChoice>
 #elseif ($parameter.inputSelect)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
 #else
@@ -48,7 +48,7 @@
 #else
 ##if the widget type is not defined explicitly ...
 #if($parameter.type.enumeration)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
 #else
@@ -233,7 +233,7 @@
 #if($field.type.enumeration)
 #set ($propertyId = $field.name)
 #set ($formValuePropertyName = "${formName}.${field.name}")
-#set ($multiSelect = $field.type.collectionType || $field.type.arrayType)
+#set ($multiSelect = $field.many || $field.type.collectionType || $field.type.arrayType)
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
 #else
