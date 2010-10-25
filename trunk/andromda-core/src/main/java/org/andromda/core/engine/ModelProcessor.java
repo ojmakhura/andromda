@@ -796,7 +796,6 @@ public class ModelProcessor
         this.setXmlValidation(true);
         this.setOutputEncoding(null);
         this.setModelValidation(true);
-        this.setLoggingConfigurationUri(null);
         this.setFailOnValidationErrors(true);
     }
 
