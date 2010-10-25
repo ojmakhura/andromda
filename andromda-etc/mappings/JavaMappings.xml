@@ -227,6 +227,13 @@
         <to>java.util.List</to>
     </mapping>
     <mapping>
+        <from>ArrayList</from>
+        <from>PrimitiveTypes::ArrayList</from>
+        <from>datatype::ArrayList</from>
+        <from>datatypes::ArrayList</from>
+        <to>java.util.ArrayList</to>
+    </mapping>
+    <mapping>
         <from>Set</from>
         <from>PrimitiveTypes::Set</from>
         <from>datatype::Set</from>
@@ -234,11 +241,25 @@
         <to>java.util.Set</to>
     </mapping>
     <mapping>
+        <from>HashSet</from>
+        <from>PrimitiveTypes::HashSet</from>
+        <from>datatype::HashSet</from>
+        <from>datatypes::HashSet</from>
+        <to>java.util.HashSet</to>
+    </mapping>
+    <mapping>
         <from>SortedSet</from>
         <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::SortedSet</from>
         <from>datatypes::SortedSet</from>
         <to>java.util.SortedSet</to>
+    </mapping>
+    <mapping>
+        <from>TreeSet</from>
+        <from>PrimitiveTypes::TreeSet</from>
+        <from>datatype::TreeSet</from>
+        <from>datatypes::TreeSet</from>
+        <to>java.util.TreeSet</to>
     </mapping>
     <mapping>
         <from>Clob</from>
@@ -262,11 +283,25 @@
         <to>java.util.Map</to>
     </mapping>
     <mapping>
+        <from>HashMap</from>
+        <from>PrimitiveTypes::HashMap</from>
+        <from>datatype::HashMap</from>
+        <from>datatypes::HashMap</from>
+        <to>java.util.HashMap</to>
+    </mapping>
+    <mapping>
         <from>SortedMap</from>
         <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::SortedMap</from>
         <from>datatypes::SortedMap</from>
         <to>java.util.SortedMap</to>
+    </mapping>
+    <mapping>
+        <from>TreeMap</from>
+        <from>PrimitiveTypes::TreeMap</from>
+        <from>datatype::TreeMap</from>
+        <from>datatypes::TreeMap</from>
+        <to>java.util.TreeMap</to>
     </mapping>
     <mapping>
         <from>Mappings</from>
