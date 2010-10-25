@@ -43,7 +43,7 @@ public interface $operation.formName
 #elseif ($field.type.fileType)
 #set ($fieldTypeName = "$fileTypeName")
 #else
-#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#set ($fieldTypeName = ${field.getterSetterTypeName})
 #end
     /**
 $field.getDocumentation("     * ")

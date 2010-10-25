@@ -38,7 +38,7 @@
 #elseif ($parameter.inputCheckbox)
         <tr:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" readOnly="$parameter.readOnly"#if($trinidad) partialTriggers="$actionId"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneChoice")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
@@ -77,7 +77,7 @@
 #if($parameter.inputFile)
         <tr:inputFile id="$propertyId" value="#{${formValuePropertyName}}" label="#{messages['$parameter.messageKey']}:" required="$parameter.required" columns="50"#if($trinidad) partialTriggers="$actionId"#end/>
 #elseif($parameter.type.enumeration)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneChoice")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")

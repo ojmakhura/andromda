@@ -135,8 +135,8 @@ public class FrontEndParameterLogicImpl
         final ClassifierFacade type = this.getType();
         if (type != null)
         {
-            isTable = type.isCollectionType() || type.isArrayType();
-            if (isTable)
+            isTable = isMany() || type.isCollectionType() || type.isArrayType();
+            if (!isTable)
             {
                 final String tableTaggedValue = ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
                 isTable =
@@ -216,7 +216,7 @@ public class FrontEndParameterLogicImpl
     {
         final Collection<AttributeFacade> nonArrayAttributes = new ArrayList<AttributeFacade>();
         final ClassifierFacade type = this.getType();
-        if (type != null && type.isArrayType())
+        if (type != null && (type.isArrayType() || isMany()))
         {
             final ClassifierFacade nonArrayType = type.getNonArray();
             if (nonArrayType != null)

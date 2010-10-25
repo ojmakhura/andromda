@@ -32,7 +32,7 @@
 #elseif ($parameter.inputCheckbox)
         <h:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneListbox")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
@@ -70,7 +70,7 @@
 #if($parameter.inputFile)
         <t:inputFileUpload id="$propertyId" value="#{${formValuePropertyName}}" storage="file" size="50" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
 #elseif($parameter.type.enumeration)
-#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
+#set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneListbox")
 #if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")

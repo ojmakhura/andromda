@@ -376,7 +376,7 @@ public class ManageableEntityLogicImpl
      */
     protected Object handleGetDisplayAttribute()
     {
-        AttributeFacade displayAttribute = null;
+        Object displayAttribute = null;
 
         final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
         if (taggedValueObject != null)
@@ -388,10 +388,16 @@ public class ManageableEntityLogicImpl
         for (final Iterator attributeIterator = attributes.iterator();
             attributeIterator.hasNext() && displayAttribute == null;)
         {
-            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
-            if (attribute.isUnique())
+            // TODO: UML2 migrated models automatically mark all * attributes as unique. Different display attributes are selected from UML14 and UML2 migrated models.
+            // This selects the first attribute that is unique as the display value.
+            final Object attribute = attributeIterator.next();
+            if(attribute instanceof EntityAttribute)//can get attributes from ancestor classes
             {
-                displayAttribute = attribute;
+                final EntityAttribute entityAttribute = (EntityAttribute)attribute;
+                if (entityAttribute.isUnique())
+                {
+                    displayAttribute = entityAttribute;
+                }
             }
         }
 
@@ -399,11 +405,11 @@ public class ManageableEntityLogicImpl
         {
             if (!getIdentifiers().isEmpty())
             {
-                displayAttribute = (EntityAttribute)getIdentifiers().iterator().next();
+                displayAttribute = getIdentifiers().iterator().next();
             }
             else if (!attributes.isEmpty())
             {
-                displayAttribute = (EntityAttribute)attributes.iterator().next();
+                displayAttribute = attributes.iterator().next();
             }
         }
 

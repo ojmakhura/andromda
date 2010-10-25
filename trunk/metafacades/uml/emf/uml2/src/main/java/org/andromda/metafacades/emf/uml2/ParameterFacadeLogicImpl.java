@@ -283,6 +283,29 @@ public class ParameterFacadeLogicImpl
         return this.metaObject.getType();
     }
 
+    private String getTemplatingType()
+    {
+        String type = null;
+        if (BooleanUtils.toBoolean(
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                && this.getType() != null)
+        {
+            type = this.getType().getFullyQualifiedName();
+            if (this.getType().isPrimitive())
+            {
+                // Can't template primitive values, Objects only. Convert to wrapped.
+                type = this.getType().getWrapperName();
+            }
+            // Allow List<Type[]> implementations.
+            /*// Don't apply templating to modeled array types
+            if (this.getType().isArrayType())
+            {
+                type = type.substring(0, type.length()-2);
+            }*/
+        }
+        return type;
+    }
+    
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeName()
      */
@@ -306,20 +329,9 @@ public class ParameterFacadeLogicImpl
                                      : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
             }
             // set this attribute's type as a template parameter if required
-            if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            final String type=getTemplatingType();
+            if(type != null)
             {
-                String type = this.getType().getFullyQualifiedName();
-                if (this.getType().isPrimitive())
-                {
-                    // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = this.getType().getWrapperName();
-                }
-                // Don't apply templating to modeled array types
-                if (type.endsWith("[]"))
-                {
-                    type = type.substring(0, type.length()-2);
-                }
                 name += '<' + type + '>';
             }
         }
@@ -343,6 +355,42 @@ public class ParameterFacadeLogicImpl
             }
         }
         return name;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeNameImpl()
+     */
+    @Override
+    protected String handleGetGetterSetterTypeNameImpl()
+    {
+        String nameImpl = null;
+        if (this.handleIsMany() && !this.getType().isArrayType() && !this.getType().isCollectionType())
+        {
+            final TypeMappings mappings = this.getLanguageMappings();
+            if (this.handleIsUnique())
+            {
+                nameImpl =
+                    this.handleIsOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_IMPL_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.SET_IMPL_TYPE_NAME);
+            }
+            else
+            {
+                nameImpl =
+                    this.handleIsOrdered() ? mappings.getTo(UMLProfile.LIST_IMPL_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.COLLECTION_IMPL_TYPE_NAME);
+            }
+            // set this attribute's type as a template parameter if required
+            final String type=getTemplatingType();
+            if(type != null)
+            {
+                nameImpl += '<' + type + '>';
+            }
+        }
+        if (nameImpl == null )
+        {
+            nameImpl = getGetterSetterTypeName();
+        }
+        return nameImpl;
     }
 
     /**
