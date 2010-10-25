@@ -1120,25 +1120,6 @@ public class JSFParameterLogicImpl
         return columnActions;
     }
     
-    //TODO remove after 3.4 release
-    /**
-     * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
-     * @return getterSetterTypeName
-     */
-    public String getGetterSetterTypeName()
-    {
-        final String getterSetterTypeName;
-        if (this.getType() == null)
-        {
-            getterSetterTypeName = null;
-        }
-        else
-        {
-            getterSetterTypeName = this.getType().getFullyQualifiedName();
-        }
-        return getterSetterTypeName;
-    }
-
     /**
      * @return maxLength
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
