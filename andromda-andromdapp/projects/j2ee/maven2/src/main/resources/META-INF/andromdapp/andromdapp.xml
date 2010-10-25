@@ -78,11 +78,6 @@
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
-            <condition id="modelType" equal="emf-uml2"/>
-            <output>mda/src/main/uml/${applicationId}.uml2.vsl</output>
-        </conditions>
-        <conditions type="and">
-            <condition id="model" present="false"/>
             <condition id="modelType" equal="emf-uml22"/>
             <output>mda/src/main/uml/${applicationId}.uml.vsl</output>
         </conditions>
@@ -90,11 +85,6 @@
             <condition id="model" present="false"/>
             <condition id="modelType" equal="rsm7"/>
             <output>mda/src/main/uml/${applicationId}.emx.vsl</output>
-        </conditions>
-        <conditions type="and">
-            <condition id="model" present="false"/>
-            <condition id="modelType" equal="rsm6"/>
-            <output>mda/src/main/uml/${applicationId}-rsm6.emx.vsl</output>
         </conditions>
         <conditions>
             <condition id="configurationUri" present="false"/>
@@ -116,16 +106,8 @@
             <to>${applicationId}.xml.vsl</to>
         </mapping>
         <mapping>
-            <from>empty-model.uml2</from>
-            <to>${applicationId}.uml2.vsl</to>
-        </mapping>
-        <mapping>
             <from>empty-model-rsm7.emx</from>
             <to>${applicationId}.emx.vsl</to>
-        </mapping>
-        <mapping>
-            <from>empty-model-rsm6.emx</from>
-            <to>${applicationId}-rsm6.emx.vsl</to>
         </mapping>
         <mapping>
             <from>empty-model.uml</from>
@@ -173,34 +155,26 @@
                 <shortText>Author</shortText>
             </prompt>
             <prompt id="modelType" setResponseAsTrue="true">
-                <text>Which kind of modeling tool will you use 
+                <text>Which kind of modeling tool will you use? 
 (uml1.4/uml2 for .xml.zip/.xml files, 
-emf-uml2 for .uml2 files, emf-uml22 for .uml files, 
-rsm6 or rsm7 for .emx files)</text>
+emf-uml22 for .uml files, rsm7 for .emx files)
+                </text>
                 <shortText>Model type</shortText>
                 <responses>
                     <response>uml1.4</response>
                     <response>uml2</response>
-                    <response>emf-uml2</response>
                     <response>emf-uml22</response>
-                    <response>rsm6</response>
                     <response>rsm7</response>
                 </responses>
                 <conditions>
                     <condition equal="uml2">
-                        <setProperty id="repositoryType">emf-uml2</setProperty>
-                    </condition>
-                    <condition equal="emf-uml2">
-                        <setProperty id="repositoryType">emf-uml2</setProperty>
+                        <setProperty id="repositoryType">emf-uml22</setProperty>
                     </condition>
                     <condition equal="emf-uml22">
                         <setProperty id="repositoryType">emf-uml22</setProperty>
                     </condition>
                     <condition equal="uml1.4">
                         <setProperty id="repositoryType">uml1.4</setProperty>
-                    </condition>
-                    <condition equal="rsm6">
-                        <setProperty id="repositoryType">emf-uml2</setProperty>
                     </condition>
                     <condition equal="rsm7">
                         <setProperty id="repositoryType">emf-uml22</setProperty>

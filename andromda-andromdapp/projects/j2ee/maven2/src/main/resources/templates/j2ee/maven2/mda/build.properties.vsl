@@ -75,15 +75,6 @@ jboss.default.deploy.dir=${jboss.installation.path}/server/default/deploy
 # For Oracle9i use: Oracle9i
 sql.mappings=MySQL
 
-# The type of database being used - Hibernate specific
-# For MySql use: org.hibernate.dialect.MySQLDialect
-# For Hypersonic use: org.hibernate.dialect.HSQLDialect
-# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
-hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
-
-# Do you want Hibernate to output SQL as it executes it?
-hibernate.db.showSql=false
-
 # The remoting mechanism to use
 remote.type=httpinvoker
 remote.server=127.0.0.1

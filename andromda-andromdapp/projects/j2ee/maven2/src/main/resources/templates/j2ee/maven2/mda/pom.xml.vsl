@@ -29,14 +29,6 @@
             <type>xml.zip</type>
             <scope>runtime</scope>
         </dependency>
-#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-        <dependency>
-            <groupId>org.andromda.profiles.emf.uml2</groupId>
-            <artifactId>andromda-profile-common</artifactId>
-            <version>${andromda.version}</version>
-            <type>uml2</type>
-            <scope>runtime</scope>
-        </dependency>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <dependency>
             <groupId>org.andromda.profiles.emf.uml22</groupId>
@@ -61,14 +53,6 @@
             <artifactId>andromda-profile-seam</artifactId>
             <version>1.1-SNAPSHOT</version>
             <type>xml.zip</type>
-            <scope>runtime</scope>
-        </dependency>
-#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-        <dependency>
-            <groupId>org.andromda.profiles.emf.uml2</groupId>
-            <artifactId>andromda-profile-seam</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <type>uml2</type>
             <scope>runtime</scope>
         </dependency>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
@@ -368,11 +352,9 @@
 #else
 #if ($modelType.equals("uml1.4"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
-#elseif ($modelType.equals("emf-uml2"))
-        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("uml2"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
-#elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
+#elseif ($modelType.equals("rsm7"))
         <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
 #end
 #end
@@ -440,7 +422,6 @@
 #end
         <!-- default strategy to use when using inhertiance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
-        <hibernate.db.showSql>true</hibernate.db.showSql>
         <!-- hibernate generator class to use for identifiers -->
         <hibernate.generatorClass>native</hibernate.generatorClass>
 #end
