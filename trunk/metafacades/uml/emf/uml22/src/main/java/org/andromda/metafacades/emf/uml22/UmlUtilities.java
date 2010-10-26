@@ -677,7 +677,7 @@ public class UmlUtilities
                     valid = stereotypeName.equalsIgnoreCase(name);
                     for (Classifier itStereo : stereotype.allParents())
                     {
-                        valid = StringUtils.trimToEmpty(itStereo.getName()).equalsIgnoreCase(stereotypeName);
+                        valid = valid || StringUtils.trimToEmpty(itStereo.getName()).equalsIgnoreCase(stereotypeName);
                     }
                     return valid;
                 }
