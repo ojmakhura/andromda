@@ -136,7 +136,7 @@ public class FrontEndParameterLogicImpl
         if (type != null)
         {
             isTable = isMany() || type.isCollectionType() || type.isArrayType();
-            if (!isTable)
+            if (isTable)
             {
                 final String tableTaggedValue = ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
                 isTable =
