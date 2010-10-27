@@ -21,7 +21,7 @@
             <property name="configuration">
                 <documentation>
                     The location to which configuration files are generated. These are the files
-                    that typically appear in WEB-INF, such as faces-config.xml and validation-rules.xml, etc.
+                    that typically appear in WEB-INF, such as faces-config.xml, web.xml, etc.
                 </documentation>
             </property>
             <property name="custom-configuration" required="false">
@@ -125,8 +125,8 @@
             <property name="navigationUsesRedirect">
                 <default>true</default>
                 <documentation>
-                    Uses 'redirect' instead of 'forward' to navigate between views. Only works with portletContainer=false (standalone application).
-                </documentation> 
+                    Uses 'redirect' instead of 'forward' to navigate between views.
+                </documentation>
             </property>
         </propertyGroup>
         <propertyGroup name="UI Layout">
@@ -306,6 +306,18 @@
             <property name="defaultRole" required="false">
                 <documentation>
                     The default role of all secured elements.
+                </documentation>
+            </property>
+            <property name="validationExtension">
+                <default>annotations</default>
+                <documentation>
+                    Indicates whether to use a validation extension, beyond the default JSF.
+                    Valid values are:
+                    <ul>
+                        <li>none</li>
+                        <li>annotations</li>
+                        <li>commons-validator</li>
+                    </ul>
                 </documentation>
             </property>
             <property name="clientValidation">

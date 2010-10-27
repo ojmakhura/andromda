@@ -114,6 +114,11 @@ $identifier.getDocumentation("     * ")
 #else
 #set ($fieldTypeName = $field.type.fullyQualifiedName)
 #end
+#if($annotationsValidator)
+#foreach($annotation in $field.annotations)
+    $annotation
+#end
+#end
 #if ($field.defaultValuePresent)
     private $fieldTypeName $field.name = $field.defaultValue;
 #else

@@ -55,6 +55,11 @@ public class $action.formImplementationName
 #else
 #set ($fieldTypeName = ${field.getterSetterTypeName})
 #end
+#if($annotationsValidator)
+#foreach($annotation in $field.annotations)
+    $annotation
+#end
+#end
     private $fieldTypeName $field.name#if ($field.defaultValuePresent) = $field.defaultValue#end;
 
     /**
@@ -62,10 +67,10 @@ $field.getDocumentation("     * ")
      */
     public $fieldTypeName ${field.getterName}()
     {
-#if ($field.many || ($field.complex && !$field.type.enumeration))
+#if ($field.complex && !$field.many && !$field.type.enumeration)
         if (this.$field.name == null)
         {
-            this.$field.name = new ${field.getterSetterTypeNameImpl}();
+            this.$field.name = new ${field.type.fullyQualifiedName}();
             this.${field.setterName}(this.$field.name);
         }
 #end

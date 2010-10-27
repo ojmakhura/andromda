@@ -61,10 +61,6 @@
         </dependency>
 #if ($web)
         <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
         </dependency>
@@ -73,6 +69,10 @@
             <artifactId>oro</artifactId>
         </dependency>
 #if ($struts)
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+        </dependency>
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
@@ -148,6 +148,38 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator</groupId>
+            <artifactId>myfaces-extval-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+            <artifactId>myfaces-extval-property-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+            <artifactId>myfaces-extval-bean-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+            <artifactId>myfaces-extval-generic-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+            <artifactId>myfaces-extval-trinidad-support</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate</groupId>
+        </dependency>
+        <dependency> <!-- needed by hibernate-validator -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 #if ($portlet)
         <dependency>

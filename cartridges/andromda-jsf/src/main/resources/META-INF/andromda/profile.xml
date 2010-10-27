@@ -401,14 +401,7 @@
                                 <td>range</td>
                                 <td>2 of this type</td>
                                 <td>range 2 12</td>
-                                <td>Specifies in which range the value of this attribute must fall</td>
-                            </tr>
-                            <tr>
-                                <td>java.util.Date, java.sql.Date</td>
-                                <td>N/A</td>
-                                <td>[strict] (format)</td>
-                                <td>strict dd/MM/yyyy </td>
-                                <td>The format in which dates need to be specified (optionally strict) (*)</td>
+                                <td>Specifies in which range the value of this attribute must fall, '-' means no limit so 'range - 10' means any number less than or equal 10</td>
                             </tr>
                             <tr>
                                 <td>java.lang.String</td>
