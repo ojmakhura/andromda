@@ -633,6 +633,20 @@ public class JSFUtils
             2) + '$';
     }
 
+    //validator strings
+    static final public String VT_REQUIRED="required";
+    static final public String VT_URL="url";
+    static final public String VT_INT_RANGE="intRange";
+    static final public String VT_FLOAT_RANGE="floatRange";
+    static final public String VT_DOUBLE_RANGE="doubleRange";
+    static final public String VT_EMAIL="email";
+    static final public String VT_CREDIT_CARD="creditCard";
+    static final public String VT_MIN_LENGTH="minlength";
+    static final public String VT_MAX_LENGTH="maxlength";
+    static final public String VT_MASK="mask";
+    static final public String VT_VALID_WHEN="validwhen";
+    static final public String VT_EQUAL="equal";
+    
     /**
      * Retrieves the validator types as a collection from the given
      * <code>element</code> (if any can be retrieved).
@@ -641,7 +655,7 @@ public class JSFUtils
      * @param type the type of the element.
      * @return the collection of validator types.
      */
-    public static Collection getValidatorTypes(
+    public static Collection<String> getValidatorTypes(
         final ModelElementFacade element,
         final ClassifierFacade type)
     {
@@ -654,14 +668,14 @@ public class JSFUtils
             {
                 if (((AttributeFacade)element).isRequired())
                 {
-                    validatorTypesList.add("required");
+                    validatorTypesList.add(VT_REQUIRED);
                 }
             }
             else if (element instanceof JSFParameter)
             {
                 if (((JSFParameter)element).isRequired())
                 {
-                    validatorTypesList.add("required");
+                    validatorTypesList.add(VT_REQUIRED);
                 }
             }
             if (JSFUtils.isByte(type))
@@ -698,22 +712,22 @@ public class JSFUtils
             }
             else if (JSFUtils.isUrl(type))
             {
-                validatorTypesList.add("url");
+                validatorTypesList.add(VT_URL);
             }
 
             if (isRangeFormat)
             {
                 if (JSFUtils.isInteger(type) || JSFUtils.isShort(type) || JSFUtils.isLong(type))
                 {
-                    validatorTypesList.add("intRange");
+                    validatorTypesList.add(VT_INT_RANGE);
                 }
                 if (JSFUtils.isFloat(type))
                 {
-                    validatorTypesList.add("floatRange");
+                    validatorTypesList.add(VT_FLOAT_RANGE);
                 }
                 if (JSFUtils.isDouble(type))
                 {
-                    validatorTypesList.add("doubleRange");
+                    validatorTypesList.add(VT_DOUBLE_RANGE);
                 }
             }
 
@@ -721,11 +735,11 @@ public class JSFUtils
             {
                 if (JSFUtils.isString(type) && JSFUtils.isEmailFormat(format))
                 {
-                    validatorTypesList.add("email");
+                    validatorTypesList.add(VT_EMAIL);
                 }
                 else if (JSFUtils.isString(type) && JSFUtils.isCreditCardFormat(format))
                 {
-                    validatorTypesList.add("creditCard");
+                    validatorTypesList.add(VT_CREDIT_CARD);
                 }
                 else
                 {
@@ -735,26 +749,26 @@ public class JSFUtils
                         String additionalFormat = String.valueOf(formatIterator.next());
                         if (JSFUtils.isMinLengthFormat(additionalFormat))
                         {
-                            validatorTypesList.add("minlength");
+                            validatorTypesList.add(VT_MIN_LENGTH);
                         }
                         else if (JSFUtils.isMaxLengthFormat(additionalFormat))
                         {
-                            validatorTypesList.add("maxlength");
+                            validatorTypesList.add(VT_MAX_LENGTH);
                         }
                         else if (JSFUtils.isPatternFormat(additionalFormat))
                         {
-                            validatorTypesList.add("mask");
+                            validatorTypesList.add(VT_MASK);
                         }
                     }
                 }
             }
             if (JSFUtils.getValidWhen(element) != null)
             {
-                validatorTypesList.add("validwhen");
+                validatorTypesList.add(VT_VALID_WHEN);
             }
             if (JSFUtils.getEqual(element) != null)
             {
-                validatorTypesList.add("equal");
+                validatorTypesList.add(VT_EQUAL);
             }
 
             // - custom (paramterized) validators are allowed here

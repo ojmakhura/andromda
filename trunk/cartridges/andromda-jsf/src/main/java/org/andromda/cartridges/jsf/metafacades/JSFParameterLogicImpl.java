@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -1143,5 +1144,155 @@ public class JSFParameterLogicImpl
             }
             return null;
         }
+    }
+
+    //to be used in the range validator: "range - 1000" or "range 20 -". 
+    final static String UNDEFINED_BOUND="-";
+    
+    final static String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    final static String AN_URL = "@org.hibernate.validator.constraints.URL";
+    final static String AN_LONG_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.LongRange";
+    final static String AN_DOUBLE_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange";
+    final static String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
+    final static String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
+    final static String AN_LENGTH = "@javax.validation.constraints.Size";
+    final static String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
+    final static String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
+    
+    /**
+     * @return the annotations
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
+     */
+    @Override
+    protected Collection handleGetAnnotations() 
+    {
+        final Collection<String>result=new HashSet<String>();
+        boolean requiredAdded=false;
+        for(String vt: (Collection<String>)getValidatorTypes())
+        {
+            if(vt.startsWith("@")) //add the annotation
+            {
+                result.add(vt);
+            }
+            if(JSFUtils.VT_REQUIRED.equals(vt))
+            {
+                requiredAdded=true;
+                result.add(AN_REQUIRED);
+            }
+            else if(JSFUtils.VT_URL.equals(vt))
+            {
+                result.add(AN_URL);
+            }
+            else if(JSFUtils.VT_INT_RANGE.equals(vt))
+            {
+                final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
+                final String format = JSFUtils.getInputFormat((ModelElementFacade)this.THIS());
+                final String rangeStart = JSFUtils.getRangeStart(format);
+                boolean addComma=false; 
+                if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
+                {
+                    sb.append("minimum="+rangeStart);
+                    addComma=true;
+                }
+                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
+                {
+                    if(addComma)
+                    {
+                        sb.append(",");
+                    }
+                    sb.append("maximum="+rangeEnd);
+                }
+                sb.append(")");
+                result.add(sb.toString());
+            }
+            else if(JSFUtils.VT_FLOAT_RANGE.equals(vt) || JSFUtils.VT_DOUBLE_RANGE.equals(vt))
+            {
+                final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
+                final String format = JSFUtils.getInputFormat(((ModelElementFacade)this.THIS()));
+                final String rangeStart = JSFUtils.getRangeStart(format);
+                boolean addComma=false; 
+                if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
+                {
+                    sb.append("minimum="+rangeStart);
+                    addComma=true;
+                }
+                final String rangeEnd = JSFUtils.getRangeEnd(format);
+                if(StringUtils.isNotBlank(rangeEnd) && !rangeEnd.equals(UNDEFINED_BOUND))
+                {
+                    if(addComma)
+                    {
+                        sb.append(",");
+                    }
+                    sb.append("maximum="+rangeEnd);
+                }
+                sb.append(")");
+                result.add(sb.toString());
+            }
+            else if(JSFUtils.VT_EMAIL.equals(vt))
+            {
+                result.add(AN_EMAIL);
+            }
+            else if(JSFUtils.VT_CREDIT_CARD.equals(vt))
+            {
+                result.add(AN_CREDIT_CARD);
+            }
+            else if(JSFUtils.VT_MIN_LENGTH.equals(vt) || JSFUtils.VT_MAX_LENGTH.equals(vt))
+            {
+                final StringBuilder sb=new StringBuilder(AN_LENGTH+"(");
+                final Collection formats = this.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                boolean addComma=false;
+                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                {
+                    final String additionalFormat = String.valueOf(formatIterator.next());
+                    if (JSFUtils.isMinLengthFormat(additionalFormat))
+                    {
+                        if(addComma)
+                        {
+                            sb.append(",");
+                        }
+                        sb.append("min=");
+                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        addComma=true;
+                    }
+                    else if (JSFUtils.isMaxLengthFormat(additionalFormat))
+                    {
+                        if(addComma)
+                        {
+                            sb.append(",");
+                        }
+                        sb.append("max=");
+                        sb.append(JSFUtils.getMinLengthValue(additionalFormat));
+                        addComma=true;
+                    }
+                }
+                sb.append(")");
+                result.add(sb.toString());
+            }
+            else if(JSFUtils.VT_MASK.equals(vt))
+            {
+                final Collection formats = this.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                {
+                    final String additionalFormat = String.valueOf(formatIterator.next());
+                    if (JSFUtils.isPatternFormat(additionalFormat))
+                    {
+                        result.add(AN_PATTERN+"(\""+JSFUtils.getPatternValue(additionalFormat)+"\")");
+                    }
+                }
+            }
+            else if(JSFUtils.VT_VALID_WHEN.equals(vt))
+            {
+                result.add("");
+            }
+            else if(JSFUtils.VT_EQUAL.equals(vt))
+            {
+                result.add(AN_EQUALS+"(\""+JSFUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
+            }
+        }
+        if(!requiredAdded && getLower() > 0){
+            result.add(AN_REQUIRED);
+        }
+        return result;
     }
 }

@@ -111,6 +111,7 @@ login.na=This feature is not available yet
 #
 errors.header=You have one or more error(s) present:
 
+#if($commonsValidator)
 errors.required={0} is required.
 errors.minlength={0} can not be less than {1} characters.
 errors.maxlength={0} can not be greater than {1} characters.
@@ -131,6 +132,7 @@ errors.email={0} is an invalid e-mail address.
 errors.url={0} is an invalid URL.
 errors.equal={0} must equal {1}.
 
+#end
 #
 # logged in/logout messages
 #

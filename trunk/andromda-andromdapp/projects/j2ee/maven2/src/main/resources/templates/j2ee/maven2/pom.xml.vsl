@@ -107,6 +107,47 @@
                 <artifactId>tomahawk12</artifactId>
                 <version>1.1.9</version>
             </dependency>
+            <!-- validation dependencies -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator</groupId>
+                <artifactId>myfaces-extval-core</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+                <artifactId>myfaces-extval-property-validation</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+                <artifactId>myfaces-extval-bean-validation</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+                <artifactId>myfaces-extval-generic-support</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+                <artifactId>myfaces-extval-trinidad-support</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>hibernate-validator</artifactId>
+                <groupId>org.hibernate</groupId>
+                <version>4.1.0.Final</version>
+            </dependency>
+            <dependency> <!-- needed by hibernate-validator -->
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.5.8</version>
+            </dependency>
 #if ($portlet)
             <dependency>
                 <groupId>javax.portlet</groupId>
@@ -482,11 +523,6 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>1.3.1</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
@@ -512,6 +548,11 @@
             </dependency>
 #end
 #if ($struts)
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.3.1</version>
+            </dependency>
             <dependency>
                 <groupId>struts</groupId>
                 <artifactId>struts</artifactId>
@@ -1497,6 +1538,16 @@
         <repository>
             <id>Codehaus Snapshots</id>
             <url>http://snapshots.repository.codehaus.org/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>Apache Snapshots</id>
+            <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
