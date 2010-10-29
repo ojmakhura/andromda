@@ -220,7 +220,7 @@
         </tr:subform>
         </tr:panelGroupLayout>
         <tr:panelGroupLayout layout="vertical" inlineStyle="display:#{${formName}.editState?'':'none'}">
-        <tr:subform id="${editFormId}" #if($clientValidation) onsubmit="return $formValidateName(this);"#end>
+        <tr:subform id="${editFormId}" #if($clientValidation && $commonsValidator) onsubmit="return $formValidateName(this);"#end>
             <tr:panelFormLayout>
 ##todo **** temporary solution ****
 #set($oldTrinidadValue=$trinidad)
@@ -297,7 +297,7 @@
                    </tr:panelButtonBar>
             </f:facet>
             </tr:panelFormLayout>
-#if ($manageable.validationRequired)
+#if ($manageable.validationRequired && $commonsValidator)
             <a:validator#if(!$clientValidation) client="false"#end/>
 #end
         </tr:subform>
