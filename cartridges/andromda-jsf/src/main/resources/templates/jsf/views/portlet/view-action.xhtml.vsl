@@ -26,7 +26,7 @@
 #else
 #set ($clientValidation = $clientValidation && $action.validationRequired)
 #set ($formValidateName = "validate$stringUtils.capitalize($formName)")
-<h:form id="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end#if($action.needsFileUpload) enctype="multipart/form-data"#end>
+<h:form id="$formName"#if($clientValidation && $commonsValidator) onsubmit="return $formValidateName(this);"#end#if($action.needsFileUpload) enctype="multipart/form-data"#end>
     <h:panelGrid columns="2">
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.selectable || $parameter.type.enumeration)
@@ -44,7 +44,9 @@
         <h:commandButton value="#{messages['$action.trigger.resetMessageKey']}" type="reset"/>
 #end
     </h:panelGroup>
+#if($commonsValidator)
     <a:validator#if(!$clientValidation) client="false"#end/>
+#end
 </h:form>
 #end
 </ui:composition>

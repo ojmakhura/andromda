@@ -37,7 +37,7 @@
 #else
 #set ($clientValidation = $clientValidation && $action.validationRequired)
 #set ($formValidateName = "validate$stringUtils.capitalize($formName)")
-<tr:subform id="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end>
+<tr:subform id="$formName"#if($clientValidation && $commonsValidator) onsubmit="return $formValidateName(this);"#end>
 #if (!$action.hiddenParameters.empty)
     <ui:include src="${action.viewFragmentPath}-hidden-params.xhtml"/>
 #end
@@ -60,7 +60,9 @@
             </tr:panelButtonBar>
         </f:facet>
     </tr:panelFormLayout>
+#if($commonsValidator)
     <a:validator#if(!$clientValidation) client="false"#end/>
+#end
 </tr:subform>
 #end
 </ui:composition>
