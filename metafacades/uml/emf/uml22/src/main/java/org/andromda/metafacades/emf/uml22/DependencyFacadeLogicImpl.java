@@ -58,7 +58,7 @@ public class DependencyFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return "get" + StringUtils.capitalize(this.getName());
+        return "get" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -67,7 +67,7 @@ public class DependencyFacadeLogicImpl
     @Override
     protected String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(this.getName());
+        return "set" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**

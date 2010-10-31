@@ -107,7 +107,7 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsPrimitive()
     {
         return this.getWrapperMappings() != null &&
-        this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
+        this.getWrapperMappings().getMappings().containsFrom(this.handleGetFullyQualifiedName());
     }
 
     /**
@@ -120,8 +120,8 @@ public class ClassifierFacadeLogicImpl
     {
         // Try both the fully qualified name and the ClassName
         return this.getWrapperMappings() != null &&
-        ( this.getWrapperMappings().getMappings().containsTo(this.getFullyQualifiedName())
-          || this.getWrapperMappings().getMappings().containsTo(this.getName()));
+        ( this.getWrapperMappings().getMappings().containsTo(this.handleGetFullyQualifiedName())
+          || this.getWrapperMappings().getMappings().containsTo(this.handleGetName()));
     }
 
     /**
@@ -169,7 +169,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List handleGetProperties()
     {
-        return this.getProperties(false);
+        return this.handleGetProperties(false);
     }
 
     /**
@@ -178,7 +178,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     public Collection handleGetAllProperties()
     {
-        return this.getProperties(true);
+        return this.handleGetProperties(true);
     }
 
     /**
@@ -260,7 +260,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsArrayType()
     {
-        return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
+        return this.handleGetFullyQualifiedName(true).endsWith(this.getArraySuffix());
     }
 
     /*
@@ -307,9 +307,9 @@ public class ClassifierFacadeLogicImpl
         String wrapperName = null;
         if (this.getWrapperMappings() != null)
         {
-            if (this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName()))
+            if (this.getWrapperMappings().getMappings().containsFrom(this.handleGetFullyQualifiedName()))
             {
-                wrapperName = this.getWrapperMappings().getTo(this.getFullyQualifiedName());
+                wrapperName = this.getWrapperMappings().getTo(this.handleGetFullyQualifiedName());
             }
         }
         return wrapperName;
@@ -416,12 +416,12 @@ public class ClassifierFacadeLogicImpl
             }
             else
             {
-                javaNewString = this.getFullyQualifiedName() + ".valueOf(0)";
+                javaNewString = this.handleGetFullyQualifiedName() + ".valueOf(0)";
             }
         }
         else
         {
-            javaNewString = "new " + this.getFullyQualifiedName() + "()";
+            javaNewString = "new " + this.handleGetFullyQualifiedName() + "()";
         }
         return javaNewString;
     }
@@ -524,8 +524,8 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsStringType()
     {
         // Allow mapping multiple model types to String type
-        return "String".equals(this.getFullyQualifiedName())
-           || "java.lang.String".equals(this.getFullyQualifiedName())
+        return "String".equals(this.handleGetFullyQualifiedName())
+           || "java.lang.String".equals(this.handleGetFullyQualifiedName())
            || UMLMetafacadeUtils.isType(
             this,
             UMLProfile.STRING_TYPE_NAME);
@@ -552,7 +552,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetArrayName()
     {
-        return this.getName() + this.getArraySuffix();
+        return this.handleGetName() + this.getArraySuffix();
     }
 
     /**
@@ -564,7 +564,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected String handleGetFullyQualifiedArrayName()
     {
-        return this.getFullyQualifiedName() + this.getArraySuffix();
+        return this.handleGetFullyQualifiedName() + this.getArraySuffix();
     }
 
     /**
@@ -910,10 +910,10 @@ public class ClassifierFacadeLogicImpl
 
         String arraySuffix = this.getArraySuffix();
 
-        if (this.getFullyQualifiedName().indexOf(arraySuffix) != -1)
+        if (this.handleGetFullyQualifiedName().indexOf(arraySuffix) != -1)
         {
             PackageFacade packageFacade = this.getRootPackage();
-            String fullQualifiedName = this.getFullyQualifiedName(true);
+            String fullQualifiedName = this.handleGetFullyQualifiedName(true);
 
             if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
             {
@@ -940,7 +940,7 @@ public class ClassifierFacadeLogicImpl
         ClassifierFacade arrayType = (ClassifierFacade)this.THIS();
         if (this.metaObject instanceof PrimitiveType)
         {
-            String name = this.getFullyQualifiedName(true);
+            String name = this.handleGetFullyQualifiedName(true);
             if (!name.contains(this.getArraySuffix()))
             {
                 name += this.getArraySuffix();

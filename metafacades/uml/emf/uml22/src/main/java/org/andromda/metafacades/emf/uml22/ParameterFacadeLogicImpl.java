@@ -176,7 +176,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -185,7 +185,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(this.getName());
+        return "set" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**

@@ -54,7 +54,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     @Override
     protected String handleGetActionMethodName()
     {
-        return '_' + StringUtilsHelper.lowerCamelCaseName(this.getName());
+        return '_' + StringUtilsHelper.lowerCamelCaseName(this.handleGetName());
     }
 
     /**

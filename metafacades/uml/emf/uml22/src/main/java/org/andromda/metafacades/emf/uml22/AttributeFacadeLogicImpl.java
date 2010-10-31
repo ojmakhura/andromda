@@ -1,7 +1,9 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Collection;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -42,7 +44,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -51,7 +53,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(this.getName());
+        return "set" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -168,7 +170,7 @@ public class AttributeFacadeLogicImpl
         if (this.isEnumerationLiteral())
         {
             value = this.getDefaultValue();
-            value = (StringUtils.isBlank(value)) ? this.getName() : String.valueOf(value);
+            value = (StringUtils.isBlank(value)) ? this.handleGetName() : String.valueOf(value);
         }
         if (this.getType().isStringType() && value!=null && value.indexOf('"')<0)
         {
@@ -259,7 +261,7 @@ public class AttributeFacadeLogicImpl
                 name += '<' + type + '>';
             }
         }
-        if (name == null && this.getType() != null)
+        if (name == null && this.handleGetType() != null)
         {
             name = this.getType().getFullyQualifiedName();
             // Special case: lower bound overrides primitive/wrapped type declaration

@@ -84,7 +84,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
     @Override
     public String toString()
     {
-        return this.valueSet ? this.getName() : super.toString();
+        return this.valueSet ? this.handleGetName() : super.toString();
     }
 
     /**
