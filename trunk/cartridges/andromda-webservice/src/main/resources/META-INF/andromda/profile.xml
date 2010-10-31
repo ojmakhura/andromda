@@ -9,7 +9,7 @@
         <elementGroup name="Stereotypes">
             <element name="SERVICE">
                 <documentation>
-                    Creates a WSDD file for each model element with
+                    (From Java profile) Creates a WSDD file for each model element with
                     this stereotype.  Each method to be exposed, must be
                     stereotyped with the <![CDATA[<<WebServiceOperation>>]]> stereotype.
                 </documentation>
@@ -37,70 +37,110 @@
             </element>
             <element name="VALUE_OBJECT">
                 <documentation>
-                    Allows the definition of complex types.  These types can be related
+                    (From Java Profile) Allows the definition of complex types.  These types can be related
                     to each other through associations and if the association multiplicity
                     is greater than 1, then an array reference will be generated (instead
-                    of a Collection).
+                    of a Collection), unless using CXF or JAX-WS with useArrayWrapper=false.
                 </documentation>
                 <value>ValueObject</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
             <element name="ENUMERATION">
                 <documentation>
-                    Allows the definition of enumerated types.  These types <strong>MUST</strong>
-                  define their attributes as <em>frozen</em>.
+                  (From Java profile) Allows the definition of enumerated types.  These types <strong>MUST</strong>
+                  define their attributes as <em>frozen</em>. Deprecated: Use UML Enumerations instead.
                 </documentation>
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
             <element name="NULLABLE">
                 <documentation>
-                    Allows you to define whether or not operation parameters can be nullable
+                    (From Java profile) Allows you to define whether or not operation parameters can be nullable
                     or <em>nillable</em> (in WSDL terms).  If this is <strong>NOT</strong>
                     defined on a parameter, then a null check will be generated for that
-                    parameter on the service operation.
+                    parameter on the service operation. Deprecated: Use UML2 multiplicity lowerBound = 0.
                 </documentation>
                 <value>Nullable</value>
                 <appliedOnElement>Service operation parameter</appliedOnElement>
             </element>
             <element name="PACKAGE_MAP">
                 <documentation>
-                    Defines a package which is mapped to a Schema Namespace, so that an .xsd
+                    (From XML profile) Defines a package which is mapped to a Schema Namespace, so that an .xsd
                     file is created for this package and imported by the wsdl files that 
-                    reference the schema
+                    reference the schema. Deprecated: Use XMLSchema instead.
                 </documentation>
                 <value>packageMap</value>
-                <appliedOnElement>package</appliedOnElement>
+                <appliedOnElement>Package</appliedOnElement>
             </element>
             <element name="XML_SCHEMA">
                 <documentation>
-                    Defines a package which is mapped to a Schema Namespace, so that an .xsd
-                    file is created for this package and imported by the wsdl files that 
-                    reference the schema
+                    (From XML profile) Defines a package which is mapped to a Schema Namespace, so that an .xsd
+                    file is created for this package and imported by the wsdl files that reference the schema.
+                    ValueObjects referenced in the service must be in a package with this Stereotype if
+                    importedXSD=true (the default).
                 </documentation>
                 <value>XmlSchema</value>
-                <appliedOnElement>package</appliedOnElement>
+                <appliedOnElement>Package</appliedOnElement>
             </element>
             <element name="XML_ATTRIBUTE">
                 <documentation>
-                    Attribute, parameter is rendered as an XML attribute instead of an element. Overrides global default.
+                    (From XML profile) Attribute, parameter is rendered as an XML attribute instead of an element. Overrides global default.
                 </documentation>
                 <value>XmlAttribute</value>
                 <appliedOnElement>attribute, parameter</appliedOnElement>
             </element>
             <element name="XML_ELEMENT">
                 <documentation>
-                    Attribute, parameter is rendered as an XML element instead of an attribute. Overrides global default.
+                    (From XML profile) Attribute, parameter is rendered as an XML element instead of an attribute. Overrides global default.
                 </documentation>
                 <value>XmlElement</value>
                 <appliedOnElement>attribute, parameter</appliedOnElement>
             </element>
             <element name="NO_XML">
                 <documentation>
-                    Do not render class, parameter, property with Xml Jaxb annotations. Overrides global default.
+                    (From XML profile) Do not render class, parameter, property with Xml Jaxb annotations. Overrides global default.
                 </documentation>
                 <value>NoXml</value>
                 <appliedOnElement>class, attribute, parameter</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_FEED">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<WebService>>]]> stereotype.
+                    Annotates CXF REST classes producing Atom feeds with custom feed and entry properties.
+                    Adds JAX-RS annotations to the service operation.
+                    If not specified, properties must be implemented in WSDelegate implementation class.
+                    Feed Properties include author, category, contributor, generator, icon, id, link, logo,
+                    rights, source, subtitle, title, updated.
+                    Entry Properties include author, category, contributor, id, link, published,
+                    rights, summary, title, updated.
+                </documentation>
+                <value>WebServiceFeed</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_PARAM">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<WebServiceOperation>>]]> stereotype with CXF.
+                    Additional Detail on WebService parameter, different than defaults, which maps
+                    Stereotype attribute values to REST values for the parameter by adding JAX-RS annotations.
+                    Attributes include: name, mode, header, partName, encoded, REST_parameter_URL, 
+                    REST_path_param, REST_param_type, REST_path_segment.
+                </documentation>
+                <value>WebServiceParam</value>
+                <appliedOnElement>Service operation parameter</appliedOnElement>
+            </element>
+            <element name="WEB_FAULT">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<ValueObject>>]]> and  <![CDATA[<<ApplicationException>>]]> 
+                    stereotypes with CXF. Designates an Exception class as a JAX-WS WebFault, which creates a faultBean class 
+                    referenced by the service containing a fault exception and cause in the same package as the Service, plus 
+                    the original WebFault exception class. JavaException name is mapped to the webservice fault name in the wsdl definition.
+                    WebService Faults must be modeled as a UML operation Exception, referencing
+                    a Class with one of the Exception stereotypes. This class must have a single association to
+                    a ValueObject that is also labeled with <![CDATA[<<WebFault>>]]>. This class contains the additional details
+                    returned through the webservice fault.
+                </documentation>
+                <value>WebFault</value>
+                <appliedOnElement>Exception referenced by Service operation</appliedOnElement>
             </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
@@ -118,7 +158,7 @@
                     Default=wrapped.
                 </documentation>
                 <value>andromda_webservice_parameter_style</value>
-                <appliedOnElement>Service and WebService</appliedOnElement>
+                <appliedOnElement>Service and WebService and WebServiceOperation</appliedOnElement>
             </element>
             <element name="WEB_SERVICE_USE">
                 <documentation>
@@ -135,6 +175,7 @@
                     that can be specified is <code>EJB</code>, if this is specified,
                     then its expected that either the EJB or Hibernate cartridge
                     is being used with this cartridge. Use <code>JAX-WS</code> for jaxws or cxf.
+                    Can be 'EJB' or 'RPC' or 'JAX-WS'. Default=default. Not applicable for JAX-WS.
                 </documentation>
                 <value>andromda_webservice_provider</value>
                 <appliedOnElement>Service and WebService</appliedOnElement>
@@ -173,7 +214,10 @@
             </element>
             <element name="XML_SCHEMA_VALIDATION">
                 <documentation>
-                    Validate the incoming web service XML against the service wsdl/xsd schema.
+                    Validate incoming/outgoing XML against the declared schema. Default=false allows minor 
+                    service revisions to use the same service version when optional attributes are added 
+                    to the new minor revision. JAX-WS and CXF services only - sets options in 
+                    Spring ApplicationContext.xml.
                 </documentation>
                 <value>andromda_schema_validation</value>
                 <appliedOnElement>service, operation</appliedOnElement>
@@ -225,18 +269,181 @@
             </element>
             <element name="JAXB_SIMPLE_BINDING_MODE">
                 <documentation>
-                    Overrides the default Jaxb simpleBindingMode for this service in wsdl2java. 
-                    default=true. 
+                    If Jaxb2 SimpleBindingMode should be used when generating Java objects from the WSDL webservice
+                    definition using the wsdl2java utility. Default=true. 
                 </documentation>
                 <value>andromda_jaxb_simpleBindingMode</value>
-                <appliedOnElement>webservice</appliedOnElement>
+                <appliedOnElement>WebService</appliedOnElement>
             </element>
             <element name="JAXB_XJC_ARGUMENTS">
                 <documentation>
-                    Overrides the default Jaxb XJC arguments for this service in wsdl2java.
+                    WebService stereotype: Override global default XJC arguments used when creating Jaxb XML bindings 
+                    from the webservice definition through the wsdl2java utility. Default is 
+                    -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve.
+                    This creates toString methods using apache commons-lang, creates ValueObject constructor,
+                    get/set on Collection types, and allows preserving methods and some code across multiple 
+                    code generation invocations. Uses JAXB2 plugin dependencies referenced by BuildWS.xml ant script.
                 </documentation>
                 <value>andromda_jaxb_xjcArguments</value>
-                <appliedOnElement>webservice</appliedOnElement>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="SCHEMA_VALIDATION">
+                <documentation>
+                </documentation>
+                <value>andromda_schema_validation</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="SERIALVERSIONUID">
+                <documentation>
+                    Adds serialVeraionUID to WebService class
+                </documentation>
+                <value>andromda_serialVersionUID</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="SERVICE_LOGGING">
+                <documentation>
+                    Log incoming and outgoing XML messages in CXF. 
+                    Configures Spring logging. default=true, 
+                    but the Spring Configuration is not overwritten if changed.
+                </documentation>
+                <value>andromda_service_logging</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="SERVICE_NAME">
+                <documentation>
+                    Customize the @WebService(serviceName) annotation and wsdl bindings. 
+                    Default empty uses the class name as the service name.
+                </documentation>
+                <value>andromda_webservice_serviceName</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WSDL_LOCATION">
+                <documentation>
+                    Customize the @WebService(wsdlLocation) annotation and wsdl bindings. 
+                    Default empty uses the URI at which the service is deployed, so the wsdl is 
+                    created from the @WebService annotations dynamically.
+                </documentation>
+                <value>andromda_webservice_wsdlLocation</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WSDL_SOAP_ADDRESS">
+                <documentation>
+                    Overrides the global wsdlSoapAddress setting for this WebService class.
+                </documentation>
+                <value>andromda_webservice_wsdlSoapAddress</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_OPERATION_NAME">
+                <documentation>
+                    CXF and JAX-WS: Customize the exposed service operation name with @WebMethod(operationName). 
+                    Can prevent conflicts due to overloaded operations, which are not allowed in JAX-WS 
+                    without annotations and bindings customizations.
+                </documentation>
+                <value>andromda_webservice_operationName</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST">
+                <documentation>
+                    Implement this class as a CXF REST webservice. This is the only value required 
+                    to be set, all the other REST options are set to default values unless overridden.
+                    All methods on the WebService class will be REST.
+                </documentation>
+                <value>andromda_REST</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_CONSUMES">
+                <documentation>
+                    Media type consumed by this service.
+                </documentation>
+                <value>andromda_REST_consumes</value>
+                <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_CONTEXTS">
+                <documentation>
+                    Adds @Context annotations to the service. 
+                    Context(s) are comma or semicolon or pipe 
+                    delimited, appear on separate lines within the Service class.
+                </documentation>
+                <value>andromda_REST_contexts</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_HTTP_METHOD">
+                <documentation>
+                    Custom Http Method, something other than GET/PUT/POST.
+                </documentation>
+                <value>andromda_REST_http_method</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_PATH">
+                <documentation>
+                    URL path for REST webservice. default=lowercase class name.
+                </documentation>
+                <value>andromda_REST_path</value>
+                <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_PRODUCES">
+                <documentation>
+                    Type of service output produced by the service.
+                </documentation>
+                <value>andromda_REST_produces</value>
+                <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_PROVIDER">
+                <documentation>
+                    Marks service with @Provider annotation, used with @Produces and @Consumes
+                </documentation>
+                <value>andromda_REST_provider</value>
+                <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_REQUEST_TYPE">
+                <documentation>
+                    REST Request type (GET, POST, PUT, DELETE, HEADER, OPTIONS).
+                </documentation>
+                <value>andromda_REST_request_type</value>
+                <appliedOnElement>WebService,WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_RETENTION_POLICY">
+                <documentation>
+                    RetentionPolicy. default=RUNTIME.
+                </documentation>
+                <value>andromda_REST_</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_TARGET">
+                <documentation>
+                    ElementType. default=METHOD.
+                </documentation>
+                <value>andromda_REST_target</value>
+                <appliedOnElement>WebService</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_ENCODED">
+                <documentation>
+                    Adds @Encoded annotation. default=false (no annotation)
+                </documentation>
+                <value>andromda_REST_encoded</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_PART_TYPE">
+                <documentation>
+                    Multipart response part type annotation.
+                </documentation>
+                <value>andromda_REST_part_type</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_SUSPEND">
+                <documentation>
+                    Annotates method with @Suspend(interval in ms), used for 
+                    asynchronous responses and polling. default=0 (do not suspend, do not add annotation).
+                </documentation>
+                <value>andromda_REST_suspend</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_REST_ROLES_ALLOWED">
+                <documentation>
+                    Comma separated list of security roles. May include 'all', 'none'.
+                </documentation>
+                <value>andromda_REST_roles_allowed</value>
+                <appliedOnElement>WebServiceOperation</appliedOnElement>
             </element>
         </elementGroup>
     </elements>
