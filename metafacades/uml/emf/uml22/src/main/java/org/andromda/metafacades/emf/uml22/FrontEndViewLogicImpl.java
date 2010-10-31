@@ -144,9 +144,8 @@ public class FrontEndViewLogicImpl
     {
         final List<FrontEndParameter> actionParameters = new ArrayList();
         final Collection<FrontEndAction> actions = this.getActions();
-        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        for (FrontEndAction action : actions)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
             actionParameters.addAll(action.getParameters());
         }
         return actionParameters;
@@ -160,9 +159,8 @@ public class FrontEndViewLogicImpl
     {
         final List<FrontEndParameter> actionParameters = new ArrayList();
         final Collection<FrontEndAction> actions = this.getActions();
-        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        for (FrontEndAction action : actions)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
             actionParameters.addAll(action.getParameters());
         }
         return actionParameters;

@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -93,12 +94,11 @@ public class FrontEndUseCaseLogicImpl
     protected List<FrontEndUseCase> handleGetAllUseCases()
     {
         final List<FrontEndUseCase> useCases = new ArrayList();
-        for (final Iterator useCaseIterator = this.getModel().getAllUseCases().iterator(); useCaseIterator.hasNext();)
+        for (UseCaseFacade useCase : this.getModel().getAllUseCases())
         {
-            final Object object = useCaseIterator.next();
-            if (object instanceof FrontEndUseCase)
+            if (useCase instanceof FrontEndUseCase)
             {
-                useCases.add((FrontEndUseCase)object);
+                useCases.add((FrontEndUseCase)useCase);
             }
         }
         return useCases;
@@ -151,11 +151,10 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<Role> handleGetRoles()
     {
-        final Collection allRoles = new LinkedHashSet();
+        final Collection<Role> allRoles = new LinkedHashSet<Role>();
         final Collection<Role> associatedUsers = this.getAssociatedRoles();
-        for (final Iterator<Role> iterator = associatedUsers.iterator(); iterator.hasNext();)
+        for (Role user : associatedUsers)
         {
-            final Role user = iterator.next();
             this.collectRoles(
                 user,
                 allRoles);
@@ -281,14 +280,13 @@ public class FrontEndUseCaseLogicImpl
         // names are the same for different forms, storing them in a map
         // solves this issue because those names do not have the action-name
         // prefix
-        final Collection views = this.getViews();
+        final Collection<FrontEndView> views = this.getViews();
         for (final Iterator pageIterator = views.iterator(); pageIterator.hasNext();)
         {
             final FrontEndView view = (FrontEndView)pageIterator.next();
             final Collection<FrontEndParameter> variables = view.getVariables();
-            for (final Iterator<FrontEndParameter> variableIterator = variables.iterator(); variableIterator.hasNext();)
+            for (FrontEndParameter variable : variables)
             {
-                FrontEndParameter variable = variableIterator.next();
                 final String name = variable.getName();
                 if (StringUtils.isNotBlank(name))
                 {

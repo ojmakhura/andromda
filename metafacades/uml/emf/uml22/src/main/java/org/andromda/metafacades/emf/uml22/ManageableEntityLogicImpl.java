@@ -17,6 +17,8 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
+import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -92,9 +94,9 @@ public class ManageableEntityLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableAssociationEnds()
      */
     @Override
-    protected List handleGetManageableAssociationEnds()
+    protected List<AssociationEndFacade> handleGetManageableAssociationEnds()
     {
-        final Set manageableAssociationEnds = new LinkedHashSet(); // linked
+        final Set<AssociationEndFacade> manageableAssociationEnds = new LinkedHashSet<AssociationEndFacade>(); // linked
 
         // hashset
         // to
@@ -106,7 +108,7 @@ public class ManageableEntityLogicImpl
             manageableAssociationEnds,
             this);
 
-        return new ArrayList(manageableAssociationEnds);
+        return new ArrayList<AssociationEndFacade>(manageableAssociationEnds);
     }
 
     /**
@@ -164,7 +166,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected String handleGetManageableServiceName()
     {
-        return this.getName() + "ManageableService";
+        return this.handleGetName() + "ManageableService";
     }
 
     /**
@@ -237,9 +239,9 @@ public class ManageableEntityLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableAttributes()
      */
     @Override
-    protected List handleGetManageableAttributes()
+    protected List<AttributeFacade> handleGetManageableAttributes()
     {
-        List attList = new ArrayList(this.getAttributes(true));
+        List<AttributeFacade> attList = new ArrayList<AttributeFacade>(this.getAttributes(true));
         return attList;
     }
 
@@ -253,6 +255,7 @@ public class ManageableEntityLogicImpl
     }
 
     /**
+     * Contains both Attributes and AssociationEnds
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableMembers()
      */
     @Override
@@ -274,15 +277,13 @@ public class ManageableEntityLogicImpl
     {
         final StringBuilder buffer = new StringBuilder();
 
-        final List attributes = this.getManageableAttributes();
-        for (int i = 0; i < attributes.size(); i++)
+        for (ManageableEntityAttribute attribute : this.getManageableAttributes())
         {
             if (buffer.length() > 0)
             {
                 buffer.append(", ");
             }
 
-            final AttributeFacade attribute = (AttributeFacade)attributes.get(i);
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
@@ -300,10 +301,8 @@ public class ManageableEntityLogicImpl
             }
         }
 
-        final List associationEnds = this.getManageableAssociationEnds();
-        for (int i = 0; i < associationEnds.size(); i++)
+        for (ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds())
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEnds.get(i);
             final Entity entity = (Entity)associationEnd.getType();
 
             if(entity.isCompositeIdentifier())
@@ -325,10 +324,8 @@ public class ManageableEntityLogicImpl
             } 
             else 
             {
-                final Iterator identifierIterator = entity.getIdentifiers().iterator();
-                if (identifierIterator.hasNext())
+                for (EntityAttribute identifier : entity.getIdentifiers())
                 {
-                    final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
                     if (identifier != null)
                     {
                         if (buffer.length() > 0)
@@ -608,7 +605,7 @@ public class ManageableEntityLogicImpl
         {
             try
             {
-                resolveable = Boolean.valueOf(taggedValueObject.toString());
+                resolveable = Boolean.valueOf(taggedValueObject.toString()).booleanValue();
             }
             catch (NumberFormatException e)
             {
@@ -631,7 +628,7 @@ public class ManageableEntityLogicImpl
         {
             resolveable =
                     Boolean.valueOf(
-                            (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE));
+                            (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
         }
         catch (NumberFormatException ex)
         {
@@ -647,7 +644,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected List<ManageableEntity> handleGetAllManageables()
     {
-        final Set allManageableEntities = new TreeSet(new ManageableComparator());
+        final Set<ManageableEntity> allManageableEntities = new TreeSet<ManageableEntity>(new ManageableComparator());
 
         final Collection<ClassifierFacade> allClasses = this.getModel().getAllClasses();
         for (final Iterator<ClassifierFacade> classIterator = allClasses.iterator(); classIterator.hasNext();)
@@ -655,7 +652,7 @@ public class ManageableEntityLogicImpl
             final Object classObject = classIterator.next();
             if (classObject instanceof ManageableEntity)
             {
-                allManageableEntities.add(classObject);
+                allManageableEntities.add((ManageableEntity)classObject);
             }
         }
         return new ArrayList<ManageableEntity>(allManageableEntities);
