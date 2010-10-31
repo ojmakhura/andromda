@@ -259,7 +259,7 @@ Customize as necessary - it is generated once only, when the project is created.
             <pathelement location="${andromda.project}/common/target/classes"/>
             <path refid="project.classpath"/>
             <pathelement location="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
-            <pathelement location="${m2repo}/org/mortbay/jetty/jetty/6.1.24/jetty-6.1.24.jar"/>
+            <pathelement location="${m2repo}/org/eclipse/jetty/jetty-server/7.1.1.v20100517/jetty-server-7.1.1.v20100517.jar"/>
         </classpath>
     </javac-->
 #end

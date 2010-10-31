@@ -84,8 +84,8 @@
         </dependency>
         <!-- Jetty is needed for building/testing the CXFServlet (creates geronimo dependencies) -->
         <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
