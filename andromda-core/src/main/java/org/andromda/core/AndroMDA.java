@@ -163,7 +163,7 @@ public class AndroMDA
      * @return an array of model validation messages (if there have been any collected
      *         during AndroMDA execution).
      */
-    public ModelValidationMessage[] run(final Configuration configuration, 
+    public ModelValidationMessage[] run(final Configuration configuration,
         boolean lastModifiedCheck, final String historyDir)
     {
         ModelValidationMessage[] messages = null;

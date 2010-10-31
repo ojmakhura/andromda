@@ -165,7 +165,7 @@ public class Cartridge
                             allMetafacades);
                     }
 
-                    // - now place the collections of elements by the given variable names. 
+                    // - now place the collections of elements by the given variable names.
                     //   (skip if the variable is NOT defined)
                     for (final ModelElement modelElement : modelElements.getModelElements())
                     {
@@ -374,7 +374,7 @@ public class Cartridge
                 template.getPath(),
                 templateContext,
                 output);
-            
+
             // - if we have an outputCondition defined make sure it evaluates to true before continuing
             if (this.isValidOutputCondition(template.getOutputCondition(), templateContext))
             {
@@ -386,7 +386,7 @@ public class Cartridge
                         this.getTemplateEngine().getEvaluatedExpression(
                             template.getOutlet(),
                             templateContext));
-    
+
                 if (location != null)
                 {
                     outputFile =
@@ -405,7 +405,7 @@ public class Cartridge
                         {
                             String outputString = output.toString();
                             AndroMDALogger.setSuffix(this.getNamespace());
-    
+
                             // - check to see if generateEmptyFiles is true and if
                             //   outString is not blank
                             if (StringUtils.isNotBlank(outputString) ||
@@ -505,7 +505,7 @@ public class Cartridge
                             {
                                 this.writeResource(
                                     resource,
-                                    resourceUrl);                                
+                                    resourceUrl);
                             }
                         }
                     }
@@ -525,7 +525,7 @@ public class Cartridge
      * The forward slash constant.
      */
     private static final String FORWARD_SLASH = "/";
-    
+
     private static final String PATH_PATTERN = "\\*.*";
 
     /**
@@ -547,7 +547,7 @@ public class Cartridge
             if (resourceUri.contains(uriSuffix))
             {
                 uriSuffix = resourceUri.substring(resourceUri.indexOf(uriSuffix) + uriSuffix.length(), resourceUri.length());
-            }       
+            }
             else
             {
                 uriSuffix =
@@ -558,7 +558,7 @@ public class Cartridge
 
             final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
             this.populateTemplateContext(templateContext);
-            
+
             // - if we have an outputCondition defined make sure it evaluates to true before continuing
             if (this.isValidOutputCondition(resource.getOutputCondition(), templateContext))
             {
@@ -570,7 +570,7 @@ public class Cartridge
                         this.getTemplateEngine().getEvaluatedExpression(
                             resource.getOutlet(),
                             templateContext));
-    
+
                 if (location != null)
                 {
                     outputFile =
@@ -584,7 +584,7 @@ public class Cartridge
                     final boolean lastModifiedCheck = resource.isLastModifiedCheck();
                     // - if we have the last modified check set, then make sure the last modified time is greater than the outputFile
                     if (!lastModifiedCheck || (lastModifiedCheck && ResourceUtils.getLastModifiedTime(resourceUrl) > outputFile.lastModified()))
-                    {    
+                    {
                         // - only write files that do NOT exist, and
                         //   those that have overwrite set to 'true'
                         if (!outputFile.exists() || resource.isOverwrite())
@@ -637,7 +637,7 @@ public class Cartridge
         resource.setCartridge(this);
         resources.add(resource);
     }
-    
+
     /**
      * Populates the <code>templateContext</code> with the properties and template objects defined in the
      * <code>plugin</code>'s descriptor. If the <code>templateContext</code> is null, a new Map instance will be created
@@ -650,7 +650,7 @@ public class Cartridge
         super.populateTemplateContext(templateContext);
         templateContext.putAll(this.getEvaluatedConditions(templateContext));
     }
-    
+
     /**
      * Stores the global conditions from cartridge.xml condition expressions
      */
@@ -669,7 +669,7 @@ public class Cartridge
     /**
      * Adds the outputCondition given the <code>name</code> and <code>value</code>
      * to the outputConditions map.
-     * 
+     *
      * @param name the name of the outputCondition.
      * @param value the value of the outputCondition.
      */
@@ -677,7 +677,7 @@ public class Cartridge
     {
         this.conditions.put(name, StringUtils.trimToEmpty(value));
     }
-    
+
     /**
      * Gets the current outputConditions defined within this cartridge
      * @return this.conditions
@@ -686,16 +686,16 @@ public class Cartridge
     {
         return this.conditions;
     }
-    
+
     /**
      * Indicates whether or not the global outputConditions have been evaluated.
      */
     private boolean conditionsEvaluated = false;
-    
+
     /**
      * Evaluates all conditions and stores the results in the <code>evaluatedConditions</code>
      * and returns that Map
-     * 
+     *
      * @param templateContext the template context used to evaluate the conditions.
      * @return the map containing the evaluated conditions.
      */
@@ -719,12 +719,12 @@ public class Cartridge
         }
         return this.evaluatedConditions;
     }
-    
+
     /**
      * Gets the evaluated outputCondition result of a global outputCondition.
-     * 
+     *
      * @param outputCondition the outputCondition to evaluate.
-     * @param templateContext the current template context to pass the template engine if 
+     * @param templateContext the current template context to pass the template engine if
      *        evaluation has yet to occur.
      * @return the evaluated outputCondition results.
      */
@@ -732,11 +732,11 @@ public class Cartridge
     {
         return this.getEvaluatedConditions(templateContext).get(outputCondition);
     }
-    
+
     /**
      * Indicates whether or not the given <code>outputCondition</code> is a valid
      * outputCondition, that is, whether or not it returns true.
-     * 
+     *
      * @param outputCondition the outputCondition to evaluate.
      * @param templateContext the template context containing the variables to use.
      * @return true/false

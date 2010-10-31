@@ -88,7 +88,7 @@ public class TemplateObject
      */
     protected void setProperties(final Object templateObject)
     {
-        for (final String reference : propertyReferences) 
+        for (final String reference : propertyReferences)
         {
             String value = Namespaces.instance().getPropertyValue(
                     this.getNamespace(),

@@ -118,7 +118,7 @@ public class NamespaceRegistry
     /**
      * Attempts to retrieve the property definition for the given
      * <code>name</code>.
-     * @param name 
+     * @param name
      * @return the property definition or null if one could not be found.
      */
     public PropertyDefinition getPropertyDefinition(final String name)
@@ -138,11 +138,11 @@ public class NamespaceRegistry
             this.addPropertyDefinition(propertyDefinition);
         }
     }
-    
+
     /**
      * Copies all contents from the <code>registry</code>
      * to this instance.
-     * 
+     *
      * @param registry the registry to copy.
      */
     final void copy(final NamespaceRegistry registry)

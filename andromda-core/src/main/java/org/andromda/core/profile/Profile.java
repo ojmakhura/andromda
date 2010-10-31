@@ -51,8 +51,8 @@ public class Profile
 
     /**
      * Adds a new element to this namespace registry.
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     public void addElement(
         final String name,

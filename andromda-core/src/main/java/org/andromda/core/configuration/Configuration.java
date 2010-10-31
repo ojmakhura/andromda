@@ -237,7 +237,7 @@ public class Configuration
     {
         return this.contents;
     }
-    
+
     /**
      * Clears out any caches used by this configuration.
      */

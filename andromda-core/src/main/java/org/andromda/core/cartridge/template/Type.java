@@ -23,7 +23,7 @@ public class Type
     /**
      * Gets the name of this type (typically the fully qualified class name
      * of the type).
-     * 
+     *
      * @return Returns the name.
      */
     public String getName()
@@ -34,7 +34,7 @@ public class Type
     /**
      * Sets the name of this type (this is the fully qualified class name
      * of the type).
-     * 
+     *
      * @param name The name to set.
      */
     public void setName(final String name)
@@ -49,7 +49,7 @@ public class Type
 
     /**
      * Gets the properties defined for this type.
-     * 
+     *
      * @return Returns the properties.
      */
     public Collection<Property> getProperties()
@@ -112,9 +112,9 @@ public class Type
         {
             return this.name;
         }
-        
+
         /**
-         * Gets the variable name under which this property's value (or element if the property 
+         * Gets the variable name under which this property's value (or element if the property
          * is a collection) should be stored within the template.
          *
          * @return the variable name.

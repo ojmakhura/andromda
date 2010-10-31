@@ -62,7 +62,7 @@ public class ResourceWriter
      *
      * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
-     * @throws IOException 
+     * @throws IOException
      */
     public void writeStringToFile(
         final String string,
@@ -80,7 +80,7 @@ public class ResourceWriter
      *
      * @param string the string to write to the file
      * @param file the file which to write.
-     * @throws IOException 
+     * @throws IOException
      */
     public void writeStringToFile(
         final String string,
@@ -185,7 +185,7 @@ public class ResourceWriter
      *
      * @param url the URL to read
      * @param fileLocation the location which to write.
-     * @throws IOException 
+     * @throws IOException
      */
     public void writeUrlToFile(
         final URL url,
@@ -323,7 +323,7 @@ public class ResourceWriter
                 final String[] fileNames = history.split(",");
                 long lastModified = 0;
                 for (String fileName : fileNames)
-                {                       
+                {
                     if (StringUtils.isNotBlank(fileName))
                     {
                         File file = new File(fileName.trim());

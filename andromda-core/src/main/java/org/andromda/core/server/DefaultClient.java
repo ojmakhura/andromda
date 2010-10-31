@@ -27,7 +27,7 @@ public class DefaultClient
     }
 
     /**
-     * @see org.andromda.core.server.Client#stop(org.andromda.core.configuration.Configuration) 
+     * @see org.andromda.core.server.Client#stop(org.andromda.core.configuration.Configuration)
      */
     public void stop(final Configuration configuration)
         throws ConnectException

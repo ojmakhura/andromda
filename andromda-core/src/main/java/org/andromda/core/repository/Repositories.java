@@ -110,7 +110,7 @@ public class Repositories
                 {
                     message =
                         "emf-uml2 (UML2 1.x) has been deprecated and is no longer the UML2 default, change your project " +
-                        "andromda.xml configuration to 'emf-uml22' and export your model to UML2 2.x or upgrade to RSM 7.x, " + 
+                        "andromda.xml configuration to 'emf-uml22' and export your model to UML2 2.x or upgrade to RSM 7.x, " +
                         "you must specify one of the following as your repository name: [" +
                         StringUtils.join(
                             this.repositories.keySet().iterator(),
@@ -183,7 +183,7 @@ public class Repositories
             // - set the package filter
             if (repositoryImplementation.getModel()!=null)
             {
-                repositoryImplementation.getModel().setPackageFilter(model.getPackages());            
+                repositoryImplementation.getModel().setPackageFilter(model.getPackages());
             }
             for (InputStream stream : streams)
             {

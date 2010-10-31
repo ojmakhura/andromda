@@ -104,7 +104,7 @@ public class MetafacadeMappings
     /**
      * Gets the class of the metafacade interface that belongs to the given
      * <code>metafacadeClass</code>.
-     * @param metafacadeClass 
+     * @param metafacadeClass
      *
      * @return the metafacade interface Class.
      */
@@ -688,7 +688,7 @@ public class MetafacadeMappings
      * @param context to which the mapping applies (note this takes precedence over stereotypes).
      * @param stereotypes collection of stereotype names.  We'll check to see if the mapping for the given
      *                    <code>mappingClass</code> is defined for it.
-     * @return mapping 
+     * @return mapping
      */
     public MetafacadeMapping getMetafacadeMapping(
         final Object mappingObject,
@@ -957,7 +957,7 @@ public class MetafacadeMappings
                         mappingClassNames = new HashSet<String>();
                         MetafacadeMappings.allMetafacadeMappingInstances.put(mapping.getMetafacadeClass(), mappingClassNames);
                     }
-                    
+
                     mappingClassNames.addAll(mapping.getMappingClassNames());
                 }
             }

@@ -236,7 +236,7 @@ public class NamespaceComponents
                 for (final String path : paths)
                 {
                     InputStream stream = null;
-                    try 
+                    try
                     {
                         namespaceResource = new URL(ResourceUtils.normalizePath(resource + path));
                         stream = namespaceResource.openStream();

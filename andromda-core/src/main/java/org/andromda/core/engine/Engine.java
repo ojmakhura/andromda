@@ -40,7 +40,7 @@ public class Engine
      * Initializes Engine (discovers all plugins, etc) with the
      * given configuration.  This configuration is overridden (if changed)
      * when calling {@link #run(Configuration, boolean, String)}.
-     * @param configuration 
+     * @param configuration
      */
     public void initialize(final Configuration configuration)
     {
@@ -62,7 +62,7 @@ public class Engine
         ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
-            final Collection<ModelValidationMessage> messagesList = 
+            final Collection<ModelValidationMessage> messagesList =
                     this.modelProcessor.loadIfNecessary(configuration.getRepositories());
             messages =
                 messagesList.toArray(
@@ -80,7 +80,7 @@ public class Engine
      * @param historyDir Overrides model lastModifiedCheck globally
      * @return the new instance of Engine.
      */
-    public ModelValidationMessage[] run(final Configuration configuration, 
+    public ModelValidationMessage[] run(final Configuration configuration,
         boolean lastModifiedCheck, final String historyDir)
     {
         ModelValidationMessage[] messages = null;
