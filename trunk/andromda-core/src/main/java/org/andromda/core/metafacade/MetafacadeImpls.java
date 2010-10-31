@@ -86,14 +86,14 @@ public class MetafacadeImpls
         final List<String> modelNamespaces = new ArrayList<String>(Arrays.asList(metafacadeModelNamespaces));
         for (final String modelNamespace : metafacadeModelNamespaces)
         {
-            if (modelNamespace != null) 
+            if (modelNamespace != null)
             {
                 // - remove the current model type so that we don't keep out the namespace
                 //   that stores the metafacade model
                 modelNamespaces.remove(modelNamespace);
 
                 MetafacadeClasses metafacadeClasses = this.metafacadeClasses.get(modelNamespace);
-                if (metafacadeClasses == null) 
+                if (metafacadeClasses == null)
                 {
                     metafacadeClasses = new MetafacadeClasses();
                     this.metafacadeClasses.put(
@@ -101,7 +101,7 @@ public class MetafacadeImpls
                             metafacadeClasses);
                 }
                 metafacadeClasses.clear();
-                try 
+                try
                 {
                     final Namespaces namespacesConfiguration = Namespaces.instance();
                     for (final NamespaceRegistry namespaceRegistry : namespacesConfiguration.getNamespaceRegistries())

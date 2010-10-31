@@ -389,7 +389,7 @@ public final class Introspector
      * The pattern for property names.
      */
     private Pattern propertyNamePattern = Pattern.compile("\\p{Lower}\\p{Upper}.*");
-    
+
     /**
      * Retrieves the property descriptor for the given type and name of
      * the property.
@@ -412,7 +412,7 @@ public final class Introspector
         {
             propertyDescriptor = (PropertyDescriptor)classPropertyDescriptors.get(name);
         }
-        
+
         if (propertyDescriptor == null)
         {
             try

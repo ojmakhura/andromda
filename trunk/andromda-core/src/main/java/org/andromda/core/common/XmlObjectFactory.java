@@ -100,7 +100,7 @@ public class XmlObjectFactory
     /**
      * Creates an instance of this XmlObjectFactory with the given <code>objectRulesXml</code>
      *
-     * @param objectRulesXml URL to the XML file defining the digester rules for object 
+     * @param objectRulesXml URL to the XML file defining the digester rules for object
      */
     private XmlObjectFactory(final URL objectRulesXml)
     {

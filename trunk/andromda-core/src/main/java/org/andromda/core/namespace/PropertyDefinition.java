@@ -54,27 +54,27 @@ public class PropertyDefinition
     {
         this.defaultValue = defaultValue;
     }
-    
+
     /**
      * The flag indicating whether or not this property is required.
      */
     private boolean required = true;
-    
+
     /**
      * Sets this property is required, by default
      * this flag is <code>true</code>.
-     * 
+     *
      * @param required true/false
      */
     public void setRequired(final boolean required)
     {
         this.required = required;
     }
-    
+
     /**
      * Indicates of this property is required, by default
      * this flag is <code>true</code>.
-     * 
+     *
      * @return true/false
      */
     public boolean isRequired()

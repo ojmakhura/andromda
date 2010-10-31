@@ -340,7 +340,7 @@ public class ClassUtils
         }
         return found;
     }
-    
+
     /**
      * Loads all methods from the given <code>clazz</code> (this includes
      * all super class methods, public, private and protected).
@@ -354,7 +354,7 @@ public class ClassUtils
         loadMethods(clazz, methods);
         return new ArrayList(methods);
     }
-    
+
     /**
      * Loads all methods from the given <code>clazz</code> (this includes
      * all super class methods).
@@ -374,11 +374,11 @@ public class ClassUtils
                     methods);
         }
     }
-    
+
     /**
      * Indicates whether or not a class of the given <code>type</code>
      * is present in one of the given <code>directoryUris</code>.
-     * 
+     *
      * @param directoryUris the URIs to search, ie. directories or archives.
      * @param type the type to check.
      * @return true/false.

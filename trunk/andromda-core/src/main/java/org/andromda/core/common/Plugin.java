@@ -19,7 +19,7 @@ public interface Plugin
 {
     /**
      * Initializes the plugin.
-     * @throws Exception 
+     * @throws Exception
      */
     public void initialize()
         throws Exception;
@@ -46,7 +46,7 @@ public interface Plugin
     public TemplateEngine getTemplateEngine();
 
     /**
-     * Gets all property references available for this cartridge. This is 
+     * Gets all property references available for this cartridge. This is
      * an array of names corresponding to property references.
      *
      * @return the Map of property references.

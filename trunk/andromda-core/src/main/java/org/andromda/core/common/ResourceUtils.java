@@ -33,17 +33,17 @@ import org.apache.log4j.Logger;
 public class ResourceUtils
 {
     private static final Logger logger = Logger.getLogger(ResourceUtils.class);
-    
+
     /**
      * All archive files start with this prefix.
      */
     private static final String ARCHIVE_PREFIX = "jar:";
-    
+
     /**
      * The prefix for URL file resources.
      */
     private static final String FILE_PREFIX = "file:";
-    
+
     /**
      * The prefix to use for searching the classpath for a resource.
      */
@@ -243,7 +243,7 @@ public class ResourceUtils
         for (File file : lAllFiles)
         {
             fileList.add(file.getPath());
-        }        
+        }
     }
 
     /**
@@ -259,7 +259,7 @@ public class ResourceUtils
     {
         Collection<File> result = Collections.emptyList();
         if(null!=directory && directory.exists())
-        {               
+        {
             result = FileUtils.listFiles(
                     directory.isDirectory()? directory : directory.getParentFile(),
                     TrueFileFilter.INSTANCE,
@@ -272,20 +272,20 @@ public class ResourceUtils
      * Returns true/false on whether or not this <code>resource</code> represents an archive or not (i.e. jar, or zip,
      * etc).
      *
-     * @param resource 
+     * @param resource
      * @return true if its an archive, false otherwise.
      */
     public static boolean isArchive(final URL resource)
     {
         return resource != null && resource.toString().startsWith(ARCHIVE_PREFIX);
     }
-    
+
     private static final String URL_DECODE_ENCODING = "UTF-8";
 
     /**
      * If this <code>resource</code> is an archive file, it will return the resource as an archive.
      *
-     * @param resource 
+     * @param resource
      * @return the archive as a ZipFile
      */
     public static ZipFile getArchive(final URL resource)
@@ -306,7 +306,7 @@ public class ResourceUtils
                             0,
                             entryPrefixIndex);
                 }
-                resourceUrl = URLDecoder.decode(new URL(resourceUrl).getFile(), URL_DECODE_ENCODING); 
+                resourceUrl = URLDecoder.decode(new URL(resourceUrl).getFile(), URL_DECODE_ENCODING);
                 archive = new ZipFile(resourceUrl);
             }
             return archive;
@@ -538,20 +538,20 @@ public class ResourceUtils
     {
         URL urlResource = null;
         if (path.startsWith(CLASSPATH_PREFIX))
-        {        
+        {
             path = path.substring(CLASSPATH_PREFIX.length(), path.length());
-            
+
             // - the value of the following constant is -1 of no nested resources were specified,
             //   otherwise it points to the location of the first occurrence
             final int nestedPathOffset = path.indexOf("!/");
-    
+
             // - take the part of the path that is not nested (may be all of it)
             final String resourcePath = nestedPathOffset == -1 ? path : path.substring(0, nestedPathOffset);
             final String nestingPath = nestedPathOffset == -1 ? "" : path.substring(nestedPathOffset);
-    
+
             // - use the new path to load a URL from the classpath using the context class loader for this thread
             urlResource = Thread.currentThread().getContextClassLoader().getResource(resourcePath);
-    
+
             // - at this point the URL might be null in case the resource was not found
             if (urlResource == null)
             {
@@ -568,7 +568,7 @@ public class ResourceUtils
                     final int fileNameOffset = resourcePath.lastIndexOf('/');
                     final String resourceFileName =
                         fileNameOffset == -1 ? resourcePath : resourcePath.substring(fileNameOffset + 1);
-    
+
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Creating temporary copy on the file system of the classpath resource");
@@ -584,7 +584,7 @@ public class ResourceUtils
                         logger.debug("Copying classpath resource contents into temporary file");
                     }
                     writeUrlToFile(urlResource, fileSystemResource.toString());
-    
+
                     // - count the times the actual resource to resolve has been nested
                     final int nestingCount = StringUtils.countMatches(path, "!/");
                     // - this buffer is used to construct the URL spec to that specific resource
@@ -599,7 +599,7 @@ public class ResourceUtils
                         logger.debug("Constructing URL to " +
                             (nestingCount > 0 ? "nested" : "") + " resource in temporary file");
                     }
-    
+
                     urlResource = new URL(buffer.toString());
                 }
                 catch (final IOException exception)
@@ -612,7 +612,7 @@ public class ResourceUtils
         }
         return urlResource;
     }
-    
+
     /**
      * Writes the URL contents to a file specified by the fileLocation argument.
      *
@@ -631,7 +631,7 @@ public class ResourceUtils
             fileLocation);
 
         final File lOutputFile = new File(fileLocation);
-        makeDirectories(lOutputFile);        
+        makeDirectories(lOutputFile);
         FileUtils.copyURLToFile(url, lOutputFile);
     }
 
@@ -658,7 +658,7 @@ public class ResourceUtils
      * @param url the URL of the directory.
      * @param absolute whether or not the returned content paths should be absolute (if
      *        false paths will be relative to URL).
-     * @param patterns 
+     * @param patterns
      * @return a collection of paths.
      */
     public static List<String> getDirectoryContents(
@@ -731,7 +731,7 @@ public class ResourceUtils
      * returns true if no patterns are defined.
      *
      * @param path the path to match on.
-     * @param patterns 
+     * @param patterns
      * @return true/false
      */
     public static boolean matchesAtLeastOnePattern(
@@ -752,7 +752,7 @@ public class ResourceUtils
                     matches = true;
                     break;
                 }
-            }            
+            }
         }
         return matches;
     }

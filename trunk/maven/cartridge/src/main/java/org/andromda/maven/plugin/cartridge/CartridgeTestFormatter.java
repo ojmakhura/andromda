@@ -173,7 +173,6 @@ public class CartridgeTestFormatter
         summary.append("Errors: ").append(String.valueOf(this.numberOfErrors)).append(", ");
         summary.append("Time elapsed: ").append(elapsed).append(" sec");
         summary.append(newLine);
-        summary.append(newLine);
         this.reportWriter.print(summary);
         if (this.numberOfFailures > 0)
         {

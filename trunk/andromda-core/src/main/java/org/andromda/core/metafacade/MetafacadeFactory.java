@@ -737,7 +737,7 @@ public class MetafacadeFactory
     /**
      * Caches the metafacades by stereotype.
      */
-    private final Map<String, Map<String, Collection<MetafacadeBase>>> metafacadesByStereotype 
+    private final Map<String, Map<String, Collection<MetafacadeBase>>> metafacadesByStereotype
     = new LinkedHashMap<String, Map<String, Collection<MetafacadeBase>>>();
 
     /**

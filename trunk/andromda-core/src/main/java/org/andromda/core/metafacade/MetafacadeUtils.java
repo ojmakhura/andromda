@@ -11,7 +11,6 @@ import org.andromda.core.common.Introspector;
 import org.andromda.core.configuration.Namespaces;
 import org.apache.log4j.Logger;
 
-
 /**
  * Contains static utility methods for dealing with metafacade instances.
  *
@@ -103,7 +102,7 @@ final class MetafacadeUtils
      *
      * @param metafacadeClass the metafacade class.
      * @param mappingObject the object to which the metafacade is mapped.
-     * @param context 
+     * @param context
      * @return the new metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
@@ -122,11 +121,11 @@ final class MetafacadeUtils
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
         return (MetafacadeBase)constructor.newInstance(mappingObject, context);
     }
-    
+
     /**
      * Compute the set of UML implementation class names that are in both parameters sets. If class A1 is in set1 and class A2 is in set2 with A1 extending A2, A1
      * must be on the result set.
-     * 
+     *
      * @param nameSet1 the first set
      * @param nameSet2 the second set
      * @return the intersection of the 2 sets.
@@ -138,11 +137,11 @@ final class MetafacadeUtils
        {
            return results;
        }
-       
+
        Map<Class<?>, String> classesToName = new HashMap<Class<?>, String>();
        Set<Class<?>> classesSet1 = getClassesFromNames(nameSet1, classesToName);
        Set<Class<?>> classesSet2 = getClassesFromNames(nameSet2, classesToName);
-          
+
        for(Class<?> classToCheck : classesSet1)
        {
            for(Class<?> expectedResult : classesSet2)
@@ -150,7 +149,7 @@ final class MetafacadeUtils
                if(classToCheck.isAssignableFrom(expectedResult))
                {
                    results.add(classesToName.get(expectedResult));
-               } 
+               }
                else if(expectedResult.isAssignableFrom(classToCheck))
                {
                    results.add(classesToName.get(classToCheck));
@@ -164,7 +163,7 @@ final class MetafacadeUtils
      * Convert a set of class names into a set of class objects. The mapping between the class object and the class name is kept into the classesToName map. If the class name cannot
      * be directly converted in a class, try to remove a prefix starting with a $. This is necessary because implementation classes for UML 1.4 are created dynamically and are not
      * available at the time this method is called, one must then instantiate the class object for the interface of the implementation class.
-     * 
+     *
      * @param nameSet the set of class names.
      * @param classesToName the map that must keep the relation between class object and class names.
      * @return the set of class objects.
@@ -193,7 +192,7 @@ final class MetafacadeUtils
                     Class<?> cl = Class.forName(instanciatedName);
                     classesToName.put(cl, name);
                     classesSet.add(cl);
-                }   
+                }
                 catch (ClassNotFoundException e2)
                 {
                     throw new RuntimeException(e2);
@@ -202,12 +201,12 @@ final class MetafacadeUtils
         }
         return classesSet;
     }
-    
+
     /**
-     * Retrieves the inherited mapping class names for the given metafacade class by traveling 
+     * Retrieves the inherited mapping class names for the given metafacade class by traveling
      * up the inheritance hierarchy to find the ones that have the mapping class name declared.
-     * 
-     * @param metafacadeClass the matafacade class to retrieve the mapping class names.
+     *
+     * @param metafacadeClass the metafacade class to retrieve the mapping class names.
      * @param metafacadeImpls lookup for metafacade implementation names.
      * @param mappingInstances mapping classes for common metafacades.
      * @return the inherited mapping class names for the given metafacade class.
@@ -248,7 +247,7 @@ final class MetafacadeUtils
     }
 
     /**
-     * Retrieves the inherited mapping class names for the given <code>mapping</code> by traveling 
+     * Retrieves the inherited mapping class names for the given <code>mapping</code> by traveling
      * up the inheritance hierarchy to find the ones that have the mapping class name declared.
      *
      * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve its mapping classes.
@@ -268,11 +267,11 @@ final class MetafacadeUtils
         MetafacadeUtils.getLogger().debug("inheritedMappingClassName " + metafacadeClass.getName() + "=" + className);
         return className;
     }
-    
+
     /**
-     * Indicates whether or not a metafacade model facade is present within the 
+     * Indicates whether or not a metafacade model facade is present within the
      * given namespace
-     * 
+     *
      * @param namespace the namespace to check.
      * @return true/false
      */

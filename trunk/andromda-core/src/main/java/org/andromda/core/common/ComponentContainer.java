@@ -85,7 +85,7 @@ public class ComponentContainer
      * implementation of the given <code>type</code> by searching the
      * <code>META-INF/services</code> directory for the default
      * implementation.
-     * 
+     *
      * @param implementation the fully qualified name of the implementation
      *        class.
      * @param type the type to retrieve if the implementation is empty.
@@ -106,14 +106,14 @@ public class ComponentContainer
         }
         return component;
     }
-    
+
     /**
      * Creates a new component of the given <code>implementation</code> (if it
      * isn't null or empty), otherwise attempts to find the default
      * implementation of the given <code>type</code> by searching the
      * <code>META-INF/services</code> directory for the default
      * implementation.
-     * 
+     *
      * @param implementation the implementation class.
      * @param type the type to retrieve if the implementation is empty.
      * @return a new instance of the given <code>type</code>
@@ -139,7 +139,7 @@ public class ComponentContainer
      * <code>META-INF/services</code> directory and finding its default
      * implementation.
      *
-     * @param type 
+     * @param type
      * @return a new instance of the given <code>type</code>
      */
     public Object newDefaultComponent(final Class type)
@@ -347,17 +347,17 @@ public class ComponentContainer
         }
         return component;
     }
-    
+
     /**
      * Gets an instance of the container for the given <code>namespace</code>
      * or returns null if one can not be found.
-     * 
+     *
      * @param namespace the name of the namespace.
      * @return the namespace container.
      */
     private ComponentContainer getNamespaceContainer(final String namespace)
     {
-        return (ComponentContainer)this.findComponent(namespace); 
+        return (ComponentContainer)this.findComponent(namespace);
     }
 
     /**
@@ -397,7 +397,7 @@ public class ComponentContainer
      *
      * @param namespace the namespace for which to register the component.
      * @param key the unique key.
-     * @param component 
+     * @param component
      */
     public void registerComponentByNamespace(
         final String namespace,
@@ -424,7 +424,7 @@ public class ComponentContainer
      * container) <code>key</code>.
      *
      * @param key the unique key.
-     * @param component 
+     * @param component
      * @return Object the registered component.
      */
     public Object registerComponent(

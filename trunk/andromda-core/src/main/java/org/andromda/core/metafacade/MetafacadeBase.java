@@ -146,11 +146,11 @@ public class MetafacadeBase implements Comparable
                     metaObjectIn,
                     contextIn);
 
-            // - The metafacade we've just got may have been found in the cache. 
+            // - The metafacade we've just got may have been found in the cache.
             //   If so, it can have an arbitrary context (because it's cached).
             //   We now need to set the context once again, so that all
             //   other metafacade mappings based on the context work as expected.
-            if(metafacade != null) 
+            if(metafacade != null)
             {
                 metafacade.resetMetafacadeContext(contextIn);
             }
@@ -216,7 +216,7 @@ public class MetafacadeBase implements Comparable
     /**
      * Resets the metafacade context after the metafacade was retrieved from the metafacade cache.
      * DO NOT CALL THIS METHOD BY HAND, it is reserved for use in the MetafacadeFactory.
-     * @see org.andromda.core.metafacade.MetafacadeFactory 
+     * @see org.andromda.core.metafacade.MetafacadeFactory
      * @param contextIn the context defined by MetafacadeFactory
      */
     public void resetMetafacadeContext(String contextIn)
@@ -277,8 +277,8 @@ public class MetafacadeBase implements Comparable
 
     /**
      * Attempts to set the property with <code>name</code> having the specified <code>value</code> on this metafacade.
-     * @param nameIn 
-     * @param value 
+     * @param nameIn
+     * @param value
      */
     protected void setProperty(
         final String nameIn,

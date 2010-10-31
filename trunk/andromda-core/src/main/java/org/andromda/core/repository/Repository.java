@@ -34,10 +34,10 @@ public class Repository
         }
         implementation = (RepositoryFacade)ClassUtils.newInstance(type);
     }
-    
+
     /**
      * Gets the repository implementation.
-     * 
+     *
      * @return the repository implementation.
      */
     public RepositoryFacade getImplementation()

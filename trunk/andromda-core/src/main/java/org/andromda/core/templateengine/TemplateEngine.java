@@ -22,7 +22,7 @@ public interface TemplateEngine
      * @param namespace The name of a namespace this can be used for whatever the
      *        template engine implementation likes. For example, it can help
      *        determine the name of the log file to which output is logged.
-     * @throws Exception 
+     * @throws Exception
      */
     public void initialize(String namespace)
         throws Exception;
@@ -72,11 +72,11 @@ public interface TemplateEngine
      * @param mergeLocation the location of the merge files.
      */
     public void setMergeLocation(String mergeLocation);
-    
+
     /**
      * Evaluates the <code>expression</code> contained within the template
      * being processed and returns the result.
-     *  
+     *
      * @param expression the expression to evaluate.
      * @param templateObjects any additional objects we wish to make available
      *        to the template engine when the expression is evaluated.  It this is null

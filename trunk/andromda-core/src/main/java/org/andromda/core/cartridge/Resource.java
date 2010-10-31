@@ -44,25 +44,25 @@ public class Resource
     {
         this.outlet = outlet;
     }
-    
+
     /**
      * Stores the outputCondition that must evaluate to true for the template to be written.
      */
     private String outputCondition;
-    
+
     /**
      * Sets the outputCondition that must evaluate to true in order for the template to be written.
-     * 
+     *
      * @param outputCondition the template engine outputCondition.
      */
     public void setOutputCondition(final String outputCondition)
     {
         this.outputCondition = outputCondition;
     }
-    
+
     /**
      * Gets the outputCondition that must evaluate to true in order for the template to be written.
-     * 
+     *
      * @return the template engine outputCondition.
      */
     public String getOutputCondition()
@@ -106,7 +106,7 @@ public class Resource
             }
             catch (final Exception exception)
             {
-                // - means the output pattern can't be parsed (but we still 
+                // - means the output pattern can't be parsed (but we still
                 //   want to output the bad path anyway)
                 outputFileName = outputPattern;
             }
@@ -152,25 +152,25 @@ public class Resource
     {
         this.overwrite = overwrite;
     }
-    
+
     /**
      * Whether or not a last modified check should be performed before writing the resource.
      */
     private boolean lastModifiedCheck;
-    
+
     /**
      * Sets whether or not a last modified check should be performed before writing the resource.
-     * 
+     *
      * @param lastModifiedCheck true/false
      */
     public void setLastModifiedCheck(final boolean lastModifiedCheck)
     {
         this.lastModifiedCheck = lastModifiedCheck;
     }
-    
+
     /**
      * Whether or not a last modified check should be performed before writing the resource.
-     * 
+     *
      * @return true/false
      */
     public boolean isLastModifiedCheck()
