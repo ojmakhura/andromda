@@ -58,15 +58,15 @@
     <classpathentry kind="src" path="metafacades/uml/common/target/src"/>
     <classpathentry kind="src" path="metafacades/uml/emf/uml22/src/main/java"/>
     <classpathentry kind="src" path="metafacades/uml/emf/uml22/target/src"/>
-    <classpathentry kind="src" path="metafacades/uml/emf/uml2/src/main/java"/>
-    <classpathentry kind="src" path="metafacades/uml/emf/uml2/target/src"/>
+	<!--classpathentry kind="src" path="metafacades/uml/emf/uml2/src/main/java"/>
+	<classpathentry kind="src" path="metafacades/uml/emf/uml2/target/src"/-->
     <classpathentry kind="src" path="metafacades/uml/uml14/src/main/java"/>
     <classpathentry kind="src" path="metafacades/uml/uml14/target/src"/>
     <classpathentry kind="src" path="repositories/emf/src/main/java"/>
     <classpathentry kind="src" path="repositories/emf/uml22/src/main/java"/>
     <classpathentry kind="src" path="repositories/emf/uml22/src/test/java"/>
-    <classpathentry kind="src" path="repositories/emf/uml2/src/main/java"/>
-    <classpathentry kind="src" path="repositories/emf/uml2/src/test/java"/>
+	<!--classpathentry kind="src" path="repositories/emf/uml2/src/main/java"/>
+	<classpathentry kind="src" path="repositories/emf/uml2/src/test/java"/-->
     <classpathentry kind="src" path="repositories/mdr/common/src/main/java"/>
     <classpathentry kind="src" path="repositories/mdr/uml14/src/test/java"/>
     <classpathentry kind="src" path="translation-libraries/ocl/andromda-query/src/main/java"/>
@@ -143,13 +143,13 @@
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-compiler-api/1.5.3/plexus-compiler-api-1.5.3.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-compiler-api/1.5.3/plexus-compiler-api-1.5.3-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-container-default/1.5.1/plexus-container-default-1.5.1.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-container-default/1.5.1/plexus-container-default-1.5.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/1.5.9/plexus-utils-1.5.9.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-utils/1.5.9/plexus-utils-1.5.9-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/common/2.4.0/common-2.4.0.jar" sourcepath="/M2_REPO/org/eclipse/emf/common/2.4.0/common-2.4.0-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/ecore/2.4.2/ecore-2.4.2.jar" sourcepath="/M2_REPO/org/eclipse/emf/ecore/2.4.2/ecore-2.4.2-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/ecore/xmi/2.4.1/xmi-2.4.1.jar" sourcepath="/M2_REPO/org/eclipse/emf/ecore/xmi/2.4.1/xmi-2.4.1-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/mapping/ecore2xml/2.4.0/ecore2xml-2.4.0.jar" sourcepath="/M2_REPO/org/eclipse/emf/mapping/ecore2xml/2.4.0/ecore2xml-2.4.0-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/uml/2.2.2/uml-2.2.2.jar" sourcepath="/M2_REPO/org/eclipse/uml2/uml/2.2.2/uml-2.2.2-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/common/1.4.0/common-1.4.0.jar" sourcepath="/M2_REPO/org/eclipse/uml2/common/1.4.0/common-1.4.0-sources.jar"/>
-    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/resources/2.2.0/resources-2.2.0.jar" sourcepath="/M2_REPO/org/eclipse/uml2/resources/2.2.0/resources-2.2.0-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.common/2.6.0.v20100614-1136/org.eclipse.emf.common-2.6.0.v20100614-1136.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.common/2.6.0.v20100614-1136/org.eclipse.emf.common-2.6.0.v20100614-1136-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore/2.6.0.v20100614-1136/org.eclipse.emf.ecore-2.6.0.v20100614-1136.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore/2.6.0.v20100614-1136/org.eclipse.emf.ecore-2.6.0.v20100614-1136-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.5.0.v20100521-1846/org.eclipse.emf.ecore.xmi-2.5.0.v20100521-1846.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.5.0.v20100521-1846/org.eclipse.emf.ecore.xmi-2.5.0.v20100521-1846-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.mapping.ecore2xml/2.5.0.v20100521-1847/org.eclipse.emf.mapping.ecore2xml-2.5.0.v20100521-1847.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.mapping.ecore2xml/2.5.0.v20100521-1847/org.eclipse.emf.mapping.ecore2xml-2.5.0.v20100521-1847-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/org.eclipse.uml2.uml/3.1.0.v201006071150/org.eclipse.uml2.uml-3.1.0.v201006071150.jar" sourcepath="/M2_REPO/org/eclipse/uml2/org.eclipse.uml2.uml/3.1.0.v201006071150/org.eclipse.uml2.uml-3.1.0.v201006071150-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/org.eclipse.uml2.common/1.5.0.v201005031530/org.eclipse.uml2.common-1.5.0.v201005031530.jar" sourcepath="/M2_REPO/org/eclipse/uml2/org.eclipse.uml2.common/1.5.0.v201005031530/org.eclipse.uml2.common-1.5.0.v201005031530-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/org.eclipse.uml2.uml.resources/3.1.0.v201005031530/org.eclipse.uml2.uml.resources-3.1.0.v201005031530.jar" sourcepath="/M2_REPO/org/eclipse/uml2/org.eclipse.uml2.uml.resources/3.1.0.v201005031530/org.eclipse.uml2.uml.resources-3.1.0.v201005031530-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/uml2/1.1.1/uml2-1.1.1.jar" sourcepath="/M2_REPO/org/eclipse/uml2/1.1.1/uml2-1.1.1-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/freemarker/freemarker/2.3.16/freemarker-2.3.16.jar" sourcepath="/M2_REPO/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/org/springframework/spring-aop/2.0.8/spring-aop-2.0.8.jar" sourcepath="/M2_REPO/org/springframework/spring-aop/2.0.8/spring-aop-2.0.8-sources.jar"/>
