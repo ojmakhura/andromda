@@ -111,7 +111,7 @@ public class ModelElementFacadeLogicImpl
             {
                 visibility = "public";
             }
-            final TypeMappings languageMappings = this.getLanguageMappings();
+            final TypeMappings languageMappings = this.handleGetLanguageMappings();
             if (languageMappings != null)
             {
                 visibility = languageMappings.getTo(visibility);
@@ -128,7 +128,7 @@ public class ModelElementFacadeLogicImpl
     protected String handleGetPackagePath()
     {
         return StringUtils.replace(
-            this.getPackageName(),
+            this.handleGetPackageName(),
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
             "/");
     }
@@ -181,7 +181,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetFullyQualifiedName()
     {
-        return this.getFullyQualifiedName(false);
+        return this.handleGetFullyQualifiedName(false);
     }
 
     /**
@@ -191,7 +191,7 @@ public class ModelElementFacadeLogicImpl
     protected String handleGetFullyQualifiedNamePath()
     {
         return StringUtils.replace(
-            this.getFullyQualifiedName(),
+            this.handleGetFullyQualifiedName(),
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
             "/");
     }
@@ -269,7 +269,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleIsReservedWord()
     {
-        return UMLMetafacadeUtils.isReservedWord(this.getName());
+        return UMLMetafacadeUtils.isReservedWord(this.handleGetName());
     }
 
     /**
@@ -278,7 +278,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleIsConstraintsPresent()
     {
-        return this.getConstraints() != null && !this.getConstraints().isEmpty();
+        return this.handleGetConstraints() != null && !this.handleGetConstraints().isEmpty();
     }
 
     /**
@@ -310,7 +310,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetDocumentation(final String indent)
     {
-        return this.getDocumentation(
+        return this.handleGetDocumentation(
             indent,
             64);
     }
@@ -333,7 +333,7 @@ public class ModelElementFacadeLogicImpl
         final String indent,
         final int lineLength)
     {
-        return this.getDocumentation(
+        return this.handleGetDocumentation(
             indent,
             lineLength,
             true);
@@ -345,7 +345,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleHasExactStereotype(final String stereotypeName)
     {
-        return this.getStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
+        return this.handleGetStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
     }
 
     /**
@@ -566,7 +566,7 @@ public class ModelElementFacadeLogicImpl
             /*if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
             {
                 String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
-                documentation.append(todoTag).append(": Model Documentation for " + this.getFullyQualifiedName());
+                documentation.append(todoTag).append(": Model Documentation for " + this.handleGetFullyQualifiedName());
             }*/
         }
 
@@ -616,7 +616,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetPackageName(final boolean modelName)
     {
-        String packageName = this.getPackageName();
+        String packageName = this.handleGetPackageName();
         if (modelName)
         {
             packageName =
@@ -844,9 +844,9 @@ public class ModelElementFacadeLogicImpl
         {
             validationName.append(seperator);
         }
-        if (StringUtils.isNotBlank(this.getName()))
+        if (StringUtils.isNotBlank(this.handleGetName()))
         {
-            validationName.append(this.getName());
+            validationName.append(this.handleGetName());
         }
         else
         {
@@ -861,7 +861,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleIsBindingDependenciesPresent()
     {
-        final Collection<DependencyFacade> dependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
+        final Collection<DirectedRelationship> dependencies = this.handleGetSourceDependencies();
         CollectionUtils.filter(
             dependencies,
             new Predicate()
@@ -881,7 +881,7 @@ public class ModelElementFacadeLogicImpl
     protected boolean handleIsTemplateParametersPresent()
     {
         // TODO: Be sure it works with RSM / MD11.5
-        final Collection<TemplateParameterFacade> params = this.getTemplateParameters();
+        final Collection<TemplateParameter> params = this.handleGetTemplateParameters();
         return params != null && !params.isEmpty();
     }
 
@@ -1051,8 +1051,8 @@ public class ModelElementFacadeLogicImpl
      */
     private String handleGetBindedFullyQualifiedName(boolean modelName, Collection<BindingFacade> bindingFacades)
     {
-        String fullName = StringUtils.trimToEmpty(this.getName());
-        final String packageName = this.getPackageName(true);
+        String fullName = StringUtils.trimToEmpty(this.handleGetName());
+        final String packageName = this.handleGetPackageName(true);
         final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         if (StringUtils.isNotBlank(packageName))
         {
