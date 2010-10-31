@@ -142,9 +142,9 @@ public class FrontEndControllerOperationLogicImpl
 
         // since all arguments need to be present we add those that haven't yet
         // been stored in the map
-        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        for (ParameterFacade parameter : arguments)
         {
-            final FrontEndParameter argument = (FrontEndParameter)argumentIterator.next();
+            final FrontEndParameter argument = (FrontEndParameter)parameter;
             final String name = argument.getName();
             if (!formFieldsMap.containsKey(name))
             {

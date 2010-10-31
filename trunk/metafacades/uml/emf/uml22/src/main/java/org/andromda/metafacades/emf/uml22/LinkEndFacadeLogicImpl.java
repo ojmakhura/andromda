@@ -38,7 +38,7 @@ public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
      * @see org.andromda.metafacades.uml.LinkEndFacade#getInstances()
      */
     @Override
-    protected Collection handleGetInstances()
+    protected Collection<InstanceValue> handleGetInstances()
     {
         final Collection values = new ArrayList<ValueSpecification>(this.metaObject.getValues());
 
