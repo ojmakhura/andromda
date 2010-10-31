@@ -109,7 +109,7 @@ public class FrontEndForwardLogicImpl
     @Override
     protected String handleGetActionMethodName()
     {
-        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+        return StringUtilsHelper.lowerCamelCaseName(this.handleGetName());
     }
 
     /**

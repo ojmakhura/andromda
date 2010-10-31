@@ -183,7 +183,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -192,7 +192,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected String handleGetSetterName()
     {
-        return "set" + StringUtils.capitalize(this.getName());
+        return "set" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -201,7 +201,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected String handleGetAdderName()
     {
-        return "add" + StringUtils.capitalize(this.getName());
+        return "add" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**
@@ -210,7 +210,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected String handleGetRemoverName()
     {
-        return "remove" + StringUtils.capitalize(this.getName());
+        return "remove" + StringUtils.capitalize(this.handleGetName());
     }
 
     /**

@@ -67,6 +67,6 @@ public class ManageableEntityAttributeLogicImpl
     @Override
     protected boolean handleIsManageableGetterAvailable()
     {
-        return this.getType() != null && this.getType().isBlobType();
+        return this.handleGetType() != null && this.getType().isBlobType();
     }
 }

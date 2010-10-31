@@ -805,7 +805,7 @@ public class EntityLogicImpl
         return ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_PATTERN))
                           .replaceAll(
             "\\{0\\}",
-            StringUtilsHelper.lowerCamelCaseName(this.getName()));
+            StringUtilsHelper.lowerCamelCaseName(this.handleGetName()));
     }
 
     /**

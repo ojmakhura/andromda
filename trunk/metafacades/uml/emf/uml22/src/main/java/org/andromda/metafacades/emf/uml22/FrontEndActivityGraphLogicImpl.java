@@ -56,7 +56,7 @@ public class FrontEndActivityGraphLogicImpl
             useCase =
                 (UseCase) this.getModel().findUseCaseWithTaggedValueOrHyperlink(
                     UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY,
-                    this.getName());
+                    this.handleGetName());
         }
         return useCase;
     }

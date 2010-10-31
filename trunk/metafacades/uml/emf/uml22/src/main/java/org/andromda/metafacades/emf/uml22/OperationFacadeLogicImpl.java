@@ -97,7 +97,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetCall()
     {
-        return this.getCall(this.getName());
+        return this.getCall(this.handleGetName());
     }
 
     /**
@@ -389,7 +389,7 @@ public class OperationFacadeLogicImpl
     {
         return this.getPreconditionPattern().replaceAll(
             "\\{0\\}",
-            this.getName());
+            this.handleGetName());
     }
 
     /**
@@ -400,7 +400,7 @@ public class OperationFacadeLogicImpl
     {
         return this.getPostconditionPattern().replaceAll(
             "\\{0\\}",
-            this.getName());
+            this.handleGetName());
     }
 
     /**
@@ -506,7 +506,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetSignature(final boolean withArgumentNames)
     {
         return MetafacadeUtils.getSignature(
-            this.getName(),
+            this.handleGetName(),
             this.getArguments(),
             withArgumentNames,
             null);
@@ -531,7 +531,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetSignature(final String argumentModifier)
     {
         return MetafacadeUtils.getSignature(
-            this.getName(),
+            this.handleGetName(),
             this.getArguments(),
             true,
             argumentModifier);
