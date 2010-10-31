@@ -8,6 +8,7 @@ import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -56,8 +57,30 @@ public class ModelFacadeLogicImpl
         final String tag,
         final String value)
     {
-        // TODO Implement handleFindUseCaseWithTaggedValueOrHyperlink(tag, value)
-        throw new UnsupportedOperationException();
+        UseCaseFacade useCaseWithTaggedValue = null;
+
+        Collection<UseCaseFacade> useCases = this.getAllUseCases();
+        for (final Iterator<UseCaseFacade> useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() 
+            && useCaseWithTaggedValue == null;)
+        {
+            UseCaseFacade useCase = useCaseIterator.next();
+            // UML2: taggedValue must belong to a defined stereotype
+            if (useCase.findTaggedValue(tag, true) != null)
+            {
+                useCaseWithTaggedValue = useCase;
+            }
+            else
+            {
+                final Object taggedValue = useCase.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
+                if (taggedValue != null)
+                {
+                    useCaseWithTaggedValue = useCase;
+                }
+            }
+        }
+
+        //throw new UnsupportedOperationException();
+        return useCaseWithTaggedValue;
     }
 
     /**
@@ -71,8 +94,28 @@ public class ModelFacadeLogicImpl
         final String tag,
         final String value)
     {
-        // TODO implement handleFindClassWithTaggedValueOrHyperlink(tag, value)
-        throw new UnsupportedOperationException();
+        ClassifierFacade classWithTaggedValue = null;
+
+        Collection<ClassifierFacade> classes = this.getAllClasses();
+        for (final Iterator<ClassifierFacade> classIterator = classes.iterator(); classIterator.hasNext() 
+            && classWithTaggedValue == null;)
+        {
+            ClassifierFacade clazz = classIterator.next();
+            if (clazz.findTaggedValue(tag, true) != null)
+            {
+                classWithTaggedValue = clazz;
+            }
+            else
+            {
+                final Object taggedValue = clazz.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
+                if (taggedValue != null)
+                {
+                    classWithTaggedValue = clazz;
+                }
+            }
+        }
+
+        return classWithTaggedValue;
     }
 
     /**
