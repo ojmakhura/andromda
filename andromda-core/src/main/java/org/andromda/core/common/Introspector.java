@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -60,7 +59,7 @@ public final class Introspector
      * </p>
      *
      * @param object the object to test for the valid property.
-     * @param name the name of the propery for which to test.
+     * @param name the name of the property for which to test.
      * @param value the value to evaluate against.
      * @return true/false
      */
@@ -129,7 +128,7 @@ public final class Introspector
     }
 
     /**
-     * The delimiter used for seperating nested properties.
+     * The delimiter used for separating nested properties.
      */
     private static final char NESTED_DELIMITER = '.';
 
@@ -468,7 +467,7 @@ public final class Introspector
 
     /**
      * Prevents stack-over-flows by storing the objects that
-     * are currently being evaluted within {@link #internalGetProperty(Object, String)}.
+     * are currently being evaluated within {@link #internalGetProperty(Object, String)}.
      */
     private final Map evaluatingObjects = new HashMap();
 

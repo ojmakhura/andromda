@@ -178,9 +178,9 @@
                 <documentation>
                     The maximum length that a SQL name (such as a column name or
                     table name) may be.  This is useful for databases that have a limit
-                    on the lengh that a name used in DDL may be (like Oracle).  If you set
+                    on the length that a name used in DDL may be (like Oracle).  If you set
                     this to 30 for example, then all names will be truncated
-                    after 30 characters when retrieveing the column name or table name.
+                    after 30 characters when retrieving the column name or table name.
                 </documentation>
             </property>
             <property name="schemaName" required="false">
@@ -245,7 +245,7 @@
             <property name="sqlNameSeparator">
                 <default>_</default>
                 <documentation>
-                    Definies what is used for seperating words when SQL names are
+                    Defines what is used for separating words when SQL names are
                     constructed, for example a model element named CompanyAddress would
                     be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
                     was '<em>_</em>'.

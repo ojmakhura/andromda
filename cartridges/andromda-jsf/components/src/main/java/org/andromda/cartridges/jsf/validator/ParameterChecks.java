@@ -1037,7 +1037,7 @@ public class ParameterChecks
         return component;
     }
 
-    private static final char COMPONENT_NAME_SEPERATOR = ':';
+    private static final char COMPONENT_NAME_SEPARATOR = ':';
 
     /**
      * @param context
@@ -1048,7 +1048,7 @@ public class ParameterChecks
     public static UIComponent findComponent(final FacesContext context, final UIComponent parent, String componentId)
     {
         UIComponent component = null;
-        final int index = componentId.indexOf(COMPONENT_NAME_SEPERATOR);
+        final int index = componentId.indexOf(COMPONENT_NAME_SEPARATOR);
         if (index != -1)
         {
             final String firstId = componentId.substring(0, index);
@@ -1059,7 +1059,7 @@ public class ParameterChecks
         {
             component = findChildComponent(parent, componentId);
         }
-        if (component != null && componentId.indexOf(COMPONENT_NAME_SEPERATOR) != -1)
+        if (component != null && componentId.indexOf(COMPONENT_NAME_SEPARATOR) != -1)
         {
             component = findComponent(context, component, componentId);
         }

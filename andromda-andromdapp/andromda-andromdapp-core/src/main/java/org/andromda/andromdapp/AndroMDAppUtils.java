@@ -8,19 +8,19 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * Some utlities for dealing with the AndroMDApp generator.
+ * Some utilities for dealing with the AndroMDApp generator.
  *
  * @author Chad Brandon
  */
 public class AndroMDAppUtils
 {
     /**
-     * The delimiter for seperating patterns.
+     * The delimiter for separating patterns.
      */
     private static final String COMMA = ",";
 
     /**
-     * Converts a comma delimated string to an array of Strings.
+     * Converts a comma delimited string to an array of Strings.
      *
      * @param string to convert.
      * @return the resulting array or null if the string was null.
@@ -32,12 +32,12 @@ public class AndroMDAppUtils
 
     /**
      * Attempts to convert the given <code>value</code> to the given
-     * <code>type</code> (if the type is specifed), otherwise does nothing and
+     * <code>type</code> (if the type is specified), otherwise does nothing and
      * returns the value unchanged.
      *
      * @param value the value to convert.
      * @param type the type to convert it to.
-     * @return the converted, or unconverted dependending on whether ir needed
+     * @return the converted, or unconverted depending on whether it needed
      *         to be converted.
      */
     public static Object convert(

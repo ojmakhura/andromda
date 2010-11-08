@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
@@ -422,19 +421,18 @@ public class MetafacadeMapping
         public String toString()
         {
             final StringBuilder toString = new StringBuilder();
-            char seperator = ':';
+            char separator = ':';
             for (final Iterator<Property> iterator = this.getProperties().iterator(); iterator.hasNext();)
             {
                 final Property property = iterator.next();
                 toString.append(property.getName());
                 if (StringUtils.isNotBlank(property.getValue()))
                 {
-                    toString.append(seperator);
-                    toString.append(property.getValue());
+                    toString.append(separator).append(property.getValue());
                 }
                 if (iterator.hasNext())
                 {
-                    toString.append(seperator);
+                    toString.append(separator);
                 }
             }
             return toString.toString();

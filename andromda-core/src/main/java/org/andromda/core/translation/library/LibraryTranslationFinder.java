@@ -2,7 +2,6 @@ package org.andromda.core.translation.library;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -56,7 +55,7 @@ public class LibraryTranslationFinder
             {
                 throw new IllegalArgumentException(
                     "libraryTranslation '" + translation + "' must contain the character '" +
-                    libSeparator + "' in order to seperate the library name from the translation" +
+                    libSeparator + "' in order to separate the library name from the translation" +
                     " name (must be in the form: <library name>.<translation name>)");
             }
             final String libraryName = translation.substring(0, index);

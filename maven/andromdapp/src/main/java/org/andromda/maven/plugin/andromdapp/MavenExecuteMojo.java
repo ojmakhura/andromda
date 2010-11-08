@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.andromda.maven.plugin.andromdapp.utils.Projects;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.execution.ReactorManager;
 import org.apache.maven.lifecycle.LifecycleExecutor;
@@ -17,7 +17,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 
@@ -54,7 +53,7 @@ public class MavenExecuteMojo
     private MavenProject project;
 
     /**
-     * Used to contruct Maven project instances from POMs.
+     * Used to construct Maven project instances from POMs.
      *
      * @component
      */
@@ -67,7 +66,7 @@ public class MavenExecuteMojo
 
     /**
      * Whether or not goals should be aggregated when executing the projects
-     * (i.e. whether goals should be executed together per project or seperate for
+     * (i.e. whether goals should be executed together per project or separate for
      * each project).
      *
      * @parameter
@@ -149,9 +148,8 @@ public class MavenExecuteMojo
                     }
                     else
                     {
-                        for (final Iterator iterator = this.session.getGoals().iterator(); iterator.hasNext();)
+                        for (Object goal : this.session.getGoals())
                         {
-                            final String goal = (String)iterator.next();
                             final ReactorManager reactorManager = new ReactorManager(projects);
                             if (projects.size() > 1)
                             {
@@ -171,7 +169,7 @@ public class MavenExecuteMojo
                                     this.session.getLocalRepository(),
                                     this.session.getEventDispatcher(),
                                     reactorManager,
-                                    Collections.singletonList(goal),
+                                    Collections.singletonList((String)goal),
                                     this.baseDirectory.toString(),
                                     this.session.getExecutionProperties(),
                                     this.session.getStartTime());

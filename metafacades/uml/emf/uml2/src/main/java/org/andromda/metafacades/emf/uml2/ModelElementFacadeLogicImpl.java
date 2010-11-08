@@ -826,7 +826,7 @@ public class ModelElementFacadeLogicImpl
     public String getValidationName()
     {
         final StringBuilder validationName = new StringBuilder();
-        final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+        final Object separator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         for (NamedElement namespace = (NamedElement)this.metaObject.getOwner(); namespace != null;
             namespace = (NamedElement)namespace.getOwner())
         {
@@ -838,7 +838,7 @@ public class ModelElementFacadeLogicImpl
             {
                 validationName.insert(
                     0,
-                    seperator);
+                    separator);
                 validationName.insert(
                     0,
                     namespace.getName());
@@ -846,7 +846,7 @@ public class ModelElementFacadeLogicImpl
         }
         if (validationName.length() > 0)
         {
-            validationName.append(seperator);
+            validationName.append(separator);
         }
         if (StringUtils.isNotBlank(this.getName()))
         {
