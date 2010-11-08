@@ -171,10 +171,11 @@ public abstract class $metafacade.logicName
 #set ($allPostConstraints=$attribute.getConstraints("post"))
    /**
     * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
-    * @return $memberTypeName
+    * @return#if ($attribute.many && !$attribute.primitive)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end
+
     */
 ## Need to associate metafacade type to shielded element type for underlying handleCollection return type
-    protected abstract#if ($attribute.many)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${attribute.implementationOperationName}($typedArgumentList);
+    protected abstract#if ($attribute.many && !$attribute.primitive)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${attribute.implementationOperationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
 #set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
@@ -252,10 +253,11 @@ $attribute.getDocumentation("     * ")
 #end
 #if ($operation.returnTypePresent)
      * @return $memberTypeName
+
 #end
      */
 ## Need to associate metafacade type to shielded element type for underlying handleCollection return type
-    protected abstract#if ($operation.many)#if($operation.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${operation.implementationName}($typedArgumentList);
+    protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
 #set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
@@ -275,7 +277,9 @@ $attribute.getDocumentation("     * ")
 $operation.getDocumentation("     * ")
 #foreach ($parameter in $operation.arguments)
      * @param $parameter.name $parameter.type
+#if (!$stringUtils.isBlank($parameter.getDocumentation("", 9999, false)))
 $parameter.getDocumentation("     * ")
+#end
 #end
 #if($operation.returnTypePresent)
      * @return ${operation.implementationName}($operation.argumentNames)
