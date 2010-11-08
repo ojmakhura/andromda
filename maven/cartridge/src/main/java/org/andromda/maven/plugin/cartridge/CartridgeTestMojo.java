@@ -1,16 +1,14 @@
 package org.andromda.maven.plugin.cartridge;
 
+import java.io.File;
+import java.io.IOException;
 import junit.framework.Test;
 import junit.framework.TestResult;
-import org.andromda.maven.plugin.cartridge.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
-import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -110,6 +108,7 @@ public class CartridgeTestMojo
                 }
 
                 // - change scope of test dependencies to runtime
+                // TODO Add test dependencies required to compile all of the generated source code, and run testCompile for all cartridges
                 this.changeScopeForTestDependencies();
                 // TODO Clear the error list, carried over from a previous cartridge run failure.
 
