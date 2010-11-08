@@ -43,7 +43,7 @@ public class ValueObjectAssociationEndLogicImpl
                        .booleanValue();
             if (useArrays)
             {
-                if (this.getType() != null)
+                if (this.handleGetType() != null)
                 {
                     name = this.getType().getFullyQualifiedArrayName();
                 }
