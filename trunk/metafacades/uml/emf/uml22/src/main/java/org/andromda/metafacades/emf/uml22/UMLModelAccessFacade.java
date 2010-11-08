@@ -56,10 +56,13 @@ public class UMLModelAccessFacade
             ArrayList.class,
             "modelElement",
             modelIn.getClass());
-        if (this.model==null)
+        // TODO Find models that are already in the models list, don't clear, remove the rest.
+        if (this.model!=null)
         {
-            this.model = new ArrayList<UMLResource>();
+            // Always clear out models from any previous andromda run
+            this.model.clear(); // Ensure garbage collection of referenced resources
         }
+        this.model = new ArrayList<UMLResource>();
         for (UMLResource modelResource : (ArrayList<UMLResource>)modelIn)
         {
             if (!this.model.contains(modelResource))
