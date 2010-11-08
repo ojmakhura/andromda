@@ -118,6 +118,7 @@ public class FileComparator
                     actualContents = StringUtils.remove(actualContents, ' ');
                     actualContents = StringUtils.remove(actualContents, '\t');
                 }
+                // TODO Tell me the line number where the difference is located.
                 assertEquals(
                         message,
                         expectedContents.trim(),
