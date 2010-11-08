@@ -10,9 +10,16 @@
           <uri>${maven.andromda.model.uri}</uri>
           <moduleSearchLocations>
             <location patterns="*.xml.zip">${project.basedir}/src/main/uml</location>
-            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../profiles/uml-1.4</location>            
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../profiles/uml-1.4</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
+    <!--repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>file:${project.basedir}/src/main/uml2/andromda-metafacades-uml.uml</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location>
+          </moduleSearchLocations-->
           <constraints>
             <!-- Note misspelling in the validation statement -->
             <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a direct dependency to a metaclass</constraint>
