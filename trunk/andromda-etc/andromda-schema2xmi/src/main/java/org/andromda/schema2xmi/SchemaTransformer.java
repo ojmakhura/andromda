@@ -454,7 +454,7 @@ public class SchemaTransformer
         packageName = StringUtils.trimToEmpty(packageName);
         if (StringUtils.isNotBlank(packageName))
         {
-            String[] packages = packageName.split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+            String[] packages = packageName.split(Schema2XMIGlobals.PACKAGE_SEPARATOR);
             if (packages != null && packages.length > 0)
             {
                 for (int ctr = 0; ctr < packages.length; ctr++)
@@ -789,13 +789,13 @@ public class SchemaTransformer
         Object datatype = ModelElementFinder.find(this.model, type);
         if (datatype == null || !DataType.class.isAssignableFrom(datatype.getClass()))
         {
-            String[] names = type.split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+            String[] names = type.split(Schema2XMIGlobals.PACKAGE_SEPARATOR);
             if (names != null && names.length > 0)
             {
                 // the last name is the type name
                 String typeName = names[names.length - 1];
                 names[names.length - 1] = null;
-                String packageName = StringUtils.join(names, Schema2XMIGlobals.PACKAGE_SEPERATOR);
+                String packageName = StringUtils.join(names, Schema2XMIGlobals.PACKAGE_SEPARATOR);
                 org.omg.uml.modelmanagement.UmlPackage umlPackage =
                     this.getOrCreatePackage(
                         this.umlPackage.getModelManagement(),
@@ -1090,8 +1090,8 @@ public class SchemaTransformer
      * foreign key with the specified <code>columnName</code>.
      *
      * @param tableName the name of the table to check for the foreign key
-     * @param columnName the naem of the foreign key column.
-     * @return true/false dependeing on whether or not the table has the foreign
+     * @param columnName the name of the foreign key column.
+     * @return true/false depending on whether or not the table has the foreign
      *         key with the given <code>columnName</code>.
      */
     protected boolean hasForeignKey(

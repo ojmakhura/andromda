@@ -109,7 +109,7 @@ public class Location
     }
 
     /**
-     * The delimiter for seperating location patterns.
+     * The delimiter for separating location patterns.
      */
     private static final String PATTERN_DELIMITER = ",";
 }

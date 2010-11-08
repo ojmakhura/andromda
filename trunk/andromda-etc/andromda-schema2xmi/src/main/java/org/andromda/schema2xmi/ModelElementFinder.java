@@ -1,7 +1,6 @@
 package org.andromda.schema2xmi;
 
 import java.util.Collection;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +31,7 @@ public class ModelElementFinder
         Object modelElement = null;
         if (model != null)
         {
-            String[] names = fullyQualifiedName.split(Schema2XMIGlobals.PACKAGE_SEPERATOR);
+            String[] names = fullyQualifiedName.split(Schema2XMIGlobals.PACKAGE_SEPARATOR);
             if (names != null && names.length > 0)
             {
                 Object element = model;

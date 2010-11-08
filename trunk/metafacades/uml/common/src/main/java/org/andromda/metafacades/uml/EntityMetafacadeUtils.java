@@ -295,16 +295,16 @@ public class EntityMetafacadeUtils
     }
 
     /**
-     * Constructs and returns the foreign key constraint name for the given <code>associationEnd</code>, <code>suffix</code>, <code>sqlNameSeperator</code>
+     * Constructs and returns the foreign key constraint name for the given <code>associationEnd</code>, <code>suffix</code>, <code>sqlNameSeparator</code>
      * and <code>maxLengthProperty</code>.
      *
      * @param associationEnd the association end for which to construct the constraint name.
      * @param suffix the suffix appended to the constraint name (if not limited by length).
-     * @param sqlNameSeperator the SQL name separator to use (i.e. '_').
+     * @param sqlNameSeparator the SQL name separator to use (i.e. '_').
      * @param maxLengthProperty the numeric value stored as a string indicating the max length the constraint may be.
      * @return the constructed foreign key constraint name.
      */
-    public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeperator, String maxLengthProperty)
+    public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeparator, String maxLengthProperty)
     {
         String constraintName;
 
@@ -327,7 +327,7 @@ public class EntityMetafacadeUtils
                 buffer.append(type.getName().toUpperCase());
             }
 
-            buffer.append(sqlNameSeperator);
+            buffer.append(sqlNameSeparator);
             buffer.append(associationEnd.getColumnName());
             constraintName = buffer.toString();
 

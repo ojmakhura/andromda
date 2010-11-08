@@ -20,7 +20,7 @@ public class ModelValidationMessage
      * indicating what has been violated.
      *
      * @param metafacade the metafacade being validated.
-     * @param message the message to to communitate about the validation.
+     * @param message the message to to communicate about the validation.
      */
     public ModelValidationMessage(
         final MetafacadeBase metafacade,
@@ -37,7 +37,7 @@ public class ModelValidationMessage
      *
      * @param metafacade the metafacade being validated.
      * @param name the name of the model element being validated.
-     * @param message the message to to communitate about the validation.
+     * @param message the message to communicate about the validation.
      */
     public ModelValidationMessage(
         final MetafacadeBase metafacade,
@@ -100,7 +100,7 @@ public class ModelValidationMessage
     {
         if (this.metafacadeName == null)
         {
-            final String seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+            final String separator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
             final StringBuilder name = new StringBuilder();
             for (
                 MetafacadeBase metafacade = this.metafacade; metafacade != null;
@@ -112,11 +112,11 @@ public class ModelValidationMessage
                     if (metafacade.getValidationOwner() != null)
                     {
                         // remove package if we have an owner
-                        validationName = validationName.replaceAll(".*" + seperator, "");
+                        validationName = validationName.replaceAll(".*" + separator, "");
                     }
                     if (name.length()>0)
                     {
-                        name.insert(0, seperator);
+                        name.insert(0, separator);
                     }
                     name.insert(0, validationName);
                 }
