@@ -280,7 +280,6 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         String[] modelUris,
         String[] moduleSearchPaths)
     {
-        UmlUtilities.getModels().clear();
         super.readModel(modelUris, moduleSearchPaths);
     }
 
@@ -292,6 +291,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
     @Override
     protected void readModel(final String uri)
     {
+        UmlUtilities.getModels().clear();
         super.readModel(uri);
         // Just to be sure there is a valid "model" inside
         for (Resource modelResource : this.model)
