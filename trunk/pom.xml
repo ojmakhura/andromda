@@ -674,7 +674,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
-             <plugin>
+            <plugin>
                 <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
@@ -683,6 +683,7 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
+                            <goal>test-jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
