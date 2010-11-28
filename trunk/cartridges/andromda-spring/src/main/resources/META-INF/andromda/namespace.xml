@@ -167,7 +167,7 @@
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="springVersion">
-                <default>2.0</default>
+                <default>3.0</default>
                 <documentation>
                     The version of Spring to use/support when generating. Neccessary when api changes make
                     some classes and/or methods deprecated.
@@ -175,6 +175,7 @@
                         Permitted values are:
                         <li>2.0</li>
                         <li>2.5</li>
+                        <li>3.0</li>
                     </ul>
                 </documentation>
             </property>

@@ -25,15 +25,14 @@ package $entity.packageName;
 #else
 #set ($entityCollectionType = "java.util.Collection")
 #end
-
 ##check for spring version regarding the execute method to use
-#if($springVersion.compareTo("2.5") >= 0)
-    #set ($executeWithNativeSessionMethodname = "executeWithNativeSession")
-    #set ($executeWithNativeSessionParameter = "")
-    #else
+#if($springVersion.compareTo("2.5") >= 0 || $springVersion.compareTo("3.0") >= 0)
+#set ($executeWithNativeSessionMethodname = "executeWithNativeSession")
+#set ($executeWithNativeSessionParameter = "")
+#else
 #set ($executeWithNativeSessionMethodname = "execute")
-        #set ($executeWithNativeSessionParameter = ", true")
-    #end
+#set ($executeWithNativeSessionParameter = ", true")
+#end
 ##
 ##
 #if($entity.compositeIdentifier)
