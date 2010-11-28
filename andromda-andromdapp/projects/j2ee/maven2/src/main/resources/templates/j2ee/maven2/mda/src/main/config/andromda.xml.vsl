@@ -365,7 +365,7 @@
                 <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #else
-                <property name="springVersion">2.5</property>
+                <property name="springVersion">3.0</property>
                 <property name="schemaTypeMappingsUri">XmlSchema</property>
                 <property name="languageMappingsUri">Java</property>
 #end
