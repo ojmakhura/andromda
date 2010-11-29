@@ -14,16 +14,39 @@
                 <model>
                     <uri>${model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
+                        <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>
             </models>
         </repository>
     </repositories>
+    <!-- The mappingsSearchLocations are used by the below '*MappingsUri' namespace
+      properties (e.g. languageMappingsUri) so that we can use a "logical" name from the content
+      of any *.xml files in the search locations (instead of having to specify explicit paths...).
+      Except for 'profileMappingsUri', this approach did not seem to work as there is no
+      "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
+      See http://docs.andromda.org/mappings.html.
+      A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
+      It can be used to customize mappings from UML to Java datatypes used by all cartridges. -->
+    <mappingsSearchLocations>
+        <!-- Add additional mappings files under mda/config/mappings, referenced by languageMappingsUri -->
+        <location patterns="*.xml">${conf.dir}/mappings</location>
+    </mappingsSearchLocations>
+    <!-- To add/remove an additional cartridge to the code generation process (i.e. modeldump):
+    - Add the namespace elements to andromda.xml
+    - Add the cartridge dependency (including version) to mda/pom.xml
+    - Add additional build dependencies to individual project pom.xml files -->
     <namespaces>
+        <!-- namespace property values used by ALL cartridges -->
+        <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
+        <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
         <namespace name="default">
             <properties>
+                <!-- Use enums, strongly typed collections with templates, and @annotation markups>
+                <property name="enableTemplating">true</property>
+                <property name="enableAnnotations">true</property>
+                <property name="typeSafeEnumsEnabled">true</property -->
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
@@ -31,16 +54,15 @@
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
-                 <!-- these masking properties allow you to configure the way
-                      your model element names are generated -->
+                <!-- masking properties configure the way your model element names are generated>
                 <property name="classifierNameMask">none</property>
                 <property name="operationNameMask">none</property>
                 <property name="roleNameMask">none</property>
                 <property name="enumerationNameMask">none</property>
-                <property name="enumerationLiteralNameMask">upperunderscore</property>
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
-                <property name="parameterNameMask">none</property>
+                <property name="parameterNameMask">none</property-->
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
                 <property name="hibernateVersion">3</property>
             </properties>
         </namespace>
@@ -53,11 +75,14 @@
                 <property name="connectionUrl">${jdbc.url}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateEnableCache">false</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
                 <property name="daos">${core.generated.dir}</property>

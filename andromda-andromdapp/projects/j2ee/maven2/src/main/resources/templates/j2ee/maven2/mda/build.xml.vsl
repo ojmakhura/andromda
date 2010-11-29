@@ -32,7 +32,7 @@ Customize as necessary - it is generated once only, when the project is created.
   <path id="project.classpath">
     <path refid="cxf.classpath"/>
     <pathelement location="${m2repo}/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
-    <pathelement location="${m2repo}/junit/junit/4.8.1/junit-4.8.1.jar"/>
+    <pathelement location="${m2repo}/junit/junit/4.7/junit-4.7.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
@@ -136,18 +136,18 @@ Customize as necessary - it is generated once only, when the project is created.
         <include name="*.log"/>
       </fileset>
     </move>
-      <!-- Command output displayed in the console window and in the andromda.log file, plus log file for each cartridge. -->
+    <!-- Command output displayed in the console window and in the andromda.log file, plus log file for each cartridge. -->
     <echo message="Running mvn ${offline} install from ${andromda.project}"/>
     <tstamp>
       <format property="timestamp" pattern="MMddHHmmss"/>
     </tstamp>
     <record name="${project}/mda/mvn${timestamp}.log" action="start" append="false"/>
-      <!-- Change dir to ${project}/mda if you only want to generate code and beautify and compile. Code is not packaged by maven.. -->
-      <exec dir="${andromda.project}" failonerror="${FOE}" executable="cmd.exe" vmlauncher="false">
-          <!--output="${project}/androant.log" error="${project}/androant.log"-->
-          <!-- not sure why the extra / is needed here, but it misses the one on the end of m2home -->
-        <arg line="/c ${m2home}/bin/mvn.bat ${offline} install"/>
-      </exec>
+    <!-- Change dir to ${project}/mda if you only want to generate code and beautify and compile. Code is not packaged by maven.. -->
+    <exec dir="${andromda.project}" failonerror="${FOE}" executable="cmd.exe" vmlauncher="false">
+      <!--output="${project}/androant.log" error="${project}/androant.log"-->
+      <!-- not sure why the extra / is needed here, but it misses the one on the end of m2home -->
+      <arg line="/c ${m2home}/bin/mvn.bat ${offline} install"/>
+    </exec>
     <!-- If using separate Eclipse projects, log files can be examined from within Eclipse. -->
     <move preservelastmodified="true" failonerror="${FOE}" toDir="${project}/mda" verbose="true">
       <fileset dir="${project}">
