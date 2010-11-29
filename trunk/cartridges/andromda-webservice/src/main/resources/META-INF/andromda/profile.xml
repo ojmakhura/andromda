@@ -66,7 +66,7 @@
             <element name="PACKAGE_MAP">
                 <documentation>
                     (From XML profile) Defines a package which is mapped to a Schema Namespace, so that an .xsd
-                    file is created for this package and imported by the wsdl files that 
+                    file is created for this package and imported by the wsdl files that
                     reference the schema. Deprecated: Use XMLSchema instead.
                 </documentation>
                 <value>packageMap</value>
@@ -182,7 +182,7 @@
             </element>
             <element name="WEB_WSDL_SOAP_ADDRESS">
                 <documentation>
-                    The WSDL SOAP Address to use for the service, by default is 
+                    The WSDL SOAP Address to use for the service, by default is
                     <code>$webserviceHost:$webservicePort/$webContext/services</code>
                 </documentation>
                 <value>andromda_webservice_wsdlSoapAddress</value>
@@ -261,8 +261,8 @@
             </element>
             <element name="XML_TYPE">
                 <documentation>
-                    Overrides the default schema type for this property or parameter. 
-                    i.e. mapping between from UML type to XML 
+                    Overrides the default schema type for this property or parameter.
+                    i.e. mapping between from UML type to XML
                 </documentation>
                 <value>andromda_xml_type</value>
                 <appliedOnElement>attribute, parameter</appliedOnElement>

@@ -31,12 +31,19 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-        <!-- Depending on your requirements you may need to exclude some dependencies from cxf, spring -->
+        <!-- Includes spring core, beans, and context -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- Depending on your requirements you may need to exclude some dependencies from cxf, spring -->
+        <!-- Uncomment if using JMS transport. Includes spring-tx >
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency-->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
