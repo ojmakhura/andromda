@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="TimeTracker Test Suite" verbose="1">
+  <test name="Services Test">
+    <classes>
+       <!--
+       <class name="org.andromda.timetracker.service.UserServiceTest" />
+       <class name="org.andromda.timetracker.service.TimeTrackingServiceTest" />
+       -->
+    </classes>
+  </test>
+</suite>

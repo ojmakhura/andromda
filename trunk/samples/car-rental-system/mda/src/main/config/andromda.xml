@@ -1,4 +1,5 @@
 <andromda xmlns="http://andromda.org/core/configuration">
+    <!-- See http://docs.andromda.org/configuration.html for andromda.xml properties documentation -->
   <properties>
     <property name="modelValidation">true</property>
     <property name="cartridgeFilter">${filter}</property>
@@ -9,8 +10,7 @@
         <model type="uml-1.4">
           <uri>${model.uri}</uri>
           <moduleSearchLocations>
-            <location>${maven.repo.local}/andromda/xml.zips</location>
-            <location patterns="**/*.xml.zip,**/*.xml">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
         </model>
@@ -18,6 +18,9 @@
     </repository>
   </repositories>
   <namespaces>
+        <!-- namespace property values used by ALL cartridges -->
+        <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
+        <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
     <namespace name="default">
       <properties>
         <property name="enableTemplating">true</property>
@@ -35,32 +38,40 @@
         <property name="foreignKeySuffix">_FK</property>
         <property name="ejbJndiNamePrefix">${application.id}</property>
         <property name="hibernateVersion">3</property>
+        <property name="xmlAttributes">false</property>
       </properties>
     </namespace>
+    <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
     <namespace name="spring">
       <properties>
         <property name="dataSource">${dataSource}</property>
         <property name="hibernateDialect">${hibernate.dialect}</property>
         <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+        <property name="hibernateHbm2DDLAuto">update</property>
         <property name="hibernateQueryUseNamedParameters">true</property>
+        <property name="hibernateEnableCache">false</property>
         <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
         <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
         <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
         <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+        <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
         <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>        
         <property name="springTypesPackage">${application.package}</property>
         <property name="daos">${core.generated.dir}</property>
         <property name="dao-impls">${core.manual.java.dir}</property>
         <property name="spring-configuration">${core.generated.dir}</property>
         <property name="services">${core.generated.dir}</property>
-        <property name="service-interfaces">${common.generated.dir}</property>
         <property name="service-impls">${core.manual.java.dir}</property>
+        <property name="service-interfaces">${common.generated.dir}</property>
+        <property name="criteria">${common.generated.dir}</property>
+        <property name="value-objects">${common.generated.dir}</property>
         <!--to remove any dependency on EJB, comment the following property-->
         <property name="session-ejbs">${core.generated.dir}</property>
         <!--uncomment to enable EJB security-->
         <!--<securityRealm>${application.id}</securityRealm>-->
       </properties>
     </namespace>
+    <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
     <namespace name="hibernate">
       <properties>
         <property name="hibernateEnableCache">false</property>
@@ -68,6 +79,7 @@
         <property name="hibernateTypeMappingsUri">Hibernate</property>
         <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
         <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
+        <property name="hibernateAggregationCascade">delete</property>
         <property name="hibernateDefaultCascade">none</property>
         <property name="entities">${core.generated.dir}</property>
         <property name="entity-impls">${core.manual.java.dir}</property>
@@ -78,23 +90,32 @@
         <property name="cache">${core.generated.dir}</property>
       </properties>
     </namespace>
+    <!-- See http://docs.andromda.org/andromda-cartridges/andromda-java-cartridge/namespace.html -->
     <namespace name="java">
       <properties>
+        <property name="generateEqualPropertiesMethod">true</property>
         <property name="enumerations">${common.generated.dir}</property>
         <property name="exceptions">${common.generated.dir}</property>
         <property name="value-objects">${common.generated.dir}</property>
+        <property name="interfaces">${common.generated.dir}</property>
       </properties>
     </namespace>
+    <!-- See http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html -->
     <namespace name="bpm4struts">
       <properties>
+        <property name="defaultDateFormat">MM/dd/yyyy</property>
+        <property name="normalizeMessages">true</property>
         <property name="forms">${web.generated.java.dir}</property>
         <property name="pages">${web.generated.web.dir}</property>
         <property name="actions">${web.generated.java.dir}</property>
         <property name="controllers">${web.generated.java.dir}</property>
         <property name="controller-impls">${web.manual.java.dir}</property>
+        <property name="decorators">${web.manual.java.dir}</property>
         <property name="messages">${web.generated.web.dir}/WEB-INF/classes</property>
         <property name="configuration">${web.generated.web.dir}/WEB-INF</property>
         <property name="serviceAccessorPattern">null</property>
+        <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+        <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
       </properties>
     </namespace>
   </namespaces>
