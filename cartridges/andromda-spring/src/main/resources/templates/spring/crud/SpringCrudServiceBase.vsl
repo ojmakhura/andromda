@@ -175,13 +175,15 @@ public final class $manageable.manageableServiceBaseName
         if (${member.name} == null || ${member.name}.isEmpty())
         {
             valueObject.${member.setterName}(null);
+#if($member.type.manageable)
 #if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
             valueObject.${member.setterName}Labels(null);
+#end
 #end
         }
         else
         {
-            final ${member.type.manageableIdentifier.type.fullyQualifiedName}[] values = new ${member.type.manageableIdentifier.type.fullyQualifiedName}[${member.name}.size()];
+            final ${member.type.identifiers.iterator().next().type.fullyQualifiedName}[] values = new ${member.type.identifiers.iterator().next().type.fullyQualifiedName}[${member.name}.size()];
 #if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
             final ${member.type.displayAttribute.type.fullyQualifiedName}[] labels = new ${member.type.displayAttribute.type.fullyQualifiedName}[${member.name}.size()];
 #end
@@ -189,9 +191,11 @@ public final class $manageable.manageableServiceBaseName
             for (final java.util.Iterator iterator = ${member.name}.iterator(); iterator.hasNext();counter++)
             {
                 final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
-                values[counter] = element.${member.type.manageableIdentifier.getterName}();
+                values[counter] = element.${member.type.identifiers.iterator().next().getterName}();
 #if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+#if($member.type.manageable)
                 labels[counter] = element.${member.type.displayAttribute.getterName}();
+#end
 #end
             }
             valueObject.${member.setterName}(values);

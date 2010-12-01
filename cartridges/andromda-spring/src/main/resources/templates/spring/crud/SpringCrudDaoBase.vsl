@@ -49,14 +49,13 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #foreach ($associatedClass in $manageable.allAssociatedClasses)
-#if($associatedClass.manageable)
-    private java.util.Set find${associatedClass.name}ByIds(${associatedClass.manageableIdentifier.type.fullyQualifiedName}[] ids)
+    private java.util.Set find${associatedClass.name}ByIds(${associatedClass.identifiers.iterator().next().type.fullyQualifiedName}[] ids)
     {
         final Session session = this.getSession(false);
         try
         {
             final Criteria criteria = session.createCriteria(${associatedClass.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$associatedClass.manageableIdentifier.name", ids));
+            criteria.add(Expression.in("$associatedClass.identifiers.iterator().next().name", ids));
             return new java.util.HashSet(criteria.list());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
@@ -65,7 +64,6 @@ public final class $manageable.manageableDaoBaseName
         }
     }
 
-#end
 #end
 #if ($manageable.create)
     public $manageable.fullyQualifiedEntityName create($memberList)
@@ -174,14 +172,10 @@ public final class $manageable.manageableDaoBaseName
                 criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
             }
 #else
-#if ($member.type.primitive)
-            criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
-#else
             if ($member.name != null)
             {
                 criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
             }
-#end
 #end
 #end
 #if ($manageable.maximumListSize > 0)
