@@ -98,6 +98,18 @@
                     The scope to given the forms.  This value can be overriddem by a tagged value.
                 </documentation>
             </property>
+            <property name="controllerScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the controllers.
+                </documentation>
+            </property>
+            <property name="navigationBeanScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the navigation items.
+                </documentation>
+            </property>
             <property name="facesServletExtension">
                 <default>jsf</default>
                 <documentation>

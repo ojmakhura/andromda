@@ -74,7 +74,7 @@
     <managed-bean>
         <managed-bean-name>$controller.beanName</managed-bean-name>
         <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>${controllerScope}</managed-bean-scope>
 #if ($icefaces)
         <managed-property>
             <property-name>renderManager</property-name>
@@ -90,14 +90,14 @@
     <managed-bean>
         <managed-bean-name>${manageable.controllerBeanName}</managed-bean-name>
         <managed-bean-class>${manageable.controllerType}Impl</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>${controllerScope}</managed-bean-scope>
     </managed-bean>
 #end
 ##Helpers
     <managed-bean>
         <managed-bean-name>autocompleteHelper</managed-bean-name>
         <managed-bean-class>${managedBeansPackage}.AutocompleteHelper</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>${controllerScope}</managed-bean-scope>
     </managed-bean>
 
 #if ($standalone)
@@ -107,7 +107,7 @@
     <managed-bean>
        <managed-bean-name>navItem_$stringUtils.replace($useCase.forwardName, '-', '_')</managed-bean-name>
        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
-       <managed-bean-scope>request</managed-bean-scope>
+       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <managed-property>
           <property-name>label</property-name>
           <value>$useCase.titleKey</value>
@@ -156,7 +156,7 @@
     <managed-bean>
        <managed-bean-name>navItem_$manageable.actionClassName</managed-bean-name>
        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
-       <managed-bean-scope>request</managed-bean-scope>
+       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <managed-property>
           <property-name>label</property-name>
           <value>$manageable.viewTitleKey</value>
@@ -197,7 +197,7 @@
        <managed-bean-class>
           java.util.ArrayList
        </managed-bean-class>
-       <managed-bean-scope>request</managed-bean-scope>
+       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <list-entries>
           <value-class>${managedBeansPackage}.NavigationItem</value-class>
 #foreach ($useCase in $useCases)
@@ -217,7 +217,7 @@
     <managed-bean>
        <managed-bean-name>navTreeModel</managed-bean-name>
        <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
-       <managed-bean-scope>request</managed-bean-scope>
+       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <managed-property>
          <property-name>childProperty</property-name>
          <value>children</value>
@@ -233,7 +233,7 @@
     <managed-bean>
        <managed-bean-name>viewIdMenuModel</managed-bean-name>
        <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
-       <managed-bean-scope>request</managed-bean-scope>
+       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <managed-property>
          <property-name>viewIdProperty</property-name>
          <value>viewId</value>
@@ -247,7 +247,7 @@
     <managed-bean>
       <managed-bean-name>menuModel</managed-bean-name>
       <managed-bean-class>${managedBeansPackage}.MenuModelAdapter</managed-bean-class>
-      <managed-bean-scope>request</managed-bean-scope>
+      <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
       <managed-property>
         <property-name>model</property-name>
         <value>#{viewIdMenuModel}</value>

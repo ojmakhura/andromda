@@ -85,6 +85,8 @@
     <property reference="ajaxLibrary"/>
     <property reference="loginConfigAuthMethod"/>
     <property reference="facesConfigFiles"/>
+    <property reference="controllerScope"/>
+    <property reference="navigationBeanScope"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -580,6 +582,13 @@
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ODSFilter.java"
         outlet="managed-beans"
         overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/TrinidadDialogFilter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/TrinidadDialogFilter.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="standalone"/>
 
     <template
         path="templates/jsf/utils/FacesContextUtils.java.vsl"
