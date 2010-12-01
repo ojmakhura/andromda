@@ -330,6 +330,11 @@
         <filter-name>Trinidad Filter</filter-name>
         <filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
     </filter>
+    <!-- Trinidad patch filter -->
+    <filter>
+        <filter-name>TrinidadDialogFilter</filter-name>
+        <filter-class>${managedBeansPackage}.TrinidadDialogFilter</filter-class>
+    </filter>
 
 #foreach ($useCase in $useCases)
 #foreach ($view in $useCase.views)
@@ -364,6 +369,10 @@
     <filter-mapping>
         <filter-name>Trinidad Filter</filter-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TrinidadDialogFilter</filter-name>
+        <url-pattern>/__ADFv__</url-pattern>
     </filter-mapping>
 
 #if ($securityEnabled && !$roles.empty)
