@@ -602,14 +602,21 @@ public abstract class ${manageable.controllerName}
     */
     static public ${manageable.valueObjectClassName} load(${idParamClass} ${manageable.manageableIdentifier.name})
     {
-        try
+        if(#if(!$manageable.manageableIdentifier.type.primitive)${manageable.manageableIdentifier.name} == null ||#end #if($manageable.manageableIdentifier.type.stringType)org.apache.commons.lang.StringUtils.isEmpty(${manageable.manageableIdentifier.name})#else${manageable.manageableIdentifier.name} == 0#end)
         {
-            return ${manageable.manageableServiceAccessorCall}.readById(${manageable.manageableIdentifier.name});
+            return null;
         }
-        catch(Exception e)
+        else
         {
-            throw new RuntimeException(e);
-        }
+            try
+            {
+                return ${manageable.manageableServiceAccessorCall}.readById(${manageable.manageableIdentifier.name});
+            }
+            catch(Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+        }   
     }
     
     /**
