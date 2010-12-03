@@ -312,7 +312,7 @@
             <dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.3.GA</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -431,14 +431,8 @@
             <!-- Hibernate Dependencies -->
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>3.2.7.ga</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
-                <version>3.3.1.GA</version>
+                <version>3.5.6-Final</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -446,7 +440,7 @@
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>3.2.3</version>
+                <version>4.2.3.GA</version>
 #if ($ear)
                 <scope>provided</scope>
 #end
@@ -456,8 +450,8 @@
 #if ($spring || $hibernate)
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>3.2.7.ga</version>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>3.5.6-Final</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.transaction</groupId>
@@ -579,7 +573,7 @@
             <dependency>
                 <groupId>displaytag</groupId>
                 <artifactId>displaytag</artifactId>
-                <version>1.0</version>
+                <version>1.2</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -651,6 +645,7 @@
             </dependency>
 #else
             <!-- Axis2 Dependencies -->
+            <!-- TODO Update to 1.3 or later breaks webservice template code -->
             <dependency>
                 <groupId>org.apache.axis2</groupId>
                 <artifactId>axis2</artifactId>
@@ -665,7 +660,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-api</artifactId>
-                <version>1.2.8</version>
+                <version>1.2.10</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
@@ -680,7 +675,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-impl</artifactId>
-                <version>1.2.8</version>
+                <version>1.2.10</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -696,7 +691,7 @@
             <dependency>
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-dom</artifactId>
-                <version>1.2.8</version>
+                <version>1.2.10</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -708,7 +703,7 @@
             <dependency>
                 <groupId>backport-util-concurrent</groupId>
                 <artifactId>backport-util-concurrent</artifactId>
-                <version>2.2</version>
+                <version>3.1</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -790,7 +785,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.8.1</version>
+                <version>4.8.2</version>
 #if (!$ejb && !$cxf)
                 <scope>test</scope>
 #end
@@ -805,7 +800,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.9</version>
+                <version>5.1.13</version>
                 <scope>test</scope>
             </dependency>
 #end
@@ -928,7 +923,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.9</version>
+                <version>5.1.13</version>
             </dependency>
 #elseif ($postgres)
             <dependency>
@@ -1011,17 +1006,9 @@
                     <version>2.4.3</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-#if ($ejb3)
-                <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.6</version>
+#if ($ejb3)
                     <configuration>
                         <suiteXmlFiles>
                             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -1034,8 +1021,17 @@
                             </property>
                         </systemProperties>
                     </configuration>
-                </plugin>
 #end
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/*.ref</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
                 <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
@@ -1100,8 +1096,105 @@
 #end
                 </plugin>
 #end
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <!--plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>2.2.1</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <message>You need at least Java ${java.version}!</message>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                                <requirePluginVersions>
+                                    <message>Best Practice is to always define plugin versions!</message>
+                                    <banSnapshots>false</banSnapshots>
+                                    <phases>clean,deploy,site</phases>
+                                </requirePluginVersions>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>*.log</include>
+                                <include>**/*.exc</include>
+                                <include>**/*.bak</include>
+                            </includes>
+                            <excludes>
+                                <!-- Allow mvn clean install > install.log -->
+                                <exclude>build.log</exclude>
+                                <exclude>install.log</exclude>
+                            </excludes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>2.2</version>
+                <!--dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-twiki</artifactId>
+                        <version>1.1.3</version>
+                    </dependency>
+                </dependencies-->
+            </plugin>
+        </plugins>
     </build>
     <modules>
         <!-- Save the values used to generate this project from andromdapp
@@ -1523,6 +1616,9 @@
                             <configuration>
                                 <source>1.5</source>
                                 <target>1.5</target>
+                                <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
+                                <showDeprecation>true</showDeprecation>
+                                <showWarnings>true</showWarnings>
                             </configuration>
                         </plugin>
                         <plugin>
@@ -1533,7 +1629,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>2.1.1</version>
+                            <version>2.2</version>
                             <!--dependencies>
                                 <dependency>
                                     <groupId>org.apache.maven.doxia</groupId>
@@ -1553,11 +1649,13 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
+#if ($jsr181Webservice || $jaxws || $ejb3 || $jbossSeam || $spring || $hibernate || $jsf)
         <repository>
-            <id>jboss</id>
+            <id>jboss-public</id>
             <name>JBoss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
         </repository>
+#end
         <repository>
             <id>Codehaus Snapshots</id>
             <url>http://snapshots.repository.codehaus.org/</url>
@@ -1570,7 +1668,7 @@
         </repository>
         <repository>
             <id>Apache Snapshots</id>
-            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <url>http://repository.apache.org/snapshots/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -1580,6 +1678,11 @@
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype</id>
+            <name>Sonatype AndroMDA Repository</name>
+            <url>http://oss.sonatype.org/content/groups/public</url>
+        </pluginRepository>
         <pluginRepository>
             <id>andromda</id>
             <name>AndroMDA Repository</name>
@@ -1594,6 +1697,13 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>Apache Snapshots</id>
+            <url>http://repository.apache.org/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
@@ -1634,18 +1744,21 @@
                 <reportSets>
                   <reportSet>
                     <reports>
+                      <report>cim</report>
                       <report>dependencies</report>
                       <report>dependency-convergence</report>
                       <report>dependency-management</report>
+                      <report>help</report>
                       <report>index </report>
-                      <report>plugin-management</report>
-                      <report>summary</report>
-                      <report>project-team</report>
-                      <report>mailing-list</report>
-                      <report>cim</report>
                       <report>issue-tracking</report>
                       <report>license</report>
+                      <report>mailing-list</report>
+                      <report>modules</report>
+                      <report>plugin-management</report>
+                      <report>plugins</report>
+                      <report>project-team</report>
                       <report>scm</report>
+                      <report>summary</report>
                     </reports>
                   </reportSet>
                 </reportSets>
@@ -1774,7 +1887,7 @@
                             <report>file-activity</report>
                             <report>dev-activity</report>
                         </reports>
-                     </reportSet>
+                    </reportSet>
                 </reportSets>
             </plugin-->
             <!--plugin>
@@ -1802,7 +1915,7 @@
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.2.2</version>
+                <version>2.2.3</version>
                 <inherited>true</inherited>
                 <configuration>
                     <minSeverity>info</minSeverity>
@@ -1836,6 +1949,20 @@
                     <findbugsXmlOutput>true|false</findbugsXmlOutput>
                     <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>1.2</version>
+                <reportSets>
+                    <reportSet>
+                      <reports>
+                        <report>dependency-updates-report</report>
+                        <report>plugin-updates-report</report>
+                        <report>property-updates-report</report>
+                      </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>

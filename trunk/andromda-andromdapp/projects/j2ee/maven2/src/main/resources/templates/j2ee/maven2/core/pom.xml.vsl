@@ -100,24 +100,6 @@
             <artifactId>cglib-nodep</artifactId>
             <version>2.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-attrs</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 #if (!$ejb)
         <dependency>
             <groupId>junit</groupId>
@@ -128,7 +110,7 @@
 #else
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-annotations</artifactId>
         </dependency>
 #end
 #end
@@ -213,9 +195,11 @@
             <artifactId>cglib-nodep</artifactId>
             <version>2.1</version>
         </dependency>
+#end
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-annotations</artifactId>
+#if ($cxf)
             <exclusions>
                 <exclusion>
                     <groupId>asm</groupId>
@@ -229,17 +213,7 @@
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
                 </exclusion>
-            </exclusions>
-        </dependency>
-#else
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-        </dependency>
 #end
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -469,8 +443,8 @@
 #end
 #if ($ejb || $ejb3)
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -485,19 +459,9 @@
             </plugin>
 #else
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*.ref</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
 #end
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
         </plugins>
         <resources>
 #if ($groovy)
@@ -506,12 +470,6 @@
                 <filtering>false</filtering>
             </resource>
 #end
-            <resource>
-                <directory>target/src/main/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
 ##if ($ejb3)
             <resource>
                 <directory>src/main/resources</directory>

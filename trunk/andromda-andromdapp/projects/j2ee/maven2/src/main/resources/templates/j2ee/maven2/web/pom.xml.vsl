@@ -305,7 +305,6 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -330,7 +329,6 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceDirectory>target/src/main/webapp</warSourceDirectory>
@@ -353,10 +351,6 @@
                     <deployLocation>${tomcat.home}/webapps</deployLocation>
                 </configuration>
 #end
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
             </plugin>
 #if ($embeddedJetty)
             <plugin>
