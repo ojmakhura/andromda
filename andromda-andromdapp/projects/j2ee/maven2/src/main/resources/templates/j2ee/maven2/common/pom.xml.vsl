@@ -45,17 +45,7 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                  <excludes>
-                    <exclude>**/*.ref</exclude>
-                  </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
