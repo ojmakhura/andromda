@@ -19,26 +19,42 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
+        <!-- Uncomment below if using JDBC or Test features>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency-->
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -65,6 +81,7 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
+            <scope>provided</scope>
         </dependency>
         -->
     </dependencies>
@@ -90,6 +107,9 @@
                     <jdbcConnectionUrl>${jdbc.url}</jdbcConnectionUrl>
                     <jdbcUsername>${jdbc.username}</jdbcUsername>
                     <jdbcPassword>${jdbc.password}</jdbcPassword>
+                    <!-- set this to false if you don't want to execute
+                         the generated SQL scripts (creates and saves DDL under app/target/schema*.sql -->
+                    <executeScripts>true</executeScripts>
                     <properties>
                         <property>
                             <name>mappingsLocation</name>
