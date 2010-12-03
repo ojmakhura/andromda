@@ -24,6 +24,9 @@ public interface ${service.name}${localSuffix}
 #else
     extends $ejbSessionBeanBaseInterfaceLocal
 #end
+#if (!$service.interfaceAbstractions.empty)
+        , $service.implementedInterfaceList
+#end
 {
 #foreach ($operation in $service.operations)
     /**

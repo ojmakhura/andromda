@@ -20,6 +20,9 @@ public interface $service.name
 #else
     extends $ejbSessionBeanBaseInterfaceRemote
 #end
+#if (!$service.interfaceAbstractions.empty)
+        , $service.implementedInterfaceList
+#end
 {
 #foreach ($operation in $service.operations)
     /**
