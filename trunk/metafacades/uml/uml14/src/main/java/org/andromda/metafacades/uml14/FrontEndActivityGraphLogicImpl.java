@@ -101,5 +101,4 @@ public class FrontEndActivityGraphLogicImpl
         }
         return controller;
     }
-
 }

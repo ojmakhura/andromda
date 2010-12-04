@@ -246,7 +246,7 @@ public class UMLMetafacadeUtils
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
     }
-    
+
     // TODO extract the mappings into the configurable metafacade namespace in UMLProfile
     private static Map<String, String> implCollection = new HashMap<String, String>();
     /**

@@ -13,7 +13,7 @@ public class IntrospectorTest
     extends TestCase
 {
     /**
-     * 
+     *
      */
     public void testGetProperty()
     {
@@ -29,7 +29,7 @@ public class IntrospectorTest
     }
 
     /**
-     * 
+     *
      */
     public void testSetProperty()
     {
@@ -56,7 +56,7 @@ public class IntrospectorTest
     }
 
     /**
-     * 
+     *
      */
     public void testIsReadable()
     {
@@ -70,7 +70,7 @@ public class IntrospectorTest
     }
 
     /**
-     * 
+     *
      */
     public void testConstainsValidProperty()
     {
@@ -239,8 +239,8 @@ public class IntrospectorTest
             this.nonEmptyCollectionProperty.add("A String");
             return nonEmptyCollectionProperty;
         }
-    }  
-   
+    }
+
     private static final class NestedNestedBean
     {
         private int intProperty = 5;
@@ -252,5 +252,5 @@ public class IntrospectorTest
         {
             this.intProperty = intProperty;
         }
-    }  
+    }
 }
