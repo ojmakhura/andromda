@@ -4,6 +4,13 @@
     <property name="loggingConfigurationUri">file:${project.basedir}/conf/test/log4j.xml</property>
   </properties>
   <repositories>
+    <!--repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${uml2.test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations-->
     <repository name="netBeansMDR">
       <models>
         <model>
