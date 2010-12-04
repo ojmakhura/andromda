@@ -2,7 +2,7 @@
   <properties>
     <property name="cartridgeFilter">jbpm</property>
     <property name="failOnValidationErrors">false</property>
-    <!--Debug andromda processing using example log4j.xml file-->
+    <!-- Debug andromda processing using example log4j.xml file -->
     <property name="loggingConfigurationUri">file:${basedir}/conf/test/log4j.xml</property>
   </properties>
   <repositories>

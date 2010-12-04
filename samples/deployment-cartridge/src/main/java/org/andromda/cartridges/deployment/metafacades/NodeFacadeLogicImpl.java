@@ -29,9 +29,7 @@ public class NodeFacadeLogicImpl extends NodeFacadeLogic
         return this.metaObject.getDeployedComponent();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /** 
      * @see org.andromda.cartridges.deployment.metafacades.NodeFacadeLogic#handleTransformToAntProject()
      */
     protected Project handleTransformToAntProject()

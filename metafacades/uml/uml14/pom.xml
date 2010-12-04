@@ -8,10 +8,10 @@
     <artifactId>andromda-metafacades-uml14</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA UML 1.4 Metafacades</name>
-  	<description>
-  		The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
-  		implementations.  These implement the common UML metafacades.
-  	</description>
+    <description>
+        The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
+        implementations.  These implement the common UML metafacades.
+    </description>
     <issueManagement>
         <system>jira</system>
         <url>http://www.andromda.org/jira/browse/UMLMETA</url>
@@ -21,7 +21,7 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/metafacades/uml/uml14</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-	<dependencies>
+    <dependencies>
         <dependency>
     		<groupId>org.andromda.thirdparty.jmi</groupId>
       		<artifactId>jmiuml</artifactId>

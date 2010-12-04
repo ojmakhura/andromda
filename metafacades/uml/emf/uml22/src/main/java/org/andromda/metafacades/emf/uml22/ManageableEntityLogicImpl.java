@@ -627,8 +627,8 @@ public class ManageableEntityLogicImpl
         try
         {
             resolveable =
-                    Boolean.valueOf(
-                            (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
+               Boolean.valueOf(
+                   (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
         }
         catch (NumberFormatException ex)
         {

@@ -14,6 +14,7 @@ public class DecisionItemDaoImpl
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#toVODecisionItem(org.andromda.samples.animalquiz.decisiontree.DecisionItem)
      */
+    @Override
     public org.andromda.samples.animalquiz.decisiontree.VODecisionItem toVODecisionItem(final org.andromda.samples.animalquiz.decisiontree.DecisionItem entity)
     {
         DecisionItem yesSuccessor = entity.getYesSuccessor();
@@ -29,10 +30,12 @@ public class DecisionItemDaoImpl
         }
     }
 
+    /**
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#vODecisionItemToEntity(org.andromda.samples.animalquiz.decisiontree.VODecisionItem)
+     */
     public DecisionItem vODecisionItemToEntity(VODecisionItem vODecisionItem)
     {
         // TODO Auto-generated method stub
         return null;
     }
-
 }

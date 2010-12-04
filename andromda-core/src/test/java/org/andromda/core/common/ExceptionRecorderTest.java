@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import junit.framework.TestCase;
 
-
 /**
  * A simple test to check the operation of the ExceptionRecorder.
  *

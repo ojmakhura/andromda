@@ -85,5 +85,4 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
         }
         return possiblyResolvedObject;
     }
-
 }
