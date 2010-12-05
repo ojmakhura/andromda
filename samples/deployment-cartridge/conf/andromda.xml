@@ -4,6 +4,12 @@
     <!--<property name="loggingConfigurationUri">file:${project.basedir}/conf/log4j.xml</property>-->
   </properties>
   <repositories>
+    <!--repository name="emf-uml22">
+      <models>
+        <model type="emf-uml22">
+          <uri>${model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location-->
     <repository name="netBeansMDR">
       <models>
         <model>
@@ -38,9 +44,9 @@
         <property name="enableAnnotations">true</property>
         <property name="typeSafeEnumsEnabled">true</property>
         <property name="enumerationLiteralNameMask">upperunderscore</property>
-        <property name="pluralizeAssociationEndNames">true</property>
-        <property name="pluralizeAttributeNames">true</property>
-        <property name="pluralizeParameterNames">true</property>
+        <property name="pluralizeAssociationEndNames">false</property>
+        <property name="pluralizeAttributeNames">false</property>
+        <property name="pluralizeParameterNames">false</property>
         <property name="toDoTag">TODO</property>
       </properties>
     </namespace>
