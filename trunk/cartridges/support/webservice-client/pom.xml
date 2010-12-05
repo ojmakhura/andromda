@@ -26,9 +26,11 @@
         <dependency>
             <groupId>org.apache.ws.commons.schema</groupId>
             <artifactId>XmlSchema</artifactId>
-            <version>1.4.2</version>
+            <version>1.4.7</version>
             <optional>true</optional>
         </dependency>
+        <!-- TODO Update to 1.5+ gives compile error in WebServiceClient: 
+            org.apache.axis2.transport.http.HttpTransportProperties does not exist -->
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2</artifactId>
@@ -38,7 +40,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
-            <version>1.2.7</version>
+            <version>1.2.10</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -54,7 +56,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
-            <version>1.2.7</version>
+            <version>1.2.10</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -96,7 +98,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.3</version>
+            <version>1.4</version>
             <optional>true</optional>
         </dependency>
         <dependency>
