@@ -204,7 +204,7 @@
             <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
-                <version>2.0</version>
+                <version>2.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -214,7 +214,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>1.4</version>
+                <version>2.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -234,7 +234,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.7</version>
+                <version>4.8.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -255,7 +255,7 @@
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
-                <version>1.0.b2</version>
+                <version>2.0.2</version>
             </dependency>
             <dependency>
                 <groupId>jaxen</groupId>
@@ -282,7 +282,7 @@
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
-                <version>1.8.0</version>
+                <version>1.8.1</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
@@ -297,7 +297,7 @@
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity-tools</artifactId>
-                <version>2.0-beta4</version>
+                <version>2.0</version>
             </dependency>
 
             <dependency>
@@ -311,6 +311,13 @@
                 <version>1.7.3</version>
             </dependency>
 
+            <!-- Update needed to TraceTranslator for latest version: ClassPool.writeFile(String, String) 
+            method moved to CtClass. Fix maven\andromdapp and translation-libraries\ocl\testsuite -->
+            <!--dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.14.0-GA</version>
+            </dependency-->
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>javassist</artifactId>
@@ -523,7 +530,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-container-default</artifactId>
-                <version>1.5.4</version>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
@@ -546,12 +553,12 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.3.2</version>
                     <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                        <!--compilerVersion>1.5</compilerVersion>
-                        <compilerArgument>-Xlint</compilerArgument-->
+                        <source>1.6</source>
+                        <target>1.6</target>
+                        <compilerVersion>1.6</compilerVersion>
+                        <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
                         <fork>true</fork>
@@ -567,7 +574,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.2-beta-5</version>
+                    <version>2.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -626,11 +633,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>1.6</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0-beta-1</version>
+                    <version>1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-invoker-plugin</artifactId>
@@ -656,7 +663,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>2.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -690,7 +697,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0-beta-1</version>
+                <version>1.0</version>
                 <executions>
                     <execution>
                         <id>enforce-jdk</id>
@@ -897,6 +904,8 @@
         <maven.version>2.2.1</maven.version>
         <!--maven.version>3.0-beta-1</maven.version-->
         <plexus.util.version>2.0.5</plexus.util.version>
+        <!-- French Encoding from Cedric in some files: can't use UTF-8, TODO update source files -->
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     </properties>
     <profiles>
         <profile>
@@ -1071,14 +1080,14 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>2.1.1</version>
+                        <version>2.2</version>
                         <configuration>
                             <locales>en</locales>
                         </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.6</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
@@ -1165,7 +1174,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>2.5</version>
+                        <version>2.6</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
@@ -1198,7 +1207,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.5</version>
+                        <version>2.6</version>
                         <configuration>
                             <configLocation>config/maven_checks.xml</configLocation>
                         </configuration>
@@ -1334,7 +1343,7 @@
             </reporting>
         </profile>
         <profile>
-            <!--Profileconfiguration for site builds-->
+            <!--Profile configuration for site builds-->
             <id>andromda-site-light</id>
             <modules>
                 <module>andromda-core</module>
@@ -1364,14 +1373,14 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>2.1.1</version>
+                        <version>2.2</version>
                         <configuration>
                             <locales>en</locales>
                         </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>1.6</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
@@ -1459,7 +1468,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>2.5</version>
+                        <version>2.6</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
@@ -1549,6 +1558,20 @@
                                 <reports>
                                     <report>changes-report</report>
                                 </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>1.2</version>
+                        <reportSets>
+                            <reportSet>
+                              <reports>
+                                <report>dependency-updates-report</report>
+                                <report>plugin-updates-report</report>
+                                <report>property-updates-report</report>
+                              </reports>
                             </reportSet>
                         </reportSets>
                     </plugin>
