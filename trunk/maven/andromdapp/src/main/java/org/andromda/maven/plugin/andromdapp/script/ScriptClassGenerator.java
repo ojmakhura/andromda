@@ -138,6 +138,8 @@ public class ScriptClassGenerator
 
             pool.writeFile(className,
                 directory != null ? directory.getAbsolutePath() : "");
+            // org.javassist-3.14.0-GA update
+            // ctClass.writeFile(directory != null ? directory.getAbsolutePath() : "");
         }
         catch (final Throwable throwable)
         {

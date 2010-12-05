@@ -24,7 +24,7 @@ import org.andromda.translation.ocl.BaseTranslator;
 import org.apache.log4j.Logger;
 
 /**
- * This class allows us to trace the parsing of the expression. It is reflectively extended by Javaassist to allow the
+ * This class allows us to trace the parsing of the expression. It is reflectively extended by Javassist to allow the
  * inclusion of all "inA" and "outA" methods produced by the SableCC parser. This allows us to dynamically include all
  * handling code in each method without having to manual code each one. It used used during development of Translators
  * since it allows you to see the execution of each node.
@@ -113,7 +113,7 @@ public class TraceTranslator
     }
 
     /**
-     * Checks to see if this class needs to be adapated If it has the "adapted" field then we know it already has been
+     * Checks to see if this class needs to be adapted If it has the "adapted" field then we know it already has been
      * adapted.
      *
      * @return true/false, true if it needs be be adapted.
@@ -214,7 +214,10 @@ public class TraceTranslator
             {
                 logger.debug("writing className '" + className + "' to directory --> " + '\'' + dir + '\'');
             }
-            this.pool.writeFile(this.getClass().getName(), dir.toString());
+            this.pool.writeFile(dir.toString());
+            // org.javassist-3.14.0-GA update
+            //CtClass ctTranslatorClass = pool.get(this.getClass().getName());
+            //ctTranslatorClass.writeFile(dir.toString());
         }
         catch (Exception ex)
         {
@@ -370,13 +373,13 @@ public class TraceTranslator
         ExceptionUtils.checkNull("method", method);
         StringBuilder buf = new StringBuilder("if (logger.isInfoEnabled()) {logger.info(\"");
         buf.append("\" + methodName + \" --> ");
-        //javaassist names the arguments $1,$2,$3, etc.
+        //javassist names the arguments $1,$2,$3, etc.
         buf.append("'\" + org.andromda.core.translation.TranslationUtils.trimToEmpty($1) + \"'\");}");
         return buf.toString();
     }
 
     /**
-     * Extends the Javaassist class pool so that we can define our own ClassLoader to use from which to find, load and
+     * Extends the Javassist class pool so that we can define our own ClassLoader to use from which to find, load and
      * modify and existing class.
      *
      * @author Chad Brandon
@@ -421,7 +424,7 @@ public class TraceTranslator
          * To load a class file, this method uses an internal class loader. Thus, that class file is not loaded by the
          * system class loader, which should have loaded this <code>AspectClassPool</code> class. The internal class
          * loader loads only the classes explicitly specified by this method <code>writeAsClass()</code>. The other
-         * classes are loaded by the parent class loader (the sytem class loader) by delegation. Thus, if a class
+         * classes are loaded by the parent class loader (the system class loader) by delegation. Thus, if a class
          * <code>X</code> loaded by the internal class loader refers to a class <code>Y</code>, then the class
          * <code>Y</code> is loaded by the parent class loader.
          *
@@ -435,6 +438,8 @@ public class TraceTranslator
         {
             try
             {
+                //CtClass ctTranslatorClass = this.pool.get(classname);
+                // TODO pgrade javassist version which moved the write() method
                 return classLoader.loadClass(classname, write(classname));
             }
             catch (ClassFormatError e)
