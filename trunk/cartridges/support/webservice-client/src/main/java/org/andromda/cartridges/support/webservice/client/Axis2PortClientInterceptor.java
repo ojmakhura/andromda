@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.remoting.rmi.RmiClientInterceptorUtils;
 
@@ -260,9 +259,8 @@ public class Axis2PortClientInterceptor
      * @param invocation 
      * @return invoked operation return
      * @throws Throwable 
-     * @see #getPortStub()
+     * @see {@link WebServiceClient#invokeBlocking(String, Object[])}
      * @see org.springframework.remoting.rmi.RmiClientInterceptorUtils
-     * @see #performJaxRpcCall
      */
     public Object invoke(MethodInvocation invocation)
         throws Throwable
@@ -303,7 +301,7 @@ public class Axis2PortClientInterceptor
     /**
      * @see org.springframework.beans.factory.support.RootBeanDefinition#cloneBeanDefinition()
      */
-    public AbstractBeanDefinition cloneBeanDefinition() {
+    public RootBeanDefinition cloneBeanDefinition() {
         return new RootBeanDefinition(this);
     }
 }
