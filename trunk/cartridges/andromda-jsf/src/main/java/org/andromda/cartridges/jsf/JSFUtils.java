@@ -634,17 +634,29 @@ public class JSFUtils
     }
 
     //validator strings
+    /** "required" */
     static final public String VT_REQUIRED="required";
+    /** "url" */
     static final public String VT_URL="url";
+    /** "intRange" */
     static final public String VT_INT_RANGE="intRange";
+    /** "floatRange" */
     static final public String VT_FLOAT_RANGE="floatRange";
+    /** "doubleRange" */
     static final public String VT_DOUBLE_RANGE="doubleRange";
+    /** "email" */
     static final public String VT_EMAIL="email";
+    /** "creditCard" */
     static final public String VT_CREDIT_CARD="creditCard";
+    /** "minlength" */
     static final public String VT_MIN_LENGTH="minlength";
+    /** "maxlength" */
     static final public String VT_MAX_LENGTH="maxlength";
+    /** "mask" */
     static final public String VT_MASK="mask";
+    /** "validwhen" */
     static final public String VT_VALID_WHEN="validwhen";
+    /** "equal" */
     static final public String VT_EQUAL="equal";
     
     /**

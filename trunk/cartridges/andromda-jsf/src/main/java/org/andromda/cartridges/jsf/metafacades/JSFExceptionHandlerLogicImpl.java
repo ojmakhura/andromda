@@ -20,6 +20,8 @@ public class JSFExceptionHandlerLogicImpl
 
     /**
      * Public constructor for JSFExceptionHandlerLogicImpl
+     * @param metaObject 
+     * @param context 
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler
      */
     public JSFExceptionHandlerLogicImpl (Object metaObject, String context)
@@ -32,6 +34,7 @@ public class JSFExceptionHandlerLogicImpl
      * The key to use with this handler's message resource bundle that
      * will retrieve the error message template for this exception.
      * </p>
+     * @return exceptionKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler#getExceptionKey()
      */
     protected String handleGetExceptionKey()
@@ -49,6 +52,7 @@ public class JSFExceptionHandlerLogicImpl
      * The module-relative URI to the resource that will complete the
      * request/response if this exception occurs.
      * </p>
+     * @return exceptionPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler#getExceptionPath()
      */
     protected String handleGetExceptionPath()
@@ -67,6 +71,7 @@ public class JSFExceptionHandlerLogicImpl
      * Fully qualified Java class name of the exception type to
      * register with this handler.
      * </p>
+     * @return exceptionType
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler#getExceptionType()
      */
     protected String handleGetExceptionType()
@@ -77,6 +82,7 @@ public class JSFExceptionHandlerLogicImpl
 
     /**
      * 
+     * @return messageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler#getMessageKey()
      */
     protected String handleGetMessageKey()

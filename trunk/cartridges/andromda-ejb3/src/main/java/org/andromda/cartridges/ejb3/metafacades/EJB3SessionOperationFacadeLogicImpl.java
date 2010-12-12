@@ -252,7 +252,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     /**
      * @see EJB3SessionOperationFacadeLogic#getCall()
      *
-     * Override the default implmentation to check for timer service and
+     * Override the default implementation to check for timer service and
      * add the javax.ejb.Timer attribute to the call.
      */
     public String getCall()
