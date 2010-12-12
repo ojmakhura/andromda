@@ -4,14 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.eclipse.ClasspathWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
