@@ -39,33 +39,33 @@
                 </li>
             </ol>
             <source>
-                C:\&gt;mvn org.andromda.maven.plugins:andromdapp-maven-plugin:3.2:generate
+                C:\&gt;mvn org.andromda.maven.plugins:andromdapp-maven-plugin:3.4-SNAPSHOT:generate
                 [INFO] Scanning for projects...
                 [INFO] Searching repository for plugin with prefix: 'andromdapp'.
                 [INFO] ----------------------------------------------------------------------------
                 [INFO] Building Maven Default Project
-                [INFO] task-segment: [andromdapp:generate] (aggregator-style)
+                [INFO]    task-segment: [org.andromda.maven.plugins:andromdapp-maven-plugin:3.4-SNAPSHOT:generate] (aggregator-style)
                 [INFO] ----------------------------------------------------------------------------
-                [INFO] [andromdapp:generate]
-                INFO [AndroMDA] discovered andromdapp type --&gt; 'richclient'
+                [INFO] [andromdapp:generate] {execution: default-cli}]
                 INFO [AndroMDA] discovered andromdapp type --&gt; 'j2ee'
+                INFO [AndroMDA] discovered andromdapp type --&gt; 'richclient'
 
                 Please choose the type of application to generate [richclient, j2ee]
                 j2ee
 
-                Please enter the location in which your new application will be created
-                (i.e. f:/java/development):
-                C:/
+                Please enter the parent directory of your new application directory, using forward slashes (i.e. C:/workspaces):
+                C:/workspaces
 
                 Please enter your first and last name (i.e. Chad Brandon):
-                Naresh Bhatia
+                Bob Fields
 
-                Which kind of modeling tool will you use? [uml1.4, uml2, emf-uml2]:
+                Which kind of modeling tool will you use? (uml1.4/uml2 for .xml.zip/.xml files,
+                emf-uml22 for .uml files, rsm7 for .emx files) [uml1.4, uml2, emf-uml22, rsm7,]
                 Use the list below to enter the correct choice:
                 ArgoUML: uml1.4
                 MagicDraw 9.x: uml1.4
                 MagicDraw 11.5: uml2
-                RSM 6: emf-uml2
+                RSM 7, 7.5, 8: emf-uml22
                 uml1.4
 
                 Please enter the name of your J2EE project (i.e. Animal Quiz):
@@ -81,62 +81,72 @@
                 (i.e. org.andromda.samples.animalquiz):
                 org.andromda.timetracker
 
-                Would you like an EAR or standalone WAR? [ear, war]:
+                Would you like an EAR or standalone WAR? [ear, war,]:
                 ear
 
-                Please enter the type of transactional/persistence cartridge to use
-                [hibernate, ejb, ejb3, spring, none]:
+                Please enter the type of transactional/persistence cartridge to use (enter 'none' 
+                if you don't want to use one) [hibernate, ejb, ejb3, spring, none,]:
                 spring
 
+                Please enter the programming language to be used in service and dao implementations 
+                [java, groovy,]:
+                java
                 Please enter the database backend for the persistence layer
                 [hypersonic, mysql, oracle, db2, informix, mssql, pointbase,
-                postgres, sybase, sabdb, progress, derby]:
+                postgres, sybase, sabdb, progress, derby,]:
                 mysql
 
                 Will your project need workflow engine capabilities?
-                (it uses jBPM and Hibernate3)? [yes, no]:
+                (it uses jBPM and Hibernate3)? [yes, no,]:
                 no
 
-                Please enter the hibernate version number
-                (enter '2' for 2.1.x or '3' for 3.0.x) [2, 3]:
-                3
+                Will your project have a web user interface? [yes, no,]:
 
-                Will your project have a web user interface? [yes, no]:
                 yes
 
-                Would you like your web user interface to use JSF or Struts? [jsf, struts]:
+                Would you like your web user interface to use JSF or Struts? [jsf, struts,]:
                 struts
 
-                Would you like to be able to expose your services as web services? [yes, no]:
+                Would you like to be able to expose your services as web services? [yes, no,]:
                 no
                 -------------------------------------------------------------------------------------
                 G e n e r a t i n g A n d r o M D A P o w e r e d A p p l i c a t i o n
                 -------------------------------------------------------------------------------------
-                Output: 'file:/C://timetracker/app/pom.xml'
-                Output: 'file:/C://timetracker/app/src/main/application/META-INF/jboss-app.xml'
-                Output: 'file:/C://timetracker/app/src/main/config/timetracker-ds.xml'
-                Output: 'file:/C://timetracker/common/pom.xml'
-                Output: 'file:/C://timetracker/core/target/classes/META-INF/ejb-jar.xml'
-                Output: 'file:/C://timetracker/core/pom.xml'
-                Output: 'file:/C://timetracker/mda/pom.xml'
-                Output: 'file:/C://timetracker/mda/src/main/config/andromda.xml'
-                Output: 'file:/C://timetracker/mda/src/main/config/mappings/WebMergeMappings.xml'
-                Output: 'file:/C://timetracker/mda/src/main/uml/timetracker.xmi'
-                Output: 'file:/C://timetracker/pom.xml'
-                Output: 'file:/C://timetracker/readme.txt'
-                Output: 'file:/C://timetracker/web/pom.xml'
-                Output: 'file:/C://timetracker/web/src/main/properties/messages.properties'
-                Output: 'file:/C://timetracker/web/target/timetracker-web-1.0-SNAPSHOT/WEB-INF/web.xml'
+                Output: 'file:/C:/workspaces/timetracker/core/target/classes/META-INF/ejb-jar.xml'
+                Output: 'file:/C:/workspaces/timetracker/core/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/app/src/main/config/timetracker-ds.xml'
+                Output: 'file:/C:/workspaces/timetracker/app/src/main/application/META-INF/jboss-app.xml'
+                Output: 'file:/C:/workspaces/timetracker/app/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/m2eclipse.bat'
+                Output: 'file:/C:/workspaces/timetracker/common/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/web/src/main/properties/messages.properties'
+                Output: 'file:/C:/workspaces/timetracker/web/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/web/target/timetracker-1.0-SNAPSHOT/WEB-INF/web.xml'
+                Output: 'file:/C:/workspaces/timetracker/web/target/timetracker-web-1.0-SNAPSHOT/WEB-INF/web.xml'
+                Output: 'file:/C:/workspaces/timetracker/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/WebMergeMappings.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/JavaMappings.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/SpringMergeMappings.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/andromda.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/uml/timetracker.xmi'
+                Output: 'file:/C:/workspaces/timetracker/mda/src/main/uml/empty-model-rsm6.emx'
+                Output: 'file:/C:/workspaces/timetracker/mda/pom.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/log4j.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/build.xml'
+                Output: 'file:/C:/workspaces/timetracker/mda/readme.txt'
+                Output: 'file:/C:/workspaces/timetracker/mda/build.properties'
+                Output: 'file:/C:/workspaces/timetracker/mda/.project'
+                Output: 'file:/C:/workspaces/timetracker/readme.txt'
                 -------------------------------------------------------------------------------------
-                New application generated to --&gt; 'file:/C://timetracker/'
-                Instructions for your new application --&gt; 'file:/C://timetracker/readme.txt'
+                New application generated to --> 'file:/C:/workspaces/timetracker/'
+                Instructions for your new application --> 'file:/C:/workspaces/timetracker/readme.txt'                -------------------------------------------------------------------------------------
                 -------------------------------------------------------------------------------------
                 [INFO] ------------------------------------------------------------------------
                 [INFO] BUILD SUCCESSFUL
                 [INFO] ------------------------------------------------------------------------
                 [INFO] Total time: 3 minutes 45 seconds
-                [INFO] Finished at: Sat May 20 21:47:51 EDT 2006
-                [INFO] Final Memory: 9M/22M
+                [INFO] Finished at: Tue Dec 07 00:23:13 EST 2010
+                [INFO] Final Memory: 39M/133M
                 [INFO] ------------------------------------------------------------------------
 
                 C:\&gt;
@@ -330,7 +340,7 @@
             <subsection name="What's Next?">
                 <p>
                     Now that we have created the base application, it is time to start modeling. Click
-                    <a href="userService-definition.html">here</a> to model your first entity.
+                    <a href="userservice-definition.html">here</a> to model your first entity.
                 </p>
             </subsection>
         </section>
