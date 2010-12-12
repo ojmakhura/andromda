@@ -312,67 +312,67 @@
             <dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-ejb3-client</artifactId>
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-ejb3x</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>ejb3-persistence</artifactId>
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-annotations-ejb3</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-serialization</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-remoting</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-aop-jdk50-client</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-aspect-jdk50-client</artifactId>
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jbossall-client</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jnp-client</artifactId>
-                <version>4.0.5-GA</version>
+                <version>4.2.2.GA</version>
                 <scope>runtime</scope>
             </dependency>
 #if ($jsr181Webservice || $jaxws)
@@ -440,7 +440,7 @@
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
 #if ($ear)
                 <scope>provided</scope>
 #end
@@ -458,6 +458,12 @@
                         <artifactId>jta</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+                <scope>provided</scope>
             </dependency>
 #end
 #end
@@ -1653,12 +1659,17 @@
         <repository>
             <id>jboss-public</id>
             <name>JBoss Repository</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
+        <repository>
+            <id>download</id>
+            <name>Java.Net Download</name>
+            <url>http://download.java.net/maven/2</url>
         </repository>
 #end
         <repository>
             <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <url>http://snapshots.repository.codehaus.org</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -1668,7 +1679,7 @@
         </repository>
         <repository>
             <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
+            <url>http://repository.apache.org/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -1690,7 +1701,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <url>http://snapshots.repository.codehaus.org</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -1700,7 +1711,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
+            <url>http://repository.apache.org/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -1770,9 +1781,19 @@
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
                     <sourcepath>${basedir}/src/main/java;${basedir}/target/src/main/java</sourcepath>
+                    <detectLinks/>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+#if ($spring || $hibernate || $cxf)
+                        <link>http://docs.jboss.org/hibernate/stable/core/api</link>
+                        <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
+#end
+                        <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                        <link>http://jakarta.apache.org/commons/lang/apidocs</link>
+                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                        <link>http://www.junit.org/junit/javadoc/</link>
+                        <link>http://logging.apache.org/log4j/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>
