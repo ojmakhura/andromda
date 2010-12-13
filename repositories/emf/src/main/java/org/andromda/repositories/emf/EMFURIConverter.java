@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
  * @author Chad Brandon
  * @author Bob Fields
  */
-@SuppressWarnings("deprecation")
 public class EMFURIConverter
     extends ExtensibleURIConverterImpl
     // Use URIConverterImpl for UML2 2.x
