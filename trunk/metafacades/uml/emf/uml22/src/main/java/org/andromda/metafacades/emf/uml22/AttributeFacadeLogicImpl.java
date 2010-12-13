@@ -1,9 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
-import java.util.Collection;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
-import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
