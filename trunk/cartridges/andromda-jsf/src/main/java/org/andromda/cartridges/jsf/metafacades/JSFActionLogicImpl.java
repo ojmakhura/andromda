@@ -825,7 +825,7 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getActionTriggerMethodName()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getTriggerMethodName
      */
     @Override
     protected String handleGetTriggerMethodName() {
