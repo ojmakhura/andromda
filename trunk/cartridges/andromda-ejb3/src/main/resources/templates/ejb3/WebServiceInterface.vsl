@@ -9,7 +9,7 @@ package $service.packageName;
  * Web service interface for the ${service.serviceName} session bean.
  *
  */
-@javax.jws.WebService(targetNamespace = "${service.namespace}", serviceName = "${service.qName}")
+@javax.jws.WebService(targetNamespace = "${service.namespace}")
 @javax.jws.soap.SOAPBinding(style = javax.jws.soap.SOAPBinding.Style.${stringUtils.upperCase($service.style)}, use = javax.jws.soap.SOAPBinding.Use.${stringUtils.upperCase($service.use)}, parameterStyle = javax.jws.soap.SOAPBinding.ParameterStyle.${stringUtils.upperCase($service.parameterStyle)})
 #if ($stringUtils.equals(${persistenceContainerName}, "jboss"))
 @org.jboss.ws.annotation.PortComponent(contextRoot = "${webServiceContextRoot}", urlPattern="${webServiceUrlPattern}/${service.qName}/*")
