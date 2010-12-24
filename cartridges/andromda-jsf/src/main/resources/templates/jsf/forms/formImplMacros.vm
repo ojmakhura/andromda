@@ -45,7 +45,8 @@
 
         for (int ctr = 0; ctr < length; ctr++)
         {
-            backingList[ctr] = new javax.faces.model.SelectItem(values[ctr], String.valueOf(labels[ctr]));
+            backingList[ctr] = new javax.faces.model.SelectItem(
+                values[ctr] != null ? values[ctr] : "", labels[ctr] != null ? java.lang.String.valueOf(labels[ctr]) : "");
         }
         return backingList;
     }
@@ -91,56 +92,59 @@
                 for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
                 {
                     final Object item = iterator.next();
-                    this.${valueListName}[ctr] = valueProperty == null ? item :
-                        org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty.trim());
-                    if (labelProperties == null)
+                    if (item != null)
                     {
-                        this.${labelListName}[ctr] = item;
-                    }
-                    else
-                    {
-                        final StringBuilder labelText = new StringBuilder();
-                        int ctr2 = 0;
-                        do
+                        this.${valueListName}[ctr] = valueProperty == null ? item :
+                            org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty.trim());
+                        if (labelProperties == null)
                         {
-                            if (!labelDelimiters.isEmpty())
+                            this.${labelListName}[ctr] = item;
+                        }
+                        else
+                        {
+                            final StringBuilder labelText = new StringBuilder();
+                            int ctr2 = 0;
+                            do
                             {
-                                labelText.append(labelDelimiters.get(ctr2));
-                            }
-                            String property = null;
-                            if (ctr2 < labelProperties.size())
-                            {
-                                property = labelProperties.get(ctr2);
-                            }
-                            if (property != null && property.length() > 0)
-                            {
-                                if (org.apache.commons.beanutils.PropertyUtils.isReadable(item, property))
+                                if (!labelDelimiters.isEmpty())
                                 {
-                                    Object value = org.apache.commons.beanutils.PropertyUtils.getProperty(item, property);
-                                    if (value != null)
+                                    labelText.append(labelDelimiters.get(ctr2));
+                                }
+                                String property = null;
+                                if (ctr2 < labelProperties.size())
+                                {
+                                    property = labelProperties.get(ctr2);
+                                }
+                                if (property != null && property.length() > 0)
+                                {
+                                    if (org.apache.commons.beanutils.PropertyUtils.isReadable(item, property))
                                     {
-                                        if (value instanceof String)
-                                        {
-                                            if (((String)value).trim().length() == 0)
-                                            {
-                                                value = null;
-                                            }
-                                        }
+                                        Object value = org.apache.commons.beanutils.PropertyUtils.getProperty(item, property);
                                         if (value != null)
                                         {
-                                            labelText.append(value);
+                                            if (value instanceof String)
+                                            {
+                                                if (((String)value).trim().length() == 0)
+                                                {
+                                                    value = null;
+                                                }
+                                            }
+                                            if (value != null)
+                                            {
+                                                labelText.append(value);
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        labelText.append(property);
+                                    }
                                 }
-                                else
-                                {
-                                    labelText.append(property);
-                                }
+                                ctr2++;
                             }
-                            ctr2++;
+                            while (ctr2 < labelDelimiters.size());
+                            this.${labelListName}[ctr] = labelText.toString().replaceAll("\\s+", " ").trim();
                         }
-                        while (ctr2 < labelDelimiters.size());
-                        this.${labelListName}[ctr] = labelText.toString().replaceAll("\\s+", " ").trim();
                     }
                 }
             }
