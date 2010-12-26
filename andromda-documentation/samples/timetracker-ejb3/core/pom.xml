@@ -33,41 +33,37 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-annotations-ejb3</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-remoting</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aop-jdk50-client</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>

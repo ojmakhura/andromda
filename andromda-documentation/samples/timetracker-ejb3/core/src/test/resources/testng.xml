@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TimeTracker EJB3 Test Suite" verbose="2" parallel="false">
+<suite name="timetracker-ejb3 Test Suite" verbose="2" parallel="false">
     <test name="timetracker-ejb3 Services Test">
         <classes>
             <!-- Always start the EJB3 embeddable container before running the tests -->

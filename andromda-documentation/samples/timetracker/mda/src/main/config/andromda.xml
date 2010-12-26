@@ -9,13 +9,19 @@
         <port>4447</port>
     </server>
     <repositories>
-        <!--repository name="emf-uml22">
+        <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
                     <uri>file:${project.basedir}/src/main/uml2/timetracker.uml</uri>
                     <moduleSearchLocations>
+                        <location patterns="*.uml">${project.basedir}/src/main/uml2</location>
+                    <!--uri>file:${project.basedir}/src/main/uml/timetracker-rsm75.emx</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.profile.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.library.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
                         <location patterns="andromda*.uml,UML_*.uml">${project.basedir}/src/main/uml2</location-->
-        <repository name="netBeansMDR">
+        <!--repository name="netBeansMDR">
             <models>
                 <model>
                     <uri>${model.uri}</uri>
@@ -23,7 +29,7 @@
                         <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4</location>
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location-->
                     </moduleSearchLocations>
                 </model>
             </models>

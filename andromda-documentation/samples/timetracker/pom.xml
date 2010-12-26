@@ -640,6 +640,9 @@
                             <configuration>
                                 <source>1.5</source>
                                 <target>1.5</target>
+                                <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
+                                <showDeprecation>true</showDeprecation>
+                                <showWarnings>true</showWarnings>
                             </configuration>
                         </plugin>
                         <plugin>
