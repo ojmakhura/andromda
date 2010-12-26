@@ -19,19 +19,19 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-ejb3-cartridge</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
         </dependency>
         <dependency>

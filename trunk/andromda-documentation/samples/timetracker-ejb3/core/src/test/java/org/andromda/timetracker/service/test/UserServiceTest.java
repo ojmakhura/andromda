@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import org.andromda.timetracker.domain.Role;
 import org.andromda.timetracker.security.PasswordEncoder;
 import org.andromda.timetracker.service.UserDoesNotExistException;
+import org.andromda.timetracker.service.UserServiceRemote;
 import org.andromda.timetracker.test.EJB3Container;
 import org.andromda.timetracker.vo.UserDetailsVO;
 import org.andromda.timetracker.vo.UserRoleVO;
@@ -33,7 +34,7 @@ public class UserServiceTest
     {
         try
         {
-            org.andromda.timetracker.service.UserServiceRemote userService = (org.andromda.timetracker.service.UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
+            UserServiceRemote userService = (UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
             
             // Remote testuser if it already exists
             UserVO userVO = null;
@@ -98,7 +99,7 @@ public class UserServiceTest
     {
         try
         {
-            org.andromda.timetracker.service.UserServiceRemote userService = (org.andromda.timetracker.service.UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
+            UserServiceRemote userService = (UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
             UserVO[] users = userService.getAllUsers();
             assert users.length > 0;
             

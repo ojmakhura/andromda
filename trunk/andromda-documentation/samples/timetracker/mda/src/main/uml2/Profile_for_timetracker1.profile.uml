@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_kauP0AhfEeCn8q3xFEJtmg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_kauP0AhfEeCn8q3xFEJtmg/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_kbOmnAhfEeCn8q3xFEJtmg">
+  <uml:Profile xmi:id="_16_8_2e90116_1292426454652_67868_1779" name="Profile_for_timetracker1" metamodelReference="_16_8_2e90116_1292426454652_38525_1780">
+    <eAnnotations xmi:id="_kbMJ5AhfEeCn8q3xFEJtmg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_kbMJ5QhfEeCn8q3xFEJtmg" name="Profile_for_timetracker1" nsURI="http:///schemas/Profile_for_timetracker1/_kaowQAhfEeCn8q3xFEJtmg/0" nsPrefix="Profile_for_timetracker1">
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_kbMJ5ghfEeCn8q3xFEJtmg" name="hyperlinkText">
+          <eAnnotations xmi:id="_kbMJ5whfEeCn8q3xFEJtmg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1292426454485_615666_1705"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_kbMJ6AhfEeCn8q3xFEJtmg" name="hyperlinkText" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_kbMJ6QhfEeCn8q3xFEJtmg" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_kbMJ6ghfEeCn8q3xFEJtmg" name="hyperlinkTextActive">
+          <eAnnotations xmi:id="_kbMJ6whfEeCn8q3xFEJtmg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_16_8_2e90116_1292426454485_996477_1708"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_kbMJ7AhfEeCn8q3xFEJtmg" name="hyperlinkTextActive" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_kbMJ7QhfEeCn8q3xFEJtmg" name="base_Element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Element"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_16_8_2e90116_1292426454652_38525_1780">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0primitiveTypesProfile_for_timetracker1">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesProfile_for_timetracker1">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1292426454485_615666_1705" name="hyperlinkText">
+      <ownedAttribute xmi:id="_9_0_2_8980277_1151290387539_580801_0" name="hyperlinkText" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1292426454484_54299_1704" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1292426454484_574896_1703" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_16_8_2e90116_1292426454663_450063_1783" name="base_Element" visibility="private" association="_16_8_2e90116_1292426454663_445935_1782">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1292426454663_445935_1782" name="" memberEnd="_16_8_2e90116_1292426454663_450063_1783 _16_8_2e90116_1292426454663_535300_1784" navigableOwnedEnd="_16_8_2e90116_1292426454663_535300_1784">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1292426454663_535300_1784" name="extension_hyperlinkText" visibility="private" type="_16_8_2e90116_1292426454485_615666_1705" aggregation="composite" association="_16_8_2e90116_1292426454663_445935_1782">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1292426454663_441733_1786" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1292426454663_999700_1785" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_16_8_2e90116_1292426454485_996477_1708" name="hyperlinkTextActive">
+      <ownedAttribute xmi:id="_9_0_2_8980277_1151290387549_850368_2" name="hyperlinkTextActive" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1292426454485_538117_1707" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1292426454485_847062_1706" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_16_8_2e90116_1292426454664_343661_1788" name="base_Element" visibility="private" association="_16_8_2e90116_1292426454664_664146_1787">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_16_8_2e90116_1292426454664_664146_1787" name="" memberEnd="_16_8_2e90116_1292426454664_436369_1789 _16_8_2e90116_1292426454664_343661_1788" navigableOwnedEnd="_16_8_2e90116_1292426454664_436369_1789">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_16_8_2e90116_1292426454664_436369_1789" name="extension_hyperlinkTextActive" visibility="private" type="_16_8_2e90116_1292426454485_996477_1708" aggregation="composite" association="_16_8_2e90116_1292426454664_664146_1787">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_8_2e90116_1292426454664_5853_1791" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_8_2e90116_1292426454664_775928_1790" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationProfile_for_timetracker1">
+      <eAnnotations xmi:id="_krzYwQhfEeCn8q3xFEJtmg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_kbOmnAhfEeCn8q3xFEJtmg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
+  </uml:Profile>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_krzYwghfEeCn8q3xFEJtmg" base_Element="_9_0_2_8980277_1151290387549_850368_2"/>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_kr0m5AhfEeCn8q3xFEJtmg" base_Element="_9_0_2_8980277_1151290387539_580801_0"/>
+</xmi:XMI>
