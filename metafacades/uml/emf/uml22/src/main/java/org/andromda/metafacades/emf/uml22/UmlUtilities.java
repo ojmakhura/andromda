@@ -7,8 +7,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -333,17 +336,19 @@ public class UmlUtilities
     }
 
     /**
-     * Gets a collection containing all of the attributes for this
-     * class/interface. Superclass properties will included if
-     * <code>follow</code> is true. Overridden properties will be omitted.
-     *
-     * @param classifier the UML class instance from which to retrieve all properties
-     * @param follow        whether or not the inheritance hierarchy should be followed
-     * @return all retrieved attributes.
+     * returns all owned property of the given classifier with the right type:
+     * attribute if <code>isAssociation</code> is false and association end
+     * otherwise.
+     * 
+     * @param classifier the classifier to inspect.
+     * @param follow whether to follow inheritance.
+     * @param isAssociation what kind of property to retrieve.
+     * @return all owned property of the given classifier with the right type.
      */
-    public static List<Property> getAttributes(
+    public static List<Property> getOwnedProperty(
         final Classifier classifier,
-        final boolean follow)
+        final boolean follow,
+        final boolean isAssociation)
     {
         if (classifier==null)
         {
@@ -363,7 +368,7 @@ public class UmlUtilities
             {
                 final Property property = (Property)nextCandidate;
 
-                if (property.getAssociation() == null)
+                if (isAssociation == (property.getAssociation() != null))
                 {
                     if (logger.isDebugEnabled())
                     {
@@ -384,7 +389,23 @@ public class UmlUtilities
             }
         }
 
-        final List<Property> attributeList = new ArrayList<Property>(attributeMap.values());
+        return new ArrayList<Property>(attributeMap.values());        
+    }
+    
+    /**
+     * Gets a collection containing all of the attributes for this
+     * class/interface. Superclass properties will included if
+     * <code>follow</code> is true. Overridden properties will be omitted.
+     *
+     * @param classifier the UML class instance from which to retrieve all properties
+     * @param follow        whether or not the inheritance hierarchy should be followed
+     * @return all retrieved attributes.
+     */
+    public static List<Property> getAttributes(
+        final Classifier classifier,
+        final boolean follow)
+    {
+        final List<Property> attributeList = getOwnedProperty(classifier, follow, false);
         CollectionUtils.transform(
             attributeList,
             ELEMENT_TRANSFORMER);
@@ -449,11 +470,17 @@ public class UmlUtilities
         final Classifier classifier,
         final boolean follow)
     {
-        final List<Property> associationEnds = new ArrayList<Property>();
+        final Set<Property> associationEnds = new LinkedHashSet<Property>();
         if (classifier==null)
         {
-            return associationEnds;
+            return Collections.emptyList();
         }
+        associationEnds.addAll(getOwnedProperty(classifier, follow, true));
+        CollectionUtils.transform(associationEnds, new Transformer() {
+            public Object transform(Object input) {
+                return getOppositeProperty((Property)input);
+            }
+        });
         // TODO: Iterate through all referenced models, not just the model containing this classifier.
         // TODO: UML2 bug? getModel returns null because UMLUtil.getOwningElement getBaseElement(owner.eContainer()) changes owningElement to null
         Package modelPackage = UmlUtilities.findModel(classifier);
@@ -511,7 +538,7 @@ public class UmlUtilities
         CollectionUtils.transform(
             associationEnds,
             ELEMENT_TRANSFORMER);
-        return associationEnds;
+        return new ArrayList<Property>(associationEnds);
     }
 
     /**
@@ -939,7 +966,7 @@ public class UmlUtilities
         String serialVersionString = (String)classifier.findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
     }
-
+    
     /**
      * Gets the opposite end of the given <code>associationEnd</code> if the
      * property is indeed an association end, otherwise returns null.
@@ -947,13 +974,13 @@ public class UmlUtilities
      * @param associationEnd the association end from which to retrieve the opposite end.
      * @return the opposite association end or null.
      */
-    static AssociationEnd getOppositeAssociationEnd(final Property associationEnd)
+    static Property getOppositeProperty(final Property associationEnd)
     {
         if (associationEnd==null)
         {
             return null;
         }
-        Object opposite = associationEnd.getOpposite();
+        Property opposite = associationEnd.getOpposite();
         if (opposite == null)
         {
             Association association = associationEnd.getAssociation();
@@ -971,7 +998,24 @@ public class UmlUtilities
                 }
             }
         }
-        return new AssociationEndImpl((Property)opposite);
+        return opposite;
+    }
+    
+
+    /**
+     * Gets the opposite end of the given <code>associationEnd</code> if the
+     * property is indeed an association end, otherwise returns null.
+     *
+     * @param associationEnd the association end from which to retrieve the opposite end.
+     * @return the opposite association end or null.
+     */
+    static AssociationEnd getOppositeAssociationEnd(final Property associationEnd)
+    {
+        if (associationEnd==null)
+        {
+            return null;
+        }
+        return new AssociationEndImpl(getOppositeProperty(associationEnd));
     }
 
     /**
