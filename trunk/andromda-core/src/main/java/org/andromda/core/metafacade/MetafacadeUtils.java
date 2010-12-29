@@ -1,6 +1,7 @@
 package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,6 +10,8 @@ import java.util.Set;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.configuration.Namespaces;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
 
 /**
@@ -142,9 +145,10 @@ final class MetafacadeUtils
        Set<Class<?>> classesSet1 = getClassesFromNames(nameSet1, classesToName);
        Set<Class<?>> classesSet2 = getClassesFromNames(nameSet2, classesToName);
 
-       for(Class<?> classToCheck : classesSet1)
+       for(final Class<?> classToCheck : classesSet1)
        {
-           for(Class<?> expectedResult : classesSet2)
+           Set<Class> classToCheckInterfaces = new HashSet<Class>(Arrays.asList(classToCheck.getInterfaces()));
+           for(final Class<?> expectedResult : classesSet2)
            {
                if(classToCheck.isAssignableFrom(expectedResult))
                {
@@ -153,6 +157,40 @@ final class MetafacadeUtils
                else if(expectedResult.isAssignableFrom(classToCheck))
                {
                    results.add(classesToName.get(classToCheck));
+               }
+               else {
+                   // Check at the interface level
+                   boolean expectedResultNotCompliant = CollectionUtils.exists(classToCheckInterfaces, new Predicate()
+                   {
+                        
+                        public boolean evaluate(Object object)
+                        {
+                            Class<?> classToCheckInterface = (Class<?>)object;
+     
+                            return !classToCheckInterface.isAssignableFrom(expectedResult);
+                        }
+                        
+                   });
+                   
+                   if (!expectedResultNotCompliant) {
+                       results.add(classesToName.get(expectedResult));
+                   } else {
+                       Set<Class> expectedResultInterfaces = new HashSet<Class>(Arrays.asList(expectedResult.getInterfaces()));
+                       boolean classToCheckNotCompliant = CollectionUtils.exists(expectedResultInterfaces, new Predicate()
+                       {
+                            
+                            public boolean evaluate(Object object)
+                            {
+                                Class<?> expectedResultInterface = (Class<?>)object;
+         
+                                return !expectedResultInterface.isAssignableFrom(classToCheck);
+                            }
+                            
+                       });
+                       if (!classToCheckNotCompliant) {
+                           results.add(classesToName.get(classToCheck));
+                       }
+                   }
                }
            }
        }
