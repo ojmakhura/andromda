@@ -63,13 +63,13 @@
                     <tt>org.andromda.timetracker</tt>
                     using the name field of the property panel.
                     AndroMDA will map this package to a Java package with the same name.
-                    Note: Make sure the package name is exactly<tt>org.andromda.timetracker</tt>,
+                    Note: Make sure the package name is exactly <tt>org.andromda.timetracker</tt>,
                     with no leading or trailing spaces. We have found that some browsers introduce a
                     leading space in the package name if you copy it from this page!
                 </li>
                 <li>Now create a package called
                     <tt>vo</tt>
-                    under<tt>org.andromda.timetracker</tt>.
+                    under <tt>org.andromda.timetracker</tt>.
                     We will create our value objects in this package. Note that AndroMDA does not require
                     this package structure. We are doing it simply to separate our value objects from
                     other type of objects such as business entities, services etc.
@@ -100,7 +100,7 @@
                 </li>
                 <li>Now add the stereotype
                     <tt>ValueObject</tt>
-                    to class<tt>UserVO</tt>. To
+                    to class <tt>UserVO</tt>. To
                     do this, right-click on the class and select Apply Stereotype. In the next level menu,
                     check ValueObject. You can also do this by selecting the Stereotype tab on the
                     property panel, selecting the ValueObject stereotype in the Available Stereotypes
@@ -115,7 +115,7 @@
                 </li>
                 <li>Let's add
                     <tt>id</tt>
-                    as an attribute of<tt>UserVO</tt>. Right-click on
+                    as an attribute of <tt>UserVO</tt>. Right-click on
                     the
                     <tt>UserVO</tt>
                     class and select Insert New Attribute. A new attribute is
@@ -134,7 +134,7 @@
                     tool.
                     <img src="images/ToolNewAttribute.png" alt="New Attribute Tool"/>
                 </li>
-                <li>Now add three more public attributes called<tt>username</tt>,
+                <li>Now add three more public attributes called <tt>username</tt>,
                     <tt>firstName</tt>
                     and
                     <tt>lastName</tt>
@@ -144,7 +144,7 @@
                     <tt>String</tt>
                     type.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>UserVO[]</tt>.
+                <li>Add a new class to the diagram and name it <tt>UserVO[]</tt>.
                 </li>
                 <li>Make sure your class diagram matches the one shown above exactly. (It is okay if
                     your class shows an empty operation compartment. This can be hidden very easily).

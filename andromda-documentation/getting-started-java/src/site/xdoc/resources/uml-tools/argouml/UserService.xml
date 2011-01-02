@@ -26,14 +26,14 @@
             <p>
                 We will create
                 <tt>UserService</tt>
-                in a package named<tt>org.andromda.timetracker.service</tt>.
+                in a package named <tt>org.andromda.timetracker.service</tt>.
                 When finished, the containment tree in ArgoUML will look like the screen shot
                 on the right.
             </p>
             <ol style="list-style-type: decimal">
                 <li>In the TimeTracker model create a package called
                     <tt>service</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the Containment Tree on the left, right-click on the
@@ -43,13 +43,13 @@
                     and type in Services as its name on the property panel.
                     The diagram is created and opened in a new window.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>UserService</tt>.
+                <li>Add a new class to the diagram and name it <tt>UserService</tt>.
                 </li>
-                <li>Add the stereotype called Service to<tt>UserService</tt>.
+                <li>Add the stereotype called Service to <tt>UserService</tt>.
                 </li>
                 <li>Let's add the
                     <tt>getAllUsers()</tt>
-                    method to<tt>UserService</tt>. Double-click
+                    method to <tt>UserService</tt>. Double-click
                     on the operations compartment (the bottom one) of the
                     <tt>UserService</tt>
                     class
@@ -73,7 +73,7 @@
                 </li>
             </ol>
             <p>
-                We are now ready to generate code for the<tt>UserService</tt>. Please go back
+                We are now ready to generate code for the <tt>UserService</tt>. Please go back
                 to the main tutorial page and continue from where you left off.
             </p>
         </section>

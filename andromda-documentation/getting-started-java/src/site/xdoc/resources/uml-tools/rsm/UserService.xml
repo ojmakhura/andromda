@@ -18,7 +18,7 @@
             <p>
                 We will create
                 <tt>UserService</tt>
-                in a package named<tt>org.andromda.timetracker.service</tt>.
+                in a package named <tt>org.andromda.timetracker.service</tt>.
             </p>
 
             <ol style="list-style-type: decimal">
@@ -26,7 +26,7 @@
                     <tt>timetracker</tt>
                     model create a package called
                     <tt>service</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the model explorer on the left, right-click on the
@@ -38,15 +38,15 @@
                     as the name of this diagram
                     and press Enter.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>UserService</tt>.
+                <li>Add a new class to the diagram and name it <tt>UserService</tt>.
                 </li>
                 <li>Add the stereotype called
                     <tt>Service</tt>
-                    to<tt>UserService</tt>.
+                    to <tt>UserService</tt>.
                 </li>
                 <li>Let's add
                     <tt>id</tt>
-                    as an attribute of<tt>UserVO</tt>.
+                    as an attribute of <tt>UserVO</tt>.
                     Note that attributes are always
                     generated as private members of a class. However the visibilities of the associated
                     getter and setter are determined by the visibility of the attribute specification.
@@ -57,11 +57,11 @@
                 </li>
                 <li>Let's add the
                     <tt>getAllUsers()</tt>
-                    method to<tt>UserService</tt>. Place your mouse on the
+                    method to <tt>UserService</tt>. Place your mouse on the
                     <tt>UserService</tt>
                     class and wait until a 'tooltip' appears above it. Click
                     on the little green circle. A new operation is inserted with the
-                    specification<tt>&lt;&lt;&gt;&gt;Operation1</tt>. Write over this specification with this new one:
+                    specification <tt>&lt;&lt;&gt;&gt;Operation1</tt>. Write over this specification with this new one:
                     <tt>getAllUsers()</tt>
                     and press Enter. Do not specify the return value right now because
                     RSM gets confused with the
@@ -70,7 +70,7 @@
                     operation press Enter to exit the edit mode.
                 </li>
                 <li>
-                    Select the operation<tt>getAllUsers()</tt>, and in the
+                    Select the operation <tt>getAllUsers()</tt>, and in the
                     <i>Properties</i>
                     tab, click on<i>General</i>.
                     In this sub-panel, click on<i>Define return type...</i>. A popup dialog will appear,
@@ -98,12 +98,12 @@
                     <tt>/TimeTracker/timetracker.emx</tt>
                     and as
                     <i>destination</i>
-                    browse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                    browse to <tt>C:\timetracker\mda\src\main\uml</tt>.
                 </li>
             </ol>
 
             <p>
-                We are now ready to generate code for the<tt>UserService</tt>. Please go back
+                We are now ready to generate code for the <tt>UserService</tt>. Please go back
                 to the main tutorial page and continue from where you left off.
             </p>
 

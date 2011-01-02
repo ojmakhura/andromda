@@ -39,13 +39,13 @@
                 a web page: a use case, an activity diagram (that details the use case), and one
                 or more controllers (whose methods can be called from the activity diagram). So
                 let's discuss how we will model our search screen. We will start with a use case
-                called<tt>Search Timecards</tt>. This use case is shown on the right and we
+                called <tt>Search Timecards</tt>. This use case is shown on the right and we
                 have marked it with two stereotypes:
             </p>
             <ol style="list-style-type: decimal">
-                <li><tt>FrontEndUseCase</tt>: which means exactly that - it is a front-end use case
+                <li> <tt>FrontEndUseCase</tt>: which means exactly that - it is a front-end use case
                 </li>
-                <li><tt>FrontEndApplication</tt>: which means that it is the application's entry
+                <li> <tt>FrontEndApplication</tt>: which means that it is the application's entry
                     point. Note that, for now, we won't worry about security or navigation -- as soon
                     as you point your browser to this web application, it will show the Search Timecards
                     page!
@@ -68,7 +68,7 @@
                 a form interface that provides access to HTTP request parameters. The
                 <tt>SearchController</tt>
                 can call services in the service layer. Specifically, we have shown here that it
-                has access to the<tt>UserService</tt>.
+                has access to the <tt>UserService</tt>.
             </p>
             <div align="center">
                 <img src="images/SearchControllerToUserService.jpg" alt="Search Controller"/>
@@ -86,7 +86,7 @@
                     <a href="resources/uml-tools/magicdraw/SearchTimecardsUC.html">MagicDraw</a>
                 </li>
                 <li>
-                    <a href="resources/uml-tools/rsm/SearchTimecardsUC.html">RSM 6</a>
+                    <a href="resources/uml-tools/rsm/SearchTimecardsUC.html">RSM/RSA</a>
                 </li>
             </ul>
             <p>
@@ -162,8 +162,8 @@
                 Note that we sort the
                 <tt>users</tt>
                 array so that names appear alphabetically
-                in the drop-downs. The sorting function uses<tt>UserVOComparator</tt>, which
-                is available under<tt>C:\timetracker-completed\common\src\main\java\org\andromda\timetracker\vo</tt>.
+                in the drop-downs. The sorting function uses <tt>UserVOComparator</tt>, which
+                is available under <tt>C:\timetracker-completed\common\src\main\java\org\andromda\timetracker\vo</tt>.
                 Copy it to your solution using the same directory structure.
             </p>
             <p>
@@ -179,10 +179,10 @@
                     <tt>mvn -f web/pom.xml install</tt>
                 </li>
                 <li>Start the JBoss server. To do this, open a Command Prompt in the JBoss bin directory
-                    (<tt>C:\jboss-4.0.4\bin</tt>) and execute the command<tt>run</tt>.
+                    ( <tt>C:\Programs\JBoss\6\bin</tt>) and execute the command <tt>run</tt>.
                 </li>
                 <li>Deploy the application to the JBoss server. Go to the previous Command Prompt (in
-                    the directory<tt>C:\timetracker</tt>) and execute the command:
+                    the directory <tt>C:\timetracker</tt>) and execute the command:
                     <br/>
                     <tt>mvn -f app/pom.xml -Ddeploy</tt>
                     <br/>
@@ -198,7 +198,7 @@
                 </li>
                 <li>Set some values in the search criteria fields and click the Search button. Now look
                     at the JBoss log file to see if the form values are logged correctly. The JBoss
-                    log file is located at<tt>C:\jboss-4.0.4\server\default\log\server.log</tt>.
+                    log file is located at <tt>C:\Programs\JBoss\6\server\default\log\server.log</tt>.
                     Below is a sample log:
                     <br/>
                 </li>
@@ -228,7 +228,7 @@
                     Congratulations! You have successfully deployed a complete vertical slice of the
                     application that includes a front-end, middle-tier and a back-end. We are now ready
                     start our second iteration with the goal to build the Search Results panel. Click
-                    <a href="timetrackingservice-definition.thml">here</a> to start iteration 2.
+                    <a href="timetrackingservice-definition.html">here</a> to start iteration 2.
                 </p>
             </subsection>
         </section>

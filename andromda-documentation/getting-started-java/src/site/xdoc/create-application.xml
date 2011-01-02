@@ -54,7 +54,7 @@
                 j2ee
 
                 Please enter the parent directory of your new application directory, using forward slashes (i.e. C:/workspaces):
-                C:/workspaces
+                C:/
 
                 Please enter your first and last name (i.e. Chad Brandon):
                 Bob Fields
@@ -112,34 +112,33 @@
                 -------------------------------------------------------------------------------------
                 G e n e r a t i n g A n d r o M D A P o w e r e d A p p l i c a t i o n
                 -------------------------------------------------------------------------------------
-                Output: 'file:/C:/workspaces/timetracker/core/target/classes/META-INF/ejb-jar.xml'
-                Output: 'file:/C:/workspaces/timetracker/core/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/app/src/main/config/timetracker-ds.xml'
-                Output: 'file:/C:/workspaces/timetracker/app/src/main/application/META-INF/jboss-app.xml'
-                Output: 'file:/C:/workspaces/timetracker/app/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/m2eclipse.bat'
-                Output: 'file:/C:/workspaces/timetracker/common/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/web/src/main/properties/messages.properties'
-                Output: 'file:/C:/workspaces/timetracker/web/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/web/target/timetracker-1.0-SNAPSHOT/WEB-INF/web.xml'
-                Output: 'file:/C:/workspaces/timetracker/web/target/timetracker-web-1.0-SNAPSHOT/WEB-INF/web.xml'
-                Output: 'file:/C:/workspaces/timetracker/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/WebMergeMappings.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/JavaMappings.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/mappings/SpringMergeMappings.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/config/andromda.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/uml/timetracker.xmi'
-                Output: 'file:/C:/workspaces/timetracker/mda/src/main/uml/empty-model-rsm6.emx'
-                Output: 'file:/C:/workspaces/timetracker/mda/pom.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/log4j.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/build.xml'
-                Output: 'file:/C:/workspaces/timetracker/mda/readme.txt'
-                Output: 'file:/C:/workspaces/timetracker/mda/build.properties'
-                Output: 'file:/C:/workspaces/timetracker/mda/.project'
-                Output: 'file:/C:/workspaces/timetracker/readme.txt'
+                Output: 'file:/C:/timetracker/core/target/classes/META-INF/ejb-jar.xml'
+                Output: 'file:/C:/timetracker/core/pom.xml'
+                Output: 'file:/C:/timetracker/app/src/main/config/timetracker-ds.xml'
+                Output: 'file:/C:/timetracker/app/src/main/application/META-INF/jboss-app.xml'
+                Output: 'file:/C:/timetracker/app/pom.xml'
+                Output: 'file:/C:/timetracker/m2eclipse.bat'
+                Output: 'file:/C:/timetracker/common/pom.xml'
+                Output: 'file:/C:/timetracker/web/src/main/properties/messages.properties'
+                Output: 'file:/C:/timetracker/web/pom.xml'
+                Output: 'file:/C:/timetracker/web/target/timetracker-1.0-SNAPSHOT/WEB-INF/web.xml'
+                Output: 'file:/C:/timetracker/web/target/timetracker-web-1.0-SNAPSHOT/WEB-INF/web.xml'
+                Output: 'file:/C:/timetracker/pom.xml'
+                Output: 'file:/C:/timetracker/mda/src/main/config/mappings/WebMergeMappings.xml'
+                Output: 'file:/C:/timetracker/mda/src/main/config/mappings/JavaMappings.xml'
+                Output: 'file:/C:/timetracker/mda/src/main/config/mappings/SpringMergeMappings.xml'
+                Output: 'file:/C:/timetracker/mda/src/main/config/andromda.xml'
+                Output: 'file:/C:/timetracker/mda/src/main/uml/timetracker.xmi'
+                Output: 'file:/C:/timetracker/mda/pom.xml'
+                Output: 'file:/C:/timetracker/mda/log4j.xml'
+                Output: 'file:/C:/timetracker/mda/build.xml'
+                Output: 'file:/C:/timetracker/mda/readme.txt'
+                Output: 'file:/C:/timetracker/mda/build.properties'
+                Output: 'file:/C:/timetracker/mda/.project'
+                Output: 'file:/C:/timetracker/readme.txt'
                 -------------------------------------------------------------------------------------
-                New application generated to --> 'file:/C:/workspaces/timetracker/'
-                Instructions for your new application --> 'file:/C:/workspaces/timetracker/readme.txt'                -------------------------------------------------------------------------------------
+                New application generated to --> 'file:/C:/timetracker/'
+                Instructions for your new application --> 'file:/C:/timetracker/readme.txt'                -------------------------------------------------------------------------------------
                 -------------------------------------------------------------------------------------
                 [INFO] ------------------------------------------------------------------------
                 [INFO] BUILD SUCCESSFUL
@@ -235,10 +234,10 @@
                         <tt>enableSpringTransactionsWhenEjbsEnabled</tt>
                         and change its value from
                         <tt>true</tt>
-                        to<tt>false</tt>. Since we will
+                        to <tt>false</tt>. Since we will
                         be using EJBs, we do not want Spring to be controlling database transactions.
                     </li>
-                    <li>Search for the namespace called<tt>bpm4struts</tt>. In this namespace, add
+                    <li>Search for the namespace called <tt>bpm4struts</tt>. In this namespace, add
                         a property to change the default date format for the application so it matches that
                         in the prototype. The property will look like this:
                         <br/>
@@ -259,7 +258,7 @@
                     </li>
                 </ol>
                 <p>
-                    Open the top level POM file located at<tt>timetracker\pom.xml</tt>. Make the
+                    Open the top level POM file located at <tt>timetracker\pom.xml</tt>. Make the
                     following changes:
                 </p>
                 <ol style="list-style-type: decimal">
@@ -291,7 +290,7 @@
                         <tt>&lt;repositories&gt;</tt>
                         section. Here you will find a declaration
                         for the AndroMDA Repository. Add a declaration for the Java.net repository. This
-                        repository will be used to dowload jars provided by Sun (such as<tt>jta.jar</tt>).
+                        repository will be used to dowload jars provided by Sun (such as <tt>jta.jar</tt>).
                         The resulting
                         <tt>&lt;repositories&gt;</tt>
                         section is shown below:
@@ -328,7 +327,7 @@
                         and change its value
                         from
                         <tt>true</tt>
-                        to<tt>false</tt>. This prevents verbose Hibernate messages
+                        to <tt>false</tt>. This prevents verbose Hibernate messages
                         to be printed on the JBoss console. We will still have the appropriate SQL messages
                         in the JBoss log file, which is the better place to look at these messages.
                     </li>

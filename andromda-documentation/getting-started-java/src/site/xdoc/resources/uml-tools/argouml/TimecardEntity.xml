@@ -48,11 +48,11 @@
                     <img src="images/ToolUniAssociation.png" alt="Uni Association Tool"/>
                     from the toolbar. Create an association from
                     <tt>Timecard</tt>
-                    to<tt>User</tt>.
+                    to <tt>User</tt>.
                 </li>
                 <li>Double-click on the 2nd association end in the Connections field and confirm
-                    that is the correct end by checking that the type is<tt>User</tt>. Give it
-                    the name<tt>submitter</tt>. Set the multiplicity to 1.
+                    that is the correct end by checking that the type is <tt>User</tt>. Give it
+                    the name <tt>submitter</tt>. Set the multiplicity to 1.
                 </li>
                 <li>Click Other End tool
                     <img src="images/ToolOtherEnd.png" alt="Other Association End Tool"/>
@@ -61,7 +61,7 @@
                 </li>
                 <li>Similarly add an association from
                     <tt>Timecard</tt>
-                    to<tt>User</tt>.
+                    to <tt>User</tt>.
                     Give the first (from) end a multiplicity of 0..* and the second (to) end
                     the name
                     <tt>approver</tt>

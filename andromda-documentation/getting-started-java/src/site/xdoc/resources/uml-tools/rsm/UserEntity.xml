@@ -18,13 +18,13 @@
             <p>
                 We will create
                 <tt>User</tt>
-                in a package named<tt>org.andromda.timetracker.domain</tt>.
+                in a package named <tt>org.andromda.timetracker.domain</tt>.
             </p>
 
             <ol style="list-style-type: decimal">
                 <li>In the TimeTracker model create a package called
                     <tt>domain</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the Containment Tree on the left, right-click on the
@@ -35,13 +35,13 @@
                     <tt>Domain Objects</tt>
                     as the name of this diagram and press Enter.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>User</tt>.
+                <li>Add a new class to the diagram and name it <tt>User</tt>.
                 </li>
                 <li>Add the stereotype called
                     <tt>Entity</tt>
-                    to<tt>User</tt>.
+                    to <tt>User</tt>.
                 </li>
-                <li>Add the 3 attributes to<tt>User</tt>.
+                <li>Add the 3 attributes to <tt>User</tt>.
                 </li>
                 <li>Open the
                     <i>Stereotype</i>
@@ -50,7 +50,7 @@
                     you'll find the
                     <i>Stereotype's properties</i>
                     table. On the right of
-                    <tt>andromda_persistence_table</tt>, Enter the value<tt>USERS</tt>.
+                    <tt>andromda_persistence_table</tt>, Enter the value <tt>USERS</tt>.
                     This tagged value allows you to override the default table name for the entity.
                 </li>
                 <li>
@@ -79,7 +79,7 @@
                     <tt>/TimeTracker/timetracker.emx</tt>
                     and as
                     <i>destination</i>
-                    browse to<tt>C:\timetracker\mda\src\main\uml</tt>.
+                    browse to <tt>C:\timetracker\mda\src\main\uml</tt>.
                 </li>
             </ol>
 

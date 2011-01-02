@@ -26,14 +26,14 @@
             <p>
                 We will create
                 <tt>User</tt>
-                in a package named<tt>org.andromda.timetracker.domain</tt>.
+                in a package named <tt>org.andromda.timetracker.domain</tt>.
                 When finished, the explorer pane in ArgoUML will look like the screen shot
                 on the right.
             </p>
             <ol style="list-style-type: decimal">
                 <li>In the TimeTracker model create a package called
                     <tt>domain</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the explorer pane on the left, right-click on the
@@ -42,13 +42,13 @@
                     and select Create DiagramNew Class Diagram. Type &quot;Domain Objects&quot; as the name of
                     this diagram on the property panel.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>User</tt>.
+                <li>Add a new class to the diagram and name it <tt>User</tt>.
                 </li>
                 <li>Add the stereotype called
                     <tt>Entity</tt>
-                    to<tt>User</tt>.
+                    to <tt>User</tt>.
                 </li>
-                <li>Add the 3 attributes to<tt>User</tt>.
+                <li>Add the 3 attributes to <tt>User</tt>.
                 </li>
                 <li>Make sure the User class is selected and go to its property panel at the bottom
                     of the screen.
@@ -60,7 +60,7 @@
                     <tt>@andromda.persistence.table</tt>
                     from the drop down menu. This tagged
                     value allows you to override the default table name for the entity. In the
-                    left column type the value<tt>USERS</tt>.
+                    left column type the value <tt>USERS</tt>.
                 </li>
                 <li>Make sure your class diagram matches the one shown above.</li>
                 <li>Make sure that the ArgoUML explorer panel matches the screen shot shown above.</li>

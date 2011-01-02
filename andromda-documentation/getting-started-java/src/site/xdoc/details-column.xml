@@ -31,11 +31,11 @@
                 parameter that indicates which timecard
                 was clicked. We need to pass this
                 <tt>id</tt>
-                to the next use case called<tt>
+                to the next use case called <tt>
                 Timecard Details</tt>. However, since
                 <tt>id</tt>
                 is not a very descriptive
-                name we would like to convert it to a page variable called<tt>timecardId</tt>,
+                name we would like to convert it to a page variable called <tt>timecardId</tt>,
                 which will be passed to the next page. The activity called
                 <tt>Initialize Timecard Id</tt>
                 transforms the
@@ -46,7 +46,7 @@
                 diagram:
             </p>
             <ol style="list-style-type: decimal">
-                <li>First create the action state called<tt>Initialize Timecard Id</tt>. Remember
+                <li>First create the action state called <tt>Initialize Timecard Id</tt>. Remember
                     that the
                     <i>Name</i>
                     of the action state should be
@@ -56,33 +56,33 @@
                 </li>
                 <li>Create a transition from
                     <tt>Search Timecards</tt>
-                    to<tt>Initialize Timecard
+                    to <tt>Initialize Timecard
                         Id</tt>. Create a signal trigger on this transition called
                     <tt>details</tt>
                     and add a parameter to it called
                     <tt>id</tt>
-                    of type<tt>Long</tt>. (This
+                    of type <tt>Long</tt>. (This
                     is similar to adding the
                     <tt>search</tt>
-                    trigger out of<tt>Search Timecards</tt>.)
+                    trigger out of <tt>Search Timecards</tt>.)
                 </li>
                 <li>Add a tag to the
                     <tt>id</tt>
                     parameter called
                     <tt>@andromda.presentation.web.view.field.type</tt>
-                    and set its value to<tt>link</tt>. This tag ensures that the
+                    and set its value to <tt>link</tt>. This tag ensures that the
                     <tt>id</tt>
                     column in the table will be a link instead of the default text box.
                 </li>
                 <li>Add a tag on the transition (not on the trigger) called
                     <tt>@andromda.presentation.web.action.tablelink</tt>
-                    and set its value to<tt>timecardSummaries</tt>. This tag ensures that the
+                    and set its value to <tt>timecardSummaries</tt>. This tag ensures that the
                     <tt>
                         details
                     </tt>
-                    trigger will occur on the table that displays<tt>timecardSummaries</tt>.
-                    Also since we are not specifying any attribute in this value (such as<tt>timecardSummaries.id</tt>)
-                    a separate column will be created with buttons named<tt>Details</tt>.
+                    trigger will occur on the table that displays <tt>timecardSummaries</tt>.
+                    Also since we are not specifying any attribute in this value (such as <tt>timecardSummaries.id</tt>)
+                    a separate column will be created with buttons named <tt>Details</tt>.
                 </li>
                 <li>Create a final state.</li>
                 <li>Add a transition from
@@ -126,11 +126,11 @@
                         to another diagram.
                     </i>
                 </li>
-                <li>We need to connect the final state to the next use case which is<tt>Timecard
+                <li>We need to connect the final state to the next use case which is <tt>Timecard
                     Details</tt>. To do this, simply open the specification for the final state by
                     double-clicking on it. In the
                     <i>Name</i>
-                    field, enter<tt>Timecard Details</tt>.
+                    field, enter <tt>Timecard Details</tt>.
                     AndroMDA does a name match to connect the final state to the target use case (which
                     we have not created yet).
                 </li>
@@ -151,9 +151,9 @@
                 use case:
             </p>
             <ol style="list-style-type: decimal">
-                <li>Open the use case diagram called<tt>Application Use Cases</tt>.
+                <li>Open the use case diagram called <tt>Application Use Cases</tt>.
                 </li>
-                <li>Add a new use case and call it<tt>Timecard Details</tt>. Give it the
+                <li>Add a new use case and call it <tt>Timecard Details</tt>. Give it the
                     <tt>
                         FrontEndUseCase
                     </tt>
@@ -161,7 +161,7 @@
                 </li>
                 <li>In the model, create a new package under
                     <tt>org.andromda.timetracker.web</tt>
-                    and call it<tt>timecarddetails</tt>.
+                    and call it <tt>timecarddetails</tt>.
                 </li>
                 <li>Move the
                     <tt>Timecard Details</tt>
@@ -181,7 +181,7 @@
                 <li>Create a new activity diagram under the
                     <tt>Timecard Details</tt>
                     use case and
-                    name it<tt>Timecard Details Activity Diagram</tt>.
+                    name it <tt>Timecard Details Activity Diagram</tt>.
                 </li>
                 <li>Connect the
                     <tt>TimecardController</tt>
@@ -198,7 +198,7 @@
                     elements to it. Note that the page variable
                     <tt>timecardId</tt>
                     gets its value
-                    from the previous use case (<tt>Search Timecards</tt>).
+                    from the previous use case ( <tt>Search Timecards</tt>).
                 </li>
             </ol>
             <div align="center">
