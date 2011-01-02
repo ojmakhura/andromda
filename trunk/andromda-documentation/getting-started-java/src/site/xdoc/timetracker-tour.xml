@@ -26,19 +26,19 @@
                         finished application
                     </a>
                     and unzip it at <tt>C:\</tt>. You will get a directory
-                    called<tt>C:\timetracker-completed</tt>.
+                    called <tt>C:\Workspaces\timetracker-completed</tt>.
                     <i>Note: If you decide to unzip the tutorial
                         at a different location, make sure there are no spaces in your pathname - otherwise
                         Maven will run into build problems.
                     </i>
                 </li>
-                <li>If you downloaded a version of MySql driver other than 5.0.4, then you must edit
-                    the file<tt>C:\timetracker-completed\pom.xml</tt>. Look for the two instances
+                <!--li>If you downloaded a version of MySql driver other than 5.0.4, then you must edit
+                    the file <tt>C:\Workspaces\timetracker-completed\pom.xml</tt>. Look for the two instances
                     of
                     <tt>5.0.4</tt>
                     and change them to the version of your MySQL driver.
-                </li>
-                <li>Open a Command Prompt in the directory <tt>C:\timetracker-completed</tt>.
+                </li-->
+                <li>Open a Command Prompt in the directory <tt>C:\Workspaces\timetracker-completed</tt>.
                 </li>
                 <li>Execute the command
                     <tt>mvn install</tt>
@@ -90,9 +90,25 @@
                         <li>Click the
                             <tt>&lt;&lt;</tt>
                             button to assign all privileges to the timetracker
-                            user and click<tt>Apply Changes</tt>.
+                            user and click <tt>Apply Changes</tt>.
                         </li>
                         <li>Close MySQL Administrator.</li>
+                    </ul>
+                </li>
+                <li>- OR - If you prefer running the commands from the command line instead of using the Administrator:
+                    <ul>
+                        <li>If mySQL is not running or not set to start automatically as a service: Open a command prompt. Start mySQL: <code>C:\Programs\mySQL\5\bin\mysqld</code></li>
+                        <li>Open another command prompt. Connect as root with no password (the default): <tt>mysql -u root</tt></li>
+                        <li>Create the timetracker database: <tt>CREATE DATABASE timetracker;</tt></li>
+                        <li>Grant rights on database timetracker to user timetracker (the quotes and localhost are very important):</li>
+                        <li> <tt>GRANT ALL ON `timetracker`.* TO 'timetracker'@'localhost' identified by 'timetracker' WITH GRANT OPTION</tt>.</li>
+                        <li>The timetracker user is created at the same time with a password.</li>
+                        <li>mySQL User@host syntax reference: <a href="http://dev.mysql.com/doc/refman/5.5/en/account-names.html">http://dev.mysql.com/doc/refman/5.5/en/account-names.html</a></li>
+                        <li>Logout root: <tt>exit</tt> and login as user timetracker: <tt>mysql -u timetracker</tt></li>
+                        <li>Change the timetracker password: <tt>SET PASSWORD = PASSWORD('timetracker')</tt></li>
+                        <li>Verify the grants: <tt>show grants;</tt></li>
+                        <li>Use the timetracker database: <tt>USE timetracker;</tt></li>
+                        <li>mySQL Command Reference: <a href="http://dev.mysql.com/doc/refman/5.5/en/sql-syntax.html">http://dev.mysql.com/doc/refman/5.5/en/sql-syntax.html</a></li>
                     </ul>
                 </li>
                 <li>Now let's populate the timetracker schema with the tables required by the application.
@@ -118,12 +134,12 @@
                     </ol>
                 </li>
                 <li>Let's start the JBoss server so we can deploy the TimeTracker application to it.
-                    To do this, open a second Command Prompt in the JBoss bin directory (<tt>C:\jboss-4.0.4\bin</tt>)
+                    To do this, open a second Command Prompt in the JBoss bin directory ( <tt>C:\jboss-4.0.4\bin</tt>)
                     and execute the command <tt>run</tt>. JBoss will take some time to start up.
                     Wait for a message similar to this to make sure JBoss has started successfully:
                     <br/>
-                    <tt>19:50:01,285 INFO [Server] JBoss (MX MicroKernel) [4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA
-                        date=200605151000)] Started in 39s:517ms</tt>.
+                    <tt>13:29:41,925 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] JBossAS
+ [6.0.0.Final "Neo"] Started in 40s:633ms</tt>.
                 </li>
                 <li>Now we are ready to deploy the finished application to the JBoss server. Go to the
                     previous Command Prompt (in the directory <tt>C:\timetracker-completed</tt>)
@@ -132,12 +148,12 @@
                     <tt>mvn -f app/pom.xml -Ddeploy</tt>
                     <br/>
                     You will notice that the TimeTracker EAR (Executable Archive) file is copied over
-                    to the JBoss deploy directory (<tt>C:\jboss-4.0.4\server\default\deploy</tt>)
+                    to the JBoss deploy directory ( <tt>C:\Programs\JBoss\6\server\default\deploy</tt>)
                     and the JBoss console displays several messages indicating that it is deploying
                     the application. Wait for a message similar to this to make sure TimeTracker has
                     started successfully:
                     <br/>
-                    <tt>19:59:53,767 INFO [EARDeployer] Started J2EE application: file:/D:/jboss-4.0.4/server/default/deploy/timetracker-1.0-SNAPSHOT.ear</tt>
+                    <tt>19:59:53,767 INFO [EARDeployer] Started J2EE application: file:/C:/Programs/JBoss/6/server/default/deploy/timetracker-1.0-SNAPSHOT.ear</tt>
                 </li>
                 <li>Now we are ready to test the application. Open a browser and make it point to http://localhost:8080/timetracker.
                     (If you have changed the JBoss HTTP port, then replace 8080 with the appropriate

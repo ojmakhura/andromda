@@ -18,13 +18,13 @@
             <p>
                 We will create
                 <tt>User</tt>
-                in a package named<tt>org.andromda.timetracker.domain</tt>.
+                in a package named <tt>org.andromda.timetracker.domain</tt>.
             </p>
 
             <ol style="list-style-type: decimal">
                 <li>In the TimeTracker model create a package called
                     <tt>domain</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the Containment Tree on the left, right-click on the
@@ -35,14 +35,14 @@
                     <tt>Domain Objects</tt>
                     as the name of this diagram and press Enter.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>User</tt>.
+                <li>Add a new class to the diagram and name it <tt>User</tt>.
                 </li>
                 <li>Add the stereotype called
                     <tt>Entity</tt>
                     (The one from AndroMDA Profile, starting with an 'E' and
-                    not the one from UML2 Standard Profile, starting with an 'e') to<tt>User</tt>.
+                    not the one from UML2 Standard Profile, starting with an 'e') to <tt>User</tt>.
                 </li>
-                <li>Add the 3 attributes to<tt>User</tt>.
+                <li>Add the 3 attributes to <tt>User</tt>.
                 </li>
                 <li>Double click on the class to open the class specification.</li>
                 <li>Click on the

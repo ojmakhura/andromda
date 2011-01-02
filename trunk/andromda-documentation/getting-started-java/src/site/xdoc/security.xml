@@ -53,7 +53,7 @@
                 <ol style="list-style-type: decimal">
                     <li>In the
                         <tt>Domain Objects</tt>
-                        diagram, add an enumeration called<tt>Role</tt>.
+                        diagram, add an enumeration called <tt>Role</tt>.
                         This enumeration represents the roles that authenticated users can play. Make sure
                         that
                         <tt>Role</tt>
@@ -83,10 +83,10 @@
                         <tt>UserRole</tt>
                         entity and the one-to-many relationship between
                         <tt>User</tt>
-                        and<tt>UserRole</tt>.
+                        and <tt>UserRole</tt>.
                     </li>
-                    <li>We are now ready to create the value objects that will be used by the<tt>SecurityService</tt>.
-                        Create<tt>UserDetailsVO</tt>,
+                    <li>We are now ready to create the value objects that will be used by the <tt>SecurityService</tt>.
+                        Create <tt>UserDetailsVO</tt>,
                         <tt>UserRoleVO</tt>
                         and
                         <tt>UserRoleVO[]</tt>
@@ -106,7 +106,7 @@
 
                         <img src="images/UserDetailsVO.jpg" alt="UserDetailsVO"/>
                     </li>
-                    <li>We are finally ready to create the<tt>SecurityService</tt>. Add
+                    <li>We are finally ready to create the <tt>SecurityService</tt>. Add
                         <tt>SecurityService</tt>
                         to the
                         <tt>Services</tt>
@@ -217,7 +217,7 @@
                             values (16, 'Draft', '2006/06/05', 'Timecard 16', null, 1);
                         </source>
                     </li>
-                    <li>Now build the application again by executing<tt>mvn install</tt>. This time
+                    <li>Now build the application again by executing <tt>mvn install</tt>. This time
                         the tests should pass.
                     </li>
                     <li>Let's now implement the
@@ -225,7 +225,7 @@
                         method.
                         Open the file
                         <tt>core\src\main\java\org\andromda\timetracker\domain\UserDaoImpl.java</tt>
-                        and add the following implentation for<tt>handleGetUserDetails()</tt>:
+                        and add the following implentation for <tt>handleGetUserDetails()</tt>:
                         <br/>
                         <source>
                             protected User handleGetUserDetails(String username) throws Exception {
@@ -239,17 +239,17 @@
                             }
                         </source>
                     </li>
-                    <li>Add the following imports at the top of<tt>UserDaoImpl.java</tt>:
+                    <li>Add the following imports at the top of <tt>UserDaoImpl.java</tt>:
                         <br/>
                         <source>
                             import java.util.Collection;
                             import org.andromda.timetracker.vo.UserRoleVO;
                         </source>
                     </li>
-                    <li>We now need to override the default implementation of<tt>UserDaoImpl.toUserDetailsVO()</tt>.
+                    <li>We now need to override the default implementation of <tt>UserDaoImpl.toUserDetailsVO()</tt>.
                         The reason for this is to include the attributes from the associated
                         <tt>UserRole</tt>
-                        objects into<tt>UserDetailsVO</tt>. Here's the implentation for the method:
+                        objects into <tt>UserDetailsVO</tt>. Here's the implentation for the method:
                         <br/>
                         <source>
                             public void toUserDetailsVO(
@@ -341,7 +341,7 @@
                         saying it can't find
                         <tt>org/apache/commons/codec/binary/Base64</tt>
                         when you try to log in, you may need to comment out the exclusion
-                        for<tt>commons-codec</tt>.
+                        for <tt>commons-codec</tt>.
                     </li>
                     <li>Now edit the file
                         <tt>C:\timetracker\web\pom.xml</tt>
@@ -363,7 +363,7 @@
                     </li>
                     <li>We need several changes in the
                         <tt>WebMergeMappings.xml</tt>
-                        file under<tt>
+                        file under <tt>
                             mda\src\main\config\mappings</tt>. These changes will trigger the inclusion of
                         Acegi filter chain in the web container. Copy the
                         <tt>WebMergeMappings.xml</tt>
@@ -381,11 +381,11 @@
                         in the TimeTracker model. Copy the directory
                         <tt>web\src\main\java\org\andromda\timetracker\web\security</tt>
                         from the completed solution to your implementation. This directory contains two
-                        very simple Java files that implement the<tt>UserDetailsService</tt>.
+                        very simple Java files that implement the <tt>UserDetailsService</tt>.
                     </li>
                     <li>Delete the
                         <tt>jsp</tt>
-                        directory under<tt>C:\timetracker\web\src\main</tt>.
+                        directory under <tt>C:\timetracker\web\src\main</tt>.
                         Remember that this is where we had cutomized the look and feel of the application.
                         Well now we have to add some more files to this directory (such as the custom login
                         page and Acegi configuration file). For the purpose of this tutorial, it is simpler
@@ -393,10 +393,10 @@
                     </li>
                     <li>Download
                         <a href="custom-look-and-feel2.zip">custom-look-and-feel2.zip</a>
-                        and unzip it at<tt>C:\timetracker\web\src\main</tt>.
+                        and unzip it at <tt>C:\timetracker\web\src\main</tt>.
                         You will get a sub-directory under
                         <tt>main</tt>
-                        called<tt>jsp</tt>.
+                        called <tt>jsp</tt>.
                     </li>
                 </ol>
             </subsection>
@@ -418,7 +418,7 @@
                     </li>
                     <li>Log in with the username
                         <tt>nbhatia</tt>
-                        and password<tt>cooldude</tt>.
+                        and password <tt>cooldude</tt>.
                         The browser will now show the search page.
                     </li>
                 </ol>

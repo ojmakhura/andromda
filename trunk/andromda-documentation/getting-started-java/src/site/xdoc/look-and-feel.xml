@@ -24,7 +24,7 @@
                 the automatically generated files. It will then proceed to build the
                 <tt>war</tt>
                 from the target directory. Thus you can have a mix for auto-generated and customized
-                files in your<tt>war</tt>. Note that it is best to wait until a screen is functionally
+                files in your <tt>war</tt>. Note that it is best to wait until a screen is functionally
                 complete before starting to customize the look and feel - making functional changes
                 after customization makes it difficult to syncronize the artifacts.
             </p>
@@ -38,17 +38,17 @@
             <ol style="list-style-type: decimal">
                 <li>Download
                     <a href="custom-look-and-feel.zip">custom-look-and-feel.zip</a>
-                    and unzip it at<tt>C:\timetracker\web\src\main</tt>.
+                    and unzip it at <tt>C:\timetracker\web\src\main</tt>.
                     You will get a sub-directory under
                     <tt>main</tt>
-                    called<tt>jsp</tt>. This
+                    called <tt>jsp</tt>. This
                     directory further contains 3 sub-directories:
                     <ul>
-                        <li><tt>layout</tt>: a new Tiles layouts and related files
+                        <li> <tt>layout</tt>: a new Tiles layouts and related files
                         </li>
-                        <li><tt>org</tt>: customized JSP for the search screen
+                        <li> <tt>org</tt>: customized JSP for the search screen
                         </li>
-                        <li><tt>styles</tt>: a new style sheet used by our custom JSP
+                        <li> <tt>styles</tt>: a new style sheet used by our custom JSP
                         </li>
                     </ul>
                 </li>

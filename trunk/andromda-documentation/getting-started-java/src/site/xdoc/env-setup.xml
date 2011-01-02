@@ -24,50 +24,52 @@
                     <th>Purpose</th>
                 </tr>
                 <tr>
-                    <td>C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
-                    <td>Maven local repository</td>
+                    <td>C:\Programs\m2repo</td>
+                    <td>Maven local repository M2_REPO</td>
                 </tr>
                 <tr>
-                    <td>C:\Program Files\Apache Software Foundation\maven-2.2.1</td>
-                    <td>Maven program</td>
+                    <td>C:\Programs\maven2</td>
+                    <td>Maven2 program M2_HOME</td>
                 </tr>
                 <tr>
-                    <td>C:\Program Files\Java\jdk1.6.0_xx</td>
-                    <td>Java Development Kit (xx is the update number)</td>
+                    <td>C:\Programs\Java\jdk\6</td>
+                    <td>Java Development Kit JAVA_HOME</td>
                 </tr>
                 <tr>
-                    <td>C:\Program Files\Java\jre1.6.0_xx</td>
-                    <td>Java Runtime Engine (xx is the update number)</td>
+                    <td>C:\Programs\Java\jdk\6\jre6</td>
+                    <td>Java Runtime Engine</td>
                 </tr>
                 <tr>
-                    <td>C:\Program Files\MySQL\MySQL Server 5.0</td>
-                    <td>MySQL database server</td>
+                    <td>C:\Programs\MySQL</td>
+                    <td>MySQL database server 5.5</td>
                 </tr>
                 <tr>
-                    <td>C:\Program Files\JetBrains\IntelliJ IDEA 9.0.2</td>
+                    <td>C:\Programs\JetBrains\IntelliJ IDEA 9.0.2</td>
                     <td>IntelliJ IDEA IDE (optional)</td>
                 </tr>
                 <tr>
-                    <td>C:\eclipse</td>
+                    <td>C:\Programs\Eclipse</td>
                     <td>Eclipse IDE (optional)</td>
                 </tr>
                 <tr>
-                    <td>C:\jboss-4.0.5</td>
-                    <td>JBoss Application Server</td>
+                    <td>C:\Programs\JBoss\6</td>
+                    <td>JBoss v6 Application Server JBOSS_HOME</td>
                 </tr>
             </table>
             <p>
                 You will also be asked to set up several environment variables. Please set these as SYSTEM variables using the Control Panel
-                (Control Panel > System > Advanced > Environment Variables). Note that if you change the installation path of any program
+                (Control Panel > System > Advanced > Environment Variables, or Computer > Properties > Advanced > Environment Variables). 
+                Note that if you change the installation path of any program
                 then you must make sure that the associated environment variable is changed accordingly.
             </p>
 
             <subsection name="Install Java">
                 <p>
                     Install J2SE Development Kit 6 (JDK 6) or newer from <a
-                        href="http://java.sun.com/javase/downloads/index.jsp">here</a>.
+                        href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>.
                     This is the preferred version of the JDK for AndroMDA.
-                    We also support JDK version 1.5. But we don't support JDK version 1.4 anymore!
+                    We also support JDK version 1.5. Support for version 1.4 requires a specific code generation configuration
+                    overriding the default settings, and changing to an earlier maven version and changing compiler settings. 
                 </p>
                 <p>
                     Make sure that the
@@ -78,27 +80,25 @@
                 </p>
                 <ol>
                     <li>
-                        Go to the control panel and double-click on<code>System</code>.
-                        If you are a Windows XP user it's possible you have to open
-                        <code>Performance and Maintenance</code>
-                        before you will see
-                        the
-                        <code>System</code>
-                        icon.
+                        From a command prompt type <code>echo %JAVA_HOME%</code>.
+                        - OR -
                     </li>
                     <li>
-                        Go to the
-                        <code>Advanced</code>
-                        tab and click on
+                        Go to the control panel and double-click on <code>System</code>.
+                        If you are a Windows XP user it's possible you have to open
+                        <code>Performance and Maintenance</code>
+                        before you will see the
+                        <code>System</code> icon.
+                    </li>
+                    <li>
+                        Go to the <code>Advanced</code> tab and click on
                         <code>Environment Variables</code>
                     </li>
                     <li>
-                        Make sure you have set the
-                        <code>JAVA_HOME</code>
-                        variable set
-                        and it is pointing to the directory where you installed the JDK.
+                        Make sure you have set the <code>JAVA_HOME</code>
+                        variable and it is pointing to the directory where you installed the JDK.
                         If not, add/edit the variable and set it to the correct value,
-                        e.g. C:\Program Files\Java\jdk1.6.0_xx. You may add the variable
+                        e.g. C:\Programs\Java\6. You may add the variable
                         to the list of user variables or system variables.
                     </li>
                 </ol>
@@ -121,7 +121,7 @@
                         Dependency specifications for build and deploy tasks - for all internal and external libraries; tied to a specific released versions of dependent libraries
                     </li>
                     <li>
-                        A repository containing all versioned dependencies. This repository is used during the build and deploy processes (very similar to the .NET Global Assembly Cache concept).
+                        A repository containing all versioned dependencies. This repository is used during the build and deploy processes for all referencing projects.
                     </li>
                 </ol>
 
@@ -129,15 +129,60 @@
 
                 <ol>
                     <li>
-                        Click here and download Maven 2.2.1 or newer.
+                        Click <a href="http://maven.apache.org/download.html">http://maven.apache.org/download.html</a> and download Maven 2.2.1 or newer.
                     </li>
                     <li>
-                        Unzip this file at C:\Program Files\Apache Software Foundation. A directory called maven-2.2.1 will be created which contains the Maven program.
+                        Unzip this file at C:\Programs\. A directory called maven-2.2.1 will be created which contains the Maven program. Rename to 'maven2'.
                     </li>
                 </ol>
                 <p>
-                    Note: If you are behind a proxy server, you will have to configure Maven to use the proxy. The details can be found here.
+                    Note: If you are behind a proxy server, you will have to configure Maven to use the proxy. The details can be found below.
                 </p>
+            </subsection>
+
+            <subsection name="Install JBoss Application Server">
+                <p>
+                    <a href="http://www.jboss.org/jbossas">JBoss Application Server</a>
+                    is a widely used open source Java application server. Install JBoss 6.0 by following the steps below.
+                </p>
+
+                <ol>
+                    <li>
+                        Click <a href="http://www.jboss.org/jbossas/downloads.html">http://www.jboss.org/jbossas/downloads.html</a> to point your browser to the JBossAS download page.
+                    </li>
+                    <li>
+                        Select the desired version (latest release) and click the Download button on the row that lists JBoss Application Server version 6.0. This should take you to the download page on the SourceForge site.
+                    </li>
+                    <li>
+                        Click on the link named "jboss-as-distribution-6.0.0.Final.zip" to download this file.
+                    </li>
+                    <li>
+                        Unzip this file at C:\Programs. A directory called jboss-6.0.0.Final will be created which contains the JBoss application server. Rename this directory to JBoss\6 (just to make the name a little shorter and to allow for multiple versions).
+                    </li>
+                    <li>
+                        If you are planning to install the Oracle database on your machine, then you must change the JBoss HTTP port, which defaults to 8080. 
+                        The reason is that Oracle also defaults to this port and it is not easy to change Oracle's configuration. 
+                        In order to change JBoss' HTTP port, edit the files called \default\conf\bindingservice.beans\META-INF\bindings-jboss-beans.xml 
+                        and server\default\deploy\jbossweb.sar\server.xml and change all occurrences of the number "8080" to something else, say "9090". 
+                        This will resolve the conflict between JBoss and Oracle. 
+                        If you have followed this step then you must use port 9090 whenever you are instructed to use port 8080 in this tutorial.
+                        If you are using JBoss6, use a utility such as WinGrep to search and replace all instances of 8080 with the new port, under server\default,
+                        for *.xml and *.properties (about 4 places).
+                    </li>
+                    <li>
+                        Test start the JBoss application server: <code>cd %JBOSS_HOME%\bin</code> and <code>run.bat</code>.
+                        Make sure the default server starts without errors. If you see the error 
+                        <code>java.lang.NoSuchMethodError: javax.annotation.Resource.lookup()Ljava/lang/String;</code>
+                        there is a JDK version conflict in the JSR250 jar, add the following to the JBoss command line:
+                        <code>-Djava.endorsed.dirs=$JBOSS_HOME/lib/endorsed</code> as explained in
+                        <a href="http://community.jboss.org/wiki/EJB31Embeddable">http://community.jboss.org/wiki/EJB31Embeddable</a>
+                    </li>
+                    <li>
+                        Verify the JBoss Administration Console after starting JBoss: Open <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>.
+                        Select the 'Administrative Console' link. Login with 'admin/admin'. The console will be used for adding/configuring databases other than
+                        the default Hypersonic DB. See <a href="http://wiki.eclipse.org/EclipseLink/Examples/JPA/JBoss_Web_Tutorial">http://wiki.eclipse.org/EclipseLink/Examples/JPA/JBoss_Web_Tutorial</a> for more detailed information.
+                    </li>
+                </ol>
             </subsection>
 
             <subsection name="Setup environment variables">
@@ -157,21 +202,21 @@
                     <tr>
                         <td>JAVA_HOME</td>
                         <td>Java installation directory, e.g.
-                            <code>C:\Program Files\Java\jdk1.6.xx</code>
+                            <code>C:\Programs\Java\jdk16</code>
                         </td>
                         <td>Yes</td>
                     </tr>
                     <tr>
                         <td>M2_HOME</td>
                         <td>Maven installation directory, e.g.
-                            <code>C:\Program Files\Apache Software Foundation\Maven 2.2.1</code>
+                            <code>C:\Programs\maven2</code>
                             (this may have already been set by the Maven installer)
                         </td>
                         <td>Yes</td>
                     </tr>
                     <tr>
                         <td>M2_REPO</td>
-                        <td>Maven local repository, e.g. C:\Documents and Settings\<b>your user name</b>\.m2\repository</td>
+                        <td>Maven local repository, e.g. C:\Programs\m2repo</td>
                         <td>Yes</td>
                     </tr>
                     <tr>
@@ -184,76 +229,175 @@
                         <td>No</td>
                     </tr>
                     <tr>
+                        <td>JBOSS_HOME</td>
+                        <td>JBoss installation directory, if running jboss server e.g.
+                            <code>C:\Programs\JBoss\6</code>
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>ANT_HOME</td>
+                        <td>Ant installation directory, if running ant scripts from maven e.g.
+                            <code>C:\Programs\Ant</code>
+                        </td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
                         <td>PATH</td>
                         <td>This makes sure the system will search for console commands in
                             the directories listed here. If this property already exists you
                             should simply add
-                            <code>%JAVA_HOME%\bin;%M2_HOME%\bin</code>
+                            <code>%JAVA_HOME%\bin;%M2_HOME%\bin;%ANT_HOME%\bin</code>
                         </td>
                         <td>Yes</td>
                     </tr>
                 </table>
             </subsection>
 
+            <subsection name="Configure and Test Maven and create a local repository">
+                <p>
+                    Maven is based on the concept of a central, local repository located on your machine, 
+                    where it stores artifacts such as 3rd party libraries as well as components created by you. 
+                    When you create a new project, you must specify a Project Object Model (POM) in a file named pom.xml. 
+                    In this file, you can tell Maven about the various 3rd party libraries and components your 
+                    application depends on. When Maven starts to build the application, it will first fetch these 
+                    dependencies from one or more remote repositories (generally located on the Internet) and store 
+                    them in your local repository. This allows future builds to happen entirely locally. 
+                    By default, the local repository is located at C:\Documents and Settings\your user name\.m2\repository. 
+                    Note that so far we have installed only the Maven application, we have not created a local repository. 
+                    Follow the steps below to test your Maven installation and force the creation of a local repository. 
+                    We will use a standard Maven plugin to create a temporary project which we will delete later.
+                </p>
+                <ul>
+                    <li>Edit %M2_HOME%\conf\settings.xml to use the Sonatype and JBoss repositories, and to download the andromda
+                    plugins. Include proxy settings if behind a firewall. This is described at 
+                    <a href="http://maven.apache.org/guides/mini/guide-configuring-maven.html">Configuring Maven</a>
+                    and <a href="http://maven.apache.org/ref/3.0.1/maven-settings/settings.html">Maven2 Settings</a>
+                        <source><![CDATA[
+...
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts. Always set to M2_REPO environment variable.
+   |
+   | Default: ~/.m2/repository
+   | Note: This value overrides the M2_REPO environment variable, if different!
+  -->
+  <localRepository>${env.M2_REPO}</localRepository>
+...
+  <!-- pluginGroups
+   | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+   | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+   | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+   |-->
+  <pluginGroups>
+    <!-- Specifies a further group identifier to use for plugin lookup. Causes all to be searched for updates.-->
+      <pluginGroup>org.andromda.maven.plugins</pluginGroup>
+   </pluginGroups>
+...
+  <!-- proxies
+   | This is a list of proxies which can be used on this machine to connect to the network.
+   | Unless otherwise specified (by system property or command-line switch), the first proxy
+   | specification in this list marked as active will be used.
+   |-->
+  <proxies>
+    <!-- proxy
+     | Specification for one proxy, to be used in connecting to the network.
+     |
+    -->
+    <proxy>
+      <id>your-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>your-proxy.company.com</host>
+      <port>8080</port>
+      <nonProxyHosts>*.company.com|127.0.0.1|localhost</nonProxyHosts>
+    </proxy>
+  </proxies>
+...
+  <repositories>
+    <repository>
+        <id>sonatype</id>
+        <name>Sonatype Repository</name>
+        <url>http://oss.sonatype.org/content/groups/public</url>
+       <snapshots>
+          <enabled>true</enabled>
+       </snapshots>
+    </repository>
+    <repository>
+        <id>jboss</id>
+        <name>JBoss Repository</name>
+        <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+        <id>sonatype</id>
+        <name>Sonatype Repository</name>
+        <url>http://oss.sonatype.org/content/groups/public</url>
+       <snapshots>
+          <enabled>true</enabled>
+       </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+...]]>
+                        </source>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li>Open a Command Prompt and change the current directory to any temporary directory, such as C:\andromda-temp.
+                    </li>
+                </ul>
+                <ul>
+                    <li>Execute the following command to make sure you can run Maven: <code>mvn -v</code>
+                    </li>
+                </ul>
+                <ul>
+                    <li>Maven should display the following output: 
+<source>Apache Maven 2.2.1 (r801777; 2009-08-06 15:16:01-0400)
+Java version: 1.6.0_21
+Java home: C:\Program Files\JDK\16\jre</source></li>
+                </ul>
+                <ul>
+                    <li>Now execute the following command to create a temporary project:
+<source>mvn archetype:create -DgroupId=testapp -DartifactId=testapp</source>
+Make sure that you get a BUILD SUCCESSFUL message at the end. 
+Sometimes due to bad Internet connectivity, Maven may not be able to download all dependencies. 
+If your build fails due to this reason, try to issue the command again until you get a successful build.
+                    </li>
+                </ul>
+                <ul>
+                    <li>Verify that Maven created a temporary project called testapp in the current directory 
+                    and also a local repository at the %M2_REPO% location mentioned above. 
+                    </li>
+                </ul>
+            </subsection>
 
             <subsection name="Install AndroMDA Application plugin">
                 <p>
-                    Next we will download and install the AndroMDA Application plugin
-                    to the M2_HOME/plugins directory. This plugin allows creation of
-                    Java starter applications that use AndroMDA. This is the only AndroMDA
-                    artifact that we will install explicitly. All other artifacts, such
+                    Next we will download and install the AndroMDA Application plugin. This plugin allows creation of
+                    Java starter applications that use AndroMDA. All artifacts, such
                     as AndroMDA cartridges, will be automatically downloaded by the
                     Maven scripts generated by the plugin.
                 </p>
 
                 <ul>
-                    <li>Click <a href="http://andromda.googlegroups.com/web/andromdapp-maven-plugin-install-3.3.zip">here</a> to download the the AndroMDA plugin installer.</li>
-                    <li>Unzip the contents of the installer into your Maven repository at C:\Documents and Settings\<strong>your user name</strong>\.m2\repository.</li>
-                    <li>Verify that the following directory was created:C:\Documents and Settings\<strong>your user name</strong>\.m2\repository\org\andromda\maven\plugins\andromdapp-maven-plugin</li>
-                    <li>Create a temporary directory, e.g. C:\andromda-temp.</li>
-                    <li>Create a file called pom.xml in this directory with the following content.
+                    <li>Change to the temporary directory, e.g. C:\andromda-temp.</li>
+                    <li>Edit pom.xml in this directory to add the following content:
                         <source><![CDATA[
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<groupId>samples.test</groupId>
-<artifactId>test</artifactId>
-<version>1.0</version>
-<packaging>jar</packaging>
-<name>test</name>
-
+...
 <build>
     <defaultGoal>compile</defaultGoal>
     <plugins>
         <plugin>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromdapp-maven-plugin</artifactId>
-            <version>3.3</version>
+            <version>3.4-SNAPSHOT</version>
         </plugin>
     </plugins>
-</build>
-
-<repositories>
-    <repository>
-        <id>andromda</id>
-        <name>AndroMDA Repository</name>
-        <url>http://www.andromda.org/maven2</url>
-    </repository>
-</repositories>
-
-<pluginRepositories>
-    <pluginRepository>
-        <id>andromda</id>
-        <name>AndroMDA Repository</name>
-        <url>http://www.andromda.org/maven2</url>
-    </pluginRepository>
-</pluginRepositories>
-</project>
-                                ]]>
+</build>]]>
                         </source>
                     </li>
-                    <li>Open a Command Prompt in the directory where you created this pom.xml and
+                    <li>Open a Command Prompt in the directory where you edited this pom.xml and
                         run the command mvn without any arguments. Make sure the command completes successfully
                         by displaying the BUILD SUCCESSFUL message.</li>
                     <li>You can now delete the temporary directory you created in step 1.</li>
@@ -264,7 +408,7 @@
                 <p>
                     Install a tool that will allow you to model your applications in UML and
                     export these models into a format that AndroMDA can understand. AndroMDA
-                    currently supports UML 1.4 and XMI 1.2. Please follow one of the links
+                    currently supports UML 1.4/XMI 1.2 as well as UML2 2.x and 3.x/EMF/XMI2. Please follow one of the links
                     below to install the UML tool of your choice. (We invite UML tool vendors
                     and open-source projects to test their tools with AndroMDA and supply
                     installation instructions for inclusion in this section.)
@@ -273,15 +417,15 @@
                 <p>
                     <a href="resources/uml-tools/argouml/install.html">ArgoUML (UML 1.4/XMI 1.2)</a><br/>
                     <a href="resources/uml-tools/magicdraw/install.html">MagicDraw 9.5 (UML 1.4/XMI 1.2)</a><br/>
-                    <a href="resources/uml-tools/magicdraw/install16.html">MagicDraw 16.5 (UML 2/EMF)</a><br/>
-                    <a href="resources/uml-tools/rsm/install.html">RSM 6 (Rational Software Modeler/Architect)(UML 2/EMF)</a>
+                    <a href="resources/uml-tools/magicdraw/install16.html">MagicDraw 11.5 through 17 (EMF-UML2 2.x or 3.x)</a><br/>
+                    <a href="resources/uml-tools/rsm/install.html">RSM 7, 7.5, 8 (Rational Software Modeler/Architect)(EMF-UML2 2.x or 3.x)</a>
                 </p>
             </subsection>
 
             <subsection name="Install a database">
                 <p>
                     Install a database that is supported by Hibernate. Click
-                    <a href="http://www.hibernate.org/260.html">here</a>
+                    <a href="http://www.hibernate.org/260.html">http://www.hibernate.org/260.html</a>
                     to see
                     the list of supported databases. For the purpose of this tutorial we will
                     assume that you have installed one of the following databases. If you have
@@ -290,41 +434,46 @@
                 </p>
                 <ul>
                     <li>
-                        <strong>MySQL 5.0:</strong>
+                        <strong>MySQL 5.5:</strong>
                         MySQL is an open source database. You can download it from
-                        <a href="http://dev.mysql.com/downloads/mysql/5.0.html"
-                          >here</a>. We recommend
+                        <a href="http://dev.mysql.com/downloads/mysql"
+                          >http://dev.mysql.com/downloads/mysql</a>. We recommend
                         downloading the full Windows installation - not just the "Essentials". In addition, download and install
-                        <a href="http://dev.mysql.com/downloads/administrator/1.1.html"
-                          >MySQL Administrator
-                        </a>
-                        as well as <a href="http://dev.mysql.com/downloads/query-browser/1.1.html"
-                                    >MySQL Query Browser</a>.
-                        These are GUI based tools that will make your development much easier. Finally, download and unzip
-                        <a href="http://dev.mysql.com/downloads/connector/j/3.1.html"
-                          >MySQL Connector/J
-                        </a>
+                        <a href="http://dev.mysql.com/downloads/workbench">MySQL Workbench</a>,
+                        a GUI based tool that will make your development much easier. Finally, download and unzip
+                        <a href="http://dev.mysql.com/downloads/connector/j">MySQL Connector/J</a>
                         (the MySQL JDBC driver) in a convenient directory. For the purpose of this tutorial we will assume that
                         you have installed the driver at
-                        <code>C:\Program Files\MySQL\mysql-connector-java-3.1.12</code>.
+                        <code>C:\Programs\MySQL\mysql-connector-java-5.1.14</code>. Or - you can wait until running mvn after creating the timetracker project, 
+                        which has a dependency on mysql connector.
+                        Copy the MySQL driver from C:\Programs\m2repo\mysql\mysql-connector-java\5.1.14\mysql-connector-java-5.1.14.jar to the 
+                        JBoss lib directory located at C:\Programs\jboss\6\server\default\lib.
+                        This allows JBoss to access your database.
                     </li>
 
                     <li>
                         <strong>PostgreSQL 8.1:</strong>
                         PostgreSQL is an open source database. You can download it from
-                        <a href="http://www.postgresql.org/ftp/binary/v8.1.2/win32/"
-                          >here</a>. The Postgres
+                        <a href="http://www.enterprisedb.com/products/pgbindownload.do"
+                          >http://www.enterprisedb.com/products/pgbindownload.do</a>. The Postgres
                         installation contains a GUI based administrative tool called pgAdmin III. JDBC drivers are also
                         included as part of the installation.
                     </li>
 
                     <li>
+                        <strong>Hypersonic SQL 2.0:</strong>
+                        HSQL is an open source java database. You can download it from
+                        <a href="http://hsqldb.org"
+                          >http://hsqldb.org</a>. This database ships with JBoss and is often used for unit testing.
+                    </li>
+
+                    <li>
                         <strong>Oracle 9i:</strong>
-                        Oracle 9i is an commercial database sold by
+                        Oracle 11g is an commercial database sold by
                         <a href="http://www.oracle.com">Oracle</a>. We assume that you
-                        have the necessary distribution media to install it. Oracle 9i includes a GUI
+                        have the necessary distribution media to install it. Oracle 11g includes a GUI
                         based administrative tool called Enterprise Manager. JDBC drivers are also
-                        included as part of the installation.
+                        included as part of the installation. The Express edition is free to use.
                     </li>
                 </ul>
             </subsection>
@@ -334,14 +483,16 @@
                     Eclipse is a popular open source IDE that is useful in developing Java
                     applications. AndroMDA does not require the use of Eclipse. However we
                     do recommend using it for development as it helps increase your
-                    productivity. You can download Eclipse from
-                    <a href="http://www.eclipse.org/downloads/">here</a>.
-                    We recommend downloading the Eclipse Europa Package called "Eclipse IDE for Java EE Developers".
+                    productivity. Eclipse users will glad to know that AndroMDA generates fully usable .project and .classpath files,
+                    or you can use the Sonatype M2Eclipse plugin to manage your maven projects.
+                    You can download Eclipse from
+                    <a href="http://www.eclipse.org/downloads">http://www.eclipse.org/downloads</a>.
+                    We recommend downloading the Eclipse Helios (v3.6) Package called "Eclipse IDE for Java EE Developers".
                     Follow the steps below to install and configure Eclipse:
                 </p>
                 <ul>
-                    <li>Unzip the downloaded archive to a suitable location on your hard drive. The recommended location is C:\eclipse.</li>
-                    <li>Edit the file eclipse.ini under C:\eclipse to increase the memory available for Eclipse. Here are the suggested contents for this file:
+                    <li>Unzip the downloaded archive to a suitable location on your hard drive. The recommended location is C:\Programs\eclipse.</li>
+                    <li>Edit the file eclipse.ini under C:\Programs\eclipse to increase the memory available for Eclipse. Here are the suggested contents for this file:
                         <source>
                         -vmargs
                         -Xms256m
@@ -351,23 +502,82 @@
                         </source>
                     </li>
                     <li>Start Eclipse by double-clicking on eclipse.exe.</li>
-                    <li>Eclipse asks for a folder where it can store your projects. This folder is called the Eclipse workspace. Set the workspace to a location where you generally creates projects, such as C:\Projects.</li>
+                    <li>Eclipse asks for a folder where it can store your projects. 
+                    This folder is called the Eclipse workspace. Set the workspace to a location where you generally creates projects, such as C:\Workspaces.</li>
                     <li>Choose Preferences from the Window Menu.</li>
+                    <li>In the left pane, select Java &gt; Installed JREs</li>
+                    <li>Add the JDK6 from the JAVA_HOME directory, and make it the Workspace default.</li>
                     <li>In the left pane, select Java &gt; Build Path &gt; Classpath Variables.</li>
                     <li>Click New.</li>
-                    <li>Add M2_REPO in the Name field and the path of your M2 repository in the Path field (for example, C:\Documents and Settings\<strong>your user name</strong>\.m2\repository). This value is needed in order to import Maven generated project configurations.</li>
+                    <li>Add M2_REPO in the Name field and the path of your M2 repository in the Path field (for example, C:\Programs\m2repo). 
+                    This value is needed in order to import Maven generated project configurations.</li>
+                    <li>In the left pane, select Server &gt; Runtime Environments &gt; Add &gt; Jbossv5 or v6</li>
                     <li>Click OK twice to close the dialog boxes.</li>
+                    <li>Create a new JBoss server instance (Window &gt; Show View &gt; Other &gt; Servers &gt; Server) and start the instance from Eclipse.</li>
+                    <li>We recommend the following plugins also be installed:</li>
                 </ul>
+                <table>
+                    <tr>
+                        <th>Plugin</th>
+                        <th>Repository or Download Location (* = Manual install)</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>Sonatype M2Eclipse</td>
+                        <td><a href="http://m2eclipse.sonatype.org/sites/m2e">http://m2eclipse.sonatype.org/sites/m2e</a><p></p>
+                        <a href="http://m2eclipse.sonatype.org/sites/m2e-extras">http://m2eclipse.sonatype.org/sites/m2e-extras</a></td>
+                        <td>Import maven projects, run maven from Eclipse. Instructions at <a href="http://m2eclipse.sonatype.org">http://m2eclipse.sonatype.org</a></td>
+                    </tr>
+                    <tr>
+                        <td>SpringSource Tool Suite</td>
+                        <td><a href="http://dist.springsource.com/release/TOOLS/update/e3.6">http://dist.springsource.com/release/TOOLS/update/e3.6</a>
+                        <p><a href="http://dist.springsource.com/release/TOOLS/composite/e3.6">http://dist.springsource.com/release/TOOLS/composite/e3.6</a></p></td>
+                        <td>Install instructions at <a href="http://download.springsource.com/release/STS/doc/STS-installation_instructions.pdf">http://download.springsource.com/release/STS/doc/STS-installation_instructions.pdf</a></td>
+                    </tr>
+                    <tr>
+                        <td>JBoss Tools</td>
+                        <td><a href="http://download.jboss.org/jbosstools/updates/development">http://download.jboss.org/jbosstools/updates/development/</a></td>
+                        <td>If using JBoss server or Hibernate ORM. Install instructions at <a href="http://www.jboss.org/tools/download/installation/update_3_2.html">http://www.jboss.org/tools/download/installation/update_3_2.html</a></td>
+                    </tr>
+                    <tr>
+                        <td>PMD</td>
+                        <td><a href="http://pmd.sourceforge.net/eclipse">http://pmd.sourceforge.net/eclipse</a></td>
+                        <td>Code quality checker</td>
+                    </tr>
+                    <tr>
+                        <td>CheckStyle</td>
+                        <td><a href="http://eclipse-cs.sourceforge.net/update">http://eclipse-cs.sourceforge.net/update</a></td>
+                        <td>Code quality checker</td>
+                    </tr>
+                    <tr>
+                        <td>FindBugs</td>
+                        <td><a href="http://findbugs.cs.umd.edu/eclipse-candidate">http://findbugs.cs.umd.edu/eclipse-candidate</a></td>
+                        <td>Code quality checker</td>
+                    </tr>
+                    <tr>
+                        <td>Cobertura</td>
+                        <td><a href="http://ecobertura.johoop.de/update">http://ecobertura.johoop.de/update</a></td>
+                        <td>Code unit test coverage</td>
+                    </tr>
+                    <tr>
+                        <td>SVN</td>
+                        <td><a href="http://eclipse.svnkit.com/1.3.x">http://eclipse.svnkit.com/1.3.x</a></td>
+                        <td>If using SVN repositories, integrate with Eclipse Subversive</td>
+                    </tr>
+                    <tr>
+                        <td>Velocity</td>
+                        <td><a href="http://veloedit.sourceforge.net/updates">http://veloedit.sourceforge.net/updates</a></td>
+                        <td>If editing Velocity templates</td>
+                    </tr>
+                </table>
                 
             </subsection>
         </section>
 
         <section name="What's Next?">
             <p>
-                Now that the development environment is set up we are ready to create the TimeTracker application.
-                Click
-                <a href="create-application.html">here</a>
-                to get started.
+                Now that the development environment is set up, we are ready to try out the TimeTracker application.
+                Click <a href="timetracker-tour.html">here</a> to get started.
             </p>
         </section>
     </body>

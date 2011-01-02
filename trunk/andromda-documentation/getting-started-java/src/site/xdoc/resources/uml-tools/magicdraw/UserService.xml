@@ -18,7 +18,7 @@
             <p>
                 We will create
                 <tt>UserService</tt>
-                in a package named<tt>org.andromda.timetracker.service</tt>.
+                in a package named <tt>org.andromda.timetracker.service</tt>.
             </p>
             
             <ol style="list-style-type: decimal">
@@ -26,7 +26,7 @@
                     <tt>timetracker</tt>
                     model create a package called
                     <tt>service</tt>
-                    under<tt>
+                    under <tt>
                         org.andromda.timetracker</tt>.
                 </li>
                 <li>In the Containment Tree on the left, right-click on the
@@ -38,20 +38,20 @@
                     as the name of this diagram
                     and press Enter.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>UserService</tt>.
+                <li>Add a new class to the diagram and name it <tt>UserService</tt>.
                 </li>
                 <li>Add the stereotype called
                     <tt>Service</tt>
-                    to<tt>UserService</tt>.
+                    to <tt>UserService</tt>.
                 </li>
                 <li>Let's add the
                     <tt>getAllUsers()</tt>
-                    method to<tt>UserService</tt>. Right-click
+                    method to <tt>UserService</tt>. Right-click
                     on the
                     <tt>UserService</tt>
                     class and select<i>Insert New Operation</i>. A new operation
-                    is inserted with the specification<tt>+unnamed1()</tt>. Write over this specification
-                    with this new one:<tt>+getAllUsers()</tt>. Do not specify the return value right now because
+                    is inserted with the specification <tt>+unnamed1()</tt>. Write over this specification
+                    with this new one: <tt>+getAllUsers()</tt>. Do not specify the return value right now because
                     MagicDraw gets confused with the
                     <tt>UserVO[]</tt>
                     syntax. After typing the
@@ -76,7 +76,7 @@
             </ol>
 
             <p>
-                We are now ready to generate code for the<tt>UserService</tt>. Please go back
+                We are now ready to generate code for the <tt>UserService</tt>. Please go back
                 to the main tutorial page and continue from where you left off.
             </p>
 

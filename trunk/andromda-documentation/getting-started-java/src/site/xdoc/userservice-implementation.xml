@@ -8,12 +8,8 @@
     </properties>
     <body>
         <section name="UserService Implementation">
-
             <p>
-                In this section we will implement the
-                <tt>UserService</tt>
-                and make sure it
-                passes the tests.
+                In this section we will implement the <tt>UserService</tt> and make sure it passes the tests.
             </p>
 
             <p>
@@ -22,44 +18,27 @@
                 from one more more entities, with the purpose of shielding the entities from other
                 tiers of the application and/or external applications. To implement the
                 <tt>getAllUsers()</tt>
-                method in<tt>UserService</tt>, we will now define a
-                <tt>User</tt>
-                entity.
+                method in <tt>UserService</tt>, we will now define a <tt>User</tt> entity.
                 To keep things simple, we will do a straight one-to-one mapping of attributes in
-                <tt>UserVO</tt>
-                to the attributes in the
-                <tt>User</tt>
-                entity. The model
-                of the
-                <tt>User</tt>
-                entity is shown on the right. Note that we have not explicitly
-                modeled the
-                <tt>id</tt>
-                attribute -- all entities are assumed to have an
-                <tt>id</tt>
-                attribute of type<tt>Long</tt>. You need to model an
-                <tt>id</tt>
-                only if
-                this default assumption is not true, i.e. your
-                <tt>id</tt>
-                attribute has a different
-                name or type.
+                <tt>UserVO</tt> to the attributes in the <tt>User</tt> entity. The model of the
+                <tt>User</tt> entity is shown on the right. Note that we have not explicitly
+                modeled the <tt>id</tt> attribute -- all entities are assumed to have an <tt>id</tt>
+                attribute of type <tt>Long</tt>. You need to model an <tt>id</tt> only if
+                this default assumption is not true, i.e. your <tt>id</tt>
+                attribute has a different name or type.
+            </p>
+            <p>
                 <img src="images/User.jpg" alt="User"/>
             </p>
             <p>
-                Note that AndroMDA will map the
-                <tt>User</tt>
-                entity to a database table called
-                <tt>USER</tt>. However
-                <tt>USER</tt>
-                happens to be a reserved word in several
-                databases. So we will force AndroMDA to map this entity to a table called<tt>USERS</tt>.
+                Note that AndroMDA will map the <tt>User</tt> entity to a database table called
+                <tt>USER</tt>. However <tt>USER</tt> happens to be a reserved word in several
+                databases. So we will force AndroMDA to map this entity to a table called <tt>USERS</tt>.
                 This exercise will also show you how to override AndroMDA's default code generation
                 behavior.
             </p>
             <p>
-                Now let us enter the
-                <tt>User</tt>
+                Now let us enter the <tt>User</tt>
                 entity in the TimeTracker model. Please follow
                 one of the links below to edit the model with the UML tool of your choice.
             </p>
@@ -71,32 +50,25 @@
                     <a href="resources/uml-tools/magicdraw/UserEntity.html">MagicDraw</a>
                 </li>
                 <li>
-                    <a href="resources/uml-tools/rsm/UserEntity.html">RSM 6</a>
+                    <a href="resources/uml-tools/rsm/UserEntity.html">RSM/RSA</a>
                 </li>
             </ul>
             <p>
-
                 <img src="images/UserToUserVODependency.jpg" alt="User To UserVO Dependency"/>
             </p>
             <p>
-                Next we will add couple of dependency relationships to our model to tell AndroMDA
+                Next we will add a couple of dependency relationships to our model to tell AndroMDA
                 about dependencies between some of the elements we have modeled. The first is the
-                dependency from the
-                <tt>User</tt>
-                entity to the<tt>UserVO</tt>. This dependency
+                dependency from the <tt>User</tt>
+                entity to the <tt>UserVO</tt>. This dependency
                 is shown on the right and tells AndroMDA to generate conversion methods between
-                <tt>User</tt>
-                and
-                <tt>UserVO</tt>
+                <tt>User</tt> and <tt>UserVO</tt>
                 objects. The conversion methods are generated
-                in<tt>UserDaoBase</tt>, the data access object for the
-                <tt>User</tt>
-                entity.
+                in <tt>UserDaoBase</tt>, the data access object for the <tt>User</tt> entity.
                 They take care of simple conversions, however if your value objects are complicated
                 (for example, if they have attributes fetched from related entities), then you will
                 have to override the default conversion methods to fill in the additional attributes.
-                Anyway, our
-                <tt>UserVO</tt>
+                Anyway, our <tt>UserVO</tt>
                 is simple enough that the default conversion methods
                 work perfectly!
             </p>
@@ -111,33 +83,22 @@
                     <a href="resources/uml-tools/magicdraw/UserToUserVO.html">MagicDraw</a>
                 </li>
                 <li>
-                    <a href="resources/uml-tools/rsm/UserToUserVO.html">RSM 6</a>
+                    <a href="resources/uml-tools/rsm/UserToUserVO.html">RSM/RSA</a>
                 </li>
             </ul>
             <p>
-                Next add a dependency from
-                <tt>UserService</tt>
-                to the
-                <tt>User</tt>
-                entity.
-                This dependency is shown below and tells AndroMDA to give
-                <tt>UserService</tt>
-                access to the
-                <tt>User</tt>
-                entity. From an implementation perspective, this
-                injects a
-                <tt>UserDao</tt>
-                instance into<tt>UserService</tt>. As you may
-                have guessed,
-                <tt>UserDao</tt>
-                is the data access object that allows its clients
-                to read and write
-                <tt>User</tt>
-                entities from the database.
+                Next add a dependency from <tt>UserService</tt> to the <tt>User</tt> entity.
+                This dependency is shown below and tells AndroMDA to give <tt>UserService</tt>
+                access to the <tt>User</tt> entity. From an implementation perspective, this
+                injects a <tt>UserDao</tt> instance into <tt>UserService</tt>. As you may
+                have guessed, <tt>UserDao</tt> is the data access object that allows its clients
+                to read and write <tt>User</tt> entities from the database.
             </p>
-            <div align="center">
+            <p>
+            <!--div align="center"-->
                <img src="images/UserServiceToUserDependency.jpg" alt="UserService To User Dependency"/>
-            </div>
+            <!--/div-->
+            </p>
             <p>
                 Please follow one of the links below to enter this new dependency in the model.
             </p>
@@ -149,7 +110,7 @@
                     <a href="resources/uml-tools/magicdraw/UserServiceToUser.html">MagicDraw</a>
                 </li>
                 <li>
-                    <a href="resources/uml-tools/rsm/UserServiceToUser.html">RSM 6</a>
+                    <a href="resources/uml-tools/rsm/UserServiceToUser.html">RSM/RSA</a>
                 </li>
             </ul>
             <p>
@@ -181,55 +142,32 @@
                     </tt>
                     entity. It contains the 3 attributes from the model along with their
                     getters and setters. AndroMDA automatically adds an
-                    <tt>id</tt>
-                    attribute that
-                    represents the unique identifier for
-                    <tt>User</tt>
-                    instances in the database.
-                    In addition, AndroMDA generates
-                    <tt>equals()</tt>
-                    and
-                    <tt>hashCode()</tt>
-                    methods for the entity. Note that
-                    <tt>User</tt>
-                    is an abstract class - it cannot
-                    be instantiated. The
-                    <tt>UserImpl</tt>
-                    class described below, is a concrete
-                    class that extends<tt>User</tt>. It can be instantiated using the factory methods
-                    embedded in the
-                    <tt>User</tt>
-                    class.
+                    <tt>id</tt> attribute that represents the unique identifier for
+                    <tt>User</tt> instances in the database. In addition, AndroMDA generates
+                    <tt>equals()</tt> and <tt>hashCode()</tt> methods for the entity. Note that
+                    <tt>User</tt> is an abstract class - it cannot be instantiated. The
+                    <tt>UserImpl</tt> class described below, is a concrete
+                    class that extends <tt>User</tt>. It can be instantiated using the factory methods
+                    embedded in the <tt>User</tt> class.
                 </li>
                 <li>
                     <b>UserImpl.java:</b>
-                    As mentioned above
-                    <tt>UserImpl</tt>
-                    is a concrete
-                    extension of the
-                    <tt>User</tt>
-                    class. It is meant to be a container for any
+                    As mentioned above <tt>UserImpl</tt> is a concrete extension of the
+                    <tt>User</tt> class. It is meant to be a container for any
                     custom code that developers would like to add to the
-                    <tt>User</tt>
-                    entity.
+                    <tt>User</tt> entity.
                 </li>
                 <li>
                     <b>UserDao.java:</b>
                     Data access objects for any entity are created as
                     a trio of classes: an interface, an abstract base class and a concrete implementation.
-                    <tt>UserDao</tt>
-                    is the interface for the
-                    <tt>User</tt>
-                    data access object.
-                    It specifies CRUD methods for the DAO.
+                    <tt>UserDao</tt> is the interface for the <tt>User</tt>
+                    data access object. It specifies CRUD methods for the DAO.
                 </li>
                 <li>
                     <b>UserDaoBase.java:</b>
-                    <tt>UserDaoBase</tt>
-                    implements all of the
-                    CRUD methods specified in the
-                    <tt>UserDao</tt>
-                    interface class.
+                    <tt>UserDaoBase</tt> implements all of the CRUD methods specified in the
+                    <tt>UserDao</tt> interface class.
                 </li>
                 <li>
                     <b>User.hbm.xml:</b>
@@ -245,15 +183,10 @@
             <ol style="list-style-type: decimal">
                 <li>
                     <b>UserDaoImpl.java:</b>
-                    <tt>UserDaoImpl</tt>
-                    is a concrete extension
-                    of the
-                    <tt>UserDaoBase</tt>
+                    <tt>UserDaoImpl</tt> is a concrete extension of the <tt>UserDaoBase</tt>
                     class created in the target folder above. It is
                     meant to be a container for any custom code that developers would like to add to
-                    the
-                    <tt>User</tt>
-                    data access object.
+                    the <tt>User</tt> data access object.
                 </li>
             </ol>
             <p>
@@ -267,36 +200,24 @@
             </p>
             <p>
                 By now you must be wondering where to add your custom code. We already said above
-                that developers can add custom code into
-                <tt>UserImpl.java</tt>
-                and<tt>UserDaoImpl.java</tt>.
-                But why is
-                <tt>UserImpl.java</tt>
-                generated in the
-                <tt>target</tt>
-                folder
+                that developers can add custom code into <tt>UserImpl.java</tt> and <tt>UserDaoImpl.java</tt>.
+                But why is <tt>UserImpl.java</tt> generated in the <tt>target</tt> folder
                 then? Well, AndroMDA is pretty smart. You have given it no indication that you want
-                to write custom code in<tt>UserImpl.java</tt>. As long as that is the case
-                it will keep generating the
-                <tt>UserImpl.java</tt>
-                class in the target folder.
+                to write custom code in <tt>UserImpl.java</tt>. As long as that is the case
+                it will keep generating the <tt>UserImpl.java</tt> class in the target folder.
                 However, as soon as you tell AndroMDA that you want to write some custom code in
-                this class, it will generate the class in the
-                <tt>src</tt>
-                folder under the
+                this class, it will generate the class in the <tt>src</tt> folder under the
                 core project. Now you are free to modify the
-                <tt>UserImpl.java</tt>
-                class and
-                add any code to it. AndroMDA will never overwrite files in the project
-                <tt>src</tt>
+                <tt>UserImpl.java</tt> class and
+                add any code to it. AndroMDA will never overwrite files in the project <tt>src</tt>
                 folder. They are auto-generated only once for your convenience.
             </p>
             <p>
                 Talking about custom code, note that so far we have not written even a single line
-                of custom code to implement the<tt>UserService</tt>! AndroMDA has done most
-                of the work for us, e.g. creation of the<tt>UserService</tt>,<tt>UserVO</tt>,
+                of custom code to implement the <tt>UserService</tt>! AndroMDA has done most
+                of the work for us, e.g. creation of the <tt>UserService</tt>, <tt>UserVO</tt>,
                 <tt>UserDao</tt>, Hibernate mapping file and so on. All that is really left
-                is to fill in the &quot;handle&quot; method in<tt>UserServiceImpl</tt>. To do this, add
+                is to fill in the &quot;handle&quot; method in <tt>UserServiceImpl</tt>. To do this, add
                 the bold lines shown in the listing below to your
                 <tt>UserServiceImpl</tt>
                 class.
@@ -330,19 +251,10 @@
                 }
             </source>
             <p>
-                Here we make a direct call to the
-                <tt>loadAll()</tt>
-                method in
-                <tt>UserDao</tt>
-                which is completely implemented in<tt>UserDaoBase</tt>. We supply the
-                <tt>UserDao.TRANSFORM_USERVO</tt>
-                parameter to the
-                <tt>loadAll()</tt>
-                method which asks the method to convert
-                the
-                <tt>User</tt>
-                entities to
-                <tt>UserVO</tt>
+                Here we make a direct call to the <tt>loadAll()</tt> method in
+                <tt>UserDao</tt> which is completely implemented in <tt>UserDaoBase</tt>. We supply the
+                <tt>UserDao.TRANSFORM_USERVO</tt> parameter to the <tt>loadAll()</tt>
+                method which asks the method to convert the <tt>User</tt> entities to <tt>UserVO</tt>
                 objects before returning.
                 We then convert the returned collection to an array as required by the method signature
                 and return this array. That's it! You see how simple it was to implement this method,
@@ -350,20 +262,12 @@
                 of all this for you.
             </p>
             <p>
-                Well, we think that
-                <tt>UserService</tt>
-                is now completely implemented. Let's
-                test it. Execute the command below to run<tt>UserServiceTest</tt>. Note that
-                this time we do not execute
-                <tt>mvn install</tt>
-                because this command regenerates
+                Well, we think that <tt>UserService</tt> is now completely implemented. Let's
+                test it. Execute the command below to run <tt>UserServiceTest</tt>. Note that
+                this time we do not execute <tt>mvn install</tt> because this command regenerates
                 code and rebuilds the entire application. Since we have not made any model changes
-                after the last build, it makes sense to just run the
-                <tt>test</tt>
-                target in
-                the
-                <tt>core</tt>
-                project.
+                after the last build, it makes sense to just run the <tt>test</tt> target in the
+                <tt>core</tt> project.
             </p>
             <source>
                 C:\timetracker&gt;mvn -f core/pom.xml test
@@ -393,8 +297,7 @@
                 [INFO] ------------------------------------------------------------------------
             </source>
             <p>
-                Aha, we forgot to create our
-                <tt>user</tt>
+                Aha, we forgot to create our <tt>user</tt>
                 table in the database. Follow the
                 steps below to create this table, populate it with test data and then run the test
                 again.
@@ -448,10 +351,9 @@
             </ol>
             <subsection name="What's Next?">
                 <p>
-                    Now that
-                    <tt>UserService.getAllUsers()</tt>
+                    Now that <tt>UserService.getAllUsers()</tt>
                     method is working, let's try to
-                    use it from the front-end. Click <a href="search-criteria-panel.thml">here</a> to implement the search
+                    use it from the front-end. Click <a href="search-criteria-panel.html">here</a> to implement the search
                     criteria panel of the search screen, which needs to call this method.
                 </p>
             </subsection>

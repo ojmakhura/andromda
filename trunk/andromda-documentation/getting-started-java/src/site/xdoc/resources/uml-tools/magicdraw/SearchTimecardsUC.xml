@@ -13,8 +13,8 @@
                 This page provides directions to create the
                 <tt>Search Timecards</tt>
                 use case
-                along with its state machine diagram and the<tt>SearchController</tt>. Note that all three elements
-                mentioned here will be placed in the package<tt>org.andromda.timetracker.web.timecardsearch</tt>.
+                along with its state machine diagram and the <tt>SearchController</tt>. Note that all three elements
+                mentioned here will be placed in the package <tt>org.andromda.timetracker.web.timecardsearch</tt>.
             </p>
 
             <p>
@@ -51,7 +51,7 @@
                     <tt>
                         FrontEndUseCase
                     </tt>
-                    and<tt>FrontEndApplication</tt>.
+                    and <tt>FrontEndApplication</tt>.
                 </li>
             </ol>
             <p>
@@ -62,11 +62,11 @@
             <ol style="list-style-type: decimal">
                 <li>Create a package called
                     <tt>web</tt>
-                    under<tt>org.andromda.timetracker</tt>.
+                    under <tt>org.andromda.timetracker</tt>.
                 </li>
                 <li>Create a package called
                     <tt>timecardsearch</tt>
-                    under<tt>web</tt>.
+                    under <tt>web</tt>.
                 </li>
                 <li>Drag the
                     <tt>Search Timecards</tt>
@@ -80,7 +80,7 @@
                     <i>New Diagram
                         &gt; State Diagram
                     </i>
-                    to create an state diagram. Name it<tt>Search Timecards State Machine Diagram</tt>.
+                    to create an state diagram. Name it <tt>Search Timecards State Machine Diagram</tt>.
                     This action automatically creates a state machine in the
                     <tt>Search Timecards</tt>
                     use case
@@ -93,7 +93,7 @@
                     <tt>SearchController</tt>
                     under the
                     <tt>Search Timecards State Machine</tt>
-                    state machine. Do this by right-clicking on<tt>Search Timecards State Machine</tt>, choose
+                    state machine. Do this by right-clicking on <tt>Search Timecards State Machine</tt>, choose
                     <i>New Element
                         &gt; Class</i>.
                 </li>
@@ -101,7 +101,7 @@
 
             <p>
                 We are done with the basic structure for the web page. Now let's create the page
-                flow on the<tt>Search Timecards State Machine Diagram</tt>. Open this diagram and
+                flow on the <tt>Search Timecards State Machine Diagram</tt>. Open this diagram and
                 follow the steps below. Use the tool bar on the left to create various elements
                 on the diagram. Use the tool tips and the status bar to identify the tool bar icons.
             </p>
@@ -116,8 +116,8 @@
                     <tt>Populate Search Screen</tt>
                     state.
                 </li>
-                <li>Drop another action state below<tt>Populate Search Screen</tt>. Name it<tt>Search Timecards</tt>.
-                    Since this state represents a screen, give it the stereotype of<tt>FrontEndView</tt>.
+                <li>Drop another action state below <tt>Populate Search Screen</tt>. Name it <tt>Search Timecards</tt>.
+                    Since this state represents a screen, give it the stereotype of <tt>FrontEndView</tt>.
                 </li>
                 <li>Create a transition from
                     <tt>Populate Search Screen</tt>
@@ -167,52 +167,52 @@
                     <tt>submitter</tt>
                     as the name of the parameter and
                     <tt>Long</tt>
-                    as its type (note that it is<tt>Long</tt>, not<tt>long</tt>). Now click
+                    as its type (note that it is <tt>Long</tt>, not <tt>long</tt>). Now click
                     on the
                     <i>Tag Values</i>
-                    tab and click on the tagged value named<tt>@andromda.presentation.web.view.field.type</tt>.
+                    tab and click on the tagged value named <tt>@andromda.presentation.web.view.field.type</tt>.
                     This tagged value tells AndroMDA what type of field
                     <tt>submitter</tt>
                     is. Since
                     submitter is a drop-down box, i.e. selection, we need to set the value of this tag
-                    to<tt>select</tt>. To do this, click the
+                    to <tt>select</tt>. To do this, click the
                     <i>Add Value</i>
                     button. The
-                    value is shown in the right panel and is already set to<tt>select</tt>. So
+                    value is shown in the right panel and is already set to <tt>select</tt>. So
                     just click<i>Back</i>.
                 </li>
                 <li>
                     Add the second parameter called
                     <tt>approver</tt>
-                    with type of<tt>Long</tt>.
+                    with type of <tt>Long</tt>.
                     Again set the tagged value
                     <tt>@andromda.presentation.web.view.field.type</tt>
-                    to<tt>select</tt>.
+                    to <tt>select</tt>.
                 </li>
                 <li>
                     Add the third parameter called
                     <tt>status</tt>
-                    with type of<tt>String</tt>.
+                    with type of <tt>String</tt>.
                     Again set the tagged value
                     <tt>@andromda.presentation.web.view.field.type</tt>
-                    to<tt>select</tt>.
+                    to <tt>select</tt>.
                 </li>
                 <li>
                     Add the fourth parameter called
                     <tt>startDateMinimum</tt>
-                    with type of<tt>
+                    with type of <tt>
                     Date</tt>. This time set the tagged value
                     <tt>@andromda.presentation.web.view.field.calendar</tt>
-                    to<tt>true</tt>. This will make sure that you will get a text field for the
+                    to <tt>true</tt>. This will make sure that you will get a text field for the
                     date along with a calendar widget on its side.
                 </li>
                 <li>
                     Add the fifth parameter called
                     <tt>startDateMaximum</tt>
-                    with type of<tt>
+                    with type of <tt>
                     Date</tt>. Again set the tagged value
                     <tt>@andromda.presentation.web.view.field.calendar</tt>
-                    to<tt>true</tt>.
+                    to <tt>true</tt>.
                 </li>
                 <li>Click
                     <i>Close</i>
@@ -227,7 +227,7 @@
                 to populate the submitter
                 and approver drop-downs. To do this we will first specify a method on
                 <tt>SearchController</tt>
-                called<tt>populateSearchScreen()</tt>. Follow the steps below to add this method:
+                called <tt>populateSearchScreen()</tt>. Follow the steps below to add this method:
             </p>
             <ol style="list-style-type: decimal">
                 <li>In the containment tree, right-click on
@@ -240,7 +240,7 @@
                     as the name of the operation.
                 </li>
                 <li>Double click on the operation to open the Operation Specification dialog.</li>
-                <li>Specify the return type as<tt>void</tt>.
+                <li>Specify the return type as <tt>void</tt>.
                 </li>
                 <li>Click on the Parameters tab.</li>
                 <li>Add the same 5 parameters that you added to the effect above - the names and types
@@ -322,7 +322,7 @@
                 able to call the service layer to get the list of users. To add this capability,
                 we need to create a dependency from the
                 <tt>SearchController</tt>
-                to the<tt>UserService</tt>.
+                to the <tt>UserService</tt>.
             </p>
 
             <ol style="list-style-type: decimal">
@@ -339,7 +339,7 @@
                 </li>
                 <li>Draw a dependency from
                     <tt>SearchController</tt>
-                    to<tt>UserService</tt>.
+                    to <tt>UserService</tt>.
                 </li>
             </ol>
             <p>

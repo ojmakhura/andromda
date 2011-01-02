@@ -15,18 +15,18 @@
             </p>
 
             <p class="highlight">
-                Please note that MagicDraw is a commercial tool but a free Community
-                Edition is available. The Community Edition is <i>not</i> open-source.
-                Here's an excerpt from the Community Edition readme file:
-                "MagicDraw Community edition is a free edition for developers working
-                on non-commercial projects." Also note that the AndroMDA project
-                is not affiliated with MagicDraw in any way.
+                Please note that MagicDraw is a commercial tool. A UML2 Community Edition was available
+                for free through version 16.5, but the free version is no longer available, and existing
+                free versions expired in 2010. Only the temporary demo version is available for free.
+                Also note that the AndroMDA project is not affiliated with MagicDraw in any way.
             </p>
 
-            <p>Follow the instructions below to install MagicDraw 16.5 Community Edition.</p>
+            <p>Follow the instructions below to install MagicDraw 16.5.</p>
+            <p>Versions 11.5 and later (i.e. through 17) which support export to EMF-UML2.x and 3.x will work with AndroMDA.</p>
             <ol>
-                <li>Go to the <a href="http://www.magicdraw.com/">MagicDraw site</a> </li>
+                <li>Go to the <a href="http://www.magicdraw.com">MagicDraw site</a> </li>
                 <li>Download and install MagicDraw 16.5 for your machine</li>
+                <li>Sign up for a MagicDraw account and request a Demo license version from MagicDraw.</li>
             </ol>
             
             <p>Set up a path variables in MagicDraw specifying the location of your Maven 2 repository.
@@ -37,7 +37,7 @@
                 <li>Click on <em>Path Variables</em>.</li>
                 <li>Click on <em>Add</em> in the <em>Path Variables</em> panel.</li>
                 <li>Enter <code>maven2.repository</code> in the <em>Name</em> field.</li>
-                <li>Enter the location of your Maven 2 repository in the <em>Value</em> field, e.g.<code>C:\Documents and Settings\<strong>your user name</strong>\.m2\repository</code></li>
+                <li>Enter the location of your Maven 2 repository in the <em>Value</em> field, e.g.<code>C:\Programs\m2repo</code></li>
                 <li>Click <em>OK</em> twice.</li>
                 <li>Close MagicDraw.</li>
             </ol>

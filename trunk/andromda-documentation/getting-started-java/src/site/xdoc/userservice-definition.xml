@@ -30,9 +30,7 @@
             <subsection name="UserVO Value Object">
                 <p>
                     Let's zoom in on the first function, i.e. get a list of all users. Let's decide
-                    that we will create a service called
-                    <tt>UserService</tt>
-                    that will provide
+                    that we will create a service called <tt>UserService</tt> that will provide
                     this functionality via the method specified below:
                 </p>
                 <source>
@@ -45,79 +43,54 @@
                     
                 </p>
                 <p>
-                    <tt>UserVO</tt>
-                    is a value object associated with the
-                    <tt>User</tt>
+                    <tt>UserVO</tt> is a value object associated with the <tt>User</tt>
                     entity (refer to <a href="application-architecture.html">Application Architecture</a> for a discussion
                     of entities and value objects). At a minimum,
                     the UserVO will need two attributes for the drop-downs to function properly: the
-                    user's id and login name. However, to make
-                    <tt>UserVO</tt>
-                    a little more reusable,
+                    user's id and login name. However, to make <tt>UserVO</tt> a little more reusable,
                     let's add two more attributes to it: user's first name and last name. Based on this
-                    discussion, the
-                    <tt>UserVO</tt>
-                    should be modeled as shown on the right.
+                    discussion, the <tt>UserVO</tt> should be modeled as shown on the right.
                     <img src="images/UserVO.jpg" alt="UserVO"/>
                 </p>
                 <p>
-                    Note that we have marked the
-                    <tt>UserVO</tt>
-                    class with a stereotype of<tt>ValueObject</tt>.
-                    This tells AndroMDA that
-                    <tt>UserVO</tt>
-                    is a ValueObject as opposed to other
+                    Note that we have marked the <tt>UserVO</tt>
+                    class with a stereotype of <tt>ValueObject</tt>.
+                    This tells AndroMDA that <tt>UserVO</tt> is a ValueObject as opposed to other
                     type of model elements such as Entity or EmbeddedValue. Stereotypes determine what
                     pattern of code AndroMDA will generate for a model element. More specifically, they
                     determine which AndroMDA code generation templates will be triggered.
                 </p>
                 <p>
-                    Note that we have marked one attribute to be of type
-                    <tt>Long</tt>
-                    and three
-                    attributes to be of type<tt>String</tt>. These types should not be confused
-                    with the Java types
-                    <tt>java.lang.Long</tt>
-                    and<tt>java.lang.String</tt>.
+                    Note that we have marked one attribute to be of type <tt>Long</tt> and three
+                    attributes to be of type <tt>String</tt>. These types should not be confused
+                    with the Java types <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
                     In model driven architecture, the model is kept independent of technology and hence
                     all model elements are defined in terms of platform independent types. So
-                    <tt>Long</tt>
-                    and
-                    <tt>String</tt>
+                    <tt>Long</tt> and <tt>String</tt>
                     in this context are platform independent types. When we
                     run AndroMDA to generate code, it will translate platform independent types into
-                    platform dependent types such as
-                    <tt>java.lang.Long</tt>
-                    and<tt>java.lang.String</tt>.
+                    platform dependent types such as <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
                     If we were to use the same model to generate a .NET application, AndroMDA will translate
-                    <tt>Long</tt>
-                    into<tt>long?</tt>and
-                    <tt>String</tt>
-                    into<tt>System.String</tt>,
-                    which are .NET equivalents of
-                    <tt>java.lang.Long</tt>
-                    and<tt>java.lang.String</tt>.
+                    <tt>Long</tt> into <tt>long?</tt> and <tt>String</tt> into <tt>System.String</tt>,
+                    which are .NET equivalents of <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
                     As you can see, a key advantage of the model driven approach is that your investment
                     in the business models is preserved even as technologies come and go.
                 </p>
                 <p>
-                    In addition to<tt>UserVO</tt>, we have modeled a type called<tt>UserVO[]</tt>.
+                    In addition to <tt>UserVO</tt>, we have modeled a type called <tt>UserVO[]</tt>.
                     This type is required to represent the return value from our service method. Unfortunately,
                     in UML there is no standard way to define arrays of objects, so we adopt this technique
                     as a workaround. Note that some tools, such as MagicDraw, will accept
                     <tt>UserVO[]</tt>
                     as a method parameter or return type and store it as the type
-                    <tt>UserVO</tt>
-                    with a
-                    <i>type modifier</i>
-                    of '<tt>[]</tt>' - however this is non-standard
+                    <tt>UserVO</tt> with a <i>type modifier</i>
+                    of ' <tt>[]</tt>' - however this is non-standard
                     UML and therefore can not be retrieved using standard UML APIs. Be careful, not
                     to model your parameters and return types this way. Instead, model these elements
                     using the workaround described above.
                 </p>
                 <p>
-                    Now let us enter
-                    <tt>UserVO</tt>
+                    Now let us enter <tt>UserVO</tt>
                     in the empty model that was created by the
                     AndroMDA application plugin. If you remember, this model was created at
                     <tt>timetracker/mda/src/main/uml/timetracker.xmi</tt>.
@@ -132,16 +105,16 @@
                         <a href="resources/uml-tools/magicdraw/UserVO.html">MagicDraw</a>
                     </li>
                     <li>
-                        <a href="resources/uml-tools/rsm/UserVO.html">RSM 6</a>
+                        <a href="resources/uml-tools/rsm/UserVO.html">RSM/RSA</a>
                     </li>
                 </ul>
                 <p>
-                    Now let's ask AndroMDA to generate code for<tt>UserVO</tt>:
+                    Now let's ask AndroMDA to generate code for <tt>UserVO</tt>:
                 </p>
                 <ol style="list-style-type: decimal">
-                    <li>Open a Command Prompt and change your directory to<tt>C:/timetracker</tt>.
+                    <li>Open a Command Prompt and change your directory to <tt>C:/timetracker</tt>.
                     </li>
-                    <li>Execute the command<tt>mvn install</tt>. Make sure you get a
+                    <li>Execute the command <tt>mvn install</tt>. Make sure you get a
                         <tt>BUILD SUCCESSFUL</tt>
                         message.
                     </li>
@@ -150,25 +123,16 @@
                 <p>
                     Open the folder
                     <tt>C:/timetracker/common/target/src/org/andromda/timetracker/vo</tt>
-                    in Windows Explorer. Note that the
-                    <tt>UserVO</tt>
-                    class is generated here.
-                    Open the class and review its contents. The
-                    <tt>ValueObject</tt>
-                    stereotype
+                    in Windows Explorer. Note that the <tt>UserVO</tt> class is generated here.
+                    Open the class and review its contents. The <tt>ValueObject</tt> stereotype
                     triggers the generation of only one artifact in the code, namely the Java class
                     representing the value object. Later we will see examples of stereotypes that trigger
                     the generation of multiple artifacts.
                 </p>
                 <p>
                     <b>Eclipse Users:</b>
-                    Note that AndroMDA has also generated
-                    <tt>.project</tt>
-                    and
-                    <tt>.classpath</tt>
-                    files in the
-                    <tt>C:/timetracker</tt>
-                    folder. To
+                    Note that AndroMDA has also generated <tt>.project</tt> and <tt>.classpath</tt>
+                    files in the <tt>C:/timetracker</tt> folder. To
                     view your source in Eclipse, follow the steps below:
                 </p>
                 <ol style="list-style-type: decimal">
@@ -196,29 +160,18 @@
                 </ol>
                 <p>
                     This setup procedure is required only once. In future, when you regenerate code
-                    (resulting in new
-                    <tt>.project</tt>
-                    and
-                    <tt>.classpath</tt>
-                    files), simply
-                    right-click on the
-                    <tt>timetracker</tt>
-                    project in Package Explorer and choose
+                    (resulting in new <tt>.project</tt> and <tt>.classpath</tt> files), simply
+                    right-click on the <tt>timetracker</tt> project in Package Explorer and choose
                     Refresh.
                 </p>
             </subsection>
             <subsection name="UserService">
                 <p>
-
                     <img src="images/UserService.jpg" alt="UserService"/>
                 </p>
                 <p>
-                    Now that the
-                    <tt>UserVO</tt>
-                    is defined, we can model the<tt>UserService</tt>.
-                    Based on our discussion above, the model for the
-                    <tt>UserService</tt>
-                    is shown
+                    Now that the <tt>UserVO</tt> is defined, we can model the <tt>UserService</tt>.
+                    Based on our discussion above, the model for the <tt>UserService</tt> is shown
                     on the right. Please follow one of the links below to edit the model with the UML
                     tool of your choice.
                 </p>
@@ -230,71 +183,47 @@
                         <a href="resources/uml-tools/magicdraw/UserService.html">MagicDraw</a>
                     </li>
                     <li>
-                        <a href="resources/uml-tools/rsm/UserService.html">RSM 6</a>
+                        <a href="resources/uml-tools/rsm/UserService.html">RSM/RSA</a>
                     </li>
                 </ul>
                 <p>
-                    Now let's ask AndroMDA to generate code for<tt>UserService</tt>:
+                    Now let's ask AndroMDA to generate code for <tt>UserService</tt>:
                 </p>
                 <ol style="list-style-type: decimal">
-                    <li>Execute the command
-                        <tt>mvn install</tt>
-                        in the Command Prompt. Make sure you
-                        get a
-                        <tt>BUILD SUCCESSFUL</tt>
-                        message.
+                    <li>Execute the command <tt>mvn install</tt> in the Command Prompt. 
+                    Make sure you get a <tt>BUILD SUCCESSFUL</tt> message.
                     </li>
                 </ol>
                 <p>
-                    Unlike the<tt>ValueObject</tt>, a
-                    <tt>Service</tt>
-                    generates a trio of
+                    Unlike the <tt>ValueObject</tt>, a <tt>Service</tt> generates a trio of
                     classes: an interface, an abstract base class and a concrete implementation. Here
-                    are the 3 classes generated for
-                    <tt>UserService</tt>
+                    are the 3 classes generated for <tt>UserService</tt>
                 </p>
                 <ol style="list-style-type: decimal">
                     <li>
                         <b>UserService.java:</b>
-                        <tt>UserService</tt>
-                        is the interface that
+                        <tt>UserService</tt> is the interface that
                         specifies the service methods. Since this interface is needed by client applications
                         as well as the service implementation, it is generated in the target branch of the
-                        <tt>common</tt>
-                        project.
+                        <tt>common</tt> project.
                     </li>
                     <li>
                         <b>UserServiceBase.java:</b>
-                        <tt>UserServiceBase</tt>
-                        implements the
-                        methods specified by the
-                        <tt>UserService</tt>
-                        interface. These methods essentially
+                        <tt>UserServiceBase</tt> implements the methods specified by the
+                        <tt>UserService</tt> interface. These methods essentially
                         do some parameter checking and then delegate the actual business functionality to
                         &quot;handle&quot; methods. Handle methods are expected to be implemented manually in the
-                        <tt>UserServiceImpl</tt>
-                        class.
-                        <tt>UserServiceBase</tt>
-                        also manages transactional
+                        <tt>UserServiceImpl</tt> class. <tt>UserServiceBase</tt> also manages transactional
                         behavior of the application. Transactions are started on entry of service methods
-                        and finished on exit from these methods.
-                        <tt>UserServiceBase.java</tt>
-                        is generated
-                        in the target branch of the
-                        <tt>core</tt>
-                        project.
+                        and finished on exit from these methods. <tt>UserServiceBase.java</tt>
+                        is generated in the target branch of the <tt>core</tt> project.
                     </li>
                     <li>
                         <b>UserServiceImpl.java:</b>
-                        <tt>UserServiceImpl</tt>
-                        is a concrete
-                        extension of the
-                        <tt>UserServiceBase</tt>
+                        <tt>UserServiceImpl</tt> is a concrete extension of the <tt>UserServiceBase</tt>
                         class. This is where developers are
                         expected to code the main business logic for the service methods. UserServiceImpl.java
-                        is generated in the source branch of the
-                        <tt>core</tt>
-                        project.
+                        is generated in the source branch of the <tt>core</tt> project.
                     </li>
                 </ol>
             </subsection>
@@ -331,7 +260,7 @@
                     bypassing the EJB container completely. Here's what we need to enable testing:
                 </p>
                 <ol style="list-style-type: decimal">
-                    <li>Open the POM file at<tt>C:\timetracker\pom.xml</tt>.
+                    <li>Open the POM file at <tt>C:\timetracker\pom.xml</tt>.
                     </li>
                     <li>Search for the word <tt>junit</tt>. Comment out the dependency section around
                         <tt>junit</tt>
@@ -364,30 +293,30 @@
     <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
-        <version>1.2.12</version>
+        <version>1.2.16</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>5.0.4</version>
+        <version>5.1.14</version>
         <scope>test</scope>
     </dependency>
 ]]>
                         </source>
                     </li>
-                    <li>Now search for<tt>maven-resources-plugin</tt>, which is the last plugin in
+                    <li>Now search for <tt>maven-resources-plugin</tt>, which is the last plugin in
                         the
                         <tt>plugins</tt>
-                        section. Add the following two plugins after the<tt>maven-resources-plugin</tt>.
+                        section. Add the following two plugins after the <tt>maven-resources-plugin</tt>.
                         <source>
 <![CDATA[
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>1.6</source>
+            <target>1.6</target>
         </configuration>
     </plugin>
     <plugin>
@@ -423,11 +352,11 @@
                 <ol style="list-style-type: decimal">
                     <li>
                         <tt>UserServiceTest</tt>
-                        is located under<tt>test\java\org\andromda\timetracker\service</tt>.
+                        is located under <tt>test\java\org\andromda\timetracker\service</tt>.
                         The test is pretty simple. The
                         <tt>initializeTestSuite()</tt>
                         method gets a
-                        reference to the<tt>UserService</tt>. This reference is used by the
+                        reference to the <tt>UserService</tt>. This reference is used by the
                         <tt>testGetAllUsers()</tt>
                         method to get all users and log them.
                         <tt>UserServiceTest</tt>
@@ -541,7 +470,7 @@ public class UserServiceTest {
                     method so it returns a
                     <tt>UserVO[]</tt>
                     even if there are no users in the database.
-                    Click <a href="userservice-implementation.thml">here</a> to start our implementation.
+                    Click <a href="userservice-implementation.html">here</a> to start our implementation.
                 </p>
             </subsection>
         </section>

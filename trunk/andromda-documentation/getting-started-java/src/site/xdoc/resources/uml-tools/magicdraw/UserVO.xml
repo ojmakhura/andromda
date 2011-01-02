@@ -10,7 +10,7 @@
         <section name="Create UserVO">
 
             <p>
-                This page provides directions to create the<tt>UserVO</tt>.
+                This page provides directions to create the <tt>UserVO</tt>.
             </p>
 
             <p>
@@ -20,7 +20,7 @@
                 <li>Start MagicDraw 15.5.</li>
                 <li>Select
                     <i>File &gt; Open Project...</i>
-                    and traverse to<tt>C:/timetracker/mda/src/main/uml/timetracker.xml</tt>.
+                    and traverse to <tt>C:/timetracker/mda/src/main/uml/timetracker.xml</tt>.
                     Click
                     <i>Open</i>
                     to open this model.
@@ -48,7 +48,7 @@
                     <i>Important</i>: A common source of errors is to use UML's datatypes instead of these.
                     When specifying datatypes, make sure that they come from this package. Example: use
                     <tt>datatype::String</tt>
-                    instead of<tt>String</tt>.
+                    instead of <tt>String</tt>.
                 </li>
                 <li>
                     <tt>org.andromda.profile</tt>: This collection of profiles define all the stereotypes and
@@ -98,30 +98,25 @@
                 Let's look closer at its content.
             </p>
             <ul>
-                <li><tt>timetracker.xml</tt>: the MagicDraw 15.5 model file.
+                <li> <tt>timetracker.xml</tt>: the MagicDraw 15.5 model file.
                 </li>
                 <li>
-                    <tt>timetracker.uml2</tt>: the
-                    <tt>timetracker</tt>
-                    model in EMF/UML2 format. It's the file
-                    that will be processed by AndroMDA.
+                    <tt>timetracker.uml</tt>: the <tt>timetracker</tt>
+                    model in EMF/UML2 format. It's the file that will be processed by AndroMDA.
                 </li>
-                <li>10 files ending with<tt>.profile.uml2</tt>: the different profiles used by
-                    <tt>timetracker.uml2</tt>
+                <li>10 files ending with <tt>.profile.uml</tt>: the different profiles used by
+                    <tt>timetracker.uml</tt>
                 </li>
             </ul>
             <p>
                 As you can see, all modules on which your model depends are present in this directory. This explained why the
-                <tt>moduleSearchPath</tt>
-                section in
-                <tt>andromda.xml</tt>
-                is empty.
+                <tt>moduleSearchPath</tt> section in <tt>andromda.xml</tt> is empty.
             </p>
             <p>
                 If you have installed the
                 <a href="http://www.eclipse.org/uml2">uml2 plugin</a>
                 for Eclipse, you can open
-                <i>timetracker.uml2</i>
+                <i>timetracker.uml</i>
                 to look at its content. You'll see almost the same objects than those in containment tree.
             </p>
             <blockquote>
@@ -149,13 +144,13 @@
                     <tt>org.andromda.timetracker</tt>
                     as the name
                     of the package. AndroMDA will map this package to a Java package with the same name.
-                    Note: Make sure the package name is exactly<tt>org.andromda.timetracker</tt>,
+                    Note: Make sure the package name is exactly <tt>org.andromda.timetracker</tt>,
                     with no leading or trailing spaces. We have found that some browsers introduce a
                     leading space in the package name if you copy it from this page!
                 </li>
                 <li>Now create a package called
                     <tt>vo</tt>
-                    under<tt>org.andromda.timetracker</tt>.
+                    under <tt>org.andromda.timetracker</tt>.
                     We will create our value objects in this package. Note that AndroMDA does not require
                     this package structure. We are doing it simply to separate our value objects from
                     other type of objects such as business entities, services etc.
@@ -175,7 +170,7 @@
                     from the class diagram group). Now click anywhere inside the diagram. A new class will be created.
                     The class will be automatically selected as indicated by the 4 knobs around it.
                     (If you somehow deselected the class, then select it again by clicking on it.) Now
-                    type the word<tt>UserVO</tt>. This word will be entered as the name of the class.
+                    type the word <tt>UserVO</tt>. This word will be entered as the name of the class.
                 </li>
                 <li>Let's add some documentation for the
                     <tt>UserVO</tt>
@@ -192,7 +187,7 @@
                 </li>
                 <li>Now add the stereotype
                     <tt>ValueObject</tt>
-                    to class<tt>UserVO</tt>. To
+                    to class <tt>UserVO</tt>. To
                     do this, right-click on the class and select<i>Stereotype</i>. In the next level menu,
                     check
                     <tt>ValueObject</tt>
@@ -204,17 +199,17 @@
                 </li>
                 <li>
                     <b>Tips &amp; Tricks</b>: AndroMDA profiles define a lot of profiles. On the widget displaying
-                    all available stereotypes, start to type the name of the searched Stereotype. By typing<tt>Va</tt>,
+                    all available stereotypes, start to type the name of the searched Stereotype. By typing <tt>Va</tt>,
                     only
                     <tt>ValueObject</tt>
                     is displayed.
                 </li>
                 <li>Let's add
                     <tt>id</tt>
-                    as an attribute of<tt>UserVO</tt>. Right-click on the
+                    as an attribute of <tt>UserVO</tt>. Right-click on the
                     <tt>UserVO</tt>
                     class and select<i>Insert New Attribute</i>. A new attribute is inserted with the
-                    specification<tt>-unnamed1</tt>. Write over this specification with this new one:
+                    specification <tt>-unnamed1</tt>. Write over this specification with this new one:
                     <tt>+id
                         : Long
                     </tt>
@@ -232,10 +227,10 @@
                         To use it, simply type in
                         <tt>+id:L</tt>
                         and press<i>ctrl + space</i>.
-                        MagicDraw 15.5 will then show you different possible completions: choose<tt>Long</tt>.
+                        MagicDraw 15.5 will then show you different possible completions: choose <tt>Long</tt>.
                     </blockquote>
                 </li>
-                <li>Now add three more public attributes called<tt>username</tt>,
+                <li>Now add three more public attributes called <tt>username</tt>,
                     <tt>firstName</tt>
                     and
                     <tt>lastName</tt>
@@ -244,9 +239,9 @@
                     class. Make them
                     <tt>String</tt>
                     type. In your model two different types called String are available (see above).
-                    Use the one displayed<tt>String [datatype]</tt>.
+                    Use the one displayed <tt>String [datatype]</tt>.
                 </li>
-                <li>Add a new class to the diagram and name it<tt>UserVO[]</tt>.
+                <li>Add a new class to the diagram and name it <tt>UserVO[]</tt>.
                 </li>
                 <li>Make sure your class diagram matches the one shown on the right exactly. (It is okay if
                     your class shows an empty operation compartment. This can be hidden very easily).

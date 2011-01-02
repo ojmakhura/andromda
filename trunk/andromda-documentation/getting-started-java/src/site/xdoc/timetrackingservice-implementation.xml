@@ -19,7 +19,7 @@
             <p>
                 We will first need to enhance our domain model to support the new value objects
                 <tt>TimecardSearchCriteriaVO</tt>
-                and<tt>TimecardSummaryVO</tt>. Note that
+                and <tt>TimecardSummaryVO</tt>. Note that
                 <tt>TimecardSearchCriteriaVO</tt>
                 is simply a data transfer object that specifies
                 search parameters. There is no domain entity needed to express this concept. However
@@ -45,7 +45,7 @@
                 The arrows on the two associations indicate that both associations are navigable
                 from
                 <tt>Timecard</tt>
-                to<tt>Person</tt>, i.e. the timecard keeps references
+                to <tt>Person</tt>, i.e. the timecard keeps references
                 to its submitter and approver. Note that two-way navigability is indicated by not
                 having arrows at either end of the association. The numbers and stars at the ends
                 of the associations indicate their multiplicity. The top association indicates that
@@ -91,7 +91,7 @@
                     <a href="resources/uml-tools/magicdraw/TimecardEntity.html">MagicDraw</a>
                 </li>
                 <li>
-                    <a href="resources/uml-tools/rsm/TimecardEntity.html">RSM 6</a>
+                    <a href="resources/uml-tools/rsm/TimecardEntity.html">RSM/RSA</a>
                 </li>
             </ul>
             <p>
@@ -105,11 +105,11 @@
                 and
                 <tt>TimecardSummaryVO</tt>
                 objects.
-                The conversion methods are generated in<tt>TimecardDaoBase</tt>. However, note
+                The conversion methods are generated in <tt>TimecardDaoBase</tt>. However, note
                 that
                 <tt>TimecardSummaryVO</tt>
                 contains attributes fetched from another entity,
-                namely<tt>User</tt>, so we will have to override the default conversion methods
+                namely <tt>User</tt>, so we will have to override the default conversion methods
                 to fill in these additional attributes.
             </p>
             <div align="center">
@@ -211,7 +211,7 @@
             <p>
                 We first make a call to the
                 <tt>findByCriteria()</tt>
-                method in<tt>TimecardDao</tt>.
+                method in <tt>TimecardDao</tt>.
                 Remember this was a classifier scope method that we added to the
                 <tt>Timecard</tt>
                 entity? We will implement this method manually.
@@ -319,7 +319,7 @@ public class TimecardDaoImpl
                 entities. Currently,
                 <tt>toTimecardSummaryVO()</tt>
                 simply calls the corresponding
-                method in its parent class (<tt>TimecardDaoBase</tt>). If you remember, the
+                method in its parent class ( <tt>TimecardDaoBase</tt>). If you remember, the
                 default converter implementations in
                 <tt>DaoBase</tt>
                 classes are very simplistic.
@@ -327,10 +327,10 @@ public class TimecardDaoImpl
                 <tt>TimecardDaoBase</tt>
                 class copies only
                 <tt>Timecard</tt>
-                attributes to<tt>TimecardSummaryVO</tt>; it does not fill in the attributes
+                attributes to <tt>TimecardSummaryVO</tt>; it does not fill in the attributes
                 that come from related entities, namely
                 <tt>submitterName</tt>
-                and<tt>approverName</tt>.
+                and <tt>approverName</tt>.
                 So modify
                 <tt>toTimecardSummaryVO()</tt>
                 in
