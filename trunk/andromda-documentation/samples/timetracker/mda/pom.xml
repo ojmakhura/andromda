@@ -12,10 +12,17 @@
     <name>TimeTracker MDA</name>
     <dependencies>
         <dependency>
+            <groupId>org.andromda.profiles.emf.uml22</groupId>
+            <artifactId>andromda-common</artifactId>
+            <version>${andromda.version}</version>
+            <type>profile.uml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <!--dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <type>xml.zip</type>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
