@@ -156,6 +156,11 @@ public class JSFManageableEntityLogicImpl
 //        return this.isCreate() || this.isRead() || this.isUpdate() || this.isDelete();
     }
 
+    @Override
+    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier(){
+        return super.getManageableIdentifier();
+    }
+    
     /**
      * @return StringUtils.capitalize(this.getFormBeanName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getFormBeanClassName()
@@ -618,6 +623,39 @@ public class JSFManageableEntityLogicImpl
            {    
                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
                if(jsfAttribute.isNeedsFileUpload())
+               {
+                   return true;
+               }
+           }
+       }
+       return false;
+   }
+   
+   /**
+    * @return needsUserInterface
+    * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#isNeedsUserInterface()
+    */
+   protected boolean handleIsNeedsUserInterface()
+   {
+       for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
+       {
+           final Object attribute = iterator.next();
+           if(attribute instanceof JSFManageableEntityAttribute)
+           {    
+               final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+               if(!jsfAttribute.isHidden())
+               {
+                   return true;
+               }
+           }
+       }
+       for (final Iterator iterator = this.getManageableAssociationEnds().iterator(); iterator.hasNext();)
+       {
+           final Object associationEnd = iterator.next();
+           if(associationEnd instanceof JSFManageableEntityAssociationEnd)
+           {    
+               final JSFManageableEntityAssociationEnd jsfAssociationEnd = (JSFManageableEntityAssociationEnd)associationEnd;
+               if(!jsfAssociationEnd.isDisplay())
                {
                    return true;
                }
