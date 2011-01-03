@@ -56,9 +56,13 @@
     background-position:top center;
     background-repeat: no-repeat;
     cursor:pointer;
+    vertical-align:middle;
 
 }
     
 .autocomplete-button-action{
     background-image:url(../../images/autocomplete-button-action.gif);
+}
+.autocomplete-input-text{
+    vertical-align:middle;	
 }
