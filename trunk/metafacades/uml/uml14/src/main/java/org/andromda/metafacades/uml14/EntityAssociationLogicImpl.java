@@ -40,24 +40,21 @@ public class EntityAssociationLogicImpl
         if (ends != null && !ends.isEmpty())
         {
             final AssociationEndFacade end = ends.iterator().next();
-            if (end.isMany2Many())
+            // prevent ClassCastException if the association isn't an
+            // Entity
+            if (Entity.class.isAssignableFrom(end.getType().getClass()))
             {
-                // prevent ClassCastException if the association isn't an
-                // Entity
-                if (Entity.class.isAssignableFrom(end.getType().getClass()))
-                {
-                    final String prefixProperty = UMLMetafacadeProperties.TABLE_NAME_PREFIX;
-                    final String tableNamePrefix =
-                        this.isConfiguredProperty(prefixProperty)
-                        ? ObjectUtils.toString(this.getConfiguredProperty(prefixProperty)) : null;
-                    tableName =
-                        EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                            tableNamePrefix,
-                            this,
-                            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                            ((Entity)end.getType()).getMaxSqlNameLength(),
-                            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
-                }
+                final String prefixProperty = UMLMetafacadeProperties.TABLE_NAME_PREFIX;
+                final String tableNamePrefix =
+                    this.isConfiguredProperty(prefixProperty)
+                    ? ObjectUtils.toString(this.getConfiguredProperty(prefixProperty)) : null;
+                tableName =
+                    EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                        tableNamePrefix,
+                        this,
+                        UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                        ((Entity)end.getType()).getMaxSqlNameLength(),
+                        this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
             }
         }
         return tableName;

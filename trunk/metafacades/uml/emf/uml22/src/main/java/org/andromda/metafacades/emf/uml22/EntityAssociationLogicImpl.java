@@ -48,7 +48,7 @@ public class EntityAssociationLogicImpl
         {
             final AssociationEndFacade end = ends.iterator().next();
             final ClassifierFacade type = end.getType();
-            if (type != null && end.isMany2Many())
+            if (type != null)
             {
                 // - prevent ClassCastException if the association isn't an Entity
                 if (type instanceof Entity)
