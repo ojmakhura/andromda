@@ -200,8 +200,11 @@
        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
        <list-entries>
           <value-class>${managedBeansPackage}.NavigationItem</value-class>
+#foreach ($useCase in $applicationUseCases)
+          <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
+#end
 #foreach ($useCase in $useCases)
-#if(!$useCase.registrationUseCase)
+#if(!$useCase.registrationUseCase && !$useCase.entryUseCase)
 #set ($parents = $useCase.navigationParents)
 #if ($parents.empty)
           <value>#{navItem_$stringUtils.replace($useCase.forwardName, '-', '_')}</value>
