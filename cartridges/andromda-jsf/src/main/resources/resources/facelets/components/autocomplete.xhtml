@@ -1,38 +1,31 @@
-<ui:component 
-    xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" 
-    xmlns:tr="http://myfaces.apache.org/trinidad"
-    xmlns:trh="http://myfaces.apache.org/trinidad/html"
-    xmlns:c="http://java.sun.com/jstl/core"
+<ui:component xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html" xmlns:c="http://java.sun.com/jstl/core"
     xmlns:ajsfc="http://www.andromda.org/cartridges/jsf/facelets">
-    <c:set var="jsIdPrefix" value=""/>
-    <c:set var="jsVarPrefix" value=""/>
+    <c:set var="jsIdPrefix" value="" />
+    <c:set var="jsVarPrefix" value="" />
     <c:if test="#{not empty parentId}">
-        <c:set var="jsIdPrefix" value="#{parentId}:"/>
-        <c:set var="jsVarPrefix" value="#{parentId}_"/>
+        <c:set var="jsIdPrefix" value="#{parentId}:" />
+        <c:set var="jsVarPrefix" value="#{parentId}_" />
     </c:if>
-    <c:set var="autocompleteSubformId" value="_#{id}_subformAutocomplete"/>
-    <c:set var="componentsIdPrefix" value="#{jsIdPrefix}#{autocompleteSubformId}"/>
-    <c:set var="jsEditId" value="#{jsIdPrefix}#{autocompleteSubformId}:edit"/>
-    <c:set var="jsTableId" value="#{componentsIdPrefix}:table"/>
-    <c:set var="autocompleteVarName" value="_#{jsVarPrefix}__#{id}_Autocomplete"/>
-    <c:set var="flagIsPPR" value="_#{autocompleteVarName}_flagIsPPR"/>
-    <c:set var="onloadFunc" value="_#{autocompleteVarName}_onloadFunc"/>
-    <c:set var="jsInputHiddenId" value="#{jsIdPrefix}#{id}"/>
-
+    <c:set var="autocompleteSubformId" value="_#{id}_subformAutocomplete" />
+    <c:set var="componentsIdPrefix" value="#{jsIdPrefix}#{autocompleteSubformId}" />
+    <c:set var="jsEditId" value="#{jsIdPrefix}#{autocompleteSubformId}:edit" />
+    <c:set var="jsTableId" value="#{componentsIdPrefix}:table" />
+    <c:set var="autocompleteVarName" value="_#{jsVarPrefix}__#{id}_Autocomplete" />
+    <c:set var="flagIsPPR" value="_#{autocompleteVarName}_flagIsPPR" />
+    <c:set var="onloadFunc" value="_#{autocompleteVarName}_onloadFunc" />
+    <c:set var="jsInputHiddenId" value="#{jsIdPrefix}#{id}" />
     <!-- The inputText is duplicated to allow the valueChangeListener... I could not find a better way -->
-    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true" contentStyle="display:none" 
-        autoSubmit="#{autoSubmit}" immediate="#{immediate}" 
-        valueChangeListener="#{valueChangeListenerBean[valueChangeListenerName]}"  
-        rendered="#{(not empty valueChangeListenerBean) or (not empty valueChangeListenerName)}"
-        />
-    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true" contentStyle="display:none" 
-        autoSubmit="#{autoSubmit}" immediate="#{immediate}" 
-        rendered="#{(empty valueChangeListenerBean) and (empty valueChangeListenerName)}"
-        />
-
-    <trh:script rendered="#{empty __autocompleteClassAlreadyRendered__ || !__autocompleteCommonFunctionsAlreadyRendered__}">
+    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true"
+        contentStyle="display:none" autoSubmit="#{autoSubmit}" immediate="#{immediate}"
+        valueChangeListener="#{valueChangeListenerBean[valueChangeListenerName]}"
+        rendered="#{(not empty valueChangeListenerBean) or (not empty valueChangeListenerName)}" />
+    <tr:inputText id="#{id}" value="#{value}" required="#{required}" simple="true"
+        contentStyle="display:none" autoSubmit="#{autoSubmit}" immediate="#{immediate}"
+        rendered="#{(empty valueChangeListenerBean) and (empty valueChangeListenerName)}" />
+    <trh:script
+        rendered="#{empty __autocompleteClassAlreadyRendered__ || !__autocompleteCommonFunctionsAlreadyRendered__}">
         function __JSFAutoComplete__( orgValue, orgEditValue, inputHiddenId, componentsIdPrefix, onchange, autocompleteVarName) {
             this.componentsIdPrefix=componentsIdPrefix;
             this.timeout=null;
@@ -182,18 +175,18 @@
         __JSFAutoComplete__.prototype.findPosX= function(obj)
         {
             var curleft = 0;
+	    var tableOffsetLeft=0;	
+            var tableOffsetParent = document.getElementById(this.tableId).offsetParent;
+            if(tableOffsetParent)
+            tableOffsetLeft=tableOffsetParent.offsetLeft;
+
             if(obj.offsetParent){
                 while(1) 
                 {
                   curleft += obj.offsetLeft;
-                  var posType = "";
-                  if(obj.offsetParent)
-                    posType = TrUIUtils._getStyle(obj.offsetParent, 'position');
-                  
-                  if((!posType=="relative")||(!posType=="absolute"))
                     curleft -= this.getSideOffset(obj,"Left");
                     
-                  if((!obj.offsetParent)||(posType=="relative")||(posType=="absolute"))
+                  if(!obj.offsetParent)
                     break;
                     
                   obj = obj.offsetParent;
@@ -202,25 +195,25 @@
             else if(obj.x){
                 curleft += obj.x;
             }
-            return curleft;
+            return curleft-tableOffsetLeft;
         }
         
         __JSFAutoComplete__.prototype.findPosY= function(obj)
         {
             var curtop = 0;
+	    var tableOffsetTop=0;	
+            var tableOffsetParent = document.getElementById(this.tableId).offsetParent;
+            if(tableOffsetParent)
+		tableOffsetTop=tableOffsetParent.offsetTop;
+
             if(obj.offsetParent){
                 while(1)
                 {
                   
                   curtop += obj.offsetTop;
-                  var posType = "";
-                  if(obj.offsetParent)
-                    posType = TrUIUtils._getStyle(obj.offsetParent, 'position');
+                  curtop -= this.getSideOffset(obj,"Top");
                     
-                  if((!posType=="relative")||(!posType=="absolute"))
-                    curleft -= this.getSideOffset(obj,"Top");
-                    
-                  if((!obj.offsetParent)||(posType=="relative")||(posType=="absolute"))
+                  if(!obj.offsetParent)
                     break;
                     
                   obj = obj.offsetParent;
@@ -229,7 +222,7 @@
             else if(obj.y){
                 curtop += obj.y;
             }
-            return curtop;
+            return curtop-tableOffsetTop;
         }
         
         __JSFAutoComplete__.prototype.getSideOffset= function(elem, side)
@@ -278,32 +271,38 @@
         }
     </trh:script>
     <!-- it isn't working because the only supported scope the Facelets c:set is page. maybe in JSF 2...-->
-    <c:set var="__autocompleteCommonFunctionsAlreadyRendered__" value="true" scope="request"/>
-    
+    <c:set var="__autocompleteCommonFunctionsAlreadyRendered__" value="true" scope="request" />
     <tr:subform id="#{autocompleteSubformId}">
-        <h:inputText id="edit" autocomplete="off" required="#{required}" style="#{contentStyle}"
-            readonly="#{readOnly}"
-            onkeydown="return #{autocompleteVarName}.editKeydown(event);"
-            onchange="#{autocompleteVarName}.checkChangeEdit(); return true;"
-            onblur="window.clearTimeout(#{autocompleteVarName}.timeout); #{autocompleteVarName}.checkEmptyEdit();#{autocompleteVarName}.timeout=window.setTimeout('#{autocompleteVarName}.hideResultTable();',100);#{autocompleteVarName}.resetOrgValues();"
-            value="#{value}" converter="#{ajsfc:getConverter(itemConverterId)}">
-        </h:inputText>
-        <tr:commandButton blocking="true" id="action" styleClass="autocomplete-button" actionListener="#{locateBackingBean[locateActionListenerName]}"
-            partialSubmit="true" text="" immediate="true" onclick="#{autocompleteVarName}_addPPRListener(); return true;">
-            <f:param name="searchFieldRequestParamName" value="#{jsEditId}"/>
-        </tr:commandButton>
-        <tr:table styleClass="autocomplete-table-list" inlineStyle=" #{empty autocompleteResult ? 'display:none': ''}"
-            id="table" var="row" value="#{autocompleteResult}" rows="20" width="100%" partialTriggers="::action" varStatus="status">
+        <tr:panelHorizontalLayout valign="middle">
+            <h:inputText id="edit" autocomplete="off" required="#{required}" style="#{contentStyle}"
+                readonly="#{readOnly}" styleClass="autocomplete-input-text"
+                onkeydown="return #{autocompleteVarName}.editKeydown(event);"
+                onchange="#{autocompleteVarName}.checkChangeEdit(); return true;"
+                onblur="window.clearTimeout(#{autocompleteVarName}.timeout); #{autocompleteVarName}.checkEmptyEdit();#{autocompleteVarName}.timeout=window.setTimeout('#{autocompleteVarName}.hideResultTable();',100);#{autocompleteVarName}.resetOrgValues();"
+                value="#{value}" converter="#{ajsfc:getConverter(itemConverterId)}">
+            </h:inputText>
+            <tr:commandButton blocking="true" id="action" styleClass="autocomplete-button"
+                actionListener="#{locateBackingBean[locateActionListenerName]}" partialSubmit="true"
+                text="" immediate="true"
+                onclick="#{autocompleteVarName}_addPPRListener(); return true;">
+                <f:param name="searchFieldRequestParamName" value="#{jsEditId}" />
+            </tr:commandButton>
+        </tr:panelHorizontalLayout>
+        <tr:table styleClass="autocomplete-table-list"
+            inlineStyle=" #{empty autocompleteResult ? 'display:none': ''}" id="table" var="row"
+            value="#{autocompleteResult}" rows="20" width="100%" partialTriggers="::action"
+            varStatus="status">
             <tr:column styleClass="autocomplete-table-line">
-                <div id="#{jsTableId}#{status.index}" class="autocomplete-line" onmouseover="document.getElementById('#{jsTableId}0').className = 'autocomplete-line'; this.className='autocomplete-selected-line';"
-                    onmouseout="this.className = 'autocomplete-line';" onmousedown="#{autocompleteVarName}.setValuesFromTable('#{row[locateValueFieldName]}','#{row[locateVisibleFieldName]}');" >
-                    <c:if test="#{not empty locateVisibleFieldName}">                       
-                        <h:outputText value="#{row[locateVisibleFieldName]}"/>
-                    </c:if>
-                    <c:if test="#{empty locateVisibleFieldName}">                       
-                        <h:outputText value="#{row[locateValueFieldName]}" converter="#{itemConverterId}"/>
-                    </c:if>
-                </div>
+                <div id="#{jsTableId}#{status.index}" class="autocomplete-line"
+                    onmouseover="document.getElementById('#{jsTableId}0').className = 'autocomplete-line'; this.className='autocomplete-selected-line';"
+                    onmouseout="this.className = 'autocomplete-line';"
+                    onmousedown="#{autocompleteVarName}.setValuesFromTable('#{row[locateValueFieldName]}','#{row[locateVisibleFieldName]}');">
+                <c:if test="#{not empty locateVisibleFieldName}">
+                    <h:outputText value="#{row[locateVisibleFieldName]}" />
+                </c:if> <c:if test="#{empty locateVisibleFieldName}">
+                    <h:outputText value="#{row[locateValueFieldName]}"
+                        converter="#{itemConverterId}" />
+                </c:if></div>
             </tr:column>
         </tr:table>
         <trh:script>
@@ -335,5 +334,4 @@
             #{autocompleteVarName}.edit.value='#{(empty itemConverterId) ? value : (empty value) ? '' : ajsfc:valueFromConverter(value,itemConverterId)}';
         }
     </trh:script>
-
 </ui:component>
