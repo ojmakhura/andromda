@@ -136,6 +136,13 @@
                     </scripts>
                     -->
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version>3.2.6.ga</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>                
                 <artifactId>maven-ejb-plugin</artifactId>
