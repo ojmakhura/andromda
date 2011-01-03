@@ -117,37 +117,42 @@
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator</groupId>
                 <artifactId>myfaces-extval-core</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
+                <version>1.2.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-property-validation</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
+                <version>1.2.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
                 <artifactId>myfaces-extval-bean-validation</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
+                <version>1.2.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
+                <version>1.2.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-trinidad-support</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
+                <version>1.2.4</version>
             </dependency>
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
                 <version>4.1.0.Final</version>
             </dependency>
-            <dependency> <!-- needed by hibernate-validator -->
+            <dependency> 
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.5.8</version>
+                <version>1.6.1</version>
             </dependency>
 #if ($portlet)
             <dependency>
@@ -435,6 +440,16 @@
                 <version>3.5.6-Final</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.13.0-GA</version>
+            </dependency>
 #end
 #else
             <dependency>
@@ -460,11 +475,27 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.13.0-GA</version>
+            </dependency>
+#if (!$jsf)
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.1</version>
-                <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+#end
 #end
 #end
 #if ($spring)
@@ -473,6 +504,29 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+#if ($embeddedJetty)
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- Uncomment out below if using spring test>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency -->
+#else
             <!-- Uncomment out below if using JDBC or aop or spring test>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -489,6 +543,7 @@
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
             </dependency -->
+#end
 #end
 #if ($workflow)
             <dependency>
