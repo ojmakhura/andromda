@@ -239,7 +239,7 @@
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="compositionDefinesEagerLoading">true</property>
-                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
                 <property name="entities">${common.generated.dir}</property>
@@ -278,7 +278,7 @@
                 <property name="hibernateEnableCache">false</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
-                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
 #if ($war)
