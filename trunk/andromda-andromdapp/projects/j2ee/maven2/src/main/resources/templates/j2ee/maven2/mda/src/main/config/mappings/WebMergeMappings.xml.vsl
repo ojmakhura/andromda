@@ -9,18 +9,13 @@
 #set ($axis2 = $axisVersion.equals("2"))
 <mappings name="WebMerge">
     <mapping>
-        <from><![CDATA[<!-- context-param merge-point -->]]></from>
+        <from><![CDATA[<!-- facelets-libraries merge-point -->]]></from>
         <to>
             <![CDATA[
     <!-- uncomment if you want to add your own project specific facelet tags
          (and of course make sure "/WEB-INF/custom.taglib.xml" is the actual path
           to your facelet tag descriptor)
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>
             /WEB-INF/custom.taglib.xml;
-        </param-value>
-    </context-param>
     -->
             ]]>
         </to>
