@@ -238,7 +238,9 @@
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
             <modelElement variable="roles">
                 <type name="org.andromda.metafacades.uml.Role"/>
@@ -272,7 +274,9 @@
                 <type name="org.andromda.cartridges.jsf.metafacades.JSFEnumeration"/>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
             <modelElement variable="applicationUseCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
@@ -319,7 +323,9 @@
                 </type>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -416,7 +422,9 @@
             </modelElement>
             <!-- the crud entity messages are also generated in this bundle -->
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -624,7 +632,9 @@
                 </type>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -857,7 +867,9 @@
         outputCondition="standalone">
         <modelElements>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -869,7 +881,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -881,7 +895,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -893,7 +909,9 @@
         overwrite="false">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -905,7 +923,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -917,7 +937,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -929,7 +951,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -944,7 +968,9 @@
         outputCondition="standalone">
         <modelElements>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -956,7 +982,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -968,7 +996,9 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity"/>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFManageableEntity">
+                    <property name="needsUserInterface"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
