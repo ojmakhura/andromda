@@ -1346,6 +1346,55 @@
             HypersonicSql
 #end
         </sql.mappings>
+#if ($hibernate || $spring || $ejb3)
+        <!--
+        Change this for the appropriate database
+        For Derby use: org.hibernate.dialect.DerbyDialect
+        For MySql use: org.hibernate.dialect.MySQL5Dialect
+        For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
+        For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
+        For Hypersonic use: org.hibernate.dialect.HSQLDialect
+        For Oracle any version use: org.hibernate.dialect.OracleDialect
+        For Oracle9i/10g use: org.hibernate.dialect.Oracle10gDialect
+        For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
+        For Informix use: org.hibernate.dialect.InformixDialect
+        For MSSQL use: org.hibernate.dialect.SQLServerDialect
+        For Pointbase use: org.hibernate.dialect.PointbaseDialect
+        For Postgres use: org.hibernate.dialect.PostgreSQLDialect
+        For Sybase use: org.hibernate.dialect.SybaseDialect or org.hibernate.dialect.Sybase11Dialect
+        For Sybase Anywhere use: org.hibernate.dialect.SybaseAnywhereDialect
+        For SapDB use: org.hibernate.dialect.SAPDBDialect
+        For Progress use: org.hibernate.dialect.ProgressDialect
+        For Derby use: org.hibernate.dialect.DerbyDialect
+        -->
+        <hibernate.dialect>
+#if ($mysql)
+            org.hibernate.dialect.MySQL5InnoDBDialect
+#elseif ($oracle)
+            org.hibernate.dialect.Oracle10gDialect
+#elseif ($db2)
+            org.hibernate.dialect.DB2Dialect
+#elseif ($informix)
+            org.hibernate.dialect.InformixDialect
+#elseif ($mssql)
+            org.hibernate.dialect.SQLServerDialect
+#elseif ($pointbase)
+            org.hibernate.dialect.PointbaseDialect
+#elseif ($postgres)
+            org.hibernate.dialect.PostgreSQLDialect
+#elseif ($sybase)
+            org.hibernate.dialect.SybaseDialect
+#elseif ($sapdb)
+            org.hibernate.dialect.SAPDBDialect
+#elseif ($progress)
+            org.hibernate.dialect.ProgressDialect
+#elseif ($derby)
+            org.hibernate.dialect.DerbyDialect
+#else
+            org.hibernate.dialect.HSQLDialect
+#end
+        </hibernate.dialect>
+#end
 #if ($ejb || $ejb3)
         <!--
             Change this to the correct database type mappings (for Jboss)

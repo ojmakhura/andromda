@@ -361,8 +361,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.13</version>
-            <scope>test</scope>
+            <version>5.1.14</version>
+            <!--scope>test</scope-->
         </dependency>
     </dependencies>
     <build>
@@ -502,7 +502,7 @@
         <!--
             Change this for the appropriate database
             For MySql use: org.hibernate.dialect.MySQLDialect
-            For MySql InnoDB use: org.hibernate.dialect.MySQLInnoDBDialect
+            For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
             For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
             For Hypersonic use: org.hibernate.dialect.HSQLDialect
             For Oracle any version use: org.hibernate.dialect.OracleDialect
@@ -519,7 +519,7 @@
             For Derby use: org.hibernate.dialect.DerbyDialect
         -->
         <andromda.version>${project.version}</andromda.version>
-        <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <application.id>timetracker</application.id>
         <application.package>org.andromda.timetracker</application.package>
