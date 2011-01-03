@@ -49,6 +49,21 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
         </dependency>
+#if ($embeddedJetty)
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <!-- Uncomment below if using Test features>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency-->
+#else
         <!-- Uncomment below if using JDBC or Test features>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -62,6 +77,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency-->
+#end
 #if($groovy)
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -111,6 +127,22 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 #end
 #end
@@ -218,6 +250,18 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 #end
         <dependency>
@@ -470,11 +514,15 @@
                 <filtering>false</filtering>
             </resource>
 #end
-##if ($ejb3)
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-##end
+            <resource>
+                <directory>target/src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
         </resources>
 #if ($ejb3)
         <testSourceDirectory>src/test/java</testSourceDirectory>
