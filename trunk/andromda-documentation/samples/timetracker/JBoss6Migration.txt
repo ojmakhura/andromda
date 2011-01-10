@@ -1,0 +1,92 @@
+0. SQL Error: Type=InnoDB, needs to be changed to Engine=InnoDB in hbm2ddl in generated SQL.
+Need to change pom.xml hibernate dialect from org.hibernate.dialect.MySQLInnoDBDialect to org.hibernate.dialect.MySQL5InnoDBDialect.
+
+1. andromdapp
+Add hibernate dependency for runnimg hbm2ddl tools, hibernate.dialect configuration
+
+2. timetracker pom
+Change mySQL dependency to compile, update version, so that it can be run from hibernate-tools.
+
+3. 14:30:27,620 WARN  [org.jboss.detailed.classloader.ClassLoaderManager] Unexpected error during load of:org.apache.commons.collections.DoubleOrderedMap$2$1: java.lang.IllegalAccessError: class org.apache.commons.collections.DoubleOrderedMap$2$1 cannot access its superclass .apache.commons.collections.DoubleOrderedMap$DoubleOrderedMapIterator
+Change commons-collections scope to provided - it is still bundled with the EAR.
+Also multiple versions of slf4j-api in war and ear, including different versions of -api in the war together, and anything else containing javax.transaction
+
+4. Error configuring application listener of class org.spmework.web.context.ContextLoaderListener: java.lang.ClassNotFoundException: springframework.web.context.ContextLoaderListener
+Add spring-web dependencyManagement to top pom.xml and dependency to core\pom.xml
+
+5. NoClassDefFoundError: net/sf/ehcache/CacheException
+ClassNotFoundException: org.hibernate.cache.EhCacheProvider
+Add ehcache dependency to core.
+
+6. Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [org.springframework.cache.ehcache.EhCacheFactoryBean] for bean with name 'org.springframework.cache.ehcache.EhCacheFactoryBean#77dc0536' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]; nested exception is java.lang.ClassNotFoundException: org.springframework.cache.ehcache.EhCacheFactoryBean
+Add spring-context-support dependency to core
+
+7. After adding hibernate-ehcache and deleting jta.jar:
+Caused by: java.lang.RuntimeException: Error visiting resource: VFSResourceContext @ net/sf/ehcache/config/generator/model/elements/FactoryConfigurationElement.class / BaseClassLoader@5e26e515{vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4-SNAPSHOT.ear}, visitor: org.jboss.scanning.annotations.plugins.GenericAnnotationVisitor@1f0e9d8b
+Caused by: java.lang.reflect.MalformedParameterizedTypeException
+
+http://community.jboss.org/message/578230
+Add to server\default\deployers\scanning-deployers-jboss-beans.xml
+  <bean name="ResourceErrorHandler" class="org.jboss.scanning.plugins.visitor.IgnoreSetErrorHandler">
+     <install method="addIgnored">
+         <parameter>java.lang.reflect.MalformedParameterizedTypeException</parameter>
+     </install>
+
+8. 17:08:16,212 ERROR [ContextLoader] Context initialization failed: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationProcessingFilter' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Cannot resolve reference to bean 'authenticationManager' while setting bean property 'authenticationManager'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationManager' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Cannot resolve reference to bean 'daoAuthenticationProvider' while setting bean property 'providers' with key [0]; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'daoAuthenticationProvider' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Cannot create inner bean 'org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache#1890532' of type [org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache] while setting bean property 'userCache'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache#1890532' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Cannot create inner bean 'org.springframework.cache.ehcache.EhCacheFactoryBean#59f95a14' of type [org.springframework.cache.ehcache.EhCacheFactoryBean] while setting bean property 'cache'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.cache.ehcache.EhCacheFactoryBean#59f95a14' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Invocation of init method failed; nested exception is java.lang.NoSuchMethodError: net.sf.ehcache.Cache.<init>(Ljava/lang/String;ILnet/sf/ehcache/store/MemoryStoreEvictionPolicy;ZLjava/lang/String;ZJJZJLnet/sf/ehcache/event/RegisteredEventListeners;Lnet/sf/ehcache/bootstrap/BootstrapCacheLoader;II)V
+Conflicting version of ehcache compared to JBoss embedded version? Old version of acegi? Outdated acegi configuration?
+Delete ehcache-1.2.3.jar from EAR file - newer version ehcache-core-2.3.1 is already there
+
+9. Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [org.springframework.context.support.ClassPathXmlApplicationContext]: Constructor threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in class path resource [applicationContext.xml]: Invocation of init method failed; nested exception is org.hibernate.HibernateException: Unable to parse order-by fragment
+        at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:141) [:3.0.5.RELEASE]
+Timecard and User.hbm.xml use FK name instead of column name in order-by expression
+<set name="allocations" order-by="TIMECARD_FK"
+<set name="roles" order-by="USER_FK"
+should be <set name="roles" table="X' order-by="column_name"
+
+10. Caused by: java.lang.ClassCastException: antlr.CommonToken cannot be cast to antlr.Token
+t].[/timetracker].[jsp]] Servlet.service() for servlet jsp threw exception: java
+.lang.NullPointerException
+        at org.apache.jasper.compiler.Parser.parseBody(Parser.java:1598) [:6.0.0.Final]
+ Unable to compile class for JSP
+ 
+11. 23:33:14,085 ERROR [AbstractKernelController] Error installing to PreInstall: name=PersistenceUnitAnnotationPlugin state=Real: java.lang.NoClassDefFoundError: javax/persistence/PersistenceUnit
+ Removing jta.jar from ear?
+ 
+12.  Caused by: java.lang.NoClassDefFoundError: net/sf/cglib/proxy/CallbackFilter
+ Add cglib:cglib:2.2 to runtime dependency classpath for core.  Still very difficult for app to find the jar in classpath - add to common\lib.
+ 
+ Had to add cglib to jboss\common\lib, not recognized when part of ear or war
+ Had to add asm-3.3.jar to JBoss lib\endorsed
+ Delete antlr*.jar from ear file
+
+13. 17:07:23,372 ERROR [NamingProviderURLWriter] Cannot create a naming service URL
+file at file:/C:/Programs/JBoss/6/server/default/data/jnp-service.url: java.io.IOException: Access is denied
+ server\default\data\jnp-service.url: "You do not have permission to view or edit this object's settings"
+ See http://www.brianmokeefe.com/node/9
+ Use shutdown.bat to stop app instead of stopping the run.bat process? Had to kill explorer.exe file handle.
+ 
+14. 00:05:08,347 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[localhost].[/timetracker].[jsp]] Servlet.service() for servlet jsp threw exception: java.lang.NullPointerException
+        at org.apache.jasper.compiler.Parser.parseBody(Parser.java:1598) [:6.0.0
+.Final]
+No JSP Error page displayed...
+See http://community.jboss.org/message/578546
+JSP Compiler bug in 6.0.0.FINAL
+
+15. mysql> insert into USERS (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL,
+IS_ACTIVE, CREATION_DATE, COMMENT) values (2, 'lcoude',       '756slLjeNViurJBGI
+5JeqA==', 'Louis',  'Coude',       'lcoude@northwind.com',       1, '2006/01/01
+09:00', null);
+ERROR 1062 (23000): Duplicate entry '756slLjeNViurJBGI5JeqA==' for key 'PASSWORD
+'
+Users.password has a unique key
+
+mysql> insert into USER_ROLE (ID, ROLE, USER_FK) values (3, 'StandardUser',  2);
+ERROR 1062 (23000): Duplicate entry 'StandardUser' for key 'ROLE'
+USER_ROLE has a unique key on ROLE: 
+UML2 migration makes all Class attributes unique! UML2 model version fixed. Need to regenerate hibernate annotations also.
+
+16. org.hibernate.hql.ast.QuerySyntaxException: User is not mapped [from User user left join fetch user.roles where user.username = :username]
+Even when data is correctly in the tables, error still returned. Need to enable showSql setting in hibernate.
+hibernate.cfg.xml file not generated: HibernateEntity, requiresMapping, version=3 generates .hbm.xml files for each entity though.
+
+NOTE: The JSP compilation and the order-by issues and JBoss beans deployer are only problems in JBoss 6.0. JBoss 5.1 fails on #16 still, need to troubleshoot the generated SQL or the SQL mapping.
