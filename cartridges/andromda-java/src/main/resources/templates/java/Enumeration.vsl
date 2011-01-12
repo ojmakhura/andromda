@@ -91,7 +91,7 @@ $literal.getDocumentation("     * ")
 #if ($XMLBindingAnnotations)
     @XmlEnumValue("$literal.name")
 #end
-    public static final $enumeration.name $literal.name = new ${enumeration.name}(${intCast}${literal.enumerationValue});
+    public static final $enumeration.name $literal.name = new ${enumeration.name}(${intCast}${literal.enumerationValue}, "${literal.name}");
 
 #end
 #if ($serializable)
@@ -102,6 +102,7 @@ $literal.getDocumentation("     * ")
 
 #end
     private $enumeration.literalType.fullyQualifiedName value;
+    private String name;
 
     /**
      * The default constructor allowing
@@ -110,17 +111,30 @@ $literal.getDocumentation("     * ")
     protected ${enumeration.name}()
     {
         this.value =#if($enumeration.literalType.primitive) 0#else null#end;
-
     }
 
     /**
      * The default ${enumeration.name} constructor allowing
      * super classes to access it.
-     * @param valueIn $literalTypeName input value
+     *
+     * @param value $literalTypeName input value
      */
-    protected ${enumeration.name}($literalTypeName valueIn)
+    protected ${enumeration.name}($literalTypeName value)
     {
-        this.value = valueIn;
+        this(value, null);
+    }
+
+    /**
+     * The default ${enumeration.name} constructor allowing
+     * super classes to access it.
+     *
+     * @param value $literalTypeName input value
+     * @param name the name of the literal.
+     */
+    protected ${enumeration.name}($literalTypeName value, String name)
+    {
+        this.value = value;
+        this.name = name;
     }
 
     /**
@@ -165,7 +179,8 @@ $literal.getDocumentation("     * ")
      *
      * @return $literalTypeName with corresponding value
      */
-    public $literalTypeName value() {
+    public $literalTypeName value()
+    {
         return this.getValue();
     }
 
@@ -179,6 +194,16 @@ $literal.getDocumentation("     * ")
     public static $enumeration.name fromValue($literalTypeName value)
     {
         return ${enumeration.name}.${enumeration.fromOperationName}(value);
+    }
+
+    /**
+     * Returns the name of the literal.
+     *
+     * @return the literal name.
+     */
+    public String getName()
+    {
+        return this.name;
     }
 
     /**
