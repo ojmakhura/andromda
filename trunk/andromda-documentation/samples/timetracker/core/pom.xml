@@ -69,12 +69,17 @@
             <artifactId>hibernate-ehcache</artifactId>
             <version>3.3.2.GA</version>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <artifactId>ehcache-core</artifactId>
             <version>2.3.1</version>
-            <type>pom</type>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -82,6 +87,19 @@
             <artifactId>cglib</artifactId>
             <version>2.2</version>
             <scope>runtime</scope>
+        </dependency>
+        <!-- Don't include these in the war or ear. JTA is already there, commons-collections causes Classloader conflicts -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.14</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -181,6 +199,9 @@
                         </manifest>
                     </archive>
                     <generateClient>true</generateClient>
+                    <excludes>
+                        <exclude>**/*.ref</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

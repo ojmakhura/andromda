@@ -10,7 +10,6 @@
     <artifactId>timetracker-app</artifactId>
     <packaging>ear</packaging>
     <name>TimeTracker Application</name>
-    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -32,6 +31,28 @@
                 </exclusions>
             </dependency>
             <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>timetracker-core</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+                <exclusions>
+                    <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>timetracker-web</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
                 <version>2.1</version>
@@ -41,26 +62,6 @@
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>timetracker-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>timetracker-core</artifactId>
-            <version>${project.version}</version>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>timetracker-web</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
