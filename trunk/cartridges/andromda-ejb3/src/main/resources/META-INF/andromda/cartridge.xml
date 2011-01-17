@@ -626,7 +626,7 @@
         outputPattern="$generatedFile"
         outlet="user-types"
         overwrite="true">
-        <modelElements variable="enum">
+        <modelElements variable="enumeration">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacade"/>
             </modelElement>
