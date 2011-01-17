@@ -1,8 +1,7 @@
 <%@ include file="/taglib-imports.jspf" %>
-<%@ page import="org.acegisecurity.ui.AbstractProcessingFilter" %>
-<%@ page import="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter" %>
-<%@ page import="org.acegisecurity.AuthenticationException" %>
-
+<%@ page import="org.spring.security.ui.AbstractProcessingFilter" %>
+<%@ page import="org.spring.security.ui.webapp.AuthenticationProcessingFilter" %>
+<%@ page import="org.spring.security.AuthenticationException" %>
 <%@include file="/layout/template-defs.jsp" %>
 
 <tiles:insert beanName="login_layout_definition" beanScope="request" flush="true">
@@ -26,14 +25,14 @@
             </font>
         </c:if>
 
-        <form action="<c:url value='/j_acegi_security_check'/>" method="POST">
+        <form action="<c:url value='/j_spring_security_check'/>" method="POST">
             <label for="username">Username</label><br />
             <input type="text" id="username" name="j_username"
                 <c:if test="${not empty param.login_error}">
-                    value='<%= session.getAttribute(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY) %>'
+                    value='<%= session.getAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY) %>'
                 </c:if>
             />
-            <input class="checkbox" type="checkbox" name="_acegi_security_remember_me" /> Remember me<br />
+            <input class="checkbox" type="checkbox" name="_spring_security_remember_me" /> Remember me<br />
             <label for="password">Password</label><br />
             <input type="password" id="password" name="j_password"/><br />
             <br />

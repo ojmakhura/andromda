@@ -1,5 +1,5 @@
-<%@ taglib prefix="authz" uri="http://acegisecurity.org/authz" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<a class="menu" href="/timetracker/j_acegi_logout">
-    Log out [<authz:authentication operation="username"/>]
+<a class="menu" href="/timetracker/j_security_logout">
+    Log out [<security:authentication operation="username"/>]
 </a>
