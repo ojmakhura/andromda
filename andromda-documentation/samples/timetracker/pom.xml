@@ -122,6 +122,7 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
+                <!-- JBoss contains a version which causes a classloader conflict unless not bundled -->
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -513,18 +514,18 @@
         <sql.mappings>MySQL</sql.mappings>
         <!--
             Change this for the appropriate database
-            For MySql use: org.hibernate.dialect.MySQLDialect
+            For MySql use: org.hibernate.dialect.MySQL5Dialect
             For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
             For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
             For Hypersonic use: org.hibernate.dialect.HSQLDialect
             For Oracle any version use: org.hibernate.dialect.OracleDialect
-            For Oracle9i/10g use: org.hibernate.dialect.Oracle9Dialect
-            For DB2 use: org.hibernate.dialect.DB2Dialect
+            For Oracle9i/10g use: org.hibernate.dialect.Oracle10gDialect
+        For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
             For Informix use: org.hibernate.dialect.InformixDialect
             For MSSQL use: org.hibernate.dialect.SQLServerDialect
             For Pointbase use: org.hibernate.dialect.PointbaseDialect
             For Postgres use: org.hibernate.dialect.PostgreSQLDialect
-            For Sybase use: org.hibernate.dialect.SybaseDialect
+        For Sybase use: org.hibernate.dialect.SybaseDialect or org.hibernate.dialect.Sybase11Dialect
             For Sybase Anywhere use: org.hibernate.dialect.SybaseAnywhereDialect
             For SapDB use: org.hibernate.dialect.SAPDBDialect
             For Progress use: org.hibernate.dialect.ProgressDialect
@@ -550,11 +551,11 @@
             </activation>
             <properties>
                 <!--
-                    Change driver jar for appropriate database
+                Change driver path and jar for appropriate database
                     For MySQL use: mysql-connector-java-X-bin.jar
                     For Hypersonic use: hsqldb.jar
                 -->
-                <jdbc.driver.jar>${jboss.home}/server/default/lib/mysql-connector-java-5.0.4.jar</jdbc.driver.jar>
+                <jdbc.driver.jar>${jboss.home}/server/default/lib/mysql-connector-java-5.1.4.jar</jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database
                     For MySQL use: com.mysql.jdbc.Driver
@@ -593,7 +594,7 @@
                 <jdbc.username>timetracker</jdbc.username>
                 <jdbc.password>timetracker</jdbc.password>
                 <!--
-                    Change exception sorder class name for appropriate database
+                    Change exception sorter class name for appropriate database
                     For MySQL use: org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
                     For Hypersonic use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
                     For Oracle9i use: org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
@@ -694,11 +695,11 @@
         <repository>
             <id>jboss-public</id>
             <name>JBoss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+            <url>https://repository.jboss.org/nexus/content/repositories/public</url>
         </repository>
         <repository>
             <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <url>http://snapshots.repository.codehaus.org</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -708,7 +709,7 @@
         </repository>
         <repository>
             <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
+            <url>http://repository.apache.org/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -724,26 +725,14 @@
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
         <pluginRepository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
-        </pluginRepository>
-        <pluginRepository>
             <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
+            <url>http://snapshots.repository.codehaus.org</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
@@ -800,9 +789,17 @@
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
                     <sourcepath>${basedir}/src/main/java;${basedir}/target/src/main/java</sourcepath>
+                    <detectLinks/>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                        <link>http://docs.jboss.org/hibernate/stable/core/api</link>
+                        <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
+                        <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                        <link>http://jakarta.apache.org/commons/lang/apidocs</link>
+                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                        <link>http://www.junit.org/junit/javadoc/</link>
+                        <link>http://logging.apache.org/log4j/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>

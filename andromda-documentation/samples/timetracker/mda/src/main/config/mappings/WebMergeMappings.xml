@@ -10,12 +10,12 @@
         <from><![CDATA[<!-- context-param merge-point -->]]></from>
         <to>
             <![CDATA[
-    <context-param>
+    <!--context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/applicationContext-acegi-security.xml
         </param-value>
-    </context-param>
+    </context-param-->
             ]]>
         </to>
     </mapping>
@@ -23,14 +23,20 @@
         <from><![CDATA[<!-- filter merge-point -->]]></from>
         <to>
             <![CDATA[
-    <filter>
-        <filter-name>Acegi Filter Chain Proxy</filter-name>
+    <!--filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class-->
+        <!-- <init-param>
+            <param-name>targetBeanName</param-name>
+            <param-value>springSecurityFilterChain</param-value>
+        </init-param> -->
+        <!--filter-name>Acegi Filter Chain Proxy</filter-name>
         <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
         <init-param>
             <param-name>targetClass</param-name>
             <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
-        </init-param>
-    </filter>
+        </init-param-->
+    <!--/filter-->
             ]]>
         </to>
     </mapping>
@@ -38,10 +44,10 @@
         <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
         <to>
             <![CDATA[
-    <filter-mapping>
-        <filter-name>Acegi Filter Chain Proxy</filter-name>
+    <!--filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping-->
             ]]>
         </to>
     </mapping>
@@ -49,9 +55,9 @@
         <from><![CDATA[<!-- listener merge-point -->]]></from>
         <to>
             <![CDATA[
-    <listener>
+    <!--listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    </listener-->
             ]]>
         </to>
     </mapping>

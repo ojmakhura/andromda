@@ -38,17 +38,22 @@
             <artifactId>commons-beanutils</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Required by spring security.providers.encoding password decoder -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -61,6 +66,12 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl104-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -88,8 +99,56 @@
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-expression</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-tx</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- Already included in the EAR -->
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.6</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -135,8 +194,10 @@
                 <version>2.1.1</version>
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
+                    <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
+                    <useCache>false</useCache>
                     <excludes>**/*.java</excludes>
-                    <packagingExcludes>**/spring-core*.jar,**/mysql*.jar</packagingExcludes>
+                    <packagingExcludes>**/spring-core*.jar,**/mysql*.jar,**/bc*138.jar</packagingExcludes>
                 </configuration>
             </plugin>
             <plugin>
