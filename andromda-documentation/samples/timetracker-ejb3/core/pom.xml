@@ -12,9 +12,9 @@
     <name>TimeTracker EJB3 Core Business Tier</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -33,19 +33,35 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
         <!--dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
         </dependency-->
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hibernate-entitymanager</groupId>
+            <artifactId>ejb3-persistence</artifactId>
+        </dependency>
         <!--dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
         </dependency-->
         <dependency>
@@ -55,27 +71,20 @@
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-remoting</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-aop-jdk50-client</artifactId>
         </dependency>
         <!--dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
         </dependency-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-script-wrappers</artifactId>
-        </dependency>
-        <dependency>
+        <!--dependency>
   	        <groupId>net.sf.ehcache</groupId>
   	        <artifactId>ehcache</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
        	    <groupId>org.jboss.microcontainer</groupId>
        	    <artifactId>hibernate-all</artifactId>
@@ -87,6 +96,20 @@
         <dependency>
       	    <groupId>org.jboss.microcontainer</groupId>
        	    <artifactId>thirdparty-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-script-wrappers</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -105,21 +128,40 @@
                         </manifest>
                     </archive>
                     <generateClient>true</generateClient>
+                    <excludes>
+                        <exclude>**/*.ref</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
+					<systemProperties>
+						<property>
+							<name>java.class.path</name>
+							<value>target/classes</value>
+						</property>
+					</systemProperties>
                 </configuration>
             </plugin>
         </plugins>
         <resources>
             <resource>
-                <directory>target/src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>META-INF/persistence.xml</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>target/src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
             </resource>
         </resources>
         <testSourceDirectory>src/test/java</testSourceDirectory>
