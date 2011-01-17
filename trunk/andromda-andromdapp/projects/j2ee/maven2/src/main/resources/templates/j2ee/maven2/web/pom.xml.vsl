@@ -100,23 +100,23 @@
         <dependency>
             <groupId>org.apache.myfaces</groupId>
             <artifactId>tomahawk</artifactId>
-            <version>unknown</version>
+            <!--version>unknown</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath-->
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-api</artifactId>
-            <version>unknown</version>
+            <!--version>unknown</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-api-1.0.1-incubating-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-api-1.0.1-incubating-SNAPSHOT.jar</systemPath-->
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-impl</artifactId>
-            <version>unknown</version>
+            <!--version>unknown</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.0.1-incubating-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.0.1-incubating-SNAPSHOT.jar</systemPath-->
         </dependency>
         <dependency>
             <groupId>org.cyberneko</groupId>
@@ -243,24 +243,20 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-#if ($ejb3)
-            <groupId>org.jboss</groupId>
-#else
             <groupId>jboss</groupId>
-#end
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
 #if ($ejb3)
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>hibernate-entitymanager</groupId>
             <artifactId>ejb3-persistence</artifactId>
         </dependency>
 #if($hibernate)

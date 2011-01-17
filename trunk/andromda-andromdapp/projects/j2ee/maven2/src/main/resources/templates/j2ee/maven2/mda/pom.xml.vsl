@@ -281,7 +281,6 @@
             <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws and copies ObjectFactory etc to andromda projects -->
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
-              <version>1.6</version>
               <executions>
                 <!-- Clean the implementation code and WSDL code also, during mvn clean>
                 <execution>

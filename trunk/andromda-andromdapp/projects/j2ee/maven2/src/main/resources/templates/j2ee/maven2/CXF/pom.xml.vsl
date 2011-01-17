@@ -69,7 +69,6 @@
             <!-- Run the generated buildWS ant script which runs CXF wsdl2java and java2ws -->
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
-              <version>1.6</version>
               <executions>
                 <!-- Generated ant script runs java2ws for each service -->
                 <execution>

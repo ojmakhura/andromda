@@ -165,7 +165,6 @@
                  it causes classloading issues with containers that alreadly have it -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
                 <executions>
                     <execution>
                         <id>remove problem classes</id>
