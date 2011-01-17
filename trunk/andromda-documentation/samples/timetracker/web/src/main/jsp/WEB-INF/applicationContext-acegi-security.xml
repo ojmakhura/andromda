@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
 <!--
-  - A simple "base bones" Acegi Security configuration.
+  - A simple "base bones" Spring Security configuration.
+  - See http://blog.springsource.com/2010/03/06/behind-the-spring-security-namespace/
   -
   - The sample includes the "popular" features that people tend to use.
   - Specifically, form authentication, remember-me, and anonymous processing.
@@ -16,9 +15,34 @@
   - $Id: applicationContext-acegi-security.xml,v 1.1.2.2 2006-09-01 01:52:09 nbhatia Exp $
   -->
 
-<beans>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
 
-    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+    <http auto-config='true'>
+      <intercept-url pattern="/styles/**" filters="none"/>
+      <intercept-url pattern="/layout/**" filters="none"/>
+      <intercept-url pattern="/**" access="ROLE_USER" />
+      <intercept-url pattern="/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/login/login-form.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <form-login login-page='/login/login-form.jsp'/>
+    </http>
+
+    <!-- Hard-coded id/password, for basic authentication testing -->
+    <authentication-manager>
+      <authentication-provider>
+        <user-service>
+          <user name="nbhatia" password="cooldude" authorities="ROLE_USER, ROLE_ADMIN" />
+          <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+        </user-service>
+      </authentication-provider>
+    </authentication-manager>
+
+    <!--bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
         <property name="filterInvocationDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -31,7 +55,7 @@
     <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
 
     <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-        <constructor-arg value="/login/login-form.jsp"/> <!-- URL redirected to after logout -->
+        <constructor-arg value="/login/login-form.jsp"/>
         <constructor-arg>
             <list>
                 <ref bean="rememberMeServices"/>
@@ -140,12 +164,12 @@
                 </property>
             </bean>
         </property>
-    </bean>
+    </bean-->
 
-    <!-- UserDetailsService is the most commonly frequently Acegi Security interface implemented by end users -->
-    <bean id="userDetailsService" class="org.andromda.timetracker.web.security.UserDetailsServiceImpl"/>
+    <!-- UserDetailsService is the most commonly frequently Spring Security interface implemented by end users -->
+    <beans:bean id="userDetailsService" class="org.andromda.timetracker.web.security.UserDetailsServiceImpl"/>
 
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
+    <beans:bean id="loggerListener" class="org.springframework.security.access.event.LoggerListener"/>
 
-</beans>
+</beans:beans>

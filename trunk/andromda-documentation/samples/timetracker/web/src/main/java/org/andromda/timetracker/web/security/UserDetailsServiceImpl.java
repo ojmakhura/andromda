@@ -1,8 +1,8 @@
 package org.andromda.timetracker.web.security;
 
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.UserDetailsService;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.andromda.timetracker.service.SecurityService;
 import org.andromda.timetracker.ServiceLocator;
 import org.andromda.timetracker.vo.UserDetailsVO;
