@@ -315,13 +315,13 @@
 #if ($ejb3)
             <!-- JBoss Dependencies -->
             <dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
             <!--dependency>
-                <groupId>org.jboss</groupId>
+                <groupId>jboss</groupId>
                 <artifactId>jboss-ejb3-client</artifactId>
                 <version>4.0.5-GA</version>
                 <scope>provided</scope>
@@ -332,12 +332,12 @@
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <!--dependency>
-                <groupId>org.jboss</groupId>
+            <dependency>
+                <groupId>hibernate-entitymanager</groupId>
                 <artifactId>ejb3-persistence</artifactId>
-                <version>4.0.5-GA</version>
+                <version>3.4.0.GA</version>
                 <scope>provided</scope>
-            </dependency-->
+            </dependency>
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-annotations-ejb3</artifactId>
@@ -383,15 +383,9 @@
 #if ($jsr181Webservice || $jaxws)
             <!-- Webservice JBossWS Dependencies -->
             <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jbossws-client</artifactId>
-                <version>4.0.5-GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-jaxrpc</artifactId>
-                <version>4.0.5-GA</version>
+                <groupId>org.jboss.ws</groupId>
+                <artifactId>jbossws-framework</artifactId>
+                <version>3.0.2-GA</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -429,7 +423,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>1.2.3</version>
+                <version>1.6.2</version>
                 <scope>provided</scope>
             </dependency>
 #if ($spring || $hibernate)
@@ -439,11 +433,6 @@
                 <artifactId>hibernate-annotations</artifactId>
                 <version>3.5.6-Final</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>1.5.0</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -477,7 +466,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>1.5.0</version>
+                <version>1.6.2</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -857,14 +846,6 @@
                 <version>1.2.16</version>
                 <!--scope>test</scope-->
             </dependency>
-#if ($ejb3)
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.13</version>
-                <scope>test</scope>
-            </dependency>
-#end
 #if ($spring || $cxf)
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -984,7 +965,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.13</version>
+                <version>5.1.14</version>
             </dependency>
 #elseif ($postgres)
             <dependency>
@@ -1164,6 +1145,10 @@
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.6</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -1483,8 +1468,9 @@
                 -->
                 <jdbc.driver.jar>
 #if ($ear)
+                    <!-- JBoss gives classloader exceptions if the JDBC driver is bundled with the EAR -->
 #if ($mysql)
-                    ${jboss.home}/server/default/lib/mysql-connector-java-5.0.4-bin.jar
+                    ${jboss.home}/server/default/lib/mysql-connector-java-5.1.14.jar
 #elseif ($oracle)
                     ${jboss.home}/server/default/lib/ojdbc14.jar
 #elseif ($db2)
@@ -1510,7 +1496,7 @@
 #end
 #else
 #if ($mysql)
-                    /path/to/mysql/lib/mysql-connector-java-5.0.4-bin.jar
+                    /path/to/mysql/lib/mysql-connector-java-5.1.14.jar
 #elseif ($oracle)
                     /path/to/oracle/jdbc/lib/ojdbc14.jar
 #elseif ($db2)
@@ -1781,27 +1767,12 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-        <repository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>sonatype</id>
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
         </pluginRepository>
         <pluginRepository>
             <id>Codehaus Snapshots</id>
@@ -1812,13 +1783,6 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
