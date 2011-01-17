@@ -110,13 +110,11 @@ $member.getDocumentation("     * ")
     private ${member.type.fullyQualifiedName} $member.name;
 
 #end
-#if ($serializable)
     /**
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${enumeration.serialVersionUID}L;
 
-#end
     private final $literalTypeName enumValue;
 
     /**
