@@ -23,10 +23,18 @@
             <version>${project.version}</version>
             <type>ejb</type>
             <scope>provided</scope>
-       </dependency>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -44,10 +52,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
         </dependency>
@@ -56,49 +60,92 @@
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+        </dependency>
+        <dependency>
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf-cartridge-components</artifactId>
+            <!-- 'unknown' because the version doesn't matter for system dependencies>
+            <version>${andromda.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath -->
+        </dependency>
+        <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
+            <!-- 'unknown' because the version doesn't matter for system dependencies>
             <version>2.0.2</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
+            <artifactId>tomahawk12</artifactId>
+            <!-- 'unknown' because the version doesn't matter for system dependencies>
             <version>1.1.9</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath -->
         </dependency>
         <dependency>
-            <groupId>com.oracle.adf</groupId>
-            <artifactId>adf-faces-api</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>unknown</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/adf-faces-api.jar</systemPath>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-jsf-cartridge-components</artifactId>
-            <!-- 'unknown' because the version doesn't matter for system dependencies -->
-            <version>${andromda.version}</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath>
+            <groupId>org.apache.myfaces.extensions.validator</groupId>
+            <artifactId>myfaces-extval-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
+            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+            <artifactId>myfaces-extval-property-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+            <artifactId>myfaces-extval-bean-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+            <artifactId>myfaces-extval-generic-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+            <artifactId>myfaces-extval-trinidad-support</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.facelets</groupId>
+            <artifactId>jsf-facelets</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
-            <version>${andromda.version}</version>
         </dependency>
         <dependency>
           <groupId>javax.servlet</groupId>
@@ -108,10 +155,10 @@
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -141,6 +188,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>hibernate-entitymanager</groupId>
+            <artifactId>ejb3-persistence</artifactId>
+            <!--version>3.3.2.GA</version>
+            <scope>provided</scope-->
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -164,21 +221,21 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/src/main/xhtml">
+                        <copy todir="${project.basedir}/target/src/main/webapp" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="**/*"/>
                             </fileset>
-                            <fileset dir="${project.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
                             </fileset>                            
-                            <fileset dir="${project.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="skins/**"/>
                             </fileset>	
                         </copy>
-                        <!-- place any facelet tag files in ${pom.basedir}/src/main/xml/tags -->
+                        <!-- place any facelet tag files in ${project.basedir}/src/main/webapp/xml/tags -->
                         <copy todir="${project.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
-                            <fileset dir="${project.basedir}/src/main/xml/tags"/>
+                            <fileset dir="${project.basedir}/src/main/webapp/xml/tags"/>
                         </copy>
                     </tasks>
                 </configuration>
@@ -191,13 +248,29 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
-                    <warSourceDirectory>target/src</warSourceDirectory>
+                    <warSourceDirectory>target/src/main/webapp</warSourceDirectory>
+                    <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
+                    <useCache>false</useCache>
                     <excludes>**/*.java</excludes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>${project.basedir}/target/src/main/java</webAppSourceDirectory>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                        <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                            <resourcesAsCSV>${project.basedir}/src/main/webapp, ${project.basedir}/target/src/main/webapp</resourcesAsCSV>
+                        </baseResource>
+                        <contextPath>/${application.id}-${project.version}</contextPath>
+                    </webAppConfig>
+                </configuration>
             </plugin>
         </plugins>
     </build>
