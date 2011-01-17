@@ -35,15 +35,14 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author Walter Mourao
  */
-public class ODSFilter implements Filter 
+public class ODSFilter implements Filter
 {
-
     /**
      * @see javax.servlet.Filter${esc.hash}init(javax.servlet.FilterConfig)
      */
-    @Override
-    public void init(FilterConfig config) throws ServletException 
+    public void init(FilterConfig config) throws ServletException
     {
+        // Empty block
     }
 
     /**
@@ -53,22 +52,27 @@ public class ODSFilter implements Filter
      */
     public class ODSOutputStream extends ServletOutputStream
     {
-
         private final FileOutputStream fos;
+        /**
+         * @param file
+         * @throws FileNotFoundException
+         */
         public ODSOutputStream(File file) throws FileNotFoundException
         {
             super();
-            fos = new FileOutputStream(file);
+            this.fos = new FileOutputStream(file);
         }
-        
+
+        /**
+         * @see java.io.OutputStream${esc.hash}write(int)
+         */
         @Override
-        public void write(int b) throws IOException 
+        public void write(int b) throws IOException
         {
-            fos.write(b);
+            this.fos.write(b);
         }
-        
     }
-    
+
     /**
      * Decorates a HttpServletResponse.
      *
@@ -80,71 +84,98 @@ public class ODSFilter implements Filter
         final ODSOutputStream oos;
         final PrintWriter pw;
         int status;
-        
+
+        /**
+         * @param response
+         */
         public ODSResponseWrapper(HttpServletResponse response)
         {
             super(response);
-            try 
+            try
             {
-                tempFile=File.createTempFile("odsFilter_", "_tmp");
-                oos=new ODSOutputStream(tempFile);
-                pw=new PrintWriter(oos);
-                status=200;
-            } 
-            catch (Exception e) 
+                this.tempFile=File.createTempFile("odsFilter_", "_tmp");
+                this.oos=new ODSOutputStream(this.tempFile);
+                this.pw=new PrintWriter(this.oos);
+                this.status=200;
+            }
+            catch (Exception e)
             {
                 throw new RuntimeException(e);
             }
         }
 
+        /**
+         * @return tempFile
+         */
         public File getFile()
         {
-            return tempFile;
-        }
-        
-        @Override
-        public ServletOutputStream getOutputStream() throws IOException 
-        {
-            return oos;
+            return this.tempFile;
         }
 
+        /**
+         * @see javax.servlet.ServletResponseWrapper${esc.hash}getOutputStream()
+         */
         @Override
-        public PrintWriter getWriter() throws IOException 
+        public ServletOutputStream getOutputStream() throws IOException
         {
-            return pw;
+            return this.oos;
         }
 
+        /**
+         * @see javax.servlet.ServletResponseWrapper${esc.hash}getWriter()
+         */
         @Override
-        public void setStatus(int status)
+        public PrintWriter getWriter() throws IOException
         {
-            super.setStatus(status);
-            this.status=status;
+            return this.pw;
         }
-        
+
+        /**
+         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}setStatus(int)
+         */
+        @Override
+        public void setStatus(int statusIn)
+        {
+            super.setStatus(statusIn);
+            this.status=statusIn;
+        }
+
+        /**
+         * @return status
+         */
         public int getStatus()
         {
-            return status;
+            return this.status;
         }
 
+        /**
+         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}sendError(int, java.lang.String)
+         */
         @Override
-        public void sendError(int sc, String msg) throws IOException 
+        public void sendError(int sc, String msg) throws IOException
         {
             super.sendError(sc, msg);
-            status=sc;
+            this.status=sc;
         }
 
+        /**
+         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}sendError(int)
+         */
         @Override
-        public void sendError(int sc) throws IOException 
+        public void sendError(int sc) throws IOException
         {
             super.sendError(sc);
-            status=sc;
+            this.status=sc;
         }
-        
-        public void deleteTempFile() 
+
+        /**
+         *
+         */
+        public void deleteTempFile()
         {
             try
             {
-                FileUtils.forceDelete(tempFile);
+                FileUtils.forceDelete(this.tempFile);
             }
             catch(IOException e)
             {
@@ -152,6 +183,9 @@ public class ODSFilter implements Filter
             }
         }
 
+        /**
+         * @see Object${esc.hash}finalize()
+         */
         @Override
         protected void finalize() throws Throwable {
             deleteTempFile();
@@ -173,10 +207,10 @@ public class ODSFilter implements Filter
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"+
         "<office:document-styles xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\">\n"+
         "</office:document-styles>";
-        
+
     /**
      * Add a string as a zip file entry.
-     * 
+     *
      * @param zos the destination
      * @param name the entry name
      * @param content the entry content
@@ -188,35 +222,39 @@ public class ODSFilter implements Filter
         IOUtils.copy(new StringReader(content), zos);
         zos.closeEntry();
     }
-    
+
     /**
-     * @see javax.servlet.doFilter${esc.hash}init(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     * @see javax.servlet.Filter${esc.hash}doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
-    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException 
+            FilterChain chain) throws IOException, ServletException
     {
 
         final HttpServletResponse httpResponse=(HttpServletResponse)response;
         final ODSResponseWrapper responseWrapper=new ODSResponseWrapper(httpResponse);
-        
+
         chain.doFilter(request, responseWrapper);
         if(responseWrapper.getStatus() == 200)
         {
             final HttpServletRequest httpRequest=(HttpServletRequest)request;
             final String fileName=FilenameUtils.getBaseName(StringUtils.substringBefore(httpRequest.getRequestURI(), "?"));
-            
+
             httpResponse.reset();
             httpResponse.setContentType(MIMETYPE_CONTENTS);
             httpResponse.setHeader("Content-disposition", "attachment; filename=\""+fileName+".ods\"");
-            
+
             responseWrapper.getWriter().close();
             responseWrapper.getOutputStream().flush();
             responseWrapper.getOutputStream().close();
-            
+
             final FileInputStream fis=new FileInputStream(responseWrapper.getFile());
             final ZipOutputStream zos=new ZipOutputStream(httpResponse.getOutputStream());
-            
+
             zos.putNextEntry(new ZipEntry("content.xml"));
             IOUtils.copy(fis, zos);
             zos.closeEntry();
@@ -227,10 +265,10 @@ public class ODSFilter implements Filter
             zos.closeEntry();
             addStringEntry(zos,"META-INF/manifest.xml",MANIFEST_CONTENTS);
             zos.close();
-            
+
             responseWrapper.deleteTempFile();
-        } 
-        else 
+        }
+        else
         {
             IOUtils.copy(new FileInputStream(responseWrapper.getFile()),httpResponse.getOutputStream());
         }
@@ -239,9 +277,8 @@ public class ODSFilter implements Filter
     /**
      * @see javax.servlet.doFilter${esc.hash}destroy()
      */
-    @Override
-    public void destroy() 
+    public void destroy()
     {
+        // Empty block
     }
-    
 }
