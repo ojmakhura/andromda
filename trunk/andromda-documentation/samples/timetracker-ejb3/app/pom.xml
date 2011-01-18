@@ -10,80 +10,66 @@
     <artifactId>timetracker-ejb3-app</artifactId>
     <packaging>ear</packaging>
     <name>TimeTracker Application</name>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>timetracker-ejb3-common</artifactId>
-                <version>${project.version}</version> 
-                <exclusions>
-                    <exclusion>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>timetracker-ejb3-mda</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.andromda.profiles.uml14</groupId>
-                        <artifactId>andromda-profile</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>${pom.groupId}</groupId>
-                <artifactId>timetracker-ejb3-core</artifactId>
-                <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>net.sf.ehcache</groupId>
-                        <artifactId>ehcache</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.jboss.microcontainer</groupId>
-                        <artifactId>hibernate-all</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.jboss.microcontainer</groupId>
-                        <artifactId>jboss-ejb3-all</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.jboss.microcontainer</groupId>
-                        <artifactId>thirdparty-all</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>commons-digester</groupId>
-                <artifactId>commons-digester</artifactId>
-                <version>2.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-common</artifactId>
-            <version>${project.version}</version>            
+            <version>${project.version}</version> 
+            <exclusions>
+                <exclusion>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>timetracker-ejb3-mda</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.andromda.profiles.uml14</groupId>
+                    <artifactId>andromda-profile</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>${pom.groupId}</groupId>
             <artifactId>timetracker-ejb3-core</artifactId>
-            <version>${project.version}</version>  
+            <version>${project.version}</version>
             <type>ejb</type>          
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.microcontainer</groupId>
+                    <artifactId>hibernate-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.microcontainer</groupId>
+                    <artifactId>jboss-ejb3-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.microcontainer</groupId>
+                    <artifactId>thirdparty-all</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-ejb3-web</artifactId>
             <version>${project.version}</version>            
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>2.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -111,7 +97,8 @@
                 <configuration>
                     <includes>**/*.xml</includes>
                     <excludes>**/jboss-app.xml</excludes>
-                    <version>1.4</version>
+                    <version>5</version>
+                    <ejbVersion>3.0</ejbVersion>
                     <modules>
                         <jarModule>
                             <groupId>${project.groupId}</groupId>
@@ -150,4 +137,36 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- This profile here will allow you to specify -Ddeploy=link in order deploy an exploded ear using symbolic links,
+             this allows you to easily edit things like jsp, xhtml, etc and just build the web module without having
+             to deploy the ear -->
+        <profile>
+            <id>link</id>
+            <activation>
+                <property>
+                    <name>deploy</name>
+                    <value>link</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.andromda.maven.plugins</groupId>
+                        <artifactId>andromdapp-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>link</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <deployLocation>${jboss.home}/server/default/deploy</deployLocation>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
