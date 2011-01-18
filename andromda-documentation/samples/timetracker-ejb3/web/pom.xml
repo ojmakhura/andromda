@@ -173,7 +173,7 @@
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
         <!--dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
         </dependency-->
         <dependency>
@@ -185,14 +185,12 @@
             <artifactId>ejb3-persistence</artifactId>
         </dependency-->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-        </dependency>
-        <dependency>
             <groupId>hibernate-entitymanager</groupId>
             <artifactId>ejb3-persistence</artifactId>
-            <!--version>3.3.2.GA</version>
-            <scope>provided</scope-->
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -210,7 +208,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
@@ -260,7 +257,7 @@
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
+                <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <webAppSourceDirectory>${project.basedir}/target/src/main/java</webAppSourceDirectory>
                     <webAppConfig>

@@ -76,11 +76,16 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
     <properties>
-        <uml2.model.uri>file:${src.dir}/uml2/DeploymentMetafacadeModel.uml2</uml2.model.uri>
-        <uml2.test.model.uri>file:${test.src.dir}/uml2/DeploymentCartridgeTestModel.uml2</uml2.test.model.uri>
+        <uml2.output.dir>${project.basedir}/target/cartridge-test/actual</uml2.output.dir>
+        <uml2.model.uri>file:${src.dir}/uml2/DeploymentMetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/DeploymentCartridgeTestModel.uml</uml2.test.model.uri>
         <model.uri>jar:file:${src.dir}/uml/DeploymentMetafacadeModel.xml.zip!/DeploymentMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/DeploymentCartridgeTestModel.xml.zip!/DeploymentCartridgeTestModel.xml</test.model.uri>
     </properties>
