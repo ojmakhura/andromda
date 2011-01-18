@@ -27,20 +27,21 @@ public class $service.serviceTestName
 
 #set ($operations = $service.businessOperations)
 #if (!$operations.empty)
-#**##foreach ($operation in $operations)
+## TODO: Overloaded operations result in duplicate test method definitions - testSignature does not contain parameters
+#foreach ($operation in $operations)
     @org.testng.annotations.Test
     public void $operation.testSignature
     {
 //        try
 //        {
-#*  *##set ($argServiceName = "$stringUtils.uncapitalize($service.name)")
-#*  *##if ($service.viewTypeLocal)
+#set ($argServiceName = "$stringUtils.uncapitalize($service.name)")
+#if ($service.viewTypeLocal)
 #localJndiName($service false)
 //            $service.fullyQualifiedServiceLocalInterfaceName $argServiceName = ($service.fullyQualifiedServiceLocalInterfaceName)EJB3Container.getInitialContext(#if ($service.securityEnabled)"user","password"#end).lookup("${jndiName}");
-#*  *##else
+#else
 #remoteJndiName($service false)
 //            $service.fullyQualifiedServiceRemoteInterfaceName $argServiceName = ($service.fullyQualifiedServiceRemoteInterfaceName)EJB3Container.getInitialContext(#if ($service.securityEnabled)"user","password"#end).lookup("${jndiName}");
-#*  *##end
+#end
 //            test implementation
 //        }
 //        catch (Exception ex)
@@ -49,6 +50,6 @@ public class $service.serviceTestName
 //        }
     }
 
-#**##end
+#end
 #end
 }
