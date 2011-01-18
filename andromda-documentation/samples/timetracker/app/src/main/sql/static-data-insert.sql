@@ -5,11 +5,17 @@ insert into USERS (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, IS_ACTI
 insert into USERS (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT) values (4, 'cmicali',      '756slLjeNViurJBGI5JeqA==', 'Chris',  'Micali',      'cmicali@northwind.com',      1, '2006/01/01 09:00', null);
 commit;
 
-insert into USER_ROLE (ID, ROLE, USER_FK) values (1, 'StandardUser',  1);
-insert into USER_ROLE (ID, ROLE, USER_FK) values (2, 'Administrator', 1);
-insert into USER_ROLE (ID, ROLE, USER_FK) values (3, 'StandardUser',  2);
-insert into USER_ROLE (ID, ROLE, USER_FK) values (4, 'StandardUser',  3);
-insert into USER_ROLE (ID, ROLE, USER_FK) values (5, 'StandardUser',  4);
+-- Mixed case enumeration literals for JDK14 standard classes, not JDK5 enums
+--insert into USER_ROLE (ID, ROLE, USER_FK) values (1, 'StandardUser',  1);
+--insert into USER_ROLE (ID, ROLE, USER_FK) values (2, 'Administrator', 1);
+--insert into USER_ROLE (ID, ROLE, USER_FK) values (3, 'StandardUser',  2);
+--insert into USER_ROLE (ID, ROLE, USER_FK) values (4, 'StandardUser',  3);
+--insert into USER_ROLE (ID, ROLE, USER_FK) values (5, 'StandardUser',  4);
+insert into USER_ROLE (ID, ROLE, USER_FK) values (1, 'STANDARD_USER',  1);
+insert into USER_ROLE (ID, ROLE, USER_FK) values (2, 'ADMINISTRATOR', 1);
+insert into USER_ROLE (ID, ROLE, USER_FK) values (3, 'STANDARD_USER',  2);
+insert into USER_ROLE (ID, ROLE, USER_FK) values (4, 'STANDARD_USER',  3);
+insert into USER_ROLE (ID, ROLE, USER_FK) values (5, 'STANDARD_USER',  4);
 commit;
 
 insert into TASK (ID, NAME) values (1, 'Research');
