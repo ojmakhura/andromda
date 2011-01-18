@@ -134,7 +134,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.0</version>
+                <version>2.0.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -333,7 +333,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.acegisecurity</groupId>
                 <artifactId>acegi-security</artifactId>
                 <version>1.0.7</version>
@@ -355,14 +355,14 @@
                         <artifactId>spring-support</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency-->
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>5.14.2</version>
+            <version>5.14.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -445,7 +445,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.7.1</version>
                     <configuration>
                         <suiteXmlFiles>
                             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -520,12 +520,12 @@
             For Hypersonic use: org.hibernate.dialect.HSQLDialect
             For Oracle any version use: org.hibernate.dialect.OracleDialect
             For Oracle9i/10g use: org.hibernate.dialect.Oracle10gDialect
-        For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
+            For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
             For Informix use: org.hibernate.dialect.InformixDialect
             For MSSQL use: org.hibernate.dialect.SQLServerDialect
             For Pointbase use: org.hibernate.dialect.PointbaseDialect
             For Postgres use: org.hibernate.dialect.PostgreSQLDialect
-        For Sybase use: org.hibernate.dialect.SybaseDialect or org.hibernate.dialect.Sybase11Dialect
+            For Sybase use: org.hibernate.dialect.SybaseDialect or org.hibernate.dialect.Sybase11Dialect
             For Sybase Anywhere use: org.hibernate.dialect.SybaseAnywhereDialect
             For SapDB use: org.hibernate.dialect.SAPDBDialect
             For Progress use: org.hibernate.dialect.ProgressDialect
@@ -660,7 +660,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.6</version>
+                            <version>2.7.1</version>
                             <configuration>
                             </configuration>
                         </plugin>
@@ -700,16 +700,6 @@
         <repository>
             <id>Codehaus Snapshots</id>
             <url>http://snapshots.repository.codehaus.org</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -759,7 +749,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3.1</version>
                 <reportSets>
                   <reportSet>
                     <reports>
