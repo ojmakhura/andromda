@@ -23,7 +23,7 @@ $literal.getDocumentation("     * ")
 #else
     /** $toDoTag: Model Documentation for Enumeration Literal $literal.name value $literal.enumerationValue */
 #end
-    ${literal.name}($literal.enumerationValue)#if ($literal.enumerationLiteralParametersExist)(${literal.enumerationLiteralParameters})#end#if ($velocityCount != $enumeration.literals.size()),#else#**#;#end
+    ${literal.name}#if ($literal.enumerationLiteralParametersExist)(${literal.enumerationLiteralParameters})#else($literal.enumerationValue)#end#if ($velocityCount != $enumeration.literals.size()),#else#**#;#end
 
 
 #end
@@ -39,7 +39,7 @@ $member.getDocumentation("     * ")
      */
     private static final long serialVersionUID = ${enumeration.serialVersionUID}L;
 
-    private final $literalTypeName enumValue;
+    private $literalTypeName enumValue = null;
 
     /**
      * $enumeration.name constructor with enumeration literal value allowing
