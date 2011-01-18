@@ -42,15 +42,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.jboss.microcontainer</groupId>
-                    <artifactId>hibernate-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.microcontainer</groupId>
-                    <artifactId>jboss-ejb3-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.microcontainer</groupId>
-                    <artifactId>thirdparty-all</artifactId>
+                    <artifactId>jboss-kernel</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
