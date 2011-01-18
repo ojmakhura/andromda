@@ -170,7 +170,7 @@ public class UserDaoImpl
     protected User handleGetUserDetails(String username) throws Exception {
 
         User user = (User)getSession().createQuery(
-            "from User user left join fetch user.roles where user.username = :username")
+            "from UserImpl user left join fetch user.roles where user.username = :username")
             .setParameter("username", username)
             .uniqueResult();
         return user;
