@@ -143,13 +143,16 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-multi-source-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
+                    <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
+                    <useCache>false</useCache>
                     <excludes>**/*.java</excludes>
                 </configuration>
             </plugin>
