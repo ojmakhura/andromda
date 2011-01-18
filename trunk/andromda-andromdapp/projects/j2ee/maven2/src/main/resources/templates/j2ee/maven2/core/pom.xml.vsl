@@ -172,45 +172,64 @@
         </dependency>
 #if ($ejb3)
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
+        <!--dependency>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        </dependency-->
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <!--dependency>
+            <groupId>hibernate-entitymanager</groupId>
             <artifactId>ejb3-persistence</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.4.0.GA</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.3.2.GA</version>
+            <scope>test</scope>
+        </dependency-->
+        <!--dependency>
+            <groupId>jboss</groupId>
+            <artifactId>ejb3-persistence</artifactId>
+        </dependency-->
+        <dependency>
+            <groupId>jboss</groupId>
             <artifactId>jboss-annotations-ejb3</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-remoting</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aop-jdk50-client</artifactId>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
+        <!--dependency>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        </dependency-->
 #if ($jsr181Webservice || $jaxws)
         <dependency>
             <groupId>org.jboss</groupId>
@@ -271,7 +290,6 @@
         <dependency>
             <groupId>org.jboss.microcontainer</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.microcontainer</groupId>
@@ -280,17 +298,33 @@
         <dependency>
             <groupId>org.jboss.microcontainer</groupId>
             <artifactId>jms-ra</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.microcontainer</groupId>
             <artifactId>jcainflow</artifactId>
         </dependency>
+        <!--dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>jboss-ejb3-all</artifactId>
+            <version>1.0.0.Alpha9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>thirdparty-all</artifactId>
+            <version>1.0.0.Alpha9</version>
+            <scope>test</scope>
+        </dependency-->
 #else
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
-            <scope>provided</scope>
         </dependency>
 #end
 #if ($jbossSeam.equals("no"))
@@ -418,10 +452,12 @@
             <scope>compile</scope>
         </dependency>
 #end
+#if ($ejb3)
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
+#end
     </dependencies>
     <build>
         <plugins>
@@ -495,8 +531,11 @@
 #if ($ejb || $ejb3)
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
                 <configuration>
+#if ($ejb3)
+                    <ejbVersion>3.0</ejbVersion>
+#end
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
