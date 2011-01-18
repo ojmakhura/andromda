@@ -172,13 +172,13 @@
         <dependency>
             <groupId>org.apache.cxf.xjcplugins</groupId>
             <artifactId>cxf-xjc-dv</artifactId>
-            <version>${cxf.version}</version>
+            <version>${cxf.xjc.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf.xjcplugins</groupId>
             <artifactId>cxf-xjc-ts</artifactId>
-            <version>${cxf.version}</version>
+            <version>${cxf.xjc.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -344,6 +344,8 @@
         </plugins>
     </build>
     <properties>
+        <!-- Versioned independently from CXF core -->
+		<cxf.xjc.version>2.3.0</cxf.xjc.version>
 #if ($stringUtils.isNotBlank($model))
         <model.uri>$model</model.uri>
 #else
