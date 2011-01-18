@@ -109,6 +109,36 @@ to listener instance of class org.springframework.web.context.ContextLoaderListe
 ner
 org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: Unable to locate Spring NamespaceHandler for XML schema namespace [http://www.springframework.org/schema/security]
 Offending resource: ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]
+http://stackoverflow.com/questions/2161050/spring-3-0-unable-to-locate-spring-namespacehandler-for-xml-schema-namespace-html
+
+Caused by: java.lang.ClassNotFoundException: org.springframework.security.web.FilterChainProxy
+Caused by: java.lang.ClassNotFoundException: org.springframework.ejb.support.AbstractStatelessSessionBean
+java.lang.NoClassDefFoundError: org/springframework/util/WeakReferenceMonitor$ReleaseListener
+java.lang.ClassNotFoundException: org.springframework.asm.ClassVisitor
+ClassNotFoundException: org.springframework.expression.PropertyAccessor
+java.lang.ClassNotFoundException: org.springframework.security.web.authentication.LogoutFilter
+java.lang.NoClassDefFoundError: org/springframework/security/authentication/AuthenticationTrustResolver
+
+org.springframework.beans.NotWritablePropertyException: Invalid property 'authenticationFailureUrl' of bean class [org.springframework.security.web.authentication.AuthenticationProcessingFilter]: Bean property 'authenticationFailureUrl' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter?=======
+NOTE: The JSP compilation and the order-by issues and JBoss beans deployer are only problems in JBoss 6.0. JBoss 5.1 fails on #16 still, need to troubleshoot the generated SQL or the SQL mapping.
+
+17. No enum constant Role.StandardUser
+FIX: Change static-data-insert.sql USER_ROLE insert to INSERT role values with STANDARD_USER and Administrator - Uses .valueOf to get the Enumeration value in the HibernateEnumType class. Should it use .fromValue instead?
+
+18. ClassNotFoundException: org.apache.commons.codec.binary.Base64
+Add commons-codec dependency to decrypt the Base64 password called by org.acegisecurity.providers
+
+19. java.lang.NoClassDefFoundError: org/springframework/web/bind/RequestUtils
+Class was moved to spring-webmvc in v2.5 and deprecated, renamed to ServletRequestUtils in Spring 3.0
+Requires migrating acegi 1.0 to spring-security-3.0.5. See http://mmmsoftware.blogspot.com/2008/11/migrating-from-acegi-security-to-spring.html
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChainProxy' defined in ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]: Error setting property values; nested exception is org.springframework.beans.NotWritablePropertyException: Invalid property 'filterInvocationDefinitionSource' of bean class [org.springframework.security.web.FilterChainProxy]: Bean property 'filterInvocationDefinitionSource' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter?
+
+01:15:26,388 ERROR [[/timetracker]] Exception sending context initialized event
+to listener instance of class org.springframework.web.context.ContextLoaderListe
+ner
+org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: Unable to locate Spring NamespaceHandler for XML schema namespace [http://www.springframework.org/schema/security]
+Offending resource: ServletContext resource [/WEB-INF/applicationContext-acegi-security.xml]
 Fix: Include both spring-aop and spring-aspects dependencies.
 http://ourcraft.wordpress.com/2008/07/18/captain-were-experiencing-a-configuration-problem/
 
