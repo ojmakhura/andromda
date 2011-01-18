@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <namespace name="spring">
     <components>
         <component name="cartridge">
@@ -392,7 +391,7 @@
                     The default transaction type used for service operations (when not
                     wrapping your services with EJBs).
                     <strong>NOTE:</strong> Can be overridden on a per entity basis with the
-                    <a href="profile.html#@andromda_spring_transaction_type">@andromda.spring.transaction.type</a>
+                    <a href="profile.html#andromda_spring_transaction_type">andromda_spring_transaction_type</a>
                     tagged value.
                 </documentation>
             </property>
@@ -954,7 +953,7 @@
                 <documentation>
                     Defines the hibernate inheritance strategy (unless
                     overridden on an entity level by the
-                    <a href="profile.html#@andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
+                    <a href="profile.html#andromda_hibernate_inheritance">andromda_hibernate_inheritance</a>
                     tagged value, can be the following possible values:
                     <ul>
                         <li>class - table per hierarchy.</li>
