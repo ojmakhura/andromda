@@ -9,7 +9,7 @@ andromda.project=${applicationParentDirectory.replace('\', '/')}/${applicationId
 project=${applicationParentDirectory.replace('\', '/')}/${applicationId}
 
 #if ($cxf)
-cxf.version=2.3.0
+cxf.version=2.3.1
 #end
 
 # Fail on error for ant commands
