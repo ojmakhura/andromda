@@ -247,10 +247,10 @@
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
 #if ($ejb3)
-        <dependency>
+        <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
@@ -336,10 +336,12 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
                 <configuration>
                     <warSourceDirectory>target/src/main/webapp</warSourceDirectory>
                     <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
                     <useCache>false</useCache>
+                    <excludes>**/*.java</excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -360,8 +362,8 @@
             </plugin>
 #if ($embeddedJetty)
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <webAppSourceDirectory>${project.basedir}/target/src/main/java</webAppSourceDirectory>
                     <webAppConfig>
