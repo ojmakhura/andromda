@@ -101,13 +101,14 @@
                         <li>Open another command prompt. Connect as root with no password (the default): <tt>mysql -u root</tt></li>
                         <li>Create the timetracker database: <tt>CREATE DATABASE timetracker;</tt></li>
                         <li>Grant rights on database timetracker to user timetracker (the quotes and localhost are very important):</li>
-                        <li> <tt>GRANT ALL ON `timetracker`.* TO 'timetracker'@'localhost' identified by 'timetracker' WITH GRANT OPTION</tt>.</li>
+                        <li> <tt>GRANT ALL ON `timetracker`.* TO 'timetracker'@'localhost' identified by 'timetracker' WITH GRANT OPTION;</tt></li>
                         <li>The timetracker user is created at the same time with a password.</li>
+                        <li>Verify the user has been created properly: <tt>select * from mysql.user;</tt></li>
                         <li>mySQL User@host syntax reference: <a href="http://dev.mysql.com/doc/refman/5.5/en/account-names.html">http://dev.mysql.com/doc/refman/5.5/en/account-names.html</a></li>
-                        <li>Logout root: <tt>exit</tt> and login as user timetracker: <tt>mysql -u timetracker</tt></li>
-                        <li>Change the timetracker password: <tt>SET PASSWORD = PASSWORD('timetracker')</tt></li>
+                        <li>Logout root: <tt>exit</tt> and login as user timetracker with password timetracker: <tt>mysql -u timetracker -p</tt></li>
                         <li>Verify the grants: <tt>show grants;</tt></li>
                         <li>Use the timetracker database: <tt>USE timetracker;</tt></li>
+                        <li>To change the timetracker password: <tt>SET PASSWORD = PASSWORD('timetracker')</tt></li>
                         <li>mySQL Command Reference: <a href="http://dev.mysql.com/doc/refman/5.5/en/sql-syntax.html">http://dev.mysql.com/doc/refman/5.5/en/sql-syntax.html</a></li>
                     </ul>
                 </li>
