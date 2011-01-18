@@ -41,6 +41,8 @@ public class SearchControllerImpl extends SearchController
         // Get list of users and add the "All" option at the top
         UserVO[] users = getUserService().getAllUsers();
         Arrays.sort(users, new UserVOComparator());
+        //List<UserVO> users = new ArrayList<UserVO>(getUserService().getAllUsers());
+        //Collections.sort(users, new UserVOComparator());
         List userList = new ArrayList(Arrays.asList(users));
         userList.add(0, new UserVO(null, ALL_STRING, null, null));
 
@@ -69,7 +71,9 @@ public class SearchControllerImpl extends SearchController
                 form.getStartDateMaximumAsDate());
 
         TimecardSummaryVO[] timecards = getTimeTrackingService().findTimecards(criteria);
+        //Collection<? extends TimecardSummaryVO> timecards = getTimeTrackingService().findTimecards(criteria);
         form.setTimecardSummaries(timecards);
+        //form.setTimecardSummaries((TimecardSummaryVO[]) timecards.toArray());
     }
 
     public final void initializeTimecardId(ActionMapping mapping, InitializeTimecardIdForm form, HttpServletRequest request, HttpServletResponse response) throws Exception

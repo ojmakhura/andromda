@@ -13,6 +13,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class PasswordEncoder
 {
+    /**
+     * @param plaintext
+     * @return new sun.misc.BASE64Encoder().encode(raw)
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
     public static String getMD5Base64EncodedPassword(String plaintext) 
         throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
