@@ -19,7 +19,14 @@ public class UserServiceImpl
     /**
      * @see org.andromda.timetracker.service.UserService#getAllUsers()
      */
-    protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers()
+    // Use this implementation for UML2 model with returnParameter * multiplicity
+    /*@SuppressWarnings("unchecked")
+    protected Collection<UserVO> handleGetAllUsers()
+        throws Exception
+    {
+        return (Collection<UserVO>) getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
+    */
+    protected UserVO[] handleGetAllUsers()
         throws Exception
     {
         Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);

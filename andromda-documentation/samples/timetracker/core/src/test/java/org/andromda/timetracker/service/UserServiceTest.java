@@ -36,6 +36,10 @@ public class UserServiceTest {
 
         for (int i=0; i<users.length; i++) {
             logger.info(users[i].getUsername());
+        /*for (UserVO user : userService.getAllUsers())
+        {
+            logger.info(user.getUsername());
+        */
         }
     }
 }
