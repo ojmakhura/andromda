@@ -15,9 +15,9 @@
     <description>The top level module for all AndroMDA documentation</description>
     <modules>
         <module>samples/timetracker</module>
-        <!--
-        <module>samples/demo-ejb3</module>
         <module>samples/timetracker-ejb3</module>
+        <!-- Model fixes needed: No Webservices generated
+        <module>samples/demo-ejb3</module>
         -->
         <module>getting-started-java</module>
         <module>getting-started-dotnet</module>
