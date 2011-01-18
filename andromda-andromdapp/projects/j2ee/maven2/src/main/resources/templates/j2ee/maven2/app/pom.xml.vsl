@@ -105,6 +105,7 @@
                     <excludes>**/jboss-app.xml</excludes>
 #if ($ejb3)
                     <version>5</version>
+                    <ejbVersion>3.0</ejbVersion>
 #else
                     <version>1.4</version>
 #end
