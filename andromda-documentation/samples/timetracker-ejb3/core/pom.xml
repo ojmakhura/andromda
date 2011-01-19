@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.4.0.GA</version>
+            <version>3.3.2.GA</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -81,7 +81,7 @@
         <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-annotations-ejb3</artifactId>
@@ -92,51 +92,47 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.aop</groupId>
-            <artifactId>jboss-aop</artifactId>
-            <version>2.1.6.GA</version>
-        </dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-aop-jdk50-client</artifactId>
+        </dependency-->
+        <!--dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-aspect-jdk50-client</artifactId>
+        </dependency-->
         <!--dependency>
   	        <groupId>net.sf.ehcache</groupId>
   	        <artifactId>ehcache</artifactId>
         </dependency-->
-        <!-- See http://ondra.zizka.cz/stranky/programovani/java/jboss-microcontainer-howto-example-standalone-app.texy -->
         <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>jboss-kernel</artifactId>
-            <version>2.0.9.GA</version>
-            <scope>provided</scope>
+       	    <groupId>org.jboss.microcontainer</groupId>
+       	    <artifactId>hibernate-all</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.microcontainer</groupId>
-            <artifactId>jboss-aop-mc-int</artifactId>
-            <version>2.0.9.GA</version>
-            <scope>runtime</scope>
+            <artifactId>jboss-ejb3-all</artifactId>
+        </dependency>
+        <dependency>
+      	    <groupId>org.jboss.microcontainer</groupId>
+       	    <artifactId>thirdparty-all</artifactId>
         </dependency>
         <!--dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
             <scope>test</scope>
-        </dependency-->
+        </dependency>
         <dependency>
-            <groupId>org.jboss.embedded</groupId>
-            <artifactId>jboss-embedded-all</artifactId>
-            <version>beta3.SP12</version>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>jboss-ejb3-all</artifactId>
+            <version>1.0.0.Alpha9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.embedded</groupId>
-            <artifactId>hibernate-all</artifactId>
-            <version>beta3.SP12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.embedded</groupId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>thirdparty-all</artifactId>
-            <version>beta3.SP12</version>
+            <version>1.0.0.Alpha9</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
