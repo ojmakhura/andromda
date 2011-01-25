@@ -134,7 +134,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     /**
      * {@inheritDoc}
      */
-    public $rootEntityType get($identifier.type.fullyQualifiedName $identifier.name)
+    public $rootEntityType get(${identifierTypeName} ${identifierName})
     {
         return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
     }
