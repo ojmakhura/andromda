@@ -102,7 +102,7 @@ public class MappingsTest
         assertNotNull(testMappingsParentUri);
         final Mappings testMappingsParent = Mappings.getInstance(testMappingsParentUri);
         assertNotNull(testMappingsParent);
-        final Collection mappings1 = testMappingsParent.getMappings();
+        final Collection<Mapping> mappings1 = testMappingsParent.getMappings();
         assertEquals(
             3,
             mappings1.size());
@@ -133,7 +133,7 @@ public class MappingsTest
         assertNotNull(testMappingsUri);
         Mappings testMappings = Mappings.getInstance(testMappingsUri);
         assertNotNull(testMappings);
-        final Collection mappings2 = testMappings.getMappings();
+        final Collection<Mapping> mappings2 = testMappings.getMappings();
         assertEquals(
             4,
             mappings2.size());
@@ -179,7 +179,7 @@ public class MappingsTest
         final Mappings mappings = Mappings.getInstance(testEmptyMappingsUri);
         assertNotNull(mappings);
 
-        final Collection mappingCollection = mappings.getMappings();
+        final Collection<Mapping> mappingCollection = mappings.getMappings();
         assertEquals(0, mappingCollection.size());
     }
 

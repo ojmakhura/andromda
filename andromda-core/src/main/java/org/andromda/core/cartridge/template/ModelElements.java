@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -60,9 +61,9 @@ public class ModelElements
      *
      * @return Collection of all metafacades.
      */
-    public Set getAllMetafacades()
+    public Set<MetafacadeBase> getAllMetafacades()
     {
-        final Set allMetafacades = new LinkedHashSet();
+        final Set<MetafacadeBase> allMetafacades = new LinkedHashSet<MetafacadeBase>();
         for (ModelElement modelElement : modelElements)
         {
             allMetafacades.addAll(modelElement.getMetafacades());

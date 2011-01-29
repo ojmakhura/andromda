@@ -23,6 +23,7 @@ import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.TemplateObject;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.apache.commons.io.FileUtils;
@@ -140,7 +141,7 @@ public class Cartridge
         {
             try
             {
-                final Collection allMetafacades = modelElements.getAllMetafacades();
+                final Collection<MetafacadeBase> allMetafacades = modelElements.getAllMetafacades();
                 // Tell us which template is processed against how many metafacade elements
                 LOGGER.info("Processing " + template.getPath() + " with " + allMetafacades.size() + " metafacades from " + modelElements.getModelElements().size() + " model elements");
 
@@ -176,7 +177,7 @@ public class Cartridge
                             //   more than one time, then get the existing
                             //   model elements added from the last iteration
                             //   and add the new ones to that collection
-                            Collection metafacades = (Collection)templateContext.get(modelElementVariable);
+                            Collection<MetafacadeBase> metafacades = (Collection<MetafacadeBase>)templateContext.get(modelElementVariable);
                             if (metafacades != null)
                             {
                                 metafacades.addAll(modelElement.getMetafacades());
@@ -186,7 +187,7 @@ public class Cartridge
                                 metafacades = modelElement.getMetafacades();
                                 templateContext.put(
                                     modelElementVariable,
-                                    new LinkedHashSet(metafacades));
+                                    new LinkedHashSet<MetafacadeBase>(metafacades));
                             }
                         }
                     }

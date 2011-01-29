@@ -3,10 +3,10 @@ package org.andromda.core.cartridge.template;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
@@ -122,14 +122,14 @@ public class ModelElement
     /**
      * The metafacades for this model element.
      */
-    private Collection metafacades = new ArrayList();
+    private Collection<MetafacadeBase> metafacades = new ArrayList<MetafacadeBase>();
 
     /**
      * Sets the current metafacades that belong to this ModelElement instance.
      *
      * @param metafacades the collection of metafacades
      */
-    public void setMetafacades(final Collection metafacades)
+    public void setMetafacades(final Collection<MetafacadeBase> metafacades)
     {
         ExceptionUtils.checkNull("metafacades", metafacades);
         this.metafacades = metafacades;
@@ -141,7 +141,7 @@ public class ModelElement
      *
      * @return the collection of metafacades.
      */
-    public Collection getMetafacades()
+    public Collection<MetafacadeBase> getMetafacades()
     {
         return this.metafacades;
     }

@@ -176,8 +176,8 @@ public class IntrospectorTest
         private long longProperty = 222222;
         private byte byteProperty = 2;
         private NestedNestedBean nestedNestedBean = new NestedNestedBean();
-        private Collection emptyCollectionProperty = new ArrayList();
-        private Collection nonEmptyCollectionProperty = new ArrayList();
+        private Collection<Object> emptyCollectionProperty = new ArrayList<Object>();
+        private Collection<String> nonEmptyCollectionProperty = new ArrayList<String>();
         public boolean isBooleanProperty()
         {
             return booleanProperty;
@@ -230,11 +230,11 @@ public class IntrospectorTest
         {
             return nestedNestedBean;
         }
-        public Collection getEmptyCollectionProperty()
+        public Collection<Object> getEmptyCollectionProperty()
         {
             return emptyCollectionProperty;
         }
-        public Collection getNonEmptyCollectionProperty()
+        public Collection<String> getNonEmptyCollectionProperty()
         {
             this.nonEmptyCollectionProperty.add("A String");
             return nonEmptyCollectionProperty;

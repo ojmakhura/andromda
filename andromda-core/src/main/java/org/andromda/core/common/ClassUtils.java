@@ -179,7 +179,7 @@ public class ClassUtils
      * @return Collection the collection of static field values.
      * @throws IllegalAccessException - if some aspect of this static field prevents it from being added to this collection.
      */
-    public static Collection getStaticFieldValues(
+    public static Collection<Object> getStaticFieldValues(
         final Class clazz,
         final Class type)
         throws IllegalAccessException
