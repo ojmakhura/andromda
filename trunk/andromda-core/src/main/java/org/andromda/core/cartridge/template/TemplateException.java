@@ -9,6 +9,7 @@ package org.andromda.core.cartridge.template;
 public class TemplateException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs an instance of TemplateException.
      *

@@ -10,6 +10,8 @@ package org.andromda.core.transformation;
 public class XslTransformerException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of TransformerException.
      *
