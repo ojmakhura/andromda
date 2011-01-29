@@ -13,6 +13,8 @@ class CalendarComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Used to sort Calendar values, both objects are assumed to be assignable
      * to java.util.Calendar

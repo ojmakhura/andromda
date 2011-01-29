@@ -13,6 +13,8 @@ import java.util.Map;
 public final class MetafacadeCache
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs a new instance of this class.
      *

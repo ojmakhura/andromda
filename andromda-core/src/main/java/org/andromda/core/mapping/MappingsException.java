@@ -7,6 +7,8 @@ package org.andromda.core.mapping;
 public class MappingsException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of MappingsException.
      *

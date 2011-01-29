@@ -14,6 +14,8 @@ import java.util.Map;
 public class Namespace
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The namespace name.
      */

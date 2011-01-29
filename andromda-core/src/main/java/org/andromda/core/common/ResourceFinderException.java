@@ -7,6 +7,8 @@ package org.andromda.core.common;
 public class ResourceFinderException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of ResourceFinderException.
      *

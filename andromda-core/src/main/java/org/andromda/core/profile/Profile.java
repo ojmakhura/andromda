@@ -25,6 +25,8 @@ public class Profile
     extends BaseNamespaceComponent
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The shared instance of this class.
      */

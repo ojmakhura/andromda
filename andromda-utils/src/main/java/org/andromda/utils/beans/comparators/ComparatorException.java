@@ -6,6 +6,8 @@ package org.andromda.utils.beans.comparators;
 public class ComparatorException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * @param throwable
      */

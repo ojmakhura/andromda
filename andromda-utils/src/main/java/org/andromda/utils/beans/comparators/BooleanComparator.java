@@ -13,6 +13,8 @@ class BooleanComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Used to sort Boolean values, both objects are assumed
      * to be Boolean instances.

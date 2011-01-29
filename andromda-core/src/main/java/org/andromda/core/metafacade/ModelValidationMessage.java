@@ -14,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
 public class ModelValidationMessage
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs a new instance of MetafacadeValidationMessage taking a
      * <code>metafacade</code> instance and a <code>message</code>

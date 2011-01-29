@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Transformation
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The URL location of the transformation.
      */

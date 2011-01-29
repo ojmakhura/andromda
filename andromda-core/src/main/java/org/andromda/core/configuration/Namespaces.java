@@ -23,6 +23,8 @@ import org.apache.log4j.Logger;
 public class Namespaces
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The logger instance.
      */

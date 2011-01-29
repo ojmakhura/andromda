@@ -28,6 +28,8 @@ import org.apache.commons.lang.StringUtils;
 public class MetafacadeImpls
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The shared instance.
      */

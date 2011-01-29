@@ -25,6 +25,8 @@ public class BeanComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Stores the comparator mappings.
      */

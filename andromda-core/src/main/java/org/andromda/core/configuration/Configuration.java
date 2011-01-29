@@ -22,6 +22,8 @@ import org.apache.commons.lang.StringUtils;
 public class Configuration
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Gets a Configuration instance from the given <code>uri</code>.
      *
