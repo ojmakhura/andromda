@@ -11,6 +11,7 @@ package org.andromda.core.repository;
 public final class RepositoryFacadeException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructor for the RepositoryFacadeException object
      *
