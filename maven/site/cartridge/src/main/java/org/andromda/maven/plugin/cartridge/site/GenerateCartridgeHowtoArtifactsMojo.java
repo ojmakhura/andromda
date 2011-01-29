@@ -50,7 +50,7 @@ public class GenerateCartridgeHowtoArtifactsMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    private List propertyFiles;
+    private List<String> propertyFiles;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the user

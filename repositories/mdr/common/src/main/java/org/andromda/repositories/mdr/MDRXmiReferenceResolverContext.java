@@ -28,7 +28,7 @@ public class MDRXmiReferenceResolverContext
 {
     private String[] moduleSearchPaths;
     private static final Logger logger = Logger.getLogger(MDRXmiReferenceResolverContext.class);
-    private static final HashMap urlMap = new HashMap();
+    private static final HashMap<String, URL> urlMap = new HashMap<String, URL>();
 
     /**
      * Constructs an instance of this class.
@@ -62,7 +62,7 @@ public class MDRXmiReferenceResolverContext
         // the suffix without it and store it in the urlMap
         String exts = "\\.jar|\\.zip";
         String suffixWithExt = suffix.replaceAll(exts, "");
-        URL modelUrl = (URL)urlMap.get(suffixWithExt);
+        URL modelUrl = urlMap.get(suffixWithExt);
 
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)
@@ -108,7 +108,7 @@ public class MDRXmiReferenceResolverContext
     /**
      * Keeps track of the referenced models that have been logged.
      */
-    private final Collection loggedReferencedModels = new ArrayList();
+    private final Collection<URL> loggedReferencedModels = new ArrayList<URL>();
 
     /**
      * Finds a module in the module search path.

@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import org.andromda.core.common.ResourceUtils;
@@ -137,7 +136,7 @@ public class EclipseMojo
      *
      * @parameter
      */
-    private Set classpathArtifactTypes = new LinkedHashSet(Arrays.asList("jar","ejb"));
+    private Set<String> classpathArtifactTypes = new LinkedHashSet(Arrays.asList("jar","ejb"));
 
     /**
      * Whether or not transitive dependencies shall be included in any resources (i.e. .classpath
@@ -235,10 +234,9 @@ public class EclipseMojo
     {
         if (projects.isEmpty())
         {
-            final List poms = this.getPoms();
-            for (ListIterator iterator = poms.listIterator(); iterator.hasNext();)
+            final List<File> poms = this.getPoms();
+            for (File pom : poms)
             {
-                final File pom = (File)iterator.next();
                 try
                 {
                     // - first attempt to get the existing project from the session
@@ -374,7 +372,7 @@ public class EclipseMojo
             }
             else
             {
-                final List executions = plugin.getExecutions();
+                final List<PluginExecution> executions = plugin.getExecutions();
                 if (executions != null && !executions.isEmpty())
                 {
                     // - there should only be one execution so we get the first one

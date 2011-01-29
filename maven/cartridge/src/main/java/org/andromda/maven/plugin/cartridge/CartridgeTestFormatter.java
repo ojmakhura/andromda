@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
@@ -179,9 +178,8 @@ public class CartridgeTestFormatter
             this.reportWriter.println("Failures: " + this.numberOfFailures);
             this.reportWriter.println("-------------------------------------------------------------------------------");
             int ctr = 1;
-            for (final Iterator iterator = this.failures.iterator(); iterator.hasNext(); ctr++)
+            for (final Failure failure : this.failures)
             {
-                final Failure failure = (Failure)iterator.next();
                 final Throwable information = failure.information;
                 if (information instanceof AssertionFailedError)
                 {

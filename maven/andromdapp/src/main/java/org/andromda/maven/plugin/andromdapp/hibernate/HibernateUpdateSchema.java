@@ -31,7 +31,7 @@ public class HibernateUpdateSchema
      */
     protected void addArguments(
         final Map options,
-        final List arguments)
+        final List<String> arguments)
         throws Exception
     {
         final String driverClass = this.getRequiredProperty(

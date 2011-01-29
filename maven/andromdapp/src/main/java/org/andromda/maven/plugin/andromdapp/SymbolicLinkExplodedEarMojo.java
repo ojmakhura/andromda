@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -97,9 +95,8 @@ public class SymbolicLinkExplodedEarMojo
             final File earDirectory =
                 new File(this.project.getBuild().getDirectory() + '/' + project.getBuild().getFinalName());
             final Map artifacts = new LinkedHashMap();
-            for (final Iterator iterator = this.getExplodedModuleArtifacts().iterator(); iterator.hasNext();)
+            for (final Artifact artifact : this.getExplodedModuleArtifacts())
             {
-                final Artifact artifact = (Artifact)iterator.next();
                 artifacts.put(
                     artifact.getFile().getName(),
                     artifact);
@@ -274,14 +271,14 @@ public class SymbolicLinkExplodedEarMojo
      * @return all poms found.
      * @throws MojoExecutionException
      */
-    private List getPoms()
+    private List<File> getPoms()
         throws MojoExecutionException
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(this.getRootProject().getBasedir());
         scanner.setIncludes(INCLUDE_ALL_POMS);
         scanner.scan();
-        final List poms = new ArrayList();
+        final List<File> poms = new ArrayList<File>();
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {
             final File file = new File(
@@ -301,15 +298,14 @@ public class SymbolicLinkExplodedEarMojo
      * @return all module artifacts
      * @throws Exception
      */
-    private List getExplodedModuleArtifacts()
+    private List<Artifact> getExplodedModuleArtifacts()
         throws Exception
     {
-        final List artifacts = new ArrayList();
+        final List<Artifact> artifacts = new ArrayList<Artifact>();
         final MavenXpp3Reader reader = new MavenXpp3Reader();
 
-        for (final Iterator iterator = this.getPoms().iterator(); iterator.hasNext();)
+        for (final File pom : this.getPoms())
         {
-            final File pom = (File)iterator.next();
             final Model model = reader.read(new FileReader(pom));
             String groupId = model.getGroupId();
             for (Parent parent = model.getParent(); groupId == null && model.getParent() != null;

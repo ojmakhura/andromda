@@ -24,7 +24,7 @@ public class HibernateDropSchema
      */
     protected void addArguments(
         final Map options,
-        final List arguments)
+        final List<String> arguments)
     {
         final String outputPath = this.getRequiredProperty(
             options,

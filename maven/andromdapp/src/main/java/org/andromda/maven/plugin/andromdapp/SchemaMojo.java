@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -108,7 +107,7 @@ public class SchemaMojo
      * @parameter expression="${plugin.artifacts}"
      * @required
      */
-    private List pluginArtifacts;
+    private List<Artifact> pluginArtifacts;
 
     /**
      * Artifact resolver, needed to download source jars for inclusion in
@@ -171,7 +170,7 @@ public class SchemaMojo
      *
      * @parameter
      */
-    private List scripts;
+    private List<String> scripts;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -185,10 +184,10 @@ public class SchemaMojo
             AndroMDALogger.initialize();
             this.initializeClassLoaderWithJdbcDriver();
 
-            final List tasks = this.getTasks();
+            final List<String> tasks = this.getTasks();
             if (tasks != null && !tasks.isEmpty())
             {
-                final Map tasksMap = (Map)SchemaMojo.tasksCache.get(this.taskType);
+                final Map<String, Class> tasksMap = (Map<String, Class>)SchemaMojo.tasksCache.get(this.taskType);
                 if (tasksMap == null)
                 {
                     throw new MojoExecutionException('\'' + taskType +
@@ -196,9 +195,9 @@ public class SchemaMojo
                 }
 
                 this.properties.putAll(this.project.getProperties());
-                for (final Iterator iterator = this.getTasks().iterator(); iterator.hasNext();)
+                for (String task : this.getTasks())
                 {
-                    final String task = ObjectUtils.toString(iterator.next()).trim();
+                    task = ObjectUtils.toString(task.trim());
                     if (this.propertyFiles != null)
                     {
                         final int numberOfPropertyFiles = propertyFiles.length;
@@ -232,7 +231,7 @@ public class SchemaMojo
                         }
                     }
 
-                    final Set classpathElements = new LinkedHashSet(this.project.getRuntimeClasspathElements());
+                    final Set<String> classpathElements = new LinkedHashSet<String>(this.project.getRuntimeClasspathElements());
                     classpathElements.addAll(this.getProvidedClasspathElements());
                     this.initializeClasspathFromClassPathElements(classpathElements);
                     final Class type = (Class)tasksMap.get(task);
@@ -280,7 +279,7 @@ public class SchemaMojo
      *
      * @return the tasks as a List.
      */
-    private List getTasks()
+    private List<String> getTasks()
     {
         return this.tasks != null ? Arrays.asList(this.tasks.split(",")) : null;
     }
@@ -296,12 +295,11 @@ public class SchemaMojo
     private void executeScripts(final Connection connection)
         throws MojoExecutionException
     {
-        final List tasks = this.getTasks();
+        final List<String> tasks = this.getTasks();
         if (this.scripts != null && !this.scripts.isEmpty())
         {
-            for (final Iterator iterator = scripts.iterator(); iterator.hasNext();)
+            for (final String location : scripts)
             {
-                final String location = (String)iterator.next();
                 try
                 {
                     this.executeSql(
@@ -326,16 +324,15 @@ public class SchemaMojo
      * @param classpathFiles
      * @throws MalformedURLException
      */
-    protected void initializeClasspathFromClassPathElements(final Set classpathFiles)
+    protected void initializeClasspathFromClassPathElements(final Set<String> classpathFiles)
         throws MalformedURLException
     {
         // - for some reason some of the plugin dependencies are being excluded from the classloader,
         //   so we explicitly load them
         if (this.pluginArtifacts != null)
         {
-            for (final Iterator iterator = this.pluginArtifacts.iterator(); iterator.hasNext();)
+            for (final Artifact artifact : this.pluginArtifacts)
             {
-                final Artifact artifact = (Artifact)iterator.next();
                 final File artifactFile = artifact.getFile();
                 if (artifactFile != null)
                 {
@@ -344,14 +341,14 @@ public class SchemaMojo
             }
         }
 
-        final List files = new ArrayList(classpathFiles);
+        final List<String> files = new ArrayList<String>(classpathFiles);
         if (!files.isEmpty())
         {
             final URL[] classpathUrls = new URL[classpathFiles.size()];
 
             for (int ctr = 0; ctr < classpathFiles.size(); ++ctr)
             {
-                final File file = new File((String)files.get(ctr));
+                final File file = new File(files.get(ctr));
                 if (this.getLog().isDebugEnabled())
                 {
                     getLog().debug("adding to classpath '" + file + '\'');
@@ -388,16 +385,15 @@ public class SchemaMojo
      * @throws ArtifactNotFoundException
      * @throws ArtifactResolutionException
      */
-    protected List getProvidedClasspathElements()
+    protected List<String> getProvidedClasspathElements()
         throws ArtifactResolutionException, ArtifactNotFoundException
     {
-        final List classpathElements = new ArrayList();
-        final List dependencies = this.project.getDependencies();
+        final List<String> classpathElements = new ArrayList<String>();
+        final List<Dependency> dependencies = this.project.getDependencies();
         if (dependencies != null && !dependencies.isEmpty())
         {
-            for (final Iterator iterator = dependencies.iterator(); iterator.hasNext();)
+            for (final Dependency dependency : dependencies)
             {
-                final Dependency dependency = (Dependency)iterator.next();
                 if (Artifact.SCOPE_PROVIDED.equals(dependency.getScope()))
                 {
                     final String file = this.getDependencyFile(dependency);
@@ -569,12 +565,12 @@ public class SchemaMojo
     /**
      * Stores the task types.
      */
-    private static final Map tasksCache = new LinkedHashMap();
+    private static final LinkedHashMap<String, Map<String, Class>> tasksCache = new LinkedHashMap<String, Map<String, Class>>();
 
     static
     {
         // - initialize the hibernate task types
-        final Map hibernateTasks = new LinkedHashMap();
+        final Map<String, Class> hibernateTasks = new LinkedHashMap<String, Class>();
         tasksCache.put(
             "hibernate",
             hibernateTasks);

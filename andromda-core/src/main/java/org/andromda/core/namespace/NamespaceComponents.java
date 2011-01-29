@@ -350,7 +350,7 @@ public class NamespaceComponents
      */
     private Component getComponent(final String name)
     {
-        return (Component)this.components.get(name);
+        return this.components.get(name);
     }
 
     /**

@@ -12,6 +12,7 @@ import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
@@ -44,7 +45,7 @@ public abstract class AbstractAndroMDAMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    protected List propertyFiles;
+    protected List<String> propertyFiles;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the user
@@ -70,7 +71,7 @@ public abstract class AbstractAndroMDAMojo
      * @required
      * @readonly
      */
-    protected List plugins;
+    protected List<Plugin> plugins;
 
     /**
      * @parameter expression="${localRepository}"
@@ -156,7 +157,7 @@ public abstract class AbstractAndroMDAMojo
      *
      * @param propertyFiles
      */
-    public void setPropertyFiles(List propertyFiles)
+    public void setPropertyFiles(List<String> propertyFiles)
     {
         this.propertyFiles = propertyFiles;
     }
@@ -172,7 +173,7 @@ public abstract class AbstractAndroMDAMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
      */
-    protected List getPropertyFiles()
+    protected List<String> getPropertyFiles()
     {
         return this.propertyFiles;
     }
@@ -196,7 +197,7 @@ public abstract class AbstractAndroMDAMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
      */
-    protected List getPlugins()
+    protected List<Plugin> getPlugins()
     {
         return this.plugins;
     }

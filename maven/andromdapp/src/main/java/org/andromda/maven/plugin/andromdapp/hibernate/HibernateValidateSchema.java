@@ -38,7 +38,7 @@ public class HibernateValidateSchema
     /**
      * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.Map, java.util.List)
      */
-    protected void addArguments(final Map options, final List arguments) throws Exception
+    protected void addArguments(final Map options, final List<String> arguments) throws Exception
     {
         final String driverClass = this.getRequiredProperty(
                 options,

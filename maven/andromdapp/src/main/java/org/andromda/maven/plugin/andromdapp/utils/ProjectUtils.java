@@ -1,11 +1,8 @@
 package org.andromda.maven.plugin.andromdapp.utils;
 
 import java.io.File;
-
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.profiles.DefaultProfileManager;
@@ -92,9 +89,8 @@ public class ProjectUtils
         final File pom)
     {
         MavenProject foundProject = null;
-        for (final Iterator projectIterator = session.getSortedProjects().iterator(); projectIterator.hasNext();)
+        for (final MavenProject project : session.getSortedProjects())
         {
-            final MavenProject project = (MavenProject)projectIterator.next();
             final File projectPom = new File(
                     project.getBasedir(),
                     POM_FILE);

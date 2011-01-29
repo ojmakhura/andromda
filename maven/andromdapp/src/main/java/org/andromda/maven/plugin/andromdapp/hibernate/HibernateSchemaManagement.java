@@ -239,7 +239,7 @@ public abstract class HibernateSchemaManagement
      */
     protected abstract void addArguments(
         final Map options,
-        final List arguments) throws Exception;
+        final List<String> arguments) throws Exception;
 
     /**
      * Retrieves all mapping files having the given <code>extension</code>

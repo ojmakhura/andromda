@@ -21,7 +21,7 @@ public class HibernateCreateSchema
      */
     protected void addArguments(
         final Map options,
-        final List arguments)
+        final List<String> arguments)
     {
         String outputPath = this.getRequiredProperty(
             options,
