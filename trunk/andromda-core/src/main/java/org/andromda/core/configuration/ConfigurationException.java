@@ -9,6 +9,8 @@ package org.andromda.core.configuration;
 public class ConfigurationException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for ConfigurationException.
      */

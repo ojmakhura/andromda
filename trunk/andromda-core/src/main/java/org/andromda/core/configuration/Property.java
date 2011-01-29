@@ -15,6 +15,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Property
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The property name.
      */

@@ -7,6 +7,8 @@ package org.andromda.core.translation;
 public class ExpressionException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of ExpressionException.
      *

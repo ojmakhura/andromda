@@ -9,6 +9,8 @@ package org.andromda.core.profile;
 public class ProfileException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for ProfileException.
      */

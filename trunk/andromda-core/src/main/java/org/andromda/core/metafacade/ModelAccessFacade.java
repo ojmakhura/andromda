@@ -70,6 +70,7 @@ public interface ModelAccessFacade
      */
     public Collection<String> getStereotypeNames(Object modelElement);
 
+    // TODO Add typesafe Collection type
     /**
      * Finds all the model elements that have the specified <code>stereotype</code> (with any filtering
      * applied from the information provided by {@link #setPackageFilter(Filters)}).
@@ -79,6 +80,7 @@ public interface ModelAccessFacade
      */
     public Collection findByStereotype(String stereotype);
 
+    // TODO Add typesafe Collection type
     /**
      * Returns all elements from the model (with any filtering
      * applied from the information provided by {@link #setPackageFilter(Filters)}).

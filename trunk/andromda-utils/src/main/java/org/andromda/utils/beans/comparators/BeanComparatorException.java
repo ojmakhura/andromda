@@ -11,6 +11,8 @@ import org.andromda.utils.beans.BeanSorter;
 public class BeanComparatorException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * @param throwable
      */

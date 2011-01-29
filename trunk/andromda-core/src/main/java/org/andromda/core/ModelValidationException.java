@@ -9,6 +9,8 @@ package org.andromda.core;
 public class ModelValidationException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of ModelValidationException.
      *

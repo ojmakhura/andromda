@@ -9,6 +9,8 @@ package org.andromda.core.cartridge;
 public class CartridgeException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for CartridgeException.
      */

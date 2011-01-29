@@ -13,6 +13,8 @@ class CharacterComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     private Collator collator = null;
 
     /**

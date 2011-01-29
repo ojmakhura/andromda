@@ -7,6 +7,8 @@ package org.andromda.core.common;
 public class ComponentContainerException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of ComponentContainerException.
      *

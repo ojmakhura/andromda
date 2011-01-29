@@ -14,6 +14,8 @@ import org.andromda.core.common.ResourceUtils;
 public class Location
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The path of the location.
      */

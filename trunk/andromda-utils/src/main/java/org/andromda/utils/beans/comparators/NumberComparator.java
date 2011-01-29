@@ -12,6 +12,8 @@ class NumberComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Used to sort Number values, both objects are assumed
      * to be Number instances.

@@ -7,6 +7,8 @@ package org.andromda.core.translation.library;
 public class LibraryException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of LibraryException.
      *

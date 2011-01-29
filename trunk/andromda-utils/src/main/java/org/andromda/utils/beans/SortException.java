@@ -8,6 +8,8 @@ package org.andromda.utils.beans;
 public class SortException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * @param throwable
      */

@@ -10,6 +10,8 @@ package org.andromda.core.server;
 public class ServerException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for ServerServerException.
      *

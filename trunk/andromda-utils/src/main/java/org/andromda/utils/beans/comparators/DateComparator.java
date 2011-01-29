@@ -13,6 +13,8 @@ class DateComparator
     implements Comparator,
         Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Used to sort Date values, both objects are assumed to be assignable
      * to java.util.Date

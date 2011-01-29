@@ -18,6 +18,8 @@ import org.apache.commons.lang.StringUtils;
 public class Filters
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * The flag indicating whether or not all filter
      * should be applied.

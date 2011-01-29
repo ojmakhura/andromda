@@ -1,7 +1,6 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-
 import org.apache.commons.lang.StringUtils;
 
 
@@ -14,6 +13,8 @@ import org.apache.commons.lang.StringUtils;
 public class Server
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Stores the port the server should be run on.
      */

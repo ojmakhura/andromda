@@ -7,6 +7,8 @@ package org.andromda.core.templateengine;
 public class TemplateEngineException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of TemplateEngineException.
      *

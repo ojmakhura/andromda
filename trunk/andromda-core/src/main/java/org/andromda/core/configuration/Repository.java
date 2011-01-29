@@ -1,7 +1,6 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,6 +13,8 @@ import java.util.Collection;
 public class Repository
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Stores the unique name of this repository.
      */

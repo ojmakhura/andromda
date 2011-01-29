@@ -7,6 +7,8 @@ package org.andromda.core.metafacade;
 public class MetafacadeFactoryException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of MetafacadeFactoryException.
      *

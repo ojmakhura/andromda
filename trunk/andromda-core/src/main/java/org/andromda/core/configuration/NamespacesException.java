@@ -10,6 +10,8 @@ package org.andromda.core.configuration;
 public class NamespacesException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for NamespacesException.
      */

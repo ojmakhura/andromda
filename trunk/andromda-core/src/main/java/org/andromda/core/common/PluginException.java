@@ -9,6 +9,8 @@ package org.andromda.core.common;
 public class PluginException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructor for PluginException.
      *

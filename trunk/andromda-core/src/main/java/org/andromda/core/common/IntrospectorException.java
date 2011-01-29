@@ -9,6 +9,8 @@ package org.andromda.core.common;
 public class IntrospectorException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of OCLIntrospectorException taking the
      * <code>parent</code> Throwable.

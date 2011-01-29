@@ -8,6 +8,8 @@ package org.andromda.core.engine;
 public class ModelProcessorException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Constructs an instance of ModelProcessorException.
      *
