@@ -12,6 +12,7 @@ import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
 public class BeanProperties
     extends Properties
 {
+    private static final long serialVersionUID = 34L;
     private Object bean;
 
     /**

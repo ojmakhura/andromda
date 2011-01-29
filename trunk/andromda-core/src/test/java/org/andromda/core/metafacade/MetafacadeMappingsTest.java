@@ -91,11 +91,11 @@ public class MetafacadeMappingsTest
 
     static
     {
-        STEREOTYPES_1 = new ArrayList();
+        STEREOTYPES_1 = new ArrayList<String>();
         STEREOTYPES_1.add(STEREOTYPE_FINDER_METHOD);
-        STEREOTYPES_2 = new ArrayList();
+        STEREOTYPES_2 = new ArrayList<String>();
         STEREOTYPES_2.add(STEREOTYPE_ENUMERATION);
-        STEREOTYPES_3 = new ArrayList();
+        STEREOTYPES_3 = new ArrayList<String>();
         STEREOTYPES_3.add(STEREOTYPE_APPLICATION_EXCEPTION);
         STEREOTYPES_3.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
     }
@@ -206,7 +206,7 @@ public class MetafacadeMappingsTest
 
         // make sure we can't get the mapping that requires 2 stereotypes with
         // ONLY one of the stereotypes (an 'AND' scenario)
-        stereotypes = new ArrayList();
+        stereotypes = new ArrayList<String>();
         stereotypes.add(STEREOTYPE_UNEXPECTED_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -214,7 +214,7 @@ public class MetafacadeMappingsTest
             null,
             stereotypes);
         assertNull(mapping);
-        stereotypes = new ArrayList();
+        stereotypes = new ArrayList<String>();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -244,7 +244,7 @@ public class MetafacadeMappingsTest
         // make sure we can't get the mapping that requires 2 stereotypes and
         // one context
         // with only one of the stereotypes.
-        stereotypes = new ArrayList();
+        stereotypes = new ArrayList<String>();
         stereotypes.add(STEREOTYPE_APPLICATION_EXCEPTION);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_2,
@@ -286,9 +286,9 @@ public class MetafacadeMappingsTest
         assertEquals(1, mappingProperties.size());
         assertEquals(
             PROPERTY,
-            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+            (mappingProperties.iterator().next())
                 .getName());
-        assertEquals("false", ((MetafacadeMapping.Property)mappingProperties
+        assertEquals("false", (mappingProperties
             .iterator().next()).getValue());
 
         // get a property that has a value defined
@@ -305,9 +305,9 @@ public class MetafacadeMappingsTest
         assertEquals(1, mappingProperties.size());
         assertEquals(
             MAPPING_PROPERTY,
-            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+            (mappingProperties.iterator().next())
                 .getName());
-        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties
+        assertEquals("true", (mappingProperties
             .iterator().next()).getValue());
 
         // get a metafacade that has no ancestors
@@ -321,9 +321,9 @@ public class MetafacadeMappingsTest
         assertEquals(1, mappingProperties.size());
         assertEquals(
             MAPPING_PROPERTY,
-            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+            (mappingProperties.iterator().next())
                 .getName());
-        assertEquals("true", ((MetafacadeMapping.Property)mappingProperties
+        assertEquals("true", (mappingProperties
             .iterator().next()).getValue());
 
         // get a mapping by context and property
@@ -341,9 +341,9 @@ public class MetafacadeMappingsTest
         assertEquals(1, mappingProperties.size());
         assertEquals(
             MAPPING_PROPERTY,
-            ((MetafacadeMapping.Property)mappingProperties.iterator().next())
+            (mappingProperties.iterator().next())
                 .getName());
-        assertEquals("", ((MetafacadeMapping.Property)mappingProperties
+        assertEquals("", (mappingProperties
             .iterator().next()).getValue());
 
         // attempt to get a mapping that has 2 properties with one being invalid

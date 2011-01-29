@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.andromdapp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
@@ -43,9 +42,9 @@ public class Location
      * 
      * @return the paths.
      */
-    public List getPaths()
+    public List<String> getPaths()
     {
-        final List paths = new ArrayList();
+        final List<String> paths = new ArrayList<String>();
         if (this.rootPath != null && new File(this.rootPath).exists())
         {
             final DirectoryScanner scanner = new DirectoryScanner();

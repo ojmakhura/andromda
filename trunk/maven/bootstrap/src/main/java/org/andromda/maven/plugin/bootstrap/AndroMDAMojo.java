@@ -14,6 +14,7 @@ import org.andromda.core.configuration.Repository;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
@@ -50,7 +51,7 @@ public class AndroMDAMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    private List propertyFiles;
+    private List<String> propertyFiles;
 
     /**
      * Whether or not a last modified check should be performed before running
@@ -101,7 +102,7 @@ public class AndroMDAMojo
      * @required
      * @readonly
      */
-    protected List plugins;
+    protected List<Plugin> plugins;
 
     /**
      * @parameter expression="${localRepository}"
@@ -217,7 +218,7 @@ public class AndroMDAMojo
      *
      * @param propertyFiles
      */
-    public void setPropertyFiles(List propertyFiles)
+    public void setPropertyFiles(List<String> propertyFiles)
     {
         this.propertyFiles = propertyFiles;
     }
@@ -233,7 +234,7 @@ public class AndroMDAMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
      */
-    protected List getPropertyFiles()
+    protected List<String> getPropertyFiles()
     {
         return this.propertyFiles;
     }
@@ -257,7 +258,7 @@ public class AndroMDAMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
      */
-    protected List getPlugins()
+    protected List<Plugin> getPlugins()
     {
         return this.plugins;
     }

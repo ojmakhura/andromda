@@ -1,6 +1,7 @@
 package org.andromda.core.common;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
@@ -190,7 +191,7 @@ public class ClassUtils
         final Field[] fields = clazz.getFields();
         int fieldsNum = fields.length;
 
-        final List values = new ArrayList();
+        final List<Object> values = new ArrayList<Object>();
         Field field;
         int modifiers;
         for (int ctr = 0; ctr < fieldsNum; ctr++)
@@ -348,11 +349,11 @@ public class ClassUtils
      * @param clazz the class to retrieve the methods.
      * @return the loaded methods.
      */
-    public static List getAllMethods(final Class clazz)
+    public static List<Method> getAllMethods(final Class clazz)
     {
-        final Set methods = new LinkedHashSet();
+        final Set<Method> methods = new LinkedHashSet<Method>();
         loadMethods(clazz, methods);
-        return new ArrayList(methods);
+        return new ArrayList<Method>(methods);
     }
 
     /**
@@ -364,7 +365,7 @@ public class ClassUtils
      */
     private static void loadMethods(
         final Class clazz,
-        final Set methods)
+        final Set<Method> methods)
     {
         methods.addAll(Arrays.asList(clazz.getDeclaredMethods()));
         if (clazz.getSuperclass() != null)

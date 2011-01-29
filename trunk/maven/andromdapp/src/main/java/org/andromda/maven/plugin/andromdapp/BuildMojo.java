@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.lang.reflect.Method;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.andromda.maven.plugin.andromdapp.utils.Projects;
 import org.apache.commons.lang.ObjectUtils;
@@ -88,7 +85,7 @@ public class BuildMojo
      *
      * @parameter
      */
-    private List goals = new ArrayList(Arrays.asList("install"));
+    private List<String> goals = new ArrayList(Arrays.asList("install"));
 
     /**
      * The string used to quite the console;
@@ -219,7 +216,7 @@ public class BuildMojo
                             if (this.project != null && !executed && input.trim().length() > 0)
                             {
                                 executed = true;
-                                final List goals = Arrays.asList(input.split("\\s+"));
+                                final List<String> goals = Arrays.asList(input.split("\\s+"));
                                 this.executeModules(
                                     StringUtils.join(
                                         this.project.getModules().iterator(),
@@ -284,7 +281,7 @@ public class BuildMojo
     {
         this.printLine();
         this.printTextWithLine("| ------------- execution properties ------------- |");
-        for (final Iterator iterator = this.executionProperties.keySet().iterator(); iterator.hasNext();)
+        for (final Iterator<Object> iterator = this.executionProperties.keySet().iterator(); iterator.hasNext();)
         {
             final String name = (String)iterator.next();
             System.out.println("    " + name + " = " + this.executionProperties.getProperty(name));
@@ -391,7 +388,7 @@ public class BuildMojo
      */
     private boolean executeModules(
         final String modules,
-        final List goals,
+        final List<String> goals,
         boolean sortProjects)
         throws MojoExecutionException
     {
@@ -403,10 +400,10 @@ public class BuildMojo
         {
             if (!sortProjects)
             {
-                for (final Iterator iterator = projects.keySet().iterator(); iterator.hasNext();)
+                for (final Iterator<MavenProject> iterator = projects.keySet().iterator(); iterator.hasNext();)
                 {
                     final MavenProject project = (MavenProject)iterator.next();
-                    List projectGoals;
+                    List<String> projectGoals;
                     if (goals == null)
                     {
                         projectGoals = (List)projects.get(project);
@@ -445,8 +442,8 @@ public class BuildMojo
      * @throws BuildFailureException
      */
     private void executeProjects(
-        final Collection projects,
-        final List goals)
+        final Collection<MavenProject> projects,
+        final List<String> goals)
         throws MojoExecutionException
     {
         try
@@ -459,10 +456,9 @@ public class BuildMojo
             {
                 this.getLog().info("Reactor build order:");
             }
-            final ReactorManager reactorManager = new ReactorManager(new ArrayList(projects));
-            for (final Iterator iterator = reactorManager.getSortedProjects().iterator(); iterator.hasNext();)
+            final ReactorManager reactorManager = new ReactorManager(new ArrayList<MavenProject>(projects));
+            for (final MavenProject project : reactorManager.getSortedProjects())
             {
-                final MavenProject project = (MavenProject)iterator.next();
                 this.getLog().info("  " + project.getName());
             }
 
@@ -506,9 +502,9 @@ public class BuildMojo
 
         if (!poms.isEmpty())
         {
-            for (final Iterator iterator = poms.keySet().iterator(); iterator.hasNext();)
+            for (final Iterator<File> iterator = poms.keySet().iterator(); iterator.hasNext();)
             {
-                final File pom = (File)iterator.next();
+                final File pom = iterator.next();
                 try
                 {
                     final MavenProject project = ProjectUtils.getProject(
@@ -561,7 +557,7 @@ public class BuildMojo
             for (int ctr = 0; ctr < numberOfModules; ctr++)
             {
                 String module = modules[ctr].trim();
-                final List goalsList = new ArrayList();
+                final List<String> goalsList = new ArrayList<String>();
                 if (module.contains(goalPrefix))
                 {
                     final String[] goals = module.replaceAll(

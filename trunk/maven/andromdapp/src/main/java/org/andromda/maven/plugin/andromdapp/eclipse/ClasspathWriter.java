@@ -2,15 +2,12 @@ package org.andromda.maven.plugin.andromdapp.eclipse;
 
 import java.io.File;
 import java.io.FileWriter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
-
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
@@ -63,14 +60,14 @@ public class ClasspathWriter
      * @throws Exception
      */
     public void write(
-        final List projects,
+        final List<MavenProject> projects,
         final String repositoryVariableName,
         final ArtifactFactory artifactFactory,
         final ArtifactResolver artifactResolver,
         final ArtifactRepository localRepository,
         final ArtifactMetadataSource artifactMetadataSource,
-        final Set classpathArtifactTypes,
-        final List remoteRepositories,
+        final Set<String> classpathArtifactTypes,
+        final List<ArtifactRepository> remoteRepositories,
         final boolean resolveTransitiveDependencies,
         final Variable[] variables,
         final String merge)
@@ -83,10 +80,9 @@ public class ClasspathWriter
 
         writer.startElement("classpath");
 
-        final Set projectArtifactIds = new LinkedHashSet();
-        for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+        final Set<String> projectArtifactIds = new LinkedHashSet<String>();
+        for (final MavenProject project : projects)
         {
-            final MavenProject project = (MavenProject)iterator.next();
             final Artifact projectArtifact =
                 artifactFactory.createArtifact(
                     project.getGroupId(),
@@ -100,24 +96,21 @@ public class ClasspathWriter
         // - write the source roots for the root project (if they are any)
         this.writeSourceRoots(this.project, rootDirectory, writer);
 
-        final Set allArtifacts = new LinkedHashSet(this.project.createArtifacts(
+        final Set<Artifact> allArtifacts = new LinkedHashSet<Artifact>(this.project.createArtifacts(
             artifactFactory,
             null,
             null));
-        for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+        for (final MavenProject project : projects)
         {
-            final MavenProject project = (MavenProject)iterator.next();
             this.writeSourceRoots(project, rootDirectory, writer);
-            final Set artifacts = project.createArtifacts(
+            final Set<Artifact> artifacts = project.createArtifacts(
                     artifactFactory,
                     null,
                     null);
 
             // - get the direct dependencies
-            for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
+            for (final Artifact artifact : artifacts)
             {
-                final Artifact artifact = (Artifact)artifactIterator.next();
-
                 // - don't attempt to resolve the artifact if its part of the project (we
                 //   infer this if it has the same id has one of the projects or is in
                 //   the same groupId).
@@ -138,15 +131,14 @@ public class ClasspathWriter
         }
 
         // - remove the project artifacts
-        for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+        for (final MavenProject project : projects)
         {
-            final MavenProject project = (MavenProject)iterator.next();
             final Artifact projectArtifact = project.getArtifact();
             if (projectArtifact != null)
             {
-                for (final Iterator artifactIterator = allArtifacts.iterator(); artifactIterator.hasNext();)
+                for (final Iterator<Artifact> artifactIterator = allArtifacts.iterator(); artifactIterator.hasNext();)
                 {
-                    final Artifact artifact = (Artifact)artifactIterator.next();
+                    final Artifact artifact = artifactIterator.next();
                     final String projectId = projectArtifact.getArtifactId();
                     final String projectGroupId = projectArtifact.getGroupId();
                     final String artifactId = artifact.getArtifactId();
@@ -187,10 +179,9 @@ public class ClasspathWriter
             allArtifacts.addAll(result.getArtifacts());
         }
 
-        final List artifactPathList = new ArrayList(allArtifacts);
-        for (final ListIterator iterator = artifactPathList.listIterator(); iterator.hasNext();)
+        final List<String> artifactPathList = new ArrayList<String>();
+        for (final Artifact artifact : allArtifacts)
         {
-            final Artifact artifact = (Artifact)iterator.next();
             if (classpathArtifactTypes.contains(artifact.getType()))
             {
                 final File artifactFile = artifact.getFile();
@@ -213,11 +204,7 @@ public class ClasspathWriter
                         }
                     }
                 }
-                iterator.set(path);
-            }
-            else
-            {
-                iterator.remove();
+                artifactPathList.add(path);
             }
         }
 
@@ -225,11 +212,10 @@ public class ClasspathWriter
         Collections.sort(artifactPathList);
 
         // - get rid of any duplicates
-        final Set artifactPaths = new LinkedHashSet(artifactPathList);
+        final Set<String> artifactPaths = new LinkedHashSet<String>(artifactPathList);
 
-        for (final Iterator iterator = artifactPaths.iterator(); iterator.hasNext();)
+        for (String path : artifactPaths)
         {
-            String path = (String)iterator.next();
             if (path.startsWith(VAR_PREFIX))
             {
                 this.writeClasspathEntry(
@@ -296,9 +282,9 @@ public class ClasspathWriter
     {
         // - strip the drive prefix (so we don't have to worry about replacement dependent on case)
         rootDirectory = rootDirectory.replaceFirst(DRIVE_PATTERN, "");
-        for (final Iterator sourceIterator = project.getCompileSourceRoots().iterator(); sourceIterator.hasNext();)
+        for (final Iterator<String> sourceIterator = project.getCompileSourceRoots().iterator(); sourceIterator.hasNext();)
         {
-            final String sourceRoot = ResourceUtils.normalizePath((String)sourceIterator.next()).replaceFirst(DRIVE_PATTERN, "");
+            final String sourceRoot = ResourceUtils.normalizePath(sourceIterator.next()).replaceFirst(DRIVE_PATTERN, "");
             if (new File(sourceRoot).isDirectory())
             {
                 String sourceRootPath = StringUtils.replace(

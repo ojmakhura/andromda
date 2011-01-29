@@ -164,7 +164,7 @@ public abstract class AbstractConfigurationMojo
      * @param classpathFiles 
      * @throws MalformedURLException
      */
-    protected void initializeClasspathFromClassPathElements(final List classpathFiles)
+    protected void initializeClasspathFromClassPathElements(final List<String> classpathFiles)
         throws MalformedURLException
     {
         if (classpathFiles != null && !classpathFiles.isEmpty())
@@ -173,7 +173,7 @@ public abstract class AbstractConfigurationMojo
 
             for (int ctr = 0; ctr < classpathFiles.size(); ++ctr)
             {
-                final File file = new File((String)classpathFiles.get(ctr));
+                final File file = new File(classpathFiles.get(ctr));
                 if (this.getLog().isDebugEnabled())
                 {
                     getLog().debug("adding to classpath '" + file + '\'');
@@ -201,14 +201,14 @@ public abstract class AbstractConfigurationMojo
     {
         if (pluginArtifactId != null)
         {
-            final List plugins = this.getPlugins();
+            final List<Plugin> plugins = this.getPlugins();
             if (plugins != null)
             {
-                for (final Plugin plugin : (Iterable<Plugin>) plugins)
+                for (final Plugin plugin : plugins)
                 {
                     if (pluginArtifactId.equals(plugin.getArtifactId()))
                     {
-                        final List dependencies = plugin.getDependencies();
+                        final List<Dependency> dependencies = plugin.getDependencies();
                         if (dependencies != null)
                         {
                             for (Dependency dependency : plugin.getDependencies())
@@ -224,6 +224,8 @@ public abstract class AbstractConfigurationMojo
         }
     }
 
+    // Can't do anything about raw Collection types in MavenProject dependency
+    @SuppressWarnings("unchecked")
     /**
      * Adds a dependency to the current project's dependencies.
      *
@@ -269,7 +271,7 @@ public abstract class AbstractConfigurationMojo
      *
      * @return Returns the propertyFiles.
      */
-    protected abstract List getPropertyFiles();
+    protected abstract List<String> getPropertyFiles();
 
     /**
      * Gets the current settings of the project.
@@ -292,7 +294,7 @@ public abstract class AbstractConfigurationMojo
      * @required
      * @readonly
      */
-    protected abstract List getPlugins();
+    protected abstract List<Plugin> getPlugins();
 
     /**
      * Gets the current local repository instance.

@@ -11,6 +11,7 @@ import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
 import org.andromda.translation.ocl.testsuite.TranslationTestProcessor;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
@@ -77,7 +78,7 @@ public class TranslationLibraryTestMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    private List propertyFiles;
+    private List<String> propertyFiles;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the user
@@ -103,7 +104,7 @@ public class TranslationLibraryTestMojo
      * @required
      * @readonly
      */
-    protected List plugins;
+    protected List<Plugin> plugins;
 
     /**
      * @parameter expression="${localRepository}"
@@ -206,7 +207,7 @@ public class TranslationLibraryTestMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
      */
-    protected List getPropertyFiles()
+    protected List<String> getPropertyFiles()
     {
         return this.propertyFiles;
     }
@@ -230,7 +231,7 @@ public class TranslationLibraryTestMojo
     /**
      * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
      */
-    protected List getPlugins()
+    protected List<Plugin> getPlugins()
     {
         return this.plugins;
     }

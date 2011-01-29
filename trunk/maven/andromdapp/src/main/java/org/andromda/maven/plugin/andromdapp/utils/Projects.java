@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public class Projects
 {
-    private Collection projects = new ArrayList();
+    private Collection<String> projects = new ArrayList<String>();
 
     /**
      * The shared instance of this class.

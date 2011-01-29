@@ -271,14 +271,14 @@ public final class Introspector
     {
         Method writeMethod = null;
         final Class objectClass = object.getClass();
-        Map<String, Method> classWriteMethods = (Map<String, Method>)this.writeMethodsCache.get(objectClass);
+        Map<String, Method> classWriteMethods = this.writeMethodsCache.get(objectClass);
         if (classWriteMethods == null)
         {
-            classWriteMethods = new HashMap();
+            classWriteMethods = new HashMap<String, Method>();
         }
         else
         {
-            writeMethod = (Method)classWriteMethods.get(name);
+            writeMethod = classWriteMethods.get(name);
         }
         if (writeMethod == null)
         {
@@ -336,7 +336,7 @@ public final class Introspector
     /**
      * Cache for a class's read methods.
      */
-    private final Map readMethodsCache = new HashMap();
+    private final Map<Class, Map<String, Method>> readMethodsCache = new HashMap<Class, Map<String, Method>>();
 
     /**
      * Gets the readable method for the property.
@@ -351,14 +351,14 @@ public final class Introspector
     {
         Method readMethod = null;
         final Class objectClass = object.getClass();
-        Map classReadMethods = (Map)this.readMethodsCache.get(objectClass);
+        Map<String, Method> classReadMethods = this.readMethodsCache.get(objectClass);
         if (classReadMethods == null)
         {
-            classReadMethods = new HashMap();
+            classReadMethods = new HashMap<String, Method>();
         }
         else
         {
-            readMethod = (Method)classReadMethods.get(name);
+            readMethod = classReadMethods.get(name);
         }
         if (readMethod == null)
         {
@@ -402,14 +402,14 @@ public final class Introspector
         final String name)
     {
         PropertyDescriptor propertyDescriptor = null;
-        Map<String, PropertyDescriptor> classPropertyDescriptors = (Map<String, PropertyDescriptor>)this.propertyDescriptorsCache.get(type);
+        Map<String, PropertyDescriptor> classPropertyDescriptors = this.propertyDescriptorsCache.get(type);
         if (classPropertyDescriptors == null)
         {
             classPropertyDescriptors = new HashMap<String, PropertyDescriptor>();
         }
         else
         {
-            propertyDescriptor = (PropertyDescriptor)classPropertyDescriptors.get(name);
+            propertyDescriptor = classPropertyDescriptors.get(name);
         }
 
         if (propertyDescriptor == null)

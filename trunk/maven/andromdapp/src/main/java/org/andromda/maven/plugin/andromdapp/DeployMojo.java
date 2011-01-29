@@ -1,11 +1,8 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -99,11 +96,10 @@ public class DeployMojo
                                 this.getLog().info("Removing exploded artifact: " + deployFile);
                                 FileUtils.deleteDirectory(deployFile);
                             }
-                            final List deployFiles = this.getAdditionalFiles();
+                            final List<File> deployFiles = this.getAdditionalFiles();
                             deployFiles.add(0, artifactFile);
-                            for (final Iterator iterator = deployFiles.iterator(); iterator.hasNext();)
+                            for (final File file : deployFiles)
                             {
-                                final File file = (File)iterator.next();
                                 this.getLog().info("Deploying file " + file + " to " + this.deployLocation);
                                 FileUtils.copyFileToDirectory(
                                     file,
@@ -137,7 +133,7 @@ public class DeployMojo
      * @return all poms found.
      * @throws MojoExecutionException
      */
-    private List getAdditionalFiles()
+    private List<File> getAdditionalFiles()
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(this.project.getBuild().getDirectory());
@@ -145,7 +141,7 @@ public class DeployMojo
         scanner.setExcludes(this.excludes);
         scanner.scan();
 
-        final List files = new ArrayList();
+        final List<File> files = new ArrayList<File>();
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {
             final File file = new File(

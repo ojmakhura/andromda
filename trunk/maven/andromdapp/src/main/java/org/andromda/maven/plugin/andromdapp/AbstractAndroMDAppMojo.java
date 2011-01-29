@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import org.andromda.core.common.ResourceUtils;
@@ -12,9 +11,9 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.shared.filtering.PropertyUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
+import org.apache.maven.shared.filtering.PropertyUtils;
 import org.codehaus.plexus.util.InterpolationFilterReader;
 
 /**
@@ -55,7 +54,7 @@ public abstract class AbstractAndroMDAppMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    protected List propertyFiles;
+    protected List<String> propertyFiles;
     
     /**
      * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
@@ -106,21 +105,19 @@ public abstract class AbstractAndroMDAppMojo
         properties.putAll(this.project.getProperties());
         if (this.propertyFiles != null)
         {
-            for (final Iterator iterator = this.propertyFiles.iterator(); iterator.hasNext();)
+            for (final String propertiesFile : this.propertyFiles)
             {
-                final String propertiesFile = (String)iterator.next();
                 final Properties projectProperties = PropertyUtils.loadPropertyFile(
                         new File(propertiesFile),
                         true,
                         true);
-    
                 properties.putAll(projectProperties);
             }
         }
 
-        for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+        for (final Object propertyObject : properties.keySet())
         {
-            final String property = (String)iterator.next();
+            final String property = (String)propertyObject;
             final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)));
             properties.put(property, value);
         }

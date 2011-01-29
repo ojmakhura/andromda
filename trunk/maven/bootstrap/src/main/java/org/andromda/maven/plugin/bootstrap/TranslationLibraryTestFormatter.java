@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
@@ -151,7 +150,7 @@ public class TranslationLibraryTestFormatter
                 throwable));
     }
 
-    private Collection failures = new ArrayList();
+    private Collection<Failure> failures = new ArrayList<Failure>();
 
     /**
      * Signifies the test suite ended and returns the summary of the
@@ -170,9 +169,8 @@ public class TranslationLibraryTestFormatter
         summary.append(newLine);
         this.reportWriter.print(summary);
 
-        for (final Iterator iterator = this.failures.iterator(); iterator.hasNext();)
+        for (final Failure failure : this.failures)
         {
-            final Failure failure = (Failure)iterator.next();
             final Throwable information = failure.information;
             if (information instanceof AssertionFailedError)
             {

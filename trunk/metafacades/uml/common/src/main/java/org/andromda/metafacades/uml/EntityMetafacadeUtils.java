@@ -244,6 +244,7 @@ public class EntityMetafacadeUtils
         final Entity entity,
         final boolean follow)
     {
+        // TODO Entity.getAttributes returns List<? extends AttributeFacade>, currently unchecked conversion
         final Collection attributes = new ArrayList(entity.getAttributes());
         MetafacadeUtils.filterByStereotype(
             attributes,

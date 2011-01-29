@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.andromdapp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.andromda.maven.plugin.andromdapp.utils.Projects;
@@ -98,12 +97,12 @@ public class MavenExecuteMojo
         {
             try
             {
-                final List projects = this.collectProjects();
+                final List<MavenProject> projects = this.collectProjects();
 
                 // - only execute if we have some projects
                 if (!projects.isEmpty())
                 {
-                    final List goals = this.session.getGoals();
+                    final List<String> goals = this.session.getGoals();
                     if (goals.isEmpty())
                     {
                         if (this.project != null)
@@ -122,10 +121,8 @@ public class MavenExecuteMojo
                         {
                             this.getLog().info("Reactor build order:");
                         }
-                        for (final Iterator iterator = reactorManager.getSortedProjects().iterator();
-                            iterator.hasNext();)
+                        for (final MavenProject project : reactorManager.getSortedProjects())
                         {
-                            final MavenProject project = (MavenProject)iterator.next();
                             this.getLog().info("  " + project.getName());
                         }
                         final MavenSession projectSession =
@@ -155,10 +152,8 @@ public class MavenExecuteMojo
                             {
                                 this.getLog().info("Reactor build order:");
                             }
-                            for (final Iterator projectIterator = reactorManager.getSortedProjects().iterator();
-                                projectIterator.hasNext();)
+                            for (final MavenProject project : reactorManager.getSortedProjects())
                             {
-                                final MavenProject project = (MavenProject)projectIterator.next();
                                 this.getLog().info("  " + project.getName());
                             }
 
@@ -201,17 +196,15 @@ public class MavenExecuteMojo
      *         the goals).
      * @throws MojoExecutionException
      */
-    private List collectProjects()
+    private List<MavenProject> collectProjects()
         throws MojoExecutionException
     {
-        final List projects = new ArrayList();
-        final List poms = this.getPoms();
+        final List<MavenProject> projects = new ArrayList<MavenProject>();
+        final List<File> poms = this.getPoms();
         if (!poms.isEmpty())
         {
-            for (final Iterator iterator = poms.iterator(); iterator.hasNext();)
+            for (final File pom : poms)
             {
-                final File pom = (File)iterator.next();
-
                 // - first attempt to get the existing project from the session
                 try
                 {
@@ -250,14 +243,14 @@ public class MavenExecuteMojo
      *
      * @return the list of module poms
      */
-    private List getPoms()
+    private List<File> getPoms()
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(this.baseDirectory);
         scanner.setIncludes(includes);
         scanner.setExcludes(excludes);
         scanner.scan();
-        final List poms = new ArrayList();
+        final List<File> poms = new ArrayList<File>();
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {
             poms.add(new File(

@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,16 +86,15 @@ public class ScriptClassGeneratorMojo
             final ScriptClassGenerator generator = ScriptClassGenerator.getInstance(this.scriptWrapper);
             if (this.locations != null)
             {
-                final List classpathElements = new ArrayList(this.getProvidedClasspathElements());
+                final List<String> classpathElements = new ArrayList<String>(this.getProvidedClasspathElements());
                 classpathElements.addAll(this.project.getRuntimeClasspathElements());
                 this.initializeClassLoader(classpathElements);
                 for (int ctr = 0; ctr < locations.length; ctr++)
                 {
                     final Location location = locations[ctr];
                     String rootPath = location.getRootPath();
-                    for (final Iterator iterator = location.getPaths().iterator(); iterator.hasNext();)
+                    for (final String path : location.getPaths())
                     {
-                        final String path = (String)iterator.next();
                         final int extensionIndex = path.lastIndexOf(JAVA_EXTENSION);
                         if (extensionIndex != -1)
                         {
@@ -130,10 +128,10 @@ public class ScriptClassGeneratorMojo
     protected List<String> getProvidedClasspathElements()
     {
         final List<String> classpathElements = new ArrayList<String>();
-        for (final Iterator iterator = this.project.getDependencies().iterator(); iterator.hasNext();)
+        for (final Object dependency : this.project.getDependencies())
         {
             final Artifact artifact = this.getArtifact(
-                (Dependency)iterator.next(),
+                (Dependency)dependency,
                 Artifact.SCOPE_PROVIDED);
             if (artifact != null)
             {

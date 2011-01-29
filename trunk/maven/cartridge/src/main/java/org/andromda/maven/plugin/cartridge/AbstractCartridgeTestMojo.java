@@ -73,7 +73,7 @@ public abstract class AbstractCartridgeTestMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    protected List propertyFiles;
+    protected List<String> propertyFiles;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the user

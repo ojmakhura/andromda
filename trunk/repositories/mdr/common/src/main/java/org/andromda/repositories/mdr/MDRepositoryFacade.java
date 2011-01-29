@@ -248,7 +248,7 @@ public class MDRepositoryFacade
     /**
      * Stores the xmiReader instances.
      */
-    private Map xmiReaderFactoryInstances = new HashMap();
+    private Map<String, XMIReaderFactory> xmiReaderFactoryInstances = new HashMap<String, XMIReaderFactory>();
 
     /**
      * Retrieves the javax.jmi.xmi.XmiReader implementation.
@@ -261,7 +261,7 @@ public class MDRepositoryFacade
         throws InstantiationException, IllegalAccessException
     {
         XMIReaderFactory factory =
-            (org.netbeans.api.xmi.XMIReaderFactory)this.xmiReaderFactoryInstances.get(this.xmiReaderFactory);
+            this.xmiReaderFactoryInstances.get(this.xmiReaderFactory);
         if (factory == null)
         {
             if (StringUtils.isBlank(this.xmiReaderFactory))

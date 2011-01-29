@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -243,10 +242,9 @@ public class XslTransformer
         org.dom4j.Document document = reader.read(new ByteArrayInputStream(documentBuffer));
         
         // List elements = document.selectNodes("//*[contains(text(),'%module%')]");
-        List elements = document.selectNodes("//*");
-        for (final Iterator it = elements.iterator(); it.hasNext(); )
+        List<Element> elements = document.selectNodes("//*");
+        for (final Element element : elements)
         {
-            Element element = (Element)it.next();
             if (StringUtils.contains(element.getText(), "%module%"))
             {
                 element.setText(
@@ -259,9 +257,8 @@ public class XslTransformer
         elements.clear();
         
         elements = document.selectNodes("//*[contains(@*,'%module%')]");
-        for (final Iterator it = elements.iterator(); it.hasNext(); )
+        for (final Element element : elements)
         {
-            Element element = (Element)it.next();
             element.addAttribute(
                     "name", 
                     StringUtils.replace(
