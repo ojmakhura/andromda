@@ -35,6 +35,8 @@ public class MetafacadeMappings
     extends BaseNamespaceComponent
     implements Serializable
 {
+    private static final long serialVersionUID = 34L;
+
     /**
      * Holds the references to the child MetafacadeMapping instances.
      */
@@ -114,7 +116,7 @@ public class MetafacadeMappings
         if (metafacadeClass != null)
         {
             metafacadeInterface = metafacadeClass;
-            final Collection<Class> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
+            final List<Class> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
             if (interfaces != null && !interfaces.isEmpty())
             {
                 metafacadeInterface = interfaces.iterator().next();
@@ -258,7 +260,7 @@ public class MetafacadeMappings
             if (StringUtils.isNotBlank(pattern))
             {
                 hierarchy = new ArrayList<String>();
-                Collection<Class> metafacadeInterfaces = ClassUtils.getAllInterfaces(mappingObject.getClass());
+                List<Class> metafacadeInterfaces = ClassUtils.getAllInterfaces(mappingObject.getClass());
                 for (final Class metafacadeInterface : metafacadeInterfaces)
                 {
                     final String packageName = ClassUtils.getPackageName(metafacadeInterface);

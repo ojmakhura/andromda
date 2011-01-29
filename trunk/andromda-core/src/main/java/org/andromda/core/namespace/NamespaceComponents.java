@@ -314,7 +314,7 @@ public class NamespaceComponents
     /**
      * Stores the actual component definitions for this namespace registry.
      */
-    private final Map components = new LinkedHashMap();
+    private final Map<String, Component> components = new LinkedHashMap<String, Component>();
 
     /**
      * Adds a new component to this namespace registry.

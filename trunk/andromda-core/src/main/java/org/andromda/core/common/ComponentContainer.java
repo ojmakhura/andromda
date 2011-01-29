@@ -279,9 +279,9 @@ public class ComponentContainer
         return StringUtils.trimToEmpty(contents);
     }
 
+    // TODO Convert to generic type checking using template values Collection<T>
     /**
      * Finds all components having the given <code>type</code>.
-     *
      * @param type the component type.
      * @return Collection all components
      */
@@ -306,6 +306,33 @@ public class ComponentContainer
         }
         return componentsOfType;
     }
+
+    /*
+     * Finds all components having the given <code>type</code>.
+     * @param type the component type.
+     * @return Collection all components
+    public Collection<T> findComponentsOfType(final T type)
+    {
+        final Collection<Object> components = new ArrayList<Object>(this.container.values());
+        final Collection<Object> containerInstances = this.container.values();
+        for (final Object component : containerInstances)
+        {
+            if (component instanceof ComponentContainer)
+            {
+                components.addAll(((ComponentContainer) component).container.values());
+            }
+        }
+        final Collection<T> componentsOfType = new ArrayList<T>();
+        for (final Object component : components)
+        {
+            if (component.getClass().equals(type.getClass()))
+            {
+                componentsOfType.add((T) component);
+            }
+        }
+        return componentsOfType;
+    }
+     */
 
     /**
      * Unregisters the component in this container with a unique (within this

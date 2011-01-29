@@ -43,7 +43,7 @@ public class Model
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(Object)
      */
-    public Collection getStereotypeNames(Object modelElement)
+    public Collection<String> getStereotypeNames(Object modelElement)
     {
         return null;
     }

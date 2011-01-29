@@ -36,9 +36,9 @@ public class LibraryTest
         throws Exception
     {
         NamespaceComponents.instance().discover();
-        Collection librarys = ComponentContainer.instance().findComponentsOfType(Library.class);
+        Collection<Library> librarys = ComponentContainer.instance().findComponentsOfType(Library.class);
         assertNotNull(librarys);
-        this.library = (Library)librarys.iterator().next();
+        this.library = librarys.iterator().next();
         this.library.initialize();
     }
 

@@ -35,7 +35,7 @@ public interface Plugin
      *
      * @return a collection of TemplateObjects.
      */
-    public Collection getTemplateObjects();
+    public Collection<TemplateObject> getTemplateObjects();
 
     /**
      * Gets the TemplateEngine which implements the template processing.

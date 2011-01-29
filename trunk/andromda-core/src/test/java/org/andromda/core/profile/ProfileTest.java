@@ -24,12 +24,12 @@ public class ProfileTest
         throws Exception
     {
         NamespaceComponents.instance().discover();
-        Collection profiles = ComponentContainer.instance().findComponentsOfType(Profile.class);
+        Collection<Profile> profiles = ComponentContainer.instance().findComponentsOfType(Profile.class);
         assertNotNull(profiles);
         assertEquals(
             1,
             profiles.size());
-        Profile profile = (Profile)profiles.iterator().next();
+        Profile profile = profiles.iterator().next();
         Profile.instance().setNamespace(profile.getNamespace());
     }
 

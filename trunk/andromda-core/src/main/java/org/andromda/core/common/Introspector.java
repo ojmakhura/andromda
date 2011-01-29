@@ -256,7 +256,7 @@ public final class Introspector
     /**
      * Cache for a class's write methods.
      */
-    private final Map writeMethodsCache = new HashMap();
+    private final Map<Class, Map<String, Method>> writeMethodsCache = new HashMap<Class, Map<String, Method>>();
 
     /**
      * Gets the writable method for the property.
@@ -271,7 +271,7 @@ public final class Introspector
     {
         Method writeMethod = null;
         final Class objectClass = object.getClass();
-        Map classWriteMethods = (Map)this.writeMethodsCache.get(objectClass);
+        Map<String, Method> classWriteMethods = (Map<String, Method>)this.writeMethodsCache.get(objectClass);
         if (classWriteMethods == null)
         {
             classWriteMethods = new HashMap();
@@ -382,7 +382,7 @@ public final class Introspector
     /**
      * The cache of property descriptors.
      */
-    private final Map propertyDescriptorsCache = new HashMap();
+    private final Map<Class, Map<String, PropertyDescriptor>> propertyDescriptorsCache = new HashMap<Class, Map<String, PropertyDescriptor>>();
 
     /**
      * The pattern for property names.
@@ -402,10 +402,10 @@ public final class Introspector
         final String name)
     {
         PropertyDescriptor propertyDescriptor = null;
-        Map classPropertyDescriptors = (Map)this.propertyDescriptorsCache.get(type);
+        Map<String, PropertyDescriptor> classPropertyDescriptors = (Map<String, PropertyDescriptor>)this.propertyDescriptorsCache.get(type);
         if (classPropertyDescriptors == null)
         {
-            classPropertyDescriptors = new HashMap();
+            classPropertyDescriptors = new HashMap<String, PropertyDescriptor>();
         }
         else
         {
@@ -469,7 +469,7 @@ public final class Introspector
      * Prevents stack-over-flows by storing the objects that
      * are currently being evaluated within {@link #internalGetProperty(Object, String)}.
      */
-    private final Map evaluatingObjects = new HashMap();
+    private final Map<Object, String> evaluatingObjects = new HashMap<Object, String>();
 
     /**
      * Attempts to get the value of the property with <code>name</code> on the

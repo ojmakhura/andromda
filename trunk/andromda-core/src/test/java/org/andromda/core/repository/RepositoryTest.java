@@ -37,9 +37,9 @@ public class RepositoryTest
      */
     public void testGetImplementation()
     {
-        final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
+        final Collection<Repository> repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
         assertFalse(repositories.isEmpty());
-        Repository repository = (Repository)repositories.iterator().next();
+        Repository repository = repositories.iterator().next();
         assertNotNull(repository.getImplementation());
         assertEquals(
             MockRepository.class,

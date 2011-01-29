@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import junit.framework.TestCase;
+import org.andromda.core.metafacade.MetafacadeMapping.Property;
 import org.andromda.core.metafacade.MetafacadeMapping.PropertyGroup;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.apache.commons.collections.CollectionUtils;
@@ -42,17 +43,17 @@ public class MetafacadeMappingsTest
     private static final String METAFACADE_1 = "org.andromda.core.metafacade.Metafacade1";
     private static final String METAFACADE_IMPL_1 = "org.andromda.core.metafacade.Metafacade1Impl";
     private static final Object MAPPING_OBJECT_1 = new MappingObject1();
-    private static final List STEREOTYPES_1;
+    private static final List<String> STEREOTYPES_1;
 
     private static final String METAFACADE_2 = "org.andromda.core.metafacade.Metafacade2";
     private static final String METAFACADE_IMPL_2 = "org.andromda.core.metafacade.Metafacade2Impl";
     private static final Object MAPPING_OBJECT_2 = new MappingObject2();
-    private static final List STEREOTYPES_2;
+    private static final List<String> STEREOTYPES_2;
 
     private static final String METAFACADE_3 = "org.andromda.core.metafacade.Metafacade3";
     private static final String METAFACADE_IMPL_3 = "org.andromda.core.metafacade.Metafacade3Impl";
     private static final Object MAPPING_OBJECT_3 = new MappingObject3();
-    private static final List STEREOTYPES_3;
+    private static final List<String> STEREOTYPES_3;
 
     private static final String METAFACADE_IMPL_4 = "org.andromda.core.metafacade.Metafacade4Impl";
     private static final Object MAPPING_OBJECT_4 = new MappingObject4();
@@ -115,7 +116,7 @@ public class MetafacadeMappingsTest
         factory.setNamespace(mappings.getNamespace());
 
         // verify the property references
-        Collection propertyReferences = mappings.getPropertyReferences();
+        Collection<String>  propertyReferences = mappings.getPropertyReferences();
         // test retrieval of the namespace properties
         assertEquals(2, propertyReferences.size());
         Iterator referenceIterator = propertyReferences.iterator();
@@ -160,7 +161,7 @@ public class MetafacadeMappingsTest
         // test that we can get a mapping to the same metafacade with a
         // different stereotype
         // (an 'OR' scenario)
-        List stereotypes = new ArrayList();
+        List<String> stereotypes = new ArrayList<String>();
         stereotypes.add(STEREOTYPE_QUERY_METHOD);
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_1,
@@ -280,7 +281,7 @@ public class MetafacadeMappingsTest
         assertNotNull(mapping);
         assertEquals(METAFACADE_IMPL_5, mapping.getMetafacadeClass().getName());
         PropertyGroup group = mapping.getMappingProperties();
-        Collection mappingProperties = group.getProperties();
+        Collection<Property> mappingProperties = group.getProperties();
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         assertEquals(

@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
+import org.andromda.core.cartridge.template.Type.Property;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
 import org.andromda.core.namespace.NamespaceComponents;
@@ -142,7 +143,7 @@ public class CartridgeTest
         assertNotNull(types);
         assertEquals(1, types.size());
         final Type type = types.iterator().next();
-        final Collection properties = type.getProperties();
+        final Collection<Property> properties = type.getProperties();
         assertEquals(2, properties.size());
         final Iterator propertyIterator = properties.iterator();
         Type.Property property1 = (Type.Property)propertyIterator.next();
