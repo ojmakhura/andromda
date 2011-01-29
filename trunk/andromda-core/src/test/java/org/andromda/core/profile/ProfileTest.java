@@ -42,7 +42,7 @@ public class ProfileTest
             "Entity",
             Profile.instance().get("ENTITY"));
         assertEquals(
-            "@andromda.tagged.value",
+            "andromda_tagged_value",
             Profile.instance().get("ANDROMDA_TAGGED_VALUE"));
         assertEquals(
             "datatype::String",
