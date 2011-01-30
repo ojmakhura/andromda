@@ -54,7 +54,7 @@ public class $action.actionClassName
                 ${facesContextUtilsFullyQualifiedName}.getFacesContext(request, response),
                 null, forwardPath);
             request.getRequestDispatcher(forwardPath).forward(request, response);
-        }    
+        }
     }
 
     /**

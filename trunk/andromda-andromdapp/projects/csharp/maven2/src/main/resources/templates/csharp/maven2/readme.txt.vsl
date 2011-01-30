@@ -1,5 +1,5 @@
 
-    
+
     A n d r o M D A  -  $andromdaVersion
 
 
@@ -14,8 +14,8 @@
     been generated and a list of example goals to call from the command line.
 
     The generated project structure is well-tailored for use in the development
-    of .NET projects. The build process itself will eventually make use of Maven, 
-    but for now requires Visual Studio 2003 or 2005. However, some Maven 
+    of .NET projects. The build process itself will eventually make use of Maven,
+    but for now requires Visual Studio 2003 or 2005. However, some Maven
     dependencies and often-used goals have been added for your convenience.
 
     Custom configuration can be done by updating the root pom.xml file.
@@ -56,7 +56,7 @@
          |              importantly the cartridges which are listed in
          |              their own namespace; global settings are done in the
          |              'default' namespace
-         |     
+         |
          +-- /common
          |     |
          |     |    The COMMON module collects those resources and classes
@@ -110,8 +110,8 @@
          |              using the NSpring cartridge; this includes both
          |              the NHibernate entities and the correponding
          |              *.hbm.xml mapping files as well as the service
-         |              and DAO base classes. You'll also find the DDL 
-         |              for creating and dropping your schema within this 
+         |              and DAO base classes. You'll also find the DDL
+         |              for creating and dropping your schema within this
          |              directory.
          |
 #end
@@ -128,7 +128,7 @@
          |     |        please note that these files contain properties
          |     |        that will be dynamically replaced during the build
          |     +-- /target
-         |     
+         |
 #end
 #if ($web)
          +-- /web
@@ -172,9 +172,9 @@
             simply builds all modules
 
         %> mvn clean
-        
+
             cleans all generated files from each target directory
-            
+
         %> mvn nuke
 
             cleans out all /target directories and removes all .NET classes with names
@@ -191,7 +191,7 @@
 
             generates the DDL drop code and subsequently tells the database
             to drop the schema for the entities
-            
+
         %> mvn -f core/pom.xml andromdapp:schema -Dtasks=drop,create
 
             generates the drop and create DDL code and subsequently tells the database

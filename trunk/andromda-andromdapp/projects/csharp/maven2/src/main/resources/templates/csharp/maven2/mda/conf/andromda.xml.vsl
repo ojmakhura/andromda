@@ -24,11 +24,11 @@
     <namespaces>
         <namespace name="default">
             <properties>
-				<property name="dotNetVersion">${dotNetVersion}</property>
+                <property name="dotNetVersion">${dotNetVersion}</property>
 #if ($dotNetVersion == "1.1")
-	#set ($visualStudioVersion="2003")
+    #set ($visualStudioVersion="2003")
 #else
-	#set ($visualStudioVersion="2005")
+    #set ($visualStudioVersion="2005")
 #end
                 <property name="visualStudioVersion">${visualStudioVersion}</property>
 #if (${dotNetVersion} == "1.1")
@@ -121,26 +121,26 @@
         </namespace>
 #end
 #if (${web})
-		<namespace name="aspdotnet">
-			<properties>
-				<property name="web">${web.dir}</property>
-				<property name="web_generated">${web.generated.dir}</property>
-				<property name="web_manual">${web.manual.dir}</property>
-				<property name="webAssemblyName">${applicationPackage}.web</property>
-				<property name="AssemblyTitle">${applicationName}</property>
-				<property name="AssemblyDescription"></property>
-				<property name="AssemblyConfiguration"></property>
-				<property name="AssemblyCompany"></property>
-				<property name="AssemblyProduct"></property>
-				<property name="AssemblyCopyright"></property>
-				<property name="AssemblyTrademark"></property>
-				<property name="AssemblyCulture"></property>
-				<property name="AssemblyVersion">1.0.*</property>
-				<property name="AssemblyDelaySign">true</property>
-				<property name="AssemblyKeyFile"></property>
-				<property name="AssemblyKeyName"></property>
-			</properties>
-		</namespace>
+        <namespace name="aspdotnet">
+            <properties>
+                <property name="web">${web.dir}</property>
+                <property name="web_generated">${web.generated.dir}</property>
+                <property name="web_manual">${web.manual.dir}</property>
+                <property name="webAssemblyName">${applicationPackage}.web</property>
+                <property name="AssemblyTitle">${applicationName}</property>
+                <property name="AssemblyDescription"></property>
+                <property name="AssemblyConfiguration"></property>
+                <property name="AssemblyCompany"></property>
+                <property name="AssemblyProduct"></property>
+                <property name="AssemblyCopyright"></property>
+                <property name="AssemblyTrademark"></property>
+                <property name="AssemblyCulture"></property>
+                <property name="AssemblyVersion">1.0.*</property>
+                <property name="AssemblyDelaySign">true</property>
+                <property name="AssemblyKeyFile"></property>
+                <property name="AssemblyKeyName"></property>
+            </properties>
+        </namespace>
 #end
     </namespaces>
 </andromda>

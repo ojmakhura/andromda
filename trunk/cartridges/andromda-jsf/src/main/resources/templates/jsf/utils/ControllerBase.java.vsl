@@ -9,12 +9,12 @@ package $managedBeansPackage;
  */
 public abstract class ControllerBase
 {
-    
+
     public static final String USE_CASE_FORMS_KEY="org.andromda.cartridges.jsf.USE_CASE_FORMS";
     public static final String USE_CASE_PAGE_VARIABLES_KEY="org.andromda.cartridges.jsf.PAGE_VARIABLES";
     public static final String USE_CASE_PARAMETERS_KEY="org.andromda.cartridges.jsf.USE_CASE_PARAMETERS";
     public static final String FORM_KEY="$actionFormKey";
-    
+
     /*
      * Returns the forms associated with this controller in the #if($portlet) session#else pageFlowScope#end.
      */
@@ -36,7 +36,7 @@ public abstract class ControllerBase
         }
         return result;
     }
-    
+
     /*
      * Returns the forms associated with this controller.
      */
@@ -49,7 +49,7 @@ public abstract class ControllerBase
         return ControllerBase.getForms(getSession(false));
 #end
     }
-    
+
     public Object getForm(final String formName)
     {
         try
@@ -82,7 +82,7 @@ public abstract class ControllerBase
         }
         return result;
     }
-    
+
     /*
      * Returns the page variables associated with this controller, in the#if($portlet) session#else pageFlowScope#end.
      */
@@ -95,7 +95,7 @@ public abstract class ControllerBase
         return ControllerBase.getPageVariables(getSession(false));
 #end
     }
-    
+
     /*
      * Returns true if there is at least one use case parameter.
      */
@@ -110,7 +110,7 @@ public abstract class ControllerBase
 #end
         return parameters != null && !parameters.isEmpty();
     }
-    
+
     /*
      * Returns the use case parameters associated with this controller, in the current#if($portlet) session#else pageFlowScope#end.
      */
@@ -133,7 +133,7 @@ public abstract class ControllerBase
         }
         return result;
     }
-    
+
     /*
      * Removes all the forms and page variables from the current#if($portlet) session#else pageFlowScope#end.
      */
@@ -371,7 +371,7 @@ public abstract class ControllerBase
         }
         return maximumSeverity;
     }
-    
+
     /**
      * Retrieves the current action form while making sure the form is of the given
      * <code>type</code>.  If the action form is found, but not of the given type, null will
@@ -643,5 +643,5 @@ public abstract class ControllerBase
 #end
 
     // controller-base merge-point
-    
+
 }

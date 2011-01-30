@@ -345,7 +345,7 @@
     </build>
     <properties>
         <!-- Versioned independently from CXF core -->
-		<cxf.xjc.version>2.3.0</cxf.xjc.version>
+        <cxf.xjc.version>2.3.0</cxf.xjc.version>
 #if ($stringUtils.isNotBlank($model))
         <model.uri>$model</model.uri>
 #else

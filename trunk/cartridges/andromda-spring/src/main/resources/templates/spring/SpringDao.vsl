@@ -831,12 +831,12 @@ $operation.getDocumentation("     * ")
      * @return a single instance of ${entity.fullyQualifiedEntityName}.
      */
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
-    
+
     /**
      * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
      * @param transform the transformation flag.
      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.
-     * @return a value object according the transformation flag.   
+     * @return a value object according the transformation flag.
      */
     public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name});
 

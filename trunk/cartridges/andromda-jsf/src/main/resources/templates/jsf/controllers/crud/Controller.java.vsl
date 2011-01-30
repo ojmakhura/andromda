@@ -19,7 +19,7 @@ public abstract class ${manageable.controllerName}
     public String init()
     {
         this.resetUseCaseFormsAndPageVariables();
-    
+
         try
         {
             final ${manageable.formBeanType} form = this.getForm();
@@ -553,7 +553,7 @@ public abstract class ${manageable.controllerName}
     {
         return "${manageable.odsExportFullPath}";
     }
-    
+
     /**
     * Helper method to fill the autocomplete component list.
     */
@@ -575,7 +575,7 @@ public abstract class ${manageable.controllerName}
                 ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.wrapperName}.valueOf(fieldValue.toString())
 #elseif($member.type.enumeration)
                 ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.fullyQualifiedName}.fromString(fieldValue.toString())
-#else                
+#else
                 ${comma}(fieldValue==null || fieldValue.toString().length() == 0) ? null : ${member.type.fullyQualifiedName}.valueOf(fieldValue.toString())
 #end
 #end
@@ -616,9 +616,9 @@ public abstract class ${manageable.controllerName}
             {
                 throw new RuntimeException(e);
             }
-        }   
+        }
     }
-    
+
     /**
     * Helper method to fill the select component list.
     *
@@ -642,7 +642,7 @@ public abstract class ${manageable.controllerName}
     }
 
     public static final String FORM_BEAN_NAME="${manageable.formBeanName}";
-    
+
     /**
      * Resolves "${manageable.formBeanName}".
      *
