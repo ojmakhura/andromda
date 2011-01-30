@@ -494,9 +494,9 @@ public class $className
     @SuppressWarnings("rawtypes")
     public static javax.faces.model.SelectItem[] getEnumSelectItems(final String prefix, final String enumClassName)
     {
-        try 
+        try
         {
-            final javax.faces.model.SelectItem[] result; 
+            final javax.faces.model.SelectItem[] result;
             final Class<?> enumClass=${className}.class.getClassLoader().loadClass(enumClassName);
             if(enumClass.isEnum())
             {
@@ -520,10 +520,10 @@ public class $className
                     result[i]=new javax.faces.model.SelectItem(values.get(i),Messages.get(prefix+names.get(i)));
                 }
             }
-            
+
             return result;
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             throw new RuntimeException(enumClassName+" is not an Andromda generated enumeration.",e);
         }
@@ -564,12 +564,12 @@ public class $className
                         }
                     }
                 }
-                catch (Exception e) 
+                catch (Exception e)
                 {
                     throw new RuntimeException(enumValue.getClass().getCanonicalName()+" is not an Andromda generated enumeration.",e);
                 }
             }
             return null;
-        }    
+        }
     }
 }

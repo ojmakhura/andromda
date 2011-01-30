@@ -24,11 +24,11 @@ public class JsfVariableResolver extends VariableResolver
     @Override
     @SuppressWarnings("unchecked")
     public Object resolveVariable(FacesContext context, String name) throws EvaluationException {
-        
+
         Object result;
-        
+
         result = originalVariableResolver.resolveVariable(context, name);
-        
+
         if(result == null)
         {
 #if($standalone)
@@ -38,12 +38,12 @@ public class JsfVariableResolver extends VariableResolver
             final $jsfUtils.sessionClassName session=context.getExternalContext().getSession(true);
             final Map<String, Object> controllerForms=(Map<String, Object>)session.getAttribute(ControllerBase.USE_CASE_FORMS_KEY);
 #end
-            
+
             if(controllerForms != null)
             {
                 result = controllerForms.get(name);
             }
-            
+
             if(result == null)
             {
 #if($standalone)
@@ -56,13 +56,13 @@ public class JsfVariableResolver extends VariableResolver
                     result = controllerVariables.get(name);
                 }
             }
-            
+
             if(result != null)
             {
                 getRequest(context).setAttribute(name,result);
             }
-        }        
-        
+        }
+
         return result;
     }
 

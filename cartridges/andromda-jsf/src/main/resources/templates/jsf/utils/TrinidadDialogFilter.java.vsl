@@ -23,18 +23,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TrinidadDialogFilter implements Filter
 {
-    public void init(FilterConfig config) throws ServletException 
-    {   
-    }   
-    
-	public void destroy() 
+    public void init(FilterConfig config) throws ServletException
     {
-	}
-	
-	public void doFilter(ServletRequest request, ServletResponse response,
-        FilterChain chain) throws IOException, ServletException 
+    }
+
+    public void destroy()
     {
-        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) 
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response,
+        FilterChain chain) throws IOException, ServletException
+    {
+        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse)
         {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             String requestURI = httpRequest.getRequestURI();
@@ -44,11 +44,11 @@ public class TrinidadDialogFilter implements Filter
                 replacedURI = replacedURI.replaceFirst("^" + context, "");
                 RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(replacedURI);
                 dispatcher.forward(request, response);
-            } 
-            else 
+            }
+            else
             {
                 chain.doFilter(request, response);
             }
         }
-	}
+    }
 }

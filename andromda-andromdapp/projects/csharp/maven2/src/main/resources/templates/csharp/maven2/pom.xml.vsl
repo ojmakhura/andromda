@@ -112,32 +112,32 @@
         <module>mda</module>
     </modules>
     <properties>
-		<!--
-		# Change this to generate to the correct MDA database mappings
-		# For SQL Server use: MSSQL
-		# For MySql use: MySQL
-		# For Hypersonic use: HypersonicSql
-		# For Oracle9i use: Oracle9i-->
-		<sql.mappings>MSSQL</sql.mappings>
+        <!--
+        # Change this to generate to the correct MDA database mappings
+        # For SQL Server use: MSSQL
+        # For MySql use: MySQL
+        # For Hypersonic use: HypersonicSql
+        # For Oracle9i use: Oracle9i-->
+        <sql.mappings>MSSQL</sql.mappings>
 
-		<!--# For SQL Server use: net.sf.hibernate.dialect.SQLServerDialect
-		# For MySql use: net.sf.hibernate.dialect.MySQLDialect
-		# For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
-		# For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect-->
-		<hibernate.db.dialect>net.sf.hibernate.dialect.SQLServerDialect</hibernate.db.dialect>
+        <!--# For SQL Server use: net.sf.hibernate.dialect.SQLServerDialect
+        # For MySql use: net.sf.hibernate.dialect.MySQLDialect
+        # For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
+        # For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect-->
+        <hibernate.db.dialect>net.sf.hibernate.dialect.SQLServerDialect</hibernate.db.dialect>
 
-		<!--# The default strategy to use when using inhertiance-->
-		<hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
-		<hibernate.db.showSql>true</hibernate.db.showSql>
+        <!--# The default strategy to use when using inhertiance-->
+        <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+        <hibernate.db.showSql>true</hibernate.db.showSql>
 
         <application.id>${project.artifactId}</application.id>
         <application.package>${project.groupId}</application.package>
         <!--dataSource.name>jdbc/${applicationId}</dataSource.name-->
 
-		<application.version>${applicationVersion}</application.version>
-		<application.name>${applicationName}</application.name>
-		<andromdapluginsVersion>1.0-SNAPSHOT</andromdapluginsVersion>
-	</properties>
+        <application.version>${applicationVersion}</application.version>
+        <application.name>${applicationName}</application.name>
+        <andromdapluginsVersion>1.0-SNAPSHOT</andromdapluginsVersion>
+    </properties>
     <profiles>
         <profile>
             <id>local</id>

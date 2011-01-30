@@ -198,7 +198,7 @@ $action.trigger.getDocumentation("     * ")
 #end
             //trigger method execution
             ${indent}${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end);
-            
+
             ${indent}forward = #processTransition($action)
 #if ($portlet)
             ${indent}this.setLastForward(forward);
@@ -270,7 +270,7 @@ $action.trigger.getDocumentation("     * ")
 #foreach ($actionState in $action.actionStates)
     /**
 $actionState.getDocumentation("     * ")
-     * It can be safely overriden in descendant classes, 
+     * It can be safely overriden in descendant classes,
      * you should return the forward unless you want to change the default flow.
      */
     protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form,#end String forward)
@@ -278,7 +278,7 @@ $actionState.getDocumentation("     * ")
         //this method can be overriden
         return forward;
     }
-    
+
     /**
 $actionState.getDocumentation("     * ")
      */

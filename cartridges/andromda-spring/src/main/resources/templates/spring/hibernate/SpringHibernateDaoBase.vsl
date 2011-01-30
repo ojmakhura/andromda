@@ -1428,7 +1428,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             default: throw new org.hibernate.NonUniqueResultException(searchResult.size());
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1441,7 +1441,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
         return transformEntity(transform, entity);
     }
-    
+
 #end
 #end
     // spring-hibernate-dao-base merge-point
