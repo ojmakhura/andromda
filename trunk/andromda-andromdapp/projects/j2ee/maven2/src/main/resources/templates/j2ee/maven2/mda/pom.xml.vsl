@@ -344,6 +344,8 @@
         </plugins>
     </build>
     <properties>
+        <!-- Avoid JDK6 XJC runtime error on wdsl2java from conflicting Jaxb2.2 -->
+        <cxf.version>2.2.12</cxf.version>
         <!-- Versioned independently from CXF core -->
         <cxf.xjc.version>2.3.0</cxf.xjc.version>
 #if ($stringUtils.isNotBlank($model))

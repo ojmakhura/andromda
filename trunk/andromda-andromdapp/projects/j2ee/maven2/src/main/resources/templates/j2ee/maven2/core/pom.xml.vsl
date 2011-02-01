@@ -49,6 +49,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
 #if ($embeddedJetty)
         <dependency>
             <groupId>org.springframework</groupId>
@@ -85,6 +93,27 @@
         </dependency>
 #end
 #end
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.5.6-Final</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2</version>
+            <scope>runtime</scope>
+        </dependency>
 #if ($spring || $cxf)
         <dependency>
             <groupId>org.springframework</groupId>
@@ -131,6 +160,7 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
@@ -229,6 +259,7 @@
         <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
+            <scope>provided</scope>
         </dependency-->
 #if ($jsr181Webservice || $jaxws)
         <dependency>
@@ -269,6 +300,7 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
@@ -518,14 +550,14 @@
                         <script>${project.basedir}/path/to/scripts/script2.sql</script>
                     </scripts>
                     -->
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.hibernate</groupId>
-                            <artifactId>hibernate</artifactId>
-                            <version>3.2.6.ga</version>
-                        </dependency>
-                    </dependencies>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version>3.2.6.ga</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 #end
 #if ($ejb || $ejb3)

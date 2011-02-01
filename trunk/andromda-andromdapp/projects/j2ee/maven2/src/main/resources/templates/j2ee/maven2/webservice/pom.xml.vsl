@@ -10,8 +10,13 @@
     <artifactId>${applicationId}-webservice</artifactId>
     <packaging>war</packaging>
     <name>${applicationName} Web Services</name>
-#if ($jaxws)
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${applicationId}-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+#if ($jaxws)
         <dependency>
             <groupId>com.sun.webservices</groupId>
             <artifactId>webservices-rt</artifactId>
@@ -92,14 +97,15 @@
         <!-- Jetty is needed for building/testing the CXFServlet (creates geronimo dependencies) -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>7.2.2.v20101205</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <!-- If using Websphere or IBM JVM, uncomment JAXP dependencies >
         <dependency>
@@ -112,13 +118,8 @@
             <artifactId>jaxp-api</artifactId>
             <version>1.4.2</version>
         </dependency> -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${applicationId}-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 #end
+    </dependencies>
     <build>
         <!-- Change from default src/main/java and src/test/java>
         <sourceDirectory>src</sourceDirectory>
@@ -146,4 +147,11 @@
             </plugin>
         </plugins>
     </build>
+#if ($cxf)
+    <properties>
+        <!-- Change to false or comment out when embedded jetty start/stop problem is fixed.
+        Jetty starts from plugin but not not run as a thread to allow unit tests to run against the server. >
+        <maven.test.skip>true</maven.test.skip-->
+    </properties>
+#end
 </project>

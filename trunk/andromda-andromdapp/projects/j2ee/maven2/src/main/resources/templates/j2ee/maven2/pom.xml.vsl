@@ -287,6 +287,10 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
+#if ($ear)
+                <!-- JBoss contains a version which causes a classloader conflict unless not bundled -->
+                <scope>provided</scope>
+#end
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -422,8 +426,9 @@
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-core</artifactId>
+                <artifactId>ehcache</artifactId>
                 <version>2.3.1</version>
+                <type>pom</type>
                 <scope>provided</scope>
             </dependency>
 #if ($spring || $hibernate)
@@ -466,7 +471,8 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>1.6.2</version>
+                <version>2.3.1</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -493,10 +499,17 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <!--dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+                <scope>runtime</scope>
+            </dependency-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${spring.version}</version>
+                <scope>runtime</scope>
             </dependency>
 #if ($embeddedJetty)
             <dependency>
@@ -934,7 +947,7 @@
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
-                <version>7.2.1.v20101111</version>
+                <version>7.2.2.v20101205</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -1447,7 +1460,7 @@
 #end
 #if ($cxf)
         <spring.version>3.0.5.RELEASE</spring.version>
-        <cxf.version>2.3.1</cxf.version>
+        <cxf.version>2.3.2</cxf.version>
 #elseif ($spring)
         <spring.version>3.0.5.RELEASE</spring.version>
 #end
@@ -2012,7 +2025,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
+                <version>2.0</version>
                 <inherited>true</inherited>
             </plugin>
             <plugin>
