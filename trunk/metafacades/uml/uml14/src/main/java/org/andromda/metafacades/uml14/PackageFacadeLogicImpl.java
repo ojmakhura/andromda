@@ -48,15 +48,15 @@ public class PackageFacadeLogicImpl
      * @see org.andromda.metafacades.uml.PackageFacade#getSubPackages()
      */
     @Override
-    protected Collection<UmlPackage> handleGetSubPackages()
+    protected Collection<org.omg.uml.modelmanagement.UmlPackage> handleGetSubPackages()
     {
         return new FilteredCollection(metaObject.getOwnedElement())
+        {
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof UmlPackage;
-                }
-            };
+                return object instanceof org.omg.uml.modelmanagement.UmlPackage;
+            }
+        };
     }
 
     /**
