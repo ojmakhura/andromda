@@ -33,7 +33,7 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
     protected Object handleGetClassifier()
     {
         final RedefinableTemplateSignature redefinableTemplateSignature = (RedefinableTemplateSignature)metaObject;
-        if(redefinableTemplateSignature.getRedefinitionContexts().size() == 0)
+        if(redefinableTemplateSignature.getRedefinitionContexts().isEmpty())
         {
             return null;
         }
