@@ -910,7 +910,7 @@ public class ClassifierFacadeLogicImpl
 
         String arraySuffix = this.getArraySuffix();
 
-        if (this.handleGetFullyQualifiedName().indexOf(arraySuffix) != -1)
+        if (this.handleGetFullyQualifiedName().contains(arraySuffix))
         {
             PackageFacade packageFacade = this.getRootPackage();
             String fullQualifiedName = this.handleGetFullyQualifiedName(true);

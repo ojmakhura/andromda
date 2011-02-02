@@ -652,12 +652,12 @@ public class JSFManageableEntityAttributeLogicImpl
         if (defaultValue!=null && defaultValue.length()>0 && !super.isMany())
         {
             String typeName = getType().getName();
-            if (typeName.equals("String") && defaultValue.indexOf('"')<0)
+            if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
             }
-            else if ((typeName.equals("char") || typeName.equals("Character"))
-                && defaultValue.indexOf("'")<0)
+            else if (("char".equals(typeName) || "Character".equals(typeName))
+                && !defaultValue.contains("'"))
             {
                 defaultValue = "'" + defaultValue.charAt(0) + "'";
             }
