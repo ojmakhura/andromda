@@ -1212,7 +1212,7 @@ public class ClassifierFacadeLogicImpl
         {
         return false;
     }
-        return this.metaObject.getOwnedTemplateSignature().getOwnedParameters().size() > 0;
+        return !this.metaObject.getOwnedTemplateSignature().getOwnedParameters().isEmpty();
     }
 
     /** Not implemented

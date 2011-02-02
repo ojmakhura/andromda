@@ -1079,7 +1079,7 @@ public class EJB3EntityFacadeLogicImpl
             if (StringUtils.trimToEmpty(operation.getName()).equalsIgnoreCase("findAll"))
             {
                 // Check for no finder arguments
-                if (operation.getArguments().size() == 0)
+                if (operation.getArguments().isEmpty())
                 {
                     finderExists = true;
                     break;
