@@ -40,6 +40,7 @@ public class ServiceOperationLogicImpl
     @Override
     protected Collection<Role> handleGetRoles()
     {
+        // Role can be either DependencyFacade or RoleFacade or GeneralizableElementFacade
         // Taken from UML 1.4 Facade
         final Collection roles = new LinkedHashSet();
         if (this.getOwner() instanceof Service)

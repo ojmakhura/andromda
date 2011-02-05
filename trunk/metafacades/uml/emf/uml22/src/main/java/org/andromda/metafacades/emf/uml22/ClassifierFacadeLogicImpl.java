@@ -213,9 +213,8 @@ public class ClassifierFacadeLogicImpl
         final Collection requiredConstructorParameters = new ArrayList();
 
         final Collection properties = this.getProperties();
-        for (Iterator propertyIterator = properties.iterator(); propertyIterator.hasNext();)
+        for (final Object property : properties)
         {
-            final Object property = propertyIterator.next();
             if (property instanceof AttributeFacade)
             {
                 final AttributeFacade attribute = (AttributeFacade)property;
@@ -774,9 +773,8 @@ public class ClassifierFacadeLogicImpl
         final List properties = new ArrayList();
         if (follow && !this.getGeneralizations().isEmpty())
         {
-            for (Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+            for (Object generalization : this.getGeneralizations())
             {
-                final Object generalization = iterator.next();
                 if (generalization instanceof ClassifierFacade)
                 {
                     properties.addAll(((ClassifierFacade)generalization).getAllProperties());
@@ -1131,9 +1129,11 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<ClassifierFacade> handleGetInterfaceAbstractions()
     {
-        final Collection<ClassifierFacade> interfaceAbstractions = new LinkedHashSet();
+        final Collection<ClassifierFacade> interfaceAbstractions = new LinkedHashSet<ClassifierFacade>();
         if (this.getAbstractions() != null)
         {
+            // TODO Changing from Iterator to for: causes ClassCastException casting DependencyFacadeLogicImpl to ClassifierFacade
+        	// TODO Change to handleGetAbstractions, look for target end of type Interface (not Classifier)
             for (Iterator<ClassifierFacade> abstractionIterator = this.getAbstractions().iterator(); abstractionIterator.hasNext();)
             {
                 Object obj = abstractionIterator.next();
@@ -1293,9 +1293,9 @@ public class ClassifierFacadeLogicImpl
     {
         final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
         associatedClasses.addAll(this.getAssociatedClasses());
-        for (Iterator<GeneralizableElementFacade> parentIterator = this.getGeneralizations().iterator(); parentIterator.hasNext();)
+        for (final GeneralizableElementFacade gen : this.getGeneralizations())
         {
-            final ClassifierFacade parent = (ClassifierFacade)parentIterator.next();
+            final ClassifierFacade parent = (ClassifierFacade)gen;
             associatedClasses.addAll(parent.getAllAssociatedClasses());
         }
 

@@ -76,6 +76,7 @@ public class ClassifierFacadeLogicImpl
     {
         return new FilteredCollection(this.metaObject.getFeature())
         {
+            private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
                 return object instanceof org.omg.uml.foundation.core.Operation;
@@ -96,12 +97,13 @@ public class ClassifierFacadeLogicImpl
 
         // add all of this classifier's operations
         operations.addAll(new FilteredCollection(metaObject.getFeature())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof Operation;
-                }
-            });
+                return object instanceof Operation;
+            }
+        });
 
         if (!this.isInterface())
         {
@@ -640,12 +642,13 @@ public class ClassifierFacadeLogicImpl
     protected Collection<AttributeFacade> handleGetStaticAttributes()
     {
         return new FilteredCollection(this.getAttributes())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return ((AttributeFacade)object).isStatic();
-                }
-            };
+                return ((AttributeFacade)object).isStatic();
+            }
+        };
     }
 
     /**
@@ -714,12 +717,13 @@ public class ClassifierFacadeLogicImpl
     protected Collection<AttributeFacade> handleGetInstanceAttributes()
     {
         return new FilteredCollection(this.getAttributes())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return !((AttributeFacade)object).isStatic();
-                }
-            };
+                return !((AttributeFacade)object).isStatic();
+            }
+        };
     }
 
     /**
@@ -729,12 +733,13 @@ public class ClassifierFacadeLogicImpl
     protected Collection<ClassifierFacade> handleGetAbstractions()
     {
         return new FilteredCollection(this.metaObject.getClientDependency())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof Abstraction;
-                }
-            };
+                return object instanceof Abstraction;
+            }
+        };
     }
 
     /**
@@ -877,12 +882,13 @@ public class ClassifierFacadeLogicImpl
     protected List<OperationFacade> handleGetStaticOperations()
     {
         return new FilteredCollection(this.getOperations())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return ((OperationFacade)object).isStatic();
-                }
-            };
+                return ((OperationFacade)object).isStatic();
+            }
+        };
     }
 
     /**
@@ -892,12 +898,13 @@ public class ClassifierFacadeLogicImpl
     protected List<OperationFacade> handleGetInstanceOperations()
     {
         return new FilteredCollection(this.getOperations())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return !((OperationFacade)object).isStatic();
-                }
-            };
+                return !((OperationFacade)object).isStatic();
+            }
+        };
     }
 
     /**

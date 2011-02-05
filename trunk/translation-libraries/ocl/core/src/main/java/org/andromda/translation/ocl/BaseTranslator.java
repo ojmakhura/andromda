@@ -229,7 +229,7 @@ public abstract class BaseTranslator
             // set the context element so translators extending this have the
             // context element available
             this.setContextElement(contextElement);
-            Map templateObjects = new HashMap();
+            Map<String, Object> templateObjects = new HashMap<String, Object>();
             this.libraryTranslation = LibraryTranslationFinder.findLibraryTranslation(translationName);
             final String variable = this.libraryTranslation.getVariable();
             if (variable != null)

@@ -58,7 +58,7 @@ public class GeneralizableElementFacadeLogicImpl
     protected Classifier handleGetGeneralization()
     {
         Classifier parent = null;
-        final Collection<Generalization>  generalizations = ((Classifier)this.metaObject).getGeneralizations();
+        final Collection<Generalization> generalizations = ((Classifier)this.metaObject).getGeneralizations();
         if (generalizations != null && !generalizations.isEmpty())
         {
             parent = generalizations.iterator().next().getGeneral();

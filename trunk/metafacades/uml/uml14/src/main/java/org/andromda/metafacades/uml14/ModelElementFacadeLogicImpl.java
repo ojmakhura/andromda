@@ -428,7 +428,7 @@ public class ModelElementFacadeLogicImpl
             indent,
             lineLength,
             htmlStyle);
-        
+
         return rtn;
     }
 
