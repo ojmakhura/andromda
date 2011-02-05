@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 public class EscapeTag extends BodyTagSupport
 {
+    private static final long serialVersionUID = 34L;
     private String language = null;
 
     /**

@@ -489,7 +489,7 @@ public class SpringServiceOperationLogicImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected boolean handleIsInitMethod()
     {
@@ -497,7 +497,7 @@ public class SpringServiceOperationLogicImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected boolean handleIsDestroyMethod()
     {

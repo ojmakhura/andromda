@@ -9,6 +9,7 @@ package org.andromda.maven.plugin.andromdapp.script;
 public class ScriptClassGeneratorException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructor for ScriptClassGeneratorException.
      *

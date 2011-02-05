@@ -10,6 +10,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ResizeTag extends TagSupport
 {
+    private static final long serialVersionUID = 34L;
     private int size = BreadCrumbs.DEFAULT_SIZE;
 
     /**

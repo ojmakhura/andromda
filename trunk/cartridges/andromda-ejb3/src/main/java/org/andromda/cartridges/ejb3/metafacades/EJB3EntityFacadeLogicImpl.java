@@ -1145,7 +1145,7 @@ public class EJB3EntityFacadeLogicImpl
         {
             if (!this.getIdentifiers().isEmpty())
             {
-                displayAttribute = (EntityAttribute)this.getIdentifiers().iterator().next();
+                displayAttribute = this.getIdentifiers().iterator().next();
             }
             else if (!attributes.isEmpty())
             {

@@ -10,6 +10,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class DefineTag extends TagSupport
 {
+    private static final long serialVersionUID = 34L;
     private String id = null;
     private String toScope = null;
 

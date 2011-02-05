@@ -34,7 +34,6 @@ public class JavaTypeConverterTest
         }
     }
 
-
     private final static ExpectedResult[] expected =
     {
         new ExpectedResult("java.lang.Character", "java.lang.String", "(sourceVal == null ? null : sourceVal.toString())"),
@@ -1148,7 +1147,7 @@ public class JavaTypeConverterTest
                     "java.sql.Timestamp".equals(anExpected.toType))
             {
                 assertNull("Converting " + anExpected.fromType + " to " + anExpected.toType +
-                        " should have been null, was: " + result, result);
+                    " should have been null, was: " + result, result);
             }
             else
             {

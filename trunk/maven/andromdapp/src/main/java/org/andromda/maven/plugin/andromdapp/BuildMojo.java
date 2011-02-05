@@ -338,7 +338,6 @@ public class BuildMojo
      *
      * @return the value read from standard input.
      */
-    @SuppressWarnings("null")
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -402,7 +401,7 @@ public class BuildMojo
             {
                 for (final Iterator<MavenProject> iterator = projects.keySet().iterator(); iterator.hasNext();)
                 {
-                    final MavenProject project = (MavenProject)iterator.next();
+                    final MavenProject project = iterator.next();
                     List<String> projectGoals;
                     if (goals == null)
                     {

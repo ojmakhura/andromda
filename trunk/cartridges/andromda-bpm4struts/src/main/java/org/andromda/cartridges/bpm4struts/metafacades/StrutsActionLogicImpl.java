@@ -273,7 +273,7 @@ public class StrutsActionLogicImpl
                 int size = action.getActionParameters().size();
                 for (int j = 0; j < size; j++)
                 {
-                    final StrutsParameter parameter = (StrutsParameter) action.getActionParameters().get(j);
+                    final StrutsParameter parameter = action.getActionParameters().get(j);
                     if (!columnNames.contains(parameter.getName()))
                     {
                         tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
@@ -1081,6 +1081,7 @@ public class StrutsActionLogicImpl
     {
         return new ArrayList(new FilteredCollection(this.getActionParameters())
         {
+            private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
                 return object != null && ((StrutsParameter) object).isShouldReset();

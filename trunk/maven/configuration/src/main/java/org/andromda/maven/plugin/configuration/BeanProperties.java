@@ -26,7 +26,7 @@ public class BeanProperties
     /**
      * @see java.util.Dictionary#get(Object)
      */
-    public Object get(Object key)
+    public synchronized Object get(Object key)
     {
         Object value = null;
         try

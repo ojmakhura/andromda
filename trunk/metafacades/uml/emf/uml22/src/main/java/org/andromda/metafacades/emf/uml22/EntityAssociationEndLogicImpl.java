@@ -75,7 +75,6 @@ public class EntityAssociationEndLogicImpl
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     Short.valueOf(((Entity)this.getType()).getMaxSqlNameLength()),
-                    // Why do we append the FK Suffix to the column name used for ordering?
                     this.getForeignKeySuffix(),
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }

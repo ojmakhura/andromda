@@ -9,6 +9,7 @@ package org.andromda.maven.plugin.andromdapp;
 public class SchemaManagementException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructor for SchemaManagementException.
      *

@@ -266,12 +266,13 @@ public class SpringEntityLogicImpl
 
         Collection<OperationFacade> nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return ((OperationFacade)object).isStatic();
-                }
-            };
+                return ((OperationFacade)object).isStatic();
+            }
+        };
     }
 
     /**
@@ -303,19 +304,20 @@ public class SpringEntityLogicImpl
             }
         }
         return new FilteredCollection(sourceDependencies)
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
+                boolean valid = false;
+                Object targetElement = ((DependencyFacade)object).getTargetElement();
+                if (targetElement instanceof ClassifierFacade)
                 {
-                    boolean valid = false;
-                    Object targetElement = ((DependencyFacade)object).getTargetElement();
-                    if (targetElement instanceof ClassifierFacade)
-                    {
-                        ClassifierFacade element = (ClassifierFacade)targetElement;
-                        valid = element.isDataType() || element instanceof ValueObject || element instanceof EnumerationFacade;
-                    }
-                    return valid;
+                    ClassifierFacade element = (ClassifierFacade)targetElement;
+                    valid = element.isDataType() || element instanceof ValueObject || element instanceof EnumerationFacade;
                 }
-            };
+                return valid;
+            }
+        };
     }
 
     /**

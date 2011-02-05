@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JSFServlet
     extends HttpServlet
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse)

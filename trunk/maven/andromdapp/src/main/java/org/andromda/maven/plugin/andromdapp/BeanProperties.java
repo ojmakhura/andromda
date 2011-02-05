@@ -12,6 +12,7 @@ import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
 public class BeanProperties
     extends Properties
 {
+    private static final long serialVersionUID = 34L;
     private Object bean;
 
     /**
@@ -25,7 +26,7 @@ public class BeanProperties
     /**
      * @see java.util.Dictionary#get(Object)
      */
-    public Object get(Object key)
+    public synchronized Object get(Object key)
     {
         Object value = null;
         try

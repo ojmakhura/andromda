@@ -30,7 +30,7 @@ public class MDRepositoryTransformationTest
 
 
     /**
-     * @see TestCase#setUp()
+     * @see TestCase#setUp
      */
     @Before
     public void setUp()
@@ -128,7 +128,7 @@ public class MDRepositoryTransformationTest
     }
 
     /**
-     * @see TestCase#tearDown()
+     * @see TestCase#tearDown
      */
     @After
     public void tearDown()

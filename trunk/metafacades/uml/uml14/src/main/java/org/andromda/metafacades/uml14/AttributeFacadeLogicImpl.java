@@ -408,9 +408,9 @@ public class AttributeFacadeLogicImpl
             name = NameMasker.mask(super.handleGetName(), mask);
             final boolean templating = Boolean.parseBoolean(String.valueOf(
                 this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)));
-                // May be null during the validation process.
-                if (this.getType() != null)
-                {
+            // May be null during the validation process.
+            if (this.getType() != null)
+            {
                 final boolean arrayType = this.getType().isArrayType();
                 if (this.isPluralizeAttributeNames() && ((this.isMany() && templating) || arrayType))
                 {
@@ -479,6 +479,7 @@ public class AttributeFacadeLogicImpl
     public String handleGetGetterSetterTypeName()
     {
         String name = null;
+        // TODO: Change to check upperBound > 1, not isMany or Array/Collection types
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();

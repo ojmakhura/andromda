@@ -40,7 +40,7 @@ public class TraceTranslator
     private static final String OUTA_PREFIX = "outA";
     private static final String CASE_PREFIX = "case";
 
-    private Map methods = new HashMap();
+    private Map<CtMethod, String> methods = new HashMap<CtMethod, String>();
 
     /**
      * This is added to the adapted class and then checked to see if it exists to determine if we need to adapt the
@@ -186,7 +186,7 @@ public class TraceTranslator
             {
                 CtMethod method = (CtMethod) allMethods.next();
                 CtMethod newMethod = new CtMethod(method, ctTranslatorClass, null);
-                String methodBody = (String) this.methods.get(method);
+                String methodBody = this.methods.get(method);
                 newMethod.setBody(methodBody);
                 ctTranslatorClass.addMethod(newMethod);
             }
@@ -439,7 +439,7 @@ public class TraceTranslator
             try
             {
                 //CtClass ctTranslatorClass = this.pool.get(classname);
-                // TODO pgrade javassist version which moved the write() method
+                // TODO upgrade javassist version which moved the write() method
                 return classLoader.loadClass(classname, write(classname));
             }
             catch (ClassFormatError e)

@@ -10,6 +10,7 @@ package org.andromda.schema2xmi;
 public class SchemaTransformerException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs a new instance of SchemaTransformerException
      *
