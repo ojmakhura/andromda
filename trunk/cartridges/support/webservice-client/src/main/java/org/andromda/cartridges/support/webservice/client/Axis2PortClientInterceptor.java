@@ -21,6 +21,7 @@ public class Axis2PortClientInterceptor
     implements MethodInterceptor,
         InitializingBean
 {
+    private static final long serialVersionUID = 34L;
     /**
      * LogFactory.getLog(Axis2PortClientInterceptor.class)
      */
@@ -259,7 +260,7 @@ public class Axis2PortClientInterceptor
      * @param invocation 
      * @return invoked operation return
      * @throws Throwable 
-     * @see {@link WebServiceClient#invokeBlocking(String, Object[])}
+     * @see WebServiceClient#invokeBlocking(String, Object[])
      * @see org.springframework.remoting.rmi.RmiClientInterceptorUtils
      */
     public Object invoke(MethodInvocation invocation)
