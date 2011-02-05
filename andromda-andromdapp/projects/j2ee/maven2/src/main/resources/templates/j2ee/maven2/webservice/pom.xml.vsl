@@ -11,11 +11,13 @@
     <packaging>war</packaging>
     <name>${applicationName} Web Services</name>
     <dependencies>
+#if (!$transactionPersistenceType.equals("none") || $cxf)
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+#end
 #if ($jaxws)
         <dependency>
             <groupId>com.sun.webservices</groupId>
@@ -31,7 +33,6 @@
         </dependency>
     </dependencies>
 #elseif ($cxf)
-    <dependencies>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
