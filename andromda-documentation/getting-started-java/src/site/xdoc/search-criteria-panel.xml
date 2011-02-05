@@ -179,7 +179,7 @@
                     <tt>mvn -f web/pom.xml install</tt>
                 </li>
                 <li>Start the JBoss server. To do this, open a Command Prompt in the JBoss bin directory
-                    ( <tt>C:\Programs\JBoss\6\bin</tt>) and execute the command <tt>run</tt>.
+                    ( <tt>C:\Programs\JBoss\51\bin</tt>) and execute the command <tt>run</tt>.
                 </li>
                 <li>Deploy the application to the JBoss server. Go to the previous Command Prompt (in
                     the directory <tt>C:\timetracker</tt>) and execute the command:
@@ -198,7 +198,7 @@
                 </li>
                 <li>Set some values in the search criteria fields and click the Search button. Now look
                     at the JBoss log file to see if the form values are logged correctly. The JBoss
-                    log file is located at <tt>C:\Programs\JBoss\6\server\default\log\server.log</tt>.
+                    log file is located at <tt>C:\Programs\JBoss\51\server\default\log\server.log</tt>.
                     Below is a sample log:
                     <br/>
                 </li>
