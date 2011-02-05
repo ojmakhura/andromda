@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <!--version>${project.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>uml2</id>
@@ -59,7 +59,7 @@
                             <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
                         </configuration>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
