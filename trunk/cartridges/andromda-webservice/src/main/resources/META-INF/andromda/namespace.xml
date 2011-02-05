@@ -21,7 +21,7 @@
             <property name="wsdls">
                 <documentation>
                     Specifies the directory to which generated WSDL's will be placed.
-                     Normally webservice/src/WEB-INF/wsdl or webservice/WebContent/WEB-INF/wsdl (for CXF).
+                     Normally webservice/src/main/webapp/WEB-INF/wsdl.
                 </documentation>
             </property>
             <property name="java-types">
@@ -33,7 +33,7 @@
             <property name="configuration">
                 <documentation>
                     The directory to which any configuration files
-                    are generated (such as the web.xml, etc). Normally webservice/src/WEB-INF or webservice/WebContent/WEB-INF (for CXF).
+                    are generated (such as the web.xml, etc). Normally webservice/src/main/webapp/WEB-INF.
                 </documentation>
             </property>
             <property name="axis-tests" required="false">
@@ -424,11 +424,13 @@
             <property name="wsdlSoapNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
                 <documentation>
+                    The soap namespace.
                 </documentation>
             </property>
             <property name="xmlSchemaNamespace">
                 <default>http://www.w3.org/2001/XMLSchema</default>
                 <documentation>
+                    The XMLSchema namespace
                 </documentation>
             </property>
             <property name="wsdlNamespace">
@@ -439,6 +441,7 @@
             <property name="documentStyleTransportNamespace">
                 <default>http://schemas.xmlsoap.org/soap/http</default>
                 <documentation>
+                    The doc style transport namespace
                 </documentation>
             </property>
             <property name="xmlEncoding">

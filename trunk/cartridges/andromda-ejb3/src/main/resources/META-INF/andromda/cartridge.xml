@@ -65,14 +65,14 @@
     <property reference="jarFiles"/>
     
     <!-- cartridge-property merge-point -->
-    
+
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="daoInheritanceEnabled">$daoInheritanceEnabled.equalsIgnoreCase("true")</condition>
-    
+
     <!-- condition merge-point-->
-    
+
     <!-- cartridge-resource merge-point -->
-    
+
     <resource
         path="lib/jboss/microcontainer/*.rar"
         outputPattern="{0}"
