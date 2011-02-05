@@ -181,10 +181,8 @@ public class TraceTranslator
             }
 
             //now add all the methods to the class
-            Iterator allMethods = this.methods.keySet().iterator();
-            while (allMethods.hasNext())
+            for (CtMethod method : this.methods.keySet())
             {
-                CtMethod method = (CtMethod) allMethods.next();
                 CtMethod newMethod = new CtMethod(method, ctTranslatorClass, null);
                 String methodBody = this.methods.get(method);
                 newMethod.setBody(methodBody);

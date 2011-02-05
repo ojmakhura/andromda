@@ -154,20 +154,19 @@ public class UML14MetafacadeUtils
      */
     static UmlPackage getRootPackage()
     {
-        Object rootPackage = null;
+        Object result = null;
         Collection rootPackages = UML14MetafacadeUtils.getModel().getModelManagement().getModel().refAllOfType();
-        Iterator packageIt = rootPackages.iterator();
-        while (packageIt.hasNext())
+        for (Object rootPackage : rootPackages)
         {
-            rootPackage = packageIt.next();
             // get the first package that's a ModelElement instance
             // Note: UML2 allows top level ModelElement to be a Package.
             if (rootPackage instanceof ModelElement)
             {
+                result = rootPackage;
                 break;
             }
         }
-        return (UmlPackage)rootPackage;
+        return (UmlPackage)result;
     }
 
     /**

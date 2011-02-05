@@ -104,7 +104,7 @@ public class SchemaTransformer
     /**
      * Stores the classes keyed by table name.
      */
-    private Map classes = new HashMap();
+    private Map<String, UmlClass> classes = new HashMap<String,  UmlClass>();
 
     /**
      * Stores the foreign keys for each table.
@@ -152,7 +152,7 @@ public class SchemaTransformer
      * The set of additional tagged values that are (optionally) added to each attribute
      * in the generated model.
      */
-    private HashMap attributeTaggedValues = new HashMap();
+    private Map<String, String> attributeTaggedValues = new HashMap<String, String>();
 
     /**
      * Stores the version of XMI that will be produced.
@@ -533,11 +533,9 @@ public class SchemaTransformer
         }
 
         // add all attributes and associations to the modelPackage
-        Iterator tableNameIt = this.classes.keySet().iterator();
-        while (tableNameIt.hasNext())
+        for (String tableName : this.classes.keySet())
         {
-            String tableName = (String)tableNameIt.next();
-            UmlClass umlClass = (UmlClass)classes.get(tableName);
+            final UmlClass umlClass = classes.get(tableName);
             if (logger.isInfoEnabled())
             {
                 logger.info("created class --> '" + umlClass.getName() + '\'');
@@ -703,19 +701,17 @@ public class SchemaTransformer
                     // Add the attribute specific tagged values (if any)...
                     if (!attributeTaggedValues.isEmpty())
                     {
-                        Set keys = attributeTaggedValues.keySet();
-                        Iterator iter = keys.iterator();
-                        while (iter.hasNext())
+                        Set<String> keys = attributeTaggedValues.keySet();
+                        for (final String tag : keys)
                         {
-                            String tag = (String)iter.next();
-                            String value = (String)attributeTaggedValues.get(tag);
+                            final String value = attributeTaggedValues.get(tag);
                             TaggedValue taggedValue =
-                                this.createTaggedValue(corePackage, tag, value);
+                                    this.createTaggedValue(corePackage, tag, value);
                             if (taggedValue != null)
                             {
                                 attribute.getTaggedValue().add(taggedValue);
                             }
-                        } // while
+                        }
                     }
 
                     if (primaryKeyColumns.contains(columnName))
@@ -922,7 +918,7 @@ public class SchemaTransformer
                         0,
                         primaryUpper),
                     ChangeableKindEnum.CK_CHANGEABLE);
-            primaryEnd.setParticipant((Classifier)this.classes.get(tableName));
+            primaryEnd.setParticipant(this.classes.get(tableName));
             association.getConnection().add(primaryEnd);
 
             boolean required = !this.isColumnNullable(metadata, tableName, fkColumnName);
@@ -958,7 +954,7 @@ public class SchemaTransformer
                         foreignLower,
                         1),
                     ChangeableKindEnum.CK_CHANGEABLE);
-            final Classifier foreignParticipant = (Classifier)this.classes.get(foreignTableName);
+            final Classifier foreignParticipant = this.classes.get(foreignTableName);
             if (foreignParticipant == null)
             {
                 throw new SchemaTransformerException(

@@ -80,10 +80,9 @@ public class GeneralizableElementFacadeLogicImpl
         Collection<Generalization> generalizations = metaObject.getGeneralization();
         if (generalizations != null && !generalizations.isEmpty())
         {
-            Iterator<Generalization> iterator = generalizations.iterator();
-            while (iterator.hasNext())
+            for (Generalization generalization : generalizations)
             {
-                parents.add(iterator.next().getParent());
+                parents.add(generalization.getParent());
             }
         }
         return this.shieldedElements(parents);

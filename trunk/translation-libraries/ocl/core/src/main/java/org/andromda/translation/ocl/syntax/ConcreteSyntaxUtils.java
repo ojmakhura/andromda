@@ -53,10 +53,9 @@ public class ConcreteSyntaxUtils
         StringBuffer name = new StringBuffer();
         if (list != null)
         {
-            Iterator iterator = list.iterator();
-            while (iterator.hasNext())
+            for (Object object : list)
             {
-                String value = ObjectUtils.toString(iterator.next());
+                String value = ObjectUtils.toString(object);
                 name.append(value);
             }
         }
@@ -157,13 +156,11 @@ public class ConcreteSyntaxUtils
                     variables.getVariableDeclarationValue()));
 
             // add the rest
-            List variableTails = variables.getVariableDeclarationListTail();
+            List<AVariableDeclarationListTail> variableTails = variables.getVariableDeclarationListTail();
             if (variableTails != null)
             {
-                Iterator variableTailIt = variableTails.iterator();
-                while (variableTailIt.hasNext())
+                for (AVariableDeclarationListTail tail : variableTails)
                 {
-                    AVariableDeclarationListTail tail = (AVariableDeclarationListTail) variableTailIt.next();
                     declarations.add(
                             ConcreteSyntaxUtils.newVariableDeclaration(tail.getVariableDeclaration(),
                                     tail.getVariableDeclarationValue()));
@@ -236,13 +233,11 @@ public class ConcreteSyntaxUtils
 
                 // now add the rest of the params which are contained in the
                 // tail
-                List restOfParams = params.getCommaExpression();
+                List<ACommaExpression> restOfParams = params.getCommaExpression();
                 if (restOfParams != null && !restOfParams.isEmpty())
                 {
-                    Iterator paramIt = restOfParams.iterator();
-                    while (paramIt.hasNext())
+                    for (ACommaExpression parameterListTail : restOfParams)
                     {
-                        ACommaExpression parameterListTail = (ACommaExpression) paramIt.next();
                         parameters.add(TranslationUtils.trimToEmpty(parameterListTail.getExpression()));
                     }
                 }
@@ -305,10 +300,9 @@ public class ConcreteSyntaxUtils
             List expressionTail = expression.getPropertyCallExpressionTail();
             if (!expressionTail.isEmpty())
             {
-                Iterator expressionTailIt = expressionTail.iterator();
-                while (expressionTailIt.hasNext())
+                for (Object object : expressionTail)
                 {
-                    final String tail = TranslationUtils.trimToEmpty(expressionTailIt.next());
+                    final String tail = TranslationUtils.trimToEmpty(object);
                     // beak out if we encounter an arrow feature call
                     if (tail.contains(ARROW_FEATURE_CALL))
                     {

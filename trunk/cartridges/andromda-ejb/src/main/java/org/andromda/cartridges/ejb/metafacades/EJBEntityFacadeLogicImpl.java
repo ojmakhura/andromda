@@ -329,11 +329,9 @@ public class EJBEntityFacadeLogicImpl
      */
     protected boolean handleIsIdentifierPresent(String identifier)
     {
-        Collection collIdentifier = this.getIdentifiers(true);
-        Iterator it = collIdentifier.iterator();
-        while (it.hasNext())
+        Collection<AttributeFacade> collIdentifier = this.getIdentifiers(true);
+        for (AttributeFacade attr : collIdentifier)
         {
-            AttributeFacade attr = (AttributeFacade)it.next();
             if (attr.getName().equalsIgnoreCase(identifier))
             {
                 return true;
@@ -347,11 +345,9 @@ public class EJBEntityFacadeLogicImpl
      */
     protected boolean handleIsAttributePresent(String strAttr)
     {
-        Collection collAttrib = this.getAttributes(true);
-        Iterator it = collAttrib.iterator();
-        while (it.hasNext())
+        Collection<AttributeFacade> collAttrib = this.getAttributes(true);
+        for (AttributeFacade attr : collAttrib)
         {
-            AttributeFacade attr = (AttributeFacade)it.next();
             if (attr.getName().equalsIgnoreCase(strAttr))
             {
                 return true;
@@ -365,11 +361,9 @@ public class EJBEntityFacadeLogicImpl
      */
     protected boolean handleIsOperationPresent(String op)
     {
-        Collection collOps = this.getOperations();
-        Iterator it = collOps.iterator();
-        while (it.hasNext())
+        Collection<OperationFacade> collOps = this.getOperations();
+        for (OperationFacade operation : collOps)
         {
-            OperationFacade operation = (OperationFacade)it.next();
             if (operation.getName().equalsIgnoreCase(op))
             {
                 return true;

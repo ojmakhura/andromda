@@ -291,15 +291,12 @@ public class TranslationTestProcessor
 
             TranslationTest test = testDiscoverer.getTest(translation);
 
-            Map expressions = test.getExpressionConfigs();
+            Map<String, ExpressionTest> expressions = test.getExpressionConfigs();
 
             if (expressions != null)
             {
-                Iterator expressionIt = expressions.keySet().iterator();
-                while (expressionIt.hasNext())
+                for (String fromExpression : expressions.keySet())
                 {
-                    String fromExpression = (String) expressionIt.next();
-
                     // if the fromExpression body isn't defined, skip expression
                     // test
                     if (StringUtils.isEmpty(fromExpression))
@@ -321,7 +318,8 @@ public class TranslationTestProcessor
                                 translation,
                                 fromExpression,
                                 null);
-                    } else
+                    }
+                    else
                     {
                         final ExpressionTest expressionConfig = (ExpressionTest) expressions.get(fromExpression);
                         String toExpression = expressionConfig.getTo();
@@ -336,7 +334,8 @@ public class TranslationTestProcessor
                             modelElement = this.findModelElement(
                                     translation,
                                     fromExpression);
-                        } else
+                        }
+                        else
                         {
                             logger.info("No repositories defined in configuration, not finding for model elements");
                         }

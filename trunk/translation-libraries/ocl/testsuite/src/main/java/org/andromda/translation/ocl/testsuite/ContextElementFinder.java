@@ -198,23 +198,21 @@ public class ContextElementFinder
         ExceptionUtils.checkNull("oclOperation", oclOperation);
         ExceptionUtils.checkNull("facadeOperation", facadeOperation);
 
-        Collection facadeOpArguments = facadeOperation.getArguments();
+        Collection<ParameterFacade> facadeOpArguments = facadeOperation.getArguments();
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();
         Collection<String> expressionArgNames = new ArrayList<String>();
         if (expressionOpArgs != null)
         {
-            for (int ctr = 0; ctr < expressionOpArgs.length; ctr++)
+            for (VariableDeclaration expressionOpArg : expressionOpArgs)
             {
-                expressionArgNames.add(expressionOpArgs[ctr].getName());
+                expressionArgNames.add(expressionOpArg.getName());
             }
         }
         Collection<String> facadeArgNames = new ArrayList<String>();
         if (facadeOpArguments != null)
         {
-            Iterator facadeOpArgumentIt = facadeOpArguments.iterator();
-            while (facadeOpArgumentIt.hasNext())
+            for (ParameterFacade facadeArg : facadeOpArguments)
             {
-                ParameterFacade facadeArg = (ParameterFacade) facadeOpArgumentIt.next();
                 facadeArgNames.add(facadeArg.getName());
             }
         }

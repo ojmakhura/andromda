@@ -56,7 +56,7 @@ public class TranslationTest
      *
      * @return Map
      */
-    public Map getExpressionConfigs()
+    public Map<String, ExpressionTest> getExpressionConfigs()
     {
         return this.expressionConfigs;
     }

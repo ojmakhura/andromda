@@ -107,10 +107,8 @@ public class WebServiceLogicImpl
         Collection<WebServiceOperation> operations = this.getAllowedOperations();
         if (operations != null && !operations.isEmpty())
         {
-            Iterator<WebServiceOperation> operationIt = operations.iterator();
-            while (operationIt.hasNext())
+            for (WebServiceOperation operation : operations)
             {
-                WebServiceOperation operation = operationIt.next();
                 methodNames.add(StringUtils.trimToEmpty(operation.getName()));
             }
         }
@@ -1539,10 +1537,8 @@ public class WebServiceLogicImpl
         if (this.getRestCount()>0)
         {
             Collection<WebServiceOperation> operations = this.getAllowedOperations();
-            Iterator<WebServiceOperation> operationIt = operations.iterator();
-            while (operationIt.hasNext())
+            for (WebServiceOperation operation : operations)
             {
-                WebServiceOperation operation = operationIt.next();
                 String restProduces = operation.getRestProduces();
                 if (StringUtils.isNotBlank(restProduces) && restProduces.contains("atom"))
                 {
