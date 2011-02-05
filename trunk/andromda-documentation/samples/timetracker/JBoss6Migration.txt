@@ -152,6 +152,8 @@ java.lang.NoClassDefFoundError: org/springframework/security/authentication/Auth
 
 org.springframework.beans.NotWritablePropertyException: Invalid property 'authenticationFailureUrl' of bean class [org.springframework.security.web.authentication.AuthenticationProcessingFilter]: Bean property 'authenticationFailureUrl' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter?
 
+http://raibledesigns.com/rd/entry/upgrading_to_spring_security_2
+http://mmmsoftware.blogspot.com/2008/11/migrating-from-acegi-security-to-spring.html
 http://static.springsource.org/spring-security/site/docs/3.0.x/reference/springsecurity-single.html
 http://blog.springsource.com/2010/03/06/behind-the-spring-security-namespace/
 http://blog.springsource.com/2009/06/03/spring-security-300m1-released/

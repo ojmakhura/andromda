@@ -135,7 +135,7 @@
                     </ol>
                 </li>
                 <li>Let's start the JBoss server so we can deploy the TimeTracker application to it.
-                    To do this, open a second Command Prompt in the JBoss bin directory ( <tt>C:\jboss-4.0.4\bin</tt>)
+                    To do this, open a second Command Prompt in the JBoss bin directory ( <tt>C:\Programs\JBoss\51\bin</tt>)
                     and execute the command <tt>run</tt>. JBoss will take some time to start up.
                     Wait for a message similar to this to make sure JBoss has started successfully:
                     <br/>
@@ -149,7 +149,7 @@
                     <tt>mvn -f app/pom.xml -Ddeploy</tt>
                     <br/>
                     You will notice that the TimeTracker EAR (Executable Archive) file is copied over
-                    to the JBoss deploy directory ( <tt>C:\Programs\JBoss\6\server\default\deploy</tt>)
+                    to the JBoss deploy directory ( <tt>C:\Programs\JBoss\51\server\default\deploy</tt>)
                     and the JBoss console displays several messages indicating that it is deploying
                     the application. Wait for a message similar to this to make sure TimeTracker has
                     started successfully:
