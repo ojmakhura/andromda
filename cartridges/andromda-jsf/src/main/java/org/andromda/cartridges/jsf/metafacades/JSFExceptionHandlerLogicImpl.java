@@ -90,5 +90,4 @@ public class JSFExceptionHandlerLogicImpl
         final UseCaseFacade useCase = this.getUseCase();
         return useCase != null ? StringUtilsHelper.toResourceMessageKey(useCase.getName()) : null;
     }
-
 }
