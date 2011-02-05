@@ -365,7 +365,7 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
-                    <webAppSourceDirectory>${basedir}/target/src/main/webapp</webAppSourceDirectory>
+                    <webAppSourceDirectory>${project.basedir}/target/src/main/webapp</webAppSourceDirectory>
                     <webAppConfig>
                         <contextPath>/${application.id}-${project.version}</contextPath>
                     </webAppConfig>
