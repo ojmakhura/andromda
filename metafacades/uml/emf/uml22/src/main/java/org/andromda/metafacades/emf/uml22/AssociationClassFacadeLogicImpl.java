@@ -1,6 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.uml2.uml.AssociationClass;
 
@@ -30,7 +31,7 @@ public class AssociationClassFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AssociationClassFacade#getConnectionAssociationEnds()
      */
     @Override
-    protected Collection<org.andromda.metafacades.uml.AssociationEndFacade> handleGetConnectionAssociationEnds()
+    protected Collection<AssociationEndFacade> handleGetConnectionAssociationEnds()
     {
         return CollectionUtils.collect(
                 this.metaObject.getMemberEnds(),

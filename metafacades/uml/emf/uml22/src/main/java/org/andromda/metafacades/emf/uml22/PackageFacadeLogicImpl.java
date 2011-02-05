@@ -79,13 +79,14 @@ public class PackageFacadeLogicImpl
     protected Collection<ClassifierFacade> handleGetClasses()
     {
         return new FilteredCollection(this.metaObject.getOwnedElements())
+        {
+            private static final long serialVersionUID = 34L;
+            @Override
+            public boolean evaluate(final Object object)
             {
-                @Override
-                public boolean evaluate(final Object object)
-                {
-                    return object instanceof Class;
-                }
-            };
+                return object instanceof Class;
+            }
+        };
     }
 
     /**

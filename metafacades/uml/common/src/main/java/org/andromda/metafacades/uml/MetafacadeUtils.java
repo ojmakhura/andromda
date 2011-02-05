@@ -166,6 +166,7 @@ public class MetafacadeUtils
     {
         private final Collator collator = Collator.getInstance();
 
+        /** */
         FullyQualifiedNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);

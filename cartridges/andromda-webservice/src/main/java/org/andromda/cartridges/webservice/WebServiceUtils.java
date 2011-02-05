@@ -1561,25 +1561,25 @@ public class WebServiceUtils
             return true;
         }
         // Determine if attributes are multiple or anything other than simple types
-        for (final Iterator it = facade.getAttributes(follow).iterator(); it.hasNext();)
+        for (final Object obj : facade.getAttributes(follow))
         {
-            AttributeFacade attr = (AttributeFacade)it.next();
+            AttributeFacade attr = (AttributeFacade)obj;
             if (attr.getUpper() > 1 || attr.getUpper() == -1)
             {
                 return true;
             }
             // can't think of an easy way to determine simple type, just look at attribute package / type
             String pkg = attr.getType().getFullyQualifiedName(false);
+            if (logger.isDebugEnabled())
+            {
+                String fqn = attr.getGetterSetterTypeName();
+                String cpkg= attr.getType().getPackageName();
+                logger.debug("attr=" + attr.getName() + " pkg=" + pkg + " fqn=" + fqn + " cpkg=" + cpkg);
+            }
             if (StringUtils.isEmpty(pkg) || pkg.indexOf('.')<1)
             {
                 //TODO: Make sure all types are mapped
                 // Type mapping is missing? No FQN type, but xs:<type> is still output.
-                if (logger.isDebugEnabled())
-                {
-                    String fqn = attr.getGetterSetterTypeName();
-                    String cpkg= attr.getType().getPackageName();
-                    logger.debug("attr=" + attr.getName() + " pkg=" + pkg + " fqn=" + fqn + " cpkg=" + cpkg);
-                }
             }
             else if (pkg.length()<9)
             {

@@ -10,7 +10,7 @@ import org.andromda.core.translation.TranslatorException;
 public class ValidationTranslatorException
         extends TranslatorException
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs a ValidationTranslatorException
      *
