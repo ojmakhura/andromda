@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-import java.util.Iterator;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.ConnectableElement;
@@ -38,12 +37,11 @@ public class ActionStateFacadeLogicImpl
         Behavior activity = this.metaObject.getEntry();
         if (activity != null)
         {
-            for (Iterator<ConnectableElement> nodesIt = activity.getRoles().iterator(); nodesIt.hasNext();)
+            for (ConnectableElement nextNode : activity.getRoles())
             {
-                Object nextNode = nodesIt.next();
                 if (nextNode instanceof Action)
                 {
-                    return (Action)nextNode;
+                    return (Action) nextNode;
                 }
             }
         }

@@ -1924,10 +1924,8 @@ public class WebServiceUtils
                     if (classifier.isAbstract())
                     {
                         // Can't instantiate abstract class - pick some descendant
-                        Iterator iter = classifier.getSpecializations().iterator();
-                        while (iter.hasNext())
+                        for (GeneralizableElementFacade spec : classifier.getSpecializations())
                         {
-                            ClassifierFacade spec = (ClassifierFacade)iter.next();
                             if (spec.getName().equals(facade.getName() + "Impl"))
                             {
                                 rtn = '(' + facade.getName() + ")new " + typeName + "Impl()";
@@ -1938,10 +1936,8 @@ public class WebServiceUtils
                     }
                 }
                 GeneralizableElementFacade generalization = (GeneralizableElementFacade)facade;
-                Iterator iter = generalization.getSpecializations().iterator();
-                while (iter.hasNext())
-                {
-                    ClassifierFacade spec = (ClassifierFacade)iter.next();
+                for (GeneralizableElementFacade spec : generalization.getSpecializations())
+                {                       
                     if (spec.getName().equals(facade.getName() + "Impl"))
                     {
                         rtn = '(' + facade.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";

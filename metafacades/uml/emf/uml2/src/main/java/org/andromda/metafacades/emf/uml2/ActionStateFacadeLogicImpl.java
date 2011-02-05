@@ -37,9 +37,8 @@ public class ActionStateFacadeLogicImpl
         Activity activity = this.metaObject.getEntry();
         if (activity != null)
         {
-            for (Iterator nodesIt = activity.getNodes().iterator(); nodesIt.hasNext();)
+            for (Object nextNode : activity.getNodes())
             {
-                Object nextNode = nodesIt.next();
                 if (nextNode instanceof Action)
                 {
                     return nextNode;

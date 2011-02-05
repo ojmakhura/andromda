@@ -198,10 +198,8 @@ public class AttributeFacadeLogicImpl
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -225,10 +223,8 @@ public class AttributeFacadeLogicImpl
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     lower = Integer.valueOf(multiplicityRange.getLower());
                 }
             }
@@ -273,10 +269,8 @@ public class AttributeFacadeLogicImpl
             final Collection<MultiplicityRange> ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
-                while (rangeIt.hasNext())
+                for (MultiplicityRange multiplicityRange : ranges)
                 {
-                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     upper = Integer.valueOf(multiplicityRange.getUpper());
                 }
             }
