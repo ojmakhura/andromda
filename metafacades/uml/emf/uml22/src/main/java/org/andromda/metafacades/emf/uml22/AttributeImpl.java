@@ -276,7 +276,6 @@ public class AttributeImpl
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @return this.property.createTemplateBinding(null)
-     * @see org.eclipse.uml2.uml.Property#createTemplateBinding(TemplateSignature)
      */
     public TemplateBinding createTemplateBinding()
     {
@@ -288,7 +287,6 @@ public class AttributeImpl
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @param arg0
      * @return this.property.createTemplateBinding((TemplateSignature) arg0)
-     * @see org.eclipse.uml2.uml.Property#createTemplateBinding(TemplateSignature)
      */
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {

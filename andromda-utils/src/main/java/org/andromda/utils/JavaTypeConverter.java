@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
 public class JavaTypeConverter
 {
     private List<String> javaTypeConversionIgnoreList = new ArrayList<String>();
-    
+
     /** 
      * Specifies a list of one or more fully qualified java types that should be ignored 
      * whenever a type conversion is done.  See Spring namespace property "javaTypeConversionIgnoreList" 
@@ -32,7 +32,7 @@ public class JavaTypeConverter
             javaTypeConversionIgnoreList.addAll(Arrays.asList(typeList));
         }
     }
-    
+
     private static class ConversionEntry
     {
         // - not private to increase performance of
@@ -64,7 +64,7 @@ public class JavaTypeConverter
             new ConversionEntry("java.lang.Integer", "java.lang.String", "({0} == null ? null : {0}.toString())"),
             new ConversionEntry("java.lang.String", "int", "({0} == null ? 0 : Integer.valueOf({0}).intValue())"),
             new ConversionEntry("java.lang.String", "java.lang.Integer", "({0} == null ? null : Integer.valueOf({0}))"),
-            
+
             new ConversionEntry("long", "java.lang.Long", "new java.lang.Long({0})"),
             new ConversionEntry("long", "java.lang.String", "java.lang.String.valueOf({0})"),
             new ConversionEntry("long", "int", "(int){0}"), 
@@ -75,7 +75,7 @@ public class JavaTypeConverter
             new ConversionEntry("java.lang.Long", "java.lang.String", "({0} == null ? null : {0}.toString())"),
             new ConversionEntry("java.lang.String", "long", "({0} == null ? 0 : Long.valueOf({0}).longValue())"),
             new ConversionEntry("java.lang.String", "java.lang.Long", "({0} == null ? null : Long.valueOf({0}))"),
-            
+
             new ConversionEntry("double", "java.lang.Double", "new java.lang.Double({0})"),
             new ConversionEntry("double", "java.lang.String", "java.lang.String.valueOf({0})"),
             new ConversionEntry("double", "int", "(int){0}"), 
@@ -86,7 +86,7 @@ public class JavaTypeConverter
             new ConversionEntry("java.lang.Double", "java.lang.String", "({0} == null ? null : {0}.toString())"),
             new ConversionEntry("java.lang.String", "double", "({0} == null ? 0.0 : Double.valueOf({0}).doubleValue())"),
             new ConversionEntry("java.lang.String", "java.lang.Double", "({0} == null ? null : Double.valueOf({0}))"),
-            
+
             new ConversionEntry("float", "java.lang.Float", "new java.lang.Float({0})"),
             new ConversionEntry("float", "java.lang.String", "java.lang.String.valueOf({0})"),
             new ConversionEntry("float", "int", "(int){0}"), 
@@ -115,8 +115,7 @@ public class JavaTypeConverter
             new ConversionEntry("java.math.BigInteger", "java.lang.Long", "({0} == null ? null : new java.lang.Long({0}.longValue()))"),
             new ConversionEntry("java.lang.Float", "java.math.BigInteger", "({0} == null ? null : new java.math.BigDecimal((double){0}.floatValue()).toBigInteger())"),
             new ConversionEntry("java.lang.Double", "java.math.BigInteger", "({0} == null ? null : new java.math.BigDecimal({0}.doubleValue()).toBigInteger())"),
-            
-            
+
             new ConversionEntry("int", "java.math.BigDecimal", "java.math.BigDecimal.valueOf((long){0})"),
             new ConversionEntry("java.math.BigDecimal", "int", "({0} == null ? 0 : {0}.intValue())"),
             new ConversionEntry("long", "java.math.BigDecimal", "java.math.BigDecimal.valueOf({0})"),
@@ -148,7 +147,7 @@ public class JavaTypeConverter
 
             new ConversionEntry("string", "java.lang.String", "{0}"),
             new ConversionEntry("java.lang.String", "string", "{0}"),
-            
+
             new ConversionEntry("java.util.Date", "java.lang.String",
                 "({0} == null ? null : new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ssZ\").format({0}))"),
             new ConversionEntry("java.sql.Timestamp", "java.lang.String",
@@ -186,7 +185,7 @@ public class JavaTypeConverter
 
             new ConversionEntry("java.lang.Character", "java.lang.String", "({0} == null ? null : {0}.toString())"),
             new ConversionEntry("java.lang.String", "java.lang.Character", "({0} == null || {0}.length() == 0 ? null : java.lang.Character.valueOf({0}.charAt(0)))"),
-            
+
             new ConversionEntry("java.lang.Object", "java.lang.String", "{0} == null ? null : {0}.toString()"),
             new ConversionEntry("java.lang.Object", "java.lang.Integer", "{0} == null ? null : {0}.toString()"),
             new ConversionEntry("java.lang.Object", "java.lang.Long", "{0} == null ? null : {0}.toString()"),

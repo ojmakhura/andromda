@@ -200,7 +200,7 @@ public class ContextElementFinder
 
         Collection facadeOpArguments = facadeOperation.getArguments();
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();
-        Collection expressionArgNames = new ArrayList();
+        Collection<String> expressionArgNames = new ArrayList<String>();
         if (expressionOpArgs != null)
         {
             for (int ctr = 0; ctr < expressionOpArgs.length; ctr++)
@@ -208,7 +208,7 @@ public class ContextElementFinder
                 expressionArgNames.add(expressionOpArgs[ctr].getName());
             }
         }
-        Collection facadeArgNames = new ArrayList();
+        Collection<String> facadeArgNames = new ArrayList<String>();
         if (facadeOpArguments != null)
         {
             Iterator facadeOpArgumentIt = facadeOpArguments.iterator();

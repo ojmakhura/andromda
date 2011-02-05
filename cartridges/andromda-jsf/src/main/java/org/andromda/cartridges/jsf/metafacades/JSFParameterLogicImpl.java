@@ -1147,16 +1147,25 @@ public class JSFParameterLogicImpl
     }
 
     //to be used in the range validator: "range - 1000" or "range 20 -". 
+    /** - */
     final static String UNDEFINED_BOUND="-";
-    
+    /** javax.validation.constraints.NotNull */
     final static String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    /** org.hibernate.validator.constraints.URL */
     final static String AN_URL = "@org.hibernate.validator.constraints.URL";
+    /** org.apache.myfaces.extensions.validator.baseval.annotation.LongRange */
     final static String AN_LONG_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.LongRange";
+    /** org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange */
     final static String AN_DOUBLE_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange";
+    /** org.hibernate.validator.constraints.Email */
     final static String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
+    /** org.hibernate.validator.constraints.CreditCardNumber */
     final static String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
+    /** javax.validation.constraints.Size */
     final static String AN_LENGTH = "@javax.validation.constraints.Size";
+    /** org.apache.myfaces.extensions.validator.baseval.annotation.Pattern */
     final static String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
+    /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */
     final static String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
     
     /**

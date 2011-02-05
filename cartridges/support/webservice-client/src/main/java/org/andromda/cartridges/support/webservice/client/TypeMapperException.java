@@ -9,6 +9,7 @@ package org.andromda.cartridges.support.webservice.client;
 public class TypeMapperException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs an instance of TypeMapperException.
      *

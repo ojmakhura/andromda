@@ -1073,9 +1073,9 @@ extends EJB3SessionFacadeLogic
     /**
      * @see EJB3SessionFacadeLogic#handleGetResourceDataSourceReferences()
      */
-    protected Collection handleGetResourceDataSourceReferences()
+    protected Collection<DependencyFacade> handleGetResourceDataSourceReferences()
     {
-        Collection references = this.getSourceDependencies();
+        Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(
                 references,
                 new Predicate()

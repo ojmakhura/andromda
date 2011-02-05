@@ -13,7 +13,7 @@ import org.apache.commons.collections.Predicate;
 
 /**
  * Tests {@link org.andromda.core.metafacade.MetafacadeMappings}
- * 
+ *
  * @author Chad Brandon
  */
 public class MetafacadeMappingsTest
@@ -21,7 +21,7 @@ public class MetafacadeMappingsTest
 {
     /**
      * Constructor for MappingsTest.
-     * 
+     *
      * @param name
      */
     public MetafacadeMappingsTest(
@@ -38,7 +38,6 @@ public class MetafacadeMappingsTest
     {
         NamespaceComponents.instance().discover();
     }
-
 
     private static final String METAFACADE_1 = "org.andromda.core.metafacade.Metafacade1";
     private static final String METAFACADE_IMPL_1 = "org.andromda.core.metafacade.Metafacade1Impl";
@@ -101,7 +100,7 @@ public class MetafacadeMappingsTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetMetafacadeMapping()
     {
@@ -141,7 +140,7 @@ public class MetafacadeMappingsTest
         propertyReferences = mapping.getPropertyReferences();
         assertNotNull(propertyReferences);
         assertEquals(2, propertyReferences.size());
-        assertNotNull(CollectionUtils.find(propertyReferences, 
+        assertNotNull(CollectionUtils.find(propertyReferences,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -149,7 +148,7 @@ public class MetafacadeMappingsTest
                     return "metafacadeProperteryOne".equals(object);
                 }
             }));
-        assertNotNull(CollectionUtils.find(propertyReferences, 
+        assertNotNull(CollectionUtils.find(propertyReferences,
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -333,7 +332,8 @@ public class MetafacadeMappingsTest
             METAFACADE_5,
             null);
         assertNotNull(mapping);
-        assertTrue(mapping.getMappingClassNames().contains(MAPPING_OBJECT_6.getClass().getName()));
+        assertTrue(mapping.getMappingClassNames()
+            .contains(MAPPING_OBJECT_6.getClass().getName()));
         assertEquals(METAFACADE_5, mapping.getContext());
         group = mapping.getMappingProperties();
         mappingProperties = group.getProperties();
@@ -376,8 +376,8 @@ public class MetafacadeMappingsTest
         assertEquals(PROPERTY_TWO, propertyTwo.getName());
         assertEquals("SomeValue", propertyTwo.getValue());
 
-        // attempt to get a mapping that is mapped twice 
-        // each one using a different property of the 
+        // attempt to get a mapping that is mapped twice
+        // each one using a different property of the
         // metafacade
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_10,

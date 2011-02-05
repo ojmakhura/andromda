@@ -7,7 +7,7 @@ package org.andromda.translation.ocl.testsuite;
 public class TranslationTestDiscovererException
         extends RuntimeException
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs an instance of TranslationTestDiscovererException.
      *

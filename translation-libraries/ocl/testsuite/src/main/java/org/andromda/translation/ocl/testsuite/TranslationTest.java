@@ -13,7 +13,7 @@ public class TranslationTest
 {
 
     private String translation;
-    private Map expressionConfigs = new LinkedHashMap();
+    private Map<String, ExpressionTest> expressionConfigs = new LinkedHashMap<String, ExpressionTest>();
     private URL uri;
 
     /**

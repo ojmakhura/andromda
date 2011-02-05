@@ -21,7 +21,7 @@ public class Configuration
     /**
      * Stores any properties defined in this configuration.
      */
-    private final Map<String, String> properties = new LinkedHashMap<String, String>();
+    private Properties properties = new Properties();
 
     /**
      * Adds a property with the name and value to the current properties

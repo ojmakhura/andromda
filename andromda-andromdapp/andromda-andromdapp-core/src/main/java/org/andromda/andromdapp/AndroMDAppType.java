@@ -495,7 +495,7 @@ public class AndroMDAppType
             for (final String outputPath : outputPaths.keySet())
             {
                 // - only evaluate if we haven't yet evaluated
-                writable = (Boolean) evaluatedPaths.get(path);
+                writable = evaluatedPaths.get(path);
                 if (writable == null)
                 {
                     if (path.startsWith(outputPath))
@@ -555,12 +555,12 @@ public class AndroMDAppType
     private boolean isValidTemplate(final String path)
     {
         boolean exclude = false;
-        final Map exclusions = this.getTemplateEngineExclusions();
+        final Map<String, String[]> exclusions = this.getTemplateEngineExclusions();
         for (final String exclusionPath : (Iterable<String>) exclusions.keySet())
         {
             if (path.startsWith(exclusionPath))
             {
-                final String[] patterns = (String[]) exclusions.get(exclusionPath);
+                final String[] patterns = exclusions.get(exclusionPath);
                 // See http://forum.andromda.org/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
                 exclude = ResourceUtils.matchesAtLeastOnePattern(
                         exclusionPath,

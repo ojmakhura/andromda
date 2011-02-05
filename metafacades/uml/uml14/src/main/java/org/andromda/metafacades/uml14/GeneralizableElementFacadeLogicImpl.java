@@ -39,7 +39,7 @@ public class GeneralizableElementFacadeLogicImpl
     @Override
     public Collection<GeneralizableElementFacade> handleGetAllGeneralizations()
     {
-        final Collection<GeneralizableElementFacade> generalizations = new ArrayList();
+        final Collection<GeneralizableElementFacade> generalizations = new ArrayList<GeneralizableElementFacade>();
         for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
         {
             final GeneralizableElementFacade element = iterator.next();
@@ -76,7 +76,7 @@ public class GeneralizableElementFacadeLogicImpl
     @Override
     protected Collection<GeneralizableElementFacade> handleGetGeneralizations()
     {
-        Collection<GeneralizableElement> parents = new LinkedHashSet();
+        Collection<GeneralizableElement> parents = new LinkedHashSet<GeneralizableElement>();
         Collection<Generalization> generalizations = metaObject.getGeneralization();
         if (generalizations != null && !generalizations.isEmpty())
         {

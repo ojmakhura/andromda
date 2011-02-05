@@ -187,7 +187,7 @@ public class SchemaMojo
             final List<String> tasks = this.getTasks();
             if (tasks != null && !tasks.isEmpty())
             {
-                final Map<String, Class> tasksMap = (Map<String, Class>)SchemaMojo.tasksCache.get(this.taskType);
+                final Map<String, Class> tasksMap = SchemaMojo.tasksCache.get(this.taskType);
                 if (tasksMap == null)
                 {
                     throw new MojoExecutionException('\'' + taskType +
@@ -234,7 +234,7 @@ public class SchemaMojo
                     final Set<String> classpathElements = new LinkedHashSet<String>(this.project.getRuntimeClasspathElements());
                     classpathElements.addAll(this.getProvidedClasspathElements());
                     this.initializeClasspathFromClassPathElements(classpathElements);
-                    final Class type = (Class)tasksMap.get(task);
+                    final Class type = tasksMap.get(task);
                     if (type == null)
                     {
                         throw new MojoExecutionException('\'' + task + "' is not a valid task, valid types are: " +

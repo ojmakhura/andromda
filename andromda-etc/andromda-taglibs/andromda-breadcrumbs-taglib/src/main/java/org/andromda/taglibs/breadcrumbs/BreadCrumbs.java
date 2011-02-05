@@ -8,6 +8,7 @@ import java.util.LinkedList;
  */
 public class BreadCrumbs extends LinkedList
 {
+    private static final long serialVersionUID = 34L;
     /** org.andromda.bpm4struts.breadcrumbs */
     public final static String SESSION_KEY = "org.andromda.bpm4struts.breadcrumbs";
     /** 6 */
@@ -50,7 +51,7 @@ public class BreadCrumbs extends LinkedList
     /**
      * @param collection
      */
-    public BreadCrumbs(Collection collection)
+    public BreadCrumbs(Collection<Object> collection)
     {
         super(collection);
         maxSize = collection.size();

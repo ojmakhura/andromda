@@ -430,6 +430,7 @@ $operation.getDocumentation("    * ")
 #if (!$resName)
 #set ($resName = $reference.name)
 #end
+
     /**
      * Get the ${resName} resource.
      * The resource is obtained by looking up

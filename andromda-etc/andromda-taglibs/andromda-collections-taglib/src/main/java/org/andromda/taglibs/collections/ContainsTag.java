@@ -8,6 +8,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ContainsTag extends BodyTagSupport
 {
+    private static final long serialVersionUID = 34L;
     private Object item = null;
 
     /**

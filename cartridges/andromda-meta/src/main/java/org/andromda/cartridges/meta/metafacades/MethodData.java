@@ -197,7 +197,7 @@ public class MethodData implements Comparable
 
         for (final Iterator<ArgumentData> iterator = this.arguments.iterator(); iterator.hasNext();)
         {
-            final ArgumentData argument = (ArgumentData)iterator.next();
+            final ArgumentData argument = iterator.next();
             call += argument.getName();
             if (iterator.hasNext())
             {

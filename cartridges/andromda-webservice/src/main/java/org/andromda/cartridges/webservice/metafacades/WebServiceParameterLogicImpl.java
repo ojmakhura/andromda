@@ -70,7 +70,7 @@ public class WebServiceParameterLogicImpl
                     else if (!type.isDataType())
                     {
                         testTypeName = testPackageName + '.' + wsdlType.getName();
-                    }                    
+                    }
                 }
             }
             if (testTypeName == null)

@@ -8,6 +8,7 @@ package org.andromda.andromdapp;
 public class AndroMDAppException
     extends RuntimeException
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs an instance of AndroMDAppException.
      *

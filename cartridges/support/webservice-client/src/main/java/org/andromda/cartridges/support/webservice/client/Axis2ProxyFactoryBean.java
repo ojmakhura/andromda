@@ -11,6 +11,7 @@ public class Axis2ProxyFactoryBean
     extends Axis2PortClientInterceptor
     implements FactoryBean
 {
+    private static final long serialVersionUID = 34L;
     private Object serviceProxy;
 
     /**

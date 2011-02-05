@@ -98,6 +98,7 @@ class HibernateMetafacadeUtils
         Collection businessOperations =
             new FilteredCollection(operations)
             {
+                private static final long serialVersionUID = 34L;
                 public boolean evaluate(Object object)
                 {
                     return !((OperationFacade)object).isStatic();

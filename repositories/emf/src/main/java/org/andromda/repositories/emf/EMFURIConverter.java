@@ -155,7 +155,7 @@ public class EMFURIConverter
                 }
                 else
                 {
-                    normalizedUri = (URI)this.normalizedUris.get(uri);
+                    normalizedUri = this.normalizedUris.get(uri);
                 }
             }
         }

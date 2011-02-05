@@ -6,7 +6,7 @@ package org.andromda.translation.ocl.testsuite;
 public class ContextElementFinderException
         extends RuntimeException
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Constructs an instance of ContextElementFinderException.
      *

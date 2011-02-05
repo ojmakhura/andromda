@@ -25,7 +25,7 @@ public class AndroMDANetAppMojo
     private static final String INTERNAL_CONFIGURATION_URI = "META-INF/andromdapp/configuration.xml";
 
 
-	/**
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()

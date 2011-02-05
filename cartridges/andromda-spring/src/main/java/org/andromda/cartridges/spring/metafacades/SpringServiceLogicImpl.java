@@ -468,12 +468,13 @@ public class SpringServiceLogicImpl
         if (!this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
         {
             operations = new FilteredCollection(operations)
+            {
+                private static final long serialVersionUID = 34L;
+                public boolean evaluate(Object object)
                 {
-                    public boolean evaluate(Object object)
-                    {
-                        return object instanceof SpringServiceOperation && ((SpringServiceOperation)object).isWebserviceExposed();
-                    }
-                };
+                    return object instanceof SpringServiceOperation && ((SpringServiceOperation)object).isWebserviceExposed();
+                }
+            };
         }
         return operations;
     }
@@ -756,7 +757,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected String handleGetInitMethodName()
     {
@@ -773,7 +774,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected String handleGetDestroyMethodName()
     {

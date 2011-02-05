@@ -285,7 +285,6 @@ public class AndroMDApp
      *
      * @return the value read from standard input.
      */
-    @SuppressWarnings("null")
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

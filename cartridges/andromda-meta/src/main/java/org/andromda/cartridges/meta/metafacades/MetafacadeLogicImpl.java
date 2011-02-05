@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,7 @@ public class MetafacadeLogicImpl
             Collection<String> stereotypes = target.getStereotypeNames();
             if ((stereotypes != null) && (!stereotypes.isEmpty()))
             {
-                String stereotypeName = (String)stereotypes.iterator().next();
+                String stereotypeName = stereotypes.iterator().next();
                 if (stereotypeName.equals(MetaProfile.STEREOTYPE_METACLASS))
                 {
                     return target;
@@ -267,7 +266,7 @@ public class MetafacadeLogicImpl
                         {
                             this.getAllFeatures(methodDataMap, declarationSet, (Metafacade)classifier);
                         }
-                        this.featureMap.put(metafacade, (Collection<MethodData>) methodDataMap.values());
+                        this.featureMap.put(metafacade, methodDataMap.values());
                     }
                 }
             }
@@ -307,9 +306,9 @@ public class MetafacadeLogicImpl
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods
-            for (final Iterator<ModelElementFacade> iterator = facade.getProperties().iterator(); iterator.hasNext();)
+            for (final Object obj : facade.getProperties())
             {
-                final ModelElementFacade property = (ModelElementFacade)iterator.next();
+                final ModelElementFacade property = (ModelElementFacade)obj;
                 MethodData method = null;
                 if (property instanceof AttributeFacade)
                 {

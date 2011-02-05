@@ -83,7 +83,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
         boolean ordinalType = false;
         if (this.getType().isEnumeration())
         {
-            AttributeFacade literal = (AttributeFacade)this.getType().getAttributes().iterator().next();
+            AttributeFacade literal = this.getType().getAttributes().iterator().next();
             if (!literal.getType().isStringType())
             {
                 ordinalType = true;
@@ -101,7 +101,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
         boolean stringType = false;
         if (this.getType().isEnumeration())
         {
-            AttributeFacade literal = (AttributeFacade)this.getType().getAttributes().iterator().next();
+            AttributeFacade literal = this.getType().getAttributes().iterator().next();
             if (literal.getType().isStringType())
             {
                 stringType = true;

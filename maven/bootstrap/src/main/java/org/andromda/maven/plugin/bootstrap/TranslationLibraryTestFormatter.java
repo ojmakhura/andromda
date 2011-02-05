@@ -211,6 +211,7 @@ public class TranslationLibraryTestFormatter
      */
     private static final class Failure
     {
+        @SuppressWarnings("unused")
         Test test;
         Throwable information;
 

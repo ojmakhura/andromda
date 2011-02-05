@@ -37,7 +37,7 @@ public class ConfigurationClassLoader
     /**
      * @see ClassLoader#loadClass(String, boolean)
      */
-    protected Class loadClass(
+    protected synchronized Class loadClass(
         final String name,
         final boolean resolve)
         throws ClassNotFoundException

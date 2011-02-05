@@ -117,7 +117,7 @@ public class EJB3DependencyFacadeLogicImpl
             boolean breakOut = false;
             for (int ctr = hierarchyList.size() - 1; ctr >= 0; ctr--)
             {
-                final EJB3EntityFacade generalization = (EJB3EntityFacade)hierarchyList.get(ctr);
+                final EJB3EntityFacade generalization = hierarchyList.get(ctr);
                 for (final Iterator referenceIterator = generalization.getValueObjectReferences().iterator(); referenceIterator.hasNext();)
                 {
                     final Object reference = referenceIterator.next();

@@ -3,10 +3,8 @@ package org.andromda.core.metafacade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.ListIterator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * Base class for all metafacades.
@@ -171,10 +169,9 @@ public class MetafacadeBase implements Comparable
         final List metafacades = new ArrayList();
         if (metaobjects != null)
         {
-            metafacades.addAll(metaobjects);
-            for (final ListIterator iterator = metafacades.listIterator(); iterator.hasNext();)
+            for (final Object metaobject : metaobjects)
             {
-                iterator.set(this.shieldedElement(iterator.next()));
+                metafacades.add(this.shieldedElement(metaobject));
             }
         }
         return metafacades;
