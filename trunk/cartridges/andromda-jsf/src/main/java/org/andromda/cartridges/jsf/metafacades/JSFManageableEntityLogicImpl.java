@@ -156,6 +156,9 @@ public class JSFManageableEntityLogicImpl
 //        return this.isCreate() || this.isRead() || this.isUpdate() || this.isDelete();
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntityLogic#getManageableIdentifier()
+     */
     @Override
     public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier(){
         return super.getManageableIdentifier();

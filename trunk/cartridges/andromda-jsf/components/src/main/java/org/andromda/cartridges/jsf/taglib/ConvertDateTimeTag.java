@@ -1,13 +1,12 @@
 package org.andromda.cartridges.jsf.taglib;
 
 import javax.servlet.jsp.PageContext;
-
-import org.andromda.cartridges.jsf.converters.DateTimeConverter;
+import org.andromda.cartridges.jsf.converters.JsfDateTimeConverter;
 
 
 /**
  * Extends the default myfaces convert date time tag in order to use
- * the custom date time converer {@link org.andromda.cartridges.jsf.converters.DateTimeConverter}.
+ * the custom date time converter {@link org.andromda.cartridges.jsf.converters.JsfDateTimeConverter}.
  *
  * @author Chad Brandon
  */
@@ -21,7 +20,7 @@ public class ConvertDateTimeTag
 
     /**
      * Overridden to set the converter id using out custom date time
-     * converter: {@link org.andromda.cartridges.jsf.converters.DateTimeConverter}.
+     * converter: {@link org.andromda.cartridges.jsf.converters.JsfDateTimeConverter}.
      *
      * @see javax.servlet.jsp.tagext.Tag#setPageContext(javax.servlet.jsp.PageContext)
      */
@@ -29,6 +28,6 @@ public class ConvertDateTimeTag
     public void setPageContext(PageContext context)
     {
         super.setPageContext(context);
-        setConverterId(DateTimeConverter.CONVERTER_ID);
+        setConverterId(JsfDateTimeConverter.CONVERTER_ID);
     }
 }

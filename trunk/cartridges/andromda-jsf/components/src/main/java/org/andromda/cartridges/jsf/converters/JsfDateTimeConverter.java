@@ -11,9 +11,8 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
 
-
 /**
- * Overrides the default DateTimeConverter to include conversion of Calendar
+ * Overrides the default javax.faces.convert.DateTimeConverter to include conversion of Calendar
  * instances as well as Date instances.
  *
  * <p>
@@ -23,7 +22,7 @@ import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
  *
  * @author Chad Brandon
  */
-public class DateTimeConverter
+public class JsfDateTimeConverter
     extends javax.faces.convert.DateTimeConverter
     implements DateConverter
 {
