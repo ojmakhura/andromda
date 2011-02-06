@@ -395,7 +395,7 @@ implements HttpServletResponse, RenderResponse
      */
     public PortletURL createRenderURL()
     {
-        return createRenderURL();
+        return renderResponse.createRenderURL();
     }
 
     /**
@@ -403,7 +403,7 @@ implements HttpServletResponse, RenderResponse
      */
     public String getNamespace()
     {
-        return getNamespace();
+        return renderResponse.getNamespace();
     }
 
     /**
@@ -411,7 +411,7 @@ implements HttpServletResponse, RenderResponse
      */
     public OutputStream getPortletOutputStream() throws IOException
     {
-        return getPortletOutputStream();
+        return renderResponse.getPortletOutputStream();
     }
 
     /**
