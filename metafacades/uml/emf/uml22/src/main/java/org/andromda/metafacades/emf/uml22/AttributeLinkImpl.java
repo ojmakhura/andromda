@@ -60,10 +60,10 @@ public class AttributeLinkImpl implements AttributeLink
         {
             return this.slot.equals(((AttributeLinkImpl)object).slot);
         }
-        if (object instanceof LinkEndImpl)
+        /*if (object instanceof LinkEndImpl)
         {
             return this.slot.equals(((LinkEndImpl)object).slot);
-        }
+        }*/
         return this.slot.equals(object);
     }
 

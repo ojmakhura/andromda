@@ -61,10 +61,10 @@ public class LinkInstanceImpl implements LinkInstance
     @Override
     public boolean equals(Object object)
     {
-        if (object instanceof ObjectInstanceImpl)
+        /*if (object instanceof ObjectInstanceImpl)
         {
             return this.instanceSpecification.equals(((ObjectInstanceImpl)object).instanceSpecification);
-        }
+        }*/
         if (object instanceof LinkInstanceImpl)
         {
             return this.instanceSpecification.equals(((LinkInstanceImpl)object).instanceSpecification);

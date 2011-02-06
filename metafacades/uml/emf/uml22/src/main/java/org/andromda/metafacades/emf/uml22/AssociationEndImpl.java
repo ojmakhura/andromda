@@ -78,12 +78,12 @@ public class AssociationEndImpl
     @Override
     public boolean equals(final Object obj)
     {
-        if (obj instanceof Attribute)
+        /*if (obj instanceof AttributeImpl)
         {
             Property other = ((AttributeImpl)obj).property;
             return this.property.equals(other);
-        }
-        if (obj instanceof AssociationEnd)
+        }*/
+        if (obj instanceof AssociationEndImpl)
         {
             Property other = ((AssociationEndImpl)obj).property;
             return this.property.equals(other);

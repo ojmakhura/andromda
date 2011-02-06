@@ -64,10 +64,10 @@ public class ObjectInstanceImpl implements ObjectInstance
         {
             return this.instanceSpecification.equals(((ObjectInstanceImpl)object).instanceSpecification);
         }
-        if (object instanceof LinkInstanceImpl)
+        /*if (object instanceof LinkInstanceImpl)
         {
             return this.instanceSpecification.equals(((LinkInstanceImpl)object).instanceSpecification);
-        }
+        }*/
         return this.instanceSpecification.equals(object);
     }
 

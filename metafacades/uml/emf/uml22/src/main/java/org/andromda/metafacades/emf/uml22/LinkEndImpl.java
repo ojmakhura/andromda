@@ -50,10 +50,10 @@ public class LinkEndImpl implements LinkEnd
     @Override
     public boolean equals(final Object object)
     {
-        if (object instanceof AttributeLinkImpl)
+        /*if (object instanceof AttributeLinkImpl)
         {
             return this.slot.equals(((AttributeLinkImpl)object).slot);
-        }
+        }*/
         if (object instanceof LinkEndImpl)
         {
             return this.slot.equals(((LinkEndImpl)object).slot);
