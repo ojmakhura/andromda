@@ -651,10 +651,10 @@ $attribute.getDocumentation("     * ")
     )
 #*      *##end
 #*      *##if ($target.map)
-    @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "${target.collectionIndexName}")#end
 
 #*      *##else
-#*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
 #*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
 #*          *##else
@@ -833,10 +833,10 @@ $attribute.getDocumentation("     * ")
 #*        *##end
 #*      *##end
 #*      *##if ($target.map)
-    @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "${target.collectionIndexName}")#end
 
 #*      *##else
-#*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
 #*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
 #*          *##else

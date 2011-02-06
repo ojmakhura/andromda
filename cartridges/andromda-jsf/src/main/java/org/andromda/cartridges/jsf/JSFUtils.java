@@ -71,7 +71,7 @@ public class JSFUtils
             throw new IllegalArgumentException(
                 "Illegal validator tagged value (this tag is used to specify custom validators " +
                 "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
-                "@andromda.presentation.view.field.format?): " + validatorTaggedValue);
+                "andromda_presentation_view_field_format?): " + validatorTaggedValue);
         }
 
         final List<String> validatorArgs = new ArrayList<String>();
@@ -1037,7 +1037,7 @@ public class JSFUtils
     private static boolean strictDateTimeFormat;
 
     /**
-     * Sets whether or not the dattern patterns should be treated as strict.
+     * Sets whether or not the date patterns should be treated as strict.
      *
      * @param strictDateTimeFormat
      */

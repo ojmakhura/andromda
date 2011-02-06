@@ -472,7 +472,7 @@ public class EJB3Profile
     /**
      *
      */
-    public static final String TAGGEDVALUE_GENERATE_CMR = "@andromda.ejb.generateCMR";
+    public static final String TAGGEDVALUE_GENERATE_CMR = "andromda_ejb_generateCMR";
 
     /**
      * The tagged value indicating the EJB query.
