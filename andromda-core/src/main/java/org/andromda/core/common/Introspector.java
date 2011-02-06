@@ -595,6 +595,6 @@ public final class Introspector
         this.writeMethodsCache.clear();
         this.readMethodsCache.clear();
         this.evaluatingObjects.clear();
-        instance = null;
+        Introspector.instance = null;
     }
 }

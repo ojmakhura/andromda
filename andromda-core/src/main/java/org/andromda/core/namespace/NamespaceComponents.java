@@ -339,7 +339,7 @@ public class NamespaceComponents
         this.components.clear();
         this.registeredNamespaceResources.clear();
         this.registeredRegistries.clear();
-        instance = null;
+        NamespaceComponents.instance = null;
     }
 
     /**

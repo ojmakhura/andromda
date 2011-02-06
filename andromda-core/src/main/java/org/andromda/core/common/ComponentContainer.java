@@ -579,6 +579,6 @@ public class ComponentContainer
     public void shutdown()
     {
         this.container.clear();
-        instance = null;
+        ComponentContainer.instance = null;
     }
 }
