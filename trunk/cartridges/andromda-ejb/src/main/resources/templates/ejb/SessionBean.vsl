@@ -73,8 +73,8 @@ $service.getDocumentation(" * ")
 #end
 #if ($dependency.hasStereotype("ResourceRef"))
 #set ($reference = $dependency.targetElement)
-#set ($jndiRef = $dependency.findTaggedValue("@andromda.ejb.resource-ref.jndi-name"))
-#set ($resAuth = $dependency.findTaggedValue("@andromda.ejb.resource-ref.res-auth"))
+#set ($jndiRef = $dependency.findTaggedValue("andromda_ejb_resource-ref_jndi-name"))
+#set ($resAuth = $dependency.findTaggedValue("andromda_ejb_resource-ref_res-auth"))
 #if (!$resAuth)
 #set ($resAuth = "Container")
 #end

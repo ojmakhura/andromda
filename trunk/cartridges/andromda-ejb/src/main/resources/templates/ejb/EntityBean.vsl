@@ -24,7 +24,7 @@ $entity.getDocumentation(" * ")
 #if (!$identifier.complex)
  *     primkey-field = "$identifier.name"
 #end
-#set ($automaticKey = $entity.findTaggedValue("@andromda.ejb.automaticKey"))
+#set ($automaticKey = $entity.findTaggedValue("andromda_ejb_automaticKey"))
 #if ($automaticKey == "true")
  *
  * @weblogic.automatic-key-generation
@@ -70,8 +70,8 @@ $entity.getDocumentation(" * ")
 #end
 #if ($dependency.hasStereotype("ResourceRef"))
 #set ($superclass = $dependency.targetElement)
-#set ($jndiRef = $dependency.findTaggedValue("@andromda.ejb.resource-ref.jndi-name"))
-#set ($resAuth = $dependency.findTaggedValue("@andromda.ejb.resource-ref.res-auth"))
+#set ($jndiRef = $dependency.findTaggedValue("andromda_ejb_resource-ref_jndi-name"))
+#set ($resAuth = $dependency.findTaggedValue("andromda_ejb_resource-ref_res-auth"))
 #if (!$resAuth)
 #set ($resAuth = "Container")
 #end
@@ -95,7 +95,7 @@ $entity.getDocumentation(" * ")
 #end
 #end
 #foreach ( $finder in $entity.getQueryOperations(true))
-#if($finder.findTaggedValue("@andromda.ejb.query.dialect") == "JBossQL")
+#if($finder.findTaggedValue("andromda_ejb_query_dialect") == "JBossQL")
  * @ejb.finder signature="$finder.getterSetterReturnTypeName $finder.signature"
  *             query="This finder method is only supported on the JBoss application server"
  * @jboss.query signature="$finder.getterSetterReturnTypeName $finder.signature"
@@ -107,7 +107,7 @@ $entity.getDocumentation(" * ")
 #if ($finder.transactionType)
  *               transaction-type="$finder.transactionType"
 #end
-#set ($wlQuery = $finder.findTaggedValue("@andromda.ejb.query.weblogic", false))
+#set ($wlQuery = $finder.findTaggedValue("andromda_ejb_query_weblogic", false))
 #if    ($wlQuery)
  * @weblogic.finder signature="$finder.type.fullyQualifiedName $finder.signature"
  *                query="$wlQuery"
@@ -241,7 +241,7 @@ $attribute.getDocumentation("     * ")
 #if ($attribute.transactionType)
      * @ejb.transaction type="$attribute.transactionType"
 #end
-#set ($weblogicDataType = $att.findTaggedValue("@andromda.persistence.column.weblogicDataType", false))
+#set ($weblogicDataType = $att.findTaggedValue("andromda_persistence_column_weblogicDataType", false))
 #if ($weblogicDataType)
      * @weblogic.dbms-column-type $weblogicDataType
 #end
@@ -277,7 +277,7 @@ $attribute.getDocumentation("     * ")
 #if ($entity.abstract)
 #foreach ( $associationEnd in $entity.entityRelations) )
 #set ($target = $associationEnd.otherEnd)
-#if(!($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
+#if(!($associationEnd.association.findTaggedValue("andromda_ejb_generateCMR") == "false"))
 #set ($targetRoleName = $associationEnd.otherEnd.name)
 #set ($targetTypeName = $associationEnd.relationType)
 
@@ -303,7 +303,7 @@ $associationEnd.otherEnd.getDocumentation("    * ")
 #foreach ( $associationEnd in $entity.allEntityRelations )
 #set ($target = $associationEnd.otherEnd)
 ## relations not flagged as CMR are generated below under business methods
-#if(!($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false"))
+#if(!($associationEnd.association.findTaggedValue("andromda_ejb_generateCMR") == "false"))
 
    /**
     * Get the ${target.name}
@@ -496,7 +496,7 @@ $target.getDocumentation("    * ")
 ## is abstract. That way, we can implement them in the base class
 #foreach ( $associationEnd in $entity.entityRelations)
 #set ($target = $associationEnd.otherEnd)
-#if($associationEnd.association.findTaggedValue("@andromda.ejb.generateCMR") == "false")
+#if($associationEnd.association.findTaggedValue("andromda_ejb_generateCMR") == "false")
 
    /**
     * Get the ${associationEnd.otherEnd.name}
@@ -551,7 +551,7 @@ $operation.getDocumentation("    * ")
 #end
 #foreach ($operation in $entity.getSelectMethods(false))
 #set($queryString = "")
-#set($queryString = $operation.findTaggedValue("@andromda.ejb.query"))
+#set($queryString = $operation.findTaggedValue("andromda_ejb_query"))
 #if($queryString == "")
 #set($queryString = "SELECT DISTINCT OBJECT(c) FROM $entity.name AS c")
 #if($operation.arguments.size() >0 )

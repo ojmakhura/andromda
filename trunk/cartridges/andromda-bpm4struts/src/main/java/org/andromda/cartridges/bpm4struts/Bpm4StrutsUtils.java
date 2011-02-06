@@ -62,7 +62,7 @@ public final class Bpm4StrutsUtils
             throw new IllegalArgumentException(
                 "Illegal validator tagged value (this tag is used to specify custom validators " +
                     "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
-                    "@andromda.presentation.view.field.format?): " + validatorTaggedValue);
+                    "andromda_presentation_view_field_format?): " + validatorTaggedValue);
         }
 
         final List validatorArgs = new ArrayList();
