@@ -841,12 +841,11 @@ public class ClassifierFacadeLogicImpl
             {
                 final Abstraction abstraction = (Abstraction)dependency;
                 final List<NamedElement> suppliers = abstraction.getSuppliers();
-                for (int i = 0; i < suppliers.size(); i++)
+                for (NamedElement supplier : suppliers)
                 {
-                    final Object supplierObject = suppliers.get(i);
-                    if (supplierObject instanceof Interface)
+                    if (supplier instanceof Interface)
                     {
-                        operations.addAll(resolveInterfaceOperationsRecursively((Interface)supplierObject));
+                        operations.addAll(resolveInterfaceOperationsRecursively((Interface) supplier));
                     }
                 }
             }
@@ -868,12 +867,11 @@ public class ClassifierFacadeLogicImpl
         final Collection<Operation> operations = new LinkedHashSet<Operation>(classifier.getOwnedOperations());   // preserve ordering
 
         final List<Classifier> generals = classifier.getGenerals();
-        for (int i = 0; i < generals.size(); i++)
+        for (final Classifier generalObject : generals)
         {
-            final Classifier generalObject = generals.get(i);
             if (generalObject instanceof Interface)
             {
-                operations.addAll(resolveInterfaceOperationsRecursively((Interface)generalObject));
+                operations.addAll(resolveInterfaceOperationsRecursively((Interface) generalObject));
             }
         }
 
@@ -1276,9 +1274,8 @@ public class ClassifierFacadeLogicImpl
         final Set associatedClasses = new LinkedHashSet();
 
         final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
-        for (int i = 0; i < associationEnds.size(); i++)
+        for (final AssociationEndFacade associationEndFacade : associationEnds)
         {
-            final AssociationEndFacade associationEndFacade = associationEnds.get(i);
             associatedClasses.add(associationEndFacade.getOtherEnd().getType());
         }
 

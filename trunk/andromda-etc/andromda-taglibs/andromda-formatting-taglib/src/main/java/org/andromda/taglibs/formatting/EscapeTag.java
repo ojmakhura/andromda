@@ -38,9 +38,9 @@ public class EscapeTag extends BodyTagSupport
         String escapedString = this.getBodyContent().getString();
 
         final String[] languages = this.language.split(",");
-        for (int i = 0; i < languages.length; i++)
+        for (String language : languages)
         {
-            final String language = languages[i].trim();
+            language = language.trim();
 
             if ("html".equalsIgnoreCase(language))
             {

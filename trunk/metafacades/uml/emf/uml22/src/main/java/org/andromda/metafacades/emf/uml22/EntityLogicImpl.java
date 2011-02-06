@@ -999,9 +999,8 @@ public class EntityLogicImpl
     protected Collection<AttributeFacade> handleGetEmbeddedValues()
     {
         final Collection<AttributeFacade> embeddedValues = new ArrayList();
-        for (final Iterator<AttributeFacade> iterator = this.getAttributes(true).iterator(); iterator.hasNext();)
+        for (final AttributeFacade attribute : (Iterable<AttributeFacade>) this.getAttributes(true))
         {
-            final AttributeFacade attribute = iterator.next();
             final ClassifierFacade type = attribute.getType();
             if (type != null && type.isEmbeddedValue())
             {

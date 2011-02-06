@@ -30,10 +30,9 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
     {
         ArrayList result = new ArrayList();
 
-        Collection dependencies = getSourceDependencies();
-        for (Iterator iter = dependencies.iterator(); iter.hasNext();)
+        Collection<DependencyFacade> dependencies = getSourceDependencies();
+        for (DependencyFacade element : dependencies)
         {
-            DependencyFacade element = (DependencyFacade) iter.next();
             if (element.hasStereotype(DeploymentProfile.STEREOTYPE_WRAPS))
             {
                 result.add(element.getTargetElement());
@@ -52,10 +51,9 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
     {
         ArrayList result = new ArrayList();
 
-        Collection wrappedPackages = getWrappedPackages();
-        for (Iterator iter = wrappedPackages.iterator(); iter.hasNext();)
+        Collection<DeployedPackageFacade> wrappedPackages = getWrappedPackages();
+        for (DeployedPackageFacade element : wrappedPackages)
         {
-            DeployedPackageFacade element = (DeployedPackageFacade) iter.next();
             result.addAll(element.getTasksForCompilationPhase());
         }
 
@@ -72,10 +70,9 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
         ArrayList packages = new ArrayList();
 
         // find all packages which deploy in this artifact
-        Collection wrappedPackages = getWrappedPackages();
-        for (Iterator iter = wrappedPackages.iterator(); iter.hasNext();)
+        Collection<DeployedPackageFacade> wrappedPackages = getWrappedPackages();
+        for (DeployedPackageFacade element : wrappedPackages)
         {
-            DeployedPackageFacade element = (DeployedPackageFacade) iter.next();
             packages.add(element.getFullyQualifiedName());
         }
 

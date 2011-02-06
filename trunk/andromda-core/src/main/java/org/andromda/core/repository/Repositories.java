@@ -106,7 +106,7 @@ public class Repositories
             }
             else
             {
-                if (name.equals("emf-uml2"))
+                if ("emf-uml2".equals(name))
                 {
                     message =
                         "emf-uml2 (UML2 1.x) has been deprecated and is no longer the UML2 default, change your project " +

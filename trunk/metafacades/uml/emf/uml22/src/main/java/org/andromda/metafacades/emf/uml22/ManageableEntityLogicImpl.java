@@ -270,7 +270,7 @@ public class ManageableEntityLogicImpl
     private enum ListType
     {
         PRIMITIVE,
-        WRAPPER;
+        WRAPPER
     }
     
     private String createListWithManageableMembers(ListType listType)

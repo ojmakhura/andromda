@@ -286,26 +286,25 @@ public class Axis2ClientUtils
                 }
                 try
                 {
-                    final java.util.Map properties = PropertyUtils.describe(bean);
-                    for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+                    final java.util.Map<String, Object> properties = PropertyUtils.describe(bean);
+                    for (final String name : properties.keySet())
                     {
-                        final String name = (String)iterator.next();
                         if (!CLASS.equals(name))
                         {
                             final Object value = properties.get(name);
                             if (value != null)
                             {
                                 omElement.addChild(
-                                    getOMElement(
-                                        definition,
-                                        schema,
-                                        currentComponentElement,
-                                        value,
-                                        name,
-                                        factory,
-                                        namespaces,
-                                        typeMapper,
-                                        evaluatingBeans));
+                                        getOMElement(
+                                                definition,
+                                                schema,
+                                                currentComponentElement,
+                                                value,
+                                                name,
+                                                factory,
+                                                namespaces,
+                                                typeMapper,
+                                                evaluatingBeans));
                             }
                         }
                     }
@@ -385,13 +384,12 @@ public class Axis2ClientUtils
         final String namespace)
     {
         String prefix = null;
-        final Map namespaces = definition.getNamespaces();
-        for (final Iterator iterator = namespaces.entrySet().iterator(); iterator.hasNext();)
+        final Map<String, String> namespaces = definition.getNamespaces();
+        for (Map.Entry<String, String> entry : namespaces.entrySet())
         {
-            final Map.Entry entry = (Map.Entry)iterator.next();
             if (entry.getValue().equals(namespace))
             {
-                prefix = (String)entry.getKey();
+                prefix = entry.getKey();
             }
         }
         return prefix;
