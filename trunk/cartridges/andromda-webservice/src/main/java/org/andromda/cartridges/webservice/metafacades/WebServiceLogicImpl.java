@@ -1057,7 +1057,7 @@ public class WebServiceLogicImpl
     private String getWSDLOperationSortMode()
     {
         Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
-        return property != null || property.equals(OPERATION_SORT_MODE_NAME) ? (String)property : OPERATION_SORT_MODE_NONE;
+        return property != null ? (property.equals(OPERATION_SORT_MODE_NAME) ? (String)property : OPERATION_SORT_MODE_NONE) : OPERATION_SORT_MODE_NONE;
     }
 
     /**
