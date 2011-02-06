@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -31,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3AssociationEndFacadeLogicImpl
     extends EJB3AssociationEndFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * The default composite association cascade property
      */
@@ -110,7 +111,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * Stores the cascade map of fully qualified cascade types
      */
-    private static final Map cascadeTable = new Hashtable();
+    private static final Map<String, String> cascadeTable = new Hashtable<String, String>();
 
     static
     {
@@ -461,7 +462,10 @@ public class EJB3AssociationEndFacadeLogicImpl
             for (TaggedValueFacade taggedValue : this.getTaggedValues())
             {
                 // return with true on the first match found
-                if (name.equals(taggedValue.getName()))
+                //if (name.equals(taggedValue.getName()))
+                String tagName = taggedValue.getName();
+                if (name.equals(tagName) || MetafacadeUtils.getEmfTaggedValue(name).equals(tagName)
+                    || MetafacadeUtils.getUml14TaggedValue(name).equals(tagName))
                 {
                     exists = true;
                     break;
@@ -538,7 +542,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         else if ((this.getOtherEnd() != null) &&
                  (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()))
         {
-            cascade = (String)cascadeTable.get(ENTITY_CASCADE_REMOVE);
+            cascade = cascadeTable.get(ENTITY_CASCADE_REMOVE);
             if (this.getOtherEnd().isComposition())
             {
                 if (StringUtils.isBlank(this.getCompositionCascadeType()))

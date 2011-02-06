@@ -26,6 +26,7 @@ import org.apache.commons.lang.math.NumberUtils;
 public class EJB3MessageDrivenFacadeLogicImpl
     extends EJB3MessageDrivenFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property which stores the default destination type
      */
@@ -414,9 +415,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     /**
      * @see EJB3MessageDrivenFacadeLogic#getServiceReferences()
      */
-    public Collection getServiceReferences()
+    public Collection<DependencyFacade> getServiceReferences()
     {
-        Collection references = super.getServiceReferences();
+        Collection<DependencyFacade> references = super.getServiceReferences();
         CollectionUtils.filter(
             references,
             new Predicate()
@@ -506,9 +507,9 @@ public class EJB3MessageDrivenFacadeLogicImpl
     /**
      * @see EJB3MessageDrivenFacadeLogic#handleGetInterceptorReferences()
      */
-    protected Collection handleGetInterceptorReferences()
+    protected Collection<DependencyFacade> handleGetInterceptorReferences()
     {
-        Collection references = this.getSourceDependencies();
+        Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(
             references,
             new Predicate()
@@ -529,7 +530,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
                     return ((DependencyFacade)object).getTargetElement();
                 }
             });
-        final Collection interceptors = new LinkedHashSet(references);
+        final Collection<DependencyFacade> interceptors = new LinkedHashSet<DependencyFacade>(references);
         CollectionUtils.forAllDo(
                 references,
                 new Closure()

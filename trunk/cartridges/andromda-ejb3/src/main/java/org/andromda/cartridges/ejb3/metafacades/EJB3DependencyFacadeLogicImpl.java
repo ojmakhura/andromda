@@ -3,7 +3,6 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -20,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3DependencyFacadeLogicImpl
     extends EJB3DependencyFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * The suffix for the transformation anonymous name.
      */
@@ -110,7 +109,8 @@ public class EJB3DependencyFacadeLogicImpl
         if (element instanceof EJB3EntityFacade)
         {
             final List<EJB3EntityFacade> hierarchyList = new ArrayList<EJB3EntityFacade>();
-            for (EJB3EntityFacade entity = (EJB3EntityFacade)element; entity != null; entity = (EJB3EntityFacade)entity.getGeneralization())
+            for (EJB3EntityFacade entity = (EJB3EntityFacade)element; entity != null;
+                entity = (EJB3EntityFacade)entity.getGeneralization())
             {
                 hierarchyList.add(entity);
             }
@@ -118,9 +118,8 @@ public class EJB3DependencyFacadeLogicImpl
             for (int ctr = hierarchyList.size() - 1; ctr >= 0; ctr--)
             {
                 final EJB3EntityFacade generalization = hierarchyList.get(ctr);
-                for (final Iterator referenceIterator = generalization.getValueObjectReferences().iterator(); referenceIterator.hasNext();)
+                for (final Object reference : generalization.getValueObjectReferences())
                 {
-                    final Object reference = referenceIterator.next();
                     value++;
                     if (reference.equals(this))
                     {

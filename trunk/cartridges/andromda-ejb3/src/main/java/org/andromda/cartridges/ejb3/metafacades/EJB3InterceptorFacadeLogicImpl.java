@@ -32,7 +32,7 @@ public class EJB3InterceptorFacadeLogicImpl
      */
     public EJB3InterceptorFacadeLogicImpl(final Object metaObject, final String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -64,7 +64,7 @@ public class EJB3InterceptorFacadeLogicImpl
      * @see EJB3InterceptorFacadeLogic#handleGetInterceptorReferences()
      */
     @Override
-    protected Collection handleGetInterceptorReferences()
+    protected Collection<DependencyFacade> handleGetInterceptorReferences()
     {
         Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(

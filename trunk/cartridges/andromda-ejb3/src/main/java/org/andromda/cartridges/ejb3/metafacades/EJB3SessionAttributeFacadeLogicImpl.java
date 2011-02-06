@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3SessionAttributeFacadeLogicImpl
     extends EJB3SessionAttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**
@@ -70,7 +71,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamBijectionInParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         if (!super.isRequired())
         {
             parameters.add("required = false");
@@ -107,7 +108,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamBijectionOutParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         if (!super.isRequired())
         {
             parameters.add("required = false");
@@ -157,7 +158,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamDataModelParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_VALUE, true);
         if (StringUtils.isNotBlank(value))
         {
@@ -187,7 +188,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamDataModelSelectionParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_VALUE, true);
         if (StringUtils.isNotBlank(value))
         {
@@ -212,7 +213,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamDataModelSelectionIndexParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE, true);
         if (StringUtils.isNotBlank(value))
@@ -242,7 +243,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
         {
             return null;
         }
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_LOGGER_VALUE, true);
         if (StringUtils.isNotBlank(value))
         {
@@ -267,7 +268,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
     @Override
     protected String handleGetSeamBijectionRequestParameterParameters()
     {
-        List parameters = new ArrayList();
+        List<String> parameters = new ArrayList<String>();
         String value = (String)this.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_REQUEST_PARAMETER_VALUE, true);
         if (StringUtils.isNotBlank(value))
