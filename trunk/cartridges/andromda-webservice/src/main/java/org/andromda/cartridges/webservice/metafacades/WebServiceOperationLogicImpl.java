@@ -293,8 +293,8 @@ public class WebServiceOperationLogicImpl
             }
         }
         path = servicePath + path;
-        path.replaceAll("\"", "");
-        path.replaceAll("//", "/");
+        path = path.replaceAll("\"", "");
+        path = path.replaceAll("//", "/");
         return path;
     }
 
