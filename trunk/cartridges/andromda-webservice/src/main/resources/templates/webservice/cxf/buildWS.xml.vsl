@@ -69,6 +69,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <mkdir dir="${andromda.project}/common/src"/>
     <mkdir dir="${andromda.project}/common/target/classes"/>
     <mkdir dir="${andromda.project}/common/target/src/main/java"/>
+    <mkdir dir="${andromda.project}/core/src/main/java"/>
     <mkdir dir="${andromda.project}/core/src/test/java"/>
     <mkdir dir="${andromda.project}/core/target/classes"/>
     <mkdir dir="${andromda.project}/core/target/src/main/java"/>
@@ -77,12 +78,13 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/lib"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/wsdl"/>
     <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/java"/>
+    <mkdir dir="${andromda.project}/webservice/src/test/java"/>
     <mkdir dir="${andromda.project}/webservice/target/classes"/>
     <mkdir dir="${andromda.project}/webservice/target/src/main/java"/>
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/lib"/>
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/wsdl"/>
     <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
-    <mkdir dir="${andromda.project}/webservice/src/test/java"/>
 
     <!--delete>
         <fileset dir="${andromda.project}/CXF/target/src/main/java" includes="**/*"/>
@@ -121,6 +123,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <copy todir="${andromda.project}/common/target/src" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
         <include name="**/ObjectFactory.java"/>
+        <include name="org/apache/**"/>
+        <include name="org/oasis*/**"/>
+        <include name="org/w3*/**"/>
+        <include name="org/xmlsoap/**"/>
         <!--include name="**/*Fault.java"/-->
         <!--include name="**/package-info.java"/-->
 #foreach ($service in $services)

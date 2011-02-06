@@ -242,7 +242,6 @@ public class SymbolicLinkExplodedEarMojo
      * @return the root project.
      * @throws MojoExecutionException
      */
-    @SuppressWarnings("null")
     private MavenProject getRootProject()
         throws MojoExecutionException
     {
@@ -252,12 +251,12 @@ public class SymbolicLinkExplodedEarMojo
             for (root = this.project.getParent(); root.getParent() != null; root = root.getParent())
             {
             }
-            // TODO root cannot be null - compiler warning.
-            if (root == null)
+            // root cannot be null - compiler warning.
+            /*if (root == null)
             {
                 throw new MojoExecutionException("No parent could be retrieved for project --> " +
                     this.project.getId() + "', you must specify a parent project");
-            }
+            }*/
             this.rootProject = root;
         }
         return this.rootProject;

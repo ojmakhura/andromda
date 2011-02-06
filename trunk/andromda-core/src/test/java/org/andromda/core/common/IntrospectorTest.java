@@ -93,22 +93,18 @@ public class IntrospectorTest
         private byte byteProperty = 1;
         private NestedBean nestedBean = new NestedBean();
         private String aPropertyName;
-        @SuppressWarnings("unused")
         public boolean isABCProperty()
         {
             return abcProperty;
         }
-        @SuppressWarnings("unused")
         public void setABCProperty(boolean abcProperty)
         {
             this.abcProperty = abcProperty;
         }
-        @SuppressWarnings("unused")
         public boolean isBooleanProperty()
         {
             return booleanProperty;
         }
-        @SuppressWarnings("unused")
         public void setBooleanProperty(boolean booleanProperty)
         {
             this.booleanProperty = booleanProperty;
@@ -117,42 +113,34 @@ public class IntrospectorTest
         {
             return this.booleanProperty;
         }
-        @SuppressWarnings("unused")
         public byte getByteProperty()
         {
             return byteProperty;
         }
-        @SuppressWarnings("unused")
         protected void setByteProperty(byte byteProperty)
         {
             this.byteProperty = byteProperty;
         }
-        @SuppressWarnings("unused")
         protected Integer getIntegerProperty()
         {
             return integerProperty;
         }
-        @SuppressWarnings("unused")
         protected void setIntegerProperty(Integer integerProperty)
         {
             this.integerProperty = integerProperty;
         }
-        @SuppressWarnings("unused")
         protected int getIntProperty()
         {
             return intProperty;
         }
-        @SuppressWarnings("unused")
         protected void setIntProperty(int intProperty)
         {
             this.intProperty = intProperty;
         }
-        @SuppressWarnings("unused")
         protected long getLongProperty()
         {
             return longProperty;
         }
-        @SuppressWarnings("unused")
         protected void setLongProperty(long longProperty)
         {
             this.longProperty = longProperty;
@@ -161,7 +149,6 @@ public class IntrospectorTest
         {
             return stringProperty;
         }
-        @SuppressWarnings("unused")
         public void setStringProperty(String stringProperty)
         {
             this.stringProperty = stringProperty;
@@ -174,7 +161,6 @@ public class IntrospectorTest
         {
             return aPropertyName;
         }
-        @SuppressWarnings("unused")
         public void setAPropertyName(String propertyName)
         {
             aPropertyName = propertyName;
@@ -192,42 +178,34 @@ public class IntrospectorTest
         private NestedNestedBean nestedNestedBean = new NestedNestedBean();
         private Collection<Object> emptyCollectionProperty = new ArrayList<Object>();
         private Collection<String> nonEmptyCollectionProperty = new ArrayList<String>();
-        @SuppressWarnings("unused")
         public boolean isBooleanProperty()
         {
             return booleanProperty;
         }
-        @SuppressWarnings("unused")
         protected void setBooleanProperty(boolean booleanProperty)
         {
             this.booleanProperty = booleanProperty;
         }
-        @SuppressWarnings("unused")
         protected byte getByteProperty()
         {
             return byteProperty;
         }
-        @SuppressWarnings("unused")
         protected void setByteProperty(byte byteProperty)
         {
             this.byteProperty = byteProperty;
         }
-        @SuppressWarnings("unused")
         protected Integer getIntegerProperty()
         {
             return integerProperty;
         }
-        @SuppressWarnings("unused")
         protected void setIntegerProperty(Integer integerProperty)
         {
             this.integerProperty = integerProperty;
         }
-        @SuppressWarnings("unused")
         protected int getIntProperty()
         {
             return intProperty;
         }
-        @SuppressWarnings("unused")
         protected void setIntProperty(int intProperty)
         {
             this.intProperty = intProperty;
@@ -236,7 +214,6 @@ public class IntrospectorTest
         {
             return longProperty;
         }
-        @SuppressWarnings("unused")
         public void setLongProperty(long longProperty)
         {
             this.longProperty = longProperty;
@@ -245,7 +222,6 @@ public class IntrospectorTest
         {
             return stringProperty;
         }
-        @SuppressWarnings("unused")
         public void setStringProperty(String stringProperty)
         {
             this.stringProperty = stringProperty;
@@ -254,12 +230,10 @@ public class IntrospectorTest
         {
             return nestedNestedBean;
         }
-        @SuppressWarnings("unused")
         public Collection<Object> getEmptyCollectionProperty()
         {
             return emptyCollectionProperty;
         }
-        @SuppressWarnings("unused")
         public Collection<String> getNonEmptyCollectionProperty()
         {
             this.nonEmptyCollectionProperty.add("A String");
@@ -274,7 +248,6 @@ public class IntrospectorTest
         {
             return this.intProperty;
         }
-        @SuppressWarnings("unused")
         public void setIntProperty(int intProperty)
         {
             this.intProperty = intProperty;
