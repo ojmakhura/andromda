@@ -47,8 +47,8 @@ public class AndroMDAppCleanMojo
             if ( cl instanceof URLClassLoader ) {
                 URLClassLoader ucl = (URLClassLoader) cl;
                 URL [] urls = ucl.getURLs();
-                for (int i = 0; i < urls.length; i++) {
-                    System.err.println( "cp:" + urls[i] );
+                for (URL url : urls) {
+                    System.err.println("cp:" + url);
                 }
             }
             System.out.println( "Exception:" + ncdfe );

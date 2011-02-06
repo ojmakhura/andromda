@@ -1073,7 +1073,7 @@ public class EJB3EntityFacadeLogicImpl
         for (final Iterator iter = this.getQueryOperations().iterator(); iter.hasNext();)
         {
             final OperationFacade operation = (OperationFacade)iter.next();
-            if (StringUtils.trimToEmpty(operation.getName()).equalsIgnoreCase("findAll"))
+            if ("findAll".equalsIgnoreCase(StringUtils.trimToEmpty(operation.getName())))
             {
                 // Check for no finder arguments
                 if (operation.getArguments().isEmpty())
@@ -1096,7 +1096,7 @@ public class EJB3EntityFacadeLogicImpl
         for (final Iterator iter = this.getQueryOperations().iterator(); iter.hasNext();)
         {
             final OperationFacade operation = (OperationFacade)iter.next();
-            if (operation.getName().equalsIgnoreCase("findByPrimaryKey"))
+            if ("findByPrimaryKey".equalsIgnoreCase(operation.getName()))
             {
                 finderExists = true;
                 break;

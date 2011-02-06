@@ -1470,7 +1470,7 @@ public class UmlUtilities
             {
                 // MD converts to _andromdavalue when exporting to EMF UML2 (v2.x) XMI and
                 // the requestValue uses andromda_value
-                String emfName = '_' + StringUtils.remove(requestedName, '_');;
+                String emfName = '_' + StringUtils.remove(requestedName, '_');
                 result = emfName.equals(tagValueName);
             }
         }

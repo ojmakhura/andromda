@@ -82,11 +82,11 @@ public class AttributeFacadeLogicImpl
         if (StringUtils.isNotBlank(defaultValue) && !this.isMany() && this.metaObject.getType() != null)
         {
             String typeName = this.metaObject.getType().getName();
-            if (typeName.equals("String") && defaultValue.indexOf('"')<0)
+            if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
             }
-            else if ((typeName.equals("char") || typeName.equals("Character"))
+            else if (("char".equals(typeName) || "Character".equals(typeName))
                 && defaultValue.indexOf('\'')<0)
             {
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';

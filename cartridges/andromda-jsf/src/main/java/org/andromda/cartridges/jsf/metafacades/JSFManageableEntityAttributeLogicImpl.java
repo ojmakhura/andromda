@@ -67,7 +67,7 @@ public class JSFManageableEntityAttributeLogicImpl
         {
             final String[] tokens = dateFormat.split("[\\s]+");
             int tokenIndex = 0;
-            if (tokenIndex < tokens.length && tokens[tokenIndex].trim().equals("strict"))
+            if (tokenIndex < tokens.length && "strict".equals(tokens[tokenIndex].trim()))
             {
                 tokenIndex++;
             }
@@ -682,7 +682,7 @@ public class JSFManageableEntityAttributeLogicImpl
             for(Iterator it=vars.iterator(); it.hasNext(); )
             {
                 final Object[] values=((Collection)it.next()).toArray();
-                if(values[0].equals("maxlength"))
+                if("maxlength".equals(values[0]))
                 {
                     return values[1].toString();
                 }

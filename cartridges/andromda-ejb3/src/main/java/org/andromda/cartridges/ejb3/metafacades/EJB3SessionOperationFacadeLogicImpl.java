@@ -486,7 +486,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     @Override
     protected String handleGetImplementationSignature()
     {
-        return (this.getVisibility().equalsIgnoreCase("public") ?
+        return ("public".equalsIgnoreCase(this.getVisibility()) ?
                 this.getImplementationOperationName(StringUtils.capitalize(this.getSignature())) :
                     this.getSignature());
     }

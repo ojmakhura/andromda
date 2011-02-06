@@ -41,18 +41,18 @@ public class AddResource
         headerInsertPosition = 0;
         final HtmlBufferResponseWriterWrapper headContents = HtmlBufferResponseWriterWrapper
             .getInstance(writer);
-        for (Iterator iterator = getHeaderBeginInfos().iterator(); iterator.hasNext();)
+        for (final PositionedInfo positionedInfo : (Iterable<PositionedInfo>) getHeaderBeginInfos())
         {
             headContents.write("\n");
 
-            final PositionedInfo positionedInfo = (PositionedInfo)iterator.next();
-
             if (!(positionedInfo instanceof WritablePositionedInfo))
+            {
                 throw new IllegalStateException("positionedInfo of type : "
-                    + positionedInfo.getClass().getName());
-            ((WritablePositionedInfo)positionedInfo).writePositionedInfo(
-                response,
-                headContents);
+                        + positionedInfo.getClass().getName());
+            }
+            ((WritablePositionedInfo) positionedInfo).writePositionedInfo(
+                    response,
+                    headContents);
         }
         originalResponse.insert(headerInsertPosition, headContents.toString());
 
@@ -83,15 +83,16 @@ public class AddResource
         // insert all the items that want to go immediately after the <body> tag.
         final HtmlBufferResponseWriterWrapper afterBodyContents = HtmlBufferResponseWriterWrapper.getInstance(writer);
 
-        for (Iterator i = getBodyEndInfos().iterator(); i.hasNext();)
+        for (final PositionedInfo positionedInfo : (Iterable<PositionedInfo>) getBodyEndInfos())
         {
             afterBodyContents.write("\n");
-            final PositionedInfo positionedInfo = (PositionedInfo)i.next();
 
             if (!(positionedInfo instanceof WritablePositionedInfo))
+            {
                 throw new IllegalStateException("positionedInfo of type : "
-                    + positionedInfo.getClass().getName());
-            ((WritablePositionedInfo)positionedInfo).writePositionedInfo(response, afterBodyContents);
+                        + positionedInfo.getClass().getName());
+            }
+            ((WritablePositionedInfo) positionedInfo).writePositionedInfo(response, afterBodyContents);
         }
 
         originalResponse.insert(headContents.toString().length() + 1, afterBodyContents.toString());

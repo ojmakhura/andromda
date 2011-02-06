@@ -879,7 +879,7 @@ public class JSFParameterLogicImpl
      */
     public boolean isRequired()
     {
-        if(metaObject.getClass().getPackage().getName().equals("org.omg.uml.foundation.core")){
+        if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName())){
             //if uml 1.4, keep the old behavior (like bpm4struts)
             final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
             return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
@@ -1137,7 +1137,7 @@ public class JSFParameterLogicImpl
             for(Iterator it=vars.iterator(); it.hasNext(); )
             {
                 final Object[] values=((Collection)it.next()).toArray();
-                if(values[0].equals("maxlength"))
+                if("maxlength".equals(values[0]))
                 {
                     return values[1].toString();
                 }

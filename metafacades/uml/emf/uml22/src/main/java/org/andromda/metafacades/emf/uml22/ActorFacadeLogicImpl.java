@@ -45,12 +45,11 @@ public class ActorFacadeLogicImpl
         final List<ActorFacade> generalizedActors = new ArrayList<ActorFacade>();
 
         final Collection<GeneralizableElementFacade> parentActors = this.getGeneralizations();
-        for (final Iterator<GeneralizableElementFacade> iterator = parentActors.iterator(); iterator.hasNext();)
+        for (final GeneralizableElementFacade object : parentActors)
         {
-            final Object object = iterator.next();
             if (object instanceof ActorFacade)
             {
-                generalizedActors.add((ActorFacade)object);
+                generalizedActors.add((ActorFacade) object);
             }
         }
         return generalizedActors;
@@ -66,12 +65,10 @@ public class ActorFacadeLogicImpl
         final List<ActorFacade> generalizedByActors = new ArrayList();
 
         final Collection<GeneralizableElementFacade> specializedActors = this.getSpecializations();
-        for (final Iterator<GeneralizableElementFacade> iterator = specializedActors.iterator(); iterator.hasNext();)
+        for (final GeneralizableElementFacade object : specializedActors)
         {
-            final Object object = iterator.next();
-            if (object instanceof ActorFacade)
-            {
-                generalizedByActors.add((ActorFacade)object);
+            if (object instanceof ActorFacade) {
+                generalizedByActors.add((ActorFacade) object);
             }
         }
         return generalizedByActors;

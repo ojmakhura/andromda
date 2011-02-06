@@ -778,7 +778,7 @@ public class JSFAttributeLogicImpl
             for(Iterator it=vars.iterator(); it.hasNext(); )
             {
                 final Object[] values=((Collection)it.next()).toArray();
-                if(values[0].equals("maxlength"))
+                if("maxlength".equals(values[0]))
                 {
                     return values[1].toString();
                 }
