@@ -16,6 +16,7 @@ import org.apache.commons.lang.math.NumberUtils;
 public class EJB3EntityAttributeFacadeLogicImpl
     extends EJB3EntityAttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property that stores the default entity ID generator type
      */

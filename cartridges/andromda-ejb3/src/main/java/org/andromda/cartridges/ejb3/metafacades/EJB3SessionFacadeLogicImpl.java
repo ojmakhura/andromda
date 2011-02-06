@@ -814,7 +814,7 @@ extends EJB3SessionFacadeLogic
      */
     protected Collection handleGetPersistenceContextReferences()
     {
-        Collection references = this.getSourceDependencies();
+        Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(
                 references,
                 new Predicate()
@@ -843,9 +843,9 @@ extends EJB3SessionFacadeLogic
      *
      * Returns the Collection of DependencyFacades where the target is a Service ONLY.
      */
-    public Collection getServiceReferences()
+    public Collection<DependencyFacade> getServiceReferences()
     {
-        Collection references = super.getServiceReferences();
+        Collection<DependencyFacade> references = super.getServiceReferences();
         CollectionUtils.filter(
                 references,
                 new Predicate()
@@ -1115,9 +1115,9 @@ extends EJB3SessionFacadeLogic
     /**
      * @see EJB3SessionFacadeLogic#handleGetInterceptorReferences()
      */
-    protected Collection handleGetInterceptorReferences()
+    protected Collection<DependencyFacade> handleGetInterceptorReferences()
     {
-        Collection references = this.getSourceDependencies();
+        Collection<DependencyFacade> references = this.getSourceDependencies();
         CollectionUtils.filter(
                 references,
                 new Predicate()
@@ -1139,7 +1139,7 @@ extends EJB3SessionFacadeLogic
                         return ((DependencyFacade)object).getTargetElement();
                     }
                 });
-        final Collection interceptors = new LinkedHashSet(references);
+        final Collection<DependencyFacade> interceptors = new LinkedHashSet<DependencyFacade>(references);
         CollectionUtils.forAllDo(
                 references,
                 new Closure()
