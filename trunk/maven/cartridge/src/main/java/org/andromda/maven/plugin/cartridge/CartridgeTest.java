@@ -330,6 +330,6 @@ public class CartridgeTest
      */
     public void shutdown()
     {
-        instance = null;
+        CartridgeTest.instance = null;
     }
 }

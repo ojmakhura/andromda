@@ -59,6 +59,6 @@ public class Projects
     public void clear()
     {
         this.projects.clear();
-        instance = null;
+        Projects.instance = null;
     }
 }
