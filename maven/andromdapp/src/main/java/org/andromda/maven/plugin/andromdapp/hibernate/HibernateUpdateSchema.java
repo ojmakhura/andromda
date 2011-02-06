@@ -26,6 +26,7 @@ public class HibernateUpdateSchema
     private static final String HIBERNATE_PROPERTIES_TEMP_DIRECTORY =
         Constants.TEMPORARY_DIRECTORY + "andromdapp/hibernate-schema-update";
 
+    private static final Random random = new Random();
     /**
      * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.Map, java.util.List)
      */
@@ -55,7 +56,7 @@ public class HibernateUpdateSchema
             contents.append("hibernate.connection.password=").append(password).append('\n');
         }
         final File temporaryProperitesFile =
-            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(new Random().nextDouble()));
+            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(random.nextDouble()));
         temporaryProperitesFile.deleteOnExit();
         ResourceWriter.instance().writeStringToFile(
             contents.toString(),
