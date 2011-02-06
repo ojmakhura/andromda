@@ -2,7 +2,6 @@ package org.andromda.translation.ocl.testsuite;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
@@ -393,6 +392,6 @@ public class TranslationTestProcessor
     public void shutdown()
     {
         testDiscoverer.shutdown();
-        instance = null;
+        TranslationTestProcessor.instance = null;
     }
 }

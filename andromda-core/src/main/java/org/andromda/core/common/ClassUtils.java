@@ -13,6 +13,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
+// TODO: FindBugs: This class has a simple name that is identical to that of its superclass. This can be exceptionally confusing.
 /**
  * Contains utilities for dealing with classes.
  *

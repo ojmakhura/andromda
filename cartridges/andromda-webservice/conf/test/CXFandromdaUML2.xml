@@ -43,7 +43,7 @@
         <property name="entityPropertyNameMask">none</property>
         <property name="parameterNameMask">none</property-->
         <property name="enumerationLiteralNameMask">upperunderscore</property>
-        <!--Automatically makes English names plural (generally adds s if missing). 
+        <!--Automatically makes English names plural (generally adds s if missing).
         default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.-->
         <property name="pluralizeAssociationEndNames">true</property>
         <property name="pluralizeAttributeNames">true</property>

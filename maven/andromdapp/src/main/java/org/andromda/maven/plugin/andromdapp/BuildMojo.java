@@ -31,7 +31,6 @@ import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.util.dag.CycleDetectedException;
 
-
 /**
  * A Mojo used for executing the build goals from the top level project.
  *
@@ -204,6 +203,7 @@ public class BuildMojo
                     }
                     else if (GARBAGE_COLLECT.equals(input))
                     {
+                        // TODO FindBugs: Except for specific use in benchmarking, this is very dubious.
                         System.gc();
                     }
                     else
@@ -338,6 +338,7 @@ public class BuildMojo
      *
      * @return the value read from standard input.
      */
+    @SuppressWarnings("null")
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
