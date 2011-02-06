@@ -232,7 +232,7 @@ public final class OCLCollections
     }
 
     /**
-     * Returns the sum of all the element in the collection. Every element must extend Number or this method
+     * Returns the sum of all the elements in the collection. Every element must extend Number or this method
      * will throw an exception.
      *
      * @param collection a collection containing only classes extending Number
@@ -245,8 +245,10 @@ public final class OCLCollections
         {
             if (collection instanceof Collection)
             {
+                // TODO Fix infinite loop
                 sum = sum(collection);
-            } else if (collection.getClass().isArray())
+            }
+            else if (collection.getClass().isArray())
             {
                 sum = sum(Arrays.asList((Object[]) collection));
             }
