@@ -2,7 +2,6 @@ package org.andromda.translation.ocl.testsuite;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.translation.Expression;
