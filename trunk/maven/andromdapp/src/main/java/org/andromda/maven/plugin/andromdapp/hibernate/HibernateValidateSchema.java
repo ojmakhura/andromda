@@ -35,6 +35,7 @@ public class HibernateValidateSchema
         return null;
     }
 
+    private static final Random random = new Random();
     /**
      * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.Map, java.util.List)
      */
@@ -58,7 +59,7 @@ public class HibernateValidateSchema
         contents.append("hibernate.connection.username=").append(username).append('\n');
         contents.append("hibernate.connection.password=").append(password).append('\n');
         final File temporaryProperitesFile =
-            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(new Random().nextDouble()));
+            new File(HIBERNATE_PROPERTIES_TEMP_DIRECTORY, String.valueOf(random.nextDouble()));
         temporaryProperitesFile.deleteOnExit();
         ResourceWriter.instance().writeStringToFile(
             contents.toString(),
