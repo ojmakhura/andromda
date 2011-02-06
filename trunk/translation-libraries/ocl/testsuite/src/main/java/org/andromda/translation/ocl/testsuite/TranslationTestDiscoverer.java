@@ -147,6 +147,6 @@ public class TranslationTestDiscoverer
     public void shutdown()
     {
         this.translationTests.clear();
-        instance = null;
+        TranslationTestDiscoverer.instance = null;
     }
 }

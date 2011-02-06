@@ -158,27 +158,20 @@ public class ModelElementFacadeLogicImpl
             // trim the name, we don't want leading/trailing spaces
             name = StringUtils.trimToEmpty(name);
 
-            // loop over the tagged values
-            final Collection<TaggedValueFacade> taggedValues = this.getTaggedValues();
-            for (final Iterator<TaggedValueFacade> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
+            for (final TaggedValueFacade taggedValue: this.getTaggedValues())
             {
-                TaggedValueFacade taggedValue = taggedValueIterator.next();
-
                 // does this name match the argument tagged value name ?
                 // Check both the UML14 format name @andromda.value and EMF Format andromda_whatever
                 String tagName = taggedValue.getName();
                 if (name.equals(tagName) || MetafacadeUtils.getEmfTaggedValue(name).equals(tagName)
                     || MetafacadeUtils.getUml14TaggedValue(name).equals(tagName))
                 {
-                    for (final Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
+                    for (final Object value : taggedValue.getValues())
                     {
-                        // only process tagged values when they actually have a
-                        // non-empty value
-                        final Object value = valueIterator.next();
+                        // only process tagged values when they actually have a non-empty value
                         if (value != null)
                         {
-                            // if an enumeration literal is referenced we assume
-                            // its name
+                            // if an enumeration literal is referenced we assume its name
                             if (value instanceof EnumerationLiteralFacade)
                             {
                                 values.add(((EnumerationLiteralFacade)value).getValue(true));
@@ -313,9 +306,9 @@ public class ModelElementFacadeLogicImpl
         Collection<String> stereotypeNames = new ArrayList();
 
         Collection<ModelElement> stereotypes = metaObject.getStereotype();
-        for (final Iterator<ModelElement> stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
+        //for (final Iterator<ModelElement> stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
+        for (final ModelElement stereotype : stereotypes)
         {
-            ModelElement stereotype = stereotypeIt.next();
             if (stereotype != null)
             {
                 stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
@@ -806,9 +799,8 @@ public class ModelElementFacadeLogicImpl
         StateMachine machineContext = null;
 
         final Collection<StateMachine> machines = UML14MetafacadeUtils.getModel().getStateMachines().getStateMachine().refAllOfType();
-        for (final Iterator<StateMachine> machineIterator = machines.iterator(); machineIterator.hasNext();)
+        for (final StateMachine machine : machines)
         {
-            final StateMachine machine = machineIterator.next();
             final ModelElement contextElement = machine.getContext();
             if (metaObject.equals(contextElement))
             {
@@ -946,9 +938,8 @@ public class ModelElementFacadeLogicImpl
             final Collection<TemplateParameterFacade> parameters = this.getTemplateParameters();
             if (parameters != null && !parameters.isEmpty())
             {
-                for (final Iterator<TemplateParameterFacade> iterator = parameters.iterator(); iterator.hasNext();)
+                for (final TemplateParameterFacade currentTemplateParameter : parameters)
                 {
-                    final TemplateParameterFacade currentTemplateParameter = iterator.next();
                     if (currentTemplateParameter.getParameter() != null)
                     {
                         final ModelElementFacade parameter = currentTemplateParameter.getParameter();
