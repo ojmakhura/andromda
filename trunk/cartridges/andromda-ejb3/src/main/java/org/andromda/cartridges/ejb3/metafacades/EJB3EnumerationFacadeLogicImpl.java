@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 public class EJB3EnumerationFacadeLogicImpl
     extends EJB3EnumerationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

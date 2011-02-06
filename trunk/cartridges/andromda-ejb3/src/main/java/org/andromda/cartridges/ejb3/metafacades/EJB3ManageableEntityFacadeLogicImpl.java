@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3ManageableEntityFacadeLogicImpl
     extends EJB3ManageableEntityFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property which stores the pattern defining the manageable create exception name.
      */

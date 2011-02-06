@@ -30,21 +30,19 @@ class EJB3MetafacadeUtils
      *
      * @param classifier The classifier from which to retries the create methods
      * @param follow if true, all super type create methods are also retrieved
-     * @return Collection of create methods found.
+     * @return collection of create methods found.
      */
-    static Collection getCreateMethods(
+    static Collection<OperationFacade> getCreateMethods(
             ClassifierFacade classifier,
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        Collection retval = new ArrayList();
+        Collection<OperationFacade> retval = new ArrayList<OperationFacade>();
         ClassifierFacade entity = classifier;
         do
         {
-            Collection ops = entity.getOperations();
-            for (final Iterator i = ops.iterator(); i.hasNext();)
+            for (final OperationFacade op : entity.getOperations())
             {
-                final OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJB3Profile.STEREOTYPE_CREATE_METHOD))
                 {
                     retval.add(op);
@@ -133,15 +131,15 @@ class EJB3MetafacadeUtils
      * @param classifier the ClassifierFacade from which to retrieve the inherited attributes.
      * @return a list of ordered attributes.
      */
-    static List getInheritedInstanceAttributes(ClassifierFacade classifier)
+    static List<AttributeFacade> getInheritedInstanceAttributes(ClassifierFacade classifier)
     {
         ExceptionUtils.checkNull("classifer", classifier);
         ClassifierFacade current = (ClassifierFacade)classifier.getGeneralization();
         if (current == null)
         {
-            return new ArrayList();
+            return new ArrayList<AttributeFacade>();
         }
-        List retval = getInheritedInstanceAttributes(current);
+        List<AttributeFacade> retval = getInheritedInstanceAttributes(current);
 
         if (current.getInstanceAttributes() != null)
         {
@@ -157,10 +155,10 @@ class EJB3MetafacadeUtils
      * @param classifier the ClassifierFacade from which to retrieve the instance attributes.
      * @return the list of all instance attributes.
      */
-    static List getAllInstanceAttributes(ClassifierFacade classifier)
+    static List<AttributeFacade> getAllInstanceAttributes(ClassifierFacade classifier)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        List retval = getInheritedInstanceAttributes(classifier);
+        List<AttributeFacade> retval = getInheritedInstanceAttributes(classifier);
         retval.addAll(classifier.getInstanceAttributes());
         return retval;
     }
@@ -277,13 +275,13 @@ class EJB3MetafacadeUtils
      *                   constants.
      * @return the collection of environment entries
      */
-    static Collection getConstants(
+    static Collection<AttributeFacade> getConstants(
             ClassifierFacade classifier,
             boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
 
-        Collection attributes = classifier.getStaticAttributes();
+        Collection<AttributeFacade> attributes = classifier.getStaticAttributes();
 
         if (follow)
         {
@@ -409,7 +407,7 @@ class EJB3MetafacadeUtils
      * @param parameters The parameters
      * @return The parameter line
      */
-    static String buildAnnotationParameters(Collection parameters)
+    static String buildAnnotationParameters(Collection<String> parameters)
     {
         StringBuilder buf = new StringBuilder();
         if(!parameters.isEmpty())
@@ -440,7 +438,7 @@ class EJB3MetafacadeUtils
      * @param values The values for the parameters
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values)
+    static String buildAnnotationMultivalueParameter(String name, Collection<String> values)
     {
         return buildAnnotationMultivalueParameter(name, values, true);
     }
@@ -449,10 +447,10 @@ class EJB3MetafacadeUtils
      * Builds a multi valued parameter string
      * @param name The name of the parameter
      * @param values The values for the parameters
-     * @param areStrings If the values are strings then sorround with " sign
+     * @param areStrings If the values are strings then surround with " sign
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings)
+    static String buildAnnotationMultivalueParameter(String name, Collection<String> values, boolean areStrings)
     {
         return buildAnnotationMultivalueParameter(name, values, areStrings, null);
     }
@@ -462,11 +460,11 @@ class EJB3MetafacadeUtils
      * Builds a multi valued parameter string
      * @param name The name of the parameter
      * @param values The values for the parameters
-     * @param areStrings If the values are strings then sorround with " sign
+     * @param areStrings If the values are strings then surround with " sign
      * @param suffix Any suffix to add to the values
      * @return The parameter string
      */
-    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings, String suffix)
+    static String buildAnnotationMultivalueParameter(String name, Collection<String> values, boolean areStrings, String suffix)
     {
         if(values.isEmpty())
         {

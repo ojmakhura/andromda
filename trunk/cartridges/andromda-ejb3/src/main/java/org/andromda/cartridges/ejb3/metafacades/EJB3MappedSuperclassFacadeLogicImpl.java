@@ -8,12 +8,13 @@ package org.andromda.cartridges.ejb3.metafacades;
 public class EJB3MappedSuperclassFacadeLogicImpl
     extends EJB3MappedSuperclassFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
      */
     public EJB3MappedSuperclassFacadeLogicImpl(final Object metaObject, final String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 }

@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3WebServiceFacadeLogicImpl
     extends EJB3WebServiceFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property which stores the pattern defining the web service interface name.
      */

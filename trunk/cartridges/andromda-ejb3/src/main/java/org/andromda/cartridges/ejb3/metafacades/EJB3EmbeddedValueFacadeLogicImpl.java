@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3EmbeddedValueFacadeLogicImpl
     extends EJB3EmbeddedValueFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property which stores the pattern defining the embedded value
      * implementation name.

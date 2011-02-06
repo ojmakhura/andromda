@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3AssociationFacadeLogicImpl
     extends EJB3AssociationFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

@@ -10,6 +10,7 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 public class EJB3PersistenceContextFacadeLogicImpl
     extends EJB3PersistenceContextFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
