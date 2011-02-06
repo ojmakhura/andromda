@@ -795,7 +795,7 @@ public class MetafacadeFactory
         this.metafacadeNamespaces.clear();
         this.mappings.shutdown();
         this.model = null;
-        instance = null;
+        MetafacadeFactory.instance = null;
 
         // - shutdown the profile instance
         this.profile.shutdown();

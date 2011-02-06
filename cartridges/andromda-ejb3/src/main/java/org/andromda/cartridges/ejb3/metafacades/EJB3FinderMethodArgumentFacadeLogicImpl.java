@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3FinderMethodArgumentFacadeLogicImpl
     extends EJB3FinderMethodArgumentFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

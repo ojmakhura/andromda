@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3FinderMethodFacadeLogicImpl
     extends EJB3FinderMethodFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Stores whether or not named parameters should be used in EJB queries.
      */

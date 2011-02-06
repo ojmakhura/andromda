@@ -42,6 +42,7 @@ import org.apache.commons.lang.math.NumberUtils;
 public class EJB3EntityFacadeLogicImpl
     extends EJB3EntityFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The default entity association cascade property
      */
@@ -87,7 +88,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * Stores the valid inheritance strategies
      */
-    private static final Collection inheritanceStrategies = new ArrayList();
+    private static final Collection<String> inheritanceStrategies = new ArrayList<String>();
 
     static
     {
@@ -114,7 +115,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * Stores the valid discriminator types
      */
-    private static final Collection discriminatorTypes = new ArrayList();
+    private static final Collection<String> discriminatorTypes = new ArrayList<String>();
 
     static
     {
@@ -210,9 +211,8 @@ public class EJB3EntityFacadeLogicImpl
     public Collection handleGetIdentifiers()
     {
         Collection identifiers = new ArrayList();
-        for (final Iterator iter = this.getSourceDependencies().iterator(); iter.hasNext();)
+        for (final DependencyFacade dep : this.getSourceDependencies())
         {
-            final DependencyFacade dep = (DependencyFacade)iter.next();
             if (dep.hasStereotype(EJB3Profile.STEREOTYPE_IDENTIFIER))
             {
                 identifiers = ((ClassifierFacade)dep.getTargetElement()).getInstanceAttributes();
@@ -224,7 +224,7 @@ public class EJB3EntityFacadeLogicImpl
         // No PK dependency found - try a PK attribute
         if (this.getIdentifiers(true) != null && !this.getIdentifiers(true).isEmpty())
         {
-            AttributeFacade attr = (AttributeFacade)this.getIdentifiers(true).iterator().next();
+            AttributeFacade attr = this.getIdentifiers(true).iterator().next();
             identifiers.add(attr);
             return identifiers;
         }
@@ -249,9 +249,9 @@ public class EJB3EntityFacadeLogicImpl
      *        should be followed
      * @return the collection of identifiers.
      */
-    public Collection getIdentifiers(boolean follow)
+    public Collection<AttributeFacade> getIdentifiers(boolean follow)
     {
-        final Collection identifiers = new ArrayList(this.getAttributes());
+        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>(this.getAttributes());
         MetafacadeUtils.filterByStereotype(
             identifiers,
             UMLProfile.STEREOTYPE_IDENTIFIER);
@@ -399,10 +399,9 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected Collection handleGetEntityRelations()
     {
-        Collection result = new ArrayList();
-        for (final Iterator endIt = this.getAssociationEnds().iterator(); endIt.hasNext();)
+        Collection<AssociationEndFacade> result = new ArrayList<AssociationEndFacade>();
+        for (final AssociationEndFacade associationEnd : this.getAssociationEnds())
         {
-            final EJB3AssociationEndFacade associationEnd = (EJB3AssociationEndFacade)endIt.next();
             ClassifierFacade target = associationEnd.getOtherEnd().getType();
             if (target instanceof EJB3EntityFacade && associationEnd.getOtherEnd().isNavigable())
             {
@@ -428,16 +427,14 @@ public class EJB3EntityFacadeLogicImpl
      * @return selectMethods
      * @see EJB3EntityFacade#getSelectMethods(boolean)
      */
-    protected Collection handleGetSelectMethods(boolean follow)
+    protected Collection<OperationFacade> handleGetSelectMethods(boolean follow)
     {
-        Collection retval = new ArrayList();
+        Collection<OperationFacade> retval = new ArrayList<OperationFacade>();
         EJB3EntityFacade entity = null;
         do
         {
-            Collection ops = this.getOperations();
-            for (final Iterator i = ops.iterator(); i.hasNext();)
+            for (final OperationFacade op : this.getOperations())
             {
-                final OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJB3Profile.STEREOTYPE_SELECT_METHOD))
                 {
                     retval.add(op);
@@ -580,9 +577,9 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
      */
-    public Collection getBusinessOperations()
+    public Collection<OperationFacade> getBusinessOperations()
     {
-        Collection operations = super.getBusinessOperations();
+        Collection<OperationFacade> operations = super.getBusinessOperations();
         CollectionUtils.filter(operations, new Predicate()
         {
             public boolean evaluate(Object object)

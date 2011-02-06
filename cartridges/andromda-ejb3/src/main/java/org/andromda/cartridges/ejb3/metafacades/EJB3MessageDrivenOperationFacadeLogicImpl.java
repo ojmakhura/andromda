@@ -10,6 +10,7 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 public class EJB3MessageDrivenOperationFacadeLogicImpl
     extends EJB3MessageDrivenOperationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

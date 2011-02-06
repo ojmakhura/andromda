@@ -1,5 +1,6 @@
 package org.andromda.core.metafacade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +15,9 @@ import org.apache.log4j.Logger;
  * @author Wouter Zoons
  * @author Bob Fields
  */
-public class MetafacadeBase implements Comparable
+public class MetafacadeBase implements Serializable, Comparable
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The meta object which this metafacade wraps.
      */

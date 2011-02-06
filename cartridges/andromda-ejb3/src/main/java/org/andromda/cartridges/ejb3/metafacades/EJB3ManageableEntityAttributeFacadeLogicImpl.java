@@ -8,6 +8,7 @@ package org.andromda.cartridges.ejb3.metafacades;
 public class EJB3ManageableEntityAttributeFacadeLogicImpl
     extends EJB3ManageableEntityAttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

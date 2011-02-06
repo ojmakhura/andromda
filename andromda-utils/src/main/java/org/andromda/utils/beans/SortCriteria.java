@@ -1,5 +1,6 @@
 package org.andromda.utils.beans;
 
+import java.io.Serializable;
 import java.util.Collection;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
@@ -9,8 +10,9 @@ import org.andromda.core.common.ExceptionUtils;
  *
  * @author Chad Brandon
  */
-public class SortCriteria
+public class SortCriteria implements Serializable
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Creates a SortCriteria object with the default ascending ordering and nulls
      * placed first.

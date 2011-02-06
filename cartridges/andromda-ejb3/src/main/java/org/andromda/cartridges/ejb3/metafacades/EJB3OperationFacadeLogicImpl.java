@@ -14,8 +14,9 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3OperationFacadeLogicImpl
     extends EJB3OperationFacadeLogic
 {
-    // ---------------- constructor -------------------------------
+    private static final long serialVersionUID = 34L;
 
+    // ---------------- constructor -------------------------------
     /**
      * @param metaObject
      * @param context
