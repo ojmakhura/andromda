@@ -23,11 +23,11 @@ public class $manageable.converterClassName
 
         final ${manageable.valueObjectClassName} vo;
         try {
-            final ${manageable.manageableIdentifier.type.name} id;
+            final ${manageable.fullyQualifiedIdentifierTypeName} id;
             if(value instanceof String)
-                id = ${manageable.manageableIdentifier.type.name}.valueOf((String)value);
+                id = ${manageable.fullyQualifiedIdentifierTypeName}.valueOf((String)value);
             else
-                id = (${manageable.manageableIdentifier.type.name})value;
+                id = (${manageable.fullyQualifiedIdentifierTypeName})value;
 
             vo = ${manageable.manageableServiceAccessorCall}.readById(id);
         } catch (Exception e) {
