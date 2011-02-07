@@ -937,4 +937,65 @@ public class EntityLogicImpl
         }
         return embeddedValues;
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getFullyQualifiedIdentifierTypeName()
+     */
+    @Override
+    public String handleGetFullyQualifiedIdentifierTypeName() {
+        if(isCompositeIdentifier())
+        {
+            return getFullyQualifiedName()+(String)this.getConfiguredProperty(UMLMetafacadeProperties.COMPOSITE_IDENTIFIER_TYPE_NAME_SUFIX);
+        }
+        else
+        {
+            return getIdentifiers().iterator().next().getType().getFullyQualifiedName();
+        }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getIdentifierName()
+     */
+    @Override
+    public String handleGetIdentifierName() {
+        if(isCompositeIdentifier())
+        {
+            return StringUtils.uncapitalize(getName())+(String)this.getConfiguredProperty(UMLMetafacadeProperties.COMPOSITE_IDENTIFIER_NAME_SUFIX);
+        }
+        else
+        {
+            return getIdentifiers().iterator().next().getName();
+        }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getIdentifierTypeName()
+     */
+    @Override
+    public String handleGetIdentifierTypeName() {
+        if(isCompositeIdentifier())
+        {
+            return getName()+(String)this.getConfiguredProperty(UMLMetafacadeProperties.COMPOSITE_IDENTIFIER_TYPE_NAME_SUFIX);
+        }
+        else
+        {
+            return getIdentifiers().iterator().next().getType().getName();
+        }
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getIdentifierGetterName()
+     */
+    @Override
+    public String handleGetIdentifierGetterName() {
+        return "get"+StringUtils.capitalize(getIdentifierName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#getIdentifierSetterName()
+     */
+    @Override
+    public String handleGetIdentifierSetterName() {
+        return "set"+StringUtils.capitalize(getIdentifierName());
+    }
 }
