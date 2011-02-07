@@ -35,19 +35,11 @@ package $entity.packageName;
 #end
 ##
 ##
-#if($entity.compositeIdentifier)
-#set($identifierTypeName="${entity.fullyQualifiedEntityName}PK")
-#set($identifierCapitalizedName="${entity.name}Pk")
-#set($identifierName=${stringUtils.uncapitalize($identifierCapitalizedName)})
-#set($identifierTypePrimitive = false)
-#else
-#set($identifierTypeName="${entity.identifiers.iterator().next().type.fullyQualifiedName}")
-#set($identifierName="${entity.identifiers.iterator().next().name}")
-#set($identifierCapitalizedName=${stringUtils.capitalize($identifierName)})
+#set($identifierTypeName="${entity.fullyQualifiedIdentifierTypeName}")
+#set($identifierName="${entity.identifierName}")
 #set($identifierTypePrimitive = $entity.identifiers.iterator().next().type.primitive)
 #if($identifierTypePrimitive)
 #set($identifierTypeWrapperName = $entity.identifiers.iterator().next().type.wrapperName)
-#end
 #end
 
 /**
@@ -87,7 +79,6 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * {@inheritDoc}
@@ -267,7 +258,6 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
 #if ($hibernateUtils.xmlPersistenceActive)
-#set ($identifier = $entity.identifiers.iterator().next())
     /**
      * {@inheritDoc}
      */
@@ -1112,7 +1102,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * {@inheritDoc}
      */
 #if ($enableTemplating)
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
     public final ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -1310,7 +1300,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * {@inheritDoc}
      */
 #if ($enableTemplating)
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
@@ -1377,7 +1367,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     * @return $fullyQualifiedPagingResultName
     */
 #if ($enableTemplating)
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
     protected $fullyQualifiedPagingResultName getPaginationResult(
         final ${hibernateUtils.basePackage}.Query queryObject,
