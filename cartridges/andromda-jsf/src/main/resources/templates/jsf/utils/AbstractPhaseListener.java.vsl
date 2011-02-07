@@ -17,6 +17,7 @@ public abstract class $className
 {
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("rawtypes")
     private static java.util.Map<Class, Object> firstInstances = new java.util.HashMap<Class, Object>();
 
     private boolean isFirstInstance()
