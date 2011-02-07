@@ -30,8 +30,17 @@ public class $criteriaSearchBaseName
 {
     private ${criteriaSearchBaseName}Configuration configuration;
     private ${hibernateUtils.basePackage}.Criteria rootCriteria;
+#if ($enableTemplating)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+#end
     private java.util.Map childCriteriaMap;
+#if ($enableTemplating)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+#end
     private java.util.List orderList;
+#if ($enableTemplating)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+#end
     private Class resultType;
 
     private static final class ParameterComparator
