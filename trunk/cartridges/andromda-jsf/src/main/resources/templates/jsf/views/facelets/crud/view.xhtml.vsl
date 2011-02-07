@@ -92,7 +92,7 @@
     <ui:param name="partialTriggers" value="#{fn:split('#if($manageable.create):${searchFormId}:newAction #end:${searchFormId}:searchResult:loadAction :${editFormId}:saveAction #if($manageable.create):${editFormId}:saveAndNewAction #end:${editFormId}:cancelAction',' ')}"/>
     <ui:param name="usesUpload" value=#if($manageable.needsFileUpload)"true"#else"false"#end/>
     <ui:define name="title">
-        <c:set var="title" value="#{messages['${manageable.viewTitleKey}']}#{messages['title.action.separator']}#{messages[${formName}.editState ? (empty ${formName}.${manageable.manageableIdentifier.name} ? 'title.action.new' : 'title.action.edit') : 'title.action.search']}" scope="request"/>
+        <c:set var="title" value="#{messages['${manageable.viewTitleKey}']}#{messages['title.action.separator']}#{messages[${formName}.editState ? (empty ${formName}.${manageable.identifierName} ? 'title.action.new' : 'title.action.edit') : 'title.action.search']}" scope="request"/>
     </ui:define>
     <ui:define name="content">
 #set ($clientValidation = $clientValidation && $manageable.validationRequired)
@@ -175,13 +175,13 @@
                 <h:panelGroup>
                     <tr:commandLink id="loadAction" actionListener="#{${manageable.controllerBeanName}.load}" partialSubmit="true" immediate="true">
                        <tr:image source="/images/tableLoad.gif" shortDesc="#{messages['action.load']}" inlineStyle="border-style:none" />
-                       <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
+                       <f:param name="${manageable.identifierName}" id="${manageable.identifierName}" value="#{row.${manageable.identifierName}}" />
                     </tr:commandLink>
 #if ($manageable.delete)
                     <tr:spacer width="10" height="1"/>
                     <tr:commandLink id="deleteAction" actionListener="#{${manageable.controllerBeanName}.delete}" partialSubmit="true" immediate="true">
                         <tr:image source="/images/tableDelete.gif" shortDesc="#{messages['action.delete']}" inlineStyle="border-style:none" />
-                        <f:param name="${manageable.manageableIdentifier.name}" id="${manageable.manageableIdentifier.name}" value="#{row.${manageable.manageableIdentifier.name}}" />
+                        <f:param name="${manageable.identifierName}" id="${manageable.identifierName}" value="#{row.${manageable.identifierName}}" />
                     </tr:commandLink>
 #end
                 </h:panelGroup>
@@ -290,7 +290,7 @@
 #if ($manageable.create || !$manageable.update)
                        <tr:commandButton id="saveAction" text="#{messages['action.save']}" action="#{${manageable.controllerBeanName}.save}" accessKey="#{messages['action.save.access.key']}" partialSubmit="false"/>
 #if ($manageable.create)
-                       <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" inlineStyle="display:#{(empty ${formName}.${manageable.manageableIdentifier.name})?'':'none'}" partialSubmit="false"/>
+                       <tr:commandButton id="saveAndNewAction" text="#{messages['action.saveAndNew']}" action="#{${manageable.controllerBeanName}.saveAndNew}" accessKey="#{messages['action.saveAndNew.access.key']}" inlineStyle="display:#{(empty ${formName}.${manageable.identifierName})?'':'none'}" partialSubmit="false"/>
 #end
                        <tr:commandButton id="cancelAction" text="#{messages['action.cancel']}" action="#{${manageable.controllerBeanName}.cancel}" accessKey="#{messages['action.cancel.access.key']}" immediate="true" partialSubmit="true" />
 #end
