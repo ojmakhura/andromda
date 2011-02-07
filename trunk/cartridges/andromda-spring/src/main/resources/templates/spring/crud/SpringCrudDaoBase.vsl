@@ -4,9 +4,6 @@
 ##
 #set ($memberList = $manageable.listManageableMembers(true))
 #set ($memberListArguments = $manageable.listManageableMembers(false))
-#if (!$manageable.identifiers.empty)
-#set ($identifier = $manageable.manageableIdentifier)
-#end
 ##
 package $manageable.manageablePackageName;
 
@@ -49,14 +46,15 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #foreach ($associatedClass in $manageable.allAssociatedClasses)
-    private java.util.Set find${associatedClass.name}ByIds(${associatedClass.identifiers.iterator().next().type.fullyQualifiedName}[] ids)
+    @SuppressWarnings("unchecked")
+    private java.util.Set<$associatedClass.fullyQualifiedName> find${associatedClass.name}ByIds(${associatedClass.fullyQualifiedIdentifierTypeName}[] ids)
     {
         final Session session = this.getSession(false);
         try
         {
             final Criteria criteria = session.createCriteria(${associatedClass.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$associatedClass.identifiers.iterator().next().name", ids));
-            return new java.util.HashSet(criteria.list());
+            criteria.add(Expression.in("$associatedClass.identifierName", ids));
+            return new java.util.HashSet<$associatedClass.fullyQualifiedName>((java.util.Collection<$associatedClass.fullyQualifiedName>)criteria.list());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -75,7 +73,8 @@ public final class $manageable.manageableDaoBaseName
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
 #set ($memberEntityName = "${member.name}Entities")
-        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+        @SuppressWarnings("unchecked")
+        final java.util.Set<${member.type.fullyQualifiedName}> $memberEntityName = ($member.name != null && ${member.name}.length > 0)
             ? this.find${member.type.name}ByIds($member.name)
             : java.util.Collections.EMPTY_SET;
 #else
@@ -83,7 +82,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedName}PK)#end$member.name);
+            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedIdentifierTypeName})#end$member.name);
         }
 #end
 
@@ -111,9 +110,9 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #if ($manageable.read)
-    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+    public $manageable.fullyQualifiedEntityName readById($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName)
     {
-        return getDao().load($identifier.name);
+        return getDao().load($manageable.identifierName);
     }
 
 #if($manageableSearchMatchMode == 'anywhere')
@@ -121,7 +120,8 @@ public final class $manageable.manageableDaoBaseName
 #else
 #set($matchMode = 'MatchMode.START')
 #end
-    public java.util.List read(${manageable.listManageableMembersWithWrapperTypes()})
+    @SuppressWarnings("unchecked")
+    public java.util.List<$manageable.fullyQualifiedEntityName> read(${manageable.listManageableMembersWithWrapperTypes()})
     {
         final Session session = getSession(false);
 
@@ -169,12 +169,12 @@ public final class $manageable.manageableDaoBaseName
 #if ($member.many)
             if ($member.name != null && ${member.name}.length > 0)
             {
-                criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+                criteria.createCriteria("$member.name").add(Expression.in("$member.type.identifierName", $member.name));
             }
 #else
             if ($member.name != null)
             {
-                criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+                criteria.createCriteria("$member.name").add(Expression.eq("$member.type.identifierName", $member.name));
             }
 #end
 #end
@@ -182,7 +182,7 @@ public final class $manageable.manageableDaoBaseName
             criteria.setMaxResults($manageable.maximumListSize);
 
 #end
-            return criteria.list();
+            return (java.util.List<$manageable.fullyQualifiedEntityName>)criteria.list();
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -190,7 +190,8 @@ public final class $manageable.manageableDaoBaseName
         }
     }
 
-    public java.util.List readAll()
+    @SuppressWarnings("unchecked")
+    public java.util.List<$manageable.fullyQualifiedEntityName> readAll()
     {
         final Session session = getSession(false);
 
@@ -200,7 +201,7 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.maximumListSize > 0)
             criteria.setMaxResults($manageable.maximumListSize);
 #end
-            return criteria.list();
+            return (java.util.List<$manageable.fullyQualifiedEntityName>) criteria.list();
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -210,18 +211,14 @@ public final class $manageable.manageableDaoBaseName
 
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
-    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+    public $member.type.fullyQualifiedName ${member.getterName}($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName)
     {
         try
         {
             $member.type.fullyQualifiedName value = $member.type.javaNullString;
 
-            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityImplementationName as entity where entity.${identifier.name} = :$identifier.name");
-#if ($identifier.type.primitive)
-            queryObject.setParameter("$identifier.name", new ${identifier.type.wrapperName}($identifier.name));
-#else
-            queryObject.setParameter("$identifier.name", $identifier.name);
-#end
+            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityImplementationName as entity where entity.${manageable.identifierName} = :$manageable.identifierName");
+            queryObject.setParameter("$manageable.identifierName", $manageable.identifierName);
             final java.util.Iterator iterator = queryObject.iterate();
             if (iterator.hasNext())
             {
@@ -239,20 +236,21 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
-    public java.util.Map readBackingLists()
+    public java.util.Map<String,Object> readBackingLists()
     {
-        final java.util.Map lists = new java.util.HashMap();
+        final java.util.Map<String,Object> lists = new java.util.HashMap<String,Object>();
         final Session session = this.getSession();
 
         try
         {
 #foreach ($member in $manageable.manageableAssociationEnds)
-#set ($identifier = $member.manageableIdentifier)
 ##            // member.name=$member.name member=$member
-##            // identifier.name=$identifier.name identifier=$identifier
+##            // manageable.identifierName=$manageable.identifierName identifier=$identifier
 ##            // member.type.name=$member.type.name member.type=$member.type
 ##            // displayAttribute.name=$member.type.displayAttribute.name displayAttribute=$member.type.displayAttribute
-            lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityImplementationName item order by item.$member.type.displayAttribute.name").list());
+#if($member.type.manageable)
+            lists.put("${member.name}", session.createQuery("select item.$member.type.identifierName, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityImplementationName item order by item.$member.type.displayAttribute.name").list());
+#end            
 #end
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
@@ -267,18 +265,18 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.update)
     public $manageable.fullyQualifiedEntityName update($memberList)
     {
-#set ($identifier = $manageable.manageableIdentifier)
-        final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($identifier.name);
+        final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($manageable.identifierName);
 
 #foreach ($member in $manageable.manageableAttributes)
-#if (!$member.equals($identifier))## the identifier is already present since we loaded the entity
+#if (!$member.identifier)## the identifier is already present since we loaded the entity
         entity.${member.setterName}(${member.name});
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
 #set ($memberEntityName = "${member.name}Entities")
-        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+        @SuppressWarnings("unchecked")
+        final java.util.Set<${member.type.fullyQualifiedName}> $memberEntityName = ($member.name != null && ${member.name}.length > 0)
             ? this.find${member.type.name}ByIds($member.name)
             : java.util.Collections.EMPTY_SET;
 #else
@@ -286,7 +284,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedName}PK)#end$member.name);
+            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedIdentifierTypeName})#end$member.name);
         }
 #end
 
@@ -315,14 +313,14 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #if ($manageable.delete && $manageable.identifiersPresent)
-    public void delete(${identifier.type.fullyQualifiedName}[] ids)
+    public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids)
     {
         final Session session = getSession(false);
         try
         {
 #if ($hibernateUtils.version3)
             final ${hibernateUtils.basePackage}.Query queryObject =
-                session.createQuery("delete $manageable.fullyQualifiedEntityImplementationName where $identifier.name in (:ids)");
+                session.createQuery("delete $manageable.fullyQualifiedEntityImplementationName where $manageable.identifierName in (:ids)");
             queryObject.setParameterList("ids", ids);
             queryObject.executeUpdate();
 #else
@@ -330,7 +328,7 @@ public final class $manageable.manageableDaoBaseName
 ##            // generalizationRoot.name=$manageable.generalizationRoot.name generalizationRoot=$manageable.generalizationRoot.name
 ##            // fullyQualifiedEntityImplementationName=$manageable.generalizationRoot.fullyQualifiedEntityImplementationName
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$identifier.name", ids));
+            criteria.add(Expression.in("$manageable.identifierName", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
 #end

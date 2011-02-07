@@ -13,8 +13,13 @@ public class $manageable.manageableValueObjectClassName
     implements java.io.Serializable
 #end
 {
-#foreach ($member in $manageable.manageableAttributes)
-#if ($manageable.attributes.contains($member))## only process attributes defined in this class
+
+#if (!$manageable.generalization)
+    /** The serial version UID of this class. Needed for serialization. */
+    private static final long serialVersionUID = ${manageable.serialVersionUID}L;
+
+#end
+#foreach ($member in $manageable.getAttributes(false))
     private $member.type.fullyQualifiedName $member.name;
 
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
@@ -28,13 +33,12 @@ public class $manageable.manageableValueObjectClassName
     }
 
 #end
-#end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if (!$manageable.generalization.manageableAssociationEnds.contains($member))## do not process associations defined in an ancestor
 #if ($member.type.compositeIdentifier)
 #set ($fieldType = "Object")
 #else
-#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
+#set ($fieldType = $member.type.fullyQualifiedIdentifierTypeName)
 #end
 #if ($member.many)
 #set ($fieldType = "${fieldType}[]")
@@ -51,9 +55,7 @@ public class $manageable.manageableValueObjectClassName
         this.$member.name = $member.name;
     }
 
-#set ($memberTypeIdentifier = $member.type.identifiers.iterator().next())
-#if ($member.type.displayAttribute.name != $memberTypeIdentifier.name)
-##if ($member.type.displayAttribute.name != $member.type.identifiers.iterator().next().name)
+#if ($member.type.displayAttribute.name != $member.type.identifierName)
 #set ($fieldType = $member.type.displayAttribute.type.fullyQualifiedName)
 #set ($labelSuffix = "Label")
 #if ($member.many)
