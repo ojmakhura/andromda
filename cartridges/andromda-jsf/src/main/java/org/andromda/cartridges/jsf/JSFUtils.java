@@ -213,7 +213,8 @@ public class JSFUtils
             1);
     }
 
-    private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
+    private static String defaultDateFormat = "MM/dd/yyyy HH:mm:ssZ";
+    private static FastDateFormat df = FastDateFormat.getInstance(defaultDateFormat);
     
     /**
      * Returns the current Date in the specified format.
@@ -228,6 +229,16 @@ public class JSFUtils
             df = FastDateFormat.getInstance(format);
         }
         return df.format(new Date());
+    }
+
+    /**
+     * Returns the current Date
+     *
+     * @return the current date in the default format.
+     */
+    public static String getDate()
+    {
+        return getDate(defaultDateFormat);
     }
 
     private static final String STRICT = "strict";
