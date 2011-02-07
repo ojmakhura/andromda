@@ -72,7 +72,7 @@
     }
 
 #set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)")
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void $setBackingListMethodSignature
     {
         this.${valueListName} = null;

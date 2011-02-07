@@ -216,7 +216,7 @@ $field.getDocumentation("     * ")
     {
         if (messages != null)
         {
-            for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+            for (final java.util.Iterator<javax.faces.application.FacesMessage> iterator = messages.iterator(); iterator.hasNext();)
             {
                 javax.faces.application.FacesMessage jsfMessage = (javax.faces.application.FacesMessage)iterator.next();
                 this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
