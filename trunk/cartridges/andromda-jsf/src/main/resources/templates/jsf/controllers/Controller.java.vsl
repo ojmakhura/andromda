@@ -146,7 +146,7 @@ $action.trigger.getDocumentation("     * ")
     }
 
 #if ($formPopulationOperationRequired)
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
     public String ${action.triggerName}(final javax.faces.event.FacesEvent event)
     {
@@ -485,6 +485,7 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @return the resolved variable or null if not found.
      */
+    @SuppressWarnings("deprecation")
     protected Object resolveVariable(final String name)
     {
 #if ($standalone)
@@ -693,7 +694,7 @@ $decisionTransition.getDocumentation("     * ")
      * @param id the id of the form.
      * @return the form or null if none was found.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private javax.faces.component.UIForm findForm(javax.faces.component.UIComponent component, String id)
     {
         javax.faces.component.UIForm foundForm = null;
@@ -732,7 +733,7 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @param component the component to populate.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private void populateComponentInputs(javax.faces.component.UIComponent component)
     {
         if (component != null)
@@ -849,7 +850,7 @@ $decisionTransition.getDocumentation("     * ")
      * @param type the type of form to retrieve.
      * @return the found form.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     protected Object getCurrentActionForm(final Class type)
     {
         Object form = this.getCurrentActionForm();
