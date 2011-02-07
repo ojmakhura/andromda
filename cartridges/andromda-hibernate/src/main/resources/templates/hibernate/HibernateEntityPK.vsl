@@ -1,4 +1,4 @@
-#set ($generatedFile = "${entity.packagePath}/${entity.entityName}PK.java")
+#set ($generatedFile = "${entity.packagePath}/${entity.identifierTypeName}.java")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -8,13 +8,43 @@
 package $entity.packageName;
 #end
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-
-#set ($primaryKeyType="${entity.entityName}PK")
 /**
  * Primary key class for ${entity.entityName}
  */
-public class $primaryKeyType implements java.io.Serializable {
+public class $entity.identifierTypeName implements java.io.Serializable {
+
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${entity.serialVersionUID}L;
+
+        public ${entity.identifierTypeName}()
+        {
+        }
+
+        public ${entity.identifierTypeName}(## no newline
+#set ($comma = "")
+#foreach($associationEnd in $entity.identifierAssociationEnds)
+#if($associationEnd.many2One)
+${comma}${associationEnd.otherEnd.type.fullyQualifiedEntityImplementationName} ${associationEnd.otherEnd.name}## no newline
+#set ($comma = ", ")
+#end
+#end
+#foreach ( $identifier in $entity.identifiers )
+${comma}${identifier.type.fullyQualifiedName} ${identifier.name}## no newline
+#set ($comma = ", ")
+#end
+)
+        {
+#foreach($associationEnd in $entity.identifierAssociationEnds)
+#if($associationEnd.many2One)
+            this.${associationEnd.otherEnd.name} = ${associationEnd.otherEnd.name}; 
+#end
+#end
+#foreach ( $identifier in $entity.identifiers )
+            this.${identifier.name} = ${identifier.name};
+#end
+        }
 
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
@@ -56,11 +86,11 @@ $identifier.getDocumentation("     * ")
         {
             return true;
         }
-        if (!(object instanceof $primaryKeyType))
+        if (!(object instanceof $entity.identifierTypeName))
         {
             return false;
         }
-        final $primaryKeyType that = ($primaryKeyType)object;
+        final $entity.identifierTypeName that = ($entity.identifierTypeName)object;
         return new org.apache.commons.lang.builder.EqualsBuilder()
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)

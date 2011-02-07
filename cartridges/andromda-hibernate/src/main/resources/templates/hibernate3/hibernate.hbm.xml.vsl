@@ -36,7 +36,7 @@
             </generator>
         </id>
 #else
-        <composite-id name="$stringUtils.uncapitalize($entity.name)Pk" class="${entity.fullyQualifiedEntityName}PK">
+        <composite-id name="$entity.identifierName" class="$entity.fullyQualifiedIdentifierTypeName">
 #foreach ($identifier in $entity.identifiers)
             <key-property name="$identifier.name" type="$identifier.type.fullyQualifiedHibernateType">
                 <column name="$identifier.columnName"#if ($generateDatabaseDependentCode) sql-type="$identifier.sqlType"#end not-null="true"/>

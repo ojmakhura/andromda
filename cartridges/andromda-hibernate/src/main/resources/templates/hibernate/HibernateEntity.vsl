@@ -52,17 +52,15 @@ public abstract class $entity.entityName
 #end
 #end
 #if($entity.compositeIdentifier)
-#set($primaryKeyType="${entity.fullyQualifiedEntityName}PK")
-#set($primaryKeyName="$stringUtils.uncapitalize($entity.name)Pk")
-    private $primaryKeyType $primaryKeyName;
+    private $entity.fullyQualifiedIdentifierTypeName $entity.identifierName;
 
-    public $primaryKeyType get${entity.name}Pk()
+    public $entity.fullyQualifiedIdentifierTypeName ${entity.identifierGetterName}()
     {
-        return this.${primaryKeyName};
+        return this.${entity.identifierName};
     }
 
-    public void set${entity.name}Pk($primaryKeyType $primaryKeyName) {
-        this.$primaryKeyName = $primaryKeyName;
+    public void ${entity.identifierSetterName}($entity.fullyQualifiedIdentifierTypeName $entity.identifierName) {
+        this.$entity.identifierName = $entity.identifierName;
     }
 
 #end

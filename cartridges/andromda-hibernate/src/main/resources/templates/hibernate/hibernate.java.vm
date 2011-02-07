@@ -19,8 +19,7 @@
         }
         final $className that = ($className)object;
 #if($class.compositeIdentifier)
-#set($primaryKeyName="$stringUtils.uncapitalize($className)Pk")
-        if (this.$primaryKeyName == null || that.$primaryKeyName == null || !this.${primaryKeyName}.equals(that.${primaryKeyName}))
+        if (this.$class.identifierName == null || that.$class.identifierName == null || !this.${class.identifierName}.equals(that.${class.identifierName}))
         {
             return false;
         }
@@ -66,8 +65,7 @@
         int hashCode = 0;
 #end
 #if($class.compositeIdentifier)
-#set($primaryKeyName="$stringUtils.uncapitalize($className)Pk")
-        hashCode = 29 * hashCode + (this.$primaryKeyName == null ? 0 : this.${primaryKeyName}.hashCode());
+        hashCode = 29 * hashCode + (this.$class.identifierName == null ? 0 : this.${class.identifierName}.hashCode());
 #else
 #foreach ($attribute in $attributeSet)
 #set ($attrType = $attribute.type)
