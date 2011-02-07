@@ -337,6 +337,18 @@
                     The type to give default enumeration literals.
                 </documentation>
             </property>
+            <property name="compositeIdentifierTypeNameSuffix">
+                <default>PK</default>
+                <documentation>
+                    The suffix to add to the composite identifier type name.
+                </documentation>
+            </property>
+            <property name="compositeIdentifierNameSuffix">
+                <default>Pk</default>
+                <documentation>
+                    The suffix to add to the composite identifier name.
+                </documentation>
+            </property>
             <property name="relationNameSeparator">
                 <default>2</default>
                 <documentation>
