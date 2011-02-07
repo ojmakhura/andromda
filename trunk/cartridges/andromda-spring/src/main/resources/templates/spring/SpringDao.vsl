@@ -134,15 +134,8 @@ public interface $entity.daoName
     public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances);
 
 #end
-#if($entity.compositeIdentifier)
-#set($identifierTypeName="${entity.fullyQualifiedEntityName}PK")
-#set($identifierCapitalizedName="${entity.name}Pk")
-#set($identifierName=${stringUtils.uncapitalize($identifierCapitalizedName)})
-#else
-#set($identifierTypeName="${entity.identifiers.iterator().next().type.fullyQualifiedName}")
-#set($identifierName="${entity.identifiers.iterator().next().name}")
-#set($identifierCapitalizedName=${stringUtils.capitalize($identifierName)})
-#end
+#set($identifierTypeName="${entity.fullyQualifiedIdentifierTypeName}")
+#set($identifierName="${entity.identifierName}")
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * Gets an instance of $entity.fullyQualifiedEntityName from the persistent store.
