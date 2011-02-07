@@ -90,18 +90,14 @@ public class $manageable.formBeanClassName
         this.$manageable.listName = $manageable.listName;
     }
 
-#set ($identifier = $manageable.manageableIdentifier)
-    /**
-$identifier.getDocumentation("     * ")
-    */
-    private ${identifier.type.fullyQualifiedName}[] selectedRows = null;
+    private ${manageable.fullyQualifiedIdentifierTypeName}[] selectedRows = null;
 
-    public ${identifier.type.fullyQualifiedName}[] getSelectedRows()
+    public ${manageable.fullyQualifiedIdentifierTypeName}[] getSelectedRows()
     {
         return this.selectedRows;
     }
 
-    public void setSelectedRows(${identifier.type.fullyQualifiedName}[] selectedRows)
+    public void setSelectedRows(${manageable.fullyQualifiedIdentifierTypeName}[] selectedRows)
     {
         this.selectedRows = selectedRows;
     }
@@ -160,13 +156,13 @@ $field.getDocumentation("     * ")
 
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-#if($member.type.hasStereotype("Manageable"))
+#if($member.type.manageable)
 #set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
 #else
-#if($member.type.identifiers.size() > 1)
+#if($member.type.compositeIdentifier)
 #set ($fieldType = "Object")
 #else
-#set ($fieldType = $member.type.identifiers.get(0).type.fullyQualifiedName)
+#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
 #end
 #end
 #if ($member.many)
