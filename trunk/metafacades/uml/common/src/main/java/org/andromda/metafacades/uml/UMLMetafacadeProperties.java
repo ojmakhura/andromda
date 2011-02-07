@@ -162,9 +162,14 @@ public class UMLMetafacadeProperties
     public static final String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
 
     /**
-     * The type to given default enumeration literals.
+     * The suffix to add to the composite identifier type name.
      */
-    public static final String DEFAULT_ENUMERATION_LITERAL_TYPE = "defaultEnumerationLiteralType";
+    public static final String COMPOSITE_IDENTIFIER_TYPE_NAME_SUFIX = "compositeIdentifierTypeNameSuffix";
+
+    /**
+     * The suffix to add to the composite identifier name.
+     */
+    public static final String COMPOSITE_IDENTIFIER_NAME_SUFIX = "compositeIdentifierNameSuffix";
 
     /**
      * Are manageable tables resolved by default when referenced ?
