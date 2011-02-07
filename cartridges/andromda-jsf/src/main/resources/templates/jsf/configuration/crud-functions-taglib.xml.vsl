@@ -6,13 +6,13 @@
 <facelet-taglib>
     <namespace>http://www.andromda.org/cartridges/jsf/crud</namespace>
 #foreach($manageable in $manageables)
-#if ($manageable.manageableIdentifier.type.primitive)
-#set($idParamClass = $manageable.manageableIdentifier.type.wrapperName)
+#if ($manageable.compositeIdentifier || !$manageable.identifiers.iterator().next().type.primitive)
+#set($idParamClass = $manageable.fullyQualifiedIdentifierTypeName)
+#else
+#set($idParamClass = $manageable.identifiers.iterator().next().type.wrapperName)
 #if(!$idParamClass.startsWith("java.lang."))
 #set($idParamClass = "java.lang.${idParamClass}")
 #end
-#else
-#set($idParamClass = $manageable.manageableIdentifier.type.fullyQualifiedName)
 #end
     <function>
         <function-name>load${manageable.name}</function-name>
