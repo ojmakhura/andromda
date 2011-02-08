@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -1304,13 +1303,13 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetDaoBusinessOperations()
      */
-    protected Collection handleGetDaoBusinessOperations()
+    protected Collection<OperationFacade> handleGetDaoBusinessOperations()
     {
         // operations that are not finders and static
         Collection finders = this.getQueryOperations();
-        Collection operations = this.getOperations();
+        Collection<OperationFacade> operations = this.getOperations();
 
-        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        Collection<OperationFacade> nonFinders = CollectionUtils.subtract(operations, finders);
         CollectionUtils.filter(
             nonFinders,
             new Predicate()
@@ -1327,7 +1326,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences()
      */
-    protected Collection handleGetValueObjectReferences()
+    protected Collection<ClassifierFacade> handleGetValueObjectReferences()
     {
         return this.getValueObjectReferences(false);
     }
@@ -1335,7 +1334,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetAllValueObjectReferences()
      */
-    protected Collection handleGetAllValueObjectReferences()
+    protected Collection<ClassifierFacade> handleGetAllValueObjectReferences()
     {
         return this.getValueObjectReferences(true);
     }
@@ -1362,35 +1361,32 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences(boolean)
      */
-    protected Collection handleGetValueObjectReferences(boolean follow)
+    protected Collection<ClassifierFacade> handleGetValueObjectReferences(boolean follow)
     {
         final Collection<DependencyFacade> sourceDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         if (follow)
         {
-            for (
-                GeneralizableElementFacade entity = this.getGeneralization(); entity != null;
+            for (GeneralizableElementFacade entity = this.getGeneralization(); entity != null;
                 entity = entity.getGeneralization())
             {
                 sourceDependencies.addAll(entity.getSourceDependencies());
             }
         }
-        return new FilteredCollection(sourceDependencies)
+        Collection<ClassifierFacade> valueObjects = new ArrayList<ClassifierFacade>();
+        for (DependencyFacade dependency : sourceDependencies)
+        {
+            Object targetElement = dependency.getTargetElement();
+            if (targetElement instanceof ClassifierFacade)
             {
-                private static final long serialVersionUID = -8193885902084039620L;
-
-                public boolean evaluate(Object object)
+                ClassifierFacade element = (ClassifierFacade)targetElement;
+                if (element.isDataType() || element instanceof ValueObject ||
+                            element instanceof EnumerationFacade)
                 {
-                    boolean valid = false;
-                    Object targetElement = ((DependencyFacade)object).getTargetElement();
-                    if (targetElement instanceof ClassifierFacade)
-                    {
-                        ClassifierFacade element = (ClassifierFacade)targetElement;
-                        valid = element.isDataType() || element instanceof ValueObject ||
-                                    element instanceof EnumerationFacade;
-                    }
-                    return valid;
+                    valueObjects.add(element);
                 }
-            };
+            }
+        }
+        return valueObjects;
     }
 
     /**
