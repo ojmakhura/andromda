@@ -108,13 +108,15 @@ public class AndroMDAGenTask
      */
     protected String replaceProperties(String string)
     {
-        final Map properties = this.getProject().getProperties();
-        if (properties != null && !properties.isEmpty())
+        @SuppressWarnings("unchecked")
+        final Map<String, String> properties = this.getProject().getProperties();
+        if (properties != null)
         {
-            for (final String name : (Iterable<String>) properties.keySet())
+            for (Map.Entry<String, String> entry : properties.entrySet())
             {
+                final String name = entry.getKey();
+                final String value = entry.getValue();
                 final String property = "${" + name + '}';
-                final String value = (String) properties.get(name);
                 string = StringUtils.replace(string, property, value);
             }
         }
