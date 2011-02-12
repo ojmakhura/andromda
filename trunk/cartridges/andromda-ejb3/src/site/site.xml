@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="EJB3 Cartridge Plugin">
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
+ name="EJB3 Cartridge Plugin">
     <skin>
         <groupId>org.andromda.maven.plugins.site</groupId>
         <artifactId>andromda-site-skin</artifactId>
@@ -53,6 +56,6 @@
             <item name="EJB Forum" href="http://forum.andromda.org/viewforum.php?f=17"/>
             <item name="JIRA EJB" href="http://www.andromda.org/jira/browse/EJB"/>
         </menu>
-        ${reports}
+        <menu ref="reports"/>
     </body>
 </project>
