@@ -9,6 +9,7 @@ package org.andromda.metafacades.emf.uml2;
 public class NodeFacadeLogicImpl
     extends NodeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

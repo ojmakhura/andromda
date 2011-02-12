@@ -20,6 +20,7 @@ import org.eclipse.uml2.uml.AssociationClass;
 public class AssociationFacadeLogicImpl
     extends AssociationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

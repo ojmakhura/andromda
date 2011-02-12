@@ -1,9 +1,7 @@
 package org.andromda.cartridges.ejb.metafacades;
 
 import java.text.MessageFormat;
-
 import java.util.StringTokenizer;
-
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 public class ValueObjectFacadeLogicImpl
     extends ValueObjectFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

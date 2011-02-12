@@ -9,7 +9,7 @@ package org.andromda.metafacades.uml14;
 public class DestinationLogicImpl
     extends DestinationLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

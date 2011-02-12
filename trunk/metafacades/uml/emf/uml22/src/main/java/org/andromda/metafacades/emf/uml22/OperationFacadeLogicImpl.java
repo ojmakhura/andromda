@@ -40,6 +40,7 @@ import org.eclipse.uml2.uml.Type;
 public class OperationFacadeLogicImpl
     extends OperationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The logger instance.
      */

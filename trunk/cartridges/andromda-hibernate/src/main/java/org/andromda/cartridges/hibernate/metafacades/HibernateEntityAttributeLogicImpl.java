@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateEntityAttributeLogicImpl
     extends HibernateEntityAttributeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

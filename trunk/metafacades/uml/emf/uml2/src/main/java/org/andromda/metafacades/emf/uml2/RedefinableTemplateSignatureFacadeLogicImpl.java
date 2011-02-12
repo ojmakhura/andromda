@@ -14,7 +14,7 @@ import org.eclipse.uml2.RedefinableTemplateSignature;
 public class RedefinableTemplateSignatureFacadeLogicImpl
     extends RedefinableTemplateSignatureFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
      * @param metaObject 

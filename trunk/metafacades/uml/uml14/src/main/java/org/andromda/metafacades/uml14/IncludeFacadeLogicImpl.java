@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.behavioralelements.usecases.Include;
+import org.omg.uml.behavioralelements.usecases.UseCase;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.IncludeFacade.
@@ -12,7 +12,7 @@ import org.omg.uml.behavioralelements.usecases.Include;
 public class IncludeFacadeLogicImpl
     extends IncludeFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -6,7 +6,6 @@ import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization.
  *
@@ -16,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 public class MetafacadeGeneralizationLogicImpl
     extends MetafacadeGeneralizationLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context

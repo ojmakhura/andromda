@@ -25,6 +25,7 @@ import org.eclipse.uml2.uml.Type;
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context

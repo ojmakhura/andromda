@@ -8,6 +8,7 @@ package org.andromda.cartridges.xmlschema.metafacades;
 public class XSDAssociationEndLogicImpl
         extends XSDAssociationEndLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

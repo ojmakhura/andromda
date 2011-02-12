@@ -10,6 +10,7 @@ import org.andromda.cartridges.ejb.EJBProfile;
 public class EJBAssociationFacadeLogicImpl
         extends EJBAssociationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

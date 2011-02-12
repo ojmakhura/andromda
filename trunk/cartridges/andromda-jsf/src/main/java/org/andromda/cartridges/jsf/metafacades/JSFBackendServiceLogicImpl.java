@@ -11,6 +11,7 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 public class JSFBackendServiceLogicImpl
     extends JSFBackendServiceLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

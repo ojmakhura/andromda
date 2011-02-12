@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 public class HibernateFinderMethodArgumentLogicImpl
     extends HibernateFinderMethodArgumentLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

@@ -24,7 +24,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFAction.
  *
@@ -33,6 +32,7 @@ import org.apache.log4j.Logger;
 public class JSFActionLogicImpl
     extends JSFActionLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

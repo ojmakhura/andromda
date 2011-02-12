@@ -8,6 +8,7 @@ package org.andromda.cartridges.xmlschema.metafacades;
 public class XSDComplexTypeLogicImpl
     extends XSDComplexTypeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

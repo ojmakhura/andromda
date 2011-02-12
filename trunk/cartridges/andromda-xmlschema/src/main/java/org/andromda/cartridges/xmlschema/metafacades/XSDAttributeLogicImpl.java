@@ -10,6 +10,7 @@ import org.andromda.cartridges.xmlschema.XmlSchemaProfile;
 public class XSDAttributeLogicImpl
         extends XSDAttributeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

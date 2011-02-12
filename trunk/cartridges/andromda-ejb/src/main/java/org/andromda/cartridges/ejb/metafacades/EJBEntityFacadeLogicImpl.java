@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 public class EJBEntityFacadeLogicImpl
     extends EJBEntityFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

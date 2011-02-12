@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringServiceLogicImpl
     extends SpringServiceLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringServiceLogicImpl
      * @param metaObject 

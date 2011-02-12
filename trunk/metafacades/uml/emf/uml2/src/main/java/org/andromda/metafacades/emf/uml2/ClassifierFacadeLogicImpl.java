@@ -52,6 +52,7 @@ import org.eclipse.uml2.Property;
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade

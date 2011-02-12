@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 public class MetafacadeAttributeLogicImpl
     extends MetafacadeAttributeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context

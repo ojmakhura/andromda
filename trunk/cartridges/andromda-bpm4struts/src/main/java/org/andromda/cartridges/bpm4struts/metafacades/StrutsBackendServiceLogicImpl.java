@@ -2,8 +2,6 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendService.
  *
@@ -12,6 +10,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 public class StrutsBackendServiceLogicImpl
     extends StrutsBackendServiceLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

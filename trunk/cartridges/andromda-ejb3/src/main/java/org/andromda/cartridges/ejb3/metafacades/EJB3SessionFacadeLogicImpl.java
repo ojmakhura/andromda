@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3SessionFacadeLogicImpl
 extends EJB3SessionFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The property which stores the pattern defining the service bean name.
      */

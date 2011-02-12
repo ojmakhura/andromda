@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class WSDLTypeLogicImpl
         extends WSDLTypeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

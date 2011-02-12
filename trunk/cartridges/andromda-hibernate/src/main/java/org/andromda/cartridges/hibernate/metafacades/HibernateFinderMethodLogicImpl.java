@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateFinderMethodLogicImpl
     extends HibernateFinderMethodLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

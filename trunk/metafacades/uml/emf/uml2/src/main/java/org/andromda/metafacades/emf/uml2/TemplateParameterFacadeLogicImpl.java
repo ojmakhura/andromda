@@ -10,6 +10,7 @@ package org.andromda.metafacades.emf.uml2;
 public class TemplateParameterFacadeLogicImpl
     extends TemplateParameterFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

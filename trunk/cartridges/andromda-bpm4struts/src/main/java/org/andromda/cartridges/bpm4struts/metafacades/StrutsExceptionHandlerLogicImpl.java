@@ -6,7 +6,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
 
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -15,6 +14,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class StrutsExceptionHandlerLogicImpl
     extends StrutsExceptionHandlerLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

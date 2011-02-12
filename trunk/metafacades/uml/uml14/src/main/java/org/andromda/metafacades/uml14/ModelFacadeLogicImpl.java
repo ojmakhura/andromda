@@ -3,17 +3,16 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.Predicate;
+import org.omg.uml.UmlPackage;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.UmlPackage;
 
 /**
  * Metaclass facade implementation.
@@ -22,6 +21,7 @@ import org.omg.uml.UmlPackage;
 public class ModelFacadeLogicImpl
     extends ModelFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

@@ -40,6 +40,7 @@ import org.omg.uml.foundation.core.Operation;
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

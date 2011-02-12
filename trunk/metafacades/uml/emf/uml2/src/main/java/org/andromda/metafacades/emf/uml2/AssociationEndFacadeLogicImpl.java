@@ -25,6 +25,7 @@ import org.eclipse.uml2.Type;
 public class AssociationEndFacadeLogicImpl
     extends AssociationEndFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context

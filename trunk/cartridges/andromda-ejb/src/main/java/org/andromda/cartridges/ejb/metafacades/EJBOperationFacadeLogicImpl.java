@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJBOperationFacadeLogicImpl
         extends EJBOperationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

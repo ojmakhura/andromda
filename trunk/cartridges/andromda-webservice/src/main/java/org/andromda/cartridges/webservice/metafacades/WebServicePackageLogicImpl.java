@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class WebServicePackageLogicImpl
     extends WebServicePackageLogic
 {
+    private static final long serialVersionUID = 34L;
     private static final String DEFAULT = "default";
 
     /**

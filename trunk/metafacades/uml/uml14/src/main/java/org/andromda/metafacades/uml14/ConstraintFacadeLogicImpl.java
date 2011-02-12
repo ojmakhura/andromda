@@ -18,6 +18,7 @@ import org.omg.uml.foundation.core.Constraint;
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

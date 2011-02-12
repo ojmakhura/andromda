@@ -295,7 +295,7 @@ public class AndroMDApp
         }
         catch (final IOException exception)
         {
-            inputString = null;
+            AndroMDALogger.info("AndroMDApp Error reading inputLine from System.in");
         }
         return StringUtils.trimToNull(inputString);
     }

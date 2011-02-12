@@ -12,6 +12,7 @@ import org.eclipse.uml2.PseudostateKind;
 public class PseudostateFacadeLogicImpl
     extends PseudostateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

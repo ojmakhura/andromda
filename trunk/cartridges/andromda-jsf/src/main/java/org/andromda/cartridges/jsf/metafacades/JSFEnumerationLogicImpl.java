@@ -5,7 +5,6 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFEnumeration.
  *
@@ -14,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class JSFEnumerationLogicImpl
     extends JSFEnumerationLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

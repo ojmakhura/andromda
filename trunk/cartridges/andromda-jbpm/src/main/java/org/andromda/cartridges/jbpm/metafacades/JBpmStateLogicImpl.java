@@ -10,6 +10,7 @@ import org.andromda.cartridges.jbpm.JBpmProfile;
 public class JBpmStateLogicImpl
     extends JBpmStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

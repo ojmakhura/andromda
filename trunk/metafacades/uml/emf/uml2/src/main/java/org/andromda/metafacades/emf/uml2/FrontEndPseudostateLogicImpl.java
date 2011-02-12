@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndPseudostate.
@@ -23,6 +22,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndPseudostateLogicImpl
     extends FrontEndPseudostateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

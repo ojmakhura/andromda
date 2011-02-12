@@ -17,7 +17,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class JSFExceptionHandlerLogicImpl
     extends JSFExceptionHandlerLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for JSFExceptionHandlerLogicImpl
      * @param metaObject 

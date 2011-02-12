@@ -11,7 +11,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class SpringManageableEntityAssociationEndLogicImpl
     extends SpringManageableEntityAssociationEndLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringManageableEntityAssociationEndLogicImpl
      * @param metaObject 

@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 public class MetafacadeLogicImpl
     extends MetafacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * This defines the metamodel version package name (i.e.
      * org.andromda.metafacades.uml14, org.andromda.metafacades.um22, etc) used

@@ -57,6 +57,7 @@ import org.eclipse.uml2.uml.TemplateParameter;
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade
@@ -1271,7 +1272,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<ClassifierFacade> handleGetAssociatedClasses()
     {
-        final Set associatedClasses = new LinkedHashSet();
+        final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
 
         final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (final AssociationEndFacade associationEndFacade : associationEnds)

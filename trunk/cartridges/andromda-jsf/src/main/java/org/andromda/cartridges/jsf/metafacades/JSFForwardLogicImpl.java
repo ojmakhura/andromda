@@ -19,7 +19,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class JSFForwardLogicImpl
     extends JSFForwardLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
