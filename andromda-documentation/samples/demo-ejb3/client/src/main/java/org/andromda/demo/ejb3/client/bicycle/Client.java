@@ -26,18 +26,18 @@ public class Client
     private String principalId = "admin";
     private String password = "admin";
     
-	private Properties prop;
-	
-	public void init() 
+    private Properties prop;
+    
+    public void init() 
     {
-		prop = new Properties();
-		prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
-		prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
-		prop.put("java.naming.provider.url", "localhost:1099");
+        prop = new Properties();
+        prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
+        prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
+        prop.put("java.naming.provider.url", "localhost:1099");
         
         System.setProperty("java.security.auth.login.config", "./auth.conf");
-	}
-	
+    }
+    
     
     
     
@@ -155,15 +155,15 @@ public class Client
     
     
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) 
+    /**
+     * @param args
+     */
+    public static void main(String[] args) 
     {
-		Client client = new Client();
-		client.init();
-		client.getBicycle();
-	}
+        Client client = new Client();
+        client.init();
+        client.getBicycle();
+    }
 
     
     /**

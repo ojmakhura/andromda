@@ -26,15 +26,15 @@ import org.andromda.demo.ejb3.vehicle.VehicleManagerDelegate;
 public class Client 
 {
 
-	private Properties prop;
-	
-	public void init() 
+    private Properties prop;
+    
+    public void init() 
     {
-		prop = new Properties();
-		prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
-		prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
-		prop.put("java.naming.provider.url", "localhost:1099");
-	}
+        prop = new Properties();
+        prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
+        prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
+        prop.put("java.naming.provider.url", "localhost:1099");
+    }
     
     
     
@@ -171,14 +171,14 @@ public class Client
     
     
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) 
+    /**
+     * @param args
+     */
+    public static void main(String[] args) 
     {
-		Client client = new Client();
-		client.init();
-		client.getBioReferencesForBio();
-	}
+        Client client = new Client();
+        client.init();
+        client.getBioReferencesForBio();
+    }
 
 }

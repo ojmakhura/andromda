@@ -13,15 +13,15 @@ import org.andromda.timetracker.vo.UserVO;
 public class Client 
 {
 
-	private Properties prop;
-	
-	public void init() 
+    private Properties prop;
+    
+    public void init() 
     {
-		prop = new Properties();
-		prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
-		prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
-		prop.put("java.naming.provider.url", "localhost");
-	}
+        prop = new Properties();
+        prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
+        prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
+        prop.put("java.naming.provider.url", "localhost");
+    }
     
     
     public void getAllUsersAsVO()
