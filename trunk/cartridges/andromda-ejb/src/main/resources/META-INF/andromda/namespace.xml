@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <namespace name="ejb">
     <components>
         <component name="cartridge">
@@ -73,6 +72,12 @@
                     <strong>NOTE:</strong> Can be overridden on a per entity basis with the
                     <a href="profile.html#andromda_ejb_transaction_type">andromda_ejb_transaction_type</a>
                     tagged value.
+                </documentation>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    The encoding for xml documents
                 </documentation>
             </property>
         </propertyGroup>
