@@ -470,12 +470,6 @@
                     Can be customized for individual attributes through XmlAttribute stereotype.
                 </documentation>
             </property>
-            <property name="useEventLogger">
-                <default>true</default>
-                <documentation>
-                    Use EventLogger for logging within WS Test Client files.
-                </documentation>
-            </property>
             <property name="makeNillable">
                 <default>false</default>
                 <documentation>

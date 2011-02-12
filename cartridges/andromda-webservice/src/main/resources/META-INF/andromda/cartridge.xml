@@ -50,7 +50,6 @@
     <property reference="extensionInheritanceDisabled"/>
     <property reference="useArrayWrapper"/>
     <property reference="useAttributes"/>
-    <property reference="useEventLogger"/>
     <property reference="makeNillable"/>
     <property reference="webserviceHost"/>
     <property reference="webservicePort"/>
@@ -102,7 +101,6 @@
     <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
     <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
     <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
-    <condition name="useEventLogger">$useEventLogger.equalsIgnoreCase("true")</condition>
     <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
     <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
     <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>
