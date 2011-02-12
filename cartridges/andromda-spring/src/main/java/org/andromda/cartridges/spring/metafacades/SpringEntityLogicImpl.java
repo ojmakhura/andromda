@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringEntityLogicImpl
     extends SpringEntityLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringEntityLogicImpl
      * @param metaObject 

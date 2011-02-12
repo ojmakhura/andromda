@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
  * concrete (table per class). With concrete the strategy can be changed lower
  * down. Also provides for the root class being defined as an interface and the
  * attributes remapped to the subclasses. This is useful in the concrete case
- * becuase it has limitations in the associations.
+ * because it has limitations in the associations.
  * </p>
  * <p> Also provides support for not generating the entity factory which is
  * useful when using subclass mode.
@@ -39,6 +39,7 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

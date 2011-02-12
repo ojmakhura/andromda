@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 public class EJBSessionFacadeLogicImpl
         extends EJBSessionFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

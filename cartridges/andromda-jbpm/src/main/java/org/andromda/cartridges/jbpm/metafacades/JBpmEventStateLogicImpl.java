@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmEventState.
  *
@@ -15,6 +14,7 @@ import java.util.List;
 public class JBpmEventStateLogicImpl
     extends JBpmEventStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

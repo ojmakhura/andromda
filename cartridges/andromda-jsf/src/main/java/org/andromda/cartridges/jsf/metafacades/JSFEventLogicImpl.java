@@ -12,6 +12,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class JSFEventLogicImpl
     extends JSFEventLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

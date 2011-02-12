@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 public class JBpmProcessDefinitionLogicImpl
     extends JBpmProcessDefinitionLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

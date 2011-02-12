@@ -9,7 +9,7 @@ package org.andromda.cartridges.jsf.metafacades;
 public class JSFSessionObjectLogicImpl
     extends JSFSessionObjectLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

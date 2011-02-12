@@ -9,6 +9,7 @@ package org.andromda.core.metafacade;
 public class Metafacade7Impl
     extends MetafacadeBase
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

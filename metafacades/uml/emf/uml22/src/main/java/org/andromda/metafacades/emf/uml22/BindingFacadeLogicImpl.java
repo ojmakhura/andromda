@@ -13,6 +13,7 @@ import org.eclipse.uml2.uml.TemplateParameterSubstitution;
 public class BindingFacadeLogicImpl
     extends BindingFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

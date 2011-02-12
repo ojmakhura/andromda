@@ -10,6 +10,7 @@ import org.andromda.cartridges.ejb.EJBProfile;
 public class EJBSessionAttributeFacadeLogicImpl
         extends EJBSessionAttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

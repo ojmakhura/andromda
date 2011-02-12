@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringQueueLogicImpl
     extends SpringQueueLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringQueueLogicImpl
      * @param metaObject 

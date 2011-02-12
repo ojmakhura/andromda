@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.portlet.myfaces.tomahawk;
 
 import java.io.IOException;
-import java.util.Iterator;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

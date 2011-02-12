@@ -17,6 +17,7 @@ import org.omg.uml.behavioralelements.statemachines.StateVertex;
 public class StateVertexFacadeLogicImpl
         extends StateVertexFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateAssociationLogicImpl
     extends HibernateAssociationLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

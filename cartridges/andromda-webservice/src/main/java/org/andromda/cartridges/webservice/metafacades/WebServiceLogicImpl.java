@@ -48,6 +48,7 @@ import org.apache.log4j.Logger;
 public class WebServiceLogicImpl
     extends WebServiceLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject
@@ -1010,7 +1011,7 @@ public class WebServiceLogicImpl
     /**
      * Used to sort operations by <code>name</code>.
      */
-    final static class OperationNameComparator
+    public final static class OperationNameComparator
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();
@@ -1018,7 +1019,7 @@ public class WebServiceLogicImpl
         /**
          *
          */
-        OperationNameComparator()
+        public OperationNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
@@ -1281,9 +1282,8 @@ public class WebServiceLogicImpl
         final Collection exceptions = new HashSet();
 
         // collect the exceptions of all allowed operations into a single set
-        for (Iterator i = this.getAllowedOperations().iterator(); i.hasNext();)
+        for (final OperationFacade operation : this.getAllowedOperations())
         {
-            final OperationFacade operation = (OperationFacade)i.next();
             exceptions.addAll(operation.getExceptions());
         }
 

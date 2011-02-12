@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsUseCaseLogicImpl
     extends StrutsUseCaseLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -14,6 +14,7 @@ package $servletPackage;
 public final class ActionServlet
     extends org.apache.struts.action.ActionServlet
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Call the parent initializer and configure the converter not to
      * convert <code>null</code> numbers to the corresponding zero value.

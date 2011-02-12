@@ -10,7 +10,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 public class JBpmNodeLogicImpl
     extends JBpmNodeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

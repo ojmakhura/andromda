@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringDependencyLogicImpl
     extends SpringDependencyLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringDependencyLogicImpl
      * @param metaObject 

@@ -12,7 +12,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class JSFFinalStateLogicImpl
     extends JSFFinalStateLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -22,12 +22,12 @@ import org.omg.uml.foundation.core.Generalization;
 public class GeneralizableElementFacadeLogicImpl
         extends GeneralizableElementFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
      */
-    public GeneralizableElementFacadeLogicImpl(org.omg.uml.foundation.core.GeneralizableElement metaObject,
+    public GeneralizableElementFacadeLogicImpl(GeneralizableElement metaObject,
                                                String context)
     {
         super(metaObject, context);

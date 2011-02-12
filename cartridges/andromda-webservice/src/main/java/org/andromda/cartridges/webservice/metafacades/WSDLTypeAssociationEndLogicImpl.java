@@ -9,6 +9,7 @@ package org.andromda.cartridges.webservice.metafacades;
 public class WSDLTypeAssociationEndLogicImpl
         extends WSDLTypeAssociationEndLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 public class HibernateTypeLogicImpl
     extends HibernateTypeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The logger instance.
      */

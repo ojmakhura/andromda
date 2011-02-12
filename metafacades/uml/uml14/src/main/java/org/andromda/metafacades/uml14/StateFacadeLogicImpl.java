@@ -10,6 +10,7 @@ import org.omg.uml.behavioralelements.statemachines.State;
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

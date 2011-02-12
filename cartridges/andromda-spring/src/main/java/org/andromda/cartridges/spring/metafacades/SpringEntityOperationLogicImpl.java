@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringEntityOperationLogicImpl
         extends SpringEntityOperationLogic
 {
-    
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringEntityOperationLogicImpl
      * @param metaObject 

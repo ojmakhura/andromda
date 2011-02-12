@@ -62,6 +62,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class ModelElementFacadeLogicImpl
     extends ModelElementFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Helps to get the xmi:id value from the model
      */

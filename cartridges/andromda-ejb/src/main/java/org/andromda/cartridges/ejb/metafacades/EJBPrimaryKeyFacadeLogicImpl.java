@@ -10,6 +10,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 public class EJBPrimaryKeyFacadeLogicImpl
         extends EJBPrimaryKeyFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

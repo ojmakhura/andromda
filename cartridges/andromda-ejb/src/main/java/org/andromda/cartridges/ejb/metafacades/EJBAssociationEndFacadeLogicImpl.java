@@ -7,6 +7,7 @@ package org.andromda.cartridges.ejb.metafacades;
 public class EJBAssociationEndFacadeLogicImpl
         extends EJBAssociationEndFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
 
     /**

@@ -3,9 +3,9 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Collections;
 import org.andromda.metafacades.uml.InstanceFacade;
+import org.omg.uml.behavioralelements.commonbehavior.AttributeLink;
 import org.omg.uml.behavioralelements.commonbehavior.Instance;
 import org.omg.uml.foundation.core.Attribute;
-import org.omg.uml.behavioralelements.commonbehavior.AttributeLink;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.AttributeLinkFacade.
@@ -16,6 +16,7 @@ import org.omg.uml.behavioralelements.commonbehavior.AttributeLink;
 public class AttributeLinkFacadeLogicImpl
     extends AttributeLinkFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -12,7 +12,7 @@ import org.omg.uml.foundation.core.TemplateParameter;
 public class TemplateParameterFacadeLogicImpl
     extends TemplateParameterFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

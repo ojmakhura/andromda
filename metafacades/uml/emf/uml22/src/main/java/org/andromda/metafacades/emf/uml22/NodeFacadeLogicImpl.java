@@ -11,7 +11,7 @@ import org.eclipse.uml2.uml.Node;
 public class NodeFacadeLogicImpl
     extends NodeFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

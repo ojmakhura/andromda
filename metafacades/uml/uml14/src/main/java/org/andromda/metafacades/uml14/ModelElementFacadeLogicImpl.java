@@ -51,6 +51,7 @@ import org.omg.uml.modelmanagement.UmlPackage;
 public class ModelElementFacadeLogicImpl
     extends ModelElementFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -306,7 +307,6 @@ public class ModelElementFacadeLogicImpl
         Collection<String> stereotypeNames = new ArrayList();
 
         Collection<ModelElement> stereotypes = metaObject.getStereotype();
-        //for (final Iterator<ModelElement> stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
         for (final ModelElement stereotype : stereotypes)
         {
             if (stereotype != null)

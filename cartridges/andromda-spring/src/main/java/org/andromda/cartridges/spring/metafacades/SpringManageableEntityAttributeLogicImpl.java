@@ -8,7 +8,7 @@ package org.andromda.cartridges.spring.metafacades;
 public class SpringManageableEntityAttributeLogicImpl
     extends SpringManageableEntityAttributeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringManageableEntityAttributeLogicImpl
      * @param metaObject 

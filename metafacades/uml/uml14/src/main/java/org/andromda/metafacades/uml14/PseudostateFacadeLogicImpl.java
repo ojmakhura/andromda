@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
+import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
 /**
  * Metaclass facade implementation.
@@ -10,6 +10,7 @@ import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 public class PseudostateFacadeLogicImpl
     extends PseudostateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

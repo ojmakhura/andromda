@@ -11,6 +11,7 @@ import org.omg.uml.behavioralelements.commonbehavior.Argument;
 public class ArgumentFacadeLogicImpl
     extends ArgumentFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

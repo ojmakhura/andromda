@@ -47,6 +47,7 @@ import org.eclipse.uml2.VisibilityKind;
 public class EntityLogicImpl
     extends EntityLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -571,6 +572,7 @@ public class EntityLogicImpl
         final Collection<AssociationEndFacade> childEnds =
             new FilteredCollection(this.getAssociationEnds())
             {
+                private static final long serialVersionUID = 34L;
                 @Override
                 public boolean evaluate(Object object)
                 {
@@ -610,6 +612,7 @@ public class EntityLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
+                private static final long serialVersionUID = 34L;
                 @Override
                 public boolean evaluate(final Object object)
                 {

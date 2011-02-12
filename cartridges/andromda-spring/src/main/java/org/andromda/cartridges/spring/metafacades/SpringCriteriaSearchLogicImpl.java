@@ -11,6 +11,7 @@ import java.util.Collection;
 public class SpringCriteriaSearchLogicImpl
         extends SpringCriteriaSearchLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringCriteriaSearchLogicImpl
      * @param metaObject 

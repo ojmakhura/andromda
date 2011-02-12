@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 public class EJB3WebServiceOperationFacadeLogicImpl
     extends EJB3WebServiceOperationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * The logger instance.
      */

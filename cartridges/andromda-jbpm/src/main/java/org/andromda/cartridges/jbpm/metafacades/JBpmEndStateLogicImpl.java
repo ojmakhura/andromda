@@ -8,6 +8,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 public class JBpmEndStateLogicImpl
     extends JBpmEndStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
