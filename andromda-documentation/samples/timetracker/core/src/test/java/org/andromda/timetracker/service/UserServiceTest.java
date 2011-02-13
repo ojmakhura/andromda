@@ -4,7 +4,7 @@ import org.andromda.timetracker.ServiceLocator;
 import org.andromda.timetracker.vo.UserVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.testng.annotations.Configuration;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 public class UserServiceTest {
@@ -15,9 +15,9 @@ public class UserServiceTest {
     /**
      * Initialize test suite
      */
-    @Configuration(beforeSuite=true)
-    public void initializeTestSuite() {
-
+    @BeforeSuite
+    public void initializeTestSuite()
+    {
         // Initialize ServiceLocator
         logger.info("Initializing ServiceLocator");
         ServiceLocator locator = ServiceLocator.instance();
@@ -29,17 +29,18 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testGetAllUsers() {
-
+    public void testGetAllUsers()
+    {
         logger.info("testGetAllUsers:");
         UserVO[] users = userService.getAllUsers();
 
-        for (int i=0; i<users.length; i++) {
-            logger.info(users[i].getUsername());
-        /*for (UserVO user : userService.getAllUsers())
+        for (UserVO user : users)
         {
             logger.info(user.getUsername());
-        */
+            /*for (UserVO user : userService.getAllUsers())
+            {
+                logger.info(user.getUsername());
+            */
         }
     }
 }

@@ -21,7 +21,7 @@ public class ProjectUtils
     /**
      * Stores previously discovered projects.
      */
-    private static final Map projectCache = new HashMap();
+    private static final Map<File, MavenProject> projectCache = new HashMap<File, MavenProject>();
 
     /**
      * Gets a project for the given <code>pom</code>.
@@ -40,7 +40,7 @@ public class ProjectUtils
         throws ProjectBuildingException
     {
         // - first attempt to get a project from the cache
-        MavenProject project = (MavenProject)projectCache.get(pom);
+        MavenProject project = projectCache.get(pom);
         if (project == null)
         {
             // - next attempt to get the existing project from the session
@@ -56,7 +56,7 @@ public class ProjectUtils
                         projectBuilder.build(
                             pom,
                             session.getLocalRepository(),
-                            new DefaultProfileManager(session.getContainer()));
+                            new DefaultProfileManager(session.getContainer(), session.getSettings()));
                     projectCache.put(
                         pom,
                         project);
