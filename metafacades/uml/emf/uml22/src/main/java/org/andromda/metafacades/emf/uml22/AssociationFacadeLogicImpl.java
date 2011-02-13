@@ -72,7 +72,7 @@ public class AssociationFacadeLogicImpl
     @Override
     protected boolean handleIsMany2Many()
     {
-        return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
+        return (this.getAssociationEnds().iterator().next()).isMany2Many();
     }
 
     /**

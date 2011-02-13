@@ -80,7 +80,7 @@ public class FrontEndControllerOperationLogicImpl
         // for quick lookup we use a hashset for the argument names, we only
         // consider parameters with a name
         // which is also present in this set
-        final Set<String> argumentNames = new LinkedHashSet();
+        final Set<String> argumentNames = new LinkedHashSet<String>();
         final Collection<ParameterFacade> arguments = this.getArguments();
         for (final Iterator<ParameterFacade> argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {
@@ -183,7 +183,7 @@ public class FrontEndControllerOperationLogicImpl
     @Override
     protected List<FrontEndAction> handleGetDeferringActions()
     {
-        final Collection<FrontEndAction> deferringActions = new LinkedHashSet();
+        final Collection<FrontEndAction> deferringActions = new LinkedHashSet<FrontEndAction>();
 
         final FrontEndActivityGraph graph = this.getActivityGraph();
         if (graph != null)

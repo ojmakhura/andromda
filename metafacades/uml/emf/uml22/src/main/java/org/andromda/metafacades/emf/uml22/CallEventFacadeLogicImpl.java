@@ -46,7 +46,7 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
     public List<Operation> handleGetOperations()
     {
         // We get every operation from each CallOperationAction instance.
-        final List<Operation> operations = new ArrayList();
+        final List<Operation> operations = new ArrayList<Operation>();
         final Collection<ActivityNode> nodes = this.metaObject.getNodes();
         for (final ActivityNode nextNode : nodes)
         {

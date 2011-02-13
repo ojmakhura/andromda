@@ -61,7 +61,7 @@ public class ActorFacadeLogicImpl
     @Override
     protected List<ActorFacade> handleGetGeneralizedByActors()
     {
-        final List<ActorFacade> generalizedByActors = new ArrayList();
+        final List<ActorFacade> generalizedByActors = new ArrayList<ActorFacade>();
 
         final Collection<GeneralizableElementFacade> specializedActors = this.getSpecializations();
         for (final GeneralizableElementFacade object : specializedActors)

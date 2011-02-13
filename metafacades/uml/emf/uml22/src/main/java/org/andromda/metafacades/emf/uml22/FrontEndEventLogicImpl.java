@@ -84,7 +84,7 @@ public class FrontEndEventLogicImpl
         // - get every operation from each CallOperationAction instance.
         // - Note: this is the same implementation as CallEvent.getOperationCall()
         final Activity activity = (Activity)this.metaObject;
-        final List<Operation> operations = new ArrayList();
+        final List<Operation> operations = new ArrayList<Operation>();
         Collection<ActivityNode> nodes = activity.getNodes();
         for (final Iterator<ActivityNode> iterator = nodes.iterator(); iterator.hasNext();)
         {

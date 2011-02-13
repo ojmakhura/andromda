@@ -248,14 +248,14 @@ public class EJB3EntityFacadeLogicImpl
      *        should be followed
      * @return the collection of identifiers.
      */
-    public Collection<AttributeFacade> getIdentifiers(boolean follow)
+    public Collection<EntityAttribute> getIdentifiers(boolean follow)
     {
-        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>(this.getAttributes());
+        final List<AttributeFacade> attributes = this.getAttributes();
         MetafacadeUtils.filterByStereotype(
-            identifiers,
+            attributes,
             UMLProfile.STEREOTYPE_IDENTIFIER);
 
-        if (identifiers.isEmpty() && follow)
+        if (attributes.isEmpty() && follow)
         {
             if (this.getGeneralization() instanceof EJB3EntityFacade)
             {
@@ -265,15 +265,13 @@ public class EJB3EntityFacadeLogicImpl
             {
                 return ((EJB3MappedSuperclassFacade)this.getGeneralization()).getIdentifiers(follow);
             }
-            else
-            {
-                return identifiers;
-            }
         }
-        else
+        Collection<EntityAttribute> identifiers = new ArrayList<EntityAttribute>();
+        for (AttributeFacade attribute : attributes)
         {
-            return identifiers;
+            identifiers.add((EntityAttribute)attribute);
         }
+        return identifiers;
     }
 
     /**

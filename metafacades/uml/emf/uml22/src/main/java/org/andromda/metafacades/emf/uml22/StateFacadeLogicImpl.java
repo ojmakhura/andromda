@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.State;
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -33,7 +34,7 @@ public class StateFacadeLogicImpl
     {
         // UML1.4 Events are mapped to UML2 Activity
         // We obtains them through entry, doactivity and exit
-        Collection<Behavior> events = new ArrayList();
+        Collection<Behavior> events = new ArrayList<Behavior>();
         Behavior entry = this.metaObject.getEntry();
         Behavior doActivity = this.metaObject.getDoActivity();
         Behavior onExit = this.metaObject.getExit();

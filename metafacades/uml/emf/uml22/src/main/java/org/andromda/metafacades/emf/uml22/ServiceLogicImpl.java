@@ -41,14 +41,15 @@ public class ServiceLogicImpl extends ServiceLogic
     protected Collection<DependencyFacade> handleGetServiceReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
+        {
+            private static final long serialVersionUID = 34L;
+            @Override
+            public boolean evaluate(final Object object)
             {
-                @Override
-                public boolean evaluate(final Object object)
-                {
-                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
-                    return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
-                }
-            };
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
+            }
+        };
     }
 
     /**
@@ -58,14 +59,15 @@ public class ServiceLogicImpl extends ServiceLogic
     protected Collection<DependencyFacade> handleGetEntityReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
+        {
+            private static final long serialVersionUID = 34L;
+            @Override
+            public boolean evaluate(final Object object)
             {
-                @Override
-                public boolean evaluate(final Object object)
-                {
-                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
-                    return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
-                }
-            };
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
+            }
+        };
     }
 
     /**

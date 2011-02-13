@@ -388,7 +388,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected List<ClassifierFacade> handleGetReferencingManageables()
     {
-        final Set<ClassifierFacade> referencingManageables = new LinkedHashSet();
+        final Set<ClassifierFacade> referencingManageables = new LinkedHashSet<ClassifierFacade>();
         final Collection<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (final Iterator<AssociationEndFacade> associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
@@ -462,7 +462,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected List<ActorFacade> handleGetUsers()
     {
-        final Set<ActorFacade> users = new LinkedHashSet();
+        final Set<ActorFacade> users = new LinkedHashSet<ActorFacade>();
 
         final Collection<DependencyFacade> dependencies = this.getTargetDependencies();
         for (final Iterator<DependencyFacade> dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)

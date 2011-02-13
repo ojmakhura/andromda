@@ -135,7 +135,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     @Override
     protected List<FrontEndAction> handleGetContainerActions()
     {
-        final Collection<FrontEndAction> actionSet = new LinkedHashSet();
+        final Collection<FrontEndAction> actionSet = new LinkedHashSet<FrontEndAction>();
 
         final StateMachineFacade stateMachineFacade = this.getStateMachine();
         if (stateMachineFacade instanceof ActivityGraphFacade)

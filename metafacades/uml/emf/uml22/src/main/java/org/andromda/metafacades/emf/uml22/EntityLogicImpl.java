@@ -98,7 +98,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     @Override
-    protected Collection handleGetQueryOperations()
+    protected Collection<OperationFacade> handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -130,7 +130,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers()
      */
     @Override
-    protected Collection handleGetIdentifiers()
+    protected Collection<EntityAttribute> handleGetIdentifiers()
     {
         return this.getIdentifiers(true);
     }
@@ -997,7 +997,7 @@ public class EntityLogicImpl
     @Override
     protected Collection<AttributeFacade> handleGetEmbeddedValues()
     {
-        final Collection<AttributeFacade> embeddedValues = new ArrayList();
+        final Collection<AttributeFacade> embeddedValues = new ArrayList<AttributeFacade>();
         for (final AttributeFacade attribute : (Iterable<AttributeFacade>) this.getAttributes(true))
         {
             final ClassifierFacade type = attribute.getType();

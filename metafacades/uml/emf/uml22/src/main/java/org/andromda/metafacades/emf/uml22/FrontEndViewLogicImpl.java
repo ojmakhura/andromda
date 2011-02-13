@@ -142,7 +142,7 @@ public class FrontEndViewLogicImpl
     @Override
     protected List<FrontEndParameter> handleGetAllActionParameters()
     {
-        final List<FrontEndParameter> actionParameters = new ArrayList();
+        final List<FrontEndParameter> actionParameters = new ArrayList<FrontEndParameter>();
         final Collection<FrontEndAction> actions = this.getActions();
         for (FrontEndAction action : actions)
         {
@@ -157,7 +157,7 @@ public class FrontEndViewLogicImpl
     @Override
     protected List<FrontEndParameter> handleGetAllFormFields()
     {
-        final List<FrontEndParameter> actionParameters = new ArrayList();
+        final List<FrontEndParameter> actionParameters = new ArrayList<FrontEndParameter>();
         final Collection<FrontEndAction> actions = this.getActions();
         for (FrontEndAction action : actions)
         {

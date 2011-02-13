@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -13,6 +12,7 @@ import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndController;
@@ -35,6 +35,7 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndUseCaseLogicImpl
     extends FrontEndUseCaseLogic
 {
+    private static final long serialVersionUID = 34L; 
     /**
      * @param metaObject
      * @param context
@@ -82,9 +83,9 @@ public class FrontEndUseCaseLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getReferencingFinalStates()
      */
     @Override
-    protected List handleGetReferencingFinalStates()
+    protected List<FinalStateFacade> handleGetReferencingFinalStates()
     {
-        return new ArrayList(this.getModel().findFinalStatesWithNameOrHyperlink(this));
+        return new ArrayList<FinalStateFacade>(this.getModel().findFinalStatesWithNameOrHyperlink(this));
     }
 
     /**
@@ -93,7 +94,7 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<FrontEndUseCase> handleGetAllUseCases()
     {
-        final List<FrontEndUseCase> useCases = new ArrayList();
+        final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>();
         for (UseCaseFacade useCase : this.getModel().getAllUseCases())
         {
             if (useCase instanceof FrontEndUseCase)
@@ -168,10 +169,10 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<Role> handleGetAllRoles()
     {
-        final Collection<Role> allRoles = new LinkedHashSet();
-        for (final Iterator<FrontEndUseCase> iterator = this.getAllUseCases().iterator(); iterator.hasNext();)
+        final Collection<Role> allRoles = new LinkedHashSet<Role>();
+        for (final FrontEndUseCase useCase : this.getAllUseCases())
         {
-            allRoles.addAll(((FrontEndUseCase)iterator.next()).getRoles());
+            allRoles.addAll(useCase.getRoles());
         }
         return new ArrayList<Role>(allRoles);
     }
@@ -191,17 +192,11 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<ActionStateFacade> handleGetViews()
     {
-        List<ActionStateFacade> views;
+        List views = new ArrayList<ActionStateFacade>();
         final ActivityGraphFacade graph = this.getActivityGraph();
-        if (graph == null)
+        if (graph != null)
         {
-            views = Collections.emptyList();
-        }
-        else
-        {
-            views =
-                new ArrayList(
-                    this.getModel().getAllActionStatesWithStereotype(
+            views.addAll(this.getModel().getAllActionStatesWithStereotype(
                         graph,
                         UMLProfile.STEREOTYPE_FRONT_END_VIEW));
         }
@@ -214,7 +209,7 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<FrontEndAction> handleGetActions()
     {
-        final Collection<FrontEndAction> actions = new LinkedHashSet();
+        final Collection<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
         final Collection<FrontEndView> pages = this.getViews();
         for (final Iterator<FrontEndView> pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
