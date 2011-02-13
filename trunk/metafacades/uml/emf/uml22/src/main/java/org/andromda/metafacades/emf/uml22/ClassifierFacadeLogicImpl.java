@@ -183,6 +183,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * Can return either an AttributeFacade or AssociationFacade Collection (UML2 Property)
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAllRequiredConstructorParameters()
      */
     @Override
@@ -206,6 +207,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * Can return either an AttributeFacade or AssociationFacade Collection (UML2 Property)
      * @see org.andromda.metafacades.uml.ClassifierFacade#getRequiredConstructorParameters()
      */
     @Override
@@ -766,6 +768,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * Can return either an AttributeFacade or AssociationFacade Collection (UML2 Property)
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
      */
     @Override
@@ -1000,16 +1003,14 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<OperationFacade> handleGetStaticOperations()
     {
-        List<OperationFacade> operations = this.getOperations();
-        CollectionUtils.filter(
-            operations,
-            new Predicate()
+        List<OperationFacade> operations = new ArrayList<OperationFacade>();
+        for (OperationFacade operation : this.getOperations())
+        {
+            if (operation.isStatic())
             {
-                public boolean evaluate(final Object object)
-                {
-                    return ((OperationFacade)object).isStatic();
-                }
-            });
+                operations.add(operation);
+            }
+        }
         return operations;
     }
 
@@ -1019,17 +1020,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<OperationFacade> handleGetInstanceOperations()
     {
-        List<OperationFacade> operations = this.getOperations();
-        CollectionUtils.filter(
-            operations,
-            new Predicate()
-            {
-                public boolean evaluate(final Object object)
-                {
-                    return !((OperationFacade)object).isStatic();
-                }
-            });
-        return operations;
+        return this.getStaticOperations();
     }
 
     /**
@@ -1038,17 +1029,15 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<Abstraction> handleGetAbstractions()
     {
-        final Collection dependencies = new ArrayList<Dependency>(this.metaObject.getClientDependencies());
-        CollectionUtils.filter(
-            dependencies,
-            new Predicate()
+        final Collection<Abstraction> abstractions = new ArrayList<Abstraction>();
+        for (Dependency dependency : this.metaObject.getClientDependencies())
+        {
+            if (dependency instanceof Abstraction)
             {
-                public boolean evaluate(final Object object)
-                {
-                    return object instanceof Abstraction;
-                }
-            });
-        return dependencies;
+                abstractions.add((Abstraction) dependency);
+            }
+        }
+        return abstractions;
     }
 
     /**

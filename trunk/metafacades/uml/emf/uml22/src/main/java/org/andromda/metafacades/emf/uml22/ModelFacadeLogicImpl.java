@@ -3,11 +3,10 @@ package org.andromda.metafacades.emf.uml22;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -141,10 +140,10 @@ public class ModelFacadeLogicImpl
     {
         ActivityGraphFacade agfFound = null;
 
-        Collection<StateMachine> agfCollection =
-            UmlUtilities.getAllMetaObjectsInstanceOf(
-                StateMachine.class,
-                UmlUtilities.getModels());
+        List<StateMachine> agfCollection =
+            (List<StateMachine>) UmlUtilities.getAllMetaObjectsInstanceOf(
+            StateMachine.class,
+            UmlUtilities.getModels());
 
         for (Iterator<StateMachine> it = agfCollection.iterator(); it.hasNext() && agfFound == null;)
         {
@@ -153,7 +152,7 @@ public class ModelFacadeLogicImpl
             {
                 if(stereotypeName == null || agf.hasStereotype(stereotypeName))
                 {
-                agfFound = agf;
+                    agfFound = agf;
                 }
             }
         }
@@ -203,10 +202,10 @@ public class ModelFacadeLogicImpl
     protected Collection<FinalState> handleFindFinalStatesWithNameOrHyperlink(
         final UseCaseFacade useCase)
     {
-        Collection<FinalState> fsCollection =
-            UmlUtilities.getAllMetaObjectsInstanceOf(
-                FinalState.class,
-                UmlUtilities.getModels());
+        List<FinalState> fsCollection =
+            (List<FinalState>) UmlUtilities.getAllMetaObjectsInstanceOf(
+            FinalState.class,
+            UmlUtilities.getModels());
         CollectionUtils.filter(
             fsCollection,
             new Predicate()
@@ -264,9 +263,9 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelFacade#getAllActors()
      */
     @Override
-    protected Collection<ActorFacade> handleGetAllActors()
+    protected List<Actor> handleGetAllActors()
     {
-        return UmlUtilities.getAllMetaObjectsInstanceOf(
+        return (List<Actor>) UmlUtilities.getAllMetaObjectsInstanceOf(
             Actor.class,
             UmlUtilities.getModels());
     }
@@ -275,9 +274,9 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelFacade#getAllUseCases()
      */
     @Override
-    protected Collection<UseCaseFacade> handleGetAllUseCases()
+    protected List<UseCase> handleGetAllUseCases()
     {
-        return UmlUtilities.getAllMetaObjectsInstanceOf(
+        return (List<UseCase>) UmlUtilities.getAllMetaObjectsInstanceOf(
             UseCase.class,
             UmlUtilities.getModels());
     }
@@ -319,9 +318,9 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelFacade#getAllClasses()
      */
     @Override
-    protected Collection<ClassifierFacade> handleGetAllClasses()
+    protected List<Class> handleGetAllClasses()
     {
-        return UmlUtilities.getAllMetaObjectsInstanceOf(
+        return (List<Class>) UmlUtilities.getAllMetaObjectsInstanceOf(
             Class.class,
             UmlUtilities.getModels());
     }
@@ -330,9 +329,9 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ModelFacadeLogic#handleGetAllTransitions()
      */
     @Override
-    protected Collection<TransitionFacade> handleGetAllTransitions()
+    protected List<Transition> handleGetAllTransitions()
     {
-        return UmlUtilities.getAllMetaObjectsInstanceOf(
+        return (List<Transition>) UmlUtilities.getAllMetaObjectsInstanceOf(
             Transition.class,
             UmlUtilities.getModels());
     }

@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.Generalization;
 public class GeneralizationFacadeLogicImpl
     extends GeneralizationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

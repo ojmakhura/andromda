@@ -1,14 +1,15 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
+import java.util.List;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Package;
 
 /**
@@ -21,6 +22,7 @@ import org.eclipse.uml2.uml.Package;
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -76,17 +78,17 @@ public class PackageFacadeLogicImpl
      * @see org.andromda.metafacades.uml.PackageFacade#getClasses()
      */
     @Override
-    protected Collection<ClassifierFacade> handleGetClasses()
+    protected Collection<Class> handleGetClasses()
     {
-        return new FilteredCollection(this.metaObject.getOwnedElements())
+        List<Class> classes = new ArrayList<Class>();
+        for (Element element : this.metaObject.getOwnedElements())
         {
-            private static final long serialVersionUID = 34L;
-            @Override
-            public boolean evaluate(final Object object)
+            if (element instanceof Class)
             {
-                return object instanceof Class;
+                classes.add((Class)element);
             }
-        };
+        }
+        return classes;
     }
 
     /**

@@ -193,12 +193,12 @@ public class StateMachineFacadeLogicImpl
             collectionFilter);
     }
 
-    private Collection filter(
-        final Collection collection,
+    private Collection<Vertex> filter(
+        final Collection<Vertex> collection,
         final Predicate collectionFilter)
     {
-        final Set filteredCollection = new LinkedHashSet();
-        for (Object object : collection)
+        final Set<Vertex> filteredCollection = new LinkedHashSet<Vertex>();
+        for (Vertex object : collection)
         {
             if (collectionFilter.evaluate(object))
             {

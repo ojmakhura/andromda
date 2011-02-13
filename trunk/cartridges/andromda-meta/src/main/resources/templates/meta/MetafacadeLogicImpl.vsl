@@ -35,7 +35,7 @@ public class $metafacade.logicImplName
 
 #foreach ($attribute in $attributes)
 #set ($methodName = $attribute.getterName)
-#set ($returnTypeName = $attribute.type.fullyQualifiedName)
+#set ($returnTypeName = $attribute.getterSetterTypeName)
     /**
 $attribute.getDocumentation("     * ")
      * @see ${metafacade.fullyQualifiedName}${esc.hash}${attribute.getterName}()

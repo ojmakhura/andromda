@@ -17,7 +17,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -233,16 +232,11 @@ public class FrontEndParameterLogicImpl
     @Override
     protected Collection<String> handleGetTableAttributeNames()
     {
-        final Collection tableAttributeNames = new ArrayList(this.getNonArrayAttributes());
-        CollectionUtils.transform(
-            tableAttributeNames,
-            new Transformer()
-            {
-                public Object transform(final Object object)
-                {
-                    return ((AttributeFacade)object).getName();
-                }
-            });
+        Collection<String> tableAttributeNames = new ArrayList<String>();
+        for (AttributeFacade attribute : this.getNonArrayAttributes())
+        {
+            tableAttributeNames.add(attribute.getName());
+        }
         return tableAttributeNames;
     }
 }

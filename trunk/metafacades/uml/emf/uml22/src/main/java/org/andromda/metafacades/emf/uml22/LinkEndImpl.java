@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
@@ -98,7 +99,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#getValues()
      */
-    public EList getValues()
+    public EList<ValueSpecification> getValues()
     {
         return this.slot.getValues();
     }
@@ -172,7 +173,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getOwnedElements()
      */
-    public EList getOwnedElements()
+    public EList<Element> getOwnedElements()
     {
         return this.slot.getOwnedElements();
     }
@@ -188,7 +189,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getOwnedComments()
      */
-    public EList getOwnedComments()
+    public EList<Comment> getOwnedComments()
     {
         return this.slot.getOwnedComments();
     }
@@ -401,7 +402,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
      */
-    public EList getEAnnotations()
+    public EList<EAnnotation> getEAnnotations()
     {
         return this.slot.getEAnnotations();
     }
@@ -417,7 +418,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
      */
-    public EList eAdapters()
+    public EList<Adapter> eAdapters()
     {
         return this.slot.eAdapters();
     }
@@ -465,7 +466,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eContents()
      */
-    public EList eContents()
+    public EList<EObject> eContents()
     {
         return this.slot.eContents();
     }
@@ -473,7 +474,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
      */
-    public EList eCrossReferences()
+    public EList<EObject> eCrossReferences()
     {
         return this.slot.eCrossReferences();
     }
@@ -481,7 +482,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
      */
-    public TreeIterator eAllContents()
+    public TreeIterator<EObject> eAllContents()
     {
         return this.slot.eAllContents();
     }

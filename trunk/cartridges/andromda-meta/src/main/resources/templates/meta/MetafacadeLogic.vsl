@@ -171,11 +171,11 @@ public abstract class $metafacade.logicName
 #set ($allPostConstraints=$attribute.getConstraints("post"))
    /**
     * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
-    * @return#if ($attribute.many && !$attribute.primitive)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end
-
+    * @return $memberTypeName
     */
 ## Need to associate metafacade type to shielded element type for underlying handleCollection return type
-    protected abstract#if ($attribute.many && !$attribute.primitive)#if($attribute.ordered) java.util.List#else java.util.Collection#end#else $memberTypeName#end ${attribute.implementationOperationName}($typedArgumentList);
+## Assumes metatype is a simple type, since it is an attribute, not an association. Must be modeled correctly in UML2 where they are the same UML2 Property
+    protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
 #if (!$allPreConstraints.empty)
 #set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
     private void $handleMethodPreCondition
@@ -253,7 +253,6 @@ $attribute.getDocumentation("     * ")
 #end
 #if ($operation.returnTypePresent)
      * @return $memberTypeName
-
 #end
      */
 ## Need to associate metafacade type to shielded element type for underlying handleCollection return type
@@ -366,18 +365,20 @@ $associationEnd.getDocumentation("     * ")
         ${indent}// $associationEnd.name has no pre constraints
 #end
 #if ($otherEnd.many)
-       ${indent}#if($otherEnd.ordered) java.util.List#else java.util.Collection#end result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
+       ${indent}#if($otherEnd.ordered) java.util.List#else java.util.Collection#end result = ${otherEnd.implementationOperationName}($typedArgumentList);
+        ${indent}java.util.List shieldedResult = this.shieldedElements(result);
 #else
-        ${indent}Object result = this.shieldedElement(${otherEnd.implementationOperationName}($typedArgumentList));
+        ${indent}Object result = ${otherEnd.implementationOperationName}($typedArgumentList);
+        ${indent}org.andromda.core.metafacade.MetafacadeBase shieldedResult = this.shieldedElement(result);
 #end
         ${indent}try
         ${indent}{
-        ${indent}    $memberName = ($memberTypeName)result;
+        ${indent}    $memberName = ($memberTypeName)shieldedResult;
         ${indent}}
         ${indent}catch (ClassCastException ex)
         ${indent}{
         ${indent}    // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
-        ${indent}    ${metafacade.logicName}.logger.warn("incorrect metafacade cast for ${metafacade.logicName}.${methodName} $memberTypeName " + ${otherEnd.implementationOperationName}($typedArgumentList) + ": " + result);
+        ${indent}    ${metafacade.logicName}.logger.warn("incorrect metafacade cast for ${metafacade.logicName}.${methodName} $memberTypeName " + result + ": " + shieldedResult);
         ${indent}}
 #if (!$allPostConstraints.empty)
         ${indent}$handleMethodPostCondition;

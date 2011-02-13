@@ -452,24 +452,19 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<ConstraintFacade> handleGetConstraints(final String kind)
     {
-        return CollectionUtils.select(
-            this.getConstraints(),
-            new Predicate()
+        Collection<ConstraintFacade> constraints = new ArrayList<ConstraintFacade>();
+        for (ConstraintFacade constraint : this.getConstraints())
+        {
+            if ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
+                (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) ||
+                (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) ||
+                (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) ||
+                (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()))
             {
-                public boolean evaluate(Object object)
-                {
-                    if (object instanceof ConstraintFacade)
-                    {
-                        ConstraintFacade constraint = (ConstraintFacade)object;
-                        return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
-                        (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) ||
-                        (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) ||
-                        (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) ||
-                        (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
-                    }
-                    return false;
-                }
-            });
+                constraints.add(constraint);
+            }
+        }
+        return constraints;
     }
 
     /**
@@ -673,7 +668,7 @@ public class ModelElementFacadeLogicImpl
     protected Collection<DirectedRelationship> handleGetTargetDependencies()
     {
         ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
-        dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
+        dependencies.addAll((Collection<? extends DirectedRelationship>) UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class,
                 UmlUtilities.getModels()));
         CollectionUtils.filter(
@@ -728,7 +723,7 @@ public class ModelElementFacadeLogicImpl
     protected Collection<Constraint> handleGetConstraints()
     {
         ArrayList<Constraint> constraints = new ArrayList<Constraint>();
-        constraints.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, UmlUtilities.getModels()));
+        constraints.addAll((Collection<? extends Constraint>) UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, UmlUtilities.getModels()));
 
         CollectionUtils.filter(
                 constraints,
@@ -751,9 +746,9 @@ public class ModelElementFacadeLogicImpl
     {
         // A more efficient implementation of this would have been to use getClientDependencies() and getTemplateBindings()
         // But it would have required the same filtering
-        // This way, the code is the "same" as getTargettingDependencies
+        // This way, the code is the "same" as getTargetDependencies
         ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
-        dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
+        dependencies.addAll((Collection<? extends DirectedRelationship>) UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class, UmlUtilities.getModels()));
         CollectionUtils.filter(
             dependencies,
@@ -765,7 +760,7 @@ public class ModelElementFacadeLogicImpl
                     if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && !relation.getSources().isEmpty())
                     {
                         // we only check first, see dependency facade for more detail.
-                           return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getSources().get(0));
+                        return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getSources().get(0));
                     }
                     return false;
                 }

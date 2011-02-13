@@ -699,7 +699,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected Collection<ConstraintFacade> handleGetPreconditions()
     {
-        return this.getConstraints(ExpressionKinds.PRE);
+        return this.handleGetConstraints(ExpressionKinds.PRE);
     }
 
     /**
@@ -708,7 +708,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected Collection<ConstraintFacade> handleGetPostconditions()
     {
-        return this.getConstraints(ExpressionKinds.POST);
+        return this.handleGetConstraints(ExpressionKinds.POST);
     }
 
     /**

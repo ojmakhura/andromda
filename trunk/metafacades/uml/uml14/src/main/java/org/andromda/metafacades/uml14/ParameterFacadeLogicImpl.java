@@ -22,6 +22,7 @@ import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 public class ParameterFacadeLogicImpl
     extends ParameterFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

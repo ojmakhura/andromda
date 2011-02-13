@@ -9,6 +9,7 @@ package org.andromda.metafacades.emf.uml22;
 public class ArgumentFacadeLogicImpl
     extends ArgumentFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

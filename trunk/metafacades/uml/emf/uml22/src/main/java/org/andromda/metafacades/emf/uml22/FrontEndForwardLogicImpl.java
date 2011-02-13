@@ -193,13 +193,13 @@ public class FrontEndForwardLogicImpl
      */
     private void collectTransitions(
         final TransitionFacade transition,
-        final Collection processedTransitions)
+        final LinkedHashSet<FrontEndActionState> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
             return;
         }
-        processedTransitions.add(transition);
+        processedTransitions.add((FrontEndActionState) transition);
 
         final StateVertexFacade target = transition.getTarget();
         if (target instanceof FrontEndActionState)

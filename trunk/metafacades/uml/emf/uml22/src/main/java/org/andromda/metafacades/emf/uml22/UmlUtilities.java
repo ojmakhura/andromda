@@ -11,7 +11,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -184,7 +183,7 @@ public class UmlUtilities
             }
         };
 
-    private static final Map<String,List> allMetaObjectsCache = Collections.synchronizedMap(new HashMap<String,List>());
+    private static final Map<String,List<EObject>> allMetaObjectsCache = Collections.synchronizedMap(new HashMap<String,List<EObject>>());
 
     /**
      * List all meta objects instances of a given meta class It's a way to
@@ -195,18 +194,18 @@ public class UmlUtilities
      * @param models     The models where we're searching
      * @return a list of objects owned by model, instance of metaClass
      */
-    public static List getAllMetaObjectsInstanceOf(
+    public static List<? extends EObject> getAllMetaObjectsInstanceOf(
         final Class metaClass,
         final List<Package> models)
     {
         if (metaClass==null)
         {
-            return new ArrayList();
+            return new ArrayList<EObject>();
         }
-        List metaObjects = (List)allMetaObjectsCache.get(metaClass.getCanonicalName());
+        List<EObject> metaObjects = allMetaObjectsCache.get(metaClass.getCanonicalName());
         if (metaObjects == null)
         {
-            metaObjects = new ArrayList();
+            metaObjects = new ArrayList<EObject>();
 
             for (Package model : models)
             {
@@ -253,9 +252,9 @@ public class UmlUtilities
     {
         if (metaClass==null)
         {
-            return new ArrayList();
+            return new ArrayList<EObject>();
         }
-        List metaObjects = new ArrayList();
+        List<EObject> metaObjects = new ArrayList<EObject>();
 
         if (model!=null)
         {

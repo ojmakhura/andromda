@@ -268,10 +268,8 @@ public class StrutsUseCaseLogicImpl
     {
         final Collection actions = new LinkedHashSet();
 
-        final Collection pages = getPages();
-        for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        for (final StrutsJsp jsp : getPages())
         {
-            final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
             actions.addAll(jsp.getActions());
         }
 

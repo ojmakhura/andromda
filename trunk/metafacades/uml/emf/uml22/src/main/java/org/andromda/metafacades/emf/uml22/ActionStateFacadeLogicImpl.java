@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.State;
 public class ActionStateFacadeLogicImpl
     extends ActionStateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

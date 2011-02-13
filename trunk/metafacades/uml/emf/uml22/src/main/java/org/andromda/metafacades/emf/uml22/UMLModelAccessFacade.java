@@ -170,7 +170,7 @@ public class UMLModelAccessFacade
      */
     public Collection<NamedElement> findByStereotype(final String name)
     {
-        final List<NamedElement> elements = new ArrayList();
+        final List<NamedElement> elements = new ArrayList<NamedElement>();
         for (UMLResource modelResource : this.model)
         {
             // TODO UmlUtilities.findModel() can return null. Check for null return value.
@@ -210,7 +210,7 @@ public class UMLModelAccessFacade
      */
     public Collection<NamedElement> getModelElements()
     {
-        final List<NamedElement> elements = new ArrayList();
+        final List<NamedElement> elements = new ArrayList<NamedElement>();
 
         for (UMLResource modelResource : this.model)
         {
