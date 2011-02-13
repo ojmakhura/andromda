@@ -7,7 +7,7 @@ import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.testng.annotations.Configuration;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 public class TimeTrackingServiceTest {
@@ -20,7 +20,7 @@ public class TimeTrackingServiceTest {
     /**
      * Initialize test suite
      */
-    @Configuration(beforeSuite=true)
+    @BeforeSuite
     public void initializeTestSuite() {
 
         // Initialize ServiceLocator
