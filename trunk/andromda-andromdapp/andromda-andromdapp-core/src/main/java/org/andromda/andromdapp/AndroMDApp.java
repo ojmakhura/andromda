@@ -164,12 +164,12 @@ public class AndroMDApp
         {
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
-        final Map properties = new LinkedHashMap();
+        final Map<String, String> properties = new LinkedHashMap<String, String>();
         for (Configuration configuration : this.configurations)
         {
             properties.putAll(configuration.getAllProperties());
         }
-        final String applicationType = (String)properties.get(APPLICATION_TYPE);
+        final String applicationType = properties.get(APPLICATION_TYPE);
         final Set<String> validTypes = this.types.keySet();
         AndroMDAppType andromdapp = this.types.get(applicationType);
         if (andromdapp == null)

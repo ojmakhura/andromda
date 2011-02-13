@@ -64,9 +64,9 @@ public class Configuration
      *
      * @return the map containing all properties
      */
-    public Map getAllProperties()
+    public Map<String,String> getAllProperties()
     {
-        final Map allProperties = new LinkedHashMap();
+        final Map<String, String> allProperties = new LinkedHashMap<String, String>();
         for (final String location : this.locations)
         {
             final List<String> resources =
@@ -85,9 +85,9 @@ public class Configuration
                     {
                         stream = resource.openStream();
                         properties.load(stream);
-                        allProperties.putAll(properties);
+                        addProperties(allProperties, properties);
                     }
-                    catch (final Exception exception)
+                    catch (final Exception ignore)
                     {
                         // - ignore
                     }
@@ -98,10 +98,18 @@ public class Configuration
                 }
             }
         }
-        allProperties.putAll(this.properties);
+        addProperties(allProperties, this.properties);
         return allProperties;
     }
-    
+
+    protected void addProperties(Map<String, String> target, Properties properties)
+    {
+        for (final String propertyName : properties.stringPropertyNames())
+        {
+            target.put(propertyName, properties.getProperty(propertyName));
+        }
+    }
+
     /**
      * Stores whether or not the application should be overwritten if it previously existed.
      */
