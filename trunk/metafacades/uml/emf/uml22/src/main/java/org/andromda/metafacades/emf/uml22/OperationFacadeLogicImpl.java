@@ -666,8 +666,9 @@ public class OperationFacadeLogicImpl
         // isMultiValued()
         // RJF3 True if either the operation is many or the return parameter is many
         final ParameterFacade returnParameter = this.getReturnParameter();
-        // Parameter may be null during model validation
-        final boolean returnMany = returnParameter!=null && (returnParameter.getUpper() > 1 ||
+        // Parameter or parameter type may be null during model validation
+        final boolean returnMany = returnParameter!=null && returnParameter.getType()!=null && 
+           (returnParameter.getUpper() > 1 ||
             returnParameter.getUpper() == LiteralUnlimitedNatural.UNLIMITED
             || returnParameter.getType().isArrayType());
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
