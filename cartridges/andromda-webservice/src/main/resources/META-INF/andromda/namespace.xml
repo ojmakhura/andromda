@@ -436,6 +436,20 @@
             <property name="wsdlNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/</default>
                 <documentation>
+                    The WSDL namespace
+                </documentation>
+            </property>
+            <property name="wsSecurityNamespace">
+                <default>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd</default>
+                <documentation>
+                    The XML WS-Security namespace
+                </documentation>
+            </property>
+            <property name="wsSecurityImportLocation">
+                <default>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd</default>
+                <documentation>
+                    The XML WS-Security import location. Can override the default oasis security definitions with
+                    more defined datatype values.
                 </documentation>
             </property>
             <property name="documentStyleTransportNamespace">
@@ -468,6 +482,14 @@
                 <documentation>
                     Output WSDL simple types as attributes instead of elements.
                     Can be customized for individual attributes through XmlAttribute stereotype.
+                </documentation>
+            </property>
+            <property name="addNamespaceBackslash">
+                <default>true</default>
+                <documentation>
+                    Add a trailing backslash to the namespace declaration in wsdl/xsd/annotations.
+                    Needed for backwards compatibility. Services created from URL ?wsdl will have trailing
+                    backslashes added automatically.
                 </documentation>
             </property>
             <property name="makeNillable">

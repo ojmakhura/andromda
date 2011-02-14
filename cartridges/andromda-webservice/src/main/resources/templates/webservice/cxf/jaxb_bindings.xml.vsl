@@ -18,7 +18,7 @@
     <!-- Change the Endpoint Interface class name from the default <Service>.java to <Service>SEI.java -->
 ## Using a variable for single quote is ugly, but it's the easiest way to provide those literals inside quoted strings
 #set ($q="'")
-#set ($namespace="http://$webServiceUtils.reversePackage($service.packageName)/")
+#set ($namespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end")
     <bindings node="wsdl:definitions/wsdl:portType">
         <class name="${service.name}SEI"/>
     </bindings>

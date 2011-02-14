@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 $service.getDocumentation(" * ")
  */
 
-#set ($targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)/")
+#set ($targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end")
 #set ($wsdlLocation="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/${service.qName}?wsdl")
 @WebServiceClient(name = "${service.name}",
                   wsdlLocation = "$wsdlLocation",
@@ -37,7 +37,7 @@ $service.getDocumentation(" * ")
 ##@WebService(serviceName="${service.name}",
 ##            portName = "${service.name}",
 ##            endpointInterface="${service.fullyQualifiedName}SEI")
-##            //, targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)/"
+##            //, targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"
 ##            //, wsdlLocation = "WEB-INF/wsdl/${service.name}.wsdl")
 public class ${service.name}SEIClient extends Service
 #if ($service.generalization)
@@ -116,4 +116,5 @@ public class ${service.name}SEIClient extends Service
         return super.getPort(${service.name}, ${service.name}SEI.class, features);
     }
 }
+
 #end

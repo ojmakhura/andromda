@@ -2,7 +2,7 @@ package org.andromda.cartridges.webservice;
 
 /**
  * Stores global variables for the WebService cartridge metafacades.
- * 
+ *
  * @author Chad Brandon
  * @author Bob Fields
  */
@@ -227,4 +227,73 @@ public class WebServiceGlobals
      */
     public static final String STEREOTYPE_XML_ELEMENT = "XmlElement";
 
+    /**
+     * Set WebService Security in wsdl definition and service implementation.
+     */
+    public static final String STEREOTYPE_WEBSERVICE_SECURITY = "WSSecurity";
+
+    /**
+     * Security namespace abbreviation: andromda_security_abbr
+     */
+    public static final String SECURITY_ABBR = "andromda_security_abbr";
+
+    /**
+     * Security namespace URL: andromda_security_namespace
+     */
+    public static final String SECURITY_NAMESPACE = "andromda_security_namespace";
+
+    /**
+     * Security xsd location (relative reference): andromda_security_XSDlocation
+     */
+    public static final String SECURITY_XSD_LOCATION = "andromda_security_XSDlocation";
+
+    /**
+     * Security element partName: andromda_wsdl_security_partName
+     */
+    public static final String SECURITY_PARTNAME = "andromda_wsdl_security_partName";
+
+    /**
+     * Security element name reference: andromda_wsdl_security_element
+     */
+    public static final String SECURITY_ELEMENT = "andromda_wsdl_security_element";
+
+    /**
+     * Security use literal/encoded: andromda_wsdl_security_use
+     */
+    public static final String SECURITY_USE = "andromda_wsdl_security_use";
+
+    /**
+     * Set customized WebService Header in wsdl definition and service implementation.
+     */
+    public static final String STEREOTYPE_WEBSERVICE_HEADER = "WSCustomHeader";
+
+    /**
+     * Custom webservice header namespace abbreviation: andromda_header_abbr
+     */
+    public static final String HEADER_ABBR = "andromda_header_abbr";
+
+    /**
+     * Custom webservice header namespace URL: andromda_header_namespace
+     */
+    public static final String HEADER_NAMESPACE = "andromda_header_namespace";
+
+    /**
+     * Custom webservice header xsd location (relative reference): andromda_header_XSDlocation
+     */
+    public static final String HEADER_XSD_LOCATION = "andromda_header_XSDlocation";
+
+    /**
+     * Custom webservice header element partName: andromda_wsdl_header_partName
+     */
+    public static final String HEADER_PARTNAME = "andromda_wsdl_header_partName";
+
+    /**
+     * Custom webservice header element name reference: andromda_wsdl_header_element
+     */
+    public static final String HEADER_ELEMENT = "andromda_wsdl_header_element";
+
+    /**
+     * Custom webservice header use literal/encoded: andromda_wsdl_header_use
+     */
+    public static final String HEADER_USE = "andromda_wsdl_header_use";
 }

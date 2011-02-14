@@ -1,10 +1,13 @@
 package org.andromda.cartridges.webservice;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -14,8 +17,7 @@ import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
-import org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl;
-import org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogicImpl;
+import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl.OperationNameComparator;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeException;
@@ -33,6 +35,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -204,9 +207,8 @@ public class WebServiceUtils
             }
         }
         // Copy package names and abbreviations to package list
-        for (final Iterator iterator = service.getAllowedOperations().iterator(); iterator.hasNext();)
+        for (final WebServiceOperation op : service.getAllowedOperations())
         {
-            WebServiceOperationLogicImpl op = (WebServiceOperationLogicImpl)iterator.next();
             for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
                 ModelElementFacade arg = (ModelElementFacade)opiterator.next();
@@ -228,9 +230,8 @@ public class WebServiceUtils
                     }
                 }
             }
-            for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+            for (final ParameterFacade arg : op.getParameters())
             {
-                WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
                 pkg = (PackageFacade) arg.getType().getPackage();
                 if (pkg!=null && pkg.getFullyQualifiedName().indexOf('.') > 0)
                 {
@@ -270,9 +271,8 @@ public class WebServiceUtils
                 }
             }
         }
-        for (final Iterator iterator = types.iterator(); iterator.hasNext();)
+        for (final MetafacadeBase element : types)
         {
-            MetafacadeBase element = (MetafacadeBase)iterator.next();
             ClassifierFacade facade = service.getType(element);
             if (facade != null)
             {
@@ -318,11 +318,11 @@ public class WebServiceUtils
                             logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + facade.getName());
                         }
                     }
-                    for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                    for (Object object : facade.getNavigableConnectingEnds(follow))
                     {
                         try
                         {
-                            ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
+                            ModelElementFacade otherEnd = (ModelElementFacade)object;
                             if (getType(otherEnd) != null)
                             {
                                 otherEnd = getType(otherEnd);
@@ -404,11 +404,11 @@ public class WebServiceUtils
                             logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + ": " + e);
                         }
                     }
-                    for (final Iterator otherEnds = type.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                    for (Object object : type.getNavigableConnectingEnds(follow))
                     {
                         try
                         {
-                            ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
+                            ModelElementFacade otherEnd = (ModelElementFacade)object;
                             if (getType(otherEnd) != null)
                             {
                                 otherEnd = getType(otherEnd);
@@ -480,11 +480,11 @@ public class WebServiceUtils
                         }
                         name = type.getName();
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                        for (Object object : type.getType().getNavigableConnectingEnds(follow))
                         {
                             try
                             {
-                                ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
+                                ModelElementFacade otherEnd = (ModelElementFacade)object;
                                 if (getType(otherEnd) != null)
                                 {
                                     otherEnd = getType(otherEnd);
@@ -570,13 +570,8 @@ public class WebServiceUtils
             if (types!=null)
             {
                 // Copy package names and collection of related packages to package references list
-                for (final Iterator<MetafacadeBase> iterator = types.iterator(); iterator.hasNext();)
+                for (final MetafacadeBase element : types)
                 {
-                    MetafacadeBase element = iterator.next();
-                    /*if (logger.isDebugEnabled())
-                    {
-                        logger.debug("getPackageReferences packageName=" + packageName + " element " + pkg + "." + name);
-                    }*/
                     ClassifierFacade facade = service.getType(element);
                     if (facade != null)
                     {
@@ -615,24 +610,24 @@ public class WebServiceUtils
                                     logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name + ": " + e);
                                 }
                             }
-                            for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                            for (final Object object : facade.getNavigableConnectingEnds(follow))
                             {
                                 try
                                 {
-                                    ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
-                                    if (getType(otherEnd) != null)
+                                    AssociationEndFacade endFacade = (AssociationEndFacade)object;
+                                    if (getType(endFacade) != null)
                                     {
-                                        otherEnd = getType(otherEnd);
-                                    }
-                                    pkg = (PackageFacade) otherEnd.getPackage();
-                                    name = otherEnd.getName();
-                                    if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
-                                    {
-                                        pkgRef.add(pkg);
-                                        if (logger.isDebugEnabled())
+                                        ClassifierFacade otherEnd = getType(endFacade);
+                                        pkg = (PackageFacade) otherEnd.getPackage();
+                                        name = otherEnd.getName();
+                                        if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
                                         {
-                                            pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
+                                            pkgRef.add(pkg);
+                                            if (logger.isDebugEnabled())
+                                            {
+                                                pkgRefs += pkg + ",";
+                                                logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
+                                            }
                                         }
                                     }
                                 }
@@ -685,24 +680,24 @@ public class WebServiceUtils
                                     logger.error("getPackageReferences packageName=" + packageName + " add attribute " + pkg + '.' + name + ": " + e);
                                 }
                             }
-                            for (final Iterator otherEnds = type.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                            for (final Object object : type.getNavigableConnectingEnds(follow))
                             {
                                 try
                                 {
-                                    ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
-                                    if (getType(otherEnd) != null)
+                                    ModelElementFacade endFacade = (ModelElementFacade)object;
+                                    if (getType(endFacade) != null)
                                     {
-                                        otherEnd = getType(otherEnd);
-                                    }
-                                    pkg = (PackageFacade) otherEnd.getPackage();
-                                    name = otherEnd.getName();
-                                    if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
-                                    {
-                                        pkgRef.add(pkg);
-                                        if (logger.isDebugEnabled())
+                                        ClassifierFacade otherEnd = getType(endFacade);
+                                        pkg = (PackageFacade) otherEnd.getPackage();
+                                        name = otherEnd.getName();
+                                        if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
                                         {
-                                            pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
+                                            pkgRef.add(pkg);
+                                            if (logger.isDebugEnabled())
+                                            {
+                                                pkgRefs += pkg + ",";
+                                                logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
+                                            }
                                         }
                                     }
                                 }
@@ -755,24 +750,24 @@ public class WebServiceUtils
                                 }
                                 name = type.getName();
                                 // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                                for (final Iterator otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                                for (final Object object : type.getType().getNavigableConnectingEnds(follow))
                                 {
                                     try
                                     {
-                                        ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
-                                        if (getType(otherEnd) != null)
+                                        ModelElementFacade endFacade = (ModelElementFacade)object;
+                                        if (getType(endFacade) != null)
                                         {
-                                            otherEnd = getType(otherEnd);
-                                        }
-                                        pkg = (PackageFacade) otherEnd.getPackage();
-                                        name = otherEnd.getName();
-                                        if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
-                                        {
-                                            pkgRef.add(pkg);
-                                            if (logger.isDebugEnabled())
+                                            ClassifierFacade otherEnd = getType(endFacade);
+                                            pkg = (PackageFacade) otherEnd.getPackage();
+                                            name = otherEnd.getName();
+                                            if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
                                             {
-                                                pkgRefs += pkg + ",";
-                                                logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
+                                                pkgRef.add(pkg);
+                                                if (logger.isDebugEnabled())
+                                                {
+                                                    pkgRefs += pkg + ",";
+                                                    logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
+                                                }
                                             }
                                         }
                                     }
@@ -864,9 +859,8 @@ public class WebServiceUtils
                             }
                         }
                     }
-                    for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+                    for (final ParameterFacade arg : op.getParameters())
                     {
-                        WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
                         pkg = (PackageFacade) arg.getType().getPackage();
                         name = arg.getType().getName();
                         if (pkg!=null && !pkg.getFullyQualifiedName().equals(service.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
@@ -915,6 +909,56 @@ public class WebServiceUtils
     }
 
     /**
+     * Creates a list of referenced exception packages for each package.
+     * Populates schema reference list for import for the wsdl
+     * @param packageFacade Package / namespace for which to find all related (referenced) packages
+     * @return pkgRefs Collection<String> package names
+     */
+    public Collection<PackageFacade> getExceptionReferences(PackageFacade packageFacade)
+    {
+        Collection<PackageFacade> pkgRef = new TreeSet<PackageFacade>();
+        if (packageFacade != null)
+        {
+            String name = null;
+            PackageFacade pkg = null;
+            String packageName = packageFacade.getFullyQualifiedName();
+            String pkgRefs = "";
+            // Copy package names and collection of related packages to package references list
+            for (final ClassifierFacade facade : packageFacade.getClasses())
+            {
+                //logger.debug("getPackageReferences packageName=" + packageName);
+                if (facade != null)
+                {
+                    pkg = (PackageFacade) facade.getPackage();
+                    if (facade.hasStereotype("WebService"))
+                    {
+                        // Add references from the operations of the service package itself
+                        for (final OperationFacade op : facade.getOperations())
+                        {
+                            for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
+                            {
+                                ClassifierFacade arg = (ClassifierFacade)opiterator.next();
+                                // TODO Why does MEF.getPackage return a ModelElementFacade instead of Package?
+                                pkg = (PackageFacade) arg.getPackage();
+                                if (!pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
+                                {
+                                    pkgRef.add(pkg);
+                                    if (logger.isDebugEnabled())
+                                    {
+                                        pkgRefs += pkg + ",";
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + '.' + name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return pkgRef;
+    }
+
+    /**
      * Creates a list of referenced packages for each package.
      * Populates schema reference list for import
      * @param packageFacade Package / namespace for which to find all related (referenced) packages
@@ -931,11 +975,9 @@ public class WebServiceUtils
             String packageName = packageFacade.getFullyQualifiedName();
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
-            for (final Iterator iterator = packageFacade.getClasses().iterator(); iterator.hasNext();)
+            for (final ClassifierFacade facade : packageFacade.getClasses())
             {
-                //MetafacadeBase element = (MetafacadeBase)iterator.next();
                 //logger.debug("getPackageReferences packageName=" + packageName);
-                ClassifierFacade facade = (ClassifierFacade)iterator.next();
                 if (facade != null)
                 {
                     pkg = (PackageFacade) facade.getPackage();
@@ -974,24 +1016,24 @@ public class WebServiceUtils
                                 logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name + ": " + e);
                             }
                         }
-                        for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                        for (final Object object : facade.getNavigableConnectingEnds(follow))
                         {
                             try
                             {
-                                ModelElementFacade otherEnd = ((ModelElementFacade)otherEnds.next());
-                                if (getType(otherEnd) != null)
+                                ModelElementFacade endFacade = (ModelElementFacade)object;
+                                if (getType(endFacade) != null)
                                 {
-                                    otherEnd = getType(otherEnd);
-                                }
-                                pkg = (PackageFacade) otherEnd.getPackage();
-                                name = otherEnd.getName();
-                                if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
-                                {
-                                    pkgRef.add(pkg);
-                                    if (logger.isDebugEnabled())
+                                    ClassifierFacade otherEnd = getType(endFacade);
+                                    pkg = (PackageFacade) otherEnd.getPackage();
+                                    name = otherEnd.getName();
+                                    if (pkg!=null && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg) && pkg.getFullyQualifiedName().indexOf('.') > 0)
                                     {
-                                        pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
+                                        pkgRef.add(pkg);
+                                        if (logger.isDebugEnabled())
+                                        {
+                                            pkgRefs += pkg + ",";
+                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
+                                        }
                                     }
                                 }
                             }
@@ -1004,12 +1046,25 @@ public class WebServiceUtils
                     else if (facade.hasStereotype("WebService"))
                     {
                         // Add references from the operations of the service package itself
-                        for (final Iterator operations = facade.getOperations().iterator(); operations.hasNext();)
+                        for (final OperationFacade op : facade.getOperations())
                         {
-                            OperationFacade op = (OperationFacade)operations.next();
-                            for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+                            for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
                             {
-                                WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
+                                ClassifierFacade arg = (ClassifierFacade)opiterator.next();
+                                // TODO Why does MEF.getPackage return a ModelElementFacade instead of Package?
+                                pkg = (PackageFacade) arg.getPackage();
+                                if (!pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
+                                {
+                                    pkgRef.add(pkg);
+                                    if (logger.isDebugEnabled())
+                                    {
+                                        pkgRefs += pkg + ",";
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + '.' + name);
+                                    }
+                                }
+                            }
+                            for (final ParameterFacade arg : op.getParameters())
+                            {
                                 pkg = (PackageFacade) arg.getType().getPackage();
                                 name = arg.getType().getName();
                                 if (pkg!=null && !pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
@@ -1058,6 +1113,55 @@ public class WebServiceUtils
         }
         return pkgRef;
     }
+
+    /**
+     * Get all operations under WebService or with WebServiceOperation in a package
+     * @param packageFacade Package / namespace for which to find all service operations
+     * @return operations
+     */
+    public List<WebServiceOperation> getAllowedOperations(PackageFacade packageFacade)
+    {
+        List<WebServiceOperation> operations = new ArrayList<WebServiceOperation>();
+        for (final ModelElementFacade mefacade : packageFacade.getOwnedElements())
+        {
+            if (mefacade != null && mefacade instanceof ClassifierFacade)
+            {
+                ClassifierFacade facade = (ClassifierFacade)mefacade;
+                boolean webService = facade.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+                for (final OperationFacade op : facade.getOperations())
+                {
+                    if (webService || op.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION))
+                    {
+                        operations.add((WebServiceOperation) op);
+                    }
+                }
+            }
+        }
+        // Always sort by name so that operations can be easily found in a long list.
+        Collections.sort(
+                operations,
+                new OperationNameComparator());
+        return operations;
+    }
+
+    /**
+     * Get all operations under WebService or with WebServiceOperation in a package
+     * @param packageFacade Package / namespace for which to find all service operations
+     * @return operations
+     */
+    public Collection getAllowedOperationExceptions(PackageFacade packageFacade)
+    {
+        final Collection exceptions = new HashSet();
+
+        // collect the exceptions of all allowed operations into a single set
+        for (final OperationFacade operation : this.getAllowedOperations(packageFacade))
+        {
+            exceptions.addAll(operation.getExceptions());
+        }
+
+        return exceptions;
+    }
+
     /**
      * Filter schema types list and related object to only a single package. Called for each referenced package.
      * Run this after running getTypeMappingElements(), to populate the namespace Map and referenced imports from each namespace.
@@ -1076,10 +1180,9 @@ public class WebServiceUtils
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
             //ClassifierFacade facade = null;
-            for (final Iterator iterator = packageFacade.getOwnedElements().iterator(); iterator.hasNext();)
+            for (final ModelElementFacade mefacade : packageFacade.getOwnedElements())
             {
                 //MetafacadeBase element = (MetafacadeBase)iterator.next();
-                Object mefacade = iterator.next();
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("getPackageTypes packageName=" + packageName + " element " + mefacade);
@@ -1135,12 +1238,25 @@ public class WebServiceUtils
                     else if (facade.hasStereotype("WebService"))
                     {
                         // Add references from the operations of the service package itself
-                        for (final Iterator operations = facade.getOperations().iterator(); operations.hasNext();)
+                        for (final OperationFacade op : facade.getOperations())
                         {
-                            OperationFacade op = (OperationFacade)operations.next();
-                            for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+                            for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
                             {
-                                WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
+                                ModelElementFacade arg = (ModelElementFacade)opiterator.next();
+                                pkg = arg.getPackageName();
+                                if (pkg!=null && pkg.equals(facade.getPackageName()) && pkg.indexOf('.') > 0 && !pkgTypes.contains(arg))
+                                {
+                                    pkgTypes.add(arg);
+                                    if (logger.isDebugEnabled())
+                                    {
+                                        name = arg.getName();
+                                        pkgRefs += name + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add exception " + pkg + '.' + name);
+                                    }
+                                }
+                            }
+                            for (final ParameterFacade arg : op.getParameters())
+                            {
                                 pkg = arg.getType().getPackageName();
                                 name = arg.getType().getName();
                                 //ClassifierFacade arg = ((ParameterFacade)opiterator.next()).getType();
@@ -1211,23 +1327,9 @@ public class WebServiceUtils
             String pkg = null;
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
-            for (final Iterator iterator = types.iterator(); iterator.hasNext();)
+            for (final MetafacadeBase element : types)
             {
                 //TreeSet pkgRef = new TreeSet(new TypeComparator());
-                MetafacadeBase element = (MetafacadeBase)iterator.next();
-                /*if (element instanceof ClassifierFacade)
-                {
-                    ClassifierFacade type = (ClassifierFacade)element;
-                    pkg = type.getPackageName();
-                    name = type.getName();
-                }
-                else if (element instanceof AssociationEndFacade)
-                {
-                    AssociationEndFacade type = (AssociationEndFacade)element;
-                    pkg = type.getPackageName();
-                    name = type.getName();
-                } */
-                //logger.debug("getPackageTypes packageName=" + packageName + " element " + pkg + "." + name);
                 ClassifierFacade facade = service.getType(element);
                 if (facade != null)
                 {
@@ -1392,29 +1494,29 @@ public class WebServiceUtils
                                 logger.error("getPackageTypes packageName=" + packageName + " add otherEnd " + pkg + '.' + name + ": " + e);
                             }
                             // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                            for (final Iterator otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                            for (final Object object : type.getType().getNavigableConnectingEnds(follow))
                             {
-                                ModelElementFacade otherEnd = null;
+                                ClassifierFacade otherEnd = null;
                                 try
                                 {
-                                    otherEnd = ((ModelElementFacade)otherEnds.next());
-                                    if (getType(otherEnd) != null)
+                                    AssociationEndFacade endFacade = (AssociationEndFacade)object;
+                                    if (getType(endFacade) != null)
                                     {
-                                        otherEnd = getType(otherEnd);
-                                    }
-                                    pkg = otherEnd.getPackageName();
-                                    if (logger.isDebugEnabled())
-                                    {
-                                        name = otherEnd.getName();
-                                        logger.debug("getPackageTypes packageName=" + packageName + " NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
-                                    }
-                                    if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(otherEnd))
-                                    {
-                                        pkgTypes.add(otherEnd);
+                                        otherEnd = getType(endFacade);
+                                        pkg = otherEnd.getPackageName();
                                         if (logger.isDebugEnabled())
                                         {
-                                            pkgRefs += otherEnd.getName() + ',';
-                                            logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
+                                            name = otherEnd.getName();
+                                            logger.debug("getPackageTypes packageName=" + packageName + " NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
+                                        }
+                                        if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(otherEnd))
+                                        {
+                                            pkgTypes.add(otherEnd);
+                                            if (logger.isDebugEnabled())
+                                            {
+                                                pkgRefs += otherEnd.getName() + ',';
+                                                logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
+                                            }
                                         }
                                     }
                                 }
@@ -1458,12 +1560,25 @@ public class WebServiceUtils
                 }
             }
             // Add package types from the operations of the service package itself
-            for (final Iterator iterator = service.getAllowedOperations().iterator(); iterator.hasNext();)
+            for (final WebServiceOperation op : service.getAllowedOperations())
             {
-                WebServiceOperationLogicImpl op = (WebServiceOperationLogicImpl)iterator.next();
-                for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+                for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
                 {
-                    WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
+                    ModelElementFacade arg = (ModelElementFacade)opiterator.next();
+                    pkg = arg.getPackageName();
+                    if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(arg))
+                    {
+                        pkgTypes.add(arg);
+                        if (logger.isDebugEnabled())
+                        {
+                            name = arg.getName();
+                            pkgRefs += arg.getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add service exception " + arg.getPackageName() + '.' + arg.getName());
+                        }
+                    }
+                }
+                for (final ParameterFacade arg : op.getParameters())
+                {
                     pkg = arg.getType().getPackageName();
                     if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(arg.getType()))
                     {
@@ -1730,10 +1845,9 @@ public class WebServiceUtils
             if (parent != null && StringUtils.isEmpty(defaultValue) && ("String".equals(typeName) || "java.lang.String".equals(typeName)))
             {
                 // See if a named dependency exists with the same facadeName
-                for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();)
+                for (final DependencyFacade dependency : parent.getSourceDependencies())
                 {
-                    ModelElementFacade dependency = (ModelElementFacade) iterator.next();
-                    if (dependency.getName().equals(facade.getName()) && dependency instanceof DependencyFacade)
+                    if (dependency.getName().equals(facade.getName()))
                     {
                         facade = ((DependencyFacade)dependency).getTargetElement();
                         // DependencyFacade type comes back empty for UML2::Integer
@@ -1986,9 +2100,8 @@ public class WebServiceUtils
         {
             ClassifierFacade classifier = (ClassifierFacade) element;
             // Use commented and change getAllProperties to getProperties, if only descendant references are needed
-            /*for (final Iterator descendants = classifier.getAllSpecializations().iterator(); descendants.hasNext();)
+            /*for (final GeneralizableElementFacade descendant : classifier.getAllSpecializations())
             {
-                ModelElementFacade descendant = (ModelElementFacade)descendants.next();
                 pkgRef = getServiceDescendantPackages(descendant, pkgRef);
                 // Get all associations and attributes, down the inheritance hierarchy
             }*/
@@ -2051,9 +2164,21 @@ public class WebServiceUtils
             {
                 logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + '.' + op.getName() + " parms=" + op.getParameters().size() + " size=" + pkgRef.size());
             }
-            for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+            /*for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
-                WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
+                ModelElementFacade ex = (ModelElementFacade)opiterator.next();
+                if (!added.contains(ex))
+                {
+                    if (logger.isDebugEnabled())
+                    {
+                        logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + '.' + op.getName() + " exception=" + ex.getFullyQualifiedName() + " size=" + pkgRef.size());
+                    }
+                    added.add(ex);
+                    pkgRef = getServiceDescendantPackages(ex, pkgRef, added);
+                }
+            }*/
+            for (final ParameterFacade arg : op.getParameters())
+            {
                 if (!added.contains(arg.getType()))
                 {
                     if (logger.isDebugEnabled())
@@ -2088,13 +2213,26 @@ public class WebServiceUtils
         String typeRefs = "";
         // Copy package names and collection of related packages to package references list
         // Add references from the operations of the service package itself
-        for (final Iterator iterator = service.getAllowedOperations().iterator(); iterator.hasNext();)
+        for (final WebServiceOperation op : service.getAllowedOperations())
         {
             boolean isMany = false;
-            WebServiceOperationLogicImpl op = (WebServiceOperationLogicImpl)iterator.next();
-            for (final Iterator opiterator = op.getParameters().iterator(); opiterator.hasNext();)
+            /*for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
-                WebServiceParameterLogicImpl arg = (WebServiceParameterLogicImpl)opiterator.next();
+                ModelElementFacade ex = (ModelElementFacade)opiterator.next();
+                pkg = ex.getPackageName();
+                //name = ex.getName();
+                if (pkg!=null && pkg.indexOf('.') > 0 && !typeRef.contains(ex) && !opRef.contains(ex))
+                {
+                    opRef.add(ex);
+                    if (logger.isDebugEnabled())
+                    {
+                        typeRefs += ex + ",";
+                        logger.debug("getServiceReferences exception " + pkg + '.' + ex.getName());
+                    }
+                }
+            }*/
+            for (final ParameterFacade arg : op.getParameters())
+            {
                 pkg = arg.getType().getPackageName();
                 //name = arg.getType().getName();
                 if (arg.getUpper()>1 || arg.getUpper()==-1)
@@ -2136,9 +2274,8 @@ public class WebServiceUtils
                 typeRef.addAll(opRef);
             }
         }
-/*        for (final Iterator iterator = typeRef.iterator(); iterator.hasNext();)
+        /*for (final ModelElementFacade type : typeRef)
         {
-            ClassifierFacade type = (ClassifierFacade)iterator.next();
             if (logger.isDebugEnabled())
             {
                 logger.debug("getServiceReferences packageName=" + type.getPackageName() + "." + type.getName());

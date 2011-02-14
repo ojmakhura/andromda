@@ -33,7 +33,7 @@ $service.getDocumentation(" * ")
  */
 public final class ${service.name}_WSClient extends TestCase
 {
-    private static final QName SERVICE_NAME = new QName("http://$webServiceUtils.reversePackage($service.packageName)/", "${service.name}");
+    private static final QName SERVICE_NAME = new QName("http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", "${service.name}");
     private static URL wsdlURL = null;
 
     /**
@@ -163,8 +163,8 @@ public final class ${service.name}_WSClient extends TestCase
         InputStream is = null;
         int length = 0;
         String _${operation.operationName}__return = "Failed to read output from result";
-#set ($reqPath = "${operation.restTestPath}/")
-##set ($reqPath = "${service.restPath}${operation.restPath}/")
+#set ($reqPath = "${operation.restTestPath}#if($addNamespaceBackslash)/#end")
+##set ($reqPath = "${service.restPath}${operation.restPath}#if($addNamespaceBackslash)/#end")
 #set ($reqPath = $reqPath.replace('"','').replace("//",'/'))
 #if ($reqPath.indexOf('{')>0)
         // TODO Fix request URL to contain actual data instead of {} http://${webserviceHost}:${webservicePort}/$webContext/${servicesPath}$reqPath
@@ -246,7 +246,7 @@ public final class ${service.name}_WSClient extends TestCase
 $indent       #if ($operation.returnTypePresent) $returnType _${operation.name}__return =#end port.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
-##$indent      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##$indent      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
 $indent            ${comma} ${operation.operationName}Input.${argument.getterName}()
 #set ($comma = ", ")
 #end$indent        );

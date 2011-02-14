@@ -43,7 +43,7 @@ $service.getDocumentation(" * ")
 #else
 @WebService(serviceName = "$service.name",
             portName = "$service.name",
-            targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)/",
+            targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end",
             //wsdlLocation = "wsdl/${service.name}.wsdl",
             endpointInterface="${service.fullyQualifiedName}SEI")
 #end
@@ -136,7 +136,7 @@ $operation.getDocumentation("    * ")
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
 ##end
-##        ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##        ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
         ${comma}#if($operation.rest)$parameter.restParamType#end $paramType $parameter.name
 #set ($comma = ", ")
 #end
@@ -422,4 +422,5 @@ $tab        }
 #end
 #end
 }
+
 #end
