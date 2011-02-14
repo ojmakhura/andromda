@@ -43,13 +43,14 @@ public class FrontEndControllerLogicImpl
     protected List<DependencyFacade> handleGetServiceReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
+        {
+            private static final long serialVersionUID = 34L;
+            @Override
+            public boolean evaluate(final Object object)
             {
-                @Override
-                public boolean evaluate(final Object object)
-                {
-                    return ((DependencyFacade)object).getTargetElement() instanceof Service;
-                }
-            };
+                return ((DependencyFacade)object).getTargetElement() instanceof Service;
+            }
+        };
     }
 
     /**

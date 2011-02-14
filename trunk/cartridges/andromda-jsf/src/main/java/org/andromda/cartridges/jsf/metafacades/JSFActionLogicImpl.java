@@ -480,7 +480,7 @@ public class JSFActionLogicImpl
         final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
         for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
 
             // - remove this action and any forms that don't have form fields
             if (action.equals(this.THIS()) || action.getFormFields().isEmpty())

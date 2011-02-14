@@ -725,7 +725,7 @@ public class JSFParameterLogicImpl
             }
             if (initialValue == null)
             {
-                initialValue = (String)this.initialValues.get(typeName);
+                initialValue = this.initialValues.get(typeName);
             }
         }
         if (initialValue == null)

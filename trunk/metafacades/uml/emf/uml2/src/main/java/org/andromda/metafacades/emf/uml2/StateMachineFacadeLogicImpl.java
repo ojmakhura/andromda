@@ -29,6 +29,7 @@ import org.eclipse.uml2.Vertex;
 public class StateMachineFacadeLogicImpl
     extends StateMachineFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
