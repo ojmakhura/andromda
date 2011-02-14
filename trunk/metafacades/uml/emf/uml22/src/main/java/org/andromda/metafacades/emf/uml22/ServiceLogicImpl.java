@@ -17,7 +17,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Service.
  *
@@ -25,6 +24,7 @@ import org.apache.commons.collections.Transformer;
  */
 public class ServiceLogicImpl extends ServiceLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

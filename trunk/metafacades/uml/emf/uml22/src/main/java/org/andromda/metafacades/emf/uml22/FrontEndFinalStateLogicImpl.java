@@ -10,7 +10,6 @@ import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -109,9 +108,8 @@ public class FrontEndFinalStateLogicImpl
     @Override
     protected List<FrontEndParameter> handleGetInterUseCaseParameters()
     {
-        // we don't want to list parameters with the same name to we use a hash
-        // map
-        final Map parameterMap = new LinkedHashMap();
+        // we don't want to list parameters with the same name so we use a hash map
+        final Map<String, FrontEndParameter> parameterMap = new LinkedHashMap<String, FrontEndParameter>();
 
         final Collection<TransitionFacade> transitions = this.getIncomings();
         for (final Iterator<TransitionFacade> transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
@@ -120,7 +118,7 @@ public class FrontEndFinalStateLogicImpl
             final List<FrontEndParameter> forwardParameters = forward.getForwardParameters();
             for (int i = 0; i < forwardParameters.size(); i++)
             {
-                final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(i);
+                final FrontEndParameter parameter = forwardParameters.get(i);
                 parameterMap.put(
                     parameter.getName(),
                     parameter);

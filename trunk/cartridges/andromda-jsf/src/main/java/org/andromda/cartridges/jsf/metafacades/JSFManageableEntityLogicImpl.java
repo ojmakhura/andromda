@@ -8,6 +8,7 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -488,13 +489,14 @@ public class JSFManageableEntityLogicImpl
      * @return manageableSearchAttributes
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getManageableSearchAttributes()
      */
-    protected Collection handleGetManageableSearchAttributes()
+    protected Collection<JSFManageableEntityAttribute> handleGetManageableSearchAttributes()
     {
-           final Collection coll = new ArrayList();
-           for(final java.util.Iterator it=getManageableAttributes().iterator(); it.hasNext(); ){
-               Object next = it.next();
-               if(next instanceof JSFManageableEntityAttribute){
-                   final JSFManageableEntityAttribute attr=(JSFManageableEntityAttribute)next;
+           final Collection<JSFManageableEntityAttribute> coll = new ArrayList<JSFManageableEntityAttribute>();
+           for(final ManageableEntityAttribute attribute : getManageableAttributes())
+           {
+               if(attribute instanceof JSFManageableEntityAttribute)
+               {
+                   final JSFManageableEntityAttribute attr=(JSFManageableEntityAttribute)attribute;
                    if(!attr.isHidden())
                        coll.add(attr);
                }

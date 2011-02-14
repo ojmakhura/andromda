@@ -14,9 +14,13 @@ import javax.swing.tree.TreeNode;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
@@ -147,10 +151,10 @@ public class StrutsUseCaseLogicImpl
      */
     protected String handleGetActionRoles()
     {
-        final Collection users = this.getRoles();
+        final Collection<Role> users = this.getRoles();
         final StringBuilder rolesBuffer = new StringBuilder();
         boolean first = true;
-        for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
+        for (final Iterator<Role> userIterator = users.iterator(); userIterator.hasNext();)
         {
             if (first)
             {
@@ -178,7 +182,7 @@ public class StrutsUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetPages()
      */
-    protected List handleGetPages()
+    protected List<FrontEndView> handleGetPages()
     {
         return this.getViews();
     }
@@ -186,16 +190,13 @@ public class StrutsUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetAllPages()
      */
-    protected List handleGetAllPages()
+    protected List<StrutsJsp> handleGetAllPages()
     {
-        final List pagesList = new ArrayList();
-        final Collection allActionStates = getModel().getAllActionStates();
-
-        for (final Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
+        final List<StrutsJsp> pagesList = new ArrayList<StrutsJsp>();
+        for (final ActionStateFacade actionState : getModel().getAllActionStates())
         {
-            final Object actionState = actionStateIterator.next();
             if (actionState instanceof StrutsJsp)
-                pagesList.add(actionState);
+                pagesList.add((StrutsJsp)actionState);
         }
         return pagesList;
     }
@@ -207,19 +208,15 @@ public class StrutsUseCaseLogicImpl
     {
         final List formFields = new ArrayList(); // parameter names are supposed to be unique
 
-        final Collection pages = getPages();
-        for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        for (final StrutsJsp jsp : getPages())
         {
-            final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
-            final Collection variables = jsp.getPageVariables();
-            for (final Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
+            for (final StrutsParameter parameter : jsp.getPageVariables())
             {
-                formFields.add(variableIterator.next());
+                formFields.add(parameter);
             }
-            final Collection parameters = jsp.getAllActionParameters();
-            for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+            for (final FrontEndParameter parameter : jsp.getAllActionParameters())
             {
-                formFields.add(parameterIterator.next());
+                formFields.add(parameter);
             }
         }
         return formFields;
@@ -230,10 +227,8 @@ public class StrutsUseCaseLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        final Collection allPages = this.getAllPages();
-        for (final Iterator iterator = allPages.iterator(); iterator.hasNext();)
+        for (final StrutsJsp jsp : this.getAllPages())
         {
-            final StrutsJsp jsp = (StrutsJsp)iterator.next();
             if (jsp.isValidationRequired())
             {
                 return true;
@@ -247,11 +242,9 @@ public class StrutsUseCaseLogicImpl
      */
     protected boolean handleIsApplicationValidationRequired()
     {
-        final Collection useCases = this.getAllUseCases();
-        for (final Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        for (final FrontEndUseCase useCase : this.getAllUseCases())
         {
-            final StrutsUseCase useCase = (StrutsUseCase)iterator.next();
-            if (useCase.isValidationRequired())
+            if (((StrutsUseCase)useCase).isValidationRequired())
             {
                 return true;
             }
@@ -286,7 +279,7 @@ public class StrutsUseCaseLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#handleGetPageVariables()
      */
-    protected List handleGetPageVariables()
+    protected List<FrontEndParameter>  handleGetPageVariables()
     {
         return this.getViewVariables();
     }
@@ -324,8 +317,8 @@ public class StrutsUseCaseLogicImpl
     {
         UseCaseNode hierarchy = null;
 
-        final Collection allUseCases = this.getAllUseCases();
-        for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+        final Collection<FrontEndUseCase> allUseCases = this.getAllUseCases();
+        for (final Iterator<FrontEndUseCase> useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
             final StrutsUseCase useCase = (StrutsUseCase)useCaseIterator.next();
             if (useCase.isApplicationUseCase())
@@ -348,8 +341,8 @@ public class StrutsUseCaseLogicImpl
         final FrontEndActivityGraph graph = useCase.getActivityGraph();
         if (graph != null)
         {
-            final Collection finalStates = graph.getFinalStates();
-            for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+            final Collection<FinalStateFacade> finalStates = graph.getFinalStates();
+            for (final Iterator<FinalStateFacade> finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
             {
                 final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 final StrutsUseCase targetUseCase = (StrutsUseCase)finalState.getTargetUseCase();
@@ -402,9 +395,9 @@ public class StrutsUseCaseLogicImpl
         UseCaseNode useCaseNode = null;
 
         final List<UseCaseNode> nodeList = Collections.list(root.breadthFirstEnumeration());
-        for (final Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
+        for (final Iterator<UseCaseNode> nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
-            UseCaseNode node = (UseCaseNode)nodeIterator.next();
+            UseCaseNode node = nodeIterator.next();
             if (useCase.equals(node.getUserObject()))
             {
                 useCaseNode = node;
@@ -453,11 +446,11 @@ public class StrutsUseCaseLogicImpl
     protected Map handleGetAllMessages()
     {
         final boolean normalize = this.normalizeMessages();
-        final Map messages = (normalize) ? new TreeMap() : new LinkedHashMap();
+        final Map<String, String> messages = (normalize) ? new TreeMap() : new LinkedHashMap<String, String>();
 
         if (this.isApplicationUseCase())
         {
-            final List useCases = this.getAllUseCases();
+            final List<FrontEndUseCase> useCases = this.getAllUseCases();
             for (int i = 0; i < useCases.size(); i++)
             {
                 // USECASE
@@ -471,16 +464,14 @@ public class StrutsUseCaseLogicImpl
                     final StrutsAction action = (StrutsAction)actions.get(j);
 
                     // FORWARDS
-                    final List transitions = action.getTransitions();
-                    for (int l = 0; l < transitions.size(); l++)
+                    for (StrutsForward forward : action.getTransitions())
                     {
-                        final StrutsForward forward = (StrutsForward)transitions.get(l);
                         messages.putAll(forward.getSuccessMessages());
                         messages.putAll(forward.getWarningMessages());
                     }
 
                     // EXCEPTION FORWARDS
-                    final List exceptions = action.getActionExceptions();
+                    final List<StrutsExceptionHandler> exceptions = action.getActionExceptions();
 
                     if (normalize)
                     {
@@ -493,9 +484,8 @@ public class StrutsUseCaseLogicImpl
                         }
                         else
                         {
-                            for (int l = 0; l < exceptions.size(); l++)
+                            for (final StrutsExceptionHandler exception : exceptions)
                             {
-                                final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
                                 messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
                             }
                         }
@@ -558,7 +548,7 @@ public class StrutsUseCaseLogicImpl
                     messages.put(page.getOnlineHelpKey(), page.getOnlineHelpValue());
                     messages.put(page.getDocumentationKey(), page.getDocumentationValue());
 
-                    final List pageVariables = page.getPageVariables();
+                    final List<StrutsParameter> pageVariables = page.getPageVariables();
                     for (int k = 0; k < pageVariables.size(); k++)
                     {
                         // PAGE-VARIABLE
@@ -584,7 +574,7 @@ public class StrutsUseCaseLogicImpl
                         // TABLE
                         if (parameter.isTable())
                         {
-                            final Collection columnNames = parameter.getTableColumnNames();
+                            final Collection<String> columnNames = parameter.getTableColumnNames();
                             for (final Iterator columnNameIterator = columnNames.iterator();
                                  columnNameIterator.hasNext();)
                             {
@@ -630,8 +620,8 @@ public class StrutsUseCaseLogicImpl
 
                                 for (int m = 0; m < optionKeys.size(); m++)
                                 {
-                                    messages.put(optionKeys.get(m), optionValues.get(m));
-                                    messages.put(optionKeys.get(m) + ".title", optionValues.get(m));
+                                    messages.put((String)optionKeys.get(m), (String)optionValues.get(m));
+                                    messages.put((String)optionKeys.get(m) + ".title", (String)optionValues.get(m));
                                 }
                             }
                         }

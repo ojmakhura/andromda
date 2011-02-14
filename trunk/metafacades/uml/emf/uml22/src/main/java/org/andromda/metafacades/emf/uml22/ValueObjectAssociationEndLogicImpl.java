@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml22;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.ValueObject;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ValueObjectAssociationEnd.
@@ -13,6 +12,7 @@ import org.andromda.metafacades.uml.ValueObject;
 public class ValueObjectAssociationEndLogicImpl
     extends ValueObjectAssociationEndLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

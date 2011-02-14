@@ -16,12 +16,14 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
+import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -40,26 +42,27 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsActionLogicImpl
     extends StrutsActionLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * All action states that make up this action, this includes all possible action states traversed
      * after a decision point too.
      */
-    private Collection actionStates = null;
+    private Collection<StrutsActionState> actionStates = null;
 
     /**
      * All transitions leading into either a page or final state that originated from a call to this action.
      */
-    private Map actionForwards = null;
+    private Map<StateVertexFacade, TransitionFacade> actionForwards = null;
 
     /**
      * All transitions leading into a decision point that originated from a call to this action.
      */
-    private Collection decisionTransitions = null;
+    private Collection<TransitionFacade> decisionTransitions = null;
 
     /**
      * All transitions that can be traversed when calling this action.
      */
-    private Collection transitions = null;
+    private Collection<TransitionFacade> transitions = null;
 
     /**
      * @param metaObject
@@ -77,10 +80,10 @@ public class StrutsActionLogicImpl
      */
     private void initializeCollections()
     {
-        actionStates = new LinkedHashSet();
-        actionForwards = new HashMap();
-        decisionTransitions = new LinkedHashSet();
-        transitions = new LinkedHashSet();
+        actionStates = new LinkedHashSet<StrutsActionState>();
+        actionForwards = new HashMap<StateVertexFacade, TransitionFacade>();
+        decisionTransitions = new LinkedHashSet<TransitionFacade>();
+        transitions = new LinkedHashSet<TransitionFacade>();
         collectTransitions(this, transitions);
     }
 
@@ -110,16 +113,14 @@ public class StrutsActionLogicImpl
         else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
-            final Collection outcomes = target.getOutgoings();
-            for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
+            for (final TransitionFacade outcome : target.getOutgoings())
             {
-                final TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
         else if (target instanceof StrutsActionState)
         {
-            actionStates.add(target);
+            actionStates.add((StrutsActionState)target);
             final FrontEndForward forward = ((StrutsActionState) target).getForward();
             if (forward != null)
             {
@@ -128,10 +129,8 @@ public class StrutsActionLogicImpl
         }
         else // all the rest is ignored but outgoing transitions are further processed
         {
-            final Collection outcomes = target.getOutgoings();
-            for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
+            for (final TransitionFacade outcome : target.getOutgoings())
             {
-                final TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
@@ -413,9 +412,9 @@ public class StrutsActionLogicImpl
      * are returned, otherwise it will return the users associated to the use-cases targeted by this
      * action (which may be none at all)
      */
-    private Collection getRoleUsers()
+    private Collection<Role> getRoleUsers()
     {
-        final Collection roleUsers = new ArrayList();
+        final Collection<Role> roleUsers = new ArrayList<Role>();
 
         if (this.isUseCaseStart())
         {
@@ -427,12 +426,11 @@ public class StrutsActionLogicImpl
         }
         else
         {
-            for (final Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
+            for (final StrutsForward forward : getActionForwards())
             {
-                final TransitionFacade transition = (TransitionFacade) iterator.next();
-                if (transition.getTarget() instanceof StrutsFinalState)
+                if (forward.getTarget() instanceof StrutsFinalState)
                 {
-                    final FrontEndUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
+                    final FrontEndUseCase useCase = ((StrutsFinalState) forward.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
                         roleUsers.addAll(useCase.getRoles());
@@ -628,10 +626,8 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        final Collection actionParameters = getActionParameters();
-        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        for (final StrutsParameter parameter : getActionParameters())
         {
-            final StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isValidationRequired())
             {
                 return true;
@@ -645,10 +641,8 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsDateFieldPresent()
     {
-        final Collection actionParameters = getActionParameters();
-        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        for (final StrutsParameter parameter : getActionParameters())
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isDate())
             {
                 return true;
@@ -662,10 +656,8 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsCalendarRequired()
     {
-        final Collection actionParameters = getActionParameters();
-        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        for (final StrutsParameter parameter : getActionParameters())
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isCalendarRequired())
             {
                 return true;
@@ -836,12 +828,12 @@ public class StrutsActionLogicImpl
             final FrontEndUseCase useCase = this.getUseCase();
             if (useCase != null)
             {
-                final Collection finalStates = useCase.getReferencingFinalStates();
+                final Collection<FrontEndFinalState> finalStates = useCase.getReferencingFinalStates();
                 for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
                     final Object finalStateObject = finalStateIterator.next();
-                    // we need to test for the type because a non struts-use-case final state might accidently
-                    // we linking to this use-case (for example: the user temporarily wants to disable code generation
+                    // we need to test for the type because a non struts-use-case final state might accidentally
+                    // be linking to this use-case (for example: the user temporarily wants to disable code generation
                     // for a specific use-case and is not removing the final-state to use-case link(s))
                     if (finalStateObject instanceof StrutsFinalState)
                     {
@@ -859,17 +851,13 @@ public class StrutsActionLogicImpl
 
         // if any action encountered by the execution of the complete action-graph path emits a forward
         // containing one or more parameters they need to be included as a form field too
-        final Collection actionStates = getActionStates();
-        for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+        for (final StrutsActionState actionState : getActionStates())
         {
-            final StrutsActionState actionState = (StrutsActionState) iterator.next();
             final StrutsForward forward = (StrutsForward) actionState.getForward();
             if (forward != null)
             {
-                final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                for (final FrontEndParameter forwardParameter : forward.getForwardParameters())
                 {
-                    final ModelElementFacade forwardParameter = (ModelElementFacade) parameterIterator.next();
                     formFieldMap.put(forwardParameter.getName(), forwardParameter);
                 }
             }
@@ -877,36 +865,26 @@ public class StrutsActionLogicImpl
 
         // add page variables for all pages/final-states targeted
         // also add the fields of the target page's actions (for preloading)
-        final Collection forwards = getActionForwards();
-        for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
+        for (final StrutsForward forward : getActionForwards())
         {
-            final StrutsForward forward = (StrutsForward) iterator.next();
             final StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
             {
                 final StrutsJsp jsp = (StrutsJsp) target;
-                final Collection pageVariables = jsp.getPageVariables();
-                for (final Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
+                for (final StrutsParameter facade : jsp.getPageVariables())
                 {
-                    final ModelElementFacade facade = (ModelElementFacade) pageVariableIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
-                final Collection allActionParameters = jsp.getAllActionParameters();
-                for (final Iterator actionParameterIterator = allActionParameters.iterator();
-                     actionParameterIterator.hasNext();)
+                for (final FrontEndParameter facade : jsp.getAllActionParameters())
                 {
-                    final ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
             }
             else if (target instanceof StrutsFinalState)
             {
                 // only add these if there is no parameter recorded yet with the same name
-                final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator forwardParameterIterator = forwardParameters.iterator();
-                     forwardParameterIterator.hasNext();)
+                for (final FrontEndParameter facade : forward.getForwardParameters())
                 {
-                    final ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(facade.getName(), facade);
@@ -916,10 +894,8 @@ public class StrutsActionLogicImpl
         }
 
         // we do the action parameters in the end because they are allowed to overwrite existing properties
-        final Collection actionParameters = getActionParameters();
-        for (final Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
+        for (final StrutsParameter facade : getActionParameters())
         {
-            final ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
             formFieldMap.put(facade.getName(), facade);
         }
 
@@ -1015,10 +991,8 @@ public class StrutsActionLogicImpl
     {
         Collection targetPages = new LinkedHashSet();
 
-        Collection forwards = getActionForwards();
-        for (final Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
+        for (final StrutsForward forward : getActionForwards())
         {
-            StrutsForward forward = (StrutsForward) forwardIterator.next();
             if (forward.isEnteringPage())
             {
                 targetPages.add(forward.getTarget());

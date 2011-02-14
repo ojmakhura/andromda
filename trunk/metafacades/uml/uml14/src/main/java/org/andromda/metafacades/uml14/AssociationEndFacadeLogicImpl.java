@@ -28,6 +28,7 @@ import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 public class AssociationEndFacadeLogicImpl
     extends AssociationEndFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

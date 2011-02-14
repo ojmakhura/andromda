@@ -10,7 +10,6 @@ import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.UmlClass;
 
-
 /**
  * Metaclass facade implementation.
  * @author Bob Fields
@@ -18,6 +17,7 @@ import org.omg.uml.foundation.core.UmlClass;
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -36,12 +36,13 @@ public class PackageFacadeLogicImpl
     public Collection<UmlClass> handleGetClasses()
     {
         return new FilteredCollection(metaObject.getOwnedElement())
+        {
+            private static final long serialVersionUID = 34L;
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof UmlClass;
-                }
-            };
+                return object instanceof UmlClass;
+            }
+        };
     }
 
     /**
@@ -52,6 +53,7 @@ public class PackageFacadeLogicImpl
     {
         return new FilteredCollection(metaObject.getOwnedElement())
         {
+            private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
                 return object instanceof org.omg.uml.modelmanagement.UmlPackage;

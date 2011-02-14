@@ -320,7 +320,7 @@ public class TranslationTestProcessor
                     }
                     else
                     {
-                        final ExpressionTest expressionConfig = (ExpressionTest) expressions.get(fromExpression);
+                        final ExpressionTest expressionConfig = expressions.get(fromExpression);
                         String toExpression = expressionConfig.getTo();
 
                         Object modelElement = null;

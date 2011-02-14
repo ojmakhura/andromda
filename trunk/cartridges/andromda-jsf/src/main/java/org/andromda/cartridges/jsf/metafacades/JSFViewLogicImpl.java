@@ -10,6 +10,7 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -139,17 +140,16 @@ public class JSFViewLogicImpl
      * @return forwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getForwards()
      */
-    protected List handleGetForwards()
+    protected List<ModelElementFacade> handleGetForwards()
     {
-        final Map forwards = new LinkedHashMap();
+        final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
         for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
             if (action != null && !action.isUseCaseStart())
             {
-                for (final Iterator forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
+                for (final FrontEndForward forward : action.getActionForwards())
                 {
-                    final Object forward = forwardIterator.next();
                     if (forward instanceof JSFForward)
                     {
                         forwards.put(((JSFForward)forward).getName(), forward);
@@ -161,23 +161,22 @@ public class JSFViewLogicImpl
                 }
             }
         }
-        return new ArrayList(forwards.values());
+        return new ArrayList<ModelElementFacade>(forwards.values());
     }
 
     /**
      * @return tables
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isTableLink()
      */
-    protected List handleGetTables()
+    protected List<JSFParameter> handleGetTables()
     {
-        final List tables = new ArrayList();
-        final List variables = this.getVariables();
-        for (int ctr = 0; ctr < variables.size(); ctr++)
+        final List<JSFParameter> tables = new ArrayList<JSFParameter>();
+        final List<FrontEndParameter> variables = this.getVariables();
+        for (FrontEndParameter parameter : variables)
         {
-            final Object object = variables.get(ctr);
-            if (object instanceof JSFParameter)
+            if (parameter instanceof JSFParameter)
             {
-                final JSFParameter variable = (JSFParameter)object;
+                final JSFParameter variable = (JSFParameter)parameter;
                 if (variable.isTable())
                 {
                     tables.add(variable);
@@ -191,10 +190,10 @@ public class JSFViewLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFViewLogic#getActionForwards()
      */
-    protected List handleGetActionForwards()
+    protected List<JSFForward> handleGetActionForwards()
     {
-        final List actionForwards = new ArrayList(this.getForwards());
-        for (final Iterator iterator = actionForwards.iterator(); iterator.hasNext();)
+        final List<JSFForward> actionForwards = new ArrayList<JSFForward>(this.getForwards());
+        for (final Iterator<JSFForward> iterator = actionForwards.iterator(); iterator.hasNext();)
         {
             if (!(iterator.next() instanceof JSFAction))
             {
@@ -235,12 +234,12 @@ public class JSFViewLogicImpl
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFViewLogic#handleGetFormActions()
      */
-    protected List handleGetFormActions()
+    protected List<FrontEndAction> handleGetFormActions()
     {
-        final List actions = new ArrayList(this.getActions());
-        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(this.getActions());
+        for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
         {
-            final JSFAction action = (JSFAction)iterator.next();
+            final FrontEndAction action = (FrontEndAction)iterator.next();
             if (action.getFormFields().isEmpty())
             {
                 iterator.remove();
@@ -353,15 +352,14 @@ public class JSFViewLogicImpl
      * @return backingValueVariables
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getBackingValueVariables()
      */
-    protected List handleGetBackingValueVariables()
+    protected List<JSFParameter> handleGetBackingValueVariables()
     {
-        final Map variables = new LinkedHashMap();
-        for (final Iterator iterator = this.getAllActionParameters().iterator(); iterator.hasNext();)
+        final Map<String, JSFParameter> variables = new LinkedHashMap<String, JSFParameter>();
+        for (final FrontEndParameter frontEndParameter : this.getAllActionParameters())
         {
-            final Object object = iterator.next();
-            if (object instanceof JSFParameter)
+            if (frontEndParameter instanceof JSFParameter)
             {
-                final JSFParameter parameter = (JSFParameter)object;
+                final JSFParameter parameter = (JSFParameter)frontEndParameter;
                 final String parameterName = parameter.getName();
                 final Collection attributes = parameter.getAttributes();
                 if (parameter.isBackingValueRequired() || parameter.isSelectable())
@@ -390,7 +388,7 @@ public class JSFViewLogicImpl
                 }
             }
         }
-        return new ArrayList(variables.values());
+        return new ArrayList<JSFParameter>(variables.values());
     }
 
     /**

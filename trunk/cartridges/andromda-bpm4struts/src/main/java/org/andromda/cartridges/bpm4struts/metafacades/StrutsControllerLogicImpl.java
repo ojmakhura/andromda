@@ -10,8 +10,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -20,6 +18,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 public class StrutsControllerLogicImpl
     extends StrutsControllerLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

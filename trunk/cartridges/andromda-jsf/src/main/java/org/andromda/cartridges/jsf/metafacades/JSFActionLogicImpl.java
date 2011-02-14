@@ -14,6 +14,8 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -176,8 +178,8 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFormImplementationInterfaceList()
     {
-        final List deferredOperations = this.getDeferredOperations();
-        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
+        final List<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             // - remove any forms that don't have arguments
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
@@ -187,7 +189,7 @@ public class JSFActionLogicImpl
             }
         }
         final StringBuilder list = new StringBuilder();
-        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
             list.append(operation.getFormName());
@@ -353,7 +355,7 @@ public class JSFActionLogicImpl
             final JSFView view = (JSFView)this.getInput();
             if (view != null)
             {
-                final List tables = view.getTables();
+                final List<FrontEndParameter> tables = view.getTables();
                 for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
                 {
                     final Object object = tables.get(ctr);
@@ -473,10 +475,10 @@ public class JSFActionLogicImpl
     /**
      * @return otherActions
      */
-    protected List handleGetOtherUseCaseFormActions()
+    protected List<FrontEndAction> handleGetOtherUseCaseFormActions()
     {
-        final List otherActions = new ArrayList(this.getUseCase().getActions());
-        for (final Iterator iterator = otherActions.iterator(); iterator.hasNext();)
+        final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
+        for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
 
@@ -504,9 +506,9 @@ public class JSFActionLogicImpl
      * @return hiddenParameters
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getHiddenParameters()
      */
-    protected List handleGetHiddenParameters()
+    protected List<FrontEndParameter> handleGetHiddenParameters()
     {
-        final List hiddenParameters = new ArrayList(this.getParameters());
+        final List<FrontEndParameter> hiddenParameters = new ArrayList<FrontEndParameter>(this.getParameters());
         CollectionUtils.filter(
             hiddenParameters,
             new Predicate()

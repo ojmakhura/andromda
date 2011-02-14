@@ -15,6 +15,7 @@ import org.eclipse.uml2.uml.Actor;
 public class ActorFacadeLogicImpl
     extends ActorFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

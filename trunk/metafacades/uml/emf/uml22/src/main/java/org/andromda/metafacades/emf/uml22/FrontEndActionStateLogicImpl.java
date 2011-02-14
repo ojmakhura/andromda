@@ -29,7 +29,7 @@ import org.andromda.utils.StringUtilsHelper;
  */
 public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -159,7 +159,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
                 }
             }
         }
-        return new ArrayList(actionSet);
+        return new ArrayList<FrontEndAction>(actionSet);
     }
 
 }

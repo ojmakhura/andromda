@@ -13,6 +13,7 @@ import org.eclipse.uml2.uml.UseCase;
 public class ExtensionPointFacadeLogicImpl
     extends ExtensionPointFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

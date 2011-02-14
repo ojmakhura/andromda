@@ -14,6 +14,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class StrutsManageableEntityAttributeLogicImpl
     extends StrutsManageableEntityAttributeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

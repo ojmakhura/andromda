@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsActionStateLogicImpl
     extends StrutsActionStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

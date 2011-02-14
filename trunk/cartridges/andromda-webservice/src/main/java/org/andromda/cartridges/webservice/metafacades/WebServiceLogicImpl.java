@@ -24,6 +24,7 @@ import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
@@ -104,7 +105,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetAllowedMethods()
     {
-        Collection<String> methodNames = new ArrayList();
+        Collection<String> methodNames = new ArrayList<String>();
         Collection<WebServiceOperation> operations = this.getAllowedOperations();
         if (operations != null && !operations.isEmpty())
         {
@@ -192,7 +193,7 @@ public class WebServiceLogicImpl
      * Keeps track of whether or not the type has been checked, keeps us from entering infinite loops when calling
      * loadTypes.
      */
-    private Collection checkedTypes = new ArrayList();
+    private Collection<ModelElementFacade> checkedTypes = new ArrayList<ModelElementFacade>();
 
     /**
      * @return this.elementSet types
@@ -200,10 +201,10 @@ public class WebServiceLogicImpl
      */
     protected Collection handleGetTypeMappingElements()
     {
-        final Collection parameterTypes = new LinkedHashSet();
-        for (final Iterator iterator = this.getAllowedOperations().iterator(); iterator.hasNext();)
+        final Collection<ParameterFacade> parameterTypes = new LinkedHashSet<ParameterFacade>();
+        for (final WebServiceOperation operation : this.getAllowedOperations())
         {
-            parameterTypes.addAll(((OperationFacade)iterator.next()).getParameters());
+            parameterTypes.addAll(operation.getParameters());
         }
 
         final Set types = new TreeSet(new TypeComparator());
@@ -213,15 +214,15 @@ public class WebServiceLogicImpl
         // they'll be ignored the second time this method is
         // called (if the instance is reused)
         this.checkedTypes.clear();
-        for (final Iterator iterator = parameterTypes.iterator(); iterator.hasNext();)
+        for (final Iterator<ParameterFacade> iterator = parameterTypes.iterator(); iterator.hasNext();)
         {
             this.loadTypes((ModelElementFacade)iterator.next(), types, nonArrayTypes);
         }
 
         final Collection exceptions = new ArrayList();
-        for (final Iterator iterator = this.getAllowedOperations().iterator(); iterator.hasNext();)
+        for (final WebServiceOperation operation : this.getAllowedOperations())
         {
-            exceptions.addAll(((OperationFacade)iterator.next()).getExceptions());
+            exceptions.addAll(operation.getExceptions());
         }
 
         types.addAll(exceptions);
@@ -269,14 +270,14 @@ public class WebServiceLogicImpl
                     allTypes.add(parameterType);
 
                     // add all generalizations and specializations of the type
-                    final Collection generalizations = parameterType.getAllGeneralizations();
+                    final Collection<GeneralizableElementFacade> generalizations = parameterType.getAllGeneralizations();
 
                     if (generalizations != null)
                     {
                         allTypes.addAll(generalizations);
                     }
 
-                    final Collection specializations = parameterType.getAllSpecializations();
+                    final Collection<GeneralizableElementFacade> specializations = parameterType.getAllSpecializations();
 
                     if (specializations != null)
                     {
@@ -353,14 +354,14 @@ public class WebServiceLogicImpl
     /**
      * Cross reference between package name and namespace abbreviation, used to annotate foreign schema elements
      */
-    private Map packageAbbr = new TreeMap();
+    private Map<String, String> packageAbbr = new TreeMap<String, String>();
     private static final String EMPTY_STRING = "";
 
     /**
      * Get a unique list of packages populated from the results of GetTypeMappingElements
      * @return pkgAbbr TreeSet containing unique package list
      */
-    protected Collection handleGetPackages()
+    protected Collection<String> handleGetPackages()
     {
         if (this.elementSet == null || this.elementSet.size()<1)
         {
@@ -368,9 +369,9 @@ public class WebServiceLogicImpl
         }
         setPkgAbbr(this.elementSet);
         String pkgList = EMPTY_STRING;
-        for (final Iterator iterator = this.packageAbbr.keySet().iterator(); iterator.hasNext();)
+        for (final String pkg : this.packageAbbr.keySet())
         {
-            pkgList += iterator.next() + ", ";
+            pkgList += pkg + ", ";
         }
         return this.packageAbbr.keySet();
     }
@@ -417,9 +418,8 @@ public class WebServiceLogicImpl
         Map pkgAbbr = new TreeMap();
         int namespaceCount = 1;
         // Copy package names and abbreviations to package list
-        for (final Iterator iterator = this.getOperations().iterator(); iterator.hasNext();)
+        for (final OperationFacade op : this.getOperations())
         {
-            WebServiceOperationLogicImpl op = (WebServiceOperationLogicImpl)iterator.next();
             for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
                 ModelElementFacade arg = (ModelElementFacade)opiterator.next();
@@ -431,9 +431,8 @@ public class WebServiceLogicImpl
                     namespaceCount++;
                 }
             }
-            for (final Iterator opiterator = op.getArguments().iterator(); opiterator.hasNext();)
+            for (final ParameterFacade arg : op.getArguments())
             {
-                ModelElementFacade arg = (ModelElementFacade)opiterator.next();
                 String pkg = arg.getPackageName();
                 if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
                 {
@@ -618,17 +617,15 @@ public class WebServiceLogicImpl
         } */
 
         // Add references from the operations of the service package itself
-        for (final Iterator iterator = this.getOperations().iterator(); iterator.hasNext();)
+        for (final OperationFacade op : this.getOperations())
         {
-            WebServiceOperationLogicImpl op = (WebServiceOperationLogicImpl)iterator.next();
             for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
                 ModelElementFacade arg = (ModelElementFacade)opiterator.next();
                 addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
             }
-            for (final Iterator opiterator = op.getArguments().iterator(); opiterator.hasNext();)
+            for (final ParameterFacade arg : op.getArguments())
             {
-                ModelElementFacade arg = (ModelElementFacade)opiterator.next();
                 addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
             }
             if (op.getReturnType()!=null)
@@ -659,7 +656,6 @@ public class WebServiceLogicImpl
             pkgRefSet.add(pkgRef);
             logger.debug("Added pkgRef " + pkg + " references " + pkgRef + " in " + type.getName());
         }
-
     }
 
     /**
