@@ -311,7 +311,7 @@ public class JSFUseCaseLogicImpl
                                     for (final Iterator<String> columnNameIterator = columnNames.iterator();
                                         columnNameIterator.hasNext();)
                                     {
-                                        final String columnName = (String)columnNameIterator.next();
+                                        final String columnName = columnNameIterator.next();
                                         messages.put(
                                             parameter.getTableColumnMessageKey(columnName),
                                             parameter.getTableColumnMessageValue(columnName));

@@ -394,7 +394,7 @@ public class WebServiceLogicImpl
         {
             setPkgAbbr(this.elementSet);
         }
-        String rtn = (String)this.packageAbbr.get(pkgName);
+        String rtn = this.packageAbbr.get(pkgName);
         if (StringUtils.isBlank(rtn))
         {
             // Package reference was never added originally - needs to be fixed

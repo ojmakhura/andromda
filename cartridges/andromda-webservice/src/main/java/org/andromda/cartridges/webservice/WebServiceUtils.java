@@ -1849,7 +1849,7 @@ public class WebServiceUtils
                 {
                     if (dependency.getName().equals(facade.getName()))
                     {
-                        facade = ((DependencyFacade)dependency).getTargetElement();
+                        facade = dependency.getTargetElement();
                         // DependencyFacade type comes back empty for UML2::Integer
                         // Need to get metaObject Name property and verify it is not null.
                         if (facade instanceof WSDLTypeLogic)

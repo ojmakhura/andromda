@@ -239,7 +239,7 @@ public class JSFViewLogicImpl
         final List<FrontEndAction> actions = new ArrayList<FrontEndAction>(this.getActions());
         for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
             if (action.getFormFields().isEmpty())
             {
                 iterator.remove();
