@@ -52,6 +52,8 @@ public class JSFUtils
     private static final Pattern VALIDATOR_TAGGEDVALUE_PATTERN =
         Pattern.compile("\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
 
+    private static final String ANNOTATION_VALIDATOR_PREFIX = "@";
+    
     /**
      * Reads the validator arguments from the the given tagged value.
      * @param validatorTaggedValue 
@@ -65,40 +67,45 @@ public class JSFUtils
             throw new IllegalArgumentException("Validator tagged value cannot be null");
         }
 
-        // check if the input tagged value matches the required pattern
-        if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
-        {
-            throw new IllegalArgumentException(
-                "Illegal validator tagged value (this tag is used to specify custom validators " +
-                "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
-                "andromda_presentation_view_field_format?): " + validatorTaggedValue);
-        }
-
         final List<String> validatorArgs = new ArrayList<String>();
-
-        // only keep what is between parentheses (if any)
-        int left = validatorTaggedValue.indexOf('(');
-        if (left > -1)
+        
+        //isn't it an annotation ?
+        if(!StringUtils.startsWith(validatorTaggedValue,ANNOTATION_VALIDATOR_PREFIX))
         {
-            final int right = validatorTaggedValue.indexOf(')');
-            validatorTaggedValue = validatorTaggedValue.substring(
-                    left + 1,
-                    right);
 
-            final String[] pairs = validatorTaggedValue.split(",");
-            for (int i = 0; i < pairs.length; i++)
+            // check if the input tagged value matches the required pattern
+            if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
             {
-                final String pair = pairs[i];
-                final int equalsIndex = pair.indexOf('=');
-
-                // it's possible the argument is the empty string
-                if (equalsIndex < pair.length() - 1)
+                throw new IllegalArgumentException(
+                    "Illegal validator tagged value (this tag is used to specify custom validators " +
+                    "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
+                    "andromda_presentation_view_field_format?): " + validatorTaggedValue);
+            }
+    
+            // only keep what is between parentheses (if any)
+            int left = validatorTaggedValue.indexOf('(');
+            if (left > -1)
+            {
+                final int right = validatorTaggedValue.indexOf(')');
+                validatorTaggedValue = validatorTaggedValue.substring(
+                        left + 1,
+                        right);
+    
+                final String[] pairs = validatorTaggedValue.split(",");
+                for (int i = 0; i < pairs.length; i++)
                 {
-                    validatorArgs.add(pair.substring(equalsIndex + 1));
-                }
-                else
-                {
-                    validatorArgs.add("");
+                    final String pair = pairs[i];
+                    final int equalsIndex = pair.indexOf('=');
+    
+                    // it's possible the argument is the empty string
+                    if (equalsIndex < pair.length() - 1)
+                    {
+                        validatorArgs.add(pair.substring(equalsIndex + 1));
+                    }
+                    else
+                    {
+                        validatorArgs.add("");
+                    }
                 }
             }
         }
@@ -118,31 +125,36 @@ public class JSFUtils
             throw new IllegalArgumentException("Validator tagged value cannot be null");
         }
 
-        // check if the input tagged value matches the required pattern
-        if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
-        {
-            throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
-        }
-
         final List<String> validatorVars = new ArrayList<String>();
 
-        // only keep what is between parentheses (if any)
-        int left = validatorTaggedValue.indexOf('(');
-        if (left > -1)
+        //isn't it an annotation ?
+        if(!StringUtils.startsWith(validatorTaggedValue,ANNOTATION_VALIDATOR_PREFIX))
         {
-            int right = validatorTaggedValue.indexOf(')');
-            validatorTaggedValue = validatorTaggedValue.substring(
-                    left + 1,
-                    right);
 
-            final String[] pairs = validatorTaggedValue.split(",");
-            for (int i = 0; i < pairs.length; i++)
+            // check if the input tagged value matches the required pattern
+            if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
             {
-                final String pair = pairs[i];
-                final int equalsIndex = pair.indexOf('=');
-                validatorVars.add(pair.substring(
-                        0,
-                        equalsIndex));
+                throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
+            }
+    
+            // only keep what is between parentheses (if any)
+            int left = validatorTaggedValue.indexOf('(');
+            if (left > -1)
+            {
+                int right = validatorTaggedValue.indexOf(')');
+                validatorTaggedValue = validatorTaggedValue.substring(
+                        left + 1,
+                        right);
+    
+                final String[] pairs = validatorTaggedValue.split(",");
+                for (int i = 0; i < pairs.length; i++)
+                {
+                    final String pair = pairs[i];
+                    final int equalsIndex = pair.indexOf('=');
+                    validatorVars.add(pair.substring(
+                            0,
+                            equalsIndex));
+                }
             }
         }
         return validatorVars;
@@ -159,6 +171,12 @@ public class JSFUtils
         if (validatorTaggedValue == null)
         {
             throw new IllegalArgumentException("Validator tagged value cannot be null");
+        }
+
+        //isn't it an annotation ?
+        if(StringUtils.startsWith(validatorTaggedValue,ANNOTATION_VALIDATOR_PREFIX))
+        {
+            return validatorTaggedValue;
         }
 
         // check if the input tagged value matches the required pattern
