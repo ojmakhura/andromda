@@ -99,7 +99,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <antcall target="wsgenjava">
       <param name="package" value="$service.packageName"/>
       <param name="service" value="$service.name"/>
-      <param name="namespace" value="http://$webServiceUtils.reversePackage($service.packageName)/"/>
+      <param name="namespace" value="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"/>
       <param name="dir" value="$dir"/>
     </antcall>
 #end
@@ -210,7 +210,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <antcall target="wsgenwsdl">
       <param name="package" value="$service.packageName"/>
       <param name="service" value="$service.name"/>
-      <param name="namespace" value="http://$webServiceUtils.reversePackage($service.packageName)/"/>
+      <param name="namespace" value="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"/>
     </antcall>
 #end
 #end

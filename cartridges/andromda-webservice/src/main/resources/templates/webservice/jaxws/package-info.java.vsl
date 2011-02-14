@@ -10,7 +10,7 @@
 #else
 #set ($packageName = "${pkg.fullyQualifiedName}")
 #end
-@XmlSchema(namespace = "http://$webServiceUtils.reversePackage($packageName)/",
+@XmlSchema(namespace = "http://$webServiceUtils.reversePackage($packageName)#if($addNamespaceBackslash)/#end",
            elementFormDefault = XmlNsForm.${pkg.elementFormDefault},
            attributeFormDefault = XmlNsForm.${pkg.attributeFormDefault})
 package $packageName;
