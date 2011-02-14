@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.Collection;
 import org.apache.commons.collections.CollectionUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.AssociationClassFacade.
@@ -13,6 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 public class AssociationClassFacadeLogicImpl
     extends AssociationClassFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

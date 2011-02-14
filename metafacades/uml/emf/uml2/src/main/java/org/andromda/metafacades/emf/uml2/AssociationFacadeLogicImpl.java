@@ -10,7 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.AssociationClass;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.AssociationFacade.
@@ -21,6 +20,7 @@ import org.eclipse.uml2.AssociationClass;
 public class AssociationFacadeLogicImpl
     extends AssociationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context
@@ -69,7 +69,7 @@ public class AssociationFacadeLogicImpl
     @Override
     protected boolean handleIsMany2Many()
     {
-        return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
+        return (this.getAssociationEnds().iterator().next()).isMany2Many();
     }
 
     /**

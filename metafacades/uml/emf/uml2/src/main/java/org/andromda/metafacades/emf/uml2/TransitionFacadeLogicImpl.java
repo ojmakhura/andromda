@@ -18,6 +18,7 @@ import org.eclipse.uml2.Activity;
 public class TransitionFacadeLogicImpl
     extends TransitionFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
