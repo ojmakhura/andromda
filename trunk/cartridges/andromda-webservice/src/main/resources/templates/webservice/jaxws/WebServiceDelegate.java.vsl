@@ -115,7 +115,7 @@ $operation.getDocumentation("    * ")
 ##        // $useArrayWrapper $parameter.many $parameter.upper
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
-##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
         ${comma} $paramType $parameter.name
 ##set ($parameterList = "$comma${parameter.name}$parameterList")
 #set ($comma = ", ")
@@ -132,7 +132,7 @@ $operation.getDocumentation("    * ")
         /*$returnType rtn =*/ ${stringUtils.capitalize($operation.operationName)}Impl.${operation.name}TransformInput(
 #set ($comma = "")
 #foreach ($parameter in $operation.arguments)
-##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
             ${comma} $parameter.name
 #set ($comma = ", ")
 #end
@@ -210,4 +210,5 @@ $operation.getDocumentation("    * ")
     }
 #end
 }
+
 #end

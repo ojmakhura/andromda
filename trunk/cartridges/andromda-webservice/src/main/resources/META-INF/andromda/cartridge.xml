@@ -1,6 +1,9 @@
 <cartridge>
 
-    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
@@ -26,6 +29,8 @@
     <property reference="wsdlSoapNamespace"/>
     <property reference="xmlSchemaNamespace"/>
     <property reference="wsdlNamespace"/>
+    <property reference="wsSecurityNamespace"/>
+    <property reference="wsSecurityImportLocation"/>
     <property reference="documentStyleTransportNamespace"/>
     <property reference="xmlEncoding"/>
     <property reference="signedRequest"/>
@@ -50,6 +55,7 @@
     <property reference="extensionInheritanceDisabled"/>
     <property reference="useArrayWrapper"/>
     <property reference="useAttributes"/>
+    <property reference="addNamespaceBackslash"/>
     <property reference="makeNillable"/>
     <property reference="webserviceHost"/>
     <property reference="webservicePort"/>
@@ -101,6 +107,7 @@
     <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans.equalsIgnoreCase("true")</condition>
     <condition name="useArrayWrapper">$useArrayWrapper.equalsIgnoreCase("true")</condition>
     <condition name="useAttributes">$useAttributes.equalsIgnoreCase("true")</condition>
+    <condition name="addNamespaceBackslash">$addNamespaceBackslash.equalsIgnoreCase("true")</condition>
     <condition name="makeNillable">$makeNillable.equalsIgnoreCase("true")</condition>
     <condition name="reverseNamespace">$reverseNamespace.equalsIgnoreCase("true")</condition>
     <condition name="importedXSD">$importedXSD.equalsIgnoreCase("true")</condition>

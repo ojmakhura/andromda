@@ -95,7 +95,7 @@ public class ${service.name}SEIImplTest extends TestCase
         #if ($operation.restAtom)org.apache.abdera.model.Feed rtn =#elseif ($operation.returnTypePresent)$returnType rtn =#end delegate.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
-##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
                 ${comma} ${operation.operationName}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ",")
 #end
@@ -123,4 +123,5 @@ public class ${service.name}SEIImplTest extends TestCase
         TestRunner.run(${service.name}SEIImplTest.class);
     }
 }
+
 #end

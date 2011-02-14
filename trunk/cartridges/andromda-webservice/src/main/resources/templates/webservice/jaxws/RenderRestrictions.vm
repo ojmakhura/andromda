@@ -1,0 +1,82 @@
+##
+##  This macro will render the appropriate xml schema restrictions based on <<Validation>> stereotype
+##
+##      o   $element: the element (attribute or parameter) from which we are going to translate preconditions
+##
+#macro (renderRestrictions $element, $type)
+#if ($element.hasStereotype("Validation"))
+#set ($quote='"')
+#set ($base=$element.findTaggedValue("andromda_validation_baseType"))
+#if ($stringUtils.isEmpty($base))
+#set ($base=$type)
+#end
+#set ($fixed=$element.findTaggedValue("andromda_validation_fixed"))
+#if (!$stringUtils.isEmpty($fixed))
+#set ($fixed=" fixed=${quote}true${quote}")
+#end
+#set ($length=$element.findTaggedValue("andromda_validation_length"))
+#set ($minLength=$element.findTaggedValue("andromda_validation_minLength"))
+#set ($maxLength=$element.findTaggedValue("andromda_validation_maxLength"))
+#set ($pattern=$element.findTaggedValue("andromda_validation_pattern"))
+#set ($whiteSpace=$element.findTaggedValue("andromda_validation_whiteSpace"))
+#set ($maxInclusive=$element.findTaggedValue("andromda_validation_maxInclusive"))
+#set ($maxExclusive=$element.findTaggedValue("andromda_validation_maxExclusive"))
+#set ($minExclusive=$element.findTaggedValue("andromda_validation_minExclusive"))
+#set ($minInclusive=$element.findTaggedValue("andromda_validation_minInclusive"))
+#set ($totalDigits=$element.findTaggedValue("andromda_validation_totalDigits"))
+#set ($fractionDigits=$element.findTaggedValue("andromda_validation_fractionDigits"))
+##            <!-- length=$length fixed=$fixed minLength=$minLength maxLength=$maxLength pattern=$pattern whiteSpace=$whiteSpace totalDigits=$totalDigits fractionDigits=$fractionDigits -->
+              <xs:simpleType>
+                <xs:restriction base="$base">
+#if ($base.equals("xs:string"))
+#if (!$stringUtils.isEmpty($length))
+                  <xs:length value="$length"$fixed/>
+#else
+#if (!$stringUtils.isEmpty($minLength))
+                  <xs:minLength value="$minLength"/>
+#end
+#if (!$stringUtils.isEmpty($maxLength))
+                  <xs:maxLength value="$maxLength"/>
+#end
+#end
+#if (!$stringUtils.isEmpty($pattern))
+                  <xs:pattern value="$pattern"/>
+#end
+#if (!$stringUtils.isEmpty($whiteSpace) && ($whiteSpace.equals("preserve") || $whiteSpace.equals("replace") || $whiteSpace.equals("collapse")))
+                  <xs:whiteSpace value="$whiteSpace"/>
+#end
+#else
+#if (!$stringUtils.isEmpty($maxInclusive))
+                  <xs:maxInclusive value="$maxInclusive"/>
+#elseif (!$stringUtils.isEmpty($maxExclusive))
+                  <xs:maxExclusive value="$maxExclusive"/>
+#end
+#if (!$stringUtils.isEmpty($minExclusive))
+                  <xs:minExclusive value="$minExclusive"/>
+#end
+#if (!$stringUtils.isEmpty($minInclusive))
+                  <xs:minInclusive value="$minInclusive"/>
+#end
+#if (!$stringUtils.isEmpty($totalDigits))
+                  <xs:totalDigits value="$totalDigits"/>
+#end
+#if (!$stringUtils.isEmpty($fractionDigits))
+                  <xs:fractionDigits value="$fractionDigits"/>
+#end
+#end
+                </xs:restriction>
+              </xs:simpleType>
+#end
+## Prevent reusing values from previous element
+#set ($length="")
+#set ($minLength="")
+#set ($maxLength="")
+#set ($pattern="")
+#set ($whiteSpace="")
+#set ($maxInclusive="")
+#set ($maxExclusive="")
+#set ($minExclusive="")
+#set ($minInclusive="")
+#set ($totalDigits="")
+#set ($fractionDigits="")
+#end

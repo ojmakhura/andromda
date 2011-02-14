@@ -50,7 +50,7 @@ import javax.xml.ws.ResponseWrapper;
 $service.getDocumentation(" * ")
  */
 
-@WebService(targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)/",
+@WebService(targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end",
             name = "${service.name}")
 ## Always use Doc/Literal bare, multiple in parameters will be wrapped automatically, assume all parameters are IN only
 #set ($packageRefs = $webServiceUtils.getServiceDescendantPackages($service, true))
@@ -132,12 +132,12 @@ $operation.getDocumentation("    * ")
 #else
 #set ($returnName=$stringUtils.capitalize($operation.name))
 #end
-    @WebResult(name = "$returnName", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)/") //, partName = "${operation.name}ResponseWrapper")
+    @WebResult(name = "$returnName", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end") //, partName = "${operation.name}ResponseWrapper")
 #if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
-    @ResponseWrapper(localName = "${operation.operationName}ResponseWrapper", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)/", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)ResponseWrapper")
+    @ResponseWrapper(localName = "${operation.operationName}ResponseWrapper", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)ResponseWrapper")
 #end
-    @RequestWrapper(localName = "${operation.operationName}", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)/", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)")
+    @RequestWrapper(localName = "${operation.operationName}", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)")
 #end
     @WebMethod(action = "${operation.operationName}", operationName = "${operation.operationName}")
     public #if ($operation.restAtom)org.apache.abdera.model.Feed#else$returnType#end $operation.name
@@ -151,9 +151,9 @@ $operation.getDocumentation("    * ")
 #set ($comma = "  ")
 #foreach ($parameter in $operation.arguments)
 #if ($stringUtils.isNotBlank($parameter.type.packageName) && !$parameter.type.packageName.equals("PrimitiveTypes"))
-#set ($targetNamespace="$webServiceUtils.reversePackage($parameter.type.packageName)/")
+#set ($targetNamespace="$webServiceUtils.reversePackage($parameter.type.packageName)#if($addNamespaceBackslash)/#end")
 #else
-#set ($targetNamespace="$webServiceUtils.reversePackage($service.packageName)/")
+#set ($targetNamespace="$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end")
 #end
 ## Exception in webservices cartridge test: parameter upper not supported by UML14 facade
 #if (!$useArrayWrapper && $parameter.many)
@@ -184,4 +184,5 @@ $operation.getDocumentation("    * ")
 #end
 #end
 }
+
 #end

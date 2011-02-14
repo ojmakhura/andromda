@@ -85,7 +85,7 @@ $operation.getDocumentation("    * ")
 ##        // $useArrayWrapper $parameter.many $parameter.upper
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
-##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
         ${comma}final $paramType $parameter.name
 #set ($comma = ", ")
 #end
@@ -99,7 +99,7 @@ $operation.getDocumentation("    * ")
 #set ($propertyNum=0)
 #set ($property1Num=0)
 #foreach ($parameter in $operation.arguments)
-##        // parameter $parameter.name with $parameter.type.allProperties.size() properties: #foreach ($property in $parameter.type.allProperties) $property.name#end
+##        // parameter $parameter.name with $parameter.type.allProperties.size() properties:#foreach ($property in $parameter.type.allProperties) $property.name#end
 
 ##        // $parameter.type.fullyQualifiedName $parameter.name = ${webServiceUtils.createConstructor($parameter, false)};
 #if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
@@ -126,7 +126,7 @@ $operation.getDocumentation("    * ")
 ## It tries to iterate through nonexistent day, month, year attributes on Calendar
 ##if (!$parameter.type.fullyQualifiedName.equals("java.util.Calendar"))
 #foreach ($property in $parameter.type.allProperties)
-$tab            // property $property.name with $property.type.allProperties.size() properties: #foreach ($property1 in $property.type.allProperties) $property1.name#end
+$tab            // property $property.name with $property.type.allProperties.size() properties:#foreach ($property1 in $property.type.allProperties) $property1.name#end
 
 #if (!$property.many)
 #set ($propertyNum=$propertyNum+1)
@@ -152,7 +152,7 @@ $tab            {
 ## propertyNum prevents name conflicts between property attributes
 
 #foreach ($property1 in $property.type.allProperties)
-$tab$tab1                // property1 $property1.name with $property1.type.allProperties.size() properties: #foreach ($property2 in $property1.type.allProperties) $property2.name#end
+$tab$tab1                // property1 $property1.name with $property1.type.allProperties.size() properties:#foreach ($property2 in $property1.type.allProperties) $property2.name#end
 
 #set ($property1Num=$property1Num+1)
 #if ($property1.many)
@@ -365,7 +365,7 @@ $operation.getDocumentation("    * ")
 #else
 #set ($parameterName = "${parameter.name}Param$paramNum")
 #end
-        // parameter$paramNum $parameterName with $parameter.type.allProperties.size() properties: #foreach ($property in $parameter.type.allProperties) $property.name#end
+        // parameter$paramNum $parameterName with $parameter.type.allProperties.size() properties:#foreach ($property in $parameter.type.allProperties) $property.name#end
 
         $parameter.type.fullyQualifiedName $parameterName = ${webServiceUtils.createConstructor($parameter, false)};
 #set ($parameters="${parameters}${comma}${parameter.name}")
@@ -376,7 +376,7 @@ $operation.getDocumentation("    * ")
 ## propertyNum prevents name conflicts between property attributes
 #set ($propertyNum=$propertyNum+1)
 
-        // $parameterName property$paramNum$propertyNum $property.name with $property.type.allProperties.size() properties: #foreach ($property1 in $property.type.allProperties) $property1.name#end
+        // $parameterName property$paramNum$propertyNum $property.name with $property.type.allProperties.size() properties:#foreach ($property1 in $property.type.allProperties) $property1.name#end
 
         ${property.type.fullyQualifiedName} $property.name$paramNum$propertyNum = ${webServiceUtils.createConstructor($property, false, $parameter.type)};
 #end
@@ -386,11 +386,11 @@ $operation.getDocumentation("    * ")
 #if (!$property1.type.allProperties.empty)
 #set ($property1Num=$property1Num+1)
 
-        // $property.name property1 $paramNum$propertyNum$property1Num $property1.name with $property1.type.allProperties.size() properties: #foreach ($property2 in $property1.type.allProperties) $property2.name#end
+        // $property.name property1 $paramNum$propertyNum$property1Num $property1.name with $property1.type.allProperties.size() properties:#foreach ($property2 in $property1.type.allProperties) $property2.name#end
 
         ${property1.type.fullyQualifiedName} ${property1.name}$paramNum$propertyNum$property1Num = ${webServiceUtils.createConstructor($property1, false, $property.type)};
 #foreach ($property2 in $property1.type.allProperties)
-        // $property1.name property2 $property2.name with $property2.type.allProperties.size() properties: #foreach ($property3 in $property2.type.allProperties) $property3.name#end
+        // $property1.name property2 $property2.name with $property2.type.allProperties.size() properties:#foreach ($property3 in $property2.type.allProperties) $property3.name#end
 
 #if ($property2.many)
         ${property1.name}$paramNum$propertyNum$property1Num.${property2.getterName}().add(${webServiceUtils.createConstructor($property2, false, $property1.type)});
@@ -407,12 +407,12 @@ $operation.getDocumentation("    * ")
 #if (!$property1.type.allProperties.empty)
 #set ($property1Num=$property1Num+1)
 
-        // $property.name property1 $paramNum$propertyNum$property1Num $property1.name with $property1.type.allProperties.size() properties: #foreach ($property2 in $property1.type.allProperties) $property2.name#end
+        // $property.name property1 $paramNum$propertyNum$property1Num $property1.name with $property1.type.allProperties.size() properties:#foreach ($property2 in $property1.type.allProperties) $property2.name#end
 
         ${property1.getterSetterTypeName} ${property1.name}$paramNum$propertyNum$property1Num = ${webServiceUtils.createConstructor($property1, false, $property.type)};
 #foreach ($property2 in $property1.type.allProperties)
 #if (!$property2.type.allProperties.empty)
-        // $property1.name property2 $property2.name with $property2.type.allProperties.size() properties: #foreach ($property3 in $property2.type.allProperties) $property3.name#end
+        // $property1.name property2 $property2.name with $property2.type.allProperties.size() properties:#foreach ($property3 in $property2.type.allProperties) $property3.name#end
 
 #end
 #if ($property2.many)
@@ -457,5 +457,6 @@ $operation.getDocumentation("    * ")
     */
 #end
 }
+
 ##end
 #end

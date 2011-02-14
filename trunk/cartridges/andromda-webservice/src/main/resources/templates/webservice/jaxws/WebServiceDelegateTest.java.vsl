@@ -85,7 +85,7 @@ public class ${service.name}WSDelegateTest extends TestCase
             delegate.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
-##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
             ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ", ")
 #end
@@ -111,4 +111,5 @@ public class ${service.name}WSDelegateTest extends TestCase
         TestRunner.run(${service.name}WSDelegateTest.class);
     }
 }
+
 #end
