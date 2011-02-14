@@ -7,7 +7,6 @@ import org.andromda.utils.StringUtilsHelper;
 import org.eclipse.uml2.Behavior;
 import org.eclipse.uml2.StateMachine;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.UseCaseFacade.
@@ -17,6 +16,7 @@ import org.eclipse.uml2.StateMachine;
 public class UseCaseFacadeLogicImpl
     extends UseCaseFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

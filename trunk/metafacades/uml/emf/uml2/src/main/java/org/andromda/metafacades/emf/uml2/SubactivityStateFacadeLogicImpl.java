@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml2;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.SubactivityStateFacade.
@@ -10,6 +9,7 @@ package org.andromda.metafacades.emf.uml2;
 public class SubactivityStateFacadeLogicImpl
     extends SubactivityStateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -13,6 +13,7 @@ import org.eclipse.uml2.Namespace;
 public class NamespaceFacadeLogicImpl
     extends NamespaceFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

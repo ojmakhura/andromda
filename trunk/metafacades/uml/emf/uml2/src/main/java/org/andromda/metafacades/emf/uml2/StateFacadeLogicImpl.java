@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.eclipse.uml2.Activity;
 import org.eclipse.uml2.State;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.StateFacade.
  *
@@ -14,6 +13,7 @@ import org.eclipse.uml2.State;
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
