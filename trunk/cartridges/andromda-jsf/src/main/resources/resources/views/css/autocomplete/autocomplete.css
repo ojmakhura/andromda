@@ -47,7 +47,11 @@
     padding-left: 3px;
 }
 
-.autocomplete-button, .autocomplete-button-action{
+.autocomplete-button, 
+.autocomplete-button-action, 
+.autocomplete-button-multiple-add, 
+.autocomplete-button-multiple-remove
+{
     border:0px;
     width:22px;
     height:17px;
@@ -65,4 +69,12 @@
 }
 .autocomplete-input-text{
     vertical-align:middle;	
+}
+
+.autocomplete-button-multiple-add{
+    background-image:url(../../images/autocomplete-multiple-add.gif);
+}
+
+.autocomplete-button-multiple-remove{
+    background-image:url(../../images/autocomplete-multiple-remove.gif);
 }
