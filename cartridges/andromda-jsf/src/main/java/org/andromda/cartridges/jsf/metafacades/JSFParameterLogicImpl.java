@@ -18,6 +18,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -180,7 +181,7 @@ public class JSFParameterLogicImpl
      * @return getTableActions(true)
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableHyperlinkActions()
      */
-    protected List handleGetTableHyperlinkActions()
+    protected List<JSFAction> handleGetTableHyperlinkActions()
     {
         return this.getTableActions(true);
     }
@@ -191,27 +192,25 @@ public class JSFParameterLogicImpl
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private final List getTableActions(boolean hyperlink)
+    private final List<JSFAction> getTableActions(boolean hyperlink)
     {
-        final Set actions = new LinkedHashSet();
+        final Set<JSFAction> actions = new LinkedHashSet<JSFAction>();
         final String name = StringUtils.trimToNull(getName());
         if (name != null && isTable())
         {
             final JSFView view = (JSFView)this.getView();
 
-            final Collection allUseCases = getModel().getAllUseCases();
-            for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+            final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
+            for (final UseCaseFacade useCase : allUseCases)
             {
-                final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
                 if (useCase instanceof JSFUseCase)
                 {
                     final FrontEndActivityGraph graph = ((JSFUseCase)useCase).getActivityGraph();
                     if (graph != null)
                     {
-                        final Collection transitions = graph.getTransitions();
-                        for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                        final Collection<TransitionFacade> transitions = graph.getTransitions();
+                        for (final TransitionFacade transition : transitions)
                         {
-                            final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                             if (transition.getSource().equals(view) && transition instanceof JSFAction)
                             {
                                 final JSFAction action = (JSFAction)transition;
@@ -228,14 +227,14 @@ public class JSFParameterLogicImpl
                 }
             }
         }
-        return new ArrayList(actions);
+        return new ArrayList<JSFAction>(actions);
     }
 
     /**
      * @return getTableActions(false)
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableFormActions()
      */
-    protected List handleGetTableFormActions()
+    protected List<JSFAction> handleGetTableFormActions()
     {
         return this.getTableActions(false);
     }
@@ -249,10 +248,11 @@ public class JSFParameterLogicImpl
         if (tableColumns.isEmpty())
         {
             // try to preserve the order of the elements encountered
+            //final Map<String, JSFParameter> tableColumnsMap = new LinkedHashMap<String, JSFParameter>();
             final Map tableColumnsMap = new LinkedHashMap();
 
             // order is important
-            final List actions = new ArrayList();
+            final List<JSFAction> actions = new ArrayList<JSFAction>();
 
             // all table actions need the exact same parameters, just not always all of them
             actions.addAll(this.getTableFormActions());
@@ -261,16 +261,13 @@ public class JSFParameterLogicImpl
             // the user should not have modeled it that way (constraints will warn him/her)
             actions.addAll(this.getTableHyperlinkActions());
 
-            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            for (final JSFAction action : actions)
             {
-                final JSFAction action = (JSFAction)actionIterator.next();
-                final Collection actionParameters = action.getParameters();
-                for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+                for (final FrontEndParameter actionParameter : action.getParameters())
                 {
-                    final Object object = parameterIterator.next();
-                    if (object instanceof JSFParameter)
+                    if (actionParameter instanceof JSFParameter)
                     {
-                        final JSFParameter parameter = (JSFParameter)object;
+                        final JSFParameter parameter = (JSFParameter)actionParameter;
                         final String parameterName = parameter.getName();
                         if (parameterName != null)
                         {
@@ -292,10 +289,8 @@ public class JSFParameterLogicImpl
             }
 
             // for any missing parameters we just add the name of the column
-            final Collection columnNames = this.getTableColumnNames();
-            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+            for (final String columnName : this.getTableColumnNames())
             {
-                final String columnName = (String)columnNameIterator.next();
                 if (!tableColumnsMap.containsKey(columnName))
                 {
                     tableColumnsMap.put(
@@ -305,9 +300,8 @@ public class JSFParameterLogicImpl
             }
 
             // return everything in the same order as it has been modeled (using the table tagged value)
-            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+            for (final String columnObject : this.getTableColumnNames())
             {
-                final Object columnObject = columnNameIterator.next();
                 tableColumns.add(tableColumnsMap.get(columnObject));
             }
         }
@@ -628,7 +622,7 @@ public class JSFParameterLogicImpl
     /**
      * Stores the initial value of each type.
      */
-    private final Map initialValues = new HashMap();
+    private final Map<String, String> initialValues = new HashMap<String, String>();
 
     /**
      * @return constructDummyArray()
@@ -1101,17 +1095,16 @@ public class JSFParameterLogicImpl
      * @return tableColumnActions
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnActions(String)
      */
-    protected List handleGetTableColumnActions(final String columnName)
+    protected List<JSFAction> handleGetTableColumnActions(final String columnName)
     {
-        final List columnActions = new ArrayList();
+        final List<JSFAction> columnActions = new ArrayList<JSFAction>();
 
         if (columnName != null)
         {
-            final Set actions = new LinkedHashSet(this.getTableHyperlinkActions());
+            final Set<JSFAction> actions = new LinkedHashSet<JSFAction>(this.getTableHyperlinkActions());
             actions.addAll(this.getTableFormActions());
-            for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+            for (final JSFAction action : actions)
             {
-                final JSFAction action = (JSFAction)iterator.next();
                 if (columnName.equals(action.getTableLinkColumnName()))
                 {
                     columnActions.add(action);

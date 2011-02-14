@@ -4,7 +4,6 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ManageableEntityAssociationEnd.
@@ -14,6 +13,7 @@ import org.andromda.metafacades.uml.ManageableEntityAttribute;
 public class ManageableEntityAssociationEndLogicImpl
     extends ManageableEntityAssociationEndLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

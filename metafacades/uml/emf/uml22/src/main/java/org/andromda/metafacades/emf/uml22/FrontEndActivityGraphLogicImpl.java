@@ -22,6 +22,7 @@ import org.eclipse.uml2.uml.UseCase;
 public class FrontEndActivityGraphLogicImpl
     extends FrontEndActivityGraphLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -37,6 +37,7 @@ import org.andromda.metafacades.uml.TransitionFacade;
 public class FrontEndControllerOperationLogicImpl
     extends FrontEndControllerOperationLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -75,7 +76,7 @@ public class FrontEndControllerOperationLogicImpl
     @Override
     protected List<FrontEndParameter> handleGetFormFields()
     {
-        final Map<String, FrontEndParameter> formFieldsMap = new LinkedHashMap();
+        final Map<String, FrontEndParameter> formFieldsMap = new LinkedHashMap<String, FrontEndParameter>();
 
         // for quick lookup we use a hashset for the argument names, we only
         // consider parameters with a name

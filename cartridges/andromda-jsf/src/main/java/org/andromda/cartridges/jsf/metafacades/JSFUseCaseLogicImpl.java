@@ -13,12 +13,14 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.IncludeFacade;
@@ -139,7 +141,7 @@ public class JSFUseCaseLogicImpl
         //   where the application begins)
         if (this.isEntryUseCase())
         {
-            final List useCases = this.getAllUseCases();
+            final List<FrontEndUseCase> useCases = this.getAllUseCases();
             for (int ctr = 0; ctr < useCases.size(); ctr++)
             {
                 // - usecase
@@ -148,7 +150,7 @@ public class JSFUseCaseLogicImpl
                     useCase.getTitleKey(),
                     useCase.getTitleValue());
 
-                final List views = useCase.getViews();
+                final List<FrontEndView> views = useCase.getViews();
                 for (int ctr2 = 0; ctr2 < views.size(); ctr2++)
                 {
                     // - view
@@ -163,7 +165,7 @@ public class JSFUseCaseLogicImpl
                         view.getDocumentationKey(),
                         view.getDocumentationValue());
 
-                    final List viewVariables = view.getVariables();
+                    final List<FrontEndParameter> viewVariables = view.getVariables();
                     for (int ctr3 = 0; ctr3 < viewVariables.size(); ctr3++)
                     {
                         // - page variables
@@ -195,7 +197,7 @@ public class JSFUseCaseLogicImpl
                         }
                     }
 
-                    final List actions = useCase.getActions();
+                    final List<FrontEndAction> actions = useCase.getActions();
                     for (int ctr3 = 0; ctr3 < actions.size(); ctr3++)
                     {
                         // - action
@@ -233,7 +235,7 @@ public class JSFUseCaseLogicImpl
 
                         // - forwards
 
-                        final List transitions = action.getTransitions();
+                        final List<FrontEndForward> transitions = action.getTransitions();
                         for (final Iterator iterator = transitions.iterator(); iterator.hasNext();)
                         {
                             final Object transition = iterator.next();
@@ -253,7 +255,7 @@ public class JSFUseCaseLogicImpl
                         }
 
                         // - action parameters
-                        final List parameters = action.getParameters();
+                        final List<FrontEndParameter> parameters = action.getParameters();
                         for (int l = 0; l < parameters.size(); l++)
                         {
                             final Object object = parameters.get(l);
@@ -280,10 +282,10 @@ public class JSFUseCaseLogicImpl
                                         final ClassifierFacade type = end.getType();
                                         if (type != null)
                                         {
-                                            final Collection typeAttributes = type.getAttributes();
+                                            final Collection<AttributeFacade> typeAttributes = type.getAttributes();
                                             if (!attributes.isEmpty())
                                             {
-                                                for (final Iterator attributeIterator = typeAttributes.iterator();
+                                                for (final Iterator<AttributeFacade> attributeIterator = typeAttributes.iterator();
                                                     attributeIterator.hasNext();)
                                                 {
                                                     final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
@@ -305,8 +307,8 @@ public class JSFUseCaseLogicImpl
                                 // - submittable input table
                                 if (parameter.isInputTable())
                                 {
-                                    final Collection columnNames = parameter.getTableColumnNames();
-                                    for (final Iterator columnNameIterator = columnNames.iterator();
+                                    final Collection<String> columnNames = parameter.getTableColumnNames();
+                                    for (final Iterator<String> columnNameIterator = columnNames.iterator();
                                         columnNameIterator.hasNext();)
                                     {
                                         final String columnName = (String)columnNameIterator.next();
@@ -417,7 +419,7 @@ public class JSFUseCaseLogicImpl
     /**
      * Collects all attribute messages into the given Map.
      *
-     * @param messages the Map in which messags are collected.
+     * @param messages the Map in which messages are collected.
      * @param attributes the attributes to collect the messages from.
      * @param resolvingTypes used to prevent endless recursion.
      */
@@ -441,7 +443,7 @@ public class JSFUseCaseLogicImpl
     /**
      * Collects all association end messages into the given Map.
      *
-     * @param messages the Map in which messags are collected.
+     * @param messages the Map in which messages are collected.
      * @param associationEnds the association ends to collect the messages from.
      * @param resolvingTypes used to prevent endless recursion.
      */
@@ -485,34 +487,30 @@ public class JSFUseCaseLogicImpl
      * @return actionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionForwards()
      */
-    protected List handleGetActionForwards()
+    protected List<JSFAction> handleGetActionForwards()
     {
-        final Set actionForwards = new LinkedHashSet();
-        final List views = this.getViews();
-        for (final Iterator iterator = views.iterator(); iterator.hasNext();)
+        final Set<JSFAction> actionForwards = new LinkedHashSet<JSFAction>();
+        for (final FrontEndView view : this.getViews())
         {
-            final JSFView view = (JSFView)iterator.next();
-            actionForwards.addAll(view.getActionForwards());
+            actionForwards.addAll(((JSFView)view).getActionForwards());
         }
-        return new ArrayList(actionForwards);
+        return new ArrayList<JSFAction>(actionForwards);
     }
 
     /**
      * @return forwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwards()
      */
-    protected List handleGetForwards()
+    protected List<JSFForward> handleGetForwards()
     {
-        final Map forwards = new LinkedHashMap();
-        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        final Map<String, JSFForward> forwards = new LinkedHashMap<String, JSFForward>();
+        for (final FrontEndAction action : this.getActions())
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
-            for (final Iterator forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
+            for (final FrontEndForward forward : action.getActionForwards())
             {
-                final Object forward = forwardIterator.next();
                 if (forward instanceof JSFForward)
                 {
-                    forwards.put(((ModelElementFacade)forward).getName(), forward);
+                    forwards.put(forward.getName(), (JSFForward) forward);
                 }
             }
         }
@@ -524,20 +522,18 @@ public class JSFUseCaseLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllForwards()
      */
     @SuppressWarnings("unchecked")
-    protected List handleGetAllForwards()
+    protected List<ModelElementFacade> handleGetAllForwards()
     {
         final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final Iterator iterator = this.getActionForwards().iterator(); iterator.hasNext();)
+        for (final JSFAction forward : this.getActionForwards())
         {
-            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
             forwards.put(forward.getName(), forward);
         }
-        for (final Iterator iterator = this.getForwards().iterator(); iterator.hasNext();)
+        for (final JSFForward forward : this.getForwards())
         {
-            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
             forwards.put(forward.getName(), forward);
         }
-        return new ArrayList(forwards.values());
+        return new ArrayList<ModelElementFacade>(forwards.values());
     }
 
     /**
@@ -730,12 +726,12 @@ public class JSFUseCaseLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getRegistrationUseCases()
      */
     @SuppressWarnings("unchecked")
-    protected List handleGetRegistrationUseCases()
+    protected List<FrontEndUseCase> handleGetRegistrationUseCases()
     {
-        final List useCases = new ArrayList(this.getAllUseCases());
-        for (final Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        final List<FrontEndUseCase> useCases = new ArrayList<FrontEndUseCase>(this.getAllUseCases());
+        for (final Iterator<FrontEndUseCase> iterator = useCases.iterator(); iterator.hasNext();)
         {
-            final Object useCase = iterator.next();
+            final FrontEndUseCase useCase = iterator.next();
             if (useCase instanceof JSFUseCase)
             {
                 if (!((JSFUseCase)useCase).isRegistrationUseCase())

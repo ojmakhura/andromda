@@ -77,12 +77,12 @@ public class JSFControllerLogicImpl
      * @return references
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getSessionObjectReferences()
      */
-    protected List handleGetSessionObjectReferences()
+    protected List<DependencyFacade> handleGetSessionObjectReferences()
     {
-        final List references = new ArrayList(this.getSourceDependencies());
-        for (final Iterator iterator = references.iterator(); iterator.hasNext();)
+        final List<DependencyFacade> references = new ArrayList<DependencyFacade> (this.getSourceDependencies());
+        for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
         {
-            final ModelElementFacade targetElement = ((DependencyFacade)iterator.next()).getTargetElement();
+            final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
             if (!(targetElement instanceof JSFSessionObject))
             {
                 iterator.remove();   

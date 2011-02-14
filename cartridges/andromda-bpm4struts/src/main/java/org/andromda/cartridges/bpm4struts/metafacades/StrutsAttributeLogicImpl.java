@@ -15,7 +15,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 public class StrutsAttributeLogicImpl
     extends StrutsAttributeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
