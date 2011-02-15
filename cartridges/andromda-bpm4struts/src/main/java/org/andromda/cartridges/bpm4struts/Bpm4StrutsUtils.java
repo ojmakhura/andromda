@@ -49,7 +49,7 @@ public final class Bpm4StrutsUtils
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
-    public static List parseValidatorArgs(String validatorTaggedValue)
+    public static List<String> parseValidatorArgs(String validatorTaggedValue)
     {
         if (validatorTaggedValue == null)
         {
@@ -65,7 +65,7 @@ public final class Bpm4StrutsUtils
                     "andromda_presentation_view_field_format?): " + validatorTaggedValue);
         }
 
-        final List validatorArgs = new ArrayList();
+        final List<String> validatorArgs = new ArrayList<String>();
 
         // only keep what is between parentheses (if any)
         int left = validatorTaggedValue.indexOf('(');
@@ -100,7 +100,7 @@ public final class Bpm4StrutsUtils
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
-    public static List parseValidatorVars(String validatorTaggedValue)
+    public static List<String> parseValidatorVars(String validatorTaggedValue)
     {
         if (validatorTaggedValue == null)
         {
@@ -113,7 +113,7 @@ public final class Bpm4StrutsUtils
             throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
         }
 
-        final List validatorVars = new ArrayList();
+        final List<String> validatorVars = new ArrayList<String>();
 
         // only keep what is between parentheses (if any)
         int left = validatorTaggedValue.indexOf('(');

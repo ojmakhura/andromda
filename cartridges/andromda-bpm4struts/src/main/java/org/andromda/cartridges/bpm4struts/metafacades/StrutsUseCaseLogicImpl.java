@@ -164,7 +164,7 @@ public class StrutsUseCaseLogicImpl
             {
                 rolesBuffer.append(',');
             }
-            final Role role = (Role)userIterator.next();
+            final Role role = userIterator.next();
             rolesBuffer.append(role.getName());
         }
         return rolesBuffer.toString();
@@ -503,7 +503,7 @@ public class StrutsUseCaseLogicImpl
                         {
                             for (int l = 0; l < exceptions.size(); l++)
                             {
-                                final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
+                                final StrutsExceptionHandler exception = exceptions.get(l);
                                 // we construct the key using the action message too because the exception can
                                 // belong to more than one action (therefore it cannot return the correct value
                                 // in .getExceptionKey())
@@ -552,7 +552,7 @@ public class StrutsUseCaseLogicImpl
                     for (int k = 0; k < pageVariables.size(); k++)
                     {
                         // PAGE-VARIABLE
-                        final StrutsParameter parameter = (StrutsParameter)pageVariables.get(k);
+                        final StrutsParameter parameter = pageVariables.get(k);
 
                         messages.put(parameter.getMessageKey(), parameter.getMessageValue());
 /*
