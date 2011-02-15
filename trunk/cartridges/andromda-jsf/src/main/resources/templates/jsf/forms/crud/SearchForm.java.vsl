@@ -51,23 +51,25 @@ $field.getDocumentation("     * ")
 #end
 #foreach ($member in $manageable.manageableSearchAssociationEnds)
 #if($member.type.manageable)
-#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#set ($fieldType = $member.manageableIdentifier.type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
 #else
 #if($member.type.compositeIdentifier)
-#set ($fieldType = "Object")
+#set ($fieldTypeName = "Object")
 #else
-#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
+#set ($fieldType = $member.type.identifiers.iterator().next().type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
 #end
 #end
 #if ($member.many)
-#set ($fieldType = "${fieldType}[]")
+#set ($fieldTypeName = "${fieldTypeName}[]")
 #end
-    private $fieldType $member.name;
+    private $fieldTypeName $member.name;
 
     /**
 $member.getDocumentation("     * ")
      */
-    $member.visibility $fieldType ${member.getterName}()
+    $member.visibility $fieldTypeName ${member.getterName}()
     {
         return this.$member.name;
     }
@@ -75,9 +77,19 @@ $member.getDocumentation("     * ")
     /**
 $member.getDocumentation("     * ")
      */
-    $member.visibility void ${member.setterName}($fieldType $member.name)
+    $member.visibility void ${member.setterName}($fieldTypeName $member.name)
     {
+## the code below avoids the "0 when null" issue of EL
+#if($member.type.compositeIdentifier || $fieldType.primitive || (!$fieldType.integerType && !$fieldType.longType))
         this.$member.name = $member.name;
+#else
+        //the code below avoids the "0 when null" issue of EL
+#if ($member.many)
+        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros($member.name);
+#else
+        this.$member.name = ($member.name == null || $member.name == 0#if($fieldType.longType)L#end)? null: $member.name;
+#end
+#end    
     }
 
     private java.util.Collection $member.backingListName;

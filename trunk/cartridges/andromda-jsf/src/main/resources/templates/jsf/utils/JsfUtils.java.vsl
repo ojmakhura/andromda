@@ -572,4 +572,55 @@ public class $className
             return null;
         }
     }
+    
+    /**
+     * Returns the array without the entries with zero (using to avoid the null to zero issue of EL)
+     * @intArray an array filled with Integer
+     * @return the array with the entries with zero and null removed
+     */
+    public static Integer[] removeZeros(Integer[] intArray)
+    {
+        if(intArray == null)
+        {
+            return null;
+        }
+        else
+        {
+            final java.util.Collection<Integer> result=new java.util.ArrayList<Integer>(intArray.length);
+            for(Integer intValue: intArray)
+            {
+                if(intValue != null && intValue != 0)
+                {
+                    result.add(intValue);
+                }
+            }
+            return result.toArray(new Integer[0]);
+        }
+    }
+    
+    
+    /**
+     * Returns the array without the entries with zero (using to avoid the null to zero issue of EL)
+     * @longArray an array filled with Integer
+     * @return the array with the entries with zero and null removed
+     */
+    public static Long[] removeZeros(Long[] longArray)
+    {
+        if(longArray == null)
+        {
+            return null;
+        }
+        else
+        {
+            final java.util.Collection<Long> result=new java.util.ArrayList<Long>(longArray.length);
+            for(Long longValue: longArray)
+            {
+                if(longValue != null && longValue != 0)
+                {
+                    result.add(longValue);
+                }
+            }
+            return result.toArray(new Long[0]);
+        }
+    }
 }

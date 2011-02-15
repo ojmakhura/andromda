@@ -143,37 +143,39 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.name;
     }
 
-    private java.util.Collection $field.backingListName;
+    private java.util.Collection<?> $field.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
-    public java.util.Collection get${backingListMethod}(){
+    public java.util.Collection<?> get${backingListMethod}(){
         return ${field.backingListName};
     }
 
-    public void set${backingListMethod}(java.util.Collection ${field.backingListName}){
+    public void set${backingListMethod}(java.util.Collection<?> ${field.backingListName}){
         this.${field.backingListName} = ${field.backingListName};
     }
 
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if($member.type.manageable)
-#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#set ($fieldType = $member.manageableIdentifier.type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
 #else
 #if($member.type.compositeIdentifier)
-#set ($fieldType = "Object")
+#set ($fieldTypeName = "Object")
 #else
-#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
+#set ($fieldType = $member.type.identifiers.iterator().next().type)
+#set ($fieldTypeName = $fieldType.fullyQualifiedName)
 #end
 #end
 #if ($member.many)
-#set ($fieldType = "${fieldType}[]")
+#set ($fieldTypeName = "${fieldTypeName}[]")
 #end
-    private $fieldType $member.name;
+    private $fieldTypeName $member.name;
 
     /**
 $member.getDocumentation("     * ")
      */
-    $member.visibility $fieldType ${member.getterName}()
+    $member.visibility $fieldTypeName ${member.getterName}()
     {
         return this.$member.name;
     }
@@ -181,9 +183,19 @@ $member.getDocumentation("     * ")
     /**
 $member.getDocumentation("     * ")
      */
-    $member.visibility void ${member.setterName}($fieldType $member.name)
+    $member.visibility void ${member.setterName}($fieldTypeName $member.name)
     {
+## the code below avoids the "0 when null" issue of EL
+#if($member.type.compositeIdentifier || $fieldType.primitive || (!$fieldType.integerType && !$fieldType.longType))
         this.$member.name = $member.name;
+#else
+        //the code below avoids the "0 when null" issue of EL
+#if ($member.many)
+        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros($member.name);
+#else
+        this.$member.name = ($member.name == null || $member.name == 0#if($fieldType.longType)L#end)? null: $member.name;
+#end
+#end    
     }
 
     private java.util.Collection $member.backingListName;
@@ -207,7 +219,7 @@ $member.getDocumentation("     * ")
     /**
      * Stores any date or time formatters for this form.
      */
-    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
+    private final java.util.Map<String,java.text.DateFormat> dateTimeFormatters = new java.util.HashMap<String,java.text.DateFormat>();
 
     /**
      * Gets any date and time formatters (keyed by property name)
@@ -215,7 +227,7 @@ $member.getDocumentation("     * ")
      *
      * @return the Map containing any date and time formatters.
      */
-    public java.util.Map getDateTimeFormatters()
+    public java.util.Map<String,java.text.DateFormat> getDateTimeFormatters()
     {
         return this.dateTimeFormatters;
     }
