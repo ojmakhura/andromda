@@ -77,6 +77,7 @@ public abstract class ${manageable.controllerName}
 #end
 
 #if ($manageable.preload)
+        @SuppressWarnings("unchecked")
         final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
 
         form.${manageable.listSetterName}(list);
@@ -92,7 +93,7 @@ public abstract class ${manageable.controllerName}
 #end
 #if (!$useAutocompleteLookup)
 #if (!$manageable.manageableAssociationEnds.empty)
-        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+        final java.util.Map<String,?> backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
         form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
 #end
@@ -454,7 +455,7 @@ public abstract class ${manageable.controllerName}
 #foreach ($member in $manageable.manageableMembers)
 #if(!$member.hidden)##isn't working the ($manageable.searchable($member))
 #if($member.type.stringType)
-            ${and} org.apache.commons.lang.StringUtils.isEmpty(form.getSearchForm().${member.getterName}())
+            ${and} org.apache.commons.lang.StringUtils.isBlank(form.getSearchForm().${member.getterName}())
 #elseif($member.type.collectionType)
             ${and} org.apache.commons.collections.CollectionUtils.isEmpty(form.getSearchForm().${member.getterName}())
 #elseif($member.type.arrayType)
@@ -488,7 +489,7 @@ public abstract class ${manageable.controllerName}
 
 #if (!$useAutocompleteLookup)
 #if (!$manageable.manageableAssociationEnds.empty)
-        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+        final java.util.Map<String,java.util.Collection> backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
         form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
 #end
@@ -610,7 +611,7 @@ public abstract class ${manageable.controllerName}
     */
     static public ${manageable.valueObjectClassName} load(${identifierType} ${manageable.identifierName})
     {
-        if(#if(!$identifierIsPrimitive)${manageable.identifierName} == null ||#end #if(!$manageable.compositeIdentifier && $identifierIsStringType)org.apache.commons.lang.StringUtils.isEmpty(${manageable.identifierName})#else${manageable.identifierName} == 0#end)
+        if(#if(!$identifierIsPrimitive)${manageable.identifierName} == null ||#end #if(!$manageable.compositeIdentifier && $identifierIsStringType)org.apache.commons.lang.StringUtils.isBlank(${manageable.identifierName})#else${manageable.identifierName} == 0#end)
         {
             return null;
         }
