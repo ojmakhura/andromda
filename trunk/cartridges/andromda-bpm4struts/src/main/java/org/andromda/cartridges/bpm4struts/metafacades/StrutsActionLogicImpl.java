@@ -94,7 +94,7 @@ public class StrutsActionLogicImpl
      * @param processedTransitions the set of transitions already processed
      */
     private void collectTransitions(TransitionFacade transition,
-                                    Collection processedTransitions)
+                                    Collection<TransitionFacade> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
@@ -255,14 +255,14 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetTableNonColumnFormParameters()
      */
-    protected List handleGetTableNonColumnFormParameters()
+    protected List<StrutsParameter> handleGetTableNonColumnFormParameters()
     {
-        List tableNonColumnActionParameters = null;
+        List<StrutsParameter> tableNonColumnActionParameters = null;
 
         final StrutsParameter table = getTableLinkParameter();
         if (table != null)
         {
-            final Map tableNonColumnActionParametersMap = new LinkedHashMap(4);
+            final Map<String, StrutsParameter> tableNonColumnActionParametersMap = new LinkedHashMap<String, StrutsParameter>(4);
             final Collection<String> columnNames = table.getTableColumnNames();
             final List<StrutsAction> formActions = table.getTableFormActions();
             int formSize = formActions.size();
@@ -280,7 +280,7 @@ public class StrutsActionLogicImpl
                 }
             }
 
-            tableNonColumnActionParameters = new ArrayList(tableNonColumnActionParametersMap.values());
+            tableNonColumnActionParameters = new ArrayList<StrutsParameter>(tableNonColumnActionParametersMap.values());
         }
 
         return tableNonColumnActionParameters;
@@ -729,28 +729,28 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionForwards()
      */
-    protected List handleGetActionForwards()
+    protected List<TransitionFacade> handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
-        return new ArrayList(actionForwards.values());
+        return new ArrayList<TransitionFacade>(actionForwards.values());
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDecisionTransitions()
      */
-    protected List handleGetDecisionTransitions()
+    protected List<TransitionFacade> handleGetDecisionTransitions()
     {
         if (decisionTransitions == null) initializeCollections();
-        return new ArrayList(decisionTransitions);
+        return new ArrayList<TransitionFacade>(decisionTransitions);
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionStates()
      */
-    protected List handleGetActionStates()
+    protected List<StrutsActionState> handleGetActionStates()
     {
         if (actionStates == null) initializeCollections();
-        return new ArrayList(actionStates);
+        return new ArrayList<StrutsActionState>(actionStates);
     }
 
     /**
@@ -758,7 +758,7 @@ public class StrutsActionLogicImpl
      */
     protected List<FrontEndExceptionHandler> handleGetActionExceptions()
     {
-        final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet();
+        final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet<FrontEndExceptionHandler>();
         final Collection<StrutsActionState> actionStates = getActionStates();
         for (final Iterator<StrutsActionState> iterator = actionStates.iterator(); iterator.hasNext();)
         {
@@ -815,9 +815,9 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionFormFields()
      */
-    protected List handleGetActionFormFields()
+    protected List<FrontEndParameter> handleGetActionFormFields()
     {
-        final Map formFieldMap = new HashMap();
+        final Map<String, FrontEndParameter> formFieldMap = new HashMap<String, FrontEndParameter>();
 
         /**
          * for useCaseStart actions we need to detect all usecases forwarding to the one belonging to this action
@@ -829,7 +829,7 @@ public class StrutsActionLogicImpl
             if (useCase != null)
             {
                 final Collection<FrontEndFinalState> finalStates = useCase.getReferencingFinalStates();
-                for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+                for (final Iterator<FrontEndFinalState> finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
                     final Object finalStateObject = finalStateIterator.next();
                     // we need to test for the type because a non struts-use-case final state might accidentally
@@ -838,10 +838,8 @@ public class StrutsActionLogicImpl
                     if (finalStateObject instanceof StrutsFinalState)
                     {
                         final StrutsFinalState finalState = (StrutsFinalState) finalStateObject;
-                        final Collection parameters = finalState.getInterUseCaseParameters();
-                        for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                        for (final FrontEndParameter parameter : finalState.getInterUseCaseParameters())
                         {
-                            final ParameterFacade parameter = (ParameterFacade) parameterIterator.next();
                             formFieldMap.put(parameter.getName(), parameter);
                         }
                     }
@@ -899,10 +897,11 @@ public class StrutsActionLogicImpl
             formFieldMap.put(facade.getName(), facade);
         }
 
-        return new ArrayList(formFieldMap.values());
+        return new ArrayList<FrontEndParameter>(formFieldMap.values());
     }
 
     /**
+     * FrontEndControllerOperation does not extend OperationFacade
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetDeferredOperations()
      */
     protected List handleGetDeferredOperations()
@@ -920,11 +919,8 @@ public class StrutsActionLogicImpl
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
-            final List transitions = getDecisionTransitions();
-            size = transitions.size();
-            for (int i = 0; i < size; i++)
+            for (StrutsForward forward : this.getDecisionTransitions())
             {
-                final StrutsForward forward = (StrutsForward) transitions.get(i);
                 final FrontEndEvent trigger = forward.getDecisionTrigger();
                 if (trigger != null)
                 {
@@ -938,7 +934,7 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetActionParameters()
      */
-    protected List handleGetActionParameters()
+    protected List<ParameterFacade> handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.emptyList() : new ArrayList(trigger.getParameters());
@@ -947,9 +943,9 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetInterUseCaseParameters(org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState)
      */
-    protected List handleGetInterUseCaseParameters(StrutsFinalState finalState)
+    protected List<FrontEndParameter> handleGetInterUseCaseParameters(StrutsFinalState finalState)
     {
-        List parameters;
+        List<FrontEndParameter> parameters;
 
         if (finalState == null)
         {
@@ -958,26 +954,20 @@ public class StrutsActionLogicImpl
         else
         {
             // we don't want to list parameters with the same name to we use a hash map
-            final Map parameterMap = new HashMap();
+            final Map<String, FrontEndParameter> parameterMap = new HashMap<String, FrontEndParameter>();
 
-            final List transitions = getActionForwards();
-            int size = transitions.size();
-            for (int i = 0; i < size; i++)
+            for (final StrutsForward forward : this.getActionForwards())
             {
-                final StrutsForward forward = (StrutsForward) transitions.get(i);
                 // only return those parameters that belong to both this action and the argument final state
                 if (finalState.equals(forward.getTarget()))
                 {
-                    final List forwardParameters = forward.getForwardParameters();
-                    int paramSize = forwardParameters.size();
-                    for (int j = 0; j < paramSize; j++)
+                    for (FrontEndParameter parameter : forward.getForwardParameters())
                     {
-                        final ModelElementFacade parameter = (ModelElementFacade) forwardParameters.get(j);
                         parameterMap.put(parameter.getName(), parameter);
                     }
                 }
             }
-            parameters = new ArrayList(parameterMap.values());
+            parameters = new ArrayList<FrontEndParameter>(parameterMap.values());
         }
 
         return parameters;
@@ -987,9 +977,9 @@ public class StrutsActionLogicImpl
      * @return getActionForwards().getTarget()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
      */
-    protected List handleGetTargetPages()
+    protected List<StateVertexFacade> handleGetTargetPages()
     {
-        Collection targetPages = new LinkedHashSet();
+        Collection<StateVertexFacade> targetPages = new LinkedHashSet<StateVertexFacade>();
 
         for (final StrutsForward forward : getActionForwards())
         {
@@ -999,20 +989,20 @@ public class StrutsActionLogicImpl
             }
         }
 
-        return new ArrayList(targetPages);
+        return new ArrayList<StateVertexFacade>(targetPages);
     }
 
     /**
      * @return new ArrayList(transitions)
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#getTransitions()
      */
-    protected List handleGetTransitions()
+    protected List<TransitionFacade> handleGetTransitions()
     {
         if (transitions == null)
         {
             initializeCollections();
         }
-        return new ArrayList(transitions);
+        return new ArrayList<TransitionFacade>(transitions);
     }
 
     /**
@@ -1051,14 +1041,14 @@ public class StrutsActionLogicImpl
      * @return getActionParameters().isShouldReset()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getResettableActionParameters()
      */
-    protected List handleGetResettableActionParameters()
+    protected List<StrutsParameter> handleGetResettableActionParameters()
     {
-        return new ArrayList(new FilteredCollection(this.getActionParameters())
+        return new ArrayList<StrutsParameter>(new FilteredCollection(this.getActionParameters())
         {
             private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
-                return object != null && ((StrutsParameter) object).isShouldReset();
+                return object != null && ((StrutsParameter)object).isShouldReset();
             }
         });
     }
@@ -1124,9 +1114,9 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetHiddenActionParameters()
      */
-    protected List handleGetHiddenActionParameters()
+    protected List<StrutsParameter> handleGetHiddenActionParameters()
     {
-        final List hiddenActionParameters = new ArrayList(this.getActionParameters());
+        final List<StrutsParameter> hiddenActionParameters = new ArrayList<StrutsParameter>(this.getActionParameters());
         CollectionUtils.filter(hiddenActionParameters, new Predicate()
         {
             public boolean evaluate(final Object object)

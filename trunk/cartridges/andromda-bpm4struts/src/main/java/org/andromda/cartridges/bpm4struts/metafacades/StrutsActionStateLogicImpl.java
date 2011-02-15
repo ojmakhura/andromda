@@ -12,8 +12,6 @@ import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -72,10 +70,8 @@ public class StrutsActionStateLogicImpl
     public List getExceptions()
     {
         final Map<String, TransitionFacade> exceptionsMap = new LinkedHashMap<String, TransitionFacade>();
-        final Collection<TransitionFacade> outgoings = getOutgoings();
-        for (final Iterator<TransitionFacade> iterator = outgoings.iterator(); iterator.hasNext();)
+        for (final TransitionFacade transition : getOutgoings())
         {
-            final TransitionFacade transition = iterator.next();
             if (transition instanceof StrutsExceptionHandler)
             {
                 exceptionsMap.put(((StrutsExceptionHandler)transition).getExceptionKey(), transition);

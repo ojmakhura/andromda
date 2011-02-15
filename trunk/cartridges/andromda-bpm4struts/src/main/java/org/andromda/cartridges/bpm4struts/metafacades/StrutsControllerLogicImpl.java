@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -42,34 +43,34 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getDeferringActions()
      */
-    public List getDeferringActions()
+    public List<FrontEndAction> getDeferringActions()
     {
-        final Collection deferringActions = new LinkedHashSet();
+        final Collection<FrontEndAction> deferringActions = new LinkedHashSet<FrontEndAction>();
 
-        final Collection operations = getOperations();
-        for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        final Collection<OperationFacade> operations = getOperations();
+        for (final Iterator<OperationFacade> operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
             final StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
             deferringActions.addAll(operation.getDeferringActions());
         }
-        return new ArrayList(deferringActions);
+        return new ArrayList<FrontEndAction>(deferringActions);
     }
 
     /**
      * @return getSourceDependencies().getTargetElement() StrutsSessionObject
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getSessionObjects()
      */
-    protected List handleGetSessionObjects()
+    protected List<StrutsSessionObject> handleGetSessionObjects()
     {
-        final List objectsList = new ArrayList();
+        final List<StrutsSessionObject> objectsList = new ArrayList<StrutsSessionObject>();
 
-        final Collection dependencies = this.getSourceDependencies();
-        for (final Iterator iterator = dependencies.iterator(); iterator.hasNext();)
+        for (final DependencyFacade dependency : this.getSourceDependencies())
         {
-            final DependencyFacade dependency = (DependencyFacade)iterator.next();
             final ModelElementFacade modelElement = dependency.getTargetElement();
             if (modelElement instanceof StrutsSessionObject)
-                objectsList.add(modelElement);
+            {
+                objectsList.add((StrutsSessionObject)modelElement);
+            }
         }
 
         return objectsList;
@@ -79,18 +80,13 @@ public class StrutsControllerLogicImpl
      * @return getOperations().getArguments()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getAllArguments()
      */
-    protected List handleGetAllArguments()
+    protected List<ParameterFacade> handleGetAllArguments()
     {
-        final List allArguments = new ArrayList();
-        final Collection operations = this.getOperations();
-
-        for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        final List<ParameterFacade> allArguments = new ArrayList<ParameterFacade>();
+        for (final OperationFacade operationFacade : this.getOperations())
         {
-            final OperationFacade operationFacade = (OperationFacade)operationIterator.next();
-            final Collection arguments = operationFacade.getArguments();
-            for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+            for (final ParameterFacade parameterFacade : operationFacade.getArguments())
             {
-                final ParameterFacade parameterFacade = (ParameterFacade)argumentIterator.next();
                 allArguments.add(parameterFacade);
             }
         }
