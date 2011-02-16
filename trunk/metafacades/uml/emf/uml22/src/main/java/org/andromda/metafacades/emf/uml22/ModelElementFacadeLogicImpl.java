@@ -38,7 +38,6 @@ import org.eclipse.uml2.uml.Deployment;
 import org.eclipse.uml2.uml.DirectedRelationship;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Manifestation;
-import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
@@ -654,11 +653,11 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#getRootPackage()
      */
     @Override
-    protected Model handleGetRootPackage()
+    protected Package handleGetRootPackage()
     {
         // Be careful here, UML2 Model is mapped to a PackageFacade -
         // RootPackage. Need to map Model to UMLResource, not to modelFacade, in metafacade.xml
-        return (Model) UmlUtilities.findModel(this.metaObject);
+        return (Package) UmlUtilities.findModel(this.metaObject);
     }
 
     /**
