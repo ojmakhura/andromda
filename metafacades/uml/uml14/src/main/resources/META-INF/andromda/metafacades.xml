@@ -288,6 +288,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <property name="useCase"/>
         </mapping>
+        <property reference="classifierNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.FrontEndControllerOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">

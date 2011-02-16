@@ -87,6 +87,7 @@
         <property reference="preconditionNamePattern"/>
         <property reference="postconditionNamePattern"/>
         <property reference="operationNameMask"/>
+        <property reference="defaultMultiplicity"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.AttributeFacadeLogicImpl">
         <mapping class="org.andromda.metafacades.emf.uml22.AttributeImpl"/>
@@ -98,6 +99,7 @@
         <mapping class="org.eclipse.uml2.uml.internal.impl.ParameterImpl"/>
         <property reference="parameterNameMask"/>
         <property reference="pluralizeParameterNames"/>
+        <property reference="defaultMultiplicity"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.GeneralizationFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.GeneralizationImpl"/>
