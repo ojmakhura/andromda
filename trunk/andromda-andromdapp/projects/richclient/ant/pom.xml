@@ -41,6 +41,11 @@
                 <targetPath>templates/richclient/ant/mda/src/mappings</targetPath>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
     <!-- Skip findbugs reporting, because no source files: Throws 'No classes found to analyze' exception and stops -->
     <reporting>

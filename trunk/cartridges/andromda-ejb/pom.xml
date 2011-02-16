@@ -51,6 +51,9 @@
                 <artifactId>andromda-cartridge-plugin</artifactId>
             </plugin>
             <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
             </plugin>

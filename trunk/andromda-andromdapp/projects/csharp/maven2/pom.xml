@@ -67,5 +67,10 @@
                 <targetPath>templates/csharp/maven2/mda/src/main/uml</targetPath>
             </resource-->
         </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 </project>
