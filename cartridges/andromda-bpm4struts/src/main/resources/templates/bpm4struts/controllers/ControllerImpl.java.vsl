@@ -112,7 +112,9 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
      */
     public static final class $stringUtils.capitalize($field.name)Dummy implements java.io.Serializable
     {
-#set ($constructor = '')
+        private static final long serialVersionUID = 34L;
+
+        #set ($constructor = '')
 #set ($paramSeparator = '')
 #foreach ($columnName in $field.tableColumnNames)
 #set ($columnName = $stringUtils.lowerCamelCaseName($columnName))
