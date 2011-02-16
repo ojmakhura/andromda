@@ -4,7 +4,6 @@ import org.eclipse.uml2.Element;
 import org.eclipse.uml2.State;
 import org.eclipse.uml2.Transition;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ActionFacade.
  *
@@ -13,6 +12,7 @@ import org.eclipse.uml2.Transition;
 public class ActionFacadeLogicImpl
     extends ActionFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

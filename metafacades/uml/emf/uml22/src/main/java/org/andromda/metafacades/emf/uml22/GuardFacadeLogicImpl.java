@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.Transition;
 public class GuardFacadeLogicImpl
     extends GuardFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

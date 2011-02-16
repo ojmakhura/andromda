@@ -12,6 +12,7 @@ package org.andromda.metafacades.uml14;
 public class RedefinableTemplateSignatureFacadeLogicImpl
     extends RedefinableTemplateSignatureFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
      * @param metaObject 

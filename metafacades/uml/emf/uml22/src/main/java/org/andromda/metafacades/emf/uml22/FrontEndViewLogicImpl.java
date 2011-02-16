@@ -18,7 +18,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndView.
  *
@@ -27,6 +26,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndViewLogicImpl
     extends FrontEndViewLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

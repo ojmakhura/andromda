@@ -25,6 +25,7 @@ import org.eclipse.uml2.uml.UseCase;
 public class FrontEndEventLogicImpl
     extends FrontEndEventLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

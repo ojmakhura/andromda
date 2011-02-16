@@ -13,8 +13,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -24,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsFinalStateLogicImpl
     extends StrutsFinalStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

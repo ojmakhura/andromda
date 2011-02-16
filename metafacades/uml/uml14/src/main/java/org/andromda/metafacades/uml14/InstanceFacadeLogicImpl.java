@@ -12,6 +12,7 @@ import org.omg.uml.behavioralelements.commonbehavior.Instance;
 public class InstanceFacadeLogicImpl
     extends InstanceFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

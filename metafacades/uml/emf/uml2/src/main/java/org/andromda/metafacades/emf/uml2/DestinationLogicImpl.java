@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml2;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Destination.
  *
@@ -9,6 +8,7 @@ package org.andromda.metafacades.emf.uml2;
 public class DestinationLogicImpl
     extends DestinationLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

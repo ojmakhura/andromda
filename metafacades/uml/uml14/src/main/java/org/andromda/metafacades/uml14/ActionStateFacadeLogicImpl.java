@@ -10,6 +10,7 @@ import org.omg.uml.behavioralelements.commonbehavior.Action;
 public class ActionStateFacadeLogicImpl
     extends ActionStateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

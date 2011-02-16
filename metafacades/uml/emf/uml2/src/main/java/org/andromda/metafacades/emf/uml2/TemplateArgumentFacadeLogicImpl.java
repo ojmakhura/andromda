@@ -14,6 +14,7 @@ import org.eclipse.uml2.TemplateParameterSubstitution;
 public class TemplateArgumentFacadeLogicImpl
     extends TemplateArgumentFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

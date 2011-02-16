@@ -655,9 +655,9 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Package handleGetRootPackage()
     {
-        // Be careful here, UML2 Model is mapped to a PackageFacade -
+        // UML2 Model extends Package, is mapped to a PackageFacade -
         // RootPackage. Need to map Model to UMLResource, not to modelFacade, in metafacade.xml
-        return (Package) UmlUtilities.findModel(this.metaObject);
+        return UmlUtilities.findModel(this.metaObject);
     }
 
     /**
@@ -711,7 +711,6 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<Stereotype> handleGetStereotypes()
     {
-        // TODO: Convert EList to Collection<org.andromda.metafacades.uml.StereotypeFacade>
         return this.metaObject.getAppliedStereotypes();
     }
 

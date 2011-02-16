@@ -28,6 +28,7 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -307,7 +308,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected boolean handleIsEnumerationLiteral()
     {
-        final ClassifierFacade owner = (ClassifierFacade)this.getOwner();
+        final ClassifierFacade owner = this.getOwner();
         return (owner != null) && owner.isEnumeration();
     }
 

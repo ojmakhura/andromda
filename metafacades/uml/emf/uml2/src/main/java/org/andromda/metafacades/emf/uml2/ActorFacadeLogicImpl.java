@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import org.andromda.metafacades.uml.ActorFacade;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ActorFacade.
  *
@@ -15,6 +14,7 @@ import org.andromda.metafacades.uml.ActorFacade;
 public class ActorFacadeLogicImpl
     extends ActorFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

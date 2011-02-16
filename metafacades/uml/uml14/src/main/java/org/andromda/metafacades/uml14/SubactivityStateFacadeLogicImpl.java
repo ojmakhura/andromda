@@ -12,6 +12,7 @@ import org.omg.uml.behavioralelements.activitygraphs.SubactivityState;
 public class SubactivityStateFacadeLogicImpl
     extends SubactivityStateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject
