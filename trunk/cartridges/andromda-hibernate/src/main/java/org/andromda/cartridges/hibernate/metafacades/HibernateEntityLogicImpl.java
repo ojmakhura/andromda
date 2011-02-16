@@ -7,14 +7,11 @@ import java.util.List;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -35,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Carlos Cuenca
  * @author Peter Friese
  * @author Wouter Zoons
+ * @author Bob Fields
  */
 public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
@@ -216,47 +214,30 @@ public class HibernateEntityLogicImpl
         if (entity != null)
         {
             final Object value = entity.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
-
             if (value != null)
             {
                 inheritance = String.valueOf(value);
             }
         }
-
         return inheritance;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public List<AttributeFacade> getProperties()
+    public List<ModelElementFacade> getProperties()
     {
-        List<AttributeFacade> properties = this.getAttributes();
-        List connectingEnds = this.getAssociationEnds();
-        CollectionUtils.transform(
-            connectingEnds,
-            new Transformer()
-            {
-                public Object transform(Object object)
-                {
-                    return ((AssociationEndFacade)object).getOtherEnd();
-                }
-            });
-        class NavigableFilter
-            implements Predicate
+        List<ModelElementFacade> properties = new ArrayList<ModelElementFacade>();
+        properties.addAll(this.getAttributes());
+        for (final AssociationEndFacade end : this.getAssociationEnds())
         {
-            public boolean evaluate(Object object)
+            final AssociationEndFacade otherEnd = end.getOtherEnd(); 
+            if (otherEnd.isNavigable() || 
+                (end.isChild() && isForeignHibernateGeneratorClass()))
             {
-                AssociationEndFacade end = (AssociationEndFacade)object;
-
-                return end.isNavigable() || (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
+                properties.add(otherEnd);
             }
         }
-        CollectionUtils.filter(
-            connectingEnds,
-            new NavigableFilter());
-        properties.addAll(connectingEnds);
-
         return properties;
     }
 
@@ -329,12 +310,10 @@ public class HibernateEntityLogicImpl
     protected String handleGetHibernateCacheType()
     {
         String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
-
         if (StringUtils.isBlank(cacheType))
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
         }
-
         return cacheType;
     }
 
@@ -524,12 +503,10 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateProxy()
     {
         String hibernateProxy = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
-
         if (StringUtils.isBlank(hibernateProxy))
         {
             hibernateProxy = (String)this.getConfiguredProperty(HIBERNATE_PROXY);
         }
-
         return Boolean.valueOf(hibernateProxy).booleanValue();
     }
 
@@ -540,12 +517,10 @@ public class HibernateEntityLogicImpl
     protected int handleGetEhCacheMaxElementsInMemory()
     {
         String maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
-
         if (StringUtils.isBlank(maxElements))
         {
             maxElements = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
         }
-
         return Integer.parseInt(StringUtils.trimToEmpty(maxElements));
     }
 
@@ -569,14 +544,12 @@ public class HibernateEntityLogicImpl
     @Override
     protected int handleGetEhCacheTimeToIdleSeconds()
     {
-        String timeToIdle = null;
-        timeToIdle = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
-
+        String timeToIdle = 
+           (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
         if (StringUtils.isBlank(timeToIdle))
         {
             timeToIdle = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
         }
-
         return Integer.parseInt(StringUtils.trimToEmpty(timeToIdle));
     }
 
@@ -586,14 +559,12 @@ public class HibernateEntityLogicImpl
     @Override
     protected int handleGetEhCacheTimeToLiveSeconds()
     {
-        String timeToLive = null;
-        timeToLive = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
-
+        String timeToLive = 
+           (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
         if (StringUtils.isBlank(timeToLive))
         {
             timeToLive = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
         }
-
         return Integer.parseInt(StringUtils.trimToEmpty(timeToLive));
     }
 
@@ -604,12 +575,10 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsEhCacheOverflowToDisk()
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
-
         if (StringUtils.isBlank(eternal))
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
-
         return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
     }
 
@@ -758,12 +727,10 @@ public class HibernateEntityLogicImpl
     {
         String dynamicInsert =
             (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
-
         if (StringUtils.isBlank(dynamicInsert))
         {
             dynamicInsert = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
-
         return Boolean.valueOf(dynamicInsert).booleanValue();
     }
 
@@ -775,12 +742,10 @@ public class HibernateEntityLogicImpl
     {
         String dynamicUpdate =
             (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
-
         if (StringUtils.isBlank(dynamicUpdate))
         {
             dynamicUpdate = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
-
         return Boolean.valueOf(dynamicUpdate).booleanValue();
     }
 
@@ -838,7 +803,6 @@ public class HibernateEntityLogicImpl
     protected String handleGetXmlTagName()
     {
         String tagName = null;
-
         if (isXmlPersistenceActive())
         {
             tagName = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_TAG_NAME);
@@ -858,12 +822,10 @@ public class HibernateEntityLogicImpl
     protected String handleGetHibernateDiscriminatorValue()
     {
         String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_ENTITY_DISCRIMINATOR_VALUE);
-
         if (StringUtils.isBlank(value))
         {
             value = getEntityImplementationName();
         }
-
         return value;
     }
 
