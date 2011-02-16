@@ -12,7 +12,7 @@ import org.omg.uml.foundation.core.Binding;
 public class BindingFacadeLogicImpl
     extends BindingFacadeLogic
 {
-
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
