@@ -15,6 +15,8 @@ import org.omg.uml.behavioralelements.statemachines.Transition;
 public class ActionFacadeLogicImpl
         extends ActionFacadeLogic
 {
+    private static final long serialVersionUID = 161746442702442292L;
+
     /**
      * @param metaObject
      * @param context

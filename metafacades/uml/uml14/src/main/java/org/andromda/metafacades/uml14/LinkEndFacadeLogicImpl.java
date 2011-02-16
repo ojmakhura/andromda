@@ -17,6 +17,8 @@ import org.omg.uml.behavioralelements.commonbehavior.LinkEnd;
 public class LinkEndFacadeLogicImpl
     extends LinkEndFacadeLogic
 {
+    private static final long serialVersionUID = 4827547532134623488L;
+
     /**
      * @param metaObject
      * @param context

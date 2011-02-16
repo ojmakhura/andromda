@@ -30,6 +30,8 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndParameterLogicImpl
     extends FrontEndParameterLogic
 {
+    private static final long serialVersionUID = 8291959188281554302L;
+
     /**
      * @param metaObject
      * @param context

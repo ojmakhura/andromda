@@ -51,6 +51,8 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
      */
     public static final class ContractsDummy implements Serializable
     {
+        private static final long serialVersionUID = 713466631261909636L;
+
         private String contractNo = null;
         private String signed = null;
         private String idContract = null;

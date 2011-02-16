@@ -13,6 +13,7 @@ import org.omg.uml.foundation.core.Namespace;
 public class NamespaceFacadeLogicImpl
     extends NamespaceFacadeLogic
 {
+    private static final long serialVersionUID = 7205410153518880890L;
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

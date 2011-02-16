@@ -22,6 +22,8 @@ import org.apache.commons.collections.Transformer;
 public class ServiceOperationLogicImpl
     extends ServiceOperationLogic
 {
+    private static final long serialVersionUID = 7029372752015596816L;
+
     /**
      * @param metaObject
      * @param context

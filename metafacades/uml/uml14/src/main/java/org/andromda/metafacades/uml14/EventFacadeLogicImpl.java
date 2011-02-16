@@ -15,6 +15,8 @@ import org.omg.uml.behavioralelements.statemachines.Event;
 public class EventFacadeLogicImpl
     extends EventFacadeLogic
 {
+    private static final long serialVersionUID = -6251731927740002930L;
+
     /**
      * @param metaObject
      * @param context

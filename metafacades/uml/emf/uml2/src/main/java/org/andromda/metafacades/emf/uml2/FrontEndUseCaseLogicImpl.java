@@ -32,6 +32,8 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndUseCaseLogicImpl
     extends FrontEndUseCaseLogic
 {
+    private static final long serialVersionUID = -6850662810466549443L;
+
     /**
      * @param metaObject
      * @param context

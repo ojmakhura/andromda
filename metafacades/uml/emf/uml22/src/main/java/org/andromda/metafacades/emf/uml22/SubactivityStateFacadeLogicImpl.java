@@ -11,6 +11,8 @@ import org.andromda.metafacades.uml.StateMachineFacade;
 public class SubactivityStateFacadeLogicImpl
     extends SubactivityStateFacadeLogic
 {
+    private static final long serialVersionUID = -8342676370944432799L;
+
     /**
      * @param metaObject
      * @param context

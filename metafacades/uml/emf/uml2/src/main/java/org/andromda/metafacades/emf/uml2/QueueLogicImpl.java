@@ -9,6 +9,8 @@ package org.andromda.metafacades.emf.uml2;
 public class QueueLogicImpl
     extends QueueLogic
 {
+    private static final long serialVersionUID = -5566355503931137277L;
+
     /**
      * @param metaObject
      * @param context

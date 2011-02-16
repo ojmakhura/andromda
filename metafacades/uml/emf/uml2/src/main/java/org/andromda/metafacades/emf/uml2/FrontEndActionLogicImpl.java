@@ -40,6 +40,8 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndActionLogicImpl
     extends FrontEndActionLogic
 {
+    private static final long serialVersionUID = -34319354954787916L;
+
     /**
      * @param metaObject
      * @param context

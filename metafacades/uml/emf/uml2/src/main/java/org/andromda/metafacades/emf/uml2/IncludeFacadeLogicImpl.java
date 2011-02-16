@@ -11,6 +11,8 @@ import org.eclipse.uml2.Include;
 public class IncludeFacadeLogicImpl
     extends IncludeFacadeLogic
 {
+    private static final long serialVersionUID = -217280751630264167L;
+
     /**
      * @param metaObject
      * @param context

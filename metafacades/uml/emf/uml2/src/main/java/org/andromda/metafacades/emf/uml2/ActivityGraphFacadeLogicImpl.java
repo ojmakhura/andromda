@@ -17,6 +17,8 @@ import org.eclipse.uml2.UseCase;
 public class ActivityGraphFacadeLogicImpl
     extends ActivityGraphFacadeLogic
 {
+    private static final long serialVersionUID = 8319655644067478831L;
+
     /**
      * @param metaObject
      * @param context

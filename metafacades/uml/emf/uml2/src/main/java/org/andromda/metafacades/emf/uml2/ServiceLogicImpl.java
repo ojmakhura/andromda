@@ -24,6 +24,8 @@ import org.apache.commons.collections.Transformer;
  */
 public class ServiceLogicImpl extends ServiceLogic
 {
+    private static final long serialVersionUID = -6520645139775477047L;
+
     /**
      * @param metaObject
      * @param context
@@ -41,7 +43,9 @@ public class ServiceLogicImpl extends ServiceLogic
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                public boolean evaluate(final Object object)
+            private static final long serialVersionUID = -810310951516330075L;
+
+            public boolean evaluate(final Object object)
                 {
                     ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                     return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
@@ -57,7 +61,9 @@ public class ServiceLogicImpl extends ServiceLogic
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                public boolean evaluate(final Object object)
+            private static final long serialVersionUID = -4052802362345642533L;
+
+            public boolean evaluate(final Object object)
                 {
                     ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                     return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());

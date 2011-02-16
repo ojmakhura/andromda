@@ -62,6 +62,8 @@ public class ReturnCarControllerImpl extends ReturnCarController
      */
     public static final class ContractDummy implements Serializable
     {
+        private static final long serialVersionUID = 5398913098977575130L;
+
         private String contractNo = null;
         private String signed = null;
         private String id = null;

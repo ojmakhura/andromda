@@ -11,6 +11,8 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class FrontEndExceptionHandlerLogicImpl
     extends FrontEndExceptionHandlerLogic
 {
+    private static final long serialVersionUID = -4149131092786433784L;
+
     /**
      * @param metaObject
      * @param context

@@ -14,6 +14,8 @@ import org.eclipse.uml2.StateMachine;
 public class PartitionFacadeLogicImpl
     extends PartitionFacadeLogic
 {
+    private static final long serialVersionUID = 7145527722288614865L;
+
     /**
      * @param metaObject
      * @param context

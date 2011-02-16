@@ -25,6 +25,8 @@ import org.eclipse.uml2.Type;
 public class EntityAssociationLogicImpl
     extends EntityAssociationLogic
 {
+    private static final long serialVersionUID = 7739159299320079844L;
+
     /**
      * @param metaObject
      * @param context

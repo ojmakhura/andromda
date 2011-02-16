@@ -23,6 +23,8 @@ import org.eclipse.uml2.UseCase;
 public class FrontEndControllerLogicImpl
     extends FrontEndControllerLogic
 {
+    private static final long serialVersionUID = 6838058508452444211L;
+
     /**
      * @param metaObject
      * @param context
@@ -42,7 +44,9 @@ public class FrontEndControllerLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                public boolean evaluate(final Object object)
+            private static final long serialVersionUID = 7535495601965332984L;
+
+            public boolean evaluate(final Object object)
                 {
                     return ((DependencyFacade)object).getTargetElement() instanceof Service;
                 }

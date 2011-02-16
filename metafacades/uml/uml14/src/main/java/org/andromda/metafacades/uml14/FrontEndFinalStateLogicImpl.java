@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndFinalStateLogicImpl
     extends FrontEndFinalStateLogic
 {
+    private static final long serialVersionUID = -3707764533520958069L;
 
     /**
      * @param metaObject

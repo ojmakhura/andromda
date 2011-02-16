@@ -14,6 +14,8 @@ import org.eclipse.uml2.uml.UseCase;
 public class ExtendFacadeLogicImpl
     extends ExtendFacadeLogic
 {
+    private static final long serialVersionUID = 6629935453907047694L;
+
     /**
      * @param metaObject
      * @param context

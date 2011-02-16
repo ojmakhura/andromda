@@ -15,6 +15,8 @@ import org.omg.uml.foundation.core.Operation;
 public class CallEventFacadeLogicImpl
     extends CallEventFacadeLogic
 {
+    private static final long serialVersionUID = 2227288018254321367L;
+
     /**
      * @param metaObject
      * @param context

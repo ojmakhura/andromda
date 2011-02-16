@@ -13,6 +13,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class PersonDaoException
     extends java.lang.Exception
 {
+    private static final long serialVersionUID = 1880853378843554448L;
+
     /**
      * The default constructor.
      */

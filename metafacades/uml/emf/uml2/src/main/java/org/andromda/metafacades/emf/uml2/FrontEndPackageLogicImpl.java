@@ -17,6 +17,8 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 public class FrontEndPackageLogicImpl
     extends FrontEndPackageLogic
 {
+    private static final long serialVersionUID = 7476850692620103391L;
+
     /**
      * @param metaObject
      * @param context

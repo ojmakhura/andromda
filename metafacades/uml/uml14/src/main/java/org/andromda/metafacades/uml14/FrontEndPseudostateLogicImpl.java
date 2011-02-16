@@ -23,6 +23,8 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndPseudostateLogicImpl
     extends FrontEndPseudostateLogic
 {
+    private static final long serialVersionUID = -3741898725444635931L;
+
     /**
      * @param metaObject
      * @param context

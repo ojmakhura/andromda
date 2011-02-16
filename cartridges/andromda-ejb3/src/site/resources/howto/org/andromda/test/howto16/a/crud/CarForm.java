@@ -5,6 +5,8 @@ public final class CarForm
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
+    private static final long serialVersionUID = -6129991580863661323L;
+
     private java.util.List manageableList = null;
 
     public java.util.List getManageableList()

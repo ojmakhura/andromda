@@ -35,6 +35,8 @@ import org.apache.commons.lang.StringUtils;
 public class ManageableEntityLogicImpl
     extends ManageableEntityLogic
 {
+    private static final long serialVersionUID = 3824640154861250348L;
+
     /**
      * @param metaObject
      * @param context

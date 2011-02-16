@@ -56,6 +56,8 @@ public class RegisterCarControllerImpl extends RegisterCarController
      */
     public static final class ExistingcarsDummy implements Serializable
     {
+        private static final long serialVersionUID = -2347126790688719540L;
+
         private String inventoryNo = null;
         private String registrationNo = null;
         private String id = null;

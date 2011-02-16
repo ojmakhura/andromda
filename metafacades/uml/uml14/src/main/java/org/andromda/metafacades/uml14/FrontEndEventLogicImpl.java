@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.TransitionFacade;
 public class FrontEndEventLogicImpl
     extends FrontEndEventLogic
 {
+    private static final long serialVersionUID = -7746762732086766084L;
 
     /**
      * @param metaObject

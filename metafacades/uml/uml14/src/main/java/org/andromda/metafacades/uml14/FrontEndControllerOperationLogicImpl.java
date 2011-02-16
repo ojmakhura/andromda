@@ -37,6 +37,8 @@ import org.apache.log4j.Logger;
 public class FrontEndControllerOperationLogicImpl
     extends FrontEndControllerOperationLogic
 {
+    private static final long serialVersionUID = 6536778815148740646L;
+
     /**
      * @param metaObject
      * @param context

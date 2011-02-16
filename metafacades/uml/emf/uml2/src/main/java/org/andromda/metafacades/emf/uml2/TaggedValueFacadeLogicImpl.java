@@ -13,6 +13,8 @@ import java.util.Collection;
 public class TaggedValueFacadeLogicImpl
     extends TaggedValueFacadeLogic
 {
+    private static final long serialVersionUID = 6355393498526276057L;
+
     /**
      * @param metaObject
      * @param context

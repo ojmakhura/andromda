@@ -9,6 +9,8 @@ import org.omg.uml.behavioralelements.statemachines.FinalState;
 public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
 {
+    private static final long serialVersionUID = 4694038828285302447L;
+
     /**
      * @param metaObject
      * @param context

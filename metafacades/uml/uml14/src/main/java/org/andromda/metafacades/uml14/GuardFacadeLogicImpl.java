@@ -13,6 +13,7 @@ import org.omg.uml.foundation.datatypes.BooleanExpression;
 public class GuardFacadeLogicImpl
         extends GuardFacadeLogic
 {
+    private static final long serialVersionUID = -6392947981148041940L;
 
     /**
      * @param metaObject

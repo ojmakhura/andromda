@@ -19,6 +19,8 @@ import org.eclipse.uml2.StateMachine;
 public class FrontEndActivityGraphLogicImpl
     extends FrontEndActivityGraphLogic
 {
+    private static final long serialVersionUID = -8207083324441641141L;
+
     /**
      * @param metaObject
      * @param context

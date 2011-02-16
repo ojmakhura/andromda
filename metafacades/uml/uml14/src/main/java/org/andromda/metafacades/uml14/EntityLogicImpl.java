@@ -41,6 +41,8 @@ import org.omg.uml.foundation.core.Classifier;
 public class EntityLogicImpl
     extends EntityLogic
 {
+    private static final long serialVersionUID = 8742467678618468728L;
+
     /**
      * @param metaObject
      * @param context
@@ -524,6 +526,8 @@ public class EntityLogicImpl
         final Collection<AssociationEndFacade> childEnds =
             new FilteredCollection(this.getAssociationEnds())
             {
+                private static final long serialVersionUID = -4602337379703645043L;
+
                 public boolean evaluate(Object object)
                 {
                     return ((AssociationEndFacade)object).isComposition();
@@ -562,7 +566,9 @@ public class EntityLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                public boolean evaluate(Object object)
+            private static final long serialVersionUID = -8696886289865317133L;
+
+            public boolean evaluate(Object object)
                 {
                     ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                     return targetElement instanceof Entity;

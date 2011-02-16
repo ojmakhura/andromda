@@ -35,6 +35,8 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 public class FrontEndControllerOperationLogicImpl
     extends FrontEndControllerOperationLogic
 {
+    private static final long serialVersionUID = -2518470199695570426L;
+
     /**
      * @param metaObject
      * @param context

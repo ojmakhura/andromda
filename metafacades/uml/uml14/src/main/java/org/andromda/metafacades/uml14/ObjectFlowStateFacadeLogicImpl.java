@@ -12,6 +12,8 @@ import org.omg.uml.foundation.core.Classifier;
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
 {
+    private static final long serialVersionUID = 744240821518303756L;
+
     /**
      * @param metaObject
      * @param context

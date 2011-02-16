@@ -10,6 +10,8 @@ package org.andromda.metafacades.emf.uml2;
 public class StereotypeFacadeLogicImpl
     extends StereotypeFacadeLogic
 {
+    private static final long serialVersionUID = -5832961752165067915L;
+
     /**
      * @param metaObject
      * @param context

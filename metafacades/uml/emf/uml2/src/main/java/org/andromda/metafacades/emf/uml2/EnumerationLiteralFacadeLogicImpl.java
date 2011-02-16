@@ -16,6 +16,8 @@ import org.apache.commons.lang.StringUtils;
 public class EnumerationLiteralFacadeLogicImpl
     extends EnumerationLiteralFacadeLogic
 {
+    private static final long serialVersionUID = 4342376947940239018L;
+
     /**
      * @param metaObjectIn
      * @param context

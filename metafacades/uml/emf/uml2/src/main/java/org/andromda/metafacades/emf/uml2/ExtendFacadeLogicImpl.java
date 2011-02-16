@@ -11,6 +11,8 @@ import java.util.List;
 public class ExtendFacadeLogicImpl
     extends ExtendFacadeLogic
 {
+    private static final long serialVersionUID = 1221602371642918570L;
+
     /**
      * @param metaObject
      * @param context

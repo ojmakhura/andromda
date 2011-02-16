@@ -5,6 +5,8 @@ public final class PersonForm
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
+    private static final long serialVersionUID = -3318981191704948354L;
+
     private java.util.List manageableList = null;
 
     public java.util.List getManageableList()

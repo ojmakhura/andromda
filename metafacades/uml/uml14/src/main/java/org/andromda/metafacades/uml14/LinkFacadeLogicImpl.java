@@ -12,6 +12,8 @@ import org.omg.uml.behavioralelements.commonbehavior.Link;
 public class LinkFacadeLogicImpl
     extends LinkFacadeLogic
 {
+    private static final long serialVersionUID = -9015446491643027873L;
+
     /**
      * @param metaObject
      * @param context

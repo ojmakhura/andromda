@@ -26,6 +26,8 @@ import org.eclipse.uml2.uml.NamedElement;
 public class EnumerationFacadeLogicImpl
     extends EnumerationFacadeLogic
 {
+    private static final long serialVersionUID = 3610615632915162579L;
+
     /**
      * @param metaObject
      * @param context

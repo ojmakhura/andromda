@@ -91,6 +91,8 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      */
     public static final class CustomersDummy implements Serializable
     {
+        private static final long serialVersionUID = -2372565429199605881L;
+
         private String customerNo = null;
         private String name = null;
 
@@ -142,6 +144,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         private String name = null;
         private String surname = null;
         private String licenseNo = null;
+        private static final long serialVersionUID = 7974592610603810248L;
 
         public DriversDummy(String name, String surname, String licenseNo)
         {
