@@ -13,6 +13,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class CarDaoException
     extends java.lang.Exception
 {
+    private static final long serialVersionUID = -7664353865091902342L;
+
     /**
      * The default constructor.
      */

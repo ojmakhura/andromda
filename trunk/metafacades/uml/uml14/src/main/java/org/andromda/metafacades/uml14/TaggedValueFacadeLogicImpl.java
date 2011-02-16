@@ -13,6 +13,8 @@ import org.omg.uml.foundation.core.TaggedValue;
 public class TaggedValueFacadeLogicImpl
         extends TaggedValueFacadeLogic
 {
+    private static final long serialVersionUID = -2281273076847314771L;
+
     /**
      * @param metaObject
      * @param context

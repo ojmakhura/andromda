@@ -13,6 +13,8 @@ import org.eclipse.uml2.uml.Operation;
 public class CallActionFacadeLogicImpl
     extends CallActionFacadeLogic
 {
+    private static final long serialVersionUID = -4351601896192302429L;
+
     /**
      * @param metaObject
      * @param context

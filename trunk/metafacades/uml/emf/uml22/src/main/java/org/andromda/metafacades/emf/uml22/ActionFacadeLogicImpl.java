@@ -14,6 +14,8 @@ import org.eclipse.uml2.uml.Transition;
 public class ActionFacadeLogicImpl
     extends ActionFacadeLogic
 {
+    private static final long serialVersionUID = 9314317024410067L;
+
     /**
      * @param metaObjectIn
      * @param context

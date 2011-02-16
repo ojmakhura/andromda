@@ -12,6 +12,8 @@ import org.eclipse.uml2.uml.FinalState;
 public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
 {
+    private static final long serialVersionUID = 1294677652665897497L;
+
     /**
      * @param metaObject
      * @param context

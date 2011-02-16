@@ -10,6 +10,8 @@ import org.apache.commons.lang.StringUtils;
 public class OclParserException
         extends RuntimeException
 {
+    private static final long serialVersionUID = 3340016550152777823L;
+
     private StringBuffer messageBuffer;
     private int errorLine;
     private int errorColumn;

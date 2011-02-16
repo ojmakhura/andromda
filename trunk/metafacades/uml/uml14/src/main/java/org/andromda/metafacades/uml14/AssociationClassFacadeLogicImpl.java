@@ -12,6 +12,8 @@ import org.omg.uml.foundation.core.AssociationClass;
 public class AssociationClassFacadeLogicImpl
     extends AssociationClassFacadeLogic
 {
+    private static final long serialVersionUID = 7868769285302664440L;
+
     /**
      * @param metaObject
      * @param context

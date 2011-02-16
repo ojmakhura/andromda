@@ -12,6 +12,8 @@ import org.eclipse.uml2.uml.Stereotype;
 public class StereotypeFacadeLogicImpl
     extends StereotypeFacadeLogic
 {
+    private static final long serialVersionUID = 6286379442773783893L;
+
     /**
      * @param metaObject
      * @param context

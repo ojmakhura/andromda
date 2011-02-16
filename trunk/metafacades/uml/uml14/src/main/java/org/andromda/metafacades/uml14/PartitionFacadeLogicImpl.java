@@ -16,6 +16,7 @@ import org.omg.uml.behavioralelements.statemachines.StateVertex;
 public class PartitionFacadeLogicImpl
         extends PartitionFacadeLogic
 {
+    private static final long serialVersionUID = 8178073921061583901L;
     // ---------------- constructor -------------------------------
 
     /**

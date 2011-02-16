@@ -27,6 +27,8 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndControllerLogicImpl
     extends FrontEndControllerLogic
 {
+    private static final long serialVersionUID = 8320339804450106876L;
+
     /**
      * @param metaObject
      * @param context
@@ -46,7 +48,9 @@ public class FrontEndControllerLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                public boolean evaluate(Object object)
+            private static final long serialVersionUID = 2214453181869436835L;
+
+            public boolean evaluate(Object object)
                 {
                     return ((DependencyFacade)object).getTargetElement() instanceof Service;
                 }

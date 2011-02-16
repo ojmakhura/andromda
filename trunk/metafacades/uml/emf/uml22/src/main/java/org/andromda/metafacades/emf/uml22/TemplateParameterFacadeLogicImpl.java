@@ -23,6 +23,7 @@ public class TemplateParameterFacadeLogicImpl
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(TemplateParameterFacadeLogicImpl.class);
+    private static final long serialVersionUID = 3750035061795880358L;
 
     /**
      * @param metaObject

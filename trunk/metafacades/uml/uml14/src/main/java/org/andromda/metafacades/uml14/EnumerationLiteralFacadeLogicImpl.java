@@ -14,6 +14,8 @@ import org.omg.uml.foundation.core.EnumerationLiteral;
 public class EnumerationLiteralFacadeLogicImpl
     extends EnumerationLiteralFacadeLogic
 {
+    private static final long serialVersionUID = 8552041173866794442L;
+
     /**
      * @param metaObject
      * @param context

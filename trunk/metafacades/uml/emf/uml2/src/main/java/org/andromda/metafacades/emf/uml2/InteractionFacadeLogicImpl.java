@@ -9,6 +9,7 @@ package org.andromda.metafacades.emf.uml2;
 public class InteractionFacadeLogicImpl
     extends InteractionFacadeLogic
 {
+    private static final long serialVersionUID = -6126660523132495301L;
 
     /**
      * @param metaObject

@@ -15,6 +15,8 @@ import org.apache.commons.lang.StringUtils;
 public class ManageableEntityAttributeLogicImpl
     extends ManageableEntityAttributeLogic
 {
+    private static final long serialVersionUID = -8513132019006773524L;
+
     /**
      * @param metaObject
      * @param context

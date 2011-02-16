@@ -13,6 +13,8 @@ import org.andromda.metafacades.uml.ValueObject;
 public class ValueObjectAssociationEndLogicImpl
     extends ValueObjectAssociationEndLogic
 {
+    private static final long serialVersionUID = -8876529450826502636L;
+
     /**
      * @param metaObject
      * @param context

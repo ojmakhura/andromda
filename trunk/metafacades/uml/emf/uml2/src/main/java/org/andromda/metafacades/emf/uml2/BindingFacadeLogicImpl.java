@@ -13,6 +13,8 @@ import org.eclipse.uml2.TemplateBinding;
 public class BindingFacadeLogicImpl
     extends BindingFacadeLogic
 {
+    private static final long serialVersionUID = -261065287055863331L;
+
     /**
      * @param metaObject
      * @param context

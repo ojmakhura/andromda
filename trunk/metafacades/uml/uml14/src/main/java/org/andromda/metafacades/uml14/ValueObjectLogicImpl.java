@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.StereotypeFacade;
 public class ValueObjectLogicImpl
         extends ValueObjectLogic
 {
+    private static final long serialVersionUID = 6729122952696837826L;
     // ---------------- constructor -------------------------------
 
     /**

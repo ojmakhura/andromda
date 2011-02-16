@@ -67,6 +67,8 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
      */
     public static final class ReservationsDummy implements Serializable
     {
+        private static final long serialVersionUID = -2085538380562710068L;
+
         private String reservationDate = null;
         private String comfortClass = null;
         private String idReservation = null;

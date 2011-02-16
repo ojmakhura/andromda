@@ -19,6 +19,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndActivityGraphLogicImpl
     extends FrontEndActivityGraphLogic
 {
+    private static final long serialVersionUID = 815773525076250652L;
 
     /**
      * @param metaObject

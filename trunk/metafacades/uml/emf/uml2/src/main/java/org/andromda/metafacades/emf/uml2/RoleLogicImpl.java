@@ -25,6 +25,8 @@ import org.apache.commons.lang.StringUtils;
 public class RoleLogicImpl
     extends RoleLogic
 {
+    private static final long serialVersionUID = -930298567407055447L;
+
     /**
      * @param metaObject
      * @param context

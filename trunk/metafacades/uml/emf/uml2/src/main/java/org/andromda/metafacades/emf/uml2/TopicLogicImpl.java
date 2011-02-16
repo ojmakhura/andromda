@@ -9,6 +9,7 @@ package org.andromda.metafacades.emf.uml2;
 public class TopicLogicImpl
     extends TopicLogic
 {
+    private static final long serialVersionUID = -6278579585185670326L;
 
     /**
      * @param metaObject

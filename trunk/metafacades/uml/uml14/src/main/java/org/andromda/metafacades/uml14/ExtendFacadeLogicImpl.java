@@ -13,6 +13,8 @@ import org.omg.uml.behavioralelements.usecases.Extend;
 public class ExtendFacadeLogicImpl
     extends ExtendFacadeLogic
 {
+    private static final long serialVersionUID = 6837436012981404087L;
+
     /**
      * @param metaObject
      * @param context

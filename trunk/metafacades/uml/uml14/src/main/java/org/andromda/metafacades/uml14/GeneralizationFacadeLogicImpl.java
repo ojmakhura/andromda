@@ -12,6 +12,8 @@ import org.omg.uml.foundation.core.Generalization;
 public class GeneralizationFacadeLogicImpl
     extends GeneralizationFacadeLogic
 {
+    private static final long serialVersionUID = 5541756660727351738L;
+
     /**
      * @param metaObject
      * @param context

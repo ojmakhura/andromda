@@ -10,6 +10,8 @@ import org.apache.commons.collections.CollectionUtils;
  */
 public class LinkFacadeLogicImpl extends LinkFacadeLogic
 {
+    private static final long serialVersionUID = -1940280187951928498L;
+
     /**
      * @param metaObject
      * @param context

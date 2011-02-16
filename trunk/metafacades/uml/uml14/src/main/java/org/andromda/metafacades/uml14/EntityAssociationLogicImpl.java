@@ -18,6 +18,8 @@ import org.apache.commons.lang.StringUtils;
 public class EntityAssociationLogicImpl
     extends EntityAssociationLogic
 {
+    private static final long serialVersionUID = -908730666308510791L;
+
     /**
      * @param metaObject
      * @param context

@@ -62,6 +62,8 @@ public class HandOutCarControllerImpl extends HandOutCarController
      */
     public static final class AvailableCarsDummy implements Serializable
     {
+        private static final long serialVersionUID = 8707553970547007301L;
+
         private String inventoryNo = null;
         private String registrationNo = null;
         private String id = null;
@@ -125,6 +127,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         private String comfortClass = null;
         private String reservationDate = null;
         private String idReservation = null;
+        private static final long serialVersionUID = -8077662513546496380L;
 
         public CustomerReservationsDummy(String comfortClass, String reservationDate, String idReservation)
         {

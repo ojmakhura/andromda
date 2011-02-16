@@ -24,6 +24,8 @@ import org.apache.log4j.Logger;
 public class EntityAssociationEndLogicImpl
     extends EntityAssociationEndLogic
 {
+    private static final long serialVersionUID = -6810451285523542316L;
+
     /**
      * @param metaObject
      * @param context

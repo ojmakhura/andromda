@@ -17,6 +17,8 @@ import org.eclipse.uml2.uml.Element;
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
+    private static final long serialVersionUID = -8431289709042079686L;
+
     /**
      * @param metaObject
      * @param context

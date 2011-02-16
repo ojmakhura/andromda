@@ -10,6 +10,8 @@ package org.andromda.metafacades.emf.uml2;
 public class ExtensionPointFacadeLogicImpl
     extends ExtensionPointFacadeLogic
 {
+    private static final long serialVersionUID = -1642749781557802009L;
+
     /**
      * @param metaObject
      * @param context

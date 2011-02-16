@@ -42,6 +42,8 @@ public class AdministrationControllerImpl extends AdministrationController
      */
     public static final class CarsDummy implements Serializable
     {
+        private static final long serialVersionUID = 4111514601019877179L;
+
         private String inventoryNo = null;
         private String registrationNo = null;
         private String id = null;
@@ -106,6 +108,7 @@ public class AdministrationControllerImpl extends AdministrationController
         private String identifier = null;
         private String manufacter = null;
         private String id = null;
+        private static final long serialVersionUID = -8844649918640135937L;
 
         public CarTypesDummy(String comfortClass, String identifier, String manufacter, String id)
         {

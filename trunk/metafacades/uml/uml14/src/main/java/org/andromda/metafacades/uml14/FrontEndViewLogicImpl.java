@@ -26,6 +26,8 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndViewLogicImpl
     extends FrontEndViewLogic
 {
+    private static final long serialVersionUID = 3878476296052353951L;
+
     /**
      * @param metaObject
      * @param context

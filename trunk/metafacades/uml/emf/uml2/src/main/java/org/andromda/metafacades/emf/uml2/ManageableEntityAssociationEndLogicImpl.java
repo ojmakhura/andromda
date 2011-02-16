@@ -14,6 +14,8 @@ import org.andromda.metafacades.uml.ManageableEntity;
 public class ManageableEntityAssociationEndLogicImpl
     extends ManageableEntityAssociationEndLogic
 {
+    private static final long serialVersionUID = -56808060593401652L;
+
     /**
      * @param metaObject
      * @param context

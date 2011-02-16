@@ -14,6 +14,8 @@ import org.omg.uml.behavioralelements.usecases.UseCase;
 public class UseCaseFacadeLogicImpl
     extends UseCaseFacadeLogic
 {
+    private static final long serialVersionUID = 2563683138479430934L;
+
     /**
      * @param metaObject
      * @param context

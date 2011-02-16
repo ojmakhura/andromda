@@ -46,6 +46,8 @@ import org.eclipse.uml2.uml.VisibilityKind;
 public class EntityLogicImpl
     extends EntityLogic
 {
+    private static final long serialVersionUID = 9022811369852920861L;
+
     /**
      * @param metaObject
      * @param context
@@ -569,6 +571,8 @@ public class EntityLogicImpl
         final Collection<AssociationEndFacade> childEnds =
             new FilteredCollection(this.getAssociationEnds())
             {
+                private static final long serialVersionUID = -7200489183737785955L;
+
                 @Override
                 public boolean evaluate(Object object)
                 {
@@ -608,7 +612,9 @@ public class EntityLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
-                @Override
+            private static final long serialVersionUID = -302184888689870478L;
+
+            @Override
                 public boolean evaluate(final Object object)
                 {
                     ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();

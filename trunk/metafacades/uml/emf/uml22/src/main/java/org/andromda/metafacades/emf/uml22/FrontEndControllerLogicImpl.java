@@ -25,6 +25,8 @@ import org.eclipse.uml2.uml.UseCase;
 public class FrontEndControllerLogicImpl
     extends FrontEndControllerLogic
 {
+    private static final long serialVersionUID = -8765076432370916838L;
+
     /**
      * @param metaObject
      * @param context

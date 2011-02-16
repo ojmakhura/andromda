@@ -20,7 +20,8 @@ import org.omg.uml.foundation.core.Classifier;
 public class EnumerationFacadeLogicImpl
         extends EnumerationFacadeLogic
 {
-    
+    private static final long serialVersionUID = -3790826922365025369L;
+
     /**
      * @param metaObject
      * @param context

@@ -12,6 +12,7 @@ import org.omg.uml.foundation.core.TemplateArgument;
 public class TemplateArgumentFacadeLogicImpl
     extends TemplateArgumentFacadeLogic
 {
+    private static final long serialVersionUID = 8800700514528668235L;
 
     /**
      * @param metaObject

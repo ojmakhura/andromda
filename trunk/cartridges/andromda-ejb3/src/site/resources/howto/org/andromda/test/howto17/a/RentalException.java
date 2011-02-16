@@ -13,6 +13,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class RentalException
     extends java.lang.Exception
 {
+    private static final long serialVersionUID = -5206572952280350036L;
+
     /**
      * The default constructor.
      */

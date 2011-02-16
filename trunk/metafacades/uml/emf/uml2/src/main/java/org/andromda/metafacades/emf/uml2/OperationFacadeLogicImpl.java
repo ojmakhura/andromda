@@ -45,6 +45,7 @@ public class OperationFacadeLogicImpl
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(OperationFacadeLogicImpl.class);
+    private static final long serialVersionUID = 5386179547067683765L;
 
     /**
      * @param metaObject

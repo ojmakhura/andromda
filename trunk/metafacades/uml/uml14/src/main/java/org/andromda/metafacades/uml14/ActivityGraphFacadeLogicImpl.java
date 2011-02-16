@@ -15,6 +15,8 @@ import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 public class ActivityGraphFacadeLogicImpl
     extends ActivityGraphFacadeLogic
 {
+    private static final long serialVersionUID = 3098736925534206256L;
+
     /**
      * @param metaObject
      * @param context

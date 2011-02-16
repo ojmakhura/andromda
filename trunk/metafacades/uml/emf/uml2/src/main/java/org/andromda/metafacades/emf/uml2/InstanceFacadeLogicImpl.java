@@ -27,6 +27,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
      */
     private Object value = null;
     private boolean valueSet = false;
+    private static final long serialVersionUID = 1272621510331012805L;
 
     /**
      * @param metaObject

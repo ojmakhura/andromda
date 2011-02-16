@@ -11,6 +11,7 @@ import org.omg.uml.foundation.core.Stereotype;
 public class StereotypeFacadeLogicImpl
         extends StereotypeFacadeLogic
 {
+    private static final long serialVersionUID = 8241453805282303865L;
     // ---------------- constructor -------------------------------
 
     /**

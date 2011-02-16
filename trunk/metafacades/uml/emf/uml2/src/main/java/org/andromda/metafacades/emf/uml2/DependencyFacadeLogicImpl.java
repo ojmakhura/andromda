@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 public class DependencyFacadeLogicImpl
     extends DependencyFacadeLogic
 {
+    private static final long serialVersionUID = -2685007576939308824L;
+
     /**
      * @param metaObjectIn
      * @param context

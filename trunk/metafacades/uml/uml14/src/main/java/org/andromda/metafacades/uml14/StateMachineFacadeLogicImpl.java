@@ -24,6 +24,7 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 public class StateMachineFacadeLogicImpl
     extends StateMachineFacadeLogic
 {
+    private static final long serialVersionUID = -7445143171579144836L;
 
     /**
      * @param metaObject
