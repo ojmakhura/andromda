@@ -330,12 +330,12 @@ public class WebServiceLogicImpl
 
                         if (type != null)
                         {
-                            final Collection<ModelElementFacade> properties = type.getProperties();
+                            final List properties = type.getProperties();
                             if (properties != null && !properties.isEmpty())
                             {
-                                for (final Iterator<ModelElementFacade> iterator = properties.iterator(); iterator.hasNext();)
+                                for (final Object property : properties)
                                 {
-                                    this.loadTypes(iterator.next(), types, nonArrayTypes);
+                                    this.loadTypes((ModelElementFacade)property, types, nonArrayTypes);
                                 }
                             }
                         }
@@ -520,7 +520,7 @@ public class WebServiceLogicImpl
                         {
                             try
                             {
-                                ModelElementFacade attr = ((ModelElementFacade)itAttr.next());
+                                ModelElementFacade attr = (itAttr.next());
                                 if (getType(attr) != null)
                                 {
                                     attr = getType(attr);
@@ -620,9 +620,9 @@ public class WebServiceLogicImpl
         // Add references from the operations of the service package itself
         for (final OperationFacade op : this.getOperations())
         {
-            for (final Iterator<ModelElementFacade> opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
+            for (final Object exception : op.getExceptions())
             {
-                ModelElementFacade arg = opiterator.next();
+                ModelElementFacade arg = (ModelElementFacade)exception;
                 addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
             }
             for (final ParameterFacade arg : op.getArguments())
