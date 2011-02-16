@@ -51,6 +51,9 @@
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

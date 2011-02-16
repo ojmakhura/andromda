@@ -223,6 +223,9 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
             <!--Perform xslt transformation of namespace.xml for site generation-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
