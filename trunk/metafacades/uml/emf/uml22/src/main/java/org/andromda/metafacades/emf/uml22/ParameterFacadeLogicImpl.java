@@ -435,8 +435,7 @@ public class ParameterFacadeLogicImpl
     protected int handleGetLower()
     {
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
-            this.getType(), "1");
-    //      Throws no property 'defaultMultiplicity' registered under metafacade 'org.andromda.metafacades.uml.ParameterFacade' for namespace
-    //    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+                this.getType(), 
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 }

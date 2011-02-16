@@ -745,9 +745,8 @@ public class OperationFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return this.metaObject.getLower();
-        //return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLower(),
-        //    (ClassifierFacade) this.getReturnType(), "0");
-            // ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+//        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLower(),
+//            (ClassifierFacade) this.getReturnType(), ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
     /**

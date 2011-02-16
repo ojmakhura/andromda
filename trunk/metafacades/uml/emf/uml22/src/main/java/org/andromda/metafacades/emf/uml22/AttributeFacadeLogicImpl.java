@@ -430,9 +430,8 @@ public class AttributeFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
-            this.getType(), "1");
-            //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
-            //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+            this.getType(), 
+            ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
     /**
