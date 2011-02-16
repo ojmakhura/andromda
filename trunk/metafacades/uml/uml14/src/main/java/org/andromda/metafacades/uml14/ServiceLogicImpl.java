@@ -43,6 +43,7 @@ public class ServiceLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
         {
+            private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
                 ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
@@ -59,6 +60,7 @@ public class ServiceLogicImpl
     {
         return new FilteredCollection(this.getSourceDependencies())
         {
+            private static final long serialVersionUID = 34L;
             public boolean evaluate(Object object)
             {
                 ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();

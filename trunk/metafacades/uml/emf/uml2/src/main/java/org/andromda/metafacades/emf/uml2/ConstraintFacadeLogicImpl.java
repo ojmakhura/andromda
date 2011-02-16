@@ -6,7 +6,6 @@ import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ConstraintFacade.
@@ -16,6 +15,7 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

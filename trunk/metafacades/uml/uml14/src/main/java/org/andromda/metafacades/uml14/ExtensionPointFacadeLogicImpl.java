@@ -12,6 +12,7 @@ import org.omg.uml.behavioralelements.usecases.ExtensionPoint;
 public class ExtensionPointFacadeLogicImpl
     extends ExtensionPointFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

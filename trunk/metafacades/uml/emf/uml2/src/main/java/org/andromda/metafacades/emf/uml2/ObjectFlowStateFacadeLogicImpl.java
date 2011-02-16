@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml2;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ObjectFlowStateFacade.
@@ -11,6 +10,7 @@ package org.andromda.metafacades.emf.uml2;
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

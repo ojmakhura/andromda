@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsManageableEntityLogicImpl
     extends StrutsManageableEntityLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @return the configured property denoting the character sequence to use for the separation of namespaces
      */

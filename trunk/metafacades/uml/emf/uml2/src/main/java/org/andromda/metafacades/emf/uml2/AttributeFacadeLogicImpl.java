@@ -25,6 +25,7 @@ import org.eclipse.uml2.Type;
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context
@@ -432,7 +433,7 @@ public class AttributeFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
-            (ClassifierFacade) this.getType(), "1");
+            this.getType(), "1");
     }
 
     /**

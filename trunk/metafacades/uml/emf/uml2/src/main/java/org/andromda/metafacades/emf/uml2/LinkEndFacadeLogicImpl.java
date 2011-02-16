@@ -13,6 +13,7 @@ import org.eclipse.uml2.InstanceValue;
  */
 public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

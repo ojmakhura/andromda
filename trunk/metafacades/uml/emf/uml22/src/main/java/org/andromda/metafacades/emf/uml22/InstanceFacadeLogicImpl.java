@@ -16,7 +16,6 @@ import org.eclipse.uml2.uml.LiteralString;
 import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.ValueSpecification;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.InstanceFacade.
  *
@@ -24,6 +23,7 @@ import org.eclipse.uml2.uml.ValueSpecification;
  */
 public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * Internal value reference in case this instance is supposed to wrap a ValueSpecificstion metaclass
      */

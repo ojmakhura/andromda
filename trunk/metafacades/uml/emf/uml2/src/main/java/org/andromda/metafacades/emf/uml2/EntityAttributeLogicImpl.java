@@ -11,7 +11,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.EntityAttribute.
@@ -22,6 +21,7 @@ import org.apache.log4j.Logger;
 public class EntityAttributeLogicImpl
     extends EntityAttributeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

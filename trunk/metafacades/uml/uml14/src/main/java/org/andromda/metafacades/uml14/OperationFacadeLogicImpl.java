@@ -36,6 +36,7 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 public class OperationFacadeLogicImpl
         extends OperationFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

@@ -4,7 +4,6 @@ import org.eclipse.uml2.Constraint;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.Transition;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.GuardFacade.
  *
@@ -13,6 +12,7 @@ import org.eclipse.uml2.Transition;
 public class GuardFacadeLogicImpl
     extends GuardFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

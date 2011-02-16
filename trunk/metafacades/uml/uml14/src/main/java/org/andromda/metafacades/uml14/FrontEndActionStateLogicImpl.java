@@ -23,7 +23,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndActionState.
  *
@@ -33,6 +32,7 @@ import org.andromda.utils.StringUtilsHelper;
 public class FrontEndActionStateLogicImpl
     extends FrontEndActionStateLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

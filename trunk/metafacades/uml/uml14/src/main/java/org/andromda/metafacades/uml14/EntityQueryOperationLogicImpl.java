@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 
-
 /**
  * Metaclass facade implementation.
  * @author Bob Fields
@@ -11,6 +10,7 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class EntityQueryOperationLogicImpl
     extends EntityQueryOperationLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

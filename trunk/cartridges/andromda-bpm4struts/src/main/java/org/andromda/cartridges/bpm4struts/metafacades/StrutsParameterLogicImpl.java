@@ -33,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsParameterLogicImpl
     extends StrutsParameterLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context
@@ -635,7 +636,7 @@ public class StrutsParameterLogicImpl
         final Collection<StrutsAction> actions = this.getTableGlobalActions();
         if (!actions.isEmpty())
         {
-            final List<StrutsParameter> actionParameters = ((StrutsAction)actions.iterator().next()).getActionParameters();
+            final List<StrutsParameter> actionParameters = (actions.iterator().next()).getActionParameters();
             if (!actionParameters.isEmpty())
             {
                 parameter = actionParameters.iterator().next();

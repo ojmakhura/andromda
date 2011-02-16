@@ -14,7 +14,6 @@ import org.eclipse.uml2.Operation;
 import org.eclipse.uml2.Transition;
 import org.eclipse.uml2.UseCase;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndEvent.
@@ -24,6 +23,7 @@ import org.eclipse.uml2.UseCase;
 public class FrontEndEventLogicImpl
     extends FrontEndEventLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObject
      * @param context

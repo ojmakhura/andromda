@@ -29,6 +29,7 @@ import org.eclipse.uml2.Type;
 public class ParameterFacadeLogicImpl
     extends ParameterFacadeLogic
 {
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context
