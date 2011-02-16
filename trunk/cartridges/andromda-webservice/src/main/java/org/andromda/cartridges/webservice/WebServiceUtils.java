@@ -91,7 +91,7 @@ public class WebServiceUtils
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgRefs Collection<PackageFacade> - all referenced packages
      */
-    public Collection<PackageFacade> getPackages(WebServiceLogicImpl service, Set<MetafacadeBase> types, boolean follow)
+    public Collection<PackageFacade> getPackages(WebServiceLogicImpl service, Set<ModelElementFacade> types, boolean follow)
     {
         return setPkgAbbr(service, types, follow);
     }
@@ -179,7 +179,7 @@ public class WebServiceUtils
      * @param types
      * @return pkgAbbr
      */
-    private Set<PackageFacade> setPkgAbbr(WebServiceLogicImpl service, Set<MetafacadeBase> types, boolean follow)
+    private Set<PackageFacade> setPkgAbbr(WebServiceLogicImpl service, Set<ModelElementFacade> types, boolean follow)
     {
         // Contains references to only packages needed from this service
         Set<PackageFacade> pkgSet = new TreeSet<PackageFacade>();
@@ -271,7 +271,7 @@ public class WebServiceUtils
                 }
             }
         }
-        for (final MetafacadeBase element : types)
+        for (final ModelElementFacade element : types)
         {
             ClassifierFacade facade = service.getType(element);
             if (facade != null)

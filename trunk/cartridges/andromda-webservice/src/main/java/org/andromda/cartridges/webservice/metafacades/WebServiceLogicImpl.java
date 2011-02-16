@@ -29,6 +29,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -187,7 +188,7 @@ public class WebServiceLogicImpl
     /**
      * Sorted list of all type mapping elements (package.class), used to iterate through all elements in a service
      */
-    private Set elementSet = new TreeSet(new TypeComparator());
+    private Set<ModelElementFacade> elementSet = new TreeSet<ModelElementFacade>(new TypeComparator());
 
     /**
      * Keeps track of whether or not the type has been checked, keeps us from entering infinite loops when calling
@@ -199,7 +200,7 @@ public class WebServiceLogicImpl
      * @return this.elementSet types
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getTypeMappingElements()
      */
-    protected Collection handleGetTypeMappingElements()
+    protected Collection<ModelElementFacade> handleGetTypeMappingElements()
     {
         final Collection<ParameterFacade> parameterTypes = new LinkedHashSet<ParameterFacade>();
         for (final WebServiceOperation operation : this.getAllowedOperations())
@@ -207,8 +208,8 @@ public class WebServiceLogicImpl
             parameterTypes.addAll(operation.getParameters());
         }
 
-        final Set types = new TreeSet(new TypeComparator());
-        final Collection nonArrayTypes = new TreeSet(new TypeComparator());
+        final Set<ModelElementFacade> types = new TreeSet<ModelElementFacade>(new TypeComparator());
+        final Collection<ModelElementFacade> nonArrayTypes = new TreeSet<ModelElementFacade>(new TypeComparator());
 
         // clear out the cache of checkedTypes, otherwise
         // they'll be ignored the second time this method is
@@ -219,7 +220,7 @@ public class WebServiceLogicImpl
             this.loadTypes((ModelElementFacade)iterator.next(), types, nonArrayTypes);
         }
 
-        final Collection exceptions = new ArrayList();
+        final Collection<ModelElementFacade> exceptions = new ArrayList<ModelElementFacade>();
         for (final WebServiceOperation operation : this.getAllowedOperations())
         {
             exceptions.addAll(operation.getExceptions());
@@ -252,7 +253,8 @@ public class WebServiceLogicImpl
      * @param types the collection to load.
      * @param nonArrayTypes the collection of non array types.
      */
-    private void loadTypes(ModelElementFacade modelElement, Set types, Collection nonArrayTypes)
+    private void loadTypes(ModelElementFacade modelElement, Set<ModelElementFacade> types, 
+        Collection<ModelElementFacade> nonArrayTypes)
     {
         ExceptionUtils.checkNull("types", types);
         ExceptionUtils.checkNull("nonArrayTypes", nonArrayTypes);
@@ -266,7 +268,7 @@ public class WebServiceLogicImpl
                 // only continue if the model element has a type
                 if (parameterType != null)
                 {
-                    final Set allTypes = new LinkedHashSet();
+                    final Set<ModelElementFacade> allTypes = new LinkedHashSet<ModelElementFacade>();
                     allTypes.add(parameterType);
 
                     // add all generalizations and specializations of the type
@@ -328,13 +330,12 @@ public class WebServiceLogicImpl
 
                         if (type != null)
                         {
-                            final Collection properties = type.getProperties();
+                            final Collection<ModelElementFacade> properties = type.getProperties();
                             if (properties != null && !properties.isEmpty())
                             {
-                                for (final Iterator iterator = properties.iterator(); iterator.hasNext();)
+                                for (final Iterator<ModelElementFacade> iterator = properties.iterator(); iterator.hasNext();)
                                 {
-                                    final ModelElementFacade property = (ModelElementFacade) iterator.next();
-                                    this.loadTypes(property, types, nonArrayTypes);
+                                    this.loadTypes(iterator.next(), types, nonArrayTypes);
                                 }
                             }
                         }
@@ -365,7 +366,7 @@ public class WebServiceLogicImpl
     {
         if (this.elementSet == null || this.elementSet.size()<1)
         {
-            this.elementSet = (TreeSet)handleGetTypeMappingElements();
+            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
         }
         setPkgAbbr(this.elementSet);
         String pkgList = EMPTY_STRING;
@@ -388,7 +389,7 @@ public class WebServiceLogicImpl
         }
         if (this.elementSet == null || this.elementSet.size()<1)
         {
-            this.elementSet = (TreeSet)handleGetTypeMappingElements();
+            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
         }
         if (this.packageAbbr == null || this.packageAbbr.size()<1)
         {
@@ -413,9 +414,9 @@ public class WebServiceLogicImpl
      * @param types
      * @return pkgAbbr
      */
-    private Map setPkgAbbr(Set types)
+    private Map<String, String> setPkgAbbr(Set<ModelElementFacade> types)
     {
-        Map pkgAbbr = new TreeMap();
+        Map<String, String> pkgAbbr = new TreeMap<String, String>();
         int namespaceCount = 1;
         // Copy package names and abbreviations to package list
         for (final OperationFacade op : this.getOperations())
@@ -470,7 +471,7 @@ public class WebServiceLogicImpl
     /**
      * Cross reference between package name and collection of foreign package referenced elements
      */
-    private Map packageRefs = new HashMap();
+    private Map<String, TreeSet<String>> packageRefs = new HashMap<String, TreeSet<String>>();
 
     /**
      * Get a unique list of packages referenced by the referring package
@@ -478,17 +479,17 @@ public class WebServiceLogicImpl
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return Collection TreeSet containing referenced package list
      */
-    protected Collection handleGetPackageReferences(String pkg, boolean follow)
+    protected Collection<String> handleGetPackageReferences(String pkg, boolean follow)
     {
         //if (this.elementSet == null || this.elementSet.size()<1)
         //{
-            this.elementSet = (TreeSet)handleGetTypeMappingElements();
+            this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
         //}
         //if (this.packageRefs == null || this.packageRefs.size()<1)
         //{
             setPkgRefs(this.elementSet, follow);
         //}
-        return (TreeSet)this.packageRefs.get(pkg);
+        return this.packageRefs.get(pkg);
     }
 
     /**
@@ -498,11 +499,11 @@ public class WebServiceLogicImpl
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgAbbr
      */
-    private Map setPkgRefs(Set types, boolean follow)
+    private Map<String, TreeSet<String>> setPkgRefs(Set<ModelElementFacade> types, boolean follow)
     {
         // Copy package names and collection of related packages to package references list
         // Iterate through previously collected type references to find all packages referenced by each type
-        for (final Iterator iterator = types.iterator(); iterator.hasNext();)
+        for (final Iterator<ModelElementFacade> iterator = types.iterator(); iterator.hasNext();)
         {
             try
             {
@@ -515,7 +516,7 @@ public class WebServiceLogicImpl
                     {
                         //System.out.println("WSDLTypeLogicImpl pkg=" + packageName + " refPkg=" + pkg + " name=" + type.getName());
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
+                        for (final Iterator<ModelElementFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
                         {
                             try
                             {
@@ -540,7 +541,7 @@ public class WebServiceLogicImpl
                     if (pkg != null && pkg.indexOf('.') > 0)
                     {
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
-                        for (final Iterator otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
+                        for (final Iterator<AssociationEndFacade> otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
                         {
                             try
                             {
@@ -619,9 +620,9 @@ public class WebServiceLogicImpl
         // Add references from the operations of the service package itself
         for (final OperationFacade op : this.getOperations())
         {
-            for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
+            for (final Iterator<ModelElementFacade> opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
-                ModelElementFacade arg = (ModelElementFacade)opiterator.next();
+                ModelElementFacade arg = opiterator.next();
                 addPkgRef(this.getPackageName(), arg.getPackageName(), arg);
             }
             for (final ParameterFacade arg : op.getArguments())
@@ -639,17 +640,17 @@ public class WebServiceLogicImpl
 
     private void addPkgRef(String pkg, String pkgRef, ModelElementFacade type)
     {
-        TreeSet pkgRefSet;
+        TreeSet<String> pkgRefSet;
         if (!packageRefs.containsKey(pkg))
         {
             // TypeComparator disallows adding nonunique referenced packageNames
-            pkgRefSet = new TreeSet();
+            pkgRefSet = new TreeSet<String>();
             packageRefs.put(pkg, pkgRefSet);
         }
         else
         {
             // Reference to Set contained in pkgAbbr already, can be changed dynamically
-            pkgRefSet = (TreeSet)packageRefs.get(pkg);
+            pkgRefSet = packageRefs.get(pkg);
         }
         if (pkgRef!=null && pkg!=null &&  !pkgRef.equals(pkg) && pkgRef.indexOf('.') > 0 && !pkgRefSet.contains(pkgRef))
         {
@@ -675,7 +676,7 @@ public class WebServiceLogicImpl
      *         many type.
      */
     private boolean containsManyType(
-        final Collection types,
+        final Collection<ModelElementFacade> types,
         final Object modelElement)
     {
         final ClassifierFacade compareType = this.getClassifier(modelElement);
@@ -1063,7 +1064,7 @@ public class WebServiceLogicImpl
      */
     protected boolean handleIsSecured()
     {
-        Collection roles = this.getAllRoles();
+        Collection<Role> roles = this.getAllRoles();
         return roles != null && !roles.isEmpty();
     }
 
@@ -1072,9 +1073,9 @@ public class WebServiceLogicImpl
      *
      * @see org.andromda.metafacades.uml.Service#getAllRoles()
      */
-    public Collection getAllRoles()
+    public Collection<Role> getAllRoles()
     {
-        final Collection roles = new LinkedHashSet(this.getRoles());
+        final Collection<Role> roles = new LinkedHashSet<Role>(this.getRoles());
         CollectionUtils.forAllDo(
             this.getAllowedOperations(),
             new Closure()

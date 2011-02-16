@@ -259,7 +259,7 @@ public class ManageableEntityLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableMembers()
      */
     @Override
-    protected List handleGetManageableMembers()
+    protected List<ModelElementFacade> handleGetManageableMembers()
     {
         final List criteria = new ArrayList();
         criteria.addAll(this.getManageableAttributes());
