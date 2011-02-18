@@ -489,7 +489,7 @@ public abstract class ${manageable.controllerName}
 
 #if (!$useAutocompleteLookup)
 #if (!$manageable.manageableAssociationEnds.empty)
-        final java.util.Map<String,java.util.Collection> backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+        final java.util.Map<String,?> backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
         form.${member.setterName}BackingList((java.util.Collection)backingLists.get("${member.name}"));
 #end
