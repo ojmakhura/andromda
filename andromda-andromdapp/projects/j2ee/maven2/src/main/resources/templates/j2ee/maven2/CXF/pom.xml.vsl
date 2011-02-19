@@ -76,7 +76,7 @@
                   <id>buildWS</id>
                   <phase>process-classes</phase>
                   <configuration>
-                    <tasks>
+                    <target>
                         <property name="build.compiler" value="extJavac"/>
                         <property name="andromda.project" value="${andromda.project}"/>
                         <property name="project" value="${project.basedir}/.."/>
@@ -86,7 +86,7 @@
                         <ant antfile="${project.basedir}/../webservice/buildWS.xml">
                             <target name="wsdlgenall"/>
                         </ant>
-                    </tasks>
+                    </target>
                   </configuration>
                   <goals>
                     <goal>run</goal>

@@ -174,7 +174,7 @@
                             <goal>run</goal>
                         </goals>
                             <configuration>
-                                <tasks>
+                                <target>
                                     <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
                                     <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
                                     <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar"
@@ -197,7 +197,7 @@
                                     </jarjar>
                                     <zip destfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}.ear"
                                          basedir="${project.basedir}/target/${project.parent.artifactId}-${project.version}" update="true" />
-                                </tasks>
+                                </target>
                             </configuration>
                     </execution>
                 </executions>

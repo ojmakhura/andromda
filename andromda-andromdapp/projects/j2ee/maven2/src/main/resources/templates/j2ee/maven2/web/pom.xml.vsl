@@ -321,13 +321,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <tasks>
+                    <target>
                         <copy todir="${project.basedir}/target/src/main/webapp" overwrite="true" failonerror="false">
                             <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="**/*"/>
                             </fileset>
                         </copy>
-                    </tasks>
+                    </target>
                 </configuration>
             </plugin>
             <plugin>
