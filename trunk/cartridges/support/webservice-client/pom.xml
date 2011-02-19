@@ -217,7 +217,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
                                 <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask"
                                          classpath="${dependencyClasspath}"/>
@@ -253,7 +253,7 @@
                                           result="org.apache.axis2a.deployment.@1"/>
                                     <rule pattern="META*.services.*" result="META@1.servicesa.@1"/>
                                 </jarjar>
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>

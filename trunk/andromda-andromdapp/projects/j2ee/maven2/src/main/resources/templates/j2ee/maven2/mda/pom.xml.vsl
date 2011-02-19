@@ -287,7 +287,7 @@
                   <id>clean</id>
                   <phase>clean</phase>
                   <configuration>
-                    <tasks>
+                    <target>
                         <echo message="andromda.project is ${andromda.project}"/>
                         <echo message="project.parent.basedir is ${project.parent.basedir}"/>
                         <property name="andromda.project" value="${andromda.project}"/>
@@ -302,7 +302,7 @@
                         <ant antfile="${project.basedir}/build.xml">
                             <target name="cleanImpl"/>
                         </ant>
-                    </tasks>
+                    </target>
                   </configuration>
                   <goals>
                     <goal>run</goal>
@@ -313,7 +313,7 @@
                   <id>buildWS</id>
                   <phase>generate-sources</phase>
                   <configuration>
-                    <tasks>
+                    <target>
                         <echo message="andromda.project is ${andromda.project}"/>
                         <property name="build.compiler" value="extJavac"/>
                         <property name="andromda.project" value="${andromda.project}"/>
@@ -324,7 +324,7 @@
                         <ant antfile="${project.basedir}/../webservice/buildWSNew.xml">
                             <target name="wsgenall"/>
                         </ant>
-                    </tasks>
+                    </target>
                   </configuration>
                   <goals>
                     <goal>run</goal>
