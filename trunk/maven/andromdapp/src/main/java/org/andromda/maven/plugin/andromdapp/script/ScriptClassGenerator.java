@@ -135,11 +135,7 @@ public class ScriptClassGenerator
             }
 
             final File directory = getClassOutputDirectory(existingClass);
-
-            pool.writeFile(className,
-                directory != null ? directory.getAbsolutePath() : "");
-            // org.javassist-3.14.0-GA update
-            // ctClass.writeFile(directory != null ? directory.getAbsolutePath() : "");
+            ctClass.writeFile(directory.getAbsolutePath());
         }
         catch (final Throwable throwable)
         {

@@ -53,12 +53,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
-                <artifactId>maven-monitor</artifactId>
-                <version>${maven.version}</version>
-                <!--version>2.2.1</version-->
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
                 <artifactId>maven-model</artifactId>
                 <version>${maven.version}</version>
             </dependency>
@@ -72,6 +66,11 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.4.3</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.maven.shared</groupId>
+                <artifactId>maven-filtering</artifactId>
+                <version>1.0-beta-4</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -83,7 +82,7 @@
                 <executions>
                     <execution>
                         <id>exec-plugin-doc</id>
-                        <phase>generate-sources</phase>            
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>xdoc</goal>
                             <goal>helpmojo</goal>
