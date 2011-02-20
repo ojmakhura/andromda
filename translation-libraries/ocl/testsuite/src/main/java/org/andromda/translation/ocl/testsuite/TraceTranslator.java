@@ -189,14 +189,14 @@ public class TraceTranslator
             }
 
         }
-        this.writeAdaptedClass();
+        this.writeAdaptedClass(ctTranslatorClass);
         return ctTranslatorClass.toClass();
     }
 
     /**
      * Writes the class to the directory found by the class loader (since the class is a currently existing class)
      */
-    protected void writeAdaptedClass()
+    protected void writeAdaptedClass(CtClass pTranslatorClass)
     {
         final String methodName = "TraceTranslator.writeAdaptedClass";
         if (logger.isDebugEnabled())
@@ -205,16 +205,13 @@ public class TraceTranslator
         }
         try
         {
-            String className = this.getClass().getName();
             File dir = this.getAdaptedClassOutputDirectory();
             if (logger.isDebugEnabled())
             {
+                final String className = this.getClass().getName();
                 logger.debug("writing className '" + className + "' to directory --> " + '\'' + dir + '\'');
             }
-            this.pool.writeFile(dir.toString());
-            // org.javassist-3.14.0-GA update
-            //CtClass ctTranslatorClass = pool.get(this.getClass().getName());
-            //ctTranslatorClass.writeFile(dir.toString());
+            pTranslatorClass.writeFile(dir.getPath());
         }
         catch (Exception ex)
         {
@@ -435,9 +432,8 @@ public class TraceTranslator
         {
             try
             {
-                //CtClass ctTranslatorClass = this.pool.get(classname);
-                // TODO upgrade javassist version which moved the write() method
-                return classLoader.loadClass(classname, write(classname));
+                final CtClass ctTranslatorClass = get(classname);
+                return classLoader.loadClass(classname, ctTranslatorClass.toBytecode());
             }
             catch (ClassFormatError e)
             {

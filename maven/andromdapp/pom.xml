@@ -29,15 +29,9 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
-        <!-- Update needed to andromdapp ScriptClassGenerator:139 for latest version: ClassPool.writeFile(String, String) -->
-        <!--dependency>
+        <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
-            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -50,8 +44,8 @@
             <artifactId>maven-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-filtering</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -67,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
-            <artifactId>maven-monitor</artifactId>
+            <artifactId>maven-plugin-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -78,6 +72,10 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-container-default</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
         </dependency>
 
         <!-- Andromda dependencies -->

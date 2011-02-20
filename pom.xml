@@ -26,7 +26,7 @@
     </scm>
     <organization>
         <name>AndroMDA.org</name>
-        <url>http://www.andromda.org/</url>
+        <url>http://www.andromda.org/docs/index.html</url>
     </organization>
     <licenses>
         <license>
@@ -37,8 +37,8 @@
         </license>
     </licenses>
     <ciManagement>
-        <system>cruisecontrol</system>
-        <url>http://www.andromda.org/cruisecontrol</url>
+        <system>hudson</system>
+        <url>http://www.andromda.org/hudson</url>
     </ciManagement>
     <mailingLists>
         <mailingList>
@@ -308,20 +308,13 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>1.7.5</version>
+                <version>1.7.8</version>
             </dependency>
 
-            <!-- Update needed to TraceTranslator for latest version: ClassPool.writeFile(String, String) 
-            method moved to CtClass. Fix maven\andromdapp and translation-libraries\ocl\testsuite -->
-            <!--dependency>
+            <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>3.14.0-GA</version>
-            </dependency-->
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>javassist</artifactId>
-                <version>2.6</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -918,11 +911,6 @@
             <name>Sonatype AndroMDA Repository</name>
             <url>http://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
-        </pluginRepository>
     </pluginRepositories>
     <prerequisites>
         <!-- Maven runtime version. Lots of problems prior to 2.0.10 with dependency management -->
@@ -936,14 +924,12 @@
         <!--uniqueVersion>true</uniqueVersion-->
         <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository
         <bootstrap.artifacts>true</bootstrap.artifacts-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <maven.version>2.2.1</maven.version>
-        <!--maven.version>3.0-beta-1</maven.version-->
-        <plexus.util.version>2.0.5</plexus.util.version>
         <!-- French Encoding from Cedric in some files: can't use UTF-8, TODO update source files -->
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <maven.version>2.2.1</maven.version>        
+        <plexus.util.version>2.0.6</plexus.util.version>
     </properties>
     <profiles>
         <profile>
@@ -1131,12 +1117,12 @@
                                 <id>copy-site-files</id>
                                 <phase>site</phase>
                                 <configuration>
-                                    <tasks>
+                                    <target>
                                         <copy todir="${project.reporting.outputDirectory}/mappings">
                                             <fileset dir="${project.build.directory}/../andromda-etc/mappings"
                                                      includes="**/*.xml"/>
                                         </copy>
-                                    </tasks>
+                                    </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
@@ -1211,7 +1197,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
-                        <version>2.7.1</version>
+                        <version>2.7.2</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
@@ -1256,7 +1242,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-changes-plugin</artifactId>
-                        <version>2.3</version>
+                        <version>2.4</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1424,12 +1410,12 @@
                                 <id>copy-site-files</id>
                                 <phase>site</phase>
                                 <configuration>
-                                    <tasks>
+                                    <target>
                                         <copy todir="${project.reporting.outputDirectory}/mappings">
                                             <fileset dir="${project.build.directory}/../andromda-etc/mappings"
                                                      includes="**/*.xml"/>
                                         </copy>
-                                    </tasks>
+                                    </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
