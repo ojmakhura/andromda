@@ -44,22 +44,15 @@ public class ProjectUtils
         if (project == null)
         {
             // - next attempt to get the existing project from the session
-            project = getProjectFromSession(
-                    session,
-                    pom);
+            project = getProjectFromSession(session, pom);
             if (project == null)
             {
                 // - if we didn't find it in the session, create it
                 try
                 {
-                    project =
-                        projectBuilder.build(
-                            pom,
-                            session.getLocalRepository(),
-                            new DefaultProfileManager(session.getContainer(), session.getSettings()));
-                    projectCache.put(
-                        pom,
-                        project);
+                    project = projectBuilder.build(pom, session.getLocalRepository(),
+                            new DefaultProfileManager(session.getContainer()));
+                    projectCache.put(pom, project);
                 }
                 catch (Exception ex)
                 {
