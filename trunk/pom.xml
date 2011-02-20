@@ -364,40 +364,6 @@
                 <artifactId>openide-util</artifactId>
                 <version>20050711</version>
             </dependency>
-            <!--dependency>
-                <groupId>org.eclipse.uml2</groupId>
-                <artifactId>org.eclipse.uml2.uml</artifactId>
-                <version>3.1.0.v201006071150</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.registry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.uml2</groupId>
-                <artifactId>org.eclipse.uml2.common</artifactId>
-                <version>1.5.0.v201005031530</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency-->
             <dependency>
                 <groupId>org.eclipse.uml2</groupId>
                 <artifactId>org.eclipse.uml2.uml.resources</artifactId>
@@ -410,102 +376,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!--dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.common</artifactId>
-                <version>2.6.0.v20100614-1136</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.common</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.ecore</artifactId>
-                <version>2.6.0.v20100614-1136</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.common</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.registry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.contenttype</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.jobs</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.resources</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-                <version>2.5.0.v20100521-1846</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.common</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.registry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.contenttype</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.mapping.ecore2xml</artifactId>
-                <version>2.5.0.v20100521-1847</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.equinox</groupId>
-                        <artifactId>org.eclipse.equinox.registry</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.core</groupId>
-                        <artifactId>org.eclipse.core.runtime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency-->
 
             <!-- Maven dependencies -->
             <dependency>
@@ -534,6 +404,14 @@
     </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
+        <!-- Configurations for QA checks, accessed as classpath resources>
+        <extensions>
+            <extension>
+                <groupId>org.andromda.maven</groupId>
+                <artifactId>maven-config</artifactId>
+                <version>${project.version}</version>
+            </extension>
+        </extensions -->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -559,11 +437,22 @@
                 </plugin>
                 <plugin>
                     <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                    <!-- Runs generate-sources multiple times, see http://jira.codehaus.org/browse/MSOURCES-13 -->
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.1.2</version>
                     <configuration>
                         <includePom>true</includePom>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                                <goal>test-jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
@@ -586,7 +475,7 @@
                     <configuration>
                         <filesets>
                             <fileset>
-                                <directory>${basedir}</directory>
+                                <directory>${project.basedir}</directory>
                                 <includes>
                                     <include>*.exc</include>
                                     <include>*.log</include>
@@ -603,6 +492,10 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.7.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>2.7.1</version>
                 </plugin>
                 <plugin>
@@ -658,6 +551,9 @@
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>2.2</version>
+                    <configuration>
+                        <locales>en</locales>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-archetype-plugin</artifactId>
@@ -692,23 +588,172 @@
                         </sourceExcludes>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>2.2</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.3.1</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.7</version>
+                    <configuration>
+                        <show>package</show>
+                        <version>true</version>
+                        <javadocVersion>${source.version}</javadocVersion>
+                        <failOnError>false</failOnError>
+                        <linksource>true</linksource>
+                        <serialwarn>true</serialwarn>
+                        <detectLinks>true</detectLinks>
+                        <detectOfflineLinks>true</detectOfflineLinks>
+                        <links>
+                            <link>http://download.oracle.com/javase/6/docs/api/</link>
+                            <link>http://download.oracle.com/javaee/1.4/api/</link>
+                            <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
+                            <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
+                            <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                            <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                            <link>http://www.junit.org/junit/javadoc/</link>
+                            <link>http://logging.apache.org/log4j/docs/api/</link>
+                            <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                            <link>http://velocity.apache.org/engine/devel/apidocs/</link>
+                        </links>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <!-- TODO: 2.7.2 Error: [INFO] Error getting reports from the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2': Unable to load the mojo 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2:report' in the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin'. A required class is missing: org/apache/maven/reporting/AbstractMavenReport -->
+                    <version>2.7.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <targetJdk>1.5</targetJdk>
+                        <linkXRef>true</linkXRef>
+                        <rulesets>
+                            <!--ruleset>andromda/pmd_ruleset.xml</ruleset-->
+                                <ruleset>/rulesets/basic.xml</ruleset>
+                                <ruleset>/rulesets/braces.xml</ruleset>
+                                <ruleset>/rulesets/clone.xml</ruleset>
+                                <ruleset>/rulesets/codesize.xml</ruleset>
+                                <ruleset>/rulesets/controversial.xml</ruleset>
+                                <ruleset>/rulesets/coupling.xml</ruleset>
+                                <ruleset>/rulesets/design.xml</ruleset>
+                                <ruleset>/rulesets/finalizers.xml</ruleset>
+                                <ruleset>/rulesets/logging-java.xml</ruleset>
+                                <ruleset>/rulesets/j2ee.xml</ruleset>
+                                <ruleset>/rulesets/javabeans.xml</ruleset>
+                                <ruleset>/rulesets/junit.xml</ruleset>
+                                <ruleset>/rulesets/naming.xml</ruleset>
+                                <ruleset>/rulesets/optimizations.xml</ruleset>
+                                <ruleset>/rulesets/strictexception.xml</ruleset>
+                                <ruleset>/rulesets/strings.xml</ruleset>
+                                <ruleset>/rulesets/sunsecure.xml</ruleset>
+                                <ruleset>/rulesets/typeresolution.xml</ruleset>
+                                <ruleset>/rulesets/unusedcode.xml</ruleset>
+                        </rulesets>
+                        <excludeRoots>
+                            <excludeRoot>target/generated-sources</excludeRoot>
+                        </excludeRoots>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jdepend-maven-plugin</artifactId>
+                    <version>2.0-beta-2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javancss-maven-plugin</artifactId>
+                    <version>2.0</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>taglist-maven-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <tagListOptions>
+                            <tagClasses>
+                                <tagClass>
+                                    <displayName>Todo Work</displayName>
+                                    <tags>
+                                        <tag>
+                                            <matchString>todo</matchString>
+                                            <matchType>ignoreCase</matchType>
+                                        </tag>
+                                        <tag>
+                                            <matchString>FIXME</matchString>
+                                            <matchType>exact</matchType>
+                                        </tag>
+                                        <tag>
+                                            <matchString>@deprecated</matchString>
+                                            <matchType>exact</matchType>
+                                        </tag>
+                                    </tags>
+                                </tagClass>
+                            </tagClasses>
+                        </tagListOptions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <!--configLocation>andromda/checkstyle_checks.xml</configLocation-->
+                        <configLocation>config/maven_checks.xml</configLocation>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.3.1</version>
+                    <configuration>
+                        <xmlOutput>true</xmlOutput>
+                        <effort>Default</effort>
+                        <threshold>Normal</threshold>
+                        <failOnError>false</failOnError>
+                        <!--excludeFilterFile>andromda/findbugs-exclude-filters.xml</excludeFilterFile-->
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <inherited>false</inherited>
+                    <artifactId>maven-changes-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <formats>
+                            <format>html</format>
+                            <format>xml</format>
+                        </formats>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-changelog-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>clirr-maven-plugin</artifactId>
+                    <version>2.3</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <minSeverity>info</minSeverity>
+                        <comparisonVersion>3.3</comparisonVersion>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                            <goal>test-jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>1.0</version>
@@ -743,7 +788,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.3.1</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -779,18 +823,6 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
-                            <version>${project.version}</version>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install_metafacades_uml2</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml2.jar</file>
-                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml2.pom</pomFile>
                             <version>${project.version}</version>
                         </configuration>
                     </execution>
@@ -831,18 +863,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>install_repositories_uml2</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml2.jar</file>
-                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml2.pom</pomFile>
-                            <version>${project.version}</version>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>install_repositories_uml22</id>
                         <phase>initialize</phase>
                         <goals>
@@ -854,9 +874,8 @@
                             <version>${project.version}</version>
                         </configuration>
                     </execution>
-
                     <execution>
-                        <id>install_translationlibraries_validation</id>
+                        <id>install_translationlibraries_testsuite</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>install-file</goal>
@@ -871,7 +890,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>install_translationlibraries_test</id>
+                        <id>install_translationlibraries_validation</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>install-file</goal>
@@ -922,7 +941,7 @@
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
-        <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository
+        <!-- Update lib\ bootstrap artifacts. Artifacts are installed as the very first build step
         <bootstrap.artifacts>true</bootstrap.artifacts-->
         <!-- French Encoding from Cedric in some files: can't use UTF-8, TODO update source files -->
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -942,7 +961,7 @@
                 <module>maven/model-archiver</module>
             </modules>
         </profile>
-        <!--Profile configuration for light build. It builds all modules without source and javadoc packaging.
+        <!--Profile configuration for light build. It builds all modules without javadoc packaging.
         Note: activeByDefault means it is DEACTIVATED if another profile is specifically activated i.e. through -Pprofile. -->
         <profile>
             <id>andromda-lite</id>
@@ -950,6 +969,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>maven/maven-config</module>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
                 <module>andromda-templateengines</module>
@@ -1033,6 +1053,7 @@
         <profile>
             <id>andromda-full</id>
             <modules>
+                <module>maven/maven-config</module>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
                 <module>andromda-templateengines</module>
@@ -1052,19 +1073,13 @@
             <build>
                 <plugins>
                     <plugin>
-                        <!-- Automatically attach javadoc to build artifact as artifact-version-javadoc.jar and deploy to repository -->
-                        <inherited>true</inherited>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.7</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <detectOfflineLinks>false</detectOfflineLinks>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -1075,6 +1090,7 @@
             <!--Profile configuration for site builds-->
             <id>andromda-site</id>
             <modules>
+                <module>maven/maven-config</module>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
                 <module>andromda-templateengines</module>
@@ -1103,10 +1119,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>2.2</version>
-                        <configuration>
-                            <locales>en</locales>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -1136,12 +1148,9 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-jxr-plugin</artifactId>
-                        <version>2.2</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <inherited>true</inherited>
                         <reportSets>
                           <reportSet>
                             <reports>
@@ -1163,32 +1172,9 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.7</version>
                         <reportSets>
                             <reportSet>
                                 <id>non-aggregate</id>
-                                <configuration>
-                                    <show>package</show>
-                                    <version>true</version>
-                                    <javadocVersion>${source.version}</javadocVersion>
-                                    <failOnError>false</failOnError>
-                                    <linksource>true</linksource>
-                                    <serialwarn>true</serialwarn>
-                                    <detectLinks/>
-                                    <detectOfflineLinks>false</detectOfflineLinks>
-                                    <links>
-                                        <link>http://download.oracle.com/javase/6/docs/api/</link>
-                                        <link>http://download.oracle.com/javaee/1.4/api/</link>
-                                        <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
-                                        <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
-                                        <link>http://jakarta.apache.org/commons/collections/apidocs</link>
-                                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-                                        <link>http://www.junit.org/junit/javadoc/</link>
-                                        <link>http://logging.apache.org/log4j/docs/api/</link>
-                                        <link>http://jakarta.apache.org/regexp/apidocs/</link>
-                                        <link>http://velocity.apache.org/engine/devel/apidocs/</link>
-                                    </links>
-                                </configuration>
                                 <reports>
                                     <report>javadoc</report>
                                 </reports>
@@ -1201,48 +1187,16 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
-                        <version>2.5</version>
-                        <configuration>
-                            <targetJdk>1.5</targetJdk>
-                            <linkXRef>true</linkXRef>
-                            <rulesets>
-                                <ruleset>/rulesets/basic.xml</ruleset>
-                                <ruleset>/rulesets/braces.xml</ruleset>
-                                <ruleset>/rulesets/clone.xml</ruleset>
-                                <ruleset>/rulesets/codesize.xml</ruleset>
-                                <ruleset>/rulesets/controversial.xml</ruleset>
-                                <ruleset>/rulesets/coupling.xml</ruleset>
-                                <ruleset>/rulesets/design.xml</ruleset>
-                                <ruleset>/rulesets/finalizers.xml</ruleset>
-                                <ruleset>/rulesets/logging-java.xml</ruleset>
-                                <ruleset>/rulesets/j2ee.xml</ruleset>
-                                <ruleset>/rulesets/javabeans.xml</ruleset>
-                                <ruleset>/rulesets/junit.xml</ruleset>
-                                <ruleset>/rulesets/naming.xml</ruleset>
-                                <ruleset>/rulesets/optimizations.xml</ruleset>
-                                <ruleset>/rulesets/strictexception.xml</ruleset>
-                                <ruleset>/rulesets/strings.xml</ruleset>
-                                <ruleset>/rulesets/sunsecure.xml</ruleset>
-                                <ruleset>/rulesets/typeresolution.xml</ruleset>
-                                <ruleset>/rulesets/unusedcode.xml</ruleset>
-                            </rulesets>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.6</version>
-                        <configuration>
-                            <configLocation>config/maven_checks.xml</configLocation>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>jdepend-maven-plugin</artifactId>
-                        <version>2.0-beta-2</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-changes-plugin</artifactId>
-                        <version>2.4</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1251,46 +1205,13 @@
                                 </reports>
                             </reportSet>
                         </reportSets>
-                        <configuration>
-                            <columnNames>Key,Type,Summary,Assignee,Status,Resolution,Priority,Component</columnNames>
-                            <sortColumnNames>Key</sortColumnNames>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>taglist-maven-plugin</artifactId>
-                        <version>2.4</version>
-                        <configuration>
-                            <tagListOptions>
-                                <tagClasses>
-                                    <tagClass>
-                                        <displayName>Todo Work</displayName>
-                                        <tags>
-                                            <tag>
-                                                <matchString>todo</matchString>
-                                                <matchType>ignoreCase</matchType>
-                                            </tag>
-                                            <tag>
-                                                <matchString>FIXME</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                            <tag>
-                                                <matchString>XXX</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                            <tag>
-                                                <matchString>@deprecated</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                        </tags>
-                                    </tagClass>
-                                </tagClasses>
-                            </tagListOptions>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-changelog-plugin</artifactId>
-                        <version>2.2</version>
                         <reportSets>
                             <reportSet>
                                 <id>All Reports</id>
@@ -1310,39 +1231,18 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>clirr-maven-plugin</artifactId>
-                        <version>2.3</version>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <minSeverity>info</minSeverity>
-                            <comparisonVersion>3.3</comparisonVersion>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>javancss-maven-plugin</artifactId>
-                        <version>2.0</version>
-                        <inherited>true</inherited>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <configuration>
-                            <xmlOutput>true</xmlOutput>
-                            <effort>Default</effort>
-                            <threshold>Normal</threshold>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>cobertura-maven-plugin</artifactId>
-                        <version>2.4</version>
-                        <configuration>
-                            <formats>
-                                <format>html</format>
-                                <format>xml</format>
-                            </formats>
-                        </configuration>
                     </plugin>
                     <!--plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -1351,7 +1251,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-doap-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>1.1</version>
                         <configuration>
                         <doapOptions>
                             <programmingLanguage>java</programmingLanguage>
@@ -1369,6 +1269,7 @@
             <!--Profile configuration for site builds-->
             <id>andromda-site-light</id>
             <modules>
+                <module>maven/maven-config</module>
                 <module>andromda-core</module>
                 <module>andromda-utils</module>
                 <module>andromda-templateengines</module>
@@ -1396,10 +1297,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>2.2</version>
-                        <configuration>
-                            <locales>en</locales>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -1429,13 +1326,9 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-jxr-plugin</artifactId>
-                        <version>2.2</version>
-                        <inherited>true</inherited>
                     </plugin>
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <inherited>true</inherited>
                         <reportSets>
                           <reportSet>
                             <reports>
@@ -1457,32 +1350,9 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.7</version>
                         <reportSets>
                             <reportSet>
                                 <id>non-aggregate</id>
-                                <configuration>
-                                    <show>package</show>
-                                    <version>true</version>
-                                    <javadocVersion>${source.version}</javadocVersion>
-                                    <failOnError>false</failOnError>
-                                    <linksource>true</linksource>
-                                    <serialwarn>true</serialwarn>
-                                    <detectLinks/>
-                                    <detectOfflineLinks>false</detectOfflineLinks>
-                                    <links>
-                                        <link>http://download.oracle.com/javase/6/docs/api/</link>
-                                        <link>http://download.oracle.com/javaee/1.4/api/</link>
-                                        <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/3.1.0/</link>
-                                        <link>http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/</link>
-                                        <link>http://jakarta.apache.org/commons/collections/apidocs</link>
-                                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-                                        <link>http://www.junit.org/junit/javadoc/</link>
-                                        <link>http://logging.apache.org/log4j/docs/api/</link>
-                                        <link>http://jakarta.apache.org/regexp/apidocs/</link>
-                                        <link>http://velocity.apache.org/engine/devel/apidocs/</link>
-                                    </links>
-                                </configuration>
                                 <reports>
                                     <report>javadoc</report>
                                 </reports>
@@ -1495,32 +1365,6 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
-                        <version>2.5</version>
-                        <configuration>
-                            <targetJdk>1.5</targetJdk>
-                            <linkXRef>true</linkXRef>
-                            <rulesets>
-                                <ruleset>/rulesets/basic.xml</ruleset>
-                                <ruleset>/rulesets/braces.xml</ruleset>
-                                <ruleset>/rulesets/clone.xml</ruleset>
-                                <ruleset>/rulesets/codesize.xml</ruleset>
-                                <ruleset>/rulesets/controversial.xml</ruleset>
-                                <ruleset>/rulesets/coupling.xml</ruleset>
-                                <ruleset>/rulesets/design.xml</ruleset>
-                                <ruleset>/rulesets/finalizers.xml</ruleset>
-                                <ruleset>/rulesets/logging-java.xml</ruleset>
-                                <ruleset>/rulesets/j2ee.xml</ruleset>
-                                <ruleset>/rulesets/javabeans.xml</ruleset>
-                                <ruleset>/rulesets/junit.xml</ruleset>
-                                <ruleset>/rulesets/naming.xml</ruleset>
-                                <ruleset>/rulesets/optimizations.xml</ruleset>
-                                <ruleset>/rulesets/strictexception.xml</ruleset>
-                                <ruleset>/rulesets/strings.xml</ruleset>
-                                <ruleset>/rulesets/sunsecure.xml</ruleset>
-                                <ruleset>/rulesets/typeresolution.xml</ruleset>
-                                <ruleset>/rulesets/unusedcode.xml</ruleset>
-                            </rulesets>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -1530,59 +1374,21 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>javancss-maven-plugin</artifactId>
-                        <version>2.0</version>
-                        <inherited>true</inherited>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>taglist-maven-plugin</artifactId>
-                        <version>2.4</version>
-                        <configuration>
-                            <tagListOptions>
-                                <tagClasses>
-                                    <tagClass>
-                                        <displayName>Todo Work</displayName>
-                                        <tags>
-                                            <tag>
-                                                <matchString>todo</matchString>
-                                                <matchType>ignoreCase</matchType>
-                                            </tag>
-                                            <tag>
-                                                <matchString>FIXME</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                            <tag>
-                                                <matchString>@deprecated</matchString>
-                                                <matchType>exact</matchType>
-                                            </tag>
-                                        </tags>
-                                    </tagClass>
-                                </tagClasses>
-                            </tagListOptions>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.6</version>
-                        <configuration>
-                            <configLocation>config/maven_checks.xml</configLocation>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <configuration>
-                            <xmlOutput>true</xmlOutput>
-                            <effort>Default</effort>
-                            <threshold>Normal</threshold>
-                            <failOnError>false</failOnError>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <inherited>false</inherited>
                         <artifactId>maven-changes-plugin</artifactId>
-                        <version>2.3</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
