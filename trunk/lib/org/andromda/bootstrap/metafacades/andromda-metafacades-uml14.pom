@@ -7,7 +7,7 @@
   <version>3.4-SNAPSHOT</version>
   <name>AndroMDA UML 1.4 Metafacades</name>
   <description>The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
-  		implementations.  These implement the common UML metafacades.</description>
+        implementations.  These implement the common UML metafacades.</description>
   <inceptionYear>2003</inceptionYear>
   <organization>
     <name>AndroMDA.org</name>
@@ -43,7 +43,7 @@
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.5</version>
+      <version>2.6</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -55,7 +55,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.7</version>
+      <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
