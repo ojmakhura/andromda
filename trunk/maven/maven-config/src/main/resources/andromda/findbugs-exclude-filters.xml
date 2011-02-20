@@ -1,0 +1,26 @@
+<FindBugsFilter>
+	<!--  disable check for mutable array passing -->
+	<Match>
+		<Bug pattern="MS_MUTABLE_ARRAY" />
+	</Match>
+	<!--  disable check for dereferencing a field that does not seem to ever have a non-null value written to it because we use DI -->
+	<Match>
+		<Bug pattern="NP_UNWRITTEN_FIELD" />
+	</Match>
+	<!--  disable check for field is never written because it is not valid in applications using DI -->
+	<Match>
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<!--  disable check for field is never written because it is not valid in applications using DI -->
+	<Match>
+		<Bug pattern="EI_EXPOSE_REP" />
+	</Match>
+	<!--  disable check for field is never written because it is not valid in applications using DI -->
+	<Match>
+		<Bug pattern="EI_EXPOSE_REP2" />
+	</Match>
+	<!--  disable check for non-serializable field in a serializable class TEMPORARILY!!!!!!!!!!!!!!! -->
+	<Match>
+		<Bug pattern="SE_BAD_FIELD" />
+	</Match>
+</FindBugsFilter>

@@ -1,0 +1,25 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Causes build cycle in maven2, not in maven3 -->
+    <!--parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent-->
+	<groupId>org.andromda.maven</groupId>
+	<artifactId>maven-config</artifactId>
+    <version>3.4-SNAPSHOT</version>
+	<name>maven-config</name>
+	<description>AndroMDA Maven Config - global configurations for quality metrics such as PMD FindBugs CheckStyle</description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://www.andromda.org/jira/browse/MAVEN</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/maven-config</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
+</project>
