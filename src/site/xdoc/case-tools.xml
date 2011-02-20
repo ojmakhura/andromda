@@ -36,12 +36,11 @@
             </subsection>
             <subsection name="Features that a tool should support to be used with AndroMDA">
                 <ul>
-                    <li>XMI</li>
-                    <li>The XMI file should contain a UML 1.4 or 2.x or EMF UML2 2.x or 3.x metamodel</li>
-                    <li>UML Profiles and Libraries referenced in the local filesystem (downloaded by maven)</li>
-                    <li>Class Diagrams</li>
-                    <li>Activity Graphs (UML2 StateMachine / StateTransition diagrams)</li>
+                    <li>Native or exported XMI or UML file containing a XMI 1.4 or 2.x or EMF UML2 2.x or 3.x metamodel</li>
+                    <li>XMI or UML Profiles and Libraries can be referenced in the local filesystem</li>
                     <li>UML tagged values (UML2 Stereotype attributes)</li>
+                    <li>Classes: Attributes, Associations, Operation Parameters with type/multiplicity/unique/ordered support</li>
+                    <li>Activity Graphs (UML2 StateMachine / StateTransition diagrams)</li>
                     <li>UML constraints</li>
                 </ul>
             </subsection>
@@ -66,17 +65,21 @@
                 <b>What does UML compliancy mean ?</b>
             </p>
             <p>A: This indicates the supported UML version, taken from the tool vendor's web site.</p>
+            <p>Q:
+                <b>Information for tool X is incorrect or outdated, how to update?</b>
+            </p>
+            <p>A: AndroMDA site documentation is in XDoc format in the source tree. Corrections can be submitted as 
+                a patch through the normal source update process. Links to tutorials using AndroMDA are particularly welcome.
+                See Coding / Patching -> <a href="/coding-conventions.html#Submitting_Patches">"How to submit a patch</a> through JIRA.</p>
         </section>
         <section name="Tools currently tested">
             <p>
-                The following is a list compiled by
-                <a href="http://www.daniel-s-haischt.biz/">Daniel S. Haischt</a>,
-                he has tested a set of CASE tools that are available on the market and wrote down their level of
-                compatibility with AndroMDA.
+                The following is a set of UML tools that are available on the market with their level of AndroMDA
+                compatibility.
             </p>
             <table>
                 <tr>
-                    <th></th>
+                    <th>UML Tool</th>
                     <th>Version</th>
                     <th>XMI</th>
                     <th>UML</th>
@@ -86,12 +89,11 @@
                     <th>Integration</th>
                     <th>Platform Neutral</th>
                     <th>Price</th>
-                    <th>Note</th>
+                    <th>Notes</th>
                 </tr>
                 <tr>
                     <td>
                         <a href="http://www.magicdraw.com/">MagicDraw UML</a>
-                        <img src="images/flash.gif" alt="images/flash.gif"/>
                         <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
                     <td>9.x (UML14) / 11.5 through 17+ (EMF UML2 export)</td>
@@ -106,24 +108,41 @@
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
-                    <td>Excellent support.</td>
+                    <td>Excellent UML2 support.</td>
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">US $149 (many different licenses available)</td>
-                    <td>Excellent support, this is the tool of preference to use with AndroMDA, there is also
-                        a free community edition with limited support. Integrates with
-                        Sun ONE Studio, Borland CaliberRM 6.0, 6.5, BEA WebLogic Workshop 8.1.2,
-                        IntelliJ IDEA 4.X, NetBeans 3.6, Eclipse 3.X, IBM's Rational Application Developer 7.X/8.X,
-                        Borland's JBuilder 8.0, 9.0, X, 2005, Built-in CVS interface for storing project files.
-                        Please note that AndroMDA can <strong>not</strong> currently load XMI 1.0 without 
-                        "preprocessing" the XMI to make it compliant with <a href="http://mdr.netbeans.org">MDR</a>.
-                        This means you should save your XMI to 1.1 or 1.2 (since Magic Draw allows 1.0, 1.1 and 1.2).
-						UML 2.0 models from MagicDraw 11.5+ are supported through the use of EMF (the
-						Eclipse Modeling Framework). This means, you need to export your
-						MagicDraw Model in EMF UML2 2.x or 3.x format. For this to work, use
-						AndroMDA 3.2 or higher.
+                    <td>Standalone, or integrates with Eclipse 3.X, NetBeans, IntelliJ IDEA 4.X, Borland's JBuilder.
+                        UML 2.0 models from MagicDraw 11.5+ are supported through the use of 
+						Eclipse Modeling Framework (EMF) export. XMI files are stored as .xml.zip or .mdzip files.
+                        UML14 version does not support unique/ordered in attributes/parameters, UML2 migration marks all as unique.
+                        UML14 version does not support multiplicity * on operation parameters or return types.
                      </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www-01.ibm.com/software/rational/products/swarchitect/">IBM Rational Modeler/Architect</a>
+                        <img src="images/flash.gif" alt="images/flash.gif"/>
+                    </td>
+                    <td>7.X 8.X</td>
+                    <td>2.X EMF</td>
+                    <td>2.2+</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">Eclipse-based</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">US $466 or more</td>
+                    <td>Native .emx/epx model formats supported with no export needed to use AndroMDA</td>
                 </tr>
                 <tr>
                     <td>
@@ -131,7 +150,7 @@
                     </td>
                     <td>3.6</td>
                     <td>2.X EMF</td>
-                    <td>2.2+</td>
+                    <td>2.3</td>
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
@@ -145,12 +164,14 @@
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
-                    <td style="text-align: center;">Free</td>
-                    <td>Follow-on implementation for Eclipse UMLTools, to be merged with TopCased</td>
+                    <td style="text-align: center;">Open Source</td>
+                    <td>Follow-on implementation for Eclipse UMLTools, to be merged with TopCased.
+                    MoDisco can be used for reverse engineering.</td>
                 </tr>
                 <tr>
                     <td>
                         <a href="http://wiki.eclipse.org/MDT-UML2Tools">Eclipse UMLTools</a>
+                        <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
                     <td>3.4 3.5 3.6</td>
                     <td>2.X EMF</td>
@@ -168,7 +189,7 @@
                     <td style="text-align: center;">
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
-                    <td style="text-align: center;">Free</td>
+                    <td style="text-align: center;">Open Source</td>
                     <td>Reference implementation for Eclipse EMF Tools. 
                     See <a href="http://www.vogella.de/articles/UML/article.html">http://www.vogella.de/articles/UML/article.html</a></td>
                 </tr>
@@ -197,6 +218,31 @@
                 </tr>
                 <tr>
                     <td>
+                        <a href="http://argouml.tigris.org/">ArgoUML</a>
+                    </td>
+                    <td>0.32</td>
+                    <td>1.2</td>
+                    <td>1.4, 2.0 (pre-release)</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td></td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">Open Source</td>
+                    <td>UML2 supported as a special enabled pre-release feature only, see 
+                    <a href="http://argouml.tigris.org/wiki/UML_2.x_support">http://argouml.tigris.org/wiki/UML_2.x_support</a>.
+                    Models and Profiles stored in .zargo format, must be imported and exported.</td>
+                </tr>
+                <tr>
+                    <td>
                         <a href="http://www.gentleware.com/">Poseidon UML</a>
                         <img src="images/flash.gif" alt="images/flash.gif"/>
                     </td>
@@ -217,8 +263,30 @@
                         <img src="images/check.gif" alt="images/check.gif"/>
                     </td>
                     <td style="text-align: center;">US $249 or more</td>
-                    <td>Good support. Just as with MagicDraw, there is also
+                    <td>Good support. There is also
                         a free community edition with limited support.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="http://www.omondo.com/">Omondo EclipseUML Studio</a>
+                    </td>
+                    <td>Eclipse 3.6</td>
+                    <td>2.3</td>
+                    <td>2.2</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td>?</td>
+                    <td>Eclipse 3.x</td>
+                    <td style="text-align: center;">
+                        <img src="images/check.gif" alt="images/check.gif"/>
+                    </td>
+                    <td style="text-align: center;">EUR 1.990,00, or Free edition</td>
+                    <td>EclipseUML Studio stores information of your UML model as Javadoc annotations
+                        directly in the Java source code. Free Edition is only 3.3 Europa compliant</td>
                 </tr>
                 <tr>
                     <td>
@@ -264,29 +332,6 @@
                     <td style="text-align: center;">Windows</td>
                     <td style="text-align: center;">US $125</td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="http://argouml.tigris.org/">ArgoUML</a>
-                    </td>
-                    <td>0.26.2</td>
-                    <td>1.2</td>
-                    <td>1.4, 2.0 (beta)</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td></td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">Free</td>
-                    <td>UML2 supported as a beta feature only.</td>
                 </tr>
                 <tr>
                     <td>
@@ -387,30 +432,6 @@
                     <td style="text-align: center;">US $299</td>
                     <td>It is not possible to display classes without their containment packages if they relate
                         to another package.</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="http://www.omondo.com/">Omondo EclipseUML Studio</a>
-                    </td>
-                    <td>Eclipse 3.6</td>
-                    <td>2.3</td>
-                    <td>2.2</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="images/forbidden.gif" alt="images/forbidden.gif"/>
-                    </td>
-                    <td>Eclipse 3.x</td>
-                    <td style="text-align: center;">
-                        <img src="images/check.gif" alt="images/check.gif"/>
-                    </td>
-                    <td style="text-align: center;">EUR 1.990,00, or Free edition</td>
-                    <td>EclipseUML Studio stores information of your UML model as Javadoc annotations
-                        directly in the Java source code. Free Edition is only 3.3 Europa compliant</td>
                 </tr>
             </table>
         </section>
