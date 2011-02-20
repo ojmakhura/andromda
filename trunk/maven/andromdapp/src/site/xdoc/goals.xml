@@ -27,16 +27,6 @@
 				</tr>
                 <tr>
                     <td nowrap="nowrap">
-                        <a href="build-mojo.html">andromdapp:build</a>
-                    </td>
-                    <td>
-                        <p>
-                            Execute the build goals from the top level project.
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td nowrap="nowrap">
                         <a href="clean-structure-mojo.html">andromdapp:clean-structure</a>
                     </td>
                     <td>
@@ -96,17 +86,6 @@
                             war artifacts with symbolic links and then symbolic links the ear
                             to the deploy directory so that we don't have to redeploy an ear in
                             order to make jsp changes.
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td nowrap="nowrap">
-                        <a href="maven-mojo.html">andromdapp:maven</a>
-                    </td>
-                    <td>
-                        <p>
-                            Allows the execution of maven from a given project (searches for
-                            nested pom.xml files and executes Maven)
                         </p>
                     </td>
                 </tr>
