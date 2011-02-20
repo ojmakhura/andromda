@@ -21,7 +21,7 @@ public class UnpackDocumentationMojo
     /**
      * Path to the JMI 1.4 API zip source
      * 
-     * @parameter expression="${basedir}/src/site/resources/jmi-uml1.4.zip"
+     * @parameter expression="${basedir}/src/site/resources/resources/jmi-uml1.4.zip"
      */
     private File jmiApiSourcePath;
     
@@ -35,7 +35,7 @@ public class UnpackDocumentationMojo
     /**
      * Path to the UmlDoc car-rental-sample zip source
      * 
-     * @parameter expression="${basedir}/src/site/resources/car-rental-umldoc.zip"
+     * @parameter expression="${basedir}/src/site/resources/resources/car-rental-umldoc.zip"
      */
     private File umlDocCarRentalSampleSourcePath;
     

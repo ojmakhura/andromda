@@ -22,7 +22,7 @@
                     To override the default log4j settings:.
                 </p>
                 <ul>
-                    <li>Create a file <a href="log4j.txt">log4j.xml</a></li>
+                    <li>Create a file <a href="resources/log4j.txt">log4j.xml</a></li>
                     <li>Add the <em>loggingConfigurationUri</em> property to your <a href="configuration.html">AndroMDA configuration</a>.
                         For example:
                         <source><![CDATA[<property name="loggingConfigurationUri">file:/some_location/log4j.xml</property>]]></source>.
