@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>AndroMDA - News</title>
+        <author email="michail@andromda.org">Michail Plushnikov</author>
+    </properties>
+    <body>
+        <section name="UML2 2.x is now the default supported by 3.4-SNAPSHOT">
+            <p>Wednesday, 17 February 2010</p>
+
+            <p>The default EMF UML2 repository implementation was changed from UML2 1.x to UML2 2.x, in order to support
+                the most current versions of the MagicDraw and Rational tools. Due to conflicting dependencies in the
+                uml libraries, both implementations could not be supported at the same time.
+            </p>
+
+            <p>Have a look at
+                <a href="http://forum.andromda.org/viewtopic.php?t=6724">here</a>
+                and
+                <a href="http://forum.andromda.org/viewtopic.php?t=6526">here</a>
+                for more information.
+            </p>
+        </section>
+
+        <section name="Andromda hosted at Sonatype repository">
+            <p>Friday, 01 January 2010</p>
+
+            <p>Andromda maven2 repository is now hosted on the Sonatype repository.
+                You can access all artifacts on <a href="http://oss.sonatype.org/content/groups/public/org/andromda">Sonatype</a>
+            </p>
+
+            <p>The old Andromda maven2 repository under <a href="http://www.andromda.org/maven2">http://www.andromda.org/maven2</a> was configurated to redirect all
+                requests going to "org.andromda" group to the new repository.
+            </p>
+        </section>
+
+        <section name="Andromda has moved to a new server...">
+            <p>Tuesday, 01 December 2009</p>
+            <p>Andromda has moved to a new server. Thank you for waiting.</p>
+
+            <p>We have updated our forum to a new version of phpBB (v.2.0.x ->v.3.0.x)
+                We have updated our Jira to a new version (v.3.X ->v.4.x)
+            </p>
+
+            <p>We apologize for any inconvenience and downtime in the last few days.</p>
+        </section>
+
+        <section name="Maven 2.2.1 compatibility">
+            <p>Monday, 12 October 2009</p>
+
+            <p>The current Snapshot of Andromda is now fully compatible with maven 2.2.1 version.</p>
+        </section>
+        <section name="Andromda goes SVN">
+            <p>Sunday, 28 June 2009</p>
+
+            <p>The andromda source repository has been migrated to SVN.</p>
+
+            <p>The V3_x_HEAD branch has been moved to trunk.</p>
+
+            <p>You can access new repository <a href="http://andromda.svn.sourceforge.net/viewvc/andromda">here</a></p>
+        </section>
+        <section name="Site Recovery">
+            <p>Sunday, 28 June 2009</p>
+
+            <p>The site suffered a hard drive failure. The site is now partially restored. There are some missing links.
+                Please bare with us while we complete the restoration of the site. The forum is now back up.
+                The maven repositories are working.
+            </p>
+        </section>
+        <section name="UML2 2.x and RSM 7.x support added to andromda">
+            <p>Friday, 05 June 2009</p>
+
+            <p>Unfortunately, the UML2 1.x EMF dependencies are not compatible with the UML2 2.x dependencies,
+                both cannot be loaded by andromda at the same time. Since the maven andromda-plugins loads and validates
+                all repositories when loading, and there is no way (that I know of) to change the plugin dependencies
+                dynamically, the dependencies must be changed manually before running. Any suggestions would be welcome.
+                Perhaps we can deprecate UML2 1.x support when everything has been thoroughly tested.
+            </p>
+
+            <p>
+                <a href="http://forum.andromda.org/viewtopic.php?t=6526">Read more</a>
+            </p>
+        </section>
+        <section name="Codegeneration 2009">
+            <p>Thursday, 14 May 2009</p>
+
+            <p>
+                <a href="http://www.codegeneration.net/cg2009/">Codegeneration 2009</a>
+            </p>
+
+            <p>CG2009 is for people who want to successfully apply or learn more about the following topics:</p>
+
+            <ul>
+                <li>Code Generation !</li>
+                <li>Domain-Specific Languages</li>
+                <li>Model-Driven Development (MDD), Model-Driven Architecture (MDA)</li>
+                <li>Eclipse Modelling Tools, openArchitectureWare (oAW), Xtext etc.</li>
+                <li>Executable UML</li>
+                <li>Model-Driven Software Development (MDSD)</li>
+                <li>Domain-Specific Modelling</li>
+                <li>Software Factories and Software Product Lines</li>
+                <li>Generative Software Development and other similar approaches.</li>
+            </ul>
+        </section>
+        <section name="AndroMDA 3.3 Final is released and available for download!">
+            <p>Tuesday, 22 April 2008</p>
+
+            <p>The AndroMDA committers team is proud to announce release 3.3 of the Model Driven Architecture framework AndroMDA.
+                This release primarily contains bug fixes and smaller enhancements such as:
+            </p>
+
+            <ul>
+                <li>Better support for latest versions of Maven (tested with Maven 2.0.8)</li>
+                <li>Ability to read *.emx files from RSA directly without the need to convert them to *.uml2.
+                    AndroMDA also checks for the IBM-specific metamodels for graphical elements in UML diagrams.
+                    If it finds them on the classpath, it registers them with the EMF package factory registry.
+                </li>
+            </ul>
+
+            <p>You can download the new version using Maven 2 or directly from SF.net.
+                Have fun and enhance your productivity with AndroMDA!
+            </p>
+        </section>
+
+        <section name="AndroMDA 3.2 Final is released and available for download!">
+            <p>Friday, 10 November 2006</p>
+
+            <p>The AndroMDA committers team is proud to announce release 3.2 of the Model Driven Architecture framework AndroMDA.
+                Highlights in this release are:
+            </p>
+
+            <ul>
+                <li>Support for UML 2.0 and Eclipse EMF-based tools (MagicDraw 11.6, RSM, etc.)</li>
+                <li>Now integrates with Maven 2</li>
+                <li>Code generation for PSM metamodel classes</li>
+                <li>Support for the Freemarker template engine</li>
+                <li>Code generation for Java generics</li>
+                <li>Enhanced documentation, lots of tutorials</li>
+                <li>Bug fixes and smaller enhancements</li>
+            </ul>
+
+            <p>You can download the new version using Maven 2 or directly from SF.net.</p>
+
+            <p>Have fun and enhance your productivity with AndroMDA!</p>
+        </section>
+    </body>
+</document>
