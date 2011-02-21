@@ -403,6 +403,7 @@ $decisionTransition.getDocumentation("     * ")
 #set ($defaultOutcome = $outcome)
         if (value.equals("$outcome.guard.name"))
         {
+#saveDecisionMessages($outcome "            ")
             return #processTransition($outcome)
         }
 #end
