@@ -38,29 +38,22 @@
     </ciManagement>
     <developers>
         <developer>
-            <id>nbhatia</id>
-            <name>Naresh Bhatia</name>
-            <email>naresh@andromda.org</email>
-            <organization>AndroMDA</organization>
+            <id>walter.mourao</id>
+            <name>Walter Mourao</name>
+            <email>walter@andromda.org</email>
+            <organization></organization>
             <roles>
                 <role>Developer</role>
             </roles>
-            <timezone>-5</timezone>
+            <timezone>-3</timezone>
         </developer>
     </developers>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.andromda.profiles.uml14</groupId>
-                <artifactId>andromda-profile</artifactId>
-                <version>${andromda.version}</version>
-                <type>xml.zip</type>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
-                <version>${andromda.version}</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -84,20 +77,157 @@
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-translation-core</artifactId>
-                <version>${andromda.version}</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-validation-library</artifactId>
-                <version>${andromda.version}</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda.cartridges</groupId>
+                <artifactId>andromda-jsf-cartridge-components</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>1.2.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>1.2.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.tomahawk</groupId>
+                <artifactId>tomahawk12</artifactId>
+                <version>1.1.10</version>
+            </dependency>
+            <!-- validation dependencies -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator</groupId>
+                <artifactId>myfaces-extval-core</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+                <artifactId>myfaces-extval-property-validation</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.validation-modules</groupId>
+                <artifactId>myfaces-extval-bean-validation</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+                <artifactId>myfaces-extval-generic-support</artifactId>
+                <version>1.2.4</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
+                <artifactId>myfaces-extval-trinidad-support</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+            <dependency>
+                <artifactId>hibernate-validator</artifactId>
+                <groupId>org.hibernate</groupId>
+                <version>4.1.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.trinidad</groupId>
+                <artifactId>trinidad-api</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.trinidad</groupId>
+                <artifactId>trinidad-impl</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>2.2</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.facelets</groupId>
+                <artifactId>jsf-facelets</artifactId>
+                <version>1.1.15</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.andromda</groupId>
+                <artifactId>andromda-utils</artifactId>
+                <version>${project.version}</version>
+                <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
-                <version>${andromda.version}</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- This dependency provides the ability to implement your
                  business logic in an interpreted manner during development on
@@ -105,7 +235,7 @@
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
-                <version>${andromda.version}</version>
+                <version>${project.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -139,30 +269,13 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>1.3.1</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-digester</groupId>
-                <artifactId>commons-digester</artifactId>
-                <version>2.1</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>jboss</groupId>
@@ -174,67 +287,48 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
                 <version>3.5.6-Final</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>dom4j</groupId>
-                <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
-                <scope>runtime</scope>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>2.3.1</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.13.0-GA</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>servlet-api</artifactId>
-                        <groupId>javax.servlet</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jta</artifactId>
-                        <groupId>javax.transaction</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>connector</artifactId>
-                        <groupId>javax.resource</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>xjavadoc</artifactId>
-                        <groupId>xdoclet</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>cos</artifactId>
-                        <groupId>com.servlets</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jstl</artifactId>
-                        <groupId>javax.servlet</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>standard</artifactId>
-                        <groupId>taglibs</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>quartz</artifactId>
-                        <groupId>quartz</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${spring.version}</version>
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${spring.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
             </dependency>
             <!-- Uncomment out below if using JDBC or aop or spring test>
             <dependency>
@@ -253,9 +347,15 @@
                 <version>${spring.version}</version>
             </dependency -->
             <dependency>
-                <groupId>aopalliance</groupId>
-                <artifactId>aopalliance</artifactId>
-                <version>1.0</version>
+                <groupId>antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>2.7.7</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>2.1</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -276,110 +376,42 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>taglibs</groupId>
-                <artifactId>standard</artifactId>
-                <version>1.1.2</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jsp-api</artifactId>
-                <version>2.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>oro</groupId>
                 <artifactId>oro</artifactId>
                 <version>2.0.8</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>struts</groupId>
-                <artifactId>struts</artifactId>
-                <version>1.2.9</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-chain</groupId>
-                        <artifactId>commons-chain</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>commons-digester</groupId>
-                        <artifactId>commons-digester</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>struts-menu</groupId>
-                <artifactId>struts-menu</artifactId>
-                <version>2.3</version>
-            </dependency>
-            <dependency>
-                <groupId>displaytag</groupId>
-                <artifactId>displaytag</artifactId>
-                <version>1.2</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>taglibs</groupId>
-                        <artifactId>standard</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!--dependency>
-                <groupId>org.acegisecurity</groupId>
-                <artifactId>acegi-security</artifactId>
-                <version>1.0.7</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-codec</groupId>
-                        <artifactId>commons-codec</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-remoting</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jdbc</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-support</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency-->
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.14.6</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
-            <scope>test</scope>
+                <!--scope>test</scope-->
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.14</version>
-            <!--scope>test</scope-->
+<!--                <scope>test</scope>-->
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>5.14.6</version>
+                <scope>test</scope>
         </dependency>
     </dependencies>
+    </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
+        <!-- To change from default src/main/java and src/test/java - doesn't work for Cobertura>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>src-test</testSourceDirectory -->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -394,71 +426,48 @@
                             </goals>
                             <configuration>
                                 <sources>
-                                    <source>target/src</source>
+                                    <source>target/src/main/java</source>
                                 </sources>
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.4.1</version>
-                    <configuration>
-                        <filesets>
-                            <fileset>
-                                <directory>${basedir}</directory>
-                                <includes>
-                                    <include>*.exc</include>
-                                    <include>*.log</include>
-                                </includes>
-                                <excludes>
-                                    <!-- Allow mvn clean install > install.log -->
-                                    <exclude>build.log</exclude>
-                                    <exclude>install.log</exclude>
-                                </excludes>
-                                <followSymlinks>false</followSymlinks>
-                            </fileset>
-                        </filesets>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>${andromda.version}</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromdapp-maven-plugin</artifactId>
-                    <version>${andromda.version}</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.4.3</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.7.1</version>
-                    <configuration>
-                        <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                        </suiteXmlFiles>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.3</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/*.ref</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <!-- Comment to run Eclipse plugin for top level project only, as part of mda install. See mda/eclipse.bat -->
+                <plugin>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.8</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <wtpversion>1.5</wtpversion>
+                        <buildOutputDirectory>target/classes</buildOutputDirectory>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
@@ -475,21 +484,122 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                      <generateSitemap>true</generateSitemap>
-                      <!--validate>true</validate-->
-                    </configuration>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.6</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>2.2.1</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <message>You need at least Java 1.6!</message>
+                                    <version>1.6.0</version>
+                                </requireJavaVersion>
+                                <requirePluginVersions>
+                                    <message>Best Practice is to always define plugin versions!</message>
+                                    <banSnapshots>false</banSnapshots>
+                                    <phases>clean,deploy,site</phases>
+                                </requirePluginVersions>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>*.log</include>
+                                <include>**/*.exc</include>
+                                <include>**/*.bak</include>
+                            </includes>
+                            <excludes>
+                                <!-- Allow mvn clean install > install.log -->
+                                <exclude>build.log</exclude>
+                                <exclude>install.log</exclude>
+                            </excludes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
+                </configuration>
+                </plugin>
+                <plugin>
+                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+            </plugins>
     </build>
     <modules>
+        <!-- Save the values used to generate this project from andromdapp
+        ejb3Persistence=$ejb3Persistence
+        ear=true
+        ejb=$ejb
+        ejb3=$ejb3
+        transactionPersistenceType=spring
+        jsr181Webservice=$jsr181Webservice
+        hibernate=$hibernate
+        spring=true
+        webservice=false
+        web=true
+        struts=$struts
+        jsf=true
+        cxf=$cxf
+        rest=$rest
+        ear=true
+        jbossSeam=$jbossSeam
+        soapStack=$soapStack
+        -->
         <module>mda</module>
         <module>common</module>
         <module>core</module>
@@ -497,6 +607,11 @@
         <module>app</module>
     </modules>
     <properties>
+        <downloadSources>true</downloadSources>
+        <createChecksum>true</createChecksum>
+        <uniqueVersion>false</uniqueVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <stagingDirectory>/home/walter/test_workspace/timetracker/target/site</stagingDirectory>
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
@@ -511,9 +626,12 @@
             For SapDB use: SapDB
             For Derby use: Derby
         -->
-        <sql.mappings>MySQL</sql.mappings>
+        <sql.mappings>
+            MySQL
+        </sql.mappings>
         <!--
             Change this for the appropriate database
+            For Derby use: org.hibernate.dialect.DerbyDialect
             For MySql use: org.hibernate.dialect.MySQL5Dialect
             For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
             For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
@@ -531,8 +649,9 @@
             For Progress use: org.hibernate.dialect.ProgressDialect
             For Derby use: org.hibernate.dialect.DerbyDialect
         -->
-        <andromda.version>${project.version}</andromda.version>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+        <hibernate.dialect>
+            org.hibernate.dialect.MySQL5InnoDBDialect
+        </hibernate.dialect>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <application.id>timetracker</application.id>
         <application.package>org.andromda.timetracker</application.package>
@@ -555,7 +674,10 @@
                     For MySQL use: mysql-connector-java-X-bin.jar
                     For Hypersonic use: hsqldb.jar
                 -->
-                <jdbc.driver.jar>${jboss.home}/server/default/lib/mysql-connector-java-5.1.4.jar</jdbc.driver.jar>
+                <jdbc.driver.jar>
+                    <!-- JBoss gives classloader exceptions if the JDBC driver is bundled with the EAR -->
+                    ${jboss.home}/server/default/lib/mysql-connector-java-5.1.14.jar
+                </jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database
                     For MySQL use: com.mysql.jdbc.Driver
@@ -617,7 +739,7 @@
                         <plugin>
                             <groupId>org.andromda.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                  be done when developing locally), uncomment this executions element to enable
                             <executions>
@@ -661,8 +783,6 @@
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
                             <version>2.7.1</version>
-                            <configuration>
-                            </configuration>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -687,15 +807,14 @@
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
         <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven 2</name>
-            <url>http://download.java.net/maven/2</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
             <id>jboss-public</id>
             <name>JBoss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/public</url>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
+        <repository>
+            <id>download</id>
+            <name>Java.Net Download</name>
+            <url>http://download.java.net/maven/2</url>
         </repository>
         <repository>
             <id>Codehaus Snapshots</id>
@@ -728,18 +847,6 @@
     <prerequisites>
         <maven>2.0.10</maven>
     </prerequisites>
-    <distributionManagement>
-        <repository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>file:/var/www/maven2</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <site>
-            <id>website</id>
-            <url>file:/var/www/docs/samples/timetracker</url>
-        </site>
-    </distributionManagement>
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
         <plugins>
@@ -795,14 +902,14 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <rulesets>
                         <ruleset>/rulesets/basic.xml</ruleset>
                         <ruleset>/rulesets/braces.xml</ruleset>
@@ -845,7 +952,8 @@
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <report>jira-report</report>
+                            <!-- Uncomment if using JIRA -->
+                            <!--report>jira-report</report-->
                         </reports>
                     </reportSet>
                 </reportSets>
@@ -927,15 +1035,14 @@
                     </formats>
                 </configuration>
             </plugin>
-            <!-- Compare APIs to a previous version>
-            <plugin>
+            <!-- Compare APIs to a previous version, uncomment when a release version exists -->
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.2.3</version>
+                <version>2.3</version>
                 <inherited>true</inherited>
                 <configuration>
                     <minSeverity>info</minSeverity>
-                    <comparisonVersion>3.3</comparisonVersion>
                 </configuration>
             </plugin -->
             <plugin>
