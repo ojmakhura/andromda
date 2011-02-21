@@ -88,12 +88,6 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-                <groupId>org.andromda.cartridges</groupId>
-                <artifactId>andromda-jsf-cartridge</artifactId>
-                <version>${andromda.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
                 <version>1.2.9</version>
