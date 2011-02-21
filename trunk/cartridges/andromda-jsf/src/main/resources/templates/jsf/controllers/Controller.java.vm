@@ -28,9 +28,28 @@ ${indent}// - only add info messages if we don't have any messages or warnings a
 ${indent}else if (messageSeverity == null || messageSeverity.equals(javax.faces.application.FacesMessage.SEVERITY_WARN))
 ${indent}{
 #foreach ($message in $transition.successMessages.entrySet())
-${indent}    this.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+${indent}this.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
 #end
 ${indent}}
+#end
+#if ($transition.warningMessagesPresent)
+#foreach ($message in $transition.warningMessages.entrySet())
+${indent}this.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#end
+##
+##   This macro generates code to save any success messages and warning messages in decision transitions
+##
+#macro (saveDecisionMessages $transition $indent)
+#set ($messagesFullyQualifiedName = "Messages")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($messagesFullyQualifiedName = "${managedBeansPackage}.${messagesFullyQualifiedName}")
+#end
+#if ($transition.successMessagesPresent)
+#foreach ($message in $transition.successMessages.entrySet())
+${indent}this.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
 #end
 #if ($transition.warningMessagesPresent)
 #foreach ($message in $transition.warningMessages.entrySet())
