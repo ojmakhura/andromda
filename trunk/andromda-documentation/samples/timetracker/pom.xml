@@ -559,26 +559,26 @@
                     <showWarnings>true</showWarnings>
                     <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
                 </configuration>
-                </plugin>
-                <plugin>
-                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-            </plugins>
+            </plugin>
+            <plugin>
+                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+        </plugins>
     </build>
     <modules>
         <!-- Save the values used to generate this project from andromdapp
@@ -798,6 +798,63 @@
                     </plugins>
                 </pluginManagement>
             </build>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-repository</id>
+                    <name>AndroMDA Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>AndroMDA Snapshot Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs</url>
+                </site>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <!--Profile configuration for server builds-->
+            <id>server</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <inherited>true</inherited>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-releases</id>
+                    <name>Andromda Staging Repository</name>
+                    <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>Andromda Snapshot Repository</name>
+                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs</url>
+                </site>
+            </distributionManagement>
         </profile>
     </profiles>
     <repositories>
@@ -885,7 +942,7 @@
                 <configuration>
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
-                    <sourcepath>${basedir}/src/main/java;${basedir}/target/src/main/java</sourcepath>
+                    <sourcepath>${project.basedir}/src/main/java;${project.basedir}/target/src/main/java</sourcepath>
                     <detectLinks/>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
