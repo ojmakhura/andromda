@@ -5,14 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
 
+
 /**
- * Overrides the default javax.faces.convert.DateTimeConverter to include conversion of Calendar
+ * Overrides the default DateTimeConverter to include conversion of Calendar
  * instances as well as Date instances.
  *
  * <p>
@@ -22,13 +25,11 @@ import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
  *
  * @author Chad Brandon
  */
-public class JsfDateTimeConverter
+public class JSFDateTimeConverter
     extends javax.faces.convert.DateTimeConverter
     implements DateConverter
 {
-    /**
-     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
-     */
+    @Override
     public String getAsString(
         FacesContext context,
         UIComponent component,
@@ -37,6 +38,12 @@ public class JsfDateTimeConverter
     {
         if (value instanceof Calendar)
         {
+            // - if the time zone is not explicitly set, use the one from the calendar
+            if (!this.timeZoneIsSet)
+            {
+	            // - use the time zone from the calendar
+	            this.setTimeZone(((Calendar)value).getTimeZone());
+            }
             value = ((Calendar)value).getTime();
         }
         final String pattern = this.getPattern();
@@ -50,9 +57,7 @@ public class JsfDateTimeConverter
         return result;
     }
 
-    /**
-     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
-     */
+    @Override
     public Object getAsObject(
         FacesContext context,
         UIComponent component,
@@ -122,8 +127,8 @@ public class JsfDateTimeConverter
 
     /**
      * @see #getTimeZone()
-     * @see javax.faces.convert.DateTimeConverter#restoreState(javax.faces.context.FacesContext, Object)
      */
+    @Override
     public void restoreState(FacesContext facesContext, Object state)
     {
         super.restoreState(facesContext, state);
@@ -133,8 +138,8 @@ public class JsfDateTimeConverter
 
     /**
      * @see #getTimeZone()
-     * @see javax.faces.convert.DateTimeConverter#saveState(javax.faces.context.FacesContext)
      */
+    @Override
     public Object saveState(FacesContext facesContext)
     {
         Object[] values = (Object[])super.saveState(facesContext);
@@ -143,20 +148,25 @@ public class JsfDateTimeConverter
     }
 
     /**
-     * @see #getTimeZone()
-     * @see javax.faces.convert.DateTimeConverter#setTimeZone(java.util.TimeZone)
+     * Keeps track of whether or not the time zone was explicitly set.
      */
+    private boolean timeZoneIsSet;
+
+    /**
+     * @see #getTimeZone()
+     */
+    @Override
     public void setTimeZone(TimeZone timeZone)
     {
         this.timeZone = timeZone;
+        this.timeZoneIsSet = true;
     }
 
     /**
      * Overridden because the default timeZone is set as GMT, whereas it should be the default
-     * for the operating system (at least in my opinion).
-     *
-     * @see javax.faces.convert.DateTimeConverter#getTimeZone()
+     * for the operating system.
      */
+    @Override
     public TimeZone getTimeZone()
     {
         return this.timeZone == null ? TimeZone.getDefault() : this.timeZone;
@@ -167,9 +177,7 @@ public class JsfDateTimeConverter
      */
     public static final String CONVERTER_ID = "andromda.faces.DateTime";
 
-    /**
-     * @see org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter#getAsDate(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-     */
+    @Override
     public Date getAsDate(
         FacesContext context,
         UIComponent component)
