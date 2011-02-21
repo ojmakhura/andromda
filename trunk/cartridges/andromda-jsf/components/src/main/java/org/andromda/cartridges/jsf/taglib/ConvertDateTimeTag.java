@@ -1,7 +1,8 @@
 package org.andromda.cartridges.jsf.taglib;
 
 import javax.servlet.jsp.PageContext;
-import org.andromda.cartridges.jsf.converters.JsfDateTimeConverter;
+
+import org.andromda.cartridges.jsf.converters.JSFDateTimeConverter;
 
 
 /**
@@ -14,7 +15,7 @@ public class ConvertDateTimeTag
     extends org.apache.myfaces.taglib.core.ConvertDateTimeTag
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +29,6 @@ public class ConvertDateTimeTag
     public void setPageContext(PageContext context)
     {
         super.setPageContext(context);
-        setConverterId(JsfDateTimeConverter.CONVERTER_ID);
+        setConverterId(JSFDateTimeConverter.CONVERTER_ID);
     }
 }
