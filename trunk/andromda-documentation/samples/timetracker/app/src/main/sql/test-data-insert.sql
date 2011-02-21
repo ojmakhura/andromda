@@ -1,22 +1,22 @@
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 1, 'Approved',  '2006/05/15', 'Timecard 01', 1, 2);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 2, 'Approved',  '2006/05/15', 'Timecard 02', 2, 3);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 3, 'Approved',  '2006/05/15', 'Timecard 03', 3, 4);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 4, 'Approved',  '2006/05/15', 'Timecard 04', 4, 1);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 1, 'APPROVED',  '2006/05/15', 'Timecard 01', 1, 2);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 2, 'APPROVED',  '2006/05/15', 'Timecard 02', 2, 3);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 3, 'APPROVED',  '2006/05/15', 'Timecard 03', 3, 4);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 4, 'APPROVED',  '2006/05/15', 'Timecard 04', 4, 1);
 
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 5, 'Rejected',  '2006/05/22', 'Timecard 05', 1, 2);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 6, 'Rejected',  '2006/05/22', 'Timecard 06', 2, 3);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 7, 'Rejected',  '2006/05/22', 'Timecard 07', 3, 4);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 8, 'Rejected',  '2006/05/22', 'Timecard 08', 4, 1);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 5, 'REJECTED',  '2006/05/22', 'Timecard 05', 1, 2);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 6, 'REJECTED',  '2006/05/22', 'Timecard 06', 2, 3);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 7, 'REJECTED',  '2006/05/22', 'Timecard 07', 3, 4);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 8, 'REJECTED',  '2006/05/22', 'Timecard 08', 4, 1);
 
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 9, 'Submitted', '2006/05/29', 'Timecard 09', 1, 2);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (10, 'Submitted', '2006/05/29', 'Timecard 10', 2, 3);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (11, 'Submitted', '2006/05/29', 'Timecard 11', 3, 4);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (12, 'Submitted', '2006/05/29', 'Timecard 12', 4, 1);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values ( 9, 'SUBMITTED', '2006/05/29', 'Timecard 09', 1, 2);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (10, 'SUBMITTED', '2006/05/29', 'Timecard 10', 2, 3);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (11, 'SUBMITTED', '2006/05/29', 'Timecard 11', 3, 4);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (12, 'SUBMITTED', '2006/05/29', 'Timecard 12', 4, 1);
 
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (13, 'Draft',     '2006/06/05', 'Timecard 13', null, 2);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (14, 'Draft',     '2006/06/05', 'Timecard 14', null, 3);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (15, 'Draft',     '2006/06/05', 'Timecard 15', null, 4);
-insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (16, 'Draft',     '2006/06/05', 'Timecard 16', null, 1);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (13, 'DRAFT',     '2006/06/05', 'Timecard 13', null, 2);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (14, 'DRAFT',     '2006/06/05', 'Timecard 14', null, 3);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (15, 'DRAFT',     '2006/06/05', 'Timecard 15', null, 4);
+insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK) values (16, 'DRAFT',     '2006/06/05', 'Timecard 16', null, 1);
 
 commit;
 

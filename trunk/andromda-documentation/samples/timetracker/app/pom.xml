@@ -15,36 +15,12 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>timetracker-common</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>timetracker-mda</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.andromda.profiles.uml14</groupId>
-                        <artifactId>andromda-profile</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-core</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
-                <exclusions>
-                    <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -53,31 +29,8 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>2.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-        </dependency>
-        <!-- These two get included in ear archive. collections is already in JBoss common\lib, mysql is already in war -->
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.14</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -97,11 +50,13 @@
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>                
-                <version>2.4.2</version>
+                <version>2.5</version>
                 <configuration>
+                    <generateApplicationXml>true</generateApplicationXml>
+                    <includeJar>false</includeJar>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <includes>**/*.xml</includes>
                     <excludes>**/jboss-app.xml</excludes>
-                    <earSourceExcludes>**/commons-collections*.jar,**/mysql*.jar,**/ehcache-1.2.3.jar</earSourceExcludes>
                     <version>1.4</version>
                     <modules>
                         <jarModule>
@@ -118,18 +73,11 @@
                             <artifactId>timetracker-web</artifactId>
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>
-                        <!-- Exclude these from the ear artifact -->
-                        <jarModule>
-                            <groupId>commons-collections</groupId>
-                            <artifactId>commons-collections</artifactId>
-                            <excluded>true</excluded>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>mysql</groupId>
-                            <artifactId>mysql-connector-java</artifactId>
-                            <excluded>true</excluded>
-                        </jarModule>
                     </modules>
+                    <jboss>
+                        <version>5</version>
+                        <loader-repository>org.richfaces.examples:loader=${project.build.finalName}</loader-repository>
+                    </jboss>
                 </configuration>
             </plugin>
             <plugin>
@@ -152,4 +100,36 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- This profile here will allow you to specify -Ddeploy=link in order deploy an exploded ear using symbolic links,
+             this allows you to easily edit things like jsp, xhtml, etc and just build the web module without having
+             to deploy the ear -->
+        <profile>
+            <id>link</id>
+            <activation>
+                <property>
+                    <name>deploy</name>
+                    <value>link</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.andromda.maven.plugins</groupId>
+                        <artifactId>andromdapp-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>link</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <deployLocation>${jboss.home}/server/default/deploy</deployLocation>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

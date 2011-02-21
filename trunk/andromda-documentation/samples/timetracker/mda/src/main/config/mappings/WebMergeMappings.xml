@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
     This is used to map merge patterns in files generated
-    by Bpm4Struts to new patterns. Just add content to the
+    by jsf cartridge to new patterns. Just add content to the
     CDATA sections of the <to/> elements in order to
     use the following merge points.
 -->
@@ -10,12 +10,23 @@
         <from><![CDATA[<!-- context-param merge-point -->]]></from>
         <to>
             <![CDATA[
-    <!--context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            /WEB-INF/applicationContext-acegi-security.xml
-        </param-value>
-    </context-param-->
+    <!-- Instruct JBoss to not use Mojarra libs with this application - avoids Myfaces conflict -->
+    <context-param>
+         <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+         <param-value>true</param-value>
+    </context-param> 
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- facelets-libraries merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <!-- uncomment if you want to add your own project specific facelet tags
+         (and of course make sure "/WEB-INF/custom.taglib.xml" is the actual path
+          to your facelet tag descriptor)
+            /WEB-INF/custom.taglib.xml;
+    -->
             ]]>
         </to>
     </mapping>
@@ -23,20 +34,18 @@
         <from><![CDATA[<!-- filter merge-point -->]]></from>
         <to>
             <![CDATA[
-    <!--filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class-->
-        <!-- <init-param>
-            <param-name>targetBeanName</param-name>
-            <param-value>springSecurityFilterChain</param-value>
-        </init-param> -->
-        <!--filter-name>Acegi Filter Chain Proxy</filter-name>
-        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+         note: that you'll need to update the filter-class value if you've changed
+         the defaults for the package and/or filter name
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.andromda.spring.presentation.AndroMDAOpenSessionInViewFilter</filter-class>
         <init-param>
-            <param-name>targetClass</param-name>
-            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
-        </init-param-->
-    <!--/filter-->
+            <param-name>singleSession</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    -->
             ]]>
         </to>
     </mapping>
@@ -44,10 +53,12 @@
         <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
         <to>
             <![CDATA[
-    <!--filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping-->
+    </filter-mapping>
+    -->
             ]]>
         </to>
     </mapping>
@@ -55,9 +66,6 @@
         <from><![CDATA[<!-- listener merge-point -->]]></from>
         <to>
             <![CDATA[
-    <!--listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener-->
             ]]>
         </to>
     </mapping>
