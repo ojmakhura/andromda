@@ -472,6 +472,7 @@
 #end
 
     <!-- precompilation merge-point -->
+    <!-- servlet-mapping merge-point -->
     <servlet-mapping>
         <servlet-name>AndroMDA JSF Servlet</servlet-name>
         <url-pattern>/jsf/*</url-pattern>
@@ -531,7 +532,6 @@
         <url-pattern>${useCase.path}#if($standalone).${facesServletExtension}#else.xhtml#end</url-pattern>
     </servlet-mapping>
 #end
-    <!-- servlet-mapping merge-point -->
     <session-config>
         <session-timeout>$sessionTimeout</session-timeout>
         <!-- session-config merge-point -->
