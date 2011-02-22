@@ -397,15 +397,15 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.14</version>
-<!--                <scope>test</scope>-->
+                <!--scope>test</scope-->
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <version>5.14.6</version>
                 <scope>test</scope>
-        </dependency>
-    </dependencies>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
@@ -825,6 +825,7 @@
                     <plugin>
                         <inherited>true</inherited>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
