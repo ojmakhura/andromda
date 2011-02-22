@@ -89,7 +89,7 @@ $member.getDocumentation("     * ")
 #else
         this.$member.name = ($member.name == null || $member.name == 0#if($fieldType.longType)L#end)? null: $member.name;
 #end
-#end    
+#end
     }
 
     private java.util.Collection $member.backingListName;
