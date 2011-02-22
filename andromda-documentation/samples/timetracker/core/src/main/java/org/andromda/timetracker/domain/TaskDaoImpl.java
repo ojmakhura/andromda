@@ -17,6 +17,7 @@ public class TaskDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void toTaskVO(
         Task source,
         TaskVO target)
@@ -29,6 +30,7 @@ public class TaskDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public TaskVO toTaskVO(final Task entity)
     {
         // TODO verify behavior of toTaskVO
@@ -72,6 +74,7 @@ public class TaskDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void taskVOToEntity(
         TaskVO source,
         Task target,

@@ -17,6 +17,7 @@ public class UserRoleDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void toUserRoleVO(
         UserRole source,
         UserRoleVO target)
@@ -29,6 +30,7 @@ public class UserRoleDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public UserRoleVO toUserRoleVO(final UserRole entity)
     {
         // TODO verify behavior of toUserRoleVO
@@ -72,6 +74,7 @@ public class UserRoleDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void userRoleVOToEntity(
         UserRoleVO source,
         UserRole target,

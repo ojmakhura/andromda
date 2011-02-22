@@ -2,6 +2,9 @@ package org.andromda.timetracker.vo;
 
 import java.util.Comparator;
 
+/**
+ *
+ */
 public class UserVOComparator implements Comparator<UserVO> {
 
     /**
@@ -9,6 +12,9 @@ public class UserVOComparator implements Comparator<UserVO> {
      * not available (or null), it compares on id. <p>
      *
      * The comparison is null safe and places null objects less than non-null objects.<p>
+     * @param o1 
+     * @param o2 
+     * @return result
      */
     public int compare(UserVO o1, UserVO o2) {
         int result = 0; // assume equal

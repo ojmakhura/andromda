@@ -15,15 +15,15 @@ public class TimecardImpl
     /**
      * The serial version UID of this class. Needed for serialization.
      */
-    private static final long serialVersionUID = -450260575900550958L;
+    private static final long serialVersionUID = -635666710596476780L;
 
     /**
      * @see Timecard#addTimeAllocation(TimeAllocation)
      */
+    @Override
     public void addTimeAllocation(TimeAllocation timeAllocation)
     {
         // TODO implement public void addTimeAllocation(TimeAllocation timeAllocation)
         throw new UnsupportedOperationException("org.andromda.timetracker.domain.Timecard.addTimeAllocation(TimeAllocation timeAllocation) Not implemented!");
     }
-
 }
