@@ -337,7 +337,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
     /**
      * Copies all properties from the argument value object into this value object.
      * @param otherBean Cannot be <code>null</code>
+#if($generateChainedSetters)
      * @return this
+#end
      */
     public#if($generateChainedSetters) $className${genericTemplate}#else void#end copy(final $className${genericTemplate} otherBean)
     {
@@ -487,9 +489,9 @@ $connectingEnd.getDocumentation("     * ")
      * @see Object${esc.hash}equals(Object)
      */
 #if ($enableAnnotations)
-#if ($enableTemplating)
-    @SuppressWarnings("unchecked")
-#end
+##if ($enableTemplating)
+##    @SuppressWarnings("unchecked")
+##end
     @Override
 #end
     public boolean equals(final Object object)
@@ -517,9 +519,9 @@ $connectingEnd.getDocumentation("     * ")
      * @see Comparable${esc.hash}compareTo(Object)
      */
 #if ($enableAnnotations)
-#if ($enableTemplating)
-    @SuppressWarnings("unchecked")
-#elseif ($class.generalization)
+##if ($enableTemplating)
+##    @SuppressWarnings("unchecked")
+#if (!$enableTemplating && $class.generalization)
     @Override
 #end
 #end
@@ -610,9 +612,9 @@ $connectingEnd.getDocumentation("     * ")
      *      argument instance; in all other cases this method will return {@code false}
      */
 #if ($enableAnnotations)
-#if ($enableTemplating)
-    @SuppressWarnings("unchecked")
-#end
+##if ($enableTemplating)
+##    @SuppressWarnings("unchecked")
+##end
 #if ($class.generalization)
     @Override
 #end

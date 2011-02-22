@@ -64,14 +64,16 @@ public abstract class $entity.daoBaseName
 
     /**
      * Sets the reference to <code>$entityRef.daoName</code>.
+     * @param ${entityRef.daoName}In
      */
-    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName)
+    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoName}In)
     {
-        this.$entityRef.daoName = $entityRef.daoName;
+        this.$entityRef.daoName = ${entityRef.daoName}In;
     }
 
     /**
      * Gets the reference to <code>$entityRef.daoName</code>.
+     * @return ${entityRef.daoName}
      */
     protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
     {
@@ -1102,7 +1104,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * {@inheritDoc}
      */
 #if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked" })
 #end
     public final ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -1300,7 +1302,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * {@inheritDoc}
      */
 #if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked" })
 #end
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
@@ -1367,7 +1369,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     * @return $fullyQualifiedPagingResultName
     */
 #if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked" })
 #end
     protected $fullyQualifiedPagingResultName getPaginationResult(
         final ${hibernateUtils.basePackage}.Query queryObject,
