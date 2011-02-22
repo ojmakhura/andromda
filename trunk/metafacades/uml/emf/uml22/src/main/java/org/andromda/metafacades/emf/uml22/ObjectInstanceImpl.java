@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
@@ -92,9 +93,17 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployments()
      */
-    public EList getDeployments()
+    public EList<Deployment> getDeployments()
     {
         return this.instanceSpecification.getDeployments();
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String, boolean, boolean)
+     */
+    public Deployment getDeployment(String string, boolean ignoreCase, boolean createOnDemand)
+    {
+        return this.instanceSpecification.getDeployment(string, ignoreCase, createOnDemand);
     }
 
     /**
@@ -116,9 +125,17 @@ public class ObjectInstanceImpl implements ObjectInstance
     }*/
 
     /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(String)
+     */
+    public Deployment createDeployment(String name)
+    {
+        return this.instanceSpecification.createDeployment(name);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElements()
      */
-    public EList getDeployedElements()
+    public EList<PackageableElement> getDeployedElements()
     {
         return this.instanceSpecification.getDeployedElements();
     }
@@ -132,9 +149,17 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
+     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String, boolean, org.eclipse.emf.ecore.EClass)
+     */
+    public PackageableElement getDeployedElement(String string, boolean bool, EClass eClass)
+    {
+        return this.instanceSpecification.getDeployedElement(string, bool, eClass);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#getSlots()
      */
-    public EList getSlots()
+    public EList<Slot> getSlots()
     {
         return this.instanceSpecification.getSlots();
     }
@@ -159,7 +184,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifiers()
      */
-    public EList getClassifiers()
+    public EList<Classifier> getClassifiers()
     {
         return this.instanceSpecification.getClassifiers();
     }
@@ -170,6 +195,14 @@ public class ObjectInstanceImpl implements ObjectInstance
     public Classifier getClassifier(String string)
     {
         return this.instanceSpecification.getClassifier(string);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String, boolean, org.eclipse.emf.ecore.EClass)
+     */
+    public Classifier getClassifier(String string, boolean ignoreCase, EClass eClass)
+    {
+        return this.instanceSpecification.getClassifier(string, ignoreCase, eClass);
     }
 
     /**
@@ -197,12 +230,12 @@ public class ObjectInstanceImpl implements ObjectInstance
         return this.instanceSpecification.createSpecification(null, null, eClass);
     }
 
-    /*public boolean validateSlotsAreDefined(DiagnosticChain diagnosticChain, Map map)
+    /*public boolean validateSlotsAreDefined(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateSlotsAreDefined(diagnosticChain, map);
     }
 
-    public boolean validateNoDuplicateSlots(DiagnosticChain diagnosticChain, Map map)
+    public boolean validateNoDuplicateSlots(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateNoDuplicateSlots(diagnosticChain, map);
     }*/
@@ -210,7 +243,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#getClientDependencies()
      */
-    public EList getClientDependencies()
+    public EList<Dependency> getClientDependencies()
     {
         return this.instanceSpecification.getClientDependencies();
     }
@@ -344,6 +377,14 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
+     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String, boolean, org.eclipse.emf.ecore.EClass)
+     */
+    public Dependency getClientDependency(String string, boolean ignoreCase, EClass eClass)
+    {
+        return this.instanceSpecification.getClientDependency(string, ignoreCase, eClass);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.NamedElement#getNameExpression()
      */
     public StringExpression getNameExpression()
@@ -380,11 +421,27 @@ public class ObjectInstanceImpl implements ObjectInstance
     }
 
     /**
+     * @see org.eclipse.uml2.uml.NamedElement#validateHasNoQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
+    public boolean validateHasNoQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    {
+        return this.instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map);
+    }
+
+    /**
      * @param diagnosticChain
      * @param map
      * @return instanceSpecification.validateHasQualifiedName(diagnosticChain, map)
      */
     public boolean validateQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    {
+        return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.NamedElement#validateHasQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     */
+    public boolean validateHasQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
     }
@@ -504,7 +561,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getOwnedElements()
      */
-    public EList getOwnedElements()
+    public EList<Element> getOwnedElements()
     {
         return this.instanceSpecification.getOwnedElements();
     }
@@ -520,7 +577,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getOwnedComments()
      */
-    public EList getOwnedComments()
+    public EList<Comment> getOwnedComments()
     {
         return this.instanceSpecification.getOwnedComments();
     }
@@ -633,7 +690,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getNearestPackage()
      */
-    public org.eclipse.uml2.uml.Package getNearestPackage()
+    public Package getNearestPackage()
     {
         return this.instanceSpecification.getNearestPackage();
     }
@@ -686,6 +743,14 @@ public class ObjectInstanceImpl implements ObjectInstance
     }*/
 
     /**
+     * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
+     */
+    public EObject unapplyStereotype(Stereotype stereotype)
+    {
+        return this.instanceSpecification.unapplyStereotype(stereotype);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.Element#destroy()
      */
     public void destroy()
@@ -733,7 +798,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
      */
-    public EList getEAnnotations()
+    public EList<EAnnotation> getEAnnotations()
     {
         return this.instanceSpecification.getEAnnotations();
     }
@@ -749,7 +814,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
      */
-    public EList eAdapters()
+    public EList<Adapter> eAdapters()
     {
         return this.instanceSpecification.eAdapters();
     }
@@ -797,7 +862,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eContents()
      */
-    public EList eContents()
+    public EList<EObject> eContents()
     {
         return this.instanceSpecification.eContents();
     }
@@ -805,7 +870,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
      */
-    public EList eCrossReferences()
+    public EList<EObject> eCrossReferences()
     {
         return this.instanceSpecification.eCrossReferences();
     }
@@ -813,7 +878,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
      */
-    public TreeIterator eAllContents()
+    public TreeIterator<EObject> eAllContents()
     {
         return this.instanceSpecification.eAllContents();
     }
@@ -861,19 +926,9 @@ public class ObjectInstanceImpl implements ObjectInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#createSpecification(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createSpecification(String name, Type type, EClass class1)
+    public ValueSpecification createSpecification(String name, Type type, EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String, boolean, org.eclipse.emf.ecore.EClass)
-     */
-    public Classifier getClassifier(String name, boolean ignoreCase, EClass class1)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.createSpecification(name, type, eClass);
     }
 
     /**
@@ -881,8 +936,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean validateDefiningFeature(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.validateDefiningFeature(diagnostics, context);
     }
 
     /**
@@ -891,8 +945,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     public boolean validateDeploymentArtifact(DiagnosticChain diagnostics,
             Map<Object, Object> context)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.validateDeploymentArtifact(diagnostics, context);
     }
 
     /**
@@ -900,8 +953,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean validateDeploymentTarget(DiagnosticChain diagnostics, Map<Object, Object> context)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.validateDeploymentTarget(diagnostics, context);
     }
 
     /**
@@ -910,35 +962,7 @@ public class ObjectInstanceImpl implements ObjectInstance
     public boolean validateStructuralFeature(DiagnosticChain diagnostics,
             Map<Object, Object> context)
     {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(String)
-     */
-    public Deployment createDeployment(String name)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String, boolean, org.eclipse.emf.ecore.EClass)
-     */
-    public PackageableElement getDeployedElement(String name, boolean ignoreCase, EClass class1)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String, boolean, boolean)
-     */
-    public Deployment getDeployment(String name, boolean ignoreCase, boolean createOnDemand)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.validateStructuralFeature(diagnostics, context);
     }
 
     /**
@@ -946,8 +970,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<Package> allOwningPackages()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.allOwningPackages();
     }
 
     /**
@@ -955,8 +978,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public StringExpression createNameExpression(String name, Type type)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.createNameExpression(name, type);
     }
 
     /**
@@ -964,17 +986,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public Usage createUsage(NamedElement supplier)
     {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String, boolean, org.eclipse.emf.ecore.EClass)
-     */
-    public Dependency getClientDependency(String name, boolean ignoreCase, EClass class1)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.createUsage(supplier);
     }
 
     /**
@@ -982,8 +994,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isSetName()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isSetName();
     }
 
     /**
@@ -991,8 +1002,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isSetVisibility()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isSetVisibility();
     }
 
     /**
@@ -1000,8 +1010,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public void unsetName()
     {
-        // TODO Auto-generated method stub
-
+        this.instanceSpecification.unsetName();
     }
 
     /**
@@ -1009,27 +1018,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public void unsetVisibility()
     {
-        // TODO Auto-generated method stub
-
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.NamedElement#validateHasNoQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-     */
-    public boolean validateHasNoQualifiedName(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.NamedElement#validateHasQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
-     */
-    public boolean validateHasQualifiedName(DiagnosticChain diagnostics, Map<Object, Object> context)
-    {
-        // TODO Auto-generated method stub
-        return false;
+        this.instanceSpecification.unsetVisibility();
     }
 
     /**
@@ -1037,8 +1026,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public Stereotype getAppliedSubstereotype(Stereotype stereotype, String qualifiedName)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getAppliedSubstereotype(stereotype, qualifiedName);
     }
 
     /**
@@ -1046,8 +1034,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getAppliedSubstereotypes(stereotype);
     }
 
     /**
@@ -1055,17 +1042,15 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<Relationship> getRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<Relationship> getRelationships(EClass class1)
+    public EList<Relationship> getRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getRelationships(eClass);
     }
 
     /**
@@ -1073,8 +1058,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public Stereotype getRequiredStereotype(String qualifiedName)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getRequiredStereotype(qualifiedName);
     }
 
     /**
@@ -1082,8 +1066,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<Stereotype> getRequiredStereotypes()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getRequiredStereotypes();
     }
 
     /**
@@ -1091,17 +1074,15 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<DirectedRelationship> getSourceDirectedRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getSourceDirectedRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getSourceDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass class1)
+    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getSourceDirectedRelationships(eClass);
     }
 
     /**
@@ -1109,8 +1090,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EObject getStereotypeApplication(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getStereotypeApplication(stereotype);
     }
 
     /**
@@ -1118,8 +1098,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<EObject> getStereotypeApplications()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getStereotypeApplications();
     }
 
     /**
@@ -1127,17 +1106,15 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public EList<DirectedRelationship> getTargetDirectedRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getTargetDirectedRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getTargetDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass class1)
+    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getTargetDirectedRelationships(eClass);
     }
 
     /**
@@ -1145,8 +1122,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isStereotypeApplicable(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isStereotypeApplicable(stereotype);
     }
 
     /**
@@ -1154,8 +1130,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isStereotypeApplied(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isStereotypeApplied(stereotype);
     }
 
     /**
@@ -1163,17 +1138,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isStereotypeRequired(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
-     */
-    public EObject unapplyStereotype(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.isStereotypeRequired(stereotype);
     }
 
     /**
@@ -1181,8 +1146,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public TemplateParameter getOwningTemplateParameter()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.instanceSpecification.getTemplateParameter();
     }
 
     /**
@@ -1190,8 +1154,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isCompatibleWith(ParameterableElement p)
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isCompatibleWith(p);
     }
 
     /**
@@ -1199,8 +1162,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public boolean isTemplateParameter()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.instanceSpecification.isTemplateParameter();
     }
 
     /**
@@ -1208,7 +1170,7 @@ public class ObjectInstanceImpl implements ObjectInstance
      */
     public void setOwningTemplateParameter(TemplateParameter value)
     {
-        // TODO Auto-generated method stub
+        this.instanceSpecification.setOwningTemplateParameter(value);
     }
 
     /**

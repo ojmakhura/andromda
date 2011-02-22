@@ -171,7 +171,7 @@ public class FrontEndForwardLogicImpl
 
     /**
      * Initializes all action states, action forwards, decision transitions and
-     * transitions in one shot, so that they can be queried more effiencently
+     * transitions in one shot, so that they can be queried more efficiently
      * later on.
      */
     private void initializeCollections()
@@ -179,7 +179,7 @@ public class FrontEndForwardLogicImpl
         this.actionStates = new LinkedHashSet<FrontEndActionState>();
         this.collectTransitions(
             this,
-            new LinkedHashSet<FrontEndActionState>());
+            new LinkedHashSet<TransitionFacade>());
     }
 
     /**
@@ -193,13 +193,13 @@ public class FrontEndForwardLogicImpl
      */
     private void collectTransitions(
         final TransitionFacade transition,
-        final LinkedHashSet<FrontEndActionState> processedTransitions)
+        final LinkedHashSet<TransitionFacade> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
             return;
         }
-        processedTransitions.add((FrontEndActionState) transition);
+        processedTransitions.add(transition);
 
         final StateVertexFacade target = transition.getTarget();
         if (target instanceof FrontEndActionState)
