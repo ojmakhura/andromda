@@ -119,13 +119,6 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <configuration>
-                    <installDirectory>${basedir}/../../../../lib</installDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
             <plugin>
