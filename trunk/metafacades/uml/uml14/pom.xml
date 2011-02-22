@@ -59,6 +59,24 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_metafacades_uml14</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
+                            <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
             <!--Perform xslt transformation of namespace.xml for site generation-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

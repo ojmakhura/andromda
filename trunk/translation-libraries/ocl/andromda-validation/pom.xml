@@ -41,14 +41,14 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
                 <configuration>
-                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                    <installDirectory>${project.basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>
                 <configuration>
-                    <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
+                    <configurationUri>file:${project.basedir}/../conf/test/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
             <plugin>
@@ -59,6 +59,24 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_translationlibraries_validation</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
+                            <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
         </plugins>
     </build>
     <properties>

@@ -73,7 +73,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <configurationUri>file:${basedir}/conf/test/andromda.xml</configurationUri>
+                            <configurationUri>file:${project.basedir}/conf/test/andromda.xml</configurationUri>
                         </configuration>
                     </execution-->
                     <execution>
@@ -85,8 +85,8 @@
                         <configuration>
                             <actualDirectory>${project.build.directory}/cartridge-test/actualUML2</actualDirectory>
                             <expectedDirectory>${project.build.directory}/cartridge-test/expectedUML2</expectedDirectory>
-                            <expectedOutputArchive>${basedir}/src/test/expected/cartridge-uml2.zip</expectedOutputArchive>
-                            <configurationUri>file:${basedir}/conf/test/andromdaUML2.xml</configurationUri>
+                            <expectedOutputArchive>${project.basedir}/src/test/expected/cartridge-uml2.zip</expectedOutputArchive>
+                            <configurationUri>file:${project.basedir}/conf/test/andromdaUML2.xml</configurationUri>
                             <reportDirectory>${project.build.directory}/cartridge-test/reportsUML2</reportDirectory>
                         </configuration>
                     </execution>

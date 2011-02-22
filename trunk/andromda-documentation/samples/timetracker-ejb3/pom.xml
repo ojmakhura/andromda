@@ -977,7 +977,7 @@
                 <configuration>
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
-                    <sourcepath>${basedir}/src/main/java;${basedir}/target/src/main/java</sourcepath>
+                    <sourcepath>${project.basedir}/src/main/java;${project.basedir}/target/src/main/java</sourcepath>
                     <detectLinks/>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>

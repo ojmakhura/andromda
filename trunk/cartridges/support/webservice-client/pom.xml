@@ -149,7 +149,7 @@
                 </executions>
                 <configuration>
                     <obfuscate>true</obfuscate>
-                    <proguardInclude>${basedir}/conf/proguard.conf</proguardInclude>
+                    <proguardInclude>${project.basedir}/conf/proguard.conf</proguardInclude>
                     <assembly>
                         <inclusions>
                             <inclusion>

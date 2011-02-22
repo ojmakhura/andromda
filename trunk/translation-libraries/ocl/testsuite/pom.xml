@@ -59,12 +59,30 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
                 <configuration>
-                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                    <installDirectory>${project.basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_translationlibraries_testsuite</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
+                            <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
         </plugins>
     </build>
 </project>

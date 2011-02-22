@@ -84,8 +84,8 @@
                                 <goal>run</goal>
                             </goals>
                             <configuration>
-                                <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
-                                <configurationUri>file:${basedir}/../conf/andromda.xml</configurationUri>
+                                <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                                <configurationUri>file:${project.basedir}/../conf/andromda.xml</configurationUri>
                                 <lastModifiedCheck>true</lastModifiedCheck>
                             </configuration>
                         </execution>
@@ -103,7 +103,7 @@
                                 <goal>test</goal>
                             </goals>
                             <configuration>
-                                <configurationUri>file:${basedir}/conf/test/andromda.xml</configurationUri>
+                                <configurationUri>file:${project.basedir}/conf/test/andromda.xml</configurationUri>
                             </configuration>
                         </execution>
                     </executions>
