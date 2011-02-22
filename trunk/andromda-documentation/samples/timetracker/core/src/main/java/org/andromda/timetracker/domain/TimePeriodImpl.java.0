@@ -6,14 +6,19 @@
  */
 package org.andromda.timetracker.domain;
 
+import java.io.Serializable;
+
 /**
  * @see TimePeriod
  */
 public class TimePeriodImpl
     extends TimePeriod
+    implements Serializable
 {
+
     /**
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = -708617510741626676L;
+
 }

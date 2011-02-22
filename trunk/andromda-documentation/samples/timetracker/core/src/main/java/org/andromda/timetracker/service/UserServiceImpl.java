@@ -6,7 +6,6 @@
 package org.andromda.timetracker.service;
 
 import java.util.Collection;
-
 import org.andromda.timetracker.domain.UserDao;
 import org.andromda.timetracker.vo.UserVO;
 
@@ -17,6 +16,8 @@ public class UserServiceImpl
     extends UserServiceBase
 {
     /**
+     * @return userVOs
+     * @throws Exception 
      * @see org.andromda.timetracker.service.UserService#getAllUsers()
      */
     // Use this implementation for UML2 model with returnParameter * multiplicity
@@ -26,6 +27,7 @@ public class UserServiceImpl
     {
         return (Collection<UserVO>) getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
     */
+    @Override
     protected UserVO[] handleGetAllUsers()
         throws Exception
     {

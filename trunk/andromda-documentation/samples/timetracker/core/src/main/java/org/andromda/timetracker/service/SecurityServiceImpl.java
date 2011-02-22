@@ -18,6 +18,7 @@ public class SecurityServiceImpl
     /**
      * @see org.andromda.timetracker.service.SecurityService#getUserDetails(java.lang.String)
      */
+    @Override
     protected UserDetailsVO handleGetUserDetails(String username)
         throws Exception
     {

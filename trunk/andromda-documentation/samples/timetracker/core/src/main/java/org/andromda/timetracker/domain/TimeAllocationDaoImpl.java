@@ -17,6 +17,7 @@ public class TimeAllocationDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void toTimeAllocationVO(
         TimeAllocation source,
         TimeAllocationVO target)
@@ -29,6 +30,7 @@ public class TimeAllocationDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public TimeAllocationVO toTimeAllocationVO(final TimeAllocation entity)
     {
         // TODO verify behavior of toTimeAllocationVO
@@ -72,6 +74,7 @@ public class TimeAllocationDaoImpl
     /**
      * @inheritDoc
      */
+    @Override
     public void timeAllocationVOToEntity(
         TimeAllocationVO source,
         TimeAllocation target,

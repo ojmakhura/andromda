@@ -6,12 +6,12 @@
 package org.andromda.timetracker.domain;
 
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.Restrictions;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
 import org.andromda.timetracker.vo.TimecardVO;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @see Timecard
@@ -22,6 +22,7 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#findByCriteria(TimecardSearchCriteriaVO)
      */
+    @Override
     protected List handleFindByCriteria(TimecardSearchCriteriaVO criteria)
     {
         // Create the timecard criteria
@@ -58,8 +59,8 @@ public class TimecardDaoImpl
         }
 
         List timecards = timecardCriteria.list();
-        if (logger.isDebugEnabled()) {
-            logger.debug(timecards.size() + " timecards found");
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug(timecards.size() + " timecards found");
         }
         return timecards;
     }
@@ -67,6 +68,7 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardSummaryVO(Timecard, TimecardSummaryVO)
      */
+    @Override
     public void toTimecardSummaryVO(
         Timecard sourceEntity,
         TimecardSummaryVO targetVO)
@@ -82,9 +84,10 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardSummaryVO(Timecard)
      */
+    @Override
     public TimecardSummaryVO toTimecardSummaryVO(final Timecard entity)
     {
-        // @todo verify behavior of toTimecardSummaryVO
+        // TODO verify behavior of toTimecardSummaryVO
         return super.toTimecardSummaryVO(entity);
     }
 
@@ -96,7 +99,7 @@ public class TimecardDaoImpl
      */
     private Timecard loadTimecardFromTimecardSummaryVO(TimecardSummaryVO timecardSummaryVO)
     {
-        // @todo implement loadTimecardFromTimecardSummaryVO
+        // TODO implement loadTimecardFromTimecardSummaryVO
         throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadTimecardFromTimecardSummaryVO(TimecardSummaryVO) not yet implemented.");
 
         /* A typical implementation looks like this:
@@ -115,7 +118,7 @@ public class TimecardDaoImpl
      */
     public Timecard timecardSummaryVOToEntity(TimecardSummaryVO timecardSummaryVO)
     {
-        // @todo verify behavior of timecardSummaryVOToEntity
+        // TODO verify behavior of timecardSummaryVOToEntity
         Timecard entity = this.loadTimecardFromTimecardSummaryVO(timecardSummaryVO);
         this.timecardSummaryVOToEntity(timecardSummaryVO, entity, true);
         return entity;
@@ -123,25 +126,27 @@ public class TimecardDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO, Timecard)
+     * @see org.andromda.timetracker.domain.TimecardDao#timecardSummaryVOToEntity(TimecardSummaryVO, Timecard, boolean)
      */
+    @Override
     public void timecardSummaryVOToEntity(
         TimecardSummaryVO sourceVO,
         Timecard targetEntity,
         boolean copyIfNull)
     {
-        // @todo verify behavior of timecardSummaryVOToEntity
+        // TODO verify behavior of timecardSummaryVOToEntity
         super.timecardSummaryVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardVO(Timecard, TimecardVO)
      */
+    @Override
     public void toTimecardVO(
         Timecard sourceEntity,
         TimecardVO targetVO)
     {
-        // @todo verify behavior of toTimecardVO
+        // TODO verify behavior of toTimecardVO
         super.toTimecardVO(sourceEntity, targetVO);
         // WARNING! No conversion for targetVO.allocations (can't convert sourceEntity.getAllocations():org.andromda.timetracker.domain.TimeAllocation to org.andromda.timetracker.vo.TimeAllocationVO[]
     }
@@ -150,9 +155,10 @@ public class TimecardDaoImpl
     /**
      * @see org.andromda.timetracker.domain.TimecardDao#toTimecardVO(Timecard)
      */
+    @Override
     public TimecardVO toTimecardVO(final Timecard entity)
     {
-        // @todo verify behavior of toTimecardVO
+        // TODO verify behavior of toTimecardVO
         return super.toTimecardVO(entity);
     }
 
@@ -164,7 +170,7 @@ public class TimecardDaoImpl
      */
     private Timecard loadTimecardFromTimecardVO(TimecardVO timecardVO)
     {
-        // @todo implement loadTimecardFromTimecardVO
+        // TODO implement loadTimecardFromTimecardVO
         throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadTimecardFromTimecardVO(TimecardVO) not yet implemented.");
 
         /* A typical implementation looks like this:
@@ -183,7 +189,7 @@ public class TimecardDaoImpl
      */
     public Timecard timecardVOToEntity(TimecardVO timecardVO)
     {
-        // @todo verify behavior of timecardVOToEntity
+        // TODO verify behavior of timecardVOToEntity
         Timecard entity = this.loadTimecardFromTimecardVO(timecardVO);
         this.timecardVOToEntity(timecardVO, entity, true);
         return entity;
@@ -191,14 +197,15 @@ public class TimecardDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.TimecardDao#timecardVOToEntity(TimecardVO, Timecard)
+     * @see org.andromda.timetracker.domain.TimecardDao#timecardVOToEntity(TimecardVO, Timecard, boolean)
      */
+    @Override
     public void timecardVOToEntity(
         TimecardVO sourceVO,
         Timecard targetEntity,
         boolean copyIfNull)
     {
-        // @todo verify behavior of timecardVOToEntity
+        // TODO verify behavior of timecardVOToEntity
         super.timecardVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 }

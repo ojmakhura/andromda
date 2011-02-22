@@ -4,9 +4,7 @@ package org.andromda.timetracker.web.timecardsearch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
 import org.andromda.timetracker.domain.TimecardStatus;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
@@ -32,7 +30,7 @@ public class SearchControllerImpl
     private static final String ALL_STRING = "-- All --";
 
     /**
-     * @see org.andromda.timetracker.web.timecardsearch.SearchController#populateSearchScreen(java.lang.Long submitter, java.lang.Long approver, java.lang.String status, Date startDateMinimum, Date startDateMaximum, TimecardSummaryVO[] timecardSummaries)
+     * @see org.andromda.timetracker.web.timecardsearch.SearchController#populateSearchScreen(org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm)
      */
     @Override
     public void populateSearchScreen(PopulateSearchScreenForm form)
@@ -78,7 +76,8 @@ public class SearchControllerImpl
     }
 
     /**
-     * @see org.andromda.timetracker.web.timecardsearch.SearchController#initializeTimecardId(java.lang.Long id, java.lang.Long timecardId)
+     * @see org.andromda.timetracker.web.timecardsearch.SearchController#initializeTimecardId(org.andromda.timetracker.web.timecardsearch.InitializeTimecardIdForm
+)
      */
     @Override
     public void initializeTimecardId(InitializeTimecardIdForm form)

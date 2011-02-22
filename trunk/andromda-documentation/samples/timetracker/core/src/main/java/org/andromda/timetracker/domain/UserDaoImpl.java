@@ -6,8 +6,8 @@
 package org.andromda.timetracker.domain;
 
 import java.util.Collection;
-import org.andromda.timetracker.vo.UserRoleVO;
 import org.andromda.timetracker.vo.UserDetailsVO;
+import org.andromda.timetracker.vo.UserRoleVO;
 import org.andromda.timetracker.vo.UserVO;
 
 /**
@@ -24,7 +24,7 @@ public class UserDaoImpl
         User sourceEntity,
         UserVO targetVO)
     {
-        // @todo verify behavior of toUserVO
+        // TODO verify behavior of toUserVO
         super.toUserVO(sourceEntity, targetVO);
     }
 
@@ -35,7 +35,7 @@ public class UserDaoImpl
     @Override
     public UserVO toUserVO(final User entity)
     {
-        // @todo verify behavior of toUserVO
+        // TODO verify behavior of toUserVO
         return super.toUserVO(entity);
     }
 
@@ -47,7 +47,7 @@ public class UserDaoImpl
      */
     private User loadUserFromUserVO(UserVO userVO)
     {
-        // @todo implement loadUserFromUserVO
+        // TODO implement loadUserFromUserVO
         throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserVO(UserVO) not yet implemented.");
 
         /* A typical implementation looks like this:
@@ -66,7 +66,7 @@ public class UserDaoImpl
      */
     public User userVOToEntity(UserVO userVO)
     {
-        // @todo verify behavior of userVOToEntity
+        // TODO verify behavior of userVOToEntity
         User entity = this.loadUserFromUserVO(userVO);
         this.userVOToEntity(userVO, entity, true);
         return entity;
@@ -82,7 +82,7 @@ public class UserDaoImpl
         User targetEntity,
         boolean copyIfNull)
     {
-        // @todo verify behavior of userVOToEntity
+        // TODO verify behavior of userVOToEntity
         super.userVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 
@@ -97,7 +97,7 @@ public class UserDaoImpl
         super.toUserDetailsVO(sourceEntity, targetVO);
 
         // Convert roles
-        Collection srcRoles = sourceEntity.getRoles();
+        Collection<UserRole> srcRoles = sourceEntity.getRoles();
         UserRoleVO[] targetRoles = new UserRoleVO[srcRoles.size()];
         int i=0;
         for (Object srcRole : srcRoles)
@@ -115,7 +115,7 @@ public class UserDaoImpl
     @Override
     public UserDetailsVO toUserDetailsVO(final User entity)
     {
-        // @todo verify behavior of toUserDetailsVO
+        // TODO verify behavior of toUserDetailsVO
         return super.toUserDetailsVO(entity);
     }
 
@@ -127,7 +127,7 @@ public class UserDaoImpl
      */
     private User loadUserFromUserDetailsVO(UserDetailsVO userDetailsVO)
     {
-        // @todo implement loadUserFromUserDetailsVO
+        // TODO implement loadUserFromUserDetailsVO
         throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserDetailsVO(UserDetailsVO) not yet implemented.");
 
         /* A typical implementation looks like this:
@@ -146,7 +146,7 @@ public class UserDaoImpl
      */
     public User userDetailsVOToEntity(UserDetailsVO userDetailsVO)
     {
-        // @todo verify behavior of userDetailsVOToEntity
+        // TODO verify behavior of userDetailsVOToEntity
         User entity = this.loadUserFromUserDetailsVO(userDetailsVO);
         this.userDetailsVOToEntity(userDetailsVO, entity, true);
         return entity;
@@ -162,10 +162,13 @@ public class UserDaoImpl
         User targetEntity,
         boolean copyIfNull)
     {
-        // @todo verify behavior of userDetailsVOToEntity
+        // TODO verify behavior of userDetailsVOToEntity
         super.userDetailsVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
 
+    /**
+     * @see org.andromda.timetracker.domain.UserDaoBase#handleGetUserDetails(java.lang.String)
+     */
     @Override
     protected User handleGetUserDetails(String username) throws Exception {
 
