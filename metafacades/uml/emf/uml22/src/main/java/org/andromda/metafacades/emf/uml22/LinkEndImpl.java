@@ -38,11 +38,11 @@ public class LinkEndImpl implements LinkEnd
     final Slot slot;
 
     /**
-     * @param slot
+     * @param slotIn
      */
-    LinkEndImpl(final Slot slot)
+    LinkEndImpl(final Slot slotIn)
     {
-        this.slot = slot;
+        this.slot = slotIn;
     }
 
     /**
@@ -114,12 +114,36 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
+     * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type)
+     */
+    public ValueSpecification getValue(String string, Type type)
+    {
+        return this.slot.getValue(string, type);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass, boolean)
+     */
+    public ValueSpecification getValue(String name, Type type, boolean ignoreCase, EClass eClass, boolean createOnDemand)
+    {
+        return this.slot.getValue(name, type, ignoreCase, eClass, createOnDemand);
+    }
+
+    /**
      * @param eClass
      * @return slot.createValue(null, null, eClass)
      */
     public ValueSpecification createValue(EClass eClass)
     {
         return this.slot.createValue(null, null, eClass);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Slot#createValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
+     */
+    public ValueSpecification createValue(String name, Type type, EClass eClass)
+    {
+        return this.slot.createValue(name, type, eClass);
     }
 
     /**
@@ -212,19 +236,19 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     * @see org.eclipse.uml2.uml.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateNotOwnSelf(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateHasOwner(DiagnosticChain diagnosticChain, Map<Object, Object> context)
     {
-        return this.slot.validateNotOwnSelf(diagnosticChain, map);
+        return this.slot.validateHasOwner(diagnosticChain, context);
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     * @see org.eclipse.uml2.uml.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasOwner(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateNotOwnSelf(DiagnosticChain diagnosticChain, Map<Object, Object> context)
     {
-        return this.slot.validateHasOwner(diagnosticChain, map);
+        return this.slot.validateNotOwnSelf(diagnosticChain, context);
     }
 
     /**
@@ -260,6 +284,14 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
+     * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
+     */
+    public EObject applyStereotype(Stereotype stereotype)
+    {
+        return this.slot.applyStereotype(stereotype);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(String)
      */
     public Stereotype getApplicableStereotype(String string)
@@ -284,11 +316,27 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
+     * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotype(org.eclipse.uml2.uml.Stereotype, String)
+     */
+    public Stereotype getAppliedSubstereotype(Stereotype stereotype, String string)
+    {
+        return this.slot.getAppliedSubstereotype(stereotype, string);
+    }
+
+    /**
      * @see org.eclipse.uml2.uml.Element#getAppliedStereotypes()
      */
     public EList<Stereotype> getAppliedStereotypes()
     {
         return this.slot.getAppliedStereotypes();
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotypes(org.eclipse.uml2.uml.Stereotype)
+     */
+    public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
+    {
+        return this.slot.getAppliedSubstereotypes(stereotype);
     }
 
     /**
@@ -316,6 +364,14 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
+     * @see org.eclipse.uml2.uml.Element#isStereotypeApplicable(org.eclipse.uml2.uml.Stereotype)
+     */
+    public boolean isStereotypeApplicable(Stereotype stereotype)
+    {
+        return this.slot.isStereotypeApplicable(stereotype);
+    }
+
+    /**
      * @param stereotype
      * @return slot.isStereotypeApplied(stereotype)
      */
@@ -325,10 +381,26 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
+     * @see org.eclipse.uml2.uml.Element#isStereotypeApplied(org.eclipse.uml2.uml.Stereotype)
+     */
+    public boolean isStereotypeApplied(Stereotype stereotype)
+    {
+        return this.slot.isStereotypeApplied(stereotype);
+    }
+
+    /**
      * @param stereotype
      * @return slot.isStereotypeRequired(stereotype)
      */
     public boolean isRequired(Stereotype stereotype)
+    {
+        return this.slot.isStereotypeRequired(stereotype);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Element#isStereotypeRequired(org.eclipse.uml2.uml.Stereotype)
+     */
+    public boolean isStereotypeRequired(Stereotype stereotype)
     {
         return this.slot.isStereotypeRequired(stereotype);
     }
@@ -353,6 +425,14 @@ public class LinkEndImpl implements LinkEnd
     {
         this.slot.unapply(stereotype);
     }*/
+
+    /**
+     * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
+     */
+    public EObject unapplyStereotype(Stereotype stereotype)
+    {
+        return this.slot.unapplyStereotype(stereotype);
+    }
 
     /**
      * @see org.eclipse.uml2.uml.Element#destroy()
@@ -528,76 +608,19 @@ public class LinkEndImpl implements LinkEnd
     }
 
     /**
-     * @see org.eclipse.uml2.uml.Slot#createValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
-     */
-    public ValueSpecification createValue(String name, Type type, EClass class1)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type)
-     */
-    public ValueSpecification getValue(String name, Type type)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass, boolean)
-     */
-    public ValueSpecification getValue(String name, Type type, boolean ignoreCase, EClass class1,
-            boolean createOnDemand)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
-     */
-    public EObject applyStereotype(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotype(org.eclipse.uml2.uml.Stereotype, String)
-     */
-    public Stereotype getAppliedSubstereotype(Stereotype stereotype, String qualifiedName)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotypes(org.eclipse.uml2.uml.Stereotype)
-     */
-    public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
      * @see org.eclipse.uml2.uml.Element#getRelationships()
      */
     public EList<Relationship> getRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<Relationship> getRelationships(EClass class1)
+    public EList<Relationship> getRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getRelationships(eClass);
     }
 
     /**
@@ -605,8 +628,7 @@ public class LinkEndImpl implements LinkEnd
      */
     public Stereotype getRequiredStereotype(String qualifiedName)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getRequiredStereotype(qualifiedName);
     }
 
     /**
@@ -614,8 +636,7 @@ public class LinkEndImpl implements LinkEnd
      */
     public EList<Stereotype> getRequiredStereotypes()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getRequiredStereotypes();
     }
 
     /**
@@ -623,17 +644,15 @@ public class LinkEndImpl implements LinkEnd
      */
     public EList<DirectedRelationship> getSourceDirectedRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getSourceDirectedRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getSourceDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass class1)
+    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getSourceDirectedRelationships(eClass);
     }
 
     /**
@@ -641,8 +660,7 @@ public class LinkEndImpl implements LinkEnd
      */
     public EObject getStereotypeApplication(Stereotype stereotype)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getStereotypeApplication(stereotype);
     }
 
     /**
@@ -650,8 +668,7 @@ public class LinkEndImpl implements LinkEnd
      */
     public EList<EObject> getStereotypeApplications()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getStereotypeApplications();
     }
 
     /**
@@ -659,53 +676,15 @@ public class LinkEndImpl implements LinkEnd
      */
     public EList<DirectedRelationship> getTargetDirectedRelationships()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getTargetDirectedRelationships();
     }
 
     /**
      * @see org.eclipse.uml2.uml.Element#getTargetDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass class1)
+    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass eClass)
     {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#isStereotypeApplicable(org.eclipse.uml2.uml.Stereotype)
-     */
-    public boolean isStereotypeApplicable(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#isStereotypeApplied(org.eclipse.uml2.uml.Stereotype)
-     */
-    public boolean isStereotypeApplied(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#isStereotypeRequired(org.eclipse.uml2.uml.Stereotype)
-     */
-    public boolean isStereotypeRequired(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
-     */
-    public EObject unapplyStereotype(Stereotype stereotype)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return this.slot.getTargetDirectedRelationships(eClass);
     }
 
     /**

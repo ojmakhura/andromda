@@ -77,19 +77,19 @@ public class AttributeImpl
      * @see Object#equals(Object)
      */
     @Override
-    public boolean equals(final Object object)
+    public boolean equals(final Object obj)
     {
-        /*if (object instanceof AttributeImpl)
+        /*if (obj instanceof AttributeImpl)
         {
-            Property other = ((AttributeImpl)object).property;
+            Property other = ((AttributeImpl)obj).property;
             return this.property.equals(other);
         }*/
-        if (object instanceof AssociationEndImpl)
+        if (obj instanceof AssociationEndImpl)
         {
-            Property other = ((AssociationEndImpl)object).property;
+            Property other = ((AssociationEndImpl)obj).property;
             return this.property.equals(other);
         }
-        return this.property.equals(object);
+        return this.property.equals(obj);
     }
 
     /**
@@ -136,6 +136,7 @@ public class AttributeImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Element#applyStereotype(Stereotype)
      */
     public void apply(final Stereotype arg0)
     {
@@ -143,12 +144,20 @@ public class AttributeImpl
     }
 
     /**
-     * @param arg0
-     * @return this.property.createDefaultValue(null, null, arg0)
+     * @param eClass
+     * @return this.property.createDefaultValue(null, null, eClass)
      */
-    public ValueSpecification createDefaultValue(final EClass arg0)
+    public ValueSpecification createDefaultValue(final EClass eClass)
     {
-        return this.property.createDefaultValue(null, null, arg0);
+        return this.property.createDefaultValue(null, null, eClass);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Property#createDefaultValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
+     */
+    public ValueSpecification createDefaultValue(String name, Type type, EClass eClass)
+    {
+        return this.property.createLowerValue(name, type, eClass);
     }
 
     /**
@@ -205,13 +214,13 @@ public class AttributeImpl
     }
 
     /**
-     * @param arg0
-     * @return this.property.createNameExpression(arg0.getName(), null)
+     * @param eClass
+     * @return this.property.createNameExpression(eClass.getName(), null)
      * @see org.eclipse.uml2.uml.Property#createNameExpression(String, Type)
      */
-    public StringExpression createNameExpression(final EClass arg0)
+    public StringExpression createNameExpression(final EClass eClass)
     {
-        return this.property.createNameExpression(arg0.getName(), null);
+        return this.property.createNameExpression(eClass.getName(), null);
     }
 
     /**
@@ -272,6 +281,22 @@ public class AttributeImpl
     public Property createQualifier(final EClass arg0)
     {
         return this.property.createQualifier(null, null, arg0);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type)
+     */
+    public Property createQualifier(String name, Type type)
+    {
+        return this.property.createQualifier(name, type);
+    }
+
+    /**
+     * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
+     */
+    public Property createQualifier(String name, Type type, EClass eClass)
+    {
+        return this.property.createQualifier(name, type, eClass);
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
@@ -881,6 +906,7 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * AttributeImpl.property.validateUpperGt0 has been removed from UML2 3.x.
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBindings()
      */
@@ -1142,6 +1168,7 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
+     * AttributeImpl.property.parameterableElements has been removed from UML2 3.x
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#parameterableElements()
      */
@@ -1334,7 +1361,9 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param arg0 
+     * AttributeImpl.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName()
+     * Always returns null.
+     * @param arg0
      * @see org.eclipse.uml2.uml.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.uml.TemplateSignature)
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
@@ -1352,6 +1381,7 @@ public class AttributeImpl
     }
 
     /**
+     * @param arg0
      * @see org.eclipse.uml2.uml.ParameterableElement#setOwningTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
      */
     public void setOwningTemplateParameter(final TemplateParameter arg0)
@@ -1560,15 +1590,15 @@ public class AttributeImpl
     /**
      * @param arg0
      * @param arg1
-     * @return this.property.validateHasQualifiedName(arg0, arg1)
+     * @return !this.property.validateHasQualifiedName(arg0, arg1)
      * @see org.eclipse.uml2.uml.Property#validateHasQualifiedName(DiagnosticChain, Map)
      */
     public boolean validateNoName(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
     {
-        // TODO: validateHasQualifiedName == validateNoName
-        return this.property.validateHasQualifiedName(
+        // TODO: validateHasQualifiedName == validateNoName. Different from AssociationEndImpl
+        return !this.property.validateHasQualifiedName(
             arg0,
             arg1);
     }
@@ -1713,30 +1743,6 @@ public class AttributeImpl
         return this.property.validateVisibilityNeedsOwnership(
             arg0,
             arg1);
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Property#createDefaultValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
-     */
-    public ValueSpecification createDefaultValue(String name, Type type, EClass eClass)
-    {
-        return this.property.createLowerValue(name, type, eClass);
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type)
-     */
-    public Property createQualifier(String name, Type type)
-    {
-        return this.property.createQualifier(name, type);
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
-     */
-    public Property createQualifier(String name, Type type, EClass eClass)
-    {
-        return this.property.createQualifier(name, type, eClass);
     }
 
     /**
@@ -2072,7 +2078,7 @@ public class AttributeImpl
      */
     public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
     {
-        return this.property.getAppliedStereotypes();
+        return this.property.getAppliedSubstereotypes(stereotype);
     }
 
     /**

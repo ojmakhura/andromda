@@ -65,11 +65,11 @@ public class AssociationEndImpl
     final Property property;
 
     /**
-     * @param p
+     * @param propertyIn
      */
-    AssociationEndImpl(final Property p)
+    AssociationEndImpl(final Property propertyIn)
     {
-        this.property = p;
+        this.property = propertyIn;
     }
 
     /**
@@ -156,7 +156,7 @@ public class AssociationEndImpl
      */
     public ValueSpecification createDefaultValue(String name, Type type, EClass eClass)
     {
-        return this.property.createDefaultValue(null, null, eClass);
+        return this.property.createLowerValue(name, type, eClass);
     }
 
     /**
@@ -169,6 +169,7 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.createDeployment(null)
+     * @see org.eclipse.uml2.uml.Property#createDeployment(String)
      */
     public Deployment createDeployment()
     {
@@ -194,6 +195,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.createLowerValue(null, null, arg0)
+     * @see org.eclipse.uml2.uml.Property#createLowerValue(String, Type, EClass)
      */
     public ValueSpecification createLowerValue(final EClass arg0)
     {
@@ -202,6 +204,7 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.createNameExpression(null, null)
+     * @see org.eclipse.uml2.uml.Property#createNameExpression(String, Type)
      */
     public StringExpression createNameExpression()
     {
@@ -211,6 +214,7 @@ public class AssociationEndImpl
     /**
      * @param eClass
      * @return this.property.createNameExpression(eClass.getName(), null)
+     * @see org.eclipse.uml2.uml.Property#createNameExpression(String, Type)
      */
     public StringExpression createNameExpression(final EClass eClass)
     {
@@ -228,6 +232,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.createOwnedComment()
+     * @see org.eclipse.uml2.uml.Property#createOwnedComment()
      */
     public Comment createOwnedComment(final EClass arg0)
     {
@@ -245,8 +250,7 @@ public class AssociationEndImpl
         return null;
     }
 
-    /**
-     * UML2 3.0: Property no longer inherits from TemplateableElement
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @param arg0 
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
@@ -260,6 +264,7 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.createQualifier(null, null)
+     * @see org.eclipse.uml2.uml.Property#createQualifier(String, Type)
      */
     public Property createQualifier()
     {
@@ -268,7 +273,8 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
-     * @return this.property.createQualifier(null, null)
+     * @return this.property.createQualifier(null, null, arg0)
+     * @see org.eclipse.uml2.uml.Property#createQualifier(String, Type, EClass)
      */
     public Property createQualifier(final EClass arg0)
     {
@@ -286,12 +292,12 @@ public class AssociationEndImpl
     /**
      * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public Property createQualifier(String name, Type type, EClass class1)
+    public Property createQualifier(String name, Type type, EClass eClass)
     {
-        return this.property.createQualifier(name, type, class1);
+        return this.property.createQualifier(name, type, eClass);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @return this.property.createTemplateBinding(null)
      */
     public TemplateBinding createTemplateBinding()
@@ -301,7 +307,7 @@ public class AssociationEndImpl
         return null;
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * @param arg0
      * @return this.property.createTemplateBinding((TemplateSignature) arg0)
      */
@@ -315,6 +321,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.createUpperValue(null, null, arg0)
+     * @see org.eclipse.uml2.uml.Property#createUpperValue(String, Type, EClass)
      */
     public ValueSpecification createUpperValue(final EClass arg0)
     {
@@ -521,6 +528,7 @@ public class AssociationEndImpl
         return this.property.getAppliedStereotypes();
     }
 
+    // TODO: Map getAppliedVersion?
     /*public String getAppliedVersion(final Stereotype arg0)
     {
         return this.property.getAppliedVersion(arg0);
@@ -773,7 +781,7 @@ public class AssociationEndImpl
     public TemplateSignature getOwnedTemplateSignature()
     {
         //return this.property.getOwnedTemplateSignature();
-        logger.error("AssociationEnd.getOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        logger.error("AssociationEnd.property.getOwnedTemplateSignature() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -812,6 +820,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.getQualifier(arg0, null)
+     * @see org.eclipse.uml2.uml.Property#getQualifier(String, Type)
      */
     public Property getQualifier(final String arg0)
     {
@@ -853,6 +862,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.getRedefinedProperty(arg0, null)
+     * @see org.eclipse.uml2.uml.Property#getRedefinedProperty(String, Type)
      */
     public Property getRedefinedProperty(final String arg0)
     {
@@ -886,6 +896,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.getSubsettedProperty(arg0, null)
+     * @see org.eclipse.uml2.uml.Property#getSubsettedProperty(String, Type)
      */
     public Property getSubsettedProperty(final String arg0)
     {
@@ -995,6 +1006,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.getAppliedStereotype(arg0.getName())!=null
+     * @see org.eclipse.uml2.uml.Property#getAppliedStereotype(String)
      */
     public boolean isApplied(final Stereotype arg0)
     {
@@ -1096,6 +1108,7 @@ public class AssociationEndImpl
     /**
      * @param arg0
      * @return this.property.isStereotypeRequired(arg0)
+     * @see org.eclipse.uml2.uml.Property#isStereotypeRequired(Stereotype)
      */
     public boolean isRequired(final Stereotype arg0)
     {
@@ -1120,6 +1133,7 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.getLower()
+     * @see org.eclipse.uml2.uml.Property#getLower()
      */
     public int lower()
     {
@@ -1144,25 +1158,28 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.getOpposite()
+     * @see org.eclipse.uml2.uml.Property#getOpposite()
      */
     public Property opposite()
     {
         return this.property.getOpposite();
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * AssociationEndImpl.property.parameterableElements has been removed from UML2 3.x
      * @return null
+     * @see org.eclipse.uml2.uml.TemplateableElement#parameterableElements()
      */
     public EList<ParameterableElement> parameterableElements()
     {
         //return this.property.parameterableElements();
-        logger.error("AssociationEnd.property.parameterableElements has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        logger.error("AssociationEnd.property.parameterableElements() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
     /**
      * @return this.property.getQualifiedName()
+     * @see org.eclipse.uml2.uml.Property#getQualifiedName()
      */
     public String qualifiedName()
     {
@@ -1211,6 +1228,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setBooleanDefaultValue(boolean)
      */
     public void setBooleanDefault(final boolean arg0)
     {
@@ -1235,6 +1253,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setIntegerDefaultValue(int)
      */
     public void setIntegerDefault(final int arg0)
     {
@@ -1299,6 +1318,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setLower(int)
      */
     public void setLowerBound(final int arg0)
     {
@@ -1331,16 +1351,18 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setIsNavigable(boolean)
      */
     public void setNavigable(final boolean arg0)
     {
         this.property.setIsNavigable(arg0);
     }
 
-    /**
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * AssociationEndImpl.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName()
      * Always returns null.
      * @param arg0 
+     * @see org.eclipse.uml2.uml.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.uml.TemplateSignature)
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
@@ -1358,6 +1380,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.ParameterableElement#setOwningTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
      */
     public void setOwningParameter(final TemplateParameter arg0)
     {
@@ -1365,7 +1388,16 @@ public class AssociationEndImpl
     }
 
     /**
+     * @see org.eclipse.uml2.uml.ParameterableElement#setOwningTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
+     */
+    public void setOwningTemplateParameter(final TemplateParameter value)
+    {
+        this.property.setOwningTemplateParameter(value);
+    }
+
+    /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setStringDefaultValue(String)
      */
     public void setStringDefault(final String arg0)
     {
@@ -1390,6 +1422,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setUnlimitedNaturalDefaultValue(int)
      */
     public void setUnlimitedNaturalDefault(final int arg0)
     {
@@ -1398,6 +1431,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#setUpper(int)
      */
     public void setUpperBound(final int arg0)
     {
@@ -1444,6 +1478,7 @@ public class AssociationEndImpl
 
     /**
      * @param arg0
+     * @see org.eclipse.uml2.uml.Property#unapplyStereotype(Stereotype)
      */
     public void unapply(final Stereotype arg0)
     {
@@ -1452,6 +1487,7 @@ public class AssociationEndImpl
 
     /**
      * @return this.property.getUpper()
+     * @see org.eclipse.uml2.uml.Property#getUpper()
      */
     public int upper()
     {
@@ -1490,7 +1526,12 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /*public boolean validateLowerEqLowerbound(
+    /*
+     * @param arg0
+     * @param arg1
+     * @return this.property.validateLowerGe0(arg0, arg1)
+     * @see org.eclipse.uml2.uml.Property#validateLowerGe0(DiagnosticChain, Map)
+    public boolean validateLowerEqLowerbound(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
     {
@@ -1523,7 +1564,12 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /*public boolean validateNavigablePropertyRedefinition(
+    /*
+     * @param arg0
+     * @param arg1
+     * @return this.property.validateRedefinedPropertyInherited(arg0, arg1)
+     * @see org.eclipse.uml2.uml.Property#validateRedefinedPropertyInherited(DiagnosticChain, Map)
+    public boolean validateNavigablePropertyRedefinition(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
     {
@@ -1548,6 +1594,7 @@ public class AssociationEndImpl
      * @param arg0
      * @param arg1
      * @return !this.property.validateHasQualifiedName(arg0, arg1)
+     * @see org.eclipse.uml2.uml.Property#validateHasQualifiedName(DiagnosticChain, Map)
      */
     public boolean validateNoName(
         final DiagnosticChain arg0,
@@ -1583,6 +1630,7 @@ public class AssociationEndImpl
      * @param arg0
      * @param arg1
      * @return this.property.validateHasQualifiedName(arg0, arg1)
+     * @see org.eclipse.uml2.uml.Property#validateHasQualifiedName(DiagnosticChain, Map)
      */
     public boolean validateQualifiedName(
         final DiagnosticChain arg0,
@@ -1621,7 +1669,7 @@ public class AssociationEndImpl
      * @param arg0
      * @param arg1
      * @return this.property.validateSubsettingContextConforms(arg0, arg1)
-     * @see org.eclipse.uml2.uml.Property#validateSubsettingContextConforms(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+     * @see org.eclipse.uml2.uml.Property#validateSubsettingContextConforms(DiagnosticChain, Map)
      */
     public boolean validateSubsettingContext(
         final DiagnosticChain arg0,
@@ -1644,7 +1692,12 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /*public boolean validateUpperEqUpperbound(
+    /*
+     * @param arg0
+     * @param arg1
+     * @return this.property.validateUpperGeLower(arg0, arg1)
+     * @see org.eclipse.uml2.uml.Property#validateUpperGeLower(DiagnosticChain, Map)
+    public boolean validateUpperEqUpperbound(
         final DiagnosticChain arg0,
         final Map<Object, Object> arg1)
     {
@@ -1665,7 +1718,7 @@ public class AssociationEndImpl
             arg1);
     }
 
-    /**
+    /** UML2 3.0: property.validateUpperGt0 no longer exists
      * @param arg0 
      * @param arg1 
      * @return property.getUpper() > 0
@@ -1711,7 +1764,8 @@ public class AssociationEndImpl
     public Property getQualifier(String name, Type type, boolean ignoreCase, EClass eClass,
             boolean createOnDemand)
     {
-        return this.property.createQualifier(name, type, eClass);
+        //return this.property.createQualifier(name, type, eClass);
+        return this.property.getQualifier(name, type, ignoreCase, eClass, createOnDemand);
     }
 
     /**
@@ -2224,14 +2278,6 @@ public class AssociationEndImpl
     public boolean isTemplateParameter()
     {
         return this.property.isTemplateParameter();
-    }
-
-    /**
-     * @see org.eclipse.uml2.uml.ParameterableElement#setOwningTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
-     */
-    public void setOwningTemplateParameter(TemplateParameter value)
-    {
-        this.property.setOwningTemplateParameter(value);
     }
 
     /**
