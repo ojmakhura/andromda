@@ -250,7 +250,7 @@ public final class $manageable.manageableDaoBaseName
 ##            // displayAttribute.name=$member.type.displayAttribute.name displayAttribute=$member.type.displayAttribute
 #if($member.type.manageable)
             lists.put("${member.name}", session.createQuery("select item.$member.type.identifierName, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityImplementationName item order by item.$member.type.displayAttribute.name").list());
-#end            
+#end
 #end
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)

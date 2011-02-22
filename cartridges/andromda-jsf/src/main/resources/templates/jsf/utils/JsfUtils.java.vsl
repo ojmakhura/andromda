@@ -572,7 +572,7 @@ public class $className
             return null;
         }
     }
-    
+
     /**
      * Returns the array without the entries with zero (using to avoid the null to zero issue of EL)
      * @intArray an array filled with Integer
@@ -597,8 +597,7 @@ public class $className
             return result.toArray(new Integer[0]);
         }
     }
-    
-    
+
     /**
      * Returns the array without the entries with zero (using to avoid the null to zero issue of EL)
      * @longArray an array filled with Integer

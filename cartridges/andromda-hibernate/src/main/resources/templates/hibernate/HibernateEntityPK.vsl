@@ -38,7 +38,7 @@ ${comma}${identifier.type.fullyQualifiedName} ${identifier.name}## no newline
         {
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
-            this.${associationEnd.otherEnd.name} = ${associationEnd.otherEnd.name}; 
+            this.${associationEnd.otherEnd.name} = ${associationEnd.otherEnd.name};
 #end
 #end
 #foreach ( $identifier in $entity.identifiers )
