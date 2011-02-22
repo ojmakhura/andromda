@@ -19,19 +19,33 @@ package $springTypesPackage;
 public class $className
     implements java.io.Serializable
 {
+    /** 0 */
     public static final int LIKE_COMPARATOR = 0;
+    /** 1 */
     public static final int INSENSITIVE_LIKE_COMPARATOR = 1;
+    /** 2 */
     public static final int EQUAL_COMPARATOR = 2;
+    /** 3 */
     public static final int GREATER_THAN_OR_EQUAL_COMPARATOR = 3;
+    /** 4 */
     public static final int GREATER_THAN_COMPARATOR = 4;
+    /** 5 */
     public static final int LESS_THAN_OR_EQUAL_COMPARATOR = 5;
+    /** 6 */
     public static final int LESS_THAN_COMPARATOR = 6;
+    /** 7 */
     public static final int IN_COMPARATOR = 7;
+    /** 8 */
     public static final int NOT_EQUAL_COMPARATOR = 8;
+    /** 9 */
     public static final int NOT_NULL_COMPARATOR = 9;
+    /** 10 */
     public static final int NULL_COMPARATOR = 10;
+    /** 11 */
     public static final int NOT_IN_COMPARATOR = 11;
+    /** 12 */
     public static final int NOT_LIKE_COMPARATOR = 12;
+    /** 13 */
     public static final int NOT_INSENSITIVE_LIKE_COMPARATOR = 13;
 
     /** Order unset */
@@ -43,88 +57,115 @@ public class $className
     /** Descending order */
     public static final int ORDER_DESC = 1;
 
+    /** 0 */
     public static final int MATCH_ANYWHERE = 0;
+    /** 1 */
     public static final int MATCH_START = 1;
+    /** 2 */
     public static final int MATCH_END = 2;
+    /** 3 */
     public static final int MATCH_EXACT = 3;
 
     /**
      * Constructor taking name and value properties.
+     * @param nameIn
+     * @param valueIn
      */
     public $className(
-        String name,
-        Object value)
+        String nameIn,
+        Object valueIn)
     {
-       this(name, value, EQUAL_COMPARATOR);
+       this(nameIn, valueIn, EQUAL_COMPARATOR);
     }
 
     /**
      * Constructor taking name and comparator properties.
+     * @param nameIn
+     * @param comparatorIn
      */
     public SearchParameter(
-        String name,
-        int comparator)
+        String nameIn,
+        int comparatorIn)
     {
-        this(name, null, comparator);
+        this(nameIn, null, comparatorIn);
     }
 
     /**
      * Constructor taking name, value and comparator properties.
+     * @param nameIn
+     * @param valueIn
+     * @param comparatorIn
      */
     public $className(
-        String name,
-        Object value,
-        int comparator)
+        String nameIn,
+        Object valueIn,
+        int comparatorIn)
     {
-        this(name, value, comparator, MATCH_EXACT);
+        this(nameIn, valueIn, comparatorIn, MATCH_EXACT);
     }
 
     /**
      * Constructor taking name, value, comparator and order properties.
+     * @param nameIn
+     * @param valueIn
+     * @param comparatorIn
+     * @param match 
      */
     public $className(
-        String name,
-        Object value,
-        int comparator,
+        String nameIn,
+        Object valueIn,
+        int comparatorIn,
         int match)
     {
-        this(name, value, comparator, match, ORDER_UNSET);
+        this(nameIn, valueIn, comparatorIn, match, ORDER_UNSET);
     }
 
     /**
      * Constructor taking name, value, comparator, order and match properties.
+     * @param nameIn
+     * @param valueIn
+     * @param comparatorIn
+     * @param matchIn
+     * @param orderIn
      */
     public $className(
-        String name,
-        Object value,
-        int comparator,
-        int match,
-        int order)
+        String nameIn,
+        Object valueIn,
+        int comparatorIn,
+        int matchIn,
+        int orderIn)
     {
-        this(name, value, comparator, match, order, false);
+        this(nameIn, valueIn, comparatorIn, matchIn, orderIn, false);
     }
 
     /**
      * Constructor taking all properties.
+     * @param nameIn
+     * @param valueIn
+     * @param comparatorIn
+     * @param matchIn
+     * @param orderIn
+     * @param searchIfNullIn
      */
     public $className(
-        String name,
-        Object value,
-        int comparator,
-        int match,
-        int order,
-        boolean searchIfNull)
+        String nameIn,
+        Object valueIn,
+        int comparatorIn,
+        int matchIn,
+        int orderIn,
+        boolean searchIfNullIn)
     {
-        this.name = name;
-        this.value = value;
-        this.comparator = comparator;
-        this.order = order;
-        this.match = match;
-        this.searchIfNull = searchIfNull;
+        this.name = nameIn;
+        this.value = valueIn;
+        this.comparator = comparatorIn;
+        this.order = orderIn;
+        this.match = matchIn;
+        this.searchIfNull = searchIfNullIn;
     }
 
     /**
      * Copies constructor from other $className
+     * @param otherBean 
      */
     public $className($className otherBean)
     {
@@ -143,74 +184,83 @@ public class $className
     private String name;
 
     /**
-     * <p>
      * The parameter name in dot notation (i.e. person.firstNAme).
-     * </p>
+     * @return name
      */
     public String getName()
     {
         return this.name;
     }
 
-    public void setName(String name)
+    /**
+     * @param nameIn
+     */
+    public void setName(String nameIn)
     {
-        this.name = name;
+        this.name = nameIn;
     }
 
     private Object value;
 
     /**
      * The value of the parameter.
+     * @return value
      */
     public Object getValue()
     {
         return this.value;
     }
 
-    public void setValue(Object value)
+    /**
+     * @param valueIn
+     */
+    public void setValue(Object valueIn)
     {
-        this.value = value;
+        this.value = valueIn;
     }
 
     private int comparator = EQUAL_COMPARATOR;
 
     /**
-     *
+     * @return comparator
      */
     public int getComparator()
     {
         return this.comparator;
     }
 
-    public void setComparator(int comparator)
+    /**
+     * @param comparatorIn
+     */
+    public void setComparator(int comparatorIn)
     {
-        this.comparator = comparator;
+        this.comparator = comparatorIn;
     }
 
     private int order;
 
     /**
-     * <p>
-     * Order attribute to control if parameter is usedin order by
-     * clause.
-     * </p>
+     * Order attribute to control if parameter is used in order by clause.
+     * @return order
      */
     public int getOrder()
     {
         return this.order;
     }
 
-    public void setOrder(int order)
+    /**
+     * @param orderIn
+     */
+    public void setOrder(int orderIn)
     {
-        this.order = order;
+        this.order = orderIn;
     }
 
     private boolean searchIfNull;
 
     /**
      * Whether this parameter will be included in the search even if it is <code>null</code>.
-     *
-     * @return true/false
+     * @return true/false searchIfNull
      */
     public boolean isSearchIfNull()
     {
@@ -220,12 +270,12 @@ public class $className
     /**
      * Defines whether parameter will be included in the search even if it is <code>null</code>.
      *
-     * @param searchIfNull <code>true</code> if the parameter should be included in the search
+     * @param searchIfNullIn <code>true</code> if the parameter should be included in the search
      *                     even if it is null, <code>false</code> otherwise.
      */
-    public void setSearchIfNull(boolean searchIfNull)
+    public void setSearchIfNull(boolean searchIfNullIn)
     {
-        this.searchIfNull = searchIfNull;
+        this.searchIfNull = searchIfNullIn;
     }
 
     private int match;
@@ -242,12 +292,11 @@ public class $className
 
     /**
      * Sets the match mode attribute which controls how parameter values are matched (anywhere, start, end or exact).
-     *
-     * @return the match mode
+     * @param matchIn the match mode
      */
-    public void setMatch(int match)
+    public void setMatch(int matchIn)
     {
-        this.match = match;
+        this.match = matchIn;
     }
 
     private static final long serialVersionUID = 1L;

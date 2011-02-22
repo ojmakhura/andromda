@@ -32,7 +32,6 @@ public interface $service.name
 #end
 #end
 {
-
 #foreach ($attribute in $service.attributes)
 #set ($typeName = $attribute.getterSetterTypeName)
 #if(!$attribute.visibility.equalsIgnoreCase("private") && !$attribute.visibility.equalsIgnoreCase("protected"))
@@ -62,6 +61,10 @@ public interface $service.name
 #if(!$operation.visibility.equalsIgnoreCase("private") && !$operation.visibility.equalsIgnoreCase("protected"))
     /**
 $operation.getDocumentation("     * ")
+     * @return $operation.returnParameter.name
+#foreach($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature

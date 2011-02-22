@@ -26,7 +26,9 @@ public class $service.defaultExceptionName
      * The default constructor for <code>$service.defaultExceptionName</code>.
      */
     public ${service.defaultExceptionName}()
-    {}
+    {
+        // Documented empty block
+    }
 
     /**
      * Constructs a new instance of <code>$service.defaultExceptionName</code>.
@@ -113,21 +115,21 @@ public class $service.defaultExceptionName
      * Gets the message arguments that can be used by message resources (in
      * something like the presentation tier)
      *
-     * @return
+     * @return messageArguments
      */
     public Object[] getMessageArguments()
     {
-        return messageArguments;
+        return this.messageArguments;
     }
 
     /**
      * Sets the message arguments that can be used by message resources (in
      * something like the presentation tier)
      *
-     * @param messageArguments
+     * @param messageArgumentsIn
      */
-    public void setMessageArguments(Object[] messageArguments)
+    public void setMessageArguments(Object[] messageArgumentsIn)
     {
-        this.messageArguments = messageArguments;
+        this.messageArguments = messageArgumentsIn;
     }
 }

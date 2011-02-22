@@ -69,12 +69,13 @@ public class $className
      * is specified for the <code>beanFactoryReferenceLocation</code>
      * then the default application context will be used.
      *
-     * @param beanFactoryReferenceLocation the location of the beanRefFactory reference.
+     * @param beanFactoryReferenceLocationIn the location of the beanRefFactory reference.
+     * @param beanFactoryReferenceIdIn the id of the beanRefFactory reference.
      */
-    public synchronized void init(final String beanFactoryReferenceLocation, final String beanRefFactoryReferenceId)
+    public synchronized void init(final String beanFactoryReferenceLocationIn, final String beanRefFactoryReferenceIdIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
-        this.beanRefFactoryReferenceId = beanRefFactoryReferenceId;
+        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
+        this.beanRefFactoryReferenceId = beanRefFactoryReferenceIdIn;
         this.beanFactoryReference = null;
         // - initialize the context
         this.getContext();
@@ -86,11 +87,11 @@ public class $className
      * is specified for the <code>beanFactoryReferenceLocation</code>
      * then the default application context will be used.
      *
-     * @param beanFactoryReferenceLocation the location of the beanRefFactory reference.
+     * @param beanFactoryReferenceLocationIn the location of the beanRefFactory reference.
      */
-    public synchronized void init(final String beanFactoryReferenceLocation)
+    public synchronized void init(final String beanFactoryReferenceLocationIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
+        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
         this.beanFactoryReference = null;
         // - initialize the context
         this.getContext();
@@ -108,6 +109,7 @@ public class $className
 
     /**
      * Gets the Spring ApplicationContext.
+     * @return beanFactoryReference.getFactory()
      */
     public synchronized org.springframework.context.ApplicationContext getContext()
     {
@@ -115,11 +117,11 @@ public class $className
         {
             if (this.beanFactoryReferenceLocation == null)
             {
-                this.beanFactoryReferenceLocation = DEFAULT_BEAN_REFERENCE_LOCATION;
+                this.beanFactoryReferenceLocation = this.DEFAULT_BEAN_REFERENCE_LOCATION;
             }
             if (this.beanRefFactoryReferenceId == null)
             {
-                this.beanRefFactoryReferenceId = DEFAULT_BEAN_REFERENCE_ID;
+                this.beanRefFactoryReferenceId = this.DEFAULT_BEAN_REFERENCE_ID;
             }
             org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
                 org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(

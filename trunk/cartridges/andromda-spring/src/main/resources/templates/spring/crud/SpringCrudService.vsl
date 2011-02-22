@@ -6,42 +6,100 @@
 ##
 package $manageable.manageablePackageName;
 
+/**
+$manageable.getDocumentation(" * ")
+ */
 public interface $manageable.manageableServiceName
 {
 #if ($manageable.create)
+    /**
+     * @return create
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+	 */
     public $manageable.fullyQualifiedManageableValueObjectName create($memberList)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
 #if ($manageable.read)
+    /**
+     * @return manageable
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public $manageable.fullyQualifiedManageableValueObjectName readById(${manageable.fullyQualifiedIdentifierTypeName} $manageable.identifierName)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
+    /**
+     * @return manageable
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public java.util.List<$manageable.fullyQualifiedManageableValueObjectName> read(${manageable.listManageableMembersWithWrapperTypes()})
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
+    /**
+     * @return all manageable
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public java.util.List<$manageable.fullyQualifiedManageableValueObjectName> readAll()
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
+    /**
+     * @return manageable
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public $member.type.fullyQualifiedName ${member.getterName}($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
+    /**
+     * @return manageable backing lists
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public java.util.Map<String,?> readBackingLists()
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
 #end
 #if ($manageable.update)
+    /**
+     * @return update
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
 #if ($manageable.delete)
+    /**
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     */
     public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 

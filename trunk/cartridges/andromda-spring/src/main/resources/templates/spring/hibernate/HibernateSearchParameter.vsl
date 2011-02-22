@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 public class ${criteriaSearchBaseName}Parameter
     extends SearchParameter
 {
+    /** Compiled pattern \\. */
     public static final Pattern PATTERN = Pattern.compile("\\.");
 
     /** Order relevance not set */
@@ -56,12 +57,12 @@ public class ${criteriaSearchBaseName}Parameter
      * Constructor for ${criteriaSearchBaseName}Parameter. Sets <code>searchIfNull</code> to
      * <code>false</code> and uses the <code>EQUAL_COMPARATOR</code>.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      */
-    public ${criteriaSearchBaseName}Parameter(Object parameterValue, String parameterPattern)
+    public ${criteriaSearchBaseName}Parameter(Object parameterValueIn, String parameterPatternIn)
     {
-        this(parameterValue, parameterPattern, false, EQUAL_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, false, EQUAL_COMPARATOR);
     }
 
     /**
@@ -69,12 +70,12 @@ public class ${criteriaSearchBaseName}Parameter
      * Sets <code>searchIfNull</code> to <code>false</code> and uses the
      * <code>LIKE_COMPARATOR</code>.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      */
-    public ${criteriaSearchBaseName}Parameter(String parameterValue, String parameterPattern)
+    public ${criteriaSearchBaseName}Parameter(String parameterValueIn, String parameterPatternIn)
     {
-        this(parameterValue, parameterPattern, false, LIKE_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, false, LIKE_COMPARATOR);
     }
 
     /**
@@ -82,220 +83,221 @@ public class ${criteriaSearchBaseName}Parameter
      * Sets <code>searchIfNull</code> to <code>false</code> and uses the
      * <code>LIKE_COMPARATOR</code>.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      */
-    public ${criteriaSearchBaseName}Parameter(String[] parameterValue, String parameterPattern)
+    public ${criteriaSearchBaseName}Parameter(String[] parameterValueIn, String parameterPatternIn)
     {
-        this(parameterValue, parameterPattern, false, LIKE_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, false, LIKE_COMPARATOR);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter. Sets <code>searchIfNull</code> to <code>false</code>.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param comparatorIn
      */
-    public ${criteriaSearchBaseName}Parameter(Object parameterValue, String parameterPattern, int comparator)
+    public ${criteriaSearchBaseName}Parameter(Object parameterValueIn, String parameterPatternIn, int comparatorIn)
     {
-        this(parameterValue, parameterPattern, false, comparator);
+        this(parameterValueIn, parameterPatternIn, false, comparatorIn);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      */
     public ${criteriaSearchBaseName}Parameter(
-        Object parameterValue,
-        String parameterPattern,
+        Object parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull)
     {
-        this(parameterValue, parameterPattern, searchIfNull, EQUAL_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, searchIfNull, EQUAL_COMPARATOR);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String parameterValue,
-        String parameterPattern,
+        String parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull)
     {
-        this(parameterValue, parameterPattern, searchIfNull, LIKE_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, searchIfNull, LIKE_COMPARATOR);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String[] parameterValue,
-        String parameterPattern,
+        String[] parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull)
     {
-        this(parameterValue, parameterPattern, searchIfNull, LIKE_COMPARATOR);
+        this(parameterValueIn, parameterPatternIn, searchIfNull, LIKE_COMPARATOR);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
-     * @param comparator Indicates what comparator is to be used (e.g. like, =, <, ...).
+     * @param comparatorIn Indicates what comparator is to be used (e.g. like, =, <, ...).
      */
     public ${criteriaSearchBaseName}Parameter(
-        Object parameterValue,
-        String parameterPattern,
+        Object parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull,
-        int comparator)
+        int comparatorIn)
     {
-        super(parameterPattern, parameterValue);
-        this.parameterValue = parameterValue;
-        this.parameterPattern = parameterPattern;
+        super(parameterPatternIn, parameterValueIn);
+        this.parameterValue = parameterValueIn;
+        this.parameterPattern = parameterPatternIn;
         super.setSearchIfNull(searchIfNull);
-        this.setComparator(comparator);
+        this.setComparator(comparatorIn);
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        Object parameterValue,
-        String parameterPattern,
+        Object parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-         this(parameterValue, parameterPattern, searchIfNull);
+         this(parameterValueIn, parameterPatternIn, searchIfNull);
          this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String parameterValue,
-        String parameterPattern,
+        String parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern, searchIfNull);
+        this(parameterValueIn, parameterPatternIn, searchIfNull);
         this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String[] parameterValue,
-        String parameterPattern,
+        String[] parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern, searchIfNull);
+        this(parameterValueIn, parameterPatternIn, searchIfNull);
         this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
-     * @param comparator Indicates what comparator is to be used (e.g. like, =, <, ...).
+     * @param comparatorIn Indicates what comparator is to be used (e.g. like, =, <, ...).
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String parameterValue,
-        String parameterPattern,
+        String parameterValueIn,
+        String parameterPatternIn,
         boolean searchIfNull,
-        int comparator,
+        int comparatorIn,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern, searchIfNull, comparator);
+        this(parameterValueIn, parameterPatternIn, searchIfNull, comparatorIn);
         this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
-     * @param comparator Indicates what comparator is to be used (e.g. like, =, <, ...).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param comparatorIn Indicates what comparator is to be used (e.g. like, =, <, ...).
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        Object parameterValue,
-        String parameterPattern,
-        int comparator,
+        Object parameterValueIn,
+        String parameterPatternIn,
+        int comparatorIn,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern, comparator);
+        this(parameterValueIn, parameterPatternIn, comparatorIn);
         this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        Object parameterValue,
-        String parameterPattern,
+        Object parameterValueIn,
+        String parameterPatternIn,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern);
+        this(parameterValueIn, parameterPatternIn);
         this.matchMode = matchMode;
     }
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String parameterValue,
-        String parameterPattern,
+        String parameterValueIn,
+        String parameterPatternIn,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern);
+        this(parameterValueIn, parameterPatternIn);
         this.matchMode = matchMode;
     }
 
@@ -303,16 +305,16 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter.
      *
-     * @param parameterValue The actual value of the parameter.
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterValueIn The actual value of the parameter.
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param matchMode The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
-        String[] parameterValue,
-        String parameterPattern,
+        String[] parameterValueIn,
+        String parameterPatternIn,
         ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
-        this(parameterValue, parameterPattern);
+        this(parameterValueIn, parameterPatternIn);
         this.matchMode = matchMode;
     }
 
@@ -327,11 +329,11 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Sets the pattern of this parameter.
      *
-     * @param parameterPattern The pattern of this parameter (dot-separated path e.g. person.address.street).
+     * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      */
-    public void setParameterPattern(String parameterPattern)
+    public void setParameterPattern(String parameterPatternIn)
     {
-        this.parameterPattern = parameterPattern;
+        this.parameterPattern = parameterPatternIn;
     }
 
     /**
@@ -366,11 +368,11 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Sets the value of this parameter.
      *
-     * @param parameterValue The value of this parameter.
+     * @param parameterValueIn The value of this parameter.
      */
-    public void setParameterValue(Object parameterValue)
+    public void setParameterValue(Object parameterValueIn)
     {
-        this.parameterValue = parameterValue;
+        this.parameterValue = parameterValueIn;
     }
 
     /**
@@ -384,18 +386,18 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Sets the hibernate matchmode of this parameter.
      *
-     * @param matchMode The hibernate matchmode.
+     * @param matchModeIn The hibernate matchmode.
      */
-    public void setMatchMode(${hibernateUtils.criterionPackage}.MatchMode matchMode)
+    public void setMatchMode(${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
      * @return The order (ascending or descending) for this parameter.
-     * @see ORDER_ASC
-     * @see ORDER_DESC
-     * @see ORDER_UNSET
+     * @see SearchParameter${escHash}ORDER_ASC
+     * @see SearchParameter${escHash}ORDER_DESC
+     * @see SearchParameter${escHash}ORDER_UNSET
      */
     public int getOrderDirection()
     {
@@ -405,16 +407,16 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Sets the ordering for this parameter.
      *
-     * @param orderDirection The ordering for this parameter.
+     * @param orderDirectionIn The ordering for this parameter.
      */
-    public void setOrderDirection(int orderDirection)
+    public void setOrderDirection(int orderDirectionIn)
     {
-        this.orderDirection = orderDirection;
+        this.orderDirection = orderDirectionIn;
     }
 
     /**
      * @return The relevance for this parameter.
-     * @see RELEVANCE_UNSET
+     * @see SearchParameter${escHash}RELEVANCE_UNSET
      */
     public int getOrderRelevance()
     {
