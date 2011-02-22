@@ -46,7 +46,7 @@
                 <artifactId>maven-invoker-plugin</artifactId>
                 <configuration>
                     <streamLogs>true</streamLogs>
-                    <projectsDirectory>${basedir}</projectsDirectory>                    
+                    <projectsDirectory>${project.basedir}</projectsDirectory>                    
                     <pomIncludes>
                         <pomInclude>*/pom.xml</pomInclude>
                     </pomIncludes>

@@ -218,9 +218,27 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                    <installDirectory>${project.basedir}/../../../lib</installDirectory>
                 </configuration>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_repositories_uml22</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../../lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
+                            <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>

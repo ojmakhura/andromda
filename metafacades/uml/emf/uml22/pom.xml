@@ -223,6 +223,24 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_metafacades_uml22</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
+                            <pomFile>${project.basedir}/../../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${build.finalName}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>

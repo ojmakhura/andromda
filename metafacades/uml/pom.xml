@@ -107,7 +107,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <installDirectory>${basedir}/../../../lib</installDirectory>
+                        <installDirectory>${project.basedir}/../../../lib</installDirectory>
                     </configuration>
                 </plugin>
                 <plugin>

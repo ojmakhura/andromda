@@ -33,8 +33,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
-                    <configurationUri>file:${basedir}/../conf/andromda.xml</configurationUri>
+                    <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
+                    <configurationUri>file:${project.basedir}/../conf/andromda.xml</configurationUri>
                     <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
                 <dependencies>
@@ -57,7 +57,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <installDirectory>${basedir}/../../lib</installDirectory>
+                    <installDirectory>${project.basedir}/../../lib</installDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -71,6 +71,24 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
             </plugin>
+            <!--plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install_meta_cartridge</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
+                            <pomFile>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
+                            <version>${project.version}</version>
+                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
         </plugins>
     </build>
     <properties>

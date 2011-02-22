@@ -48,7 +48,7 @@
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>
                 <configuration>
-                    <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
+                    <configurationUri>file:${project.basedir}/../conf/test/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
             <plugin>
