@@ -50,9 +50,11 @@ public class $action.actionClassName
 #end
         final String forwardPath = ${managedBeansPackage}.UseCaseForwards.getPath(controller.${action.controllerAction}());
         if(forwardPath != null){
+#if (!$useCase.views.empty)
             ${useCase.actionClassName}ViewPopulator.populateFormAndViewVariables(
                 ${facesContextUtilsFullyQualifiedName}.getFacesContext(request, response),
                 null, forwardPath);
+#end
             request.getRequestDispatcher(forwardPath).forward(request, response);
         }
     }
