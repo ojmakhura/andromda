@@ -121,7 +121,7 @@ public class BuildMojo
     private static final String CLEAR_PROPERTIES = "-clear";
 
     /**
-     * Explicity calls the garbage collector.
+     * Explicitly calls the garbage collector.
      */
     private static final String GARBAGE_COLLECT = "-gc";
 
