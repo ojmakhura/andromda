@@ -12,7 +12,7 @@ import org.apache.maven.project.ProjectBuildingException;
 
 
 /**
- * Contains ulitities for dealing with Maven projects.
+ * Contains utilities for dealing with Maven projects.
  *
  * @author Chad Brandon
  */
@@ -25,10 +25,10 @@ public class ProjectUtils
 
     /**
      * Gets a project for the given <code>pom</code>.
-     * @param projectBuilder 
-     * @param session 
+     * @param projectBuilder
+     * @param session
      * @param pom the pom from which to build the project.
-     * @param logger 
+     * @param logger
      * @return the built project.
      * @throws ProjectBuildingException
      */
