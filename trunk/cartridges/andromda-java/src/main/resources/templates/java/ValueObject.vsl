@@ -65,7 +65,7 @@ $class.getDocumentation(" * ")
 #if ($XMLOutput)
 @XmlRootElement(name = "$className")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "$className", // namespace="http://$javaUtils.reversePackage($class.packageName)/",
+@XmlType(name = "$className", // namespace="http://$javaUtils.reversePackage($class.packageName)#if($addNamespaceBackslash)/#end",
 #set ($size = $class.attributes.size() + $class.navigableConnectingEnds.size())
 #set ($count = 1)
   propOrder = {
@@ -75,7 +75,7 @@ $class.getDocumentation(" * ")
 #set ($count = $count+1)
 #end
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
-#set ($namespaceName="$javaUtils.reversePackage($connectingEnd.packageName)/")
+#set ($namespaceName="$javaUtils.reversePackage($connectingEnd.packageName)#if($addNamespaceBackslash)/#end")
     "$connectingEnd.name"#if ($count<$size),#end
 
 #set ($count = $count+1)
@@ -214,6 +214,7 @@ $attribute.getDocumentation("     * ")
 #set ($returnType = $attribute.getterSetterTypeName)
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
+    @javax.xml.bind.annotation.XmlTransient
     protected boolean set$stringUtils.capitalize($attribute.name) = false;
 #end
 #end
