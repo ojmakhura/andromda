@@ -5,6 +5,7 @@
     <default class="org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl"/>
 
     <!-- metafacades properties -->
+    <!-- Add 'global' properties here, referenced by MetafacadeBase.getConfiguredProperty, and update bootstrap artifacts -->
 
     <property reference="languageMappingsUri"/>
     <property reference="wrapperMappingsUri"/>
@@ -22,6 +23,7 @@
     <property reference="sqlNameSeparator"/>
     <property reference="classifierPropertyNameMask"/>
     <property reference="enableMetafacadePropertyCaching"/>
+    <property reference="defaultMultiplicity"/>
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
@@ -29,15 +31,13 @@
     <property reference="pluralizeAssociationEndNames"/>
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
+    <property reference="toDoForMissingDocumentation"/>
 
     <!-- Base structural elements -->
 
     <metafacade class="org.andromda.metafacades.emf.uml22.PackageFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
     </metafacade>
-    <!--metafacade class="org.andromda.metafacades.emf.uml22.ModelFacadeLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.ModelImpl"/>
-    </metafacade-->
     <metafacade class="org.andromda.metafacades.emf.uml22.ModelFacadeLogicImpl">
         <!--mapping class="org.eclipse.uml2.uml.internal.impl.PackageImpl"/>
         <mapping class="org.eclipse.uml2.uml.internal.impl.ModelImpl"/-->
