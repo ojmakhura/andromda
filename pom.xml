@@ -416,19 +416,19 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>${maven-antrun-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-archetype-plugin</artifactId>
-                    <version>2.0</version>
+                    <version>${maven-archetype-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${maven-assembly-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.4.1</version>
+                    <version>${maven-clean-plugin.version}</version>
                     <configuration>
                         <filesets>
                             <fileset>
@@ -449,7 +449,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
@@ -462,16 +462,16 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.1</version>
+                    <version>${maven-dependency-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${maven-deploy-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.8</version>
+                    <version>${maven-eclipse-plugin.version}</version>
                     <configuration>
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
@@ -485,7 +485,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-jdk</id>
@@ -517,7 +517,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.1</version>
+                    <version>${maven-gpg-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>sign-artifacts</id>
@@ -530,18 +530,18 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>${maven-install-plugin.version}</version>
                     <configuration>
                         <createChecksum>true</createChecksum>
                     </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-invoker-plugin</artifactId>
-                    <version>1.5</version>
+                    <version>${maven-invoker-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>${maven-jar-plugin.version}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -555,7 +555,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
                         <show>package</show>
                         <version>true</version>
@@ -581,11 +581,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>${maven-resources-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${maven-site-plugin.version}</version>
                     <configuration>
                         <locales>en</locales>
                     </configuration>
@@ -594,7 +594,7 @@
                     <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
                     <!-- Runs generate-sources multiple times, see http://jira.codehaus.org/browse/MSOURCES-13 -->
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
+                    <version>${maven-source-plugin.version}</version>
                     <configuration>
                         <includePom>true</includePom>
                     </configuration>
@@ -611,12 +611,12 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.7.2</version>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>sablecc-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${sablecc-maven-plugin.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>sablecc</groupId>
@@ -636,7 +636,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0-beta-3</version>
+                    <version>${xml-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>pre-site</phase>
@@ -651,16 +651,16 @@
                  Also configured here so that command line picks up the configuration i.e. mvn checkstyle:checkstyle, from subproject -->
                 <plugin>
                     <artifactId>maven-changelog-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${maven-changelog-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <inherited>false</inherited>
                     <artifactId>maven-changes-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${maven-changes-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>${maven-checkstyle-plugin.version}</version>
                     <configuration>
                         <configLocation>andromda/checkstyle_checks.xml</configLocation>
                     </configuration>
@@ -668,11 +668,11 @@
                 <!-- JXR must be run before other static analysis plugins, to link to scource code lines in report -->
                 <plugin>
                     <artifactId>maven-jxr-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${maven-jxr-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${maven-pmd-plugin.version}</version>
                     <configuration>
                         <targetJdk>1.6</targetJdk>
                         <linkXRef>true</linkXRef>
@@ -686,19 +686,19 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>${maven-project-info-reports-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <!-- TODO: 2.7.2: Error getting reports from the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2':
                     Unable to load the mojo 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2:report' in the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin'.
                     A required class is missing: org/apache/maven/reporting/AbstractMavenReport -->
-                    <version>2.7.1</version>
+                    <version>${maven-surefire-report-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>clirr-maven-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>${clirr-maven-plugin.version}</version>
                     <configuration>
                         <minSeverity>info</minSeverity>
                         <comparisonVersion>3.3</comparisonVersion>
@@ -707,7 +707,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${cobertura-maven-plugin.version}</version>
                     <configuration>
                         <formats>
                             <format>html</format>
@@ -718,7 +718,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>${findbugs-maven-plugin.version}</version>
                     <configuration>
                         <xmlOutput>true</xmlOutput>
                         <effort>Default</effort>
@@ -730,17 +730,17 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>javancss-maven-plugin</artifactId>
-                    <version>2.0</version>
+                    <version>${javancss-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
-                    <version>2.0-beta-2</version>
+                    <version>${jdepend-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>taglist-maven-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${taglist-maven-plugin.version}</version>
                     <configuration>
                         <tagListOptions>
                             <tagClasses>
@@ -923,7 +923,6 @@
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
         <maven.version>2.2.1</maven.version>
-        <plexus.util.version>2.0.6</plexus.util.version>
         <source.version>1.6</source.version>
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
         <!--uniqueVersion>false</uniqueVersion-->
@@ -933,6 +932,42 @@
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <!-- Plugin version definitions-->
+        <plexus.util.version>2.0.6</plexus.util.version>
+        <cobertura-maven-plugin.version>2.4</cobertura-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.3.1</findbugs-maven-plugin.version>
+        <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
+        <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
+        <maven-antrun-plugin.version>1.6</maven-antrun-plugin.version>
+        <maven-archetype-plugin.version>2.0</maven-archetype-plugin.version>
+        <maven-assembly-plugin.version>2.2</maven-assembly-plugin.version>
+        <maven-changelog-plugin.version>2.2</maven-changelog-plugin.version>
+        <maven-changes-plugin.version>2.4</maven-changes-plugin.version>
+        <maven-checkstyle-plugin.version>2.6</maven-checkstyle-plugin.version>
+        <maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>2.1</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>2.5</maven-deploy-plugin.version>
+        <maven-eclipse-plugin.version>2.8</maven-eclipse-plugin.version>
+        <maven-enforcer-plugin.version>1.0</maven-enforcer-plugin.version>
+        <maven-gpg-plugin.version>1.1</maven-gpg-plugin.version>
+        <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+        <maven-invoker-plugin.version>1.5</maven-invoker-plugin.version>
+        <maven-jar-plugin.version>2.3.1</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
+        <maven-jxr-plugin.version>2.2</maven-jxr-plugin.version>
+        <maven-pmd-plugin.version>2.5</maven-pmd-plugin.version>
+        <maven-project-info-reports-plugin.version>2.3.1</maven-project-info-reports-plugin.version>
+        <maven-resources-plugin.version>2.4.3</maven-resources-plugin.version>
+        <maven-site-plugin.version>2.2</maven-site-plugin.version>
+        <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.7.2</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.7.1</maven-surefire-report-plugin.version>
+        <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
+        <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
+        <versions-maven-plugin.version>1.2</versions-maven-plugin.version>
+        <xml-maven-plugin.version>1.0-beta-3</xml-maven-plugin.version>
+        <clirr-maven-plugin.version>2.3</clirr-maven-plugin.version>
     </properties>
     <profiles>
         <profile>
@@ -1105,7 +1140,6 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
@@ -1136,9 +1170,11 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-jxr-plugin</artifactId>
+                        <version>${maven-jxr-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <artifactId>maven-changelog-plugin</artifactId>
+                        <version>${maven-changelog-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <id>All Reports</id>
@@ -1157,6 +1193,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-changes-plugin</artifactId>
+                        <version>${maven-changes-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1168,12 +1205,14 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
                         <configuration>
                             <configLocation>andromda/checkstyle_checks.xml</configLocation>
                         </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <id>non-aggregate</id>
@@ -1207,6 +1246,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
+                        <version>${maven-pmd-plugin.version}</version>
                         <configuration>
                             <targetJdk>1.6</targetJdk>
                             <linkXRef>true</linkXRef>
@@ -1220,6 +1260,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>${maven-project-info-reports-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1241,10 +1282,12 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${maven-surefire-report-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>clirr-maven-plugin</artifactId>
+                        <version>${clirr-maven-plugin.version}</version>
                         <configuration>
                             <minSeverity>info</minSeverity>
                             <comparisonVersion>3.3</comparisonVersion>
@@ -1264,6 +1307,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>${findbugs-maven-plugin.version}</version>
                         <configuration>
                             <xmlOutput>true</xmlOutput>
                             <effort>Default</effort>
@@ -1275,14 +1319,17 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>javancss-maven-plugin</artifactId>
+                        <version>${javancss-maven-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>jdepend-maven-plugin</artifactId>
+                        <version>${jdepend-maven-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>taglist-maven-plugin</artifactId>
+                        <version>${taglist-maven-plugin.version}</version>
                         <configuration>
                             <tagListOptions>
                                 <tagClasses>
@@ -1310,7 +1357,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>versions-maven-plugin</artifactId>
-                        <version>1.2</version>
+                        <version>${versions-maven-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1377,7 +1424,6 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
@@ -1408,10 +1454,12 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-jxr-plugin</artifactId>
+                        <version>${maven-jxr-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <inherited>false</inherited>
                         <artifactId>maven-changes-plugin</artifactId>
+                        <version>${maven-changes-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1422,12 +1470,14 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
                         <configuration>
                             <configLocation>andromda/checkstyle_checks.xml</configLocation>
                         </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <id>non-aggregate</id>
@@ -1461,6 +1511,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-pmd-plugin</artifactId>
+                        <version>${maven-pmd-plugin.version}</version>
                         <configuration>
                             <targetJdk>1.6</targetJdk>
                             <linkXRef>true</linkXRef>
@@ -1474,6 +1525,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>${maven-project-info-reports-plugin.version}</version>
                         <reportSets>
                             <reportSet>
                                 <reports>
@@ -1495,6 +1547,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
+                        <version>${maven-surefire-report-plugin.version}</version>
                     </plugin>
                     <!-- NoClassDefFoundError running maven plugins site, always shows 0% coverage anyway -->
                     <!--plugin>
@@ -1510,6 +1563,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>${findbugs-maven-plugin.version}</version>
                         <configuration>
                             <xmlOutput>true</xmlOutput>
                             <effort>Default</effort>
@@ -1521,14 +1575,17 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>javancss-maven-plugin</artifactId>
+                        <version>${javancss-maven-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>jdepend-maven-plugin</artifactId>
+                        <version>${jdepend-maven-plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>taglist-maven-plugin</artifactId>
+                        <version>${taglist-maven-plugin.version}</version>
                         <configuration>
                             <tagListOptions>
                                 <tagClasses>
