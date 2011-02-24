@@ -118,6 +118,12 @@
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk12</artifactId>
                 <version>1.1.10</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xmlParserAPIs</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- validation dependencies -->
             <dependency>
@@ -165,11 +171,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.1</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
@@ -275,7 +283,6 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jboss</groupId>
@@ -391,7 +398,7 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
-                <!--scope>test</scope-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

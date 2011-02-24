@@ -32,6 +32,11 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${application.id}-${project.version}</finalName>
@@ -76,7 +81,7 @@
                     </modules>
                     <jboss>
                         <version>5</version>
-                        <loader-repository>org.richfaces.examples:loader=${project.build.finalName}</loader-repository>
+                        <loader-repository>org.andromda.timetracker:loader=${project.build.finalName}</loader-repository>
                     </jboss>
                 </configuration>
             </plugin>
