@@ -646,7 +646,7 @@
                         </execution>
                     </executions>
                 </plugin>
-                                
+
                 <!-- Reporting plugins - configuration must be duplicated under profiles reporting because it is NOT INHERITED
                  Also configured here so that command line picks up the configuration i.e. mvn checkstyle:checkstyle, from subproject -->
                 <plugin>
@@ -690,8 +690,8 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <!-- TODO: 2.7.2: Error getting reports from the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2': 
-                    Unable to load the mojo 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2:report' in the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin'. 
+                    <!-- TODO: 2.7.2: Error getting reports from the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2':
+                    Unable to load the mojo 'org.apache.maven.plugins:maven-surefire-report-plugin:2.7.2:report' in the plugin 'org.apache.maven.plugins:maven-surefire-report-plugin'.
                     A required class is missing: org/apache/maven/reporting/AbstractMavenReport -->
                     <version>2.7.1</version>
                 </plugin>
@@ -922,7 +922,7 @@
     </prerequisites>
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
-        <maven.version>2.2.1</maven.version>        
+        <maven.version>2.2.1</maven.version>
         <plexus.util.version>2.0.6</plexus.util.version>
         <source.version>1.6</source.version>
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore-->
@@ -951,6 +951,10 @@
             <id>andromda-lite</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+                <!--Bug using: wrong multiple criteria activation (OR semantics) http://jira.codehaus.org/browse/MNG-4516 -->
+                <file>
+                    <exists>${basedir}</exists>
+                </file>
             </activation>
             <modules>
                 <module>maven/maven-config</module>
@@ -975,6 +979,10 @@
             <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+                <!--Bug using: wrong multiple criteria activation (OR semantics) http://jira.codehaus.org/browse/MNG-4516 -->
+                <file>
+                    <exists>${basedir}</exists>
+                </file>
             </activation>
             <distributionManagement>
                 <repository>
@@ -1209,22 +1217,22 @@
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
                         <reportSets>
-                          <reportSet>
-                            <reports>
-                              <report>dependencies</report>
-                              <report>dependency-convergence</report>
-                              <report>dependency-management</report>
-                              <report>index</report>
-                              <report>plugin-management</report>
-                              <report>summary</report>
-                              <report>project-team</report>
-                              <report>mailing-list</report>
-                              <report>cim</report>
-                              <report>issue-tracking</report>
-                              <report>license</report>
-                              <report>scm</report>
-                            </reports>
-                          </reportSet>
+                            <reportSet>
+                                <reports>
+                                    <report>dependencies</report>
+                                    <report>dependency-convergence</report>
+                                    <report>dependency-management</report>
+                                    <report>index</report>
+                                    <report>plugin-management</report>
+                                    <report>summary</report>
+                                    <report>project-team</report>
+                                    <report>mailing-list</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                </reports>
+                            </reportSet>
                         </reportSets>
                     </plugin>
                     <plugin>
@@ -1301,11 +1309,11 @@
                         <version>1.2</version>
                         <reportSets>
                             <reportSet>
-                              <reports>
-                                <report>dependency-updates-report</report>
-                                <report>plugin-updates-report</report>
-                                <report>property-updates-report</report>
-                              </reports>
+                                <reports>
+                                    <report>dependency-updates-report</report>
+                                    <report>plugin-updates-report</report>
+                                    <report>property-updates-report</report>
+                                </reports>
                             </reportSet>
                         </reportSets>
                     </plugin>
@@ -1459,22 +1467,22 @@
                     <plugin>
                         <artifactId>maven-project-info-reports-plugin</artifactId>
                         <reportSets>
-                          <reportSet>
-                            <reports>
-                              <report>dependencies</report>
-                              <report>dependency-convergence</report>
-                              <report>dependency-management</report>
-                              <report>index</report>
-                              <report>plugin-management</report>
-                              <report>summary</report>
-                              <report>project-team</report>
-                              <report>mailing-list</report>
-                              <report>cim</report>
-                              <report>issue-tracking</report>
-                              <report>license</report>
-                              <report>scm</report>
-                            </reports>
-                          </reportSet>
+                            <reportSet>
+                                <reports>
+                                    <report>dependencies</report>
+                                    <report>dependency-convergence</report>
+                                    <report>dependency-management</report>
+                                    <report>index</report>
+                                    <report>plugin-management</report>
+                                    <report>summary</report>
+                                    <report>project-team</report>
+                                    <report>mailing-list</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                </reports>
+                            </reportSet>
                         </reportSets>
                     </plugin>
                     <plugin>
@@ -1540,12 +1548,12 @@
                 </plugins>
             </reporting>
         </profile>
-        <!-- This turns off the andromda-lite and local profiles when enabled -->
-        <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363)
+
         <profile>
             <id>maven-3</id>
             <activation>
                 <file>
+                    <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363)-->
                     <exists>${basedir}</exists>
                 </file>
             </activation>
@@ -1555,11 +1563,24 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>3.0-beta-1-SNAPSHOT</version>
+                            <version>3.0-beta-3</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-descriptor</id>
+                                <goals>
+                                    <goal>attach-descriptor</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
-        </profile-->
+        </profile>
     </profiles>
 </project>
