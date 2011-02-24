@@ -10,6 +10,9 @@ import org.apache.commons.logging.LogFactory;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+/**
+ *
+ */
 public class TimeTrackingServiceTest {
     private static String TimecardHdrFormat = "%-13s %-13s %-10s %-11s";
     private static String TimecardRowFormat = "%-13s %-13s %-10s %-11tD";
@@ -24,31 +27,37 @@ public class TimeTrackingServiceTest {
     public void initializeTestSuite() {
 
         // Initialize ServiceLocator
-        logger.info("Initializing ServiceLocator");
+        this.logger.info("Initializing ServiceLocator");
         ServiceLocator locator = ServiceLocator.instance();
         locator.init("testBeanRefFactory.xml", "beanRefFactory");
 
         // Initialize TimeTrackingService
-        logger.info("Initializing TimeTrackingService");
-        timeTrackingService = locator.getTimeTrackingService();
+        this.logger.info("Initializing TimeTrackingService");
+        this.timeTrackingService = locator.getTimeTrackingService();
     }
 
+    /**
+     * 
+     */
     @Test
     public void testFindAllTimecards() {
-        logger.info("testFindAllTimecards:");
+        this.logger.info("testFindAllTimecards:");
         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO();
-        //Collection<? extends TimecardSummaryVO> timecards = timeTrackingService.findTimecards(criteria);
-        TimecardSummaryVO[] timecards = timeTrackingService.findTimecards(criteria);
+        //Collection<? extends TimecardSummaryVO> timecards = this.timeTrackingService.findTimecards(criteria);
+        TimecardSummaryVO[] timecards = this.timeTrackingService.findTimecards(criteria);
         logTimecards(timecards);
     }
 
+    /**
+     * 
+     */
     @Test
     public void testFindTimecardsForSubmitter() {
-        logger.info("testFindTimecardsForSubmitter:");
+        this.logger.info("testFindTimecardsForSubmitter:");
         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO();
         criteria.setSubmitterId(new Long(1));
-        //Collection<? extends TimecardSummaryVO> timecards = timeTrackingService.findTimecards(criteria);
-        TimecardSummaryVO[] timecards = timeTrackingService.findTimecards(criteria);
+        //Collection<? extends TimecardSummaryVO> timecards = this.timeTrackingService.findTimecards(criteria);
+        TimecardSummaryVO[] timecards = this.timeTrackingService.findTimecards(criteria);
         logTimecards(timecards);
     }
 
@@ -57,7 +66,7 @@ public class TimeTrackingServiceTest {
     {
         Formatter formatter = new Formatter();
         formatter.format(TimecardHdrFormat, "Submitter", "Approver", "Status",    "Start Date");
-        logger.info(formatter.toString());
+        this.logger.info(formatter.toString());
         //for (TimecardSummaryVO timecard : timecards)
         for (int i = 0; i < timecards.length; i++)
         {
@@ -68,7 +77,7 @@ public class TimeTrackingServiceTest {
                     timecards[i].getApproverName(),
                     timecards[i].getStatus(),
                     timecards[i].getStartDate());
-            logger.info(formatter.toString());
+            this.logger.info(formatter.toString());
         }
     }
 }

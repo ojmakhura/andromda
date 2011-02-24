@@ -7,7 +7,11 @@ import org.apache.commons.logging.LogFactory;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-public class UserServiceTest {
+/**
+ *
+ */
+public class UserServiceTest
+{
     private Log logger = LogFactory.getLog(UserServiceTest.class);
 
     private UserService userService;
@@ -19,28 +23,37 @@ public class UserServiceTest {
     public void initializeTestSuite()
     {
         // Initialize ServiceLocator
-        logger.info("Initializing ServiceLocator");
+        this.logger.info("Initializing ServiceLocator");
         ServiceLocator locator = ServiceLocator.instance();
         locator.init("testBeanRefFactory.xml", "beanRefFactory");
 
         // Initialize UserService
-        logger.info("Initializing UserService");
-        userService = locator.getUserService();
+        this.logger.info("Initializing UserService");
+        this.userService = locator.getUserService();
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetAllUsers()
     {
-        logger.info("testGetAllUsers:");
+        this.logger.info("testGetAllUsers:");
+        // Use this implementation for UML14
         UserVO[] users = userService.getAllUsers();
 
-        for (UserVO user : users)
+        for (int i=0; i<users.length; i++)
         {
-            logger.info(user.getUsername());
+            logger.info(users[i].getUsername());
+        }
+        // Use this implementation for UML2
+        /* 
+        for (UserVO user : this.userService.getAllUsers())
+        {
+            this.logger.info(user.getUsername());
             /*for (UserVO user : userService.getAllUsers())
             {
                 logger.info(user.getUsername());
-            */
-        }
+        }*/
     }
 }
