@@ -2,6 +2,7 @@
 <!-- contains the default metafacade mappings -->
 <metafacades metaclassPattern="{0}.{1}$Impl">
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
+    <!-- Add 'global' properties here, referenced by MetafacadeBase.getConfiguredProperty -->
     <property reference="languageMappingsUri"/>
     <property reference="wrapperMappingsUri"/>
     <property reference="namespaceSeparator"/>
@@ -18,6 +19,7 @@
     <property reference="sqlNameSeparator"/>
     <property reference="classifierPropertyNameMask"/>
     <property reference="enableMetafacadePropertyCaching"/>
+    <property reference="defaultMultiplicity"/>
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
@@ -25,6 +27,8 @@
     <property reference="pluralizeAssociationEndNames"/>
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
+    <property reference="toDoForMissingDocumentation"/>
+
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
