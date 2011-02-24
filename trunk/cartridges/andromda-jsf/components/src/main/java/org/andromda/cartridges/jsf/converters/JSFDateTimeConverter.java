@@ -5,12 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
-
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
 
 
@@ -29,6 +27,9 @@ public class JSFDateTimeConverter
     extends javax.faces.convert.DateTimeConverter
     implements DateConverter
 {
+    /**
+     * @see javax.faces.convert.DateTimeConverter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     */
     @Override
     public String getAsString(
         FacesContext context,
@@ -57,6 +58,9 @@ public class JSFDateTimeConverter
         return result;
     }
 
+    /**
+     * @see javax.faces.convert.DateTimeConverter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     */
     @Override
     public Object getAsObject(
         FacesContext context,
@@ -177,6 +181,9 @@ public class JSFDateTimeConverter
      */
     public static final String CONVERTER_ID = "andromda.faces.DateTime";
 
+    /**
+     * @see org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter#getAsDate(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
     @Override
     public Date getAsDate(
         FacesContext context,
