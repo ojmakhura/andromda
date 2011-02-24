@@ -1113,10 +1113,14 @@
                                 <phase>site</phase>
                                 <configuration>
                                     <target>
+                                        <!-- copy andromda mapping files-->
                                         <copy todir="${project.reporting.outputDirectory}/mappings">
                                             <fileset dir="${project.build.directory}/../andromda-etc/mappings"
                                                      includes="**/*.xml"/>
                                         </copy>
+                                        <!-- Extract jmi-uml 1.4 javadoc-->
+                                        <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
+                                               dest="${project.reporting.outputDirectory}"/>
                                     </target>
                                 </configuration>
                                 <goals>
@@ -1381,10 +1385,14 @@
                                 <phase>site</phase>
                                 <configuration>
                                     <target>
+                                        <!-- copy andromda mapping files-->
                                         <copy todir="${project.reporting.outputDirectory}/mappings">
                                             <fileset dir="${project.build.directory}/../andromda-etc/mappings"
                                                      includes="**/*.xml"/>
                                         </copy>
+                                        <!-- Extract jmi-uml 1.4 javadoc-->
+                                        <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
+                                               dest="${project.reporting.outputDirectory}"/>
                                     </target>
                                 </configuration>
                                 <goals>
