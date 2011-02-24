@@ -12,11 +12,8 @@ body
 
 #banner
 {
-    background-image: url(../images/banner.jpg);
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    height: 110px;
+	background: #fff url(../images/banner.jpg) no-repeat top left;
+	height: 110px;
     border-bottom: 1px solid #93A6B4;
 }
 
@@ -120,7 +117,7 @@ body
 #breadcrumbs a
 {
     margin: 0;
-    padding: 0px 15px 0px 15px;
+    padding: 0 15px 0 15px;
     text-decoration: none;
 }
 
@@ -180,17 +177,15 @@ a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:acti
 
 a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWindow:hover
 {
-  background: url(../images/newwindow.gif);
-  background-position: right center;
-  background-repeat: no-repeat;
-  padding-right: 18px;
+	background: url(../images/newwindow.gif) no-repeat right center;
+	padding-right: 18px;
 }
 
 pre.console
 {
   margin: 10px;
   border: 1px solid;
-  border-right: 0px;
+  border-right: 0;
 }
 
 img { vertical-align: bottom; }
@@ -207,10 +202,8 @@ li a.changed { padding-right: 20px; background: url(../images/changed-file.gif) 
 div.redirect { margin-left: 25px; }
 div.redirect h3
 {
-  background: url(../images/redirect.gif);
-  background-position: left center;
-  background-repeat: no-repeat;
-  padding-left: 34px;
+	background: url(../images/redirect.gif) no-repeat left center;
+	padding-left: 34px;
 }
 
 div.screenshot { margin: 0 20px 0 20px; }
