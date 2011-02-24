@@ -195,6 +195,7 @@ public class TraceTranslator
 
     /**
      * Writes the class to the directory found by the class loader (since the class is a currently existing class)
+     * @param pTranslatorClass 
      */
     protected void writeAdaptedClass(CtClass pTranslatorClass)
     {

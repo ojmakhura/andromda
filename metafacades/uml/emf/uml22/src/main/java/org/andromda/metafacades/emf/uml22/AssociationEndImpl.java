@@ -1764,7 +1764,6 @@ public class AssociationEndImpl
     public Property getQualifier(String name, Type type, boolean ignoreCase, EClass eClass,
             boolean createOnDemand)
     {
-        //return this.property.createQualifier(name, type, eClass);
         return this.property.getQualifier(name, type, ignoreCase, eClass, createOnDemand);
     }
 
