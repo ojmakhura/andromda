@@ -1238,7 +1238,8 @@
                             <comparisonVersion>3.3</comparisonVersion>
                         </configuration>
                     </plugin>
-                    <plugin>
+                    <!-- NoClassDefFoundError running maven plugins site, always shows 0% coverage anyway -->
+                    <!--plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>cobertura-maven-plugin</artifactId>
                         <configuration>
@@ -1247,7 +1248,7 @@
                                 <format>xml</format>
                             </formats>
                         </configuration>
-                    </plugin>
+                    </plugin-->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
@@ -1479,7 +1480,8 @@
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
                     </plugin>
-                    <plugin>
+                    <!-- NoClassDefFoundError running maven plugins site, always shows 0% coverage anyway -->
+                    <!--plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>cobertura-maven-plugin</artifactId>
                         <configuration>
@@ -1488,7 +1490,7 @@
                                 <format>xml</format>
                             </formats>
                         </configuration>
-                    </plugin>
+                    </plugin-->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>findbugs-maven-plugin</artifactId>
