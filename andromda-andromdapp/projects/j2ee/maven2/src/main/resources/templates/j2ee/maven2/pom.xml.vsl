@@ -1804,7 +1804,7 @@
 #end
         <site>
             <id>website</id>
-            <url>file:/site</url>
+            <url>file:/var/www/docs/$applicationId</url>
         </site>
     </distributionManagement>
 #end
