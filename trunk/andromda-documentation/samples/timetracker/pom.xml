@@ -33,8 +33,8 @@
         </license>
     </licenses>
     <ciManagement>
-        <system>cruisecontrol</system>
-        <url>http://www.andromda.org/cruisecontrol</url>
+        <system>husdon</system>
+        <url>http://www.andromda.org/husdon</url>
     </ciManagement>
     <developers>
         <developer>
@@ -77,7 +77,7 @@
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-translation-core</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-validation-library</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -101,7 +101,7 @@
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -204,7 +204,7 @@
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -228,7 +228,7 @@
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -243,7 +243,7 @@
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -392,26 +392,26 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.14</version>
-                <!--scope>test</scope-->
-            </dependency>
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>5.14.6</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.16</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.14</version>
+                <!--scope>test</scope-->
+            </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.14.6</version>
+            <scope>test</scope>
+        </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -442,12 +442,12 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${andromda.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromdapp-maven-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${andromda.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -618,6 +618,7 @@
         <module>app</module>
     </modules>
     <properties>
+        <andromda.version>3.4-SNAPSHOT</andromda.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
@@ -750,7 +751,7 @@
                         <plugin>
                             <groupId>org.andromda.maven.plugins</groupId>
                             <artifactId>andromdapp-maven-plugin</artifactId>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                             <!-- provides the injection of the script wrapper support into the class files (this should only
                                  be done when developing locally), uncomment this executions element to enable
                             <executions>
@@ -824,7 +825,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs</url>
+                    <url>file:/var/www/docs/samples/timetracker</url>
                 </site>
             </distributionManagement>
         </profile>
@@ -864,7 +865,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs</url>
+                    <url>file:/var/www/docs/samples/timetracker</url>
                 </site>
             </distributionManagement>
         </profile>
