@@ -102,6 +102,10 @@ public class Configuration
         return allProperties;
     }
 
+    /**
+     * @param target
+     * @param properties
+     */
     protected void addProperties(Map<String, String> target, Properties properties)
     {
         for (final String propertyName : properties.stringPropertyNames())
