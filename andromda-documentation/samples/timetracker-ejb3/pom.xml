@@ -12,11 +12,20 @@
     <scm>
     </scm>
     <organization>
-      <name></name>
-      <url></url>
+        <name>AndroMDA.org</name>
+        <url>http://www.andromda.org/</url>
     </organization>
+    <licenses>
+        <license>
+            <name>The AndroMDA Project</name>
+            <url>LICENSE.txt</url>
+            <distribution>repo</distribution>
+            <comments>AndroMDA runs under a BSD license</comments>
+        </license>
+    </licenses>
     <ciManagement>
-        <system>cruisecontrol</system>
+        <system>husdon</system>
+        <url>http://www.andromda.org/husdon</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -65,7 +74,7 @@
             <dependency>
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk12</artifactId>
-                <version>1.1.9</version>
+                <version>1.1.10</version>
             </dependency>
             <!-- validation dependencies -->
             <dependency>
@@ -92,6 +101,12 @@
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
                 <artifactId>myfaces-extval-generic-support</artifactId>
                 <version>1.2.4</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.extensions.validator.component-support-modules</groupId>
@@ -107,21 +122,29 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.1</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
                 <artifactId>trinidad-api</artifactId>
-                <version>1.2.13</version>
+                <version>1.2.14</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
                 <artifactId>trinidad-impl</artifactId>
-                <version>1.2.13</version>
+                <version>1.2.14</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>2.2</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>com.sun.facelets</groupId>
@@ -189,6 +212,8 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
+                <!-- JBoss contains a version which causes a classloader conflict unless not bundled -->
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -246,6 +271,16 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
                 <version>3.5.6-Final</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
                 <scope>provided</scope>
             </dependency>
             <!--dependency>
@@ -395,7 +430,7 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.16</version>
-                <!--scope>test</scope-->
+                <scope>provided</scope>
             </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -463,6 +498,14 @@
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.4.3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.7.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>2.3</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -703,6 +746,8 @@
         <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
         <profile>
@@ -717,7 +762,8 @@
                     For Hypersonic use: hsqldb.jar
                 -->
                 <jdbc.driver.jar>
-                    ${jboss.home}/server/default/lib/mysql-connector-java-5.1.4-bin.jar
+                    <!-- JBoss gives classloader exceptions if the JDBC driver is bundled with the EAR -->
+                    ${jboss.home}/server/default/lib/mysql-connector-java-5.1.14.jar
                 </jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database
@@ -754,8 +800,8 @@
                 <jdbc.url>
                     jdbc:mysql://localhost:3306/timetracker
                 </jdbc.url>
-                <jdbc.username></jdbc.username>
-                <jdbc.password></jdbc.password>
+                <jdbc.username>timetracker</jdbc.username>
+                <jdbc.password>timetracker</jdbc.password>
                 <!--
                     Change exception sorter class name for appropriate database
                     For MySQL use: org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
@@ -839,6 +885,24 @@
                     </plugins>
                 </pluginManagement>
             </build>
+            <distributionManagement>
+                <repository>
+                    <id>andromda-repository</id>
+                    <name>AndroMDA Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </repository>
+                <snapshotRepository>
+                    <id>andromda-snapshots</id>
+                    <name>AndroMDA Snapshot Repository</name>
+                    <url>file:/var/www/maven2</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <site>
+                    <id>website</id>
+                    <url>file:/var/www/docs/samples/timetracker-ejb3</url>
+                </site>
+            </distributionManagement>
         </profile>
         <profile>
             <id>development</id>
@@ -982,6 +1046,8 @@
                     <links>
                         <link>http://java.sun.com/javase/6/docs/api/</link>
                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                        <link>http://docs.jboss.org/hibernate/stable/core/api</link>
+                        <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
                         <link>http://jakarta.apache.org/commons/collections/apidocs</link>
                         <link>http://jakarta.apache.org/commons/lang/apidocs</link>
                         <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
@@ -992,14 +1058,14 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <rulesets>
                         <ruleset>/rulesets/basic.xml</ruleset>
                         <ruleset>/rulesets/braces.xml</ruleset>
@@ -1129,7 +1195,7 @@
             <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.2.3</version>
+                <version>2.3</version>
                 <inherited>true</inherited>
                 <configuration>
                     <minSeverity>info</minSeverity>
@@ -1138,7 +1204,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
+                <version>2.0</version>
                 <inherited>true</inherited>
             </plugin>
             <plugin>
