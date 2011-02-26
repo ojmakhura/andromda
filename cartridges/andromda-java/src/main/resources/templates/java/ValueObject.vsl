@@ -171,7 +171,7 @@ $attribute.getDocumentation("     * ")
 #set ($type=$stringUtils.substring($attribute.type.fullyQualifiedName, 0, 9))
 ## Primitive types and type wrappers will have empty package name
 #set ($useAttributes = $xmlAttributes && !$attribute.many && $attribute.type.name!='Object' && ($stringUtils.isBlank($attribute.type.packageName) || $attribute.type.packageName.equals("java.lang") || $type.equals("java.util") || $type.equals("java.math") || $attribute.type.packageName.equals("PrimitiveTypes")))
-#set ($namespaceName="$javaUtils.reversePackage($attribute.packageName)/")
+#set ($namespaceName="$javaUtils.reversePackage($attribute.packageName)#if($addNamespaceBackslash)/#end")
 #set ($type=$attribute.type.name)
 #if ($useAttributes)
 ## defaultValue not supported in @XmlAttribute annotation - annoying
@@ -214,7 +214,9 @@ $attribute.getDocumentation("     * ")
 #set ($returnType = $attribute.getterSetterTypeName)
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
+#if ($XMLOutput)
     @javax.xml.bind.annotation.XmlTransient
+#end
     protected boolean set$stringUtils.capitalize($attribute.name) = false;
 #end
 #end
@@ -646,6 +648,7 @@ $connectingEnd.getDocumentation("     * ")
         ;
     }
 
+#end
 #if (!$class.generalization)
     /**
      * This is a convenient helper method which is able to detect whether or not two values are equal. Two values
@@ -679,7 +682,6 @@ $connectingEnd.getDocumentation("     * ")
         return equal;
     }
 
-#end
 #end
     // ${class.fullyQualifiedName} value-object java merge-point
 }
