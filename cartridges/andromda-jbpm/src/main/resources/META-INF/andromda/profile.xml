@@ -65,7 +65,7 @@
                 <documentation>
                     Specifies an assignment expression as a <a href="http://www.beanshell.org/">bean-shell script</a>.
                 </documentation>
-                <value>@andromda.process.jbpm.assignment.expression</value>
+                <value>andromda_process_jbpm_assignment_expression</value>
                 <appliedOnElement>swimlane</appliedOnElement>
                 <allowedValues>
                     <value>Any valid bean-shell script</value>
@@ -77,7 +77,7 @@
                     the duration between repeating timer executions until the node is left.
                     If yes or true are specified then the value of duedate is used.
                 </documentation>
-                <value>@andromda.process.jbpm.timer.repeat</value>
+                <value>andromda_process_jbpm_timer_repeat</value>
                 <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
                 <allowedValues>
                     <value>yes</value>
@@ -90,7 +90,7 @@
                     The duration that specifies the time period between the creation of the timer and the
                     execution of the timer. This can be expressed in business hours, minutes, etc...
                 </documentation>
-                <value>@andromda.process.jbpm.timer.duedate</value>
+                <value>andromda_process_jbpm_timer_duedate</value>
                 <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
                 <allowedValues>
                     <value>a duration as defined by jBpm</value>
@@ -100,7 +100,7 @@
                 <documentation>
                     The transition to take once the timer finishes.
                 </documentation>
-                <value>@andromda.process.jbpm.timer.transition</value>
+                <value>andromda_process_jbpm_timer_transition</value>
                 <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
                 <allowedValues>
                     <value>the name of one of the transition going out of the state onto which this timer
@@ -111,7 +111,7 @@
                 <documentation>
                     Denotes whether or not this task should be blocking.
                 </documentation>
-                <value>@andromda.process.jbpm.task.blocking</value>
+                <value>andromda_process_jbpm_task_blocking</value>
                 <appliedOnElement><![CDATA[<<Task>>]]></appliedOnElement>
                 <allowedValues>
                     <value default="true">true</value>

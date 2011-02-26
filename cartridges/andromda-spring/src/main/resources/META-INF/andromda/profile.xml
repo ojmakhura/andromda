@@ -76,7 +76,7 @@
                     Defines an EJB transaction type for the service operation (when wrapped
                     by EJBs)
                 </documentation>
-                <value>@andromda.ejb.transaction.type</value>
+                <value>andromda_ejb_transaction_type</value>
                 <appliedOnElement>Service Operation</appliedOnElement>
                 <allowedValues>
                     <value>NotSupported</value>
@@ -92,7 +92,7 @@
                     Defines an EJB service's view type (when Spring services are wrapped by
                     EJBs).
                 </documentation>
-                <value>@andromda.ejb.viewType</value>
+                <value>andromda_ejb_viewType</value>
                 <appliedOnElement>Service</appliedOnElement>
                 <allowedValues>
                     <value>local</value>
@@ -108,7 +108,7 @@
                     service operation it will take priority over any transaction declaration in a
                     broader scope such as its service or the global namespace.
                 </documentation>
-                <value>@andromda.spring.transaction.type</value>
+                <value>andromda_spring_transaction_type</value>
                 <appliedOnElement>Service or Service Operation</appliedOnElement>
                 <allowedValues>
                     <value>PROPAGATION_NEVER</value>
@@ -126,7 +126,7 @@
                     to model your query body as an OCL constraint (instead of using
                     this tagged value).
                 </documentation>
-                <value>@andromda.hibernate.query</value>
+                <value>andromda_hibernate_query</value>
                 <appliedOnElement>An Entity operation marked as a
                     <code>query</code>.
                 </appliedOnElement>
@@ -135,7 +135,7 @@
                 <documentation>
                     Defines whether the marked finder will use named parameters or not.
                 </documentation>
-                <value>@andromda.hibernate.query.useNamedParameters</value>
+                <value>andromda_hibernate_query_useNamedParameters</value>
                 <appliedOnElement>An Entity operation marked as a
                     <code>query</code>.
                 </appliedOnElement>
@@ -146,7 +146,7 @@
             </element>
             <element name="HIBERNATE_INHERITANCE">
                 <documentation></documentation>
-                <value>@andromda.hibernate.inheritance</value>
+                <value>andromda_hibernate_inheritance</value>
             </element>
             <element name="SPRING_SERVICE_REMOTING_TYPE">
                 <documentation>
@@ -154,7 +154,7 @@
                     architecture. Please note that in order to be able to use
                     <a href="http://lingo.codehaus.org/">Lingo remoting</a>, you need to use Spring 2.0.
                 </documentation>
-                <value>@andromda.spring.service.remoting.type</value>
+                <value>andromda_spring_service_remoting_type</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
                 <allowedValues>
                     <value>none</value>
@@ -168,9 +168,9 @@
             <element name="SPRING_SERVICE_REMOTE_PORT">
                 <documentation>
                     Sets the port this service will be exported on. You must also tag the
-                    service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
+                    service using <a href="#andromda_spring_service_remote_port">andromda_spring_service_remote_port</a>.
                 </documentation>
-                <value>@andromda.spring.service.remote.port</value>
+                <value>andromda_spring_service_remote_port</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
             </element>
             <element name="SPRING_SERVICE_INTERCEPTORS">
@@ -179,7 +179,7 @@
                     They will be listed after the serviceSecurityInterceptor, serviceTransactionInterceptor and
                     hibernateInterceptor if present.
                 </documentation>
-                <value>@andromda.spring.service.interceptors</value>
+                <value>andromda_spring_service_interceptors</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
             </element>
             <element name="SPRING_SERVICE_CONFIG_ONLY">
@@ -189,7 +189,7 @@
                     users to use Spring beans that are contained in Jar files,
                     e.g. <code>org.acegisecurity.providers.rcp.RemoteAuthenticationManager</code>.
                 </documentation>
-                <value>@andromda.spring.service.config.only</value>
+                <value>andromda_spring_service_config_only</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -204,7 +204,7 @@
                     tagged value is to enable users to create services which could be used only via dependencies, not by 
                     standalone instantiation.
                 </documentation>
-                <value>@andromda.service.private</value>
+                <value>andromda_service_private</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -217,7 +217,7 @@
                     search even if it is <code>null</code>. Use this feature to query entities that have attributes
                     that may be <code>NULL</code> (in the sense of SQL).
                 </documentation>
-                <value>@andromda.hibernate.criteria.nullable</value>
+                <value>andromda_hibernate_criteria_nullable</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -235,14 +235,14 @@
                     this tagged value to <code>homeAddress.city</code>.
                     If you omit this tagged value, the name of the attribute in the criteria class will be used.
                 </documentation>
-                <value>@andromda.hibernate.criteria.attribute</value>
+                <value>andromda_hibernate_criteria_attribute</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
             </element>
             <element name="HIBERNATE_CRITERIA_COMPARATOR">
                 <documentation>
                     Using this tagged value to define the logical condition for the underlying attribute in the query is set.
                 </documentation>
-                <value>@andromda.hibernate.criteria.comparator</value>
+                <value>andromda_hibernate_criteria_comparator</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>like</value>
@@ -260,7 +260,7 @@
                 <documentation>
                     Use this value to denote the hibernate matchmode to be used for comparing strings.
                 </documentation>
-                <value>@andromda.hibernate.criteria.matchmode</value>
+                <value>andromda_hibernate_criteria_matchmode</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>anywhere</value>
@@ -273,7 +273,7 @@
                 <documentation>
                     Using this tagged value, you can determine the sort order of the result set.
                 </documentation>
-                <value>@andromda.hibernate.criteria.order.direction</value>
+                <value>andromda_hibernate_criteria_order_direction</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>ascending</value>
@@ -285,7 +285,7 @@
                     Use this tagged value to determine the relevance of this ordering. You may enter any
                     integer value. The smaller the value, the more relevant the ordering will be.
                 </documentation>
-                <value>@andromda.hibernate.criteria.order.relevance</value>
+                <value>andromda_hibernate_criteria_order_relevance</value>
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>an integer</value>
@@ -296,7 +296,7 @@
                     Use this tagged value to set the sessop flag on an incoming
                     connection when using ActiveMQ.
                 </documentation>
-                <value>@andromda.activemq.optimizeAcknowledge</value>
+                <value>andromda_activemq_optimizeAcknowledge</value>
                 <appliedOnElement>A transition going into a service operation from a messaging destination</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -307,7 +307,7 @@
                 <documentation>
                     Use this tagged value to set the session acknowledge mode.
                 </documentation>
-                <value>@andromda.messaging.sessionAcknowledgeMode</value>
+                <value>andromda_messaging_sessionAcknowledgeMode</value>
                 <appliedOnElement>A transition going into a service operation from a messaging destination</appliedOnElement>
                 <allowedValues>
                     <value>AUTO_ACKNOWLEDGE</value>
@@ -446,7 +446,7 @@
                     to avoid downloading thousands of rows each time, most of the time the user will want to use
                     the search facility to refine the result set
                 </documentation>
-                <value>@andromda.manageable.table.maxlistsize</value>
+                <value>andromda_manageable_table_maxlistsize</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -461,7 +461,7 @@
                     from a combobox and you would like to see a more meaningful label for each option, if no
                     <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
-                <value>@andromda.manageable.table.displayname</value>
+                <value>andromda_manageable_table_displayname</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>any column name present in this entity</value>

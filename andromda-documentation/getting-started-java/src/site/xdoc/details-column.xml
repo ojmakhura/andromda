@@ -69,13 +69,13 @@
                 <li>Add a tag to the
                     <tt>id</tt>
                     parameter called
-                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    <tt>andromda_presentation_web_view_field_type</tt>
                     and set its value to <tt>link</tt>. This tag ensures that the
                     <tt>id</tt>
                     column in the table will be a link instead of the default text box.
                 </li>
                 <li>Add a tag on the transition (not on the trigger) called
-                    <tt>@andromda.presentation.web.action.tablelink</tt>
+                    <tt>andromda_presentation_web_action_tablelink</tt>
                     and set its value to <tt>timecardSummaries</tt>. This tag ensures that the
                     <tt>
                         details

@@ -40,7 +40,7 @@
                     how an UML aggregation should be interpreted as cascade
                 </li>
                 <li>the
-                    <a href="profile.html#@andromda_hibernate_cascade">@andromda.hibernate.cascade tagged value</a>
+                    <a href="profile.html#@andromda_hibernate_cascade">andromda_hibernate_cascade tagged value</a>
                     at the individual association end
                 </li>
             </ul>
@@ -83,7 +83,7 @@
                     to model your query body as an OCL constraint (instead of using
                     this tagged value).
                 </documentation>
-                <value>@andromda.hibernate.query</value>
+                <value>andromda_hibernate_query</value>
                 <appliedOnElement>An Entity operation marked as a
                     <code>query</code>.
                 </appliedOnElement>
@@ -92,7 +92,7 @@
                 <documentation>
                     Defines whether the marked finder will use named parameters or not.
                 </documentation>
-                <value>@andromda.hibernate.query.useNamedParameters</value>
+                <value>andromda_hibernate_query_useNamedParameters</value>
                 <appliedOnElement>An Entity operation marked as a
                     <code>query</code>.
                 </appliedOnElement>
@@ -108,7 +108,7 @@
                     <a href="namespace.html#ejbViewType">ejbViewType</a>
                     namespace property will be assumed.
                 </documentation>
-                <value>@andromda.ejb.viewType</value>
+                <value>andromda_ejb_viewType</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
                 <allowedValues>
                     <value>local</value>
@@ -120,7 +120,7 @@
                 <documentation>
                     Defines a transaction type for the method.
                 </documentation>
-                <value>@andromda.ejb.transaction.type</value>
+                <value>andromda_ejb_transaction_type</value>
                 <appliedOnElement>Service Operation</appliedOnElement>
                 <allowedValues>
                     <value>NotSupported</value>
@@ -147,7 +147,7 @@
                     For entities, defaults to <code>false</code> for Hibernate 2 and
                     <code>true</code> for Hibernate 3 and NHibernate.
                 </documentation>
-                <value>@andromda.hibernate.lazy</value>
+                <value>andromda_hibernate_lazy</value>
                 <appliedOnElement>
                     <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, association ends between
                     <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or attributes of an
@@ -178,7 +178,7 @@
                         </li>
                     </ul>
                     <p>
-                        The tagged value of @andromda.hibernate.inheritance
+                        The tagged value of andromda_hibernate_inheritance
                         is set on the base/root class.
                         All subclasses must then follow the same strategy unless
                         interface or concrete is the predecessor strategy.
@@ -187,7 +187,7 @@
                         namespace property.
                     </p>
                 </documentation>
-                <value>@andromda.hibernate.inheritance</value>
+                <value>andromda_hibernate_inheritance</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>class</value>
@@ -206,7 +206,7 @@
                         <li>select</li>
                     </ul>
                 </documentation>
-                <value>@andromda.hibernate.outerjoin</value>
+                <value>andromda_hibernate_outerjoin</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>auto</value>
@@ -220,7 +220,7 @@
                     overrides the
                     <a href="namespace.html#hibernateEntityDynamicInsert">namespace property</a>for this entity.
                 </documentation>
-                <value>@andromda.hibernate.entity.dynamicInsert</value>
+                <value>andromda_hibernate_entity_dynamicInsert</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -233,7 +233,7 @@
                     value overrides the
                     <a href="namespace.html#hibernateEntityDynamicUpdate">namespace property</a>for this entity.
                 </documentation>
-                <value>@andromda.hibernate.entity.dynamicUpdate</value>
+                <value>andromda_hibernate_entity_dynamicUpdate</value>
                 <appliedOnElement></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -245,7 +245,7 @@
                     Used to define the generator class used for the hibernate entity.
                     Any of the hibernate generator classes may be used.
                 </documentation>
-                <value>@andromda.hibernate.generator.class</value>
+                <value>andromda_hibernate_generator_class</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>increment</value>
@@ -268,7 +268,7 @@
                     Defines if a proxy will be enabled for the entity. Overrides the "hibernateProxy" namespace
                     property.
                 </documentation>
-                <value>@andromda.hibernate.entity.proxy</value>
+                <value>andromda_hibernate_entity_proxy</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -281,7 +281,7 @@
                     This value overrides the
                     <a href="namespace.html#hibernateAssociationCollectionType">namespace property</a>.
                 </documentation>
-                <value>@andromda.hibernate.collection.type</value>
+                <value>andromda_hibernate_collection_type</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>set</value>
@@ -297,7 +297,7 @@
                     This value overrides the
                     <a href="namespace.html#hibernateAssociationSortType">namespace property</a>.
                 </documentation>
-                <value>@andromda.hibernate.sort.type</value>
+                <value>andromda_hibernate_sort_type</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>unsorted</value>
@@ -309,7 +309,7 @@
                 <documentation>
                     Column names that will be used for sorting the collection, with asc or desc optionally.
                 </documentation>
-                <value>@andromda.hibernate.orderByColumns</value>
+                <value>andromda_hibernate_orderByColumns</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>Properties of this entity</value>
@@ -319,7 +319,7 @@
                 <documentation>
                     SQL condition to define a subset of available data for the collection
                 </documentation>
-                <value>@andromda.hibernate.whereClause</value>
+                <value>andromda_hibernate_whereClause</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>An SQL code fragment</value>
@@ -330,7 +330,7 @@
                     Column containing the collection index, overrides the
                     <a href="namespace.html#associationEndCollectionIndexName">associationEndCollectionIndexName</a>
                 </documentation>
-                <value>@andromda.hibernate.collection.index</value>
+                <value>andromda_hibernate_collection_index</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>A property of this entity</value>
@@ -341,7 +341,7 @@
                     The type of the column containing the collection index, overrides the
                     <a href="namespace.html#associationEndCollectionIndexType">associationEndCollectionIndexType</a>
                 </documentation>
-                <value>@andromda.hibernate.collection.index.type</value>
+                <value>andromda_hibernate_collection_index_type</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>A property of this entity</value>
@@ -353,7 +353,7 @@
                     entity will have
                     a version property with the name specified within the tagged value.
                 </documentation>
-                <value>@andromda.hibernate.version</value>
+                <value>andromda_hibernate_version</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>The name of the version property</value>
@@ -366,7 +366,7 @@
                     <a href="namespace.html#hibernateCompositionCascade">hibernateCompositionCascade</a>and
                     <a href="namespace.html#hibernateAggregationCascade">hibernateAggregationCascade</a>.
                 </documentation>
-                <value>@andromda.hibernate.cascade</value>
+                <value>andromda_hibernate_cascade</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
             </element>
             <element name="HIBERNATE_FORMULA">
@@ -374,7 +374,7 @@
                     Defines an attribute of a class as a calculated value. This tagged value
                     stores the SQL formula that will be used to assign a value to this property.
                 </documentation>
-                <value>@andromda.hibernate.formula</value>
+                <value>andromda_hibernate_formula</value>
                 <appliedOnElement>The attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>An SQL code fragment</value>
@@ -388,7 +388,7 @@
                     specified for the SINGLE_TABLE or JOINED inheritance
                     mapping strategies, then default to <b>TYPE</b>.
                 </documentation>
-                <value>@andromda.persistence.discriminator.column.name</value>
+                <value>andromda_persistence_discriminator_column_name</value>
                 <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>column name</value>
@@ -410,7 +410,7 @@
                     </ul>
                     <p>
                         The tagged value of
-                        @andromda.persistence.discriminator.type is set
+                        andromda_persistence_discriminator_type is set
                         once on the base/root class to indicate the type
                         of the column used for the discriminator. The
                         default discriminator type is defined by the
@@ -421,7 +421,7 @@
                         namespace property.
                     </p>
                 </documentation>
-                <value>@andromda.persistence.discriminator.type</value>
+                <value>andromda_persistence_discriminator_type</value>
                 <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>STRING</value>
@@ -436,7 +436,7 @@
                     row is an entity of the annotated entity type. It
                     should be specified for each class in the hierarchy.
                 </documentation>
-                <value>@andromda.persistence.discriminator.value</value>
+                <value>andromda_persistence_discriminator_value</value>
                 <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>A String</value>
@@ -449,7 +449,7 @@
                     initialized using other mechanisms such as a value defaulted by the
                     database. Defaults to <code>true</code>.
                 </documentation>
-                <value>@andromda.hibernate.property.insert</value>
+                <value>andromda_hibernate_property_insert</value>
                 <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -463,7 +463,7 @@
                     updated using other mechanisms such as a value defaulted by the
                     database. Defaults to <code>true</code>.
                 </documentation>
-                <value>@andromda.hibernate.property.update</value>
+                <value>andromda_hibernate_property_update</value>
                 <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -478,7 +478,7 @@
                     attribute in the Hibernate mapping file.
                     See also <a href="namespace.html#hibernateXMLPersistence">hibernateXMLPersistence</a>
                 </documentation>
-                <value>@andromda.hibernate.xml.tagName</value>
+                <value>andromda_hibernate_xml_tagName</value>
                 <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]>, or an the <![CDATA[<<Entity>>]]> itself,
                                   or on an association end between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
@@ -492,7 +492,7 @@
                     Controls the <i>embed-xml</i> attribute in the Hibernate mapping file.
                     See also <a href="namespace.html#hibernateXMLPersistence">hibernateXMLPersistence</a>
                 </documentation>
-                <value>@andromda.hibernate.xml.embed</value>
+                <value>andromda_hibernate_xml_embed</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -508,7 +508,7 @@
                 <documentation>
                     Defines is caching is enabled for this query
                 </documentation>
-                <value>@andromda.hibernate.query.useCache</value>
+                <value>andromda_hibernate_query_useCache</value>
                 <appliedOnElement>A query operation</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -519,7 +519,7 @@
                 <documentation>
                     Defines the cache strategy for the Entity.
                 </documentation>
-                <value>@andromda.hibernate.entity.cache</value>
+                <value>andromda_hibernate_entity_cache</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>read-write</value>
@@ -531,7 +531,7 @@
                 <documentation>
                     Defines whether the cache for this entity is to be distributed.
                 </documentation>
-                <value>@andromda.hibernate.entity.cache.distributed</value>
+                <value>andromda_hibernate_entity_cache_distributed</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -542,7 +542,7 @@
                 <documentation>
                     Defines the cache strategy for the association.
                 </documentation>
-                <value>@andromda.hibernate.association.cache</value>
+                <value>andromda_hibernate_association_cache</value>
                 <appliedOnElement>Association between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>read-write</value>
@@ -554,7 +554,7 @@
                 <documentation>
                     Defines whether the cache for this association is to be distributed.
                 </documentation>
-                <value>@andromda.hibernate.association.cache.distributed</value>
+                <value>andromda_hibernate_association_cache_distributed</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -565,7 +565,7 @@
                 <documentation>
                     EhCache property. Defines the maximum number of objects that will be created in memory.
                 </documentation>
-                <value>@andromda.hibernate.ehcache.maxElementsInMemory</value>
+                <value>andromda_hibernate_ehcache_maxElementsInMemory</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>A strictly positive integer</value>
@@ -575,7 +575,7 @@
                 <documentation>
                     EhCache property. Defines if elements are eternal.
                 </documentation>
-                <value>@andromda.hibernate.ehcache.eternal</value>
+                <value>andromda_hibernate_ehcache_eternal</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -586,7 +586,7 @@
                 <documentation>
                     EhCache property. Defines the time to idle for an element before it expires.
                 </documentation>
-                <value>@andromda.hibernate.ehcache.timeToIdleSeconds</value>
+                <value>andromda_hibernate_ehcache_timeToIdleSeconds</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>A strictly positive integer</value>
@@ -596,7 +596,7 @@
                 <documentation>
                     EhCache property. Defines the time to live for an element before it expires.
                 </documentation>
-                <value>@andromda.hibernate.ehcache.timeToLiveSeconds</value>
+                <value>andromda_hibernate_ehcache_timeToLiveSeconds</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>A strictly positive integer</value>
@@ -606,7 +606,7 @@
                 <documentation>
                     EhCache property. Defines if elements can overflow to disk.
                 </documentation>
-                <value>@andromda.hibernate.ehcache.overflowToDisk</value>
+                <value>andromda_hibernate_ehcache_overflowToDisk</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>

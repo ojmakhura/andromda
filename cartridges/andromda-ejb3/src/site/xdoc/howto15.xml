@@ -17,7 +17,7 @@
 	            <p>
 	                By default, session and message-driven beans will be generated with a
 	                <code>@TransactionAttribute</code> annotation with a value of <code>REQUIRED</code>.  To overwrite
-	                this value, simply model the <code>@andromda.ejb.transaction.type</code> tagged value on
+	                this value, simply model the <code>andromda_ejb_transaction_type</code> tagged value on
 	                the class level or bean method level.
 	            </p>
 	            <p>
@@ -47,7 +47,7 @@
                 <p>
 	                The transaction demarcation strategy would normally not be set as the default is <code>CONTAINER</code>
 	                managed transaction demarcation.  If you want to specify <code>BEAN</code> managed transaction
-	                demarcation, model the <code>@andromda.ejb.transaction.management</code> tagged value to
+	                demarcation, model the <code>andromda_ejb_transaction_management</code> tagged value to
 	                <code>BEAN</code>.
 	            </p>
 	            <p>

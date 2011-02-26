@@ -41,7 +41,7 @@
                 <a href="http://docs.andromda.org/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-query-library/modeling.html">
                 Query Translation Library Modeling</a>.
                 The tagged value overriding queries using EJB QL directly is found here:
-                <a href="http://docs.andromda.org/andromda-ejb-cartridge/profile.html#@andromda_ejb_query">@andromda.ejb.query</a>.
+                <a href="http://docs.andromda.org/andromda-ejb-cartridge/profile.html#@andromda_ejb_query">andromda_ejb_query</a>.
             </p>
             <p>
                 <img src="images/org/andromda/test/6/a/uml.gif" alt="images/org/andromda/test/6/a/uml.gif"/>
@@ -102,8 +102,8 @@
             <p>
                 Currently, named queries are defined in two ways.  Either you let AndroMDA auto create
                 your basic EJB QL for you, or use OCL to configure your query.  Named queries will NOT be
-                defined if you use the <code>@andromda.ejb.query</code> tagged value.  It would be suggested
-                that a new tagged value i.e <code>@andromda.ejb.query.named</code> be added to manually
+                defined if you use the <code>andromda_ejb_query</code> tagged value.  It would be suggested
+                that a new tagged value i.e <code>andromda_ejb_query_named</code> be added to manually
                 set the named query, but OCL is still the preferred solution.
             </p>
         </section>

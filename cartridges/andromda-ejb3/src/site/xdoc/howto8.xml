@@ -192,14 +192,14 @@ PRIMARY KEY(PRINCIPAL_ID)
                 </p>
                 <p>
                     The EJB3 cartridge provides a couple of extra security related tagged values.  The
-                    <code>@andromda.service.security.denyAll</code> tagged value which can be assigned on
+                    <code>andromda_service_security_denyAll</code> tagged value which can be assigned on
                     a session bean operation which specifies that no roles are permitted to execute that operation.
                     If modeled on the session bean class and set to true, then no roles are permitted to 
                     execute all of the operations in that session bean.  This tag overrides any roles specified
                     using actor dependencies.
                 </p>
                 <p>
-                    Inversely, the <code>@andromda.service.security.permitAll</code> tagged value, if set to true
+                    Inversely, the <code>andromda_service_security_permitAll</code> tagged value, if set to true
                     on a session bean operation, implies that all roles are permitted to execute that operation.
                     If modeled on the session bean class and set to true, then all roles are permitted to execute
                     all opeations in that session bean.  This tag overrides any roles specified usin actor
@@ -214,7 +214,7 @@ PRIMARY KEY(PRINCIPAL_ID)
                     security identity used for the execution of the bean method, you simply need to model 
                     the <![CDATA[<<RunAs>>]]> stereotype on the actor role.  This will imply the identity of
                     the actor applies a run-as identity to the bean when making calls.  The actor's name or
-                    corresponding <code>@andromda.role.name</code> tagged value contains the logical role name.
+                    corresponding <code>andromda_role_name</code> tagged value contains the logical role name.
                     The run-as identity is only applicable to actor-bean dependency.  It cannot be applied
                     to bean operations.  The run-as idendity is particularly useful for message driven beans where
                     the security identity for the execution of the <code>onMessage</code> callback needs to be set.

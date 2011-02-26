@@ -151,7 +151,7 @@
                     Your relational table's name which persists an entity is determined by default from the 
                     actual entity name.
                     To change the table name assignment in the <code>@javax.persistence.Table</code> annotation,
-                    set the <code>@andromda.persistence.table</code> tag on the entity.
+                    set the <code>andromda_persistence_table</code> tag on the entity.
                     The same tag can be modeled on a Many-To-Many association relationship.
                 </p>
                 <p>
@@ -194,7 +194,7 @@
                 </ul>
 	            <p>
                     An entity identifier attribute's table generator can be modeled via the
-                    <code>@andromda.persistence.generator.type</code> tag on the identifier attribute ONLY.
+                    <code>andromda_persistence_generator_type</code> tag on the identifier attribute ONLY.
                     This is used to model the primary key generation strategy associated with the
                     <code>@javax.persistence.Id</code> annotation for an entity attribute.
                     Currently, the EJB3 cartridge supports:
@@ -206,16 +206,16 @@
                     <li><code>NONE</code></li>
                 </ul>
                 <p>
-                    The table generator name can be set using the <code>@andromda.persistence.generator.name</code> tag.
+                    The table generator name can be set using the <code>andromda_persistence_generator_name</code> tag.
                     This must be a unique name which is referenced by one or more classes to be the generator
-                    for an entity bean.  By setting the <code>@andromda.persistence.generator.source.name</code> tag,
+                    for an entity bean.  By setting the <code>andromda_persistence_generator_source_name</code> tag,
                     you can specify either the table name that stores the generated ids or the sequence name
                     which is the name of the database sequence object used to get the ids.  For table generator types,
-                    you must specify the <code>@andromda.persistence.generator.pkcolumn.value</code> tag which defines
+                    you must specify the <code>andromda_persistence_generator_pkcolumn_value</code> tag which defines
                     the primary key value in the generator table to identify the specified generated value from 
                     other values.  For sequence generator types, you can specify the initial value of the 
-                    sequence using <code>@andromda.persistence.generator.initial.value</code> tag and the 
-                    allocation size by <code>@andromda.persistence.generator.allocation.size</code> tag.  The allocation
+                    sequence using <code>andromda_persistence_generator_initial_value</code> tag and the 
+                    allocation size by <code>andromda_persistence_generator_allocation_size</code> tag.  The allocation
                     size sets the amount to increment by when allocating id numbers from the sequence generator.
                 </p>
             </subsection>
@@ -232,7 +232,7 @@
                 <p>
                     By default, the EJB3 cartridge and EJB 3.0 spec defines an attribute fetch type as eagerly
                     fetched.  To specify an attribute as lazy fetched, we hint to the persistence container 
-                    by modeling the <code>@andromda.persistence.fetch.type</code> tag on the attribute.  Under
+                    by modeling the <code>andromda_persistence_fetch_type</code> tag on the attribute.  Under
                     normal circumstances, you do not need to specify this tag.
                 </p>
             </subsection>
@@ -249,7 +249,7 @@
                 <p>
                     To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
                     property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
-                    <code>@andromda.persistence.column.insert</code> on the attribute.  By default, this is set to
+                    <code>andromda_persistence_column_insert</code> on the attribute.  By default, this is set to
                     <code>true</code>, so it only needs to be specified if you want the column to be initialized using the
                     database default value.
                 </p>
@@ -259,7 +259,7 @@
                 <p>
                     To include the mapped column in the SQL update statement, you set the <code>updatable</code>
                     property on the <code>@javax.persistence.Column</code> annotation which is done by modeling the
-                    <code>@andromda.persistence.column.update</code> on the attribute.  By default, this is set to
+                    <code>andromda_persistence_column_update</code> on the attribute.  By default, this is set to
                     <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
                     database automatically.
                 </p>
@@ -358,7 +358,7 @@
                     the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
                     cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
                     For a Blob, the default is <code>byte[]</code>.  For a Clob, the default is <code>String</code>.
-                    To override the default types, you can model the <code>@andromda.persistence.lob.type</code> 
+                    To override the default types, you can model the <code>andromda_persistence_lob_type</code> 
                     tagged value to the fully qualified name of the required type.
                 </p>
                 <p>
@@ -380,7 +380,7 @@
                 </ul>
                 <p>
                     The default fetch type for a LOB typed attribute is lazy.  To assign a LOB attribute
-                    to be eagerly fetched, model the <code>@andromda.persistence.fetch.type</code> tag on the
+                    to be eagerly fetched, model the <code>andromda_persistence_fetch_type</code> tag on the
                     attribute.
                 </p>
                 <p>
@@ -428,21 +428,21 @@
                 </ul>
 	            <p>
                     To change the default naming schema for the relational table column, model the
-                    <code>@andromda.persistence.column</code> tag on the attribute.
+                    <code>andromda_persistence_column</code> tag on the attribute.
                 </p>
                 <p>
                     You can set the column length for the relational database table for string based columns 
-                    by modeling the <code>@andromda.persistence.column.length</code> tag on the attribute.
+                    by modeling the <code>andromda_persistence_column_length</code> tag on the attribute.
                 </p>
                 <p>
                     If the column is defined as a decimal column (i.e. float or double), you can model the precision
-                    and scale of the column by setting <code>@andromda.persistence.column.precision</code> tag to set 
-                    the precision of the decimal column and/or <code>@andromda.persistence.column.scale</code> tag
+                    and scale of the column by setting <code>andromda_persistence_column_precision</code> tag to set 
+                    the precision of the decimal column and/or <code>andromda_persistence_column_scale</code> tag
                     to set the scale for a decimal column, on the attribute.
                 </p>
                 <p>
                     In order to change the creation DDL for the column in the relational table, you can model
-                    <code>@andromda.persistence.column.definition</code> tag on the attribute.
+                    <code>andromda_persistence_column_definition</code> tag on the attribute.
                 </p>
             </subsection>
             <a name="Listener_Callback"/>

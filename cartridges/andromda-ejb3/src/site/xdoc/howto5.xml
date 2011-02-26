@@ -91,15 +91,15 @@ STATION_WAGON : String
             <a name="Enumeration_Types"/>
             <subsection name="Enumeration Types">
                 <p>
-                    In the above diagram, the tagged value <code>@andromda.persistence.enumeration.type</code>
+                    In the above diagram, the tagged value <code>andromda_persistence_enumeration_type</code>
                     specifies the enumeration type for the <code>type</code> attribute of the <code>Car</code>
                     entity as <code>STRING</code> type.  If your type-safe enumeration has attributes of
                     type String and you wish to use these literal names, then you must specify the
-                    <code>@andromda.persistence.enumeration.type</code> tagged value on the entity attribute.
+                    <code>andromda_persistence_enumeration_type</code> tagged value on the entity attribute.
                 </p>
                 <p>
                     To use the ordinal values relating to the literals of the type-safe enumeration class,
-                    you do not need to model the <code>@andromda.persistence.enumeration.type</code>
+                    you do not need to model the <code>andromda_persistence_enumeration_type</code>
                     tagged value.  By default, if an entity attribute has an enumeration type, the ordinal
                     values of the enumeration literals are used.
                 </p>
@@ -113,12 +113,12 @@ STATION_WAGON : String
                 <p>
                     You simply model the enumeration as you would normally, but add a member variable as an
                     attribute of the class.  You have to model the 
-                    <code>@andromda.persistence.enumeration.member.variable</code> tagged value on this attribute to
+                    <code>andromda_persistence_enumeration_member_variable</code> tagged value on this attribute to
                     indicate that this is NOT a literal.
                 </p>
                 <p>
                     Once you have all your literals and member variables, you can model the
-                    <code>@andromda.persistence.enumeration.literal.parameters</code> tagged value on
+                    <code>andromda_persistence_enumeration_literal_parameters</code> tagged value on
                     enumeration literal attributes.  This tagged value takes a comma separated list containing
                     the data/values assigned to your member variables.
                 </p>

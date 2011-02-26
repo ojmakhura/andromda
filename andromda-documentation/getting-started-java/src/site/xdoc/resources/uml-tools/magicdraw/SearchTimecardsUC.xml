@@ -170,7 +170,7 @@
                     as its type (note that it is <tt>Long</tt>, not <tt>long</tt>). Now click
                     on the
                     <i>Tag Values</i>
-                    tab and click on the tagged value named <tt>@andromda.presentation.web.view.field.type</tt>.
+                    tab and click on the tagged value named <tt>andromda_presentation_web_view_field_type</tt>.
                     This tagged value tells AndroMDA what type of field
                     <tt>submitter</tt>
                     is. Since
@@ -186,7 +186,7 @@
                     <tt>approver</tt>
                     with type of <tt>Long</tt>.
                     Again set the tagged value
-                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    <tt>andromda_presentation_web_view_field_type</tt>
                     to <tt>select</tt>.
                 </li>
                 <li>
@@ -194,7 +194,7 @@
                     <tt>status</tt>
                     with type of <tt>String</tt>.
                     Again set the tagged value
-                    <tt>@andromda.presentation.web.view.field.type</tt>
+                    <tt>andromda_presentation_web_view_field_type</tt>
                     to <tt>select</tt>.
                 </li>
                 <li>
@@ -202,7 +202,7 @@
                     <tt>startDateMinimum</tt>
                     with type of <tt>
                     Date</tt>. This time set the tagged value
-                    <tt>@andromda.presentation.web.view.field.calendar</tt>
+                    <tt>andromda_presentation_web_view_field_calendar</tt>
                     to <tt>true</tt>. This will make sure that you will get a text field for the
                     date along with a calendar widget on its side.
                 </li>
@@ -211,7 +211,7 @@
                     <tt>startDateMaximum</tt>
                     with type of <tt>
                     Date</tt>. Again set the tagged value
-                    <tt>@andromda.presentation.web.view.field.calendar</tt>
+                    <tt>andromda_presentation_web_view_field_calendar</tt>
                     to <tt>true</tt>.
                 </li>
                 <li>Click

@@ -87,18 +87,18 @@
 				<p>
 					If you model the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
                     generated with the value being the class name. You can override this by modeling the 
-					<![CDATA[@andromda.seam.component.name]]> tagged value.
+					<![CDATA[andromda_seam_component_name]]> tagged value.
 				</p>
             </subsection>
             <subsection name="Component Scope">
 				<p>
-					The <![CDATA[@andromda.seam.component.scope]]> tagged value on Seam component classes provides
+					The <![CDATA[andromda_seam_component_scope]]> tagged value on Seam component classes provides
                     enumerated values to set the scope of the component.  The default scope depends on the component
                     type.
 				</p>
                 <p>
                     If you have modeled roles for the component, then you can use the 
-                    <![CDATA[@andromda.seam.component.role.scope]]> tagged value where the list of scopes must be
+                    <![CDATA[andromda_seam_component_role_scope]]> tagged value where the list of scopes must be
                     in the same order as the role names.
                 </p>
             </subsection>
@@ -106,7 +106,7 @@
 				<p>
 					To make use of the JBoss Seam logger, you can model a component attribute of <i>Object</i>
                     type with stereotype <![CDATA[<<Logger>>]]>.  You can further specify the name of the log
-                    category with <![CDATA[@andromda.seam.bijection.logger.value]]> tagged value.
+                    category with <![CDATA[andromda_seam_bijection_logger_value]]> tagged value.
 				</p>
             </subsection>
             <subsection name="Bijection">
@@ -122,13 +122,13 @@
                 <p>
                     If attribute multiplicity is 1, 1..* 
 					the <i>create</i> property is defined on the <![CDATA[@In]]> annotation.  You can explicitly
-                    specify this using the <![CDATA[@andromda.seam.bijection.in.create]]> tagged value.
+                    specify this using the <![CDATA[andromda_seam_bijection_in_create]]> tagged value.
 				</p>
                 <p>
                     To explicitly specify the name of the context variable for the <![CDATA[@In]]> annotation,
-                    model the <![CDATA[@andromda.seam.bijection.in.value]]> tagged value.  This can also be used
+                    model the <![CDATA[andromda_seam_bijection_in_value]]> tagged value.  This can also be used
                     to specify the JSF EL expression.  If not specified, the name will default to the component
-                    attribute.  The <![CDATA[@andromda.seam.bijection.out.value]]> tagged value can be used for
+                    attribute.  The <![CDATA[andromda_seam_bijection_out_value]]> tagged value can be used for
                     the <![CDATA[@Out]]> annotation.
                 </p>
             </subsection>
@@ -154,7 +154,7 @@
             <subsection name="Length Validation">
 				<p>
 					The <![CDATA[@Length]]> annotation's max property is taken from 
-					<![CDATA[@andromda.persistence.column.length]]> tagged value. It is planned to specify a min 
+					<![CDATA[andromda_persistence_column_length]]> tagged value. It is planned to specify a min 
 					length, set via the same tagged value with format x,y where x is min, y is max. 
 					This has currently not been implemented.
 				</p>
@@ -171,11 +171,11 @@
                 </p>
 				<p>
 					This component operation can now model the 
-                    <![CDATA[@andromda.seam.validation.outcome]]> tagged value to indicate the JSF outcome when
+                    <![CDATA[andromda_seam_validation_outcome]]> tagged value to indicate the JSF outcome when
                     validation fails.
                 </p>
                 <p> 
-					The <![CDATA[@andromda.seam.validation.refreshEntities]]> tagged value can also optionally be
+					The <![CDATA[andromda_seam_validation_refreshEntities]]> tagged value can also optionally be
                     modeled with values 'true' or 
 					'false' and if defined, adds the <i>refreshEntities</i> property to the annotation.  This will
                     indicate any invalid entity in the managed state be refreshed from the database when 
@@ -189,7 +189,7 @@
                     stereotypes or tagged values.  If you have only Seam component attributes in the session bean
                     (which by the way, is a Seam component), the bean is not defined as a SFSB.  If you wish 
                     to explicitly define this bean as a SFSB you can do this via the tagged value 
-                    <![CDATA[@andromda.service.type]]>.
+                    <![CDATA[andromda_service_type]]>.
 				</p>
             </subsection>
             <subsection name="Data Model">
@@ -200,13 +200,13 @@
                 </p>
                 <p>
                     An optional tagged value 
-					<![CDATA[@andromda.seam.data.datamodel.value]]> can be modeled on such 
+					<![CDATA[andromda_seam_data_datamodel_value]]> can be modeled on such 
 					attributes to defined the context variable name if more than one datamodel exists.
 				</p>
                 <p>
                     The exposed attribute will have the scope of the owning component, or the <b>EVENT</b>
                     scope if the owning component itself has a <b>STATELESS</b> scope.  You can optionally
-                    explicitly define the scope using <![CDATA[@andromda.seam.data.datamodel.scope]]> tagged value.
+                    explicitly define the scope using <![CDATA[andromda_seam_data_datamodel_scope]]> tagged value.
                 </p>
             </subsection>
             <subsection name="Data Model Selection">
@@ -218,7 +218,7 @@
                 </p>
                 <p>
                     An optional tagged value 
-					<![CDATA[@andromda.seam.data.datamodelselection.value]]> can define the 
+					<![CDATA[andromda_seam_data_datamodelselection_value]]> can define the 
 					name of the context variable specified by the appropriate <![CDATA[@DataModel]]>.  
                     This tagged value is
                     not needed is there is only one <![CDATA[@DataModel]]> element in the Seam component.
@@ -227,11 +227,11 @@
             <subsection name="Initializing Context Variable">
 				<p>
 					The <![CDATA[<<Factory>>]]> stereotype can be modeled on session bean 
-					component operations with the optional <![CDATA[@andromda.seam.bijection.factory.value]]>
+					component operations with the optional <![CDATA[andromda_seam_bijection_factory_value]]>
 					tagged value which can be modeled on the operation to set the context variable name.
                     If this tagged value is NOT set, the default value is the property name.  You can optionally
                     explicitly specify the scope of the context variable by using the 
-                    <![CDATA[@andromda.seam.bijection.factory.scope]]> tagged value.
+                    <![CDATA[andromda_seam_bijection_factory_scope]]> tagged value.
 				</p>
             </subsection>
             <subsection name="Request Parameters">
@@ -242,7 +242,7 @@
                 </p>
                 <p>
                     The optional tagged value 
-					<![CDATA[@andromda.seam.component.requestparameter.value]]> will define the 
+					<![CDATA[andromda_seam_component_requestparameter_value]]> will define the 
 					request parameter name.  If this is NOT set, the name will default to the name of the
                     component attribute.
 				</p>
@@ -255,14 +255,14 @@
                     of outcomes using the following tagged value.
                 </p>
 				<p>
-					The tagged value <![CDATA[@andromda.seam.transaction.rollback.ifoutcome]]> which can be set 
+					The tagged value <![CDATA[andromda_seam_transaction_rollback_ifoutcome]]> which can be set 
 					on bean component operations that have the <![CDATA[<<Rollback>>]]> stereotype, 
                     can have multiple values to indicate the list of outcomes that trigger a rollback.
 				</p>
             </subsection>
             <subsection name="Action Outcome in Absence of a Conversation">
 				<p>
-					The tagged value <![CDATA[@andromda.seam.component.conversational.ifnotbegunoutcome]]>
+					The tagged value <![CDATA[andromda_seam_component_conversational_ifnotbegunoutcome]]>
 					can be set to render the <b>ifNotBegunOutcome</b> property on the <![CDATA[@Conversational]]> 
                     annotation to indicate the JSF outcome for the action, if no long-running conversation is 
 					active when the component is invoked.
@@ -276,11 +276,11 @@
                     component:
                 </p>
                 <ul>
-                    <li><![CDATA[@andromda.seam.conversation.begin.flushmode]]></li>
-                    <li><![CDATA[@andromda.seam.conversation.begin.ifoutcome]]> - Can have multiple values</li>
-                    <li><![CDATA[@andromda.seam.conversation.begin.join]]></li>
-                    <li><![CDATA[@andromda.seam.conversation.begin.nested]]></li>
-                    <li><![CDATA[@andromda.seam.conversation.begin.pageflow]]></li>
+                    <li><![CDATA[andromda_seam_conversation_begin_flushmode]]></li>
+                    <li><![CDATA[andromda_seam_conversation_begin_ifoutcome]]> - Can have multiple values</li>
+                    <li><![CDATA[andromda_seam_conversation_begin_join]]></li>
+                    <li><![CDATA[andromda_seam_conversation_begin_nested]]></li>
+                    <li><![CDATA[andromda_seam_conversation_begin_pageflow]]></li>
                 </ul>
             </subsection>
             <subsection name="Ending a Conversation">
@@ -290,9 +290,9 @@
                     defined within the context of this component:
                 </p>
                 <ul>
-                    <li><![CDATA[@andromda.seam.conversation.end.ifoutcome]]> - can have multiple values</li>
-				    <li><![CDATA[@andromda.seam.conversation.end.evenifexception]]></li>
-                    <li><![CDATA[@andromda.seam.conversation.end.beforeredirect]]></li>
+                    <li><![CDATA[andromda_seam_conversation_end_ifoutcome]]> - can have multiple values</li>
+				    <li><![CDATA[andromda_seam_conversation_end_evenifexception]]></li>
+                    <li><![CDATA[andromda_seam_conversation_end_beforeredirect]]></li>
                </ul>
             </subsection>
             <subsection name="jBPM Tasks and Processes">

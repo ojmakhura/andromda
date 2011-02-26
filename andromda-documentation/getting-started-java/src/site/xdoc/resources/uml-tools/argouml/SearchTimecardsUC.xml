@@ -180,7 +180,7 @@
                             <tt>Long</tt>
                             as its type (note that it is <tt>Long</tt>, not <tt>long</tt>). Now click
                             on the Tagged Values tab and click on the right column and select
-                            <tt>@andromda.presentation.web.view.field.type</tt>
+                            <tt>andromda_presentation_web_view_field_type</tt>
                             from the drop down
                             menu as the type of the new tagged value.
                             This tagged value tells AndroMDA what type of field
@@ -199,21 +199,21 @@
                             New Parameter tool .
                             <img src="images/ToolNewParameter.png" alt="New Parameter Tool"/>
                             Again set the tagged value
-                            <tt>@andromda.presentation.web.view.field.type</tt>
+                            <tt>andromda_presentation_web_view_field_type</tt>
                             to <tt>select</tt>.
                         </li>
                         <li>Add the third parameter called
                             <tt>status</tt>
                             with type of <tt>String</tt>.
                             Again set the tagged value
-                            <tt>@andromda.presentation.web.view.field.type</tt>
+                            <tt>andromda_presentation_web_view_field_type</tt>
                             to <tt>select</tt>.
                         </li>
                         <li>Add the fourth parameter called
                             <tt>startDateMinimum</tt>
                             with type of <tt>
                                 Date</tt>. This time set the tagged value
-                            <tt>@andromda.presentation.web.view.field.calendar</tt>
+                            <tt>andromda_presentation_web_view_field_calendar</tt>
                             to <tt>true</tt>. This will make sure that you will get a text field for the
                             date along with a calendar widget on its side.
                         </li>
@@ -221,7 +221,7 @@
                             <tt>startDateMaximum</tt>
                             with type of <tt>
                                 Date</tt>. Again set the tagged value
-                            <tt>@andromda.presentation.web.view.field.calendar</tt>
+                            <tt>andromda_presentation_web_view_field_calendar</tt>
                             to <tt>true</tt>.
                         </li>
                         <li>Return to the Properties tab and click the Parent navigation tool

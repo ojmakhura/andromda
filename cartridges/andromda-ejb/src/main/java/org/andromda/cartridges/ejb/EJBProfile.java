@@ -32,23 +32,23 @@ public class EJBProfile
 
     /* ----------------- Tagged Values -------------------- */
     /**
-     * @andromda.ejb.generateCMR
+     * andromda_ejb_generateCMR
      */
     public static final String TAGGEDVALUE_GENERATE_CMR = "andromda_ejb_generateCMR";
     /**
-     * @andromda.ejb.query
+     * andromda_ejb_query
      */
     public static final String TAGGEDVALUE_EJB_QUERY = "andromda_ejb_query";
     /**
-     * @andromda.ejb.viewType
+     * andromda_ejb_viewType
      */
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = "andromda_ejb_viewType";
     /**
-     * @andromda.ejb.transaction.type
+     * andromda_ejb_transaction_type
      */
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = "andromda_ejb_transaction_type";
     /**
-     * @andromda.ejb.noSyntheticCreateMethod
+     * andromda_ejb_noSyntheticCreateMethod
      */
     public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = "andromda_ejb_noSyntheticCreateMethod";
 }

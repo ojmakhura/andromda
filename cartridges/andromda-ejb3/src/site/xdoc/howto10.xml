@@ -99,7 +99,7 @@
             <subsection name="Destination Type">
                 <p>
                     For every message-driven bean, you <i>MUST</i> specify the destination type for the servicing
-                    MDB.  This is achieved by simply modeling the <code>@andromda.ejb.mdb.destination.type</code>
+                    MDB.  This is achieved by simply modeling the <code>andromda_ejb_mdb_destination_type</code>
                     tagged value on the MDB class.  Your options are:
                 </p>
                 <ul>
@@ -128,14 +128,14 @@
                 <p>
                     For every message-driven bean, you <i>MUST</i> specify the destination queue or topic name
                     that the MDB is associated with.  This is achieved by modeling the
-                    <code>@andromda.ejb.mdb.destination</code> tagged value.
+                    <code>andromda_ejb_mdb_destination</code> tagged value.
                 </p>
             </subsection>
             <a name="Acknowledge_Mode"/>
             <subsection name="Acknowledge Mode">
                 <p>
                     To specify the acknowledge mode for a JMS message driven bean, simply model the
-                    <code>@andromda.ejb.mdb.acknowledge.mode</code> tagged value on the class.
+                    <code>andromda_ejb_mdb_acknowledge_mode</code> tagged value on the class.
                     This only needs to be specified if <code>DUPS_OK_ACKNOWLEDGE</code> mode is required since 
                     the default is <code>AUTO_ACKNOWLEDGE</code>.
                 </p>
@@ -145,14 +145,14 @@
                 <p>
                     By specifying a message selector constraint, you can limit the messages that a message-driven
                     bean is configured to received.  To set a message selector, simply model the
-                    <code>@andromda.ejb.mdb.selector</code> tagged value on the MDB class.
+                    <code>andromda_ejb_mdb_selector</code> tagged value on the MDB class.
                 </p>
             </subsection>
             <a name="Subscription_Durability"/>
             <subsection name="Subscription Durability">
                 <p>
                     You can specify the message-driven bean subscription durability by modeling the
-                    <code>@andromda.ejb.mdb.subscription.durability</code> tagged value on the MDB class.
+                    <code>andromda_ejb_mdb_subscription_durability</code> tagged value on the MDB class.
                     Queues are always durable by default.  The durability only needs to specified on Topics.
                     By default, Topics are <b>non-durable</b>.
                     Your options are:
@@ -178,7 +178,7 @@
                     Like session beans, message-driven beans can use container-managed or bean-managed
                     transaction demarcation.  By default and if unspecified, the container-managed transaction
                     demarcation is adopted.  However, you can specify bean-managed transaction demarcation by
-                    modeling the <code>@andromda.ejb.transaction.management</code> tagged value to
+                    modeling the <code>andromda_ejb_transaction_management</code> tagged value to
                     <code>BEAN</code> on the message-driven class.
                 </p>
                 <p>
@@ -192,7 +192,7 @@
                 <p>
                     By default, the EJB3 cartridge will generate the <code>@TransactionAttribute</code>
                     annotation, setting the attribute type to <code>REQUIRED</code>.  To override this default
-                    value, you can model the <code>@andromda.ejb.transaction.type</code> tagged value on
+                    value, you can model the <code>andromda_ejb_transaction_type</code> tagged value on
                     the MDB class.
                 </p>
             </subsection>
@@ -249,12 +249,12 @@
                 <p>
                     In some circumstance, you need to configure your MDB to maintain a max pool size of 1
                     such that you have a singleton message driven bean. This can be achieved via
-                    the <a href="profile.html#@andromda.ejb.mdb.pool.size.max">maximum pool size</a>
+                    the <a href="profile.html#andromda_ejb_mdb_pool_size_max">maximum pool size</a>
                     tagged value which is modeled on the MDB.
                 </p>
                 <p>
                     You also have the option of configuring the 
-                    <a href="profile.html#@andromda.ejb.mdb.pool.size.min">minimum pool size</a>
+                    <a href="profile.html#andromda_ejb_mdb_pool_size_min">minimum pool size</a>
                     of the MDB.
                 </p>
                 <p>

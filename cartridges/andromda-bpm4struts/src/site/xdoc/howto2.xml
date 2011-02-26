@@ -18,7 +18,7 @@
             <p>
                 Your activity graph should be modeled as a child element of the use-case. In case your modeling
                 tool does not support that you can add a tagged value to the use-case, making it point to the
-                activity graph, like this: <code>@andromda.presentation.usecase.activity=My Activity Graph</code>
+                activity graph, like this: <code>andromda_presentation_usecase_activity=My Activity Graph</code>
             </p>
             <p>
                 On this page you will see how to use the different states, and how to express the flow from one
@@ -95,10 +95,10 @@
                     targeted <![CDATA[<<FrontEndView>>]]> action state:
                 </p>
                 <ul>
-                    <li><code>@andromda.struts.action.success.message</code>: Write a message that will be
+                    <li><code>andromda_struts_action_success_message</code>: Write a message that will be
                         displayed in a green box. This message will be stored into the default
                         resource bundle.</li>
-                    <li><code>@andromda.struts.action.warning.message</code>: Write a message that will be
+                    <li><code>andromda_struts_action_warning_message</code>: Write a message that will be
                         displayed in a yellow box. This message will be stored into the default
                         resource bundle.</li>
                 </ul>
@@ -107,7 +107,7 @@
                     should behave in case something goes wrong. You just need to add the
                     <![CDATA[<<FrontEndException>>]]> stereotype to the transition and you're good. Additionally
                     you can add a tagged value to such a transition in order to refine the exception handling:
-                    <code>@andromda.struts.exception.type</code> needs the fully qualified classname of the exception
+                    <code>andromda_struts_exception_type</code> needs the fully qualified classname of the exception
                     to be handled by this transition, others will be ignored; the default value if not specified is
                     <code>java.lang.Exception</code> meaning all exceptions will be handled.
                 </p>
@@ -149,7 +149,7 @@
                                 The event parameter you model should represent the one that is sent to the server,
                                 this typically is a String but could also be a Collection, List, int, etc...
                                 Add the following tagged value to this parameter:
-                                <code>@andromda.presentation.web.view.field.type=select</code>.
+                                <code>andromda_presentation_web_view_field_type=select</code>.
                             </p>
                             <p class="highlight">
                                 A collection-type parameter (Collection, List, Set, ...) will result in the rendering
@@ -209,7 +209,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.web.view.field.type=password</code> tagged value to the
+                                Simply add the <code>andromda_presentation_web_view_field_type=password</code> tagged value to the
                                 event parameter. This will render a regular text input field in which the characters
                                 are masked behind asterisks.
                             </p>
@@ -219,7 +219,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.web.view.field.type=textarea</code> tagged value to the
+                                Simply add the <code>andromda_presentation_web_view_field_type=textarea</code> tagged value to the
                                 event parameter. The generated input field will allow more than a single row.
                             </p>
                         </td></tr>
@@ -228,14 +228,14 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.web.view.field.type=radio</code> tagged value to the
+                                Simply add the <code>andromda_presentation_web_view_field_type=radio</code> tagged value to the
                                 event parameter. This will render a set of radiobuttons from which the user may choose
                                 one. By default 3 radiobuttons are rendered, but this number can be changed by using the
-                                <code>@andromda.struts.view.field.radio</code> tagged value, which either takes
+                                <code>andromda_struts_view_field_radio</code> tagged value, which either takes
                                 a positive integer value or a comma-separated list of values from which to select.
 <source><![CDATA[
-@andromda.struts.view.field.radio=7
-@andromda.struts.view.field.radio=cd,dvd,book,hardware
+andromda_struts_view_field_radio=7
+andromda_struts_view_field_radio=cd,dvd,book,hardware
 ]]></source>
                             </p>
                             <p>
@@ -270,9 +270,9 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.web.view.field.type=multibox</code> tagged value to
+                                Simply add the <code>andromda_presentation_web_view_field_type=multibox</code> tagged value to
                                 the event parameter. An additional tagged value must be set:
-                                <code>@andromda.struts.view.field.multibox</code>, the value must match a variable
+                                <code>andromda_struts_view_field_multibox</code>, the value must match a variable
                                 which holds a collection or array.
                             </p>
                             <p class="highlight">

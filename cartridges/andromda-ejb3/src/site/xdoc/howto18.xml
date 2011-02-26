@@ -48,7 +48,7 @@
                 operation in <code>UserEndPointService</code> session bean.
                 Modeling this is similar to the WebService cartridge process.  The
                 EJB3 cartridge introduces a few extra tagged values.  The example below models the
-                <code>@andromda.webservice.operation.result.name</code> tagged value on the 
+                <code>andromda_webservice_operation_result_name</code> tagged value on the 
                 <code>addUser</code> operation in <code>UserService</code>.
             </p>
             <p>
@@ -155,10 +155,10 @@ port.process(user");
                     therefore, you must add them to your model if you wish to use them.
                 </p>
                 <ul>
-                    <li><a href="profile.html#@andromda.webservice.parameter.style">@andromda.webservice.parameter.style</a></li>
-                    <li><a href="profile.html#@andromda.webservice.parameter.oneway">@andromda.webservice.operation.oneway</a></li>
-                    <li><a href="profile.html#@andromda.webservice.parameter.name">@andromda.webservice.operation.name</a></li>
-                    <li><a href="profile.html#@andromda.webservice.parameter.result.name">@andromda.webservice.operation.result.name</a></li>
+                    <li><a href="profile.html#andromda_webservice_parameter_style">andromda_webservice_parameter_style</a></li>
+                    <li><a href="profile.html#andromda_webservice_parameter_oneway">andromda_webservice_operation_oneway</a></li>
+                    <li><a href="profile.html#andromda_webservice_parameter_name">andromda_webservice_operation_name</a></li>
+                    <li><a href="profile.html#andromda_webservice_parameter_result_name">andromda_webservice_operation_result_name</a></li>
                 </ul>
             </subsection>
         </section>

@@ -121,7 +121,7 @@
             <subsection name="Cascading">
                 <p>
                     You can set the cascade option on all association ends by modeling the
-                    <code>@andromda.persistence.cascade.type</code> tagged value on the target association end.
+                    <code>andromda_persistence_cascade_type</code> tagged value on the target association end.
                     The cascadable options are:
                 </p>
                 <ul>
@@ -157,7 +157,7 @@
                 <p class="highlight">
                     If you enable Hibernate extensions by setting the value of the <b>persistenceProviderExtensions</b>
                     namespace property in your andromda.xml to <i>hibernate</i>, you can also model the
-                    <code>@andromda.hibernate.cascade</code> tagged value on your association ends.  This way, you
+                    <code>andromda_hibernate_cascade</code> tagged value on your association ends.  This way, you
                     can further customize your cascade solution to use Hibernate specific cascade types such as
                     SAVE_UPDATE and DELETE_ORPHAN.  Remember, this tagged value accepts a comma separated list
                     of fully qualified cascade types.
@@ -166,7 +166,7 @@
             <a name="Fetch_Type"/>
             <subsection name="Fetch Type">
                 <p>
-                    The fetch type tagged value <code>@andromda.persistence.fetch.type</code> can be modeled on
+                    The fetch type tagged value <code>andromda_persistence_fetch_type</code> can be modeled on
                     all association ends.  To set the fetch type on an end, you model this tagged value on
                     the target association end.  The following default are the default fetch types for the
                     available relationships:
@@ -205,7 +205,7 @@
             <subsection name="Ordering Collection Valued Association">
                 <p>
                     You can order the elements of a collection valued association by modeling the
-                    <code>@andromda.persistence.orderBy</code> tagged value on the target association end.
+                    <code>andromda_persistence_orderBy</code> tagged value on the target association end.
                     A few notes to consider:
                 </p>
                 <ul>
@@ -266,7 +266,7 @@
                     The join table name is defined by default to be the table name of the primary table of the owning 
                     side concatenated with the table name of the primary table of the inverse side.  
                     You can override the <code>name</code> property by modeling the 
-                    <code>@andromda.persistence.table</code> tagged value on the assocation or alternatively,
+                    <code>andromda_persistence_table</code> tagged value on the assocation or alternatively,
                     specify a name for the association.
                 </p>
                 <p>
@@ -289,7 +289,7 @@
 	            <p>
 	                By default, the EJB3 cartridge enables the following via the 
 	                <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
-	                <code>@andromda.persistence.fetch.type</code> tagged value exists.
+	                <code>andromda_persistence_fetch_type</code> tagged value exists.
                 </p>
                 <ul>
                     <li>aggregation: lazy-loaded, no cascade</li>
@@ -342,14 +342,14 @@
                 <p>
                     Controlling foreign key names is relatively simple as long as you know where to model the right
                     tagged value.  In all four association types, you can use the 
-                    <code>@andromda.persistence.column</code> tagged value on an association end to explicitly
+                    <code>andromda_persistence_column</code> tagged value on an association end to explicitly
                     define the foreign key name.
                 </p>
                 <p>
                     In a <b>many-to-one</b> or <b>one-to-one</b> association, model the 
-                    <code>@andromda.persistence.column</code> tagged value on the target association ends.  In a
+                    <code>andromda_persistence_column</code> tagged value on the target association ends.  In a
                     <b>one-to-many</b> unidirection or <b>many-to-many</b> association, you can model the
-                    <code>@andromda.persistence.column</code> tagged value on either one or both ends of the 
+                    <code>andromda_persistence_column</code> tagged value on either one or both ends of the 
                     association.  
                 </p>
                 <p>
@@ -370,14 +370,14 @@
                     The first thing you need to do to be able to explicitly define your foreign key constraint
                     names is to set the value of the <b>persistenceProviderExtensions</b> namespace property
                     to <b>hibernate</b> in your andromda.xml.  You can then model the
-                    <code>@andromda.persistence.foreignkey.constraint</code> tagged value on the appropriate
+                    <code>andromda_persistence_foreignkey_constraint</code> tagged value on the appropriate
                     association ends to explicitly define your foreign key constraint names.
                 </p>
                 <p>
                     For <b>many-to-one</b> and <b>one-to-one</b> associations, you model the
-                    <code>@andromda.persistence.foreignkey.constraint</code> tagged value on the target association
+                    <code>andromda_persistence_foreignkey_constraint</code> tagged value on the target association
                     ends.  For <b>one-to-many unidirectional</b> and <b>many-to-many</b> associations, you
-                    can model the <code>@andromda.persistence.foreignkey.constraint</code> tagged value on either
+                    can model the <code>andromda_persistence_foreignkey_constraint</code> tagged value on either
                     end or both ends of the association depending on what you want.
                 </p>
                 <p class="highlight">

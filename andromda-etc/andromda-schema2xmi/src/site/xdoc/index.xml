@@ -128,9 +128,9 @@ Options:
     <ant value="-I"/>
     <arg value="identifier"/>
     <arg value="-V"/>
-    <arg value="@andromda.persistence.table"/>
+    <arg value="andromda_persistence_table"/>
     <arg value="-v"/>
-    <arg value="@andromda.persistence.column"/>
+    <arg value="andromda_persistence_column"/>
 </java>
 ]]></source>
             <p class="highlight">

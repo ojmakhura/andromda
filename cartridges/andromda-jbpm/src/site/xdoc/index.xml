@@ -53,7 +53,7 @@
                             Specific action roles are represented using swimlanes (the technical UML
                             term for a swimlane is <em>partition</em>), states can be assigned to a specific swimlane,
                             denoting the user/role assigned to it. A swimlane optionally take one or more assigment
-                            expression tagged values, use <code>@andromda.process.jbpm.assignment.expression</code>.
+                            expression tagged values, use <code>andromda_process_jbpm_assignment_expression</code>.
                             A swimlane will result in the generation of an assignment handler, the user assigned
                             to this swimlane will subsequently be assigned to all tasks in it.
                         </td>

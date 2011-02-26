@@ -69,7 +69,7 @@
                     Indicates the type of trigger causing the action, possible values are hyperlink, image and form. Form
                     is the default value.
                 </documentation>
-                <value>@andromda.presentation.web.action.type</value>
+                <value>andromda_presentation_web_action_type</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
@@ -85,7 +85,7 @@
                     If the column is specified the action will be rendered in that specific column, otherwise a new
                     column will be created for it.
                 </documentation>
-                <value>@andromda.presentation.web.action.tablelink</value>
+                <value>andromda_presentation_web_action_tablelink</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
             </element>
             <element name="ACTION_FORM_SCOPE">
@@ -93,7 +93,7 @@
                     This allows one to override the action form scope defined
                     by the <a href="namespace.html#formScope">formScope</a> namespace property.
                 </documentation>
-                <value>@andromda.presentation.web.action.form.scope</value>
+                <value>andromda_presentation_web_action_form_scope</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>session</value>
@@ -107,7 +107,7 @@
                     coming back to the same page and want the form variables reset to their original
                     values before the action was submitted).
                 </documentation>
-                <value>@andromda.presentation.web.action.form.reset</value>
+                <value>andromda_presentation_web_action_form_reset</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -121,7 +121,7 @@
                     when you are doing something that requires more than one action to be executed at the same
                     time and you don't want form key names colliding.
                 </documentation>
-                <value>@andromda.presentation.web.action.form.key</value>
+                <value>andromda_presentation_web_action_form_key</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
@@ -133,7 +133,7 @@
                     Set this value to <code>true</code> if you want to be able
                     to reset forms to their initial values (i.e. have a reset button rendered).
                 </documentation>
-                <value>@andromda.presentation.web.action.resettable</value>
+                <value>andromda_presentation_web_action_resettable</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -144,7 +144,7 @@
                 <documentation>
                     Represents the type of view (regular, popup, etc).
                 </documentation>
-                <value>@andromda.presentation.web.view.type</value>
+                <value>andromda_presentation_web_view_type</value>
                 <appliedOnElement>A <![CDATA[<<FrontEndView>>]]></appliedOnElement>
             </element>
             <element name="INPUT_TYPE">
@@ -153,7 +153,7 @@
                     possible values are: link, multibox, text, textarea, checkbox, radio, select, password,
                     hidden and plaintext.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.type</value>
+                <value>andromda_presentation_web_view_field_type</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">text</value>
@@ -172,7 +172,7 @@
                     after the execution of the action.  This is useful when you want only
                     some of the parameters reset on the form but not all of them.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.reset</value>
+                <value>andromda_presentation_web_view_field_reset</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -188,7 +188,7 @@
                     <code>http://struts.apache.org/userGuide/dev_validator.html</code>. The required
                     parentheses will automatically be placed around your condition.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.validwhen</value>
+                <value>andromda_presentation_web_view_field_validwhen</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a Struts 'validwhen' condition</value>
@@ -200,7 +200,7 @@
                     other field that a parameter must equal in order to be valid (like when
                     comparing two passwords)
                 </documentation>
-                <value>@andromda.presentation.web.view.field.equal</value>
+                <value>andromda_presentation_web_view_field_equal</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a Struts 'validwhen' condition</value>
@@ -221,7 +221,7 @@
                     (I recommend against using names used by known validators: minlength,
                     test, datePattern, ...)
                 </documentation>
-                <value>@andromda.presentation.web.view.field.validators</value>
+                <value>andromda_presentation_web_view_field_validators</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a call to one of your custom validators</value>
@@ -240,12 +240,12 @@
                     resides, this is useful for example, to display a list of persons and view
                     their details by simply clicking on their names in the table
                     (for that to work this parameter's type should be 'link', use the
-                    <code>@andromda.presentation.web.view.field.type=link</code> tagged value for that).
+                    <code>andromda_presentation_web_view_field_type=link</code> tagged value for that).
                     The column name is optional, if you do not specify it the name
                     of the parameter will be assumed. By setting the parameter type you
                     can have any widget rendered into the table.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.tablelink</value>
+                <value>andromda_presentation_web_view_field_tablelink</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -259,7 +259,7 @@
                     A flag indicating whether or not a parameter should be considered a table.  This must be
                     set to true when you wish to display a list of simple types (such as strings) within a table.
                 </documentation>
-                <value>@andromda.presentation.view.table</value>
+                <value>andromda_presentation_view_table</value>
                 <appliedOnElement>
                     A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
                 </appliedOnElement>
@@ -273,7 +273,7 @@
                     Allows one to define which columns should be considered identifiers when creating an input table, these
                     columns determine how the value is merged with the backing value of the table to be submitted.
                 </documentation>
-                <value>@andromda.presentation.view.field.table.identifier.columns</value>
+                <value>andromda_presentation_view_field_table_identifier_columns</value>
                 <appliedOnElement>
                     A collection type parameter (array is preferred) going out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
                 </appliedOnElement>
@@ -291,7 +291,7 @@
                     Properties are separated using a comma ','. More than one value maybe be assigned to
                     this tag, all properties will correctly be resolved.
                 </documentation>
-                <value>@andromda.presentation.view.table.columns</value>
+                <value>andromda_presentation_view_table_columns</value>
                 <appliedOnElement>
                     A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
                 </appliedOnElement>
@@ -303,7 +303,7 @@
                 <documentation>
                     A flag indicating whether or not a table is "pageable".  When a table is flagged as "pageable", support for DB paging is generated.
                 </documentation>
-                <value>@andromda.presentation.view.table.pageable</value>
+                <value>andromda_presentation_view_table_pageable</value>
                 <appliedOnElement>A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -315,7 +315,7 @@
                     Denotes whether or not this is a required field. If a field is required its type will always be
                     checked (you cannot enter a String value when an int is expected)
                 </documentation>
-                <value>@andromda.presentation.view.field.required</value>
+                <value>andromda_presentation_view_field_required</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -326,7 +326,7 @@
                 <documentation>
                     Denotes the number of columns an input field should have.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.size</value>
+                <value>andromda_presentation_web_view_field_size</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">browser specific</value>
@@ -337,10 +337,10 @@
                 <documentation>
                     Denotes the number of rows on a textarea field.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.rows</value>
+                <value>andromda_presentation_web_view_field_rows</value>
                 <appliedOnElement>
                     Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype,
-                    while having <code>@andromda.presentation.web.view.field.textarea</code>
+                    while having <code>andromda_presentation_web_view_field_textarea</code>
                 </appliedOnElement>
                 <allowedValues>
                     <value default="true">5</value>
@@ -351,7 +351,7 @@
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
-                <value>@andromda.presentation.view.field.readonly</value>
+                <value>andromda_presentation_view_field_readonly</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -362,7 +362,7 @@
                 <documentation>
                     On action completion will have a success message rendered on screen
                 </documentation>
-                <value>@andromda.presentation.action.success.message</value>
+                <value>andromda_presentation_action_success_message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -375,7 +375,7 @@
                 <documentation>
                     On action completion will have a warning message rendered on screen
                 </documentation>
-                <value>@andromda.presentation.action.warning.message</value>
+                <value>andromda_presentation_action_warning_message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -453,7 +453,7 @@
                         Netscape's guide to regular expressions in Javascript</a>
                     </p>
                 </documentation>
-                <value>@andromda.presentation.view.field.format</value>
+                <value>andromda_presentation_view_field_format</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>Any of the formats listed above</value>
@@ -465,7 +465,7 @@
                     to avoid downloading thousands of rows each time, most of the time the user will want to use
                     the search facility to refine the result set
                 </documentation>
-                <value>@andromda.manageable.table.maxlistsize</value>
+                <value>andromda_manageable_table_maxlistsize</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -476,7 +476,7 @@
                 <documentation>
                     The maximum number of records to show on the same page.
                 </documentation>
-                <value>@andromda.manageable.table.pagesize</value>
+                <value>andromda_manageable_table_pagesize</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -491,7 +491,7 @@
                     from a combobox and you would like to see a more meaningful label for each option, if no
                     <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
-                <value>@andromda.manageable.table.displayname</value>
+                <value>andromda_manageable_table_displayname</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>any column name present in this entity</value>
@@ -504,7 +504,7 @@
                     want to disable this feature if you are sure the target entity can have many different values
                     (meaning a table with lots of records).
                 </documentation>
-                <value>@andromda.manageable.table.resolveable</value>
+                <value>andromda_manageable_table_resolveable</value>
                 <appliedOnElement>Association end to a class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">true</value>
