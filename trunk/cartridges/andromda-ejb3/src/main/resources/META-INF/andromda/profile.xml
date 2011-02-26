@@ -484,11 +484,11 @@
 					variable, when the context variable has no value.
 
 					The context variable is specified by tagged value 
-					@andromda.seam.bijection.factory.value. If the method is a getter 
+					andromda_seam_bijection_factory_value. If the method is a getter 
 					method, default to the JavaBeans property name.
 
 					If no scope is explicitly specified by tagged value 
-					@andromda.seam.bijection.factory.scope, the scope of the component 
+					andromda_seam_bijection_factory_scope, the scope of the component 
 					with the @Factory method is used (unless the component is stateless, 
 					in which case the EVENT context is used).
                 </documentation>
@@ -732,7 +732,7 @@
 					If set to false, then a non-null relationship must always
 					exist.
 				</documentation>
-				<value>@andromda.persistence.optional</value>
+				<value>andromda_persistence_optional</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 				<allowedValues>
 					<value default="true">true</value>
@@ -759,7 +759,7 @@
 					</ul>
 					<p>
 						The tagged value of
-						@andromda.persistence.inheritance is set on the
+						andromda_persistence_inheritance is set on the
 						base/root class. All subclasses must then follow
 						the same strategy. The default strategy is
 						defined by the
@@ -770,7 +770,7 @@
 						namespace property.
 					</p>
 				</documentation>
-				<value>@andromda.persistence.inheritance</value>
+				<value>andromda_persistence_inheritance</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
@@ -796,7 +796,7 @@
 					</ul>
 					<p>
 						The tagged value of
-						@andromda.persistence.discriminator.type is set
+						andromda_persistence_discriminator_type is set
 						once on the base/root class to indicate the type
 						of the column used for the discriminator. The
 						default discriminator type is defined by the
@@ -807,7 +807,7 @@
 						namespace property.
 					</p>
 				</documentation>
-				<value>@andromda.persistence.discriminator.type</value>
+				<value>andromda_persistence_discriminator_type</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
@@ -824,7 +824,7 @@
 					row is an entity of the annotated entity type. It
 					should be specified for each class in the hierarchy.
 				</documentation>
-				<value>@andromda.persistence.discriminator.value</value>
+				<value>andromda_persistence_discriminator_value</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
@@ -838,7 +838,7 @@
 					mapping strategies, then default to <b>TYPE</b>.
 				</documentation>
 				<value>
-					@andromda.persistence.discriminator.column.name
+					andromda_persistence_discriminator_column_name
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
@@ -852,7 +852,7 @@
 					column.
 				</documentation>
 				<value>
-					@andromda.persistence.discriminator.column.definition
+					andromda_persistence_discriminator_column_definition
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
@@ -866,7 +866,7 @@
 					for the other discriminator types.
 				</documentation>
 				<value>
-					@andromda.persistence.discriminator.column.length
+					andromda_persistence_discriminator_column_length
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
@@ -881,7 +881,7 @@
 			        types Date, Time or Timestamp.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.temporal.type
+			        andromda_persistence_temporal_type
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute or Entity Finder Method Parameter
@@ -906,7 +906,7 @@
                     accept these default settings.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.fetch.type
+			        andromda_persistence_fetch_type
 			    </value>
 			    <appliedOnElement>
 			        Association End or Entity Attribute
@@ -922,7 +922,7 @@
 			        cascade setting for this relationship.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.cascade.type
+			        andromda_persistence_cascade_type
 			    </value>
 			    <appliedOnElement>
 			        Association End
@@ -940,7 +940,7 @@
                     Place a user defined Hibernate specific cascade value at an association end.
                     Hibernate extensions must be enabled.
                 </documentation>
-                <value>@andromda.hibernate.cascade</value>
+                <value>andromda_hibernate_cascade</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
             </element>
 			<element name="ENUMERATION_TYPE">
@@ -949,7 +949,7 @@
 			        persistent property or field.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.enumeration.type
+			        andromda_persistence_enumeration_type
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -965,7 +965,7 @@
 			        associated with an entity bean attribute identifier.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.type
+			        andromda_persistence_generator_type
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -986,7 +986,7 @@
 			        entity bean.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.name
+			        andromda_persistence_generator_name
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -999,7 +999,7 @@
                     id generation using persistence layer extensions.
                 </documentation>
                 <value>
-                    @andromda.persistence.generator.genericStrategy
+                    andromda_persistence_generator_genericStrategy
                 </value>
                 <appliedOnElement>
                     Entity Attribute
@@ -1013,7 +1013,7 @@
 			        get the ids.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.source.name
+			        andromda_persistence_generator_source_name
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1026,7 +1026,7 @@
 			        other values in the table.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.pkcolumn.value
+			        andromda_persistence_generator_pkcolumn_value
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1038,7 +1038,7 @@
 			        generation for an entity PK generator.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.initial.value
+			        andromda_persistence_generator_initial_value
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1050,7 +1050,7 @@
 			        allocating an id number from the generator.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.generator.allocation.size
+			        andromda_persistence_generator_allocation_size
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1062,7 +1062,7 @@
 			        column or entity property.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.column.definition
+			        andromda_persistence_column_definition
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1074,7 +1074,7 @@
 			        column.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.column.precision
+			        andromda_persistence_column_precision
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1086,7 +1086,7 @@
 			        column.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.column.scale
+			        andromda_persistence_column_scale
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1098,7 +1098,7 @@
 			        for the entity attribute may be NULL.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.column.nullable
+			        andromda_persistence_column_nullable
 			    </value>
 			    <appliedOnElement>
 			        Entity Attribute
@@ -1116,7 +1116,7 @@
                     such as a value defaulted by thedatabase. Defaults to 
                     <code>true</code>.
                 </documentation>
-                <value>@andromda.persistence.column.insert</value>
+                <value>andromda_persistence_column_insert</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]> Attribute</appliedOnElement>
                 <allowedValues>
                     <value default="true">true</value>
@@ -1131,7 +1131,7 @@
                     such as a value defaulted by the database. Defaults to 
                     <code>true</code>.
                 </documentation>
-                <value>@andromda.persistence.column.update</value>
+                <value>andromda_persistence_column_update</value>
                 <appliedOnElement><![CDATA[<<Entity>>]]> Attribute</appliedOnElement>
                 <allowedValues>
                     <value default="true">true</value>
@@ -1146,7 +1146,7 @@
 			        value, the primary key is assumed.
 			    </documentation>
 			    <value>
-			        @andromda.persistence.orderBy
+			        andromda_persistence_orderBy
 			    </value>
 			    <appliedOnElement>
 			        Association End
@@ -1158,7 +1158,7 @@
                     This value overrides the
                     <a href="namespace.html#associationCollectionType">namespace property</a>.
                 </documentation>
-                <value>@andromda.persistence.collection.type</value>
+                <value>andromda_persistence_collection_type</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>set</value>
@@ -1172,7 +1172,7 @@
                     Column containing the collection index, overrides the
                     <a href="namespace.html#associationEndCollectionIndexName">associationEndCollectionIndexName</a>
                 </documentation>
-                <value>@andromda.persistence.collection.index</value>
+                <value>andromda_persistence_collection_index</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>A property of this entity</value>
@@ -1183,7 +1183,7 @@
                     The type of the column containing the collection index, overrides the
                     <a href="namespace.html#associationEndCollectionIndexType">associationEndCollectionIndexType</a>
                 </documentation>
-                <value>@andromda.persistence.collection.index.type</value>
+                <value>andromda_persistence_collection_index_type</value>
                 <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>A property of this entity</value>
@@ -1201,7 +1201,7 @@
 			        Make sure to define the fully qualified type
 			        name for the tagged value.
 			    </documentation>
-			    <value>@andromda.persistence.lob.type</value>
+			    <value>andromda_persistence_lob_type</value>
 			    <appliedOnElement>
 			        Entity Attribute of Type datatype::Clob or
 			        datatype::Blob
@@ -1215,7 +1215,7 @@
 					variables.
 				</documentation>
 				<value>
-					@andromda.service.type
+					andromda_service_type
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -1233,7 +1233,7 @@
 					name.
 				</documentation>
 				<value>
-					@andromda.service.persistence.context.unit.name
+					andromda_service_persistence_context_unit_name
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -1249,7 +1249,7 @@
 					EntityManager.
 				</documentation>
 				<value>
-					@andromda.service.persistence.context.unit.type
+					andromda_service_persistence_context_unit_type
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -1271,7 +1271,7 @@
 					are made available to all applications.
 				</documentation>
 				<value>
-					@andromda.service.persistence.context.datasource
+					andromda_service_persistence_context_datasource
 				</value>
 				<appliedOnElement>
 					Class with <![CDATA[<<Service>>]]>
@@ -1285,7 +1285,7 @@
 					are applied in a transation.
 				</documentation>
 				<value>
-					@andromda.service.persistence.flush.mode
+					andromda_service_persistence_flush_mode
 				</value>
 				<appliedOnElement>
 					Service operation
@@ -1303,7 +1303,7 @@
 			        to.
 			    </documentation>
 			    <value>
-			        @andromda.service.jndi.remote
+			        andromda_service_jndi_remote
 			    </value>
 			    <appliedOnElement>
 			        <![CDATA[<<Service>>]]>
@@ -1316,7 +1316,7 @@
 			        to.
 			    </documentation>
 			    <value>
-			        @andromda.service.jndi.local
+			        andromda_service_jndi_local
 			    </value>
 			    <appliedOnElement>
 			        <![CDATA[<<Service>>]]>
@@ -1331,7 +1331,7 @@
 			        demarcation.
 			    </documentation>
 			    <value>
-			        @andromda.ejb.transaction.management
+			        andromda_ejb_transaction_management
 			    </value>
 			    <appliedOnElement>
 			        Service and Message-Driven Beans
@@ -1354,7 +1354,7 @@
 					permit all tagged value is rendered.
 				</documentation>
 				<value>
-					@andromda.service.security.permitAll
+					andromda_service_security_permitAll
 				</value>
 				<appliedOnElement>
 					Service and service operation
@@ -1377,7 +1377,7 @@
 					deny all tagged value is rendered.
 				</documentation>
 				<value>
-					@andromda.service.security.denyAll
+					andromda_service_security_denyAll
 				</value>
 				<appliedOnElement>
 					Service and service operation
@@ -1394,7 +1394,7 @@
 					the security realm to match allowed roles. 
 				</documentation>
 				<value>
-					@andromda.service.security.realm
+					andromda_service_security_realm
 				</value>
 				<appliedOnElement>
 					Service
@@ -1406,7 +1406,7 @@
 			        of the default interceptors for the applied 
 			        business method.
 			    </documentation>
-			    <value>@andromda.service.interceptor.excludeDefault</value>
+			    <value>andromda_service_interceptor_excludeDefault</value>
 			    <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement>
@@ -1421,7 +1421,7 @@
 			        of the class interceptors for the applied 
 			        business method.
 			    </documentation>
-			    <value>@andromda.service.interceptor.excludeClass</value>
+			    <value>andromda_service_interceptor_excludeClass</value>
 			    <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement>
@@ -1437,7 +1437,7 @@
 			        session and message driven beans within this 
 			        deployment.
 			    </documentation>
-			    <value>@andromda.service.interceptor.default</value>
+			    <value>andromda_service_interceptor_default</value>
 			    <appliedOnElement>
 			        Interceptor Class
 			    </appliedOnElement>
@@ -1454,7 +1454,7 @@
 					This is currently only available in BEA Weblogic and
 					can not be used with combined primary keys.
 				</documentation>
-				<value>@andromda.ejb.automaticKey</value>
+				<value>andromda_ejb_automaticKey</value>
 				<appliedOnElement>
 				    Entity attribute
 				</appliedOnElement>
@@ -1464,7 +1464,7 @@
 			        Used on an Entity bean to decide whether to allow
 			        synthetic (auto generated) create/constructors.
 			    </documentation>
-			    <value>@andromda.ejb.noSyntheticCreateMethod</value>
+			    <value>andromda_ejb_noSyntheticCreateMethod</value>
 			    <appliedOnElement>
 			        Entity
 			    </appliedOnElement>
@@ -1475,7 +1475,7 @@
 					encouraged to model your query body as an OCL
 					constraint (instead of using this tagged value).
 				</documentation>
-				<value>@andromda.ejb.query</value>
+				<value>andromda_ejb_query</value>
 				<appliedOnElement>
 					An Entity operation marked as a
 					<code>query</code>
@@ -1488,7 +1488,7 @@
 					level or at the operation level for each Session
 					method.
 				</documentation>
-				<value>@andromda.ejb.viewType</value>
+				<value>andromda_ejb_viewType</value>
 				<appliedOnElement>Service or Service operation</appliedOnElement>
 				<allowedValues>
 					<value default="true">remote</value>
@@ -1501,7 +1501,7 @@
 					Defines a transaction type for a method in the Session
 					EJB or for entity EJB POJO accessor method.
 				</documentation>
-				<value>@andromda.ejb.transaction.type</value>
+				<value>andromda_ejb_transaction_type</value>
 				<appliedOnElement>Service operation or Entity attribute</appliedOnElement>
 				<allowedValues>
 					<value>NotSupported</value>
@@ -1517,7 +1517,7 @@
 					Defines the relational table name for entity
 					persistence.
 				</documentation>
-				<value>@andromda.persistence.table</value>
+				<value>andromda_persistence_table</value>
 				<appliedOnElement>
 					Entity or a many-to-many association.
 				</appliedOnElement>
@@ -1526,14 +1526,14 @@
 				<documentation>
 					Represents the column name for entity persistence.
 				</documentation>
-				<value>@andromda.persistence.column</value>
+				<value>andromda_persistence_column</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 			</element>
 			<element name="COLUMN_LENGTH">
 				<documentation>
 					Represents the column length for entity persistence.
 				</documentation>
-				<value>@andromda.persistence.column.length</value>
+				<value>andromda_persistence_column_length</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 			</element>
 			<element name="MDB_ACKNOWLEDGE_MODE">
@@ -1543,7 +1543,7 @@
 					DUPS_OK_ACKNOWLEDGE mode is required.  The default
 					mode is AUTO_ACKNOWLEDGE.
 				</documentation>
-				<value>@andromda.ejb.mdb.acknowledge.mode</value>
+				<value>andromda_ejb_mdb_acknowledge_mode</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 				<allowedValues>
 					<value default="true">AUTO_ACKNOWLEDGE</value>
@@ -1555,7 +1555,7 @@
 					Represents the destination queue or topic name
 					this JMS message driven bean is associated with.
 				</documentation>
-				<value>@andromda.ejb.mdb.destination</value>
+				<value>andromda_ejb_mdb_destination</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 			</element>
 			<element name="MDB_DESTINATION_TYPE">
@@ -1564,7 +1564,7 @@
 					driven bean. If not specified, it is assumed to 
 					be a Queue.
 				</documentation>
-				<value>@andromda.ejb.mdb.destination.type</value>
+				<value>andromda_ejb_mdb_destination_type</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 				<allowedValues>
 					<value default="true">javax.jms.Queue</value>
@@ -1577,7 +1577,7 @@
 					when determining the messages that a JMS message
 					driven bean is to receive.
 				</documentation>
-				<value>@andromda.ejb.mdb.selector</value>
+				<value>andromda_ejb_mdb_selector</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 			</element>
 			<element name="MDB_SUBSCRIPTION_DURABILITY">
@@ -1587,7 +1587,7 @@
 					durability only needs to be specified on topics.
 					By default, topics are non-durable.
 				</documentation>
-				<value>@andromda.ejb.mdb.subscription.durability</value>
+				<value>andromda_ejb_mdb_subscription_durability</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 			</element>
 			<element name="MDB_MINIMUM_POOL_SIZE">
@@ -1596,7 +1596,7 @@
 			        Must be an integer and greater than 0, otherwise
 			        will not be set.
 			    </documentation>
-			    <value>@andromda.ejb.mdb.pool.size.min</value>
+			    <value>andromda_ejb_mdb_pool_size_min</value>
 			    <appliedOnElement>Message Driven</appliedOnElement>
 			</element>
 			<element name="MDB_MAXIMUM_POOL_SIZE">
@@ -1607,14 +1607,14 @@
 			        Must be an integer and greater than 0, otherwise
 			        will not be set.
 			    </documentation>
-			    <value>@andromda.ejb.mdb.pool.size.max</value>
+			    <value>andromda_ejb_mdb_pool_size_max</value>
 			    <appliedOnElement>Message Driven</appliedOnElement>
 			</element>
 			<element name="ENTITY_CACHE">
 			    <documentation>
 			        Defines the cache strategy the entity.
 			    </documentation>
-			    <value>@andromda.persistence.entity.cache</value>
+			    <value>andromda_persistence_entity_cache</value>
 			    <appliedOnElement>Entities</appliedOnElement>
 			    <allowedValues>
 			        <value>NONE</value>
@@ -1629,7 +1629,7 @@
 			        Defines the cache strategy for relationship
 			        association collection.
 			    </documentation>
-			    <value>@andromda.persistence.association.cache</value>
+			    <value>andromda_persistence_association_cache</value>
 			    <appliedOnElement>Association End Between Entities</appliedOnElement>
 			    <allowedValues>
 			        <value>NONE</value>
@@ -1644,7 +1644,7 @@
 			        Used to override the default option that
 			        enables/disable query cache.
 			    </documentation>
-			    <value>@andromda.ejb.query.useCache</value>
+			    <value>andromda_ejb_query_useCache</value>
 			    <appliedOnElement>Query Operations</appliedOnElement>
 			    <allowedValues>
 			        <value>true</value>
@@ -1658,7 +1658,7 @@
 			        wrapped inside a top-level element named
 			        after the webservice operation.
 			    </documentation>
-			    <value>@andromda.webservice.parameter.style</value>
+			    <value>andromda_webservice_parameter_style</value>
 			    <appliedOnElement>Service and WebService</appliedOnElement>
 			    <allowedValues>
 			        <value>wrapped</value>
@@ -1675,7 +1675,7 @@
 			        or holder parameters or declare any
 			        checked exceptions.
 			    </documentation>
-			    <value>@andromda.webservice.operation.oneway</value>
+			    <value>andromda_webservice_operation_oneway</value>
 			    <appliedOnElement>WebService Operation</appliedOnElement>
 			    <allowedValues>
 			        <value>true</value>
@@ -1686,21 +1686,21 @@
 			    <documentation>
 			        Specifies the web service method name.
 			    </documentation>
-			    <value>@andromda.webservice.operation.name</value>
+			    <value>andromda_webservice_operation_name</value>
 			    <appliedOnElement>Service and WebService</appliedOnElement>
 			</element>
 			<element name="WEBSERVICE_OPERATION_RESULT_NAME">
 			    <documentation>
 			        Specifies the web service method result name.
 			    </documentation>
-			    <value>@andromda.webservice.operation.result.name</value>
+			    <value>andromda_webservice_operation_result_name</value>
 			    <appliedOnElement>Service and WebService</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_NAME">
 			    <documentation>
 			        Override the default Seam component object name.
 			    </documentation>
-			    <value>@andromda.seam.component.name</value>
+			    <value>andromda_seam_component_name</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_SCOPE_TYPE">
@@ -1710,7 +1710,7 @@
 			        The default for entity beans and stateful session beans
 			        is CONVERSATION.
 			    </documentation>
-			    <value>@andromda.seam.component.scope</value>
+			    <value>andromda_seam_component_scope</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			    <allowedValues>
 			        <value>EVENT</value>
@@ -1730,7 +1730,7 @@
 
 					This tagged value specifies the context variable name.
 			    </documentation>
-			    <value>@andromda.seam.component.role.name</value>
+			    <value>andromda_seam_component_role_name</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_ROLE_SCOPE_TYPE">
@@ -1741,7 +1741,7 @@
 					Note! If multiple roles are specified then the list of scopes must 
 					be in the same order as the role names.
 			    </documentation>
-			    <value>@andromda.seam.component.role.scope</value>
+			    <value>andromda_seam_component_role_scope</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			    <allowedValues>
 			        <value>EVENT</value>
@@ -1760,7 +1760,7 @@
 					component type. For entity beans, the default is NEVER. For session 
 					beans, message driven beans and JavaBeans, the default is ALWAYS. 
 			    </documentation>
-			    <value>@andromda.seam.component.intercept</value>
+			    <value>andromda_seam_component_intercept</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			    <allowedValues>
 			        <value>ALWAYS</value>
@@ -1776,7 +1776,7 @@
 					component. If no JNDI name is explicitly specified, Seam will use 
 					the JNDI pattern specified by org.jboss.seam.core.init.jndiPattern.
 			    </documentation>
-			    <value>@andromda.seam.component.jndiname</value>
+			    <value>andromda_seam_component_jndiname</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME">
@@ -1786,7 +1786,7 @@
 					long-running conversation started by this component is active 
 					(unless the method would begin a new long-running conversation).
 			    </documentation>
-			    <value>@andromda.seam.component.conversional.ifnotbegunoutcome</value>
+			    <value>andromda_seam_component_conversional_ifnotbegunoutcome</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_STARTUP_DEPENDS">
@@ -1794,7 +1794,7 @@
 					Specifies that the named components must be started first, if they 
 					are installed.
 			    </documentation>
-			    <value>@andromda.seam.component.startup.depends</value>
+			    <value>andromda_seam_component_startup_depends</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_SYNCHRONIZED_TIMEOUT">
@@ -1804,7 +1804,7 @@
 					not able to obtain its lock on the component in the given timeout 
 					period, an exception will be raised.
 			    </documentation>
-			    <value>@andromda.seam.component.synchronized.timeout</value>
+			    <value>andromda_seam_component_synchronized_timeout</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_COMPONENT_READONLY">
@@ -1812,7 +1812,7 @@
 					Specifies that a JavaBean component or component method does not 
 					require state replication at the end of the invocation.
 			    </documentation>
-			    <value>@andromda.seam.component.readonly</value>
+			    <value>andromda_seam_component_readonly</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_IN_CREATE">
@@ -1821,7 +1821,7 @@
 					name as the context variable if the context variable is undefined 
 					(null) in all contexts. Default to false.
 			    </documentation>
-			    <value>@andromda.seam.bijection.in.create</value>
+			    <value>andromda_seam_bijection_in_create</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_IN_VALUE">
@@ -1830,7 +1830,7 @@
 					the component attribute. Alternatively, specifies a JSF EL 
 					expression, surrounded by #{...}.
 			    </documentation>
-			    <value>@andromda.seam.bijection.in.value</value>
+			    <value>andromda_seam_bijection_in_value</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_OUT_VALUE">
@@ -1838,7 +1838,7 @@
 					Specifies the name of the context variable explicitly, instead of 
 					using the annotated instance variable name.
 			    </documentation>
-			    <value>@andromda.seam.bijection.out.value</value>
+			    <value>andromda_seam_bijection_out_value</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_OUT_SCOPE_TYPE">
@@ -1851,7 +1851,7 @@
 					the component with the @Out attribute is used (or the EVENT scope 
 					if the component is stateless). 
 			    </documentation>
-			    <value>@andromda.seam.bijection.out.scope</value>
+			    <value>andromda_seam_bijection_out_scope</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			    <allowedValues>
 			        <value>EVENT</value>
@@ -1868,7 +1868,7 @@
 					Specifies the name of the context variable. If the method is a 
 					getter method, default to the JavaBeans property name.
 			    </documentation>
-			    <value>@andromda.seam.bijection.factory.value</value>
+			    <value>andromda_seam_bijection_factory_value</value>
 			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_FACTORY_SCOPE_TYPE">
@@ -1876,7 +1876,7 @@
 					Specifies the scope that Seam should bind the returned value to. 
 					Only meaningful for factory methods which return a value. 
 			    </documentation>
-			    <value>@andromda.seam.bijection.factory.scope</value>
+			    <value>andromda_seam_bijection_factory_scope</value>
 			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
 			    <allowedValues>
 			        <value>EVENT</value>
@@ -1893,7 +1893,7 @@
 					Specifies the name of the log category. Default to the name of the 
 					component class.
 			    </documentation>
-			    <value>@andromda.seam.bijection.logger.value</value>
+			    <value>andromda_seam_bijection_logger_value</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_BIJECTION_REQUEST_PARAMETER_VALUE">
@@ -1901,7 +1901,7 @@
 					Specifies the name of the request parameter. Default to the name 
 					of the component attribute.
 			    </documentation>
-			    <value>@andromda.seam.bijection.requestparameter.value</value>
+			    <value>andromda_seam_bijection_requestparameter_value</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_LIFECYCLE_OBSERVER_EVENT">
@@ -1909,7 +1909,7 @@
 					Specifies that the method should be called when a component-driven 
 					event of the specified type occurs.
 			    </documentation>
-			    <value>@andromda.seam.lifecycle.observer.event</value>
+			    <value>andromda_seam_lifecycle_observer_event</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_IF_OUTCOME">
@@ -1919,7 +1919,7 @@
 
 					Example: @Begin(ifOutcome={"success", "continue"})
 			    </documentation>
-			    <value>@andromda.seam.conversation.begin.ifoutcome</value>
+			    <value>andromda_seam_conversation_begin_ifoutcome</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_JOIN">
@@ -1927,7 +1927,7 @@
 					Specifies that if a long-running conversation is already in 
 					progress, the conversation context is simply propagated.
 			    </documentation>
-			    <value>@andromda.seam.conversation.begin.join</value>
+			    <value>andromda_seam_conversation_begin_join</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_NESTED">
@@ -1939,7 +1939,7 @@
 					nested conversations to exist concurrently in the same outer 
 					conversation.
 			    </documentation>
-			    <value>@andromda.seam.conversation.begin.nested</value>
+			    <value>andromda_seam_conversation_begin_nested</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_FLUSH_MODE">
@@ -1950,7 +1950,7 @@
 					conversation context until an explicit call to flush() (which 
 					usually occurs at the end of the conversation).
 			    </documentation>
-			    <value>@andromda.seam.conversation.begin.flushmode</value>
+			    <value>andromda_seam_conversation_begin_flushmode</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_PAGEFLOW">
@@ -1958,7 +1958,7 @@
 					Specifies a jBPM process definition name that defines the pageflow 
 					for this conversation.
 			    </documentation>
-			    <value>@andromda.seam.conversation.begin.pageflow</value>
+			    <value>andromda_seam_conversation_begin_pageflow</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_IF_OUTCOME">
@@ -1966,7 +1966,7 @@
 				    Specifies that a long-running conversation ends when this action 
 				    listener method returns with one of the given outcomes.
 			    </documentation>
-			    <value>@andromda.seam.conversation.end.ifoutcome</value>
+			    <value>andromda_seam_conversation_end_ifoutcome</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_BEFORE_REDIRECT">
@@ -1977,7 +1977,7 @@
 					the current request, and that the redirect will be processed in a 
 					new temporary conversation context.
 			    </documentation>
-			    <value> @andromda.seam.conversation.end.beforeredirect</value>
+			    <value> andromda_seam_conversation_end_beforeredirect</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_EVEN_IF_EXCEPTION">
@@ -1985,7 +1985,7 @@
 					Specifies that a long-running conversation ends when this action 
 					listener method throws one of the specified classes of exception.
 			    </documentation>
-			    <value>@andromda.seam.conversation.end.evenifexception</value>
+			    <value>andromda_seam_conversation_end_evenifexception</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_START_TASK_ID_PARAMETER">
@@ -1994,7 +1994,7 @@
 					Default to "taskId", which is also the default used by the Seam 
 					taskList JSF component.
 			    </documentation>
-			    <value>@andromda.seam.conversation.starttask.taskidparameter</value>
+			    <value>andromda_seam_conversation_starttask_taskidparameter</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_START_TASK_FLUSH_MODE">
@@ -2002,7 +2002,7 @@
 					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
 					persistence contexts that are created during this conversation.
 			    </documentation>
-			    <value>@andromda.seam.conversation.starttask.flushmode</value>
+			    <value>andromda_seam_conversation_starttask_flushmode</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_TASK_ID_PARAMETER">
@@ -2011,7 +2011,7 @@
 					Default to "taskId", which is also the default used by the Seam 
 					taskList JSF component.
 			    </documentation>
-			    <value>@andromda.seam.conversation.begintask.taskidparameter</value>
+			    <value>andromda_seam_conversation_begintask_taskidparameter</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE">
@@ -2019,14 +2019,14 @@
 					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
 					persistence contexts that are created during this conversation.
 			    </documentation>
-			    <value>@andromda.seam.conversation.begintask.flushmode</value>
+			    <value>andromda_seam_conversation_begintask_flushmode</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_TASK_TRANSITION_NAME">
 			    <documentation>
 					Triggers the given jBPM transition.
 			    </documentation>
-			    <value>@andromda.seam.conversation.endtask.transition.name</value>
+			    <value>andromda_seam_conversation_endtask_transition_name</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_TASK_IF_OUTCOME">
@@ -2034,7 +2034,7 @@
 					Specifies the JSF outcome or outcomes that result in the end of 
 					the task.
 			    </documentation>
-			    <value>@andromda.seam.conversation.endtask.ifoutcome</value>
+			    <value>andromda_seam_conversation_endtask_ifoutcome</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT">
@@ -2045,7 +2045,7 @@
 					the current request, and that the redirect will be processed in a 
 					new temporary conversation context.
 			    </documentation>
-			    <value>@andromda.seam.conversation.endtask.beforeredirect</value>
+			    <value>andromda_seam_conversation_endtask_beforeredirect</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION">
@@ -2053,7 +2053,7 @@
 					The name of the jBPM process definition deployed via 
 					org.jboss.seam.core.jbpm.processDefinitions.
 			    </documentation>
-			    <value>@andromda.seam.conversation.createprocess.definition</value>
+			    <value>andromda_seam_conversation_createprocess_definition</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER">
@@ -2061,7 +2061,7 @@
 					The name a request parameter holding the process id. Default to 
 					"processId".
 			    </documentation>
-			    <value>@andromda.seam.conversation.resumeprocess.processIdParameter</value>
+			    <value>andromda_seam_conversation_resumeprocess_processIdParameter</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_TRANSACTION_ROLLBACK_IF_OUTCOME">
@@ -2069,14 +2069,14 @@
 					The JSF outcomes that cause a transaction rollback (no outcomes is 
 					interpreted to mean any outcome).
 			    </documentation>
-			    <value>@andromda.seam.transaction.rollback.ifoutcome</value>
+			    <value>andromda_seam_transaction_rollback_ifoutcome</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_VALIDATION_OUTCOME">
 			    <documentation>
 			        Returns the JSF outcome when validation fails.
 			    </documentation>
-			    <value>@andromda.seam.validation.outcome</value>
+			    <value>andromda_seam_validation_outcome</value>
 			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
 			</element>
 			<element name="SEAM_VALIDATION_REFRESH_ENTITIES">
@@ -2085,7 +2085,7 @@
 			        should be refreshed from the database when
 			        validation fails.
 			    </documentation>
-			    <value>@andromda.seam.validation.refreshEntities</value>
+			    <value>andromda_seam_validation_refreshEntities</value>
 			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
 			</element>
 			<element name="SEAM_WEBREMOTE_EXCLUDE">
@@ -2093,7 +2093,7 @@
 					Excludes objects from the WebRemote call result's object graph 
 					(see the Remoting chapter for more details).
 			    </documentation>
-			    <value>@andromda.seam.webremote.exclude</value>
+			    <value>andromda_seam_webremote_exclude</value>
 			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
 			</element>
 			<element name="SEAM_INTERCEPTOR_STATELESS">
@@ -2101,7 +2101,7 @@
 					Specifies that this interceptor is stateless and Seam may optimize 
 					replication.
 			    </documentation>
-			    <value>@andromda.seam.interceptor.stateless</value>
+			    <value>andromda_seam_interceptor_stateless</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_INTERCEPTOR_TYPE">
@@ -2109,7 +2109,7 @@
 					Specifies that this interceptor is a "client-side" interceptor 
 					that is called before the EJB container.
 			    </documentation>
-			    <value>@andromda.seam.interceptor.type</value>
+			    <value>andromda_seam_interceptor_type</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_INTERCEPTOR_AROUND">
@@ -2117,7 +2117,7 @@
 					Specifies that this interceptor is positioned higher in the stack 
 					than the given interceptors.
 			    </documentation>
-			    <value>@andromda.seam.interceptor.around</value>
+			    <value>andromda_seam_interceptor_around</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_INTERCEPTOR_WITHIN">
@@ -2125,7 +2125,7 @@
 					Specifies that this interceptor is positioned deeper in the stack 
 					than the given interceptors.
 			    </documentation>
-			    <value>@andromda.seam.interceptor.within</value>
+			    <value>andromda_seam_interceptor_within</value>
 			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_DATA_DATAMODEL_VALUE">
@@ -2133,7 +2133,7 @@
 					Name of the conversation context variable. Default to the attribute 
 					name.
 			    </documentation>
-			    <value>@andromda.seam.data.datamodel.value</value>
+			    <value>andromda_seam_data_datamodel_value</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_DATA_DATAMODEL_SCOPE_TYPE">
@@ -2141,7 +2141,7 @@
 					If scope=ScopeType.PAGE is explicitly specified, the DataModel will 
 					be kept in the PAGE context.
 			    </documentation>
-			    <value>@andromda.seam.data.datamodel.scope</value>
+			    <value>andromda_seam_data_datamodel_scope</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			    <allowedValues>
 			        <value>EVENT</value>
@@ -2158,7 +2158,7 @@
 					Name of the conversation context variable. Not needed if there is 
 					exactly one @DataModel in the component.
 			    </documentation>
-			    <value>@andromda.seam.data.datamodelselection.value</value>
+			    <value>andromda_seam_data_datamodelselection_value</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE">
@@ -2166,7 +2166,7 @@
 					Name of the conversation context variable. Not needed if there is 
 					exactly one @DataModel in the component.
 			    </documentation>
-			    <value>@andromda.seam.data.datamodelselectionindex.value</value>
+			    <value>andromda_seam_data_datamodelselectionindex_value</value>
 			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
 			</element>
 			<element name="SEAM_DATA_DATABINDER_CLASS">
@@ -2177,7 +2177,7 @@
 
 				    The class name of the DataModelBinder class
 			    </documentation>
-			    <value>@andromda.seam.data.databinderclass</value>
+			    <value>andromda_seam_data_databinderclass</value>
 			    <appliedOnElement>Java Interfaces</appliedOnElement>
 			</element>
 			<element name="SEAM_DATA_DATASELECTOR_CLASS">
@@ -2188,7 +2188,7 @@
 
 					The DataModelSelector class.
 			    </documentation>
-			    <value>@andromda.seam.data.dataselectorclass</value>
+			    <value>andromda_seam_data_dataselectorclass</value>
 			    <appliedOnElement>Java Interfaces</appliedOnElement>
 			</element>
 		</elementGroup>

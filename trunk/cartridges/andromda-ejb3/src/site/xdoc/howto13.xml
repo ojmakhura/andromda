@@ -66,7 +66,7 @@
                 <p>
                     To define a default interceptor for your deployment, model the standard
                     <![CDATA[<<Interceptor>>]]> stereotype on a class and specify the
-                    <code>@andromda.service.interceptor.default</code> tagged value as true on this class.
+                    <code>andromda_service_interceptor_default</code> tagged value as true on this class.
                     Since this interceptor is invoked
                     for all business methods of all beans, you do not need to model any dependencies on it.
                     The cartridge will generate the class with the necessary interceptor operation and
@@ -142,14 +142,14 @@
                 </p>
                 <p>
                     To exclude the default interceptors, model the 
-                    <code>@andromda.service.interceptor.excludeDefault</code> tagged value.  If this is applied to
+                    <code>andromda_service_interceptor_excludeDefault</code> tagged value.  If this is applied to
                     a bean class, then the interceptor will be ignored for all methods of the bean class.  If
                     it is modeled on a business method of a bean, then invocation of that business method
                     will NOT trigger invocation of the defined default interceptors.
                 </p>
                 <p>
                     To exclude class level interceptors, model the
-                    <code>@andromda.service.interceptor.excludeClass</code> tagged value on business method
+                    <code>andromda_service_interceptor_excludeClass</code> tagged value on business method
                     of beans.  This will prevent the container from invoking the defined class level interceptor
                     when the associated bean method is invoked.
                 </p>

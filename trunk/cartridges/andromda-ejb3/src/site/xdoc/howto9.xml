@@ -193,11 +193,11 @@
                 <p>
                     The discriminator column name defaults to <code>TYPE</code> of type <code>STRING</code>.  To
                     set the discriminator column name, you model the 
-                    <code>@andromda.persistence.discriminator.colum.name</code> tagged value on the root class.
+                    <code>andromda_persistence_discriminator_colum_name</code> tagged value on the root class.
                 </p>
                 <p>
                     To specify the discriminator colum type, you model the 
-                    <code>@andromda.persistence.discriminator.type</code> tagged value on the root class.  Your column
+                    <code>andromda_persistence_discriminator_type</code> tagged value on the root class.  Your column
                     type options are:
                 </p>
                 <ul>
@@ -207,17 +207,17 @@
                 </ul>
                 <p>
                     You can set the discriminator column length if the colum type is specified as
-                    <code>STRING</code> by modeling the <code>@andromda.persistence.discriminator.column.length</code>
+                    <code>STRING</code> by modeling the <code>andromda_persistence_discriminator_column_length</code>
                     tagged value on the root class.  The default is 10.
                 </p>
                 <p>
                     In some cases, you may want to explicitly define the SQL fragment when generating the DDL
                     for the discriminator column.  To do this, simply model the
-                    <code>@andromda.persistence.discriminator.colum.definition</code> tagged value on the
+                    <code>andromda_persistence_discriminator_colum_definition</code> tagged value on the
                     root class.
                 </p>
                 <p>
-                    Most importantly, you can model the <code>@andromda.persistence.discriminator.value</code>
+                    Most importantly, you can model the <code>andromda_persistence_discriminator_value</code>
                     tagged value <b>on all classes</b> in the hierarchy.  This value indicates the row in the table
                     is an entity of the annotated entity type.  This is shown in the above diagram on entities
                     Vehicle and Car.  However, by default, if no discriminator value is specified for single
@@ -242,7 +242,7 @@
                 </p>
                 <p>
                     Since the default inheritance mapping strategy is single table per hierarchy, you can model
-                    the <code>@andromda.persistence.inheritance</code> tagged value and set it to 
+                    the <code>andromda_persistence_inheritance</code> tagged value and set it to 
                     <code>TABLE_PER_CLASS</code> on the root class of the hierarchy.
                     All subclasses follow this same strategy.
                 </p>
@@ -264,7 +264,7 @@
                 </p>
                 <p>
                     Since the default inheritance mapping strategy is single table per hierarchy, you can model
-                    the <code>@andromda.persistence.inheritance</code> tagged value and set it to 
+                    the <code>andromda_persistence_inheritance</code> tagged value and set it to 
                     <code>JOINED</code> on the root class of the hierarchy.
                     All subclasses follow this same strategy.
                 </p>

@@ -265,7 +265,7 @@
                     This property takes either true or false as values. If set to true all dates and times
                     entered by the end-user will fail validation if they do not strictly adhere to their given format.
                     Note that this strictness can always be overriden locally
-                    using the @andromda.struts.view.field.format tagged value.
+                    using the andromda_struts_view_field_format tagged value.
                 </documentation>
             </property>
             <property name="defaultTimeFormat">

@@ -88,13 +88,13 @@
                     deployment descriptor.
                 </p>
                 <p>
-                    If you wish, you can override this feature by modeling the <code>@andromda.service.type</code>
+                    If you wish, you can override this feature by modeling the <code>andromda_service_type</code>
                     tagged value on the session bean class.
                 </p>
                 <p class="highlight">
                     Stateless session beans that are JBoss Seam components do not follow the above rule.  If your
                     class is modeled as a Seam component and you have modeled attributes on this class, it will not
-                    be rendered as a stateful session bean, unless you specify the <code>@andromda.service.type</code>
+                    be rendered as a stateful session bean, unless you specify the <code>andromda_service_type</code>
                     tagged value.
                 </p>
             </subsection>
@@ -107,7 +107,7 @@
                 </p>
                 <p>
                     To create a local view interface and register this with the container, you model the
-                    <code>@andromda.ejb.viewType</code> on the session bean operation or at the class level
+                    <code>andromda_ejb_viewType</code> on the session bean operation or at the class level
                     of the session bean.  Your options are:
                 </p>
                 <ul>
@@ -124,7 +124,7 @@
             <subsection name="Transactions">
                 <p>
                     To declare the transactional nature of session bean business methods, you can model
-                    the <code>@andromda.ejb.transaction.type</code> tagged value on the session bean business 
+                    the <code>andromda_ejb_transaction_type</code> tagged value on the session bean business 
                     methods individually, or on the session bean class.  To find out more information, click on
                     <a href="howto15.html">Transaction</a>.
                 </p>
@@ -197,9 +197,9 @@
                 </p>
                 <p>
                     You can override the default JNDI bindings.  To specify the JNDI name of the local interface
-                    bound to the session bean, model the <code>@andromda.service.jndi.local</code> tagged value on
+                    bound to the session bean, model the <code>andromda_service_jndi_local</code> tagged value on
                     the session bean class.  To specify the JNDI name of the remote interface bound to
-                    the session bean, model the <code>@andromda.service.jndi.remote</code> tagged value
+                    the session bean, model the <code>andromda_service_jndi_remote</code> tagged value
                     on the session bean class.
                 </p>
             </subsection>
@@ -218,13 +218,13 @@
                 <ul>
                     <li>
                         <p>
-                            <code>@andromda.service.persistence.context.unit.name</code>
+                            <code>andromda_service_persistence_context_unit_name</code>
                             Override the unit name for the default persistence context.
                         </p>
                     </li>
                     <li>
                         <p>
-                            <code>@andromda.service.persistence.context.unit.type</code>
+                            <code>andromda_service_persistence_context_unit_type</code>
                             Specify whether a transaction scoped or extended scoped persistence context
                             is required for the persistence context associated with the default entity manager.
                         </p>
@@ -271,7 +271,7 @@
                 </ul>
 	            <p>
 	                Notice that <code>SecondaryEntityManager</code> has defined the 
-	                <code>@andromda.service.persistence.context.datasource</code> tagged value specifying the
+	                <code>andromda_service_persistence_context_datasource</code> tagged value specifying the
 	                JNDI name of the JDBC datasource used in this persistence context.  You can specify this tag 
 	                on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modeled.
 	            </p>

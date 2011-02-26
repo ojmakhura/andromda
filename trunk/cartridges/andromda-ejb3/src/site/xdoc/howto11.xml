@@ -42,7 +42,7 @@
                 </p>
                 <p>
                     If a session bean is marked for bean managed transaction demarcation by modeling the
-                    <code>@andromda.ejb.transaction.management</code> tagged value set to <code>BEAN</code>,
+                    <code>andromda_ejb_transaction_management</code> tagged value set to <code>BEAN</code>,
                     then the EJB3 cartridge will automatically inject an instance of <code>UserTransaction</code> 
                     into the variable <code>userTrans</code> using a <code>protected</code> visibility.  You can
                     then use this <code>UserTransaction</code> instance in the session bean implementation.

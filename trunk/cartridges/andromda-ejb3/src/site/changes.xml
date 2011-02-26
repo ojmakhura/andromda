@@ -66,8 +66,8 @@
         is no longer supported.
       </action>
       <action dev="vancek" type="add">
-        Added minimumPoolSize (@andromda.ejb.mdb.pool.size.min) and maximumPoolSize
-        (@andromda.ejb.mdb.pool.size.min) tagged value options for message 
+        Added minimumPoolSize (andromda_ejb_mdb_pool_size_min) and maximumPoolSize
+        (andromda_ejb_mdb_pool_size_min) tagged value options for message 
         driven beans i.e. to allow singleton message driven beans.  These are added as
         activation config properties to the ejb-jar.xml.  Added documentation.
       </action>
@@ -159,7 +159,7 @@
         Added support for default list, set and map type implementations for collection association ends in 
         namespace.xml.  Also added the ability
         for association end collection index name and type (further map support) to be specified via tagged values 
-        @andromda.persistence.collection.index and @andromda.persistence.collection.index.type.  This introduced
+        andromda_persistence_collection_index and andromda_persistence_collection_index_type.  This introduced
         a new facade called EJB3TypeFacade.
         Every collection type association end now instantiates the corresponding implementation upon
         declaration.
@@ -456,13 +456,13 @@
       </action>
       <action dev="vancek" due-to="heapifyman" type="add">
         JIRA EJB-51 - Provide support for Hibernate cascade on association ends by modelling the 
-        @andromda.hibernate.cascade tagged value.  This will only work if Hibernate extensions is enabled
+        andromda_hibernate_cascade tagged value.  This will only work if Hibernate extensions is enabled
         (persistenceProviderExtensions namespace property is set to hibernate). This request was for the
         org.hibernate.annotations.CascadeType.DELETE_ORPHAN cascade type on the one-to-many end, however
         support for this annotations is provided for all association types.  It's up to the user to restrict
         this annotations suitably. i.e. Only specify the DELETE_ORPHAN on the one-to-many end.
         To add more than one cascade property, simply comma separate the types when setting the value of
-        the @andromda.hibernate.cascade tagged value.
+        the andromda_hibernate_cascade tagged value.
       </action>
       <action dev="vancek" due-to="khwalk" type="fix">
         JIRA EJB-53 - When a modeled entity with a MappedSuperclass stereotype has an association to another
@@ -502,7 +502,7 @@
         used for one-to-many associations and the AndroMDA naming convention was used for many-to-many associations.  
         We are now adopting the the EJB 3.0 naming convention for join table names for both association types.
         To avoid recreation of join tables for existing many-to-many associations, you have the choice of specifying
-        the @andromda.persistence.table tagged value on the specific associations or setting the association name
+        the andromda_persistence_table tagged value on the specific associations or setting the association name
         to correspond to the join table.  You should also define the namespace property
         relationNameSeparator in the andromda.xml within the ejb3 namespace with a value of underscore (_) if you
         wish to adopt this separator.  The default separator will remain the AndroMDA default digit two.
@@ -519,9 +519,9 @@
       <action dev="vancek" due-to="hermida" type="fix">
         JIRA EJB-67, EJB-68, EJB-69 - Improved generation of JoinColumn and JoinTable annotations for all apprpriate
         associations.  By default, foreign key column names have the _FK suffix.  You can explicitly overwrite
-        FK column names by defining the @andromda.persistence.column tagged value.  You can also explicitly overwrite
+        FK column names by defining the andromda_persistence_column tagged value.  You can also explicitly overwrite
         the foreign key constraint names by enabling hibernate extensions and modeling the
-        @andromda.persistence.foreignkey.constraint tagged value.  Refer to the relationshipts howto for further
+        andromda_persistence_foreignkey_constraint tagged value.  Refer to the relationshipts howto for further
         details.  You should be aware that this patch will change the way the cartridge generates your foreign keys.
         Previously, it appended the _C suffix.  
       </action>

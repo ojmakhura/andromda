@@ -334,7 +334,7 @@
                 <documentation>
                     Defines the default strategy for Entities caching. 
                     Can be overwritten using the corresponding
-                    tagged value <code>@andromda.persistence.entity.cache</code>.
+                    tagged value <code>andromda_persistence_entity_cache</code>.
                     Possible values are:
                     <ul>
                        <li>READ_WRITE</li>
@@ -350,7 +350,7 @@
                 <documentation>
                     Defines the default strategy for associations between 
                     Entities caching. Can be overwrited with the corresponding 
-                    tagged value <code>@andromda.persistence.association.cache</code>.
+                    tagged value <code>andromda_persistence_association_cache</code>.
                     Possible values are:
                     <ul>
                        <li>READ_WRITE</li>
@@ -371,7 +371,7 @@
 		            stateless and stateful session bean
 		            clustering.  You can override the
 		            default setting via the
-		            <code>@andromda.service.clustered</code>
+		            <code>andromda_service_clustered</code>
 		            tagged value.  Possible values are:
 		            <ul>
 		                <li>true</li>
@@ -786,7 +786,7 @@
 				<documentation>
 					Default entity identifier primary key generator type
 					set to AUTO unless specified using
-					@andromda.persistence.column.generatorType tagged
+					andromda_persistence_column_generatorType tagged
 					value.
 				</documentation>
 			</property>
@@ -812,7 +812,7 @@
 					entity level by the
 					<a
 						href="profile.html#@andromda._persistence_inheritance">
-						@andromda.persistence.inheritance
+						andromda_persistence_inheritance
 					</a>
 					tagged value, can be the following possible values:
 					<ul>
@@ -1183,7 +1183,7 @@
                 <documentation>
                     The default association end collection index name 
                     (this can be overridden by the
-                    <a href="profile.html#@andromda_persistence_collection_index">@andromda.persistence.collection.index</a>).
+                    <a href="profile.html#@andromda_persistence_collection_index">andromda_persistence_collection_index</a>).
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexType" required="false">
@@ -1191,7 +1191,7 @@
                 <documentation>
                     The default association end collection index type 
                     (this can be overridden by the
-                    <a href="profile.html#@andromda_persistence_collection_index_type">@andromda.persistence.collection.index.type</a>
+                    <a href="profile.html#@andromda_persistence_collection_index_type">andromda_persistence_collection_index_type</a>
                     (this is applicable when the collection is a map).
                 </documentation>
             </property>
@@ -1246,7 +1246,7 @@
 					Can be overridden on a per bean/bean operation basis with the
 					<a
 						href="profile.html#@andromda_ejb_transaction_type">
-						@andromda.ejb.transaction.type
+						andromda_ejb_transaction_type
 					</a>
 					tagged value.
 				</documentation>

@@ -78,7 +78,7 @@
                     Please note: This is currently only available in BEA Weblogic
                     and can not be used with combined primary keys.
                 </documentation>
-                <value>@andromda.ejb.automaticKey</value>
+                <value>andromda_ejb_automaticKey</value>
                 <appliedOnElement>Entity attribute</appliedOnElement>
             </element>
             <element name="QUERY">
@@ -87,14 +87,14 @@
                     to model your query body as an OCL constraint (instead of using
                     this tagged value).
                 </documentation>
-                <value>@andromda.ejb.query</value>
+                <value>andromda_ejb_query</value>
                 <appliedOnElement>An Entity operation marked as a <code>query</code>.</appliedOnElement>
             </element>
             <element name="VIEW_TYPE">
                 <documentation>
                     Defines the view type for a Session EJB.
                 </documentation>
-                <value>@andromda.ejb.viewType</value>
+                <value>andromda_ejb_viewType</value>
                 <appliedOnElement>Service</appliedOnElement>
                 <allowedValues>
                     <value default="true">remote</value>
@@ -106,7 +106,7 @@
                 <documentation>
                     Defines a transaction type for the method.
                 </documentation>
-                <value>@andromda.transaction.type</value>
+                <value>andromda_transaction_type</value>
                 <appliedOnElement>Service operation</appliedOnElement>
                 <allowedValues>
                     <value>NotSupported</value>
@@ -121,21 +121,21 @@
                 <documentation>
                     Defines the relational table name for entity persistence.
                 </documentation>
-                <value>@andromda.persistence.table</value>
+                <value>andromda_persistence_table</value>
                 <appliedOnElement>Entity or a many-to-many association.</appliedOnElement>
             </element>
             <element name="COLUMN">
                 <documentation>
                     Represents the column name for entity persistence.
                 </documentation>
-                <value>@andromda.persistence.column</value>
+                <value>andromda_persistence_column</value>
                 <appliedOnElement>Entity attribute</appliedOnElement>
             </element>
             <element name="COLUMN_LENGTH">
                 <documentation>
                     Represents the column length for entity persistence.
                 </documentation>
-                <value>@andromda.persistence.column.length</value>
+                <value>andromda_persistence_column_length</value>
                 <appliedOnElement>Entity attribute</appliedOnElement>
             </element>
         </elementGroup>

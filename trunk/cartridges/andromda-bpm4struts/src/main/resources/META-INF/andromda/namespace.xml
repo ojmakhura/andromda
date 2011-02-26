@@ -117,7 +117,7 @@
                     This property takes either true or false as values. If set to true all dates and times
                     entered by the end-user will fail validation if they do not strictly adhere to their given format.
                     Note that this strictness can always be overriden locally
-                    using the @andromda.struts.view.field.format tagged value.
+                    using the andromda_struts_view_field_format tagged value.
                 </documentation>
             </property>
             <property name="defaultInputColumnCount" required="false">
@@ -327,7 +327,7 @@
                     The default scope in which the action's <code>form</code> attribute will be placed when the
                     action is executing. Normally it doesn't make sense to change this value from the default,
                     however you may occasionaly need to override this value using the
-                    <a href="profile.html#@andromda_struts_action_form_scope">@andromda.struts.action.form.scope</a>
+                    <a href="profile.html#@andromda_struts_action_form_scope">andromda_struts_action_form_scope</a>
                     for a given action. The possible values are:
                     <ul>
                         <li>none - doesn't set the form attribute in any scope</li>

@@ -49,7 +49,7 @@
                 <documentation>
                     Indicates the type of trigger causing the action.
                 </documentation>
-                <value>@andromda.presentation.web.action.type</value>
+                <value>andromda_presentation_web_action_type</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
@@ -65,7 +65,7 @@
                     If the column is specified the action will be rendered in that specific column, otherwise a new
                     column will be created for it.
                 </documentation>
-                <value>@andromda.presentation.web.action.tablelink</value>
+                <value>andromda_presentation_web_action_tablelink</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
             </element>
             <element name="ACTION_FORM_SCOPE">
@@ -73,7 +73,7 @@
                     This allows one to override the action form scope defined
                     by the <a href="namespace.html#actionFormScope">actionFormScope</a> namespace property.
                 </documentation>
-                <value>@andromda.presentation.web.action.form.scope</value>
+                <value>andromda_presentation_web_action_form_scope</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>session</value>
@@ -90,7 +90,7 @@
                     <em>Please note that using this feature in combination with passing parameters across use-cases
                     will not work, only use this feature for use-cases that stand on their own.</em>
                 </documentation>
-                <value>@andromda.presentation.web.action.form.key</value>
+                <value>andromda_presentation_web_action_form_key</value>
                 <appliedOnElement>A <![CDATA[<<FrontEndUseCase>>]]></appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
@@ -102,7 +102,7 @@
                     Set this value to <code>true</code> if you want to be able
                     to reset forms to their initial values
                 </documentation>
-                <value>@andromda.presentation.web.action.resettable</value>
+                <value>andromda_presentation_web_action_resettable</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -113,7 +113,7 @@
                 <documentation>
                     On action completion will have a success message rendered on screen
                 </documentation>
-                <value>@andromda.presentation.action.success.message</value>
+                <value>andromda_presentation_action_success_message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -126,7 +126,7 @@
                 <documentation>
                     On action completion will have a warning message rendered on screen
                 </documentation>
-                <value>@andromda.presentation.action.warning.message</value>
+                <value>andromda_presentation_action_warning_message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -140,7 +140,7 @@
                     Denotes whether or not this is a required field. If a field is required its type will always be
                     checked (you cannot enter a String value when an int is expected)
                 </documentation>
-                <value>@andromda.presentation.view.field.required</value>
+                <value>andromda_presentation_view_field_required</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -151,7 +151,7 @@
                 <documentation>
                     Denotes the number of columns an input field should have.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.size</value>
+                <value>andromda_presentation_web_view_field_size</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">browser specific</value>
@@ -162,10 +162,10 @@
                 <documentation>
                     Denotes the number of rows on a textarea field.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.rows</value>
+                <value>andromda_presentation_web_view_field_rows</value>
                 <appliedOnElement>
                     Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype,
-                    while having <code>@andromda.presentation.web.view.field.textarea</code>
+                    while having <code>andromda_presentation_web_view_field_textarea</code>
                 </appliedOnElement>
                 <allowedValues>
                     <value default="true">5</value>
@@ -176,7 +176,7 @@
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
-                <value>@andromda.presentation.view.field.readonly</value>
+                <value>andromda_presentation_view_field_readonly</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -262,7 +262,7 @@
                         Netscape's guide to regular expressions in Javascript</a>
                     </p>
                 </documentation>
-                <value>@andromda.presentation.view.field.format</value>
+                <value>andromda_presentation_view_field_format</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>Any of the formats listed above</value>
@@ -276,7 +276,7 @@
                     One of the tables below give some more information about field formats, for a list of
                     possible types see <a href="user-guide.html#Field_Types">this page</a>
                 </documentation>
-                <value>@andromda.presentation.web.view.field.type</value>
+                <value>andromda_presentation_web_view_field_type</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">text</value>
@@ -293,11 +293,11 @@
             <element name="INPUT_MULTIBOX">
                 <documentation>
                     Can only be used in combination with
-                    <code>@andromda.presentation.web.view.field.type=multibox</code> in a table. This tagged value
+                    <code>andromda_presentation_web_view_field_type=multibox</code> in a table. This tagged value
                     specified the incoming page-variable that is holding the values to match against. If
                     a match is found the checkbox will be checked for the corresponding row.
                 </documentation>
-                <value>@andromda.presentation.view.field.multibox</value>
+                <value>andromda_presentation_view_field_multibox</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>any name of a page-variable that is a datatype::Collection type</value>
@@ -305,14 +305,14 @@
             </element>
             <element name="INPUT_RADIO">
                 <documentation>
-                    Can be used in combination with the <code>@andromda.presentation.web.view.field.type=radio</code>
+                    Can be used in combination with the <code>andromda_presentation_web_view_field_type=radio</code>
                     tagged value. Use it to specify the number of options to render, the values of these
                     options will always be the same, alternatively
                     you can specify a comma-separated list of runtime properties if you prefer the values
                     to be updateable at runtime. If this tagged value is not specified the cartridge will
                     assume it to have value '3'.
                 </documentation>
-                <value>@andromda.presentation.view.field.radio</value>
+                <value>andromda_presentation_view_field_radio</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -328,7 +328,7 @@
                     <code>http://struts.apache.org/struts-action/userGuide/building_view.html#validator</code>. The required
                     parentheses will automatically be placed around your condition.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.validwhen</value>
+                <value>andromda_presentation_web_view_field_validwhen</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a Struts 'validwhen' condition</value>
@@ -349,7 +349,7 @@
                     (I recommend against using names used by known validators: minlength,
                     test, datePattern, ...)
                 </documentation>
-                <value>@andromda.presentation.web.view.field.validators</value>
+                <value>andromda_presentation_web_view_field_validators</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a call to one of your custom validators</value>
@@ -360,7 +360,7 @@
                     Denotes the parameter of type <code>datatype::Date</code> is to be rendered with a calendar
                     popup next to it.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.calendar</value>
+                <value>andromda_presentation_web_view_field_calendar</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -380,12 +380,12 @@
                     resides, this is useful to eg. display a list of persons and view
                     their details by simply clicking on their names in the table
                     (for that to work this parameter's type should be 'link', use the
-                    <code>@andromda.presentation.web.view.field.type=link</code> tagged value for that).
+                    <code>andromda_presentation_web_view_field_type=link</code> tagged value for that).
                     The column name is optional, if you do not specify it the name
                     of the parameter will be assumed.
                     By setting the parameter type you can have any widget rendered into the table.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.tablelink</value>
+                <value>andromda_presentation_web_view_field_tablelink</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -400,7 +400,7 @@
                     after the execution of the action.  This is useful when you want only
                     some of the parameters reset on the form but not all of them.
                 </documentation>
-                <value>@andromda.presentation.web.view.field.reset</value>
+                <value>andromda_presentation_web_view_field_reset</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -417,7 +417,7 @@
                     Properties are separated using a comma ','. More than one value maybe be assigned to
                     this tag, all properties will correctly be resolved.
                 </documentation>
-                <value>@andromda.presentation.view.table.columns</value>
+                <value>andromda_presentation_view_table_columns</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -432,7 +432,7 @@
                     also known as the 'page size'. If the number of entries is a number greater
                     than this value then a list of pages will be displayed to jump to the other values.
                 </documentation>
-                <value>@andromda.presentation.view.table.maxrows</value>
+                <value>andromda_presentation_view_table_maxrows</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -451,7 +451,7 @@
                     <code>none</code> value to disable exporting for this table, this value will take
                     priority over any other ones if specified.
                 </documentation>
-                <value>@andromda.presentation.view.table.export</value>
+                <value>andromda_presentation_view_table_export</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -468,7 +468,7 @@
                     Indicates whether or not it should be possible to sort the columns by clicking
                     on the header.
                 </documentation>
-                <value>@andromda.presentation.view.table.sortable</value>
+                <value>andromda_presentation_view_table_sortable</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -483,7 +483,7 @@
                     Whether or not to generate a displaytag table decorator for this table. Can be used
                     in combination with the <code>generateTableDecorators</code> namespace property.
                 </documentation>
-                <value>@andromda.struts.view.table.decorator</value>
+                <value>andromda_struts_view_table_decorator</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -497,7 +497,7 @@
                 <documentation>
                     Indicates which exception this handler takes care of
                 </documentation>
-                <value>@andromda.presentation.exception.type</value>
+                <value>andromda_presentation_exception_type</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>the fully qualified name of a Java java.lang.Exception type</value>
@@ -508,7 +508,7 @@
                 <documentation>
                     Indicates whether or not HTTP redirection should occur when forwarded on to the next action
                 </documentation>
-                <value>@andromda.presentation.web.action.redirect</value>
+                <value>andromda_presentation_web_action_redirect</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -521,7 +521,7 @@
                     to avoid downloading thousands of rows each time, most of the time the user will want to use
                     the search facility to refine the result set
                 </documentation>
-                <value>@andromda.manageable.table.maxlistsize</value>
+                <value>andromda_manageable_table_maxlistsize</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -532,7 +532,7 @@
                 <documentation>
                     The maximum number of records to show on the same page.
                 </documentation>
-                <value>@andromda.manageable.table.pagesize</value>
+                <value>andromda_manageable_table_pagesize</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -547,7 +547,7 @@
                     from a combobox and you would like to see a more meaningful label for each option, if no
                     <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
-                <value>@andromda.manageable.table.displayname</value>
+                <value>andromda_manageable_table_displayname</value>
                 <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>any column name present in this entity</value>
@@ -560,7 +560,7 @@
                     want to disable this feature if you are sure the target entity can have many different values
                     (meaning a table with lots of records).
                 </documentation>
-                <value>@andromda.manageable.table.resolveable</value>
+                <value>andromda_manageable_table_resolveable</value>
                 <appliedOnElement>Association end to a class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">true</value>

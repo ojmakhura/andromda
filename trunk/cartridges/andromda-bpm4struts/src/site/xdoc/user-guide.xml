@@ -183,7 +183,7 @@
         <section name="Field Types">
             <p>
                 If you wish to display input fields using a special widget you can do so using the
-                @andromda.presentation.web.view.field.type tagged value. Depending on that value the
+                andromda_presentation_web_view_field_type tagged value. Depending on that value the
                 parameter will be treated differently.
             </p>
             <table cellpadding="5" rules="all">
@@ -213,7 +213,7 @@
                 <tr>
                     <td>radio</td>
                     <td>renders radiobuttons, by default there are 3 of them; use the
-                        <code>@andromda.struts.view.field.radio</code> tagged value, it denotes the number of choices
+                        <code>andromda_struts_view_field_radio</code> tagged value, it denotes the number of choices
                         for this parameter: the value you enter for that tagged value will determine the number of
                         radiobuttons that will be rendered.
                         Alternatively you can use a comma-separated list of property values instead of an

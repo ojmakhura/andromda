@@ -48,7 +48,7 @@
                 <li>Click on the
                     <i>Tagged Values</i>
                     tab and then click on the tagged value named
-                    <tt>@andromda.persistence.table</tt>. This tagged value allows you to override
+                    <tt>andromda_persistence_table</tt>. This tagged value allows you to override
                     the default table name for the entity. Click the
                     <i>Add Value</i>
                     button. Enter
@@ -69,7 +69,7 @@
                 </li>
                 <li>
                     Note that the tagged value shows up in the diagram and its owning stereotype
-                    <tt>@andromda.persistence.table</tt>.
+                    <tt>andromda_persistence_table</tt>.
                     You can make MagicDraw 15.5 hide the tagged values, but you can't select which stereotypes
                     you want to be displayed. If you want to hide the tag value, right-click
                     on the entity and choose<i>Presentation Options</i>, then deselect<i>Show Tagged
