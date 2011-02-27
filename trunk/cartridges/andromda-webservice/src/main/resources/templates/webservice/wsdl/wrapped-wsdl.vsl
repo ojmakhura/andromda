@@ -21,9 +21,7 @@
 #if ($stringUtils.isNotBlank($operation.getDocumentation("", 9999, false)))
                 <xs:annotation>
                     <xs:documentation>
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$operation.getDocumentation("                        ", 64, false)
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($operation.getDocumentation("                        ", 64, false), "\"'&<>", "")
                     </xs:documentation>
                 </xs:annotation>
 #end
@@ -35,9 +33,7 @@ $operation.getDocumentation("                        ", 64, false)
 #if ($stringUtils.isNotBlank($argument.getDocumentation("", 9999, false)))
                             <xs:annotation>
                                 <xs:documentation>
-#if (!$stringUtils.containsNone($argument.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$argument.getDocumentation("                                    ", 64, false)
-#if (!$stringUtils.containsNone($argument.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($argument.getDocumentation("                                    ", 64, false), "\"'&<>", "")
                                 </xs:documentation>
                             </xs:annotation>
 #end
@@ -100,9 +96,7 @@ $argument.getDocumentation("                                    ", 64, false)
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
                 <xs:annotation>
                     <xs:documentation>
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$type.getDocumentation("                        ", 64, false)
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($type.getDocumentation("                        ", 64, false), "\"'&<>", "")
                     </xs:documentation>
                 </xs:annotation>
 #end
@@ -113,9 +107,7 @@ $type.getDocumentation("                        ", 64, false)
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
                         <xs:annotation>
                             <xs:documentation>
-#if (!$stringUtils.containsNone($literal.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$literal.getDocumentation("                                ", 64, false)
-#if (!$stringUtils.containsNone($literal.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($literal.getDocumentation("                                ", 64, false), "\"'&<>", "")
                             </xs:documentation>
                         </xs:annotation>
 #end
@@ -128,9 +120,7 @@ $literal.getDocumentation("                                ", 64, false)
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
                 <xs:annotation>
                     <xs:documentation>
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$type.getDocumentation("                        ", 64, false)
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($type.getDocumentation("                        ", 64, false), "\"'&<>", "")
                     </xs:documentation>
                 </xs:annotation>
 #end
@@ -148,9 +138,7 @@ $type.getDocumentation("                        ", 64, false)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
                         <xs:annotation>
                             <xs:documentation>
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$attribute.getDocumentation("                                ", 64, false)
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($attribute.getDocumentation("                                ", 64, false), "\"'&<>", "")
                             </xs:documentation>
                         </xs:annotation>
 #end
@@ -167,9 +155,7 @@ $attribute.getDocumentation("                                ", 64, false)
 #if ($stringUtils.isNotBlank($otherEnd.getDocumentation("", 9999, false)))
                         <xs:annotation>
                             <xs:documentation>
-#if (!$stringUtils.containsNone($otherEnd.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$otherEnd.getDocumentation("                                ", 64, false)
-#if (!$stringUtils.containsNone($otherEnd.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($otherEnd.getDocumentation("                                ", 64, false), "\"'&<>", "")
                             </xs:documentation>
                         </xs:annotation>
 #end
@@ -209,9 +195,7 @@ $otherEnd.getDocumentation("                                ", 64, false)
         <wsdl:operation name="$operation.name">
 #if ($stringUtils.isNotBlank($operation.getDocumentation("", 9999, false)))
             <wsdl:documentation>
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$operation.getDocumentation("                ", 64, false)
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($operation.getDocumentation("                ", 64, false), "\"'&<>", "")
             </wsdl:documentation>
 #end
             <wsdl:input message="${service.namespacePrefix}:${operation.name}Request"

@@ -37,7 +37,7 @@ import org.apache.abdera.model.Feed;
 #if (!$cxfVersion.startsWith("2.0"))
 import javax.xml.bind.annotation.XmlSeeAlso;
 #end
-## Request and ResponseWrapper classes are copied from CXF scratch area after running buildWS.xml
+## Request and Response Wrapper classes are copied from CXF scratch area after running buildWS.xml
 #if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
@@ -78,9 +78,9 @@ public interface ${service.name}SEI
     * Invokes the $operation.name service method on ${service.name}. $operation.restAtom
 $operation.getDocumentation("    * ")
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
-##set ($returnType = "$stringUtils.capitalize(${operation.operationName})ResponseWrapper")
+##set ($returnType = "$stringUtils.capitalize(${operation.operationName})Response")
 ##    * @param $stringUtils.capitalize(${operation.operationName})RequestWrapper ${operation.operationName}RequestWrapper
-##    * @return ${operation.operationName}ResponseWrapper $returnType
+##    * @return ${operation.operationName}Response $returnType
 ##else
 #if (!$useArrayWrapper && $operation.many)
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
@@ -96,9 +96,9 @@ $operation.getDocumentation("    * ")
     * @param $parameter.name $parameter.type.fullyQualifiedName required=$parameter.required Multiplicity $multiplicity
 #end
 #if ($operation.restAtom)
-    * @return ${operation.operationName}ResponseWrapper org.apache.abdera.model.Feed
+    * @return ${operation.operationName}Response org.apache.abdera.model.Feed
 #elseif ($operation.returnTypePresent)
-    * @return ${operation.operationName}ResponseWrapper $returnType
+    * @return ${operation.operationName}Response $returnType
 #end
 ##end
 #foreach ( $exception in $operation.exceptions)
@@ -132,10 +132,10 @@ $operation.getDocumentation("    * ")
 #else
 #set ($returnName=$stringUtils.capitalize($operation.name))
 #end
-    @WebResult(name = "$returnName", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end") //, partName = "${operation.name}ResponseWrapper")
+    @WebResult(name = "$returnName", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end") //, partName = "${operation.name}Response")
 #if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
-    @ResponseWrapper(localName = "${operation.operationName}ResponseWrapper", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)ResponseWrapper")
+    @ResponseWrapper(localName = "${operation.operationName}Response", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)Response")
 #end
     @RequestWrapper(localName = "${operation.operationName}", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end", className = "${service.packageName}.$stringUtils.capitalize($operation.operationName)")
 #end

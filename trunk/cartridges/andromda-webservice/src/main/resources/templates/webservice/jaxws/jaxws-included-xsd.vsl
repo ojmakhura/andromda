@@ -36,11 +36,7 @@
         <xs:element name="${operation.operationName}">
 #if ($stringUtils.isNotBlank($operation.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$operation.getDocumentation("                ", 100, false)
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($operation.getDocumentation("                ", 100, false), "\"'&<>", "")
             </xs:documentation></xs:annotation>
 #end
 #if (!$operation.arguments.empty)
@@ -93,11 +89,7 @@ $operation.getDocumentation("                ", 100, false)
                         <xs:annotation>
                           <xs:documentation>
 ##    <!-- $stringUtils.containsNone($parameter.getDocumentation("", 64, false), '<') !$stringUtils.containsNone($parameter.getDocumentation("", 64, false), '<') $stringUtils.containsNone($parameter.getDocumentation("", 64, false), "<") -->
-#if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$parameter.getDocumentation("                        ", 100, false)
-#if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($parameter.getDocumentation("                        ", 100, false), "\"'&<>", "")
                           </xs:documentation>
 ## JAXB does not bind wrapped types properly - always primitive if no customization, always wrapped if customization
 #if ($parameter.type.booleanType && $parameter.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
@@ -143,10 +135,7 @@ $parameter.getDocumentation("                        ", 100, false)
 ##if ($stringUtils.isNotBlank($parameter.getDocumentation("", 9999, false)))
 ##                <xs:attribute name="$parameter.name" type="$type"$default>
 ##                    <xs:annotation><xs:documentation>
-##if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-##end
-##$parameter.getDocumentation("                        ", 100, false)#if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))]]>
-##end
+##$stringUtils.replaceChars($parameter.getDocumentation("                        ", 100, false), "\"'&<>", "")
 ##                    </xs:documentation></xs:annotation>
 ##                </xs:attribute>
 ##else
@@ -162,7 +151,7 @@ $parameter.getDocumentation("                        ", 100, false)
 #end
         </xs:element>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
-        <xs:element name="${operation.operationName}ResponseWrapper">
+        <xs:element name="${operation.operationName}Response">
 #if ($operation.returnTypePresent)
 #if ($operation.returnType.packageName.equals($pkg.fullyQualifiedName) || $stringUtils.isBlank($operation.returnType.packageName) || $operation.returnType.schemaType.startsWith("xs:"))
 #set ($type=$operation.returnType.schemaType)
@@ -293,11 +282,7 @@ $parameter.getDocumentation("                        ", 100, false)
         <xs:simpleType name="${typeName}">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$type.getDocumentation("                ", 100, false)
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
             </xs:documentation></xs:annotation>
 #end
 #if ($stringUtils.isBlank($enumType))#set ($enumType = "xs:string")#end
@@ -307,11 +292,7 @@ $type.getDocumentation("                ", 100, false)
 #if ($stringUtils.isNotBlank($literal.getDocumentation("", 9999, false)))
                 <xs:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}">
                     <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($literal.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$literal.getDocumentation("                        ", 100, false)
-#if (!$stringUtils.containsNone($literal.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($literal.getDocumentation("                        ", 100, false), "\"'&<>", "")
                     </xs:documentation></xs:annotation>
                 </xs:enumeration>
 #else
@@ -330,11 +311,7 @@ $literal.getDocumentation("                        ", 100, false)
         <xs:complexType name="$type.qName">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$type.getDocumentation("                ", 100, false)
-#if (!$stringUtils.containsNone($type.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
             </xs:documentation></xs:annotation>
 #end
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
@@ -394,11 +371,7 @@ $type.getDocumentation("                ", 100, false)
 #renderRestrictions($attribute, $schemaType)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
                   <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$attribute.getDocumentation("                        ", 100, false)
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($attribute.getDocumentation("                        ", 100, false), "\"'&<>", "")
                   </xs:documentation></xs:annotation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
@@ -441,11 +414,7 @@ $attribute.getDocumentation("                        ", 100, false)
 #if ($stringUtils.isNotBlank($otherEnd.getDocumentation("", 9999, false)))
                 <xs:element name="$otherEnd.name" type="${schemaType}"#if ($otherEnd.nillable) minOccurs="0"#else minOccurs="1"#end${maxOccurs}>
                     <xs:annotation><xs:documentation>
-#if (!$stringUtils.containsNone($otherEnd.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$otherEnd.getDocumentation("                        ", 100, false)
-#if (!$stringUtils.containsNone($otherEnd.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($otherEnd.getDocumentation("                        ", 100, false), "\"'&<>", "")
                     </xs:documentation></xs:annotation>
                 </xs:element>
 #else
@@ -488,11 +457,7 @@ $otherEnd.getDocumentation("                        ", 100, false)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
               <xs:annotation>
                   <xs:documentation>
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[
-#end
-$attribute.getDocumentation("                  ", 100, false)
-#if (!$stringUtils.containsNone($attribute.getDocumentation("", 64, false), "\"'&<>"))]]>
-#end
+$stringUtils.replaceChars($attribute.getDocumentation("                  ", 100, false), "\"'&<>", "")
                   </xs:documentation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))

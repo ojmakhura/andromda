@@ -428,7 +428,7 @@
 
     <template
         path="templates/webservice/jaxws/MethodResponse.java.vsl"
-        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}ResponseWrapper.java"
+        outputPattern="$stringUtils.replace(${service.packageName}, '.', '/')/${stringUtils.capitalize($operation.operationName)}Response.java"
         outlet="jaxb-gen"
         overwrite="true"
         outputCondition="cxf">
