@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Axis2 Dependencies -->
@@ -142,20 +142,22 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-plugin</artifactId>
+                <version>${andromda.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
-                        <id>cxf-uml2</id>
+                        <id>cxf</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>test</goal>

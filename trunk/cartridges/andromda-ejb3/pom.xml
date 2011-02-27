@@ -25,19 +25,19 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
@@ -50,7 +50,7 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -68,7 +68,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-cartridge-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <id>cartridge-howto-artifacts</id>

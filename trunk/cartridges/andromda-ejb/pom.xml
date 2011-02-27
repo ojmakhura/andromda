@@ -23,13 +23,25 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+            <version>4.2.3.GA</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -42,7 +54,7 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -20,18 +20,18 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>

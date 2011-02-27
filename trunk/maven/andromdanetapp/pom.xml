@@ -26,28 +26,28 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromdapp-maven-plugin</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.andromdapp</groupId>
             <artifactId>andromda-andromdapp-core</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.andromdapp.projects</groupId>
             <artifactId>andromda-andromdapp-projects-csharp-maven2</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>    

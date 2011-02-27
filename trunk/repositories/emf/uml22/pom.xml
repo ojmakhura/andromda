@@ -20,13 +20,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-repository-emf</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml22</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <!-- Duplicate dependencies here from uml22 metafacades, for test and decoupling from uml2>
         <dependency>
@@ -210,7 +210,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>
