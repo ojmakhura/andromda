@@ -74,7 +74,6 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <!-- Does not work with maven3: Tie to site* profiles? See http://www.andromda.org/jira/browse/MAVEN-72 -->
         <plugins>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
@@ -89,6 +88,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <!-- Add the Ant plugin tools, this fix m3 api issue -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.plugin-tools</groupId>
+                        <artifactId>maven-plugin-tools-ant</artifactId>
+                        <version>2.5</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
