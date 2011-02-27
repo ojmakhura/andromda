@@ -24,7 +24,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -41,14 +41,14 @@
                     <dependency>
                         <groupId>org.andromda.bootstrap.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>                        
+                        <version>${andromda.version}</version>                        
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -83,7 +83,7 @@
                         <configuration>
                             <file>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                             <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
                         </configuration>
                     </execution>
