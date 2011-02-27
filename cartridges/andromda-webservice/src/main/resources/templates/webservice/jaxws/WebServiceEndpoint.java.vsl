@@ -47,6 +47,9 @@ $service.getDocumentation(" * ")
             //wsdlLocation = "wsdl/${service.name}.wsdl",
             endpointInterface="${service.fullyQualifiedName}SEI")
 #end
+#if ($service.hasStereotype("WSAddressing"))
+@javax.xml.ws.soap.Addressing(enabled=true, required=true)
+#end
 public class ${service.name}SEIImpl #if(!$service.rest)implements ${service.name}SEI#end
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}SEIImpl
@@ -76,9 +79,9 @@ public class ${service.name}SEIImpl #if(!$service.rest)implements ${service.name
     * Invokes the $operation.name service method on ${service.name}.
 $operation.getDocumentation("    * ")
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
-##set ($returnType = "$stringUtils.capitalize(${operation.operationName})ResponseWrapper")
+##set ($returnType = "$stringUtils.capitalize(${operation.operationName})Response")
 ##    * @param $stringUtils.capitalize(${operation.operationName})RequestWrapper ${operation.operationName}RequestWrapper
-##    * @return ${operation.operationName}ResponseWrapper $returnType
+##    * @return ${operation.operationName}Response $returnType
 ##else
 #if ($operation.restAtom)
 #set ($returnType = "org.apache.abdera.model.Feed")
@@ -96,7 +99,7 @@ $operation.getDocumentation("    * ")
     * @param $parameter.name $parameter.type.packageName $parameter.type.name required=$parameter.required $multiplicity
 #end
 #if ($operation.returnTypePresent)
-    * @return ${operation.operationName}ResponseWrapper $returnType
+    * @return ${operation.operationName}Response $returnType
 #end
 ##end
 #foreach ( $exception in $operation.exceptions)

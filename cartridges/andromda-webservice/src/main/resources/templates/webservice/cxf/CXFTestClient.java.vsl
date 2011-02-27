@@ -87,7 +87,7 @@ $operation.getDocumentation("    * ")
     * @param $parameter.name $parameter.type.fullyQualifiedName
 #end
 #if ($operation.restAtom || $operation.returnTypePresent)
-    * @return ${operation.operationName}ResponseWrapper $returnType
+    * @return ${operation.operationName}Response $returnType
 #end
 #foreach ( $exception in $operation.exceptions)
     * @throws $exception.fullyQualifiedName
@@ -123,8 +123,8 @@ $operation.getDocumentation("    * ")
         ${service.name}SEI client = (${service.name}SEI)context.getBean("${service.name}Client");
 
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
-##set ($returnType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})ResponseWrapper")
-##set ($requestType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})RequestWrapper")
+##set ($returnType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})Response")
+##set ($requestType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})")
 ##        $requestType ${operation.operationName}RequestWrapper = new ${requestType}();
 ##foreach ($parameter in $operation.parameters)
 ##if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
@@ -135,35 +135,35 @@ $operation.getDocumentation("    * ")
 ##set ($parmName = "$stringUtils.capitalize($parameter.name)")
 ##        ${operation.operationName}RequestWrapper.set${parmName}($parameter.name);
 ##end
-##        $returnType ${operation.operationName}ResponseWrapper = client.${operation.operationName}(${operation.operationName}RequestWrapper);
+##        $returnType ${operation.operationName}Response = client.${operation.operationName}(${operation.operationName}RequestWrapper);
 ##else
 #set ($indent="")
 #if (!$operation.exceptions.empty)
 #set ($indent="    ")
 #if ($operation.restAtom || $operation.returnTypePresent)
 #if ($operation.returnType.primitive && !$operation.many && $operation.lower > 0)
-        $returnType ${operation.name}ResponseWrapper = ${webServiceUtils.createConstructor($operation.returnParameter, false)};
+        $returnType ${operation.name}Response = ${webServiceUtils.createConstructor($operation.returnParameter, false)};
 #else
-        $returnType ${operation.name}ResponseWrapper = null;
+        $returnType ${operation.name}Response = null;
 #end
         try {
-            ${operation.operationName}ResponseWrapper = client.${operation.name}(${operation.argumentNames});
-            System.out.println(" Result = " + ${operation.operationName}ResponseWrapper.toString());
+            ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
+            System.out.println(" Result = " + ${operation.operationName}Response.toString());
 #else
         try {
             client.${operation.name}(${operation.argumentNames});
 #end
 #elseif ($operation.restAtom || $operation.returnTypePresent)
-        $returnType ${operation.operationName}ResponseWrapper = client.${operation.name}(${operation.argumentNames});
+        $returnType ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
 ##end
-        System.out.println(" Result = " + ${operation.operationName}ResponseWrapper.toString());
+        System.out.println(" Result = " + ${operation.operationName}Response.toString());
 #else
         client.${operation.name}(${operation.argumentNames});
 ##end
 #end
 $indent        System.out.println("Finished test: " + this.getName() + " for ${service.name}.${operation.name}(${operation.argumentNames})");
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
-##        return ${operation.operationName}ResponseWrapper.get$stringUtils.capitalize(${operation.operationName})ResponseWrapper();
+##        return ${operation.operationName}Response.get$stringUtils.capitalize(${operation.operationName})Response();
 ##else
 #if (!$operation.exceptions.empty)
         }
@@ -174,7 +174,7 @@ $indent        System.out.println("Finished test: " + this.getName() + " for ${s
         }
 #end
 #if ($operation.restAtom || $operation.returnTypePresent)
-        return ${operation.operationName}ResponseWrapper;
+        return ${operation.operationName}Response;
 #end
 ##end
     }

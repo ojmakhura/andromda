@@ -87,7 +87,7 @@
 #if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED") || $isMany)
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
     <wsdl:message name="${operation.operationName}Response">
-        <wsdl:part name="${operation.operationName}Response" element="${service.namespacePrefix}:${operation.operationName}ResponseWrapper"/>
+        <wsdl:part name="${operation.operationName}Response" element="${service.namespacePrefix}:${operation.operationName}Response"/>
     </wsdl:message>
 #end
     <wsdl:message name="${operation.operationName}">
@@ -109,9 +109,7 @@
 #if ($stringUtils.isNotBlank($parameter.getDocumentation("", 9999, false)))
         <wsdl:part name="$parameter.name" element="$type">
             <wsdl:documentation>
-#if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$parameter.getDocumentation("            ", 100, false)
-#if (!$stringUtils.containsNone($parameter.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false), "\"'&<>", "")
             </wsdl:documentation>
         </wsdl:part>
 #else
@@ -120,7 +118,7 @@ $parameter.getDocumentation("            ", 100, false)
 #end
     </wsdl:message>
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
-    <wsdl:message name="${operation.operationName}ResponseWrapper">
+    <wsdl:message name="${operation.operationName}Response">
 #if ($stringUtils.isBlank($operation.returnType.packageName) || $parameter.type.packageName.equals("PrimitiveTypes") || $stringUtils.substring($operation.returnType.schemaType, 0, 3).equals("xs:"))
 #set ($type=$operation.returnType.schemaType)
 ##        <!-- blank $operation.returnType.name packageName=$operation.returnType.packageName schemaType=$operation.returnType.schemaType $operation.returnType $operation.returnType.fullyQualifiednName-->
@@ -128,7 +126,7 @@ $parameter.getDocumentation("            ", 100, false)
 #set ($type="${service.namespacePrefix}:$operation.returnType.name")
 ##        <!-- nb $operation.returnType.name packageName=$operation.returnType.packageName schemaType=$operation.returnType.schemaType $operation.returnType $operation.returnType.fullyQualifiednName-->
 #end
-        <wsdl:part element="$type" name="${operation.operationName}ResponseWrapper"/>
+        <wsdl:part element="$type" name="${operation.operationName}Response"/>
     </wsdl:message>
 #end
 #end
@@ -172,9 +170,7 @@ $parameter.getDocumentation("            ", 100, false)
         <wsdl:operation name="$operation.operationName">
 #if ($stringUtils.isNotBlank($operation.getDocumentation("", 9999, false)))
             <wsdl:documentation>
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$operation.getDocumentation("                ", 100, false)
-#if (!$stringUtils.containsNone($operation.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($operation.getDocumentation("                ", 100, false), "\"'&<>", "")
             </wsdl:documentation>
 #end
             <wsdl:input name="${operation.operationName}" message="${service.namespacePrefix}:${operation.operationName}"/>
@@ -245,9 +241,7 @@ $operation.getDocumentation("                ", 100, false)
     <wsdl:service name="${service.qName}">
 #if ($stringUtils.isNotBlank($service.getDocumentation("", 9999, false)))
         <wsdl:documentation>
-#if (!$stringUtils.containsNone($service.getDocumentation("", 64, false), "\"'&<>"))<![CDATA[#end
-$service.getDocumentation("            ", 100, false)
-#if (!$stringUtils.containsNone($service.getDocumentation("", 64, false), "\"'&<>"))]]>#end
+$stringUtils.replaceChars($service.getDocumentation("            ", 100, false), "\"'&<>", "")
         </wsdl:documentation>
 #end
         <wsdl:port name="${service.qName}" binding="${service.namespacePrefix}:${serviceBindingName}">

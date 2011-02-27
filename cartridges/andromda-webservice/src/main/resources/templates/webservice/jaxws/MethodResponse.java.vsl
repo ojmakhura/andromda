@@ -40,7 +40,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-##@XmlType(name = "${operation.operationName}ResponseWrapper", propOrder = {
+##@XmlType(name = "${operation.operationName}Response", propOrder = {
 #if ($operation.returnTypePresent)
 ## Avoid primitive types for wrapper attribute names, reserved keywords
 #if ($stringUtils.isNotBlank($operation.returnParameter.name))
@@ -55,8 +55,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 #set ($returnAttr = $stringUtils.uncapitalize($returnName))
 })
 ##// $operation.returnType $operation.returnType.fullyQualifiedName $operation.returnParameter $operation.returnParameter.fullyQualifiedName $operation.returnParameter.type $operation.returnParameter.type.fullyQualifiedName
-@XmlRootElement(name = "${operation.operationName}ResponseWrapper")
-public class ${className}ResponseWrapper
+@XmlRootElement(name = "${operation.operationName}Response")
+public class ${className}Response
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #end
@@ -156,11 +156,11 @@ public class ${className}ResponseWrapper
 #end
     public boolean equals(Object object)
     {
-        if (object==null || !(object instanceof ${className}ResponseWrapper))
+        if (object==null || !(object instanceof ${className}Response))
         {
              return false;
         }
-        ${className}ResponseWrapper rhs = (${className}ResponseWrapper) object;
+        ${className}Response rhs = (${className}Response) object;
         return new EqualsBuilder().appendSuper(super.equals(object))
 #if ($operation.returnTypePresent)
             .append(this.$getOperation, rhs.$getOperation)
@@ -179,7 +179,7 @@ public class ${className}ResponseWrapper
         {
             return -1;
         }
-        ${className}ResponseWrapper myClass = (${className}ResponseWrapper) object;
+        ${className}Response myClass = (${className}Response) object;
         return new CompareToBuilder()
 #if ($operation.returnTypePresent)
             .append(this.$getOperation, myClass.$getOperation)
