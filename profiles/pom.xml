@@ -33,7 +33,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${andromda.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

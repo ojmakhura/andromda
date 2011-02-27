@@ -26,12 +26,12 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${andromda.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${andromda.version}</version>
                 </plugin>
                 <!--Perform xslt transformation of namespace.xml for site generation-->
                 <plugin>

@@ -204,7 +204,7 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -212,7 +212,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <goals>
