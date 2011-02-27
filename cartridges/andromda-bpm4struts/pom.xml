@@ -26,22 +26,22 @@
         <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-breadcrumbs-taglib</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-formatting-taglib</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-collections-taglib</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -54,7 +54,7 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -73,17 +73,17 @@
                                 <artifactItem>
                                     <groupId>org.andromda.taglibs</groupId>
                                     <artifactId>andromda-breadcrumbs-taglib</artifactId>
-                                    <version>${project.version}</version>
+                                    <version>${andromda.version}</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.andromda.taglibs</groupId>
                                     <artifactId>andromda-formatting-taglib</artifactId>
-                                    <version>${project.version}</version>
+                                    <version>${andromda.version}</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.andromda.taglibs</groupId>
                                     <artifactId>andromda-collections-taglib</artifactId>
-                                    <version>${project.version}</version>
+                                    <version>${andromda.version}</version>
                                 </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.outputDirectory}/resources/WEB-INF/lib</outputDirectory>
@@ -106,7 +106,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-cartridge-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <id>cartridge-howto-artifacts</id>

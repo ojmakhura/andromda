@@ -23,12 +23,12 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>

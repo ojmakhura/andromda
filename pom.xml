@@ -409,7 +409,7 @@
             <extension>
                 <groupId>org.andromda.maven</groupId>
                 <artifactId>maven-config</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
             </extension>
         </extensions>
         <pluginManagement>
@@ -784,7 +784,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -796,7 +796,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -808,7 +808,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -820,7 +820,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -832,7 +832,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -844,7 +844,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -856,7 +856,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -871,7 +871,7 @@
                             <pomFile>
                                 lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom
                             </pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -885,7 +885,7 @@
                             </file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
                             </pomFile>
-                            <version>${project.version}</version>
+                            <version>${andromda.version}</version>
                         </configuration>
                     </execution>
                 </executions>
@@ -1613,12 +1613,12 @@
                 </plugins>
             </reporting>
         </profile>
-
+        <!-- This turns off the andromda-lite and local profiles when enabled
+             The basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
         <profile>
             <id>maven-3</id>
             <activation>
                 <file>
-                    <!-- The basedir expression is only recognized by Maven 3.x (see MNG-2363)-->
                     <exists>${basedir}</exists>
                 </file>
             </activation>

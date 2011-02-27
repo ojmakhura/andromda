@@ -68,12 +68,12 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-maven-plugin</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
         </dependency>
     </dependencies>
 </project>

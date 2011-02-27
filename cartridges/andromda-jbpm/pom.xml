@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${project.version}</version>
+            <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -36,14 +36,14 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${project.version}</version>
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${andromda.version}</version>
                 <executions>
                     <execution>
                         <id>uml2</id>
