@@ -40,6 +40,17 @@ public class ServletContextWrapper implements ServletContext {
     }
 
     /**
+     * @return null
+     * @see javax.servlet.http.HttpServletRequest#getContextPath()
+     * @since Servlet 2.5
+     */
+    @Override
+    public String getContextPath() {
+        // TODO Portlet API does not have this method
+        return null;
+    }
+
+    /**
      * return null
      * @see javax.servlet.ServletContext#getContext(String)
      */
