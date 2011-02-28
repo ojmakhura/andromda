@@ -843,8 +843,7 @@ public class ClassifierFacadeLogicImpl
 
             for (Dependency dependency : dependencies)
             {
-                final Abstraction abstraction = (Abstraction)dependency;
-                final List<NamedElement> suppliers = abstraction.getSuppliers();
+                final List<NamedElement> suppliers = ((Abstraction)dependency).getSuppliers();
                 for (NamedElement supplier : suppliers)
                 {
                     if (supplier instanceof Interface)

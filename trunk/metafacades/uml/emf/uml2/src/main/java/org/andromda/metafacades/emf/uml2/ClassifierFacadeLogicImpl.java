@@ -826,8 +826,7 @@ public class ClassifierFacadeLogicImpl
 
             for (Iterator abstractionIterator = dependencies.iterator(); abstractionIterator.hasNext();)
             {
-                final Abstraction abstraction = (Abstraction)abstractionIterator.next();
-                final List<NamedElement> suppliers = abstraction.getSuppliers();
+                final List<NamedElement> suppliers = ((Abstraction)abstractionIterator.next()).getSuppliers();
                 for (int i = 0; i < suppliers.size(); i++)
                 {
                     final Object supplierObject = suppliers.get(i);

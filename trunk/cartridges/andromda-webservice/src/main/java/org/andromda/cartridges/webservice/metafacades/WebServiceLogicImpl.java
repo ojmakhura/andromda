@@ -471,7 +471,7 @@ public class WebServiceLogicImpl
     /**
      * Cross reference between package name and collection of foreign package referenced elements
      */
-    private Map<String, TreeSet<String>> packageRefs = new HashMap<String, TreeSet<String>>();
+    private Map<String, Set<String>> packageRefs = new HashMap<String, Set<String>>();
 
     /**
      * Get a unique list of packages referenced by the referring package
@@ -499,7 +499,7 @@ public class WebServiceLogicImpl
      * @param follow Follow Inheritance references $extensionInheritanceDisabled
      * @return pkgAbbr
      */
-    private Map<String, TreeSet<String>> setPkgRefs(Set<ModelElementFacade> types, boolean follow)
+    private Map<String, Set<String>> setPkgRefs(Set<ModelElementFacade> types, boolean follow)
     {
         // Copy package names and collection of related packages to package references list
         // Iterate through previously collected type references to find all packages referenced by each type
@@ -640,7 +640,7 @@ public class WebServiceLogicImpl
 
     private void addPkgRef(String pkg, String pkgRef, ModelElementFacade type)
     {
-        TreeSet<String> pkgRefSet;
+        Set<String> pkgRefSet;
         if (!packageRefs.containsKey(pkg))
         {
             // TypeComparator disallows adding nonunique referenced packageNames

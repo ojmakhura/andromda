@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -741,7 +742,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     @Override
     protected String handleGetSeamBijectionFactoryParameters()
     {
-        ArrayList<String> parameters = new ArrayList<String>();
+        List<String> parameters = new ArrayList<String>();
         String value = (String) this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_FACTORY_VALUE);
         if(StringUtils.isNotBlank(value))
         {
@@ -778,7 +779,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            ArrayList<String> parameters = new ArrayList<String>();
+            List<String> parameters = new ArrayList<String>();
             String flushMode = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_FLUSH_MODE);
             if(StringUtils.isNotBlank(flushMode))
             {
@@ -833,7 +834,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            ArrayList<String> parameters = new ArrayList<String>();
+            List<String> parameters = new ArrayList<String>();
             String flushMode = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE);
             if(StringUtils.isNotBlank(flushMode))
@@ -891,7 +892,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            ArrayList<String> parameters = new ArrayList<String>();
+            List<String> parameters = new ArrayList<String>();
             String beforeRedirect = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT);
             if(StringUtils.isNotBlank(beforeRedirect))
@@ -940,7 +941,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            ArrayList<String> parameters = new ArrayList<String>();
+            List<String> parameters = new ArrayList<String>();
             String transition = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_TRANSITION_NAME);
             if(StringUtils.isNotBlank(transition))
@@ -1004,7 +1005,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            ArrayList<String> parameters = new ArrayList<String>();
+            List<String> parameters = new ArrayList<String>();
             String flushMode = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_START_TASK_FLUSH_MODE);
             if (StringUtils.isNotBlank(flushMode))
