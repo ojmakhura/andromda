@@ -970,7 +970,7 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetNavigableConnectingEnds()
     {
         // TODO Change model return type from <ClassifierFacade> to <AssociationEndFacade>
-        final ArrayList<AssociationEndFacade> connectingEnds = new ArrayList<AssociationEndFacade>(this.getAssociationEnds());
+        final List<AssociationEndFacade> connectingEnds = new ArrayList<AssociationEndFacade>(this.getAssociationEnds());
         CollectionUtils.transform(
             connectingEnds,
             new Transformer()

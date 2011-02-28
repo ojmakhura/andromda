@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.BindingFacade;
@@ -666,7 +667,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<DirectedRelationship> handleGetTargetDependencies()
     {
-        ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
+        List<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll((Collection<? extends DirectedRelationship>) UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class,
                 UmlUtilities.getModels()));
@@ -720,7 +721,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<Constraint> handleGetConstraints()
     {
-        ArrayList<Constraint> constraints = new ArrayList<Constraint>();
+        List<Constraint> constraints = new ArrayList<Constraint>();
         constraints.addAll((Collection<? extends Constraint>) UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, UmlUtilities.getModels()));
 
         CollectionUtils.filter(
@@ -745,7 +746,7 @@ public class ModelElementFacadeLogicImpl
         // A more efficient implementation of this would have been to use getClientDependencies() and getTemplateBindings()
         // But it would have required the same filtering
         // This way, the code is the "same" as getTargetDependencies
-        ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
+        List<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll((Collection<? extends DirectedRelationship>) UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class, UmlUtilities.getModels()));
         CollectionUtils.filter(

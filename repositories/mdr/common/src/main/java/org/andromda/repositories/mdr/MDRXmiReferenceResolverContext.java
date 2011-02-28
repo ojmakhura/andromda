@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import javax.jmi.reflect.RefPackage;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
@@ -28,7 +29,7 @@ public class MDRXmiReferenceResolverContext
 {
     private String[] moduleSearchPaths;
     private static final Logger logger = Logger.getLogger(MDRXmiReferenceResolverContext.class);
-    private static final HashMap<String, URL> urlMap = new HashMap<String, URL>();
+    private static final Map<String, URL> urlMap = new HashMap<String, URL>();
 
     /**
      * Constructs an instance of this class.

@@ -34,7 +34,7 @@ public class StateVertexFacadeLogicImpl
      */
     protected Collection handleGetOutgoings()
     {
-        ArrayList outList = new ArrayList();
+        List outList = new ArrayList();
         outList.addAll(this.metaObject.getOutgoings());
         return outList;
     }
@@ -45,7 +45,7 @@ public class StateVertexFacadeLogicImpl
      */
     protected Collection handleGetIncomings()
     {
-        ArrayList inList = new ArrayList();
+        List inList = new ArrayList();
         inList.addAll(this.metaObject.getIncomings());
         return inList;
     }

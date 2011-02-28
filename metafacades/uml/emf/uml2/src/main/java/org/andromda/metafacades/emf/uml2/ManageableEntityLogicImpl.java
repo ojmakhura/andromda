@@ -224,7 +224,7 @@ public class ManageableEntityLogicImpl
      */
     protected List handleGetManageableAttributes()
     {
-        ArrayList attList = new ArrayList(this.getAttributes(true));
+        List attList = new ArrayList(this.getAttributes(true));
         return attList;
     }
 

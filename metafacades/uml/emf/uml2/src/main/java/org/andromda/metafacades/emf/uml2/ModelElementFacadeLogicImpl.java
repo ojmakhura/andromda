@@ -676,7 +676,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<DirectedRelationship> handleGetTargetDependencies()
     {
-        ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
+        List<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class,
                 this.metaObject.getModel()));
@@ -731,7 +731,7 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<Constraint> handleGetConstraints()
     {
-        ArrayList<Constraint> constraints = new ArrayList<Constraint>();
+        List<Constraint> constraints = new ArrayList<Constraint>();
         constraints.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, this.metaObject.getModel()));
 
         CollectionUtils.filter(
@@ -756,7 +756,7 @@ public class ModelElementFacadeLogicImpl
         // A more efficient implementation of this would have been to use getClientDependencies() and getTemplateBindings()
         // But it would have required the same filtering
         // This way, the code is the "same" as getTargettingDependencies
-        ArrayList<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
+        List<DirectedRelationship> dependencies = new ArrayList<DirectedRelationship>();
         dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
                 DirectedRelationship.class,
                 this.metaObject.getModel()));

@@ -162,7 +162,7 @@ public class UMLModelAccessFacade
      */
     public Collection findByStereotype(final String name)
     {
-        final ArrayList elements = new ArrayList();
+        final List elements = new ArrayList();
         for (UML2Resource modelResource : this.model)
         {
             for (TreeIterator iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
@@ -191,7 +191,7 @@ public class UMLModelAccessFacade
      */
     public Collection getModelElements()
     {
-        final ArrayList elements = new ArrayList();
+        final List elements = new ArrayList();
 
         for (UML2Resource modelResource : this.model)
         {

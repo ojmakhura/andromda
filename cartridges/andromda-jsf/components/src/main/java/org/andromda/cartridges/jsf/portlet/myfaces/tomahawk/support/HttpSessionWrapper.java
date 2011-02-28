@@ -2,6 +2,7 @@ package org.andromda.cartridges.jsf.portlet.myfaces.tomahawk.support;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletSession;
 import javax.servlet.ServletContext;
@@ -123,7 +124,7 @@ implements HttpSession
      */
     public String[] getValueNames()
     {
-        final ArrayList objs = new ArrayList();
+        final List objs = new ArrayList();
         for (final Enumeration e = portletSession.getAttributeNames(); e.hasMoreElements();)
         {
             final String key = (String)e.nextElement();

@@ -193,7 +193,7 @@ public class FrontEndForwardLogicImpl
      */
     private void collectTransitions(
         final TransitionFacade transition,
-        final LinkedHashSet<TransitionFacade> processedTransitions)
+        final Set<TransitionFacade> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
