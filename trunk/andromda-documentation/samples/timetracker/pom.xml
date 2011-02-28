@@ -33,8 +33,8 @@
         </license>
     </licenses>
     <ciManagement>
-        <system>husdon</system>
-        <url>http://www.andromda.org/husdon</url>
+        <system>hudson</system>
+        <url>http://www.andromda.org/hudson</url>
     </ciManagement>
     <developers>
         <developer>
@@ -419,6 +419,14 @@
         <!-- To change from default src/main/java and src/test/java - doesn't work for Cobertura>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>src-test</testSourceDirectory -->
+        <!-- Configurations for QA checks, accessed as classpath resources -->
+        <extensions>
+            <extension>
+                <groupId>org.andromda.maven</groupId>
+                <artifactId>maven-config</artifactId>
+                <version>${andromda.version}</version>
+            </extension>
+        </extensions>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -571,8 +579,9 @@
                     <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
                 </configuration>
             </plugin>
-            <plugin>
-                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+            <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+            <!-- Causes generate-sources to execute multiple times, only use as part of pluginManagement -->
+            <!--plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.1.2</version>
                 <executions>
@@ -584,7 +593,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>2.2</version>
@@ -978,28 +987,10 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <targetJdk>1.5</targetJdk>
+                    <targetJdk>1.6</targetJdk>
                     <linkXRef>true</linkXRef>
                     <rulesets>
-                        <ruleset>/rulesets/basic.xml</ruleset>
-                        <ruleset>/rulesets/braces.xml</ruleset>
-                        <ruleset>/rulesets/clone.xml</ruleset>
-                        <ruleset>/rulesets/codesize.xml</ruleset>
-                        <ruleset>/rulesets/controversial.xml</ruleset>
-                        <ruleset>/rulesets/coupling.xml</ruleset>
-                        <ruleset>/rulesets/design.xml</ruleset>
-                        <ruleset>/rulesets/finalizers.xml</ruleset>
-                        <ruleset>/rulesets/logging-java.xml</ruleset>
-                        <ruleset>/rulesets/j2ee.xml</ruleset>
-                        <ruleset>/rulesets/javabeans.xml</ruleset>
-                        <ruleset>/rulesets/junit.xml</ruleset>
-                        <ruleset>/rulesets/naming.xml</ruleset>
-                        <ruleset>/rulesets/optimizations.xml</ruleset>
-                        <ruleset>/rulesets/strictexception.xml</ruleset>
-                        <ruleset>/rulesets/strings.xml</ruleset>
-                        <ruleset>/rulesets/sunsecure.xml</ruleset>
-                        <ruleset>/rulesets/typeresolution.xml</ruleset>
-                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                        <ruleset>andromda/pmd_ruleset.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
@@ -1007,7 +998,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <configLocation>config/maven_checks.xml</configLocation>
+                    <configLocation>andromda/checkstyle_checks.xml</configLocation>
                 </configuration>
             </plugin>
             <plugin>
@@ -1126,9 +1117,11 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
+                    <excludeFilterFile>andromda/findbugs-exclude-filters.xml</excludeFilterFile>
                     <xmlOutput>true</xmlOutput>
                     <effort>Default</effort>
                     <threshold>Normal</threshold>
+                    <failOnError>false</failOnError>
                     <!--xmlOutputDirectory>directory location of findbugs xdoc xml report</xmlOutputDirectory>
                     <threshold>High|Normal|Low|Exp|Ignore</threshold>
                     <effort>Min|Default|Max</effort>
