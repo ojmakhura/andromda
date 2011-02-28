@@ -2,9 +2,9 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.StateMachine;
-
 
 /**
  * MetafacadeLogic implementation for
