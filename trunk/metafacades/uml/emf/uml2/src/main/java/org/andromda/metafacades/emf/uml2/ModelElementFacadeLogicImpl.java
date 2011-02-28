@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.BindingFacade;
@@ -54,7 +55,6 @@ import org.eclipse.uml2.TemplateSignature;
 import org.eclipse.uml2.TemplateableElement;
 import org.eclipse.uml2.Usage;
 import org.eclipse.uml2.VisibilityKind;
-
 
 /**
  * MetafacadeLogic implementation for
