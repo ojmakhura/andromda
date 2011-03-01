@@ -1324,7 +1324,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences()
      */
-    protected Collection<ClassifierFacade> handleGetValueObjectReferences()
+    protected Collection<DependencyFacade> handleGetValueObjectReferences()
     {
         return this.getValueObjectReferences(false);
     }
@@ -1332,7 +1332,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetAllValueObjectReferences()
      */
-    protected Collection<ClassifierFacade> handleGetAllValueObjectReferences()
+    protected Collection<DependencyFacade> handleGetAllValueObjectReferences()
     {
         return this.getValueObjectReferences(true);
     }
@@ -1359,7 +1359,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetValueObjectReferences(boolean)
      */
-    protected Collection<ClassifierFacade> handleGetValueObjectReferences(boolean follow)
+    protected Collection<DependencyFacade> handleGetValueObjectReferences(boolean follow)
     {
         final Collection<DependencyFacade> sourceDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         if (follow)
@@ -1370,7 +1370,7 @@ public class EJB3EntityFacadeLogicImpl
                 sourceDependencies.addAll(entity.getSourceDependencies());
             }
         }
-        Collection<ClassifierFacade> valueObjects = new ArrayList<ClassifierFacade>();
+        Collection<DependencyFacade> valueDependencies = new ArrayList<DependencyFacade>();
         for (DependencyFacade dependency : sourceDependencies)
         {
             Object targetElement = dependency.getTargetElement();
@@ -1380,11 +1380,11 @@ public class EJB3EntityFacadeLogicImpl
                 if (element.isDataType() || element instanceof ValueObject ||
                             element instanceof EnumerationFacade)
                 {
-                    valueObjects.add(element);
+                    valueDependencies.add(dependency);
                 }
             }
         }
-        return valueObjects;
+        return valueDependencies;
     }
 
     /**
