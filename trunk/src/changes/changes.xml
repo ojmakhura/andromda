@@ -1281,8 +1281,8 @@
             <action dev="draftdog" type="add">
                 <![CDATA[
                     Added support for lazily loaded relationships collections in
-                    <a href="andromda-hibernate-cartridge/profile.html#@andromda_hibernate_lazy">Hibernate</a> and
-                    <a href="andromda-spring-cartridge/profile.html#@andromda_hibernate_lazy">Spring</a>, it is sufficient
+                    <a href="andromda-hibernate-cartridge/profile.html#andromda_hibernate_lazy">Hibernate</a> and
+                    <a href="andromda-spring-cartridge/profile.html#andromda_hibernate_lazy">Spring</a>, it is sufficient
                     to use the aggregation kind of an association end (composite is not lazy, the other kinds are lazy)
                     but you can always override the default values using the newly define
                     <code>andromda_hibernate_lazy</code> tagged value.

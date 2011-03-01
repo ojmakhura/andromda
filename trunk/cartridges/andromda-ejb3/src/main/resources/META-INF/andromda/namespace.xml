@@ -811,7 +811,7 @@
 					entity class hierarchy (unless overridden on an
 					entity level by the
 					<a
-						href="profile.html#@andromda._persistence_inheritance">
+						href="profile.html#andromda._persistence_inheritance">
 						andromda_persistence_inheritance
 					</a>
 					tagged value, can be the following possible values:
@@ -1183,7 +1183,7 @@
                 <documentation>
                     The default association end collection index name 
                     (this can be overridden by the
-                    <a href="profile.html#@andromda_persistence_collection_index">andromda_persistence_collection_index</a>).
+                    <a href="profile.html#andromda_persistence_collection_index">andromda_persistence_collection_index</a>).
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexType" required="false">
@@ -1191,7 +1191,7 @@
                 <documentation>
                     The default association end collection index type 
                     (this can be overridden by the
-                    <a href="profile.html#@andromda_persistence_collection_index_type">andromda_persistence_collection_index_type</a>
+                    <a href="profile.html#andromda_persistence_collection_index_type">andromda_persistence_collection_index_type</a>
                     (this is applicable when the collection is a map).
                 </documentation>
             </property>
@@ -1245,7 +1245,7 @@
 					<strong>NOTE:</strong>
 					Can be overridden on a per bean/bean operation basis with the
 					<a
-						href="profile.html#@andromda_ejb_transaction_type">
+						href="profile.html#andromda_ejb_transaction_type">
 						andromda_ejb_transaction_type
 					</a>
 					tagged value.
