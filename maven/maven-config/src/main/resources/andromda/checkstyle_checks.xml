@@ -175,6 +175,7 @@
 		</module>
 		<module name="JavadocType">
             <property name="scope" value="package"/>
+            <!-- Gives unknown tag errors. Only works with Checkstyle 5.1 +, not supported by current maven plugin -->
             <!--property name="allowUnknownTags" value="true"/-->
         </module>
 		<module name="JavadocVariable">
