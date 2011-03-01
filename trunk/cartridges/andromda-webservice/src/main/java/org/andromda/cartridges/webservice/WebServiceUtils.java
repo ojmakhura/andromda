@@ -924,16 +924,19 @@ public class WebServiceUtils
             String packageName = packageFacade.getFullyQualifiedName();
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
-            for (final ClassifierFacade facade : packageFacade.getClasses())
+            // org.andromda.metafacades.emf.uml22.EventFacadeLogicImpl cannot be cast to org.andromda.metafacades.uml.ClassifierFacade
+            // TODO: PackageFacade.gerClasses does not always return Collection<ClassifierFacade>
+            for (final ModelElementFacade facade : packageFacade.getClasses())
             {
                 //logger.debug("getPackageReferences packageName=" + packageName);
-                if (facade != null)
+                if (facade != null && facade instanceof ClassifierFacade)
                 {
-                    pkg = (PackageFacade) facade.getPackage();
+                    ClassifierFacade classifier = (ClassifierFacade)facade;
+                    pkg = (PackageFacade) classifier.getPackage();
                     if (facade.hasStereotype("WebService"))
                     {
                         // Add references from the operations of the service package itself
-                        for (final OperationFacade op : facade.getOperations())
+                        for (final OperationFacade op : classifier.getOperations())
                         {
                             for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
                             {
