@@ -32,7 +32,7 @@ $class.getDocumentation(" * ")
     @XmlAccessorType(XmlAccessType.FIELD)
 #if ($webFault)
     @XmlType(name="$stringUtils.uncapitalize($faultClass)")
-    @WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)/")
+    @javax.xml.ws.WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)#if($addNamespaceBackslash)/#end")
 #else
     @XmlType(name="$stringUtils.uncapitalize($class.name)")
 #end
@@ -80,22 +80,22 @@ public#if($class.abstract) abstract#end class $class.name
     /**
      * Constructs a new instance of $class.name
      *
-     * @param message the throwable message.
+     * @param messageIn the throwable message.
      */
-    public ${class.name}(String message)
+    public ${class.name}(String messageIn)
     {
-        super(message);
+        super(messageIn);
     }
 
     /**
      * Constructs a new instance of $class.name
      *
-     * @param message the throwable message.
+     * @param messageIn the throwable message.
      * @param throwable the parent of this Throwable.
      */
-    public ${class.name}(String message, Throwable throwable)
+    public ${class.name}(String messageIn, Throwable throwable)
     {
-        super(message, findRootCause(throwable));
+        super(messageIn, findRootCause(throwable));
     }
 
     private Object[] messageArguments;
@@ -104,22 +104,22 @@ public#if($class.abstract) abstract#end class $class.name
      * Gets the message arguments that can be used by message resources (in
      * something like the presentation tier)
      *
-     * @return
+     * @return messageArguments
      */
     public Object[] getMessageArguments()
     {
-        return messageArguments;
+        return this.messageArguments;
     }
 
     /**
      * Sets the message arguments that can be used by message resources (in
      * something like the presentation tier)
      *
-     * @param messageArguments
+     * @param messageArgumentsIn
      */
-    public void setMessageArguments(Object[] messageArguments)
+    public void setMessageArguments(Object[] messageArgumentsIn)
     {
-        this.messageArguments = messageArguments;
+        this.messageArguments = messageArgumentsIn;
     }
 
 #if ($webFault)
@@ -138,25 +138,25 @@ public#if($class.abstract) abstract#end class $class.name
     /**
      * Constructs a new instance of $class.name with WebFault details
      *
-     * @param message the throwable message.
+     * @param messageIn the throwable message.
      * @param detailsIn $faultDetails WebFault details
      */
-    public ${class.name}(String message, $faultDetails detailsIn)
+    public ${class.name}(String messageIn, $faultDetails detailsIn)
     {
-        super(message);
+        super(messageIn);
         this.details = detailsIn;
     }
 
     /**
      * Constructs a new instance of $class.name with WebFault details
      *
-     * @param message the throwable message.
+     * @param messageIn the throwable message.
      * @param throwable the parent of this Throwable.
      * @param detailsIn $faultDetails WebFault details
      */
-    public ${class.name}(String message, Throwable throwable, $faultDetails detailsIn)
+    public ${class.name}(String messageIn, Throwable throwable, $faultDetails detailsIn)
     {
-        super(message, findRootCause(throwable));
+        super(messageIn, findRootCause(throwable));
         this.details = detailsIn;
     }
 

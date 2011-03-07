@@ -32,7 +32,7 @@ $class.getDocumentation(" * ")
     @XmlAccessorType(XmlAccessType.FIELD)
 #if ($webFault)
     @XmlType(name="$stringUtils.uncapitalize($faultClass)")
-    @WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)/")
+    @javax.xml.ws.WebFault( name="$faultClass", targetNamespace="http://$javaUtils.reversePackage($class.packageName)#if($addNamespaceBackslash)/#end")
 #else
     @XmlType(name="$stringUtils.uncapitalize($class.name)")
 #end

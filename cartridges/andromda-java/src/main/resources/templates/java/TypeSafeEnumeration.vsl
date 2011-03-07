@@ -35,13 +35,6 @@
 #end
 #set ($namesTemplateType = "<String>")
 #end
-#else
-##set ($cast = "")
-#set ($namesTemplateType = "")
-#set ($valuesTemplateType = "")
-#set ($literalsTemplateType = "")
-##else
-##set ($cast = "($enumeration.name)")
 #end
 #set ($hasMemberVariables = !(${enumeration.memberVariables.empty()}))
 #set ($members = "")
