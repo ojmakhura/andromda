@@ -308,6 +308,11 @@ public class UMLMetafacadeUtils
             {
                 collectionType = input.substring(0, input.indexOf('<'));
                 genericType = input.substring(input.indexOf('<'));
+                if (genericType.startsWith("<? extends "))
+                {
+                    // Implementation collection type cannot declare 'extends'
+                    genericType = '<' + genericType.substring(10);
+                }
             }
             else
             {
