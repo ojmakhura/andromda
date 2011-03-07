@@ -14,10 +14,14 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
+import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd;
+import org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogic;
+import org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogic;
 import org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl;
 import org.andromda.cartridges.webservice.metafacades.WebServiceOperation;
 import org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl.OperationNameComparator;
+import org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogic;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeException;
@@ -924,16 +928,13 @@ public class WebServiceUtils
             String packageName = packageFacade.getFullyQualifiedName();
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
-            // org.andromda.metafacades.emf.uml22.EventFacadeLogicImpl cannot be cast to org.andromda.metafacades.uml.ClassifierFacade
-            // TODO: PackageFacade.gerClasses does not always return Collection<ClassifierFacade>
-            for (final ModelElementFacade facade : packageFacade.getClasses())
+            for (final ClassifierFacade classifier : packageFacade.getClasses())
             {
                 //logger.debug("getPackageReferences packageName=" + packageName);
-                if (facade != null && facade instanceof ClassifierFacade)
+                if (classifier != null)
                 {
-                    ClassifierFacade classifier = (ClassifierFacade)facade;
                     pkg = (PackageFacade) classifier.getPackage();
-                    if (facade.hasStereotype("WebService"))
+                    if (classifier.hasStereotype("WebService"))
                     {
                         // Add references from the operations of the service package itself
                         for (final OperationFacade op : classifier.getOperations())
@@ -943,7 +944,7 @@ public class WebServiceUtils
                                 ClassifierFacade arg = (ClassifierFacade)opiterator.next();
                                 // TODO Why does MEF.getPackage return a ModelElementFacade instead of Package?
                                 pkg = (PackageFacade) arg.getPackage();
-                                if (!pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
+                                if (!pkg.getFullyQualifiedName().equals(classifier.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
                                 {
                                     pkgRef.add(pkg);
                                     if (logger.isDebugEnabled())
@@ -1777,17 +1778,35 @@ public class WebServiceUtils
         try {
             if (logger.isDebugEnabled())
             {
-                logger.debug("facade=" + facade + " parent=" + parent);
+                logger.debug("facade=" + facade + " parent=" + parent + " useMany=" + useMany);
             }
             if (facade instanceof ClassifierFacade)
             {
-                ClassifierFacade attr = (ClassifierFacade) facade;
-                type = attr;
-                typeName = attr.getFullyQualifiedName();
+                ClassifierFacade classifier = (ClassifierFacade) facade;
+                type = classifier;
+                typeName = classifier.getFullyQualifiedName();
             }
             if (facade instanceof AttributeFacade)
             {
                 AttributeFacade attr = (AttributeFacade) facade;
+                defaultValue = attr.getDefaultValue();
+                type = attr.getType();
+                if (useMany)
+                {
+                    typeName = attr.getGetterSetterTypeName();
+                }
+                else
+                {
+                    typeName = type.getFullyQualifiedName();
+                }
+                if (attr.getUpper()>1 || attr.getUpper()==-1)
+                {
+                    isMany = true;
+                }
+            }
+            else if (facade instanceof WSDLTypeAttributeLogic)
+            {
+                WSDLTypeAttributeLogic attr = (WSDLTypeAttributeLogic) facade;
                 defaultValue = attr.getDefaultValue();
                 type = attr.getType();
                 if (useMany)
@@ -1829,6 +1848,24 @@ public class WebServiceUtils
             if (facade instanceof AssociationEndFacade)
             {
                 AssociationEndFacade attr = (AssociationEndFacade) facade;
+                type = attr.getType();
+                if (useMany)
+                {
+                    typeName = attr.getGetterSetterTypeName();
+                }
+                else
+                {
+                    typeName = type.getFullyQualifiedName();
+                }
+                if (attr.getUpper()>1 || attr.getUpper()==-1)
+                {
+                    isMany = true;
+                }
+                facade = attr.getType();
+            }
+            if (facade instanceof WSDLTypeAssociationEnd)
+            {
+                WSDLTypeAssociationEnd attr = (WSDLTypeAssociationEnd) facade;
                 type = attr.getType();
                 if (useMany)
                 {
@@ -1886,13 +1923,13 @@ public class WebServiceUtils
                     }
                 }
             }
-            if (facade instanceof EnumerationFacade)
+            if (type instanceof EnumerationFacade)
             {
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("facade=" + facade + " type=" + type + " default=" + defaultValue);
                 }
-                EnumerationFacade enumer = (EnumerationFacade) facade;
+                EnumerationFacade enumer = (EnumerationFacade) type;
                 //type = enumer.getLiteralType().getFullyQualifiedName();
                 Collection<AttributeFacade> literals = enumer.getLiterals();
                 if (StringUtils.isEmpty(defaultValue) && !literals.isEmpty())
@@ -2030,34 +2067,34 @@ public class WebServiceUtils
                 // Entity classes will always be abstract with Impl generated classes.
                 rtn = '(' + typeName + ")new " + typeName + "Impl()";
             }
-            else if (facade instanceof GeneralizableElementFacade)
+            else if (type instanceof GeneralizableElementFacade)
             {
                 // If type has a descendant with name <typeName>Impl, assume typeNameImpl must be instantiated instead of typeName
                 rtn = "new " + typeName + "()";
-                if (facade instanceof ClassifierFacade)
-                {
-                    ClassifierFacade classifier = (ClassifierFacade)facade;
+                //if (facade instanceof ClassifierFacade)
+                //{
+                    //ClassifierFacade classifier = (ClassifierFacade)facade;
                     // If type is abstract, choose Impl descendant if exists, or the last descendant
-                    if (classifier.isAbstract())
+                    if (type.isAbstract())
                     {
                         // Can't instantiate abstract class - pick some descendant
-                        for (GeneralizableElementFacade spec : classifier.getSpecializations())
+                        for (GeneralizableElementFacade spec : type.getSpecializations())
                         {
-                            if (spec.getName().equals(facade.getName() + "Impl"))
+                            if (spec.getName().equals(type.getName() + "Impl"))
                             {
-                                rtn = '(' + facade.getName() + ")new " + typeName + "Impl()";
+                                rtn = '(' + type.getName() + ")new " + typeName + "Impl()";
                                 break;
                             }
-                            rtn = '(' + facade.getName() + ")new " + spec.getFullyQualifiedName() + "()";
+                            rtn = '(' + type.getName() + ")new " + spec.getFullyQualifiedName() + "()";
                         }
                     }
-                }
-                GeneralizableElementFacade generalization = (GeneralizableElementFacade)facade;
+                //}
+                GeneralizableElementFacade generalization = (GeneralizableElementFacade)type;
                 for (GeneralizableElementFacade spec : generalization.getSpecializations())
                 {                       
-                    if (spec.getName().equals(facade.getName() + "Impl"))
+                    if (spec.getName().equals(type.getName() + "Impl"))
                     {
-                        rtn = '(' + facade.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";
+                        rtn = '(' + type.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";
                     }
                 }
             }
@@ -2068,10 +2105,10 @@ public class WebServiceUtils
             rtn = StringUtils.replace(rtn, "java.util.Collection", "java.util.ArrayList") + toString;
             if (logger.isDebugEnabled())
             {
-                logger.debug("facade=" + facade + " facadeName=" + facade.getName() + " type=" + typeName + " name=" + name + " isMany=" + isMany + " defaultValue=" + defaultValue + " rtn=" + rtn);
+                logger.debug("facade=" + facade + " facadeName=" + facade.getName() + " type=" + type + " typeName=" + typeName + " name=" + name + " isMany=" + isMany + " defaultValue=" + defaultValue + " rtn=" + rtn);
             }
         } catch (RuntimeException e) {
-            logger.error(e + " facade=" + facade + " facadeName=" + facade.getName() + " parent=" + parent + " type=" + typeName + " name=" + name + " isMany=" + isMany + " defaultValue=" + defaultValue);
+            logger.error(e + " facade=" + facade + " facadeName=" + facade.getName() + " parent=" + parent + " type=" + type + " typeName=" + typeName + " name=" + name + " isMany=" + isMany + " defaultValue=" + defaultValue);
             e.printStackTrace();
         }
         return rtn;
@@ -2468,11 +2505,6 @@ public class WebServiceUtils
             type = attrib.getType();
             many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
         }
-        else if (element instanceof ClassifierFacade)
-        {
-            ClassifierFacade classifier = (ClassifierFacade)element;
-            type = classifier;
-        }
         else if (element instanceof AssociationEndFacade)
         {
             AssociationEndFacade association = (AssociationEndFacade)element;
@@ -2484,6 +2516,29 @@ public class WebServiceUtils
             ParameterFacade param = (ParameterFacade)element;
             type = param.getType();
             many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof WSDLTypeAttributeLogic)
+        {
+            WSDLTypeAttributeLogic attrib = (WSDLTypeAttributeLogic)element;
+            type = attrib.getType();
+            many = attrib.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof WSDLTypeAssociationEndLogic)
+        {
+            WSDLTypeAssociationEndLogic association = (WSDLTypeAssociationEndLogic)element;
+            type = association.getType();
+            many = association.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof WebServiceParameterLogic)
+        {
+            WebServiceParameterLogic param = (WebServiceParameterLogic)element;
+            type = param.getType();
+            many = param.isMany() && !type.isArrayType() && !type.isCollectionType();
+        }
+        else if (element instanceof ClassifierFacade)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)element;
+            type = classifier;
         }
         else
         {

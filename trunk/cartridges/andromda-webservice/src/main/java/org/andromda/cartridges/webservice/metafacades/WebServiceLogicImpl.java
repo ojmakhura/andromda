@@ -286,56 +286,59 @@ public class WebServiceLogicImpl
                         allTypes.addAll(specializations);
                     }
 
-                    this.checkedTypes.add(modelElement);
-
-                    for (final Iterator allTypesIterator = allTypes.iterator(); allTypesIterator.hasNext();)
+                    if (!this.checkedTypes.contains(parameterType))
                     {
-                        ClassifierFacade type = (ClassifierFacade) allTypesIterator.next();
-
-                        if (!this.containsManyType(types, modelElement))
+                        this.checkedTypes.add(parameterType);
+    
+                        for (final Iterator allTypesIterator = allTypes.iterator(); allTypesIterator.hasNext();)
                         {
-                            ClassifierFacade nonArrayType = type;
-                            final boolean arrayType = type.isArrayType();
-
-                            if (arrayType || this.isValidAssociationEnd(modelElement))
+                            ClassifierFacade type = (ClassifierFacade) allTypesIterator.next();
+    
+                            if (!this.containsManyType(types, modelElement))
                             {
-                                types.add(modelElement);
-
-                                if (arrayType)
+                                ClassifierFacade nonArrayType = type;
+                                final boolean arrayType = type.isArrayType();
+    
+                                if (arrayType || this.isValidAssociationEnd(modelElement))
                                 {
-                                    // convert to non-array type since we
-                                    // check if that one has the stereotype
-                                    nonArrayType = type.getNonArray();
-
-                                    // set the type to the non array type since
-                                    // that will have the attributes
-                                    type = nonArrayType;
+                                    types.add(modelElement);
+    
+                                    if (arrayType)
+                                    {
+                                        // convert to non-array type since we
+                                        // check if that one has the stereotype
+                                        nonArrayType = type.getNonArray();
+    
+                                        // set the type to the non array type since
+                                        // that will have the attributes
+                                        type = nonArrayType;
+                                    }
+                                }
+    
+                                if (nonArrayType != null)
+                                {
+                                    if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
+                                            || nonArrayType.isEnumeration())
+                                    {
+                                        // we add the type when its a non array and
+                                        // has the correct stereotype (even if we have
+                                        // added the array type above) since we need to
+                                        // define both an array and non array in the WSDL
+                                        // if we are defining an array.
+                                        nonArrayTypes.add(nonArrayType);
+                                    }
                                 }
                             }
-
-                            if (nonArrayType != null)
+    
+                            if (type != null)
                             {
-                                if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
-                                        || nonArrayType.isEnumeration())
+                                final List<? extends ModelElementFacade> properties = type.getProperties();
+                                if (properties != null && !properties.isEmpty())
                                 {
-                                    // we add the type when its a non array and
-                                    // has the correct stereotype (even if we have
-                                    // added the array type above) since we need to
-                                    // define both an array and non array in the WSDL
-                                    // if we are defining an array.
-                                    nonArrayTypes.add(nonArrayType);
-                                }
-                            }
-                        }
-
-                        if (type != null)
-                        {
-                            final List properties = type.getProperties();
-                            if (properties != null && !properties.isEmpty())
-                            {
-                                for (final Object property : properties)
-                                {
-                                    this.loadTypes((ModelElementFacade)property, types, nonArrayTypes);
+                                    for (final ModelElementFacade property : properties)
+                                    {
+                                        this.loadTypes((ModelElementFacade)property, types, nonArrayTypes);
+                                    }
                                 }
                             }
                         }
@@ -346,7 +349,6 @@ public class WebServiceLogicImpl
         catch (final Throwable throwable)
         {
             final String message = "Error performing loadTypes";
-            throwable.printStackTrace();
             logger.error(throwable);
             throw new MetafacadeException(message, throwable);
         }
@@ -428,7 +430,6 @@ public class WebServiceLogicImpl
                 if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
                 {
                     pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    //System.out.println(this.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getExceptions");
                     namespaceCount++;
                 }
             }
@@ -438,7 +439,6 @@ public class WebServiceLogicImpl
                 if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
                 {
                     pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    //System.out.println(this.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getArguments");
                     namespaceCount++;
                 }
             }
@@ -448,7 +448,6 @@ public class WebServiceLogicImpl
                 if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
                 {
                     pkgAbbr.put(pkg, "ns" + namespaceCount);
-                    //System.out.println(this.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getReturnType");
                     namespaceCount++;
                 }
             }
@@ -460,7 +459,6 @@ public class WebServiceLogicImpl
             if (!pkgAbbr.containsKey(pkg) && pkg != null && pkg.indexOf('.') > 0)
             {
                 pkgAbbr.put(pkg, "ns" + namespaceCount);
-                //System.out.println(this.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName());
                 namespaceCount++;
             }
         }
@@ -514,7 +512,6 @@ public class WebServiceLogicImpl
                     String pkg = type.getPackageName();
                     if (pkg != null && pkg.indexOf('.') > 0)
                     {
-                        //System.out.println("WSDLTypeLogicImpl pkg=" + packageName + " refPkg=" + pkg + " name=" + type.getName());
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
                         for (final Iterator<ModelElementFacade> itAttr = type.getAttributes(follow).iterator(); itAttr.hasNext();)
                         {
