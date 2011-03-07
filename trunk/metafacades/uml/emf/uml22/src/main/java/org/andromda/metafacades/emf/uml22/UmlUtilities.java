@@ -123,7 +123,6 @@ public class UmlUtilities
                 if (element instanceof Property)
                 {
                     final Property property = (Property)element;
-
                     if (property instanceof AssociationEnd || property instanceof Attribute)
                     {
                         transformedObject = property;
@@ -135,6 +134,10 @@ public class UmlUtilities
                     else
                     {
                         transformedObject = new AttributeImpl(property);
+                    }
+                    if (logger.isDebugEnabled() && property.getName() != null && !property.getName().startsWith("andromda"))
+                    {
+                        logger.debug("UMLUtilities.transform " + property.getName() + " " + property.getType().getName() + " " + property + " " + transformedObject);
                     }
                 }
                 else if (element instanceof Slot)
@@ -335,14 +338,14 @@ public class UmlUtilities
     }
 
     /**
-     * returns all owned property of the given classifier with the right type:
+     * returns all owned properties of the given classifier with the right type:
      * attribute if <code>isAssociation</code> is false and association end
      * otherwise.
      * 
      * @param classifier the classifier to inspect.
-     * @param follow whether to follow inheritance.
-     * @param isAssociation what kind of property to retrieve.
-     * @return all owned property of the given classifier with the right type.
+     * @param follow whether to follow inheritance hierarchy upward.
+     * @param isAssociation Retrieve only AssociationEnd properties.
+     * @return all owned properties of the given classifier with the right type.
      */
     public static List<Property> getOwnedProperty(
         final Classifier classifier,
@@ -366,21 +369,31 @@ public class UmlUtilities
             if (nextCandidate instanceof Property)
             {
                 final Property property = (Property)nextCandidate;
+                /*if (attributeMap.containsKey(property.getName()))
+                {
+                    logger.warn(
+                        "Attribute with this name has already been registered on " +
+                        classifier.getQualifiedName() + ": " + property.getName());
+                }*/
 
-                if (isAssociation == (property.getAssociation() != null))
+                if (isAssociation && property.getAssociation() != null)
+                {
+                    if (logger.isDebugEnabled())
+                    {
+                        logger.debug("Association found for " + classifier.getName() + ": " + property.getName());
+                    }
+                    // property represents an association end
+                    attributeMap.put(
+                        property.getName(),
+                        property);
+                }
+                else if (!isAssociation && property.getAssociation() == null)
                 {
                     if (logger.isDebugEnabled())
                     {
                         logger.debug("Attribute found for " + classifier.getName() + ": " + property.getName());
-                        if (attributeMap.containsKey(property.getName()))
-                        {
-                            logger.warn(
-                                "An attribute with this name has already been registered, overriding: " +
-                                property.getName());
-                        }
                     }
-
-                    // property represents an association end
+                    // property represents an attribute
                     attributeMap.put(
                         property.getName(),
                         property);
@@ -398,7 +411,7 @@ public class UmlUtilities
      *
      * @param classifier the UML class instance from which to retrieve all properties
      * @param follow        whether or not the inheritance hierarchy should be followed
-     * @return all retrieved attributes.
+     * @return all retrieved attributes. No associations or enumerations.
      */
     public static List<Property> getAttributes(
         final Classifier classifier,
@@ -409,6 +422,16 @@ public class UmlUtilities
             attributeList,
             ELEMENT_TRANSFORMER);
         //Collections.sort(attributeList, new PropertyComparator());
+        if (logger.isDebugEnabled())
+        {
+            for (Property property : attributeList)
+            {
+                if (!classifier.getQualifiedName().startsWith("andromda"))
+                {
+                    logger.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName() + " " + property.getName() + " " + property.getType().getName());
+                }
+            }
+        }
         return attributeList;
     }
 
