@@ -76,7 +76,7 @@
 #elseif ($attrType.primitive)
         hashCode = 29 * hashCode + (int)${attribute.name};
 #else
-        hashCode = 29 * hashCode + (${attribute.name} == null ? 0 : ${attribute.name}.hashCode());
+        hashCode = 29 * hashCode + (this.${attribute.name} == null ? 0 : this.${attribute.name}.hashCode());
 #end## if
 #end## foreach
 #end
