@@ -11,6 +11,11 @@ import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.internal.impl.BehaviorImpl;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.ComponentImpl;
+import org.eclipse.uml2.uml.internal.impl.NodeImpl;
+import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 
 /**
  * MetafacadeLogic implementation for
@@ -43,7 +48,7 @@ public class PackageFacadeLogicImpl
      * @see org.andromda.metafacades.uml.PackageFacade#findModelElement(String)
      */
     @Override
-    protected org.andromda.metafacades.uml.ModelElementFacade handleFindModelElement(
+    protected ModelElementFacade handleFindModelElement(
         final String fullyQualifiedName)
     {
         Object modelElement = null;
@@ -75,6 +80,8 @@ public class PackageFacadeLogicImpl
     }
 
     /**
+     * Returns Andromda class types, not necessarily all UML2 Class/Classifier type objects.
+     * Returns Classes, not UseCases, Activities, Behaviors, Components, Nodes.
      * @see org.andromda.metafacades.uml.PackageFacade#getClasses()
      */
     @Override
@@ -83,7 +90,10 @@ public class PackageFacadeLogicImpl
         List<Class> classes = new ArrayList<Class>();
         for (Element element : this.metaObject.getOwnedElements())
         {
-            if (element instanceof Class)
+            // Behavior Activity is mapped to EventFacade, unlike UML2 it does not inherit from Class so it must be excluded.
+            // TODO Fix inheritance hierarchy of EventFacade
+            if ((element instanceof ClassImpl)
+                && ! (element instanceof BehaviorImpl || element instanceof ComponentImpl || element instanceof NodeImpl || element instanceof StereotypeImpl))
             {
                 classes.add((Class)element);
             }
