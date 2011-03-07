@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.EntityQueryOperation;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -689,7 +690,6 @@ public class EntityLogicImpl
         final boolean withIdentifiers)
     {
         final Collection properties = this.getProperties(follow);
-
         // only filter when we don't want identifiers
         if (!withIdentifiers)
         {
@@ -874,7 +874,12 @@ public class EntityLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return ((AssociationEndFacade)object).getOtherEnd().getType() instanceof Entity;
+                    ClassifierFacade type = ((AssociationEndFacade)object).getOtherEnd().getType();
+                    /*if (!(type instanceof Entity || type instanceof EnumerationFacade))
+                    {
+                        logger.debug("EntityLogic.getAssociationEnds " + type);
+                    }*/
+                    return type != null && (type instanceof Entity || type instanceof EnumerationFacade);
                 }
             });
         return associationEnds;
