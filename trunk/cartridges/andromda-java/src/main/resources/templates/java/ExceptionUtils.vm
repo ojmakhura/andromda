@@ -71,7 +71,7 @@
      * @see java.lang.Throwable#setStackTrace(StackTraceElement[])
      */
     @Override
-    @XmlTransient
+    @javax.xml.bind.annotation.XmlTransient
     public void setStackTrace(StackTraceElement[] element)
     {
         super.setStackTrace(element);

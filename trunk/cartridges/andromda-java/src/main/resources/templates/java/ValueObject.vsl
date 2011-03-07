@@ -2,11 +2,10 @@
 // license-header java merge-point
 //
 /**
- * @author GENERATED CODE! Do not modify by hand!
+ * @author Generated on $javaUtils.date Do not modify by hand!
  *
  * TEMPLATE:     ValueObject.vsl in andromda-java-cartridge.
  * MODEL CLASS:  $class.validationName
- * METAFACADE:   org.andromda.metafacades.uml.ValueObject
 #foreach ($stereotype in $class.stereotypes)
  * STEREOTYPE:   $stereotype.name
 #end
@@ -18,14 +17,10 @@ package $class.packageName;
 #if ($serializable && !$class.generalization)
 import java.io.Serializable;
 #end
-#set ($XMLOutput=$XMLBindingAnnotations&&!$class.hasStereotype("NoXml"))
+#set ($XMLOutput=$XMLBindingAnnotations && !$class.hasStereotype("NoXml"))
 #if ($XMLOutput)
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-#if ($xmlAttributes)
-import javax.xml.bind.annotation.XmlAttribute;
-#end
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 #end
@@ -175,7 +170,7 @@ $attribute.getDocumentation("     * ")
 #set ($type=$attribute.type.name)
 #if ($useAttributes)
 ## defaultValue not supported in @XmlAttribute annotation - annoying
-    @XmlAttribute(name = "$attribute.name"#if ($attribute.required), required=true#end)
+    @javax.xml.bind.annotation.XmlAttribute(name = "$attribute.name"#if ($attribute.required), required=true#end)
 #else
 ## Custom JAXB binding to use Date instead of XMLGregorianCalendar. Custom DateParser/printer class wraps CXF bindings
 #if (($type.equals("DateTime") && $stringUtils.isNotBlank($XMLDateTimeAdapter)) || ($type.equals("Time") && $stringUtils.isNotBlank($XMLTimeAdapter))|| ($type.equals("Date") && $stringUtils.isNotBlank($XMLDateAdapter))|| ($type.equals("Integer") && $stringUtils.isNotBlank($XMLIntegerAdapter))|| ($type.equals("Decimal") && $stringUtils.isNotBlank($XMLDecimalAdapter)))
@@ -183,7 +178,7 @@ $attribute.getDocumentation("     * ")
 #else
 #set ($elementType="")
 #end
-    @XmlElement(name = "$attribute.name"##No newline
+    @javax.xml.bind.annotation.XmlElement(name = "$attribute.name"##No newline
 #if ($type.equals("String"))
 #if (!$attribute.many && $stringUtils.isNotBlank($attribute.defaultValue)), defaultValue=$attribute.defaultValue#end$elementType)
 #elseif ($type.equals("Character") || $type.equals("char"))
@@ -214,6 +209,9 @@ $attribute.getDocumentation("     * ")
 #set ($returnType = $attribute.getterSetterTypeName)
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #if ($attribute.type.primitive)
+    /**
+     * boolean setter for primitive attribute, so we can tell if it's initialized
+     */
 #if ($XMLOutput)
     @javax.xml.bind.annotation.XmlTransient
 #end
@@ -226,7 +224,7 @@ $attribute.getDocumentation("     * ")
     // Class associationEnds
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
 #if ($XMLOutput)
-    @XmlElement(name="$connectingEnd.name"#if ($connectingEnd.required), required=true#end)
+    @javax.xml.bind.annotation.XmlElement(name="$connectingEnd.name"#if ($connectingEnd.required), required=true#end)
 #end
     protected $connectingEnd.getterSetterTypeName $connectingEnd.name;
 #end
@@ -335,6 +333,9 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
         this.set$stringUtils.capitalize($property.name) = true;
 #end
 #end
+#if ($class.allProperties.empty)
+        // documented empty block - avoid compiler warning
+#end
     }
 
     /**
@@ -347,7 +348,7 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
     public#if($generateChainedSetters) $className${genericTemplate}#else void#end copy(final $className${genericTemplate} otherBean)
     {
 #if ($class.allProperties.empty)
-// No attributes to copy...
+        // No attributes to copy...
 #else
         if (null != otherBean)
         {
@@ -634,6 +635,8 @@ $connectingEnd.getDocumentation("     * ")
 #if ($class.generalization)
         return super.equalProperties(that)
 #set ($operator = "&& ")
+#elseif ($class.properties.empty)
+        return true
 #else
         return
 #set ($operator = "")
