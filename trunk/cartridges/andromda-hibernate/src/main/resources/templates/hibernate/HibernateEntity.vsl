@@ -54,31 +54,45 @@ public abstract class $entity.entityName
 #if($entity.compositeIdentifier)
     private $entity.fullyQualifiedIdentifierTypeName $entity.identifierName;
 
+    /**
+     * Get the composite primary key identifier class
+     * @return ${entity.identifierName}
+     */
     public $entity.fullyQualifiedIdentifierTypeName ${entity.identifierGetterName}()
     {
         return this.${entity.identifierName};
     }
 
-    public void ${entity.identifierSetterName}($entity.fullyQualifiedIdentifierTypeName $entity.identifierName) {
-        this.$entity.identifierName = $entity.identifierName;
+    /**
+     * Set the composite primary key identifier class
+     * @param ${entity.identifierName}In
+     */
+    public void ${entity.identifierSetterName}($entity.fullyQualifiedIdentifierTypeName ${entity.identifierName}In) {
+        this.$entity.identifierName = ${entity.identifierName}In;
     }
 
 #end
+    // Generate the attributes
 #foreach ($attribute in $entity.attributes)
-#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
 #set ($typeName = $attribute.getterSetterTypeName)
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
 #end
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
     private $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
+#end
     /**
 $attribute.getDocumentation("     * ")
      * @return this.${attribute.name} $typeName
      */
     $attribute.visibility $typeName ${attribute.getterName}()
     {
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
         return this.${attribute.name};
+#else
+        return this.${entity.identifierGetterName}().${attribute.getterName}();
+#end
     }
 
     /**
@@ -87,12 +101,15 @@ $attribute.getDocumentation("     * ")
      */
     $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In)
     {
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
         this.${attribute.name} = ${attribute.name}In;
+#else
+        this.${entity.identifierGetterName}().${attribute.setterName}(${attribute.name}In);
+#end
     }
 
 #end
-#end
-## Generate the associations
+    // Generate the associations
 #foreach ($associationEnd in $entity.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
@@ -177,8 +194,14 @@ $target.getDocumentation("     * ")
 #foreach ($operation in $entity.businessOperations)
     /**
 $operation.getDocumentation("     * ")
-#if ($operation.exceptionsPresent)
-    * @throws $operation.exceptionList
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+#if ($operation.returnTypePresent)
+     * @return $operation.getterSetterReturnTypeName
+#end
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.name
 #end
      */
 #if ($operation.exceptionsPresent)

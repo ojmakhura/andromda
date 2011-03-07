@@ -58,7 +58,6 @@ public abstract class $entity.daoBaseName
 #end
     implements $entity.fullyQualifiedDaoName
 {
-
 #foreach($entityRef in $entity.entityReferences)
     private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
@@ -88,7 +87,7 @@ public abstract class $entity.daoBaseName
     public Object get(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
-#if($identifierTypePrimitive)
+#if($identifierTypePrimitive && !$entity.compositeIdentifier)
 #set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
 #else
         if ($argument == null)
