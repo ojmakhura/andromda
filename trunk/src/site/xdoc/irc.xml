@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA live</title>
+    </properties>
+    <body>
+        <section name="AndroMDA on #IRC">
+            <p class="std">
+			  This page explains how to contact other people to discuss AndroMDA,
+              you will learn how to connect to a dedicated IRC channel.
+            </p>
+            <p class="highlight">
+                If you have no idea what IRC is about, then visit this page first:
+                <a href="http://www.mirc.com/irc.html" target="_blank">http://www.mirc.com/irc.html</a>
+            </p>
+            <p class="std">
+                Chatting and discussing about MDA you will get you the latest information, right
+                from the core. If you have questions or you are stuck you can always try
+                the IRC channel to get a quick answer.
+            </p>
+            <p class="std">
+                First of all you will need to download an IRC client, you can use any
+                client you wish. IRC does not suffer from the problems of IM in the sense
+                that the IRC protocol is a free standard, since many years lots of clients
+                on different platforms have become available making it very easy to connect
+                with everybody.
+            </p>
+            <p class="std">
+                Connect to the BeyondIRC server at irc2.beyondirc.net, ports 6660-6669.
+                The channel is called #andromda. You can try to click here:
+                <a href="irc://irc2.beyondirc.net:6663">irc://irc2.beyondirc.net:6663</a>.
+            </p>
+            <p class="std">
+                For those in a hurry: go through the following steps:
+                <ol>
+                    <li>Download and install the client
+                        <a href="http://www.mirc.com/get.html">here</a>
+                    </li>
+                    <li>Choose and enter a nickname to use online</li>
+                    <li>In the 'Servers' section choose 'BeyondIRC'</li>
+                    <li>Click 'Connect to server'</li>
+                    <li>in the following window add the channel '#andromda'</li>
+                    <li>alternatively you can join channels by typing
+                        <code>/join #andromda</code>
+                    </li>
+                    <li>That's it, you can now talk to the people that are online.</li>
+                </ol>
+            </p>
+            <p class="std">
+                If nobody would appear to be online then don't worry, we might appear sooner or later.
+                This service has been enabled starting on August 23, 2004.
+            </p>
+            <p class="highlight">
+                There will always be a 'user' present in the channel, this is a bot and he is called
+                'ChanServ'. This is a script that provides the security for the channel and it will
+                kick off anybody that is naughty, so behave! :-)
+            </p>
+        </section>
+    </body>
+</document>
