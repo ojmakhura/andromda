@@ -70,12 +70,12 @@
         }
     }
 }
-]]>
-                        </source>
+]]></source>
                     </li>
                     <li>
                         <p>
-                            <strong>Whitespace:</strong> Do not add extra whitespace
+                            <strong>Whitespace:</strong> No extra trailing whitespace at the end of a line.
+							Do not add extra whitespace
                             around parenthesis (i.e. "if ( this.isComposition() )") or casts
                             ("(ClassifierFacade) element"), instead they should be written
                             written like the following:
@@ -91,7 +91,24 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                     </li>
                     <li>
                         <p>
-                            <strong>Iterators:</strong> Looping using an iterator, do these in for-loops
+                            <strong>Collections:</strong> Always use strongly-typed Collections whenever possible. This
+							detects type errors at compile time instead of at runtime, which is much easier to
+							debug and fix, and automatically flags incorrectly implemented methods.
+							In cartridges using UML2 models, use multiplicity * referring to the target Class,
+							rather than the generic List or Collection types, for all attributes/associations/parameters.
+							All casting problems will be flagged as compiler warnings in every build.
+							If calling a non-typesafe underlying method that cannot be modified, add 
+                        <source>
+@SuppressWarnings("unchecked")
+                        </source>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Iterators:</strong> Use Java5 for (VariableType variable : variableList())
+							loops instead of Iterator whenever possible (i.e. not altering the itrated value within the loop).
+							This reduces the amount if code, eliminated type-casting, and is easier to understand.
+							If looping using an iterator, do these in for-loops
                             instead of while loops (because this allows the iterator itself to be scoped
                             into that block). Example:
                        </p>
@@ -100,18 +117,18 @@ for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeItera
 {
     final ModelElement stereotype = (ModelElement)stereotypeIterator.next();
     stereoTypeNames.add(stereotype.getName());
-}                        
-                        </source>
+} </source>
                     </li>
                     <li>
                         <p>
                             <strong>Comments:</strong> Javadoc SHOULD exist on all your class members
-                            (methods + class variables), including the private ones. Also, if you are
+                            (methods + class variables), including the protected and private ones. Also, if you are
                             working on existing code and there currently isn't a javadoc for that
                             method/class/variable or whatever, then you should contribute and add it.
                             This will improve the project as a whole.  Also add code comments when
                             you think it's necessary (like assumptions), especially when the code
-                            is not obvious.
+                            is not obvious. Document WHY the code is doing something, not what it is doing
+							unless the operation sequence is very complex (consider refactoring).
                         </p>
                     </li>
                     <li>
@@ -150,8 +167,7 @@ public int getEntityCount()
     }
 
     return entityCount;
-}
-                       </source>
+} </source>
                     </li>
                     <li>
                         <p>
@@ -173,8 +189,7 @@ public class SomeClass
     {
         logger.debug("Value = " + this.someString);
     }
-}
-                       </source>
+} </source>
                     </li>
                     <li>
                         <strong>Parameter:</strong> Method parameter names should not have any
@@ -186,8 +201,7 @@ public void someMethod(
     final String className,
     final int count)
 {
-}                        
-                        </source>
+} </source>
                     </li>
                     <li>
                         <p>
@@ -265,16 +279,17 @@ catch (Exception ex)
                         <source>
 ------- AndroMDA Exception Recording -------
 Version ........: 3.4-SNAPSHOT
-Error ..........: Error performing ModelProcessor.process with model(s) --> 'jar:file:/home/martin/ews30andromda/workspace/andromda-all/cartridges/andromda-webservice/src/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml'
-Build ..........: 2005-04-20 18:16:38
-Build System ...: Linux-2.6.11-suspend2
-Build JDK ......: Sun Microsystems Inc.-1.4.2_07-b05
-Build Builder ..: martin
-Run System .....: Linux2.6.11-suspend2
-Run JDK ........: Sun Microsystems Inc.1.4.2_07-b05
-Main Exception .: Error performing MDRepositoryFacade.readModel
-Root Exception .: java.lang.OutOfMemoryError
-java.lang.OutOfMemoryError
+Error ..........: Error performing ModelProcessor.process with model(s) --> 'C:/Windows/1Workspaces/A34/andromda-all/andromda-documentation/samples/timetracker/mda/src/main/uml2/timetrackerBad.uml'
+Build ..........: ${buildNumber}
+Build System ...: Windows 7.0
+Build JDK ......: Sun Microsystems Inc.-17.0-b16
+Build Builder ..: RJF3
+Run System .....: Windows 7.0
+Run JDK ........: Sun Microsystems Inc.17.0-b16
+Main Exception .: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
+Root Exception .: java.lang.IllegalArgumentException: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
+java.lang.IllegalArgumentException: org.andromda.core.metafacade.MetafacadeFactory.createMetafacade - 'mappingObject' can not be null
+	at org.andromda.core.common.ExceptionUtils.checkNull(ExceptionUtils.java:67)
                         </source>
 						</p>
                     </li>
