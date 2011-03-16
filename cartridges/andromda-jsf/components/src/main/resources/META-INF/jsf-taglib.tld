@@ -42,7 +42,7 @@
             </description>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>binaryFile</name>
         <tag-class>org.andromda.cartridges.jsf.taglib.BinaryFileTag</tag-class>
@@ -73,8 +73,16 @@
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
             <description>
-                The content type under which to render the binary file (if this isn't specified, then the content 
+                The content type under which to render the binary file (if this isn't specified, then the content
                 type is guessed based on the extension of the fileName)
+            </description>
+        </attribute>
+        <attribute>
+            <name>encoding</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The encoding to use when rendering the binary file.
             </description>
         </attribute>
     </tag>

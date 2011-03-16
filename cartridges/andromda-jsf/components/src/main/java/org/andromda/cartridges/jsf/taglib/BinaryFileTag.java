@@ -52,12 +52,12 @@ public class BinaryFileTag
     {
         return COMPONENT_TYPE;
     }
-    
+
     private String value;
 
     /**
      * Sets the value.
-     * 
+     *
      * @return Returns the value.
      */
     public String getValue()
@@ -67,14 +67,14 @@ public class BinaryFileTag
 
     /**
      * Gets the value.
-     * 
-     * @param valueIn The value to set.
+     *
+     * @param value The value to set.
      */
-    public void setValue(String valueIn)
+    public void setValue(String value)
     {
-        this.value = valueIn;
+        this.value = value;
     }
-    
+
     private String fileName;
 
     /**
@@ -86,13 +86,13 @@ public class BinaryFileTag
     }
 
     /**
-     * @param fileNameIn The fileName to set.
+     * @param fileName The fileName to set.
      */
-    public void setFileName(String fileNameIn)
+    public void setFileName(String fileName)
     {
-        this.fileName = fileNameIn;
+        this.fileName = fileName;
     }
-    
+
     private String contentType;
 
     /**
@@ -104,13 +104,31 @@ public class BinaryFileTag
     }
 
     /**
-     * @param contentTypeIn The contentType to set.
+     * @param contentType The contentType to set.
      */
-    public void setContentType(String contentTypeIn)
+    public void setContentType(String contentType)
     {
-        this.contentType = contentTypeIn;
+        this.contentType = contentType;
     }
-    
+
+    private String encoding;
+
+    /**
+     * @return Returns the encoding.
+     */
+    public String getEncoding()
+    {
+        return this.encoding;
+    }
+
+    /**
+     * @param encoding The encoding to set.
+     */
+    public void setEncoding(String encoding)
+    {
+        this.encoding = encoding;
+    }
+
     private String prompt;
 
     /**
@@ -122,10 +140,10 @@ public class BinaryFileTag
     }
 
     /**
-     * @param promptIn The prompt to set.
+     * @param prompt The prompt to set.
      */
-    public void setPrompt(String promptIn)
+    public void setPrompt(String prompt)
     {
-        this.prompt = promptIn;
+        this.prompt = prompt;
     }
 }

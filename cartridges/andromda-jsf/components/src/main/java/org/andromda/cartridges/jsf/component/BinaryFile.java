@@ -2,8 +2,10 @@ package org.andromda.cartridges.jsf.component;
 
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.faces.component.UIComponentBase;
 import javax.faces.el.ValueBinding;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,7 +27,7 @@ public class BinaryFile
     public static final String RENDERER_TYPE = "org.andromda.cartridges.jsf.BinaryFile";
 
     /**
-     * 
+     *
      */
     public BinaryFile()
     {
@@ -70,7 +72,7 @@ public class BinaryFile
     }
 
     /**
-     * Stores the name of the attriubte that holds the fileName.
+     * Stores the name of the attribute that holds the fileName.
      */
     public static final String FILE_NAME_ATTRIBUTE = "fileName";
 
@@ -117,7 +119,7 @@ public class BinaryFile
     private String contentType;
 
     /**
-     * Gets the explicity content type to render the file in.
+     * Gets the explicit content type to render the file in.
      *
      * @return Returns the contentType.
      */
@@ -159,6 +161,44 @@ public class BinaryFile
     public void setContentType(final String contentType)
     {
         this.contentType = contentType;
+    }
+
+    /**
+     * The name of the attribute that stores the encoding.
+     */
+    public static final String ENCODING_TYPE_ATTRIBUTE = "encoding";
+
+    /**
+     * The encoding to use when rendering the file.
+     */
+    private String encoding;
+
+    /**
+     * Gets the encoding to render the file in.
+     *
+     * @return Returns the encoding.
+     */
+    public String getEncoding()
+    {
+        if (this.encoding == null)
+        {
+            final ValueBinding binding = this.getValueBinding(ENCODING_TYPE_ATTRIBUTE);
+            if (binding != null)
+            {
+                this.encoding = (String)binding.getValue(this.getFacesContext());
+            }
+        }
+        return this.encoding;
+    }
+
+    /**
+     * Sets the explicit encoding used to render the file.
+     *
+     * @param encoding The encoding to set.
+     */
+    public void setEncoding(final String encoding)
+    {
+        this.encoding = encoding;
     }
 
     /**
