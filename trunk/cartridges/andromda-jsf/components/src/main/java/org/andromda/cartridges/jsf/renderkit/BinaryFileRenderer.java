@@ -3,10 +3,12 @@ package org.andromda.cartridges.jsf.renderkit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
+
 import org.andromda.cartridges.jsf.component.BinaryFile;
 import org.apache.commons.lang.StringUtils;
 
@@ -31,9 +33,7 @@ public class BinaryFileRenderer
 
     private static final int BUFFER_SIZE = 4096;
 
-    /**
-     * @see javax.faces.render.Renderer#encodeBegin(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-     */
+    @Override
     public void encodeBegin(
         FacesContext context,
         UIComponent component)
@@ -65,11 +65,16 @@ public class BinaryFileRenderer
             {
                 response.setContentType(contentType);
             }
+            final String encoding = fileComponent.getEncoding();
+            if (StringUtils.isNotBlank(encoding))
+            {
+            	response.setCharacterEncoding(encoding);
+            }
             if (value != null)
             {
                 if (value instanceof String)
                 {
-                    value = ((String)value).getBytes();
+                    value = StringUtils.isNotBlank(encoding) ? ((String)value).getBytes(encoding) : ((String)value).getBytes();
                 }
                 if (value instanceof byte[])
                 {
@@ -77,7 +82,7 @@ public class BinaryFileRenderer
                     response.setBufferSize(file.length);
                     response.setContentLength(file.length);
                     response.flushBuffer();
-                    stream.write(file);                
+                    stream.write(file);
                 }
                 else if (value instanceof InputStream)
                 {
@@ -95,9 +100,7 @@ public class BinaryFileRenderer
         }
     }
 
-    /**
-     * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-     */
+    @Override
     public void encodeEnd(
         final FacesContext context,
         final UIComponent component)
