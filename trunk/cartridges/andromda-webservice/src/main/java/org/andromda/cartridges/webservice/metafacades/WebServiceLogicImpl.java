@@ -860,7 +860,12 @@ public class WebServiceLogicImpl
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
+        String prefix = (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
+        if (StringUtils.isBlank(prefix))
+        {
+            prefix = "impl";
+        }
+        return prefix;
     }
 
     /**
@@ -874,7 +879,12 @@ public class WebServiceLogicImpl
      */
     protected String getQualifiedNameLocalPartPattern()
     {
-        return (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
+        String pattern = (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
+        if (StringUtils.isBlank(pattern))
+        {
+            pattern = "{0}";
+        }
+        return pattern;
     }
 
     /**
@@ -889,7 +899,12 @@ public class WebServiceLogicImpl
      */
     protected String getNamespacePattern()
     {
-        return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
+        String pattern = (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
+        if (StringUtils.isBlank(pattern))
+        {
+            pattern = "http://{0}/";
+        }
+        return pattern;
     }
 
     /**
