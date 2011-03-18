@@ -137,7 +137,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     public Object load(final int transform, final ${identifierTypeName} ${identifierName})
     {
 #set ($argument = ${identifierName})
-#if($identifierTypePrimitive)
+#if($identifierTypePrimitive && !$entity.compositeIdentifier)
 #set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
 #else
         if ($argument == null)
