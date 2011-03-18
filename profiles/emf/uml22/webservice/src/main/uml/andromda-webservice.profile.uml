@@ -784,6 +784,7 @@ For example, a service sometimes may contain other operations that will not be e
         </ownedComment>
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_irBNML5OEd6HXqppVLPkvg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_mGHSQPTlEd-tkvEoAkqWOA" value=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_tG59QL5OEd6HXqppVLPkvg" name="andromda_webservice_param_header" visibility="private">
         <ownedComment xmi:id="_tG59Qb5OEd6HXqppVLPkvg">
@@ -913,6 +914,127 @@ For example, a service sometimes may contain other operations that will not be e
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_16_5_2_2e90116_1245939975366_320925_361" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_2_2e90116_1245939975366_648758_360" name=""/>
       </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_OpzDsPTjEd-tkvEoAkqWOA" name="WSSecurity">
+      <ownedComment xmi:id="_laWqYPTjEd-tkvEoAkqWOA" annotatedElement="_OpzDsPTjEd-tkvEoAkqWOA">
+        <body>On CXF/JAX-WS WebService or Operation, indicates that SOAP ws-security and transport security is enabled. It adds ws-security namespace and SOAP Header information to the service definition and WebService client.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_-8-TkPTkEd-tkvEoAkqWOA" name="andromda_security_abbr" visibility="private">
+        <ownedComment xmi:id="_DhIbQPTlEd-tkvEoAkqWOA">
+          <body>Namespace abbreviation associated with the wssecurity element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugRbIPTlEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tD4VoPTlEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_QTkL8PTlEd-tkvEoAkqWOA" value="wsse"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_yFeAMPTlEd-tkvEoAkqWOA" name="andromda_security_namespace" visibility="private">
+        <ownedComment xmi:id="_yFeAMfTlEd-tkvEoAkqWOA">
+          <body>Namespace associated with the wssecurity element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yFeAMvTlEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yFeAM_TlEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yFeANPTlEd-tkvEoAkqWOA" value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_7q8FoPTlEd-tkvEoAkqWOA" name="andromda_security_XSDlocation" visibility="private">
+        <ownedComment xmi:id="_7q8FofTlEd-tkvEoAkqWOA">
+          <body>Namespace associated with the wssecurity element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7q8FovTlEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7q8Fo_TlEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_7q8FpPTlEd-tkvEoAkqWOA" value=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_QG4lYPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_partName" visibility="private">
+        <ownedComment xmi:id="_QG4lYfTmEd-tkvEoAkqWOA">
+          <body>wsdl:part name associated with the wssecurity element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QG4lYvTmEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QG4lY_TmEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_QG4lZPTmEd-tkvEoAkqWOA" value="wsse"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YL2hYPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_element" visibility="private">
+        <ownedComment xmi:id="_YL2hYfTmEd-tkvEoAkqWOA">
+          <body>wsdl element name used in the wssecurity element references. Default=Security.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YL2hYvTmEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YL2hY_TmEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YL2hZPTmEd-tkvEoAkqWOA" value="Security"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_lc4SkPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
+        <ownedComment xmi:id="_lc4SkfTmEd-tkvEoAkqWOA">
+          <body>wsdl element document use type lieral/encoded. Default=literal.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lc4SkvTmEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lc4Sk_TmEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_lc4SlPTmEd-tkvEoAkqWOA" value="default"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_f2rlcPTuEd-tkvEoAkqWOA" name="base_Class" visibility="private">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uLEFUPdEEd-tkvEoAkqWOA" name="SecurityType" visibility="private" type="_GBXokPdEEd-tkvEoAkqWOA">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_9yz2QPdEEd-tkvEoAkqWOA" value="UsernameToken"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_1k6T0PTrEd-tkvEoAkqWOA" name="WSCustomHeader">
+      <ownedComment xmi:id="_1k6T0fTrEd-tkvEoAkqWOA" annotatedElement="_1k6T0PTrEd-tkvEoAkqWOA">
+        <body>On CXF/JAX-WS WebService or Operation, indicates an additional custom SOAP header is enabled. It adds the header namespace and SOAP Header information to the service definition and WebService client.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_1k6T0vTrEd-tkvEoAkqWOA" name="andromda_header_abbr" visibility="private">
+        <ownedComment xmi:id="_1k6T0_TrEd-tkvEoAkqWOA">
+          <body>Namespace abbreviation associated with the wssecurity element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T1PTrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T1fTrEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T1vTrEd-tkvEoAkqWOA" value="header"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1k6T1_TrEd-tkvEoAkqWOA" name="andromda_header_namespace" visibility="private">
+        <ownedComment xmi:id="_1k6T2PTrEd-tkvEoAkqWOA">
+          <body>Namespace associated with the custom header element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T2fTrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T2vTrEd-tkvEoAkqWOA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1k6T3PTrEd-tkvEoAkqWOA" name="andromda_header_XSDlocation" visibility="private">
+        <ownedComment xmi:id="_1k6T3fTrEd-tkvEoAkqWOA">
+          <body>Namespace associated with the custom header element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T3vTrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T3_TrEd-tkvEoAkqWOA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1k6T4fTrEd-tkvEoAkqWOA" name="andromda_wsdl_header_partName" visibility="private">
+        <ownedComment xmi:id="_1k6T4vTrEd-tkvEoAkqWOA">
+          <body>wsdl:part name associated with the custom header element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T4_TrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T5PTrEd-tkvEoAkqWOA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1k6T5vTrEd-tkvEoAkqWOA" name="andromda_wsdl_header_element" visibility="private">
+        <ownedComment xmi:id="_1k6T5_TrEd-tkvEoAkqWOA">
+          <body>wsdl element name used in the custom header element references.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T6PTrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T6fTrEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T6vTrEd-tkvEoAkqWOA" value="Security"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1k6T6_TrEd-tkvEoAkqWOA" name="andromda_wsdl_header_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
+        <ownedComment xmi:id="_1k6T7PTrEd-tkvEoAkqWOA">
+          <body>wsdl element document use type lieral/encoded. Default=literal.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T7fTrEd-tkvEoAkqWOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T7vTrEd-tkvEoAkqWOA"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T7_TrEd-tkvEoAkqWOA" value="default"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_hbr0YPTuEd-tkvEoAkqWOA" name="base_Class" visibility="private">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_GBXokPdEEd-tkvEoAkqWOA" name="WSSecurityType">
+      <ownedComment xmi:id="_N5YtsPdEEd-tkvEoAkqWOA">
+        <body>WS Security implementation type: UsernameToken, X509, SAML</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_Yy1jgPdEEd-tkvEoAkqWOA" name="default"/>
+      <ownedLiteral xmi:id="_bbYTEPdEEd-tkvEoAkqWOA" name="UsernameToken"/>
+      <ownedLiteral xmi:id="_h8i6APdEEd-tkvEoAkqWOA" name="X509"/>
+      <ownedLiteral xmi:id="_kQFp8PdEEd-tkvEoAkqWOA" name="Saml"/>
     </packagedElement>
     <profileApplication xmi:id="_0profileApplicationandromda-webservice">
       <eAnnotations xmi:id="_RchAPR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML">
