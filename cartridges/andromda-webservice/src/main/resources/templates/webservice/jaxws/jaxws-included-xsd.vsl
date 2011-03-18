@@ -112,39 +112,6 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 ##end
 #end
                 </xs:sequence>
-## No attributes for operation parameters - allow bare methods
-##if ($useAttributes)
-##foreach ($parameter in $operation.parameters)
-##set ($type=$parameter.type.schemaType)
-##if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
-##set ($isMany=true)
-##else
-##set ($isMany=false)
-##end
-###              <!-- $parameter.name type.packageName=$type.packageName schemaType=$type isMany=$isMany-->
-##if (!$parameter.return && $type.startsWith("xs:") && !$isMany)
-### Metafacade: Paramerter.getUpper returns -1 for multiplicity *
-##if ($parameter.packageName.equals($pkg.fullyQualifiedName) || $stringUtils.isBlank($parameter.packageName))
-##if ($parameter.defaultValuePresent)
-##set ($default = ' use="required" default="' + $parameter.defaultValue + '"')
-##elseif (!$parameter.nillable)
-##set ($default = ' use="required"')
-##else
-##set ($default = "")
-##end
-##if ($stringUtils.isNotBlank($parameter.getDocumentation("", 9999, false)))
-##                <xs:attribute name="$parameter.name" type="$type"$default>
-##                    <xs:annotation><xs:documentation>
-##$stringUtils.replaceChars($parameter.getDocumentation("                        ", 100, false), "\"'&<>", "")
-##                    </xs:documentation></xs:annotation>
-##                </xs:attribute>
-##else
-##                <xs:attribute name="$parameter.name" type="$type"$default/>
-##end
-##end
-##end
-##end
-##end
             </xs:complexType>
 #else
             <xs:complexType/>
@@ -199,8 +166,9 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #end
 #end
 ## Service exceptions are already included in referenced $types
-##        <!-- $service.allowedOperationExceptions.size() $service.allowedOperationExceptions $service -->
+##        <!-- Service Exception Faults $pkg.fullyQualifiedName $webServiceUtils.getAllowedOperationExceptions($pkg).size() -->
 #foreach($exception in $service.allowedOperationExceptions)
+        <!-- Exception: $exception.fullyQualifiedName -->
 #if ($exception.associationEnds.empty)
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
 #set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.package))
@@ -208,9 +176,6 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
 #set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.associationEnds.get(0).otherEnd.type.package))
 #end
-##        <!-- $exception.packageName $service.package.fullyQualifiedName $pkg $schemaTypes.contains($exception) $exception -->
-##if ($exception.packageName.equals($service.package.fullyQualifiedName) || $stringUtils.isBlank($exception.packageName))
-##set ($type=$exception.qName)
 #set ($type="$webServiceUtils.getPkgAbbr(${exception.package}):$faultName")
         <xs:element name="$faultName" type="$type"/>
 #if ($exception.packageName.equals($service.packageName))
@@ -302,13 +267,23 @@ $stringUtils.replaceChars($literal.getDocumentation("                        ", 
             </xs:restriction>
         </xs:simpleType>
 #* *##else
-##if (!$service.allowedOperationExceptions.contains($type))
-#if (!$type.hasStereotype("Exception") && !$type.hasStereotype("ApplicationException") && !$type.hasStereotype("UnexpectedException"))
-#if ($type.hasStereotype("WebFault") && $type.hasStereotype("ValueObject"))
-##set ($faultName=$type.qName.replace("Exception", "Fault"))
-        <xs:element name="$type.qName" type="${service.namespacePrefix}:$type.qName" />
+##      <!-- $type $type.name many=$attribute.many namespacePrefix=$type.namespacePrefix packageName=$type.packageName AschemaType=$attribute.type.schemaType qName=$type.qName isMany=$isMany schemaType=$schemaType -->
+#set ($webFault = $type.hasStereotype("WebFault") && ($type.hasStereotype("Exception") || $type.hasStereotype("ApplicationException") || $type.hasStereotype("UnexpectedException")))
+#if ($webFault)
+        <!-- Fault $type.fullyQualifiedName -->
+#if ($type.name.contains("Exception"))
+#set ($typeName = $type.name.replace("Exception", "Fault"))
+#else
+#set ($typeName = "${type.name}Fault")
 #end
-        <xs:complexType name="$type.qName">
+#elseif ($type.hasStereotype("ValueObject"))
+#set ($typeName = "$type.qName")
+        <!-- ValueObject $type.fullyQualifiedName -->
+#end
+#if ($type.hasStereotype("ValueObject") || $webFault)
+##        <!-- WebFault=$type.hasStereotype("WebFault") Exception=$type.hasStereotype("Exception") ApplicationException=$type.hasStereotype("ApplicationException") UnexpectedException=$type.hasStereotype("UnexpectedException") -->
+        <xs:element name="$typeName" type="${service.namespacePrefix}:typeName" />
+        <xs:complexType name="$typeName">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
@@ -318,8 +293,11 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #if ($extensionRequired)
                 <xs:complexContent>
                 <xs:extension base="${type.generalization.namespacePrefix}:$type.generalization.qName">
+#set ($tab="        ")
+#else
+#set ($tab="")
 #end
-#set ($attributes = $type.getAttributes($extensionInheritanceDisabled))
+#set ($attributes = $type.getProperties($extensionInheritanceDisabled))
 #set ($otherEnds = $type.getNavigableConnectingEnds($extensionInheritanceDisabled))
 ##set ($otherEnds = $type.getNavigableConnectingEnds($extensionInheritanceDisabled))
 ## Output sequence if there are attributes/associations, and there are complex types or if everything is an element
@@ -330,9 +308,9 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 ## xs:all indicates elements can exist in any order but can only appear once or not at all - can't use for arrays
 ## What we really need here is to see if any of the included elements are array elements maxOccurs > 1
 #if ($useArrayWrapper)
-            <xs:all>
+$tab            <xs:all>
 #else
-            <xs:sequence>
+$tab            <xs:sequence>
 #end
 #foreach ($attribute in $attributes)
 #set ($attributeType = $attribute.type)
@@ -367,64 +345,26 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #set ($use = ' minOccurs="0"')
 #end
 #if ((!$useAttributes) || ($isMany) || (!$attribute.type.schemaType.startsWith("xs:")))
-                <xs:element name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$schemaType"#end${use}${maxOccurs}>
+$tab                <xs:element name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$schemaType"#end${use}${maxOccurs}>
 #renderRestrictions($attribute, $schemaType)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
-                  <xs:annotation><xs:documentation>
+$tab                  <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($attribute.getDocumentation("                        ", 100, false), "\"'&<>", "")
-                  </xs:documentation></xs:annotation>
+$tab                  </xs:documentation></xs:annotation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-                  <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
-                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-                  </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
+$tab                  <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
+$tab                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
+$tab                  </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
 #end
 #end
-                </xs:element>
-#end
-#*     *##end
-##if (!$otherEnds.empty)
-##                <!-- Model associationEnds -->
-##end
-#foreach ($otherEnd in $otherEnds)
-#set ($otherEndType = $otherEnd.type)
-#if ($otherEnd.many && $useArrayWrapper)
-#set ($schemaType = "${otherEndType.namespacePrefix}:${otherEndType.wsdlArrayName}")
-#elseif ($otherEndType.packageName.equals($pkg.fullyQualifiedName) && $stringUtils.isNotBlank($otherEndType.packageName) && $otherEndType.packageName.indexOf('.')>0)
-#if ($stringUtils.isBlank(${otherEndType.namespacePrefix}) || $stringUtils.isBlank(${otherEndType.qName}))
-#set ($schemaType = "${service.namespacePrefix}:${otherEndType.name}")
-#else
-#set ($schemaType = "${otherEndType.namespacePrefix}:${otherEndType.qName}")
-#end
-#else
-#if ($otherEndType.packageName.equals($pkg.fullyQualifiedName)))
-#set ($schemaType = "${service.namespacePrefix}:${otherEndType.name}")
-#elseif ($stringUtils.isBlank(${otherEndType.qName}))
-#set ($schemaType = "${webServiceUtils.getPkgAbbr($otherEndType.package)}:${otherEndType.name}")
-#else
-#set ($schemaType = "${webServiceUtils.getPkgAbbr($otherEndType.package)}:${otherEndType.qName}")
-#end
-#end
-#if (!$useArrayWrapper && ($otherEnd.many || $otherEndType.arrayType))
-#set ($maxOccurs=' maxOccurs="unbounded"')
-#else
-#set ($maxOccurs='')
-#end
-##                <!-- $otherEnd.name type.packageName=$type.packageName schemaType=$schemaType type.qName=$type.qName type.arrayType=$type.arrayType -->
-#if ($stringUtils.isNotBlank($otherEnd.getDocumentation("", 9999, false)))
-                <xs:element name="$otherEnd.name" type="${schemaType}"#if ($otherEnd.nillable) minOccurs="0"#else minOccurs="1"#end${maxOccurs}>
-                    <xs:annotation><xs:documentation>
-$stringUtils.replaceChars($otherEnd.getDocumentation("                        ", 100, false), "\"'&<>", "")
-                    </xs:documentation></xs:annotation>
-                </xs:element>
-#else
-                <xs:element name="$otherEnd.name" type="${schemaType}"#if ($otherEnd.nillable) minOccurs="0"#else minOccurs="1"#end${maxOccurs}/>
+$tab                </xs:element>
 #end
 #end
 #if ($useArrayWrapper)
-            </xs:all>
+$tab            </xs:all>
 #else
-            </xs:sequence>
+$tab            </xs:sequence>
 #end
 #end
 #if ($useAttributes)
@@ -440,11 +380,7 @@ $stringUtils.replaceChars($otherEnd.getDocumentation("                        ",
 ## Use optional/required instead of nillable. If default, parameter is always optional
 #set ($quote='"')
 #if ($attribute.defaultValuePresent)
-##if ($attribute.type.name.equals("String") || $attribute.type.name.equals("Character") || $attribute.type.name.equals("char"))
-##set ($default='"' + ${attribute.defaultValue.replaceAll('"', '')} + '"')
-##else
 #set ($default=${attribute.defaultValue.replaceAll('"', '')})
-##end
 #set ($use = " use=${quote}optional${quote} default=${quote}$default${quote}")
 #elseif (!$attribute.nillable)
 #set ($use = ' use="required"')
@@ -452,41 +388,37 @@ $stringUtils.replaceChars($otherEnd.getDocumentation("                        ",
 #set ($use = "")
 #end
 ##            <!-- $attribute.name type=$attribute.getterSetterTypeName packageName=$attribute.packageName typeName=$attribute.fullyQualifiedName typeNameMdl=$attribute.getFullyQualifiedName(false) schemaType=$type.schemaType default=$attribute.defaultValuePresent isMany=$isMany -->
-            <xs:attribute name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$attributeType.schemaType"#end${use}>
+$tab            <xs:attribute name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$attributeType.schemaType"#end${use}>
 #renderRestrictions($attribute, $attributeType.schemaType)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))
-              <xs:annotation>
-                  <xs:documentation>
+$tab              <xs:annotation>
+$tab                  <xs:documentation>
 $stringUtils.replaceChars($attribute.getDocumentation("                  ", 100, false), "\"'&<>", "")
-                  </xs:documentation>
+$tab                  </xs:documentation>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-                  <xs:appinfo><jxb:property><jxb:baseType>
-                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-                  </jxb:baseType></jxb:property></xs:appinfo>
+$tab                  <xs:appinfo><jxb:property><jxb:baseType>
+$tab                    <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
+$tab                  </jxb:baseType></jxb:property></xs:appinfo>
 #end
-              </xs:annotation>
+$tab              </xs:annotation>
 #else
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($attribute.type.booleanType && $attribute.type.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
-                <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
-                  <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
-                </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
+$tab                <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
+$tab                  <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
+$tab                </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
 #end
 #end
-            </xs:attribute>
+$tab            </xs:attribute>
 #end
 #end
 #end
-#*     *##if ($extensionRequired)
+#if ($extensionRequired)
             </xs:extension>
             </xs:complexContent>
-#*     *##end
+#end
         </xs:complexType>
-##if ($type.hasStereotype("WebFault") && $type.hasStereotype("ValueObject"))
-##        </xs:element>
-##end
-##end
 #end
 #end
 #end
