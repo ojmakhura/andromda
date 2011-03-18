@@ -227,6 +227,15 @@ $attribute.getDocumentation("     * ")
     @javax.xml.bind.annotation.XmlElement(name="$connectingEnd.name"#if ($connectingEnd.required), required=true#end)
 #end
     protected $connectingEnd.getterSetterTypeName $connectingEnd.name;
+#if ($connectingEnd.type.primitive)
+    /**
+     * boolean setter for primitive attribute, so we can tell if it's initialized
+     */
+#if ($XMLOutput)
+    @javax.xml.bind.annotation.XmlTransient
+#end
+    protected boolean set$stringUtils.capitalize($connectingEnd.name) = false;
+#end
 #end
 
 #end
