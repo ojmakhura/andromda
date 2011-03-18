@@ -249,7 +249,7 @@ $operation.getDocumentation("    * ")
 #set ($property2Num=0)
 #set ($propertyNum=$propertyNum+1)
 
-        // Property ${property.name}#if ($property.many) isMany#end has $property.type.allProperties.size() properties $propertyNum $property2Num $property3Num
+        // Property ${property.name}#if ($property.many) isMany#end has $property.type.allProperties.size() properties $propertyNum $property2Num
         ${property.type.fullyQualifiedName} $property.name = $webServiceUtils.createConstructor($property, false, $operation.returnType);
 #foreach ($property1 in $property.type.allProperties)
 ##if ($property1.many)
@@ -259,7 +259,6 @@ $operation.getDocumentation("    * ")
 ##        ${property1.getterSetterTypeName} ${property1.name}${propertyNum} = ${webServiceUtils.createConstructor($property1, false, $operation.returnType)};
 #set ($property3Num=0)
 #set ($property2Num=$property2Num+1)
-        // Property1 $property1.name#if ($property1.many) isMany#end has $property1.type.allProperties.size() properties
         ${property1.type.fullyQualifiedName} ${property1.name}${propertyNum} = $webServiceUtils.createConstructor($property1, false, $property.type);
 #foreach ($property2 in $property1.type.allProperties)
 #if (!$property2.type.allProperties.empty)
