@@ -1134,7 +1134,8 @@ public class WebServiceUtils
                 boolean webService = facade.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
                 for (final OperationFacade op : facade.getOperations())
                 {
-                    if (webService || op.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION))
+                    boolean visibility = op.getVisibility().equals("public") || op.getVisibility().equals("protected");
+                    if (visibility && (webService || op.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)))
                     {
                         operations.add((WebServiceOperation) op);
                     }
@@ -1153,9 +1154,9 @@ public class WebServiceUtils
      * @param packageFacade Package / namespace for which to find all service operations
      * @return operations
      */
-    public Collection getAllowedOperationExceptions(PackageFacade packageFacade)
+    public Collection<ModelElementFacade> getAllowedOperationExceptions(PackageFacade packageFacade)
     {
-        final Collection exceptions = new HashSet();
+        final Collection<ModelElementFacade> exceptions = new HashSet<ModelElementFacade>();
 
         // collect the exceptions of all allowed operations into a single set
         for (final OperationFacade operation : this.getAllowedOperations(packageFacade))
