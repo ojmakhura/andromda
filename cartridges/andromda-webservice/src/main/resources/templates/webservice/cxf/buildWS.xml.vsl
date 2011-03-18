@@ -19,6 +19,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <!-- jaxb-commons not included in compile or runtime classpath passed to ant - because type=pom? -->
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-dv/${cxf.version}/cxf-xjc-dv-${cxf.version}.jar"/>
     <pathelement location="${m2repo}/org/apache/cxf/cxf-xjc-ts/${cxf.version}/cxf-xjc-ts-${cxf.version}.jar"/>
+    <pathelement location="${m2repo}/com/sun/xml/bind/jaxb-xjc/2.1.13/jaxb-xjc-2.1.13.jar"/>
 #if ($stringUtils.isNotBlank($xjcArguments))
     <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb2_commons">
         <include name="**/*.jar"/>
@@ -48,9 +49,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <tstamp/>
     <echo message="m2repo=${m2repo}"/>
     <echo message="m2home=${m2home}"/>
-    <echo message="cxf.home=${cxf.home}"/>
     <echo message="cxf.version=${cxf.version}"/>
-    <echo message="jaxb.home=${jaxb.home}"/>
     <echo message="maven.compile.classpath=${compile_classpath}"/>
     <echo message="maven.runtime.classpath=${runtime_classpath}"/>
   </target>
