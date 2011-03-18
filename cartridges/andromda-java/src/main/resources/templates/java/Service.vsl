@@ -19,7 +19,6 @@ public interface $service.name
     #if ($service.generalization), #else extends #end${service.implementedInterfaceList}
 #end
 {
-
 #foreach ($operation in $service.operations)
     /**
 $operation.getDocumentation("     * ")
@@ -30,7 +29,7 @@ $operation.getDocumentation("     * ")
      * @return $operation.getterSetterReturnTypeName
 #end
 #foreach ($exception in $operation.exceptions)
-     * @throws $exception.name $exception.getDocumentation("")
+     * @throws $exception.name
 #end
      */
 #if ($operation.exceptionsPresent)
