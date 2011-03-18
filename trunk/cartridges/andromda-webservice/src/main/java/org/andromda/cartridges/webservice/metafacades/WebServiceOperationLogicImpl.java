@@ -36,8 +36,10 @@ public class WebServiceOperationLogicImpl
      */
     protected boolean handleIsExposed()
     {
-        return this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
-        this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION);
+        // Private methods are for doc and future use purposes, but are allowed.
+        boolean visibility = this.getVisibility().equals("public") || this.getVisibility().equals("protected");
+        return visibility && (this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
+        this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
     }
 
     /**

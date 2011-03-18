@@ -72,8 +72,6 @@ public class ${service.name}SEIImpl #if(!$service.rest)implements ${service.name
     }
 #end
 #foreach ( $operation in $service.allowedOperations)
-## Only expose public methods
-#if ($operation.visibility == "public" || $operation.visibility == "protected")
 
    /**
     * Invokes the $operation.name service method on ${service.name}.
@@ -422,7 +420,6 @@ $tab        }
 #end
 ##end
     }
-#end
 #end
 }
 
