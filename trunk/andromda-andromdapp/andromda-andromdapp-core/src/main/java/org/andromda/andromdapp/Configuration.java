@@ -117,7 +117,7 @@ public class Configuration
     /**
      * Stores whether or not the application should be overwritten if it previously existed.
      */
-    private boolean ovewrite;
+    private boolean overwrite;
     
     /**
      * Whether or not the application should be overwritten if it already exits.
@@ -126,7 +126,7 @@ public class Configuration
      */
     public boolean isOverwrite()
     {
-        return this.ovewrite;
+        return this.overwrite;
     }
     /**
      * Sets whether or not the application should be overwritten if it previously existed.
@@ -135,6 +135,6 @@ public class Configuration
      */
     public void setOverwrite(final boolean overwrite)
     {
-        this.ovewrite = overwrite;
+        this.overwrite = overwrite;
     }
 }

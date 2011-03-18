@@ -8,11 +8,9 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import org.andromda.core.common.ClassUtils;
@@ -94,7 +92,8 @@ public class AndroMDAppType
                         {
                             break;
                         }
-                    } else
+                    }
+                    else
                     {
                         // otherwise we break at the first true condition
                         if (validPreconditions)
@@ -151,9 +150,10 @@ public class AndroMDAppType
     }
 
     /**
+     * Prompts the user for the information contained in the given
+     * <code>prompt</code>.
      *
-     *
-     * @param conditions
+     * @param conditions the prompt from which to format the prompt text.
      * @param value
      */
     private void setConditionalProperties(
@@ -313,7 +313,7 @@ public class AndroMDAppType
                 for (int ctr = 0; ctr < numberOfResourceDirectories; ctr++)
                 {
                     final URL resourceDirectory = resourceDirectories[ctr];
-                    final List contents = ResourceUtils.getDirectoryContents(
+                    final List<String> contents = ResourceUtils.getDirectoryContents(
                             resourceDirectory,
                             false,
                             null);
@@ -321,9 +321,8 @@ public class AndroMDAppType
                     locations.put(
                             location,
                             newContents);
-                    for (final ListIterator contentsIterator = contents.listIterator(); contentsIterator.hasNext();)
+                    for (final String path : contents)
                     {
-                        final String path = (String) contentsIterator.next();
                         if (path != null && !path.endsWith(FORWARD_SLASH))
                         {
                             boolean hasNewPath = false;
@@ -339,11 +338,22 @@ public class AndroMDAppType
                                                 this.getTemplateEngine().getEvaluatedExpression(
                                                         newPath,
                                                         this.templateContext);
-                                        ResourceWriter.instance().writeUrlToFile(
+                                        /*newPath = ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath);
+                                        File outputFile = new File(newPath);
+                                        if (this.isOverwrite() || !outputFile.exists())
+                                        {
+                                            this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');*/
+                                            ResourceWriter.instance().writeUrlToFile(
                                                 absolutePath,
+                                                //newPath);
                                                 ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
-                                        newContents.add(newPath);
-                                        hasNewPath = true;
+                                            newContents.add(newPath);
+                                            hasNewPath = true;
+                                        /*}
+                                        else
+                                        {
+                                            this.printText(MARGIN + "Not overwritten: '" + outputFile.toURI().toURL() + '\'');
+                                        }*/
                                     }
                                 }
                             }
@@ -393,13 +403,21 @@ public class AndroMDAppType
                                             path + "' with template context '" + this.templateContext + '\'', throwable);
                                 }
                                 writer.flush();
-                                this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
-                                ResourceWriter.instance().writeStringToFile(
+                                //if (this.isOverwrite() || !outputFile.exists())
+                                //{
+                                    this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
+                                    ResourceWriter.instance().writeStringToFile(
                                         writer.toString(),
                                         outputFile);
+                                /*}
+                                else
+                                {
+                                    this.printText(MARGIN + "Not overwritten: '" + outputFile.toURI().toURL() + '\'');
+                                }*/
                             }
                             processedResources.add(outputFile);
-                        } else if (!path.endsWith(FORWARD_SLASH))
+                        }
+                        else if (!path.endsWith(FORWARD_SLASH))
                         {
                             final File outputFile = new File(
                                     rootDirectory.getAbsolutePath(),
@@ -415,12 +433,17 @@ public class AndroMDAppType
                             }
                             if (resource != null)
                             {
+                                //if (write && (this.isOverwrite() || !outputFile.exists()))
                                 if (write)
                                 {
                                     ResourceWriter.instance().writeUrlToFile(
                                             resource,
                                             outputFile.toString());
                                     this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
+                                }
+                                else
+                                {
+                                    this.printText(MARGIN + "Not overwritten: '" + outputFile.toURI().toURL() + '\'');
                                 }
                                 processedResources.add(outputFile);
                             }
@@ -431,9 +454,8 @@ public class AndroMDAppType
         }
 
         // - write any directories that are defined.
-        for (final Iterator<String> directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
+        for (final String directoryPath : this.directories)
         {
-            final String directoryPath = (directoryIterator.next()).trim();
             final File directory = new File(rootDirectory, directoryPath);
             if (this.isWriteable(directoryPath))
             {
@@ -517,7 +539,8 @@ public class AndroMDAppType
                                     {
                                         // - if we 'and' the conditions, we break at the first false
                                         break;
-                                    } else if (Conditions.TYPE_OR.equals(conditionsType) && result)
+                                    }
+                                    else if (Conditions.TYPE_OR.equals(conditionsType) && result)
                                     {
                                         // - otherwise we break at the first true condition
                                         break;
@@ -636,7 +659,7 @@ public class AndroMDAppType
     private File verifyRootDirectory(final File rootDirectory)
     {
         File applicationRoot = rootDirectory;
-        if (rootDirectory.exists() && !this.isOvewrite())
+        if (rootDirectory.exists() && !this.isOverwrite())
         {
             this.printPromptText(
                     '\'' + rootDirectory.getAbsolutePath() +
@@ -668,7 +691,7 @@ public class AndroMDAppType
      *
      * @return true/false
      */
-    private boolean isOvewrite()
+    private boolean isOverwrite()
     {
         boolean overwrite = false;
         if (this.configurations != null)
@@ -715,14 +738,14 @@ public class AndroMDAppType
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString;
+        String inputString = null;
         try
         {
             inputString = input.readLine();
         }
         catch (final IOException exception)
         {
-            inputString = null;
+            this.printText(MARGIN + "IOException reading line: '" + exception);
         }
         return StringUtils.trimToNull(inputString);
     }
