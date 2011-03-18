@@ -27,6 +27,7 @@
        <class name="${service.name}SEIClient"/>
     </bindings>
 #foreach ($operation in $service.allowedOperations)
+#if (!$operation.rest)
 #foreach($exception in $operation.exceptions)
 #if ($exception.associationEnds.empty)
 ##    <!-- $exception $exception.associationEnds $exception.associationEnds.size() -->
@@ -49,6 +50,7 @@
         <!-- Implmented service operation name is different from exposed operation name -->
         <method name="$operation.name"/>
     </bindings>
+#end
 #end
 #end
     <!-- Change the xs:date databinding from the default XMLGregorianCalendar. Creates org.w3._2001.xmlschema.Adapter1 class -->
