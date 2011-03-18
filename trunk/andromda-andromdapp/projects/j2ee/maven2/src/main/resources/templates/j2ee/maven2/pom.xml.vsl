@@ -1176,8 +1176,8 @@
                                     <version>2.2.1</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <message>You need at least Java 1.6!</message>
-                                    <version>1.6.0</version>
+                                    <message>You need at least Java ${java.version}!</message>
+                                    <version>${java.version}</version>
                                 </requireJavaVersion>
                                 <requirePluginVersions>
                                     <message>Best Practice is to always define plugin versions!</message>
@@ -1215,8 +1215,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
@@ -1285,6 +1285,7 @@
     </modules>
     <properties>
         <andromda.version>$andromdaVersion</andromda.version>
+        <java.version>1.6</java.version>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <uniqueVersion>false</uniqueVersion>
@@ -1446,7 +1447,7 @@
 #end
 #if ($cxf)
         <spring.version>3.0.5.RELEASE</spring.version>
-        <cxf.version>2.3.2</cxf.version>
+        <cxf.version>2.3.3</cxf.version>
 #elseif ($spring)
         <spring.version>3.0.5.RELEASE</spring.version>
 #end
@@ -1710,8 +1711,8 @@
                             <artifactId>maven-compiler-plugin</artifactId>
                             <version>2.3.2</version>
                             <configuration>
-                                <source>1.5</source>
-                                <target>1.5</target>
+                                <source>${java.version}</source>
+                                <target>${java.version}</target>
                                 <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
                                 <showDeprecation>true</showDeprecation>
                                 <showWarnings>true</showWarnings>
@@ -1871,7 +1872,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <targetJdk>1.5</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                     <linkXRef>true</linkXRef>
                     <rulesets>
                         <ruleset>/rulesets/basic.xml</ruleset>
