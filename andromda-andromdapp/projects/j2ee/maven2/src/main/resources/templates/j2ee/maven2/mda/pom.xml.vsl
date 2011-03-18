@@ -155,10 +155,19 @@
         </dependency>
 #end
 #if ($cxf)
+        <!-- CXF 2.3.x wsdl2java on JDK6 gives NoSuchMethodException: javax.xml.bind.annotation.XmlElementRef.required() 
+        unless we roll back XJC version -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+            <version>2.1.13</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Need to reference the classpath for ant in wsdl2java java2ws -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <!-- Contains xjc plugins to customize cxf/jaxb2 generated code, see https://jaxb2-commons.dev.java.net/ -->
         <!-- If put in compile classpath, the xjc plugins are not added to ant maven.compile.classpath -->
@@ -282,7 +291,7 @@
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
               <executions>
-                <!-- Clean the implementation code and WSDL code also, during mvn clean>
+                <!-- Clean the implementation code and WSDL code also, during mvn clean -->
                 <execution>
                   <id>clean</id>
                   <phase>clean</phase>
@@ -307,7 +316,7 @@
                   <goals>
                     <goal>run</goal>
                   </goals>
-                </execution -->
+                </execution>
                 <!-- Generated ant script runs wsdl2java and java2ws for each service -->
                 <execution>
                   <id>buildWS</id>
@@ -345,7 +354,6 @@
     </build>
     <properties>
         <!-- Avoid JDK6 XJC runtime error on wdsl2java from conflicting Jaxb2.2 -->
-        <cxf.version>2.2.12</cxf.version>
         <!-- Versioned independently from CXF core -->
         <cxf.xjc.version>2.3.0</cxf.xjc.version>
 #if ($stringUtils.isNotBlank($model))
