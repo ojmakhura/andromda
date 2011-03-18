@@ -3,7 +3,6 @@ package org.andromda.maven.plugin;
 import org.andromda.core.AndroMDAServer;
 import org.andromda.core.configuration.Configuration;
 
-
 /**
  * Provides the ability to start the AndroMDA server.
  *
@@ -20,8 +19,8 @@ public class AndroMDAServerStartMojo
      */
     public void execute(final Configuration configuration)
     {
+        this.allowMultipleRuns = true;
         final AndroMDAServer server = AndroMDAServer.newInstance();
         server.start(configuration);
     }
-
 }

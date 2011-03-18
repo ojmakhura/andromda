@@ -3,6 +3,7 @@ package org.andromda.maven.plugin;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
@@ -34,6 +35,17 @@ public abstract class AbstractAndroMDAMojo
      * @required
      */
     protected String configurationUri;
+
+    /**
+     * Do we allow the code generation to run multiple times? Yes for AndroMDA server,
+     * no for all other cases unless overridden. This prevents multiple code generation
+     * runs while creating site documentation, generate-sources phase can run more than 8 times
+     * for each model when initiated by many of the reporting plugins.
+     *
+     * @parameter default-value="false"
+     * @required
+     */
+    protected boolean allowMultipleRuns;
 
     /**
      * @parameter expression="${project}"
@@ -80,6 +92,8 @@ public abstract class AbstractAndroMDAMojo
      */
     protected ArtifactRepository localRepository;
 
+    private static List<String> configurations = new ArrayList<String>();
+    
     /**
      * Initialize configuration and execute plugin
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -87,33 +101,39 @@ public abstract class AbstractAndroMDAMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        try
+        if (this.allowMultipleRuns || !configurations.contains(this.configurationUri))
         {
-            AndroMDALogger.initialize();
-            final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
-            if (configurationUri == null)
+            try
             {
-                throw new MojoExecutionException("Configuration could not be loaded from '" + this.configurationUri +
-                        '\'');
+                if (!this.allowMultipleRuns)
+                {
+                    configurations.add(this.configurationUri);
+                }
+                AndroMDALogger.initialize();
+                final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
+                if (configurationUri == null)
+                {
+                    throw new MojoExecutionException("Configuration could not be loaded from '" + this.configurationUri +
+                            '\'');
+                }
+                // - setup the classpath
+                this.addPluginDependencies(
+                    Constants.ARTIFACT_ID,
+                    Artifact.SCOPE_RUNTIME);
+                this.initializeClasspathFromClassPathElements(this.project.getRuntimeClasspathElements());
+                final Configuration configuration = this.getConfiguration(configurationUri);
+                this.execute(configuration);
             }
-            
-            // - setup the classpath
-            this.addPluginDependencies(
-                Constants.ARTIFACT_ID,
-                Artifact.SCOPE_RUNTIME);
-            this.initializeClasspathFromClassPathElements(this.project.getRuntimeClasspathElements());
-            final Configuration configuration = this.getConfiguration(configurationUri);
-            this.execute(configuration);
-        }
-        catch (Throwable throwable)
-        {
-            String message = "Error running AndroMDA";
-            throwable = ExceptionUtils.getRootCause(throwable);
-            if (throwable instanceof MalformedURLException || throwable instanceof FileNotFoundException)
+            catch (Throwable throwable)
             {
-                message = "Configuration is not valid '" + this.configurationUri + '\'';
+                String message = "Error running AndroMDA";
+                throwable = ExceptionUtils.getRootCause(throwable);
+                if (throwable instanceof MalformedURLException || throwable instanceof FileNotFoundException)
+                {
+                    message = "Configuration is not valid '" + this.configurationUri + '\'';
+                }
+                throw new MojoExecutionException(message, throwable);
             }
-            throw new MojoExecutionException(message, throwable);
         }
     }
     
