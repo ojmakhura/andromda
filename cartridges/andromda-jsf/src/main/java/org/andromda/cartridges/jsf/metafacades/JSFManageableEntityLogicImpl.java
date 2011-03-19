@@ -2,14 +2,13 @@ package org.andromda.cartridges.jsf.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.utils.StringUtilsHelper;
@@ -433,9 +432,8 @@ public class JSFManageableEntityLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-           for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
+           for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
            {
-               final Object attribute = iterator.next();
                if(attribute instanceof JSFManageableEntityAttribute){
                    final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
                    if (jsfAttribute.isValidationRequired())
@@ -508,7 +506,7 @@ public class JSFManageableEntityLogicImpl
      * @return getManageableAssociationEnds()
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getManageableSearchAssociationEnds()
      */
-    protected Collection handleGetManageableSearchAssociationEnds()
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableSearchAssociationEnds()
     {
            return getManageableAssociationEnds();
     }
@@ -542,15 +540,13 @@ public class JSFManageableEntityLogicImpl
     }
 
    private void addSerialUIDData(StringBuilder buffer){
-       for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
-           final ModelElementFacade parameter = (ModelElementFacade)iterator.next();
-           buffer.append(parameter.getName());
+           buffer.append(attribute.getName());
        }
-       for (final Iterator iterator = this.getManageableAssociationEnds().iterator(); iterator.hasNext();)
+       for (final ManageableEntityAssociationEnd end : this.getManageableAssociationEnds())
        {
-           final ModelElementFacade parameter = (ModelElementFacade)iterator.next();
-           buffer.append(parameter.getName());
+           buffer.append(end.getName());
        }
    
    }
@@ -597,10 +593,9 @@ public class JSFManageableEntityLogicImpl
    protected String handleGetActionRoles()
    {
        //copied from JSFUseCaseLogicImpl
-       final Collection users = this.getRoles();
        final StringBuilder rolesBuffer = new StringBuilder();
        boolean first = true;
-       for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
+       for (final Role role : this.getRoles())
        {
            if (first)
            {
@@ -610,7 +605,6 @@ public class JSFManageableEntityLogicImpl
            {
                rolesBuffer.append(',');
            }
-           final Role role = (Role)userIterator.next();
            rolesBuffer.append(role.getName());
        }
        return rolesBuffer.toString();
@@ -622,9 +616,8 @@ public class JSFManageableEntityLogicImpl
     */
    protected boolean handleIsNeedsFileUpload()
    {
-       for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
-           final Object attribute = iterator.next();
            if(attribute instanceof JSFManageableEntityAttribute)
            {    
                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
@@ -643,9 +636,8 @@ public class JSFManageableEntityLogicImpl
     */
    protected boolean handleIsNeedsUserInterface()
    {
-       for (final Iterator iterator = this.getManageableAttributes().iterator(); iterator.hasNext();)
+       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
-           final Object attribute = iterator.next();
            if(attribute instanceof JSFManageableEntityAttribute)
            {    
                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
@@ -655,9 +647,8 @@ public class JSFManageableEntityLogicImpl
                }
            }
        }
-       for (final Iterator iterator = this.getManageableAssociationEnds().iterator(); iterator.hasNext();)
+       for (final ManageableEntityAssociationEnd associationEnd :  this.getManageableAssociationEnds())
        {
-           final Object associationEnd = iterator.next();
            if(associationEnd instanceof JSFManageableEntityAssociationEnd)
            {    
                final JSFManageableEntityAssociationEnd jsfAssociationEnd = (JSFManageableEntityAssociationEnd)associationEnd;

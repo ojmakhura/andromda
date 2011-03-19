@@ -118,7 +118,7 @@ public class JSFUtils
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
-    public static List parseValidatorVars(String validatorTaggedValue)
+    public static List<String> parseValidatorVars(String validatorTaggedValue)
     {
         if (validatorTaggedValue == null)
         {
@@ -832,12 +832,12 @@ public class JSFUtils
      * @param ownerParameter the optional owner parameter (if the element is an attribute for example).
      * @return the collection of validator variables.
      */
-    public static java.util.Collection getValidatorVars(
+    public static Collection<List<String>> getValidatorVars(
         final ModelElementFacade element,
         final ClassifierFacade type,
         final ParameterFacade ownerParameter)
     {
-        final Map<String, Object> vars = new LinkedHashMap<String, Object>();
+        final Map<String, List<String>> vars = new LinkedHashMap<String, List<String>>();
         if (element != null && type != null)
         {
             final String format = JSFUtils.getInputFormat(element);
@@ -955,8 +955,8 @@ public class JSFUtils
                 final String validator = String.valueOf(iterator.next());
     
                 // - guaranteed to be of the same length
-                final List validatorVars = JSFUtils.parseValidatorVars(validator);
-                final List validatorArgs = JSFUtils.parseValidatorArgs(validator);
+                final List<String> validatorVars = JSFUtils.parseValidatorVars(validator);
+                final List<String> validatorArgs = JSFUtils.parseValidatorArgs(validator);
     
                 for (int ctr = 0; ctr < validatorVars.size(); ctr++)
                 {

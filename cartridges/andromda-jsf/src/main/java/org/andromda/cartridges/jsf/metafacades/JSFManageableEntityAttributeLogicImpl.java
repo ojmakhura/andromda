@@ -678,17 +678,14 @@ public class JSFManageableEntityAttributeLogicImpl
         {
             return getColumnLength();
         }
-        else
+        for(Iterator<Collection> it=vars.iterator(); it.hasNext(); )
         {
-            for(Iterator it=vars.iterator(); it.hasNext(); )
+            final Object[] values=((Collection)it.next()).toArray();
+            if("maxlength".equals(values[0]))
             {
-                final Object[] values=((Collection)it.next()).toArray();
-                if("maxlength".equals(values[0]))
-                {
-                    return values[1].toString();
-                }
+                return values[1].toString();
             }
-            return getColumnLength();
         }
+        return getColumnLength();
     }
 }

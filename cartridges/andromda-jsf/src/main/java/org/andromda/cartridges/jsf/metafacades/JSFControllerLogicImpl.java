@@ -6,11 +6,11 @@ import java.util.List;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFController.
@@ -79,7 +79,7 @@ public class JSFControllerLogicImpl
      */
     protected List<DependencyFacade> handleGetSessionObjectReferences()
     {
-        final List<DependencyFacade> references = new ArrayList<DependencyFacade> (this.getSourceDependencies());
+        final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
         {
             final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
@@ -104,9 +104,8 @@ public class JSFControllerLogicImpl
     }
 
     private void addSerialUIDData(StringBuilder buffer){
-        for (final Iterator iterator = this.getUseCase().getActions().iterator(); iterator.hasNext();)
+        for (final FrontEndAction action : this.getUseCase().getActions())
         {
-            final ModelElementFacade action = (ModelElementFacade)iterator.next();
             buffer.append(action.getName());
         }
     }

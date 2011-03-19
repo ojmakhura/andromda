@@ -143,9 +143,8 @@ public class JSFViewLogicImpl
     protected List<ModelElementFacade> handleGetForwards()
     {
         final Map<String, ModelElementFacade> forwards = new LinkedHashMap<String, ModelElementFacade>();
-        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        for (final FrontEndAction action : this.getActions())
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
             if (action != null && !action.isUseCaseStart())
             {
                 for (final FrontEndForward forward : action.getActionForwards())
@@ -286,11 +285,9 @@ public class JSFViewLogicImpl
     protected boolean handleIsValidationRequired()
     {
         boolean required = false;
-        final Collection actions = getActions();
-        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final FrontEndAction action : this.getActions())
         {
-            final JSFAction action = (JSFAction)actionIterator.next();
-            if (action.isValidationRequired())
+            if (((JSFAction)action).isValidationRequired())
             {
                 required = true;
                 break;
@@ -316,17 +313,12 @@ public class JSFViewLogicImpl
     protected boolean handleIsNonTableVariablesPresent()
     {
         boolean present = false;
-        for (final Iterator iterator = this.getVariables().iterator(); iterator.hasNext();)
+        for (final FrontEndParameter variable : this.getVariables())
         {
-            final Object object = iterator.next();
-            if (object instanceof FrontEndParameter)
+            if (!variable.isTable())
             {
-                final FrontEndParameter variable = (FrontEndParameter)object;
-                if (!variable.isTable())
-                {
-                    present = true;
-                    break;
-                }
+                present = true;
+                break;
             }
         }
         return present;
@@ -372,7 +364,7 @@ public class JSFViewLogicImpl
                 else
                 {
                     boolean hasBackingValue = false;
-                    for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+                    for (final Iterator<JSFAttribute> attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
                     {
                         final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
                         if (attribute.isSelectable(parameter) || attribute.isBackingValueRequired(parameter))
@@ -409,11 +401,10 @@ public class JSFViewLogicImpl
         if(this.getAllActionParameters().size() == 0)
             return false;
         
-        for (final Iterator iterator = this.getAllActionParameters().iterator(); iterator.hasNext();)
+        for (final FrontEndParameter feParameter : this.getAllActionParameters())
         {
-            final Object object = iterator.next();
-            if (object instanceof JSFParameter){
-                final JSFParameter parameter = (JSFParameter)object;
+            if (feParameter instanceof JSFParameter){
+                final JSFParameter parameter = (JSFParameter)feParameter;
                 if(parameter.isInputFile())
                      return true;
                 if(parameter.isComplex()){
