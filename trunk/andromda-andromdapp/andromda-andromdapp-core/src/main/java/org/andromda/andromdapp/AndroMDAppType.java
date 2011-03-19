@@ -51,7 +51,7 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected void initialize()
-            throws Exception
+        throws Exception
     {
         if (this.configurations != null)
         {
@@ -71,7 +71,7 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected String promptUser()
-            throws Exception
+        throws Exception
     {
         for (final Prompt prompt : this.getPrompts())
         {
@@ -94,7 +94,7 @@ public class AndroMDAppType
                         }
                     }
                     else
-                    {
+                   {
                         // otherwise we break at the first true condition
                         if (validPreconditions)
                         {
@@ -118,22 +118,22 @@ public class AndroMDAppType
                     while (!prompt.isValidResponse(ObjectUtils.toString(response)));
                 }
                 this.setConditionalProperties(
-                        prompt.getConditions(),
-                        response);
+                    prompt.getConditions(),
+                    response);
                 if (prompt.isSetResponseAsTrue())
                 {
                     this.templateContext.put(
-                            response.toString(),
-                            Boolean.TRUE);
+                        response.toString(),
+                        Boolean.TRUE);
                 }
                 this.templateContext.put(
-                        id,
-                        prompt.getResponse(response));
+                    id,
+                    prompt.getResponse(response));
             }
         }
         return this.getTemplateEngine().getEvaluatedExpression(
-                ResourceUtils.getContents(this.resource),
-                this.templateContext);
+            ResourceUtils.getContents(this.resource),
+            this.templateContext);
     }
 
     /**
@@ -157,8 +157,8 @@ public class AndroMDAppType
      * @param value
      */
     private void setConditionalProperties(
-            final List<Condition> conditions,
-            final Object value)
+        final List<Condition> conditions,
+        final Object value)
     {
         for (final Condition condition : conditions)
         {
@@ -198,7 +198,7 @@ public class AndroMDAppType
      * Sets the class of the template engine to use.
      *
      * @param templateEngineClass the Class of the template engine
-     *                            implementation.
+     *        implementation.
      */
     public void setTemplateEngineClass(final String templateEngineClass)
     {
@@ -217,14 +217,14 @@ public class AndroMDAppType
      * @throws Exception
      */
     private TemplateEngine getTemplateEngine()
-            throws Exception
+        throws Exception
     {
         if (this.templateEngine == null)
         {
             this.templateEngine =
-                    (TemplateEngine) ComponentContainer.instance().newComponent(
-                            this.templateEngineClass,
-                            TemplateEngine.class);
+                (TemplateEngine)ComponentContainer.instance().newComponent(
+                    this.templateEngineClass,
+                    TemplateEngine.class);
             this.getTemplateEngine().setMergeLocation(TEMPORARY_MERGE_LOCATION);
             this.getTemplateEngine().initialize(NAMESPACE);
         }
@@ -240,16 +240,16 @@ public class AndroMDAppType
      * Adds a template engine exclusion (these are the things that the template engine
      * will exclude when processing templates)
      *
-     * @param path     the path to the resulting output
+     * @param path the path to the resulting output
      * @param patterns any patterns to which the conditions should apply
      */
     public void addTemplateEngineExclusion(
-            final String path,
-            final String patterns)
+        final String path,
+        final String patterns)
     {
         this.templateEngineExclusions.put(
-                path,
-                AndroMDAppUtils.stringToArray(patterns));
+            path,
+            AndroMDAppUtils.stringToArray(patterns));
     }
 
     /**
@@ -290,7 +290,7 @@ public class AndroMDAppType
      * @throws Exception
      */
     protected List<File> processResources(boolean write)
-            throws Exception
+        throws Exception
     {
         // - all resources that have been processed.
         final List<File> processedResources = new ArrayList<File>();
@@ -384,23 +384,23 @@ public class AndroMDAppType
                         if (this.isValidTemplate(path))
                         {
                             final File outputFile =
-                                    new File(
-                                            rootDirectory.getAbsolutePath(),
-                                            this.trimTemplateExtension(projectRelativePath));
+                                new File(
+                                    rootDirectory.getAbsolutePath(),
+                                    this.trimTemplateExtension(projectRelativePath));
                             if (write)
                             {
                                 final StringWriter writer = new StringWriter();
                                 try
                                 {
                                     this.getTemplateEngine().processTemplate(
-                                            path,
-                                            this.templateContext,
-                                            writer);
+                                        path,
+                                        this.templateContext,
+                                        writer);
                                 }
                                 catch (final Throwable throwable)
                                 {
                                     throw new AndroMDAppException("An error occured while processing template --> '" +
-                                            path + "' with template context '" + this.templateContext + '\'', throwable);
+                                        path + "' with template context '" + this.templateContext + '\'', throwable);
                                 }
                                 writer.flush();
                                 //if (this.isOverwrite() || !outputFile.exists())
@@ -425,7 +425,7 @@ public class AndroMDAppType
 
                             // - try the template engine merge location first
                             URL resource =
-                                    ResourceUtils.toURL(ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + path));
+                                ResourceUtils.toURL(ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + path));
                             if (resource == null)
                             {
                                 // - if we didn't find the file in the merge location, try the classpath
@@ -437,8 +437,8 @@ public class AndroMDAppType
                                 if (write)
                                 {
                                     ResourceWriter.instance().writeUrlToFile(
-                                            resource,
-                                            outputFile.toString());
+                                        resource,
+                                        outputFile.toString());
                                     this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
                                 }
                                 else
@@ -477,8 +477,8 @@ public class AndroMDAppType
                 if (!instructions.exists())
                 {
                     throw new AndroMDAppException("No instructions are available at --> '" + instructions +
-                            "', please make sure you have the correct instructions defined in your descriptor --> '" +
-                            this.resource + '\'');
+                        "', please make sure you have the correct instructions defined in your descriptor --> '" +
+                        this.resource + '\'');
                 }
                 this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURI().toURL() + '\'');
             }
@@ -552,8 +552,8 @@ public class AndroMDAppType
                     if (writable != null)
                     {
                         evaluatedPaths.put(
-                                path,
-                                writable);
+                            path,
+                            writable);
                     }
                 }
             }
@@ -586,8 +586,8 @@ public class AndroMDAppType
                 final String[] patterns = exclusions.get(exclusionPath);
                 // See http://forum.andromda.org/viewtopic.php?f=20&t=4206&sid=87c343e5550f5386d6c64df53e9f5910
                 exclude = ResourceUtils.matchesAtLeastOnePattern(
-                        exclusionPath,
-                        patterns);
+                    exclusionPath,
+                    patterns);
                 if (exclude)
                 {
                     break;
@@ -662,8 +662,8 @@ public class AndroMDAppType
         if (rootDirectory.exists() && !this.isOverwrite())
         {
             this.printPromptText(
-                    '\'' + rootDirectory.getAbsolutePath() +
-                            "' already exists, would you like to try a new name? [yes, no]: ");
+                '\'' + rootDirectory.getAbsolutePath() +
+                    "' already exists, would you like to try a new name? [yes, no]: ");
             String response = this.readLine();
             while (!RESPONSE_YES.equals(response) && !RESPONSE_NO.equals(response))
             {
@@ -990,15 +990,15 @@ public class AndroMDAppType
      * Instantiates the template object with the given <code>className</code> and adds
      * it to the current template context.
      *
-     * @param name      the name of the template variable.
+     * @param name the name of the template variable.
      * @param className the name of the class to instantiate.
      */
     public void addTemplateObject(
-            final String name,
-            final String className)
+        final String name,
+        final String className)
     {
         this.templateContext.put(
-                name,
-                ClassUtils.newInstance(className));
+            name,
+            ClassUtils.newInstance(className));
     }
 }
