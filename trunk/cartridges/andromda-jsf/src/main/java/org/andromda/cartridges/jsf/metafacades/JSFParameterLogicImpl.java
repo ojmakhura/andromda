@@ -14,8 +14,10 @@ import java.util.Set;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
@@ -26,7 +28,6 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFParameter.
@@ -562,12 +563,12 @@ public class JSFParameterLogicImpl
 
                 // - if the parameter is not selectable but on a targetting page it IS selectable we must
                 //   allow the user to set the backing list too
-                final Collection views = this.getAction().getTargetViews();
-                for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
+                final Collection<FrontEndView> views = this.getAction().getTargetViews();
+                for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
                 {
                     final FrontEndView view = (FrontEndView)iterator.next();
-                    final Collection parameters = view.getAllActionParameters();
-                    for (final Iterator parameterIterator = parameters.iterator();
+                    final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                    for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                         parameterIterator.hasNext() && !selectable;)
                     {
                         final Object object = parameterIterator.next();
@@ -598,8 +599,9 @@ public class JSFParameterLogicImpl
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
-                final Collection formFields = action.getFormFields();
-                for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                final Collection<FrontEndParameter>  formFields = action.getFormFields();
+                for (final Iterator<FrontEndParameter>  fieldIterator = formFields.iterator(); 
+                    fieldIterator.hasNext() && !selectable;)
                 {
                     final Object object = fieldIterator.next();
                     if (object instanceof JSFParameter)
@@ -816,7 +818,7 @@ public class JSFParameterLogicImpl
         if (!required)
         {
             // - look for any attributes
-            for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
+            for (final Iterator<JSFAttribute> iterator = this.getAttributes().iterator(); iterator.hasNext();)
             {
                 final JSFAttribute attribute = (JSFAttribute)iterator.next();
                 required = !attribute.getValidatorTypes().isEmpty();
@@ -957,9 +959,9 @@ public class JSFParameterLogicImpl
      * @return attributes
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getAttributes()
      */
-    protected Collection handleGetAttributes()
+    protected Collection<AttributeFacade> handleGetAttributes()
     {
-        Collection attributes = null;
+        Collection<AttributeFacade> attributes = null;
         ClassifierFacade type = this.getType();
         if (type != null)
         {
@@ -979,9 +981,9 @@ public class JSFParameterLogicImpl
      * @return navigableAssociationEnds
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getNavigableAssociationEnds()
      */
-    protected Collection handleGetNavigableAssociationEnds()
+    protected Collection<ClassifierFacade> handleGetNavigableAssociationEnds()
     {
-        Collection associationEnds = null;
+        Collection<ClassifierFacade> associationEnds = null;
         ClassifierFacade type = this.getType();
         if (type != null)
         {
@@ -1026,15 +1028,15 @@ public class JSFParameterLogicImpl
 
                 // - if the backing value is not required for this parameter but on
                 //   a targetting page it IS selectable we must allow the user to set the backing value as well
-                final Collection views = this.getAction().getTargetViews();
-                for (final Iterator iterator = views.iterator(); iterator.hasNext() && !required;)
+                final Collection<FrontEndView> views = this.getAction().getTargetViews();
+                for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
                 {
                     final FrontEndView view = (FrontEndView)iterator.next();
-                    final Collection parameters = view.getAllActionParameters();
-                    for (final Iterator parameterIterator = parameters.iterator();
+                    final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                    for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                         parameterIterator.hasNext() && !required;)
                     {
-                        final Object object = parameterIterator.next();
+                        final FrontEndParameter object = parameterIterator.next();
                         if (object instanceof JSFParameter)
                         {
                             final JSFParameter parameter = (JSFParameter)object;
@@ -1056,12 +1058,12 @@ public class JSFParameterLogicImpl
         else if (this.isControllerOperationArgument())
         {
             final String name = this.getName();
-            final Collection actions = this.getControllerOperation().getDeferringActions();
-            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            final Collection<FrontEndAction> actions = this.getControllerOperation().getDeferringActions();
+            for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
-                final Collection formFields = action.getFormFields();
-                for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
+                final Collection<FrontEndParameter> formFields = action.getFormFields();
+                for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
                 {
                     final Object object = fieldIterator.next();
                     if (object instanceof JSFParameter)
@@ -1121,23 +1123,20 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetMaxLength()
     {
-        final Collection vars=getValidatorVars();
+        final Collection<Collection> vars=getValidatorVars();
         if(vars == null)
         {
             return null;
         }
-        else
+        for(Iterator<Collection> it=vars.iterator(); it.hasNext();)
         {
-            for(Iterator it=vars.iterator(); it.hasNext(); )
+            final Object[] values=((Collection)it.next()).toArray();
+            if("maxlength".equals(values[0]))
             {
-                final Object[] values=((Collection)it.next()).toArray();
-                if("maxlength".equals(values[0]))
-                {
-                    return values[1].toString();
-                }
+                return values[1].toString();
             }
-            return null;
         }
+        return null;
     }
 
     //to be used in the range validator: "range - 1000" or "range 20 -". 
@@ -1167,7 +1166,7 @@ public class JSFParameterLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
      */
     @Override
-    protected Collection handleGetAnnotations() 
+    protected Collection<String> handleGetAnnotations() 
     {
         final Collection<String>result=new HashSet<String>();
         boolean requiredAdded=false;

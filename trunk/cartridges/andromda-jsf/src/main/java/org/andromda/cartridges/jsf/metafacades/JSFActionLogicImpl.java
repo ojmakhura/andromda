@@ -14,7 +14,9 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -546,13 +548,11 @@ public class JSFActionLogicImpl
     protected boolean handleIsValidationRequired()
     {
         boolean required = false;
-        final Collection actionParameters = this.getParameters();
-        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        for (final FrontEndParameter frontEndParam : this.getParameters())
         {
-            final Object object = iterator.next();
-            if (object instanceof JSFParameter)
+            if (frontEndParam instanceof JSFParameter)
             {
-                final JSFParameter parameter = (JSFParameter)object;
+                final JSFParameter parameter = (JSFParameter)frontEndParam;
                 if (parameter.isValidationRequired())
                 {
                     required = true;
@@ -573,9 +573,9 @@ public class JSFActionLogicImpl
             JSFGlobals.VIEW_TYPE_POPUP);
         if (!popup)
         {
-            for (final Iterator iterator = this.getTargetViews().iterator(); iterator.hasNext();)
+            for (final FrontEndView feView : this.getTargetViews())
             {
-                final JSFView view = (JSFView)iterator.next();
+                final JSFView view = (JSFView)feView;
                 popup = view.isPopup();
                 if (!popup)
                 {
@@ -595,12 +595,11 @@ public class JSFActionLogicImpl
         boolean resetRequired = this.isFormReset();
         if (!resetRequired)
         {
-            for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+            for (final FrontEndParameter feParameter : this.getParameters())
             {
-                final Object object = iterator.next();
-                if (object instanceof JSFParameter)
+                if (feParameter instanceof JSFParameter)
                 {
-                    final JSFParameter parameter = (JSFParameter)object;
+                    final JSFParameter parameter = (JSFParameter)feParameter;
                     resetRequired = parameter.isReset();
                     if (resetRequired)
                     {
@@ -652,27 +651,23 @@ public class JSFActionLogicImpl
         
         buffer.append(StringUtils.trimToEmpty(this.getActionClassName()));
         
-        for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+        for (final FrontEndParameter parameter : this.getParameters())
         {
-            final ModelElementFacade parameter = (ModelElementFacade)iterator.next();
             buffer.append(parameter.getName());
         }
         
-        for (final Iterator iterator = this.getActionForwards().iterator(); iterator.hasNext();)
+        for (final FrontEndForward forward : this.getActionForwards())
         {
-            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
             buffer.append(forward.getName());
         }
         
-        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        for (final FrontEndAction action : this.getActions())
         {
-            final ModelElementFacade action = (ModelElementFacade)iterator.next();
             buffer.append(action.getName());
         }
         
-        for (final Iterator iterator = this.getActionStates().iterator(); iterator.hasNext();)
+        for (final FrontEndActionState state : this.getActionStates())
         {
-            final ModelElementFacade state = (ModelElementFacade)iterator.next();
             buffer.append(state.getName());
         }
         final String signature = buffer.toString();
@@ -761,9 +756,9 @@ public class JSFActionLogicImpl
      * @return maps message keys to message values, but only those that match the arguments
      *         will have been recorded
      */
-    private Map getMessages(String taggedValue)
+    private Map<String, String> getMessages(String taggedValue)
     {
-        Map messages;
+        Map<String, String> messages;
 
         final Collection taggedValues = this.findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
@@ -772,9 +767,9 @@ public class JSFActionLogicImpl
         }
         else
         {
-            messages = new LinkedHashMap(); // we want to keep the order
+            messages = new LinkedHashMap<String, String>(); // we want to keep the order
 
-            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            for (final Iterator<String> iterator = taggedValues.iterator(); iterator.hasNext();)
             {
                 final String value = (String)iterator.next();
                 messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
@@ -787,7 +782,7 @@ public class JSFActionLogicImpl
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFActionLogic#handleGetSuccessMessages()
      */
-    protected Map handleGetSuccessMessages()
+    protected Map<String, String> handleGetSuccessMessages()
     {
         return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
@@ -795,7 +790,7 @@ public class JSFActionLogicImpl
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFActionLogic#handleGetWarningMessages()
      */
-    protected Map handleGetWarningMessages()
+    protected Map<String, String> handleGetWarningMessages()
     {
         return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
@@ -809,11 +804,10 @@ public class JSFActionLogicImpl
         if(this.getParameters().size() == 0)
             return false;
             
-        for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+        for (final FrontEndParameter feParameter : this.getParameters())
         {
-            final Object object = iterator.next();
-            if (object instanceof JSFParameter){
-                final JSFParameter parameter = (JSFParameter)object;
+            if (feParameter instanceof JSFParameter){
+                final JSFParameter parameter = (JSFParameter)feParameter;
                 if(parameter.isInputFile())
                    return true;
                 if(parameter.isComplex()){

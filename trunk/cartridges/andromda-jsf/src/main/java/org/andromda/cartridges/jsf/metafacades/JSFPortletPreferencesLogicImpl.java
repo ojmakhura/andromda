@@ -1,10 +1,9 @@
 package org.andromda.cartridges.jsf.metafacades;
 
 import java.util.Collection;
-import java.util.Iterator;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFPortletPreferences.
@@ -30,13 +29,12 @@ public class JSFPortletPreferencesLogicImpl
     protected Object handleGetUseCase()
     {
         UseCaseFacade useCase = null;
-        final Collection dependencies = this.getTargetDependencies();
+        final Collection<DependencyFacade> dependencies = this.getTargetDependencies();
         if (dependencies != null && !dependencies.isEmpty())
         {
-            for (final Iterator iterator = dependencies.iterator(); iterator.hasNext();)
+            for (final DependencyFacade dependency : dependencies)
             {
-                final DependencyFacade dependency = (DependencyFacade)iterator.next();
-                final Object source = dependency.getSourceElement();
+                final ModelElementFacade source = dependency.getSourceElement();
                 if (source instanceof UseCaseFacade)
                 {
                     useCase = (UseCaseFacade)source;
