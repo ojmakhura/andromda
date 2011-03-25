@@ -1,7 +1,5 @@
 package org.andromda.cartridges.jsf.validator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.net.URL;
 import java.text.DateFormat;
@@ -12,9 +10,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.Field;
@@ -38,7 +38,7 @@ public class ParameterChecks
     implements Serializable
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
     /** NULL */
@@ -882,29 +882,7 @@ public class ParameterChecks
         String urlString = ObjectUtils.toString(object);
         try
         {
-            URL url = new URL(urlString);
-
-            // first check to see if it can be used as a File
-            File file = new File(url.getFile());
-            valid = file.exists();
-
-            // if the file doesn't exist, check to see if we can get the
-            // contents
-            // as a URL
-            try
-            {
-                url.openStream();
-                valid = true;
-            }
-            catch (FileNotFoundException ex)
-            {
-                // if the flag isn't valid it means it
-                // failed the existence
-                if (!valid)
-                {
-                    valid = false;
-                }
-            }
+            new URL(urlString);
         }
         catch (Exception exception)
         {
@@ -984,7 +962,7 @@ public class ParameterChecks
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @throws Exception 
+     * @throws Exception
      */
     public static void validateEqual(
         FacesContext context,
