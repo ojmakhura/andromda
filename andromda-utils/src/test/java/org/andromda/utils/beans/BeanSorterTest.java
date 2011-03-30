@@ -1,4 +1,4 @@
-package org.andromda.utils;
+package org.andromda.utils.beans;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import org.junit.Test;
 public class BeanSorterTest
 {
     /**
-     * 
+     *
      */
     @Test
     public void testSort()
@@ -50,26 +50,27 @@ public class BeanSorterTest
         assertEquals(chad.getFirstName(), "Chad");
         billy = iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
-        
-        // - try nested property sorting
-        sorted = BeanSorter.sort(
+
+        // - try nested property sorting AND in-line sorting (i.e. we are sorting
+        //   "persons" without getting the returned result)
+        BeanSorter.sort(
             persons,
             new SortCriteria[] {new SortCriteria(
                     "address.streetNumber",
-                    Ordering.ASCENDING)});      
-        iterator = sorted.iterator();
+                    Ordering.ASCENDING)});
+        iterator = persons.iterator();
         john =  iterator.next();
         assertEquals(john.getFirstName(), "John");
         chad = iterator.next();
         assertEquals(chad.getFirstName(), "Chad");
         billy = iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
-        
+
         sorted = BeanSorter.sort(
             persons,
             new SortCriteria[] {new SortCriteria(
                     "address.streetNumber",
-                    Ordering.DESCENDING)});      
+                    Ordering.DESCENDING)});
         iterator = sorted.iterator();
         billy =  iterator.next();
         assertEquals(billy.getFirstName(), "Billy");
@@ -77,7 +78,7 @@ public class BeanSorterTest
         assertEquals(chad.getFirstName(), "Chad");
         john = iterator.next();
         assertEquals(john.getFirstName(), "John");
-        
+
     }
 
     private static final Person[] persons =

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.utils.beans.SortCriteria.Ordering;
 import org.andromda.utils.beans.comparators.BeanComparator;
@@ -114,7 +115,8 @@ public class BeanSorter
      * Class that has an associated Comparator implementation defined.  If
      * the Collection that is passed in, is not an instance of List, it will create
      * a new ArrayList with the contents of the passed in Collection, before
-     * sorting occurs.  Since sorting can only be done on a java.util.List.
+     * sorting occurs.  Since sorting can only be done on a java.util.List.  If
+     * it is a list, then in-line sorting will occur of the list.
      * </p>
      *
      * @param <T> Collection type
@@ -143,8 +145,21 @@ public class BeanSorter
             throw new IllegalArgumentException("sortBy must contain at least one value by which to sort");
         }
 
-        List<T> sorted = new ArrayList<T>(beans);
-        
+        List<T> sorted = null;
+
+        // IMPORTANT: do not replace this logic with new list creation, this allows for sorting of the passed
+        // in collection of beans (i.e. it allows this method to do "in-line" sorting), with the caller not  having
+        // to get the result of this method to get the sorted result, only if the collection is not a List instance
+        // will it need to use the result of this method to get the sorted collection.
+        if (!(beans instanceof List))
+        {
+            sorted = new ArrayList<T>(beans);
+        }
+        else
+        {
+            sorted = (List)beans;
+        }
+
         int sortByNum = sortBy.length;
 
         // - use the Comparator chain to provide SQL like sorting of properties
