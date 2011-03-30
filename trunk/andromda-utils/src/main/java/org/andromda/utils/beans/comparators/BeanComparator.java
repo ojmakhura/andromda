@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Properties;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
@@ -72,18 +73,14 @@ public class BeanComparator
         this.sortCriteria = sortCriteria;
     }
 
-    // - The following variables are saved since we only need to check some things once
-    //   within the method and checking each time slows performance.
-    private boolean assignableTypes = false;
-
     /**
      * @see java.util.Comparator#compare(Object, Object)
      */
+    @Override
     public int compare(
         final Object objectA,
         Object objectB)
     {
-        final String methodName = "BeanComparator.compare";
         ExceptionUtils.checkNull(
             "objectA",
             objectA);
@@ -91,26 +88,13 @@ public class BeanComparator
             "objectB",
             objectB);
 
-        // we'll assume that if the first set of objects are equal types
-        // then all must be (this of course could turn out to be false, but may hinder
-        // performance to check each object, each time).
-        if (!assignableTypes)
-        {
-            if (!objectA.getClass().isInstance(objectB) && !objectB.getClass().isInstance(objectA))
-            {
-                String errMsg =
-                    methodName + " - objectA '" + objectA + "' and objectB '" + objectB + " must be of assignable types ";
-                throw new ClassCastException(errMsg);
-            }
-            assignableTypes = true;
-        }
         try
         {
             Object aValue;
             Object bValue;
             if (this.sortCriteria.getOrdering().equals(SortCriteria.Ordering.DESCENDING))
             {
-                // - since its decending switch the objects we are getting the values from,
+                // - since its descending switch the objects we are getting the values from,
                 //   so the order will be reversed
                 aValue = getProperty(
                         objectB,
