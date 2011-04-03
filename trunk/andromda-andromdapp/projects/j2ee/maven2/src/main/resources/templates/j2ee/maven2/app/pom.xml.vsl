@@ -81,6 +81,11 @@
             <systemPath>${project.basedir}/target/src/resources/lib/el-api.jar</systemPath>
         </dependency>
 #end
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${application.id}-${project.version}</finalName>
@@ -101,6 +106,9 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
+                    <generateApplicationXml>true</generateApplicationXml>
+                    <includeJar>false</includeJar>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <includes>**/*.xml</includes>
                     <excludes>**/jboss-app.xml</excludes>
 #if ($ejb3)
@@ -159,6 +167,10 @@
                         </jarModule>
 #end
                     </modules>
+                    <jboss>
+                        <version>5</version>
+                        <loader-repository>org.andromda.timetracker:loader=${project.build.finalName}</loader-repository>
+                    </jboss>
                 </configuration>
             </plugin>
 #if ($axisVersion.equals("2"))
