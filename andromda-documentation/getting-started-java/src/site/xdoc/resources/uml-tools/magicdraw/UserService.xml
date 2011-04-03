@@ -12,7 +12,7 @@
             <p>
                 This page provides directions to create the
                 <tt>UserService</tt>
-                using MagicDraw 15.5.
+                using MagicDraw 16.5.
             </p>
 
             <p>
@@ -50,17 +50,15 @@
                     on the
                     <tt>UserService</tt>
                     class and select<i>Insert New Operation</i>. A new operation
-                    is inserted with the specification <tt>+unnamed1()</tt>. Write over this specification
-                    with this new one: <tt>+getAllUsers()</tt>. Do not specify the return value right now because
-                    MagicDraw gets confused with the
-                    <tt>UserVO[]</tt>
-                    syntax. After typing the
-                    operation click outside the class exit the edit mode.
+                    is inserted with the specification <tt>unnamed1()</tt>. Change the operation specification
+                    with this new one: <tt>getAllUsers()</tt> After typing the
+                    operation name click outside the class exit the edit mode.
                 </li>
                 <li>Now double-click the operation to open the Operation Specification dialog box.</li>
                 <li>Choose
-                    <tt>UserVO[]</tt>
-                    in the Return Type drop-down and then click<i>OK</i>.
+                    <tt>UserVO</tt>
+                    in the Return Type drop-down. Go to <tt>Parameters</tt> list, select the return parameter (the only parameter)
+                    and set its <tt>Multiplicity</tt> to <tt>*</tt>. Click<i>Close</i>.
                 </li>
                 <li>Make sure your class diagram matches the one shown on the right.</li>
                 <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
@@ -68,10 +66,10 @@
                     <tt>timetracker</tt>
                     model by selecting<i>File &gt; Save Project</i>.
                 </li>
-                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 (v2.x) XMI File</i>.
                     Choose
                     <tt>C:/timetracker/mda/src/main/uml</tt>
-                    as export directory and click<i>Open</i>.
+                    as export directory and click<i>Export</i>.
                 </li>
             </ol>
 

@@ -39,21 +39,10 @@ public class UserServiceTest
     public void testGetAllUsers()
     {
         this.logger.info("testGetAllUsers:");
-        // Use this implementation for UML14
-        UserVO[] users = userService.getAllUsers();
 
-        for (int i=0; i<users.length; i++)
-        {
-            logger.info(users[i].getUsername());
-        }
-        // Use this implementation for UML2
-        /* 
         for (UserVO user : this.userService.getAllUsers())
         {
             this.logger.info(user.getUsername());
-            /*for (UserVO user : userService.getAllUsers())
-            {
-                logger.info(user.getUsername());
-        }*/
+        }
     }
 }

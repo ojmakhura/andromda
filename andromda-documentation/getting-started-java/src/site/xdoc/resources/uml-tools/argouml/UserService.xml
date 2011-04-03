@@ -55,7 +55,7 @@
                     class
                     to create a new operation. A new operation is inserted with the specification
                     &quot;+newOperation() : void&quot;. Write over this specification with this new one:
-                    &quot;+getAllUsers() : UserVO[]&quot;.
+                    &quot;+getAllUsers() : Collection&lt;UserVO&gt;&quot;.
                 </li>
                 <li>Similar to creating new attributes, you can also create new operations from
                     the property panel if that fits your work style better. Click on the

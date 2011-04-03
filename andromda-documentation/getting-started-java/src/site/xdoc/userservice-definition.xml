@@ -21,9 +21,7 @@
             </p>
             <ol style="list-style-type: decimal">
                 <li>Ability to get a list of all users in order to populate the search criteria drop-downs
-                    (
-                    <i>Submitter</i>
-                    and<i>Approver</i>)
+                    (<i>Submitter</i> and <i>Approver</i>)
                 </li>
                 <li>Ability to get a list of all timecards that match a specific search criteria.</li>
             </ol>
@@ -36,7 +34,7 @@
                 <source>
                 public interface UserService
                 {
-                    public UserVO[] getAllUsers();
+                    public Collection&lt;UserVO&gt; getAllUsers();
                 }
                 </source>
                 <p>
@@ -75,19 +73,6 @@
                     which are .NET equivalents of <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
                     As you can see, a key advantage of the model driven approach is that your investment
                     in the business models is preserved even as technologies come and go.
-                </p>
-                <p>
-                    In addition to <tt>UserVO</tt>, we have modeled a type called <tt>UserVO[]</tt>.
-                    This type is required to represent the return value from our service method. Unfortunately,
-                    in UML there is no standard way to define arrays of objects, so we adopt this technique
-                    as a workaround. Note that some tools, such as MagicDraw, will accept
-                    <tt>UserVO[]</tt>
-                    as a method parameter or return type and store it as the type
-                    <tt>UserVO</tt> with a <i>type modifier</i>
-                    of ' <tt>[]</tt>' - however this is non-standard
-                    UML and therefore can not be retrieved using standard UML APIs. Be careful, not
-                    to model your parameters and return types this way. Instead, model these elements
-                    using the workaround described above.
                 </p>
                 <p>
                     Now let us enter <tt>UserVO</tt>
@@ -131,10 +116,11 @@
                 </p>
                 <p>
                     <b>Eclipse Users:</b>
-                    Note that AndroMDA has also generated <tt>.project</tt> and <tt>.classpath</tt>
-                    files in the <tt>C:/timetracker</tt> folder. To
-                    view your source in Eclipse, follow the steps below:
+                    To view your source in Eclipse, follow the steps below:
                 </p>
+                <ol style="list-style-type: decimal">
+                    <li>Execute the command <tt>mvn install -Peclipse</tt> to generate <tt>.project</tt> and <tt>.classpath</tt></li>
+                </ol>
                 <ol style="list-style-type: decimal">
                     <li>Start Eclipse.</li>
                     <li>Choose Import from the File menu.</li>
@@ -148,19 +134,9 @@
                         <tt>timetracker</tt>
                         project is now available in Eclipse.
                     </li>
-                    <li>Right click on
-                        <tt>timetracker</tt>
-                        in Package Explorer and choose properties.
-                    </li>
-                    <li>Click on Java Compiler and then check &quot;Enable project specific properties&quot;.</li>
-                    <li>Since we will be using JDK 5.0 features, set the Compiler compliance level to 5.0
-                        and click OK.
-                    </li>
-                    <li>Eclipse will now ask &quot;Build the project now?&quot;. Answer Yes.</li>
                 </ol>
                 <p>
-                    This setup procedure is required only once. In future, when you regenerate code
-                    (resulting in new <tt>.project</tt> and <tt>.classpath</tt> files), simply
+                    This setup procedure is required only once. In future, when you regenerate code, simply
                     right-click on the <tt>timetracker</tt> project in Package Explorer and choose
                     Refresh.
                 </p>
@@ -257,84 +233,10 @@
                     additional features, such as data-driven testing, to simplify the testing process.
                     In order to make our testing process efficient, we will not test the service layer
                     on JBoss. Instead, we will configure our tests to talk directly to the POJO services,
-                    bypassing the EJB container completely. Here's what we need to enable testing:
+                    bypassing the EJB container completely. 
                 </p>
-                <ol style="list-style-type: decimal">
-                    <li>Open the POM file at <tt>C:\timetracker\pom.xml</tt>.
-                    </li>
-                    <li>Search for the word <tt>junit</tt>. Comment out the dependency section around
-                        <tt>junit</tt>
-                        as shown below:
-                        <source>
-<![CDATA[
-    <!--
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-        <scope>test</scope>
-    </dependency>
-    -->
-]]>
-                        </source>
-                    </li>
-                    <li>Just below the commented <tt>junit</tt> section, add the following dependencies
-                        to enable TestNG. Remember, if you get confused, you can always compare your code
-                        against the<a href="timetracker-completed.zip">finished application</a>.
-                        <source>
-<![CDATA[
-    <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>4.7</version>
-        <scope>test</scope>
-        <classifier>jdk15</classifier>
-    </dependency>
-    <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.16</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.14</version>
-        <scope>test</scope>
-    </dependency>
-]]>
-                        </source>
-                    </li>
-                    <li>Now search for <tt>maven-resources-plugin</tt>, which is the last plugin in
-                        the
-                        <tt>plugins</tt>
-                        section. Add the following two plugins after the <tt>maven-resources-plugin</tt>.
-                        <source>
-<![CDATA[
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
-        </configuration>
-    </plugin>
-    <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-surefire-plugin</artifactId>
-       <version>2.2</version>
-       <configuration>
-         <suiteXmlFiles>
-           <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-         </suiteXmlFiles>
-       </configuration>
-    </plugin>
-]]>
-                        </source>
-                    </li>
-                </ol>
                 <p>
-                    That's all the plumbing we need for using TestNG. Now copy the entire
+                    Copy the entire
                     <tt>test</tt>
                     directory located under
                     <tt>C:\timetracker-completed\core\src</tt>
@@ -408,18 +310,7 @@ public class UserServiceTest {
                                 <tt>testBeanRefFactory.xml</tt>
                                 enables the tests to directly talk to the services
                             </li>
-                            <li>
-                                <tt>testng.xml</tt>
-                                controls the behavior of TestNG itself
-                            </li>
                         </ul>
-                    </li>
-                    <li>Open the file
-                        <tt>testng.xml</tt>
-                        and note that
-                        <tt>UserServiceTest</tt>
-                        is commented out. This mechanism is used to temporarily disable tests that are breaking
-                        the build. Since we would like to start testing now, just uncomment the test.
                     </li>
                     <li>Execute the following command in the
                         <tt>C:\timetracker</tt>
@@ -436,24 +327,32 @@ public class UserServiceTest {
                         You will find that the test fails with the following message:
                         <source>
 <![CDATA[
-    -------------------------------------------------------
-    T E S T S
-    -------------------------------------------------------
-    org.apache.maven.surefire.booter.SurefireExecutionException: null;
-    nested exception is java.lang.NullPointerException: null
-    java.lang.NullPointerException
-    ...
-    [INFO] ------------------------------------------------------------------------
-    [ERROR] BUILD FAILURE
-    [INFO] ------------------------------------------------------------------------
-    [INFO] There are test failures.
-    [INFO] ------------------------------------------------------------------------
-    [INFO] For more information, run Maven with the -e switch
-    [INFO] ------------------------------------------------------------------------
-    [INFO] Total time: 8 seconds
-    [INFO] Finished at: Sun Aug 27 21:41:48 EDT 2006
-    [INFO] Final Memory: 6M/11M
-    [INFO] ------------------------------------------------------------------------
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running TestSuite
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 1, Time elapsed: 0.872 sec <<< FAILURE!
+
+Results :
+
+Failed tests: 
+  initializeTestSuite(org.andromda.timetracker.service.UserServiceTest)
+
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] There are test failures.
+
+Please refer to /home/walter/test_workspace/timetracker/core/target/surefire-reports for the individual test results.
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5 seconds
+[INFO] Finished at: Sun Apr 03 16:24:55 BRT 2011
+[INFO] Final Memory: 31M/604M
+[INFO] ------------------------------------------------------------------------
 ]]>
                         </source>
                         The test failed because initializeTestSuite() could not initialize the UserService

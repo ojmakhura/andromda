@@ -12,7 +12,7 @@
             <p>
                 This page provides directions to create the
                 <tt>User</tt>
-                entity using MagicDraw 15.5.
+                entity using MagicDraw 16.5.
             </p>
 
             <p>
@@ -40,9 +40,12 @@
                 <li>Add the stereotype called
                     <tt>Entity</tt>
                     (The one from AndroMDA Profile, starting with an 'E' and
-                    not the one from UML2 Standard Profile, starting with an 'e') to <tt>User</tt>.
+                    not the one from UML2 Standard Profile, starting with an 'e') and the stereotype
+                    called 
+                    <tt>Manageable</tt>
+                    to <tt>User</tt>.
                 </li>
-                <li>Add the 3 attributes to <tt>User</tt>.
+                <li>Add the 3 attributes to <tt>User</tt>. Uncheck the <tt>Manageable</tt> in <tt>firstName</tt> and <tt>lastName</tt>. 
                 </li>
                 <li>Double click on the class to open the class specification.</li>
                 <li>Click on the
@@ -70,7 +73,7 @@
                 <li>
                     Note that the tagged value shows up in the diagram and its owning stereotype
                     <tt>andromda_persistence_table</tt>.
-                    You can make MagicDraw 15.5 hide the tagged values, but you can't select which stereotypes
+                    You can make MagicDraw 16.5 hide the tagged values, but you can't select which stereotypes
                     you want to be displayed. If you want to hide the tag value, right-click
                     on the entity and choose<i>Presentation Options</i>, then deselect<i>Show Tagged
                     Values</i>. You may want to hide stereotypes as well:
@@ -84,10 +87,10 @@
                     <tt>timetracker</tt>
                     model by selecting<i>File &gt; Save Project</i>.
                 </li>
-                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 (v2.x) XMI File</i>.
                     Choose
                     <tt>C:/timetracker/mda/src/main/uml</tt>
-                    as export directory and click<i>Open</i>.
+                    as export directory and click<i>Export</i>.
                 </li>
             </ol>
 

@@ -17,7 +17,7 @@
                 Let's take a look at the initial content of the freshly generated model.
             </p>
             <ol style="list-style-type: decimal">
-                <li>Start MagicDraw 15.5.</li>
+                <li>Start MagicDraw 16.5.</li>
                 <li>Select
                     <i>File &gt; Open Project...</i>
                     and traverse to <tt>C:/timetracker/mda/src/main/uml/timetracker.xml</tt>.
@@ -70,25 +70,25 @@
             </p>
             <ol style="list-style-type: decimal">
                 <li>In the Containment Tree on the left, right-click on the root element called Data
-                    and select<i>New Element &gt; Model</i>. A new model will be created under the root element
+                    and select <i>New Element &gt; Model</i>. A new model will be created under the root element
                     with an edit box to its side. Type in
                     <tt>timetracker</tt>
                     as the name of this model.
                 </li>
             </ol>
             <p>
-                As said previously, AndroMDA can't read MagicDraw MagicDraw 15.5 models directly. You have to export it
+                As said previously, AndroMDA can't read MagicDraw MagicDraw 16.5 models directly. You have to export it
                 to another file format: EMF-UML2.
             </p>
             <ol style="list-style-type: decimal">
                 <li>Save your
                     <tt>timetracker</tt>
-                    model by selecting<i>File &gt; Save Project</i>.
+                    model by selecting <i>File &gt; Save Project</i>.
                 </li>
                 <li>
-                    Select<i>File &gt; Export &gt; EMF UML2 XMI</i>. Choose
+                    Select <i>File &gt; Export &gt; EMF UML2 (v2.x) XMI File</i>. Choose
                     <tt>C:/timetracker/mda/src/main/uml</tt>
-                    as export directory and click<i>Open</i>.
+                    as export directory and click <i>Export</i>.
                 </li>
             </ol>
             <p>
@@ -98,7 +98,7 @@
                 Let's look closer at its content.
             </p>
             <ul>
-                <li> <tt>timetracker.xml</tt>: the MagicDraw 15.5 model file.
+                <li> <tt>timetracker.xml</tt>: the MagicDraw 16.5 model file.
                 </li>
                 <li>
                     <tt>timetracker.uml</tt>: the <tt>timetracker</tt>
@@ -123,17 +123,8 @@
                 <b>Important</b>: Always use the
                 <i>timetracker.xml</i>
                 file for editing. After edition, don't forget to export the model
-                to EMF/UML2. AndroMDA won't take your changes into account if you don't export your model.
+                to EMF/UML2 (v2.x). AndroMDA won't take your changes into account if you don't export your model.
             </blockquote>
-            <p>
-                Let's start the 'real' work. We will create
-                <tt>UserVO</tt>
-                and
-                <tt>UserVO[]</tt>
-                in a package named
-                <tt>org.andromda.timetracker.vo</tt>. When finished, the containment tree in
-                MagicDraw will look like the screen shot on the bottom of this page.
-            </p>
 
             <ol style="list-style-type: decimal">
                 <li>Now right-click on the timetracker model you just created and select New Element
@@ -158,7 +149,7 @@
                 <li>In the Containment Tree on the left, right-click on the
                     <tt>vo</tt>
                     package
-                    and select<i>New Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window.
+                    and select <i>New Diagram &gt; Class Diagram</i>. The diagram is created and opened in a new window.
                     You can see that the diagram's name is being edited. Type in
                     <tt>Value Objects</tt>
                     as the name of
@@ -180,7 +171,7 @@
                     the
                     <tt>UserVO</tt>
                     class to bring up the Class Specification dialog. Add the
-                    following sentence in the Documentation field and click<i>OK</i>:
+                    following sentence in the Documentation field and click <i>Close</i>:
                     <tt>This class represents
                         a value object that carries information about a TimeTracker user.
                     </tt>
@@ -188,10 +179,10 @@
                 <li>Now add the stereotype
                     <tt>ValueObject</tt>
                     to class <tt>UserVO</tt>. To
-                    do this, right-click on the class and select<i>Stereotype</i>. In the next level menu,
+                    do this, right-click on the class and select <i>Stereotype</i>. In the next level menu,
                     check
                     <tt>ValueObject</tt>
-                    and click<i>Apply</i>. The
+                    and click <i>Apply</i>. The
                     <tt>UserVO</tt>
                     class will now have the
                     <tt>ValueObject</tt>
@@ -208,27 +199,14 @@
                     <tt>id</tt>
                     as an attribute of <tt>UserVO</tt>. Right-click on the
                     <tt>UserVO</tt>
-                    class and select<i>Insert New Attribute</i>. A new attribute is inserted with the
-                    specification <tt>-unnamed1</tt>. Write over this specification with this new one:
-                    <tt>+id
-                        : Long
-                    </tt>
-                    (be sure to delete the minus sign in front of the name). Do not press Enter
-                    after typing this attribute (that will create another attribute). Instead click
-                    outside the class to finish entering the attribute. Note that attributes are always
-                    generated as private members of a class. However the visibilities of the associated
+                    class and select <i>New Element &gt; Property</i>. A new attribute is inserted with the
+                    specification <tt>-unnamed1</tt>. Change the attribute specification with this new one:
+                    <tt>+id : Long [datatype]</tt>. The visibilities of the associated
                     getter and setter are determined by the visibility of the attribute specification.
-                    In this case we have specified public visibility (by using the plus sign) and hence
+                    In this case we have specified public visibility and hence
                     the getter and setter for the
                     <tt>id</tt>
                     attribute will be public.
-                    <blockquote>
-                        <b>Tips &amp; Tricks</b>: MagicDraw 15.5 provides an auto completion feature for choosing an element type.
-                        To use it, simply type in
-                        <tt>+id:L</tt>
-                        and press<i>ctrl + space</i>.
-                        MagicDraw 15.5 will then show you different possible completions: choose <tt>Long</tt>.
-                    </blockquote>
                 </li>
                 <li>Now add three more public attributes called <tt>username</tt>,
                     <tt>firstName</tt>
@@ -241,24 +219,22 @@
                     type. In your model two different types called String are available (see above).
                     Use the one displayed <tt>String [datatype]</tt>.
                 </li>
-                <li>Add a new class to the diagram and name it <tt>UserVO[]</tt>.
-                </li>
                 <li>Make sure your class diagram matches the one shown on the right exactly. (It is okay if
                     your class shows an empty operation compartment. This can be hidden very easily).
                 </li>
                 <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
                 <li>
-                    <b>Tips &amp; Tricks</b>: MagicDraw MagicDraw 15.5 displays objects that have changed since
+                    <b>Tips &amp; Tricks</b>: MagicDraw 16.5 displays objects that have changed since
                     the last save in blue.
                 </li>
                 <li>Save your
                     <tt>timetracker</tt>
-                    model by selecting<i>File &gt; Save Project</i>.
+                    model by selecting <i>File &gt; Save Project</i>.
                 </li>
-                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 XMI</i>.
+                <li>Export it in EMF/UML2 format by selecting<i>File &gt; Export &gt; EMF UML2 (v2.x) XMI File</i>.
                     Choose
                     <tt>C:/timetracker/mda/src/main/uml</tt>
-                    as export directory and click<i>Open</i>.
+                    as export directory and click <i>Export</i>.
                 </li>
             </ol>
 
