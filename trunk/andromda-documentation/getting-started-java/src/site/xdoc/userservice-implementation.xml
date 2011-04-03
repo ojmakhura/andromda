@@ -223,41 +223,46 @@
                 class.
             </p>
             <source>
-                // license-header java merge-point
-                /**
-                * This is only generated once! It will never be overwritten.
-                * You can (and have to!) safely modify it by hand.
-                */
-                package org.andromda.timetracker.service;
+// license-header java merge-point
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ * TEMPLATE:    SpringServiceImpl.vsl in andromda-spring cartridge
+ * MODEL CLASS: Data::timetracker::org.andromda.timetracker::service::UserService
+ * STEREOTYPE:  Service
+ */
+package org.andromda.timetracker.service;
 
-                import java.util.Collection;
+import java.util.Collection;
 
-                import org.andromda.timetracker.domain.UserDao;
-                import org.andromda.timetracker.vo.UserVO;
+import org.andromda.timetracker.domain.UserDao;
+import org.andromda.timetracker.vo.UserVO;
 
-                /**
-                * @see org.andromda.timetracker.service.UserService
-                */
-                public class UserServiceImpl extends org.andromda.timetracker.service.UserServiceBase
-                {
-                    /**
-                    * @see org.andromda.timetracker.service.UserService#getAllUsers()
-                    */
-                    protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers() throws java.lang.Exception
-                    {
-                        Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
-                        return (UserVO[])userVOs.toArray(new UserVO[0]);
-                    }
-                }
+/**
+ * @see org.andromda.timetracker.service.UserService
+ */
+public class UserServiceImpl
+    extends UserServiceBase
+{
+
+    /**
+     * @see org.andromda.timetracker.service.UserService#getAllUsers()
+     */
+    @SuppressWarnings("unchecked")
+    protected  Collection<UserVO> handleGetAllUsers()
+        throws Exception
+    {
+        return (Collection<UserVO>)getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
+    }
+
+}
             </source>
             <p>
                 Here we make a direct call to the <tt>loadAll()</tt> method in
                 <tt>UserDao</tt> which is completely implemented in <tt>UserDaoBase</tt>. We supply the
                 <tt>UserDao.TRANSFORM_USERVO</tt> parameter to the <tt>loadAll()</tt>
                 method which asks the method to convert the <tt>User</tt> entities to <tt>UserVO</tt>
-                objects before returning.
-                We then convert the returned collection to an array as required by the method signature
-                and return this array. That's it! You see how simple it was to implement this method,
+                objects before returning. That's it! You see how simple it was to implement this method,
                 no need to write DAOs or convert database records to objects, AndroMDA takes care
                 of all this for you.
             </p>

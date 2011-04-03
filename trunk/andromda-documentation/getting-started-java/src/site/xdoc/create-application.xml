@@ -66,7 +66,7 @@
                 MagicDraw 9.x: uml1.4
                 MagicDraw 11.5: uml2
                 RSM 7, 7.5, 8: emf-uml22
-                uml1.4
+                uml2
 
                 Please enter the name of your J2EE project (i.e. Animal Quiz):
                 TimeTracker
@@ -101,11 +101,16 @@
                 no
 
                 Will your project have a web user interface? [yes, no,]:
-
                 yes
 
-                Would you like your web user interface to use JSF or Struts? [jsf, struts,]:
-                struts
+                Would you like your web user interface to use JSF or Struts? [jsf, struts,]: 
+                jsf
+
+                Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)? [standalone, portlet,]: 
+                standalone
+
+                Would you like to use the embedded Jetty web server (Maven plugin)? [yes, no,]: 
+                no
 
                 Would you like to be able to expose your services as web services? [yes, no,]:
                 no
@@ -237,14 +242,14 @@
                         to <tt>false</tt>. Since we will
                         be using EJBs, we do not want Spring to be controlling database transactions.
                     </li>
-                    <li>Search for the namespace called <tt>bpm4struts</tt>. In this namespace, add
+                    <li>Search for the namespace called <tt>jsf</tt>. In this namespace, add
                         a property to change the default date format for the application so it matches that
                         in the prototype. The property will look like this:
                         <br/>
                         <tt>&lt;property name=&quot;defaultDateFormat&quot;&gt;MM/dd/yyyy&lt;/property&gt;</tt>
                     </li>
                     <li>Add another property in the
-                        <tt>bpm4struts</tt>
+                        <tt>jsf</tt>
                         namespace as shown below:
                         <br/>
                         <tt>&lt;property name=&quot;normalizeMessages&quot;&gt;true&lt;/property&gt;</tt>
@@ -255,84 +260,6 @@
                     </li>
                     <li>Save and close
                         <tt>andromda.xml</tt>
-                    </li>
-                </ol>
-                <p>
-                    Open the top level POM file located at <tt>timetracker\pom.xml</tt>. Make the
-                    following changes:
-                </p>
-                <ol style="list-style-type: decimal">
-                    <li>Search for the following line which specifies the JDBC driver used by the application:
-                        <br/>
-                        <tt>&lt;jdbc.driver.jar&gt;${jboss.home}/server/default/lib/hsqldb.jar&lt;/jdbc.driver.jar&gt;</tt>
-                        <br/>
-                        Since we are using MySQL, change this line as follows (be sure to specify the correct
-                        version of your driver):
-                        <br/>
-                        <tt>&lt;jdbc.driver.jar&gt;${jboss.home}/server/default/lib/mysql-connector-java-5.0.4.jar&lt;/jdbc.driver.jar&gt;</tt>
-                    </li>
-                    <li>Search for the following two lines which specify the database username and password:
-                        <br/>
-                        <tt>&lt;jdbc.username&gt;sa&lt;/jdbc.username&gt;
-                            <br/>
-                            &lt;jdbc.password&gt;&lt;/jdbc.password&gt;
-                            <br/>
-                        </tt>
-                        Change the username and password values to those used during database creation:
-                        <br/>
-                        <tt>&lt;jdbc.username&gt;timetracker&lt;/jdbc.username&gt;
-                            <br/>
-                            &lt;jdbc.password&gt;timetracker&lt;/jdbc.password&gt;
-                            <br/>
-                        </tt>
-                    </li>
-                    <li>Search for
-                        <tt>&lt;repositories&gt;</tt>
-                        section. Here you will find a declaration
-                        for the AndroMDA Repository. Add a declaration for the Java.net repository. This
-                        repository will be used to dowload jars provided by Sun (such as <tt>jta.jar</tt>).
-                        The resulting
-                        <tt>&lt;repositories&gt;</tt>
-                        section is shown below:
-                        <source>
-<![CDATA[
-    <repositories>
-        <repository>
-            <id>andromda</id>
-            <name>AndroMDA Repository</name>
-            <url>http://www.andromda.org/maven2</url>
-        </repository>
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven 2</name>
-            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-]]>
-                        </source>
-                    </li>
-                    <li>Save and close
-                        <tt>pom.xml</tt>
-                    </li>
-                </ol>
-                <p>
-                    Open the POM file for the mda sub-project located at
-                    <tt>timetracker\mda\pom.xml</tt>
-                    and make the following change:
-                </p>
-                <ol style="list-style-type: decimal">
-                    <li>Search for property called
-                        <tt>hibernate.db.showSql</tt>
-                        and change its value
-                        from
-                        <tt>true</tt>
-                        to <tt>false</tt>. This prevents verbose Hibernate messages
-                        to be printed on the JBoss console. We will still have the appropriate SQL messages
-                        in the JBoss log file, which is the better place to look at these messages.
-                    </li>
-                    <li>Save and close
-                        <tt>pom.xml</tt>
                     </li>
                 </ol>
             </subsection>

@@ -8,17 +8,18 @@
         <section name="Search Criteria Panel">
             <p>
                 We are finally ready to attack the front-end! In this section, we will use the AndroMDA
-                BPM4Struts cartridge to develop a Struts based web front-end. Note that AndroMDA
+                jsf cartridge to develop a javaserver Faces based web front-end. Note that AndroMDA
                 offers another cartridge to generate JSF based front-ends. However, if you like
                 some other front-end framework better, you can roll your own cartridge! But remember
                 to share it with the community :-).
             </p>
 
             <p>
-                The BPM4Struts cartridge generates Struts web pages from a UML model that defines
+                The <i>jsf</i> cartridge generates javaserver Faces web pages from a UML model that defines
                 the flow of your application. Before we get into modeling our application, please
-                read the following material to understand fundamental concepts behind the BPM4Struts
-                cartridge.
+                read the following material to understand fundamental concepts behind the <i>jsf</i>
+                cartridge. The following link are related with the BPM4Struts cartridge but most of the
+                concepts are similar to the <i>jsf</i> cartridge.
             </p>
             <ol style="list-style-type: decimal">
                 <li>
@@ -120,6 +121,7 @@
 
     import java.util.ArrayList;
     import java.util.Arrays;
+    import java.util.Collection;
     import java.util.List;
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
@@ -146,14 +148,13 @@
             }
 
             // Get list of users and add the "All" option at the top
-            UserVO[] users = getUserService().getAllUsers();
+            Collection<UserVO> users = getUserService().getAllUsers();
             Arrays.sort(users, new UserVOComparator());
-            List userList = new ArrayList(Arrays.asList(users));
-            userList.add(0, new UserVO(null, ALL_STRING, null, null));
+            users.add(0, new UserVO(null, ALL_STRING, null, null));
 
             // Populate submitter and approver dropdowns
-            form.setSubmitterBackingList(userList, "id", "username");
-            form.setApproverBackingList(userList, "id", "username");
+            form.setSubmitterBackingList(users, "id", "username");
+            form.setApproverBackingList(users, "id", "username");
         }
     }
 ]]>
