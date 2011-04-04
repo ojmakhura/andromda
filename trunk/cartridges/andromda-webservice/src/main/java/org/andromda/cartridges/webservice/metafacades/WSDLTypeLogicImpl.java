@@ -51,16 +51,16 @@ public class WSDLTypeLogicImpl
     public String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
         return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
-                this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
+                this.getName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
 
     /**
-     * @return getQName().insert(0, this.getWsdlArrayNamePrefix())
+     * @return getName().insert(0, this.getWsdlArrayNamePrefix())
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getWsdlArrayName()
      */
     protected String handleGetWsdlArrayName()
     {
-        StringBuilder name = new StringBuilder(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
+        StringBuilder name = new StringBuilder(StringUtils.trimToEmpty(this.getName()).replaceAll("\\[\\]", ""));
         name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }

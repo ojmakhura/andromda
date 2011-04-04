@@ -112,7 +112,7 @@ public class WSDLEnumerationTypeLogicImpl
     public String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
         return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
-                this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
+                this.getName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
 
     /**
@@ -125,12 +125,12 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
-     * @return this.getWsdlArrayNamePrefix() + this.getQName()
+     * @return this.getWsdlArrayNamePrefix() + this.getName()
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getWsdlArrayName()
      */
     protected String handleGetWsdlArrayName()
     {
-        StringBuilder name = new StringBuilder(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
+        StringBuilder name = new StringBuilder(StringUtils.trimToEmpty(this.getName()).replaceAll("\\[\\]", ""));
         name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }

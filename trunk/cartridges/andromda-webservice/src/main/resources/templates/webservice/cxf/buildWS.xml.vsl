@@ -144,11 +144,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
 #foreach ($exception in $service.allowedOperationExceptions)
 ##        <!-- $faultName $exception.associationEnds.size() $exception -->
-#if ($exception.associationEnds.empty)
 #set ($faultName = $exception.name.replace("Exception", "Fault"))
-#else
-#set ($faultName = $exception.associationEnds.get(0).type.name)
-#end
         <include name="**/${faultName}.java"/>
 #end
       </fileset>
@@ -163,7 +159,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <fileset dir="${andromda.project}/CXF/target/src/main/java/$dir">
         <include name="**/*_Client.java"/>
         <include name="**/*_Server.java"/>
-        <include name="**/*SEIClient.java"/>
+        <include name="**/*${seiSuffix}Client.java"/>
       </fileset>
     </copy>
 #end
@@ -280,7 +276,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </copy>
 #end
   </target>
-  <!-- Adapter, SEIImpl, and wrapper classes are required to run java2wsdl properly. -->
+  <!-- Adapter, ${seiSuffix}Impl, and wrapper classes are required to run java2wsdl properly. -->
   <!-- CXF generated wsdl is used only to point out potential problems in java code. -->
 
   <!-- Generate WebService artifacts using CXF version ${cxfVersion}. $cxfVersion.startsWith("2.0")
@@ -326,7 +322,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
         <arg value="-d"/>
         <arg value="${andromda.project}/CXF/target/src/main/java"/>
-        <arg value="${package}.${service}SEI"/>
+        <arg value="${package}.${service}${seiSuffix}"/>
         <classpath>
             <path refid="project1.classpath"/>
         </classpath>

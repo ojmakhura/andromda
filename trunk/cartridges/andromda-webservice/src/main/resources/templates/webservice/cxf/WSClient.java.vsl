@@ -12,8 +12,8 @@
 package ${service.packageName}.test;
 #end
 
-import ${service.fullyQualifiedName}SEI;
-import ${service.fullyQualifiedName}SEIClient;
+import ${service.fullyQualifiedName}${seiSuffix};
+import ${service.fullyQualifiedName}${seiSuffix}Client;
 import java.net.URL;
 import javax.xml.namespace.QName;
 #if ($service.restCount>0)
@@ -61,7 +61,7 @@ public final class ${service.name}_WSClient extends TestCase
         super.setUp();
         //if (args.length == 0)
         //{
-            wsdlURL = ${service.name}SEIClient.WSDL_LOCATION;
+            wsdlURL = ${service.name}${seiSuffix}Client.WSDL_LOCATION;
         //}
         /*else
         {
@@ -105,7 +105,7 @@ public final class ${service.name}_WSClient extends TestCase
 #if ($operation.visibility == "public")
 #if ($operation.rest)
 #set ($returnType = "String")
-#elseif (!$useArrayWrapper && $operation.many)
+#elseif (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -123,7 +123,7 @@ public final class ${service.name}_WSClient extends TestCase
 ##set ($arguments = $operation.returnType.fullyQualifiedName)
 #if ($operation.rest)
 #set ($returnType = "String")
-#elseif (!$useArrayWrapper && $operation.many)
+#elseif (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -134,7 +134,7 @@ public final class ${service.name}_WSClient extends TestCase
 ##set ($returnType = "String")
 ##     * @return _${operation.name}__return String
 ##else
-##     * @param port ${service.name}SEI Endpoint Interface
+##     * @param port ${service.name}${seiSuffix} Endpoint Interface
 ##if ($operation.returnTypePresent || $operation.rest)
 ##     * @return _${operation.name}__return $returnType
 ##end
@@ -237,8 +237,8 @@ public final class ${service.name}_WSClient extends TestCase
         assertTrue(response!=null && (response.getStatus()==HttpServletResponse.SC_NO_CONTENT || response.getStatus()==HttpServletResponse.SC_CREATED));
 #end
 #else
-        ${service.name}SEIClient ss = new ${service.name}SEIClient(wsdlURL, SERVICE_NAME);
-        ${service.name}SEI port = ss.get${service.name}();
+        ${service.name}${seiSuffix}Client ss = new ${service.name}${seiSuffix}Client(wsdlURL, SERVICE_NAME);
+        ${service.name}${seiSuffix} port = ss.get${service.name}();
 #if (!$operation.exceptions.empty)
 #set ($indent="    ")
         try {

@@ -63,6 +63,7 @@
     <property reference="qualifiedNameLocalPartPattern"/>
     <property reference="namespacePattern"/>
     <property reference="reverseNamespace"/>
+    <property reference="seiSuffix"/>
     <property reference="defaultStyle"/>
     <property reference="defaultUse"/>
     <property reference="defaultParameterStyle"/>
@@ -247,6 +248,21 @@
         path="templates/webservice/cxf/jaxb_bindings.xml.vsl"
         outputPattern="bindings/{1}.xjb"
         outlet="wsdls"
+        overwrite="false"
+        outputCondition="cxf">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/cxf/jaxb_bindings.xml.vsl"
+        outputPattern="bindings/{1}.xjb.ref"
+        outlet="wsdls"
         overwrite="true"
         outputCondition="cxf">
         <modelElements variable="service">
@@ -338,7 +354,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceInterface.java.vsl"
-        outputPattern="{0}/{1}SEI.java"
+        outputPattern="{0}/{1}${seiSuffix}.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="cxf">
@@ -353,7 +369,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceEndpoint.java.vsl"
-        outputPattern="{0}/{1}SEIImpl.java"
+        outputPattern="{0}/{1}${seiSuffix}Impl.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="cxf">
@@ -398,7 +414,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceSEIImplTest.java.vsl"
-        outputPattern="{0}/{1}SEIImplTest.java"
+        outputPattern="{0}/{1}${seiSuffix}ImplTest.java"
         outlet="core-tests"
         overwrite="false"
         outputCondition="cxf">
@@ -413,7 +429,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceSEIImplTest.java.vsl"
-        outputPattern="{0}/{1}SEIImplTest.java.ref"
+        outputPattern="{0}/{1}${seiSuffix}ImplTest.java.ref"
         outlet="core-tests"
         overwrite="true"
         outputCondition="cxf">
@@ -522,7 +538,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceClient.java.vsl"
-        outputPattern="{0}/{1}SEIClient.java"
+        outputPattern="{0}/{1}${seiSuffix}Client.java"
         outlet="webservice-tests"
         overwrite="false"
         outputCondition="cxf">
@@ -537,7 +553,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceClient.java.vsl"
-        outputPattern="{0}/{1}SEIClient.java.ref"
+        outputPattern="{0}/{1}${seiSuffix}Client.java.ref"
         outlet="webservice-tests"
         overwrite="true"
         outputCondition="cxf">
@@ -991,7 +1007,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceEndpoint.java.vsl"
-        outputPattern="{0}/{1}SEIEndpoint.java"
+        outputPattern="{0}/{1}${seiSuffix}Endpoint.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="jaxws">
@@ -1006,7 +1022,7 @@
 
     <template
         path="templates/webservice/jaxws/WebServiceInterface.java.vsl"
-        outputPattern="{0}/{1}SEI.java"
+        outputPattern="{0}/{1}${seiSuffix}.java"
         outlet="webservice-types"
         overwrite="true"
         outputCondition="jaxws">

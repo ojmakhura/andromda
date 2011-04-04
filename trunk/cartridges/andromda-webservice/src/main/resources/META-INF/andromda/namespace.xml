@@ -222,6 +222,13 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="seiSuffix">
+                <default>SEI</default>
+                <documentation>
+                    Specifies the suffix to append to the service name when identifying the 
+                    portType name and service endpoint interface class. default=SEI
+                </documentation>
+            </property>
             <property name="defaultProvider">
                 <default>RPC</default>
                 <documentation>

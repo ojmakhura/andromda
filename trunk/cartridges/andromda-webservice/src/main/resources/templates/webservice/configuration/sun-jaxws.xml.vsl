@@ -5,8 +5,8 @@
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
    <endpoint
-      name='${service.name}SEI'
-      implementation='${service.fullyQualifiedName}SEI'
+      name='${service.name}${seiSuffix}'
+      implementation='${service.fullyQualifiedName}${seiSuffix}'
       url-pattern='/$servicesPath/${service.name}'/>
 #end
 #end

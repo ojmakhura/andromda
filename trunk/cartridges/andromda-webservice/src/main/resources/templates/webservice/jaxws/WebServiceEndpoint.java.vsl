@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 /**
- * WebService Service Endpoint Implementation for the $service.name service endpoint interface (${service.name}SEI).
+ * WebService Service Endpoint Implementation for the $service.name service endpoint interface (${service.name}${seiSuffix}).
 $service.getDocumentation(" * ")
  */
 
@@ -45,18 +45,18 @@ $service.getDocumentation(" * ")
             portName = "$service.name",
             targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end",
             //wsdlLocation = "wsdl/${service.name}.wsdl",
-            endpointInterface="${service.fullyQualifiedName}SEI")
+            endpointInterface="${service.fullyQualifiedName}${seiSuffix}")
 #end
 #if ($service.hasStereotype("WSAddressing"))
 @javax.xml.ws.soap.Addressing(enabled=true, required=true)
 #end
-public class ${service.name}SEIImpl #if(!$service.rest)implements ${service.name}SEI#end
+public class ${service.name}${seiSuffix}Impl #if(!$service.rest)implements ${service.name}${seiSuffix}#end
 #if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}SEIImpl
+    extends ${service.generalization.fullyQualifiedName}${seiSuffix}Impl
 #end
 {
-    private static final Logger LOG = Logger.getLogger(${service.name}SEIImpl.class.getName());
-    private static final String className = "${service.name}SEIImpl";
+    private static final Logger LOG = Logger.getLogger(${service.name}${seiSuffix}Impl.class.getName());
+    private static final String className = "${service.name}${seiSuffix}Impl";
 #if ($service.restAtom)
 
     // There really should only be a single global instance of abdera
@@ -83,7 +83,7 @@ $operation.getDocumentation("    * ")
 ##else
 #if ($operation.restAtom)
 #set ($returnType = "org.apache.abdera.model.Feed")
-#elseif (!$useArrayWrapper && $operation.many)
+#elseif (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -103,7 +103,7 @@ $operation.getDocumentation("    * ")
 #foreach ( $exception in $operation.exceptions)
     * @throws $exception.fullyQualifiedName
 #end
-    * @see ${service.name}SEI#${operation.getSignature(false)}
+    * @see ${service.name}${seiSuffix}#${operation.getSignature(false)}
 ##    * @throws RemoteException if ${service.name}.${operation.operationName} fails
 #foreach ($constraint in $operation.constraints)
     * CONSTRAINT:  ${constraint.name}: #if ($constraint.invariant)Invariant #end#if ($constraint.postCondition)PostCondition #end#if ($constraint.preCondition)PreCondition #end ${constraint.body}
@@ -131,7 +131,7 @@ $operation.getDocumentation("    * ")
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
 ## JAXB always creates type List even if unique/sorted
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<${parameter.type.fullyQualifiedName}>")
 #else
 #set ($paramType=$parameter.getterSetterTypeName)
@@ -148,7 +148,7 @@ $operation.getDocumentation("    * ")
         throws $operation.exceptionList
 #end
     {
-        LOG.logp(Level.FINER, ${service.name}SEIImpl.className, "$operation.name", "Executing operation ${service.name}.${operation.name}: " #foreach ($parameter in $operation.parameters)#if (!$parameter.return) + ${parameter.name}#end#end);
+        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Executing operation ${service.name}.${operation.name}: " #foreach ($parameter in $operation.parameters)#if (!$parameter.return) + ${parameter.name}#end#end);
 ##        // TODO: Add boundary logging for message in / out
 #if (!$operation.arguments.empty)
 
@@ -282,7 +282,7 @@ $tab        }
 #foreach ($parameter in $operation.arguments)
             ${operation.name}Req.set$stringUtils.capitalize($parameter.name)(${parameter.name});
 #end
-            LOG.logp(Level.SEVERE, "${service.name}SEIImpl", "${operation.name}", missing.toString(), ${operation.name}Req);
+            LOG.logp(Level.SEVERE, "${service.name}${seiSuffix}Impl", "${operation.name}", missing.toString(), ${operation.name}Req);
             throw new IllegalArgumentException(missing.toString());
         }
 #end
@@ -412,11 +412,11 @@ $tab        }
         ${service.name}WSDelegate delegate = new ${service.name}WSDelegate();
 #if ($operation.returnTypePresent || $operation.restAtom)
         $returnType ${returnTypeName}Return = delegate.${operation.name}($arguments);
-        LOG.logp(Level.FINER, ${service.name}SEIImpl.className, "$operation.name", "Returning ${service.name}.${operation.name}: " + ${returnTypeName}Return);
+        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Returning ${service.name}.${operation.name}: " + ${returnTypeName}Return);
         ${rtn}${returnTypeName}Return;
 #else
         delegate.${operation.name}($arguments);
-        LOG.logp(Level.FINER, ${service.name}SEIImpl.className, "$operation.name", "Creating ${service.name}.${operation.name}");
+        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Creating ${service.name}.${operation.name}");
 #end
 ##end
     }

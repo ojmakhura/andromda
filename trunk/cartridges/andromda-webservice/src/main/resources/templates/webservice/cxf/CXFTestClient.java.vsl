@@ -14,7 +14,7 @@ package ${service.packageName}.test;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ${service.fullyQualifiedName}SEI;
+import ${service.fullyQualifiedName}${seiSuffix};
 
 /**
  * Remote component interface for the $service.name session bean.
@@ -73,7 +73,7 @@ public class ${service.name}WSTest
 #if ($operation.restAtom)
 #set ($returnType = "org.apache.abdera.model.Feed")
 ##set ($operationMany = false)
-#elseif (!$useArrayWrapper && $operation.many)
+#elseif (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 ##set ($operationMany = true)
 #else
@@ -120,7 +120,7 @@ $operation.getDocumentation("    * ")
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{"${stringUtils.replace($service.packageName,'.','/')}/test/cxf-client.xml"});
 
-        ${service.name}SEI client = (${service.name}SEI)context.getBean("${service.name}Client");
+        ${service.name}${seiSuffix} client = (${service.name}${seiSuffix})context.getBean("${service.name}Client");
 
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##set ($returnType = "${operation.packageName}.$stringUtils.capitalize(${operation.operationName})Response")
@@ -196,7 +196,7 @@ $indent        System.out.println("Finished test: " + this.getName() + " for ${s
          * ${operation.name}${parameter.name} must be the column name of the parameter in the spreadsheet
          * @param value $parameter.type.name to be populated manually
          */
-        public void set${operation.name}${parameter.name}($parameter.type.fullyQualifiedName value)
+        public void set$stringUtils.capitalize(${operation.name})$stringUtils.capitalize(${parameter.name})($parameter.type.fullyQualifiedName value)
         {
             this.${operation.name}${parameter.name} = value;
         }

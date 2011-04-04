@@ -28,10 +28,10 @@
 
 ##foreach ($service in $services)
 <!-- Service from ${service.fullyQualifiedName} -->
-  <bean id="${service.name}Client" class="${service.fullyQualifiedName}SEI"
+  <bean id="${service.name}Client" class="${service.fullyQualifiedName}${seiSuffix}"
     factory-bean="${service.name}ProxyFactory" factory-method="create"/>
   <bean id="${service.name}ProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
-    <property name="serviceClass" value="${service.fullyQualifiedName}SEI"/>
+    <property name="serviceClass" value="${service.fullyQualifiedName}${seiSuffix}"/>
     <property name="address" value="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/${service.name}"/>
   </bean>
 

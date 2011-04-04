@@ -25,7 +25,7 @@
 ## Bare not possible if any parameters have minOccurs > 1 or default values
 #set ($isMany=false)
 #foreach ($parameter in $operation.arguments)
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($isMany=true)
 #end
 #end
@@ -75,7 +75,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #set ($use = ' minOccurs="0"')
 #end
 ## Parameter of type List should never be nillable, can still be empty size=0. Could cause interoperability problems.
-#if ($parameter.many)
+#if ($parameter.upper>1 || $parameter.upper==-1)
 #set ($nillable = ' nillable="false"')
 #else
 #set ($nillable = "")
@@ -101,7 +101,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
                         <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
                           <xjc:javaType name="Boolean" adapter="$XMLBooleanAdapter"/>
                         </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
-##elseif ($parameter.many && $parameter.unique)
+##elseif (($parameter.upper>1 || $parameter.upper==-1) && $parameter.unique)
 ##                        <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
 ##                          <xjc:javaType name="$parameter.getterSetterTypeName" adapter="$XMLBooleanAdapter"/>
 ##                        </jxb:baseType></jxb:property></xs:appinfo></xs:annotation>
@@ -167,13 +167,8 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 ##        <!-- Service Exception Faults $pkg.fullyQualifiedName $webServiceUtils.getAllowedOperationExceptions($pkg).size() -->
 #foreach($exception in $webServiceUtils.getAllowedOperationExceptions($pkg))
         <!-- Exception: $exception.fullyQualifiedName -->
-#if ($exception.associationEnds.empty)
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
 #set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.package))
-#else
-#set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
-#set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.associationEnds.get(0).otherEnd.type.package))
-#end
 #set ($type="$webServiceUtils.getPkgAbbr(${exception.package}):$faultName")
         <xs:element name="$faultName" type="$type"/>
 #if ($exception.packageName.equals($pkg))
@@ -208,7 +203,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #if ($type.many && $useArrayWrapper)
         <xs:complexType name="$type.wsdlArrayName">
             <xs:sequence>
-                <xs:element name="$arrayItemName" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${type.namespacePrefix}:${type.qName}" />
+                <xs:element name="$arrayItemName" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${type.namespacePrefix}:${type.name}" />
             </xs:sequence>
         </xs:complexType>
 #end
@@ -226,7 +221,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 ##       <!-- $type.name literal: $literal -->
 #*         *##if (!$stringUtils.isBlank($literal.type.schemaType))#set ($enumType = $literal.type.schemaType)#end
 #*     *##end
-#if ($stringUtils.isBlank($type.qName))#set ($typeName = ${type.name})#else#set ($typeName = $type.qName)#end
+#set ($typeName = ${type.name})
         <xs:simpleType name="${typeName}">
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
@@ -259,10 +254,10 @@ $stringUtils.replaceChars($literal.getDocumentation("                        ", 
 #elseif (!$type.name.contains("Fault"))
 #set ($typeName = "${type.name}Fault")
 #else
-#set ($typeName = "$type.qName")
+#set ($typeName = "$type.name")
 #end
 #elseif ($type.hasStereotype("ValueObject"))
-#set ($typeName = "$type.qName")
+#set ($typeName = "$type.name")
         <!-- ValueObject $type.fullyQualifiedName -->
 #end
 #if ($type.hasStereotype("ValueObject") || $webFault)
@@ -277,7 +272,7 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
                 <xs:complexContent>
-                <xs:extension base="${type.generalization.namespacePrefix}:$type.generalization.qName">
+                <xs:extension base="${type.generalization.namespacePrefix}:$type.generalization.name">
 #set ($tab="        ")
 #else
 #set ($tab="")
@@ -310,7 +305,7 @@ $tab            <xs:sequence>
 #elseif ($attribute.many && $useArrayWrapper)
 #set ($schemaType = "${attributeType.namespacePrefix}:${attributeType.wsdlArrayName}")
 #elseif (!$attributeType.packageName.equals($pkg.fullyQualifiedName) && $stringUtils.isNotBlank($attributeType.packageName) && $attributeType.packageName.indexOf('.')>0 && !$attributeType.schemaType.startsWith("xs:"))
-#set ($schemaType = "${webServiceUtils.getPkgAbbr($attributeType.package)}:${attributeType.qName}")
+#set ($schemaType = "${webServiceUtils.getPkgAbbr($attributeType.package)}:${attributeType.name}")
 #else
 #set ($schemaType = "$attribute.type.schemaType")
 #end
