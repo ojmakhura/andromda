@@ -5,44 +5,6 @@
 -->
 <mappings name="XmlSchema">
     <mapping>
-        <from>Boolean</from>
-        <from>UML2::Boolean</from>
-        <from>Java::boolean</from>
-        <from>PrimitiveTypes::boolean</from>
-        <from>PrimitiveTypes::Boolean</from>
-        <from>datatype::boolean</from>
-        <from>datatype::Boolean</from>
-        <from>datatypes::boolean</from>
-        <from>datatypes::Boolean</from>
-        <to>boolean</to>
-    </mapping>
-    <mapping>
-        <from>Byte</from>
-        <from>Java::byte</from>
-        <from>PrimitiveTypes::byte</from>
-        <from>PrimitiveTypes::Byte</from>
-        <from>datatype::byte</from>
-        <from>datatype::Byte</from>
-        <from>datatypes::byte</from>
-        <from>datatypes::Byte</from>
-        <to>byte</to>
-    </mapping>
-    <mapping>
-        <from>Blob</from>
-        <from>byte[]</from>
-        <from>Byte[]</from>
-        <from>PrimitiveTypes::Blob</from>
-        <from>PrimitiveTypes::byte[]</from>
-        <from>PrimitiveTypes::Byte[]</from>
-        <from>datatype::Blob</from>
-        <from>datatype::byte[]</from>
-        <from>datatype::Byte[]</from>
-        <from>datatypes::Blob</from>
-        <from>datatypes::byte[]</from>
-        <from>datatypes::Byte[]</from>
-        <to>base64Binary</to>
-    </mapping>
-    <mapping>
         <from>URI</from>
         <from>URL</from>
         <from>char[]</from>
@@ -70,6 +32,8 @@
         <from>datatypes::Char[]</from>
         <from>datatypes::String</from>
         <from>datatypes::Clob</from>
+        <from>XSDDatatypes::string</from>
+        <from>RoseJavaDatatypes::java::lang::String</from>
         <to>string</to>
     </mapping>
     <mapping>
@@ -77,6 +41,8 @@
         <from>PrimitiveTypes::Time</from>
         <from>datatype::Time</from>
         <from>datatypes::Time</from>
+        <from>XSDDatatypes::time</from>
+        <from>RoseJavaDatatypes::java::sql::Time</from>
         <to>time</to>
     </mapping>
     <mapping>
@@ -84,6 +50,7 @@
         <from>PrimitiveTypes::Date</from>
         <from>datatype::Date</from>
         <from>datatypes::Date</from>
+        <from>XSDDatatypes::date</from>
         <to>date</to>
     </mapping>
     <mapping>
@@ -95,19 +62,56 @@
         <from>datatype::Timestamp</from>
         <from>datatypes::DateTime</from>
         <from>datatypes::Timestamp</from>
+        <from>XSDDatatypes::dateTime</from>
+        <from>RoseAnalysisDatatypes::Date</from>
+        <from>RoseJavaDatatypes::java::sql::Date</from>
+        <from>RoseJavaDatatypes::java::util::Date</from>
         <to>dateTime</to>
     </mapping>
     <mapping>
         <from>char</from>
         <from>Java::int</from>
         <from>Java::char</from>
+        <from>UML Standard Profile::char</from>
         <from>PrimitiveTypes::int</from>
         <from>PrimitiveTypes::char</from>
+        <from>PrimitiveTypes::Character</from>
         <from>datatype::int</from>
         <from>datatype::char</from>
+        <from>datatype::Character</from>
         <from>datatypes::int</from>
         <from>datatypes::char</from>
+        <from>RoseCppDatatypes::char</from>
+        <from>RoseJavaDatatypes::java::lang::Character</from>
         <to>int</to>
+    </mapping>
+    <mapping>
+        <from>Byte</from>
+        <from>Java::byte</from>
+        <from>PrimitiveTypes::byte</from>
+        <from>PrimitiveTypes::Byte</from>
+        <from>datatype::byte</from>
+        <from>datatype::Byte</from>
+        <from>datatypes::byte</from>
+        <from>datatypes::Byte</from>
+        <from>XSDDatatypes::byte</from>
+        <from>RoseCppDatatypes::byte</from>
+        <to>byte</to>
+    </mapping>
+    <mapping>
+        <from>Short</from>
+        <from>Java::short</from>
+        <from>PrimitiveTypes::short</from>
+        <from>PrimitiveTypes::Short</from>
+        <from>datatype::short</from>
+        <from>datatype::Short</from>
+        <from>datatypes::short</from>
+        <from>datatypes::Short</from>
+        <from>XSDDatatypes::short</from>
+        <from>XSDDatatypes::int</from>
+        <from>RoseCppDatatypes::int</from>
+        <from>RoseCppDatatypes::short</from>
+        <to>short</to>
     </mapping>
     <mapping>
         <from>Integer</from>
@@ -120,7 +124,37 @@
         <from>datatype::BigInteger</from>
         <from>datatypes::Integer</from>
         <from>datatypes::BigInteger</from>
+        <from>XSDDatatypes::integer</from>
+        <from>RoseJavaDatatypes::java::lang::Integer</from>
         <to>integer</to>
+    </mapping>
+    <mapping>
+        <from>Long</from>
+        <from>Java::long</from>
+        <from>PrimitiveTypes::long</from>
+        <from>PrimitiveTypes::Long</from>
+        <from>datatype::long</from>
+        <from>datatype::Long</from>
+        <from>datatypes::long</from>
+        <from>datatypes::Long</from>
+        <from>XSDDatatypes::long</from>
+        <from>RoseAnalysisDatatypes::Long</from>
+        <from>RoseCppDatatypes::long</from>
+        <to>long</to>
+    </mapping>
+    <mapping>
+        <from>Float</from>
+        <from>Java::float</from>
+        <from>PrimitiveTypes::float</from>
+        <from>PrimitiveTypes::Float</from>
+        <from>datatype::float</from>
+        <from>datatype::Float</from>
+        <from>datatypes::float</from>
+        <from>datatypes::Float</from>
+        <from>XSDDatatypes::float</from>
+        <from>RoseCppDatatypes::float</from>
+        <from>RoseJavaDatatypes::java::lang::Float</from>
+        <to>float</to>
     </mapping>
     <mapping>
         <from>Decimal</from>
@@ -157,37 +191,33 @@
         <to>double</to>
     </mapping>
     <mapping>
-        <from>Float</from>
-        <from>Java::float</from>
-        <from>PrimitiveTypes::float</from>
-        <from>PrimitiveTypes::Float</from>
-        <from>datatype::float</from>
-        <from>datatype::Float</from>
-        <from>datatypes::float</from>
-        <from>datatypes::Float</from>
-        <to>float</to>
+        <from>Blob</from>
+        <from>byte[]</from>
+        <from>Byte[]</from>
+        <from>PrimitiveTypes::Blob</from>
+        <from>PrimitiveTypes::byte[]</from>
+        <from>PrimitiveTypes::Byte[]</from>
+        <from>datatype::Blob</from>
+        <from>datatype::byte[]</from>
+        <from>datatype::Byte[]</from>
+        <from>datatypes::Blob</from>
+        <from>datatypes::byte[]</from>
+        <from>datatypes::Byte[]</from>
+        <to>base64Binary</to>
     </mapping>
     <mapping>
-        <from>Long</from>
-        <from>Java::long</from>
-        <from>PrimitiveTypes::long</from>
-        <from>PrimitiveTypes::Long</from>
-        <from>datatype::long</from>
-        <from>datatype::Long</from>
-        <from>datatypes::long</from>
-        <from>datatypes::Long</from>
-        <to>long</to>
-    </mapping>
-    <mapping>
-        <from>Short</from>
-        <from>Java::short</from>
-        <from>PrimitiveTypes::short</from>
-        <from>PrimitiveTypes::Short</from>
-        <from>datatype::short</from>
-        <from>datatype::Short</from>
-        <from>datatypes::short</from>
-        <from>datatypes::Short</from>
-        <to>short</to>
+        <from>Boolean</from>
+        <from>UML2::Boolean</from>
+        <from>Java::boolean</from>
+        <from>PrimitiveTypes::boolean</from>
+        <from>PrimitiveTypes::Boolean</from>
+        <from>datatype::boolean</from>
+        <from>datatype::Boolean</from>
+        <from>datatypes::boolean</from>
+        <from>datatypes::Boolean</from>
+        <from>XSDDatatypes::boolean</from>
+        <from>RoseJavaDatatypes::java::lang::Boolean</from>
+        <to>boolean</to>
     </mapping>
     <mapping>
         <from>Object</from>
