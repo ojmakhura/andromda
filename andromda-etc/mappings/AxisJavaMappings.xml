@@ -22,14 +22,25 @@
         <from>datatypes::DateTime</from>
         <from>datatypes::Timestamp</from>
         <from>datatypes::Time</from>
+        <from>XSDDatatypes::date</from>
+        <from>XSDDatatypes::time</from>
+        <from>XSDDatatypes::dateTime</from>
+        <from>RoseAnalysisDatatypes::Date</from>
+        <from>RoseJavaDatatypes::java::sql::Date</from>
+        <from>RoseJavaDatatypes::java::sql::Time</from>
         <to>java.util.Calendar</to>
         <!--to>java.util.Date</to-->
 	</mapping>
     <mapping>
         <from>Integer</from>
+        <from>UML2::Integer</from>
+        <from>UMLPrimitiveTypes::Integer</from>
+        <from>UML Standard Profile::Integer</from>
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
         <from>datatypes::Integer</from>
+        <from>XSDDatatypes::integer</from>
+        <from>RoseJavaDatatypes::java::lang::Integer</from>
         <to>java.math.BigInteger</to>
     </mapping>
 </mappings>

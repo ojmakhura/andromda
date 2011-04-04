@@ -35,6 +35,8 @@
         <from>PrimitiveTypes::String</from>
         <from>datatype::String</from>
         <from>datatypes::String</from>
+        <from>XSDDatatypes::string</from>
+        <from>RoseJavaDatatypes::java::lang::String</from>
         <to>java.lang.String</to>
     </mapping>
     <mapping>
@@ -46,6 +48,11 @@
         <from>datatype::Date</from>
         <from>datatypes::Time</from>
         <from>datatypes::Date</from>
+        <from>XSDDatatypes::date</from>
+        <from>XSDDatatypes::time</from>
+        <from>RoseAnalysisDatatypes::Date</from>
+        <from>RoseJavaDatatypes::java::sql::Date</from>
+        <from>RoseJavaDatatypes::java::sql::Time</from>
         <to>java.util.Date</to>
     </mapping>
     <!-- Timestamp contains nanoseconds, required by some database implementations. Use for persistent attributes -->
@@ -58,6 +65,8 @@
         <from>datatype::Timestamp</from>
         <from>datatypes::DateTime</from>
         <from>datatypes::Timestamp</from>
+        <from>XSDDatatypes::dateTime</from>
+        <from>RoseJavaDatatypes::java::sql::Timestamp</from>
         <to>java.sql.Timestamp</to>
     </mapping>
     <mapping>
@@ -66,6 +75,7 @@
         <from>PrimitiveTypes::char</from>
         <from>datatype::char</from>
         <from>datatypes::char</from>
+        <from>RoseCppDatatypes::char</from>
         <to>char</to>
     </mapping>
     <mapping>
@@ -73,6 +83,7 @@
         <from>PrimitiveTypes::Character</from>
         <from>datatype::Character</from>
         <from>datatypes::Character</from>
+        <from>RoseJavaDatatypes::java::lang::Character</from>
         <to>java.lang.Character</to>
     </mapping>
     <mapping>
@@ -81,6 +92,8 @@
         <from>PrimitiveTypes::byte</from>
         <from>datatype::byte</from>
         <from>datatypes::byte</from>
+        <from>XSDDatatypes::byte</from>
+        <from>RoseCppDatatypes::byte</from>
         <to>byte</to>
     </mapping>
     <mapping>
@@ -88,6 +101,8 @@
         <from>PrimitiveTypes::Byte</from>
         <from>datatype::Byte</from>
         <from>datatypes::Byte</from>
+        <from>RoseAnalysisDatatypes::Byte</from>
+        <from>RoseJavaDatatypes::java::lang::Byte</from>
         <to>java.lang.Byte</to>
     </mapping>
     <mapping>
@@ -96,6 +111,8 @@
         <from>PrimitiveTypes::short</from>
         <from>datatype::short</from>
         <from>datatypes::short</from>
+        <from>XSDDatatypes::short</from>
+        <from>RoseCppDatatypes::short</from>
         <to>short</to>
     </mapping>
     <mapping>
@@ -103,6 +120,7 @@
         <from>PrimitiveTypes::Short</from>
         <from>datatype::Short</from>
         <from>datatypes::Short</from>
+        <from>RoseJavaDatatypes::java::lang::Short</from>
         <to>java.lang.Short</to>
     </mapping>
     <mapping>
@@ -111,6 +129,8 @@
         <from>PrimitiveTypes::int</from>
         <from>datatype::int</from>
         <from>datatypes::int</from>
+        <from>XSDDatatypes::int</from>
+        <from>RoseCppDatatypes::int</from>
         <to>int</to>
     </mapping>
     <mapping>
@@ -121,6 +141,8 @@
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
         <from>datatypes::Integer</from>
+        <from>XSDDatatypes::integer</from>
+        <from>RoseJavaDatatypes::java::lang::Integer</from>
         <to>java.lang.Integer</to>
     </mapping>
     <mapping>
@@ -129,16 +151,20 @@
         <from>PrimitiveTypes::long</from>
         <from>datatype::long</from>
         <from>datatypes::long</from>
+        <from>XSDDatatypes::long</from>
+        <from>RoseCppDatatypes::long</from>
         <to>long</to>
     </mapping>
     <mapping>
         <from>Long</from>
+        <from>UnlimitedNatural</from>
         <from>UML2::UnlimitedNatural</from>
         <from>UMLPrimitiveTypes::UnlimitedNatural</from>
         <from>PrimitiveTypes::Long</from>
         <from>PrimitiveTypes::UnlimitedNatural</from>
         <from>datatype::Long</from>
         <from>datatypes::Long</from>
+        <from>RoseAnalysisDatatypes::Long</from>
         <to>java.lang.Long</to>
     </mapping>
     <mapping>
@@ -147,6 +173,8 @@
         <from>PrimitiveTypes::float</from>
         <from>datatype::float</from>
         <from>datatypes::float</from>
+        <from>XSDDatatypes::float</from>
+        <from>RoseCppDatatypes::float</from>
         <to>float</to>
     </mapping>
     <mapping>
@@ -154,6 +182,7 @@
         <from>PrimitiveTypes::Float</from>
         <from>datatype::Float</from>
         <from>datatypes::Float</from>
+        <from>RoseJavaDatatypes::java::lang::Float</from>
         <to>java.lang.Float</to>
     </mapping>
     <mapping>
@@ -163,6 +192,7 @@
         <from>PrimitiveTypes::double</from>
         <from>datatype::double</from>
         <from>datatypes::double</from>
+        <from>XSDDatatypes::decimal</from>
         <to>double</to>
     </mapping>
     <mapping>
@@ -181,6 +211,7 @@
         <from>PrimitiveTypes::BigInteger</from>
         <from>datatype::BigInteger</from>
         <from>datatypes::BigInteger</from>
+        <from>RoseJavaDatatypes::java::math::BigInteger</from>
         <to>java.math.BigInteger</to>
     </mapping>
     <mapping>
@@ -196,6 +227,7 @@
         <from>PrimitiveTypes::Money</from>
         <from>datatype::BigDecimal</from>
         <from>datatypes::BigDecimal</from>
+        <from>RoseJavaDatatypes::java::math::BigDecimal</from>
         <to>java.math.BigDecimal</to>
     </mapping>
     <mapping>
@@ -205,6 +237,7 @@
         <from>PrimitiveTypes::Boolean</from>
         <from>datatype::Boolean</from>
         <from>datatypes::Boolean</from>
+        <from>RoseJavaDatatypes::java::lang::Boolean</from>
         <to>java.lang.Boolean</to>
     </mapping>
     <mapping>
@@ -213,6 +246,7 @@
         <from>PrimitiveTypes::boolean</from>
         <from>datatype::boolean</from>
         <from>datatypes::boolean</from>
+        <from>XSDDatatypes::boolean</from>
         <to>boolean</to>
     </mapping>
     <mapping>
@@ -220,6 +254,7 @@
         <from>PrimitiveTypes::Collection</from>
         <from>datatype::Collection</from>
         <from>datatypes::Collection</from>
+        <from>RoseJavaDatatypes::java::util::Collection</from>
         <to>java.util.Collection</to>
     </mapping>
     <mapping>
@@ -227,6 +262,7 @@
         <from>PrimitiveTypes::List</from>
         <from>datatype::List</from>
         <from>datatypes::List</from>
+        <from>RoseJavaDatatypes::java::util::List</from>
         <to>java.util.List</to>
     </mapping>
     <mapping>
@@ -234,6 +270,7 @@
         <from>PrimitiveTypes::ArrayList</from>
         <from>datatype::ArrayList</from>
         <from>datatypes::ArrayList</from>
+        <from>RoseJavaDatatypes::java::util::ArrayList</from>
         <to>java.util.ArrayList</to>
     </mapping>
     <mapping>
@@ -241,6 +278,7 @@
         <from>PrimitiveTypes::Set</from>
         <from>datatype::Set</from>
         <from>datatypes::Set</from>
+        <from>RoseJavaDatatypes::java::util::Set</from>
         <to>java.util.Set</to>
     </mapping>
     <mapping>
@@ -248,6 +286,7 @@
         <from>PrimitiveTypes::HashSet</from>
         <from>datatype::HashSet</from>
         <from>datatypes::HashSet</from>
+        <from>RoseJavaDatatypes::java::util::HashSet</from>
         <to>java.util.HashSet</to>
     </mapping>
     <mapping>
@@ -255,6 +294,7 @@
         <from>PrimitiveTypes::SortedSet</from>
         <from>datatype::SortedSet</from>
         <from>datatypes::SortedSet</from>
+        <from>RoseJavaDatatypes::java::util::SortedSet</from>
         <to>java.util.SortedSet</to>
     </mapping>
     <mapping>
@@ -262,6 +302,7 @@
         <from>PrimitiveTypes::TreeSet</from>
         <from>datatype::TreeSet</from>
         <from>datatypes::TreeSet</from>
+        <from>RoseJavaDatatypes::java::util::TreeSet</from>
         <to>java.util.TreeSet</to>
     </mapping>
     <mapping>
@@ -283,6 +324,7 @@
         <from>PrimitiveTypes::Map</from>
         <from>datatype::Map</from>
         <from>datatypes::Map</from>
+        <from>RoseJavaDatatypes::java::util::Map</from>
         <to>java.util.Map</to>
     </mapping>
     <mapping>
@@ -290,6 +332,7 @@
         <from>PrimitiveTypes::HashMap</from>
         <from>datatype::HashMap</from>
         <from>datatypes::HashMap</from>
+        <from>RoseJavaDatatypes::java::util::HashMap</from>
         <to>java.util.HashMap</to>
     </mapping>
     <mapping>
@@ -297,6 +340,7 @@
         <from>PrimitiveTypes::SortedMap</from>
         <from>datatype::SortedMap</from>
         <from>datatypes::SortedMap</from>
+        <from>RoseJavaDatatypes::java::util::SortedMap</from>
         <to>java.util.SortedMap</to>
     </mapping>
     <mapping>
@@ -304,6 +348,7 @@
         <from>PrimitiveTypes::TreeMap</from>
         <from>datatype::TreeMap</from>
         <from>datatypes::TreeMap</from>
+        <from>RoseJavaDatatypes::java::util::TreeMap</from>
         <to>java.util.TreeMap</to>
     </mapping>
     <mapping>
@@ -342,6 +387,8 @@
         <from>PrimitiveTypes::Void</from>
         <from>datatype::void</from>
         <from>datatypes::void</from>
+        <from>RoseJavaDatatypes::java::lang::Void</from>
+        <from>RoseCppDatatypes::void</from>
         <to>void</to>
     </mapping>
     <mapping>
