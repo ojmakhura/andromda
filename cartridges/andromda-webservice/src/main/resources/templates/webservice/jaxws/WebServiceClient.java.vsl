@@ -25,7 +25,7 @@ import javax.xml.ws.WebServiceFeature;
 import org.apache.log4j.Logger;
 
 /**
- * WebService Service Client for the $service.name service endpoint interface (${service.name}SEI).
+ * WebService Service Client for the $service.name service endpoint interface (${service.name}${seiSuffix}).
 $service.getDocumentation(" * ")
  */
 
@@ -36,15 +36,15 @@ $service.getDocumentation(" * ")
                   targetNamespace = "$targetNamespace")
 ##@WebService(serviceName="${service.name}",
 ##            portName = "${service.name}",
-##            endpointInterface="${service.fullyQualifiedName}SEI")
+##            endpointInterface="${service.fullyQualifiedName}${seiSuffix}")
 ##            //, targetNamespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"
 ##            //, wsdlLocation = "WEB-INF/wsdl/${service.name}.wsdl")
-public class ${service.name}SEIClient extends Service
+public class ${service.name}${seiSuffix}Client extends Service
 #if ($service.generalization)
-    , ${service.generalization.fullyQualifiedName}SEIClient
+    , ${service.generalization.fullyQualifiedName}${seiSuffix}Client
 #end
 {
-    private static final Logger LOG = Logger.getLogger(${service.name}SEIClient.class.getName());
+    private static final Logger LOG = Logger.getLogger(${service.name}${seiSuffix}Client.class.getName());
     /** WSDL location */
     public final static URL WSDL_LOCATION;
     /** Service QName @see {@link javax.xml.namespace.QName} */
@@ -69,7 +69,7 @@ public class ${service.name}SEIClient extends Service
     /**
      * @param wsdlLocation wsdl URL
      */
-    public ${service.name}SEIClient(URL wsdlLocation)
+    public ${service.name}${seiSuffix}Client(URL wsdlLocation)
     {
         super(wsdlLocation, SERVICE);
     }
@@ -79,7 +79,7 @@ public class ${service.name}SEIClient extends Service
      * @param serviceName javax.xml.namespace.QName
      * @see javax.xml.ws.Service#Service(URL, QName)
      */
-    public ${service.name}SEIClient(URL wsdlLocation, QName serviceName)
+    public ${service.name}${seiSuffix}Client(URL wsdlLocation, QName serviceName)
     {
         super(wsdlLocation, serviceName);
     }
@@ -87,19 +87,19 @@ public class ${service.name}SEIClient extends Service
     /**
      * @see javax.xml.ws.Service#Service(URL, QName)
      */
-    public ${service.name}SEIClient()
+    public ${service.name}${seiSuffix}Client()
     {
         super(WSDL_LOCATION, SERVICE);
     }
 
     /**
      *
-     * @return ${service.name}SEI
+     * @return ${service.name}${seiSuffix}
      */
     @WebEndpoint(name = "${service.name}")
-    public ${service.name}SEI get${service.name}()
+    public ${service.name}${seiSuffix} get${service.name}()
     {
-        return super.getPort(${service.name}, ${service.name}SEI.class);
+        return super.getPort(${service.name}, ${service.name}${seiSuffix}.class);
     }
 
     /**
@@ -108,12 +108,12 @@ public class ${service.name}SEIClient extends Service
      *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.
      *         Supported features not in the <code>features</code> parameter will have their default values.
      * @return
-     *     returns ${service.name}SEI
+     *     returns ${service.name}${seiSuffix}
      */
     @WebEndpoint(name = "${service.name}")
-    public ${service.name}SEI get${service.name}(WebServiceFeature... features)
+    public ${service.name}${seiSuffix} get${service.name}(WebServiceFeature... features)
     {
-        return super.getPort(${service.name}, ${service.name}SEI.class, features);
+        return super.getPort(${service.name}, ${service.name}${seiSuffix}.class, features);
     }
 }
 

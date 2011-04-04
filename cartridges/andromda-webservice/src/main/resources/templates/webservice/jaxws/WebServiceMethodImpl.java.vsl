@@ -41,7 +41,7 @@ public class $className
     }
 
     /**
-     * Delegate for TestCase ${service.name}WSDelegateTest and ${service.name}SEIImplTest
+     * Delegate for TestCase ${service.name}WSDelegateTest and ${service.name}${seiSuffix}ImplTest
      */
     public static void ${operation.name}SetUp()
     {
@@ -49,7 +49,7 @@ public class $className
     }
 
     /**
-     * Delegate for TestCase ${service.name}WSDelegateTest and ${service.name}SEIImplTest
+     * Delegate for TestCase ${service.name}WSDelegateTest and ${service.name}${seiSuffix}ImplTest
      */
     public static void ${operation.name}TearDown()
     {
@@ -73,13 +73,12 @@ $operation.getDocumentation("    * ")
     * Replace void with transformed type, use target.set() values to create transformation
     */
 ## Make all these operations public, we are just filling in dummy data $operation.visibility
-    public static void ${operation.name}TransformInput
-    (
+    public static void ${operation.name}TransformInput(
 #if (!$operation.arguments.empty)
 #set ($comma = "")
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
 #else
 ##        // $useArrayWrapper $parameter.many $parameter.upper
@@ -197,7 +196,7 @@ $tab            }
 #end
     }
 
-#if (!$useArrayWrapper && $operation.many)
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -232,11 +231,12 @@ $operation.getDocumentation("    * ")
         // Dummy return value implementation with default values...
         // Iterate down through all complex types and create default dummy constructor and attribute values
 #if(!$returnType.equals("void"))
-#if ($operation.many)
-        $returnType rtnList = $webServiceUtils.createConstructor($operation.returnType, $operation.many);
+#set ($isMany = $operation.upper>1 || $operation.upper==-1)
+#if ($isMany)
+        $returnType rtnList = $webServiceUtils.createConstructor($operation.returnType, $isMany);
         $operation.returnType.fullyQualifiedName rtn = $webServiceUtils.createConstructor($operation.returnType, false);
 #else
-        $returnType rtn = $webServiceUtils.createConstructor($operation.returnType, $operation.many);
+        $returnType rtn = $webServiceUtils.createConstructor($operation.returnType, $isMany);
 #end
 #end
 ## Add number qualifier to prevent attribute name collision throughout the hierarchy
@@ -278,6 +278,8 @@ $operation.getDocumentation("    * ")
         ${property2.name}${propertyNum}${property2Num}.${property3.setterName}(${property3.name}${propertyNum}${property2Num}${property3Num});
 #end
 #else
+
+        // Property3 $property3.name#if ($property3.many) isMany#end has $property3.type.allProperties.size() properties $property3 $property3.type
 #if ($property3.many)
         ${property2.name}${propertyNum}${property2Num}.${property3.getterName}().add($webServiceUtils.createConstructor($property3, false, $property2.type));
 #else
@@ -291,6 +293,8 @@ $operation.getDocumentation("    * ")
         ${property1.name}${propertyNum}.${property2.setterName}(${property2.name}${propertyNum}${property2Num});
 #end
 #else
+
+        // Property2 $property2.name#if ($property2.many) isMany#end has $property2.type.allProperties.size() properties $property2 $property2.type
 #if ($property2.many)
         ${property1.name}${propertyNum}.${property2.getterName}().add($webServiceUtils.createConstructor($property2, false, $property1.type));
 #else
@@ -326,7 +330,7 @@ $operation.getDocumentation("    * ")
 #end
 
 #if(!$returnType.equals("void"))
-#if ($operation.many)
+#if ($isMany)
         rtnList.add(rtn);
         return rtnList;
 #else
@@ -440,7 +444,7 @@ $operation.getDocumentation("    * ")
 #end
 #end
 #end
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 ##Todo: Use Collection type from configuration. Add many and getFullyQualifiedType() to ParameterFacade.
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
         // $paramType $parameterName = ${webServiceUtils.createConstructor($parameter, true)};

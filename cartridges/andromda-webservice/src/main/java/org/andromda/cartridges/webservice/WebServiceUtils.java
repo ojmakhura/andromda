@@ -1903,7 +1903,7 @@ public class WebServiceUtils
                                     + wsdlType.getAllProperties() + " MetaObject=" + wsdlType.getMetaObject() + " properties="
                                     + wsdlType.getProperties());
                             }
-                            if (StringUtils.isEmpty(wsdlType.getQName()))
+                            if (StringUtils.isEmpty(wsdlType.getName()))
                             {
                                 break;
                             }
@@ -2444,11 +2444,11 @@ public class WebServiceUtils
                     {
                         if (nonArray instanceof WSDLType)
                         {
-                            schemaType.append(((WSDLType)nonArray).getQName());
+                            schemaType.append(((WSDLType)nonArray).getName());
                         }
                         else if (nonArray instanceof WSDLEnumerationType)
                         {
-                            schemaType.append(((WSDLEnumerationType)nonArray).getQName());
+                            schemaType.append(((WSDLEnumerationType)nonArray).getName());
                         }
                     }
                 }

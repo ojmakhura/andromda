@@ -63,7 +63,7 @@ public class ${className}Response
 {
     private final static long serialVersionUID = 1L;
 #if ($operation.returnTypePresent)
-#if (!$useArrayWrapper && $operation.many)
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType="java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType=$operation.getterSetterReturnTypeName)
@@ -129,9 +129,13 @@ public class ${className}Response
     public void ${setOperation}($returnType value)
     {
         this.$returnAttr = value;
+#if ($operation.returnType.primitive)
+        this.isSet$className = true;
+#end
     }
-#if ($operation.lower<1)
+#if ($operation.returnType.primitive)
 
+    private boolean set$className = false;
     /**
      * Returns true if value is set
      *
@@ -140,7 +144,7 @@ public class ${className}Response
      */
     public boolean isSet$className()
     {
-        return #if ($operation.returnType.primitive)true#else(this.$returnAttr!= null)#end;
+        return this.set$className;
     }
 #end
 #end

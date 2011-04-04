@@ -50,7 +50,7 @@ public class ${service.name}WSDelegate
     }
 #foreach ($operation in $service.allowedOperations)
 
-#if (!$useArrayWrapper && $operation.many)
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
@@ -109,10 +109,10 @@ $operation.getDocumentation("    * ")
 ##set ($parameterList="")
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
 #else
-##        // $useArrayWrapper $parameter.many $parameter.upper
+##        // $useArrayWrapper $parameter.many $parameter.upper $parameter.upper
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
@@ -167,7 +167,7 @@ $operation.getDocumentation("    * ")
         feed.setUpdated(new Date());
         feed.addAuthor("Bob Fields");
         feed.addLink("http://example.com");
-        // Get the entry that was added in Service Endpoint SEIImpl
+        // Get the entry that was added in Service Endpoint ${seiSuffix}Impl
         Entry entry = feed.getEntries().get(0);
         entry.setId("tag:example.org,2007:/foo/entries/1");
         entry.setTitle("Entry title");

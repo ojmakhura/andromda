@@ -61,7 +61,7 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <!-- Service from ${service.fullyQualifiedName} -->
     <jaxrs:server id="${service.name}" address="/">
         <jaxrs:serviceBeans>
-            <bean class="${service.fullyQualifiedName}SEIImpl" />
+            <bean class="${service.fullyQualifiedName}${seiSuffix}Impl" />
         </jaxrs:serviceBeans>
 #if ($service.restAtom)
 #set ($atom=true)
@@ -100,10 +100,10 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <!-- Service from ${service.fullyQualifiedName} -->
 #if ($service.restCount<$service.allowedOperations.size())
 #set ($jax="jaxws")
-    <jaxws:endpoint id="${service.name}SEI"
-        name="${service.name}SEI"
+    <jaxws:endpoint id="${service.name}${seiSuffix}"
+        name="${service.name}${seiSuffix}"
         address="/${service.name}"
-        implementor="${service.fullyQualifiedName}SEIImpl">
+        implementor="${service.fullyQualifiedName}${seiSuffix}Impl">
         <jaxws:properties>
             <entry key="schema-validation-enabled" value="$validateSchema" />
         </jaxws:properties>

@@ -46,7 +46,7 @@ import javax.xml.ws.ResponseWrapper;
 /**
  * WebService Endpoint Interface class for the $service.name service. Declared as
  * wsdl:portType name=""${service.name}" in ${service.name}.wsdl. Implemented by
- * ${service.fullyQualifiedName}SEIImpl which delegates to ${service.name}WSDelegate
+ * ${service.fullyQualifiedName}${seiSuffix}Impl which delegates to ${service.name}WSDelegate
 $service.getDocumentation(" * ")
  */
 
@@ -65,9 +65,9 @@ $service.getDocumentation(" * ")
 #if ($stringUtils.equals(${persistenceContainerName}, "jboss"))
 @org.jboss.ws.annotation.PortComponent(contextRoot = "${webServiceContextRoot}", urlPattern="${webServiceUrlPattern}/${service.qName}/*")
 #end
-public interface ${service.name}SEI
+public interface ${service.name}${seiSuffix}
 #if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}SEI
+    extends ${service.generalization.fullyQualifiedName}${seiSuffix}
 #end
 {
 #foreach ( $operation in $service.allowedOperations)
@@ -82,13 +82,13 @@ $operation.getDocumentation("    * ")
 ##    * @param $stringUtils.capitalize(${operation.operationName})RequestWrapper ${operation.operationName}RequestWrapper
 ##    * @return ${operation.operationName}Response $returnType
 ##else
-#if (!$useArrayWrapper && $operation.many)
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
 #end
 #foreach ($parameter in $operation.arguments)
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && $parameter.many && !$parameter.returnParameter.upper>0)
 #set($multiplicity="*")
 #else
 #set ($multiplicity=$parameter.upper)
@@ -156,7 +156,7 @@ $operation.getDocumentation("    * ")
 #set ($targetNamespace="$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end")
 #end
 ## Exception in webservices cartridge test: parameter upper not supported by UML14 facade
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<${parameter.type.fullyQualifiedName}>")
 #else
 #set ($paramType=$parameter.getterSetterTypeName)

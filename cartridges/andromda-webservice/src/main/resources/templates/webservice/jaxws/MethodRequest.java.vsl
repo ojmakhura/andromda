@@ -48,14 +48,14 @@ public class $className
 {
     private final static long serialVersionUID = 1L;
 
-#if (!$useArrayWrapper && $operation.many)
+#if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
 #set ($returnType = $operation.getterSetterReturnTypeName)
 #end
 #foreach ($parameter in $operation.arguments)
 #set ($useAttributes = $xmlAttributes && !($parameter.upper>1||$parameter.upper==-1) && ($stringUtils.isBlank($parameter.type.packageName) || $parameter.type.packageName.equals("java.lang") || $type.equals("java.util") || $type.equals("java.math") || $parameter.type.packageName.equals("PrimitiveTypes")))
-#if (!$useArrayWrapper && $parameter.many)
+#if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
 #set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
 #else
 #set ($paramType=$parameter.getterSetterTypeName)
@@ -107,7 +107,6 @@ $parameter.getDocumentation("     * ")
      */
 
 #end
-
 ## - always have as public, having read-only causes too many issues when attempting to
 ##   use in other cartridges
     /**
@@ -117,8 +116,11 @@ $parameter.getDocumentation("     * ")
     public void ${parameter.setterName}($paramType ${parameter.name}In)
     {
         this.$parameter.name = ${parameter.name}In;
+#if ($parameter.type.primitive)
+        this.isSet${parameter.name} = true;
+#end
     }
-#if ($parameter.lower<1)
+#if ($parameter.type.primitive)
 
     /**
      * Returns true if $parameter.name value is set

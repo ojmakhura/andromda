@@ -5,7 +5,7 @@
 #set ($namespace="$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end")
 ##    <!-- $defaultParameterStyle ${service.packageName} $extensionInheritanceDisabled -->
 <wsdl:definitions
-    name="${service.qName}"
+    name="${service.name}"
     targetNamespace="http://$namespace"
     xmlns:${service.namespacePrefix}="http://$namespace"
 #if ($defaultParameterStyle.equalsIgnoreCase("BARE"))
@@ -132,16 +132,10 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
 #end
 #end
 #end
-##set($outerCount = $velocityCount)
 ## Assume the first Exception association is the XML WebFault ValueObject
 #foreach($exception in $service.allowedOperationExceptions)
-#if ($exception.associationEnds.empty)
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
 #set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.package))
-#else
-#set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
-#set ($faultPkg=$webServiceUtils.getPkgAbbr($exception.associationEnds.get(0).otherEnd.type.package))
-#end
     <wsdl:message name="$faultName">
         <wsdl:part element="$faultPkg:$faultName" name="$faultName"/>
     </wsdl:message>
@@ -163,7 +157,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("            ", 100, false
     </wsdl:message>
 #end
 
-    <!-- Port Type: Service Endpoint Interface implemented by SEI Endpoint which delegates to WSDelegate -->
+    <!-- Port Type: Service Endpoint Interface implemented by ${seiSuffix} Endpoint which delegates to WSDelegate -->
     <wsdl:portType name="${service.qName}">
 #foreach ($operation in $service.allowedOperations)
 #if ($operation.visibility.equals("public") && !$operation.rest)
@@ -179,11 +173,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #end
 ##set($outerCount = $velocityCount)
 #foreach($exception in $operation.exceptions)
-#if ($exception.associationEnds.empty)
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
-#else
-#set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
-#end
 ##            <wsdl:fault name="${exception.name}" message="$webServiceUtils.getPkgAbbr($exception.package):${exception.name}"/>
             <wsdl:fault name="$faultName" message="${service.namespacePrefix}:$faultName"/>
 #end
@@ -223,11 +213,7 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
 #end
 ##set($outerCount = $velocityCount)
 #foreach($exception in $operation.exceptions)
-#if ($exception.associationEnds.empty)
 #set ($faultName=$exception.name.replace("Exception", "Fault"))
-#else
-#set ($faultName=$exception.associationEnds.get(0).otherEnd.type.name)
-#end
             <wsdl:fault name="$faultName">
                 <soap:fault name="$faultName" use="literal"/>
             </wsdl:fault>
@@ -238,14 +224,14 @@ $stringUtils.replaceChars($operation.getDocumentation("                ", 100, f
     </wsdl:binding>
 
     <!-- Service Definition: Service Endpoint Client Implementation -->
-    <wsdl:service name="${service.qName}">
+    <wsdl:service name="${service.name}">
 #if ($stringUtils.isNotBlank($service.getDocumentation("", 9999, false)))
         <wsdl:documentation>
 $stringUtils.replaceChars($service.getDocumentation("            ", 100, false), "\"'&<>", "")
         </wsdl:documentation>
 #end
-        <wsdl:port name="${service.qName}" binding="${service.namespacePrefix}:${serviceBindingName}">
-            <soap:address location="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/$service.qName" />
+        <wsdl:port name="${service.name}" binding="${service.namespacePrefix}:${serviceBindingName}">
+            <soap:address location="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/$service.name" />
         </wsdl:port>
     </wsdl:service>
 
