@@ -189,19 +189,19 @@
                                 <target>
                                     <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
                                     <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar"
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/axis2-1.2.jar"
                                         tofile="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
                                     <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar">
                                         <zipfileset src="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar"
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/stax-api-1.0.1.jar"
                                         tofile="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
                                     <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar">
                                         <zipfileset src="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar"
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/woden-impl-om-1.0M8.jar"
                                         tofile="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
                                     <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar">
                                         <zipfileset src="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
