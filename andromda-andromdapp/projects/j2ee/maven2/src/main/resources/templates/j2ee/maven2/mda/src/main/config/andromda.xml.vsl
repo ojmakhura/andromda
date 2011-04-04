@@ -42,6 +42,7 @@
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
+                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
 #if ($jsf || $struts)
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
                          types in required (multiplicy > 0) parameters or VO attibutes-->
@@ -49,16 +50,22 @@
                         <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
                     </constraints>
+#else
+                    <!--constraints enforceAll="true">
+                        <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
+                        <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
+                        <constraint enforce="false">**::wrapped primitive operation return should not be required</constraint>
+                        <constraint enforce="false">**::primitive attribute must be required</constraint>
+                        <constraint enforce="false">**::primitive operation return must be required</constraint>
+                        <constraint enforce="false">**::primitive parameter must be required</constraint>
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
+                    </constraints-->
 #end
                     <!-- Can filter in/out specific model packages (in UML notation) to generate code from (default true=process all) -->
                     <!--modelPackages>
                         <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
                     </modelPackages-->
-                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
-                    <!--constraints enforceAll="true">
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
-                    </constraints-->
                 </model>
             </models>
         </repository>
