@@ -1,9 +1,7 @@
 package org.andromda.core.common;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.Properties;
 
 
@@ -13,7 +11,7 @@ import java.util.Properties;
  * @author Martin West
  * @author Chad Brandon
  */
-public class BuildInformation
+public final class BuildInformation
 {
     /**
      * The shared instance.

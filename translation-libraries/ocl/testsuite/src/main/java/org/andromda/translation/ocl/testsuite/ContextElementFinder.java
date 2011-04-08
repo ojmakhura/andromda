@@ -79,9 +79,9 @@ public class ContextElementFinder
      *
      * @see org.andromda.translation.ocl.BaseTranslator#postProcess()
      */
+    @Override
     public void postProcess()
     {
-        super.postProcess();
         Expression expression = this.getExpression();
         if (expression != null)
         {

@@ -522,4 +522,15 @@ public class TraceTranslator
             logger.error(th);
         }
     }
+
+    /**
+     * Ancestor abstract method which must be implemented even when it does nothing.
+     *
+     * @see org.andromda.translation.ocl.BaseTranslator#postProcess()
+     */
+    @Override
+    public void postProcess()
+    {
+        // Do nothing
+    }
 }

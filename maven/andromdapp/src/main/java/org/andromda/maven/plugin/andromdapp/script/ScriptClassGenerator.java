@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author Chad Brandon
  */
-public class ScriptClassGenerator
+public final class ScriptClassGenerator
 {
     /**
      * The shared instance of this class.

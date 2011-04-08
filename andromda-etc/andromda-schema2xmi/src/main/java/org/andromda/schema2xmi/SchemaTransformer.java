@@ -47,9 +47,9 @@ import org.omg.uml.modelmanagement.ModelManagementPackage;
 /**
  * Performs the transformation of database schema to XMI.
  *
- * @todo This class really should have the functionality it uses (writing model
+ * TODO This class really should have the functionality it uses (writing model
  *       elements) moved to the metafacades.
- * @todo This class should be refactored into smaller classes.
+ * TODO This class should be refactored into smaller classes.
  * @author Chad Brandon
  * @author Joel Kozikowski
  */

@@ -374,4 +374,13 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         }
         return this.modelFacade;
     }
+
+    /**
+     * @see org.andromda.repositories.emf.EMFRepositoryFacade#close()
+     */
+    @Override
+    public void close()
+    {
+        // Ignore error
+    }
 }

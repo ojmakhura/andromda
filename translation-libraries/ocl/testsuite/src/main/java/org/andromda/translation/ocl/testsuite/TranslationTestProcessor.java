@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
  *
  * @author Chad Brandon
  */
-public class TranslationTestProcessor
+public final class TranslationTestProcessor
         extends TestCase
 {
     private static final Logger logger = Logger.getLogger(TranslationTestProcessor.class);

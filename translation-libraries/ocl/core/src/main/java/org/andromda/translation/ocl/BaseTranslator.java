@@ -5,7 +5,6 @@ import java.io.PushbackReader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.TranslationUtils;
@@ -291,12 +290,9 @@ public abstract class BaseTranslator
 
     /**
      * Performs any post processing. Subclasses should override to perform any final cleanup/processing.
+     * Currently does nothing
      */
-    public void postProcess()
-    {
-        // currently does nothing --> sub classes should override to perform
-        // final processing
-    }
+    public abstract void postProcess();
 
     /* The Following Are Overridden Parser Generated Methods */
 

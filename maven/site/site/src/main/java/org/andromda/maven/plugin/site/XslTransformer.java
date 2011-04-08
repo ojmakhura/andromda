@@ -50,11 +50,11 @@ public class XslTransformer
      * Constructor that sets the project name used to replace variable inside generated 
      * xdoc xml.
      * 
-     * @param projectName
+     * @param projectNameIn
      */
-    public XslTransformer(String projectName)
+    public XslTransformer(String projectNameIn)
     {
-        this.setProjectName(projectName);
+        this.projectName = projectNameIn;
     }
     
     /**

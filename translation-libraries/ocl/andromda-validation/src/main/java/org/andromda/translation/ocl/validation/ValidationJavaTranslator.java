@@ -1570,6 +1570,7 @@ public class ValidationJavaTranslator
      *
      * @see org.andromda.translation.ocl.BaseTranslator#postProcess()
      */
+    @Override
     public void postProcess()
     {
         this.getExpression().insertInTranslatedExpression(0, OCL_TRANSLATOR_PACKAGE + ".OCLResultEnsurer.ensure(");
