@@ -15,7 +15,7 @@ import org.andromda.core.server.ServerException;
  * @see org.andromda.core.server.Server
  * @author Chad Brandon
  */
-public class AndroMDAServer
+public final class AndroMDAServer
 {
     /**
      * The actual server instance.

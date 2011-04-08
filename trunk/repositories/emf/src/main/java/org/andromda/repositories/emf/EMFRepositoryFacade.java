@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 
-
 /**
  * An abstract EMF {@link RepositoryFacade} instance that should be extended by any repository wishing to load EMF models.
  *
@@ -160,12 +159,10 @@ public abstract class EMFRepositoryFacade
     protected abstract ResourceSet createNewResourceSet();
 
     /**
+     * Ignore. Avoid compiler warning.
      * @see org.andromda.core.repository.RepositoryFacade#close()
      */
-    public void close()
-    {
-        // Ignore. Avoid compiler warning.
-    }
+    public abstract void close();
 
     /**
      * The path to any modules found on the classpath.

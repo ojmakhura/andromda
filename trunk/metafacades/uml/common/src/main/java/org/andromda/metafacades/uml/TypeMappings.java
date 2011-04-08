@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chad Brandon
  * @author Bob Fields
  */
-public class TypeMappings
+public final class TypeMappings
 {
     /**
      * The contained mappings instance.

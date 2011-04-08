@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * @author Martin West
  * @author Bob Fields
  */
-public class ExceptionRecorder
+public final class ExceptionRecorder
 {
     private static final Logger logger = Logger.getLogger(ExceptionRecorder.class);
 

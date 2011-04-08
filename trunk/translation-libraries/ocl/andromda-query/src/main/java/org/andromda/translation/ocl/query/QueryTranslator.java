@@ -190,9 +190,9 @@ public class QueryTranslator
     /**
      * Handles any final processing.
      */
+    @Override
     public void postProcess()
     {
-        super.postProcess();
         // create the final translated expression
         String selectClauseTail = this.getTranslationFragment(SELECT_CLAUSE_TAIL);
         String existingExpression = StringUtils.trimToEmpty(this.getExpression().getTranslatedExpression());

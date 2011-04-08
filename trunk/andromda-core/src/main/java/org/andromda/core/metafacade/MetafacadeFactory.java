@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
  * @author Peter Friese
  * @author Bob Fields
  */
-public class MetafacadeFactory
+public final class MetafacadeFactory
     implements Serializable
 {
     private static final long serialVersionUID = 34L;

@@ -12,13 +12,13 @@ public class BreadCrumb implements Serializable
     private String value = null;
 
     /**
-     * @param url
-     * @param value
+     * @param urlIn
+     * @param valueIn
      */
-    public BreadCrumb(String url, String value)
+    public BreadCrumb(String urlIn, String valueIn)
     {
-        setUrl(url);
-        setValue(value);
+        this.url = urlIn;
+        this.value = valueIn;
     }
 
     /**

@@ -8,7 +8,7 @@ import org.andromda.metafacades.uml.UMLProfile;
  * The XML Schema cartridge profile. Contains the profile information (tagged values, and stereotypes) for the XML
  * Schema cartridge. </p>
  */
-public class XmlSchemaProfile
+public final class XmlSchemaProfile
     extends UMLProfile
 {
     /**

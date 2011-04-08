@@ -13,7 +13,7 @@ import org.andromda.core.metafacade.ModelValidationMessage;
  * @author Chad Brandon
  * @author Bob Fields
  */
-public class Engine
+public final class Engine
 {
     /**
      * Create a new Engine instance.

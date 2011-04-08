@@ -65,7 +65,7 @@ implements HttpServletRequest
      */
     public Cookie[] getCookies()
     {
-        return null;
+        return new Cookie[0];
     }
 
     /**
