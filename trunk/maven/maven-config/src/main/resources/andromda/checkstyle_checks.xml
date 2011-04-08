@@ -32,8 +32,8 @@
 
 	<!-- Checks that a package-info.java file exists for each package. -->
 	<!-- See http://checkstyle.sourceforge.net/config_javadoc.html -->
-	<!-- module name="JavadocPackage"> <property name="severity"
-		value="error"/>
+	<!-- module name="JavadocPackage">
+        <property name="severity" value="info"/>
     </module-->
 
 	<!-- See http://checkstyle.sourceforge.net/config_misc.html#NewlineAtEndOfFile -->
@@ -58,6 +58,8 @@
     </module>
 
 	<module name="TreeWalker">
+        <!-- Default is error, which is stupid for formatting and documentation problems, when mixed with true code bugs -->
+        <property name="severity" value="info"/>
         <property name="cacheFile" value="null"/>
         <property name="tabWidth" value="4"/>
 	
@@ -274,7 +276,7 @@
 
 	<!--module name="RegexpHeader">
 		<property name="headerFile" value="${checkstyle.header.file}"/>
-		<property name="severity" value="warning"/>
+		<property name="severity" value="info"/>
 	</module-->
     <!--module name="SuppressionFilter">
         <property name="file" value="checkstyle-suppressions.xml"/>
