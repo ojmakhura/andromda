@@ -222,7 +222,7 @@
                 <tt>UserServiceImpl</tt>
                 class.
             </p>
-            <source>
+            <source><![CDATA[
 // license-header java merge-point
 /**
  * This is only generated once! It will never be overwritten.
@@ -234,7 +234,6 @@
 package org.andromda.timetracker.service;
 
 import java.util.Collection;
-
 import org.andromda.timetracker.domain.UserDao;
 import org.andromda.timetracker.vo.UserVO;
 
@@ -244,7 +243,6 @@ import org.andromda.timetracker.vo.UserVO;
 public class UserServiceImpl
     extends UserServiceBase
 {
-
     /**
      * @see org.andromda.timetracker.service.UserService#getAllUsers()
      */
@@ -254,9 +252,7 @@ public class UserServiceImpl
     {
         return (Collection<UserVO>)getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
     }
-
-}
-            </source>
+}]]></source>
             <p>
                 Here we make a direct call to the <tt>loadAll()</tt> method in
                 <tt>UserDao</tt> which is completely implemented in <tt>UserDaoBase</tt>. We supply the
