@@ -236,6 +236,60 @@
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
           </eStructuralFeatures>
         </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_RqQANS8QEeCcBeleBWBQDw" name="Validation">
+          <eAnnotations xmi:id="_RqQANi8QEeCcBeleBWBQDw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_zjGo0C7uEeCFufqpdodTxw"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQANy8QEeCcBeleBWBQDw" name="andromda_validation_baseType" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAOS8QEeCcBeleBWBQDw" name="andromda_validation_fixed" ordered="false" defaultValueLiteral="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAOy8QEeCcBeleBWBQDw" name="andromda_validation_length" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAPS8QEeCcBeleBWBQDw" name="andromda_validation_minLength" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAPy8QEeCcBeleBWBQDw" name="andromda_validation_maxLength" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAQS8QEeCcBeleBWBQDw" name="andromda_validation_pattern" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQAQy8QEeCcBeleBWBQDw" name="andromda_validation_whiteSpace" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQARS8QEeCcBeleBWBQDw" name="andromda_validation_maxInclusive" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQARy8QEeCcBeleBWBQDw" name="andromda_validation_maxExclusive" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQASS8QEeCcBeleBWBQDw" name="andromda_validation_minExclusive" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQASy8QEeCcBeleBWBQDw" name="andromda_validation_minInclusive" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQATS8QEeCcBeleBWBQDw" name="andromda_validation_totalDigits" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQATy8QEeCcBeleBWBQDw" name="andromda_validation_fractionDigits" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RqQATS8QEeCcBeleBWBQDx" name="andromda_validation_customValidators" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RqQAUS8QEeCcBeleBWBQDw" name="base_Property" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Property"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RqQAUy8QEeCcBeleBWBQDw" name="base_Parameter" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Parameter"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RqQAVS8QEeCcBeleBWBQDw" name="base_DataType" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//DataType"/>
+          </eStructuralFeatures>
+        </eClassifiers>
       </contents>
     </eAnnotations>
     <packageImport xmi:id="_0metamodelReferenceandromda-common">
@@ -248,6 +302,9 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1229442288495_398327_0" name="TernaryBoolean">
+      <ownedComment xmi:id="_JbHlEGBfEeCkQ4mwhZJr4Q">
+        <body>Three-state boolean value which includes 'default' setting which should be interpreted the same as a missing boolean value, to simulate the optionality of a wrapped primitive boolean parameter. The default value is used by various configuration implementations to set the config value when none is specified.</body>
+      </ownedComment>
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229442295651_287504_1" name="default"/>
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229442301261_934387_2" name="true"/>
       <ownedLiteral xmi:id="_9_5_1_2e90116_1229442306198_200585_3" name="false"/>
@@ -271,13 +328,13 @@
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1239133820704_636162_423" name="" memberEnd="_12_1_2e90116_1239133820704_638201_425 _12_1_2e90116_1239133820704_17070_424">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1239133820704_638201_425" name="extension_Serializable1" visibility="private" type="_9_5_1_2e90116_1239133652468_203532_1" aggregation="composite" association="_12_1_2e90116_1239133820704_636162_423">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1239133820704_638201_425" name="extension_Serializable" visibility="private" type="_9_5_1_2e90116_1239133652468_203532_1" aggregation="composite" association="_12_1_2e90116_1239133820704_636162_423">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1239133820704_588285_427" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820704_146742_426" name=""/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1239133820704_897689_428" name="" memberEnd="_12_1_2e90116_1239133820704_873569_429 _12_1_2e90116_1239133820704_342933_430">
-      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1239133820704_342933_430" name="extension_Serializable1" visibility="private" type="_9_5_1_2e90116_1239133652468_203532_1" aggregation="composite" association="_12_1_2e90116_1239133820704_897689_428">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1239133820704_342933_430" name="extension_Serializable" visibility="private" type="_9_5_1_2e90116_1239133652468_203532_1" aggregation="composite" association="_12_1_2e90116_1239133820704_897689_428">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1239133820704_431923_432" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820704_401318_431" name=""/>
       </ownedEnd>
@@ -402,6 +459,15 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820735_350539_548" name=""/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_3hxHsC73EeCFufqpdodTxw" name="Property_Validation" memberEnd="_3iXkoC73EeCFufqpdodTxw _3iXkoS73EeCFufqpdodTxw">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_3iXkoC73EeCFufqpdodTxw" name="extension_Validation" type="_zjGo0C7uEeCFufqpdodTxw" aggregation="composite" association="_3hxHsC73EeCFufqpdodTxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_3iXkoi73EeCFufqpdodTxw" name="Parameter_Validation" memberEnd="_3iXkoy73EeCFufqpdodTxw _3iXkpC73EeCFufqpdodTxw">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_3iXkoy73EeCFufqpdodTxw" name="extension_Validation" type="_zjGo0C7uEeCFufqpdodTxw" aggregation="composite" association="_3iXkoi73EeCFufqpdodTxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_3iXkpS73EeCFufqpdodTxw" name="DataType_Validation" memberEnd="_3iXkpi73EeCFufqpdodTxw _3iXkpy73EeCFufqpdodTxw">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_3iXkpi73EeCFufqpdodTxw" name="extension_Validation" type="_zjGo0C7uEeCFufqpdodTxw" aggregation="composite" association="_3iXkpS73EeCFufqpdodTxw"/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1231429720132_506601_0" name="Mapped">
       <ownedComment xmi:id="_9_5_1_2e90116_1231429972239_620761_3" annotatedElement="_9_5_1_2e90116_1231429720132_506601_0">
         <body>A transfer object class that maps its attributes to 1-n attributes of 1-n source domain classes. Applying this stereotype produces a Mapper class for the related transfer object with transfer methods for each mapped attribute.</body>
@@ -516,7 +582,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119373197267_116094_8" name="ApplicationException">
       <ownedComment xmi:id="_9_0_1fe00f9_1119373197267_175943_12" annotatedElement="_9_0_1fe00f9_1119373197267_116094_8">
-        <body>Represents a exception that could occur during normal application flow. Extends Exception, declared as part of method signature, must be caught by calling method.</body>
+        <body>Deprecated: model as Enumeration with literals instead. Allows the definition of an enumeration type in JDK14 where a class type is used instead of enum.  Enumerations can only contain attributes with optional default values.  If the default value is not specified, the name of the attribute will be used for the enumeration value as well as the literal name.</body>
       </ownedComment>
       <generalization xmi:id="_9_0_1fe00f9_1119373197267_348563_7" isSubstitutable="false" general="_9_0_1fe00f9_1119373197267_97120_6"/>
       <ownedAttribute xmi:id="_9_5_1_2e90116_1238681498899_272224_5" name="andromda_serialVersionUID" visibility="private">
@@ -550,6 +616,9 @@
       <icon xmi:id="_12_1_2e90116_1239133820595_85856_367" content="" location="" format=""/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119373197267_31945_16" name="EnvEntry">
+      <ownedComment xmi:id="_zwTpAGBfEeCkQ4mwhZJr4Q">
+        <body>EJB and EJB3: Constants are defined as static read-only attributes which do NOT have the EnvEntry stereotype.</body>
+      </ownedComment>
       <ownedAttribute xmi:id="_12_1_2e90116_1239133820735_862561_511" name="base_Property" visibility="private" association="_12_1_2e90116_1239133820735_35960_510">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
       </ownedAttribute>
@@ -585,18 +654,18 @@
         <ownedComment xmi:id="_9_5_1_2e90116_1229368577463_87536_117" annotatedElement="_9_5_1_2e90116_1229366643985_230741_98">
           <body>Modify method declaration with volatile declaration.</body>
         </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_26770_538" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_2e90116_1229366684627_714274_99" name="deprecated" visibility="private">
         <ownedComment xmi:id="_9_5_1_2e90116_1229368577463_940910_118" annotatedElement="_9_5_1_2e90116_1229366684627_714274_99">
           <body>Modify method declaration with @Deprecated annotation / javadoc.</body>
         </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_811997_509" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_2e90116_1229976092952_809660_0" name="none" visibility="private">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_903513_537" name=""/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_12_1_2e90116_1239133820735_862929_484" name="base_Operation" visibility="private" association="_12_1_2e90116_1239133820735_749465_483">
@@ -654,7 +723,7 @@
         <ownedComment xmi:id="_9_5_1_2e90116_1229368577463_926771_130" annotatedElement="_9_5_1_2e90116_1229367666186_675003_104">
           <body>Suppress missing SerialVersionUID compiler warning</body>
         </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1239133820595_448853_381" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820595_53827_380" name="" value="1"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_653815_544" name=""/>
@@ -672,7 +741,7 @@
         <ownedComment xmi:id="_9_5_1_2e90116_1229368577463_106847_136" annotatedElement="_9_5_1_2e90116_1229367680046_627312_106">
           <body>Suppress all compiler warnings</body>
         </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1239133820595_340680_385" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820595_700795_384" name="" value="1"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_848086_526" name=""/>
@@ -690,7 +759,7 @@
         <ownedComment xmi:id="_9_5_1_2e90116_1229368577463_721000_142" annotatedElement="_9_5_1_2e90116_1229368367492_848729_108">
           <body>Suppress uncommented empty block compiler warning.</body>
         </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1239133820595_273528_389" name="" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1239133820595_986136_388" name="" value="1"/>
         <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_12_1_2e90116_1239133820735_295263_503" name=""/>
@@ -713,22 +782,25 @@
       <ownedComment xmi:id="_9_0_1fe00f9_1119373197267_705036_11" annotatedElement="_9_0_1fe00f9_1119373197267_59537_10">
         <body>Allows the object to be exposed as a value object.  Value objects are those objects that will be presented to the calling client.</body>
       </ownedComment>
-      <ownedAttribute xmi:id="_9_5_1_2e90116_1229377748378_352867_0" name="andromda_xml_bindingAnnotations" visibility="private" type="_9_5_1_2e90116_1229442288495_398327_0">
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229377748378_352867_0" name="andromda_xml_bindingAnnotations" visibility="private">
         <ownedComment xmi:id="_9_5_1_2e90116_1229377843832_239271_1" annotatedElement="_9_5_1_2e90116_1229377748378_352867_0">
           <body>Turn on/off Xml binding annotations for a ValueObject which is turned on by default globally. Default=unspecified, use global settings. If no global settings, default is off.</body>
         </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1239133820720_567836_467" name="" instance="_9_5_1_2e90116_1229442295651_287504_1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_9_5_1_2e90116_1229443415650_972554_90" name="andromda_generateEqualPropertiesMethod" visibility="private" type="_9_5_1_2e90116_1229442288495_398327_0">
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229443415650_972554_90" name="andromda_generateEqualPropertiesMethod" visibility="private">
         <ownedComment xmi:id="_9_5_1_2e90116_1229443674075_813693_92" annotatedElement="_9_5_1_2e90116_1229443415650_972554_90">
           <body>Generate equalProperties method in ValueObject, overriding global default value.</body>
         </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1239133820704_661902_407" name="" instance="_9_5_1_2e90116_1229442295651_287504_1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_9_5_1_2e90116_1229443538214_462681_91" name="andromda_xml_attributes" visibility="private" type="_9_5_1_2e90116_1229442288495_398327_0">
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229443538214_462681_91" name="andromda_xml_attributes" visibility="private">
         <ownedComment xmi:id="_9_5_1_2e90116_1229443674075_13784_93" annotatedElement="_9_5_1_2e90116_1229443538214_462681_91">
           <body>Generate @XmlAttribute annotations for simple/primitive types and wrappers. Overrides global default configuration setting xmlAttributes for this class only.</body>
         </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1239133820735_334899_525" name="" instance="_9_5_1_2e90116_1229442295651_287504_1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_9_5_1_2e90116_1238681382916_53668_0" name="andromda_serialVersionUID" visibility="private">
@@ -816,6 +888,118 @@
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
       <icon xmi:id="_12_1_2e90116_1239133820595_974669_402" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_zjGo0C7uEeCFufqpdodTxw" name="Validation">
+      <ownedComment xmi:id="_hXRVEC7vEeCFufqpdodTxw">
+        <body>Validation rules used for ValueObject and XML output and Method Parameters. See http://www.w3.org/TR/xmlschema-2/#rf-facets for XML constraints.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_PwVE0C71EeCFufqpdodTxw" name="andromda_validation_baseType" visibility="private">
+        <ownedComment xmi:id="_PwVE0S71EeCFufqpdodTxw">
+          <body>The restriction base type for the XML schema. Defaults to simpleType datatype, but can refer to a defined type with specific restrictions (must include the namespace for non xs datatypes). For attributes/parameters. the incoming type (String) is cast to the restriction type (i.e. Integer, Date) for validation purposes. Must be a valid XML primitive datatype (automatically converted to Java datatype). Can be used to make the XML datatype more restrictive.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PwVE0i71EeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_VBgc0C7wEeCFufqpdodTxw" name="andromda_validation_fixed" visibility="private">
+        <ownedComment xmi:id="_aDFgUC7wEeCFufqpdodTxw">
+          <body>length and totalDigits is fixed: Must be exactly the length specified. String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZYUFAC7wEeCFufqpdodTxw"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_sNhvIC7-EeCcBeleBWBQDw" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_a42gIC7vEeCFufqpdodTxw" name="andromda_validation_length" visibility="private">
+        <ownedComment xmi:id="_Ec8eUC7wEeCFufqpdodTxw">
+          <body>length is the number of units of length. for string, length is measured in units of characters. Must be a non-negative integer,>= minLength and &lt;= maxLength. String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ClSZIC7wEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_jMIIcC7wEeCFufqpdodTxw" name="andromda_validation_minLength" visibility="private">
+        <ownedComment xmi:id="_jMIIcS7wEeCFufqpdodTxw">
+          <body>Constraining a ·value space· to values with at least a specific number of units of length. String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jMIIci7wEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_wCZ3UC7wEeCFufqpdodTxw" name="andromda_validation_maxLength" visibility="private">
+        <ownedComment xmi:id="_wCZ3US7wEeCFufqpdodTxw">
+          <body>Constraining a ·value space· to values with no more than a specific number of units of length. Must be &lt;= length. String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wCZ3Ui7wEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_IaXEMC7yEeCFufqpdodTxw" name="andromda_validation_pattern" visibility="private">
+        <ownedComment xmi:id="_IaXEMS7yEeCFufqpdodTxw">
+          <body>a constraint on the ·value space· of a datatype which is achieved by constraining the ·lexical space· to literals which match a specific pattern. The value of pattern  ·must· be a ·regular expression·. Example ZipCode=[0-9]{5}(-[0-9]{4})? String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IaXEMi7yEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ZESD0C7yEeCFufqpdodTxw" name="andromda_validation_whiteSpace" visibility="private">
+        <ownedComment xmi:id="_ZESD0S7yEeCFufqpdodTxw">
+          <body>constrains the ·value space· of types ·derived· from string. whiteSpace must be one of {preserve, replace, collapse}.  String only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZESD0i7yEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Bz7tUC7zEeCFufqpdodTxw" name="andromda_validation_maxInclusive" visibility="private">
+        <ownedComment xmi:id="_Bz7tUS7zEeCFufqpdodTxw">
+          <body>Inclusive upper bound· of the ·value space· for a datatype with the ·ordered· property. The value of maxInclusive ·must· be in the ·value space· of the base type, i.e. limits values to integers less than or equal to 100. If the ·numeric· property is true, then the value ·must· be numerically less than or equal to {value}; if the ·numeric· property in {fundamental facets} is false (i.e., {base type definition} is one of the date and time related datatypes), then the value ·must· be chronologically less than or equal to {value}; Numeric and Date only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Bz7tUi7zEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_N-hTgC72EeCFufqpdodTxw" name="andromda_validation_maxExclusive" visibility="private">
+        <ownedComment xmi:id="_N-hTgS72EeCFufqpdodTxw">
+          <body>Exclusive upper bound· of the ·value space· for a datatype with the ·ordered· property. The value of maxExclusive ·must· be in the ·value space· of the base type, i.e. limits values to integers less than or equal to 100. If the ·numeric· property is true, then the value ·must· be numerically less than or equal to {value}; if the ·numeric· property in {fundamental facets} is false (i.e., {base type definition} is one of the date and time related datatypes), then the value ·must· be chronologically less than or equal to {value};  Numeric and Date only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N-hTgi72EeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_dv1-kC7zEeCFufqpdodTxw" name="andromda_validation_minExclusive" visibility="private">
+        <ownedComment xmi:id="_dv1-kS7zEeCFufqpdodTxw">
+          <body>Exclusive lower bound· of the ·value space· for a datatype with the ·ordered· property. The value of minExclusive ·must· be in the ·value space· of the ·base type· or be equal to {value} in {base type definition}, i.e. limits values to integers greater than or equal to 100. If the ·numeric· property is true, then the value ·must· be numerically greater than or equal to {value}; if the ·numeric· property in {fundamental facets} is false (i.e., {base type definition} is one of the date and time related datatypes), then the value ·must· be chronologically greater than or equal to {value};  Numeric and Date only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dv1-ki7zEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_8kia0C7zEeCFufqpdodTxw" name="andromda_validation_minInclusive" visibility="private">
+        <ownedComment xmi:id="_8kia0S7zEeCFufqpdodTxw">
+          <body>Inclusive lower bound of the ·value space· for a datatype with the ·ordered· property. The value of minInclusive ·must· be in the ·value space· of the ·base type·, i.e. limits values to integers greater than or equal to 100. If the ·numeric· property is true, then the value ·must· be numerically greater than or equal to {value}; if the ·numeric· property in {fundamental facets} is false (i.e., {base type definition} is one of the date and time related datatypes), then the value ·must· be chronologically greater than or equal to {value};  Numeric and Date only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8kia0i7zEeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_M0FLkC70EeCFufqpdodTxw" name="andromda_validation_totalDigits" visibility="private">
+        <ownedComment xmi:id="_M0FLkS70EeCFufqpdodTxw">
+          <body>Controls the maximum number of values in the ·value space· of datatypes ·derived· from decimal, by restricting it to numbers that are expressible as i × 10^-n where i and n are integers such that |i| &lt; 10^totalDigits and 0 &lt;= n &lt;= totalDigits. Numeric only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M0FLki70EeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iqT4AC70EeCFufqpdodTxw" name="andromda_validation_fractionDigits" visibility="private">
+        <ownedComment xmi:id="_iqT4AS70EeCFufqpdodTxw">
+          <body>Controls the size of the minimum difference between values in the ·value space· of datatypes ·derived· from decimal, by restricting the ·value space· to numbers that are expressible as i × 10^-n where i and n are integers and 0 &lt;= n &lt;= fractionDigits. Numeric only.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iqT4Ai70EeCFufqpdodTxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_JkIaoF8AEeCxHMTOdnYmvQ" name="andromda_validation_customValidators">
+        <ownedComment xmi:id="_RaBY0F8AEeCxHMTOdnYmvQ">
+          <body>Custom coded Validator, referenced by JSF field validator-rules.xml or by Hibernate annotation.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PT6A4F8AEeCxHMTOdnYmvQ"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_3iXkoS73EeCFufqpdodTxw" name="base_Property" visibility="private" association="_3hxHsC73EeCFufqpdodTxw">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_3iXkpC73EeCFufqpdodTxw" name="base_Parameter" visibility="private" association="_3iXkoi73EeCFufqpdodTxw">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Parameter"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_3iXkpy73EeCFufqpdodTxw" name="base_DataType" visibility="private" association="_3iXkpS73EeCFufqpdodTxw">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#DataType"/>
+      </ownedAttribute>
     </packagedElement>
     <profileApplication xmi:id="_0profileApplicationandromda-common">
       <eAnnotations xmi:id="_Uuy19SOuEd6Yv5u3OIooDQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
