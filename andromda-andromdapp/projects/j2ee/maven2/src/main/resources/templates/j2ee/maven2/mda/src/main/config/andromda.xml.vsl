@@ -516,6 +516,10 @@
 #if ($portlet)
                 <property name="portletContainer">$portletContainer</property>
 #end
+                <property name="normalizeMessages">true</property>
+				<!-- generates smaller resource bundles with duplicate element names specified by a single message.
+				This optimization is turned off by default for backward compatibility
+				<property name="normalizeMessages">true</property-->
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.java.dir}</property>
                 <property name="views">${web.generated.web.dir}</property>
