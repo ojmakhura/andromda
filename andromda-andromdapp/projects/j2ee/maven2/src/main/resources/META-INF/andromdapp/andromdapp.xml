@@ -147,7 +147,7 @@
                 Provides the basic project information.
             </documentation>
             <prompt id="applicationParentDirectory">
-                <text>Please enter the parent directory of your new application directory, using forward slashes (i.e. C:/workspaces)</text>
+                <text>Please enter the parent directory of your new application directory (i.e. C:/workspaces)</text>
                 <shortText>Application location</shortText>
             </prompt>
             <prompt id="author">
@@ -156,7 +156,7 @@
             </prompt>
             <prompt id="modelType" setResponseAsTrue="true">
                 <text>Which kind of modeling tool will you use? 
-(uml1.4/uml2 for .xml.zip/.xml/.xmi/.zargo files, 
+(uml1.4 or uml2 for .xml.zip/.xml/.xmi/.zargo files, 
 emf-uml22 for .uml files, rsm7 for .emx files)
                 </text>
                 <shortText>Model type</shortText>
@@ -182,11 +182,11 @@ emf-uml22 for .uml files, rsm7 for .emx files)
                 </conditions>
             </prompt>
             <prompt id="applicationName">
-                <text>Please enter the name of your J2EE project (i.e. Animal Quiz)</text>
+                <text>Please enter the name (maven project description) of your J2EE project (i.e. Animal Quiz)</text>
                 <shortText>Application name</shortText>
             </prompt>
             <prompt id="applicationId">
-                <text>Please enter an id for your J2EE project (i.e. animalquiz)</text>
+                <text>Please enter an id (maven artifactId) for your J2EE project (i.e. animalquiz)</text>
                 <shortText>Application ID</shortText>
             </prompt>
             <prompt id="applicationVersion">
@@ -194,7 +194,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)
                 <shortText>Version</shortText>
             </prompt>
             <prompt id="applicationPackage">
-                <text>Please enter the root package name for your J2EE project (i.e. org.andromda.samples.animalquiz)</text>
+                <text>Please enter the root package name (maven groupId) for your J2EE project (i.e. org.andromda.samples.animalquiz)</text>
                 <shortText>Root package</shortText>
             </prompt>
             <prompt id="applicationType" setResponseAsTrue="true">
