@@ -44,7 +44,7 @@ public class BinaryFile
     }
 
     /**
-     * Stores the name of the attriubte that holds the value.
+     * Stores the name of the attribute that holds the value.
      */
     public static final String VALUE_ATTRIBUTE = "value";
 
