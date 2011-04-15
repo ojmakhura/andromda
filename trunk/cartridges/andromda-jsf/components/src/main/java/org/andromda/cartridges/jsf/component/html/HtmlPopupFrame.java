@@ -419,7 +419,16 @@ public class HtmlPopupFrame
      */
     public MethodBinding getActionClose()
     {
-        return actionClose;
+        if (this.actionClose == null)
+        {
+            final ValueBinding binding = this.getValueBinding("actionClose");
+            if (binding != null)
+            {
+	            this.actionClose = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
+	            		binding.getExpressionString(), new Class[0]);
+            }
+        }
+        return this.actionClose;
     }
 
     /**
@@ -435,7 +444,16 @@ public class HtmlPopupFrame
      */
     public MethodBinding getActionOpen()
     {
-        return actionOpen;
+        if (this.actionOpen == null)
+        {
+            final ValueBinding binding = this.getValueBinding("actionOpen");
+            if (binding != null)
+            {
+	            this.actionOpen = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
+	            		binding.getExpressionString(), new Class[0]);
+            }
+        }
+        return this.actionOpen;
     }
 
     /**
