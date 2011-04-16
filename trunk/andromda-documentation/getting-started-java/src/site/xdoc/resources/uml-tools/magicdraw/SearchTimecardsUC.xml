@@ -38,8 +38,8 @@
                     <tt>Application Use Cases</tt>
                     for this diagram and press Enter
                 </li>
-                <li>In the toolbar on the left of the use case diagram click on the Use Case icon (2nd
-                    icon from Use Case Diagram group). Now click anywhere inside the diagram.
+                <li>In the toolbar on the left of the use case diagram click on the Use Case icon. 
+                    Now click anywhere inside the diagram.
                     A new use case will be created. Type the phrase &quot;Search Timecards&quot; to name the use case.
                     Note that the use case is created under the
                     <tt>Use Cases</tt>
@@ -78,16 +78,13 @@
                     <tt>Search Timecards</tt>
                     use case and choose
                     <i>New Diagram
-                        &gt; State Diagram
+                        &gt; State Machine Diagram
                     </i>
-                    to create an state diagram. Name it <tt>Search Timecards State Machine Diagram</tt>.
+                    to create an state diagram. Name it <tt>Search Timecards State Machine</tt>.
                     This action automatically creates a state machine in the
                     <tt>Search Timecards</tt>
                     use case
-                    and associates the create state diagram to the state machine.
-                </li>
-                <li>Rename the state machine by selecting it and pressing F2. Type in
-                    <tt>Search Timecards State Machine</tt>
+                    and associates the created state diagram to the state machine.
                 </li>
                 <li>Now create a class called
                     <tt>SearchController</tt>
@@ -101,16 +98,15 @@
 
             <p>
                 We are done with the basic structure for the web page. Now let's create the page
-                flow on the <tt>Search Timecards State Machine Diagram</tt>. Open this diagram and
+                flow on the <tt>Search Timecards State Machine</tt> diagram. Open this diagram and
                 follow the steps below. Use the tool bar on the left to create various elements
                 on the diagram. Use the tool tips and the status bar to identify the tool bar icons.
             </p>
 
             <ol style="list-style-type: decimal">
                 <li>Create an Initial State at the top.</li>
-                <li>Drop a state below it. Type
-                    <tt>Populate Search Screen</tt>
-                    as the name for this state.
+                <li>Drop a state below it. Double-click on the newly created state and
+                    type <tt>Populate Search Screen</tt> as the name for this state.
                 </li>
                 <li>Create a transition from the initial state to the
                     <tt>Populate Search Screen</tt>
@@ -143,7 +139,7 @@
                 </li>
                 <li>Enter the word
                     <tt>search</tt>
-                    in the name field and click<i>Close</i>.
+                    in the name field.
                 </li>
             </ol>
             <p>
@@ -155,15 +151,13 @@
             </p>
             <ol style="list-style-type: decimal">
                 <li>Right click on the
-                    <tt>search</tt>
-                    activity and open its specification.
+                    <tt>Behavior Element</tt> field and open its specification.
                 </li>
                 <li>Click on the Parameters tab.</li>
                 <li>
                     Click
                     <i>Create</i>
-                    to add the first parameter. The Parameter Specification dialog
-                    comes up. Enter
+                    to add the first parameter. Enter
                     <tt>submitter</tt>
                     as the name of the parameter and
                     <tt>Long</tt>
@@ -176,10 +170,9 @@
                     is. Since
                     submitter is a drop-down box, i.e. selection, we need to set the value of this tag
                     to <tt>select</tt>. To do this, click the
-                    <i>Add Value</i>
+                    <i>Create Value</i>
                     button. The
-                    value is shown in the right panel and is already set to <tt>select</tt>. So
-                    just click<i>Back</i>.
+                    value is shown in the right panel. Select <tt>select</tt> and click <i>Back</i>.
                 </li>
                 <li>
                     Add the second parameter called
@@ -201,18 +194,13 @@
                     Add the fourth parameter called
                     <tt>startDateMinimum</tt>
                     with type of <tt>
-                    Date</tt>. This time set the tagged value
-                    <tt>andromda_presentation_web_view_field_calendar</tt>
-                    to <tt>true</tt>. This will make sure that you will get a text field for the
-                    date along with a calendar widget on its side.
+                    Date</tt>.
                 </li>
                 <li>
                     Add the fifth parameter called
                     <tt>startDateMaximum</tt>
                     with type of <tt>
-                    Date</tt>. Again set the tagged value
-                    <tt>andromda_presentation_web_view_field_calendar</tt>
-                    to <tt>true</tt>.
+                    Date</tt>.
                 </li>
                 <li>Click
                     <i>Close</i>
@@ -233,13 +221,13 @@
                 <li>In the containment tree, right-click on
                     <tt>SearchController</tt>
                     and select
-                    <i>New &gt; Operation</i>.
+                    <i>New Element &gt; Operation</i>.
                 </li>
                 <li>Enter
                     <tt>populateSearchScreen</tt>
                     as the name of the operation.
                 </li>
-                <li>Double click on the operation to open the Operation Specification dialog.</li>
+                <li>Double-click on the operation to open the Operation Specification dialog.</li>
                 <li>Specify the return type as <tt>void</tt>.
                 </li>
                 <li>Click on the Parameters tab.</li>
@@ -256,9 +244,9 @@
                     operation. To do this:
                     <ol style="list-style-type: decimal">
                         <li>
-                            In the containment tree, select the five parameters in the
-                            <tt>search</tt>
-                            activity. Copy them (<i>Ctrl + C</i>).
+                            Right-click on the <tt>Search</tt> transition <tt>Select in Containment Tree</tt>, 
+                            expand the tree until expose the parameters of the <tt>search</tt>
+                            activity. Select the five parameters and copy them (<i>Ctrl + C</i>).
                         </li>
                         <li>
                             Select the
@@ -267,15 +255,12 @@
                             paste the parameters (<i>Ctrl + V</i>).
                         </li>
                         <li>
-                            Right click on each pasted parameter,<i>Edit Stereotype</i>,
+                            Right click on the <tt>submitter</tt> parameter, select <i>Stereotype</i>,
                             <i>Clear All</i>
                             and finally<i>Apply</i>. This will remove their stereotype thus their tag value.
+                            Repeat the same action on the <tt>approver</tt> and <tt>status</tt> parameters.
                         </li>
                     </ol>
-                </li>
-                <li>Click
-                    <i>Close</i>
-                    to close the dialog.
                 </li>
             </ol>
             <p>
@@ -296,14 +281,15 @@
                     <tt>Activity</tt>
                     as the type of behavior of the entry.
                 </li>
-                <li>Right click on the activity and open its specification.</li>
+                <li>Right click on the
+                    <tt>Behavior Element</tt> field and open its specification.
+                </li>
+                <li>Name it <tt>Call populateSearchScreen()</tt>
+                </li>
                 <li>Click on the
                     <tt>Node</tt>
                     editing area. A + and a - symbol will appear. Click on the +.
                     Select Call Operation Action
-                </li>
-                <li>Name the action
-                    <tt>Call populateSearchScreen()</tt>
                 </li>
                 <li>By clicking on ... in the operation field, a dialog box will appear. Select the
                     <tt>populateSearchScreen()</tt>

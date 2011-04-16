@@ -8,18 +8,15 @@
         <section name="Search Criteria Panel">
             <p>
                 We are finally ready to attack the front-end! In this section, we will use the AndroMDA
-                jsf cartridge to develop a javaserver Faces based web front-end. Note that AndroMDA
-                offers another cartridge to generate JSF based front-ends. However, if you like
-                some other front-end framework better, you can roll your own cartridge! But remember
-                to share it with the community :-).
+                Javaserver Faces cartridge to develop a JSF based web front-end.
             </p>
 
             <p>
-                The <i>jsf</i> cartridge generates javaserver Faces web pages from a UML model that defines
+                The <i>JSF</i> cartridge generates javaserver Faces web pages from a UML model that defines
                 the flow of your application. Before we get into modeling our application, please
                 read the following material to understand fundamental concepts behind the <i>jsf</i>
-                cartridge. The following link are related with the BPM4Struts cartridge but most of the
-                concepts are similar to the <i>jsf</i> cartridge.
+                cartridge. The following links are related with the BPM4Struts cartridge but most of the
+                concepts are similar to the concepts used in the <i>JSF</i> cartridge.
             </p>
             <ol style="list-style-type: decimal">
                 <li>
@@ -28,7 +25,7 @@
                 </li>
                 <li>
                     <a href="http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/howto.html">BPM4Struts How-to Guide</a>: 
-                    Quickly look over the concepts behind use-cases, activity graphs and controllers.
+                    Quickly look over the concepts behind use-cases, activity graphs/state machines and controllers.
                 </li>
             </ol>
             <p>
@@ -37,7 +34,7 @@
             </p>
             <p>
                 As you might have gathered, there are 3 important concepts associated with creating
-                a web page: a use case, an activity diagram (that details the use case), and one
+                a web page: a use case, a state machine (or activity) diagram (that details the use case), and one
                 or more controllers (whose methods can be called from the activity diagram). So
                 let's discuss how we will model our search screen. We will start with a use case
                 called <tt>Search Timecards</tt>. This use case is shown on the right and we
@@ -53,14 +50,14 @@
                 </li>
             </ol>
             <p>
-                We will then add details to this use case by creating an activity diagram. The activity
+                We will then add details to this use case by creating an state machine diagram. The state machine
                 diagram is shown below:
             </p>
             <div align="center">
                 <img src="images/SearchTimecardsAD1.jpg" alt="Search Timecards Activity Diagram"/>
             </div>
             <p>
-                The activity diagram can use the
+                The state machine diagram can use the
                 <tt>SearchController</tt>
                 shown below by calling
                 its methods. The key parameter passed to
@@ -75,7 +72,7 @@
                 <img src="images/SearchControllerToUserService.jpg" alt="Search Controller"/>
             </div>
             <p>
-                Now let's enter the use case, the activity diagram and the controller in our model.
+                Now let's enter the use case, the state machine diagram and the controller in our model.
                 Please follow one of the links below to edit the model with the UML tool of your
                 choice.
             </p>

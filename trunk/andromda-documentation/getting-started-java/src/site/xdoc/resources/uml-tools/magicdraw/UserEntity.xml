@@ -40,12 +40,10 @@
                 <li>Add the stereotype called
                     <tt>Entity</tt>
                     (The one from AndroMDA Profile, starting with an 'E' and
-                    not the one from UML2 Standard Profile, starting with an 'e') and the stereotype
-                    called 
-                    <tt>Manageable</tt>
+                    not the one from UML2 Standard Profile, starting with an 'e') 
                     to <tt>User</tt>.
                 </li>
-                <li>Add the 3 attributes to <tt>User</tt>. Uncheck the <tt>Manageable</tt> in <tt>firstName</tt> and <tt>lastName</tt>. 
+                <li>Add the 3 attributes to <tt>User</tt>. Uncheck the <tt>Unique</tt> in <tt>firstName</tt> and <tt>lastName</tt>. 
                 </li>
                 <li>Double click on the class to open the class specification.</li>
                 <li>Click on the

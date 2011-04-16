@@ -275,44 +275,29 @@ public class UserServiceImpl
                 ...
                 ...
                 -------------------------------------------------------
-                T E S T S
+                 T E S T S
                 -------------------------------------------------------
-                Running Services Test
-                SQL Error: 1146, SQLState: 42S02
-                &lt;b&gt;Table 'timetracker.user' doesn't exist&lt;/b&gt;
-                Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.996 sec --- FAILURE!
-
+                Running TestSuite
+                Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.048 sec
+                
                 Results :
-                Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
-
+                
+                Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+                
                 [INFO] ------------------------------------------------------------------------
-                [ERROR] BUILD FAILURE
+                [INFO] BUILD SUCCESSFUL
                 [INFO] ------------------------------------------------------------------------
-                [INFO] There are test failures.
-                [INFO] ------------------------------------------------------------------------
-                [INFO] For more information, run Maven with the -e switch
-                [INFO] ------------------------------------------------------------------------
-                [INFO] Total time: 1 minute 2 seconds
-                [INFO] Finished at: Wed Jun 28 16:32:02 EDT 2006
-                [INFO] Final Memory: 26M/53M
+                [INFO] Total time: 5 seconds
+                [INFO] Finished at: Sun Apr 10 16:13:14 BRT 2011
+                [INFO] Final Memory: 31M/604M
                 [INFO] ------------------------------------------------------------------------
             </source>
             <p>
-                Aha, we forgot to create our <tt>user</tt>
-                table in the database. Follow the
-                steps below to create this table, populate it with test data and then run the test
+                Hibernate created the <tt>user</tt> table automaticaly in the database. 
+                Follow the steps below to populate this table with test data and then run the test
                 again.
             </p>
             <ol style="list-style-type: decimal">
-                <li>Run the following command in the Command Prompt, asking AndroMDA to create our database
-                    schema:
-                    <br/>
-                    <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=create</tt>
-                    <br/>
-                    Make sure you get a
-                    <tt>BUILD SUCCESSFUL</tt>
-                    message
-                </li>
                 <li>Open MySQL Query Browser. Login as timetracker. You should see the
                     <tt>user</tt>
                     table in the
@@ -336,7 +321,6 @@ public class UserServiceImpl
                     <br/>
                     <tt>mvn -f core/pom.xml test</tt>
                     <br/>
-                    You will see that the test runs successfully - yeah!
                 </li>
                 <li>Open
                     <tt>C:\timetracker\core\timetracker-test.log</tt>
