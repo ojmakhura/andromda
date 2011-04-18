@@ -9,6 +9,19 @@
 #set ($axis2 = $axisVersion.equals("2"))
 <mappings name="WebMerge">
     <mapping>
+        <from><![CDATA[<!-- context-param merge-point -->]]></from>
+        <to>
+            <![CDATA[
+#if ($ear)
+    <context-param>
+         <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+         <param-value>true</param-value>
+    </context-param>
+#end
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
         <from><![CDATA[<!-- facelets-libraries merge-point -->]]></from>
         <to>
             <![CDATA[
