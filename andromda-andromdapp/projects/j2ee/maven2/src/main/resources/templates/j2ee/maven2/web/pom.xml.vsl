@@ -280,6 +280,9 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+#if ($ear)
+            <scope>provided</scope>
+#end
         </dependency>
 #end
 #if ($embeddedJetty)
