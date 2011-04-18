@@ -146,8 +146,8 @@
                 The effect modeled on the transition out of
                 <tt>Search Timecards</tt>
                 will make
-                AndroMDA render a form in the Search Criteria panel. This form will submit 5 parameters to server: submitter, approver,
-                status, start date minimum and start date maximum. Follow the steps below to specify these parameters.
+                AndroMDA render a form in the Search Criteria panel. This form will submit 4 parameters to server: submitter, approver,
+                start date minimum and start date maximum. Follow the steps below to specify these parameters.
             </p>
             <ol style="list-style-type: decimal">
                 <li>Right click on the
@@ -184,20 +184,12 @@
                 </li>
                 <li>
                     Add the third parameter called
-                    <tt>status</tt>
-                    with type of <tt>String</tt>.
-                    Again set the tagged value
-                    <tt>andromda_presentation_web_view_field_type</tt>
-                    to <tt>select</tt>.
-                </li>
-                <li>
-                    Add the fourth parameter called
                     <tt>startDateMinimum</tt>
                     with type of <tt>
                     Date</tt>.
                 </li>
                 <li>
-                    Add the fifth parameter called
+                    Add the fourth parameter called
                     <tt>startDateMaximum</tt>
                     with type of <tt>
                     Date</tt>.
@@ -231,12 +223,12 @@
                 <li>Specify the return type as <tt>void</tt>.
                 </li>
                 <li>Click on the Parameters tab.</li>
-                <li>Add the same 5 parameters that you added to the effect above - the names and types
+                <li>Add the same 4 parameters that you added to the effect above - the names and types
                     should match exactly. But don't add the tag values.
                     That's how AndroMDA knows how to call the controller method.
                 </li>
                 <li>
-                    <b>Tips &amp; Tricks</b>: You can simply copy the five parameters from
+                    <b>Tips &amp; Tricks</b>: You can simply copy the four parameters from
                     <tt>search</tt>
                     activity
                     to the
@@ -246,7 +238,7 @@
                         <li>
                             Right-click on the <tt>Search</tt> transition <tt>Select in Containment Tree</tt>, 
                             expand the tree until expose the parameters of the <tt>search</tt>
-                            activity. Select the five parameters and copy them (<i>Ctrl + C</i>).
+                            activity. Select the four parameters and copy them (<i>Ctrl + C</i>).
                         </li>
                         <li>
                             Select the
@@ -258,7 +250,7 @@
                             Right click on the <tt>submitter</tt> parameter, select <i>Stereotype</i>,
                             <i>Clear All</i>
                             and finally<i>Apply</i>. This will remove their stereotype thus their tag value.
-                            Repeat the same action on the <tt>approver</tt> and <tt>status</tt> parameters.
+                            Repeat the same action on the <tt>approver</tt> parameter.
                         </li>
                     </ol>
                 </li>
