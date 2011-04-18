@@ -106,6 +106,24 @@
                 <artifactId>andromda-jsf-cartridge-components</artifactId>
                 <version>${andromda.version}</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.andromda</groupId>
+                        <artifactId>andromda-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.andromda.metafacades</groupId>
+                        <artifactId>andromda-metafacades-uml</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-validation-library</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
@@ -239,6 +257,10 @@
                 <version>${andromda.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
+                    <exclusion>
+                        <groupId>org.andromda</groupId>
+                        <artifactId>andromda-core</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
@@ -499,6 +521,10 @@
                     <exclusion>
                         <groupId>javax.transaction</groupId>
                         <artifactId>jta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
