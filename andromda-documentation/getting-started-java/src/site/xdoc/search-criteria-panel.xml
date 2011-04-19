@@ -125,9 +125,6 @@ import java.util.List;
 import org.andromda.timetracker.vo.UserVO;
 import org.andromda.timetracker.vo.UserVOComparator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @see org.andromda.timetracker.web.timecardsearch.SearchController
  */
@@ -139,8 +136,6 @@ public class SearchControllerImpl
      */
     private static final long serialVersionUID = -1584823295709314108L;
 
-    private static final Log logger = LogFactory.getLog(SearchControllerImpl.class);
-
     private static final String ALL_STRING = "-- All --";
 
     /**
@@ -149,8 +144,6 @@ public class SearchControllerImpl
     @Override
     public void populateSearchScreen(PopulateSearchScreenForm form)
     {
-        logger.debug("form: " + form);
-
         // Get list of users and add the "All" option at the top
         Collection<UserVO> users = getUserService().getAllUsers();
 
@@ -207,29 +200,10 @@ public class SearchControllerImpl
                 <li>Make sure that the submitter and approver drop downs are populated with the complete
                     user list.
                 </li>
-                <li>Set some values in the search criteria fields and click the Search button. Now look
-                    at the JBoss log file to see if the form values are logged correctly. The JBoss
-                    log file is located at <tt>C:\Programs\JBoss\51\server\default\log\server.log</tt>.
-                    Below is a sample log:
-                    <br/>
-                </li>
             </ol>
-            <source>
-<![CDATA[
-                2006-06-29 02:47:41,541 DEBUG form:
-                org.andromda.timetracker.web.timecardsearch.SearchTimecardsSearchFormImpl@a2bd15
-                [startDateMinimum=Tue Jun 13 00:00:00 EDT 2006,
-                startDateMaximum=Wed Jun 07 00:00:00 EDT 2006,
-                submitter=3,
-                status=&lt;null&gt;,
-                approver=2]
-]]>                
-            </source>
             <p>
                 Below is a screen shot of the Search screen so far. Isn't it amazing that we were
-                able to get all this functionality without much coding? Of course, the look and
-                feel is nowhere near what we want, but we will take care of that once the screen
-                is fully functional.
+                able to get all this functionality without much coding? 
             </p>
             <div align="center">
                 <img src="images/SearchCriteriaPanel.jpg" alt="Search Criteria Panel"/>
