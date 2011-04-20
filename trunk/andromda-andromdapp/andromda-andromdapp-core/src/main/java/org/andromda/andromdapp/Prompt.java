@@ -103,7 +103,7 @@ public class Prompt
     private List<String> responses = new ArrayList<String>();
 
     /**
-     * Adds a reponse to the possible responses.
+     * Adds a response to the possible responses.
      *
      * @param response the response to add.
      */
@@ -170,9 +170,9 @@ public class Prompt
         for (String response : this.responses) {
             responsesString.append(response).append(", ");
         }
-        //remove last ","
+        //remove last ", "
         if(!this.responses.isEmpty()) {
-            responsesString.deleteCharAt(responsesString.length()-1);
+            responsesString.delete(responsesString.length()-2, responsesString.length());
         }
         responsesString.append(']');
         return responsesString.toString();

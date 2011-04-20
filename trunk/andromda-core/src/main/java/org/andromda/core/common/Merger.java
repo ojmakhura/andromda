@@ -70,6 +70,7 @@ public class Merger
         // check (may need to refactor the mergedStringCache solution)
         if (namespace != null && string != null)
         {
+            string = string.replaceAll("\\r", "");
             final Collection<Mappings> mappingInstances = this.getMergeMappings(namespace);
             for (final Mappings mergeMappings : mappingInstances)
             {
