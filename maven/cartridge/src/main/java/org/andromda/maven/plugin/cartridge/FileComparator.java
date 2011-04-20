@@ -18,7 +18,8 @@ public class FileComparator
 {
     private File expectedFile;
     private File actualFile;
-    private boolean binary;
+    private boolean binary = false;
+    private boolean ignoreLineEndings = true;
     private boolean ignoreWhitespace = false;
     private List<String> ignoreLinesWithStrings = null;
 
@@ -53,6 +54,7 @@ public class FileComparator
      * @param binary whether or not the file is binary, if it is binary contents
      *        of the binary are not compared as Strings but as binary files.
      * @param ignoreWhitespace Ignore whitespace in the comparison
+     * @param ignoreLineEndings Ignore Unix/Windows line ending differences \r vs \r\n
      * @param ignoreLinesWithStrings Ignore lines containing the strings in the comparison
      */
     public FileComparator(
@@ -61,10 +63,12 @@ public class FileComparator
         File actualFile,
         boolean binary,
         boolean ignoreWhitespace,
+        boolean ignoreLineEndings,
         List<String> ignoreLinesWithStrings)
     {
         this(testName, expectedFile, actualFile, binary);
         this.ignoreWhitespace = ignoreWhitespace;
+        this.ignoreLineEndings = ignoreLineEndings;
         this.ignoreLinesWithStrings = ignoreLinesWithStrings;
     }
 
@@ -117,6 +121,11 @@ public class FileComparator
                     expectedContents = StringUtils.remove(expectedContents, '\t');
                     actualContents = StringUtils.remove(actualContents, ' ');
                     actualContents = StringUtils.remove(actualContents, '\t');
+                }
+                if (this.ignoreLineEndings)
+                {
+                    expectedContents = StringUtils.remove(expectedContents, '\r');
+                    actualContents = StringUtils.remove(actualContents, '\r');
                 }
                 // TODO Tell me the line number where the difference is located.
                 assertEquals(
