@@ -11,6 +11,9 @@
 			<module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile/3.4-SNAPSHOT/andromda-profile-3.4-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
 				<mount mountPoint='_11_5_e240333_1154527625671_782614_56' mountedOn='eee_1045467100313_135436_1'/>
 			</module>
+            <module resource='file:/C:/Program%20Files/m2repo/org/andromda/profiles/uml2/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.xml.zip' autoloadType='ALWAYS_LOAD' readOnly='true' loadIndex='true' requiredVersion='-1'>
+                <mount mountPoint='_9_0_1fe00f9_1119336925546_238419_77' mountedOn='eee_1045467100313_135436_1'/>
+            </module>
 		</mountTable>
 	</xmi:Extension>
 	<uml:Model xmi:id='eee_1045467100313_135436_1' name='AndroMDAModel' visibility='public'>
@@ -151,11 +154,6 @@
 						</ownedEnd>
 					</packagedElement>
 				</packagedElement>
-			</proxy>
-			<proxy xmi:type='uml:Profile' xmi:id='_11_5_e240333_1154527625671_782614_56' name='andromda-common' visibility='public'>
-				<xmi:Extension extender='MagicDraw UML 17.0'>
-					<moduleExtension moduleRoot='::andromda-common' moduleName='andromda-profile-3.4-SNAPSHOT.xml.zip' remoteProjectID='' remoteModuleVersion='1302559521370' moduleUsedByProject='true'/>
-				</xmi:Extension>
 			</proxy>
 		</privateProxies>
 		<stereotypeApplicationForProxies>
