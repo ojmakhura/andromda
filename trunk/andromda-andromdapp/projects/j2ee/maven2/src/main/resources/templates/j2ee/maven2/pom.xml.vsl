@@ -1733,7 +1733,9 @@
 #end
                 </jdbc.username>
                 <jdbc.password>
-                    #if(!$hypersonic)$applicationId#end
+#if(!$hypersonic)
+                        $applicationId
+#end
                 </jdbc.password>
                 <!--
                     Change exception sorter class name for appropriate database
