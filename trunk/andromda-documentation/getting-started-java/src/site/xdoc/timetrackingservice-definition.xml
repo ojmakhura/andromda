@@ -29,7 +29,7 @@
 <![CDATA[
     public interface TimeTrackingService
     {
-        public TimecardSummaryVO[] findTimecards(TimecardSearchCriteriaVO criteria);
+        public Collection<TimecardSummaryVO> findTimecards(TimecardSearchCriteriaVO criteria);
     }
 ]]>
                 </source>
@@ -62,9 +62,7 @@
                     <tt>TimecardSearchCriteriaVO</tt>
                     is set to 0..1 - indicating that their value could be left as null. To specify the
                     multiplicity of an attribute, you must double-click on the attribute to open its
-                    specification and then choose the right multiplicity. In addition to the two value
-                    objects, create a class called <tt>TimecardSummaryVO[]</tt> to represent an
-                    array of timecard summaries. Make sure these three classes are created in the
+                    specification and then choose the right multiplicity. Make sure these two classes are created in the
                     <tt>
                         org.andromda.timetracker.vo
                     </tt>
@@ -81,7 +79,8 @@
                     below. Create it in the &quot;Services&quot; diagram and make sure the service is created
                     in the <tt>org.andromda.timetracker.service</tt> package by inspecting the containment
                     tree. Also make sure that the return type of <tt>findTimecards</tt> is
-                    <tt>TimecardSummaryVO[]</tt> by verifying it in the operation specification.
+                    <tt>TimecardSummaryVO[0..*]</tt>, by setting its return type as <tt>TimecardSummaryVO</tt>
+                    and the multiplicity as <tt>0..*</tt> (use the return parameter in the parameters list to set the multiplicity).
                 </p>
                 <p>
                     <img src="images/TimeTrackingService.jpg" alt="TimeTrackingService"/>
@@ -129,14 +128,6 @@
                         <tt>testFindTimecardsForSubmitter</tt>. Review both tests and make sure you
                         understand them.
                     </li>
-                    <li>Edit your copy of
-                        <tt>testng.xml</tt>
-                        under
-                        <tt>C:\timetracker\core\src\test\resources</tt>
-                        and uncomment
-                        <tt>TimeTrackingServiceTest</tt>
-                        so that it is enabled for execution.
-                    </li>
                     <li>Execute the following command in the
                         <tt>C:\timetracker</tt>
                         directory to run
@@ -147,50 +138,48 @@
                         You will find that the test fails with the following message:
                         <source>
 <![CDATA[
-        -------------------------------------------------------
-        T E S T S
-        -------------------------------------------------------
-        Running Services Test
-        Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.661 sec --- FAILURE!
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running TestSuite
+Running TestSuite
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 5.263 sec <<< FAILURE!
 
-        Results :
-        Tests run: 3, Failures: 2, Errors: 0, Skipped: 0
+Results :
 
-        [INFO] ------------------------------------------------------------------------
-        [ERROR] BUILD FAILURE
-        [INFO] ------------------------------------------------------------------------
-        [INFO] There are test failures.
-        [INFO] ------------------------------------------------------------------------
-        [INFO] For more information, run Maven with the -e switch
-        [INFO] ------------------------------------------------------------------------
-        [INFO] Total time: 19 seconds
-        [INFO] Finished at: Sun Aug 06 18:38:26 EDT 2006
-        [INFO] Final Memory: 5M/11M
-        [INFO] ------------------------------------------------------------------------
+Failed tests: 
+  testFindAllTimecards(org.andromda.timetracker.service.TimeTrackingServiceTest)
+  testFindTimecardsForSubmitter(org.andromda.timetracker.service.TimeTrackingServiceTest)
+
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] There are test failures.
 ]]>
                         </source>
                     </li>
                     <li>Let's look at the test results to see what happened. Open
-                        <tt>C:\timetracker\core\target\surefire-reports\Services
-                            Test.txt</tt>. You will see the following log:
+                        <tt>C:\timetracker\core\target\surefire-reports\TestSuite.txt</tt>. You will see the following log:
                         <source>
 <![CDATA[
-        -------------------------------------------------------------------------------
-        Test set: Services Test
-        -------------------------------------------------------------------------------
-        Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.661 sec --- FAILURE!
-        testFindAllTimecards Time elapsed: 0.31 sec --- FAILURE!
-        java.lang.NullPointerException
-        at ...(TimeTrackingServiceTest.java:58)
-        at ...(TimeTrackingServiceTest.java:41)
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
 
-        testFindTimecardsForSubmitter Time elapsed: 0.01 sec --- FAILURE!
-        java.lang.NullPointerException
-        at ...(TimeTrackingServiceTest.java:58)
-        at ...(TimeTrackingServiceTest.java:50)
+Results :
+
+Failed tests: 
+  testFindAllTimecards(org.andromda.timetracker.service.TimeTrackingServiceTest)
+  testFindTimecardsForSubmitter(org.andromda.timetracker.service.TimeTrackingServiceTest)
+
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0
+
+ServiceException: Error performing 'TimeTrackingService.findTimecards(TimecardSearchCriteriaVO criteria)' --> java.lang.UnsupportedOperationException: org.andromda.timetracker.service.TimeTrackingService.handleFindTimecards(TimecardSearchCriteriaVO criteria) Not implemented!
 ]]>
                         </source>
-                        Obviously the service is currently returning null instead of <tt>TimecardSummaryVO[]</tt>.
+                        Obviously the service is throwing an <tt>java.lang.UnsupportedOperationException</tt>.
                         This problem will be fixed when we implement the service.
                     </li>
                 </ol>
