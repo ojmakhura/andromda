@@ -35,14 +35,13 @@
                     <tt>Timecard</tt>
                     class to Entity.
                 </li>
-                <li>Add the 3 attributes as shown above.</li>
+                <li>Add the 3 attributes as shown above. Remember to uncheck the <i>Is Unique</i> box.</li>
                 <li>Add the
                     <tt>findByCriteria()</tt>
                     method as shown above. By default the method
                     is created at instance scope. Double-click on the method to open the Operation Specification
                     dialog box and check the
-                    <i>is Static</i>
-                    box.
+                    <i>Is Static</i> box.
                 </li>
                 <li>Select the association relationship from the toolbar. Use the tool tips and the
                     status bar to identify the association tool. Create an asociation from
