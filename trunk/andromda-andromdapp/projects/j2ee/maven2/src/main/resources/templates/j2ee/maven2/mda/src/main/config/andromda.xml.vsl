@@ -51,6 +51,7 @@
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
                     </constraints>
 #else
+                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
                     <!--constraints enforceAll="true">
                         <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>

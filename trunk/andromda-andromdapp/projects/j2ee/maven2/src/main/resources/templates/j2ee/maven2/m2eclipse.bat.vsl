@@ -1,4 +1,6 @@
 @REM This is a one time execution to create multiple Eclipse projects from generated andromda output.
+@REM Comment out eclipse goal under plugins\plugin\org.andromda.maven.plugins\andromdapp-maven-plugin.
+@REM Reference http://galaxy.andromda.org/forum/viewtopic.php?t=5066
 @REM Maven eclipse plugin reference: http://maven.apache.org/plugins/maven-eclipse-plugin
 @REM To run with the original AndroMDA eclipse functionality (generate .project and .classpath each MDA
 @REM run, for the top level project only):

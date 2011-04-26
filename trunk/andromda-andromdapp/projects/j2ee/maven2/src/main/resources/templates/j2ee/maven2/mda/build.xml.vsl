@@ -86,9 +86,6 @@ Customize as necessary - it is generated once only, when the project is created.
 #end
         <include name="webservice/**/*.ref"/>
         <include name="webservice/target/src/**/*.java"/>
-        <include name="webservice/target/src/main/java/*Client.java"/>
-        <include name="webservice/target/src/main/java/**/*Server.java"/>
-        <include name="webservice/target/src/main/java/**/*client.xml"/>
       </fileset>
     </delete>
   </target>
@@ -98,12 +95,12 @@ Customize as necessary - it is generated once only, when the project is created.
     <echo message="Delete the wsdl and xsd files from ${andromda.project}"/>
     <delete includeEmptyDirs="true" failonerror="${FOE}" quiet="false" verbose="true">
       <fileset dir="${andromda.project}">
-        <include name="webservice/WebContent/**/*.wsdl"/>
-        <include name="webservice/WebContent/**/*.xsd"/>
-        <include name="webservice/WebContent/**/*.xjb"/>
-        <include name="webservice/WebContent/**/web*.xml"/>
-        <include name="webservice/WebContent/**/applicationContext*.xml"/>
-        <include name="webservice/WebContent/**/index*.html"/>
+        <include name="webservice/src/main/webapp/**/*.wsdl"/>
+        <include name="webservice/src/main/webapp/**/*.xsd"/>
+        <include name="webservice/src/main/webapp/**/*.xjb"/>
+        <include name="webservice/src/main/webapp/**/web*.xml"/>
+        <include name="webservice/src/main/webapp/**/applicationContext*.xml"/>
+        <include name="webservice/src/main/webapp/**/index*.html"/>
       </fileset>
     </delete>
   </target>
@@ -113,15 +110,15 @@ Customize as necessary - it is generated once only, when the project is created.
     <echo message="Delete the implementation code"/>
     <delete includeEmptyDirs="true" failonerror="${FOE}" quiet="false" verbose="true">
       <fileset dir="${andromda.project}">
-        <include name="common/src/**/*.java"/>
-        <include name="core/src/**/*.java"/>
         <!-- Delete all impl files, for testing purposes. Comment out after testing complete -->
-        <include name="webservice/src/**/*.java"/>
+        <include name="common/src/**/*.*"/>
+        <include name="core/src/**/*.*"/>
+#if ($cxf)
+        <include name="CXF/src/**/*.*"/>
+        <!--include name="CXF/src/main/webapp/**/*.*"/-->
+#end
         <include name="webservice/**/buildWS*.xml"/>
-        <include name="webservice/src/**/*.java"/>
-        <include name="webservice/src/*Client.java"/>
-        <include name="webservice/src/**/*Server.java"/>
-        <include name="webservice/src/**/*client.xml"/>
+        <include name="webservice/src/**/*.*"/>
         <!--exclude name="webservice/src/**/*Jetty*.java"/>
         <exclude name="webservice/**/applicationContextSS*.xml"/-->
       </fileset>
@@ -230,17 +227,17 @@ Customize as necessary - it is generated once only, when the project is created.
     <echo message="Refreshing and building project ${application.id}-web"/>
     <mkdir dir="${andromda.project}/web/src/main/java"/>
     <mkdir dir="${andromda.project}/web/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/web/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/web/src/main/webapp/WEB-INF/classes"/>
     <eclipse.refreshLocal resource="${application.id}-webservice" depth="infinite"/>
     <eclipse.incrementalBuild project="${application.id}-webservice"/>
-    <!--javac destdir="${andromda.project}/web/WebContent/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
+    <!--javac destdir="${andromda.project}/web/src/main/webapp/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
         <src path="${andromda.project}/web/src/main/java"/>
         <src path="${andromda.project}/web/target/src/main/java"/>
         <classpath>
             <pathelement location="${andromda.project}/core/target/classes"/>
             <pathelement location="${andromda.project}/common/target/classes"/>
             <path refid="project.classpath"/>
-            <pathelement location="${andromda.project}/web/WebContent/WEB-INF/classes"/>
+            <pathelement location="${andromda.project}/web/src/main/webapp/WEB-INF/classes"/>
         </classpath>
     </javac-->
 #end
@@ -248,18 +245,18 @@ Customize as necessary - it is generated once only, when the project is created.
     <echo message="Refreshing and building project ${application.id}-webservice"/>
     <mkdir dir="${andromda.project}/webservice/src/main/java"/>
     <mkdir dir="${andromda.project}/webservice/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/webapp/WEB-INF/classes"/>
     <eclipse.refreshLocal resource="${application.id}-webservice" depth="infinite"/>
     <eclipse.incrementalBuild project="${application.id}-webservice"/>
-    <!--javac destdir="${andromda.project}/webservice/WebContent/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
+    <!--javac destdir="${andromda.project}/webservice/src/main/webapp/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
         <src path="${andromda.project}/webservice/src/main/java"/>
         <src path="${andromda.project}/webservice/target/src/main/java"/>
         <classpath>
             <pathelement location="${andromda.project}/core/target/classes"/>
             <pathelement location="${andromda.project}/common/target/classes"/>
             <path refid="project.classpath"/>
-            <pathelement location="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
-            <pathelement location="${m2repo}/org/eclipse/jetty/jetty-server/7.1.1.v20100517/jetty-server-7.1.1.v20100517.jar"/>
+            <pathelement location="${andromda.project}/webservice/src/main/webapp/WEB-INF/classes"/>
+            <pathelement location="${m2repo}/org/eclipse/jetty/jetty-server/7.2.2.v20101205/jetty-server-7.2.2.v20101205.jar"/>
         </classpath>
     </javac-->
 #end
@@ -269,15 +266,15 @@ Customize as necessary - it is generated once only, when the project is created.
     <echo message="Refreshing and building project ${application.id}-CXF"/>
     <mkdir dir="${andromda.project}/CXF/src/main/java"/>
     <mkdir dir="${andromda.project}/CXF/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
     <eclipse.refreshLocal resource="${application.id}-CXF" depth="infinite"/>
     <eclipse.incrementalBuild project="${application.id}-CXF"/>
-    <!--javac destdir="${andromda.project}/CXF/WebContent/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
+    <!--javac destdir="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes" source="1.5" target="1.5" debug="true" failonerror="false">
         <src path="${andromda.project}/CXF/src/main/java"/>
         <src path="${andromda.project}/CXF/target/src/main/java"/>
         <classpath>
             <path refid="project.classpath"/>
-            <pathelement location="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+            <pathelement location="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
         </classpath>
     </javac-->
 #end

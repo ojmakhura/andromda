@@ -9,7 +9,7 @@
     </parent>
     <artifactId>${applicationId}-core</artifactId>
 ## Spring assumes EJB implementation
-#if ($ejb || $ejb3 || $ear)
+#if ($ejb || $ejb3)
     <packaging>ejb</packaging>
 #else
     <packaging>jar</packaging>
@@ -490,10 +490,12 @@
             <scope>compile</scope>
         </dependency>
 #end
+#if ($ejb3)
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
+#end
 #if ($mysql)
             <dependency>
                 <groupId>mysql</groupId>
@@ -629,14 +631,17 @@
                 </excludes>
             </resource>
         </resources>
-#if ($ejb3)
+#if ($ejb3 || $ejb || $cxf)
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
                 <includes>
-                    <include>*.*</include>
+                    <include>**/*.*</include>
                 </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
             </testResource>
         </testResources>
 #end

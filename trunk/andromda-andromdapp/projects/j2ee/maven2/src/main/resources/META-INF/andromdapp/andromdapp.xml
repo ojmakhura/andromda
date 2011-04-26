@@ -37,20 +37,19 @@
             <condition id="soapStack" equal="cxf"/>
             <output patterns="**/*">CXF/</output>
         </conditions>
-        <conditions type="and">
-            <condition id="war" equal="true"/>
-            <condition id="soapStack" notEqual="cxf"/>
+        <conditions>
+            <condition id="web" equal="true"/>
             <output>web/src/main/resources/META-INF/context.xml.vsl</output>
             <output>web/target/${applicationId}-${applicationVersion}/target/src/WEB-INF/web.xml</output>
-        </conditions>
-        <conditions type="and">
-            <condition id="ear" equal="true"/>
-            <condition id="soapStack" notEqual="cxf"/>
             <output>web/target/${applicationId}-web-${applicationVersion}/target/src/WEB-INF/web.xml</output>
+        </conditions>
+        <conditions>
+            <condition id="webservice" equal="true"/>
+            <output>webservice/src/main/webapp/META-INF/context.xml.vsl</output>
+            <output>webservice/src/main/webapp/WEB-INF/web.xml</output>
         </conditions>
         <conditions type="or">
             <condition id="web" equal="true"/>
-            <condition id="war" equal="true"/>
             <output patterns="**/*">web/</output>
         </conditions>
         <conditions>
@@ -75,6 +74,11 @@
             <condition id="model" present="false"/>
             <condition id="modelType" equal="uml2"/>
             <output>mda/src/main/uml/${applicationId}.xml.vsl</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="model" present="false"/>
+            <condition id="modelType" equal="uml2"/>
+            <output>mda/src/main/uml/${applicationId}.mdr.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -104,6 +108,10 @@
         <mapping>
             <from>empty-model-uml2.xml</from>
             <to>${applicationId}.xml.vsl</to>
+        </mapping>
+        <mapping>
+            <from>empty-model-uml2.mdr</from>
+            <to>${applicationId}.mdr.vsl</to>
         </mapping>
         <mapping>
             <from>empty-model-rsm7.emx</from>
@@ -137,6 +145,10 @@
             <from>webservice/web.xml</from>
             <to>webservice/target/${applicationId}-webservice-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
+        <mapping>
+            <from>CXF/web.xml</from>
+            <to>CXF/target/${applicationId}-CXF-${applicationVersion}/WEB-INF/web.xml</to>
+        </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
@@ -157,8 +169,7 @@
             <prompt id="modelType" setResponseAsTrue="true">
                 <text>Which kind of modeling tool will you use? 
 (uml1.4 or uml2 for .xml.zip/.xml/.xmi/.zargo files, 
-emf-uml22 for .uml files, rsm7 for .emx files)
-                </text>
+emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Model type</shortText>
                 <responses>
                     <response>uml1.4</response>
@@ -347,17 +358,6 @@ emf-uml22 for .uml files, rsm7 for .emx files)
                     </condition>
                 </conditions>
             </prompt>
-            <prompt id="embeddedJetty" setResponseAsTrue="true">
-                <text>Would you like to use the embedded Jetty web server (Maven plugin)?</text>
-                <shortText>Use the Jetty web server</shortText>
-                <preconditions>
-                    <condition id="jsfApplicationType" equal="standalone"/>
-                </preconditions>
-                <responses type="java.lang.Boolean">
-                    <response>yes</response>
-                    <response>no</response>
-                </responses>
-            </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
                 <text>Would you like to use the JBoss Seam application framework?</text>
                 <shortText>Enable JBoss Seam</shortText>
@@ -433,6 +433,18 @@ emf-uml22 for .uml files, rsm7 for .emx files)
                     <response>fastinfoset</response>
                     <response>yaml</response>
                     <response>multipart</response>
+                </responses>
+            </prompt>
+            <prompt id="embeddedJetty" setResponseAsTrue="true">
+                <text>Would you like to use the embedded Jetty web server (Maven plugin)?</text>
+                <shortText>Use the Jetty web server</shortText>
+                <preconditions type="or">
+                    <condition id="jsfApplicationType" equal="standalone"/>
+                    <condition id="soapStack" equal="cxf"/>
+                </preconditions>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
         </promptGroup>

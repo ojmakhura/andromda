@@ -34,13 +34,19 @@
     </dependencies>
 #elseif ($cxf)
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         <!-- Includes spring core, beans, and context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- Includes org.springframework.web.context.ContextLoaderListener -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <!-- Depending on your requirements you may need to exclude some dependencies from cxf, spring -->
@@ -105,7 +111,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
         <!-- If using Websphere or IBM JVM, uncomment JAXP dependencies >
@@ -134,25 +139,63 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
-                    <warSourceDirectory>target/src/main/java</warSourceDirectory>
-                    <warName>${applicationId}-webservice</warName>
-#if ($cxf)
                     <!-- Default for maven is src/main/webapp. WebContent is Eclipse convention. -->
-                    <webappDirectory>WebContent</webappDirectory>
-#end
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warName>${project.artifactId}</warName>
                     <excludes>**/*.java</excludes>
                     <!-- Even though these dependencies are 'provided', they are still bundled with the war file. Modify as necessary.
                          Exclude everything not already included in the EAR. -->
-                    <packagingExcludes>**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache*.jar,**/geronimo-servlet*.jar,**/geronimo-jms*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/qdox*.jar,**/spring-2.0.8.jar,**/xalan*.jar,**/xml-api*.jar,**/xmlbean*.jar,**/xmlsec*.jar</packagingExcludes>
+                    <packagingExcludes>**/*.java,**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache*.jar,**/geronimo-*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/oro-*.jar,**/qdox*.jar,**/saaj*.jar,**/spring-2.0.8.jar,**/stax*.jar,**/woodstox*.jar,**/xerces*.jar,**/xml-api*.jar,**/xmlbean*.jar</packagingExcludes>
                 </configuration>
+            </plugin>
+            <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+#if ($embeddedJetty)
+            <plugin>
+#else
+            <!--plugin>
+#end
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+                    <webAppConfig>
+                        <overrideDescriptor>${project.basedir}/src/main/webapp/WEB-INF/web.xml</overrideDescriptor>
+                        <contextPath>/${project.artifactId}</contextPath>
+                    </webAppConfig>
+                    <useTestClasspath>true</useTestClasspath>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-jetty</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                           <scanIntervalSeconds>0</scanIntervalSeconds>
+                           <daemon>true</daemon>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin#if (!$embeddedJetty)--#end>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
 #if ($cxf)
     <properties>
-        <!-- Change to false or comment out when embedded jetty start/stop problem is fixed.
-        Jetty starts from plugin but not not run as a thread to allow unit tests to run against the server. >
-        <maven.test.skip>true</maven.test.skip-->
+        <!-- maven.test.skip>true</maven.test.skip -->
     </properties>
 #end
 </project>

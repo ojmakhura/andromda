@@ -234,7 +234,7 @@
          |     +-- pom.xml
          |     |        lists any dependencies for webservices
 #if ($cxf)
-         |     +-- /WebContent
+         |     +-- /src/main/webapp
          |     |        Web artifact directory. Contents are not overwritten each time.
          |     +-- /src/test/java
          |     |        Webservice client Test sources are generated once to this directory, for each service.
