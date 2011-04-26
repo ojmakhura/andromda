@@ -101,7 +101,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetQueryOperations()
+    protected Collection<EntityQueryOperation> handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -110,13 +110,18 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
     @Override
-    protected Collection<OperationFacade> handleGetQueryOperations(final boolean follow)
+    protected Collection<EntityQueryOperation> handleGetQueryOperations(final boolean follow)
     {
-        final Collection<OperationFacade> queryOperations = new ArrayList<OperationFacade>(this.getOperations());
+        final Collection<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
+        final Collection<EntityQueryOperation> queryOperations = new ArrayList<EntityQueryOperation>();
 
         MetafacadeUtils.filterByType(
-            queryOperations,
+            operations,
             EntityQueryOperation.class);
+        for (OperationFacade operation : operations)
+        {
+            queryOperations.add((EntityQueryOperation)operation);
+        }
         for (ClassifierFacade superClass = (ClassifierFacade)this.getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
@@ -170,12 +175,9 @@ public class EntityLogicImpl
      * Creates a new identifier and adds it to the underlying meta model
      * classifier instance.
      *
-     * @param name
-     *            the name to give the identifier
-     * @param type
-     *            the type to give the identifier
-     * @param visibility
-     *            the visibility to give the identifier
+     * @param name the name to give the identifier
+     * @param type the type to give the identifier
+     * @param visibility the visibility to give the identifier
      */
     private void createIdentifier(
         final String name,
