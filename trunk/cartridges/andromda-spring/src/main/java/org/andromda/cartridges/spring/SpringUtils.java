@@ -398,10 +398,6 @@ public class SpringUtils
             {
                 value = "new " + type.getWrapperName() + '(' + value + ')';
             }
-            else if (type.isEnumeration())
-            {
-                value += ".getValue()";
-            }
         }
         return value;
     }
