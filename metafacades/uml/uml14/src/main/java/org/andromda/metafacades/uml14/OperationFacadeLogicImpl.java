@@ -726,7 +726,8 @@ public class OperationFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        if (this.getReturnType().isPrimitive())
+        if (!this.getReturnParameter().hasStereotype("Nullable") 
+            && this.getReturnType().isPrimitive())
         {
             return 1;
         }
