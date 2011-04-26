@@ -358,7 +358,8 @@ public class ParameterFacadeLogicImpl
      */
     protected int handleGetLower()
     {
-        if (this.getType().isPrimitive())
+        if (!this.hasStereotype("Nullable") 
+            && this.getType().isPrimitive())
         {
             return 1;
         }
