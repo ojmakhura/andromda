@@ -311,7 +311,7 @@ public class UMLMetafacadeUtils
                 if (genericType.startsWith("<? extends "))
                 {
                     // Implementation collection type cannot declare 'extends'
-                    genericType = '<' + genericType.substring(10);
+                    genericType = '<' + genericType.substring(11);
                 }
             }
             else
