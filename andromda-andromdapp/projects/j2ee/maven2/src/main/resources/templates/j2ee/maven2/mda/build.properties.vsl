@@ -10,16 +10,11 @@ project=${applicationParentDirectory.replace('\', '/')}/${applicationId}
 
 #if ($cxf)
 # The CXF XJC version used in wsdl2java and java2ws, not the same as base CXF version, may conflict with J2SE jaxb versions
-cxf.version=2.3.3
+cxf.version=2.3.4
 #end
 
 # Fail on error for ant commands
 FOE=false
-
-# The ClearCase directory containing the models to be updated - CMSynergy must be running to update
-CLEARCASE=<Clear Case VOB directory to be updated>
-# If ClearCase cleartool.exe is not in the path, this directory pointing to the file must be specified. Use quotes if dir contains spaces. Use / not \.
-CC_BIN=
 
 # Record logs output dir
 LOG_DIR=${applicationParentDirectory.replace('\', '/')}/${applicationId}/mda/logs
@@ -29,7 +24,7 @@ LOG_DIR=${applicationParentDirectory.replace('\', '/')}/${applicationId}/mda/log
 offline=
 
 # Only needed for AndroMDA ant task
-andromda.model.uri=file:${project}/mda/src/uml/${applicationId}.emx
+andromda.model.uri=file:${project}/mda/src/main/uml/${applicationId}.emx
 
 # User name and password when connecting to database
 dataSource.user=${applicationId}

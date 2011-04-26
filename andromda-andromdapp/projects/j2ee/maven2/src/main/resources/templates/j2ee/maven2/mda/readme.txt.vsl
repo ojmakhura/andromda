@@ -178,8 +178,8 @@
          |     |
          |     +-- /target/src/main/java
          |     |        Generated java classes from the wsdl
-         |     +-- /WebContent
-         |              Web context root directory, containing META-INF, WEb-INF, and wsdl
+         |     +-- /src/main/webapp
+         |              Web context root directory, containing META-INF, WEB-INF, and wsdl
          |
 #end
 #if ($workflow)

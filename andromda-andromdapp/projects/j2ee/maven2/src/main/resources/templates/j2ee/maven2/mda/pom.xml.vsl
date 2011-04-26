@@ -280,7 +280,7 @@
                                 <include>webservice/**/index*.html</include>
                             </includes>
                             <excludes>
-                                <exclude>CXF/WebContent/WEB-INF/*.xml</exclude>
+                                <exclude>CXF/src/main/webapp/WEB-INF/*.xml</exclude>
                             </excludes>
                             <followSymlinks>true</followSymlinks>
                         </fileset>
@@ -354,8 +354,8 @@
     </build>
     <properties>
         <!-- Avoid JDK6 XJC runtime error on wdsl2java from conflicting Jaxb2.2 -->
-        <!-- Versioned independently from CXF core -->
-        <cxf.xjc.version>2.3.0</cxf.xjc.version>
+        <!-- Versioned independently from CXF core, only used for wsdl2java -->
+        <cxf.xjc.version>2.3.2</cxf.xjc.version>
 #if ($stringUtils.isNotBlank($model))
         <model.uri>$model</model.uri>
 #else
@@ -401,7 +401,7 @@
 #if ($webservice && !$jsr181Webservice)
         <webservice.project>${project.basedir}/../webservice</webservice.project>
 #if ($cxf)
-        <webservice.generated.dir>${project.basedir}/../webservice/WebContent</webservice.generated.dir>
+        <webservice.generated.dir>${project.basedir}/../webservice/src/main/webapp</webservice.generated.dir>
 #elseif ($war)
         <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #else
@@ -429,7 +429,7 @@
 #if ($hibernate)
         <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
 #end
-        <!-- default strategy to use when using inhertiance -->
+        <!-- default strategy to use when using inheritance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
         <!-- hibernate generator class to use for identifiers -->
         <hibernate.generatorClass>native</hibernate.generatorClass>
