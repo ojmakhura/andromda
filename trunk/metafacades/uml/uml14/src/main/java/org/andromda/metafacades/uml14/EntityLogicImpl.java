@@ -94,7 +94,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     @Override
-    protected Collection<OperationFacade> handleGetQueryOperations()
+    protected Collection<EntityQueryOperation> handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -103,13 +103,18 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
     @Override
-    protected Collection<OperationFacade> handleGetQueryOperations(final boolean follow)
+    protected Collection<EntityQueryOperation> handleGetQueryOperations(final boolean follow)
     {
-        final Collection<OperationFacade> queryOperations = new ArrayList(this.getOperations());
+        final Collection<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
+        final Collection<EntityQueryOperation> queryOperations = new ArrayList<EntityQueryOperation>();
 
         MetafacadeUtils.filterByType(
-            queryOperations,
+                operations,
             EntityQueryOperation.class);
+        for (OperationFacade operation : operations)
+        {
+            queryOperations.add((EntityQueryOperation)operation);
+        }
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
