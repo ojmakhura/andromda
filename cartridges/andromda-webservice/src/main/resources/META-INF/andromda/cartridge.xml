@@ -615,7 +615,7 @@
 
     <template
         path="templates/webservice/cxf/CXFTestClient.java.vsl"
-        outputPattern="{0}/test/{1}WSTest.java"
+        outputPattern="{0}/test/{1}WSITCase.java"
         outlet="webservice-tests"
         overwrite="false"
         outputCondition="cxf">
@@ -630,7 +630,7 @@
 
     <template
         path="templates/webservice/cxf/CXFTestClient.java.vsl"
-        outputPattern="{0}/test/{1}WSTest.java.ref"
+        outputPattern="{0}/test/{1}WSITCaseITCase.java.ref"
         outlet="webservice-tests"
         overwrite="true"
         outputCondition="cxfRef">
@@ -726,12 +726,12 @@
 
     <template
         path="templates/webservice/cxf/cxf-client.xml.vsl"
-        outputPattern="{0}/test/cxf-client.xml"
+        outputPattern="cxf-client.xml"
         outlet="webservice-tests"
         overwrite="false"
         outputCondition="cxf"
-        outputToSingleFile="false">
-        <modelElements variable="service">
+        outputToSingleFile="true">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
                     <property name="allowedOperations"/>
@@ -742,12 +742,12 @@
 
     <template
         path="templates/webservice/cxf/cxf-client.xml.vsl"
-        outputPattern="{0}/test/cxf-client.xml.ref"
+        outputPattern="cxf-client.xml.ref"
         outlet="webservice-tests"
         overwrite="true"
         outputCondition="cxfRef"
-        outputToSingleFile="false">
-        <modelElements variable="service">
+        outputToSingleFile="true">
+        <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
                     <property name="allowedOperations"/>

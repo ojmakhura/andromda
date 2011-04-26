@@ -18,6 +18,8 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <!-- Load CXF Spring configuration files from cxf runtime. Comment out unneeded extensions -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     <!--import resource="classpath:META-INF/cxf/cxf-extension-addr.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-http.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-http-binding.xml"/>
@@ -31,10 +33,8 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf-extension-object-binding.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-policy.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-rm.xml"/-->
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
-    <!--import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-xml.xml"/-->
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-xml.xml"/>
 
 #set ($jax="jaxws")
 #set ($atom=false)
@@ -95,6 +95,7 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <!--bean id="xPathProvider" class="org.apache.cxf.jaxrs.provider.XPathProvider"/-->
     <!--bean id="xsltJaxbProvider" class="org.apache.cxf.jaxrs.provider.XSLTJaxbProvider"/-->
 
+    <!-- See http://cxf.apache.org/docs/jax-ws-configuration.html -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
     <!-- Service from ${service.fullyQualifiedName} -->
@@ -104,14 +105,14 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
         name="${service.name}${seiSuffix}"
         address="/${service.name}"
         implementor="${service.fullyQualifiedName}${seiSuffix}Impl">
+        <!--endpointName="e:${service.name}"
+        serviceName="s:${service.name}"
+        xmlns:e="http://service.jaxws.cxf.apache.org/endpoint"
+        xmlns:s="http://service.jaxws.cxf.apache.org/service"
+        wsdlLocation="WEB-INF/wsdl/${service.name}.wsdl"-->
         <jaxws:properties>
             <entry key="schema-validation-enabled" value="$validateSchema" />
         </jaxws:properties>
-        <!--endpointName="e:${service.name}"
-        serviceName="s:${service.name}"
-        xmlns:e="$service.namespace"
-        xmlns:s="$service.namespace">
-        wsdlLocation="WEB-INF/wsdl/${service.name}.wsdl"-->
     </jaxws:endpoint>
 #end
 #end

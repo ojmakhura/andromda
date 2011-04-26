@@ -65,33 +65,45 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <record name="${project}/mda/wsgen${NOW}.log" action="start"/>
     <echo message="running wsgen for each generated webservice class"/>
     <!-- wsgen throws an exception if directories don't exist -->
-    <mkdir dir="${andromda.project}/common/src"/>
+    <mkdir dir="${andromda.project}/common/src/main/java"/>
+    <mkdir dir="${andromda.project}/common/src/main/resources"/>
+    <mkdir dir="${andromda.project}/common/src/test/java"/>
+    <mkdir dir="${andromda.project}/common/src/test/resources"/>
     <mkdir dir="${andromda.project}/common/target/classes"/>
     <mkdir dir="${andromda.project}/common/target/src/main/java"/>
     <mkdir dir="${andromda.project}/core/src/main/java"/>
+    <mkdir dir="${andromda.project}/core/src/main/resources"/>
     <mkdir dir="${andromda.project}/core/src/test/java"/>
+    <mkdir dir="${andromda.project}/core/src/test/resources"/>
     <mkdir dir="${andromda.project}/core/target/classes"/>
     <mkdir dir="${andromda.project}/core/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/CXF/src"/>
+    <mkdir dir="${andromda.project}/core/target/src/main/resources"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/java"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/resources"/>
+    <mkdir dir="${andromda.project}/CXF/src/test/java"/>
+    <mkdir dir="${andromda.project}/CXF/src/test/resources"/>
+    <mkdir dir="${andromda.project}/CXF/target/classes"/>
     <mkdir dir="${andromda.project}/CXF/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/lib"/>
-    <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/wsdl"/>
-    <mkdir dir="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/webapp/WEB-INF/lib"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/webapp/WEB-INF/wsdl"/>
+    <mkdir dir="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
     <mkdir dir="${andromda.project}/webservice/src/main/java"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/resources"/>
     <mkdir dir="${andromda.project}/webservice/src/test/java"/>
+    <mkdir dir="${andromda.project}/webservice/src/test/resources"/>
     <mkdir dir="${andromda.project}/webservice/target/classes"/>
     <mkdir dir="${andromda.project}/webservice/target/src/main/java"/>
-    <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/lib"/>
-    <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/wsdl"/>
-    <mkdir dir="${andromda.project}/webservice/WebContent/WEB-INF/classes"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/webapp/WEB-INF/lib"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/webapp/WEB-INF/wsdl"/>
+    <mkdir dir="${andromda.project}/webservice/src/main/webapp/WEB-INF/classes"/>
 
     <!--delete>
-        <fileset dir="${andromda.project}/CXF/target/src/main/java" includes="**/*"/>
+        <fileset dir="${andromda.project}/CXF/target/src" includes="**/*"/>
     </delete-->
     <delete>
-        <fileset dir="${andromda.project}/CXF/WebContent/WEB-INF/classes" includes="**/*"/>
+        <fileset dir="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes" includes="**/*"/>
     </delete>
-    <!-- Run wsgen for each generated webservice class -->
+    <!-- Run wsgen (CXF wsdl2java) for each generated webservice class -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
@@ -107,7 +119,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #if ($umlUtils.shouldOutput($service))
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
 #if (!$service.allowedOperations.empty)
-    <!-- Copy all ObjectFactory to common project so they can be referenced by implementation without circular dependencies -->
+    <!-- Copy CXF generated ObjectFactory to common project so they can be referenced by implementation without circular dependencies -->
     <copy todir="${andromda.project}/common/target/src/main/java/$dir" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java/$dir">
         <include name="ObjectFactory.java"/>
@@ -118,8 +130,11 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
 #end
 
-    <!-- Copy all ObjectFactory to common project alongside generated SEI interface and implementation -->
-    <copy todir="${andromda.project}/common/target/src" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+    <!-- Copy initial log4j settings to webservice and CXF projects for embedded server test -->
+    <copy file="${andromda.project}/mda/log4j.xml" todir="${andromda.project}/webservice/src/main/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false"/>
+    <copy file="${andromda.project}/mda/log4j.xml" todir="${andromda.project}/CXF/src/main/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false"/>
+    <!-- Copy CXF generated ObjectFactory to common project alongside generated SEI interface and implementation -->
+    <copy todir="${andromda.project}/common/target/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
         <include name="**/ObjectFactory.java"/>
         <include name="org/apache/**"/>
@@ -137,13 +152,13 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
       </fileset>
     </copy>
-    <!-- Copy Service Exception FaultBeans -->
+    <!-- Copy CXF generated Service Exception FaultBeans to webservice project -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service) && !$service.allowedOperationExceptions.empty)
     <copy todir="${andromda.project}/common/target/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/CXF/target/src/main/java">
 #foreach ($exception in $service.allowedOperationExceptions)
-##        <!-- $faultName $exception.associationEnds.size() $exception -->
+##        <!-- $faultName $exception -->
 #set ($faultName = $exception.name.replace("Exception", "Fault"))
         <include name="**/${faultName}.java"/>
 #end
@@ -151,7 +166,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </copy>
 #end
 #end
-    <!-- Copy Test Client, Test Server, and WS Endpoint Client files to webservice project -->
+    <!-- Copy CXF generated Test Client, Test Server, and WS Endpoint Client files to webservice project -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
 #set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
@@ -160,36 +175,6 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <include name="**/*_Client.java"/>
         <include name="**/*_Server.java"/>
         <include name="**/*${seiSuffix}Client.java"/>
-      </fileset>
-    </copy>
-#end
-#end
-    <!-- Copy Andromda generated Test Client and WS Endpoint Client files to CXF project -->
-#foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
-    <copy todir="${andromda.project}/CXF/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
-      <fileset dir="${andromda.project}/webservice/src/test/java">
-        <include name="**/*_WSClient.java"/>
-        <include name="**/*WSTest.java"/>
-        <include name="**/cxf*.xml"/>
-      </fileset>
-    </copy>
-#end
-#end
-    <!-- Copy default value generator and test client to CXF webservice project for client testing -->
-#foreach ($service in $services)
-#if ($umlUtils.shouldOutput($service))
-#set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
-    <copy todir="${andromda.project}/CXF/target/src/main/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
-      <fileset dir="${andromda.project}/webservice/src/main/java">
-        <include name="$dir/test/${service.name}_WSClient.java"/>
-      </fileset>
-      <fileset dir="${andromda.project}/core/src">
-#foreach ($operation in $service.allowedOperations)
-#if ($umlUtils.shouldOutput($operation))
-        <include name="$dir/${stringUtils.capitalize($operation.operationName)}Impl.java"/>
-#end
-#end
       </fileset>
     </copy>
 #end
@@ -209,6 +194,64 @@ and allows double-checking of both java and wsdl code generation and all annotat
     </antcall>
 #end
 #end
+    <!-- Copy Andromda generated Test Client and WS Endpoint Client files to CXF project -->
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service))
+    <copy todir="${andromda.project}/CXF/src/test/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/webservice/src/test/java">
+        <include name="**/*_WSClient.java"/>
+        <include name="**/*WSITCase.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${andromda.project}/CXF/src/test/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/webservice/src/test/java">
+        <include name="**/cxf*.xml"/>
+      </fileset>
+    </copy>
+#end
+#end
+    <!-- Copy default value generator and test client to CXF webservice project for client testing -->
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service))
+#set ($dir=${stringUtils.replace($service.packageName, '.', '/')})
+    <copy todir="${andromda.project}/CXF/src/test/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/webservice/src">
+        <include name="$dir/test/${service.name}_WSClient.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${andromda.project}/CXF/src/main/java" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/core/src/main/java">
+#foreach ($operation in $service.allowedOperations)
+#if ($umlUtils.shouldOutput($operation))
+        <include name="$dir/${stringUtils.capitalize($operation.operationName)}Impl.java"/>
+#end
+#end
+        <include name="$dir/${service.name}WSDelegate.java"/>
+      </fileset>
+    </copy>
+#end
+#end
+    <!-- Overwrite CXF generated Impl which only returns null values -->
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service))
+    <move file="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java" tofile="${service.name}SEIImpl.java.ref"
+        failonerror="false" verbose="true"/>
+    <copy todir="${andromda.project}/CXF/target/src/main/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/core/target/src/main/java">
+        <include name="$dir/${service.name}SEIImpl.java"/>
+      </fileset>
+    </copy>
+#end
+#end
+    <!-- Force recompilation because copied files are older -->
+    <delete includeEmptyDirs="true" failonerror="false">
+      <fileset dir="${andromda.project}/CXF/target/classes" includes="**/*.*"/>
+      <fileset dir="${andromda.project}/CXF/target/test-classes" includes="**/*.*"/>
+    </delete>
+    <!-- Copy web.xml from webservice to CXF project for embedded server test, in case it got cleaned -->
+    <copy todir="${andromda.project}/CXF/src/main/webapp/WEB-INF" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
+      <fileset dir="${andromda.project}/webservice/src/main/webapp/WEB-INF" includes="*.xm*"/>
+    </copy>
     <record name="${project}/mda/wsgen${NOW}.log" action="stop"/>
   </target>
 
@@ -231,7 +274,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <echo message="running wsdlvalidator for AndroMDA generated wsdl for service ${service}"/>
     <java classname="org.apache.cxf.tools.validator.WSDLValidator" fork="true">
       <arg value="-verbose"/>
-      <arg value="${andromda.project}/webservice/WebContent/wsdl/${service}.wsdl"/>
+      <arg value="${andromda.project}/webservice/src/main/webapp/wsdl/${service}.wsdl"/>
        <classpath>
           <path refid="project1.classpath"/>
        </classpath>
@@ -241,12 +284,12 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <arg value="-p"/>
       <arg value="${namespace}=${package}"/>
       <arg value="-b"/>
-      <arg value="${andromda.project}/webservice/WebContent/wsdl/bindings/${service}.xjb"/>
+      <arg value="${andromda.project}/webservice/src/main/webapp/wsdl/bindings/${service}.xjb"/>
       <arg value="-d"/>
       <arg value="${andromda.project}/CXF/target/src/main/java"/>
       <!--arg value="-compile"/-->
       <arg value="-classdir"/>
-      <arg value="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+      <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
       <arg value="-all"/>
       <arg value="-verbose"/>
 #if (!$cxfVersion.startsWith("2.0"))
@@ -262,7 +305,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
       <!-- Uncomment to use CXF servlet WSDL URL instead of generated wsdl - There are differences. -->
       <!--arg value="http://${webserviceHost}:${webservicePort}/$webContext/$servicesPath/${service}?wsdl"/-->
-      <arg value="${andromda.project}/webservice/WebContent/wsdl/${service}.wsdl"/>
+      <arg value="${andromda.project}/webservice/src/main/webapp/wsdl/${service}.wsdl"/>
       <classpath>
           <path refid="project1.classpath"/>
       </classpath>
@@ -298,9 +341,9 @@ and allows double-checking of both java and wsdl code generation and all annotat
 ## Does not support custom jaxb databinding file, have to use wsdl2java to generate these artifacts
 #end
         <arg value="-o"/>
-        <arg value="${andromda.project}/CXF/WebContent/WEB-INF/wsdl/${service}.wsdl"/>
+        <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/wsdl/${service}.wsdl"/>
         <arg value="-cp"/>
-        <arg value="${andromda.project}/common/target/classes;${andromda.project}/core/target/classes;${andromda.project}/webservice/WebContent/WEB-INF/classes;${andromda.project}/CXF/WebContent/WEB-INF/classes;"/>
+        <arg value="${andromda.project}/common/target/classes;${andromda.project}/core/target/classes;${andromda.project}/webservice/src/main/webapp/WEB-INF/classes;${andromda.project}/CXF/src/main/webapp/WEB-INF/classes;"/>
 #if ($soapVersion.equals("1.2"))
         <arg value="-soap12"/>
 #end
@@ -312,7 +355,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <arg value="-s"/>
         <arg value="${andromda.project}/CXF/target/src/main/java"/>
         <arg value="-classdir"/>
-        <arg value="${andromda.project}/CXF/WebContent/WEB-INF/classes"/>
+        <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
         <arg value="-portname"/>
         <arg value="${service}"/>
 ## java2ws does not add schemaLocation to xsd imports in schema files = namespace error
@@ -328,14 +371,14 @@ and allows double-checking of both java and wsdl code generation and all annotat
         </classpath>
     </java>
     <waitfor maxwait="20" maxwaitunit="second">
-        <available file="${andromda.project}/CXF/WebContent/WEB-INF/wsdl/${service}.wsdl"/>
+        <available file="${andromda.project}/CXF/src/main/webapp/WEB-INF/wsdl/${service}.wsdl"/>
     </waitfor>
   </target>
 
   <!-- Replace dummy WSDL URL with localhost working version, used for test/prod deployment wsdls. -->
   <target name="wsreplace" description="Replace default URL text with service value.">
     <!-- If we have a URL from UDDI, change here -->
-    <replace dir="${andromda.project}/webservice/WebContent/wsdl" value="http://$webserviceHost:$webservicePort/$webContext/$servicesPath/${class}"
+    <replace dir="${andromda.project}/webservice/src/main/webapp/wsdl" value="http://$webserviceHost:$webservicePort/$webContext/$servicesPath/${class}"
         summary="true">
       <include name="${class}*.*"/>
       <replacetoken>REPLACE_WITH_ACTUAL_URL</replacetoken>
