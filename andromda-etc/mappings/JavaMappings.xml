@@ -40,13 +40,17 @@
     <mapping>
         <from>Time</from>
         <from>Date</from>
+        <from>DateTime</from>
         <from>PrimitiveTypes::Time</from>
         <from>PrimitiveTypes::Date</from>
+        <from>PrimitiveTypes::DateTime</from>
         <from>datatype::Time</from>
         <from>datatype::Date</from>
+        <from>datatype::DateTime</from>
         <from>datatypes::date</from>
         <from>XSDDatatypes::date</from>
         <from>XSDDatatypes::time</from>
+        <from>XSDDatatypes::dateTime</from>
         <from>RoseAnalysisDatatypes::Date</from>
         <from>RoseJavaDatatypes::java::sql::Date</from>
         <from>RoseJavaDatatypes::java::sql::Time</from>
@@ -54,13 +58,9 @@
     </mapping>
     <!-- Timestamp contains nanoseconds, required by some database implementations. Use for persistent attributes -->
     <mapping>
-        <from>DateTime</from>
         <from>Timestamp</from>
-        <from>PrimitiveTypes::DateTime</from>
         <from>PrimitiveTypes::Timestamp</from>
-        <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
-        <from>XSDDatatypes::dateTime</from>
         <from>RoseJavaDatatypes::java::sql::Timestamp</from>
         <to>java.sql.Timestamp</to>
     </mapping>
