@@ -77,8 +77,7 @@ $parameter.getDocumentation("    /** ") */
 $parameter.getDocumentation("     * ")
      * Gets the value of the $parameter.name property
      * @return $parameter.name $paramType
-     *     possible object is
-     *     {@link $paramType }
+     *     possible object is {#if (!$parameter.type.primitive)@link#end $paramType }
      */
     public $paramType ${parameter.getterName}()
     {
@@ -117,20 +116,20 @@ $parameter.getDocumentation("     * ")
     {
         this.$parameter.name = ${parameter.name}In;
 #if ($parameter.type.primitive)
-        this.isSet${parameter.name} = true;
+        this.set${stringUtils.capitalize(${parameter.name})} = true;
 #end
     }
 #if ($parameter.type.primitive)
 
+    @javax.xml.bind.annotation.XmlTransient
+    private boolean set${stringUtils.capitalize(${parameter.name})} = false;
     /**
      * Returns true if $parameter.name value is set
-     *
-     * @return boolean true is value is set (not null)
-     *
+     * @return boolean true if value is set (not null)
      */
     public boolean isSet${stringUtils.capitalize($parameter.name)}()
     {
-        return #if ($parameter.type.primitive)true#else(this.$parameter.name!= null)#end;
+        return this.set${stringUtils.capitalize(${parameter.name})};
     }
 #end
 #end

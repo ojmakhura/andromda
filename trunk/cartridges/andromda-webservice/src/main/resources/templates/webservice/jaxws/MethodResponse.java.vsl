@@ -62,6 +62,7 @@ public class ${className}Response
     implements Serializable, Comparable<Object>
 {
     private final static long serialVersionUID = 1L;
+    /** returnParameter */
 #if ($operation.returnTypePresent)
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType="java.util.List<$operation.returnType.fullyQualifiedName>")
@@ -94,9 +95,7 @@ public class ${className}Response
      * Gets the value of the $returnAttr property.
      *
      * @return
-     *     possible object is
-     *     {@link $returnType }
-     *
+     *     possible object is {#if (!$operation.returnType.primitive)@link#end $returnType }
      */
     public $returnType $getOperation
     {
@@ -109,38 +108,36 @@ public class ${className}Response
      * @return
      *     possible object is
      *     {@link $returnType }
-     *
      */
     @Deprecated
     public $returnType#if ($operation.lower > 0) get#else is#end$stringUtils.capitalize(${operation.operationName})()
     {
         return this.$returnAttr;
     }
-#end
 
+#end
     /**
      * Sets the value of the $returnAttr property.
      *
      * @param value
      *     allowed object is
      *     {@link $returnType }
-     *
      */
     public void ${setOperation}($returnType value)
     {
         this.$returnAttr = value;
 #if ($operation.returnType.primitive)
-        this.isSet$className = true;
+        this.set$className = true;
 #end
     }
 #if ($operation.returnType.primitive)
 
+    @javax.xml.bind.annotation.XmlTransient
     private boolean set$className = false;
     /**
      * Returns true if value is set
      *
      * @return boolean true is value is set (not null)
-     *
      */
     public boolean isSet$className()
     {
@@ -176,6 +173,9 @@ public class ${className}Response
      * @return int if equal
      * @see Comparable#compareTo(Object)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public int compareTo(Object object)
     {
         if (object==null)

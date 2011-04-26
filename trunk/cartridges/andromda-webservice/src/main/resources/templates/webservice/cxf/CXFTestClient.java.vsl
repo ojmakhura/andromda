@@ -12,42 +12,52 @@
 package ${service.packageName}.test;
 #end
 
+import junit.framework.TestSuite;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ${service.fullyQualifiedName}${seiSuffix};
 
 /**
- * Remote component interface for the $service.name session bean.
+ * Remote component interface for the $service.name.
 $service.getDocumentation(" * ")
  */
-public class ${service.name}WSTest
+public class ${service.name}WSITCase
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Test
 #else
-    extends junit.framework.TestCase
+    extends TestSuite
 #end
 {
     private Object scenario = null;
 
     /**
+     * Constructor with no parameters
+     */
+    public CXF34ServiceWSITCase()
+    {
+        super();
+    }
+
+    /*
      * Constructor with service name
      * @param name Service name to be tested
-     */
-    public ${service.name}WSTest(String name)
+    public ${service.name}WSITCase(String name)
     {
         super(name);
     }
+     */
 
-    /**
+    /*
      * Constructor with service name and scenario - allows running one scenario data line from spreadsheet
      * @param name Service name to be tested
      * @param scenarioIn the first column of the spreadsheet
-     */
-    public ${service.name}WSTest(String name, Object scenarioIn)
+    public ${service.name}WSITCase(String name, Object scenarioIn)
     {
         super(name);
         this.setScenario(scenarioIn);
     }
+     */
 
     /**
      * @return the scenario
@@ -63,6 +73,36 @@ public class ${service.name}WSTest
     public void setScenario(Object scenarioIn)
     {
         this.scenario = scenarioIn;
+    }
+
+    /*
+     * JUnit test suite, calls DataDrivenTestSuite with data from ${service.name}.xls
+     * @return TestSuite with ServiceName driver
+    public static TestSuite suite()
+    {
+        // Uncomment to create DataDrivenTests with Excel data inputs
+        // TestDriverDefinition parameters: dataClass, filename, sheet name. Populates dataClass with spreadsheet contents.
+        //TestDriverDefinition driverDef = new TestDriverDefinition(${service.name}TestData.class, "${service.name}.xls", "${service.name}");
+        //DataDrivenTestSuite suite = new DataDrivenTestSuite(${service.name}WSITCase.class, driverDef);
+        // TODO: post processing of data and suite elements through a delegate class/method
+        // Use this for running JUnit 4 tests with JUnit 3 test runner.
+        //junit.framework.JUnit4TestAdapter(${service.name}WSITCase.class);
+        TestSuite suite = new TestSuite();
+#foreach ( $operation in $service.allowedOperations)
+#if ($operation.visibility == "public")
+        suite.addTest(new ${service.name}WSITCase("${operation.name}"));
+#end
+#end
+        return suite;
+    }
+     */
+
+    /** Run JUnit tests from the java main command line
+     * @param args ignored
+     */
+    public static void main(String args[])
+    {
+        JUnitCore.main("${service.packageName}.test.${service.name}WSITCase");
     }
 
     // ---------------- test methods  ----------------------
@@ -82,43 +122,54 @@ public class ${service.name}WSTest
 #end
    /**
     * Invokes the $operation.name service method on ${service.name}.
+    * Operation parameters:
 $operation.getDocumentation("    * ")
 #foreach ( $parameter in $operation.arguments)
-    * @param $parameter.name $parameter.type.fullyQualifiedName
+    *     $parameter.name $parameter.type.fullyQualifiedName
 #end
 #if ($operation.restAtom || $operation.returnTypePresent)
-    * @return ${operation.operationName}Response $returnType
+    * Operation return:
+    *     ${operation.operationName}Response $returnType
 #end
 #foreach ( $exception in $operation.exceptions)
-    * @throws $exception.fullyQualifiedName
+    * Operation exceptions:
+    *     $exception.fullyQualifiedName
 #end
     */
     @Test
-    public $returnType test${stringUtils.capitalize(${operation.operationName})}
-    (
-#if (!$operation.arguments.empty)
-#set ($comma = "")
+##    public $returnType test${stringUtils.capitalize(${operation.operationName})}
+    public void ${operation.name}()
+##    (
+##if (!$operation.arguments.empty)
+##set ($comma = "")
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
-#foreach ($parameter in $operation.arguments)
-#if (!$useArrayWrapper && $parameter.many)
-#set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
-#else
-#set ($paramType=$parameter.getterSetterTypeName)
-#end
-##        ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName/"#end) $parameter.type.fullyQualifiedName $parameter.name
-        ${comma} $paramType $parameter.name
-#set ($comma = ", ")
-#end
-#end
-    )
+##foreach ($parameter in $operation.arguments)
+##if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
+##set ($paramType="java.util.List<$parameter.type.fullyQualifiedName>")
+##else
+##set ($paramType=$parameter.getterSetterTypeName)
+##end
+##        ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
+##        ${comma} $paramType $parameter.name
+##set ($comma = ", ")
+##end
+##end
+##    )
 ##    // $operation.name $operation.exceptionsPresent $operation.exceptionList $operation.exceptions.size()
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #end
     {
-        System.out.println("Starting test: " + this.getName() + " for " + "${service.name}Client");
+        System.out.println("Starting test: ${operation.name} for " + this.getName() + " for " + "${service.name}Client");
+        // TestCase.setUp and tearDown methods for each individual service method test
+#set ($inputType = "${service.packageName}.$stringUtils.capitalize($operation.name)")
+        ${inputType}Impl.${operation.name}SetUp();
+#if (!$operation.arguments.empty)
+        // Customize CreateInput method if different default input data is required.
+        $inputType ${operation.name}Input = ${inputType}Impl.${operation.name}CreateInput();
+#end
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[]{"${stringUtils.replace($service.packageName,'.','/')}/test/cxf-client.xml"});
+                new String[]{"cxf-client.xml"});
 
         ${service.name}${seiSuffix} client = (${service.name}${seiSuffix})context.getBean("${service.name}Client");
 
@@ -138,7 +189,7 @@ $operation.getDocumentation("    * ")
 ##        $returnType ${operation.operationName}Response = client.${operation.operationName}(${operation.operationName}RequestWrapper);
 ##else
 #set ($indent="")
-#if (!$operation.exceptions.empty)
+##if (!$operation.exceptions.empty)
 #set ($indent="    ")
 #if ($operation.restAtom || $operation.returnTypePresent)
 #if ($operation.returnType.primitive && !$operation.many && $operation.lower > 0)
@@ -147,36 +198,52 @@ $operation.getDocumentation("    * ")
         $returnType ${operation.name}Response = null;
 #end
         try {
-            ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
+            ${operation.operationName}Response = client.${operation.name}(
+#set ($comma = "")
+#foreach ($argument in $operation.arguments)
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
+                ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
+#set ($comma = ", ")
+#end
+                );
             System.out.println(" Result = " + ${operation.operationName}Response.toString());
 #else
         try {
-            client.${operation.name}(${operation.argumentNames});
+            client.${operation.name}(
+#set ($comma = "")
+#foreach ($argument in $operation.arguments)
+##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
+                ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
+#set ($comma = ", ")
 #end
-#elseif ($operation.restAtom || $operation.returnTypePresent)
-        $returnType ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
-##end
-        System.out.println(" Result = " + ${operation.operationName}Response.toString());
-#else
-        client.${operation.name}(${operation.argumentNames});
-##end
+                );
 #end
-$indent        System.out.println("Finished test: " + this.getName() + " for ${service.name}.${operation.name}(${operation.argumentNames})");
+##elseif ($operation.restAtom || $operation.returnTypePresent)
+##        $returnType ${operation.operationName}Response = client.${operation.name}(${operation.argumentNames});
+##end
+##        System.out.println(" Result = " + ${operation.operationName}Response.toString());
+##else
+##        client.${operation.name}(${operation.argumentNames});
+##end
+##end
+##$indent        System.out.println("Finished test: " + this.getName() + " for ${service.name}.${operation.name}(${operation.argumentNames})");
 ##if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 ##        return ${operation.operationName}Response.get$stringUtils.capitalize(${operation.operationName})Response();
 ##else
-#if (!$operation.exceptions.empty)
         }
         catch (Exception ex)
         {
             System.out.println("${service.name} port.${operation.name}" + " threw exception " + ex);
+#if ($operation.exceptions.empty)
             throw new junit.framework.AssertionFailedError(ex.toString());
+#end
         }
-#end
-#if ($operation.restAtom || $operation.returnTypePresent)
-        return ${operation.operationName}Response;
-#end
+        ${inputType}Impl.${operation.name}TearDown();
+##if ($operation.restAtom || $operation.returnTypePresent)
+##        return ${operation.operationName}Response;
 ##end
+##end
+        System.out.println("Finished test for ${service.name}.${operation.name}(${operation.argumentNames})");
     }
 #end
 #end
@@ -188,9 +255,11 @@ $indent        System.out.println("Finished test: " + this.getName() + " for ${s
     {
         // TODO: Add test data fields here (populated by ${service.name}.xls spreadsheet
         // TODO: Recursively list every primitive parameter in entire operation parameter hierarchy
-#foreach ( $operation in $service.allowedOperations)
-#foreach ( $parameter in $operation.arguments)
-        private $parameter.type.fullyQualifiedName ${operation.name}${parameter.name};
+#foreach ($operation in $service.allowedOperations)
+#foreach ($parameter in $operation.arguments)
+
+        @SuppressWarnings("unused")
+        private $parameter.type.fullyQualifiedName ${operation.name}$stringUtils.capitalize(${parameter.name});
         /**
          * Data value for ${parameter.name} ${operation.name} on used by DataDrivenTestSuite in suite().
          * ${operation.name}${parameter.name} must be the column name of the parameter in the spreadsheet
@@ -198,7 +267,7 @@ $indent        System.out.println("Finished test: " + this.getName() + " for ${s
          */
         public void set$stringUtils.capitalize(${operation.name})$stringUtils.capitalize(${parameter.name})($parameter.type.fullyQualifiedName value)
         {
-            this.${operation.name}${parameter.name} = value;
+            this.${operation.name}$stringUtils.capitalize(${parameter.name}) = value;
         }
 #end
 #end

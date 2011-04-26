@@ -55,8 +55,7 @@ public class JettyServer
         WebAppContext webappcontext = new WebAppContext();
         webappcontext.setContextPath("/$webContext");
 
-        // Rational Developer requires this to be the Web Content directory.
-        webappcontext.setWar("WebContent");
+        webappcontext.setWar("src/main/webapp");
 
         HandlerCollection handlers = new HandlerCollection();
         handlers.setHandlers(new Handler[] {webappcontext, new DefaultHandler()});
