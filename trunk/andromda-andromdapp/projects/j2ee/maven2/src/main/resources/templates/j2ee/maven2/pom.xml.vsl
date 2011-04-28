@@ -194,7 +194,7 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.1</version>
-#if($ear)
+#if($ear && !$cxf)
                 <scope>provided</scope>
 #end
             </dependency>
@@ -202,7 +202,7 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
-#if($ear)
+#if($ear && !$cxf)
                 <scope>provided</scope>
 #end
             </dependency>
@@ -544,12 +544,15 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.1</version>
+#if($ear && !$cxf)
+                <scope>provided</scope>
+#end
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
-#if($ear)
+#if($ear && !$cxf)
                 <scope>provided</scope>
 #end
             </dependency>
@@ -935,9 +938,17 @@
 #if (!$jsf && !$spring && !$hibernate)
             <dependency>
                 <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+#if($ear && !$cxf)
+                <scope>provided</scope>
+#end
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
-#if($ear)
+#if($ear && !$cxf)
                 <scope>provided</scope>
 #end
             </dependency>
@@ -1054,11 +1065,6 @@
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>2.0.2</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.16</version>
             </dependency>
 #end
 #if ($mysql)
@@ -1570,8 +1576,9 @@
 #end
 #if ($cxf)
         <spring.version>3.0.5.RELEASE</spring.version>
-        <!-- CXF 2.4.x wsdl2java on JDK6 gives IncompatibleClassChangeError: wss4j version? --> 
-        <cxf.version>2.3.4</cxf.version>
+        <!-- CXF 2.4.x wsdl2java on JDK6 gives IncompatibleClassChangeError: wss4j version? -->
+        <!-- CXF 2.3.4 wsdl2java gives: Server returned HTTP response code: 503 for URL: http://www.w3.org/2001/XMLSchema.dtd -->
+        <cxf.version>2.3.3</cxf.version>
 #elseif ($spring)
         <spring.version>3.0.5.RELEASE</spring.version>
 #end
