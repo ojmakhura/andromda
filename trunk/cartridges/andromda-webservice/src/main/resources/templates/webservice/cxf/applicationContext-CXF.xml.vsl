@@ -20,8 +20,12 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <!--import resource="classpath:META-INF/cxf/cxf-extension-addr.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-http.xml"/>
+#if ($service.hasStereotype("WSAddressing"))
+    <import resource="classpath:META-INF/cxf/cxf-extension-addr.xml"/>
+#else
+    <!--import resource="classpath:META-INF/cxf/cxf-extension-addr.xml"/-->
+#end
+    <!--import resource="classpath:META-INF/cxf/cxf-extension-http.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-http-binding.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-http-jetty.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-javascript-client.xml"/-->
@@ -33,8 +37,12 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf-extension-object-binding.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-policy.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-rm.xml"/-->
-    <import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-xml.xml"/>
+#if ($service.hasStereotype("WSSecurity"))
+    <import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/>
+#else
+    <!--import resource="classpath:META-INF/cxf/cxf-extension-ws-security.xml"/-->
+#end
 
 #set ($jax="jaxws")
 #set ($atom=false)
@@ -110,6 +118,12 @@ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
         xmlns:e="http://service.jaxws.cxf.apache.org/endpoint"
         xmlns:s="http://service.jaxws.cxf.apache.org/service"
         wsdlLocation="WEB-INF/wsdl/${service.name}.wsdl"-->
+#if ($service.hasStereotype("WSAddressing"))
+        <!-- TODO Implement WSAddr client test code -->
+        <!--jaxws:features>
+            <wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
+        </jaxws:features-->
+#end
         <jaxws:properties>
             <entry key="schema-validation-enabled" value="$validateSchema" />
         </jaxws:properties>
