@@ -84,7 +84,7 @@
 #else
 #if ($webServiceUtils.getTypeMapping($service.languageMappings, "Date").equals("java.util.Date"))
 #if ($cxfVersion.startsWith("2.0"))
-        <!-- Requires custom developed datatype bindings -->
+        <!-- Requires custom developed datatype bindings for both print and parse methods -->
         <!--jxb:javaType xmlType="xs:date" name="java.util.Date"
                       parseMethod="com.xxx.DatatypeConverter.parseXsDate"
                       printMethod="com.xxx.DatatypeConverter.printXsDate"/-->

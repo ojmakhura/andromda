@@ -22,8 +22,8 @@ import javax.ws.rs.Produces;
 #else
 import javax.jws.WebService;
 #end
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * WebService Service Endpoint Implementation for the $service.name service endpoint interface (${service.name}${seiSuffix}).
@@ -51,11 +51,12 @@ $service.getDocumentation(" * ")
 @javax.xml.ws.soap.Addressing(enabled=true, required=true)
 #end
 public class ${service.name}${seiSuffix}Impl #if(!$service.rest)implements ${service.name}${seiSuffix}#end
+
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}${seiSuffix}Impl
 #end
 {
-    private static final Logger LOG = Logger.getLogger(${service.name}${seiSuffix}Impl.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(${service.name}${seiSuffix}Impl.class);
     private static final String className = "${service.name}${seiSuffix}Impl";
 #if ($service.restAtom)
 
@@ -109,6 +110,7 @@ $operation.getDocumentation("    * ")
     * CONSTRAINT:  ${constraint.name}: #if ($constraint.invariant)Invariant #end#if ($constraint.postCondition)PostCondition #end#if ($constraint.preCondition)PreCondition #end ${constraint.body}
 #end
     */
+    @Override
 #if ($operation.rest)
 #if ($stringUtils.isNotBlank($operation.restRequestType))
     $operation.restRequestType
@@ -148,7 +150,7 @@ $operation.getDocumentation("    * ")
         throws $operation.exceptionList
 #end
     {
-        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Executing operation ${service.name}.${operation.name}: " #foreach ($parameter in $operation.parameters)#if (!$parameter.return) + ${parameter.name}#end#end);
+        LOG.info(${service.name}${seiSuffix}Impl.className + ".$operation.name: Executing with: " #foreach ($parameter in $operation.parameters)#if (!$parameter.return) + ${parameter.name}#end#end);
 ##        // TODO: Add boundary logging for message in / out
 #if (!$operation.arguments.empty)
 
@@ -280,9 +282,17 @@ $tab        }
             missing = missing.insert(0, "The following required parameters are missing from ${service.name}.${operation.name}: ");
             ${service.packageName}.$stringUtils.capitalize($operation.operationName) ${operation.name}Req = new ${service.packageName}.$stringUtils.capitalize($operation.operationName)();
 #foreach ($parameter in $operation.arguments)
+#if ($parameter.upper>1 || $parameter.upper==-1)
+## Avoid the problem with setting the value of a live List not allowed
+            for ($parameter.type.fullyQualifiedName value : ${parameter.name})
+            {
+                ${operation.name}Req.get$stringUtils.capitalize($parameter.name)().add(value);
+            }
+#else
             ${operation.name}Req.set$stringUtils.capitalize($parameter.name)(${parameter.name});
 #end
-            LOG.logp(Level.SEVERE, "${service.name}${seiSuffix}Impl", "${operation.name}", missing.toString(), ${operation.name}Req);
+#end
+            LOG.error("${service.name}${seiSuffix}Impl.${operation.name}: " + missing.toString() + " in " + ${operation.name}Req.toString());
             throw new IllegalArgumentException(missing.toString());
         }
 #end
@@ -412,11 +422,11 @@ $tab        }
         ${service.name}WSDelegate delegate = new ${service.name}WSDelegate();
 #if ($operation.returnTypePresent || $operation.restAtom)
         $returnType ${returnTypeName}Return = delegate.${operation.name}($arguments);
-        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Returning ${service.name}.${operation.name}: " + ${returnTypeName}Return);
+        LOG.info(${service.name}${seiSuffix}Impl.className + "$operation.name: Returning ${service.name}.${operation.name}: " + ${returnTypeName}Return);
         ${rtn}${returnTypeName}Return;
 #else
         delegate.${operation.name}($arguments);
-        LOG.logp(Level.FINER, ${service.name}${seiSuffix}Impl.className, "$operation.name", "Creating ${service.name}.${operation.name}");
+        LOG.info(${service.name}${seiSuffix}Impl.className + "$operation.name: Creating ${service.name}.${operation.name}");
 #end
 ##end
     }

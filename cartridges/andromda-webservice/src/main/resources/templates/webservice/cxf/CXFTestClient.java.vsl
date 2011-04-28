@@ -12,11 +12,11 @@
 package ${service.packageName}.test;
 #end
 
+import ${service.fullyQualifiedName}${seiSuffix};
 import junit.framework.TestSuite;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ${service.fullyQualifiedName}${seiSuffix};
 
 /**
  * Remote component interface for the $service.name.
@@ -34,7 +34,7 @@ public class ${service.name}WSITCase
     /**
      * Constructor with no parameters
      */
-    public CXF34ServiceWSITCase()
+    public ${service.name}WSITCase()
     {
         super();
     }
@@ -122,8 +122,8 @@ public class ${service.name}WSITCase
 #end
    /**
     * Invokes the $operation.name service method on ${service.name}.
-    * Operation parameters:
 $operation.getDocumentation("    * ")
+    * Operation parameters:
 #foreach ( $parameter in $operation.arguments)
     *     $parameter.name $parameter.type.fullyQualifiedName
 #end
@@ -156,9 +156,9 @@ $operation.getDocumentation("    * ")
 ##end
 ##    )
 ##    // $operation.name $operation.exceptionsPresent $operation.exceptionList $operation.exceptions.size()
-#if ($operation.exceptionsPresent)
-        throws $operation.exceptionList
-#end
+##if ($operation.exceptionsPresent)
+##        throws $operation.exceptionList
+##end
     {
         System.out.println("Starting test: ${operation.name} for " + this.getName() + " for " + "${service.name}Client");
         // TestCase.setUp and tearDown methods for each individual service method test
@@ -206,7 +206,7 @@ $operation.getDocumentation("    * ")
 #set ($comma = ", ")
 #end
                 );
-            System.out.println(" Result = " + ${operation.operationName}Response.toString());
+            System.out.println(" Result = " + ${operation.operationName}Response#if (!$operation.returnType.primitive && !$operation.many).toString()#end);
 #else
         try {
             client.${operation.name}(
