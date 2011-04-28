@@ -20,12 +20,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import java.io.StringWriter;
 import java.util.Date;
-#end
-import java.util.logging.Logger;
-#if ($service.restAtom)
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.logging.Level;
 import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
+#else
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 #end
 
 /**
@@ -38,8 +40,8 @@ public class ${service.name}WSDelegate
     extends ${service.generalization.fullyQualifiedName}Impl
 #end
 {
-    private static final Logger LOG = Logger.getLogger(${service.name}WSDelegate.class.getName());
-    private static final String className = "${service.name}WSDelegate";
+   #if (!$service.restAtom)//#end private static final Logger LOG = LoggerFactory.getLogger(${service.name}WSDelegate.class);
+   #if (!$service.restAtom)//#end private static final String className = "${service.name}WSDelegate";
 
     /**
      * Constructor
@@ -191,7 +193,7 @@ $operation.getDocumentation("    * ")
         }
         catch (JAXBException ex)
         {
-            LOG.logp(Level.SEVERE, ${service.name}WSDelegate.className, "$operation.name", "JAXBError ${service.name}.${operation.name}", ex);
+            LOG.error(${service.name}WSDelegate.className + ".$operation.name: JAXBError ${service.name}.${operation.name}", ex);
             entry.setContent(writer.toString(), "JAXBError");
         }
         return feed;
