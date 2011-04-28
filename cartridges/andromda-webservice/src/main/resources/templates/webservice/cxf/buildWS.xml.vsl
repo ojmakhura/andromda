@@ -131,6 +131,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #end
 
     <!-- Copy initial log4j settings to webservice and CXF projects for embedded server test -->
+    <copy file="${andromda.project}/mda/log4j.xml" todir="${andromda.project}/core/src/test/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false"/>
     <copy file="${andromda.project}/mda/log4j.xml" todir="${andromda.project}/webservice/src/main/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false"/>
     <copy file="${andromda.project}/mda/log4j.xml" todir="${andromda.project}/CXF/src/main/resources" overwrite="false" preservelastmodified="true" verbose="true" failonerror="false"/>
     <!-- Copy CXF generated ObjectFactory to common project alongside generated SEI interface and implementation -->
@@ -234,7 +235,8 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <!-- Overwrite CXF generated Impl which only returns null values -->
 #foreach ($service in $services)
 #if ($umlUtils.shouldOutput($service))
-    <move file="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java" tofile="${service.name}SEIImpl.java.ref"
+    <move file="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java"
+        tofile="${andromda.project}/CXF/target/src/main/java/$dir/${service.name}SEIImpl.java.ref"
         failonerror="false" verbose="true"/>
     <copy todir="${andromda.project}/CXF/target/src/main/java" overwrite="true" preservelastmodified="true" verbose="true" failonerror="false">
       <fileset dir="${andromda.project}/core/target/src/main/java">
