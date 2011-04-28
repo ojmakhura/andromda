@@ -77,10 +77,10 @@
       Except for 'profileMappingsUri', this approach did not seem to work as there is no
       "logical" mapping name. mappingsUri is specified without 'Mappings' suffix on file name.
       See http://docs.andromda.org/mappings.html.
-      A default empty mda/config/mappings/JavaMappings.xml is provided with the generated project.
+      A default empty mda/src/main/config/mappings/JavaMappings.xml is provided with the generated project.
       It can be used to customize mappings from UML to Java datatypes used by all cartridges. -->
     <mappingsSearchLocations>
-        <!-- Add additional mappings files under mda/config/mappings, referenced by languageMappingsUri -->
+        <!-- Add additional mappings files under mda/src/main/config/mappings, referenced by languageMappingsUri -->
         <location patterns="*.xml">${conf.dir}/mappings</location>
     </mappingsSearchLocations>
     <!-- To add/remove an additional cartridge to the code generation process (i.e. modeldump):
@@ -98,7 +98,7 @@
                 <property name="enableAnnotations">true</property>
                 <property name="typeSafeEnumsEnabled">true</property>
                 <!-- Replaces default JavaMappings with customized mappings which extend Java, for PrimitiveTypes etc. -->
-                <property name="languageMappingsUri">Java</property>
+                <property name="languageMappingsUri">JavaMappings</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
                 <property name="jdbcMappingsUri">JDBC</property>
@@ -375,7 +375,7 @@
 #else
                 <property name="springVersion">3.0</property>
                 <property name="schemaTypeMappingsUri">XmlSchema</property>
-                <property name="languageMappingsUri">Java</property>
+                <property name="languageMappingsUri">JavaMappings</property>
 #end
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
@@ -518,9 +518,9 @@
                 <property name="portletContainer">$portletContainer</property>
 #end
                 <property name="normalizeMessages">true</property>
-				<!-- generates smaller resource bundles with duplicate element names specified by a single message.
-				This optimization is turned off by default for backward compatibility
-				<property name="normalizeMessages">true</property-->
+                <!-- generates smaller resource bundles with duplicate element names specified by a single message.
+                This optimization is turned off by default for backward compatibility
+                <property name="normalizeMessages">true</property-->
                 <property name="applicationName">${application.name}</property>
                 <property name="forms">${web.generated.java.dir}</property>
                 <property name="views">${web.generated.web.dir}</property>

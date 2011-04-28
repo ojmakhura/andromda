@@ -155,7 +155,7 @@
         </dependency>
 #end
 #if ($cxf)
-        <!-- CXF 2.3.x wsdl2java on JDK6 gives NoSuchMethodException: javax.xml.bind.annotation.XmlElementRef.required() 
+        <!-- CXF 2.3.x wsdl2java on JDK6 gives NoSuchMethodException: javax.xml.bind.annotation.XmlElementRef.required()
         unless we roll back XJC version -->
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
