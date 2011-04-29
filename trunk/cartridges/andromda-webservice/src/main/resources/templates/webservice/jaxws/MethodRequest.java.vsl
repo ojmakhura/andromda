@@ -47,7 +47,6 @@ public class $className
     implements Serializable, Comparable<Object>
 {
     private final static long serialVersionUID = 1L;
-
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
@@ -60,8 +59,10 @@ public class $className
 #else
 #set ($paramType=$parameter.getterSetterTypeName)
 #end
-##set ($type=$stringUtils.substring($parameter.type.name, 0, 8))
-$parameter.getDocumentation("    /** ") */
+
+    /**
+$parameter.getDocumentation("     * ")
+     */
 #if (($paramType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($paramType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($paramType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($paramType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($paramType.equals("Decimal") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($paramType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
 ##set ($elementType=", type=String.class")
     @XmlElement(#if ($parameter.required)required = true,#end type = String.class)
