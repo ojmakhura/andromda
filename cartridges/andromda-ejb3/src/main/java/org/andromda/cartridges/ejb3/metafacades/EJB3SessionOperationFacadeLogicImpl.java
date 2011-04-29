@@ -10,6 +10,8 @@ import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Role;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -246,9 +248,26 @@ public class EJB3SessionOperationFacadeLogicImpl
         String serviceOperationTestNamePattern =
             (String)this.getConfiguredProperty(SERVICE_OPERATION_TEST_NAME_PATTERN);
 
+        String name = this.getName();
+        // Determine if any overloaded operations exist - test name must be unique even if operation name is not
+        List<OperationFacade> operations = this.getOwner().getOperations();
+        for (OperationFacade operation : operations)
+        {
+            if (operation.getName().equals(name) && 
+                !operation.getArgumentNames().equals(this.getArgumentNames()))
+            {
+                // Two methods with the same name different arguments exist, use argument names to distinguish
+                for (ParameterFacade argument : this.getArguments())
+                {
+                    name += StringUtils.capitalize(argument.getName());
+                }
+            }
+        }
+        
+        // default = testOperationname[Parameternames]
         return MessageFormat.format(
                 serviceOperationTestNamePattern,
-                StringUtils.trimToEmpty(StringUtils.capitalize(this.getName())));
+                StringUtils.trimToEmpty(StringUtils.capitalize(name)));
     }
 
     /**
