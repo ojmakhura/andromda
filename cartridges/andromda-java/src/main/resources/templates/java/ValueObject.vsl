@@ -133,8 +133,7 @@ public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtil
 #if ($parameter.many && !$parameter.type.arrayType)
         if (this.${parameter.name} == null)
         {
-## TODO: this.${parameter.name} = new $umlUtils.getImplCollection($returnType)();
-            this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<#if(${parameter.type.primitive})${parameter.type.wrapperName}#else${parameter.type.fullyQualifiedName}#end>#end();
+            this.${parameter.name} = new $umlUtils.getImplCollection($returnType)();
         }
 #end
         return this.$parameter.name;
@@ -471,8 +470,7 @@ $connectingEnd.getDocumentation("     * ")
 #if ($connectingEnd.many && !$connectingEnd.getterSetterTypeName.endsWith("[]"))
         if (this.${connectingEnd.name} == null)
         {
-##TODO      this.${connectingEnd.name} = new $umlUtils.getImplCollection($connectingEnd.getterSetterTypeName)();
-            this.${connectingEnd.name} = new java.util.ArrayList#if($enableTemplating)<${connectingEnd.type.fullyQualifiedName}>#end();
+            this.${connectingEnd.name} = new $umlUtils.getImplCollection($connectingEnd.getterSetterTypeName)();
         }
 #end
         return this.${connectingEnd.name};
@@ -607,7 +605,7 @@ $connectingEnd.getDocumentation("     * ")
 ##
 ##      equality methods
 ##
-## only render the macro in case there are properties to include
+## VO may have subclasses, so always render the equalProperties method when there are properties to include
 #if (!$class.properties.empty && $generateEqualPropertiesMethod)
     /**
      * Compares the properties of this instance to the properties of the argument. This method will return
@@ -625,9 +623,6 @@ $connectingEnd.getDocumentation("     * ")
      *      argument instance; in all other cases this method will return {@code false}
      */
 #if ($enableAnnotations)
-##if ($enableTemplating)
-##    @SuppressWarnings("unchecked")
-##end
 #if ($class.generalization)
     @Override
 #end
