@@ -257,7 +257,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Takes an english word as input and prefixes it with 'a ' or 'an '
+     * Takes an English word as input and prefixes it with 'a ' or 'an '
      * depending on the first character of the argument String. <p/> The
      * characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while all
      * the others will yield the 'a' predicate.
@@ -291,7 +291,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Converts multiline text into a single line, normalizing whitespace in the
+     * Converts multi-line text into a single line, normalizing whitespace in the
      * process. This means whitespace characters will not follow each other
      * directly. <p/> The resulting String will be trimmed. <p/> <p/> If the
      * input String is null the return value will be an empty string.
@@ -344,7 +344,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Formats the given argument with the specified indentiation, wrapping the
+     * Formats the given argument with the specified indentation, wrapping the
      * text at a 64 column margin.
      * @param plainText
      * @param indentation
@@ -356,7 +356,7 @@ public class StringUtilsHelper
         final String plainText,
         final String indentation)
     {
-        return format(plainText, indentation, 64);
+        return format(plainText, indentation, 100 - indentation.length());
     }
 
     /**
@@ -403,7 +403,7 @@ public class StringUtilsHelper
      * @param indentation  the empty string will be used if this argument would
      *                     be <code>null</code>
      * @param wrapAtColumn does not take into account the length of the
-     *                     indentation, needs to be stricly positive
+     *                     indentation, needs to be strictly positive
      * @param htmlStyle    whether or not to make sure the returned string is
      *                     suited for display in HTML environments such as JavaDoc
      * @return a String instance which represents the formatted input, never
