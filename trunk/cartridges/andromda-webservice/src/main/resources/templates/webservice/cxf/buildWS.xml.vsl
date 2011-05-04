@@ -37,7 +37,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
     <pathelement location="${m2repo}/jboss/jboss-j2ee/3.2.3/jboss-j2ee-3.2.3.jar"/>
     <path refid="cxf1.classpath"/>
     <fileset dir="${andromda.project}/webservice">
-        <include name="/**/WEB-INF/lib/*.jar"/>
+        <include name="/src/main/resources/log4j.xml"/>
     </fileset>
   </path>
 
@@ -274,7 +274,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
        http://cwiki.apache.org/CXF20DOC/wsdl-to-java.html -->
   <target name="wsgenjava" description="Generate WebService code artifacts using CXF wsdl2java and java2wsdl utilities.">
     <echo message="running wsdlvalidator for AndroMDA generated wsdl for service ${service}"/>
-    <java classname="org.apache.cxf.tools.validator.WSDLValidator" fork="true">
+    <java classname="org.apache.cxf.tools.validator.WSDLValidator" fork="true" failonerror="true" append="true">
       <arg value="-verbose"/>
       <arg value="${andromda.project}/webservice/src/main/webapp/wsdl/${service}.wsdl"/>
        <classpath>
@@ -282,7 +282,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
        </classpath>
     </java>
     <echo message="running wsdl2java for service ${service}"/>
-    <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+    <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true" failonerror="true" append="true">
       <arg value="-p"/>
       <arg value="${namespace}=${package}"/>
       <arg value="-b"/>
@@ -330,11 +330,11 @@ and allows double-checking of both java and wsdl code generation and all annotat
 #if ($cxfVersion.startsWith("2.0"))
   <target name="wsgenwsdl" description="Generate WebService code artifacts using CXF java2wsdl utility.">
     <echo message="running java2wsdl for service ${service}"/>
-    <java classname="org.apache.cxf.tools.java2wsdl.JavaToWSDL" fork="true">
+    <java classname="org.apache.cxf.tools.java2wsdl.JavaToWSDL" fork="true" failonerror="true" append="true">
 #else
   <target name="wsgenwsdl" description="Generate WebService code artifacts using CXF java2ws utility.">
     <echo message="running java2ws for service ${service}"/>
-    <java classname="org.apache.cxf.tools.java2ws.JavaToWS" fork="true">
+    <java classname="org.apache.cxf.tools.java2ws.JavaToWS" fork="true" failonerror="true" append="true">
         <arg value="-databinding"/>
         <arg value="jaxb"/>
         <arg value="-frontend"/>
@@ -345,7 +345,7 @@ and allows double-checking of both java and wsdl code generation and all annotat
         <arg value="-o"/>
         <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/wsdl/${service}.wsdl"/>
         <arg value="-cp"/>
-        <arg value="${andromda.project}/common/target/classes;${andromda.project}/core/target/classes;${andromda.project}/webservice/src/main/webapp/WEB-INF/classes;${andromda.project}/CXF/src/main/webapp/WEB-INF/classes;"/>
+        <arg value="${andromda.project}/common/target/classes;${andromda.project}/core/target/classes;${andromda.project}/webservice/src/main/webapp/WEB-INF/classes;${andromda.project}/CXF/target/classes;${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
 #if ($soapVersion.equals("1.2"))
         <arg value="-soap12"/>
 #end
