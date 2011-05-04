@@ -1103,6 +1103,15 @@
                 <scope>test</scope>
 #end
             </dependency>
+#elseif ($h2)
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.3.154</version>
+#if (!$embeddedJetty)
+                <scope>test</scope>
+#end
+            </dependency>
 #else
             <!-- add the database jdbc dependency -->
 #end
@@ -1244,7 +1253,6 @@
                         <execution>
                             <id>start-jetty</id>
                             <phase>process-test-resources</phase>
-                            <!--phase>pre-integration-test</phase-->
                             <goals>
                                 <goal>run</goal>
                             </goals>
@@ -1255,7 +1263,6 @@
                         </execution>
                         <execution>
                             <id>stop-jetty</id>
-                            <!--phase>post-integration-test</phase-->
                             <phase>prepare-package</phase>
                             <goals>
                                 <goal>stop</goal>
@@ -1424,6 +1431,7 @@
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
             For Hypersonic use: HypersonicSql
+            For H2 use: H2
             For Oracle9i use: Oracle9i
             For DB2 use: DB2
             For Informix use: InformixDB
@@ -1457,30 +1465,35 @@
             PostgreSQL 7.2
 #elseif ($derby)
             Derby
-#else
+#elseif ($h2)
+            H2
+#elseif ($hypersonic)
             HypersonicSql
 #end
         </sql.mappings>
 #if ($hibernate || $spring || $ejb3)
         <!--
         Change this for the appropriate database
+        For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
         For Derby use: org.hibernate.dialect.DerbyDialect
-        For MySql use: org.hibernate.dialect.MySQL5Dialect
+        For H2 use: org.hibernate.dialect.H2Dialect
+        For Hypersonic use: org.hibernate.dialect.HSQLDialect
+        For Informix use: org.hibernate.dialect.InformixDialect
+        For MySql4 use: org.hibernate.dialect.MySQLDialect
+        For MySql5+ use: org.hibernate.dialect.MySQL5Dialect
         For MySql InnoDB use: org.hibernate.dialect.MySQL5InnoDBDialect
         For MySql MyISAM use: org.hibernate.dialect.MySQLMyISAMDialect
-        For Hypersonic use: org.hibernate.dialect.HSQLDialect
-        For Oracle any version use: org.hibernate.dialect.OracleDialect
-        For Oracle9i/10g use: org.hibernate.dialect.Oracle10gDialect
-        For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
-        For Informix use: org.hibernate.dialect.InformixDialect
         For MSSQL use: org.hibernate.dialect.SQLServerDialect
+        For Oracle any version use: org.hibernate.dialect.OracleDialect
+        For Oracle8i use: org.hibernate.dialect.Oracle8iDialect
+        For Oracle9i use: org.hibernate.dialect.Oracle9iDialect
+        For Oracle10g or later use: org.hibernate.dialect.Oracle10gDialect
         For Pointbase use: org.hibernate.dialect.PointbaseDialect
         For Postgres use: org.hibernate.dialect.PostgreSQLDialect
+        For Progress use: org.hibernate.dialect.ProgressDialect
+        For SapDB use: org.hibernate.dialect.SAPDBDialect
         For Sybase use: org.hibernate.dialect.SybaseDialect or org.hibernate.dialect.Sybase11Dialect
         For Sybase Anywhere use: org.hibernate.dialect.SybaseAnywhereDialect
-        For SapDB use: org.hibernate.dialect.SAPDBDialect
-        For Progress use: org.hibernate.dialect.ProgressDialect
-        For Derby use: org.hibernate.dialect.DerbyDialect
         -->
         <hibernate.dialect>
 #if ($mysql)
@@ -1505,7 +1518,9 @@
             org.hibernate.dialect.ProgressDialect
 #elseif ($derby)
             org.hibernate.dialect.DerbyDialect
-#else
+#elseif ($h2)
+            org.hibernate.dialect.H2Dialect
+#elseif ($ypersonic)
             org.hibernate.dialect.HSQLDialect
 #end
         </hibernate.dialect>
@@ -1514,6 +1529,7 @@
         <!--
             Change this to the correct database type mappings (for Jboss)
             For MySql use: mySQL
+            For H2 use: H2 SQL
             For Hypersonic use: Hypersonic SQL
             For Oracle9i use: Oracle9i
             For DB2 use: DB2
@@ -1548,7 +1564,9 @@
             Derby
 #elseif ($progress)
             PostgreSQL 7.2
-#else
+#elseif ($h2)
+            H2 SQL
+#elseif ($hypersonic)
             Hypersonic SQL
 #end
         </jboss.typeMappings>
@@ -1623,7 +1641,9 @@
                     ${jboss.home}/common/lib/progress.jar
 #elseif ($derby)
                     ${jboss.home}/common/lib/derby.jar
-#else
+#elseif ($h2)
+                    ${jboss.home}/common/lib/h2.jar
+#elseif ($hypersonic)
                     ${jboss.home}/common/lib/hsqldb.jar
 #end
 #else
@@ -1649,7 +1669,9 @@
                     /path/to/progress/lib/progress.jar
 #elseif ($derby)
                     /path/to/derby/lib/derby.jar
-#else
+#elseif ($h2)
+                    /path/to/h2/lib/h2.jar
+#elseif ($hypersonic)
                     /path/to/hsqldb/lib/hsqldb.jar
 #end
 #end
@@ -1657,6 +1679,7 @@
                 <!--
                     Change driver for appropriate database
                     For MySQL use: com.mysql.jdbc.Driver
+                    For H2 use: org.h2.Driver
                     For Hypersonic use: org.hsqldb.jdbcDriver
                     For Oracle9i use: oracle.jdbc.driver.OracleDriver
                     For DB2 use: COM.ibm.db2.jdbc.app.DB2Driver
@@ -1692,7 +1715,9 @@
                     com.progress.sql.jdbc.JdbcProgressDriver
 #elseif ($derby)
                     org.apache.derby.jdbc.EmbeddedDriver
-#else
+#elseif ($h2)
+                    org.h2.Driver
+#elseif ($hypersonic)
                     org.hsqldb.jdbcDriver
 #end
                 </jdbc.driver>
@@ -1733,7 +1758,9 @@
                     jdbc:JdbcProgress:T:localhost:3305:$applicationId
 #elseif ($derby)
                     jdbc:derby:$applicationId
-#else
+#elseif ($h2)
+                    jdbc:h2:~/$applicationId
+#elseif ($hypersonic)
 #if ($embeddedJetty)
                     jdbc:hsqldb:file:database/${applicationId};shutdown=true
 #else
@@ -1751,7 +1778,7 @@
                     db2admin
 #elseif ($informix)
                     informix
-#elseif ($mssql || $sybase)
+#elseif ($mssql || $sybase || $hypersonic || $h2)
                     sa
 #elseif ($pointbase)
                     pointbase
@@ -1788,15 +1815,15 @@
                 -->
                 <jdbc.exception.sorter>
 #if ($mysql)
-                    org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
+                    org.jboss.resource.adapter.jdbc.MySQLExceptionSorter
 #elseif ($oracle)
-                    org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+                    org.jboss.resource.adapter.jdbc.OracleExceptionSorter
 #elseif ($informix)
-                    org.jboss.resource.adapter.jdbc.vendor.InformixExceptionSorter
+                    org.jboss.resource.adapter.jdbc.InformixExceptionSorter
 #elseif ($sybase)
-                    org.jboss.resource.adapter.jdbc.vendor.SybaseExceptionSorter
+                    org.jboss.resource.adapter.jdbc.SybaseExceptionSorter
 #else
-                    org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
+                    org.jboss.resource.adapter.jdbc.NullExceptionSorter
 #end
                 </jdbc.exception.sorter>
 #if ($webservice)

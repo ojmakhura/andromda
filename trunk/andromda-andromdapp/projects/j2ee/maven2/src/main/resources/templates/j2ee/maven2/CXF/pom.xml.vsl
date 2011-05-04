@@ -118,6 +118,8 @@
               </executions>
             </plugin>
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+            <!-- Must start webservice server project from CXF client project in order to execute all phases properly in a single project -->
+            <!-- All phases before test-compile executed twice, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=342643 -->
 #if ($embeddedJetty)
             <plugin>
 #else
@@ -125,7 +127,6 @@
 #end
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <!-- Must start webservice server project from CXF client project in order to execute all phases properly in a single project -->
                 <configuration>
                     <webAppSourceDirectory>${project.parent.basedir}/webservice/src/main/webapp</webAppSourceDirectory>
                     <webAppConfig>
@@ -137,7 +138,6 @@
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
                 </configuration>
-                <!-- All phases before test-compile executed twice, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=342643 -->
                 <executions>
                     <execution>
                         <id>start-jetty</id>
@@ -158,10 +158,14 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin#if (!$embeddedJetty)--#end>
             <!-- Run integration tests *ITCase.java against running Jetty server in the webservice project -->
             <!-- See http://docs.codehaus.org/display/MAVENUSER/Maven+and+Integration+Testing -->
+#if ($embeddedJetty)
             <plugin>
+#else
+            <!--plugin>
+#end
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.8</version>
