@@ -40,7 +40,10 @@ import org.eclipse.uml2.uml.DirectedRelationship;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Manifestation;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Realization;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
@@ -312,7 +315,7 @@ public class ModelElementFacadeLogicImpl
     {
         return this.handleGetDocumentation(
             indent,
-            64);
+            100 - indent.length());
     }
 
     /**
@@ -333,10 +336,12 @@ public class ModelElementFacadeLogicImpl
         final String indent,
         final int lineLength)
     {
+        // We really don't want the start/end paragraph returns on the first/last lines. Very annoying. Makes the docs too long with mixed html.
+        // That's the only thing that htmlStyle does: convert each line to <p>line</p>. Not necessary.
         return this.handleGetDocumentation(
             indent,
             lineLength,
-            true);
+            false);
     }
 
     /**
@@ -554,15 +559,14 @@ public class ModelElementFacadeLogicImpl
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
 
-        // TODO: Optional generation of TODO tags for missing documentation
-        // if there still isn't anything, create a todo tag
+        // if there still isn't anything, create a todo tag.
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            /*if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
+            if (Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_FOR_MISSING_DOCUMENTATION)))
             {
                 String todoTag = (String)this.getConfiguredProperty(UMLMetafacadeProperties.TODO_TAG);
                 documentation.append(todoTag).append(": Model Documentation for " + this.handleGetFullyQualifiedName());
-            }*/
+            }
         }
 
         return StringUtilsHelper.format(
@@ -874,7 +878,6 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleIsTemplateParametersPresent()
     {
-        // TODO: Be sure it works with RSM / MD11.5
         final Collection<TemplateParameter> params = this.handleGetTemplateParameters();
         return params != null && !params.isEmpty();
     }
@@ -894,7 +897,6 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Object handleGetTemplateParameter(String parameterName)
     {
-        // TODO: Be sure it works with RSM / MD11.5
         TemplateParameterFacade templateParameter = null;
         if (StringUtils.isNotBlank(parameterName))
         {
@@ -929,7 +931,6 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<TemplateParameter> handleGetTemplateParameters()
     {
-        // TODO: Be sure it works with RSM / MD11.5
         Collection<TemplateParameter> templateParameters = new ArrayList<TemplateParameter>();
         if (this.metaObject instanceof TemplateableElement)
         {
@@ -976,9 +977,9 @@ public class ModelElementFacadeLogicImpl
         return (ModelElementFacade)this.shieldedElement(element.getNamespace());
     }
 
-    /**
+    /*
      * @return this.metaObject.getOwner()
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getOwner()
+     * @see org.eclipse.uml2.uml.Element#getOwner()
     //@Override
     protected Element handleGetOwner()
     {
@@ -1045,9 +1046,35 @@ public class ModelElementFacadeLogicImpl
      */
     private String handleGetBindedFullyQualifiedName(boolean modelName, Collection<BindingFacade> bindingFacades)
     {
+        final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         String fullName = StringUtils.trimToEmpty(this.handleGetName());
         final String packageName = this.handleGetPackageName(true);
-        final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+        // Don't fully qualify other UML types such as Action, UseCase etc. Some cartridges require package.name as the result
+        // For Parameter, return Classifier.Operation(name)
+        if (this.metaObject instanceof Parameter)
+        {
+            // Add ClassifierName.operationName(ParameterName) 
+            Object owner = this.metaObject.getOwner();
+            if (owner != null && owner instanceof Operation)
+            {
+                Operation operation = (Operation)owner;
+                fullName = operation.getName() + '(' + fullName + ')';
+                Object classifier = operation.getOwner();
+                if (classifier != null && classifier instanceof NamedElement)
+                {
+                    fullName = ((NamedElement)classifier).getName() + metafacadeNamespaceScopeOperator + fullName;
+                }
+            }
+        }
+        // For Attribute/AssociationEnd, return Classifier.name
+        else if (this.metaObject instanceof Property || this.metaObject instanceof Operation)
+        {
+            Object classifier = this.metaObject.getOwner();
+            if (classifier != null && classifier instanceof NamedElement)
+            {
+                fullName = ((NamedElement)classifier).getName() + metafacadeNamespaceScopeOperator + fullName;
+            }
+        }
         if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName + metafacadeNamespaceScopeOperator + fullName;
