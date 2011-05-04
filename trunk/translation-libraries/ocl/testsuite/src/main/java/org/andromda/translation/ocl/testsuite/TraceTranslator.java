@@ -429,6 +429,7 @@ public class TraceTranslator
          * @throws IOException
          * @throws CannotCompileException
          */
+        @SuppressWarnings("unused")
         public Class writeAsClass(String classname) throws NotFoundException, IOException, CannotCompileException
         {
             try

@@ -870,6 +870,7 @@ public class ParameterChecks
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
      */
+    @SuppressWarnings("unused")
     public static void validateUrl(
         FacesContext context,
         Object object,
