@@ -303,7 +303,7 @@ public class MetafacadeLogicImpl
         try
         {
             final String methodVisibility = "public";
-            final String indendation = "    * ";
+            final String indendation = "     * ";
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods

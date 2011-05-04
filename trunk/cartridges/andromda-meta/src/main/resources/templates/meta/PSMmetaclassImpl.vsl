@@ -27,12 +27,12 @@ public#if($class.implMustBeAbstract) abstract#end class ${class.name}Impl
     {
         super();
     }
-
 #end
 ##
 ##  constructor taking only required properties
 ##
 #if ($class.allProperties.size() > $class.allRequiredConstructorParameters.size())
+
     /**
      * Public constructor for ${class.name}Impl with $class.allRequiredConstructorParameters.size() required properties.
 #foreach ($property in $class.allRequiredConstructorParameters)
@@ -55,8 +55,8 @@ ${comma}${property.name}## no newline
 #end
 );
     }
-
 #end
+
 ##
 ##  constructor taking all properties
 ##
@@ -99,11 +99,11 @@ ${comma}otherBean.${property.getterName}()## no newline
 #end
 );
     }
-
 ##
 ## generate implementations for operations
 #foreach ($operation in $class.operations)
 #if (!$operation.abstract)
+
     /**
      * @see ${class.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
@@ -115,7 +115,6 @@ ${comma}otherBean.${property.getterName}()## no newline
         // ${toDoTag} implement $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
         throw new UnsupportedOperationException("${class.fullyQualifiedName}.${operation.signature} Not implemented!");
     }
-
 #end
 #end
 }

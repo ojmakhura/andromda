@@ -65,18 +65,18 @@ public interface $metafacade.name
 #end
 #foreach ($method in $metafacade.methodDataForPSM)
 
-   /**
+    /**
 $method.documentation
 #foreach ($argument in $method.arguments)
-    * @param $argument.name $argument.fullyQualifiedTypeName
+     * @param $argument.name $argument.fullyQualifiedTypeName
 #end
 #if (!$method.returnTypeName.equals("void"))
-    * @return $method.returnTypeName
+     * @return $method.returnTypeName
 #end
 #foreach ($exception in $method.exceptions)
-    * @throws $exception.typeName
+     * @throws $exception.typeName
 #end
-    */
+     */
     ${method.buildMethodDeclaration(true)};
 #end
 }

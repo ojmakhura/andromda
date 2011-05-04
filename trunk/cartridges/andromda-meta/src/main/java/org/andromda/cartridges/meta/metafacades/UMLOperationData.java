@@ -26,7 +26,7 @@ public class UMLOperationData
             operation.isAbstract(),
             operation.getGetterSetterReturnTypeName(),
             operation.getName(),
-            operation.getDocumentation("    * "));
+            operation.getDocumentation("     * "));
 
         for (ParameterFacade parameter : operation.getArguments())
         {

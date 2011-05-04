@@ -38,7 +38,6 @@ public#if($abstract) abstract#end class $class.name
     private static final long serialVersionUID = ${class.serialVersionUID}L;
 
 #end
-
 ##// requiredConstructorParameters.size = $class.requiredConstructorParameters.size()
 ###foreach ($property in $class.requiredConstructorParameters)
 ##    // ${property.name}
@@ -151,8 +150,8 @@ ${comma}otherBean.${property.getterName}()## no newline
 #end
 );
     }
-
 #foreach ($attribute in $class.attributes)
+
     protected $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**
@@ -163,8 +162,8 @@ $attribute.getDocumentation("     * ")
     {
         return this.${attribute.name};
     }
-
 #if (!$attribute.readOnly)
+
     /**
 $attribute.getDocumentation("     * ")
      * @param ${attribute.name}In $attribute.getterSetterTypeName
@@ -173,13 +172,13 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = ${attribute.name}In;
     }
-
 #end
 #end
 ## Generate the relation methods.
 #foreach ($associationEnd in $class.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable)
+
     protected $target.getterSetterTypeName $target.name;
 
     /**
@@ -191,8 +190,8 @@ $target.getDocumentation("     * ")
     {
         return this.${target.name};
     }
-
 #if (!$associationEnd.readOnly)
+
     /**
      * Sets the $target.name
      * @param ${target.name}In $target.getterSetterTypeName
@@ -201,12 +200,12 @@ $target.getDocumentation("     * ")
     {
         this.${target.name} = ${target.name}In;
     }
-
 #end
 #end
 #end
 ##Generate operations
 #foreach ($operation in $class.operations)
+
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
@@ -223,6 +222,5 @@ $operation.getDocumentation("     * ")
 #else
     $operation.visibility abstract $operation.getterSetterReturnTypeName $operation.signature;
 #end
-
 #end
 }
