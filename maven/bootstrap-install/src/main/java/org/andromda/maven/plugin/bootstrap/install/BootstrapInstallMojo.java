@@ -49,9 +49,9 @@ public class BootstrapInstallMojo
 
     /**
      * @parameter expression="${bootstrap.artifacts}"
-     * @description whether or not bootstrap artifacts should be installed, by default they are not.
+     * @description whether or not bootstrap artifacts should be installed, by default they are.
      */
-    protected boolean installBootstraps;
+    protected boolean installBootstraps = true;
 
     /**
      * @parameter
