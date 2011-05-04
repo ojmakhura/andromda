@@ -783,7 +783,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -795,7 +795,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -807,7 +807,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -819,7 +819,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -831,7 +831,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -843,7 +843,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -855,7 +855,7 @@
                         <configuration>
                             <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
                             <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -870,7 +870,7 @@
                             <pomFile>
                                 lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom
                             </pomFile>
-                            <version>${andromda.version}</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -884,7 +884,131 @@
                             </file>
                             <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
                             </pomFile>
+                            <version>${project.version}</version>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>deploy_meta_cartridge</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
                             <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_metafacades_uml</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_metafacades_uml14</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_metafacades_uml22</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_repositories_uml</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_repositories_uml14</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-mdr-uml14.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_repositories_uml22</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/repositories/andromda-repository-emf-uml22.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_translationlibraries_testsuite</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy_translationlibraries_validation</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
+                            </pomFile>
+                            <version>${andromda.version}</version>
+                            <uniqueVersion>false</uniqueVersion>
                         </configuration>
                     </execution>
                 </executions>
