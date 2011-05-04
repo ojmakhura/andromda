@@ -248,6 +248,7 @@ $attribute.getDocumentation("     * ")
 #set ($allPostConstraints=$operation.getConstraints("post"))
     /**
      * Method to be implemented in descendants
+$operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
      * @param $argument.name
 #end
@@ -432,7 +433,7 @@ $associationEnd.getDocumentation("     * ")
     // ----------- delegates to $link.parent.fullyQualifiedName ------------
 #foreach ($method in $metafacade.getMethodDataForPSM($link.parent))
     /**
- $method.documentation
+$method.documentation
      * @see ${method.metafacadeName}${esc.hash}${method.name}(${method.typedArgumentList})
      */
     $method.buildMethodDeclaration(true)
