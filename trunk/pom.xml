@@ -865,11 +865,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar
-                            </file>
-                            <pomFile>
-                                lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom
-                            </pomFile>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
                             <version>${project.version}</version>
                         </configuration>
                     </execution>
@@ -880,10 +877,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar
-                            </file>
-                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
-                            </pomFile>
+                            <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
                             <version>${project.version}</version>
                         </configuration>
                     </execution>
@@ -1005,8 +1000,7 @@
                         </goals>
                         <configuration>
                             <file>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
-                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom
-                            </pomFile>
+                            <pomFile>lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
                             <version>${andromda.version}</version>
                             <uniqueVersion>false</uniqueVersion>
                         </configuration>
@@ -1190,6 +1184,10 @@
                     <url>file:/var/www/docs</url>
                 </site>
             </distributionManagement>
+            <properties>
+                <repositoryId>andromda-snapshots</repositoryId>
+                <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            </properties>
         </profile>
         <profile>
             <id>andromda-full</id>

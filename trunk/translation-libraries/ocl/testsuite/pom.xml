@@ -78,7 +78,7 @@
                             <file>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.jar</file>
                             <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-translation-testsuite.pom</pomFile>
                             <version>${project.version}</version>
-                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                            <sources>${project.build.directory}/${project.artifactId}-${project.version}-sources.jar</sources>
                         </configuration>
                     </execution>
                 </executions>
