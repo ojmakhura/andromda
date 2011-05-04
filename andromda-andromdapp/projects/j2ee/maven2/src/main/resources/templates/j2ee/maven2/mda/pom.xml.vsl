@@ -400,12 +400,10 @@
 #end
 #if ($webservice && !$jsr181Webservice)
         <webservice.project>${project.basedir}/../webservice</webservice.project>
-#if ($cxf)
+#if ($cxf || $axis)
         <webservice.generated.dir>${project.basedir}/../webservice/src/main/webapp</webservice.generated.dir>
-#elseif ($war)
-        <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #else
-        <webservice.generated.dir>${project.basedir}/../webservice/target/src</webservice.generated.dir>
+        <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #end
         <webservice.manual.java.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.java.dir>
 #if ($axisVersion.equals("1"))

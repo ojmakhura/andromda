@@ -500,27 +500,32 @@
         </dependency>
 #end
 #if ($mysql)
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 #elseif ($postgres)
-            <dependency>
-                <groupId>postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 #elseif ($derby)
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
+#elseif ($h2)
             <dependency>
-                <groupId>org.apache.derby</groupId>
-                <artifactId>derby</artifactId>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
             </dependency>
 #elseif ($hypersonic)
-            <dependency>
-                <groupId>hsqldb</groupId>
-                <artifactId>hsqldb</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+        </dependency>
 #else
-            <!-- add the database jdbc dependency -->
+        <!-- add the database jdbc dependency -->
 #end
     </dependencies>
     <build>

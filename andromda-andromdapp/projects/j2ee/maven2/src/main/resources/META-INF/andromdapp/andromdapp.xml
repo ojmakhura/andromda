@@ -282,6 +282,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                     <condition id="transactionPersistenceType" notEqual="none"/>
                 </preconditions>
                 <responses>
+                    <response>h2</response>
                     <response>hypersonic</response>
                     <response>mysql</response>
                     <response>oracle</response>
