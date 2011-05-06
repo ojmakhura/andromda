@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - CXF Client Project</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="CXF Client Project">
+            <p>
+                This project verifies that the generated webservices (wsdl/xsd, and service implementation/configuration)
+                will work properly as both a client and a server project. Clients given just the wsdl, or the ?wsdl URL,
+                will be able to use standard webservice utilities such as wsdl2java and java2ws.
+            </p>
+            <p>
+                The ObjectFactory and Fault classes are copied to the common project. The default stubbed service implementation
+                is copied to the CXF project. This is because the default CXF generated implementation sets all parameters and
+                return values to null, resulting in NullPointerException when we try to test.
+            </p>
+            <p>
+                The generated webservice web project can be run manually from the command line as a standalone web project, with
+                the standard command: mvn jetty:run. By default the server runs with the URL http://localhost:8080/{projectname}.
+                The services listing will be available at index.html. Each service metadata wsdl can be accessed through the standard
+                URL servicename?wsdl. Services and service implementations are available for any client to develop and test against.
+            </p>
+            <p>
+                The generated webservice web project can also be run manually from the command using Tomcat, with
+                the standard command: mvn tomcat:start. By default the server runs with the URL http://localhost:8080/{projectname}.
+                The services listing will be available at index.html. Each service metadata wsdl can be accessed through the standard
+                URL servicename?wsdl.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next section: <a href="bindings.html">JAXB Bindings</a>.
+            </p>
+        </section>
+    </body>
+</document>

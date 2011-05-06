@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - Implementation</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Implementation">
+            <p>
+                Service implementation code is located in the core project under /src/main/java.
+                There is a WSDelegate class for each service, and an Impl class for each service method.
+            </p>
+        </section>
+        <section name="Core Project">
+            <p>
+                This is what the output in the core project src/main/java looks like:
+            </p>
+            <p>
+                <img src="images/core-srcmainjava.gif" alt="images/core-srcmainjava.gif"/>
+            </p>
+            <p>
+                And the /src/test/java and target/src/main/java output:
+            </p>
+            <p>
+                <img src="images/core-target.gif" alt="images/core-target.gif"/>
+            </p>
+            <p>
+                The generated ServiceEndpointInterface (SEI) is implemented by the generated
+                ServiceEndpointImplementation (SEIImpl), which delegates to the generated (once)
+                webservice (WS) Delegate, which is implemented by the service method Impl and
+                tested by the SEIImplTest.
+            </p>
+            <p>
+                The service method Impl class has three main methods:
+            </p>
+            <p>
+                serviceCreateInput: Iterates through the service input hierarchy, creating a stubbed input
+                for each value/attribute/association, up to three levels deep. This is used by the unit test
+                as an input value for the service test.
+            </p>
+            <p>
+                serviceTransformInput: For all service operation parameters, iterates through the hierarchy
+                to create a wrapped request object for the service. This is the method which must be implemented
+                for the service to work properly, called by the Delegate for each method. 
+            </p>
+            <p>
+                serviceTransformResponse: For the single wrapped service response, transforms the entire hierarchy
+                from the wrapped service response to the service output.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Now we can learn how to test a generated project, <a href="testing.html">read on</a>.
+            </p>
+        </section>
+    </body>
+</document>

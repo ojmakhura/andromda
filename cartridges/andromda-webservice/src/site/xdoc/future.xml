@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - Future Implementation Functionality</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Future functionality">
+            <p>
+                WS-Security, WS-Addressing, WS-SecurityPolicy implementations
+            </p>
+        </section>
+        <section name="Manageable Implementation">
+            <p>
+                <![CDATA[<<Manageable>>]]> mapping from ValueObject parameters to ORM implementation in WSDelegate for CRUD operations
+            </p>
+        </section>
+        <section name="Mock Object Unit tests">
+            <p>
+                Mock Object unit test implementations with minimal and all parameter values set.
+            </p>
+        </section>
+        <section name="Additional Validations">
+            <p>
+                Validations: XmlSchema stereotype on all referenced packages. Proper naming: package lowercase, Class Initcaps,
+                methods and attributes and associations and parameters initLowerCase. No service operations with the same
+                name in the same package. XMLBinding on/off through individual stereotype. ValueObject validations through
+                stereotype plus Hibernate Validations framework.
+            </p>
+        </section>
+        <section name="Additional Stereotype Property Implementations">
+            <p>
+                Stereotype/properties for customized namespace, namespace abbreviation, schema validation. Reverse namespace from
+                top level package/service/package.
+            </p>
+        </section>
+    </body>
+</document>
