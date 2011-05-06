@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - JAXB Bindings</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="JAXB Bindings">
+            <p>
+                The default Java to XML binding technology for CXF is Sun's JAXB2 framework.
+                JAXB allows you to override the implementation Java class for each specific XML datatype through
+                use of a bindings file. See the Sun/Oracle tutorial <a href="http://download.oracle.com/javaee/5/tutorial/doc/bnbbf.html">
+                http://download.oracle.com/javaee/5/tutorial/doc/bnbbf.html</a>.
+            </p>
+            <p>
+                The CXF wsdl2java and java2ws command options are described at the CXF website under User's Guide, Tools:
+                described at <a href="http://cxf.apache.org/docs/tools.html">
+                http://cxf.apache.org/docs/tools.html</a>. The java2ws tool documentation describes the JAXB bindings
+                customizations and how to change the default XMLGregorianCalendar Date binding.
+            </p>
+            <p>
+                In AndroMDA, by default we change the XMLGregorianCalendar to java.util.Date,
+                and allow you to configure your own customized binding classes. You can specify your own customized binding classes
+                for many XML datatypes, in andromda.xml:
+<source><![CDATA[
+                <!-- Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes -->
+                <property name="XMLDateAdapter"></property>
+                <property name="XMLDateTimeAdapter"></property>
+                <property name="XMLTimeAdapter"></property>
+                <!-- Needed to prevent Integer - BigInteger mismatch with CXF JAXB generated client code -->
+                <!--property name="XMLIntegerAdapter"></property>
+                <property name="XMLLongAdapter"></property-->
+                <!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
+                <property name="XMLBooleanAdapter"></property>
+]]></source>
+            </p>
+            <p>
+                We also override the default name for the
+                service interface class, from portType to SEI, and also change the name of the Exception classes from 'Exception' to 'Fault'.
+                JAXB insists on putting the service Exception classes in the same directory as the services themselves, even
+                though the best practice is to put them in a different package.
+            </p>
+            <p>
+                We also enable the XJC simpleBindingMode, enabled by <![CDATA[<xjc:simple/>]]> in the jaxb_bindings.xjb files, 
+                described at <a href="http://weblogs.java.net/blog/kohsuke/archive/2006/03/simple_and_bett.html">
+                http://weblogs.java.net/blog/kohsuke/archive/2006/03/simple_and_bett.html</a>. This assumes that every class is a root element
+                class, with the @XmlRootElement annotation, avoiding the (very ugly) JAXBElement wrapped implementation.
+            </p>
+            <p>
+                We also use various XJC custom plugins in the jaxb_bindings.xjb files, 
+                described at <a href="http://java.net/projects/jaxb2-commons/pages/Home">
+                http://java.net/projects/jaxb2-commons/pages/Home</a>. Specifically, by default
+                we enable the following plugins: ValueConstructor, jakarta-commons, Collection setter injector, and
+                default-value plugins. These enhance the java code created by CXF wsdl2java, adding such things as
+                toString methods and attribute/element default values. The xjc arguments default is specified in
+                andromda.xml and can be overridden. 
+<source><![CDATA[
+                <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
+]]></source>
+                The plugins must be available in the classpath of the mda project,
+                which is passed to the generated ant script which runs xjc/wsdl2java.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next section: <a href="faults.html">Exceptions and Faults</a>.
+            </p>
+        </section>
+    </body>
+</document>

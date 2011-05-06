@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - Service Headers</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Headers">
+            <p>
+                AndroMDA allows a WS-Security header plus a customized header to be added to the service interface definition (wsdl).
+                These headers then become part of the service interface specification.
+            </p>
+            <p>
+                To add a customized header, add the <![CDATA[<<CustomHeader>>]]> stereotype to the webservice or webservice operation.
+                Specify the header namespace, abbreviation, xsd location, header_element, and header_partName.
+                These values are translated into the appropriate values in the wsdl definition.  
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next up is the <a href="rest.html">REST WebServices</a> section.
+            </p>
+        </section>
+    </body>
+</document>

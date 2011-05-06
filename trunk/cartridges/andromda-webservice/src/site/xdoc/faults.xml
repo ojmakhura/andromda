@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - Exceptions and Faults</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Faults">
+            <p>
+                The exception handling mechanism in JAX-WS is complex. The Exception class has no default constructor with
+                no parameters, and it is not Serializable, making it unusable for an XML datatype. JAX-WS maps each exception
+                to two different classes, one with the serial attributes and the other with the Exception referencing the WebFault.
+                By default the Java Exception class is not serializable, has no default empty constructor, so it must be
+                wrapped in another class which can be serialized to XML.
+            </p>
+            <p>
+                Probably the best blog reference on the subject is by Eben Hewett, although he calls the Java Exception
+                'Fault' and the serializable XML Fault 'Exception'.
+                <a href="http://io.typepad.com/eben_hewitt_on_java/tech_notes/">http://io.typepad.com/eben_hewitt_on_java/tech_notes/</a>
+                Without customizations, JAX-WS insists on putting the Exception in the same namespace (package) as the service
+                itself. It also results in classes called Exception_Exception, one of which is Serializable and the other
+                which extends Exception.
+            </p>
+            <p>
+                In general we recommend using very few if any declared exceptions, in favor of undeclared runtime exceptions.
+                Declared exceptions should only be used for business rule exceptions where the client is expected to do
+                something different than normal error processing. Never for logic flow control, and never to simply pass an
+                error message back to a client.
+            </p>
+            <p>
+                Model business exceptions as <![CDATA[<<ApplicationException>><<WebFault>>]]>, named {Class}Exception, thrown by the service
+                method. Additional attributes and associations can be added to the Exception class. Association classes must be
+                <![CDATA[<<ValueObject>>]]>.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next up is the <a href="headers.html">Custom Headers</a> section.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>AndroMDA - CXF Webservices - HowTo - Modeling</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Modeling">
+            <p>
+               Start with a brand new model / project, with webservice - cxf selected as an option. If using an existing project or model, you will need at 
+               least the common, webservice, and xml profiles. Run the project first against a new empty model, to
+               validate the starting project configuration, download all dependencies, and verify that the new build completes successfully.
+            </p>
+        </section>
+        <section name="Classes and Stereotypes">
+            <p>
+                Model your service as a class with <![CDATA[<<WebService>>]]> and/or operations with <![CDATA[<<WebServiceOperation>>]]>.
+                Service operations may have complex parameters with multiplicity *.
+                Model the complex parameters as <![CDATA[<<ValueObject>>]]>.
+                Label the packages containing services, valueobjects, and exceptions with <![CDATA[<<XmlSchema>>]]>. This creates
+                an xsd file which can be referenced by the wsdl file(s).
+                Service operations may throw exceptions. Model the exceptions as <![CDATA[<<ApplicationException>>]]><![CDATA[<<WebFault>>]]>.
+                If you use <![CDATA[<<WebFault>>]]> without declaring the exception thrown by the service, you will get an error 
+            </p>
+        </section>
+        <section name="Example">
+            <p>
+                Here's a very simple example showing the package/class hierarchy:
+            </p>
+            <p>
+                <img src="images/cxf-model.gif" alt="images/cxf-model.gif"/>
+            </p>
+            <p>
+                With the class diagram:
+            </p>
+            <p>
+                <img src="images/cxf-diagram.gif" alt="images/cxf-diagram.gif"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                We'll look more closely at the generated code and code to be implemented.
+                <a href="output.html">Implementation</a> section.
+            </p>
+        </section>
+    </body>
+</document>
