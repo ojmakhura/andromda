@@ -15,27 +15,43 @@ import org.springframework.context.ApplicationContextAware;
 public class ThisBeanFactory
     implements ApplicationContextAware, FactoryBean
 {
+    /**
+     * Default constructor
+     */
     public ThisBeanFactory()
     {
     }
 
     private ApplicationContext applicationContext;
 
+    /**
+     * @param applicationContext
+     * @throws BeansException
+     */
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
     {
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * @return ApplicationContext
+     */
     public Object getObject() throws Exception
     {
         return applicationContext;
     }
 
+    /**
+     * @return ApplicationContext.class
+     */
     public Class getObjectType()
     {
         return ApplicationContext.class;
     }
 
+    /**
+     * @return true always
+     */
     public boolean isSingleton()
     {
         return true;

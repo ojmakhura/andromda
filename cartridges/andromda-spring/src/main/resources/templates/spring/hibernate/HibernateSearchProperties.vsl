@@ -129,6 +129,7 @@ public class ${criteriaSearchBaseName}Properties
      * Gets the type of the embedded value given the <code>ownerType</code>
      * and <code>name</code>
      *
+     * @param properties Map contains the Collection of properties given the ownerType Class
      * @param ownerType the owner of the association.
      * @param name the name of the association end to find.
      * @return the type of the association end.
@@ -171,12 +172,19 @@ public class ${criteriaSearchBaseName}Properties
      */
     protected static final class PropertyType
     {
-        protected PropertyType(final String name, final Class type)
+        /**
+         * @param nameIn
+         * @param typeIn
+         */
+        protected PropertyType(final String nameIn, final Class typeIn)
         {
-            this.name = name;
-            this.type = type;
+            this.name = nameIn;
+            this.type = typeIn;
         }
+
+        /** PropertyType name */
         protected String name;
+        /** PropertyType type Class */
         protected Class type;
     }
 }

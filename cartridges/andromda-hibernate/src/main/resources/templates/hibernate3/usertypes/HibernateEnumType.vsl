@@ -24,15 +24,20 @@ import java.util.Properties;
  */
 public class $className implements EnhancedUserType, ParameterizedType
 {
+    @SuppressWarnings("unchecked")
     private Class<Enum> enumClass;
 
+    /**
+     * @see org.hibernate.usertype.ParameterizedType${esc.hash}setParameterValues(java.util.Properties)
+     */
+    @SuppressWarnings("unchecked")
     public void setParameterValues(Properties parameters)
     {
         final String enumClassName = parameters.getProperty("enumClassName");
         try
         {
             //noinspection unchecked
-            enumClass = (Class<Enum>)Class.forName(enumClassName);
+            this.enumClass = (Class<Enum>)Class.forName(enumClassName);
         }
         catch (ClassNotFoundException cnfe)
         {
@@ -40,42 +45,69 @@ public class $className implements EnhancedUserType, ParameterizedType
         }
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}assemble(java.io.Serializable, Object)
+     */
     public Object assemble(Serializable cached, Object owner) throws HibernateException
     {
         return cached;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}deepCopy(Object)
+     */
     public Object deepCopy(Object value) throws HibernateException
     {
         return value;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}disassemble(Object)
+     */
+    @SuppressWarnings("unchecked")
     public Serializable disassemble(Object value) throws HibernateException
     {
         return (Enum)value;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}equals(Object, Object)
+     */
     public boolean equals(Object x, Object y) throws HibernateException
     {
         return x == y;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}hashCode(Object)
+     */
     public int hashCode(Object x) throws HibernateException
     {
         return x.hashCode();
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}isMutable()
+     */
     public boolean isMutable()
     {
         return false;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     */
+    @SuppressWarnings("unchecked")
     public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
     {
         final String name = resultSet.getString(names[0]);
-        return resultSet.wasNull() ? null : Enum.valueOf(enumClass, name);
+        return resultSet.wasNull() ? null : Enum.valueOf(this.enumClass, name);
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     */
+    @SuppressWarnings("unchecked")
     public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException
     {
         if (value == null)
@@ -95,34 +127,55 @@ public class $className implements EnhancedUserType, ParameterizedType
         }
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}replace(Object, Object, Object)
+     */
     public Object replace(Object original, Object target, Object owner) throws HibernateException
     {
         return original;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}returnedClass()
+     */
+    @SuppressWarnings("unchecked")
     public Class returnedClass()
     {
-        return enumClass;
+        return this.enumClass;
     }
 
+    /**
+     * @see org.hibernate.usertype.UserType${esc.hash}sqlTypes()
+     */
     public int[] sqlTypes()
     {
         return new int[]{Types.VARCHAR};
     }
 
+    /**
+     * @see org.hibernate.usertype.EnhancedUserType${esc.hash}fromXMLString(String)
+     */
+    @SuppressWarnings("unchecked")
     public Object fromXMLString(String xmlValue)
     {
-        return Enum.valueOf(enumClass, xmlValue);
+        return Enum.valueOf(this.enumClass, xmlValue);
     }
 
+    /**
+     * @see org.hibernate.usertype.EnhancedUserType${esc.hash}objectToSQLString(Object)
+     */
+    @SuppressWarnings("unchecked")
     public String objectToSQLString(Object value)
     {
         return '\'' + ((Enum)value).name() + '\'';
     }
 
+    /**
+     * @see org.hibernate.usertype.EnhancedUserType${esc.hash}toXMLString(Object)
+     */
+    @SuppressWarnings("unchecked")
     public String toXMLString(Object value)
     {
         return ((Enum)value).name();
     }
-
 }

@@ -41,6 +41,10 @@ public class ${service.name}RemoteTest extends
 
 #end
 #foreach ($operation in $service.operations)
+    /**
+     * A unit test for ${service.name}.$operation.name This unit test
+     * makes remote calls, testing the server code in its deployed environment.
+     */
     public void test${stringUtils.capitalise($operation.name)}()
     {
         $service.name testService = ${clientServiceLocatorName}.instance().get${service.name}();
@@ -53,12 +57,20 @@ public class ${service.name}RemoteTest extends
     }
 
 #end
+    /**
+     * Get the configuration locations for the unit test for ${service.name}.$operation.name.
+     * @return new String[]
+     */
     protected String[] getConfigLocations()
     {
         // $toDoTag ${service.name}Test test configuration files (if any), should be listed inside the brackets...
         return new String[] { };
     }
 
+    /**
+     * Run the unit test for ${service.name}.$operation.name from the command line.
+     * @param args
+     */
     public static void main(String[] args)
     {
         junit.textui.TestRunner.run(${service.name}RemoteTest.class);

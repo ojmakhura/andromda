@@ -31,7 +31,7 @@ public class $entity.daoImplementationName
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected $operation.getterSetterReturnTypeName $signature
 #if ($operation.exceptionsPresent)
@@ -49,7 +49,7 @@ public class $entity.daoImplementationName
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
@@ -70,16 +70,14 @@ public class $entity.daoImplementationName
 #end
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationMethodName}
         return super.${valueObjectRef.transformationMethodName}(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -101,9 +99,8 @@ public class $entity.daoImplementationName
         */
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
     {
@@ -113,10 +110,12 @@ public class $entity.daoImplementationName
         return entity;
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName source,
         $entity.fullyQualifiedEntityName target,
@@ -137,6 +136,5 @@ public class $entity.daoImplementationName
 #end
 #end
     }
-
 #end
 }

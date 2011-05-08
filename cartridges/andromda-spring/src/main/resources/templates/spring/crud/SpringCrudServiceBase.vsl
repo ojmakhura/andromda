@@ -7,22 +7,42 @@
 ##
 package $manageable.manageablePackageName;
 
+/**
+$manageable.getDocumentation(" *")
+ */
 public final class $manageable.manageableServiceBaseName
     implements $manageable.manageableServiceName
 {
     private $manageable.fullyQualifiedManageableDaoName dao;
 
-    public void setDao($manageable.fullyQualifiedManageableDaoName dao)
+    /**
+     * @param daoIn
+     */
+    public void setDao($manageable.fullyQualifiedManageableDaoName daoIn)
     {
-        this.dao = dao;
+        this.dao = daoIn;
     }
 
+    /**
+     * @return dao
+     */
     protected $manageable.fullyQualifiedManageableDaoName getDao()
     {
         return this.dao;
     }
 
 #if ($manageable.create)
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return $manageable.fullyQualifiedManageableValueObjectName
+     * @throws Exception
+     * @see ${manageable.fullyQualifiedDaoName}${esc.hash}create
+     */
     public $manageable.fullyQualifiedManageableValueObjectName create($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -39,40 +59,66 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #end
-        return toValueObject(dao.create($memberListArguments));
+        return toValueObject(this.dao.create($memberListArguments));
     }
 
 #end
 #if ($manageable.read)
+    /**
+     * @param $manageable.identifierName
+     * @return $manageable.fullyQualifiedManageableValueObjectName
+     * @throws Exception
+     * @see ${manageable.manageableServiceName}${esc.hash}readById(${manageable.fullyQualifiedIdentifierTypeName})
+     */
     public $manageable.fullyQualifiedManageableValueObjectName readById(${manageable.fullyQualifiedIdentifierTypeName} $manageable.identifierName)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
 #end
     {
-        return toValueObject(dao.readById($manageable.identifierName));
+        return toValueObject(this.dao.readById($manageable.identifierName));
     }
 
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return toValueObjects(dao.read())
+     * @throws Exception
+     * @see ${manageable.manageableServiceName}${esc.hash}read
+     */
     public java.util.List<$manageable.fullyQualifiedManageableValueObjectName> read(${manageable.listManageableMembersWithWrapperTypes()})
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
 #end
     {
-        return toValueObjects(dao.read($memberListArguments));
+        return toValueObjects(this.dao.read($memberListArguments));
     }
 
+    /**
+     * @return toValueObjects(dao.readAll())
+     * @throws Exception
+     */
     public java.util.List<$manageable.fullyQualifiedManageableValueObjectName> readAll()
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
 #end
     {
-        return toValueObjects(dao.readAll());
+        return toValueObjects(this.dao.readAll());
     }
 
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
+    /**
+     * @param $manageable.identifierName
+     * @return dao.${member.getterName}($manageable.identifierName)
+     * @throws Exception
+     */
     public $member.type.fullyQualifiedName ${member.getterName}($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -93,6 +139,11 @@ public final class $manageable.manageableServiceBaseName
 #end
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
+    /**
+     * @return Map<String,?> getDao().readBackingLists()
+     * @throws Exception
+     * @see ${manageable.fullyQualifiedManageableDaoName}${esc.hash}readBackingLists
+     */
     public java.util.Map<String,?> readBackingLists()
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -105,6 +156,17 @@ public final class $manageable.manageableServiceBaseName
 #end
 #end
 #if ($manageable.update)
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return toValueObject(this.dao.update($memberListArguments))
+     * @throws Exception
+     * @see ${manageable.fullyQualifiedManageableDaoName}${esc.hash}update
+     */
     public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -121,11 +183,19 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #end
-        return toValueObject(dao.update($memberListArguments));
+        return toValueObject(this.dao.update($memberListArguments));
     }
 
 #end
 #if ($manageable.delete)
+    /**
+     * @param ids
+     * @throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+     * @throws java.rmi.RemoteException
+#end
+     * @see ${manageable.manageableServiceName}${esc.hash}delete(${manageable.fullyQualifiedIdentifierTypeName}[])
+     */
     public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -138,11 +208,10 @@ public final class $manageable.manageableServiceBaseName
                 "${manageable.fullyQualifiedManageableServiceName}.delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids) - 'ids' can not be null");
         }
 
-        dao.delete(ids);
+        this.dao.delete(ids);
     }
 
 #end
-
     private static java.util.List<$manageable.fullyQualifiedManageableValueObjectName> toValueObjects(java.util.Collection<$manageable.fullyQualifiedEntityName> entities)
     {
         final java.util.List<$manageable.fullyQualifiedManageableValueObjectName> list = new java.util.ArrayList<$manageable.fullyQualifiedManageableValueObjectName>();

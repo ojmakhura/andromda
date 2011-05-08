@@ -29,29 +29,44 @@ public class $className
     private String username;
     private String password;
 
+    /**
+     * Default constructor
+     */
     public $className()
     {
         super();
     }
 
+    /**
+     * @return password
+     */
     public String getPassword()
     {
         return password;
     }
 
-    public void setPassword(String password)
+    /**
+     * @param passwordIn
+     */
+    public void setPassword(String passwordIn)
     {
-        this.password = password;
+        this.password = passwordIn;
     }
 
+    /**
+     * @return username
+     */
     public String getUsername()
     {
         return username;
     }
 
-    public void setUsername(String username)
+    /**
+     * @param usernameIn
+     */
+    public void setUsername(String usernameIn)
     {
-        this.username = username;
+        this.username = usernameIn;
     }
 
     /**

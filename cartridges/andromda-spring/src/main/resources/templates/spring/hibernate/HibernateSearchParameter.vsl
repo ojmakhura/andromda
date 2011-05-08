@@ -180,16 +180,16 @@ public class ${criteriaSearchBaseName}Parameter
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         Object parameterValueIn,
         String parameterPatternIn,
         boolean searchIfNull,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
          this(parameterValueIn, parameterPatternIn, searchIfNull);
-         this.matchMode = matchMode;
+         this.matchMode = matchModeIn;
     }
 
     /**
@@ -199,16 +199,16 @@ public class ${criteriaSearchBaseName}Parameter
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         String parameterValueIn,
         String parameterPatternIn,
         boolean searchIfNull,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn, searchIfNull);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -218,16 +218,16 @@ public class ${criteriaSearchBaseName}Parameter
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         String[] parameterValueIn,
         String parameterPatternIn,
         boolean searchIfNull,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn, searchIfNull);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -238,17 +238,17 @@ public class ${criteriaSearchBaseName}Parameter
      * @param searchIfNull Indicates whether the query should contain an
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      * @param comparatorIn Indicates what comparator is to be used (e.g. like, =, <, ...).
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         String parameterValueIn,
         String parameterPatternIn,
         boolean searchIfNull,
         int comparatorIn,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn, searchIfNull, comparatorIn);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -257,16 +257,16 @@ public class ${criteriaSearchBaseName}Parameter
      * @param parameterValueIn The actual value of the parameter.
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
      * @param comparatorIn Indicates what comparator is to be used (e.g. like, =, <, ...).
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         Object parameterValueIn,
         String parameterPatternIn,
         int comparatorIn,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn, comparatorIn);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -274,15 +274,15 @@ public class ${criteriaSearchBaseName}Parameter
      *
      * @param parameterValueIn The actual value of the parameter.
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         Object parameterValueIn,
         String parameterPatternIn,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -290,15 +290,15 @@ public class ${criteriaSearchBaseName}Parameter
      *
      * @param parameterValueIn The actual value of the parameter.
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         String parameterValueIn,
         String parameterPatternIn,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
 
@@ -307,15 +307,15 @@ public class ${criteriaSearchBaseName}Parameter
      *
      * @param parameterValueIn The actual value of the parameter.
      * @param parameterPatternIn The pattern of this parameter (dot-separated path e.g. person.address.street).
-     * @param matchMode The hibernate matchmode to be used in string comparisons.
+     * @param matchModeIn The hibernate matchmode to be used in string comparisons.
      */
     public ${criteriaSearchBaseName}Parameter(
         String[] parameterValueIn,
         String parameterPatternIn,
-        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchModeIn)
     {
         this(parameterValueIn, parameterPatternIn);
-        this.matchMode = matchMode;
+        this.matchMode = matchModeIn;
     }
 
     /**
@@ -323,7 +323,7 @@ public class ${criteriaSearchBaseName}Parameter
      */
     public String getParameterPattern()
     {
-        return parameterPattern;
+        return this.parameterPattern;
     }
 
     /**
@@ -339,13 +339,13 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * Parse the parameter pattern and return the last part of the name.
      *
-     * @param parameterPattern The parameter pattern.
+     * @param parameterPatternIn The parameter pattern.
      * @return The last part of the parameter pattern, i.e. the attribute name.
      */
-    private String parseParameterName(String parameterPattern)
+    private String parseParameterName(String parameterPatternIn)
     {
         // parsing the pattern of the parameter
-        String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameterPattern);
+        String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameterPatternIn);
         return path[path.length - 1];
     }
 
@@ -354,7 +354,7 @@ public class ${criteriaSearchBaseName}Parameter
      */
     public String getParameterName()
     {
-        return parseParameterName(parameterPattern);
+        return parseParameterName(this.parameterPattern);
     }
 
     /**
@@ -362,7 +362,7 @@ public class ${criteriaSearchBaseName}Parameter
      */
     public Object getParameterValue()
     {
-        return parameterValue;
+        return this.parameterValue;
     }
 
     /**
@@ -380,7 +380,7 @@ public class ${criteriaSearchBaseName}Parameter
      */
     public ${hibernateUtils.criterionPackage}.MatchMode getMatchMode()
     {
-        return matchMode;
+        return this.matchMode;
     }
 
     /**
@@ -395,13 +395,13 @@ public class ${criteriaSearchBaseName}Parameter
 
     /**
      * @return The order (ascending or descending) for this parameter.
-     * @see SearchParameter${escHash}ORDER_ASC
-     * @see SearchParameter${escHash}ORDER_DESC
-     * @see SearchParameter${escHash}ORDER_UNSET
+     * @see SearchParameter${esc.hash}ORDER_ASC
+     * @see SearchParameter${esc.hash}ORDER_DESC
+     * @see SearchParameter${esc.hash}ORDER_UNSET
      */
     public int getOrderDirection()
     {
-        return orderDirection;
+        return this.orderDirection;
     }
 
     /**
@@ -416,21 +416,21 @@ public class ${criteriaSearchBaseName}Parameter
 
     /**
      * @return The relevance for this parameter.
-     * @see SearchParameter${escHash}RELEVANCE_UNSET
+     * @see SearchParameter${esc.hash}ORDER_UNSET
      */
     public int getOrderRelevance()
     {
-        return orderRelevance;
+        return this.orderRelevance;
     }
 
     /**
      * Sets the ordering relevance for this parameter.
      *
-     * @param order The ordering relevance for this parameter.
+     * @param relevanceIn The ordering relevance for this parameter.
      */
-    public void setOrderRelevance(int relevance)
+    public void setOrderRelevance(int relevanceIn)
     {
-        this.orderRelevance = relevance;
+        this.orderRelevance = relevanceIn;
     }
 
     private static final long serialVersionUID = 1L;

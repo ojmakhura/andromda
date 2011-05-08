@@ -28,7 +28,12 @@ public interface ${service.name}Home
      */
     public static final String JNDI_NAME="${service.ejbJndiName}";
 
+    /**
+     * The fullyQualified Ejb name.
+     * @return fullyQualifiedEjbName
+     * @throws javax.ejb.CreateException
+     * @throws java.rmi.RemoteException
+	 */
     public $service.fullyQualifiedEjbName create()
         throws javax.ejb.CreateException, java.rmi.RemoteException;
-
 }

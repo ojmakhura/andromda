@@ -13,6 +13,12 @@ public interface $manageable.manageableServiceName
 {
 #if ($manageable.create)
     /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
      * @return create
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -25,6 +31,7 @@ public interface $manageable.manageableServiceName
 #end
 #if ($manageable.read)
     /**
+     * @param $manageable.identifierName The manageable identifier name
      * @return manageable
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -35,6 +42,12 @@ public interface $manageable.manageableServiceName
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
     /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
      * @return manageable
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -83,6 +96,12 @@ public interface $manageable.manageableServiceName
 #end
 #if ($manageable.update)
     /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
      * @return update
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -95,6 +114,7 @@ public interface $manageable.manageableServiceName
 #end
 #if ($manageable.delete)
     /**
+     * @param ids The array of IDs to be deleted
      * @throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
      * @throws java.rmi.RemoteException

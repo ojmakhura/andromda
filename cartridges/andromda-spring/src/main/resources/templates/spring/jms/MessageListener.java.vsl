@@ -35,8 +35,12 @@ public class $operation.messageListenerName
      */
     private $operation.owner.name service;
 
-    public void set${operation.owner.name}(final $operation.owner.name service)
+    /**
+     * The setter for $operation.owner.name service.
+     * @param serviceIn
+     */
+    public void set${operation.owner.name}(final $operation.owner.name serviceIn)
     {
-        this.service = service;
+        this.service = serviceIn;
     }
 }

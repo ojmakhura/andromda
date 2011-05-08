@@ -240,7 +240,6 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
-    @Override
 #renderEqualsMethod($entity $entity.entityName $identifiers)
 
     /**
@@ -265,7 +264,6 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
-    @Override
 #renderHashCodeMethod($entity $entity.entityName $identifiers)
 
 #end

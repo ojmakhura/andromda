@@ -12,7 +12,7 @@ package $springTypesPackage;
 /**
  * Implements a generic search mechanism based on the Hibernate Criteria API. The
  * <code>${criteriaSearchBaseName}</code> allows adding parameters which function as where clause. The
- * parameters are analysed whether they should be considered or not. This depends both on the actual
+ * parameters are analyzed whether they should be considered or not. This depends both on the actual
  * value of the parameter and on the configuration.<br>
  * The <code>${criteriaSearchBaseName}</code> is expected to be a general solution for a basic search with
  * parameters connected by logical <b>and</b>. This search does <b>not</b> provide grouping.
@@ -30,17 +30,17 @@ public class $criteriaSearchBaseName
 {
     private ${criteriaSearchBaseName}Configuration configuration;
     private ${hibernateUtils.basePackage}.Criteria rootCriteria;
-#if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-#end
+##if ($enableTemplating)
+##    @SuppressWarnings({ "unchecked", "rawtypes" })
+##end
     private java.util.Map childCriteriaMap;
-#if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-#end
+##if ($enableTemplating)
+##    @SuppressWarnings({ "unchecked", "rawtypes" })
+##end
     private java.util.List orderList;
-#if ($enableTemplating)
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-#end
+##if ($enableTemplating)
+##    @SuppressWarnings({ "unchecked", "rawtypes" })
+##end
     private Class resultType;
 
     private static final class ParameterComparator
@@ -69,6 +69,7 @@ public class $criteriaSearchBaseName
 
     /**
      * Exposes the root criteria to subclasses.
+     * @return rootCriteria
      */
     protected ${hibernateUtils.basePackage}.Criteria getRootCriteria()
     {
@@ -80,12 +81,12 @@ public class $criteriaSearchBaseName
      * <code>${criteriaSearchBaseName}Configuration</code>.
      *
      * @param session The Hibernate session.
-     * @param resultType The <code>Class</code> of the result.
+     * @param resultTypeIn The <code>Class</code> of the result.
      */
-    public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session, Class resultType)
+    public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session, Class resultTypeIn)
     {
         this.configuration = new ${criteriaSearchBaseName}Configuration();
-        this.resultType = resultType;
+        this.resultType = resultTypeIn;
         this.rootCriteria = session.createCriteria(this.resultType);
         this.childCriteriaMap = new java.util.HashMap();
         this.orderList = new java.util.ArrayList();
@@ -124,7 +125,7 @@ public class $criteriaSearchBaseName
             {
                 ${criteriaSearchBaseName}Parameter parameter = (${criteriaSearchBaseName}Parameter)orderIterator.next();
                 int direction = parameter.getOrderDirection();
-                if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
+                if (direction == SearchParameter.ORDER_ASC)
                 {
                     this.getParameterCriteria(parameter).addOrder(${hibernateUtils.criterionPackage}.Order.asc(this.getParameterName(parameter)));
                 }
@@ -226,7 +227,7 @@ public class $criteriaSearchBaseName
             }
         }
         // if the parameter is to be ordered, add it to the order list
-        if (parameter.getOrderDirection() != CriteriaSearchParameter.ORDER_UNSET)
+        if (parameter.getOrderDirection() != SearchParameter.ORDER_UNSET)
         {
             this.orderList.add(parameter);
         }
@@ -359,12 +360,12 @@ public class $criteriaSearchBaseName
     {
         switch (comparator)
         {
-            case ${criteriaSearchBaseName}Parameter.NOT_NULL_COMPARATOR:
+            case SearchParameter.NOT_NULL_COMPARATOR:
             {
                 criteria.add(${hibernateUtils.restrictionClass}.isNotNull(parameterName));
                 break;
             }
-            case ${criteriaSearchBaseName}Parameter.NULL_COMPARATOR:
+            case SearchParameter.NULL_COMPARATOR:
             {
                 criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
                 break;
@@ -375,7 +376,7 @@ public class $criteriaSearchBaseName
                 {
                     switch (comparator)
                     {
-                        case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
+                        case SearchParameter.LIKE_COMPARATOR:
                         {
                             if ((matchMode != null) && (parameterValue instanceof String))
                             {
@@ -390,7 +391,7 @@ public class $criteriaSearchBaseName
                             }
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.NOT_LIKE_COMPARATOR:
+                        case SearchParameter.NOT_LIKE_COMPARATOR:
                         {
                             ${hibernateUtils.criterionPackage}.SimpleExpression expression;
                             if ((matchMode != null) && (parameterValue instanceof String))
@@ -407,7 +408,7 @@ public class $criteriaSearchBaseName
                             criteria.add(${hibernateUtils.restrictionClass}.not(expression));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.INSENSITIVE_LIKE_COMPARATOR:
+                        case SearchParameter.INSENSITIVE_LIKE_COMPARATOR:
                         {
                             if ((matchMode != null) && (parameterValue instanceof String))
                             {
@@ -422,7 +423,7 @@ public class $criteriaSearchBaseName
                             }
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.NOT_INSENSITIVE_LIKE_COMPARATOR:
+                        case SearchParameter.NOT_INSENSITIVE_LIKE_COMPARATOR:
                         {
                             ${hibernateUtils.criterionPackage}.Criterion criterion;
                             if ((matchMode != null) && (parameterValue instanceof String))
@@ -439,32 +440,32 @@ public class $criteriaSearchBaseName
                             criteria.add(${hibernateUtils.restrictionClass}.not(criterion));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:
+                        case SearchParameter.EQUAL_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.eq(parameterName, parameterValue));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
+                        case SearchParameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.ge(parameterName, parameterValue));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR:
+                        case SearchParameter.GREATER_THAN_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.gt(parameterName, parameterValue));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR:
+                        case SearchParameter.LESS_THAN_OR_EQUAL_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.le(parameterName, parameterValue));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR:
+                        case SearchParameter.LESS_THAN_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.lt(parameterName, parameterValue));
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.IN_COMPARATOR:
+                        case SearchParameter.IN_COMPARATOR:
                         {
                             if (parameterValue instanceof java.util.Collection)
                             {
@@ -472,7 +473,7 @@ public class $criteriaSearchBaseName
                             }
                             break;
                         }
-                        case ${criteriaSearchBaseName}Parameter.NOT_IN_COMPARATOR:
+                        case SearchParameter.NOT_IN_COMPARATOR:
                         {
                             if (parameterValue instanceof java.util.Collection)
                             {
@@ -481,7 +482,7 @@ public class $criteriaSearchBaseName
                             break;
                         }
 #if ($hibernateUtils.version3)
-                        case ${criteriaSearchBaseName}Parameter.NOT_EQUAL_COMPARATOR:
+                        case SearchParameter.NOT_EQUAL_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.ne(parameterName, parameterValue));
                             break;
@@ -500,7 +501,7 @@ public class $criteriaSearchBaseName
     /**
      * Adds an <code>${hibernateUtils.restrictionClass}</code> to a <code>Criteria</code>. The given <code>parameterValues</code>
      * represents either an array of <code>String</code> or another object. The different values in the
-     * array are added to a disjunction or conjuction which is connected with logical and to the other criteria of the
+     * array are added to a disjunction or conjunction which is connected with logical and to the other criteria of the
      * search.
      *
      * @param criteria
@@ -523,7 +524,7 @@ public class $criteriaSearchBaseName
             ${hibernateUtils.criterionPackage}.Conjunction conjunction = null;
             switch (comparator)
             {
-                case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
+                case SearchParameter.LIKE_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     if ((matchMode != null) && (parameterValues instanceof String[]))
@@ -561,7 +562,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.INSENSITIVE_LIKE_COMPARATOR:
+                case SearchParameter.INSENSITIVE_LIKE_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     if ((matchMode != null) && (parameterValues instanceof String[]))
@@ -597,7 +598,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:
+                case SearchParameter.EQUAL_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -613,7 +614,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
+                case SearchParameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -630,7 +631,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR:
+                case SearchParameter.GREATER_THAN_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -647,7 +648,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR:
+                case SearchParameter.LESS_THAN_OR_EQUAL_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -664,7 +665,7 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR:
+                case SearchParameter.LESS_THAN_COMPARATOR:
                 {
                     disjunction = ${hibernateUtils.disjunctionClassName}.disjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -681,18 +682,18 @@ public class $criteriaSearchBaseName
                     }
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.IN_COMPARATOR:
+                case SearchParameter.IN_COMPARATOR:
                 {
                     criteria.add(${hibernateUtils.restrictionClass}.in(parameterName, parameterValues));
                     break;
                 }
-                case ${criteriaSearchBaseName}Parameter.NOT_IN_COMPARATOR:
+                case SearchParameter.NOT_IN_COMPARATOR:
                 {
                     criteria.add(${hibernateUtils.restrictionClass}.not(${hibernateUtils.restrictionClass}.in(parameterName, parameterValues)));
                     break;
                 }
 #if ($hibernateUtils.version3)
-                case ${criteriaSearchBaseName}Parameter.NOT_EQUAL_COMPARATOR:
+                case SearchParameter.NOT_EQUAL_COMPARATOR:
                 {
                     conjunction = ${hibernateUtils.disjunctionClassName}.conjunction();
                     for (int index = 0; index < parameterValues.length; index++)
@@ -753,7 +754,7 @@ public class $criteriaSearchBaseName
         // Hibernate does not support a 'unique' identifier. As a search may contain outer joins,
         // duplicates in the resultList are possible. We eliminate any duplicates here, creating a
         // distinctified resultSet (Suggestion from Hibernate itself; see www.hibernate.org's FAQ's).
-        parentCriteria.setResultTransformer(${hibernateUtils.basePackage}.Criteria.DISTINCT_ROOT_ENTITY);
+        parentCriteria.setResultTransformer(${hibernateUtils.basePackage}.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         this.childCriteriaMap.put(childEntityName, childCriteria);
         return childCriteria;
     }

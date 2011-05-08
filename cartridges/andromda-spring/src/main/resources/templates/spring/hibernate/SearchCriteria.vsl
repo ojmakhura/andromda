@@ -23,8 +23,12 @@ public class $class.name
 {
 #if (!$class.properties.empty)
 
+    /**
+$class.getDocumentation("     * ")
+     */
     public ${class.name}()
     {
+        // Empty default constructor
     }
 #end
 

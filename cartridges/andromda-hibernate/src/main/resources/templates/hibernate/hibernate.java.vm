@@ -4,6 +4,9 @@
 ##  if an value type is renderer, the attributeSet consists of all attributes
 ##
 #macro (renderEqualsMethod $class $className $attributeSet)
+#if ($enableAnnotations)
+    @Override
+#end
     public boolean equals(Object object)
     {
 #if ($attributeSet.empty)
@@ -54,6 +57,9 @@
 ##  if an value type is renderer, the attributeSet consists of all attributes
 ##
 #macro (renderHashCodeMethod $class $className $attributeSet)
+#if ($enableAnnotations)
+    @Override
+#end
     public int hashCode()
     {
 #if ($attributeSet.empty)

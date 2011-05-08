@@ -11,20 +11,29 @@ package $manageable.manageablePackageName;
 import ${hibernateUtils.basePackage}.Session;
 import ${hibernateUtils.basePackage}.Criteria;
 import ${hibernateUtils.criterionPackage}.MatchMode;
-import ${hibernateUtils.criterionPackage}.Expression;
+import ${hibernateUtils.criterionPackage}.Restrictions;
 
 #end
+/**
+$manageable.getDocumentation(" * ")
+ */
 public final class $manageable.manageableDaoBaseName
     extends ${hibernateUtils.springHibernatePackage}.support.HibernateDaoSupport
     implements $manageable.manageableDaoName
 {
     private $manageable.fullyQualifiedDaoName dao;
 
-    public void setDao($manageable.fullyQualifiedDaoName dao)
+    /**
+     * @param daoIn
+     */
+    public void setDao($manageable.fullyQualifiedDaoName daoIn)
     {
-        this.dao = dao;
+        this.dao = daoIn;
     }
 
+    /**
+     * @return dao
+     */
     protected $manageable.fullyQualifiedDaoName getDao()
     {
         return this.dao;
@@ -34,11 +43,17 @@ public final class $manageable.manageableDaoBaseName
 #set ($entity = $member.type)
     private $entity.fullyQualifiedDaoName $member.daoName = null;
 
-    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName $member.daoName)
+    /**
+     * @param ${member.daoName}In
+     */
+    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName ${member.daoName}In)
     {
-        this.$member.daoName = $member.daoName;
+        this.$member.daoName = ${member.daoName}In;
     }
 
+    /**
+     * @return dao $entity.fullyQualifiedDaoName
+     */
     protected $entity.fullyQualifiedDaoName ${member.daoGetterName}()
     {
         return this.$member.daoName;
@@ -46,15 +61,15 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #foreach ($associatedClass in $manageable.allAssociatedClasses)
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked"})
     private java.util.Set<$associatedClass.fullyQualifiedName> find${associatedClass.name}ByIds(${associatedClass.fullyQualifiedIdentifierTypeName}[] ids)
     {
         final Session session = this.getSession(false);
         try
         {
             final Criteria criteria = session.createCriteria(${associatedClass.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$associatedClass.identifierName", ids));
-            return new java.util.HashSet<$associatedClass.fullyQualifiedName>((java.util.Collection<$associatedClass.fullyQualifiedName>)criteria.list());
+            criteria.add(Restrictions.in("$associatedClass.identifierName", ids));
+            return new java.util.HashSet<$associatedClass.fullyQualifiedName>(criteria.list());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -64,6 +79,17 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #if ($manageable.create)
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return entity
+     * @see ${manageable.fullyQualifiedDaoName}${esc.hash}create(${manageable.fullyQualifiedEntityName})
+     */
+    @SuppressWarnings("cast")
     public $manageable.fullyQualifiedEntityName create($memberList)
     {
         final ${manageable.fullyQualifiedEntityName} entity = new ${manageable.fullyQualifiedEntityImplementationName}();
@@ -110,6 +136,11 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #if ($manageable.read)
+    /**
+     * @param $manageable.identifierName
+     * @return entity
+     * @see ${manageable.fullyQualifiedDaoName}${esc.hash}load(Long)
+     */
     public $manageable.fullyQualifiedEntityName readById($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName)
     {
         return getDao().load($manageable.identifierName);
@@ -120,6 +151,15 @@ public final class $manageable.manageableDaoBaseName
 #else
 #set($matchMode = 'MatchMode.START')
 #end
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return List<$manageable.fullyQualifiedEntityName>
+     */
     @SuppressWarnings("unchecked")
     public java.util.List<$manageable.fullyQualifiedEntityName> read(${manageable.listManageableMembersWithWrapperTypes()})
     {
@@ -133,7 +173,7 @@ public final class $manageable.manageableDaoBaseName
             if ($member.name != null)
 #if ($member.type.stringType)
             {
-                criteria.add(Expression.ilike("$member.name", $member.name, $matchMode));
+                criteria.add(Restrictions.ilike("$member.name", $member.name, $matchMode));
             }
 #elseif ($member.type.dateType)
             {
@@ -146,22 +186,22 @@ public final class $manageable.manageableDaoBaseName
                      || calendar.get(java.util.Calendar.SECOND) != 0
                      || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
                 {
-                    criteria.add(Expression.eq("$member.name", $member.name));
+                    criteria.add(Restrictions.eq("$member.name", $member.name));
                 }
                 else
                 {
                     calendar.add(java.util.Calendar.DATE, 1);
                     calendar.add(java.util.Calendar.MILLISECOND, -1);
-                    criteria.add(Expression.between("$member.name", $member.name, calendar.getTime()));
+                    criteria.add(Restrictions.between("$member.name", $member.name, calendar.getTime()));
                 }
             }
 #elseif ($member.type.booleanType)
             {
-                criteria.add(Expression.eq("$member.name", ${member.name}.booleanValue()));
+                criteria.add(Restrictions.eq("$member.name", ${member.name}.booleanValue()));
             }
 #else
             {
-                criteria.add(Expression.eq("$member.name", $member.name));
+                criteria.add(Restrictions.eq("$member.name", $member.name));
             }
 #end
 #end
@@ -169,12 +209,12 @@ public final class $manageable.manageableDaoBaseName
 #if ($member.many)
             if ($member.name != null && ${member.name}.length > 0)
             {
-                criteria.createCriteria("$member.name").add(Expression.in("$member.type.identifierName", $member.name));
+                criteria.createCriteria("$member.name").add(Restrictions.in("$member.type.identifierName", $member.name));
             }
 #else
             if ($member.name != null)
             {
-                criteria.createCriteria("$member.name").add(Expression.eq("$member.type.identifierName", $member.name));
+                criteria.createCriteria("$member.name").add(Restrictions.eq("$member.type.identifierName", $member.name));
             }
 #end
 #end
@@ -182,7 +222,7 @@ public final class $manageable.manageableDaoBaseName
             criteria.setMaxResults($manageable.maximumListSize);
 
 #end
-            return (java.util.List<$manageable.fullyQualifiedEntityName>)criteria.list();
+            return criteria.list();
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -190,6 +230,9 @@ public final class $manageable.manageableDaoBaseName
         }
     }
 
+    /**
+     * @return criteria.list()
+     */
     @SuppressWarnings("unchecked")
     public java.util.List<$manageable.fullyQualifiedEntityName> readAll()
     {
@@ -201,7 +244,7 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.maximumListSize > 0)
             criteria.setMaxResults($manageable.maximumListSize);
 #end
-            return (java.util.List<$manageable.fullyQualifiedEntityName>) criteria.list();
+            return criteria.list();
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -236,6 +279,9 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
+    /**
+     * @return backingLists Map<String,Object>
+     */
     public java.util.Map<String,Object> readBackingLists()
     {
         final java.util.Map<String,Object> lists = new java.util.HashMap<String,Object>();
@@ -243,6 +289,7 @@ public final class $manageable.manageableDaoBaseName
 
         try
         {
+            // Put the manageableAssociationEnds in the session query
 #foreach ($member in $manageable.manageableAssociationEnds)
 ##            // member.name=$member.name member=$member
 ##            // manageable.identifierName=$manageable.identifierName identifier=$identifier
@@ -263,6 +310,16 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if ($manageable.update)
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return getDao().update(entity)
+     * @see ${manageable.fullyQualifiedDaoName}${esc.hash}update($manageable.fullyQualifiedEntityName)
+     */
     public $manageable.fullyQualifiedEntityName update($memberList)
     {
         final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($manageable.identifierName);
@@ -313,6 +370,10 @@ public final class $manageable.manageableDaoBaseName
 
 #end
 #if ($manageable.delete && $manageable.identifiersPresent)
+
+    /**
+     * @param ids
+     */
     public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids)
     {
         final Session session = getSession(false);
@@ -328,7 +389,7 @@ public final class $manageable.manageableDaoBaseName
 ##            // generalizationRoot.name=$manageable.generalizationRoot.name generalizationRoot=$manageable.generalizationRoot.name
 ##            // fullyQualifiedEntityImplementationName=$manageable.generalizationRoot.fullyQualifiedEntityImplementationName
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$manageable.identifierName", ids));
+            criteria.add(Restrictions.in("$manageable.identifierName", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
 #end
@@ -338,6 +399,5 @@ public final class $manageable.manageableDaoBaseName
             throw super.convertHibernateAccessException(ex);
         }
     }
-
 #end
 }

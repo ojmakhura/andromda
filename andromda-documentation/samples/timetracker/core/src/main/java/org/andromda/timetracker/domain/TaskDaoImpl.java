@@ -15,7 +15,7 @@ public class TaskDaoImpl
     extends TaskDaoBase
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void toTaskVO(
@@ -28,7 +28,7 @@ public class TaskDaoImpl
 
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public TaskVO toTaskVO(final Task entity)
@@ -60,7 +60,7 @@ public class TaskDaoImpl
 
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Task taskVOToEntity(TaskVO taskVO)
     {
@@ -72,7 +72,7 @@ public class TaskDaoImpl
 
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void taskVOToEntity(
