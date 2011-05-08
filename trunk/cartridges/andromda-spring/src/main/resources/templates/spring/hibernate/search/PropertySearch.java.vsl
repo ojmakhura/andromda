@@ -35,20 +35,20 @@ public class $className
      *
      * @param session The Hibernate session.
      * @param entityType The <code>Class</code> of the result.
-     * @param search the object that specifies the search criteria.
+     * @param searchIn the object that specifies the search criteria.
      */
     public $className(
         final ${hibernateUtils.basePackage}.Session session,
         final Class entityType,
-        final Search search)
+        final Search searchIn)
     {
         super(session, entityType);
-        this.search = search;
+        this.search = searchIn;
         try
         {
             this.initializeConverters();
-            this.getConfiguration().setForceEagerLoading(search.isEagerFetching());
-            final SearchParameter[] parameters = search.getParameters();
+            this.getConfiguration().setForceEagerLoading(searchIn.isEagerFetching());
+            final SearchParameter[] parameters = searchIn.getParameters();
             if (parameters != null)
             {
                 for (int ctr = 0; ctr < parameters.length; ctr++)
@@ -92,13 +92,13 @@ public class $className
                             break;
                     }
                     this.addParameter(parameter);
-                    if (search.isUseSqlLimiting())
+                    if (searchIn.isUseSqlLimiting())
                     {
-                        if (search.getPageNumber() > 0 && search.getPageSize() > 0)
+                        if (searchIn.getPageNumber() > 0 && searchIn.getPageSize() > 0)
                         {
                             // - set the first result as part of pagination support
-                            this.getConfiguration().setFirstResult(new Integer(this.calculateFirstResult(search.getPageNumber(), search.getPageSize())));
-                            this.getConfiguration().setMaximumResultSize(new Integer(search.getPageSize()));
+                            this.getConfiguration().setFirstResult(new Integer(this.calculateFirstResult(searchIn.getPageNumber(), searchIn.getPageSize())));
+                            this.getConfiguration().setMaximumResultSize(new Integer(searchIn.getPageSize()));
                         }
                     }
                 }
@@ -116,13 +116,13 @@ public class $className
     private int totalCount;
 
     /**
-     * Gets the total possible count of objects returned in this
-     * search.
+     * Gets the total possible count of objects returned in this search.
+     * @return totalCount
      */
     public int getTotalCount()
     {
 #if ($hibernateUtils.version3)
-        int totalCount;
+        int count;
         if (this.search.isUseSqlLimiting())
         {
             // Remove first result requirement
@@ -130,20 +130,20 @@ public class $className
             this.getRootCriteria().setProjection(
                 org.hibernate.criterion.Projections.projectionList().add(
                     org.hibernate.criterion.Projections.rowCount()));
-            totalCount = ((Integer)this.executeAsList().iterator().next()).intValue();
+            count = ((Integer)this.executeAsList().iterator().next()).intValue();
         }
         else
         {
-            totalCount = this.totalCount;
+            count = this.totalCount;
         }
-        return totalCount;
+        return count;
 #else
         return this.totalCount;
 #end
     }
 
     /**
-     * @see com.lighthousepmg.messaging.service.CriteriaSearch${esc.hash}executeAsList()
+     * @see CriteriaSearch${esc.hash}executeAsList()
      */
 #if ($enableTemplating)
     @Override
@@ -154,8 +154,8 @@ public class $className
         java.util.List results = super.executeAsList();
         if (!this.search.isUseSqlLimiting() && this.search.getPageNumber() > 0 && this.search.getPageSize() > 0)
         {
-            int start = this.calculateFirstResult(search.getPageNumber(), search.getPageSize());
-            int end = this.calculateLastResult(search.getPageNumber(), search.getPageSize());
+            int start = this.calculateFirstResult(this.search.getPageNumber(), this.search.getPageSize());
+            int end = this.calculateLastResult(this.search.getPageNumber(), this.search.getPageSize());
             this.totalCount = results.size();
             if (this.totalCount < start)
             {
@@ -303,6 +303,7 @@ public class $className
     {
         public DateConverter()
         {
+            // Empty block comment
         }
 
         /**
@@ -339,6 +340,7 @@ public class $className
     {
         public CalendarConverter()
         {
+            // Empty block comment
         }
 
         /**

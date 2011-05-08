@@ -61,7 +61,7 @@ public class $serviceLocatorName
      * then the default application context will be used.
      *
      * @param beanFactoryReferenceLocationIn the location of the beanRefFactory reference.
-     * @param beanFactoryReferenceIdIn the id of the beanRefFactory reference.
+     * @param beanRefFactoryReferenceIdIn the id of the beanRefFactory reference.
      */
     public synchronized void init(final String beanFactoryReferenceLocationIn, final String beanRefFactoryReferenceIdIn)
     {
@@ -97,13 +97,13 @@ public class $serviceLocatorName
     private final String DEFAULT_BEAN_REFERENCE_LOCATION = "$beanRefFactory";
 
     /**
-     * The default bean reference factory ID.
-     * @return beanFactoryReference.getFactory()
+     * The default bean reference factory ID, referencing $factoryId.
      */
     private final String DEFAULT_BEAN_REFERENCE_ID = "$factoryId";
 
     /**
      * Gets the Spring ApplicationContext.
+     * @return beanFactoryReference.getFactory()
      */
     public synchronized org.springframework.context.ApplicationContext getContext()
     {
@@ -137,8 +137,8 @@ public class $serviceLocatorName
             this.beanFactoryReference = null;
         }
     }
-
 #foreach ($service in $services)
+
     /**
      * Gets an instance of {@link $service.fullyQualifiedName}.
      * @return ${service.name} from getContext().getBean("$service.beanName")
@@ -148,9 +148,9 @@ public class $serviceLocatorName
         return ($service.fullyQualifiedName)
             getContext().getBean("$service.beanName");
     }
-
 #end
 #foreach ($manageable in $manageables)
+
     /**
      * Gets a manageable instance of {@link $manageable.fullyQualifiedManageableServiceName}.
      * @return ${manageable.name} from getContext().getBean("$manageable.manageableServiceName")
@@ -160,15 +160,15 @@ public class $serviceLocatorName
         return ($manageable.fullyQualifiedManageableServiceName)
             getContext().getBean("$manageable.manageableServiceName");
     }
-
 #end
 
     /**
      * Gets an instance of the given service.
+     * @param serviceName
+     * @return getContext().getBean(BEAN_PREFIX + serviceName)
      */
     public final Object getService(String serviceName)
     {
         return getContext().getBean(BEAN_PREFIX + serviceName);
     }
-
 }

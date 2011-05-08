@@ -31,6 +31,7 @@ package $entity.packageName;
 #set ($entityCollectionType = "java.util.Collection")
 #end
 /**
+$entity.getDocumentation(" *")
  * @see $entity.fullyQualifiedEntityName
  */
 public interface $entity.daoName
@@ -313,7 +314,7 @@ public interface $entity.daoName
      * the persistent store.
      * </p>
 #foreach($attribute in $attributes)
-     * @param $attribute.name
+     * @param $attribute.name $attribute.getDocumentation("")
 #end
      * @return $rootEntityType
      */
@@ -334,7 +335,7 @@ public interface $entity.daoName
      * </p>
      * @param transform
 #foreach($attribute in $attributes)
-     * @param $attribute.name
+     * @param $attribute.name $attribute.getDocumentation("")
 #end
      * @return $rootEntityType
      */
@@ -442,7 +443,7 @@ public interface $entity.daoName
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -465,7 +466,7 @@ $operation.getDocumentation("     * ")
      * </p>
      * @param queryString
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -493,7 +494,7 @@ $operation.getDocumentation("     * ")
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -518,7 +519,7 @@ $operation.getDocumentation("     * ")
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -549,7 +550,7 @@ $operation.getDocumentation("     * ")
      * not occur.
      * @param transform
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -576,7 +577,7 @@ $operation.getDocumentation("     * ")
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -600,7 +601,7 @@ $operation.getDocumentation("     * ")
      * @param transform
      * @param queryString
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -627,7 +628,7 @@ $operation.getDocumentation("     * ")
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -660,7 +661,7 @@ $operation.getDocumentation("     * ")
      * </p>
      * @param transform
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -686,7 +687,7 @@ $operation.getDocumentation("     * ")
      * @param pageNumber
      * @param pageSize
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)
@@ -708,7 +709,7 @@ $operation.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
-     * @param $argument.name
+     * @param $argument.name $argument.getDocumentation("")
 #end
      * @return $returnType
 #foreach ($exception in $operation.exceptions)

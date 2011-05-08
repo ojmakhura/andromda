@@ -109,15 +109,15 @@ public class $className
      * @param nameIn
      * @param valueIn
      * @param comparatorIn
-     * @param match
+     * @param matchIn
      */
     public $className(
         String nameIn,
         Object valueIn,
         int comparatorIn,
-        int match)
+        int matchIn)
     {
-        this(nameIn, valueIn, comparatorIn, match, ORDER_UNSET);
+        this(nameIn, valueIn, comparatorIn, matchIn, ORDER_UNSET);
     }
 
     /**

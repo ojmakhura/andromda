@@ -25,6 +25,9 @@ public class ${manageableServiceLocatorName}
      */
     private String beanFactoryReferenceLocation;
 
+    /**
+     * Shouldn't be instantiated
+     */
     protected ${manageableServiceLocatorName}()
     {
         // shouldn't be instantiated
@@ -51,11 +54,11 @@ public class ${manageableServiceLocatorName}
      * is specified for the <code>beanFactoryReferenceLocation</code>
      * then the default application context will be used.
      *
-     * @param contextLocation the location of the context
+     * @param beanFactoryReferenceLocationIn the location of the context
      */
-    public synchronized void init(String beanFactoryReferenceLocation)
+    public synchronized void init(String beanFactoryReferenceLocationIn)
     {
-        this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
+        this.beanFactoryReferenceLocation = beanFactoryReferenceLocationIn;
         this.beanFactoryReference = null;
     }
 
@@ -66,6 +69,7 @@ public class ${manageableServiceLocatorName}
 
     /**
      * Gets the Spring ApplicationContext.
+     * @return beanFactoryReference.getFactory()
      */
     protected synchronized org.springframework.context.ApplicationContext getContext()
     {
@@ -73,7 +77,7 @@ public class ${manageableServiceLocatorName}
         {
             if (this.beanFactoryReferenceLocation == null)
             {
-                this.beanFactoryReferenceLocation = DEFAULT_BEAN_REFERENCE_LOCATION;
+                this.beanFactoryReferenceLocation = this.DEFAULT_BEAN_REFERENCE_LOCATION;
             }
             org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
                 org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
@@ -95,17 +99,17 @@ public class ${manageableServiceLocatorName}
             this.beanFactoryReference = null;
         }
     }
-
 #foreach ($manageable in $manageables)
+
     /**
      * Gets an instance of {@link $manageable.fullyQualifiedManageableServiceName}.
+     * @return getContext().getBean("$manageable.manageableServiceName")
      */
     public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}()
     {
         return ($manageable.fullyQualifiedManageableServiceName)
             getContext().getBean("$manageable.manageableServiceName");
     }
-
 #end
 }
 #end

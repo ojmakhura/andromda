@@ -6,36 +6,82 @@
 ##
 package $manageable.manageablePackageName;
 
+/**
+$manageable.getDocumentation(" * ")
+ */
 public interface $manageable.manageableDaoName
 {
 #if ($manageable.create)
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return $manageable.fullyQualifiedEntityName
+     */
     public $manageable.fullyQualifiedEntityName create($memberList);
-
 #end
 #if ($manageable.read)
+
+    /**
+     * @param $manageable.identifierName
+     * @return $manageable.fullyQualifiedEntityName
+     */
     public $manageable.fullyQualifiedEntityName readById($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName);
 
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return List<$manageable.fullyQualifiedEntityName>
+     */
     public java.util.List<$manageable.fullyQualifiedEntityName> read(${manageable.listManageableMembersWithWrapperTypes()});
 
+    /**
+     * @return List<$manageable.fullyQualifiedEntityName>
+     */
     public java.util.List<$manageable.fullyQualifiedEntityName> readAll();
-
 #foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
-    public $member.type.fullyQualifiedName ${member.getterName}($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName);
 
+    /**
+     * @param $manageable.identifierName
+     * @return $member.type.fullyQualifiedName
+     */
+    public $member.type.fullyQualifiedName ${member.getterName}($manageable.fullyQualifiedIdentifierTypeName $manageable.identifierName);
 #end
 #end
 #if (!$manageable.manageableAssociationEnds.empty)
-    public java.util.Map<String,?> readBackingLists();
 
+    /**
+     * @return BackingLists Map<String,?>
+     */
+    public java.util.Map<String,?> readBackingLists();
 #end
 #end
 #if ($manageable.update)
-    public $manageable.fullyQualifiedEntityName update($memberList);
 
+    /**
+#foreach($attribute in $manageable.manageableAttributes)
+     * @param $attribute.name $attribute.getDocumentation("")
+#end
+#foreach($associationEnd in $manageable.manageableAssociationEnds)
+     * @param $associationEnd.name $associationEnd.getDocumentation("")
+#end
+     * @return $manageable.fullyQualifiedEntityName
+     */
+    public $manageable.fullyQualifiedEntityName update($memberList);
 #end
 #if ($manageable.delete)
-    public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids);
 
+    /**
+     * @param ids
+     */
+    public void delete(${manageable.fullyQualifiedIdentifierTypeName}[] ids);
 #end
 }

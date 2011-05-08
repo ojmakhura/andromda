@@ -43,17 +43,17 @@ public class ${criteriaSearchBaseName}Configuration
      */
     public boolean isForceEagerLoading()
     {
-        return forceEagerLoading;
+        return this.forceEagerLoading;
     }
 
     /**
      * Sets whether or not eager loading is to be enabled.
      *
-     * @param forceEagerLoading <code>true</code> if eager loading is to be enabled, <code>false</code> otherwise
+     * @param forceEagerLoadingIn <code>true</code> if eager loading is to be enabled, <code>false</code> otherwise
      */
-    public void setForceEagerLoading(boolean forceEagerLoading)
+    public void setForceEagerLoading(boolean forceEagerLoadingIn)
     {
-        this.forceEagerLoading = forceEagerLoading;
+        this.forceEagerLoading = forceEagerLoadingIn;
     }
 
     /**
@@ -74,11 +74,11 @@ public class ${criteriaSearchBaseName}Configuration
     /**
      * Sets the first result to retrieve.
      *
-     * @param firstResult the first result to retrieve
+     * @param firstResultIn the first result to retrieve
      */
-    public void setFirstResult(Integer firstResult)
+    public void setFirstResult(Integer firstResultIn)
     {
-        this.firstResult = firstResult;
+        this.firstResult = firstResultIn;
     }
 
     /**
@@ -99,11 +99,11 @@ public class ${criteriaSearchBaseName}Configuration
     /**
      * Sets the fetch size.
      *
-     * @param fetchSize the fetch size
+     * @param fetchSizeIn the fetch size
      */
-    public void setFetchSize(Integer fetchSize)
+    public void setFetchSize(Integer fetchSizeIn)
     {
-        this.fetchSize = fetchSize;
+        this.fetchSize = fetchSizeIn;
     }
 
     /**
@@ -123,12 +123,12 @@ public class ${criteriaSearchBaseName}Configuration
     }
 
     /**
-     * Sets the maxmimum size of the result.
+     * Sets the maximum size of the result.
      *
-     * @param maximumResultSize A number indicating how many results will be returned.
+     * @param maximumResultSizeIn A number indicating how many results will be returned.
      */
-    public void setMaximumResultSize(Integer maximumResultSize)
+    public void setMaximumResultSize(Integer maximumResultSizeIn)
     {
-        this.maximumResultSize = maximumResultSize;
+        this.maximumResultSize = maximumResultSizeIn;
     }
 }

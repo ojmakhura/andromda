@@ -26,15 +26,18 @@ public abstract class $embeddedValue.name
     /**
      * Creates a new instance of {@link ${embeddedValue.name}}
      * taking all properties.
+#foreach ($attribute in $embeddedValue.attributes)
+     * @param $attribute.name 
+#end
+     * @return object
      */
 #set ($parenthesis = "(")
 #if ($embeddedValue.attributes.empty)
 #set ($parenthesis = "()")
 #end
     public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)
-$attribute.getterSetterTypeName ${attribute.name}#if($velocityHasNext),#else)
-#end
-#end
+$attribute.getterSetterTypeName ${attribute.name}#if($velocityHasNext),#else)#end#end
+
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();
 #foreach ($attribute in $embeddedValue.attributes)
@@ -46,6 +49,8 @@ $attribute.getterSetterTypeName ${attribute.name}#if($velocityHasNext),#else)
 
     /**
      * Creates a new instance from other $embeddedValue.name instance.
+     * @param otherObject 
+     * @return newInstance
      */
     public static ${embeddedValue.name} newInstance($embeddedValue.name otherObject)
     {
@@ -57,37 +62,57 @@ otherObject.${attribute.getterName}()#if($velocityHasNext),#end#end);
         return null;
     }
 
+    /**
+     * Default protected empty constructor
+     */
     protected ${embeddedValue.name}()
     {
+        // Default protected empty constructor
     }
 
     /**
-     * Hook for initializing the object in the subclass
+     * Hook for initializing the object in the subclass. Empty method.
      */
     protected void initialize()
     {
+        // Empty block comment
     }
 
+#if (!$embeddedValue.attributes.empty)
+    // EmbeddedValue attributes
+
+#end
 #foreach ($attribute in $embeddedValue.attributes)
     private $attribute.getterSetterTypeName $attribute.name;
 
     /**
 $attribute.getDocumentation("     * ")
+     * @return ${attribute.name}
      */
     $attribute.visibility $attribute.getterSetterTypeName ${attribute.getterName}()
     {
         return this.${attribute.name};
     }
 
+    /**
 #if ($embeddedValue.immutable)
-    // protected setter, if subclass methods need to normalize the $embeddedValue.name
-    protected void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
+     * protected setter, if subclass methods need to normalize the $embeddedValue.name
+#end
+$attribute.getDocumentation("     * ")
+     * @param ${attribute.name}In
+     */
+#if ($embeddedValue.immutable)
+    protected void ${attribute.setterName}($attribute.getterSetterTypeName ${attribute.name}In)
 #else
-    $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
+    $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName ${attribute.name}In)
 #end
     {
-        this.${attribute.name} = $attribute.name;
+        this.${attribute.name} = ${attribute.name}In;
     }
+
+#end
+#if (!$embeddedValue.operations.empty)
+    // EmbeddedValue operations
 
 #end
 #foreach ($operation in $embeddedValue.operations)
@@ -105,9 +130,14 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * Indicates if the argument is of the same type and all values are equal.
+     * @see Object#equals(Object)
      */
 #renderEqualsMethod($class $embeddedValue.name $embeddedValue.attributes)
 
 #set ($attributeCollection = $embeddedValue.attributes)
+    /**
+     * Returns a hash code based on this entity's identifiers.
+     * @see Object#hashCode()
+     */
 #renderHashCodeMethod($class $embeddedValue.name $attributeCollection)
 }

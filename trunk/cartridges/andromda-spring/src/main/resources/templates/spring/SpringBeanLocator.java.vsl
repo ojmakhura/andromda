@@ -70,7 +70,7 @@ public class $className
      * then the default application context will be used.
      *
      * @param beanFactoryReferenceLocationIn the location of the beanRefFactory reference.
-     * @param beanFactoryReferenceIdIn the id of the beanRefFactory reference.
+     * @param beanRefFactoryReferenceIdIn the id of the beanRefFactory reference.
      */
     public synchronized void init(final String beanFactoryReferenceLocationIn, final String beanRefFactoryReferenceIdIn)
     {
@@ -146,6 +146,8 @@ public class $className
 
     /**
      * Retrieve the bean with the given <code>name</code>.
+     * @param name
+     * @return getContext().getBean(BEAN_PREFIX + name)
      */
     public Object getBean(final String name)
     {

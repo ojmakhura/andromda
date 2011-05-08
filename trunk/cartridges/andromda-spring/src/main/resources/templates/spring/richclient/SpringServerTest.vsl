@@ -63,12 +63,20 @@ public class ${service.name}LocalTest
     }
 
 #end
+    /**
+     * Get the configuration locations for the unit test for ${service.name}.$operation.name.
+     * @return new String[]
+     */
     protected String[] getConfigLocations()
     {
         // $toDoTag ${service.name}LocalTest test configuration files (if any), should be listed inside the brackets...
         return new String[] { };
     }
 
+    /**
+     * Run the unit test for ${service.name}.$operation.name from the command line.
+     * @param args
+     */
     public static void main(String[] args)
     {
         ${serviceLocatorName}.instance().init("$serverTestBeanRefFactory");

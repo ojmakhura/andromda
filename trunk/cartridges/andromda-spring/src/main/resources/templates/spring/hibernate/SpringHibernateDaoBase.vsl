@@ -954,9 +954,15 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
     }
 
-     /**
-      * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
-      */
+    /**
+     * Performs the core logic for {@link ${esc.hash}${operation.getSignature(false)}}
+#foreach ($argument in $operation.arguments)
+	 * @param $argument.name
+#end
+     * @return $operation.getterSetterReturnTypeName#if($enableTemplating && $operation.returnType.collectionType)<?>#end
+
+     * @throws Exception
+     */
     protected abstract $operation.getterSetterReturnTypeName#if($enableTemplating && $operation.returnType.collectionType)<?>#end $operation.implementationSignature
         throws Exception;
 
@@ -1359,14 +1365,14 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         return#if($enableTemplating) (java.util.Set<#if($daoInheritance)? extends #end${rootEntityType}>)#end this.search(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, search);
     }
 
-   /**
-    * Executes and returns the given Hibernate queryObject as a {@link $fullyQualifiedPagingResultName} instance.
-    * @param queryObject
-    * @param transform
-    * @param pageNumber
-    * @param pageSize
-    * @return $fullyQualifiedPagingResultName
-    */
+    /**
+     * Executes and returns the given Hibernate queryObject as a {@link $fullyQualifiedPagingResultName} instance.
+     * @param queryObject
+     * @param transform
+     * @param pageNumber
+     * @param pageSize
+     * @return $fullyQualifiedPagingResultName
+     */
 #if ($enableTemplating)
     @SuppressWarnings({ "unchecked" })
 #end

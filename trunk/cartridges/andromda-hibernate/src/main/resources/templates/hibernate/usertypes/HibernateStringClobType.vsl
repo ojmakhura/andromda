@@ -35,6 +35,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public int[] sqlTypes()
     {
         return new int[] {Types.CLOB};
@@ -43,6 +46,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}returnedClass()
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public Class#if($enableTemplating)<?>#end returnedClass()
     {
         return String.class;
@@ -51,6 +57,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}equals(Object, Object)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public boolean equals(
         Object x,
         Object y)
@@ -79,6 +88,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public Object nullSafeGet(
         ResultSet resultSet,
         String[] names,
@@ -116,6 +128,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public void nullSafeSet(
         PreparedStatement preparedStatement,
         Object data,
@@ -141,6 +156,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}deepCopy(Object)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public Object deepCopy(Object value)
         throws HibernateException
     {
@@ -150,6 +168,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}isMutable()
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public boolean isMutable()
     {
         return false;
@@ -159,6 +180,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}replace(Object original, Object target, Object owner)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public Object replace(Object original, Object target, Object owner)
     {
         return this.deepCopy(original);
@@ -167,6 +191,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}assemble(java.io.Serializable cached, Object owner)
      */
+#if ($enableAnnotations)
+    @Override
+#end
     public Object assemble(java.io.Serializable cached, Object owner)
     {
         return this.deepCopy(cached);
@@ -175,14 +202,22 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}disassemble(Object value)
      */
+#if ($enableAnnotations)
+    @Override
+#end
      public java.io.Serializable disassemble(Object value)
      {
         return (java.io.Serializable)value;
      }
 
      /**
-     * @see Object${esc.hash}hashCode()
-     */
+      * @param x 
+      * @return x.hashCode()
+      * @see Object${esc.hash}hashCode()
+      */
+#if ($enableAnnotations)
+    @Override
+#end
      public int hashCode(Object x)
      {
         return x.hashCode();
