@@ -13,7 +13,6 @@ import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.server.Client;
 import org.apache.log4j.Logger;
 
-
 /**
  * The main entry point to the framework. Handles the processing of models.
  * Facilitates Model Driven Architecture by enabling the generation of source
@@ -28,7 +27,7 @@ public final class AndroMDA
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(AndroMDA.class);
+    private static final Logger LOGGER = Logger.getLogger(AndroMDA.class);
 
     /**
      * The AndroMDA engine instance.
@@ -210,7 +209,7 @@ public final class AndroMDA
         }
         else
         {
-            logger.warn("AndroMDA could not run because no configuration was defined");
+            LOGGER.warn("AndroMDA could not run because no configuration was defined");
         }
         return messages == null ? new ModelValidationMessage[0] : messages;
     }

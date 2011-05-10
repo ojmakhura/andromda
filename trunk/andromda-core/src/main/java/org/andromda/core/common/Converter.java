@@ -24,7 +24,7 @@ public class Converter
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(Converter.class);
+    private static final Logger LOGGER = Logger.getLogger(Converter.class);
 
     /**
      * Attempts to convert the <code>object</code> to the <code>expectedType</code>.
@@ -99,7 +99,7 @@ public class Converter
             {
                 location += ' ' + throwable.getMessage();
             }
-            logger.error("Converter " + throwable + " invoking " + object + " METHOD " + method + " WITH " + expectedType.getName() + location);
+            LOGGER.error("Converter " + throwable + " invoking " + object + " METHOD " + method + " WITH " + expectedType.getName() + location);
             throw new IntrospectorException(throwable);
         }
         return object;
