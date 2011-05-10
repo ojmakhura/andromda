@@ -337,7 +337,7 @@ public class WebServiceLogicImpl
                                 {
                                     for (final ModelElementFacade property : properties)
                                     {
-                                        this.loadTypes((ModelElementFacade)property, types, nonArrayTypes);
+                                        this.loadTypes(property, types, nonArrayTypes);
                                     }
                                 }
                             }

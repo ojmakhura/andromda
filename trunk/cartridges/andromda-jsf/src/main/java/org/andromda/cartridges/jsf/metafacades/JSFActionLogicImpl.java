@@ -768,10 +768,9 @@ public class JSFActionLogicImpl
         else
         {
             messages = new LinkedHashMap<String, String>(); // we want to keep the order
-
-            for (final Iterator<String> iterator = taggedValues.iterator(); iterator.hasNext();)
+            for (final Object tag : taggedValues)
             {
-                final String value = (String)iterator.next();
+                final String value = (String)tag;
                 messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
             }
         }

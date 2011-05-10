@@ -566,8 +566,7 @@ public class JSFParameterLogicImpl
                 final Collection<FrontEndView> views = this.getAction().getTargetViews();
                 for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
                 {
-                    final FrontEndView view = (FrontEndView)iterator.next();
-                    final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                    final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
                     for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                         parameterIterator.hasNext() && !selectable;)
                     {
@@ -820,8 +819,7 @@ public class JSFParameterLogicImpl
             // - look for any attributes
             for (final Iterator<JSFAttribute> iterator = this.getAttributes().iterator(); iterator.hasNext();)
             {
-                final JSFAttribute attribute = (JSFAttribute)iterator.next();
-                required = !attribute.getValidatorTypes().isEmpty();
+                required = !iterator.next().getValidatorTypes().isEmpty();
                 if (required)
                 {
                     break;
@@ -1027,12 +1025,11 @@ public class JSFParameterLogicImpl
                 final String typeName = type.getFullyQualifiedName();
 
                 // - if the backing value is not required for this parameter but on
-                //   a targetting page it IS selectable we must allow the user to set the backing value as well
+                //   a targeting page it IS selectable we must allow the user to set the backing value as well
                 final Collection<FrontEndView> views = this.getAction().getTargetViews();
                 for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
                 {
-                    final FrontEndView view = (FrontEndView)iterator.next();
-                    final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                    final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
                     for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                         parameterIterator.hasNext() && !required;)
                     {
@@ -1130,7 +1127,7 @@ public class JSFParameterLogicImpl
         }
         for(Iterator<Collection> it=vars.iterator(); it.hasNext();)
         {
-            final Object[] values=((Collection)it.next()).toArray();
+            final Object[] values=(it.next()).toArray();
             if("maxlength".equals(values[0]))
             {
                 return values[1].toString();
