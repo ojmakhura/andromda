@@ -346,8 +346,7 @@ public class JSFAttributeLogicImpl
                     final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
                     for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
                     {
-                        final FrontEndView view = (FrontEndView)iterator.next();
-                        final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
                         for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                             parameterIterator.hasNext() && !selectable;)
                         {
@@ -687,8 +686,7 @@ public class JSFAttributeLogicImpl
                     final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
                     for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
                     {
-                        final FrontEndView view = (FrontEndView)iterator.next();
-                        final Collection<FrontEndParameter> parameters = view.getAllActionParameters();
+                        final Collection<FrontEndParameter> parameters = iterator.next().getAllActionParameters();
                         for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator();
                             parameterIterator.hasNext() && !required;)
                         {
@@ -776,7 +774,7 @@ public class JSFAttributeLogicImpl
         }
         for(Iterator<Collection> it=vars.iterator(); it.hasNext(); )
         {
-            final Object[] values=((Collection)it.next()).toArray();
+            final Object[] values=(it.next()).toArray();
             if("maxlength".equals(values[0]))
             {
                 return values[1].toString();

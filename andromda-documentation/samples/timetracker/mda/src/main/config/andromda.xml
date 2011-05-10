@@ -29,7 +29,7 @@
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
                     </moduleSearchLocations>
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
-                         types in required (multiplicy > 0) parameters or VO attibutes-->
+                         types in required (multiplicity > 0) parameters or VO attributes-->
                     <constraints>
                         <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>

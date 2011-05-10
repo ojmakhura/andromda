@@ -9,6 +9,7 @@ import java.util.Map;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
@@ -353,7 +354,7 @@ public class JSFViewLogicImpl
             {
                 final JSFParameter parameter = (JSFParameter)frontEndParameter;
                 final String parameterName = parameter.getName();
-                final Collection attributes = parameter.getAttributes();
+                final Collection<AttributeFacade> attributes = parameter.getAttributes();
                 if (parameter.isBackingValueRequired() || parameter.isSelectable())
                 {
                     if (parameter.isBackingValueRequired() || parameter.isSelectable())
@@ -364,10 +365,10 @@ public class JSFViewLogicImpl
                 else
                 {
                     boolean hasBackingValue = false;
-                    for (final Iterator<JSFAttribute> attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+                    for (final AttributeFacade attribute : attributes)
                     {
-                        final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
-                        if (attribute.isSelectable(parameter) || attribute.isBackingValueRequired(parameter))
+                        final JSFAttribute jsfAttribute = (JSFAttribute)attribute;
+                        if (jsfAttribute.isSelectable(parameter) || jsfAttribute.isBackingValueRequired(parameter))
                         {
                             hasBackingValue = true;
                             break;

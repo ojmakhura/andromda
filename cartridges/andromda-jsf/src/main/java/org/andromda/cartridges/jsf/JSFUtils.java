@@ -950,9 +950,9 @@ public class JSFUtils
             // - custom (parameterized) validators are allowed here
             //   in this case we will reuse the validator arg values
             final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            for (final Object value : taggedValues)
             {
-                final String validator = String.valueOf(iterator.next());
+                final String validator = String.valueOf(value);
     
                 // - guaranteed to be of the same length
                 final List<String> validatorVars = JSFUtils.parseValidatorVars(validator);
@@ -960,11 +960,8 @@ public class JSFUtils
     
                 for (int ctr = 0; ctr < validatorVars.size(); ctr++)
                 {
-                    final String validatorVar = (String)validatorVars.get(ctr);
-                    final String validatorArg = (String)validatorArgs.get(ctr);
-                    vars.put(
-                        validatorVar,
-                        Arrays.asList(validatorVar, validatorArg));
+                    vars.put(validatorVars.get(ctr),
+                        Arrays.asList(validatorVars.get(ctr), validatorArgs.get(ctr)));
                 }
             }
         }

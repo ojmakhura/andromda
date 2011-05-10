@@ -680,7 +680,7 @@ public class JSFManageableEntityAttributeLogicImpl
         }
         for(Iterator<Collection> it=vars.iterator(); it.hasNext(); )
         {
-            final Object[] values=((Collection)it.next()).toArray();
+            final Object[] values=(it.next()).toArray();
             if("maxlength".equals(values[0]))
             {
                 return values[1].toString();

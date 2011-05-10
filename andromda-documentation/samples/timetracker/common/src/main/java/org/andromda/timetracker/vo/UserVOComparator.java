@@ -16,6 +16,7 @@ public class UserVOComparator implements Comparator<UserVO> {
      * @param o2 
      * @return result
      */
+    @Override
     public int compare(UserVO o1, UserVO o2) {
         int result = 0; // assume equal
 
