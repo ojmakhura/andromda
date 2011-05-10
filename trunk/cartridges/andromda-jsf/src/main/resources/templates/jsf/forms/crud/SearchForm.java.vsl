@@ -13,7 +13,6 @@ package $manageable.manageablePackageName;
 public final class $manageable.searchFormBeanClassName
     implements java.io.Serializable
 {
-
 #foreach ($field in $manageable.manageableAttributes)
 #if ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.List")
@@ -28,6 +27,7 @@ public final class $manageable.searchFormBeanClassName
 
     /**
 $field.getDocumentation("     * ")
+     * @return ${field.name}
      */
     public $fieldTypeName #if($field.type.primitive && $field.type.booleanType)get${stringUtils.upperCamelCaseName($field.name)}#else${field.getterName}#end()
     {
@@ -42,10 +42,11 @@ $field.getDocumentation("     * ")
 
     /**
 $field.getDocumentation("     * ")
+     * @param ${field.name}In
      */
-    public void ${field.setterName}($fieldTypeName $field.name)
+    public void ${field.setterName}($fieldTypeName ${field.name}In)
     {
-        this.$field.name = $field.name;
+        this.$field.name = ${field.name}In;
     }
 
 #end
@@ -68,6 +69,7 @@ $field.getDocumentation("     * ")
 
     /**
 $member.getDocumentation("     * ")
+     * @return $member.name
      */
     $member.visibility $fieldTypeName ${member.getterName}()
     {
@@ -76,18 +78,19 @@ $member.getDocumentation("     * ")
 
     /**
 $member.getDocumentation("     * ")
+     * @param ${member.name}In
      */
-    $member.visibility void ${member.setterName}($fieldTypeName $member.name)
+    $member.visibility void ${member.setterName}($fieldTypeName ${member.name}In)
     {
 ## the code below avoids the "0 when null" issue of EL
 #if($member.type.compositeIdentifier || $fieldType.primitive || (!$fieldType.integerType && !$fieldType.longType))
-        this.$member.name = $member.name;
+        this.$member.name = ${member.name}In;
 #else
         //the code below avoids the "0 when null" issue of EL
 #if ($member.many)
-        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros($member.name);
+        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros(${member.name}In);
 #else
-        this.$member.name = ($member.name == null || $member.name == 0#if($fieldType.longType)L#end)? null: $member.name;
+        this.$member.name = (${member.name}In == null || ${member.name}In == 0#if($fieldType.longType)L#end)? null: ${member.name}In;
 #end
 #end
     }
@@ -97,6 +100,7 @@ $member.getDocumentation("     * ")
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
     /**
      * The current collection of possible values of ${member.name}.
+     * @return ${member.backingListName}
      */
     public java.util.Collection get${backingListMethod}(){
         return ${member.backingListName};
@@ -104,9 +108,10 @@ $member.getDocumentation("     * ")
 
     /**
      * The current collection of possible values of ${member.name}.
+     * @return ${member.backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
-        this.${member.backingListName} = ${member.backingListName};
+    public void set${backingListMethod}(java.util.Collection ${member.backingListName}In){
+        this.${member.backingListName} = ${member.backingListName}In;
     }
 #end
 

@@ -48,6 +48,12 @@ public final class $className
         }
     }
 
+    /**
+     * Populates the view using the appropriate view populator.
+     *
+     * @param facesContext the current faces context.
+     * @return viewId.
+     */
     protected static String getViewId(final javax.faces.context.FacesContext facesContext)
     {
         javax.faces.component.UIViewRoot view  = facesContext.getViewRoot();

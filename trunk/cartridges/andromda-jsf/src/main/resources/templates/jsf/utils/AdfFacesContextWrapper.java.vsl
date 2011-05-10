@@ -16,6 +16,9 @@ public class $className
 {
     private transient org.apache.myfaces.trinidad.context.RequestContext currentInstance = null;
 
+    /**
+     * @return currentInstance
+     */
     public org.apache.myfaces.trinidad.context.RequestContext getCurrentInstance()
     {
         if (this.currentInstance == null)

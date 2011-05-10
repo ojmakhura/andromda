@@ -10,7 +10,7 @@ package $operation.packageName;
  *
 $operation.getDocumentation(" * ")
  *
- * @see ${operation.owner.fullyQualifiedName}#hash()${operation.signature}
+ * @see ${operation.owner.fullyQualifiedName}#hash()${operation.name}(Form)
  */
 public interface $operation.formName
 {
@@ -47,6 +47,7 @@ public interface $operation.formName
 #end
     /**
 $field.getDocumentation("     * ")
+     * @return $field.name
      */
     public $fieldTypeName ${field.getterName}();
 ## - don't allow fields with default values to be set
@@ -54,6 +55,7 @@ $field.getDocumentation("     * ")
 
     /**
 $field.getDocumentation("     * ")
+     * @param $field.name
      */
     public void ${field.setterName}($fieldTypeName $field.name);
 #if ($field.selectable || $field.type.enumeration)

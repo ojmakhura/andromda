@@ -21,16 +21,14 @@ $fieldName = null;
 package $manageable.manageablePackageName;
 
 /**
+$manageable.getDocumentation(" * ")
  * This form encapsulates the fields that are used in the execution of the CRUD operations in ${manageable.name}
- *
  */
 public class $manageable.formBeanClassName
     implements java.io.Serializable
 {
-
     /**
-     * Default constructor. Initializes the attributes formatters.
-     *
+     * Default constructor. Initializes the attribute formatters.
      */
     public ${manageable.formBeanClassName}(){
 #foreach ($field in $manageable.manageableAttributes)
@@ -50,9 +48,9 @@ public class $manageable.formBeanClassName
         dateFormatter.setLenient(true);
         this.dateTimeFormatters.put(null, dateFormatter);
 
-        searchForm = new ${manageable.searchFormBeanClassName}();
+        this.searchForm = new ${manageable.searchFormBeanClassName}();
 
-        editState=false;
+        this.editState=false;
     }
 
     /**
@@ -60,46 +58,70 @@ public class $manageable.formBeanClassName
      */
     private boolean editState;
 
+    /**
+     * @return editState
+     */
     public boolean getEditState(){
-        return editState;
+        return this.editState;
     }
 
-    public void setEditState(boolean editState){
-        this.editState = editState;
+    /**
+     * @param editStateIn
+     */
+    public void setEditState(boolean editStateIn){
+        this.editState = editStateIn;
     }
 
     private ${manageable.searchFormBeanClassName} searchForm;
 
+    /**
+     * @return searchForm
+     */
     public ${manageable.searchFormBeanClassName} getSearchForm(){
-        return searchForm;
+        return this.searchForm;
     }
 
-    public void setSearchForm(${manageable.searchFormBeanClassName} searchForm){
-        this.searchForm = searchForm;
+    /**
+     * @param searchFormIn
+     */
+    public void setSearchForm(${manageable.searchFormBeanClassName} searchFormIn){
+        this.searchForm = searchFormIn;
     }
 
     private java.util.List $manageable.listName = null;
 
+    /**
+     * @return $manageable.listName
+     */
     public java.util.List ${manageable.listGetterName}()
     {
         return this.$manageable.listName;
     }
 
-    public void ${manageable.listSetterName}(java.util.List $manageable.listName)
+    /**
+     * @param ${manageable.listName}In
+     */
+    public void ${manageable.listSetterName}(java.util.List ${manageable.listName}In)
     {
-        this.$manageable.listName = $manageable.listName;
+        this.$manageable.listName = ${manageable.listName}In;
     }
 
     private ${manageable.fullyQualifiedIdentifierTypeName}[] selectedRows = null;
 
+    /**
+     * @return selectedRows
+     */
     public ${manageable.fullyQualifiedIdentifierTypeName}[] getSelectedRows()
     {
         return this.selectedRows;
     }
 
-    public void setSelectedRows(${manageable.fullyQualifiedIdentifierTypeName}[] selectedRows)
+    /**
+     * @param selectedRowsIn
+     */
+    public void setSelectedRows(${manageable.fullyQualifiedIdentifierTypeName}[] selectedRowsIn)
     {
-        this.selectedRows = selectedRows;
+        this.selectedRows = selectedRowsIn;
     }
 
 #foreach ($field in $manageable.manageableAttributes)
@@ -123,6 +145,7 @@ public class $manageable.formBeanClassName
 
     /**
 $field.getDocumentation("     * ")
+     * @return $field.name
      */
     public $fieldTypeName ${field.getterName}()
     {
@@ -137,23 +160,34 @@ $field.getDocumentation("     * ")
 
     /**
 $field.getDocumentation("     * ")
+     * @param ${field.name}In
      */
-    public void ${field.setterName}($fieldTypeName $field.name)
+    public void ${field.setterName}($fieldTypeName ${field.name}In)
     {
-        this.$field.name = $field.name;
+        this.$field.name = ${field.name}In;
     }
 
     private java.util.Collection<?> $field.backingListName;
 
 #set ($backingListMethod = $stringUtils.capitalize($field.backingListName))
+    /**
+     * @return $field.backingListName
+     */
     public java.util.Collection<?> get${backingListMethod}(){
-        return ${field.backingListName};
+        return this.${field.backingListName};
     }
 
-    public void set${backingListMethod}(java.util.Collection<?> ${field.backingListName}){
-        this.${field.backingListName} = ${field.backingListName};
+    /**
+     * @param ${field.backingListName}In
+     */
+    public void set${backingListMethod}(java.util.Collection<?> ${field.backingListName}In){
+        this.${field.backingListName} = ${field.backingListName}In;
     }
 
+#end
+#if (!$manageable.manageableAssociationEnds.empty)
+
+    // Manageable associationEnds in $manageable.name
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if($member.type.manageable)
@@ -174,6 +208,7 @@ $field.getDocumentation("     * ")
 
     /**
 $member.getDocumentation("     * ")
+     * @return $member.name
      */
     $member.visibility $fieldTypeName ${member.getterName}()
     {
@@ -182,18 +217,19 @@ $member.getDocumentation("     * ")
 
     /**
 $member.getDocumentation("     * ")
+     * @param ${member.name}In
      */
-    $member.visibility void ${member.setterName}($fieldTypeName $member.name)
+    $member.visibility void ${member.setterName}($fieldTypeName ${member.name}In)
     {
 ## the code below avoids the "0 when null" issue of EL
 #if($member.type.compositeIdentifier || $fieldType.primitive || (!$fieldType.integerType && !$fieldType.longType))
-        this.$member.name = $member.name;
+        this.$member.name = ${member.name}In;
 #else
         //the code below avoids the "0 when null" issue of EL
 #if ($member.many)
-        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros($member.name);
+        this.$member.name = ${managedBeansPackage}.JsfUtils.removeZeros(${member.name}In);
 #else
-        this.$member.name = ($member.name == null || $member.name == 0#if($fieldType.longType)L#end)? null: $member.name;
+        this.$member.name = (${member.name}In == null || ${member.name}In == 0#if($fieldType.longType)L#end)? null: ${member.name}In;
 #end
 #end
     }
@@ -203,16 +239,18 @@ $member.getDocumentation("     * ")
 #set ($backingListMethod = $stringUtils.capitalize($member.backingListName))
     /**
      * The current collection of possible values of ${member.name}.
+     * @return ${member.backingListName}
      */
     public java.util.Collection get${backingListMethod}(){
-        return ${member.backingListName};
+        return this.${member.backingListName};
     }
 
     /**
      * The current collection of possible values of ${member.name}.
+     * @param ${member.backingListName}In
      */
-    public void set${backingListMethod}(java.util.Collection ${member.backingListName}){
-        this.${member.backingListName} = ${member.backingListName};
+    public void set${backingListMethod}(java.util.Collection ${member.backingListName}In){
+        this.${member.backingListName} = ${member.backingListName}In;
     }
 
 #end
@@ -232,13 +270,11 @@ $member.getDocumentation("     * ")
         return this.dateTimeFormatters;
     }
 
-
     /**
      * The current collection of messages stored within this form.
      */
     private java.util.Map<String, javax.faces.application.FacesMessage> $formMessagesProperty =
         new java.util.LinkedHashMap<String, javax.faces.application.FacesMessage>();
-
 
     /**
      * Adds a {@link javax.faces.application.FacesMessage} message to the current messages
@@ -275,9 +311,8 @@ $member.getDocumentation("     * ")
     {
         if (messages != null)
         {
-            for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+            for (final javax.faces.application.FacesMessage jsfMessage : messages)
             {
-                javax.faces.application.FacesMessage jsfMessage = (javax.faces.application.FacesMessage)iterator.next();
                 this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
             }
         }
@@ -302,11 +337,11 @@ $member.getDocumentation("     * ")
      * The optional faces message title to set (used on a view).  If not set, the default title
      * will be used.
      *
-     * @param jsfMessagesTitle the title to use for the messages on the view.
+     * @param jsfMessagesTitleIn the title to use for the messages on the view.
      */
-    public void set${stringUtils.capitalize($formMessagesProperty)}Title(final String ${formMessagesProperty}Title)
+    public void set${stringUtils.capitalize($formMessagesProperty)}Title(final String ${formMessagesProperty}TitleIn)
     {
-        this.${formMessagesProperty}Title = ${formMessagesProperty}Title;
+        this.${formMessagesProperty}Title = ${formMessagesProperty}TitleIn;
     }
 
     /**

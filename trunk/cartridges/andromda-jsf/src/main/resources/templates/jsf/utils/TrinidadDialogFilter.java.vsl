@@ -23,14 +23,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TrinidadDialogFilter implements Filter
 {
+    /**
+     * @see javax.servlet.Filter#hash()init(javax.servlet.FilterConfig)
+     */
     public void init(FilterConfig config) throws ServletException
     {
+	    // Empty method
     }
 
+    /**
+     * @see javax.servlet.Filter#destroy()
+     */
     public void destroy()
     {
+        // Empty method
     }
 
+    /**
+     * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     public void doFilter(ServletRequest request, ServletResponse response,
         FilterChain chain) throws IOException, ServletException
     {

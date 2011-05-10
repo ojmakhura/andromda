@@ -17,6 +17,8 @@ import org.apache.commons.beanutils.MethodUtils;
 public class $className
     implements Serializable
 {
+    /** */
+    private static final long serialVersionUID = 7916439134289358617L;
     private String label = null;
     private String outcome = null;
     private String viewId = null;
@@ -27,93 +29,147 @@ public class $className
     private String roles = null;
     private String[] _roles = null;
 
+    /**
+     *
+     */
     public NavigationItem()
-    {}
+    {
+        // Documented empty block
+    }
 
+    /**
+     * @return label
+     */
     public String getLabel()
     {
-        return label;
+        return this.label;
     }
 
-    public void setLabel(String label)
+    /**
+     * @param labelIn
+     */
+    public void setLabel(String labelIn)
     {
-        this.label = label;
+        this.label = labelIn;
     }
 
+    /**
+     * @return outcome
+     */
     public String getOutcome()
     {
-        return outcome;
+        return this.outcome;
     }
 
-    public void setOutcome(String outcome)
+    /**
+     * @param outcomeIn
+     */
+    public void setOutcome(String outcomeIn)
     {
-        this.outcome = outcome;
+        this.outcome = outcomeIn;
     }
 
+    /**
+     * @return viewId
+     */
     public String getViewId()
     {
-        return viewId;
+        return this.viewId;
     }
 
-    public void setViewId(String viewId)
+    /**
+     * @param viewIdIn
+     */
+    public void setViewId(String viewIdIn)
     {
-        this.viewId = viewId;
+        this.viewId = viewIdIn;
     }
 
+    /**
+     * @return children
+     */
     public List getChildren()
     {
-        return children;
+        return this.children;
     }
 
-    public void setChildren(List children)
+    /**
+     * @param childrenIn
+     */
+    public void setChildren(List childrenIn)
     {
-        this.children = children;
+        this.children = childrenIn;
     }
 
+    /**
+     * @return icon
+     */
     public String getIco()
     {
-        return icon;
+        return this.icon;
     }
 
-    public void setIco(String icon)
+    /**
+     * @param iconIn
+     */
+    public void setIco(String iconIn)
     {
-        this.icon = icon;
+        this.icon = iconIn;
     }
 
+    /**
+     * @return roles
+     */
     public String getRoles()
     {
-        return roles;
+        return this.roles;
     }
 
     private void _updateRoles()
     {
-        if (roles != null && roles.length() > 0)
-            _roles = roles.split(",");
+        if (this.roles != null && this.roles.length() > 0)
+		{
+            this._roles = this.roles.split(",");
+		}
         else
-            _roles = null;
+		{
+            this._roles = null;
+		}
     }
 
-    public void setRoles(String roles)
+    /**
+     * @param rolesIn
+     */
+    public void setRoles(String rolesIn)
     {
-        this.roles = roles;
+        this.roles = rolesIn;
         _updateRoles();
     }
 
+    /**
+     * @return AssociatedRoles
+     */
     public String[] getAssociatedRoles()
     {
-        return _roles;
+        return this._roles;
     }
 
+    /**
+     * @return isUserInItemRoles
+     */
     public boolean isRendered()
     {
         return this.isUserInItemRoles();
     }
 
+    /**
+     * @return isUserInItemRoles
+     */
     public boolean isUserInItemRoles()
     {
-        String[] roles = this.getAssociatedRoles();
+        String[] associatedRoles = this.getAssociatedRoles();
 
-        if (roles == null || roles.length == 0)
+        if (associatedRoles == null || associatedRoles.length == 0)
         { // no constraints at all
 
             return true;
@@ -128,10 +184,8 @@ public class $className
             return false;
         }
 
-        for (int i = 0; i < roles.length; i++)
+        for (String role : associatedRoles)
         {
-            String role = roles[i];
-
             if (ctx.isUserInRole(role))
             {
                 return true;
@@ -140,6 +194,9 @@ public class $className
         return false;
     }
 
+    /**
+     * @return ControllerAction
+     */
     public String getAction()
     {
         try
@@ -156,36 +213,52 @@ public class $className
         }
     }
 
-    public void setControllerBean(Object controllerBean)
+    /**
+     * @param controllerBeanIn
+     */
+    public void setControllerBean(Object controllerBeanIn)
     {
-        this.controllerBean = controllerBean;
+        this.controllerBean = controllerBeanIn;
     }
 
+    /**
+     * @return controllerBean
+     */
     public Object getControllerBean()
     {
-        return controllerBean;
+        return this.controllerBean;
     }
 
-    public void setControllerAction(String controllerAction)
+    /**
+     * @param controllerActionIn
+     */
+    public void setControllerAction(String controllerActionIn)
     {
-        this.controllerAction = controllerAction;
+        this.controllerAction = controllerActionIn;
     }
 
+    /**
+     * @return controllerAction
+     */
     public String getControllerAction()
     {
         return this.controllerAction;
     }
 
+    /**
+     * @see Object#toString()
+     */
+    @Override
     public String toString()
     {
         StringBuilder buf = new StringBuilder();
         buf.append(this.getClass().getName()  + "[");
-        buf.append("label=").append(label);
-        buf.append(",outcome=").append(outcome);
-        buf.append(",viewId=").append(viewId);
-        buf.append(",roles=").append(roles);
-        if (children != null)
-            buf.append(",children=").append(children);
+        buf.append("label=").append(this.label);
+        buf.append(",outcome=").append(this.outcome);
+        buf.append(",viewId=").append(this.viewId);
+        buf.append(",roles=").append(this.roles);
+        if (this.children != null)
+            buf.append(",children=").append(this.children);
         buf.append("]");
         return buf.toString();
     }

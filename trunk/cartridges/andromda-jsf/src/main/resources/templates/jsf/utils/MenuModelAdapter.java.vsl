@@ -14,44 +14,65 @@ import org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel;
 public class $className
     implements java.io.Serializable
 {
-    public $className() {}
+    /**  */
+    private static final long serialVersionUID = -4871701955453487378L;
+
+    /**
+     *
+     */
+    public $className()
+    {
+	    // Default empty constructor
+    }
     private ViewIdPropertyMenuModel model = null;
     private List aliasList = null;
     private boolean aliasListAdded = false;
 
-    public void setModel(ViewIdPropertyMenuModel model)
+    /**
+     * @param modelIn
+     */
+    public void setModel(ViewIdPropertyMenuModel modelIn)
     {
-      this.model = model;
+      this.model = modelIn;
       this.aliasListAdded = false;
     }
 
-  public ViewIdPropertyMenuModel getModel()
-  {
-    if (model != null && !aliasListAdded)
+    /**
+     * @return ViewIdPropertyMenuModel
+     */
+    public ViewIdPropertyMenuModel getModel()
     {
-      aliasListAdded = true;
-      if(aliasList != null && !aliasList.isEmpty())
-      {
-        int size = aliasList.size();
-        if (size % 2 == 1)
-          size = size - 1;
-
-        for ( int i = 0; i < size; i=i+2)
+        if (this.model != null && !this.aliasListAdded)
         {
-          model.addViewId(aliasList.get(i).toString(),aliasList.get(i+1).toString());
+          this.aliasListAdded = true;
+          if(this.aliasList != null && !this.aliasList.isEmpty())
+          {
+            int size = this.aliasList.size();
+            if (size % 2 == 1)
+              size = size - 1;
+
+            for ( int i = 0; i < size; i=i+2)
+            {
+              this.model.addViewId(this.aliasList.get(i).toString(), this.aliasList.get(i+1).toString());
+            }
+          }
         }
-      }
+        return this.model;
     }
-    return model;
-  }
 
-  public List getAliasList()
-  {
-    return aliasList;
-  }
+    /**
+     * @return aliasList
+     */
+    public List getAliasList()
+    {
+        return this.aliasList;
+    }
 
-  public void setAliasList(List aliasList)
-  {
-    this.aliasList = aliasList;
-  }
+    /**
+     * @param aliasListIn
+     */
+    public void setAliasList(List aliasListIn)
+    {
+        this.aliasList = aliasListIn;
+    }
 }

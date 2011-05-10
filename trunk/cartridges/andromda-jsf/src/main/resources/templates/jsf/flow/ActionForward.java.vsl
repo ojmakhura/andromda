@@ -17,9 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 public class $action.actionClassName
     extends HttpServlet
 {
+    /**  */
+    private static final long serialVersionUID = -4200629904955041261L;
+
     /**
      * @see javax.servlet.http.HttpServlet#hash()doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doGet(
         final HttpServletRequest request,
         final HttpServletResponse response)
@@ -62,6 +66,7 @@ public class $action.actionClassName
     /**
      * @see javax.servlet.http.HttpServlet#hash()doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void doPost(
         final HttpServletRequest request,
         final HttpServletResponse response)
