@@ -65,6 +65,7 @@
     <property reference="toDoTag"/>
 	<property reference="typeSafeEnumsEnabled"/>
     <property reference="enableTemplating"/>
+    <property reference="enableAnnotations"/>
     <!-- These 3 properties are only relevant for Hibernate 3 -->
     <property reference="hibernateQueryFactory"/>
     <property reference="hibernateOneToManyNotFoundAction"/>

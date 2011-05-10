@@ -32,6 +32,7 @@
     <property reference="hibernateQueryUseSpecializedSetters"/>
     <property reference="versionProperty"/>
     <property reference="enumTypesPackage" />
+    <property reference="enableAnnotations"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping>
             <stereotype>ENTITY</stereotype>
