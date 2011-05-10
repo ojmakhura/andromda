@@ -12,38 +12,51 @@ package $managedBeansPackage;
 public class $preferencesClassName
     implements java.io.Serializable
 {
+    /**  */
+    private static final long serialVersionUID = 6297094790425024219L;
+
 #if ($useSkin)
-    /**
-     * The skin to apply.
-     */
     private String skin;
 
+    /**
+     * The skin to apply.
+     * @return skin
+     */
     public String getSkin()
     {
         return this.skin;
     }
 
-    public void setSkin(final String skin)
+    /**
+     * The skin to apply.
+     * @param skinIn
+     */
+    public void setSkin(final String skinIn)
     {
-        this.skin = skin;
+        this.skin = skinIn;
     }
 
 #end
-    /**
-     * The maximum rows displayed in a table.
-     */
     private int maxTableRows;
 
-    public void setMaxTableRows(final int maxTableRows)
+    /**
+     * The maximum rows displayed in a table.
+     * @param maxTableRowsIn
+     */
+    public void setMaxTableRows(final int maxTableRowsIn)
     {
-        this.maxTableRows = maxTableRows;
+        this.maxTableRows = maxTableRowsIn;
     }
 
-    public void setMaxTableRows(final String maxTableRows)
+    /**
+     * The maximum rows displayed in a table.
+     * @param maxTableRowsIn
+     */
+    public void setMaxTableRows(final String maxTableRowsIn)
     {
         try
         {
-            this.maxTableRows = Integer.parseInt(maxTableRows);
+            this.maxTableRows = Integer.parseInt(maxTableRowsIn);
         }
         catch (Exception ex)
         {
@@ -51,6 +64,10 @@ public class $preferencesClassName
         }
     }
 
+    /**
+     * The maximum rows displayed in a table.
+     * @return maxTableRows
+     */
     public int getMaxTableRows()
     {
         return this.maxTableRows;

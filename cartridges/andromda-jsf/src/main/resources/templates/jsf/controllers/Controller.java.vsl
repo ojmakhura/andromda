@@ -81,6 +81,8 @@ public abstract class $controller.name
 #foreach ($operation in $controller.operations)
     /**
 $operation.getDocumentation("     * ")
+     * @param form
+     * @throws Throwable
      */
     $operation.formSignature
         throws Throwable;
@@ -104,6 +106,7 @@ $operation.getDocumentation("     * ")
      * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance (normally you wont't
      * need to call this method explicitly, however this is here for times when you need to access the
      * <em>$action.formBeanName</em> instance outside of its assigned controller operation).
+     * @return $action.fullyQualifiedFormImplementationName
      */
     protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
     {
@@ -116,35 +119,51 @@ $operation.getDocumentation("     * ")
 
 #end
 #set ($formPopulationOperationRequired = !$action.formFields.empty)
-    /*
+    /**
 #if($action.exitingInitialState)
      * This method is called when the use case '${controller.useCase.name}' starts.
 #else
 $action.trigger.getDocumentation("     * ")
      * This method is called when '${action.trigger.name}' is triggered in the view '${action.source.name}'.
 #end
-     * It can be safely overriden in descendant classes.
+     * It can be safely overridden in descendant classes.
+#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName)
+     * @param form
+#end
      */
     protected void ${action.triggerMethodName}(#if($formPopulationOperationRequired)$action.fullyQualifiedFormImplementationName form#end)
     {
-        //this method can be overriden
+        //this method can be overridden
     }
 
+    /**
+     * @return ${action.triggerName}
+     */
     public String ${action.triggerName}()
     {
         return ${action.triggerName}((javax.faces.event.FacesEvent)null);
     }
 
+    /**
+     * @param event
+     */
     public void ${action.triggerName}(final ActionEvent event)
     {
         this.${action.triggerName}((javax.faces.event.FacesEvent)event);
     }
 
+    /**
+     * @param event
+     */
     public void ${action.triggerName}(final javax.faces.event.ValueChangeEvent event)
     {
         this.${action.triggerName}((javax.faces.event.FacesEvent)event);
     }
 
+    /**
+     * @param event
+     * @return ${action.triggerName}
+     */
 #if ($formPopulationOperationRequired)
     @SuppressWarnings({ "unchecked", "rawtypes" })
 #end
@@ -270,17 +289,27 @@ $action.trigger.getDocumentation("     * ")
 #foreach ($actionState in $action.actionStates)
     /**
 $actionState.getDocumentation("     * ")
-     * It can be safely overriden in descendant classes,
+     * It can be safely overridden in descendant classes,
      * you should return the forward unless you want to change the default flow.
+#if (!$action.formFields.empty)
+     * @param form
+#end
+     * @param forward
+     * @return forward
      */
     protected String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form,#end String forward)
     {
-        //this method can be overriden
+        //this method can be overridden
         return forward;
     }
 
     /**
 $actionState.getDocumentation("     * ")
+#if (!$action.formFields.empty)
+     * @param form
+#end
+     * @return forward
+     * @throws Throwable
      */
     private String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
         throws Throwable
@@ -417,6 +446,7 @@ $decisionTransition.getDocumentation("     * ")
 #if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
     /**
      * Returns a reference to the $serviceRef.name back-end service.
+     * @return $serviceRef.targetElement.accessorImplementation
      */
     protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
     {
@@ -483,7 +513,7 @@ $decisionTransition.getDocumentation("     * ")
     /**
      * Attempts to resolve the variable, given, the <code>name</code> of
      * the variable using the faces context variable resolver instance.
-     *
+     * @param name
      * @return the resolved variable or null if not found.
      */
     @SuppressWarnings("deprecation")
@@ -679,7 +709,9 @@ $decisionTransition.getDocumentation("     * ")
 
     /**
      * Copies all matching properties from the <code>fromForm</code> to the given
-     * <code>toForm</code> overridding any previously set values.
+     * <code>toForm</code> overriding any previously set values.
+     * @param fromForm
+     * @param toForm
      */
     protected void copyForm(final Object fromForm, final Object toForm)
     {
@@ -701,26 +733,22 @@ $decisionTransition.getDocumentation("     * ")
         javax.faces.component.UIForm foundForm = null;
         if (component != null)
         {
-            for (final java.util.Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
+            for (final java.util.Iterator<javax.faces.component.UIComponent> iterator = component.getFacetsAndChildren(); iterator.hasNext();)
             {
-                final Object object = iterator.next();
-                if (object instanceof javax.faces.component.UIComponent)
+                final javax.faces.component.UIComponent uiComponent = iterator.next();
+                if (uiComponent instanceof javax.faces.component.UIForm)
                 {
-                    final javax.faces.component.UIComponent uiComponent = (javax.faces.component.UIComponent)object;
-                    if (uiComponent instanceof javax.faces.component.UIForm)
+                    final javax.faces.component.UIForm form = (javax.faces.component.UIForm)uiComponent;
+                    if (form.getId().equals(id))
                     {
-                        final javax.faces.component.UIForm form = (javax.faces.component.UIForm)uiComponent;
-                        if (form.getId().equals(id))
-                        {
-                            foundForm = form;
-                            break;
-                        }
-                    }
-                    foundForm = this.findForm(uiComponent, id);
-                    if (foundForm != null)
-                    {
+                        foundForm = form;
                         break;
                     }
+                }
+                foundForm = this.findForm(uiComponent, id);
+                if (foundForm != null)
+                {
+                    break;
                 }
             }
         }
@@ -739,9 +767,9 @@ $decisionTransition.getDocumentation("     * ")
     {
         if (component != null)
         {
-            for (final java.util.Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
+            for (final java.util.Iterator<javax.faces.component.UIComponent> iterator = component.getFacetsAndChildren(); iterator.hasNext();)
             {
-                final javax.faces.component.UIComponent uiComponent = (javax.faces.component.UIComponent)iterator.next();
+                final javax.faces.component.UIComponent uiComponent = iterator.next();
                 if (uiComponent instanceof javax.faces.component.UIInput)
                 {
                     try
@@ -852,7 +880,7 @@ $decisionTransition.getDocumentation("     * ")
      * @return the found form.
      */
     @SuppressWarnings("rawtypes")
-    protected Object getCurrentActionForm(final Class type)
+    protected Object getCurrentActionForm(final Class<?> type)
     {
         Object form = this.getCurrentActionForm();
         if (!type.isInstance(form))
@@ -888,21 +916,37 @@ $decisionTransition.getDocumentation("     * ")
         this.setRequestAttribute(ACTION_EVENT_ATTRIBUTES, event.getComponent().getAttributes());
     }
 
+    /**
+     * @param name
+     * @param object
+     */
     protected void setRequestAttribute(final String name, final Object object)
     {
         JsfUtils.setAttribute(this.getContext().getExternalContext().getRequest(), name, object);
     }
 
+    /**
+     * @param name
+     * @return RequestAttribute
+     */
     protected Object getRequestAttribute(final String name)
     {
         return JsfUtils.getAttribute(this.getContext().getExternalContext().getRequest(), name);
     }
 
+    /**
+     * @param name
+     * @param object
+     */
     protected void setSessionAttribute(final String name, final Object object)
     {
         JsfUtils.setAttribute(this.getContext().getExternalContext().getSession(false), name, object);
     }
 
+    /**
+     * @param name
+     * @return SessionAttribute
+     */
     protected Object getSessionAttribute(final String name)
     {
         return JsfUtils.getAttribute(this.getContext().getExternalContext().getSession(false), name);
@@ -911,6 +955,9 @@ $decisionTransition.getDocumentation("     * ")
 #if ($portlet)
 #foreach ($role in $controller.useCase.getAllRoles())
 #set ($userIsInRoleName = "userIs${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
+    /**
+     * @return isUser
+     */
     public boolean isUser${stringUtils.upperCamelCaseName($role.name.toLowerCase())}()
     {
         final Object attribute = this.getSessionAttribute("userIs${stringUtils.upperCamelCaseName($role.name.toLowerCase())}");

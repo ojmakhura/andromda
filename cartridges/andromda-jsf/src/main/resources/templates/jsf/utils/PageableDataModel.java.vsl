@@ -7,9 +7,7 @@ package $managedBeansPackage;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.myfaces.trinidad.model.SortCriterion;
-
 
 /**
  * A type of JSF DataModel that allows a table
@@ -27,6 +25,7 @@ public abstract class $className
     /**
      * Create a datamodel that pages through the data showing the specified
      * number of rows on each page.
+     * @param pageSize
      */
     public $className(int pageSize)
     {
@@ -39,6 +38,7 @@ public abstract class $className
     /**
      * Not used in this class; data is fetched via a callback to the
      * fetchData method rather than by explicitly assigning a list.
+     * @param wrappedData
      */
     @Override
     public void setWrappedData(Object wrappedData)
@@ -46,6 +46,9 @@ public abstract class $className
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * @return rowIndex
+     */
     @Override
     public int getRowIndex()
     {
@@ -56,6 +59,7 @@ public abstract class $className
      * Specify what the "current row" within the dataset is. Note that
      * the UIData component will repeatedly call this method followed
      * by getRowData to obtain the objects to render in the table.
+     * @param rowIndex
      */
     @Override
     public void setRowIndex(int rowIndex)
@@ -66,6 +70,7 @@ public abstract class $className
     /**
      * Return the total number of rows of data available (not just the
      * number of rows in the current page!).
+     * @return RowCount
      */
     @Override
     public int getRowCount()
@@ -77,6 +82,7 @@ public abstract class $className
      * Return a DataPage object; if one is not currently available then
      * fetch one. Note that this doesn't ensure that the datapage
      * returned includes the current rowIndex row; see getRowData.
+     * @return page
      */
     public $paginationResultClassName getPage()
     {
@@ -116,6 +122,7 @@ public abstract class $className
      * Return the object corresponding to the current rowIndex.
      * If the DataPage object currently cached doesn't include that
      * index then fetchPage is called to retrieve the appropriate page.
+     * @return RowData
      */
     @Override
     public Object getRowData()
@@ -150,6 +157,9 @@ public abstract class $className
         return rowData;
     }
 
+    /**
+     * @return WrappedData
+     */
     @Override
     public Object getWrappedData()
     {
@@ -162,6 +172,7 @@ public abstract class $className
      * it may match a row that is not in the currently cached
      * DataPage; if so then when getRowData is called the
      * required DataPage will be fetched by calling fetchData.
+     * @return RowAvailable
      */
     @Override
     public boolean isRowAvailable()
@@ -190,6 +201,11 @@ public abstract class $className
     /**
      * Method which must be implemented in cooperation with the
      * managed bean class to fetch data on demand.
+     * @param pageNumber
+     * @param pageSize
+     * @param sortProperty
+     * @param sortAscending
+     * @return RowAvailable
      */
     public abstract $paginationResultClassName getPage(
         int pageNumber,
@@ -197,11 +213,17 @@ public abstract class $className
         String sortProperty,
         boolean sortAscending);
 
+    /**
+     * @return RowKey
+     */
     public Object getRowKey()
     {
         return isRowAvailable() ? String.valueOf(getRowIndex()) : null;
     }
 
+    /**
+     * @param key
+     */
     public void setRowKey(Object key)
     {
         setRowIndex(this.toRowIndex((String)key));
@@ -209,6 +231,8 @@ public abstract class $className
 
     /**
      * Creates a row index for the given row key
+     * @param rowKey
+     * @return rowIndex
      */
     private int toRowIndex(String rowKey)
     {
@@ -230,6 +254,10 @@ public abstract class $className
     private boolean sortAscending;
     private boolean forcePageRefresh;
 
+    /**
+     * setSortCriteria
+     * @param criteria
+     */
     @Override
     public void setSortCriteria(List criteria)
     {
@@ -250,6 +278,10 @@ public abstract class $className
         }
     }
 
+    /**
+     * getSortCriteria
+     * @return criteria
+     */
     @Override
     public List getSortCriteria()
     {
@@ -258,6 +290,11 @@ public abstract class $className
         : Collections.singletonList(this.sortCriterion);
     }
 
+    /**
+     * isSortable
+     * @param property
+     * @return true
+     */
     @Override
     public boolean isSortable(String property)
     {

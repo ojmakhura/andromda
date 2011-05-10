@@ -25,6 +25,10 @@
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListMethod = $stringUtils.capitalize($valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($labelListName))
+
+    /**
+     * @return backingList $listType
+     */
     public $listType get${backingListMethod}()
     {
         $listType values = this.${valueListName};
@@ -51,28 +55,45 @@
         return backingList;
     }
 
+    /**
+     * @return $valueListName
+     */
     public $listType get${valueListMethod}()
     {
         return this.$valueListName;
     }
 
-    public void set${valueListMethod}($listType $valueListName)
+    /**
+     * @param ${valueListName}In
+     */
+    public void set${valueListMethod}($listType ${valueListName}In)
     {
-        this.$valueListName = $valueListName;
+        this.$valueListName = ${valueListName}In;
     }
 
+    /**
+     * @return $labelListName $listType
+     */
     public $listType get${labelListMethod}()
     {
         return this.$labelListName;
     }
 
-    public void set${labelListMethod}($listType $labelListName)
+    /**
+     * @param ${labelListName}In
+     */
+    public void set${labelListMethod}($listType ${labelListName}In)
     {
-        this.$labelListName = $labelListName;
+        this.$labelListName = ${labelListName}In;
     }
 
 #set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)")
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    /**
+     * @param items
+     * @param valueProperty
+     * @param labelProperty
+     */
+    @SuppressWarnings("unchecked")
     public void $setBackingListMethodSignature
     {
         this.${valueListName} = null;
@@ -163,11 +184,17 @@
 #set ($backingValueMethod = $stringUtils.capitalize($backingValueName))
     private $field.type.fullyQualifiedName $backingValueName;
 
-    public void set${backingValueMethod}($field.type.fullyQualifiedName $backingValueName)
+    /**
+     * @param ${backingValueName}In
+     */
+    public void set${backingValueMethod}($field.type.fullyQualifiedName ${backingValueName}In)
     {
-        this.$backingValueName = $backingValueName;
+        this.$backingValueName = ${backingValueName}In;
     }
 
+    /**
+     * @return ${backingValueName}
+     */
     public $field.type.fullyQualifiedName get${backingValueMethod}()
     {
         return this.$backingValueName;

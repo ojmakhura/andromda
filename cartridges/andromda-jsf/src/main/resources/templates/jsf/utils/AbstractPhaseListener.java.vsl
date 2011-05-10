@@ -18,13 +18,17 @@ public abstract class $className
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("rawtypes")
-    private static java.util.Map<Class, Object> firstInstances = new java.util.HashMap<Class, Object>();
+    private static java.util.Map<Class<? extends AbstractPhaseListener>, Object> firstInstances
+        = new java.util.HashMap<Class<? extends AbstractPhaseListener>, Object>();
 
     private boolean isFirstInstance()
     {
         return firstInstances.get(this.getClass()).equals(this);
     }
 
+    /**
+     *
+     */
     public AbstractPhaseListener()
     {
         if (!firstInstances.containsKey(this.getClass()))
@@ -44,6 +48,9 @@ public abstract class $className
         }
     }
 
+    /**
+     * @param event
+     */
     protected abstract void handleBeforePhase(javax.faces.event.PhaseEvent event);
 
     /**
@@ -57,6 +64,9 @@ public abstract class $className
         }
     }
 
+    /**
+     * @param event
+     */
     protected abstract void handleAfterPhase(javax.faces.event.PhaseEvent event);
 
     /**

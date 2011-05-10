@@ -5,11 +5,6 @@ package $view.packageName;
 #end
 #if ($standalone)
 import java.io.IOException;
-
-import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -35,12 +30,12 @@ public class $view.populator
     /**
      * Initialize the filter
      *
-     * @param config the configuration
-     * @see javax.servlet.Filter#hash()setFilterConfig(FilterConfig)
+     * @param configIn the configuration
+     * @see javax.servlet.Filter#hash()init(FilterConfig)
      */
-    public void init(FilterConfig config)
+    public void init(FilterConfig configIn)
     {
-        this.config = config;
+        this.config = configIn;
     }
 
     /**
@@ -71,6 +66,13 @@ public class $view.populator
     }
 #end
 
+    /**
+     * @param facesContext
+     * @param form
+#if ($standalone)
+     * @throws ServletException
+#end
+     */
     public static void populateFormAndViewVariables(final FacesContext facesContext, Object form)
 #if ($standalone)
         throws ServletException
@@ -195,7 +197,7 @@ public class $view.populator
                         propertySet = (Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(form, isSetPropertyName);
                     }
                     // - only set the property if its been set, or we can't tell if it has
-                    if (propertySet == null || propertySet)
+                    if (propertySet == null || propertySet.booleanValue())
                     {
                         request.setAttribute("${variable.name}", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "${variable.name}"));
                     }

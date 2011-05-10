@@ -12,6 +12,8 @@ public final class $useCaseForwardsClassName
     /**
      * Gets the path given the forward <code>name</code>.  If a path can
      * not be found, null is returned.
+     * @param name
+     * @return forwards.get(name)
      */
     public static final String getPath(final String name)
     {
@@ -28,7 +30,7 @@ public final class $useCaseForwardsClassName
 #end
 #end
         }
-        return (String)forwards.get(name);
+        return forwards.get(name);
     }
 
     /**

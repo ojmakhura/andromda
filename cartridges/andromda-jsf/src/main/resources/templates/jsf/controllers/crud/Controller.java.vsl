@@ -22,7 +22,7 @@ package $manageable.manageablePackageName;
 #end
 #end
 /**
- * Javaserver Faces Controller of the ${manageable.name} CRUD management.
+ * Java Server Faces Controller of the ${manageable.name} CRUD management.
  */
 public abstract class ${manageable.controllerName}
     extends ${managedBeansPackage}.ControllerBase
@@ -30,10 +30,10 @@ public abstract class ${manageable.controllerName}
     private static final org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(${manageable.controllerName}.class);
 
     /**
-    * Initializes the controller, calling the doInit method
-    *
-    * @return the controller view path.
-    */
+     * Initializes the controller, calling the doInit method
+     *
+     * @return the controller view path.
+     */
     public String init()
     {
         this.resetUseCaseFormsAndPageVariables();
@@ -64,8 +64,10 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Initializes the controller. This method can be overriden.
-    */
+     * Initializes the controller. This method can be overridden.
+     * @param form 
+     * @throws Exception 
+     */
     public void doInit(${manageable.formBeanType} form)
         throws Exception
     {
@@ -104,8 +106,9 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * The instance load action.
-    */
+     * The instance load action.
+     * @param event 
+     */
     public void load(javax.faces.event.ActionEvent event)
     {
         try
@@ -134,8 +137,11 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Loads the selected instance.
-    */
+     * Loads the selected instance.
+     * @param id 
+     * @param form 
+     * @throws Exception 
+     */
     public void doLoad(${identifierType} ${manageable.identifierName}, ${manageable.formBeanType} form)
         throws Exception
     {
@@ -155,10 +161,10 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * The cancel edit action
-    *
-    * @return the controller view path.
-    */
+     * The cancel edit action
+     *
+     * @return the controller view path.
+     */
     public String cancel()
     {
         try
@@ -189,8 +195,10 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Executes the edit cancel.
-    */
+     * Executes the edit cancel.
+     * @param form 
+     * @throws Exception 
+     */
     public void doCancel(${manageable.formBeanType} form)
         throws Exception
     {
@@ -199,10 +207,10 @@ public abstract class ${manageable.controllerName}
 
 #if ($manageable.create)
     /**
-    * The new instance action.
-    *
-    * @return the controller view path.
-    */
+     * The new instance action.
+     *
+     * @return the controller view path.
+     */
     public String startNew()
     {
         try
@@ -233,12 +241,13 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Executes the new instance action.
-    */
+     * Executes the new instance action.
+     * @param form 
+     * @throws Exception 
+     */
     public void doStartNew(${manageable.formBeanType} form)
         throws Exception
     {
-
 ## set all default attribute values
 #foreach ($member in $manageable.manageableAttributes)
 #set($memberType = $member.type)
@@ -282,11 +291,12 @@ public abstract class ${manageable.controllerName}
     }
 #end
 #if ($manageable.create || $manageable.update)
-    /**
-    * The save instance action.
-    *
-    * @return the controller view path.
-    */
+
+	/**
+     * The save instance action.
+     *
+     * @return the controller view path.
+     */
     public String save()
     {
         try
@@ -317,12 +327,13 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Saves instance action.
-    */
+     * Saves instance action.
+     * @param form 
+     * @throws Exception 
+     */
     public void doSave(${manageable.formBeanType} form)
         throws Exception
     {
-
 #if ($manageable.create)
         if(form.${manageable.identifierGetterName}() == null#if(!$manageable.compositeIdentifier && ($identifierIsIntegerType || $identifierIsLongType)) || form.${manageable.identifierGetterName}()==0#end){
             form.${manageable.identifierSetterName}(
@@ -372,10 +383,10 @@ public abstract class ${manageable.controllerName}
 #end
 #if ($manageable.create)
     /**
-    * The save and new instance action.
-    *
-    * @return the controller view path.
-    */
+     * The save and new instance action.
+     *
+     * @return the controller view path.
+     */
     public String saveAndNew()
     {
         try
@@ -408,10 +419,10 @@ public abstract class ${manageable.controllerName}
 #end
 
     /**
-    * The search action.
-    *
-    * @return the controller view path.
-    */
+     * The search action.
+     *
+     * @return the controller view path.
+     */
     public String search()
     {
         try
@@ -442,15 +453,17 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Executes the search action.
-    */
+     * Executes the search action.
+     * @param form 
+     * @throws Exception 
+     */
     public void doSearch(${manageable.formBeanType} form)
         throws Exception
     {
         @SuppressWarnings("rawtypes")
         final java.util.List list;
         //if all search fields are null, call readAll()
-        if(
+        if (
 #set ($and = '')
 #foreach ($member in $manageable.manageableMembers)
 #if(!$member.hidden)##isn't working the ($manageable.searchable($member))
@@ -467,19 +480,19 @@ public abstract class ${manageable.controllerName}
 #end
 #end
             )
-        list=${manageable.manageableServiceAccessorCall}.readAll();
-    else
-        list = ${manageable.manageableServiceAccessorCall}.read(
+            list=${manageable.manageableServiceAccessorCall}.readAll();
+        else
+            list = ${manageable.manageableServiceAccessorCall}.read(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if(!$member.hidden)##isn't working the ($manageable.searchable($member))
-            ${comma}form.getSearchForm().#if($member.type.primitive && $member.type.booleanType)get${stringUtils.upperCamelCaseName($member.name)}#else${member.getterName}#end()
+                ${comma}form.getSearchForm().#if($member.type.primitive && $member.type.booleanType)get${stringUtils.upperCamelCaseName($member.name)}#else${member.getterName}#end()
 #else
-            ${comma}null
+                ${comma}null
 #end
 #set ($comma = ', ')
 #end
-        );
+            );
 
         form.${manageable.listSetterName}(list);
 #if ($manageable.maximumListSize > 0)
@@ -501,8 +514,9 @@ public abstract class ${manageable.controllerName}
 
 #if ($manageable.delete)
     /**
-    * The delete event.
-    */
+     * The delete event.
+     * @param event 
+     */
     public void delete(javax.faces.event.ActionEvent event)
     {
         try
@@ -531,8 +545,11 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Deletes the selected instance.
-    */
+     * Deletes the selected instance.
+     * @param id 
+     * @param form 
+     * @throws Exception 
+     */
     public void doDelete(${identifierType} ${manageable.identifierName}, ${manageable.formBeanType} form)
         throws Exception
     {
@@ -547,8 +564,8 @@ public abstract class ${manageable.controllerName}
 #end
 #if ($manageable.maximumListSize > 0)
     /**
-    * Shows a message warning the user can exists more records available.
-    */
+     * Shows a message warning the user can exists more records available.
+     */
     private void saveMaxResultsWarning()
     {
         addWarningMessage(${managedBeansPackage}.Messages.get("maximum.results.fetched.warning", new Object[]{String.valueOf("${manageable.maximumListSize}")}));
@@ -556,16 +573,18 @@ public abstract class ${manageable.controllerName}
 
 #end
     /**
-    * Export as ODS spreadsheed
-    */
+     * Export as ODS spreadsheet
+     * @return ${manageable.odsExportFullPath}
+     */
     public String odsExport()
     {
         return "${manageable.odsExportFullPath}";
     }
 
     /**
-    * Helper method to fill the autocomplete component list.
-    */
+     * Helper method to fill the autocomplete component list.
+     * @param event 
+     */
     public void fillAutocomplete(javax.faces.event.ActionEvent event)
     {
         final javax.faces.context.FacesContext facesContext = this.getContext();
@@ -605,39 +624,36 @@ public abstract class ${manageable.controllerName}
     }
 
     /**
-    * Loads an instance of ${manageable.Name}.
-    *
-    * @return ${manageable.valueObjectClassName} from the loaded entity.
-    */
+     * Loads an instance of ${manageable.Name}.
+     *
+     * @return ${manageable.valueObjectClassName} from the loaded entity.
+     */
     static public ${manageable.valueObjectClassName} load(${identifierType} ${manageable.identifierName})
     {
         if(#if(!$identifierIsPrimitive)${manageable.identifierName} == null ||#end #if(!$manageable.compositeIdentifier && $identifierIsStringType)org.apache.commons.lang.StringUtils.isBlank(${manageable.identifierName})#else${manageable.identifierName} == 0#end)
         {
             return null;
         }
-        else
+        try
         {
-            try
-            {
-                return ${manageable.manageableServiceAccessorCall}.readById(${manageable.identifierName});
-            }
-            catch(Exception e)
-            {
-                throw new RuntimeException(e);
-            }
+            return ${manageable.manageableServiceAccessorCall}.readById(${manageable.identifierName});
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException(e);
         }
     }
 
     /**
-    * Helper method to fill the select component list.
-    *
-    * @return a collection with the filtered list.
-    */
+     * Helper method to fill the select component list.
+     *
+     * @return a collection with the filtered list.
+     */
     public java.util.Collection<javax.faces.model.SelectItem> getAsSelectItems()
     {
         final java.util.Collection<${manageable.valueObjectClassName}> vos;
         try {
-            vos = (java.util.Collection<${manageable.valueObjectClassName}>)${manageable.manageableServiceAccessorCall}.readAll();
+            vos = ${manageable.manageableServiceAccessorCall}.readAll();
         } catch (final Throwable throwable) {
             logger.error(throwable);
             this.addExceptionMessage(throwable);
@@ -650,6 +666,7 @@ public abstract class ${manageable.controllerName}
         return result;
     }
 
+    /** manageTaskForm */
     public static final String FORM_BEAN_NAME="${manageable.formBeanName}";
 
     /**
@@ -669,5 +686,4 @@ public abstract class ${manageable.controllerName}
     }
 
     // crud-controller merge-point
-
 }
