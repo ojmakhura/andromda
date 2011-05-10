@@ -124,9 +124,16 @@
             <artifactId>ehcache</artifactId>
             <type>pom</type>
         </dependency>
+#if ($cxf)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
+        for purpose of this fix, so that we can be compatible with the cxf webservices -->
+#end
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
+#if (!$spring)
+            <version>2.2</version>
+#end
         </dependency>
 #if (!$spring && $cxf)
         <dependency>
@@ -152,18 +159,10 @@
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
         </dependency-->
-        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
-        for purpose of this fix, so that we can be compatible with the cxf webservices -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>2.1</version>
-        </dependency>
 #if (!$ejb)
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope>
         </dependency>
 #end
 #end
@@ -478,10 +477,19 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
         </dependency>
+#if (!$spring && !$hibernate)
+        <!-- See (http://www.lumidant.com/blog/hibernate-asm-incompatibilities/, http://forum.andromda.org/viewtopic.php?t=5747)
+        for purpose of this fix, so that we can be compatible with the cxf webservices -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+#end
 #if (!$hibernate && !$spring)
         <dependency>
             <groupId>org.slf4j</groupId>
