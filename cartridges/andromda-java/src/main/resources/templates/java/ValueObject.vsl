@@ -392,8 +392,7 @@ $attribute.getDocumentation("     * ")
 #if ($attribute.many && !$attribute.type.arrayType)
         if (this.${attribute.name} == null)
         {
-## Todo: this.${attribute.name} = new $umlUtils.getImplCollection($returnType)();
-            this.${attribute.name} = new java.util.ArrayList#if($enableTemplating)<#if(${attribute.type.primitive})${attribute.type.wrapperName}#else${attribute.type.fullyQualifiedName}#end>#end();
+            this.${attribute.name} = new $umlUtils.getImplCollection($returnType)();
         }
 #end
         return this.$attribute.name;
@@ -606,7 +605,7 @@ $connectingEnd.getDocumentation("     * ")
 ##      equality methods
 ##
 ## VO may have subclasses, so always render the equalProperties method when there are properties to include
-#if (!$class.properties.empty && $generateEqualPropertiesMethod)
+#if ($generateEqualPropertiesMethod)
     /**
      * Compares the properties of this instance to the properties of the argument. This method will return
      * {@code false} as soon as it detects that the argument is {@code null} or not of the same type as
