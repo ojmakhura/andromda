@@ -25,6 +25,7 @@ public class $manageable.manageableValueObjectClassName
     private $member.type.fullyQualifiedName $member.name;
 
     /**
+$member.getDocumentation("     * ")
      * @return $member.name
      */
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
@@ -33,6 +34,7 @@ public class $manageable.manageableValueObjectClassName
     }
 
     /**
+$member.getDocumentation("     * ")
      * @param ${member.name}In
      */
     $member.visibility void ${member.setterName}($member.type.fullyQualifiedName ${member.name}In)
@@ -54,6 +56,7 @@ public class $manageable.manageableValueObjectClassName
     private $fieldType $member.name;
 
     /**
+$member.getDocumentation("     * ")
      * @return $member.name
      */
     $member.visibility $fieldType ${member.getterName}()
@@ -62,6 +65,7 @@ public class $manageable.manageableValueObjectClassName
     }
 
     /**
+$member.getDocumentation("     * ")
      * @param ${member.name}In
      */
     $member.visibility void ${member.setterName}($fieldType ${member.name}In)
@@ -79,6 +83,7 @@ public class $manageable.manageableValueObjectClassName
     private $fieldType ${member.name}${labelSuffix};
 
     /**
+$member.getDocumentation("     * ")
      * @return $member.name
      */
     $member.visibility $fieldType ${member.getterName}${labelSuffix}()
@@ -87,6 +92,7 @@ public class $manageable.manageableValueObjectClassName
     }
 
     /**
+$member.getDocumentation("     * ")
      * @param ${member.name}${labelSuffix}In
      */
     $member.visibility void ${member.setterName}${labelSuffix}($fieldType ${member.name}${labelSuffix}In)
