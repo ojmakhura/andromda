@@ -32,10 +32,10 @@ public class $metafacade.logicImplName
     }
 #set ($attributes = $metafacade.attributes)
 #if (!$attributes.empty)
-
 #foreach ($attribute in $attributes)
 #set ($methodName = $attribute.getterName)
 #set ($returnTypeName = $attribute.getterSetterTypeName)
+
     /**
 $attribute.getDocumentation("     * ")
      * @see ${metafacade.fullyQualifiedName}${esc.hash}${attribute.getterName}()
@@ -45,12 +45,12 @@ $attribute.getDocumentation("     * ")
         // ${toDoTag} put your implementation here.
         return $attribute.type.javaNullString;
     }
-
 #end
 #end
 ##
 #if (!$metafacade.operations.empty)
 #foreach ($operation in $metafacade.operations)
+
 #set ($methodName = $operation.name)
 #set ($returnTypeName = $operation.getterSetterReturnTypeName)
     /**
@@ -70,7 +70,6 @@ $operation.getDocumentation("     * ")
         return $operation.returnType.javaNullString;
 #end
     }
-
 #end
 #end
 ##
@@ -82,6 +81,7 @@ $operation.getDocumentation("     * ")
 #else
 #set ($returnTypeName = "Object")
 #end
+
     /**
 $associationEnd.getDocumentation("     * ")
      * @see ${metafacade.fullyQualifiedName}${esc.hash}${associationEnd.otherEnd.getterName}()
@@ -91,7 +91,6 @@ $associationEnd.getDocumentation("     * ")
         // ${toDoTag} add your implementation here!
         return null;
     }
-
 #end
 #end
 #end
