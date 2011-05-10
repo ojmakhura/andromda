@@ -779,6 +779,12 @@
                     (This property is only supported for hibernate 3 code generation)
                 </documentation>
             </property>
+            <property name="enableAnnotations">
+                <default>true</default>
+                <documentation>
+                    Indicates whether JDK5 annotations will be generated, i.e. @Override, @Deprecated.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
