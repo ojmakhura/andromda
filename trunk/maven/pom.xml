@@ -83,12 +83,13 @@
                         <id>exec-plugin-doc</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>xdoc</goal>
+                            <!-- NoClassDefFoundError: org/andromda/maven/plugin/configuration/AbstractConfigurationMojo -->
+                            <!--goal>xdoc</goal-->
                             <goal>helpmojo</goal>
                         </goals>
                     </execution>
                 </executions>
-                <!-- Add the Ant plugin tools, this fix m3 api issue -->
+                <!-- Fix m3 api issue. See http://maven.40175.n5.nabble.com/Maven-Plugin-Tools-2-5-Released-td326250.html -->
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.plugin-tools</groupId>
@@ -99,6 +100,15 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+        </plugins>
+    </reporting>
     <modules>
         <module>andromda</module>
         <module>andromdapp</module>
