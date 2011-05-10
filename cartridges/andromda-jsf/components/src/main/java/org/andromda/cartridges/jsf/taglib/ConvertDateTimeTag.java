@@ -1,8 +1,9 @@
 package org.andromda.cartridges.jsf.taglib;
 
+import javax.el.ExpressionFactory;
+import javax.faces.context.FacesContext;
 import javax.servlet.jsp.PageContext;
 import org.andromda.cartridges.jsf.converters.JSFDateTimeConverter;
-
 
 /**
  * Extends the default myfaces convert date time tag in order to use
@@ -28,6 +29,8 @@ public class ConvertDateTimeTag
     public void setPageContext(PageContext context)
     {
         super.setPageContext(context);
-        setConverterId(JSFDateTimeConverter.CONVERTER_ID);
+        ExpressionFactory expressionFactory =
+            FacesContext.getCurrentInstance().getApplication().getExpressionFactory();
+        setConverterId(expressionFactory.createValueExpression(context.getELContext(), JSFDateTimeConverter.CONVERTER_ID, String.class));
     }
 }

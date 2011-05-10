@@ -16,7 +16,7 @@ public final class BuildInformation
     /**
      * The shared instance.
      */
-    private static final BuildInformation instance = new BuildInformation();
+    private static final BuildInformation INSTANCE = new BuildInformation();
 
     /**
      * Gets the shared instance of the BuildInformation.
@@ -25,7 +25,7 @@ public final class BuildInformation
      */
     public static BuildInformation instance()
     {
-        return instance;
+        return INSTANCE;
     }
 
     /**

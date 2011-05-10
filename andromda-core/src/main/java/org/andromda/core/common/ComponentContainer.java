@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public class ComponentContainer
 {
-    private static final Logger logger = Logger.getLogger(ComponentContainer.class);
+    private static final Logger LOGGER = Logger.getLogger(ComponentContainer.class);
 
     /**
      * Where all component default implementations are found.
@@ -251,7 +251,7 @@ public class ComponentContainer
                     }
                     else
                     {
-                        logger.warn(
+                        LOGGER.warn(
                             "WARNING! Component's default configuration file '" +
                             getComponentDefaultConfigurationPath(type) + "' could not be found");
                     }
@@ -344,9 +344,9 @@ public class ComponentContainer
     public Object unregisterComponent(final String key)
     {
         ExceptionUtils.checkEmpty("key", key);
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("unregistering component with key --> '" + key + '\'');
+            LOGGER.debug("unregistering component with key --> '" + key + '\'');
         }
         return container.remove(key);
     }
@@ -433,9 +433,9 @@ public class ComponentContainer
     {
         ExceptionUtils.checkEmpty("namespace", namespace);
         ExceptionUtils.checkNull("component", component);
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("registering component '" + component + "' with key --> '" + key + '\'');
+            LOGGER.debug("registering component '" + component + "' with key --> '" + key + '\'');
         }
         ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
         if (namespaceContainer == null)
@@ -459,9 +459,9 @@ public class ComponentContainer
         final Object component)
     {
         ExceptionUtils.checkNull("component", component);
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("registering component '" + component + "' with key --> '" + key + '\'');
+            LOGGER.debug("registering component '" + component + "' with key --> '" + key + '\'');
         }
         return this.container.put(key, component);
     }
@@ -506,9 +506,9 @@ public class ComponentContainer
     {
         ExceptionUtils.checkNull("componentInterface", componentInterface);
         ExceptionUtils.checkNull("defaultType", defaultType);
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug(
+            LOGGER.debug(
                 "registering default for component '" + componentInterface + "' as type --> '" + defaultType + '\'');
         }
         try
