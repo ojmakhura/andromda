@@ -7,8 +7,19 @@
         </title>
     </properties>
     <body>
-        <section name="Integrating with Acegi Security System">
-
+        <section name="Integrating with Acegi/Spring Security">
+            <p>
+                NOTE: AndroMDA has been upgraded to Spring 3.0, however the Acegi framework is not compatible
+                with Spring 2.5+, and has been replaced by the spring-security framework. This completely changes the
+                namespace and values in the Spring configuration file. See 
+                <a href="http://static.springsource.org/spring-security/site/">
+                http://static.springsource.org/spring-security/site/</a> and
+                <a href="http://java.dzone.com/tips/pathway-acegi-spring-security-">
+                http://java.dzone.com/tips/pathway-acegi-spring-security-</a> and
+                <a href="http://raibledesigns.com/rd/entry/upgrading_to_spring_security_2">
+                http://raibledesigns.com/rd/entry/upgrading_to_spring_security_2</a>
+                
+            </p>
             <p>
                 In this section we will add security to TimeTracker by integrating it with the Acegi
                 Security System. The integration will ensure that only authenticated users can access
@@ -18,7 +29,6 @@
                 and present the Login page. Once the credentials are presented and verified, user
                 will be directed to the page she was trying to access.
             </p>
-
             <p>
                 We chose Acegi Security System because it provides a portable and effective security
                 framework for enterprise applications. Look at the
