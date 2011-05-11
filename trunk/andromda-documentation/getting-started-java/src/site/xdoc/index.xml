@@ -69,9 +69,12 @@
                 </p>
                 <h4>AndroMDA is a great choice when</h4>
                 <ul>
-                    <li>You are starting a new project</li>
+                    <li>You are starting a new project, or completely rewriting a layer of an existing application</li>
                     <li>You want to save time by generating as much code as possible</li>
                     <li>You are building an application that stores its data in a database</li>
+                    <li>You are already familiar with <a href="http://maven.apache.org/guides/index.html">Apache Maven</a></li>
+                    <li>You are already familiar with UML Modeling tools and want to create more than just pretty pictures.</li>
+                    <li>You are already familiar with the implementation frameworks: Spring, Hibernate, EJB3, JSF3, JAX-WS, etc</li>
                 </ul>
                 <h4>AndroMDA might not be the best choice if</h4>
                 <ul>
@@ -81,6 +84,10 @@
                     </li>
                     <li>You already have a mature application with existing business objects and the incremental
                         effort to model existing components is too high to provide enough value
+                    </li>
+                    <li>You have an immature software development lifecycle process: No build automation, continuous integration,
+                    test driven development (or even unit testing), or code reuse between projects. Fix that first before you start
+                    thinking about model-driven development.
                     </li>
                 </ul>
             </subsection>

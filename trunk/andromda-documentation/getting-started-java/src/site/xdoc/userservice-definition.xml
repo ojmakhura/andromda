@@ -25,6 +25,19 @@
                 </li>
                 <li>Ability to get a list of all timecards that match a specific search criteria.</li>
             </ol>
+            <subsection name="UML14 vs. UML2 Collection Types">
+                <p>
+                    Throughout this tutorial we refer to modeling Class and Class[]. This is not necessary if using UML2,
+                    or a UML Modeling tool which supports multiplicity * for operation parameters and return types.
+                    Simply model the association relationships and parameters as multiplicity * and replace references to
+                    Class[] with Class association of multiplicity *. UML Attribute collection
+                    mapping to Java Collection interface/implementation types is based on unique/ordered UML model values.
+                    UnOrdered+NonUnique will be Collection/ArrayList,
+                    Ordered+NonUnique will List/ArrayList, UnOrdered+Unique will be Set/HashSet, 
+                    and Ordered+Unique will be SortedSet/TreeSet. This will generate <![CDATA[CollectionType<Class>]]>
+                    collections instead of Class[] array outputs.
+                </p>
+            </subsection>
             <subsection name="UserVO Value Object">
                 <p>
                     Let's zoom in on the first function, i.e. get a list of all users. Let's decide
@@ -67,12 +80,19 @@
                     <tt>Long</tt> and <tt>String</tt>
                     in this context are platform independent types. When we
                     run AndroMDA to generate code, it will translate platform independent types into
-                    platform dependent types such as <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
+                    platform dependent types such as <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>,
+                    and into database specific types for DDL.
                     If we were to use the same model to generate a .NET application, AndroMDA will translate
                     <tt>Long</tt> into <tt>long?</tt> and <tt>String</tt> into <tt>System.String</tt>,
                     which are .NET equivalents of <tt>java.lang.Long</tt> and <tt>java.lang.String</tt>.
-                    As you can see, a key advantage of the model driven approach is that your investment
+                    A key advantage of the model driven approach is that your investment
                     in the business models is preserved even as technologies come and go.
+                </p>
+                <p>
+                    <b>Primitive vs. Wrapped datatypes:</b>
+                    Attributes can be modeled as primitive (lowercase) or wrapped (Initcaps). Wrapped datatypes are nullable,
+                    primitive ones are not. Standard UML datatypes and UML/Java Primitive Types from the UML Standard libraries can
+                    also be used. The attribute multiplicity lowerBound should correspond to the modeled datatype: 0 for wrapped, 1 for primitive.
                 </p>
                 <p>
                     Now let us enter <tt>UserVO</tt>

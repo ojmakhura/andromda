@@ -41,14 +41,19 @@
                     <tt>TimecardSummaryVO</tt>
                     is another value object that packages summary information about each timecard. Based
                     on the fields in the Search screen, let's design these two value objects. Note that
-                    we need a status field in both these value objects. So first create an enumeration
-                    called <tt>TimecardStatus</tt> under the
-                    <tt>org.andromda.timetracker.domain</tt>
-                    package as shown below. To do this, create a class in the &quot;Domain Objects&quot; diagram,
+                    we need a status field in both these value objects. So first create a UML enumeration
+                    called <tt>TimecardStatus</tt> under the <tt>org.andromda.timetracker.domain</tt>
+                    package as shown below. To do this, create an enumeration in the &quot;Domain Objects&quot; diagram.
+                    Then add the four enumeration literal names and values as shown below. Enumeration Literal
+                    Names are UPPERCASE by convention and are referred to in code by TimecardStatue.NAME.
+                    EnumerationLiteral values are the String Text value displayed for the literal. Make sure the enumeration
+                    is created in the <tt>org.andromda.timetracker.domain</tt> package by inspecting
+                    the containment tree.
+                    <!-- To do this, create a class in the &quot;Domain Objects&quot; diagram,
                     and give it the stereotype of <tt>Enumeration</tt>. Then add the four enumeration
                     values as shown below - these are added as attributes. Make sure the enumeration
                     is created in the <tt>org.andromda.timetracker.domain</tt> package by inspecting
-                    the containment tree.
+                    the containment tree. -->
                 </p>
                 <p>
                     <img src="images/TimecardStatus.jpg" alt="TimecardStatus"/>
