@@ -32,6 +32,7 @@ public class $manageable.populatorName
      * @param configIn the configuration
      * @see javax.servlet.Filter#hash()init(FilterConfig)
      */
+    @Override
     public void init(FilterConfig configIn)
     {
         this.config = configIn;
@@ -41,6 +42,7 @@ public class $manageable.populatorName
      * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest,
      *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
+    @Override
     public void doFilter(
         ServletRequest request,
         ServletResponse response,
@@ -73,6 +75,7 @@ public class $manageable.populatorName
         form = adfContext.getPageFlowScope().get("$actionFormKey");
 
 #if ($formSerialization)
+        @SuppressWarnings("unused")
         final javax.servlet.http.HttpSession session = ((javax.servlet.http.HttpServletRequest)request).getSession();
 
         // - if the form is still null, see if we can get it from a serialized state
@@ -110,6 +113,7 @@ public class $manageable.populatorName
     /**
      * @see javax.servlet.Filter#hash()destroy()
      */
+    @Override
     public void destroy()
     {
         this.config = null;

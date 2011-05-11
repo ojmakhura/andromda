@@ -246,7 +246,7 @@ public class $formPopulatorName
                                         final String propertyAsString = (String)property;
                                         if (propertyAsString.trim().length() > 0)
                                         {
-                                            java.text.DateFormat formatter = formatters != null ? (java.text.DateFormat)formatters.get(name) : null;
+                                            java.text.DateFormat formatter = formatters != null ? formatters.get(name) : null;
                                             // - if the formatter is available we use that, otherwise we attempt to convert
                                             if (formatter != null)
                                             {
@@ -257,7 +257,7 @@ public class $formPopulatorName
                                                 catch (java.text.ParseException parseException)
                                                 {
                                                     // - try the default formatter (handles the default java.util.Date.toString() format)
-                                                    formatter = formatters != null ? (java.text.DateFormat)formatters.get(null) : null;
+                                                    formatter = formatters != null ? formatters.get(null) : null;
                                                     value = formatter.parse(propertyAsString);
                                                 }
                                             }

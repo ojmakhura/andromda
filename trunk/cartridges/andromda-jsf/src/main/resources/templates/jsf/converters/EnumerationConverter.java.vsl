@@ -14,6 +14,7 @@ public class $enumeration.converterName
     /**
      * @see javax.faces.convert.Converter#hash()getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
      */
+    @Override
     public String getAsString(
         javax.faces.context.FacesContext context,
         javax.faces.component.UIComponent component,
@@ -26,6 +27,7 @@ public class $enumeration.converterName
     /**
      * @see javax.faces.convert.Converter#hash()getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
      */
+    @Override
     public Object getAsObject(
         javax.faces.context.FacesContext context,
         javax.faces.component.UIComponent component,

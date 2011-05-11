@@ -93,6 +93,7 @@ $operation.getDocumentation("     * ")
      */
     protected void resetFormSetFlags()
     {
+        // Resets all the "isSet" flags on the forms to false.
 #foreach ($action in $controller.useCase.actions)
 #if (!$action.formFields.empty)
         this.${action.formImplementationGetter}.resetIsSetFlags();
@@ -727,7 +728,6 @@ $decisionTransition.getDocumentation("     * ")
      * @param id the id of the form.
      * @return the form or null if none was found.
      */
-    @SuppressWarnings("rawtypes")
     private javax.faces.component.UIForm findForm(javax.faces.component.UIComponent component, String id)
     {
         javax.faces.component.UIForm foundForm = null;
@@ -762,7 +762,6 @@ $decisionTransition.getDocumentation("     * ")
      *
      * @param component the component to populate.
      */
-    @SuppressWarnings("rawtypes")
     private void populateComponentInputs(javax.faces.component.UIComponent component)
     {
         if (component != null)
@@ -879,7 +878,6 @@ $decisionTransition.getDocumentation("     * ")
      * @param type the type of form to retrieve.
      * @return the found form.
      */
-    @SuppressWarnings("rawtypes")
     protected Object getCurrentActionForm(final Class<?> type)
     {
         Object form = this.getCurrentActionForm();

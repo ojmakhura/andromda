@@ -10,7 +10,7 @@ package $operation.packageName;
  *
 $operation.getDocumentation(" * ")
  *
- * @see ${operation.owner.fullyQualifiedName}#hash()${operation.name}(Form)
+ * @see ${operation.owner.fullyQualifiedName}#hash()${operation.name}($operation.formName)
  */
 public interface $operation.formName
 {
