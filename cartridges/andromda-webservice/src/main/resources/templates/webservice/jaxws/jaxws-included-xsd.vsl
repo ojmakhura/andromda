@@ -410,7 +410,7 @@ $tab            </xs:attribute>
 #end
 #end
 #if ($extensionRequired)
-            </xs:extension>
+                </xs:extension>
             </xs:complexContent>
 #end
         </xs:complexType>
