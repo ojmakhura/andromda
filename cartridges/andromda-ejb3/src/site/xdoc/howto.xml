@@ -11,7 +11,8 @@
                 If you want to know more about how to model your application using the 
                 <a href="http://java.sun.com/products/ejb/docs.html">EJB 3.0</a> cartridge with AndroMDA, 
                 you have arrived at the right place; step-by-step we will work through an example showing the 
-                cartridge's features.
+                cartridge's features. The cartridge is part of the andromda base, and is optionally installed
+                during the andromdapp project generation.
                 Read on for more information.
             </p>
             <p>
@@ -25,7 +26,7 @@
                 In this how-to we will cover the following topics:
             </p>
             <ul>
-                <li>
+                <!--li>
                     <a href="installation.html">Installation &amp; Configuration</a>
                     <ul>
                         <li><a href="installation.html#Requirements">Requirements</a></li>
@@ -33,7 +34,7 @@
                         <li><a href="installation.html#Building_the_Cartridge">Building the Cartridge</a></li>
                         <li><a href="installation.html#Building_Documentation">Building Documentation</a></li>
                     </ul>
-                </li>
+                </li-->
                 <li>
                     <a href="howto1.html">Entities</a>
                     <ul>
@@ -240,7 +241,7 @@
                 </li>
             </ul>
             <p>
-                To learn how to install the EJB3 cartridge click <a href="installation.html">here</a>.
+                To learn how to use the EJB3 cartridge click <a href="howto1.html">here</a>.
             </p>
         </section>
     </body>
