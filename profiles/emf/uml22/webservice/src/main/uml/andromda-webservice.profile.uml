@@ -258,6 +258,82 @@
             <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
           </eStructuralFeatures>
         </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_38zWxSptEeC_lrUF8E9Lgg" name="WSSecurity">
+          <eAnnotations xmi:id="_38zWxiptEeC_lrUF8E9Lgg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_K5L-0CpXEeCEp4eYah8h_A"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zWxyptEeC_lrUF8E9Lgg" name="andromda_security_abbr" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zWySptEeC_lrUF8E9Lgg" name="andromda_security_namespace" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zWyyptEeC_lrUF8E9Lgg" name="andromda_security_XSDlocation" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zWzSptEeC_lrUF8E9Lgg" name="andromda_wsdl_security_partName" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zWzyptEeC_lrUF8E9Lgg" name="andromda_wsdl_security_element" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW0SptEeC_lrUF8E9Lgg" name="andromda_wsdl_security_use" ordered="false" eType="_RcYAVh-lEd6lZ_21UMRSKg"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW0yptEeC_lrUF8E9Lgg" name="andromda_wsdl_security_type" ordered="false" lowerBound="1" eType="_38zW2SptEeC_lrUF8E9Lgg"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_38zW1SptEeC_lrUF8E9Lgg" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_38zW1yptEeC_lrUF8E9Lgg" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_38zW2SptEeC_lrUF8E9Lgg" name="WSSecurityType">
+          <eAnnotations xmi:id="_38zW2iptEeC_lrUF8E9Lgg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_K5L_BipXEeCEp4eYah8h_A"/>
+          <eLiterals xmi:id="_38zW2yptEeC_lrUF8E9Lgg" name="default"/>
+          <eLiterals xmi:id="_38zW3CptEeC_lrUF8E9Lgg" name="UsernameToken" value="1"/>
+          <eLiterals xmi:id="_38zW3SptEeC_lrUF8E9Lgg" name="X509" value="2"/>
+          <eLiterals xmi:id="_38zW3iptEeC_lrUF8E9Lgg" name="Saml" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_38zW3yptEeC_lrUF8E9Lgg" name="WSCustomHeader">
+          <eAnnotations xmi:id="_38zW4CptEeC_lrUF8E9Lgg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_K5L_GCpXEeCEp4eYah8h_A"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW4SptEeC_lrUF8E9Lgg" name="andromda_wsdl_header_use" ordered="false" lowerBound="1" eType="_RcYAVh-lEd6lZ_21UMRSKg"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW4yptEeC_lrUF8E9Lgg" name="andromda_wsdl_header_element" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW5SptEeC_lrUF8E9Lgg" name="andromda_header_namespace" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW5yptEeC_lrUF8E9Lgg" name="andromda_wsdl_header_partName" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW6SptEeC_lrUF8E9Lgg" name="andromda_header_XSDlocation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_38zW6yptEeC_lrUF8E9Lgg" name="andromda_header_abbr" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_38zW7SptEeC_lrUF8E9Lgg" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_38zW7yptEeC_lrUF8E9Lgg" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_0aTtAC2CEeCw7u-i2lbLPQ" name="WSAddressing">
+          <eAnnotations xmi:id="_0aTtAS2CEeCw7u-i2lbLPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_gtINMC2BEeCw7u-i2lbLPQ"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_0aTtAi2CEeCw7u-i2lbLPQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_0aTtBC2CEeCw7u-i2lbLPQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_0aTtBi2CEeCw7u-i2lbLPQ" name="WSPolicy">
+          <eAnnotations xmi:id="_0aTtBy2CEeCw7u-i2lbLPQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_0DK00C2BEeCw7u-i2lbLPQ"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_0aTtCC2CEeCw7u-i2lbLPQ" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_0aTtCi2CEeCw7u-i2lbLPQ" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
       </contents>
     </eAnnotations>
     <packageImport xmi:id="_0metamodelReferenceandromda-webservice">
@@ -273,137 +349,137 @@
       <ownedComment xmi:id="_9_5_1_2e90116_1244667849958_672253_33" annotatedElement="_9_5_1_2e90116_1244667162410_222611_3">
         <body>Http Request Type used in REST services. Default=GET if unspecified.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667310335_553294_14" name="default"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667250287_986803_8" name="GET"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667269569_142226_11" name="POST"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667274100_832188_12" name="PUT"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667278834_640800_13" name="DELETE"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244760701526_970884_99" name="HEADER"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244760709526_911121_100" name="OPTIONS"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667310335_553294_14" name="default" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667250287_986803_8" name="GET" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667269569_142226_11" name="POST" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667274100_832188_12" name="PUT" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667278834_640800_13" name="DELETE" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244760701526_970884_99" name="HEADER" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244760709526_911121_100" name="OPTIONS" classifier="_9_5_1_2e90116_1244667162410_222611_3"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1244667333711_282538_15" name="ParamType">
       <ownedComment xmi:id="_9_5_1_2e90116_1244667849958_818979_34" annotatedElement="_9_5_1_2e90116_1244667333711_282538_15">
         <body>Parameter Type for REST webservice parameter. default=PathParam.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667398806_332011_16" name="default"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667405056_89875_17" name="PathParam"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667416713_877100_18" name="QueryParam"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667423838_840131_19" name="HeaderParam"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667433510_367270_20" name="MatrixParam"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667449964_729481_21" name="CookieParam"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667457261_792026_22" name="FormParam"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667398806_332011_16" name="default" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667405056_89875_17" name="PathParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667416713_877100_18" name="QueryParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667423838_840131_19" name="HeaderParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667433510_367270_20" name="MatrixParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667449964_729481_21" name="CookieParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244667457261_792026_22" name="FormParam" classifier="_9_5_1_2e90116_1244667333711_282538_15"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1244667996150_450267_125" name="ProviderMediaType">
       <ownedComment xmi:id="_9_5_1_2e90116_1245076289431_7515_121" annotatedElement="_9_5_1_2e90116_1244667996150_450267_125">
         <body>Types corresponding to javax.ws.rs.core.MediaType values.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668684105_460013_151" name="default"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668134809_955786_126" name="ApplicationXML">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668684105_460013_151" name="default" classifier="_9_5_1_2e90116_1244667996150_450267_125"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668134809_955786_126" name="ApplicationXML" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_230164_136" annotatedElement="_9_5_1_2e90116_1244668134809_955786_126">
           <body>Annotates @Produces or @Consumes with application/xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668229609_453091_132" name="TextPlain">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668229609_453091_132" name="TextPlain" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_731119_142" annotatedElement="_9_5_1_2e90116_1244668229609_453091_132">
           <body>Annotates @Produces or @Consumes with text/plain</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668145591_191600_127" name="TextXML">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668145591_191600_127" name="TextXML" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_523256_137" annotatedElement="_9_5_1_2e90116_1244668145591_191600_127">
           <body>Annotates @Produces or @Consumes with text/xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668180311_817249_130" name="ApplicationAtom">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668180311_817249_130" name="ApplicationAtom" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_258973_140" annotatedElement="_9_5_1_2e90116_1244668180311_817249_130">
           <body>Annotates @Produces or @Consumes with application/atom+xml, application/atom+xml;type=feed</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668154794_447592_128" name="ApplicationJSON">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668154794_447592_128" name="ApplicationJSON" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_620088_138" annotatedElement="_9_5_1_2e90116_1244668154794_447592_128">
           <body>Annotates @Produces or @Consumes with application/json</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668163748_775887_129" name="ApplicationFastinfoset">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668163748_775887_129" name="ApplicationFastinfoset" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_357667_139" annotatedElement="_9_5_1_2e90116_1244668163748_775887_129">
           <body>Annotates @Produces or @Consumes with application/fastinfoset</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668242031_324068_133" name="ApplicationFormURLEncoded">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668242031_324068_133" name="ApplicationFormURLEncoded" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_509305_143" annotatedElement="_9_5_1_2e90116_1244668242031_324068_133">
           <body>Annotates @Produces or @Consumes with application/x-www-form-urlencoded</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668198999_904629_131" name="Wildcard">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668198999_904629_131" name="Wildcard" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668380269_815192_141" annotatedElement="_9_5_1_2e90116_1244668198999_904629_131">
           <body>Annotates @Produces or @Consumes with */*, for String InputStream DataSource File byte[]</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668407723_958396_144" name="MultipartFixed">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668407723_958396_144" name="MultipartFixed" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244668487959_627147_145" annotatedElement="_9_5_1_2e90116_1244668407723_958396_144">
           <body>Annotates @Produces or @Consumes with multipart/fixed.</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668647088_444183_150" name="MultipartFormData">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668647088_444183_150" name="MultipartFormData" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670122970_577382_182" annotatedElement="_9_5_1_2e90116_1244668647088_444183_150">
           <body>Annotates @Produces or @Consumes with multipart/form-data</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668611525_638328_149" name="MultipartMixed">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668611525_638328_149" name="MultipartMixed" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670122970_42114_181" annotatedElement="_9_5_1_2e90116_1244668611525_638328_149">
           <body>Annotates @Produces or @Consumes with multipart/mixed.</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794659837_958681_2" name="MultipartRelated">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794659837_958681_2" name="MultipartRelated" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245795100067_950406_21" annotatedElement="_9_5_1_2e90116_1245794659837_958681_2">
           <body>Annotates @Produces or @Consumes with multipart/related.</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794669196_792244_3" name="MultipartAlternative">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794669196_792244_3" name="MultipartAlternative" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245795100067_868091_22" annotatedElement="_9_5_1_2e90116_1245794669196_792244_3">
           <body>Annotates @Produces or @Consumes with multipart/alternative.</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244670171596_531228_183" name="ApplicationOctetStream">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244670171596_531228_183" name="ApplicationOctetStream" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670196268_316522_184" annotatedElement="_9_5_1_2e90116_1244670171596_531228_183">
           <body>Annotates @Produces or @Consumes with application/octet-stream</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076086441_217019_117" name="ApplicationAtomXML">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076086441_217019_117" name="ApplicationAtomXML" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245076289431_136913_122" annotatedElement="_9_5_1_2e90116_1245076086441_217019_117">
           <body>Annotates @Produces or @Consumes with application/atom+xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076150177_99432_118" name="ApplicationXhtmlXML">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076150177_99432_118" name="ApplicationXhtmlXML" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245076289431_538712_123" annotatedElement="_9_5_1_2e90116_1245076150177_99432_118">
           <body>Annotates @Produces or @Consumes with application/xhtml+xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076180553_909821_119" name="ApplicationSvgXML">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245076180553_909821_119" name="ApplicationSvgXML" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245076289431_58742_124" annotatedElement="_9_5_1_2e90116_1245076180553_909821_119">
           <body>Annotates @Produces or @Consumes with application/svg+xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794471785_47747_0" name="ApplicationAtomEntry">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794471785_47747_0" name="ApplicationAtomEntry" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245795100067_928453_19" annotatedElement="_9_5_1_2e90116_1245794471785_47747_0">
           <body>Annotates @Produces or @Consumes with application/atom+xml;type=entry</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794606492_202879_1" name="ApplicationXMLAll">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1245794606492_202879_1" name="ApplicationXMLAll" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1245795100067_173776_20" annotatedElement="_9_5_1_2e90116_1245794606492_202879_1">
           <body>Annotates @Produces or @Consumes with application/*+xml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668567899_149276_148" name="ApplicationYaml">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668567899_149276_148" name="ApplicationYaml" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670122970_872841_180" annotatedElement="_9_5_1_2e90116_1244668567899_149276_148">
           <body>Annotates @Produces or @Consumes with application/yaml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668518788_735823_146" name="TextXYaml">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668518788_735823_146" name="TextXYaml" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670122970_942455_178" annotatedElement="_9_5_1_2e90116_1244668518788_735823_146">
           <body>Annotates @Produces or @Consumes with text/x-yaml</body>
         </ownedComment>
       </ownedLiteral>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668564914_420103_147" name="TextYaml">
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1244668564914_420103_147" name="TextYaml" classifier="_9_5_1_2e90116_1244667996150_450267_125">
         <ownedComment xmi:id="_9_5_1_2e90116_1244670122970_752723_179" annotatedElement="_9_5_1_2e90116_1244668564914_420103_147">
           <body>Annotates @Produces or @Consumes with text/yaml</body>
         </ownedComment>
@@ -413,40 +489,40 @@
       <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_777701_21" annotatedElement="_9_0_1fe00f9_1119337599234_576105_6">
         <body>Represents the style of the web service.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975836527_451671_2" name="default"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_488961_3" name="wrapped"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_630370_4" name="document"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_330336_5" name="rpc"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975836527_451671_2" name="default" classifier="_9_0_1fe00f9_1119337599234_576105_6"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_488961_3" name="wrapped" classifier="_9_0_1fe00f9_1119337599234_576105_6"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_630370_4" name="document" classifier="_9_0_1fe00f9_1119337599234_576105_6"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_330336_5" name="rpc" classifier="_9_0_1fe00f9_1119337599234_576105_6"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337599234_816697_9" name="WebServiceProvider">
       <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_322428_22" annotatedElement="_9_0_1fe00f9_1119337599234_816697_9">
         <body>Represents the provider of the web service.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975832824_536077_1" name="default"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_319948_7" name="RPC"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_791334_8" name="EJB"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229443036177_166066_92" name="JAX-WS"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975832824_536077_1" name="default" classifier="_9_0_1fe00f9_1119337599234_816697_9"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_319948_7" name="RPC" classifier="_9_0_1fe00f9_1119337599234_816697_9"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_791334_8" name="EJB" classifier="_9_0_1fe00f9_1119337599234_816697_9"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229443036177_166066_92" name="JAX-WS" classifier="_9_0_1fe00f9_1119337599234_816697_9"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337599234_508718_16" name="WebServiceUse">
       <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_966802_26" annotatedElement="_9_0_1fe00f9_1119337599234_508718_16">
         <body>Represents the use of the web service.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975840386_222959_3" name="default"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_412593_14" name="literal"/>
-      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_434482_15" name="encoded"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975840386_222959_3" name="default" classifier="_9_0_1fe00f9_1119337599234_508718_16"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_412593_14" name="literal" classifier="_9_0_1fe00f9_1119337599234_508718_16"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_434482_15" name="encoded" classifier="_9_0_1fe00f9_1119337599234_508718_16"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1229442786298_883324_88" name="WebServiceParameterStyle">
       <ownedComment xmi:id="_9_5_1_2e90116_1229443043614_396006_96" annotatedElement="_9_5_1_2e90116_1229442786298_883324_88">
         <body>Defines if parameter style overrides the global defaultParameterStyle.</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975825667_67637_0" name="default"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442795283_652949_89" name="wrapped"/>
-      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442800470_568833_90" name="bare"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975825667_67637_0" name="default" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442795283_652949_89" name="wrapped" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442800470_568833_90" name="bare" classifier="_9_5_1_2e90116_1229442786298_883324_88"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2090114_1235189840952_369943_0" name="TernaryBoolean">
-      <ownedLiteral xmi:id="_9_5_1_2090114_1235189850741_866785_1" name="default"/>
-      <ownedLiteral xmi:id="_9_5_1_2090114_1235189856621_713255_2" name="false"/>
-      <ownedLiteral xmi:id="_9_5_1_2090114_1235189863330_559206_3" name="true"/>
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189850741_866785_1" name="default" classifier="_9_5_1_2090114_1235189840952_369943_0"/>
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189856621_713255_2" name="false" classifier="_9_5_1_2090114_1235189840952_369943_0"/>
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189863330_559206_3" name="true" classifier="_9_5_1_2090114_1235189840952_369943_0"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337599234_292426_17" name="WebService">
       <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_48742_27" annotatedElement="_9_0_1fe00f9_1119337599234_292426_17">
@@ -593,7 +669,6 @@
       <ownedAttribute xmi:id="_12_1_2e90116_1238689272563_806221_349" name="base_Class" visibility="private" association="_16_5_2_2e90116_1245939975381_100928_367">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689272531_905722_339" content="" location="" format=""/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337599234_736026_12" name="WebServiceOperation">
       <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_982331_28" annotatedElement="_9_0_1fe00f9_1119337599234_736026_12">
@@ -684,7 +759,6 @@ For example, a service sometimes may contain other operations that will not be e
       <ownedAttribute xmi:id="_12_1_2e90116_1238689272563_687679_355" name="base_Operation" visibility="private" association="_16_5_2_2e90116_1245939975381_371242_372">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689272531_660897_342" content="" location="" format=""/>
     </packagedElement>
     <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1245794733151_533417_4" name="WebServiceFeed">
       <ownedComment xmi:id="_9_5_1_2e90116_1245797030023_924792_0" annotatedElement="_9_5_1_2e90116_1245794733151_533417_4">
@@ -858,8 +932,8 @@ For example, a service sometimes may contain other operations that will not be e
         <ownedComment xmi:id="_zCLeUL5NEd6HXqppVLPkvg">
           <body>Customize the @WebFault(faultName) annotation and wsdl bindings. Specifies the full name of the java class that implements the exception. Default empty uses the fully-qualified exception class name as the faultName.</body>
         </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <icon xmi:id="_12_1_2e90116_1238689272531_967498_343" content="" location="" format=""/>
     </packagedElement>
     <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689272563_872228_348" name="" memberEnd="_12_1_2e90116_1238689272563_279373_350">
       <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689272563_279373_350" name="extension_WebService" visibility="private" type="_9_0_1fe00f9_1119337599234_292426_17" aggregation="composite" association="_12_1_2e90116_1238689272563_872228_348">
@@ -915,126 +989,172 @@ For example, a service sometimes may contain other operations that will not be e
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_16_5_2_2e90116_1245939975366_648758_360" name=""/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_OpzDsPTjEd-tkvEoAkqWOA" name="WSSecurity">
-      <ownedComment xmi:id="_laWqYPTjEd-tkvEoAkqWOA" annotatedElement="_OpzDsPTjEd-tkvEoAkqWOA">
-        <body>On CXF/JAX-WS WebService or Operation, indicates that SOAP ws-security and transport security is enabled. It adds ws-security namespace and SOAP Header information to the service definition and WebService client.</body>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_K5L-0CpXEeCEp4eYah8h_A" name="WSSecurity">
+      <ownedComment xmi:id="_K5L-0ypXEeCEp4eYah8h_A" annotatedElement="_K5L-0CpXEeCEp4eYah8h_A">
+        <body>On CXF/JAX-WS WebService or Operation, indicates that SOAP ws-security and transport security is enabled. It adds&#xD;
+ws-security namespace and SOAP Header information to the service definition and WebService client.</body>
       </ownedComment>
-      <ownedAttribute xmi:id="_-8-TkPTkEd-tkvEoAkqWOA" name="andromda_security_abbr" visibility="private">
-        <ownedComment xmi:id="_DhIbQPTlEd-tkvEoAkqWOA">
-          <body>Namespace abbreviation associated with the wssecurity element references.</body>
+      <ownedAttribute xmi:id="_K5L-1ipXEeCEp4eYah8h_A" name="andromda_security_abbr" visibility="private">
+        <ownedComment xmi:id="_K5L-2SpXEeCEp4eYah8h_A" annotatedElement="_K5L-1ipXEeCEp4eYah8h_A">
+          <body>Namespace abbreviation associated with the ws security element references.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugRbIPTlEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tD4VoPTlEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_QTkL8PTlEd-tkvEoAkqWOA" value="wsse"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lVjt8CptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="__RgAYC1_EeCw7u-i2lbLPQ" value="wsse"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_yFeAMPTlEd-tkvEoAkqWOA" name="andromda_security_namespace" visibility="private">
-        <ownedComment xmi:id="_yFeAMfTlEd-tkvEoAkqWOA">
-          <body>Namespace associated with the wssecurity element references.</body>
+      <ownedAttribute xmi:id="_K5L-3CpXEeCEp4eYah8h_A" name="andromda_security_namespace" visibility="private">
+        <ownedComment xmi:id="_K5L-3ypXEeCEp4eYah8h_A" annotatedElement="_K5L-3CpXEeCEp4eYah8h_A">
+          <body>Namespace associated with the ws security element references.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yFeAMvTlEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yFeAM_TlEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yFeANPTlEd-tkvEoAkqWOA" value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mYw3YCptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_Dzou0C2AEeCw7u-i2lbLPQ" value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_7q8FoPTlEd-tkvEoAkqWOA" name="andromda_security_XSDlocation" visibility="private">
-        <ownedComment xmi:id="_7q8FofTlEd-tkvEoAkqWOA">
-          <body>Namespace associated with the wssecurity element references.</body>
+      <ownedAttribute xmi:id="_K5L-4ipXEeCEp4eYah8h_A" name="andromda_security_XSDlocation" visibility="private">
+        <ownedComment xmi:id="_K5L-5SpXEeCEp4eYah8h_A" annotatedElement="_K5L-4ipXEeCEp4eYah8h_A">
+          <body>Namespace associated with the ws security element references.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7q8FovTlEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7q8Fo_TlEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_7q8FpPTlEd-tkvEoAkqWOA" value=""/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nbOZ8CptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_EjeQUC2AEeCw7u-i2lbLPQ" value="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_QG4lYPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_partName" visibility="private">
-        <ownedComment xmi:id="_QG4lYfTmEd-tkvEoAkqWOA">
-          <body>wsdl:part name associated with the wssecurity element references.</body>
+      <ownedAttribute xmi:id="_K5L-6CpXEeCEp4eYah8h_A" name="andromda_wsdl_security_partName" visibility="private">
+        <ownedComment xmi:id="_K5L-6ypXEeCEp4eYah8h_A" annotatedElement="_K5L-6CpXEeCEp4eYah8h_A">
+          <body>wsdl:part name associated with the ws security element references.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QG4lYvTmEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QG4lY_TmEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_QG4lZPTmEd-tkvEoAkqWOA" value="wsse"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oBXz8CptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_KRdt4C2AEeCw7u-i2lbLPQ" value="wsse"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_YL2hYPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_element" visibility="private">
-        <ownedComment xmi:id="_YL2hYfTmEd-tkvEoAkqWOA">
-          <body>wsdl element name used in the wssecurity element references. Default=Security.</body>
+      <ownedAttribute xmi:id="_K5L-7ipXEeCEp4eYah8h_A" name="andromda_wsdl_security_element" visibility="private">
+        <ownedComment xmi:id="_K5L-8SpXEeCEp4eYah8h_A" annotatedElement="_K5L-7ipXEeCEp4eYah8h_A">
+          <body>wsdl element name used in the ws security element references. Default=Security.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YL2hYvTmEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YL2hY_TmEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YL2hZPTmEd-tkvEoAkqWOA" value="Security"/>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_onYEACptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_NWdv8C2AEeCw7u-i2lbLPQ" value="Security"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_lc4SkPTmEd-tkvEoAkqWOA" name="andromda_wsdl_security_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
-        <ownedComment xmi:id="_lc4SkfTmEd-tkvEoAkqWOA">
+      <ownedAttribute xmi:id="_K5L-9CpXEeCEp4eYah8h_A" name="andromda_wsdl_security_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
+        <ownedComment xmi:id="_K5L-9ypXEeCEp4eYah8h_A" annotatedElement="_K5L-9CpXEeCEp4eYah8h_A">
           <body>wsdl element document use type lieral/encoded. Default=literal.</body>
         </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lc4SkvTmEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lc4Sk_TmEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_lc4SlPTmEd-tkvEoAkqWOA" value="default"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pax24CptEeC_lrUF8E9Lgg"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_PPd48C2AEeCw7u-i2lbLPQ" value="literal"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_f2rlcPTuEd-tkvEoAkqWOA" name="base_Class" visibility="private">
+      <ownedAttribute xmi:id="_K5L--ipXEeCEp4eYah8h_A" name="andromda_wsdl_security_type" visibility="private" type="_K5L_BipXEeCEp4eYah8h_A">
+        <ownedComment xmi:id="_K5L-_SpXEeCEp4eYah8h_A" annotatedElement="_K5L--ipXEeCEp4eYah8h_A">
+          <body>WS&amp;nbsp;Security&amp;nbsp;implementation&amp;nbsp;type:&amp;nbsp;UsernameToken,&amp;nbsp;X509,&amp;nbsp;SAML. default=UsernameToken.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_ev6vEC2AEeCw7u-i2lbLPQ" value="UsernameToken"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_ACpXEeCEp4eYah8h_A" name="base_Class" visibility="private" association="_K5L_TipXEeCEp4eYah8h_A">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_uLEFUPdEEd-tkvEoAkqWOA" name="SecurityType" visibility="private" type="_GBXokPdEEd-tkvEoAkqWOA">
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_9yz2QPdEEd-tkvEoAkqWOA" value="UsernameToken"/>
+      <ownedAttribute xmi:id="_K5L_AypXEeCEp4eYah8h_A" name="base_Operation" visibility="private" association="_K5L_VCpXEeCEp4eYah8h_A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Stereotype" xmi:id="_1k6T0PTrEd-tkvEoAkqWOA" name="WSCustomHeader">
-      <ownedComment xmi:id="_1k6T0fTrEd-tkvEoAkqWOA" annotatedElement="_1k6T0PTrEd-tkvEoAkqWOA">
-        <body>On CXF/JAX-WS WebService or Operation, indicates an additional custom SOAP header is enabled. It adds the header namespace and SOAP Header information to the service definition and WebService client.</body>
-      </ownedComment>
-      <ownedAttribute xmi:id="_1k6T0vTrEd-tkvEoAkqWOA" name="andromda_header_abbr" visibility="private">
-        <ownedComment xmi:id="_1k6T0_TrEd-tkvEoAkqWOA">
-          <body>Namespace abbreviation associated with the wssecurity element references.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T1PTrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T1fTrEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T1vTrEd-tkvEoAkqWOA" value="header"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_1k6T1_TrEd-tkvEoAkqWOA" name="andromda_header_namespace" visibility="private">
-        <ownedComment xmi:id="_1k6T2PTrEd-tkvEoAkqWOA">
-          <body>Namespace associated with the custom header element references.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T2fTrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T2vTrEd-tkvEoAkqWOA"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_1k6T3PTrEd-tkvEoAkqWOA" name="andromda_header_XSDlocation" visibility="private">
-        <ownedComment xmi:id="_1k6T3fTrEd-tkvEoAkqWOA">
-          <body>Namespace associated with the custom header element references.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T3vTrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T3_TrEd-tkvEoAkqWOA"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_1k6T4fTrEd-tkvEoAkqWOA" name="andromda_wsdl_header_partName" visibility="private">
-        <ownedComment xmi:id="_1k6T4vTrEd-tkvEoAkqWOA">
-          <body>wsdl:part name associated with the custom header element references.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T4_TrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T5PTrEd-tkvEoAkqWOA"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_1k6T5vTrEd-tkvEoAkqWOA" name="andromda_wsdl_header_element" visibility="private">
-        <ownedComment xmi:id="_1k6T5_TrEd-tkvEoAkqWOA">
-          <body>wsdl element name used in the custom header element references.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T6PTrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T6fTrEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T6vTrEd-tkvEoAkqWOA" value="Security"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_1k6T6_TrEd-tkvEoAkqWOA" name="andromda_wsdl_header_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
-        <ownedComment xmi:id="_1k6T7PTrEd-tkvEoAkqWOA">
-          <body>wsdl element document use type lieral/encoded. Default=literal.</body>
-        </ownedComment>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1k6T7fTrEd-tkvEoAkqWOA" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1k6T7vTrEd-tkvEoAkqWOA"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1k6T7_TrEd-tkvEoAkqWOA" value="default"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_hbr0YPTuEd-tkvEoAkqWOA" name="base_Class" visibility="private">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_GBXokPdEEd-tkvEoAkqWOA" name="WSSecurityType">
-      <ownedComment xmi:id="_N5YtsPdEEd-tkvEoAkqWOA">
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_K5L_BipXEeCEp4eYah8h_A" name="WSSecurityType">
+      <ownedComment xmi:id="_K5L_CSpXEeCEp4eYah8h_A" annotatedElement="_K5L_BipXEeCEp4eYah8h_A">
         <body>WS Security implementation type: UsernameToken, X509, SAML</body>
       </ownedComment>
-      <ownedLiteral xmi:id="_Yy1jgPdEEd-tkvEoAkqWOA" name="default"/>
-      <ownedLiteral xmi:id="_bbYTEPdEEd-tkvEoAkqWOA" name="UsernameToken"/>
-      <ownedLiteral xmi:id="_h8i6APdEEd-tkvEoAkqWOA" name="X509"/>
-      <ownedLiteral xmi:id="_kQFp8PdEEd-tkvEoAkqWOA" name="Saml"/>
+      <ownedLiteral xmi:id="_K5L_DCpXEeCEp4eYah8h_A" name="default" classifier="_K5L_BipXEeCEp4eYah8h_A"/>
+      <ownedLiteral xmi:id="_K5L_DypXEeCEp4eYah8h_A" name="UsernameToken" classifier="_K5L_BipXEeCEp4eYah8h_A"/>
+      <ownedLiteral xmi:id="_K5L_EipXEeCEp4eYah8h_A" name="X509" classifier="_K5L_BipXEeCEp4eYah8h_A"/>
+      <ownedLiteral xmi:id="_K5L_FSpXEeCEp4eYah8h_A" name="Saml" classifier="_K5L_BipXEeCEp4eYah8h_A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_K5L_GCpXEeCEp4eYah8h_A" name="WSCustomHeader">
+      <ownedComment xmi:id="_K5L_GypXEeCEp4eYah8h_A" annotatedElement="_K5L_GCpXEeCEp4eYah8h_A">
+        <body>On CXF/JAX-WS WebService or Operation, indicates an additional custom SOAP header is enabled. It adds the header namespace&#xD;
+and SOAP Header information to the service definition and WebService client.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_K5L_HipXEeCEp4eYah8h_A" name="andromda_wsdl_header_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
+        <ownedComment xmi:id="_K5L_ISpXEeCEp4eYah8h_A" annotatedElement="_K5L_HipXEeCEp4eYah8h_A">
+          <body>wsdl&amp;nbsp;element custom header&amp;nbsp;document&amp;nbsp;use&amp;nbsp;type&amp;nbsp;lieral/encoded.&amp;nbsp;Default=literal.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_JCpXEeCEp4eYah8h_A" name="andromda_wsdl_header_element" visibility="private">
+        <ownedComment xmi:id="_K5L_JypXEeCEp4eYah8h_A" annotatedElement="_K5L_JCpXEeCEp4eYah8h_A">
+          <body>wsdl&amp;nbsp;element&amp;nbsp;name&amp;nbsp;used&amp;nbsp;in&amp;nbsp;the&amp;nbsp;ws custom header&amp;nbsp;element&amp;nbsp;references.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_KipXEeCEp4eYah8h_A" name="andromda_header_namespace" visibility="private">
+        <ownedComment xmi:id="_K5L_LSpXEeCEp4eYah8h_A" annotatedElement="_K5L_KipXEeCEp4eYah8h_A">
+          <body>Namespace&amp;nbsp;associated&amp;nbsp;with&amp;nbsp;the&amp;nbsp;ws custom header&amp;nbsp;element&amp;nbsp;references.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_MCpXEeCEp4eYah8h_A" name="andromda_wsdl_header_partName" visibility="private">
+        <ownedComment xmi:id="_K5L_MypXEeCEp4eYah8h_A" annotatedElement="_K5L_MCpXEeCEp4eYah8h_A">
+          <body>wsdl:part&amp;nbsp;name&amp;nbsp;associated&amp;nbsp;with&amp;nbsp;the&amp;nbsp;ws custom header&amp;nbsp;element&amp;nbsp;references.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_NipXEeCEp4eYah8h_A" name="andromda_header_XSDlocation" visibility="private">
+        <ownedComment xmi:id="_K5L_OSpXEeCEp4eYah8h_A" annotatedElement="_K5L_NipXEeCEp4eYah8h_A">
+          <body>Namespace&amp;nbsp;associated&amp;nbsp;with&amp;nbsp;the&amp;nbsp;ws custom header&amp;nbsp;element&amp;nbsp;references.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_PCpXEeCEp4eYah8h_A" name="andromda_header_abbr" visibility="private">
+        <ownedComment xmi:id="_K5L_PypXEeCEp4eYah8h_A" annotatedElement="_K5L_PCpXEeCEp4eYah8h_A">
+          <body>Namespace&amp;nbsp;abbreviation&amp;nbsp;associated&amp;nbsp;with&amp;nbsp;the&amp;nbsp;ws custom header&amp;nbsp;element&amp;nbsp;references.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_QipXEeCEp4eYah8h_A" name="base_Class" visibility="private" association="_K5L_WipXEeCEp4eYah8h_A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K5L_RSpXEeCEp4eYah8h_A" name="base_Operation" visibility="private" association="_K5L_SCpXEeCEp4eYah8h_A">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_K5L_SCpXEeCEp4eYah8h_A" name="" memberEnd="_K5L_SypXEeCEp4eYah8h_A _K5L_RSpXEeCEp4eYah8h_A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_K5L_SypXEeCEp4eYah8h_A" name="extension_WSCustomHeader" type="_K5L_GCpXEeCEp4eYah8h_A" aggregation="composite" association="_K5L_SCpXEeCEp4eYah8h_A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_K5L_TipXEeCEp4eYah8h_A" name="" memberEnd="_K5L_USpXEeCEp4eYah8h_A _K5L_ACpXEeCEp4eYah8h_A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_K5L_USpXEeCEp4eYah8h_A" name="extension_WSSecurity" type="_K5L-0CpXEeCEp4eYah8h_A" aggregation="composite" association="_K5L_TipXEeCEp4eYah8h_A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_K5L_VCpXEeCEp4eYah8h_A" name="" memberEnd="_K5L_VypXEeCEp4eYah8h_A _K5L_AypXEeCEp4eYah8h_A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_K5L_VypXEeCEp4eYah8h_A" name="extension_WSSecurity" type="_K5L-0CpXEeCEp4eYah8h_A" aggregation="composite" association="_K5L_VCpXEeCEp4eYah8h_A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_K5L_WipXEeCEp4eYah8h_A" name="" memberEnd="_K5L_XSpXEeCEp4eYah8h_A _K5L_QipXEeCEp4eYah8h_A">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_K5L_XSpXEeCEp4eYah8h_A" name="extension_WSCustomHeader" type="_K5L_GCpXEeCEp4eYah8h_A" aggregation="composite" association="_K5L_WipXEeCEp4eYah8h_A"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_gtINMC2BEeCw7u-i2lbLPQ" name="WSAddressing">
+      <ownedComment xmi:id="_kiHhwC2BEeCw7u-i2lbLPQ">
+        <body>Add WS-Addressing functionality to the service.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_my2Y0i2CEeCw7u-i2lbLPQ" name="base_Class" association="_my2Y0C2CEeCw7u-i2lbLPQ">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_my2Y1S2CEeCw7u-i2lbLPQ" name="base_Operation" association="_my2Y0y2CEeCw7u-i2lbLPQ">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_0DK00C2BEeCw7u-i2lbLPQ" name="WSPolicy">
+      <ownedComment xmi:id="_0DK00S2BEeCw7u-i2lbLPQ">
+        <body>Add WS-Policy functionality to the service.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_pOk0Yi2CEeCw7u-i2lbLPQ" name="base_Class" association="_pOk0YC2CEeCw7u-i2lbLPQ">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_pOk0ZS2CEeCw7u-i2lbLPQ" name="base_Operation" association="_pOk0Yy2CEeCw7u-i2lbLPQ">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_my2Y0C2CEeCw7u-i2lbLPQ" name="Class_WSAddressing" memberEnd="_my2Y0S2CEeCw7u-i2lbLPQ _my2Y0i2CEeCw7u-i2lbLPQ">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_my2Y0S2CEeCw7u-i2lbLPQ" name="extension_WSAddressing" type="_gtINMC2BEeCw7u-i2lbLPQ" aggregation="composite" association="_my2Y0C2CEeCw7u-i2lbLPQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_my2Y0y2CEeCw7u-i2lbLPQ" name="Operation_WSAddressing" memberEnd="_my2Y1C2CEeCw7u-i2lbLPQ _my2Y1S2CEeCw7u-i2lbLPQ">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_my2Y1C2CEeCw7u-i2lbLPQ" name="extension_WSAddressing" type="_gtINMC2BEeCw7u-i2lbLPQ" aggregation="composite" association="_my2Y0y2CEeCw7u-i2lbLPQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_pOk0YC2CEeCw7u-i2lbLPQ" name="Class_WSPolicy" memberEnd="_pOk0YS2CEeCw7u-i2lbLPQ _pOk0Yi2CEeCw7u-i2lbLPQ">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_pOk0YS2CEeCw7u-i2lbLPQ" name="extension_WSPolicy" type="_0DK00C2BEeCw7u-i2lbLPQ" aggregation="composite" association="_pOk0YC2CEeCw7u-i2lbLPQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_pOk0Yy2CEeCw7u-i2lbLPQ" name="Operation_WSPolicy" memberEnd="_pOk0ZC2CEeCw7u-i2lbLPQ _pOk0ZS2CEeCw7u-i2lbLPQ">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_pOk0ZC2CEeCw7u-i2lbLPQ" name="extension_WSPolicy" type="_0DK00C2BEeCw7u-i2lbLPQ" aggregation="composite" association="_pOk0Yy2CEeCw7u-i2lbLPQ"/>
     </packagedElement>
     <profileApplication xmi:id="_0profileApplicationandromda-webservice">
       <eAnnotations xmi:id="_RchAPR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML">
