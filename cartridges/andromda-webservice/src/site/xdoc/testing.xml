@@ -113,6 +113,14 @@ Finished test for CXF34Service.getDates(start, end)
 ]]></source>
             </p>
         </section>
+        <section name="Enumeration Modeling">
+            <p>
+                If you model the service interface with String datatype, and draw a dependency to an Enumeration with the same name as the String attribute,
+                the test cases will generate test data and mappings from the String value to/from the first Enumeration Literal value. This allows you to model
+                the interface as a string and to validate that the incoming String value is a valid Enumeration value, while not forcing you to version the service
+                interface every time a new Enumeration Literal is added.
+            </p>
+        </section>
         <section name="Next">
             <p>
                 Now we can learn about the CXF generated client project <a href="cxfclient.html">CXF Client</a>.

@@ -25,30 +25,48 @@
             <p>
                 In AndroMDA, by default we change the XMLGregorianCalendar to java.util.Date,
                 and allow you to configure your own customized binding classes. You can specify your own customized binding classes
-                for many XML datatypes, in andromda.xml:
+                for many XML datatypes, in andromda.xml default namespace:
 <source><![CDATA[
-                <!-- Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes -->
-                <property name="XMLDateAdapter"></property>
-                <property name="XMLDateTimeAdapter"></property>
-                <property name="XMLTimeAdapter"></property>
-                <!-- Needed to prevent Integer - BigInteger mismatch with CXF JAXB generated client code -->
-                <!--property name="XMLIntegerAdapter"></property>
-                <property name="XMLLongAdapter"></property-->
-                <!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
-                <property name="XMLBooleanAdapter"></property>
+<!-- Jaxb2 Adapter classes for customized parse/print, non-standard Java datatypes -->
+<property name="XMLDateAdapter"></property>
+<property name="XMLDateTimeAdapter"></property>
+<property name="XMLTimeAdapter"></property>
+<!-- Needed to prevent Integer - BigInteger mismatch with CXF JAXB generated client code -->
+<!--property name="XMLIntegerAdapter"></property>
+<property name="XMLLongAdapter"></property-->
+<!-- Needed to convert from primitive to wrapped Boolean for the correct get/isBoolean accessor from Jaxb2 -->
+<property name="XMLBooleanAdapter"></property>
 ]]></source>
             </p>
             <p>
-                We also override the default name for the
+                We override the default name for the
                 service interface class, from portType to SEI, and also change the name of the Exception classes from 'Exception' to 'Fault'.
                 JAXB insists on putting the service Exception classes in the same directory as the services themselves, even
                 though the best practice is to put them in a different package.
             </p>
             <p>
-                We also enable the XJC simpleBindingMode, enabled by <![CDATA[<xjc:simple/>]]> in the jaxb_bindings.xjb files, 
+                We enable the XJC simpleBindingMode with <![CDATA[<xjc:simple/>]]> in the jaxb_bindings.xjb files, 
                 described at <a href="http://weblogs.java.net/blog/kohsuke/archive/2006/03/simple_and_bett.html">
                 http://weblogs.java.net/blog/kohsuke/archive/2006/03/simple_and_bett.html</a>. This assumes that every class is a root element
                 class, with the @XmlRootElement annotation, avoiding the (very ugly) JAXBElement wrapped implementation.
+            </p>
+            <p>
+                XJC simpleBindingMode also automatically pluralizes all multiplicity * associationEnd name. Andromda must also be configured to
+                pluralize the same relationship names in mda/andromda.xml, or else there is a potential mismatch between the andromda and cxf
+                generated code:
+<source><![CDATA[
+<namespaces>
+    <!-- namespace property values used by ALL cartridges -->
+    <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
+    <namespace name="default">
+        <properties>
+...
+            <!-- Automatically makes English names plural (generally adds s if missing).
+            default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false. -->
+            <property name="pluralizeAssociationEndNames">true</property>
+            <property name="pluralizeAttributeNames">true</property>
+            <property name="pluralizeParameterNames">true</property>
+]]></source>
             </p>
             <p>
                 We also use various XJC custom plugins in the jaxb_bindings.xjb files, 
@@ -59,7 +77,7 @@
                 toString methods and attribute/element default values. The xjc arguments default is specified in
                 andromda.xml and can be overridden. 
 <source><![CDATA[
-                <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
+<property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
 ]]></source>
                 The plugins must be available in the classpath of the mda project,
                 which is passed to the generated ant script which runs xjc/wsdl2java.
