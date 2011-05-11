@@ -12,7 +12,7 @@
         <section name="Faults">
             <p>
                 The exception handling mechanism in JAX-WS is complex. The Exception class has no default constructor with
-                no parameters, and it is not Serializable, making it unusable for an XML datatype. JAX-WS maps each exception
+                no parameters, and it is not Serializable to XML, making it unusable for an XML datatype. JAX-WS maps each exception
                 to two different classes, one with the serial attributes and the other with the Exception referencing the WebFault.
                 By default the Java Exception class is not serializable, has no default empty constructor, so it must be
                 wrapped in another class which can be serialized to XML.
@@ -34,7 +34,9 @@
             <p>
                 Model business exceptions as <![CDATA[<<ApplicationException>><<WebFault>>]]>, named {Class}Exception, thrown by the service
                 method. Additional attributes and associations can be added to the Exception class. Association classes must be
-                <![CDATA[<<ValueObject>>]]>.
+                <![CDATA[<<ValueObject>>]]>. If exceptions are labeled <![CDATA[<<ApplicationException>><<WebFault>>]]> but not thrown by any service method, or if
+                and Exception class thrown by a service method is not labeled as <![CDATA[<<ApplicationException>><<WebFault>>]]>, there will be a mismatch between
+                the andromda and CXF generated code and the build will fail.
             </p>
         </section>
         <section name="Next">

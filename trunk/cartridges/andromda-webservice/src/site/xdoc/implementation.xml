@@ -38,17 +38,17 @@
                 The service method Impl class has three main methods:
             </p>
             <p>
-                serviceCreateInput: Iterates through the service input hierarchy, creating a stubbed input
+                <b>serviceCreateInput</b>: Iterates through the service input hierarchy, creating a stubbed input
                 for each value/attribute/association, up to three levels deep. This is used by the unit test
                 as an input value for the service test.
             </p>
             <p>
-                serviceTransformInput: For all service operation parameters, iterates through the hierarchy
+                <b>serviceTransformInput</b>: For all service operation parameters, iterates through the hierarchy
                 to create a wrapped request object for the service. This is the method which must be implemented
                 for the service to work properly, called by the Delegate for each method. 
             </p>
             <p>
-                serviceTransformResponse: For the single wrapped service response, transforms the entire hierarchy
+                <b>serviceTransformResponse</b>: For the single wrapped service response, transforms the entire hierarchy
                 from the wrapped service response to the service output.
             </p>
         </section>

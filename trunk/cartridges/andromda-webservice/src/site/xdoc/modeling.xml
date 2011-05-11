@@ -23,7 +23,7 @@
                 Model the complex parameters as <![CDATA[<<ValueObject>>]]>.
                 Label the packages containing services, valueobjects, and exceptions with <![CDATA[<<XmlSchema>>]]>. This creates
                 an xsd file which can be referenced by the wsdl file(s).
-                Service operations may throw exceptions. Model the exceptions as <![CDATA[<<ApplicationException>>]]><![CDATA[<<WebFault>>]]>.
+                Service operations may throw exceptions. Model the exceptions as <![CDATA[<<ApplicationException>><<WebFault>>]]>.
                 If you use <![CDATA[<<WebFault>>]]> without declaring the exception thrown by the service, you will get an error 
             </p>
         </section>
@@ -41,10 +41,35 @@
                 <img src="images/cxf-diagram.gif" alt="images/cxf-diagram.gif"/>
             </p>
         </section>
+        <section name="XML Validations">
+            <p>
+                XML Schema validations of incoming XML using standard XML schema restrictions is available through the
+                <![CDATA[<<Validation>>]]> stereotype. These are the standard facet restrictions as defined in the W3C
+                XML Schema Document <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">http://www.w3.org/TR/xmlschema-2/#rf-facets</a>.
+                Various validations apply to different datatypes, i.e. 
+                The validation facets include:
+            </p>
+            <ul>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#dt-length">fixed</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-length">length</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-minLength">minLength</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-maxLength">maxLength</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-pattern">pattern</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-whiteSpace">whiteSpace</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-maxInclusive">maxInclusive</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-maxExclusive">maxExclusive</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-minExclusive">minExclusive</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-minInclusive">minInclusive</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-totalDigits">totalDigits</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#rf-fractionDigits">fractionDigits</a></li>
+                <li><a href="http://www.w3.org/TR/xmlschema-2/#dt-anySimpleType">baseType</a></li>
+                <li>customValidators</li>
+            </ul>
+        </section>
         <section name="Next">
             <p>
                 We'll look more closely at the generated code and code to be implemented.
-                <a href="output.html">Implementation</a> section.
+                <a href="output.html">Output Projects</a> section.
             </p>
         </section>
     </body>
