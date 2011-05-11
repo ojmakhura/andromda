@@ -21,7 +21,7 @@
             schemaLocation="${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"/>
 #end
 #foreach ($operation in $operations)
-<!-- ${operation.owner.fullyQualifiedName}.${operation.name} -->
+        <!-- ${operation.owner.fullyQualifiedName}.${operation.name} -->
 ## Bare not possible if any parameters have minOccurs > 1 or default values
 #set ($isMany=false)
 #foreach ($parameter in $operation.arguments)
@@ -395,7 +395,7 @@ $tab            </xs:attribute>
 #end
 #end
 #if ($extensionRequired)
-            </xs:extension>
+                </xs:extension>
             </xs:complexContent>
 #end
         </xs:complexType>
