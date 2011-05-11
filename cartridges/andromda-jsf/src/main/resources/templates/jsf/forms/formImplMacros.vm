@@ -87,13 +87,12 @@
         this.$labelListName = ${labelListName}In;
     }
 
-#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)")
+#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection<? extends Object> items, String valueProperty, String labelProperty)")
     /**
      * @param items
      * @param valueProperty
      * @param labelProperty
      */
-    @SuppressWarnings("unchecked")
     public void $setBackingListMethodSignature
     {
         this.${valueListName} = null;
@@ -106,11 +105,11 @@
             try
             {
                 final java.util.List<String> labelProperties =
-                    labelProperty == null ? null : new java.util.ArrayList(java.util.Arrays.asList(labelProperty.split("[\\W&&[^\\.]]+")));
+                    labelProperty == null ? null : new java.util.ArrayList<String>(java.util.Arrays.asList(labelProperty.split("[\\W&&[^\\.]]+")));
                 final java.util.List<String> labelDelimiters =
-                    labelProperty == null ? null : new java.util.ArrayList(java.util.Arrays.asList(labelProperty.split("[\\w\\.]+")));
+                    labelProperty == null ? null : new java.util.ArrayList<String>(java.util.Arrays.asList(labelProperty.split("[\\w\\.]+")));
                 int ctr = 0;
-                for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
+                for (final java.util.Iterator<? extends Object> iterator = items.iterator(); iterator.hasNext(); ctr++)
                 {
                     final Object item = iterator.next();
                     if (item != null)

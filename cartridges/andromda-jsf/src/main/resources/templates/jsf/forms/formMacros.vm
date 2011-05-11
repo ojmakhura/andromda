@@ -26,6 +26,7 @@
      * need to call <code>getLabel()</code> and <code>getValue()</code> to get the label and
      * value for this entry respectively.</i>
      *
+     * @return $listType
      * @see #${getterField}()
      * @see #get${valueListMethod}()
      * @see #get${labelListMethod}()
@@ -67,12 +68,13 @@
      * @see #get${labelListMethod}()
      * @see #get${labelListMethod}()
      */
-    public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty);
+    public void set${backingListMethod}(java.util.Collection<? extends Object> items, String valueProperty, String labelProperty);
 
     /**
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the values from that list.
      *
+     * @return $listType
      * @see #${getterField}()
      * @see #get${backingListMethod}()
      */
@@ -82,6 +84,7 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the values for that list.
      *
+     * @param $valueListName
      * @see #${getterField}()
      * @see #get${backingListMethod}()
      */
@@ -91,6 +94,7 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the labels from that list.
      *
+     * @return $listType
      * @see #${getterField}()
      * @see #get${backingListMethod}()
      */
@@ -100,6 +104,7 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the labels for that list.
      *
+     * @param $labelListName
      * @see #${getterField}()
      * @see #get${backingListMethod}()
      */

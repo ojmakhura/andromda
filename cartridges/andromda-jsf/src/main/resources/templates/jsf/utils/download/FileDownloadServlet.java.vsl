@@ -74,7 +74,7 @@ public class FileDownloadServlet
     private static final int BUFFER_SIZE = 4096;
 
     /**
-     * @see javax.servlet.http.HttpServlet${esc.hash}doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#hash()doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void doGet(final HttpServletRequest request, final HttpServletResponse response)
@@ -159,7 +159,7 @@ public class FileDownloadServlet
     }
 
     /**
-     * @see javax.servlet.http.HttpServlet${esc.hash}doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see javax.servlet.http.HttpServlet#hash()doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)

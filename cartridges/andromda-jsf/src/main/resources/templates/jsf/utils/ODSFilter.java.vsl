@@ -38,8 +38,9 @@ import org.apache.commons.lang.StringUtils;
 public class ODSFilter implements Filter
 {
     /**
-     * @see javax.servlet.Filter${esc.hash}init(javax.servlet.FilterConfig)
+     * @see javax.servlet.Filter#hash()init(javax.servlet.FilterConfig)
      */
+    @Override
     public void init(FilterConfig config) throws ServletException
     {
         // Empty block
@@ -64,7 +65,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see java.io.OutputStream${esc.hash}write(int)
+         * @see java.io.OutputStream#hash()write(int)
          */
         @Override
         public void write(int b) throws IOException
@@ -113,7 +114,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.ServletResponseWrapper${esc.hash}getOutputStream()
+         * @see javax.servlet.ServletResponseWrapper#hash()getOutputStream()
          */
         @Override
         public ServletOutputStream getOutputStream() throws IOException
@@ -122,7 +123,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.ServletResponseWrapper${esc.hash}getWriter()
+         * @see javax.servlet.ServletResponseWrapper#hash()getWriter()
          */
         @Override
         public PrintWriter getWriter() throws IOException
@@ -131,7 +132,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}setStatus(int)
+         * @see javax.servlet.http.HttpServletResponseWrapper#hash()setStatus(int)
          */
         @Override
         public void setStatus(int statusIn)
@@ -149,7 +150,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}sendError(int, java.lang.String)
+         * @see javax.servlet.http.HttpServletResponseWrapper#hash()sendError(int, java.lang.String)
          */
         @Override
         public void sendError(int sc, String msg) throws IOException
@@ -159,7 +160,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see javax.servlet.http.HttpServletResponseWrapper${esc.hash}sendError(int)
+         * @see javax.servlet.http.HttpServletResponseWrapper#hash()sendError(int)
          */
         @Override
         public void sendError(int sc) throws IOException
@@ -184,7 +185,7 @@ public class ODSFilter implements Filter
         }
 
         /**
-         * @see Object${esc.hash}finalize()
+         * @see Object#hash()finalize()
          */
         @Override
         protected void finalize() throws Throwable {
@@ -229,8 +230,9 @@ public class ODSFilter implements Filter
      * @param chain
      * @throws IOException
      * @throws ServletException
-     * @see javax.servlet.Filter${esc.hash}doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see javax.servlet.Filter#hash()doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException
     {
@@ -275,8 +277,9 @@ public class ODSFilter implements Filter
     }
 
     /**
-     * @see javax.servlet.doFilter${esc.hash}destroy()
+     * @see javax.servlet.Filter#hash()destroy()
      */
+    @Override
     public void destroy()
     {
         // Empty block
