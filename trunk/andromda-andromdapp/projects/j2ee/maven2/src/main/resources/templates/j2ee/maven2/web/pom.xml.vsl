@@ -390,6 +390,8 @@
                     <webAppConfig>
                         <contextPath>/${application.id}-${project.version}</contextPath>
                     </webAppConfig>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
                 </configuration>
                 <executions>
                     <execution>
