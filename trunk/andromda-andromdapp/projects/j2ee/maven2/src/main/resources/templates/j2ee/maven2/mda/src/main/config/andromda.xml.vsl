@@ -28,7 +28,7 @@
 #end
                     <uri>${model.uri}</uri>
                     <!-- List any additional referenced models needed for code generation here, even if already referenced internally within the model file -->
-                    <!--uri>file:${project.basedir}/uml/AdditionalModel.emx</uri-->
+                    <!--uri>file:${project.basedir}/src/main/uml/AdditionalModel.emx</uri-->
                     <moduleSearchLocations>
 #if ($modelType.equals("uml1.4"))
                         <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
