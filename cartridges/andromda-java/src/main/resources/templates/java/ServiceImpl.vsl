@@ -19,15 +19,14 @@ public class ${service.name}Impl
 #end
     implements $service.fullyQualifiedName
 {
-
 #if ($serializable)
     /**
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${service.serialVersionUID}L;
-
 #end
 #foreach ($operation in $service.implementationOperations)
+
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
     /**
@@ -51,12 +50,13 @@ public class ${service.name}Impl
         throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
     }
-
 #end
 #foreach ($abstraction in $service.abstractions)
 #set ($target = $abstraction.targetElement)
+
 #foreach ($attribute in $target.allProperties)
 #set ($returnType = $attribute.getterSetterTypeName)
+    /** #if ($attribute.defaultValuePresent)${attribute.defaultValue}#end */
     protected $returnType $attribute.name#if ($attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 
     /**

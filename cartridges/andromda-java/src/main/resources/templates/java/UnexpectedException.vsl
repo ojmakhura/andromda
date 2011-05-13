@@ -11,14 +11,9 @@ package $class.packageName;
 #set ($webFault=$class.hasStereotype("WebFault"))
 #if ($webFault)
 ## Assume the only Exception AssociationEnd class is the faultBean
-#if ($class.associationEnds.empty)
 ## FaultBean class is created by wsdl2java in CXF project and copied to common project
 #set ($faultDetails=$class.packageName + "." + $class.name.replace("Exception", "Fault"))
 #set ($faultClass=$class.name.replace("Exception", "Fault"))
-#else
-#set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
-#set ($faultClass=$class.associationEnds.get(0).otherEnd.type.name)
-#end
 #end
 
 #parse("templates/java/ExceptionUtilsImports.vm")

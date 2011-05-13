@@ -167,7 +167,9 @@ $operation.getDocumentation("     * ")
     }
 
 #end
-#foreach ($attribute in $class.attributes)
+## webFault has properties in the fault bean which must be referenced instead of these properties
+#if (!$webFault)
+#foreach ($attribute in $class.properties)
     private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**
@@ -191,4 +193,5 @@ $operation.getDocumentation("     * ")
     {
         this.${attribute.name} = ${attribute.name}In;
     }
+#end
 #end
