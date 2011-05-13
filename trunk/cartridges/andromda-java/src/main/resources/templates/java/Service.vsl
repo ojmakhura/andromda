@@ -19,6 +19,9 @@ public interface $service.name
     #if ($service.generalization), #else extends #end${service.implementedInterfaceList}
 #end
 {
+#if ($service.operations.empty)
+    // Service has no defined service operations
+#end
 #foreach ($operation in $service.operations)
     /**
 $operation.getDocumentation("     * ")
