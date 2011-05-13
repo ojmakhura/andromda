@@ -222,6 +222,13 @@ $attribute.getDocumentation("     * ")
 #if (!$class.navigableConnectingEnds.empty)
     // Class associationEnds
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
+#if ($stringUtils.isBlank($connectingEnd.getDocumentation("", 9999, false)))
+    /** $toDoTag: Model Documentation for attribute $connectingEnd.name */
+#else
+    /**
+$attribute.getDocumentation("     * ")
+     */
+#end
 #if ($XMLOutput)
     @javax.xml.bind.annotation.XmlElement(name="$connectingEnd.name"#if ($connectingEnd.required), required=true#end)
 #end
@@ -235,8 +242,8 @@ $attribute.getDocumentation("     * ")
 #end
     protected boolean set$stringUtils.capitalize($connectingEnd.name) = false;
 #end
-#end
 
+#end
 #end
 ##
 ##  default constructor
@@ -506,9 +513,14 @@ $connectingEnd.getDocumentation("     * ")
 #end
     public boolean equals(final Object object)
     {
-        if (object==null || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class)))
+        if (object==null || object.getClass() != this.getClass())
         {
              return false;
+        }
+        // Check if the same object instance
+        if (object==this)
+        {
+            return true;
         }
 #if (!$class.properties.empty)
         $class.fullyQualifiedName rhs = ($class.fullyQualifiedName) object;
@@ -529,19 +541,27 @@ $connectingEnd.getDocumentation("     * ")
      * @see Comparable${esc.hash}compareTo(Object)
      */
 #if ($enableAnnotations)
-##if ($enableTemplating)
-##    @SuppressWarnings("unchecked")
-#if (!$enableTemplating && $class.generalization)
     @Override
 #end
-#end
-    public int compareTo(final#if($enableTemplating) ${className}#else Object#end object)
+    public int compareTo(final#if($enableTemplating)#if($class.generalization) ${class.generalizationRoot.fullyQualifiedName}#else ${className}#end#else Object#end object)
     {
-        if (object==null#if(!$enableTemplating) || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class))#end)
+## Use getClass instead of instance to ensure that the implementation classes are the same, not just the type hierarchy - assumes all VO fields are significant
+        if (object==null#if(!$enableTemplating) || object.getClass() != this.getClass()#end)
         {
             return -1;
         }
-#if (!$enableTemplating && !$class.properties.empty)
+        // Check if the same object instance
+        if (object==this)
+        {
+            return 0;
+        }
+#if($class.generalization)
+        if (!(object instanceof $class.name))
+        {
+            return -1;
+        }
+        $className myClass = ($class.fullyQualifiedName)object;
+#elseif (!$enableTemplating && ($class.generalization || !$class.properties.empty))
         $className myClass = ($class.fullyQualifiedName)object;
 #end
         return new CompareToBuilder()
@@ -549,7 +569,7 @@ $connectingEnd.getDocumentation("     * ")
             .appendSuper(super.compareTo(object))
 #end
 #foreach($attr in $class.properties)
-            .append(this.${attr.getterName}(),#if($enableTemplating) object#else myClass#end.${attr.getterName}())
+            .append(this.${attr.getterName}(),#if($class.generalization || !$enableTemplating) myClass#else object#end.${attr.getterName}())
 #end
             .toComparison();
     }
@@ -621,10 +641,8 @@ $connectingEnd.getDocumentation("     * ")
      *      sub-type of this class and all properties as found on this class have equal values when queried on that
      *      argument instance; in all other cases this method will return {@code false}
      */
-#if ($enableAnnotations)
-#if ($class.generalization)
+#if ($enableAnnotations && $class.generalization)
     @Override
-#end
 #end
     public boolean equalProperties(final Object thatObject)
     {
@@ -674,7 +692,7 @@ $connectingEnd.getDocumentation("     * ")
 
         if (first == null)
         {
-            equal = second == null;
+            equal = (second == null);
         }
         else if (first.getClass().isArray() && (second != null) && second.getClass().isArray())
         {
