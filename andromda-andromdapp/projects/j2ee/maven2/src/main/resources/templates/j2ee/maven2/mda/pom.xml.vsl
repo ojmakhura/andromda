@@ -308,6 +308,7 @@
                         <ant antfile="${project.basedir}/build.xml">
                             <target name="cleanWSDL"/>
                         </ant>
+                        <!-- Comment this to stop deleting Implementation code each build -->
                         <ant antfile="${project.basedir}/build.xml">
                             <target name="cleanImpl"/>
                         </ant>
