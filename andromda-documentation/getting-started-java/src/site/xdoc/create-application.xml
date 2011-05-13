@@ -53,14 +53,14 @@
                 Please choose the type of application to generate [richclient, j2ee]
                 j2ee
 
-                Please enter the parent directory of your new application directory (i.e. C:/workspaces):
+                Please enter the parent directory of your new application directory (i.e. C:/Workspaces):
                 C:/
 
                 Please enter your first and last name (i.e. Chad Brandon):
                 Bob Fields
 
                 Which kind of modeling tool will you use? (uml1.4/uml2 for .xml.zip/.xml files,
-                emf-uml22 for .uml files, rsm7 for .emx files) [uml1.4, uml2, emf-uml22, rsm7,]
+                emf-uml22 for .uml files, rsm7 for .emx files) [uml1.4, uml2, emf-uml22, rsm7]
                 Use the list below to enter the correct choice:
                 ArgoUML: uml1.4
                 MagicDraw 9.x: uml1.4
@@ -81,38 +81,38 @@
                 (i.e. org.andromda.samples.animalquiz):
                 org.andromda.timetracker
 
-                Would you like an EAR or standalone WAR? [ear, war,]:
+                Would you like an EAR or standalone WAR? [ear, war]:
                 ear
 
                 Please enter the type of transactional/persistence cartridge to use (enter 'none' 
-                if you don't want to use one) [hibernate, ejb, ejb3, spring, none,]:
+                if you don't want to use one) [hibernate, ejb, ejb3, spring, none]:
                 spring
 
                 Please enter the programming language to be used in service and dao implementations 
-                [java, groovy,]:
+                [java, groovy]:
                 java
                 Please enter the database backend for the persistence layer
-                [hypersonic, mysql, oracle, db2, informix, mssql, pointbase,
-                postgres, sybase, sabdb, progress, derby,]:
+                [h2, hypersonic, mysql, oracle, db2, informix, mssql, pointbase,
+                postgres, sybase, sabdb, progress, derby]:
                 mysql
 
                 Will your project need workflow engine capabilities?
-                (it uses jBPM and Hibernate3)? [yes, no,]:
+                (it uses jBPM and Hibernate3)? [yes, no]:
                 no
 
-                Will your project have a web user interface? [yes, no,]:
+                Will your project have a web user interface? [yes, no]:
                 yes
 
-                Would you like your web user interface to use JSF or Struts? [jsf, struts,]: 
+                Would you like your web user interface to use JSF or Struts? [jsf, struts]: 
                 jsf
 
-                Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)? [standalone, portlet,]: 
+                Would you like a standalone or portlet JSF application (Note: Liferay is the only currently supported portlet container)? [standalone, portlet]: 
                 standalone
 
-                Would you like to use the embedded Jetty web server (Maven plugin)? [yes, no,]: 
+                Would you like to be able to expose your services as web services? [yes, no]:
                 no
 
-                Would you like to be able to expose your services as web services? [yes, no,]:
+                Would you like to use the embedded Jetty web server (Maven plugin)? [yes, no]: 
                 no
                 -------------------------------------------------------------------------------------
                 G e n e r a t i n g A n d r o M D A P o w e r e d A p p l i c a t i o n
