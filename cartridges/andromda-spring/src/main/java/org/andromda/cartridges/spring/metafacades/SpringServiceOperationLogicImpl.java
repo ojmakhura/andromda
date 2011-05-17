@@ -24,8 +24,8 @@ public class SpringServiceOperationLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringServiceOperationLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation
      */
     public SpringServiceOperationLogicImpl(Object metaObject, String context)
@@ -229,7 +229,7 @@ public class SpringServiceOperationLogicImpl
     }
 
     /**
-     * @param initialExceptions 
+     * @param initialExceptions
      * @return ThrowsClause
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation#getThrowsClause(String)
      */
@@ -472,19 +472,19 @@ public class SpringServiceOperationLogicImpl
     protected boolean handleIsNullMessageConverterRequired()
     {
         boolean result = false;
-        
+
         Collection<ParameterFacade> arguments = getArguments();
         if (arguments != null && arguments.size() == 1)
         {
             ParameterFacade parameter = arguments.iterator().next();
             String parameterType = parameter.getType().getFullyQualifiedName();
-            
+
             Set<String> jmsMessageTypes = new HashSet<String>();
             Collections.addAll(jmsMessageTypes, SpringGlobals.jmsMessageTypes);
-            
+
             result = jmsMessageTypes.contains(parameterType);
         }
-        
+
         return result;
     }
 

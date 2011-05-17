@@ -15,12 +15,12 @@ public abstract class ServiceDelegateBase
      * Define remote interface view type
      */
     public static final int REMOTE_VIEW_TYPE = 0;
-    
+
     /**
      * Define local interface view type
      */
     public static final int LOCAL_VIEW_TYPE = 1;
-    
+
     /**
      * Default remote view type selected
      */
@@ -30,7 +30,7 @@ public abstract class ServiceDelegateBase
      * Environment properties
      */
     private java.util.Properties properties = null;
-    
+
     /**
      * Default empty constructor
      */
@@ -38,7 +38,7 @@ public abstract class ServiceDelegateBase
     {
         // empty constructor
     }
-    
+
     /**
      * Constructor setting the envirinment properties.
      *
@@ -48,7 +48,7 @@ public abstract class ServiceDelegateBase
     {
         this.properties = properties;
     }
-    
+
     /**
      * Get the view interface for invoking business operations
      */
@@ -56,7 +56,7 @@ public abstract class ServiceDelegateBase
     {
         return this.viewType;
     }
-    
+
     /**
      * Set the view interface for invoking business operations
      */
@@ -64,7 +64,7 @@ public abstract class ServiceDelegateBase
     {
         this.viewType = viewType;
     }
-    
+
     /**
      * Get the environment properties if set, otherwise return null
      */
@@ -72,7 +72,7 @@ public abstract class ServiceDelegateBase
     {
         return this.properties;
     }
-    
+
     /**
      * Set the environment properties
      */
@@ -80,7 +80,7 @@ public abstract class ServiceDelegateBase
     {
         this.properties = properties;
     }
-    
+
     /**
      * Close down service delegate resources
      */

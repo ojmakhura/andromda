@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.metafacades;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFFinalState.
  *
@@ -17,11 +16,11 @@ public class JSFFinalStateLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFFinalStateLogicImpl (Object metaObject, String context)
+    public JSFFinalStateLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * @return fullPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFFinalState#getPath()
@@ -55,5 +54,4 @@ public class JSFFinalStateLogicImpl
 
         return fullPath;
     }
-
 }

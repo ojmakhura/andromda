@@ -19,11 +19,9 @@ package $webserviceTypesPackage;
 #end
 
 import javax.xml.namespace.QName;
-
 import org.apache.axis.Constants;
 import org.apache.axis.encoding.Serializer;
 import org.apache.axis.encoding.ser.BaseSerializerFactory;
-
 
 /**
  * SerializerFactory for arrays

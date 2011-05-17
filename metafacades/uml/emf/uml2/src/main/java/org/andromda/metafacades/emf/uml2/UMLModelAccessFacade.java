@@ -23,7 +23,6 @@ import org.eclipse.uml2.NamedElement;
 import org.eclipse.uml2.Package;
 import org.eclipse.uml2.util.UML2Resource;
 
-
 /**
  * Model access facade implementation for the EMF/UML2 metafacades
  *

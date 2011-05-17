@@ -7,7 +7,6 @@ package org.andromda.translation.ocl.testsuite;
  */
 public class ExpressionTest
 {
-
     private String to;
     private String from;
 
@@ -60,5 +59,4 @@ public class ExpressionTest
     {
         this.to = to;
     }
-
 }

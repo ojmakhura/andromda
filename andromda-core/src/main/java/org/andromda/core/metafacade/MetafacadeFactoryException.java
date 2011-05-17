@@ -1,6 +1,5 @@
 package org.andromda.core.metafacade;
 
-
 /**
  * Any unchecked exception that will be thrown when a MetafacadeFactory processing error occurs.
  */

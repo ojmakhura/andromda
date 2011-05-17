@@ -2,7 +2,6 @@ package org.andromda.core.configuration;
 
 import java.io.Serializable;
 
-
 /**
  * Stores the information about a transformation. Transformations are applied to
  * model(s) before actual model processing occurs.

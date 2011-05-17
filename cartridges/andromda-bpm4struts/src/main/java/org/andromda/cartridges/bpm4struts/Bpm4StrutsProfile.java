@@ -2,8 +2,6 @@ package org.andromda.cartridges.bpm4struts;
 
 import org.andromda.core.profile.Profile;
 
-
-
 /**
  * Contains the BPM4Struts profile.
  *

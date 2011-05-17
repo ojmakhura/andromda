@@ -6,7 +6,7 @@
 package org.andromda.test.howto6.a;
 
 /**
- * 
+ *
  */
 public class CarListItem
     implements java.io.Serializable
@@ -54,7 +54,7 @@ public class CarListItem
     private java.lang.String name;
 
     /**
-     * 
+     *
      */
     public java.lang.String getName()
     {
@@ -69,7 +69,7 @@ public class CarListItem
     private java.lang.String serial;
 
     /**
-     * 
+     *
      */
     public java.lang.String getSerial()
     {
@@ -84,7 +84,7 @@ public class CarListItem
     private java.lang.String ownerName;
 
     /**
-     * 
+     *
      */
     public java.lang.String getOwnerName()
     {

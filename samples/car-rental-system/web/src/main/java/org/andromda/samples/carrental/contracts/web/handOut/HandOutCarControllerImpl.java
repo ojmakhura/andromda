@@ -74,7 +74,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
             this.registrationNo = registrationNo;
             this.id = id;
         }
-        
+
         public void setInventoryNo(String inventoryNo)
         {
             this.inventoryNo = inventoryNo;
@@ -84,7 +84,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.inventoryNo;
         }
-        
+
         public void setRegistrationNo(String registrationNo)
         {
             this.registrationNo = registrationNo;
@@ -94,7 +94,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.registrationNo;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -104,7 +104,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.id;
         }
-        
+
     }
     /**
      * This dummy variable is used to populate the "customerReservations" table.
@@ -135,7 +135,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
             this.reservationDate = reservationDate;
             this.idReservation = idReservation;
         }
-        
+
         public void setComfortClass(String comfortClass)
         {
             this.comfortClass = comfortClass;
@@ -145,7 +145,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.comfortClass;
         }
-        
+
         public void setReservationDate(String reservationDate)
         {
             this.reservationDate = reservationDate;
@@ -155,7 +155,7 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.reservationDate;
         }
-        
+
         public void setIdReservation(String idReservation)
         {
             this.idReservation = idReservation;
@@ -165,6 +165,6 @@ public class HandOutCarControllerImpl extends HandOutCarController
         {
             return this.idReservation;
         }
-        
+
     }
 }

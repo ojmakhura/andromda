@@ -224,7 +224,7 @@ public class StrutsControllerOperationLogicImpl
 
     /**
      * Overridden because StrutsAction does not extend FrontEndAction
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isAllArgumentsHaveFormFields()
      */
     public boolean isAllArgumentsHaveFormFields()

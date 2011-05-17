@@ -18,9 +18,9 @@ public class JSFPortletPreferencesLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFPortletPreferencesLogicImpl (Object metaObject, String context)
+    public JSFPortletPreferencesLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
     /**
      * @return useCase

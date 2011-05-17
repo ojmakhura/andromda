@@ -11,7 +11,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
 
-
 /**
  * Overrides the default DateTimeConverter to include conversion of Calendar
  * instances as well as Date instances.
@@ -29,21 +28,21 @@ public class JSFDateTimeConverter
 {
     /**
      * @see javax.faces.convert.DateTimeConverter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     * @throws ConverterException
      */
     @Override
     public String getAsString(
         FacesContext context,
         UIComponent component,
         Object value)
-        throws ConverterException
     {
         if (value instanceof Calendar)
         {
             // - if the time zone is not explicitly set, use the one from the calendar
             if (!this.timeZoneIsSet)
             {
-	            // - use the time zone from the calendar
-	            this.setTimeZone(((Calendar)value).getTimeZone());
+                // - use the time zone from the calendar
+                this.setTimeZone(((Calendar)value).getTimeZone());
             }
             value = ((Calendar)value).getTime();
         }
@@ -182,7 +181,8 @@ public class JSFDateTimeConverter
     public static final String CONVERTER_ID = "andromda.faces.DateTime";
 
     /**
-     * @see org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter#getAsDate(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter
+     * #getAsDate(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
     public Date getAsDate(

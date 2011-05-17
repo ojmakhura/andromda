@@ -8,7 +8,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.eclipse.uml2.Class;
 import org.eclipse.uml2.StateMachine;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndActivityGraph.

@@ -333,15 +333,15 @@ public class OperationFacadeLogicImpl
     protected boolean handleIsMany()
     {
         /*boolean isMany = false;
-        if (null!=this.getReturnType())
+        if (null!=this.getReturnParameter())
         {
-            isMany = this.getReturnType().isArrayType();
+            isMany = this.getParameter().isMany();
         }
         return isMany;*/
         return false;
     }
 
-    /** 
+    /**
      * @return false always
      * @see org.andromda.metafacades.uml.OperationFacade#isOrdered()
      */
@@ -351,7 +351,7 @@ public class OperationFacadeLogicImpl
         return false;
     }
 
-    /** 
+    /**
      * @return false always
      * @see org.andromda.metafacades.uml.OperationFacade#isOrdered()
      */
@@ -726,7 +726,7 @@ public class OperationFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        if (!this.getReturnParameter().hasStereotype("Nullable") 
+        if (!this.getReturnParameter().hasStereotype("Nullable")
             && this.getReturnType().isPrimitive())
         {
             return 1;

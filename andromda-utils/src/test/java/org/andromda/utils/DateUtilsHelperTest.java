@@ -8,7 +8,6 @@ import org.junit.Test;
  */
 public class DateUtilsHelperTest
 {
-
     /**
      * @throws Exception
      */

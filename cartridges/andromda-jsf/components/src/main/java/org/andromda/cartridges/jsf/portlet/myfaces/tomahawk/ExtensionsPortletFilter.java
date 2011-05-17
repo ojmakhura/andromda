@@ -60,7 +60,9 @@ public class ExtensionsPortletFilter
     public void init(PortletFilterConfig filterConfig) throws PortletException
     {
         if (log.isDebugEnabled())
+        {
             log.debug("Initializing ExtensionsPortletFilter.");
+        }
 
         setPortletConfig(filterConfig.getPortletConfig());
 
@@ -94,7 +96,7 @@ public class ExtensionsPortletFilter
      * @param response
      * @param chain PortletFilterChain instance
      * @throws PortletException
-     * @throws IOException 
+     * @throws IOException
      */
     @SuppressWarnings("deprecation")
     public void renderFilter(
@@ -201,7 +203,7 @@ public class ExtensionsPortletFilter
      * @param response
      * @param chain PortletFilterChain instance
      * @throws PortletException
-     * @throws IOException 
+     * @throws IOException
      */
     public void processActionFilter(
         ActionRequest request,
@@ -209,7 +211,9 @@ public class ExtensionsPortletFilter
         PortletFilterChain chain) throws PortletException, IOException
     {
         if (log.isDebugEnabled())
+        {
             log.debug("called processActionFilter.");
+        }
 
         // Check multipart/form-data
         if (PortletFileUpload.isMultipartContent(request))

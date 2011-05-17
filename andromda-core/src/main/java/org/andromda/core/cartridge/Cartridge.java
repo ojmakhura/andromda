@@ -31,7 +31,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * The AndroMDA Cartridge implementation of the Plugin. Cartridge instances are configured from
  * <code>META-INF/andromda/cartridge.xml</code> files discovered on the classpath.

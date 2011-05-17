@@ -253,7 +253,7 @@ public class WebServiceLogicImpl
      * @param types the collection to load.
      * @param nonArrayTypes the collection of non array types.
      */
-    private void loadTypes(ModelElementFacade modelElement, Set<ModelElementFacade> types, 
+    private void loadTypes(ModelElementFacade modelElement, Set<ModelElementFacade> types,
         Collection<ModelElementFacade> nonArrayTypes)
     {
         ExceptionUtils.checkNull("types", types);
@@ -289,32 +289,32 @@ public class WebServiceLogicImpl
                     if (!this.checkedTypes.contains(parameterType))
                     {
                         this.checkedTypes.add(parameterType);
-    
+
                         for (final Iterator allTypesIterator = allTypes.iterator(); allTypesIterator.hasNext();)
                         {
                             ClassifierFacade type = (ClassifierFacade) allTypesIterator.next();
-    
+
                             if (!this.containsManyType(types, modelElement))
                             {
                                 ClassifierFacade nonArrayType = type;
                                 final boolean arrayType = type.isArrayType();
-    
+
                                 if (arrayType || this.isValidAssociationEnd(modelElement))
                                 {
                                     types.add(modelElement);
-    
+
                                     if (arrayType)
                                     {
                                         // convert to non-array type since we
                                         // check if that one has the stereotype
                                         nonArrayType = type.getNonArray();
-    
+
                                         // set the type to the non array type since
                                         // that will have the attributes
                                         type = nonArrayType;
                                     }
                                 }
-    
+
                                 if (nonArrayType != null)
                                 {
                                     if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
@@ -329,7 +329,7 @@ public class WebServiceLogicImpl
                                     }
                                 }
                             }
-    
+
                             if (type != null)
                             {
                                 final List<? extends ModelElementFacade> properties = type.getProperties();
@@ -1020,7 +1020,7 @@ public class WebServiceLogicImpl
     /**
      * Used to sort operations by <code>name</code>.
      */
-    public final static class OperationNameComparator
+    public static final class OperationNameComparator
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();

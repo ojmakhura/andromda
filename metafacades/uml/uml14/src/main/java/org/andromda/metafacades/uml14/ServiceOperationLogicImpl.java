@@ -100,7 +100,7 @@ public class ServiceOperationLogicImpl
         }
         return owner;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ServiceOperation#isMessageOperation()
      */
@@ -136,9 +136,9 @@ public class ServiceOperationLogicImpl
     {
         final Collection<DependencyFacade> dependencies = this.getTargetDependencies();
         final DependencyFacade dependency = (DependencyFacade)
-            CollectionUtils.find(dependencies, 
+            CollectionUtils.find(dependencies,
                 new Predicate() {
-    
+
                     public boolean evaluate(Object object)
                     {
                         return ((DependencyFacade)object).getSourceElement() instanceof Destination;
@@ -154,7 +154,7 @@ public class ServiceOperationLogicImpl
     {
         final Collection<DependencyFacade> dependencies = this.getSourceDependencies();
         final DependencyFacade dependency = (DependencyFacade)
-        CollectionUtils.find(dependencies, 
+        CollectionUtils.find(dependencies,
             new Predicate() {
 
                 public boolean evaluate(Object object)

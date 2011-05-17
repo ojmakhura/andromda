@@ -437,7 +437,7 @@ public class EJB3Profile
 
     /**
      * Specifies that an asynchronous method call recurs, and that the
-     * annotationed parameter is duration between recurrences.
+     * annotated parameter is duration between recurrences.
      */
     public static final String STEREOTYPE_SEAM_ASYNCHRONOUS_INTERVAL_DURATION =
         profile.get("SEAM_ASYNCHRONOUS_INTERVAL_DURATION");
@@ -465,7 +465,6 @@ public class EJB3Profile
      */
     public static final String STEREOTYPE_SEAM_DATA_DATAMODEL_SELECTION_INDEX =
         profile.get("SEAM_DATA_DATAMODEL_SELECTION_INDEX");
-
 
     /* ----------------- Tagged Values -------------------- */
 

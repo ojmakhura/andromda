@@ -251,7 +251,7 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param arg0 
+     * @param arg0
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
      */
@@ -903,7 +903,7 @@ public class AssociationEndImpl
         return this.property.getSubsettedProperty(arg0, null);
     }
 
-    /** UML2 3.0: Property no longer inherits from TemplateableElement 
+    /** UML2 3.0: Property no longer inherits from TemplateableElement
      * AssociationEndImpl.property.validateUpperGt0 has been removed from UML2 3.x.
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBindings()
@@ -1361,7 +1361,7 @@ public class AssociationEndImpl
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * AssociationEndImpl.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName()
      * Always returns null.
-     * @param arg0 
+     * @param arg0
      * @see org.eclipse.uml2.uml.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.uml.TemplateSignature)
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
@@ -1719,8 +1719,8 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: property.validateUpperGt0 no longer exists
-     * @param arg0 
-     * @param arg1 
+     * @param arg0
+     * @param arg1
      * @return property.getUpper() > 0
      */
     public boolean validateUpperGt0(
@@ -2304,7 +2304,7 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
+     * @param signature
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
@@ -2316,7 +2316,7 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
+     * @param signature
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
@@ -2328,8 +2328,8 @@ public class AssociationEndImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
-     * @param createOnDemand 
+     * @param signature
+     * @param createOnDemand
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature, boolean)
      */

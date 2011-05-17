@@ -304,7 +304,7 @@ public class WebServiceClient
      * @param operationName the name of the operation to invoke.
      * @param arguments the arguments of the operation.
      * @return invoke result
-     * @see org.andromda.cartridges.support.webservice.client.Axis2ClientUtils#deserialize(OMElement, Class, TypeMapper) 
+     * @see org.andromda.cartridges.support.webservice.client.Axis2ClientUtils#deserialize(OMElement, Class, TypeMapper)
      */
     public Object invokeBlocking(
         String operationName,

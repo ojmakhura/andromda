@@ -56,7 +56,7 @@ public class TranslationTestDiscoverer
 
     /**
      * This method discovers all translation tests within the given <code>directory</code>.
-     * @param directory 
+     * @param directory
      */
     public void discoverTests(final String directory)
     {

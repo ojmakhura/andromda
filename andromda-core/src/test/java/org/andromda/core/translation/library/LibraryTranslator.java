@@ -3,7 +3,6 @@ package org.andromda.core.translation.library;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.Translator;
 
-
 /**
  * A Test Translator
  *

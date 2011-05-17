@@ -77,7 +77,7 @@ public class StrutsUseCaseLogicImpl
         final String crlf = "<br/>";
         final StringBuilder buffer = new StringBuilder();
 
-        buffer.append(!this.isDocumentationPresent() ? "No use-case documentation has been specified" 
+        buffer.append(!this.isDocumentationPresent() ? "No use-case documentation has been specified"
             : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false)));
         buffer.append(crlf);
 
@@ -409,7 +409,7 @@ public class StrutsUseCaseLogicImpl
     /**
      *
      */
-    public final static class UseCaseNode
+    public static final class UseCaseNode
         extends DefaultMutableTreeNode
     {
         /**

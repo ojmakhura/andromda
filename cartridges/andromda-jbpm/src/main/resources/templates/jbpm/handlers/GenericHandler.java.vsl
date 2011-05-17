@@ -38,6 +38,5 @@ public abstract class $handler.handlerClassName implements
 
     protected abstract void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws Exception;
-
 #end
 }

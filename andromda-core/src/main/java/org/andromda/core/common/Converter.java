@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.log4j.Logger;
 
-
 /**
  * A class used for converting simple types to other types (i.e.
  * java.lang.String -> java.lang.Integer, etc).

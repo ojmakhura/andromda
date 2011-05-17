@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.State;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.StateFacade.
  *

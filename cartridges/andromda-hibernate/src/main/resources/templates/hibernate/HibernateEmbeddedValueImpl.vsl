@@ -16,7 +16,6 @@ public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementa
     extends $embeddedValue.fullyQualifiedName
     implements java.io.Serializable
 {
-
     /**
      * The serial version UID of this class. Needed for serialization.
      */

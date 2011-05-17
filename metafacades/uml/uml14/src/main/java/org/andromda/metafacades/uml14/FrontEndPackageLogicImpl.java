@@ -26,7 +26,7 @@ public class FrontEndPackageLogicImpl
     {
         super (metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndPackage#getFrontEndUseCases()
      */

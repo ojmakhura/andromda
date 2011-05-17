@@ -201,7 +201,7 @@ public class ManageableEntityLogicImpl
     {
         final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
         final String accessorImplementation =
-            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) 
+            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property))
                 : "${application.package}.ManageableServiceLocator.instance().get{1}()";
         return accessorImplementation.replaceAll(
             "\\{0\\}",
@@ -274,7 +274,7 @@ public class ManageableEntityLogicImpl
         PRIMITIVE,
         WRAPPER
     }
-    
+
     private String createListWithManageableMembers(ListType listType)
     {
         final StringBuilder buffer = new StringBuilder();
@@ -323,8 +323,8 @@ public class ManageableEntityLogicImpl
                     buffer.append(' ');
                 }
                 buffer.append(associationEnd.getName());
-            } 
-            else 
+            }
+            else
             {
                 for (EntityAttribute identifier : entity.getIdentifiers())
                 {
@@ -365,7 +365,7 @@ public class ManageableEntityLogicImpl
     {
         return createListWithManageableMembers(ListType.WRAPPER);
     }
-    
+
     /**
      * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleListManageableMembers(boolean)
      */
@@ -662,7 +662,7 @@ public class ManageableEntityLogicImpl
 
     /**
      */
-    final static class ManageableComparator
+    static final class ManageableComparator
         implements Comparator
     {
         /**

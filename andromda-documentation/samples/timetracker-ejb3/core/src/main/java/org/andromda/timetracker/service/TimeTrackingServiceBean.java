@@ -20,18 +20,18 @@ import org.andromda.timetracker.vo.TimecardSummaryVO;
  * Uncomment to enable webservices for TimeTrackingServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.timetracker.service.TimeTrackingServiceWSInterface")
  */
-public class TimeTrackingServiceBean 
-    extends org.andromda.timetracker.service.TimeTrackingServiceBase 
+public class TimeTrackingServiceBean
+    extends org.andromda.timetracker.service.TimeTrackingServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public TimeTrackingServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.timetracker.service.TimeTrackingServiceBase#findTimecards(org.andromda.timetracker.vo.TimecardSearchCriteriaVO)
      */
@@ -41,10 +41,9 @@ public class TimeTrackingServiceBean
         List timecards = this.getTimecardDao().findByCriteria(criteria);
         this.getTimecardDao().toTimecardSummaryVOCollection(timecards);
         return (TimecardSummaryVO[])timecards.toArray(new TimecardSummaryVO[0]);
-        
+
     }
 
-
     // -------- Lifecycle Callback Implementation --------------
-    
+
 }

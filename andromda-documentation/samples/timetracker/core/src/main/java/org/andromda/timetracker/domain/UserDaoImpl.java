@@ -64,6 +64,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(UserVO)
      */
+    @Override
     public User userVOToEntity(UserVO userVO)
     {
         // TODO verify behavior of userVOToEntity
@@ -144,6 +145,7 @@ public class UserDaoImpl
     /**
      * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO)
      */
+    @Override
     public User userDetailsVOToEntity(UserDetailsVO userDetailsVO)
     {
         // TODO verify behavior of userDetailsVOToEntity

@@ -15,8 +15,8 @@ import javax.servlet.ServletException;
 /**
  *
  */
-public class ServletContextWrapper implements ServletContext {
-
+public class ServletContextWrapper implements ServletContext
+{
     private PortletContext portletContext;
 
     /**
@@ -158,6 +158,7 @@ public class ServletContextWrapper implements ServletContext {
      * @see javax.servlet.ServletContext#getServlet(String)
      * @deprecated
      */
+    @Deprecated
     public Servlet getServlet(String arg0) throws ServletException
     {
         // TODO Portlet API does not have this method
@@ -177,6 +178,7 @@ public class ServletContextWrapper implements ServletContext {
      * @see javax.servlet.ServletContext#getServletNames()
      * @deprecated
      */
+    @Deprecated
     public Enumeration getServletNames() {
         // TODO Portlet API does not have this method
         return null;
@@ -187,6 +189,7 @@ public class ServletContextWrapper implements ServletContext {
      * @see javax.servlet.ServletContext#getServlets()
      * @deprecated
      */
+    @Deprecated
     public Enumeration getServlets()
     {
         // TODO Portlet API does not have this method
@@ -197,6 +200,7 @@ public class ServletContextWrapper implements ServletContext {
      * @see javax.servlet.ServletContext#log(Exception, String)
      * @deprecated
      */
+    @Deprecated
     public void log(Exception arg0, String arg1)
     {
         portletContext.log(arg1, new Exception(arg0));
@@ -241,6 +245,6 @@ public class ServletContextWrapper implements ServletContext {
      */
     public String getContextPath()
     {
-    	return portletContext.getPortletContextName();
+        return portletContext.getPortletContextName();
     }
 }

@@ -66,7 +66,6 @@ public final class ManagePerson extends DispatchAction
         final java.util.List list = org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().readAll();
         form.setManageableList(list);
 
-
         if (list.size() >= 250)
         {
             saveMaxResultsWarning(request);
@@ -128,5 +127,4 @@ public final class ManagePerson extends DispatchAction
         }
         messages.add("org.andromda.bpm4struts.warningmessages", new ActionMessage("maximum.results.fetched.warning", "250"));
     }
-
 }

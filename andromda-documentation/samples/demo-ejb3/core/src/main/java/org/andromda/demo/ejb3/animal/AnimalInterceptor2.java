@@ -4,20 +4,20 @@ package org.andromda.demo.ejb3.animal;
 /**
  * Interceptor class AnimalInterceptor2
  */
-public class AnimalInterceptor2 
+public class AnimalInterceptor2
 {
     /**
      * Default interceptor execution method
      *
      * @param ctx the invocation context
-     * @return 
+     * @return
      */
     @javax.interceptor.AroundInvoke
     public Object execute(javax.interceptor.InvocationContext ctx)
-        throws Exception 
+        throws Exception
     {
         System.out.println("interceptor 2");
-        
+
         try
         {
             return ctx.proceed();

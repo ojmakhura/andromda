@@ -212,7 +212,7 @@ public class EntityLogicImpl
             {
                 Type element = (Type)modelElement;
                 // Identifiers will always have lowerBound 0, since they are optional when creating the Entity class but still valid.
-                // Creates a property with the specified name, type, lower bound, and upper bound 
+                // Creates a property with the specified name, type, lower bound, and upper bound
                 final Property property = umlClass.createOwnedAttribute(
                         name,
                         element,
@@ -1066,7 +1066,7 @@ public class EntityLogicImpl
             return getIdentifiers().iterator().next().getType().getName();
         }
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#getIdentifierGetterName()
      */

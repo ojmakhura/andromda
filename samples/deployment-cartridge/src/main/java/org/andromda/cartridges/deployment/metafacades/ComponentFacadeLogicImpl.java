@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.DependencyFacade;
 public class ComponentFacadeLogicImpl
     extends ComponentFacadeLogic
 {
-
     public ComponentFacadeLogicImpl (org.omg.uml.foundation.core.Component metaObject, String context)
     {
         super (metaObject, context);
@@ -43,7 +42,7 @@ public class ComponentFacadeLogicImpl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.cartridges.deployment.metafacades.ComponentFacadeLogic#handleGetTasksForDeploymentPhase()
      */
     protected Collection handleGetTasksForDeploymentPhase()
@@ -62,7 +61,7 @@ public class ComponentFacadeLogicImpl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.cartridges.deployment.metafacades.ComponentFacadeLogic#handleGetTasksForCompilationPhase()
      */
     protected Collection handleGetTasksForCompilationPhase()

@@ -47,11 +47,11 @@ public class ${service.name}${seiSuffix}Client extends Service
 {
     private static final Logger LOG = LoggerFactory.getLogger(${service.name}${seiSuffix}Client.class);
     /** WSDL location */
-    public final static URL WSDL_LOCATION;
+    public static final URL WSDL_LOCATION;
     /** Service QName @see {@link javax.xml.namespace.QName} */
-    public final static QName SERVICE = new QName("$targetNamespace", "${service.name}");
+    public static final QName SERVICE = new QName("$targetNamespace", "${service.name}");
     /** Endpoint Service QName @see {@link javax.xml.namespace.QName} */
-    public final static QName ${service.name} = new QName("$targetNamespace", "${service.name}");
+    public static final QName ${service.name} = new QName("$targetNamespace", "${service.name}");
     static
     {
         URL url = null;

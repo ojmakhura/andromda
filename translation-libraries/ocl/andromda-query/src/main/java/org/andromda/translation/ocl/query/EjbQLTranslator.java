@@ -92,7 +92,7 @@ public class EjbQLTranslator
     /**
      * Handles the replacement of the references to 'counter' with the incrementing counter (currently just used for
      * EJB-QL translation) --> may want to find a cleaner way to do this.
-     * @param fragment 
+     * @param fragment
      * @return fragment
      */
     protected String replaceCounterPattern(String fragment)

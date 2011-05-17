@@ -3,10 +3,8 @@ package org.andromda.cartridges.jsf.taglib;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
-
 import org.andromda.cartridges.jsf.component.BinaryFile;
 import org.andromda.cartridges.jsf.utils.ComponentUtils;
-
 
 /**
  * The tag class for the <code>s:validatorScript</code> tag.

@@ -1126,7 +1126,7 @@ public class ClassifierFacadeLogicImpl
                 {
                     final DependencyFacade abstraction = (DependencyFacade)obj;
                     final ModelElementFacade element = abstraction.getTargetElement();
-    
+
                     if (element instanceof ClassifierFacade)
                     {
                         final ClassifierFacade classifier = (ClassifierFacade)element;

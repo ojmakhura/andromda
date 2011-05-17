@@ -51,7 +51,7 @@ public class JSFActionLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(JSFActionLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JSFActionLogicImpl.class);
 
     /**
      * @return getFormBeanName(true)
@@ -61,10 +61,10 @@ public class JSFActionLogicImpl
     {
         return this.getFormBeanName(true);
     }
-    
+
     /**
      * Constructs the form bean name, with our without prefixing the use case name.
-     * 
+     *
      * @param withUseCaseName whether or not to prefix the use case name.
      * @return the constructed form bean name.
      */
@@ -72,9 +72,11 @@ public class JSFActionLogicImpl
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
         final ModelElementFacade useCase = this.getUseCase();
-        final String useCaseName = withUseCaseName && useCase != null ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
-        final String formBeanName = pattern.replaceFirst("\\{0\\}", useCaseName); 
-        final String triggerName = !pattern.equals(formBeanName) ? StringUtils.capitalize(this.getTriggerName()) : this.getTriggerName();
+        final String useCaseName = withUseCaseName && useCase != null
+            ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", useCaseName);
+        final String triggerName = !pattern.equals(formBeanName)
+            ? StringUtils.capitalize(this.getTriggerName()) : this.getTriggerName();
         return formBeanName.replaceFirst(
             "\\{1\\}",
             triggerName);
@@ -215,10 +217,10 @@ public class JSFActionLogicImpl
             if (useCase != null && useCase.isViewHasNameOfUseCase())
             {
                 // - add the uc prefix to make the trigger name unique
-                //   when a view contained within the use case has the same name 
+                //   when a view contained within the use case has the same name
                 //   as the use case
                 path = path + "uc";
-            } 
+            }
         }
         return path;
     }
@@ -268,7 +270,7 @@ public class JSFActionLogicImpl
             event = (JSFEvent)trigger;
         }
         return (event == null ? this.getMessageKey() + ".is.an.action.without.trigger" : event.getMessageKey()) +
-        '.' + JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+            '.' + JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -335,10 +337,8 @@ public class JSFActionLogicImpl
             if (tableLink != null)
             {
                 final int columnOffset = tableLink.indexOf('.');
-                tableLink =
-                    (columnOffset == -1 || columnOffset == tableLink.length() - 1) ? null
-                                                                                   : tableLink.substring(
-                        columnOffset + 1);
+                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1)
+                    ? null : tableLink.substring(columnOffset + 1);
             }
         }
         return tableLink;
@@ -610,7 +610,7 @@ public class JSFActionLogicImpl
         }
         return resetRequired;
     }
-    
+
     //TODO remove after 3.4 release
     /**
      * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
@@ -626,7 +626,7 @@ public class JSFActionLogicImpl
         }
         return input;
     }
-    
+
     /**
      * @return formSerialVersionUID
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormSerialVersionUID()
@@ -639,33 +639,33 @@ public class JSFActionLogicImpl
 
         final ModelElementFacade input = (ModelElementFacade)this.getInput();
         buffer.append(input != null ? input.getName() : "");
-        
+
         final ModelElementFacade guard = this.getGuard();
         buffer.append(guard != null ? guard.getName() : "");
-        
+
         final ModelElementFacade effect = this.getEffect();
         buffer.append(effect != null ? effect.getName() : "");
-        
+
         final ModelElementFacade decisionsTrigger = this.getDecisionTrigger();
         buffer.append(decisionsTrigger != null ? decisionsTrigger.getName() : "");
-        
+
         buffer.append(StringUtils.trimToEmpty(this.getActionClassName()));
-        
+
         for (final FrontEndParameter parameter : this.getParameters())
         {
             buffer.append(parameter.getName());
         }
-        
+
         for (final FrontEndForward forward : this.getActionForwards())
         {
             buffer.append(forward.getName());
         }
-        
+
         for (final FrontEndAction action : this.getActions())
         {
             buffer.append(action.getName());
         }
-        
+
         for (final FrontEndActionState state : this.getActionStates())
         {
             buffer.append(state.getName());
@@ -690,7 +690,7 @@ public class JSFActionLogicImpl
         catch (final NoSuchAlgorithmException exception)
         {
             final String message = "Error performing JSFAction.getFormSerialVersionUID";
-            logger.error(
+            LOGGER.error(
                 message,
                 exception);
         }
@@ -703,7 +703,8 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsFormReset()
     {
-        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(
+            JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 
     /**
@@ -732,7 +733,7 @@ public class JSFActionLogicImpl
     {
         return this.getName();
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFActionLogic#handleIsSuccessMessagesPresent()
      */
@@ -748,7 +749,7 @@ public class JSFActionLogicImpl
     {
         return !this.getWarningMessages().isEmpty();
     }
-    
+
     /**
      * Collects specific messages in a map.
      *
@@ -793,7 +794,7 @@ public class JSFActionLogicImpl
     {
         return this.getMessages(JSFProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
-    
+
     /**
      * @return needsFileUpload
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isNeedsFileUpload()
@@ -801,15 +802,21 @@ public class JSFActionLogicImpl
     protected boolean handleIsNeedsFileUpload()
     {
         if(this.getParameters().size() == 0)
+        {
             return false;
-            
+        }
+
         for (final FrontEndParameter feParameter : this.getParameters())
         {
-            if (feParameter instanceof JSFParameter){
+            if (feParameter instanceof JSFParameter)
+            {
                 final JSFParameter parameter = (JSFParameter)feParameter;
                 if(parameter.isInputFile())
-                   return true;
-                if(parameter.isComplex()){
+                {
+                    return true;
+                }
+                if(parameter.isComplex())
+                {
                     for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
                         if(((JSFAttribute)attributes.next()).isInputFile())
                             return true;
@@ -823,7 +830,8 @@ public class JSFActionLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getTriggerMethodName
      */
     @Override
-    protected String handleGetTriggerMethodName() {
+    protected String handleGetTriggerMethodName()
+    {
         final StringBuilder methodName = new StringBuilder();
         if (this.isExitingInitialState())
         {

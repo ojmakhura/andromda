@@ -4,7 +4,6 @@ import org.eclipse.uml2.Element;
 import org.eclipse.uml2.StateMachine;
 import org.eclipse.uml2.UseCase;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ActivityGraphFacade. It seem strange that

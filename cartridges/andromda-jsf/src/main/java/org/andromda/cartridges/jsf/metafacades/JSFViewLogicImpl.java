@@ -75,7 +75,7 @@ public class JSFViewLogicImpl
      *
      * @return true/false
      */
-    private final boolean isNormalizeMessages()
+    private boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
@@ -157,7 +157,7 @@ public class JSFViewLogicImpl
                     else if (forward instanceof JSFAction)
                     {
                         forwards.put(((JSFAction)forward).getName(), forward);
-                    }  
+                    }
                 }
             }
         }
@@ -400,18 +400,28 @@ public class JSFViewLogicImpl
     protected boolean handleIsNeedsFileUpload()
     {
         if(this.getAllActionParameters().size() == 0)
+        {
             return false;
-        
+        }
+
         for (final FrontEndParameter feParameter : this.getAllActionParameters())
         {
-            if (feParameter instanceof JSFParameter){
+            if (feParameter instanceof JSFParameter)
+            {
                 final JSFParameter parameter = (JSFParameter)feParameter;
                 if(parameter.isInputFile())
-                     return true;
-                if(parameter.isComplex()){
+                {
+                    return true;
+                }
+                if(parameter.isComplex())
+                {
                     for(final Iterator attributes = parameter.getAttributes().iterator(); attributes.hasNext();)
+                    {
                         if(((JSFAttribute)attributes.next()).isInputFile())
+                        {
                             return true;
+                        }
+                    }
                 }
             }
         }

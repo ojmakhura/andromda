@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests the direct interpretation of a string by FreeMarkerTemplateEngine.
  */
-public class FreeMarkerTemplateEngineTest    
+public class FreeMarkerTemplateEngineTest
 {
     /**
      * @throws Exception

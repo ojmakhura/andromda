@@ -2,7 +2,6 @@ package org.andromda.cartridges.ejb;
 
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * The EJB profile. Contains the profile information (tagged values, and stereotypes) for the EJB cartridge.
  *

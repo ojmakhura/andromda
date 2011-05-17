@@ -21,7 +21,7 @@ public class HibernateTypeLogicImpl
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(HibernateTypeLogicImpl.class);
-    
+
     // ---------------- constructor -------------------------------
     /**
      * @param metaObject

@@ -5,7 +5,6 @@ import java.util.List;
 import org.andromda.core.namespace.NamespaceComponent;
 import org.andromda.core.templateengine.TemplateEngine;
 
-
 /**
  * Interface between an AndroMDA code generator plugin and the core. All plug-ins (such as cartridges and
  * translation-libraries) that can be discovered and used by the framework must implement this interface.

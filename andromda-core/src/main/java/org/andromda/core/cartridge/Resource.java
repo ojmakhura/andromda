@@ -1,14 +1,11 @@
 package org.andromda.core.cartridge;
 
 import java.io.File;
-
 import java.text.MessageFormat;
-
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * <p/>

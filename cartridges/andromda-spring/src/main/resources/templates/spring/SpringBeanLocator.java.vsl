@@ -28,7 +28,7 @@ public class $className
     /**
      * The shared instance of this $className.
      */
-    private final static $className instance = new ${className}();
+    private static final $className instance = new ${className}();
 
     /**
      * Gets the shared instance of this Class

@@ -5,7 +5,6 @@
 package $packageName;
 
 import org.springframework.dao.DataAccessException;
-
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.userdetails.UserDetails;
@@ -20,7 +19,6 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
 public class $className
     implements UserDetailsService
 {
-
     // $toDoTag Follow steps to integrate Acegi user management
     // 1. Write code to implement loadUserByUsername (below)
     //
@@ -73,6 +71,5 @@ public class $className
         this.userDao = userDao;
     }
 */
-
 }
 #end

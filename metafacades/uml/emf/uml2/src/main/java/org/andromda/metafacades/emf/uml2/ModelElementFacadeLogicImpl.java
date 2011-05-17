@@ -509,7 +509,7 @@ public class ModelElementFacadeLogicImpl
                     {
                         values.add(taggedValue.getValue());
                     } */
-                    // 
+                    //
                     if (taggedValue.getValues() != null && !taggedValue.getValues().isEmpty())
                     {
                         values.addAll(taggedValue.getValues());
@@ -1008,7 +1008,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @param keywordName 
+     * @param keywordName
      * @return this.metaObject.hasKeyword(keywordName)
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasKeyword(String)
      */
@@ -1017,7 +1017,7 @@ public class ModelElementFacadeLogicImpl
     {
         return this.metaObject.hasKeyword(keywordName);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1104,10 +1104,10 @@ public class ModelElementFacadeLogicImpl
                     {
                         throw new IllegalStateException("The size of the arguments of the BindingFacace must be equals to the size of the TemplateParameter collection of this element.");
                     }
-                    
+
                     Iterator<TemplateParameterFacade> templateParametersIterator = templateParameters.iterator();
                     Iterator<TemplateArgumentFacade> templateArgumentsIterator = arguments.iterator();
-                    
+
                     while(templateParametersIterator.hasNext())
                     {
                         final TemplateParameterFacade templateParameter = templateParametersIterator.next();
@@ -1123,7 +1123,7 @@ public class ModelElementFacadeLogicImpl
                     bindedParameters.put(templateParameterFacade, templateParameterFacade.getParameter());
                 }
             }
-            
+
             // we'll be constructing the parameter list in this buffer
             // add the name we've constructed so far
             final StringBuilder buffer = new StringBuilder(fullName + '<');

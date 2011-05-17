@@ -4,7 +4,6 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ManageableEntityAttribute.

@@ -1,6 +1,5 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-
 /**
  * Stores Globals specific to the Hibernate cartridge.
  *
@@ -53,7 +52,7 @@ public class HibernateGlobals
     /**
      * EJB implementation class suffix.
      */
-    final static String EJB_IMPLEMENTATION_SUFFIX = "Bean";
+    static final String EJB_IMPLEMENTATION_SUFFIX = "Bean";
 
     /**
      * Represents the hibernate <code>delete</code> cascade option.
@@ -205,7 +204,7 @@ public class HibernateGlobals
     * The default Hibernate discriminator column type
     */
     static final String ENTITY_DISCRIMINATOR_TYPE = "defaultEntityDiscriminatorType";
-    
+
     /**
      * Optional definition of the package name where all Hibernate enumeration types are
      * to be generated. This will overrride the default model package name where the

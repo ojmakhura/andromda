@@ -20,7 +20,6 @@ import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * This object is used to test Translations during development.
  *

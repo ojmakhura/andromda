@@ -57,7 +57,7 @@ public class XSDAssociationEndLogicImpl
         }
         return minOccurs;
     }
-    
+
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogic#handleIsOwnerSchemaType()
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#isOwnerSchemaType()

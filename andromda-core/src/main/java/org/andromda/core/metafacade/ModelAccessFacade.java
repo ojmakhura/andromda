@@ -3,7 +3,6 @@ package org.andromda.core.metafacade;
 import java.util.Collection;
 import org.andromda.core.configuration.Filters;
 
-
 /**
  * <p/>
  * Provides access to a model loaded by a Repository and made available to be used to retrieve information about

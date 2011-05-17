@@ -3,7 +3,6 @@ package org.andromda.cartridges.support.webservice.client;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.factory.FactoryBean;
 
-
 /**
  * FactoryBean for a specific port of a webservice.
  */

@@ -1042,7 +1042,7 @@ public class EntityLogicImpl
             return getIdentifiers().iterator().next().getType().getName();
         }
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#getIdentifierGetterName()
      */

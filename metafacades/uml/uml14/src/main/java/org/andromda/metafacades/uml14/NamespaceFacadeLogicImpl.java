@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import org.omg.uml.foundation.core.Namespace;
 
-
 /**
  * MetafacadeLogic implementation.
  *

@@ -128,13 +128,13 @@ public class $className
     private void _updateRoles()
     {
         if (this.roles != null && this.roles.length() > 0)
-		{
+        {
             this._roles = this.roles.split(",");
-		}
+        }
         else
-		{
+        {
             this._roles = null;
-		}
+        }
     }
 
     /**

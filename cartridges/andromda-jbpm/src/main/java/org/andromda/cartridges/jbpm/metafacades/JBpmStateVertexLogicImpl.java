@@ -29,7 +29,7 @@ public class JBpmStateVertexLogicImpl
      */
     protected boolean handleIsContainedInBusinessProcess()
     {
-        return this.getStateMachine()!= null 
+        return this.getStateMachine()!= null
                 && this.getStateMachine() instanceof ActivityGraphFacade
                 && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
     }

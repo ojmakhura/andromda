@@ -16,11 +16,10 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFAttribute.
  *
- * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute
+ * @see JSFAttribute
  */
 public class JSFAttributeLogicImpl
     extends JSFAttributeLogic
@@ -39,7 +38,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return messageKey
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getMessageKey()
+     * @see JSFAttribute#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
@@ -66,7 +65,7 @@ public class JSFAttributeLogicImpl
      *
      * @return true/false
      */
-    private final boolean isNormalizeMessages()
+    private boolean isNormalizeMessages()
     {
         final String normalizeMessages =
             ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
@@ -75,7 +74,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return StringUtilsHelper.toPhrase(super.getName())
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getMessageValue()
+     * @see JSFAttribute#getMessageValue()
      */
     protected String handleGetMessageValue()
     {
@@ -84,7 +83,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return format
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormat()
+     * @see JSFAttribute#getFormat()
      */
     protected String handleGetFormat()
     {
@@ -113,7 +112,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return dummyValue
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getDummyValue()
+     * @see JSFAttribute#getDummyValue()
      */
     protected String handleGetDummyValue()
     {
@@ -227,7 +226,7 @@ public class JSFAttributeLogicImpl
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private final String constructDummyArray()
+    private String constructDummyArray()
     {
         return JSFUtils.constructDummyArrayDeclaration(
             this.getName(),
@@ -235,9 +234,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return propertyName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
@@ -256,9 +255,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return backingListName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetBackingListName(final ParameterFacade ownerParameter)
     {
@@ -271,9 +270,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return backingValueName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
     {
@@ -286,9 +285,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return labelListName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetLabelListName(final ParameterFacade ownerParameter)
     {
@@ -299,9 +298,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return valueListName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetValueListName(final ParameterFacade ownerParameter)
     {
@@ -312,9 +311,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return formPropertyId
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(ParameterFacade)
+     * @see JSFAttribute#getFormPropertyId(ParameterFacade)
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
@@ -322,9 +321,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return isSelectable
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
+     * @see JSFAttribute#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
      */
     protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
     {
@@ -341,7 +340,7 @@ public class JSFAttributeLogicImpl
                     final String name = this.getName();
                     final String typeName = type.getFullyQualifiedName();
 
-                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                    // - if the parameter is not selectable but on a targeting page it IS selectable we must
                     //   allow the user to set the backing list too
                     final Collection<FrontEndView> views = ownerParameter.getAction().getTargetViews();
                     for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !selectable;)
@@ -397,7 +396,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return !this.getValidatorTypes().isEmpty()
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isValidationRequired()
+     * @see JSFAttribute#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
     {
@@ -406,7 +405,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return validatorTypes
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorTypes()
+     * @see JSFAttribute#getValidatorTypes()
      */
     protected Collection<String> handleGetValidatorTypes()
     {
@@ -416,21 +415,21 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return validatorVars
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorVars(JSFParameter)
+     * @see JSFAttribute#getValidatorVars(JSFParameter)
      */
     protected Collection<List<String>> handleGetValidatorVars(JSFParameter ownerParameter)
     {
         return JSFUtils.getValidatorVars(
-            ((ModelElementFacade)this.THIS()),
+            (ModelElementFacade)this.THIS(),
             this.getType(),
             ownerParameter);
     }
 
     /**
      * @return JSFUtils.getValidWhen(this)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidWhen()
+     * @see JSFAttribute#getValidWhen()
      */
     protected String handleGetValidWhen()
     {
@@ -439,7 +438,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_TEXTAREA)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTextarea()
+     * @see JSFAttribute#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
@@ -448,7 +447,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_SELECT)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSelect()
+     * @see JSFAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
@@ -457,7 +456,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_PASSWORD)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSecret()
+     * @see JSFAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
@@ -466,7 +465,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_HIDDEN)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputHidden()
+     * @see JSFAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
@@ -475,7 +474,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.PLAIN_TEXT)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isPlaintext()
+     * @see JSFAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
@@ -484,7 +483,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_RADIO)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputRadio()
+     * @see JSFAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
@@ -493,7 +492,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_TEXT)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
+     * @see JSFAttribute#isInputText()
      */
     protected boolean handleIsInputText()
     {
@@ -502,7 +501,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isInputType(JSFGlobals.INPUT_MULTIBOX)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputMultibox()
+     * @see JSFAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
@@ -511,7 +510,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return inputTable
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTable()
+     * @see JSFAttribute#isInputTable()
      */
     protected boolean handleIsInputTable()
     {
@@ -520,7 +519,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return inputCheckbox
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputCheckbox()
+     * @see JSFAttribute#isInputCheckbox()
      */
     protected boolean handleIsInputCheckbox()
     {
@@ -539,7 +538,7 @@ public class JSFAttributeLogicImpl
      *
      * @return the input type name.
      */
-    private final String getInputType()
+    private String getInputType()
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
@@ -550,14 +549,14 @@ public class JSFAttributeLogicImpl
      * @param inputType the name of the input type to check for.
      * @return true/false
      */
-    private final boolean isInputType(final String inputType)
+    private boolean isInputType(final String inputType)
     {
         return inputType.equalsIgnoreCase(this.getInputType());
     }
 
     /**
      * @return inputFile
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputFile()
+     * @see JSFAttribute#isInputFile()
      */
     protected boolean handleIsInputFile()
     {
@@ -582,7 +581,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return constructDummyArray()
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValueListDummyValue()
+     * @see JSFAttribute#getValueListDummyValue()
      */
     protected String handleGetValueListDummyValue()
     {
@@ -590,9 +589,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param validatorType 
+     * @param validatorType
      * @return getValidatorArgs
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorArgs(String)
+     * @see JSFAttribute#getValidatorArgs(String)
      */
     protected Collection handleGetValidatorArgs(final String validatorType)
     {
@@ -603,7 +602,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isStrictDateFormat
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isStrictDateFormat()
+     * @see JSFAttribute#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
@@ -611,9 +610,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return dateFormatter
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getDateFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
+     * @see JSFAttribute#getDateFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
      */
     protected String handleGetDateFormatter(final JSFParameter ownerParameter)
     {
@@ -622,9 +621,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return timeFormatter
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getTimeFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
+     * @see JSFAttribute#getTimeFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
      */
     protected String handleGetTimeFormatter(final JSFParameter ownerParameter)
     {
@@ -653,7 +652,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return isEqualValidator
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isEqualValidator()
+     * @see JSFAttribute#isEqualValidator()
      */
     protected boolean handleIsEqualValidator()
     {
@@ -662,9 +661,9 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return isBackingValueRequired
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
+     * @see JSFAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
      */
     protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
     {
@@ -717,7 +716,8 @@ public class JSFAttributeLogicImpl
                 {
                     final JSFAction action = (JSFAction)actionIterator.next();
                     final Collection<FrontEndParameter> formFields = action.getFormFields();
-                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
+                    for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
+                        fieldIterator.hasNext() && !required;)
                     {
                         final FrontEndParameter object = fieldIterator.next();
                         if (object instanceof JSFParameter)
@@ -737,7 +737,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return present
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTypePresent()
+     * @see JSFAttribute#isInputTypePresent()
      */
     protected boolean handleIsInputTypePresent()
     {
@@ -754,7 +754,7 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getInputTableIdentifierColumns()
+     * @see JSFAttribute#getInputTableIdentifierColumns()
      */
     protected String handleGetInputTableIdentifierColumns()
     {
@@ -763,21 +763,20 @@ public class JSFAttributeLogicImpl
 
     /**
      * @return maxlength
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getMaxLength()
+     * @see JSFAttribute#getMaxLength()
      */
     protected String handleGetMaxLength()
     {
-        final Collection vars = this.getValidatorVars(null);
+        final Collection<List<String>> vars = this.getValidatorVars(null);
         if(vars == null)
         {
             return null;
         }
-        for(Iterator<Collection> it=vars.iterator(); it.hasNext(); )
+        for(final List<String> values : vars)
         {
-            final Object[] values=(it.next()).toArray();
-            if("maxlength".equals(values[0]))
+            if("maxlength".equals(values.get(0)))
             {
-                return values[1].toString();
+                return values.get(1);
             }
         }
         return null;

@@ -1,6 +1,5 @@
 package org.andromda.core.metafacade;
 
-
 /**
  * Fake mapping object 9 (just used for testing the MetafacadeMappings).
  *

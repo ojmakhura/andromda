@@ -23,32 +23,32 @@ public class NamespaceTransformerMojo
 {
     /**
      * The name of the project injected from pom.xml
-     * 
+     *
      * @parameter default-value="${project.name}"
      */
     private String projectName;
-    
+
     /**
      * Path to the project namespace.xml
-     * 
+     *
      * @parameter expression="${basedir}/src/main/resources/META-INF/andromda/namespace.xml"
      */
     private File namespaceDocumentPath;
-    
+
     /**
      * Path to the project namespace transformation XSL
      */
     private static final String NAMESPACE_TRANSFORMATION_URI = "META-INF/xsl/namespace.xsl";
-    
+
     /** Not used
      * @parameter expression="${basedir}/src/main/resources/META-INF/xsl/namespace.xsl"
      */
     @SuppressWarnings("unused")
     private File namespaceTransformationPath;
-    
+
     /**
      * Path to the project namespace document output
-     * 
+     *
      * @parameter expression="${basedir}/src/site/xdoc/namespace.xml"
      */
     private File namespaceOutputPath;
@@ -59,13 +59,13 @@ public class NamespaceTransformerMojo
      * @readonly
      */
     protected MavenProject project;
-    
+
     /**
      * XSL Transformer
      */
     private XslTransformer xslTransformer;
-    
-    
+
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -80,9 +80,9 @@ public class NamespaceTransformerMojo
         {
             xslTransformer = new XslTransformer(projectName);
         }
-        
+
         this.getLog().info("Transforming namespace " + this.namespaceDocumentPath);
-        
+
         try
         {
             final File namespaceDocumentFile = this.namespaceDocumentPath;
@@ -91,7 +91,7 @@ public class NamespaceTransformerMojo
                 final URL namespaceTransformationUri = ResourceUtils.getResource(NAMESPACE_TRANSFORMATION_URI);
                 xslTransformer.transform(namespaceDocumentPath.getAbsolutePath(), namespaceTransformationUri, namespaceOutputPath.getAbsolutePath());
             }
-            
+
             this.getLog().info("Transformed namesapce " + this.namespaceOutputPath);
             this.getLog().info("TRANSFORMING NAMESPACE SUCCESSFUL");
         }

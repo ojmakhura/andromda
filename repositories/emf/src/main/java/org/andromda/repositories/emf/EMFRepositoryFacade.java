@@ -43,7 +43,7 @@ public abstract class EMFRepositoryFacade
     protected ResourceSet resourceSet;
 
     /**
-     * 
+     *
      */
     protected ModelAccessFacade modelFacade;
 
@@ -78,7 +78,7 @@ public abstract class EMFRepositoryFacade
     {
         try
         {
-            if (this.model==null) 
+            if (this.model==null)
             {
                 this.model = new ArrayList<Resource>();
             }
@@ -117,7 +117,7 @@ public abstract class EMFRepositoryFacade
                             try
                             {
                                 //long now2 = System.currentTimeMillis();
-                                //EObject crossRef = 
+                                //EObject crossRef =
                                     crossRefIterator.next();
                                 //EObject resolved = EcoreUtil.resolve(crossRef, this.resourceSet);
                                 //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + crossRef.toString() + " = " + EcoreUtil.getURI(crossRef) + " " + (System.currentTimeMillis()-now2) + " ms");

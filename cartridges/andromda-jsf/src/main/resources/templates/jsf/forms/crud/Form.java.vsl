@@ -321,7 +321,6 @@ $member.getDocumentation("     * ")
     /**
      * Clear the current {@link javax.faces.application.FacesMessage} message
      * instances stored within this form.
-     *
      */
     public void clear${stringUtils.capitalize($formMessagesProperty)}()
     {

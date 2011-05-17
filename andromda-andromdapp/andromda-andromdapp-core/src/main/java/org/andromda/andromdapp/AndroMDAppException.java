@@ -2,7 +2,7 @@ package org.andromda.andromdapp;
 
 /**
  * Thrown when an unexpected occur occurs during AndroMDApp execution.
- * 
+ *
  * @author Chad Brandon
  */
 public class AndroMDAppException

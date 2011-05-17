@@ -31,7 +31,7 @@ public class DateUtilsHelper
 
     /**
      * Converts a Java SimpleDateFormat into an equivalent String suited for dates used on Perl/PHP platforms.
-     * @param javaFormat 
+     * @param javaFormat
      * @return perl format
      */
     public static String formatJavaToPerl(String javaFormat)
@@ -64,7 +64,7 @@ public class DateUtilsHelper
 
     /**
      * Checks whether a perl formatted date contains information about displaying time.
-     * @param perlFormat 
+     * @param perlFormat
      * @return true if timeformat
      */
     public static boolean containsTimeFormat(String perlFormat)

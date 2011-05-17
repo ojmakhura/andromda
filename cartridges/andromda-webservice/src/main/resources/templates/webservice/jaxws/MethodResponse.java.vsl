@@ -61,7 +61,7 @@ public class ${className}Response
 #end
     implements Serializable, Comparable<Object>
 {
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     /** returnParameter */
 #if ($operation.returnTypePresent)
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))

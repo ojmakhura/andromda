@@ -2,13 +2,11 @@ package org.andromda.core.translation.library;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.Translator;
-
 
 /**
  * The AndroMDA Translation Library implementation of the Plugin. Library instances are configured from

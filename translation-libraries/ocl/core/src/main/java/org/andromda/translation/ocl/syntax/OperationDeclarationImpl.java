@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 public class OperationDeclarationImpl
         implements OperationDeclaration
 {
-
     private String name;
     private String returnType;
     private VariableDeclaration[] arguments = new VariableDeclaration[0];

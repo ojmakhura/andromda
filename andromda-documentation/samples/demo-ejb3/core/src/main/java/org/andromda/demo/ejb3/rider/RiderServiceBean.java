@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.rider;
  * Uncomment to enable webservices for RiderServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.rider.RiderServiceWSInterface")
  */
-public class RiderServiceBean 
-    extends org.andromda.demo.ejb3.rider.RiderServiceBase 
+public class RiderServiceBean
+    extends org.andromda.demo.ejb3.rider.RiderServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public RiderServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.rider.RiderServiceBase#addRider(org.andromda.demo.ejb3.rider.Rider)
      */
@@ -57,5 +57,5 @@ public class RiderServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

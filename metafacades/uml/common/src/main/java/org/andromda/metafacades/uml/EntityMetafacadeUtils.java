@@ -9,7 +9,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Utilities for dealing with entity metafacades
  *

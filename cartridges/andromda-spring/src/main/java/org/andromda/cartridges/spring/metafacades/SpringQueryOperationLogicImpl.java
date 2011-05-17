@@ -23,8 +23,8 @@ public class SpringQueryOperationLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringQueryOperationLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation
      */
     public SpringQueryOperationLogicImpl(Object metaObject, String context)
@@ -105,7 +105,7 @@ public class SpringQueryOperationLogicImpl
     }
 
     /**
-     * @param entity 
+     * @param entity
      * @return query
      * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#getQuery(org.andromda.cartridges.spring.metafacades.SpringEntity)
      */
@@ -135,12 +135,12 @@ public class SpringQueryOperationLogicImpl
             if (entity == null)
             {
                 owner = this.getOwner();
-                entityName = owner.getFullyQualifiedName(); 
+                entityName = owner.getFullyQualifiedName();
             }
             else
             {
                 owner = entity;
-                //retrieve the entity implementation for proper hibernate mapping resolving 
+                //retrieve the entity implementation for proper hibernate mapping resolving
                 entityName = entity.getFullyQualifiedEntityImplementationName();
             }
             String variableName = StringUtils.uncapitalize(owner.getName());

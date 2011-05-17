@@ -126,6 +126,4 @@ public class EnglishInflector
         rules.put("(\\w+)(z|ch|ss|sh|x)es$", "$1$2");
         return rules;
     }
-
 }
-

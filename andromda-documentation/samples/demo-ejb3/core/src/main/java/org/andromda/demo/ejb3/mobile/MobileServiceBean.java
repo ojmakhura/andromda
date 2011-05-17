@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.mobile;
  * Uncomment to enable webservices for MobileServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.mobile.MobileServiceWSInterface")
  */
-public class MobileServiceBean 
-    extends org.andromda.demo.ejb3.mobile.MobileServiceBase 
+public class MobileServiceBean
+    extends org.andromda.demo.ejb3.mobile.MobileServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public MobileServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.mobile.MobileServiceBase#addMobile(org.andromda.demo.ejb3.mobile.Mobile)
      */
@@ -35,7 +35,7 @@ public class MobileServiceBean
         throws java.lang.Exception
     {
         System.out.println("min length = " + minMobileLength + " max length = " + maxMobileLength);
-        
+
         if (mobile.getNumber().length() > minMobileLength && mobile.getNumber().length() < maxMobileLength)
         {
             getMobileDao().create(mobile);
@@ -61,5 +61,5 @@ public class MobileServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

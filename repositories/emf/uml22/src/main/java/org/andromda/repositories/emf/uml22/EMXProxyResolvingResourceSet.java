@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
  * created by Rational Software Modeler. RSM uses a special syntax
  * (e.g. "resource.emx#someXmiId?someNonstandardString") that cannot
  * be resolved by standard EMF resource sets.
- * 
+ *
  * @author Matthias Bohlen
  * @author Bob Fields Check for timeouts only once, add logger
  *
@@ -25,7 +25,7 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
     private static final Logger logger = Logger.getLogger(EMXProxyResolvingResourceSet.class);
 
     /**
-     * 
+     *
      */
     private static Set<String> connectExceptions = new TreeSet<String>();
     /**

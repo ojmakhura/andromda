@@ -1,6 +1,5 @@
 package org.andromda.core.namespace;
 
-
 /**
  * Represents a property definition.
  *

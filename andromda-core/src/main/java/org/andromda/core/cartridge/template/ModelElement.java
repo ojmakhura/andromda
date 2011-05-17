@@ -10,7 +10,6 @@ import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Represents a single template &lt;modelElement/&gt; nested within the &lt;modelElements/&gt; element. It stores the
  * actual metafacade instances which match the model element criteria (i.e. stereotype, type, etc) defined by this

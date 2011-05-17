@@ -87,7 +87,7 @@ public class FrontEndFinalStateLogicImpl
                 targetUseCase = taggedValue;
             }
         }
-        
+
         // maybe the name points to a use-case ?
         if (targetUseCase == null)
         {

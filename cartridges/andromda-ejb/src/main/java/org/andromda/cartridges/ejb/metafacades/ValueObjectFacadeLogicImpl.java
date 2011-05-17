@@ -6,7 +6,6 @@ import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.ValueObjectFacade.
  *

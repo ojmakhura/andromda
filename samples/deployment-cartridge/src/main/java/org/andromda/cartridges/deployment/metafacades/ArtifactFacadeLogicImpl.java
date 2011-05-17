@@ -3,7 +3,6 @@ package org.andromda.cartridges.deployment.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.deployment.profile.DeploymentProfile;
 import org.andromda.cartridges.deployment.psm.ant.JarTaskCall;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -11,12 +10,11 @@ import org.andromda.metafacades.uml.DependencyFacade;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.deployment.metafacades.ArtifactFacade.
- * 
+ *
  * @see org.andromda.cartridges.deployment.metafacades.ArtifactFacade
  */
 public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
 {
-
     public ArtifactFacadeLogicImpl(
             org.omg.uml.foundation.core.Artifact metaObject, String context)
     {
@@ -42,9 +40,8 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
+     *
      * @see org.andromda.cartridges.deployment.metafacades.ArtifactFacadeLogic#handleGetTasksForCompilationPhase()
      */
     protected Collection handleGetTasksForCompilationPhase()
@@ -60,9 +57,8 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
+     *
      * @see org.andromda.cartridges.deployment.metafacades.ArtifactFacadeLogic#handleGetTasksForDeploymentPhase()
      */
     protected Collection handleGetTasksForDeploymentPhase()
@@ -82,5 +78,4 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
         result.add(taskCall);
         return result;
     }
-
 }

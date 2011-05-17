@@ -130,9 +130,9 @@ public class TranslationLibraryTestMojo
         {
             try
             {
-                // - initialize the AndroMDA logger instance     
+                // - initialize the AndroMDA logger instance
                 AndroMDALogger.initialize();
-                
+
                 this.getLog().info("--------------------------------------------------------------------------------");
                 this.getLog().info("  A n d r o M D A   T r a n s l a t i o n - L i b r a r y  T e s t   S u i t e  ");
                 this.getLog().info("--------------------------------------------------------------------------------");

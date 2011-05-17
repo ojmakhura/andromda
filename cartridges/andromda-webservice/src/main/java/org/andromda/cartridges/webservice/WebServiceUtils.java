@@ -2092,7 +2092,7 @@ public class WebServiceUtils
                 //}
                 GeneralizableElementFacade generalization = (GeneralizableElementFacade)type;
                 for (GeneralizableElementFacade spec : generalization.getSpecializations())
-                {                       
+                {
                     if (spec.getName().equals(type.getName() + "Impl"))
                     {
                         rtn = '(' + type.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";

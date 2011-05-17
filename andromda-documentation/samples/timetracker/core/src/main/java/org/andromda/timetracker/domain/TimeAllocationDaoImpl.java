@@ -26,7 +26,6 @@ public class TimeAllocationDaoImpl
         super.toTimeAllocationVO(source, target);
     }
 
-
     /**
      * @inheritDoc
      */
@@ -36,7 +35,6 @@ public class TimeAllocationDaoImpl
         // TODO verify behavior of toTimeAllocationVO
         return super.toTimeAllocationVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -58,7 +56,6 @@ public class TimeAllocationDaoImpl
         */
     }
 
-
     /**
      * @inheritDoc
      */
@@ -69,7 +66,6 @@ public class TimeAllocationDaoImpl
         this.timeAllocationVOToEntity(timeAllocationVO, entity, true);
         return entity;
     }
-
 
     /**
      * @inheritDoc
@@ -83,5 +79,4 @@ public class TimeAllocationDaoImpl
         // TODO verify behavior of timeAllocationVOToEntity
         super.timeAllocationVOToEntity(source, target, copyIfNull);
     }
-
 }

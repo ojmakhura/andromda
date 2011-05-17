@@ -29,7 +29,7 @@ public class ProjectWriter
 
     /**
      * Writes the .classpath file for Eclipse.
-     * @throws Exception 
+     * @throws Exception
      */
     public void write()
         throws Exception

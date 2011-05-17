@@ -21,7 +21,7 @@ public class TemplateParameterFacadeLogicImpl
     {
         super (metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.TemplateParameterFacade#getParameter()
      */

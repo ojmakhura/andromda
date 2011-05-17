@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Provides the ability to drop a schema from Hibernate
  * mapping files.

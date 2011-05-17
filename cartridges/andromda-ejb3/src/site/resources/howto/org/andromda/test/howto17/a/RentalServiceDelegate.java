@@ -20,7 +20,7 @@ public class RentalServiceDelegate
     {
         super();
     }
-    
+
     /**
      * Constructor setting the envirinment properties.
      *
@@ -30,7 +30,7 @@ public class RentalServiceDelegate
     {
         super(properties);
     }
-    
+
     /**
      * Gets an instance of {@link org.andromda.howto2.rental.RentalServiceRemote}
      */
@@ -39,7 +39,7 @@ public class RentalServiceDelegate
     {
         return org.andromda.howto2.ServiceLocator.getInstance().get_org_andromda_howto2_rental_RentalServiceBean_Remote(getProperties());
     }
-    
+
     /**
      * @see org.andromda.howto2.rental.RentalServiceBean#getAllCars()
      *

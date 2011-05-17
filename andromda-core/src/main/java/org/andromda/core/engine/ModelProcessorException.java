@@ -1,6 +1,5 @@
 package org.andromda.core.engine;
 
-
 /**
  * Any unchecked exception that will be thrown during the execution of the
  * ModelProcessor

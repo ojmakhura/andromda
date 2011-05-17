@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.camera;
  * Uncomment to enable webservices for CameraManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.camera.CameraManagerWSInterface")
  */
-public class CameraManagerBean 
-    extends org.andromda.demo.ejb3.camera.CameraManagerBase 
+public class CameraManagerBean
+    extends org.andromda.demo.ejb3.camera.CameraManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public CameraManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.camera.CameraManagerBase#addCamera(org.andromda.demo.ejb3.camera.Camera)
      */
@@ -57,5 +57,5 @@ public class CameraManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

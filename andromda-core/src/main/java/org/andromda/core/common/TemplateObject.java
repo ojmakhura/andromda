@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
-
 /**
  * Contains the configuration of a template object which are objects that are
  * made available to the cartridge templates.

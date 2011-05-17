@@ -145,7 +145,7 @@ public class $className
     /**
      * @see CriteriaSearch${esc.hash}executeAsList()
      */
-#if ($enableTemplating)
+#if ($enableAnnotations)
     @Override
 #end
     public java.util.List executeAsList()

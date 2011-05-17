@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
 public class XslTransformer
 {
     private String projectName;
-    
+
     /**
      * Default constructor
      *
@@ -45,21 +45,21 @@ public class XslTransformer
     {
         // Default constructor
     }
-    
+
     /**
-     * Constructor that sets the project name used to replace variable inside generated 
+     * Constructor that sets the project name used to replace variable inside generated
      * xdoc xml.
-     * 
+     *
      * @param projectNameIn
      */
     public XslTransformer(String projectNameIn)
     {
         this.projectName = projectNameIn;
     }
-    
+
     /**
      * Applies the given XSLT files to the model in the order in which they are found.
-     * 
+     *
      * @param xmlDocument The full path of the original XML
      * @param transformation The full path of the XSLT
      * @param outputLocation The full path of the output xdoc XML
@@ -78,10 +78,10 @@ public class XslTransformer
             throw new RuntimeException(exception);
         }
     }
-    
+
     /**
      * Applies the given XSLT files to the model in the order in which they are found.
-     * 
+     *
      * @param xmlDocument The full path of the original XML
      * @param xslt The URL of the XSLT
      * @param outputLocation The full path of the output xdoc XML
@@ -106,10 +106,10 @@ public class XslTransformer
                     transformer.transform(
                         xmlSource,
                         result);
-                    
+
                     final byte[] outputResult = output.toByteArray();
                     final org.dom4j.Document document = replaceVariableProperties(outputResult);
-                    
+
                     if (StringUtils.isNotBlank(outputLocation))
                     {
                         final File fileOutput = new File(outputLocation);
@@ -118,7 +118,7 @@ public class XslTransformer
                         {
                             parent.mkdirs();
                         }
-                        
+
                         XMLWriter writer = new XMLWriter(new FileWriter(fileOutput));
                         writer.write(document);
                         writer.flush();
@@ -203,7 +203,7 @@ public class XslTransformer
                 final String xmlResourceName = xmlResource.replaceAll(
                         ".*(\\+|/)",
                         "");
-                
+
                 InputStream inputStream = null;
                 URL uri = new File(StringUtils.replace(
                             xmlResource,
@@ -226,11 +226,11 @@ public class XslTransformer
             return source;
         }
     }
-    
+
     /**
      * Replace the variable property defined by %module% in the output generated
      * xdoc file.  Uses dom4j XPath to locate the variable.
-     * 
+     *
      * @param documentBuffer The byte array representing the xdoc XML
      * @return the org.dom4j.Document object of the xdoc XML
      * @throws Exception
@@ -240,7 +240,7 @@ public class XslTransformer
     {
         SAXReader reader = new SAXReader();
         org.dom4j.Document document = reader.read(new ByteArrayInputStream(documentBuffer));
-        
+
         // List elements = document.selectNodes("//*[contains(text(),'%module%')]");
         List<Element> elements = document.selectNodes("//*");
         for (final Element element : elements)
@@ -249,21 +249,21 @@ public class XslTransformer
             {
                 element.setText(
                         StringUtils.replace(
-                                element.getText(), 
-                                "%module%", 
+                                element.getText(),
+                                "%module%",
                                 this.getProjectName()));
             }
         }
         elements.clear();
-        
+
         elements = document.selectNodes("//*[contains(@*,'%module%')]");
         for (final Element element : elements)
         {
             element.addAttribute(
-                    "name", 
+                    "name",
                     StringUtils.replace(
-                            element.attributeValue("name"), 
-                            "%module%", 
+                            element.attributeValue("name"),
+                            "%module%",
                             this.getProjectName()));
         }
         return document;

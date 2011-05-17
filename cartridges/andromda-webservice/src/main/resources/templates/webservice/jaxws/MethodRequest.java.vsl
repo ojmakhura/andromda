@@ -20,9 +20,6 @@ package $service.packageName;
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-#if ($operation.parameters.size()>1)
-import javax.xml.bind.annotation.XmlElement;
-#end
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -46,7 +43,7 @@ public class $className
 #end
     implements Serializable, Comparable<Object>
 {
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 #if (!$useArrayWrapper && ($operation.upper>1 || $operation.upper==-1))
 #set ($returnType = "java.util.List<$operation.returnType.fullyQualifiedName>")
 #else
@@ -65,12 +62,12 @@ $parameter.getDocumentation("     * ")
      */
 #if (($paramType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($paramType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($paramType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($paramType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($paramType.equals("Decimal") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($paramType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
 ##set ($elementType=", type=String.class")
-    @XmlElement(#if ($parameter.required)required = true,#end type = String.class)
+    @javax.xml.bind.annotation.XmlElement(#if ($parameter.required)required = true,#end type = String.class)
     @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($paramType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($paramType.equals("Time"))${XMLTimeAdapter}#elseif($paramType.equals("Date"))${XMLDateAdapter}#elseif($paramType.equals("Integer"))${XMLIntegerAdapter}#elseif($paramType.equals("Decimal"))${XMLDecimalAdapter}#elseif($paramType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
 ##set ($schemaType=$operation.returnType.schemaType.substring(0,9))
     @javax.xml.bind.annotation.XmlSchemaType(name = "$parameter.type.schemaType.substring(3)")
 #else
-    @XmlElement(#if ($parameter.required)required = true#end)
+    @javax.xml.bind.annotation.XmlElement(#if ($parameter.required)required = true#end)
 #end
     protected $paramType $parameter.name#if ($parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
@@ -149,7 +146,7 @@ $parameter.getDocumentation("     * ")
         {
              return false;
         }
-#if ($operation.parameters.size()>1)
+#if (!$operation.arguments.empty)
         $className rhs = ($className) object;
 #end
         return new EqualsBuilder().appendSuper(super.equals(object))
@@ -173,7 +170,7 @@ $parameter.getDocumentation("     * ")
         {
             return -1;
         }
-#if ($operation.parameters.size()>1)
+#if (!$operation.arguments.empty)
         $className myClass = ($className) object;
 #end
         return new CompareToBuilder()

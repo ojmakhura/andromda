@@ -17,30 +17,29 @@ import org.apache.maven.shared.filtering.PropertyUtils;
 import org.codehaus.plexus.util.InterpolationFilterReader;
 
 /**
- * The abstract AndroMDAapp mojo (this should be extended by any Mojo that 
+ * The abstract AndroMDAapp mojo (this should be extended by any Mojo that
  * executes AndroMDApp.
- * 
+ *
  * @author Chad Brandon
  * @author Bob Fields
  */
 public abstract class AbstractAndroMDAppMojo
     extends AbstractMojo
 {
-    
     /**
      * The URI to an optional AndroMDApp configuration file.
      *
      * @parameter expression="${configuration.uri}"
      */
     private String configurationUri;
-    
+
     /**
      * @parameter expression="${project}"
      * @required
      * @readonly
      */
     private MavenProject project;
-    
+
     /**
      * The current user system settings for use in Maven. (allows us to pass the user
      * settings to the AndroMDA configuration).
@@ -55,7 +54,7 @@ public abstract class AbstractAndroMDAppMojo
      * @parameter expression="${project.build.filters}"
      */
     protected List<String> propertyFiles;
-    
+
     /**
      * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
@@ -64,7 +63,7 @@ public abstract class AbstractAndroMDAppMojo
     protected boolean skip;
 
     /**
-     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
      * @parameter expression="${skipTests}"
      */
@@ -78,16 +77,16 @@ public abstract class AbstractAndroMDAppMojo
     protected boolean testFailureIgnore;
 
     /**
-     * Whether or not processing should be skipped (this is if you want to completely skip code generation, i.e. if 
+     * Whether or not processing should be skipped (this is if you want to completely skip code generation, i.e. if
      * code is already generated and you are creating the site from already generated source code).
-     * 
+     *
      * @parameter expression="${andromdapp.run.skip}"
      */
     protected boolean skipProcessing = false;
 
     /**
      * Collects and returns all properties as a Properties instance.
-     * 
+     *
      * @return the properties including those from the project, settings, etc.
      * @throws IOException
      */
@@ -121,9 +120,9 @@ public abstract class AbstractAndroMDAppMojo
             final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)));
             properties.put(property, value);
         }
-        
+
         properties.putAll(System.getProperties());
-        
+
         return properties;
     }
 
@@ -134,17 +133,17 @@ public abstract class AbstractAndroMDAppMojo
      *
      * @param string the string to perform replacement on.
      * @return this.replaceProperties(this.getProperties(), string);
-     * @throws IOException 
+     * @throws IOException
      */
     protected String replaceProperties(final String string)
         throws IOException
     {
         return this.replaceProperties(this.getProperties(), string);
     }
-    
+
     /**
      * Retrieves the interpolated {@link #configurationUri} contents as a String.
-     * 
+     *
      * @return the contents of the configuration as a string.
      * @throws MojoExecutionException
      * @throws IOException
@@ -163,18 +162,18 @@ public abstract class AbstractAndroMDAppMojo
         }
         return contents;
     }
-    
+
     /**
-     * The begin token for interpolation (we need it different 
+     * The begin token for interpolation (we need it different
      * than what Maven uses so that Maven variables aren't replace).
      */
     private static final String BEGIN_TOKEN = "$${";
-    
+
     /**
      * The end token for interpolation.
      */
     private static final String END_TOKEN = "}";
-    
+
     /**
      * Replaces all properties having the style
      * <code>${some.property}</code> with the value

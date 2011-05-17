@@ -19,18 +19,18 @@ import org.andromda.demo.ejb3.account.AccountException;
  * Uncomment to enable webservices for VehicleManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.vehicle.VehicleManagerWSInterface")
  */
-public class VehicleManagerBean 
-    extends org.andromda.demo.ejb3.vehicle.VehicleManagerBase 
+public class VehicleManagerBean
+    extends org.andromda.demo.ejb3.vehicle.VehicleManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public VehicleManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.vehicle.VehicleManagerBase#addMotorcycle(org.andromda.demo.ejb3.vehicle.Motocycle)
      */
@@ -38,7 +38,7 @@ public class VehicleManagerBean
         throws java.lang.Exception
     {
         getMotocycleDao().create(mc);
-        
+
         // Test session bean injection
         insertAccount();
     }
@@ -46,22 +46,22 @@ public class VehicleManagerBean
     private void insertAccount()
     {
         System.out.println("Inserting account...");
-        
+
         Account account = new Account("test");
 
         try
         {
             accountManager.addAccount(account);
-        } 
+        }
         catch (AccountException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         System.out.println("Insert complete.");
     }
-    
+
     /**
      * @see org.andromda.demo.ejb3.vehicle.VehicleManagerBase#addCar(org.andromda.demo.ejb3.vehicle.Car)
      */
@@ -82,5 +82,5 @@ public class VehicleManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

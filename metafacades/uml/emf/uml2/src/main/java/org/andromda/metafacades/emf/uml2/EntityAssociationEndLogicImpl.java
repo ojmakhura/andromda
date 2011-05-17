@@ -222,7 +222,7 @@ public class EntityAssociationEndLogicImpl
     protected boolean handleIsIdentifiersPresent() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
-    
+
     /**
      * @return uniqueGroup
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getUniqueGroup()

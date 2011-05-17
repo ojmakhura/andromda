@@ -38,7 +38,7 @@ public class $service.serviceDelegateName
     /**
      * Gets an instance of {@link $service.fullyQualifiedServiceRemoteInterfaceName}
      */
-    private final ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}Remote()
+    private ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}Remote()
         throws javax.naming.NamingException
     {
         return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Remote(getProperties());
@@ -49,7 +49,7 @@ public class $service.serviceDelegateName
     /**
      * Gets an instance of {@link $service.fullyQualifiedServiceLocalInterfaceName}
      */
-    private final ${service.fullyQualifiedServiceLocalInterfaceName} get${service.name}Local()
+    private ${service.fullyQualifiedServiceLocalInterfaceName} get${service.name}Local()
         throws javax.naming.NamingException
     {
         return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Local(getProperties());

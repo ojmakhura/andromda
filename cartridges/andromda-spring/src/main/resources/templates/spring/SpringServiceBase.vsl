@@ -152,6 +152,9 @@ $attribute.getDocumentation("     * ")
     /**
      * {@inheritDoc}
      */
+#if ($enableAnnotations)
+    @Override
+#end
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause
@@ -160,7 +163,7 @@ $attribute.getDocumentation("     * ")
 #if ($requiredCheckEnabled)
 #foreach ($argument in $operation.arguments)
 #if ($argument.required && !$argument.type.primitive && !$attribute.static)
-#if (!$argument.type.stringType)
+#if (!$argument.type.stringType || $argument.many)
         if ($argument.name == null)
         {
             throw new IllegalArgumentException(
@@ -176,7 +179,7 @@ $attribute.getDocumentation("     * ")
 #if (!$argument.type.enumeration && !$argument.type.entityMetaType)
 #foreach ($attribute in $argument.type.getAttributes(true))
 #if ($attribute.required && !$attribute.type.primitive && !$attribute.static)
-#if (!$attribute.type.stringType)
+#if (!$attribute.type.stringType || $attribute.many)
         if (${argument.name}.get${stringUtils.capitalize($attribute.name)}() == null)
         {
             throw new IllegalArgumentException(

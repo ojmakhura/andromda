@@ -58,7 +58,7 @@ public class EnumerationFacadeLogicImpl
                 public boolean evaluate(Object object)
                 {
                     boolean isLiteral = true;
-                    final AttributeFacade attribute = (AttributeFacade)object; 
+                    final AttributeFacade attribute = (AttributeFacade)object;
                     if (attribute.isEnumerationMember())
                     {
                         isLiteral = false;
@@ -95,7 +95,7 @@ public class EnumerationFacadeLogicImpl
         );
         return variables;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationSignature()
      */
@@ -112,17 +112,17 @@ public class EnumerationFacadeLogicImpl
         }
         return signature.toString();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#isTypeSafe()
      */
     @Override
-    protected boolean handleIsTypeSafe() 
+    protected boolean handleIsTypeSafe()
     {
         return BooleanUtils.toBoolean(
                 String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.TYPE_SAFE_ENUMS_ENABLED)));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationName()
      */

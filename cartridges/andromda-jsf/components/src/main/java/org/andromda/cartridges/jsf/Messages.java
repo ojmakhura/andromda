@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
-
 /**
  * Provides access to the application resource messages.
  */

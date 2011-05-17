@@ -19,18 +19,18 @@ public abstract class PersonDaoBase
     implements org.andromda.howto2.rental.PersonDao
 {
     // ------ Session Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
 
     // ------ Persistence Context Injection --------
 
     /**
-     * Inject persistence context howtomodelcaching     
+     * Inject persistence context howtomodelcaching
      */
-    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")    
+    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")
     protected javax.persistence.EntityManager emanager;
-    
+
     /**
      * @see org.andromda.howto2.rental.PersonDao#load(int,)
      */
@@ -111,7 +111,7 @@ public abstract class PersonDaoBase
             throw new IllegalArgumentException(
                 "Person.create - 'person' can not be null");
         }
-        
+
         try
         {
             emanager.persist(person);

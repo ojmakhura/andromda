@@ -9,7 +9,6 @@ import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.ValidatorAction;
 
-
 /**
  * Retrieves and formats the validation messages.
  *

@@ -203,7 +203,7 @@ public class FileDownloadServlet
     /**
      * Stores the default content types.
      */
-    final static Properties CONTENT_TYPES = new Properties();
+    static final Properties CONTENT_TYPES = new Properties();
 
     /**
      * Load up the default content types

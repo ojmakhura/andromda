@@ -5,7 +5,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFControllerOperation.
  *
@@ -19,9 +18,9 @@ public class JSFControllerOperationLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFControllerOperationLogicImpl (Object metaObject, String context)
+    public JSFControllerOperationLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -74,32 +73,32 @@ public class JSFControllerOperationLogicImpl
         call.append(")");
         return call.toString();
     }
-    
+
     /**
      * @return getFormSignature(false)
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature()
     {
-       return this.getFormSignature(false);
+        return this.getFormSignature(false);
     }
-    
+
     /**
      * @return getFormSignature(true)
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormSignature()
      */
     protected String handleGetFormSignature()
     {
-       return this.getFormSignature(true);
+        return this.getFormSignature(true);
     }
-    
+
     /**
      * Constructs the signature that takes the form for this operation.
-     *  
+     *
      * @param isAbstract whether or not the signature is abstract.
      * @return the appropriate signature.
      */
-    private final String getFormSignature(boolean isAbstract)
+    private String getFormSignature(boolean isAbstract)
     {
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');

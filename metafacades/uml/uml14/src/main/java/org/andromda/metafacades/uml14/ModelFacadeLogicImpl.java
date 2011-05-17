@@ -187,7 +187,7 @@ public class ModelFacadeLogicImpl
         return this.metaObject.getStateMachines().getTransition().refAllOfType();
     }
 
-    private final static class ActionStateWithStereotypeFilter
+    private static final class ActionStateWithStereotypeFilter
         implements Predicate
     {
         private String stereotypeName = null;

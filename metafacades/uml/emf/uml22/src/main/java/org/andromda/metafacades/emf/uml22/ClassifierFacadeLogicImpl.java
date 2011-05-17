@@ -1120,7 +1120,7 @@ public class ClassifierFacadeLogicImpl
         if (this.getAbstractions() != null)
         {
             // TODO Changing from Iterator to for: causes ClassCastException casting DependencyFacadeLogicImpl to ClassifierFacade
-        	// TODO Change to handleGetAbstractions, look for target end of type Interface (not Classifier)
+            // TODO Change to handleGetAbstractions, look for target end of type Interface (not Classifier)
             for (Iterator<ClassifierFacade> abstractionIterator = this.getAbstractions().iterator(); abstractionIterator.hasNext();)
             {
                 Object obj = abstractionIterator.next();

@@ -1,11 +1,9 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
 
 /**
  * Provides the undeployment of applications from a given directory.

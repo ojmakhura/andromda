@@ -25,7 +25,7 @@ public class EntityQueryOperationLogicImpl
     }
 
     /**
-     * @param translation 
+     * @param translation
      * @return query
      * @see org.andromda.metafacades.uml.EntityQueryOperation#getQuery(String)
      */

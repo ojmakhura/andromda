@@ -136,8 +136,6 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
      *
      * @exception IOException
      *                if an input or output exception occurred
-     *
-     *
      */
     public void print(float f) throws IOException {
         print(String.valueOf(f));
@@ -153,7 +151,6 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
      *
      * @exception IOException
      *                if an input or output exception occurred
-     *
      */
     public void print(double d) throws IOException {
         print(String.valueOf(d));
@@ -162,11 +159,7 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
     /**
      * Writes a carriage return-line feed (CRLF) to the client.
      *
-     *
-     *
-     * @exception IOException
-     *                if an input or output exception occurred
-     *
+     * @exception IOException if an input or output exception occurred
      */
     public void println() throws IOException {
         print("\r\n");
@@ -177,11 +170,9 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
      * return-line feed (CRLF).
      *
      *
-     * @param s
-     *            the <code>String</code> to write to the client
+     * @param s the <code>String</code> to write to the client
      *
-     * @exception IOException
-     *                if an input or output exception occurred
+     * @exception IOException if an input or output exception occurred
      *
      */
     public void println(String s) throws IOException {
@@ -194,12 +185,8 @@ public class ServletOutputStreamWrapper extends ServletOutputStream {
      * Writes a <code>boolean</code> value to the client, followed by a
      * carriage return-line feed (CRLF).
      *
-     *
-     * @param b
-     *            the <code>boolean</code> value to write to the client
-     *
-     * @exception IOException
-     *                if an input or output exception occurred
+     * @param b the <code>boolean</code> value to write to the client
+     * @exception IOException if an input or output exception occurred
      *
      */
     public void println(boolean b) throws IOException {

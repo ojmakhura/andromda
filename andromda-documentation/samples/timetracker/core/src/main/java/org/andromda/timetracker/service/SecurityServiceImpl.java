@@ -14,7 +14,6 @@ import org.andromda.timetracker.vo.UserDetailsVO;
 public class SecurityServiceImpl
     extends SecurityServiceBase
 {
-
     /**
      * @see org.andromda.timetracker.service.SecurityService#getUserDetails(java.lang.String)
      */

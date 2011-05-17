@@ -16,8 +16,8 @@ public class SpringEntityOperationLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringEntityOperationLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation
      */
     public SpringEntityOperationLogicImpl(Object metaObject, String context)

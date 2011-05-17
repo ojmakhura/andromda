@@ -17,8 +17,8 @@ class NumberComparator
     /**
      * Used to sort Number values, both objects are assumed
      * to be Number instances.
-     * @param objectA 
-     * @param objectB 
+     * @param objectA
+     * @param objectB
      * @return compare result
      */
     public int compare(

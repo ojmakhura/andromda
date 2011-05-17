@@ -161,7 +161,7 @@ public class MetafacadeUtils
     /**
      * Used to sort operations by <code>fullyQualifiedName</code>.
      */
-    private final static class FullyQualifiedNameComparator
+    private static final class FullyQualifiedNameComparator
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();
@@ -234,7 +234,7 @@ public class MetafacadeUtils
      * Creates a typed argument list with the given <code>arguments</code>.  If the <code>withArgumentNames</code>
      * flag is true, the argument names are included in the list.
      *
-     * @param name 
+     * @param name
      * @param arguments the arguments from which to create the list.
      * @param withArgumentNames whether or not to include the argument names.
      * @param argumentModifier
@@ -264,7 +264,7 @@ public class MetafacadeUtils
      * (must be a valid Java identifier). Used for backwards compatibility with UML14 conventions.
      * For example, @andromda.whatever becomes andromda_whatever.
      *
-     * @param name 
+     * @param name
      * @return getTypedArgumentList(arguments, withArgumentNames, argumentModifier)
      */
     public static String getEmfTaggedValue(String name)
@@ -286,7 +286,7 @@ public class MetafacadeUtils
      * Used for backwards compatibility with UML14 conventions.
      * For example, andromda_whatever becomes @andromda.whatever.
      *
-     * @param name 
+     * @param name
      * @return getTypedArgumentList(arguments, withArgumentNames, argumentModifier)
      */
     public static String getUml14TaggedValue(String name)
@@ -312,7 +312,7 @@ public class MetafacadeUtils
      * The value should be stable as long as the classifier remains unchanged
      * and should change as soon as there is any change in the signature of the
      * classifier.
-     * @param object 
+     * @param object
      *
      * @return the serial version UID of this classifier.
      */

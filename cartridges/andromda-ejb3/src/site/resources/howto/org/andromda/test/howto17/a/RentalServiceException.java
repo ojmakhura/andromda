@@ -14,8 +14,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class RentalServiceException
     extends java.lang.RuntimeException
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = 7590515959674003678L;
 

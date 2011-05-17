@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.ticket;
  * Uncomment to enable webservices for TicketManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.ticket.TicketManagerWSInterface")
  */
-public class TicketManagerBean 
-    extends org.andromda.demo.ejb3.ticket.TicketManagerBase 
+public class TicketManagerBean
+    extends org.andromda.demo.ejb3.ticket.TicketManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public TicketManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.ticket.TicketManagerBase#addEmailTicket(org.andromda.demo.ejb3.ticket.EmailTicket)
      */
@@ -48,5 +48,5 @@ public class TicketManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

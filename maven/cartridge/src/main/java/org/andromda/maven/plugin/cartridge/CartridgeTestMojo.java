@@ -149,7 +149,7 @@ public class CartridgeTestMojo
                 this.getLog().info("Results:");
                 this.getLog().info(formatter.endTestSuite(suite));
                 cartridgeTest.shutdown();
-                
+
                 if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
                     if (this.testFailureIgnore)

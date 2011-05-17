@@ -4,7 +4,6 @@ import java.util.Iterator;
 import org.eclipse.uml2.Action;
 import org.eclipse.uml2.Activity;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ActionStateFacade.

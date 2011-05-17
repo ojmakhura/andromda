@@ -96,5 +96,5 @@ public class EmxArchiverMojo
         {
             throw new MojoExecutionException("Error assembling model", throwable);
         }
-    }    
+    }
 }

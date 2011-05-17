@@ -9,7 +9,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
-
 /**
  * This is the logger used to write <em>AndroMDA</em> prefixed messages so that our informational logging is nice
  * looking.

@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import org.eclipse.uml2.Include;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.IncludeFacade.
  *

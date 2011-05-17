@@ -8,7 +8,7 @@ package org.andromda.howto2.rental;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * 
+ *
  */
 public class RentalException
     extends java.lang.Exception

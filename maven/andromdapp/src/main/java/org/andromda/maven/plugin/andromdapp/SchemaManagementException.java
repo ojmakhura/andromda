@@ -3,7 +3,7 @@ package org.andromda.maven.plugin.andromdapp;
 /**
  * An exception that is thrown when an unexpected error
  * occurs during execution of a SchemaManagement instance.
- * 
+ *
  * @author Chad Brandon
  */
 public class SchemaManagementException

@@ -424,8 +424,8 @@ public class HtmlPopupFrame
             final ValueBinding binding = this.getValueBinding("actionClose");
             if (binding != null)
             {
-	            this.actionClose = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
-	            		binding.getExpressionString(), new Class[0]);
+                this.actionClose = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
+                        binding.getExpressionString(), new Class[0]);
             }
         }
         return this.actionClose;
@@ -449,8 +449,8 @@ public class HtmlPopupFrame
             final ValueBinding binding = this.getValueBinding("actionOpen");
             if (binding != null)
             {
-	            this.actionOpen = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
-	            		binding.getExpressionString(), new Class[0]);
+                this.actionOpen = FacesContext.getCurrentInstance().getApplication().createMethodBinding(
+                        binding.getExpressionString(), new Class[0]);
             }
         }
         return this.actionOpen;

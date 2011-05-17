@@ -74,7 +74,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
             this.signed = signed;
             this.id = id;
         }
-        
+
         public void setContractNo(String contractNo)
         {
             this.contractNo = contractNo;
@@ -84,7 +84,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.contractNo;
         }
-        
+
         public void setSigned(String signed)
         {
             this.signed = signed;
@@ -94,7 +94,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.signed;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -104,6 +104,5 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.id;
         }
-        
     }
 }

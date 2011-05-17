@@ -100,8 +100,8 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
-     * @param prefix 
-     * @param name 
+     * @param prefix
+     * @param name
      * @return returnValue prefix + this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + name
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(String, String)
      */
@@ -170,7 +170,7 @@ public class HibernateEntityAttributeLogicImpl
                                                     (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE));
     }
 
-    private boolean persistIDAsAttribute() 
+    private boolean persistIDAsAttribute()
     {
         boolean persistAsAttribute = true;
         String prop = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE_ID_AS_ATTRIBUTE);
@@ -184,7 +184,7 @@ public class HibernateEntityAttributeLogicImpl
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleGetXmlTagName()
      */
     @Override
-    protected String handleGetXmlTagName() 
+    protected String handleGetXmlTagName()
     {
         String tagName = null;
 
@@ -208,7 +208,7 @@ public class HibernateEntityAttributeLogicImpl
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleGetFullyQualifiedHibernateType()
      */
     @Override
-    protected String handleGetFullyQualifiedHibernateType() 
+    protected String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName;
 
@@ -240,6 +240,6 @@ public class HibernateEntityAttributeLogicImpl
             fullyQualifiedName = JavaTypeConverter.getJavaLangTypeName(fullyQualifiedName);
         }
 
-        return fullyQualifiedName; 
+        return fullyQualifiedName;
     }
 }

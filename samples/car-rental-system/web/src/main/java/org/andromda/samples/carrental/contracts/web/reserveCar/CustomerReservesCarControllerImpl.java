@@ -79,7 +79,7 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
             this.comfortClass = comfortClass;
             this.idReservation = idReservation;
         }
-        
+
         public void setReservationDate(String reservationDate)
         {
             this.reservationDate = reservationDate;
@@ -89,7 +89,7 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
         {
             return this.reservationDate;
         }
-        
+
         public void setComfortClass(String comfortClass)
         {
             this.comfortClass = comfortClass;
@@ -99,7 +99,7 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
         {
             return this.comfortClass;
         }
-        
+
         public void setIdReservation(String idReservation)
         {
             this.idReservation = idReservation;
@@ -109,6 +109,6 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
         {
             return this.idReservation;
         }
-        
+
     }
 }

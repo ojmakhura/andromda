@@ -54,7 +54,7 @@ public class ParameterFacadeLogicImpl
         {
             name = StringUtilsHelper.pluralize(name);
         }*/
-        
+
         return name;
     }
 
@@ -358,7 +358,7 @@ public class ParameterFacadeLogicImpl
      */
     protected int handleGetLower()
     {
-        if (!this.hasStereotype("Nullable") 
+        if (!this.hasStereotype("Nullable")
             && this.getType().isPrimitive())
         {
             return 1;

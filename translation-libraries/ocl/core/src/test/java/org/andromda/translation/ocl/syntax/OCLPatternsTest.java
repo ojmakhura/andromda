@@ -11,7 +11,7 @@ public class OCLPatternsTest
         extends TestCase
 {
     /**
-     * 
+     *
      */
     public void testIsCollectionOperationResultNavigationalPath()
     {

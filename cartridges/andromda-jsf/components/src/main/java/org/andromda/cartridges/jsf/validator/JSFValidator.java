@@ -337,7 +337,7 @@ public class JSFValidator
     /**
      * Retrieves an error message, using the validator's message combined with
      * the errant value.
-     * @param context 
+     * @param context
      * @return ValidatorMessages.getMessage
      */
     public String getErrorMessage(final FacesContext context)

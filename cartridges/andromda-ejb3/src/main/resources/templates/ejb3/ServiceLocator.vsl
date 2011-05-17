@@ -39,7 +39,7 @@ public class $serviceLocatorName
      *
      * @return the shared service locator instance.
      */
-    public final static $serviceLocatorName getInstance()
+    public static final $serviceLocatorName getInstance()
     {
         if (instance == null)
         {

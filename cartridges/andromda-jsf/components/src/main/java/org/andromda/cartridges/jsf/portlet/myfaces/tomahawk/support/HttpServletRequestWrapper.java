@@ -218,6 +218,7 @@ implements HttpServletRequest
      * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
      * @deprecated
      */
+    @Deprecated
     public boolean isRequestedSessionIdFromUrl()
     {
         return false;
@@ -363,6 +364,7 @@ implements HttpServletRequest
      * @see javax.servlet.ServletRequest#getRealPath(String)
      * @deprecated
      */
+    @Deprecated
     public String getRealPath(final String arg0)
     {
         return null;

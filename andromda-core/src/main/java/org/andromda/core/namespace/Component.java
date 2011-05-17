@@ -3,9 +3,7 @@ package org.andromda.core.namespace;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-
 import org.andromda.core.common.ClassUtils;
-
 
 /**
  * Stores information about a namespace component.

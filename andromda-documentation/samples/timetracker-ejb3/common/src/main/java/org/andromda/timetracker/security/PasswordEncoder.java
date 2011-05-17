@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.andromda.timetracker.security;
 
@@ -19,7 +19,7 @@ public class PasswordEncoder
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
-    public static String getMD5Base64EncodedPassword(String plaintext) 
+    public static String getMD5Base64EncodedPassword(String plaintext)
         throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
         MessageDigest md = MessageDigest.getInstance("MD5");

@@ -9,7 +9,6 @@ import junit.framework.TestCase;
  */
 public class OCLIntrospectorTest extends TestCase
 {
-
     private OCLIntrospectorTestObject object = new OCLIntrospectorTestObject();
 
     /**

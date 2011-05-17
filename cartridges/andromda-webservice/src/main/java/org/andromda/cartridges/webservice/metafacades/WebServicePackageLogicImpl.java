@@ -78,6 +78,10 @@ public class WebServicePackageLogicImpl
      */
     static final String REVERSE_NAMESPACE = "reverseNamespace";
     /**
+     * Backslash char /
+     */
+    static final String BACKSLASH = "/";
+    /**
      *
      * @return findTaggedValue(WebServiceGlobals.XML_NAMESPACE) or REVERSE_NAMESPACE
      * @see org.andromda.cartridges.webservice.metafacades.WebServicePackage#getNamespace()
@@ -95,6 +99,11 @@ public class WebServicePackageLogicImpl
             namespace = MessageFormat.format(
                 namespacePattern,
                 new Object[] {StringUtils.trimToEmpty(namespace)});
+            Boolean addNamespaceBackslash = Boolean.valueOf((String)this.getConfiguredProperty(WebServiceGlobals.ADD_NAMESPACE_BACKSLASH));
+            if (addNamespaceBackslash && !namespace.endsWith(BACKSLASH))
+            {
+                namespace += BACKSLASH;
+            }
         }
         return namespace;
     }
@@ -106,16 +115,28 @@ public class WebServicePackageLogicImpl
     protected String handleGetXmlns()
     {
         WebServiceUtils utils = new WebServiceUtils();
-        String namespace = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
-        if (StringUtils.isEmpty(namespace))
+        String abbr = (String)this.findTaggedValue(WebServiceGlobals.XML_XMLNS);
+        if (StringUtils.isEmpty(abbr))
         {
-            namespace = utils.getPkgAbbr(this);
+            abbr = utils.getPkgAbbr(this);
         }
         else
         {
-            utils.addPkgAbbr(this, namespace);
+            utils.addPkgAbbr(this, abbr);
         }
-        return namespace;
+        return abbr;
+    }
+
+    /**
+     * @return findTaggedValue(WebServiceGlobals.XML_XMLNS) or WebServiceUtils.getPkgAbbr(this)
+     * @see org.andromda.cartridges.webservice.WebServiceUtils#getPkgAbbr(PackageFacade)
+     */
+    protected String handleGetSchemaLocation()
+    {
+        String packageNamespace = this.getNamespace().substring(7) + ".xsd";
+        packageNamespace = StringUtils.replaceChars(packageNamespace, "/\\", ".");
+        packageNamespace = "xsd/" + StringUtils.replace(packageNamespace, "..", ".");
+        return packageNamespace;
     }
 
     /**

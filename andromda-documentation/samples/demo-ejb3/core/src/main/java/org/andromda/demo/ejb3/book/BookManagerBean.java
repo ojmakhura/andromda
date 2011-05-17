@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.book;
  * Uncomment to enable webservices for BookManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.book.BookManagerWSInterface")
  */
-public class BookManagerBean 
-    extends org.andromda.demo.ejb3.book.BookManagerBase 
+public class BookManagerBean
+    extends org.andromda.demo.ejb3.book.BookManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public BookManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.book.BookManagerBase#getAllBooks()
      */
@@ -39,5 +39,5 @@ public class BookManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

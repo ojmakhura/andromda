@@ -139,7 +139,7 @@ public class FrontEndActionStateLogicImpl
         }
         return new ArrayList<FrontEndExceptionHandler>(exceptions);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
      */

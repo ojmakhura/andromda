@@ -1,9 +1,7 @@
 package org.andromda.core.repository;
 
 import java.io.InputStream;
-
 import org.andromda.core.metafacade.ModelAccessFacade;
-
 
 /**
  * An interface for objects responsible for being a repository into which an object model can be loaded.

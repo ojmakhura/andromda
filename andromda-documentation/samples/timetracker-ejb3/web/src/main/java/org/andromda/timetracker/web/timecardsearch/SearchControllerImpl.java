@@ -22,10 +22,10 @@ public class SearchControllerImpl
     extends SearchController
 {
     private static final long serialVersionUID = 1465722497189650491L;
-    
+
     private Log logger = LogFactory.getLog(SearchControllerImpl.class);
     private static final String ALL_STRING = "-- All --";
-    
+
     /**
      * @see org.andromda.timetracker.web.timecardsearch.SearchController#populateSearchScreen(java.lang.Long submitter, java.lang.Long approver, java.lang.String status, java.util.Date startDateMinimum, java.util.Date startDateMaximum)
      */
@@ -37,13 +37,13 @@ public class SearchControllerImpl
 //        form.setApproverLabelList(form.getApproverValueList());
 //        form.setStatusValueList(new Object[] {"status-1", "status-2", "status-3", "status-4", "status-5"});
 //        form.setStatusLabelList(form.getStatusValueList());
-        
-        
+
+
         if (logger.isDebugEnabled())
         {
             logger.debug("form: " + form);
         }
-        
+
         // Get the list of users and add the "All" option at the top
         UserVO[] users = null;
         UserServiceDelegate usd = null;
@@ -56,18 +56,18 @@ public class SearchControllerImpl
         {
             usd.close();
         }
-        
+
         if (users != null)
         {
             Arrays.sort(users, new UserVOComparator());
             List userList = new ArrayList(Arrays.asList(users));
             userList.add(0, new UserVO(Long.valueOf(0), ALL_STRING, null, null));
-            
+
             // Populate the submitter and approver dropdowns
             form.setSubmitterBackingList(userList, "id", "username");
             form.setApproverBackingList(userList, "id", "username");
         }
-        
+
         // Populate the status dropdown
         List statusLabels = new ArrayList(TimecardStatus.literals());
         List statusValues = new ArrayList(TimecardStatus.literals());
@@ -81,7 +81,7 @@ public class SearchControllerImpl
         {
             status = TimecardStatus.fromString(form.getStatus());
         }
-        
+
         // Populate timecard summaries
         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(
                 form.getSubmitter(),
@@ -89,7 +89,7 @@ public class SearchControllerImpl
                 status,
                 form.getStartDateMinimum(),
                 form.getStartDateMaximum());
-        
+
         TimeTrackingServiceDelegate tsd = null;
         try
         {
@@ -114,5 +114,5 @@ public class SearchControllerImpl
     {
         form.setTimecardId(form.getId());
     }
-    
+
 }

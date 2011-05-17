@@ -35,7 +35,7 @@ public class HibernateCreateSchema
         arguments.add("--output=" + outputPath);
         arguments.add("--text");
         arguments.add("--quiet");
-        arguments.add("--create"); //don't generate drop statements (the HibernateDropSchema does this) 
+        arguments.add("--create"); //don't generate drop statements (the HibernateDropSchema does this)
     }
 
     /**

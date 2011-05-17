@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.DependencyFacade.

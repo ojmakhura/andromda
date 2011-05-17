@@ -8,9 +8,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import java.net.URL;
 
 /**
- * The AndroMDAapp mojo (this should be extended by any Mojo that 
+ * The AndroMDAapp mojo (this should be extended by any Mojo that
  * executes AndroMDApp.
- * 
+ *
  * @author Chad Brandon
  * @goal generate
  * @requiresProject false

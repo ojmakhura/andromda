@@ -80,7 +80,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the metafacade name.
-     * 
+     *
      * @return the name of the metafacade
      */
     public String getMetafacadeName()
@@ -90,7 +90,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the name of the method.
-     * 
+     *
      * @return the name.
      */
     public String getName()
@@ -100,7 +100,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the name of the return type for this method.
-     * 
+     *
      * @return the return type name.
      */
     public String getReturnTypeName()
@@ -110,7 +110,7 @@ public class MethodData implements Comparable
 
     /**
      * Builds a string representing a declaration for this method.
-     * 
+     *
      * @param suppressAbstractDeclaration
      *            optionally suppress the "abstract" modifier
      * @return String the declaration
@@ -188,7 +188,7 @@ public class MethodData implements Comparable
 
     /**
      * Builds a string representing a call to the method.
-     * 
+     *
      * @return String how a call would look like
      */
     public String buildMethodCall()
@@ -209,9 +209,9 @@ public class MethodData implements Comparable
     }
 
     /**
-     * Builds a signature which can be used as a key into a map. Consists of the methodName, number of arguments, 
+     * Builds a signature which can be used as a key into a map. Consists of the methodName, number of arguments,
      * return type, the name and the f.q. types of the arguments.
-     * 
+     *
      * @return String the key that identifies this method
      */
     public String buildCharacteristicKey()
@@ -234,7 +234,7 @@ public class MethodData implements Comparable
 
     /**
      * Indicates whether or not this method is abstract.
-     * 
+     *
      * @return true/false
      */
     public boolean isAbstract()
@@ -244,7 +244,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the visibility of this method.
-     * 
+     *
      * @return the visibility.
      */
     public String getVisibility()
@@ -254,7 +254,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the documentation for this method.
-     * 
+     *
      * @return the documentation.
      */
     public String getDocumentation()
@@ -264,7 +264,7 @@ public class MethodData implements Comparable
 
     /**
      * Tells if this method returns something.
-     * 
+     *
      * @return boolean
      */
     public boolean isReturnTypePresent()

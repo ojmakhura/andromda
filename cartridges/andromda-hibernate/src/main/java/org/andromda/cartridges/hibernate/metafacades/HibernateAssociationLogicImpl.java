@@ -3,7 +3,6 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateAssociation.

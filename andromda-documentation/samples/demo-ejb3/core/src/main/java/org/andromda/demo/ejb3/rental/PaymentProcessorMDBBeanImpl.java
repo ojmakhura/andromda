@@ -13,12 +13,12 @@ public class PaymentProcessorMDBBeanImpl
 
 
     // --------- Default Constructor ----------
-    
+
     public PaymentProcessorMDBBeanImpl()
     {
         super();
     }
-    
+
     /**
      * MessageListener callback on arrival of a JMS message
      *
@@ -29,13 +29,13 @@ public class PaymentProcessorMDBBeanImpl
         try
         {
             System.out.println("Received new message: " + message.getJMSTimestamp());
-            
+
             ObjectMessage msg = null;
             if (message != null && message instanceof ObjectMessage)
             {
                 msg = (ObjectMessage)message;
                 RentalCar car = (RentalCar)msg.getObject();
-                
+
                 if (car != null)
                 {
                     System.out.println("Message = " + car.getId() + ", " + car.getSerial() + ", " + car.getName());

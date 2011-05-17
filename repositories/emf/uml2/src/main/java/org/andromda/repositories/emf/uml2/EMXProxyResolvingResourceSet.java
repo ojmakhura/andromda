@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
  * created by Rational Software Modeler. RSM uses a special syntax
  * (e.g. "resource.emx#someXmiId?someNonstandardString") that cannot
  * be resolved by standard EMF resource sets.
- * 
+ *
  * @author Matthias Bohlen
  *
  */

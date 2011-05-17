@@ -39,7 +39,7 @@ public class JSFValidatorComponent
     private static final Log logger = LogFactory.getLog(JSFValidatorComponent.class);
 
     /**
-     * 
+     *
      */
     public JSFValidatorComponent()
     {
@@ -103,12 +103,14 @@ public class JSFValidatorComponent
 
     private Object getContextAttribute(final String attributeName)
     {
-        return ComponentUtils.getAttribute(FacesContext.getCurrentInstance().getExternalContext().getContext(), attributeName);
+        return ComponentUtils.getAttribute(FacesContext.getCurrentInstance()
+            .getExternalContext().getContext(), attributeName);
     }
 
     private void setContextAttribute(final String attributeName, final String attributeValue)
     {
-        ComponentUtils.setAttribute(FacesContext.getCurrentInstance().getExternalContext().getContext(), attributeName, attributeValue);
+        ComponentUtils.setAttribute(FacesContext.getCurrentInstance()
+            .getExternalContext().getContext(), attributeName, attributeValue);
     }
 
     /**
@@ -235,7 +237,7 @@ public class JSFValidatorComponent
      * Indicates whether or not the JSFValidator instance is present and if so returns true.
      *
      * @param valueHolder the value holder on which to check if its present.
-     * @param validator 
+     * @param validator
      * @return true/false
      */
     private boolean validatorPresent(EditableValueHolder valueHolder, final Validator validator)
@@ -529,7 +531,7 @@ public class JSFValidatorComponent
      * writes out JavaScript code to invoke those validators, in turn.
      *
      * @param context The FacesContext for this request
-     * @throws IOException 
+     * @throws IOException
      */
     public void encodeBegin(final FacesContext context)
         throws IOException

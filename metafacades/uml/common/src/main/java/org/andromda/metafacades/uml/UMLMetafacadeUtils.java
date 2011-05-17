@@ -30,7 +30,7 @@ public class UMLMetafacadeUtils
     /**
      * Returns true or false depending on whether or not this Classifier or any of its specializations is of the given
      * type having the specified <code>typeName</code>
-     * @param classifier 
+     * @param classifier
      * @param typeName the name of the type (i.e. datatype::Collection)
      * @return true/false
      */
@@ -73,7 +73,7 @@ public class UMLMetafacadeUtils
         }
         return isType;
     }
-    
+
     // TODO: Move this to an external configuration. Distinguish between Java, C# reserved words.
     private static List<String> reservedWords = new ArrayList<String>();
     private static void populateReservedWords()
@@ -210,7 +210,7 @@ public class UMLMetafacadeUtils
 
     /**
      * Gets the getter prefix for a getter operation given the <code>type</code>.
-     * 
+     *
      * @param type the type from which to determine the prefix.
      * @return the getter prefix.
      */
@@ -218,11 +218,11 @@ public class UMLMetafacadeUtils
     {
         return type != null && type.isBooleanType() && type.isPrimitive() ? "is" : "get";
     }
-    
+
     /**
      * Gets the getter prefix for a getter operation given the <code>type</code>,
      * taking multiplicity into account for booleans
-     * 
+     *
      * @param type the type from which to determine the prefix.
      * @param lowerBound If > 0 then type is not optional, thus primitive isBoolean()
      * @return the getter prefix.
@@ -253,7 +253,7 @@ public class UMLMetafacadeUtils
      * Transforms the declared type to implementation type for a declared Collection.
      * Default: Collection=LinkedList, List=ArrayList, Set=HashSet, SortedSet=TreeSet.
      * Retains the generics and package in the template declaration, if any
-     * 
+     *
      * @param input the declared Collection type to be transformed into an implementation type
      * @return the Collection implementation declaration.
      */
@@ -272,27 +272,27 @@ public class UMLMetafacadeUtils
                 //implCollection.put("Map", "HashMap");
                 //implCollection.put("SortedMap", "TreeMap");
                 implCollection.put(UMLProfile.COLLECTION_TYPE_NAME.substring(
-                        UMLProfile.COLLECTION_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.COLLECTION_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.COLLECTION_IMPL_TYPE_NAME.substring(
                         UMLProfile.COLLECTION_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.LIST_TYPE_NAME.substring(
-                        UMLProfile.LIST_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.LIST_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.LIST_IMPL_TYPE_NAME.substring(
                         UMLProfile.LIST_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.MAP_TYPE_NAME.substring(
-                        UMLProfile.MAP_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.MAP_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.MAP_IMPL_TYPE_NAME.substring(
                         UMLProfile.MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.ORDERED_MAP_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_MAP_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.ORDERED_MAP_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.substring(
                         UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.ORDERED_SET_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_SET_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.ORDERED_SET_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.substring(
                         UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.SET_TYPE_NAME.substring(
-                        UMLProfile.SET_TYPE_NAME.lastIndexOf(':')+1), 
+                        UMLProfile.SET_TYPE_NAME.lastIndexOf(':')+1),
                     UMLProfile.SET_IMPL_TYPE_NAME.substring(
                         UMLProfile.SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
             }
@@ -372,8 +372,8 @@ public class UMLMetafacadeUtils
                 if (pkg != null &&
                     ( pkg.hasStereotype(UMLProfile.STEREOTYPE_DOC_ONLY) ||
                     pkg.hasStereotype(UMLProfile.STEREOTYPE_FUTURE) ||
-                    pkg.hasStereotype(UMLProfile.STEREOTYPE_IGNORE) || 
-                    pkg.hasStereotype("analysis") || 
+                    pkg.hasStereotype(UMLProfile.STEREOTYPE_IGNORE) ||
+                    pkg.hasStereotype("analysis") ||
                     pkg.hasStereotype("perspective") ||
                     // Verify package does not have any Java disallowed characters
                     StringUtils.containsAny(pkg.getName(), " `~!@#%^&*()-+={}[]:;<>,?/|") ||
@@ -394,8 +394,8 @@ public class UMLMetafacadeUtils
     /**
      * Get the classname without the package name and without additional template<> parameters.
      *
-     * @param facade 
-     * @param enableTemplating 
+     * @param facade
+     * @param enableTemplating
      * @return getNameWithoutPackage
      */
     // TODO This should really be a method on ModelElementFacade
@@ -411,7 +411,7 @@ public class UMLMetafacadeUtils
     /**
      * Get the classname without the package name and without additional template<> parameters.
      *
-     * @param facade 
+     * @param facade
      * @param className Class name to use in the class declaration, overrides facade.getName()
      * @param enableTemplating Whether template declaration should be created.
      * @return getNameWithoutPackage
@@ -488,8 +488,8 @@ public class UMLMetafacadeUtils
     /**
      * Get the generic template<?, ?> declaration.
      *
-     * @param facade 
-     * @param enableTemplating 
+     * @param facade
+     * @param enableTemplating
      * @return getGenericTemplate
      */
     // TODO This should really be a method on ModelElementFacade
@@ -530,7 +530,7 @@ public class UMLMetafacadeUtils
     /**
      * Get the fully-qualified classname without the additional template<> parameters.
      *
-     * @param facade 
+     * @param facade
      * @return getFQNameWithoutTemplate
      */
     // TODO This should really be a method on ModelElementFacade

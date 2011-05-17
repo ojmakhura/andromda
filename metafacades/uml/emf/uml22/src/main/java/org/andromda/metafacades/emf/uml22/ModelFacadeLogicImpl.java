@@ -61,7 +61,7 @@ public class ModelFacadeLogicImpl
         UseCaseFacade useCaseWithTaggedValue = null;
 
         Collection<UseCaseFacade> useCases = this.getAllUseCases();
-        for (final Iterator<UseCaseFacade> useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() 
+        for (final Iterator<UseCaseFacade> useCaseIterator = useCases.iterator(); useCaseIterator.hasNext()
             && useCaseWithTaggedValue == null;)
         {
             UseCaseFacade useCase = useCaseIterator.next();
@@ -98,7 +98,7 @@ public class ModelFacadeLogicImpl
         ClassifierFacade classWithTaggedValue = null;
 
         Collection<ClassifierFacade> classes = this.getAllClasses();
-        for (final Iterator<ClassifierFacade> classIterator = classes.iterator(); classIterator.hasNext() 
+        for (final Iterator<ClassifierFacade> classIterator = classes.iterator(); classIterator.hasNext()
             && classWithTaggedValue == null;)
         {
             ClassifierFacade clazz = classIterator.next();

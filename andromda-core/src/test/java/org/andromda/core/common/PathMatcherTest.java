@@ -11,7 +11,7 @@ public class PathMatcherTest
     extends TestCase
 {
     /**
-     * 
+     *
      */
     public void testWildcardMatch()
     {

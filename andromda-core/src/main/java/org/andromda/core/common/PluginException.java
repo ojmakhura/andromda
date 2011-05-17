@@ -1,6 +1,5 @@
 package org.andromda.core.common;
 
-
 /**
  * This exception is thrown when an unexpected exception occurs when plugin processing occurs.
  *

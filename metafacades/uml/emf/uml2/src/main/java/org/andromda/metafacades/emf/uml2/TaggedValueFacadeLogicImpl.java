@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.TaggedValueFacade.

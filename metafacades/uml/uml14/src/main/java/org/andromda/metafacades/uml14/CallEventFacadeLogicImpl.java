@@ -27,7 +27,7 @@ public class CallEventFacadeLogicImpl
     {
         super(metaObject, context);
     }
-                   
+
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperation()
      */

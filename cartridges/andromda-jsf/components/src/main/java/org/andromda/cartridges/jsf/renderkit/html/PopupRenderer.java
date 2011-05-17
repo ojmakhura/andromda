@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.renderkit.html;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -14,11 +13,9 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.Renderer;
-
 import org.andromda.cartridges.jsf.Constants;
 import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
 import org.andromda.cartridges.jsf.utils.ComponentUtils;
-
 
 /**
  * A custom renderer for rendering a popup frame.

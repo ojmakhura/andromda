@@ -1,9 +1,7 @@
 package org.andromda.core.server;
 
 import java.net.ConnectException;
-
 import org.andromda.core.configuration.Configuration;
-
 
 /**
  * A client used to connect to an AndroMDA

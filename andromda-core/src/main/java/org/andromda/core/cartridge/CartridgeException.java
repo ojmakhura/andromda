@@ -1,6 +1,5 @@
 package org.andromda.core.cartridge;
 
-
 /**
  * This exception is thrown when a special situation is encountered within an AndroMDA cartridge.
  *

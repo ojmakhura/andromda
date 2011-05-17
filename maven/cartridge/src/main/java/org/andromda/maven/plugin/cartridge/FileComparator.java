@@ -161,7 +161,7 @@ public class FileComparator
         }
         return tempString;
     }
-    
+
     /**
      * Gets the actual file being compared.
      *

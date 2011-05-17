@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 /**
  * Stores the repository information for each model that AndroMDA will process.
  *

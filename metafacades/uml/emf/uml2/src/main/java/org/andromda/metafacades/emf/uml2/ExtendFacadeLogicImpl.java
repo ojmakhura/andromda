@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.List;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ExtendFacade.
  *

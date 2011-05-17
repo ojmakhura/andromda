@@ -2,13 +2,10 @@ package org.andromda.cartridges.jsf.renderkit;
 
 import java.io.IOException;
 import java.util.UUID;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
-
 import org.andromda.cartridges.jsf.component.TransactionToken;
-
 
 /**
  * The transaction token renderer (just adds the transaction token value

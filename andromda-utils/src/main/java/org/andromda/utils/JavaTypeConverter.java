@@ -18,9 +18,9 @@ public class JavaTypeConverter
 {
     private List<String> javaTypeConversionIgnoreList = new ArrayList<String>();
 
-    /** 
-     * Specifies a list of one or more fully qualified java types that should be ignored 
-     * whenever a type conversion is done.  See Spring namespace property "javaTypeConversionIgnoreList" 
+    /**
+     * Specifies a list of one or more fully qualified java types that should be ignored
+     * whenever a type conversion is done.  See Spring namespace property "javaTypeConversionIgnoreList"
      * @param commaSeparatedIgnoreList comma separated list of types to be ignored
      */
     public void setJavaTypeConversionIgnoreList(String commaSeparatedIgnoreList)
@@ -56,9 +56,9 @@ public class JavaTypeConverter
         {
             new ConversionEntry("int", "java.lang.Integer", "new java.lang.Integer({0})"),
             new ConversionEntry("int", "java.lang.String", "java.lang.String.valueOf({0})"),
-            new ConversionEntry("int", "long", "(long){0}"), 
+            new ConversionEntry("int", "long", "(long){0}"),
             new ConversionEntry("int", "double", "(double){0}"),
-            new ConversionEntry("int", "float", "(float){0}"), 
+            new ConversionEntry("int", "float", "(float){0}"),
             new ConversionEntry("int", "boolean", "({0} != 0)"),
             new ConversionEntry("java.lang.Integer", "int", "({0} == null ? 0 : {0}.intValue())"),
             new ConversionEntry("java.lang.Integer", "java.lang.String", "({0} == null ? null : {0}.toString())"),
@@ -67,9 +67,9 @@ public class JavaTypeConverter
 
             new ConversionEntry("long", "java.lang.Long", "new java.lang.Long({0})"),
             new ConversionEntry("long", "java.lang.String", "java.lang.String.valueOf({0})"),
-            new ConversionEntry("long", "int", "(int){0}"), 
+            new ConversionEntry("long", "int", "(int){0}"),
             new ConversionEntry("long", "double", "(double){0}"),
-            new ConversionEntry("long", "float", "(float){0}"), 
+            new ConversionEntry("long", "float", "(float){0}"),
             new ConversionEntry("long", "boolean", "({0} != 0)"),
             new ConversionEntry("java.lang.Long", "long", "({0} == null ? 0 : {0}.longValue())"),
             new ConversionEntry("java.lang.Long", "java.lang.String", "({0} == null ? null : {0}.toString())"),
@@ -78,7 +78,7 @@ public class JavaTypeConverter
 
             new ConversionEntry("double", "java.lang.Double", "new java.lang.Double({0})"),
             new ConversionEntry("double", "java.lang.String", "java.lang.String.valueOf({0})"),
-            new ConversionEntry("double", "int", "(int){0}"), 
+            new ConversionEntry("double", "int", "(int){0}"),
             new ConversionEntry("double", "long", "(long){0}"),
             new ConversionEntry("double", "float", "(float){0}"),
             new ConversionEntry("double", "boolean", "({0} != 0.0)"),
@@ -89,7 +89,7 @@ public class JavaTypeConverter
 
             new ConversionEntry("float", "java.lang.Float", "new java.lang.Float({0})"),
             new ConversionEntry("float", "java.lang.String", "java.lang.String.valueOf({0})"),
-            new ConversionEntry("float", "int", "(int){0}"), 
+            new ConversionEntry("float", "int", "(int){0}"),
             new ConversionEntry("float", "long", "(long){0}"),
             new ConversionEntry("float", "double", "(double){0}"),
             new ConversionEntry("float", "boolean", "({0} != 0.0f)"),
@@ -261,7 +261,7 @@ public class JavaTypeConverter
                         sourceType,
                         sourceValue,
                         primitiveSource);
-                
+
                 if (interimValue != null)
                 {
                     convertedValue = typeConvert(
@@ -280,17 +280,17 @@ public class JavaTypeConverter
                 {
                     primitiveTarget = "int";
                 }
-                else if ("character".equals(primitiveTarget)) {
+                else if ("character".equals(primitiveTarget))
+                {
                     primitiveTarget = "char";
                 }
-                
+
                 String interimValue = typeConvert(
                         sourceType,
                         sourceValue,
                         primitiveTarget);
                 if (interimValue != null)
                 {
-                    
                     convertedValue = typeConvert(
                             primitiveTarget,
                             interimValue,
@@ -302,7 +302,7 @@ public class JavaTypeConverter
         return convertedValue;
     }
 
-    private final static List<String> javaLangList = new ArrayList<String>();
+    private static final List<String> javaLangList = new ArrayList<String>();
     /**
      * Creates a java.lang. fully qualified name from the given <code>name</code>,
      * inserting 'java.lang.' in front if needed. Many EJB3 and Hibernate configuration files
@@ -342,7 +342,7 @@ public class JavaTypeConverter
         // If type has no package and is not the same as lowercase (i.e. primitive type)...
         if (!(name.indexOf('.')>-1) && !(name.equals(name.toLowerCase())))
         {
-            if (javaLangList.contains(name) 
+            if (javaLangList.contains(name)
                 || (name.endsWith("[]") && javaLangList.contains(name.substring(0, name.length()-2))))
             {
                 name = "java.lang." + name;

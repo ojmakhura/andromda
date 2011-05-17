@@ -15,13 +15,12 @@ public class UserRoleDaoImpl
      * @see org.andromda.timetracker.domain.UserRoleDao#toUserRoleVO(org.andromda.timetracker.domain.UserRole, org.andromda.timetracker.vo.UserRoleVO)
      */
     public void toUserRoleVO(
-        org.andromda.timetracker.domain.UserRole sourceEntity, 
+        org.andromda.timetracker.domain.UserRole sourceEntity,
         org.andromda.timetracker.vo.UserRoleVO targetVO)
     {
         // ${toDoTag} verify behavior of toUserRoleVO
         super.toUserRoleVO(sourceEntity, targetVO);
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.UserRoleDao#toUserRoleVO(org.andromda.timetracker.domain.UserRole)
@@ -32,14 +31,13 @@ public class UserRoleDaoImpl
         return super.toUserRoleVO(entity);
     }
 
-
     /**
      * Retrieves the entity object that is associated with the specified value object
-     * from the object store. If no such entity object exists in the object store, 
+     * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
     private org.andromda.timetracker.domain.UserRole loadUserRoleFromUserRoleVO(org.andromda.timetracker.vo.UserRoleVO userRoleVO)
-    {     
+    {
         org.andromda.timetracker.domain.UserRole userRole = null;
         if (userRoleVO != null && userRoleVO.getId() != null)
         {
@@ -59,7 +57,6 @@ public class UserRoleDaoImpl
         return userRole;
     }
 
-    
     /**
      * @see org.andromda.timetracker.domain.UserRoleDao#userRoleVOToEntity(org.andromda.timetracker.vo.UserRoleVO)
      */
@@ -70,7 +67,6 @@ public class UserRoleDaoImpl
         this.userRoleVOToEntity(userRoleVO, entity, true);
         return entity;
     }
-
 
     /**
      * @see org.andromda.timetracker.domain.UserRoleDao#userRoleVOToEntity(org.andromda.timetracker.vo.UserRoleVO, org.andromda.timetracker.domain.UserRole)
@@ -83,5 +79,4 @@ public class UserRoleDaoImpl
         // ${toDoTag} verify behavior of userRoleVOToEntity
         super.userRoleVOToEntity(sourceVO, targetEntity, copyIfNull);
     }
-
 }

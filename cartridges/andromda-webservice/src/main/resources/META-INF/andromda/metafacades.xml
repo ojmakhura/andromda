@@ -19,6 +19,18 @@
     <property reference="ejbJndiNamePrefix"/>
     <property reference="ejbInterfacePattern"/>
     <property reference="ejbHomeInterfacePattern"/>
+    <property reference="enableAnnotations"/>
+    <property reference="addNamespaceBackslash"/>
+    <property reference="webserviceHost"/>
+    <property reference="webservicePort"/>
+    <property reference="importedXSD"/>
+    <property reference="validateSchema"/>
+    <property reference="XMLDateAdapter"/>
+    <property reference="XMLDateTimeAdapter"/>
+    <property reference="XMLTimeAdapter"/>
+    <property reference="XMLBooleanAdapter"/>
+    <property reference="XMLIntegerAdapter"/>
+    <property reference="XMLDecimalAdapter"/>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
     </metafacade>

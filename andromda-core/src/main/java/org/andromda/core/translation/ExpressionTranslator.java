@@ -7,7 +7,6 @@ import org.andromda.core.translation.library.LibraryTranslation;
 import org.andromda.core.translation.library.LibraryTranslationFinder;
 import org.apache.log4j.Logger;
 
-
 /**
  * The <strong>expression </strong> translator class that all translations are performed through. This is the entry
  * point to expression (OCL, etc) translation.

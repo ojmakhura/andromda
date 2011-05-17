@@ -107,7 +107,7 @@ public class EMFUML2RepositoryFacadeTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetModel()
     {
@@ -118,7 +118,7 @@ public class EMFUML2RepositoryFacadeTest
         {
             this.repository.readModel(
                 new String[] {this.modelUrl.toString()},
-                new String[] {url.toString(), 
+                new String[] {url.toString(),
                     this.getClass().getClassLoader().getResource("libraries/UMLPrimitiveTypes.library.uml").toString(),
                     this.getClass().getClassLoader().getResource("libraries/JavaPrimitiveTypes.library.uml").toString(),
                     this.getClass().getClassLoader().getResource("metamodels/UML.metamodel.uml").toString()});

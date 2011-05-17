@@ -9,7 +9,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.DirectoryScanner;
 
-
 /**
  * Provides the deployment of applications to a given directory.
  *

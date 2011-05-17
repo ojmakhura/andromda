@@ -1,12 +1,9 @@
 package org.andromda.schema2xmi;
 
 import java.lang.reflect.Field;
-
 import java.sql.Types;
-
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * <p>

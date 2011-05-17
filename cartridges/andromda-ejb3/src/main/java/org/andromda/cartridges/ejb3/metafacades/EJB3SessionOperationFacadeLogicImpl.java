@@ -253,7 +253,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         List<OperationFacade> operations = this.getOwner().getOperations();
         for (OperationFacade operation : operations)
         {
-            if (operation.getName().equals(name) && 
+            if (operation.getName().equals(name) &&
                 !operation.getArgumentNames().equals(this.getArgumentNames()))
             {
                 // Two methods with the same name different arguments exist, use argument names to distinguish
@@ -263,7 +263,7 @@ public class EJB3SessionOperationFacadeLogicImpl
                 }
             }
         }
-        
+
         // default = testOperationname[Parameternames]
         return MessageFormat.format(
                 serviceOperationTestNamePattern,

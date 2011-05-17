@@ -16,18 +16,18 @@ package org.andromda.howto2.rental;
  * Uncomment to enable webservices for RentalServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.howto2.rental.RentalServiceWSInterface")
  */
-public class RentalServiceBean 
-    extends org.andromda.howto2.rental.RentalServiceBase 
+public class RentalServiceBean
+    extends org.andromda.howto2.rental.RentalServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public RentalServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.howto2.rental.RentalServiceBase#getAllCars()
      */
@@ -52,5 +52,5 @@ public class RentalServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

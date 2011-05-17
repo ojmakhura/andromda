@@ -148,7 +148,7 @@ public class TimecardDaoImpl
     {
         // TODO verify behavior of toTimecardVO
         super.toTimecardVO(sourceEntity, targetVO);
-        // WARNING! No conversion for targetVO.allocations (can't convert 
+        // WARNING! No conversion for targetVO.allocations (can't convert
         // sourceEntity.getAllocations():org.andromda.timetracker.domain.TimeAllocation to org.andromda.timetracker.vo.TimeAllocationVO[]
     }
 

@@ -277,8 +277,6 @@ public class Axis2ClientUtils
                 }
                 else
                 {
-
-
                     final String attributeValue = omNamespace != null ?
                         omNamespace.getPrefix() + NS_SEPARATOR + beanType.getSimpleName() : beanType.getSimpleName();
                     // - add the xsi:type attribute for complex types

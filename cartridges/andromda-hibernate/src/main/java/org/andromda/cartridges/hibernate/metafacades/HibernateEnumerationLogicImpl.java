@@ -74,7 +74,7 @@ public class HibernateEnumerationLogicImpl
     }
 
     /**
-     * Check for optional defined enumTypesPackage (overrides modeled package name) 
+     * Check for optional defined enumTypesPackage (overrides modeled package name)
      */
     private String getHibernateEnumerationPackageName() {
         String enumPackageName = (String) this.getConfiguredProperty(HibernateGlobals.ENUM_TYPES_PACKAGE);

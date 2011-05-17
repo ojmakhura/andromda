@@ -1,6 +1,5 @@
 package org.andromda.schema2xmi;
 
-
 /**
  * An exception thrown when an unexpected error occurs during processing of the
  * SchemaTransformer.

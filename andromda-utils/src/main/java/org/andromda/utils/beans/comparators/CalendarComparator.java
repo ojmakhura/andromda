@@ -18,8 +18,8 @@ class CalendarComparator
     /**
      * Used to sort Calendar values, both objects are assumed to be assignable
      * to java.util.Calendar
-     * @param objectA 
-     * @param objectB 
+     * @param objectA
+     * @param objectB
      * @return compareresult
      */
     public int compare(
@@ -32,13 +32,13 @@ class CalendarComparator
 
         if (bAsCalendar.after(aAsCalendar))
         {
-            // set result to a negative integer if the first argument of this 
+            // set result to a negative integer if the first argument of this
             // method is less than the second
             result = -1;
         }
         else if (aAsCalendar.after(bAsCalendar))
         {
-            // set result to a positive integer if the first argument of this 
+            // set result to a positive integer if the first argument of this
             // method is greater than the second
             result = 1;
         }

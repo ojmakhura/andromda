@@ -7,7 +7,6 @@ import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
-
 /**
  * Contains utilities used within the Hibernate cartridge.
  *

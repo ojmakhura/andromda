@@ -23,7 +23,6 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 
-
 /**
  * Writes the Eclipse .classpath files.
  *

@@ -93,7 +93,7 @@ public abstract class AbstractAndroMDAMojo
     protected ArtifactRepository localRepository;
 
     private static List<String> configurations = new ArrayList<String>();
-    
+
     /**
      * Initialize configuration and execute plugin
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -136,13 +136,13 @@ public abstract class AbstractAndroMDAMojo
             }
         }
     }
-    
+
     /**
-     * Performs the execution of an AndroMDA service with the given 
+     * Performs the execution of an AndroMDA service with the given
      * <code>configuration</code>.
-     * 
+     *
      * @param configuration the configuration to use for AndroMDA service execution
-     * @throws Exception 
+     * @throws Exception
      */
     protected abstract void execute(final Configuration configuration) throws Exception;
 

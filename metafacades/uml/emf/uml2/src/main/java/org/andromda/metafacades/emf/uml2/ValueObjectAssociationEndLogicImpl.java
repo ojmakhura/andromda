@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.ValueObject;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ValueObjectAssociationEnd.

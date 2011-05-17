@@ -37,7 +37,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
             ClassifierFacade classifier = this.getType();
             if (classifier != null)
             {
-                if (!classifier.isPrimitive()) 
+                if (!classifier.isPrimitive())
                 {
                     if (classifier.isDateType())
                     {

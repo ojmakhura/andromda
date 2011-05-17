@@ -21,9 +21,9 @@ public class JSFManageableEntityAssociationEndLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
+    public JSFManageableEntityAssociationEndLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -121,5 +121,4 @@ public class JSFManageableEntityAssociationEndLogicImpl
             "\\{0\\}",
             this.getName());
     }
-
 }

@@ -9,18 +9,18 @@ package org.andromda.demo.ejb3.animal;
  *
  * @see org.andromda.demo.ejb3.animal.AnimalService
  */
-public class AnimalServiceListener 
+public class AnimalServiceListener
 {
     /**
      * Default public no-args constructor
      */
-    public AnimalServiceListener() 
+    public AnimalServiceListener()
     {
         // empty constructor
     }
 
     @javax.annotation.PostConstruct
-    public void postConstruct(javax.interceptor.InvocationContext ctx) 
+    public void postConstruct(javax.interceptor.InvocationContext ctx)
     {
         try
         {
@@ -34,7 +34,7 @@ public class AnimalServiceListener
     }
 
     @javax.annotation.PreDestroy
-    public void preDestroy(javax.interceptor.InvocationContext ctx) 
+    public void preDestroy(javax.interceptor.InvocationContext ctx)
     {
         try
         {

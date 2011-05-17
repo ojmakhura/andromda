@@ -108,7 +108,7 @@ public class StrutsFinalStateLogicImpl
                 targetUseCase = (FrontEndUseCase)taggedValue;
             }
         }
-        
+
         // maybe the name points to a use-case ?
         if (targetUseCase == null)
         {
@@ -134,7 +134,7 @@ public class StrutsFinalStateLogicImpl
     {
         return handleGetActions();
     }
-    
+
     /**
      * @return getIncomings().getActions()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl#handleGetActions()

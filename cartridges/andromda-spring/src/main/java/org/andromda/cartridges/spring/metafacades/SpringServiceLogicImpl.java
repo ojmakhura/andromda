@@ -30,8 +30,8 @@ public class SpringServiceLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringServiceLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringService
      */
     public SpringServiceLogicImpl(Object metaObject, String context)
@@ -247,7 +247,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @param targetSuffix 
+     * @param targetSuffix
      * @return BeanName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBeanName(boolean)
      */

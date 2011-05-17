@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.rental;
  * Uncomment to enable webservices for PaymentServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.rental.PaymentServiceWSInterface")
  */
-public class PaymentServiceBean 
-    extends org.andromda.demo.ejb3.rental.PaymentServiceBase 
+public class PaymentServiceBean
+    extends org.andromda.demo.ejb3.rental.PaymentServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public PaymentServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.rental.PaymentServiceBase#register(org.andromda.demo.ejb3.rental.RentalCar, int)
      */
@@ -39,5 +39,5 @@ public class PaymentServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

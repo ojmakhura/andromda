@@ -19,18 +19,18 @@ public abstract class CarDaoBase
     implements org.andromda.howto2.rental.CarDao
 {
     // ------ Session Context Injection ------
-    
+
     @javax.annotation.Resource
     protected javax.ejb.SessionContext context;
 
     // ------ Persistence Context Injection --------
 
     /**
-     * Inject persistence context howtomodelcaching     
+     * Inject persistence context howtomodelcaching
      */
-    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")    
+    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")
     protected javax.persistence.EntityManager emanager;
-    
+
     /**
      * @see org.andromda.howto2.rental.CarDao#load(int,)
      */
@@ -111,7 +111,7 @@ public abstract class CarDaoBase
             throw new IllegalArgumentException(
                 "Car.create - 'car' can not be null");
         }
-        
+
         try
         {
             emanager.persist(car);

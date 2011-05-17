@@ -63,7 +63,7 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
             this.signed = signed;
             this.idContract = idContract;
         }
-        
+
         public void setContractNo(String contractNo)
         {
             this.contractNo = contractNo;
@@ -73,7 +73,7 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
         {
             return this.contractNo;
         }
-        
+
         public void setSigned(String signed)
         {
             this.signed = signed;
@@ -83,7 +83,7 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
         {
             return this.signed;
         }
-        
+
         public void setIdContract(String idContract)
         {
             this.idContract = idContract;
@@ -93,6 +93,6 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
         {
             return this.idContract;
         }
-        
+
     }
 }

@@ -15,7 +15,7 @@ $sessionObject.getDocumentation(" * ")
  */
 public class $sessionObject.name implements Serializable
 {
-    public final static String SESSION_KEY = "$sessionObject.sessionKey";
+    public static final String SESSION_KEY = "$sessionObject.sessionKey";
 
 #foreach ( $attribute in $sessionObject.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
@@ -35,5 +35,4 @@ $attribute.getDocumentation("     * ")
     }
 
 #end
-
 }

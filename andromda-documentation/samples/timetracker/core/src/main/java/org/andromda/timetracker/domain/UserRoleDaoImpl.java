@@ -26,7 +26,6 @@ public class UserRoleDaoImpl
         super.toUserRoleVO(source, target);
     }
 
-
     /**
      * @inheritDoc
      */
@@ -36,7 +35,6 @@ public class UserRoleDaoImpl
         // TODO verify behavior of toUserRoleVO
         return super.toUserRoleVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -58,7 +56,6 @@ public class UserRoleDaoImpl
         */
     }
 
-
     /**
      * @inheritDoc
      */
@@ -69,7 +66,6 @@ public class UserRoleDaoImpl
         this.userRoleVOToEntity(userRoleVO, entity, true);
         return entity;
     }
-
 
     /**
      * @inheritDoc
@@ -83,5 +79,4 @@ public class UserRoleDaoImpl
         // TODO verify behavior of userRoleVOToEntity
         super.userRoleVOToEntity(source, target, copyIfNull);
     }
-
 }

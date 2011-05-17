@@ -13,7 +13,6 @@ import java.util.Collection;
 public class InventoryServiceImpl
     extends InventoryServiceBase
 {
-
     /**
      * @see org.andromda.samples.carrental.inventory.InventoryService#createCarType(CarTypeData)
      */

@@ -1,6 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFSessionObject.
  *
@@ -14,11 +13,11 @@ public class JSFSessionObjectLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFSessionObjectLogicImpl (Object metaObject, String context)
+    public JSFSessionObjectLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * @return '/' + getFullyQualifiedName().replace('.', '/')
      * @see org.andromda.cartridges.jsf.metafacades.JSFSessionObject#getFullPath()

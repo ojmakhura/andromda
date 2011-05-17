@@ -20,7 +20,9 @@ import org.springframework.web.context.support.AbstractRefreshableWebApplication
 public class RemoteWebApplicationContext
     extends AbstractRefreshableWebApplicationContext
 {
+#if ($enableAnnotations)
     @Override
+#end
     protected void loadBeanDefinitions(DefaultListableBeanFactory factory)
     {
         // - override to ignore attempt at loading the bean defs (since

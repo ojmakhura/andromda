@@ -2,7 +2,6 @@ package org.andromda.cartridges.meta.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.meta.metafacades.MetafacadeAttribute.
  *

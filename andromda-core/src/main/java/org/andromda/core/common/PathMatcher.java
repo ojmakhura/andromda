@@ -1,9 +1,7 @@
 package org.andromda.core.common;
 
 import java.util.regex.PatternSyntaxException;
-
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Provides wild card matching on file paths (i.e. Cartridge.java will match <code>*.java</code>, etc).

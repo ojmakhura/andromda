@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.account;
  * Uncomment to enable webservices for AccountManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.account.AccountManagerWSInterface")
  */
-public class AccountManagerBean 
-    extends org.andromda.demo.ejb3.account.AccountManagerBase 
+public class AccountManagerBean
+    extends org.andromda.demo.ejb3.account.AccountManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public AccountManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.account.AccountManagerBase#addAccount(org.andromda.demo.ejb3.account.Account)
      */
@@ -58,5 +58,5 @@ public class AccountManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

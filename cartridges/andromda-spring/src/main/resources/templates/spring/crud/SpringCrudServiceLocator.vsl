@@ -36,7 +36,7 @@ public class ${manageableServiceLocatorName}
     /**
      * The shared instance of this ${manageableServiceLocatorName}.
      */
-    private final static ${manageableServiceLocatorName} instance = new ${manageableServiceLocatorName}();
+    private static final ${manageableServiceLocatorName} instance = new ${manageableServiceLocatorName}();
 
     /**
      * Gets the shared instance of this Class

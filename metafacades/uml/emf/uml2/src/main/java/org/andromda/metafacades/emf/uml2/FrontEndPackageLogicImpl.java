@@ -7,7 +7,6 @@ import java.util.List;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndPackage.

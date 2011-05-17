@@ -948,7 +948,7 @@ public class EntityLogicImpl
         }
         return embeddedValues;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#getFullyQualifiedIdentifierTypeName()
      */
@@ -993,7 +993,7 @@ public class EntityLogicImpl
             return getIdentifiers().iterator().next().getType().getName();
         }
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Entity#getIdentifierGetterName()
      */

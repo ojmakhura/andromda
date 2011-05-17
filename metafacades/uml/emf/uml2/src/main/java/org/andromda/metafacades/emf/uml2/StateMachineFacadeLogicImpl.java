@@ -18,7 +18,6 @@ import org.eclipse.uml2.StateMachine;
 import org.eclipse.uml2.Transition;
 import org.eclipse.uml2.Vertex;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.StateMachineFacade.

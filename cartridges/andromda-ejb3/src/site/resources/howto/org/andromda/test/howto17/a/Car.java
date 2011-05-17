@@ -11,7 +11,7 @@ package org.andromda.howto2.rental;
  * Add any manual implementation within this class.  This class will NOT
  * be overwritten with incremental changes.
  *
- * 
+ *
  *
  */
 
@@ -33,33 +33,32 @@ public class Car
     extends org.andromda.howto2.rental.CarEmbeddable
     implements java.io.Serializable
 {
-
     /**
      * The serial version UID of this class required for serialization.
      */
     private static final long serialVersionUID = 8776337268494473937L;
 
     // --------------- constructors -----------------
-    
+
     /**
      * Default Car constructor
      */
     public Car()
-    { 
+    {
         super();
     }
-    
+
     /**
      * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
      * This method sets all POJO fields defined in this/super class to the
      * values provided by the parameters.
      *
      */
-    public Car(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type) 
+    public Car(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type)
     {
         super(serial, name, type);
     }
-    
+
     /**
      * Constructor with all POJO attribute values and CMR relations.
      *
@@ -72,12 +71,12 @@ public class Car
     {
         super(serial, name, type, owner);
     }
-    
+
 
     // -------------- Entity Methods -----------------
-    
+
     /**
-     * 
+     *
      */
     @javax.persistence.Transient
     public boolean isRented()
@@ -87,7 +86,7 @@ public class Car
     }
 
     /**
-     * 
+     *
      */
     @javax.persistence.Transient
     public static boolean allCarsAreRented()

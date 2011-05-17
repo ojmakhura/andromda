@@ -1053,7 +1053,7 @@ public class ModelElementFacadeLogicImpl
         // For Parameter, return Classifier.Operation(name)
         if (this.metaObject instanceof Parameter)
         {
-            // Add ClassifierName.operationName(ParameterName) 
+            // Add ClassifierName.operationName(ParameterName)
             Object owner = this.metaObject.getOwner();
             if (owner != null && owner instanceof Operation)
             {

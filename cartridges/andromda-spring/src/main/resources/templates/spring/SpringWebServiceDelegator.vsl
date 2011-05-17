@@ -12,12 +12,11 @@ package $service.implementationPackageName;
  */
 public class $service.webServiceDelegatorName
 {
-
     /**
      * Gets an instance of {@link $service.fullyQualifiedName}
      */
 #set ($serviceGetter = "get${service.name}()")
-    private final ${service.fullyQualifiedName} $serviceGetter
+    private ${service.fullyQualifiedName} $serviceGetter
     {
         return ${springTypesPackage}.ServiceLocator.instance().${serviceGetter};
     }

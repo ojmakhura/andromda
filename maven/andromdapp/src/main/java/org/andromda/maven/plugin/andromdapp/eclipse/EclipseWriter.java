@@ -9,14 +9,14 @@ import org.apache.maven.project.MavenProject;
 /**
  * Provides Eclipse configuration file writing
  * capabilities.
- * 
+ *
  * @author Chad Brandon
  */
 public abstract class EclipseWriter
 {
     /** */
     protected Log logger;
-    
+
     /** */
     protected MavenProject project;
 
@@ -29,10 +29,10 @@ public abstract class EclipseWriter
         this.project = project;
         this.logger = logger;
     }
-    
+
     /**
      * Gets the project relative file given the <code>name</code> of the file.
-     * 
+     *
      * @param name the name of the file.
      * @return the actual file instance.
      */

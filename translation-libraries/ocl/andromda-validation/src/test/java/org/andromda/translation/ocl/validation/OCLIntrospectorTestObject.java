@@ -8,7 +8,7 @@ package org.andromda.translation.ocl.validation;
 public class OCLIntrospectorTestObject
 {
     /**
-     * 
+     *
      */
     public void methodOne()
     {
@@ -49,7 +49,7 @@ public class OCLIntrospectorTestObject
     }
 
     /**
-     * 
+     *
      */
     protected static String propertyOne = "One";
 
@@ -62,7 +62,7 @@ public class OCLIntrospectorTestObject
     }
 
     /**
-     * 
+     *
      */
     protected static Integer propertyTwo = 2;
 

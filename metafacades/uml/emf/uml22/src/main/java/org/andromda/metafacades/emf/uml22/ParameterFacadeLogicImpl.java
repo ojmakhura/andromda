@@ -28,7 +28,7 @@ import org.eclipse.uml2.uml.Type;
 public class ParameterFacadeLogicImpl
     extends ParameterFacadeLogic
 {
-    private static final long serialVersionUID = 34L; 
+    private static final long serialVersionUID = 34L;
     /**
      * @param metaObjectIn
      * @param context
@@ -302,7 +302,7 @@ public class ParameterFacadeLogicImpl
         }
         return type;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeName()
      */
@@ -434,8 +434,8 @@ public class ParameterFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
-                this.getType(), 
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
+                this.getType(),
                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 }

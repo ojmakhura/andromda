@@ -34,7 +34,7 @@ public class JavaTypeConverterTest
         }
     }
 
-    private final static ExpectedResult[] expected =
+    private static final ExpectedResult[] expected =
     {
         new ExpectedResult("java.lang.Character", "java.lang.String", "(sourceVal == null ? null : sourceVal.toString())"),
         new ExpectedResult("java.lang.Integer", "double", "(double)(sourceVal == null ? 0 : sourceVal.intValue())"),
@@ -1115,7 +1115,7 @@ public class JavaTypeConverterTest
     };
 
     /**
-     * 
+     *
      */
     @Test
     public void testTypeConversion()
@@ -1130,7 +1130,7 @@ public class JavaTypeConverterTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testTypeConversionWithIgnore()

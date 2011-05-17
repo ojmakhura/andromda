@@ -37,7 +37,6 @@ import org.apache.log4j.Logger;
  */
 public class ConcreteSyntaxUtils
 {
-
     private static final Logger logger = Logger.getLogger(ConcreteSyntaxUtils.class);
 
     /**

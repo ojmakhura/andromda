@@ -32,9 +32,9 @@ public class JSFManageableEntityLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFManageableEntityLogicImpl (Object metaObject, String context)
+    public JSFManageableEntityLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -42,9 +42,9 @@ public class JSFManageableEntityLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getViewName()
      */
     protected String handleGetViewName()
-       {
-           return this.getName().toLowerCase() + "-crud";
-       }
+    {
+        return this.getName().toLowerCase() + "-crud";
+    }
 
     /**
      * @return toResourceMessageKey(this.getName()) + ".view.title"
@@ -89,8 +89,8 @@ public class JSFManageableEntityLogicImpl
     protected String handleGetFormBeanName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
-        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage"); 
-        return formBeanName.replaceFirst("\\{1\\}",this.getName());
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
+        return formBeanName.replaceFirst("\\{1\\}", this.getName());
     }
 
     /**
@@ -161,10 +161,11 @@ public class JSFManageableEntityLogicImpl
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntityLogic#getManageableIdentifier()
      */
     @Override
-    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier(){
+    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier()
+    {
         return super.getManageableIdentifier();
     }
-    
+
     /**
      * @return StringUtils.capitalize(this.getFormBeanName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getFormBeanClassName()
@@ -315,7 +316,8 @@ public class JSFManageableEntityLogicImpl
      * @return controllerType
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getControllerType()
      */
-     protected String handleGetControllerType(){
+     protected String handleGetControllerType()
+     {
          return this.getManageablePackageName() + this.getNamespaceProperty() + this.getControllerName();
      }
 
@@ -325,7 +327,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetControllerBeanName()
     {
-          return StringUtils.uncapitalize(this.getName()) + "Controller";
+        return StringUtils.uncapitalize(this.getName()) + "Controller";
     }
 
     /**
@@ -334,7 +336,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetControllerFullPath()
     {
-           return '/' + StringUtils.replace(this.getControllerType(), this.getNamespaceProperty(), "/");
+        return '/' + StringUtils.replace(this.getControllerType(), this.getNamespaceProperty(), "/");
     }
 
     /**
@@ -343,7 +345,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetControllerName()
     {
-           return this.getName() + "Controller";
+        return this.getName() + "Controller";
     }
 
     /**
@@ -352,7 +354,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetValueObjectClassName()
     {
-           return getName() + this.getConfiguredProperty(JSFGlobals.CRUD_VALUE_OBJECT_SUFFIX);
+        return getName() + this.getConfiguredProperty(JSFGlobals.CRUD_VALUE_OBJECT_SUFFIX);
     }
 
     /**
@@ -361,10 +363,10 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetFormSerialVersionUID()
     {
-           final StringBuilder buffer = new StringBuilder();
-           buffer.append(this.getFormBeanType());
-           addSerialUIDData(buffer);
-           return JSFUtils.calcSerialVersionUID(buffer);
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(this.getFormBeanType());
+        addSerialUIDData(buffer);
+        return JSFUtils.calcSerialVersionUID(buffer);
     }
 
     /**
@@ -373,10 +375,10 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetActionSerialVersionUID()
     {
-           final StringBuilder buffer = new StringBuilder();
-           buffer.append(this.getActionFullPath());
-           addSerialUIDData(buffer);
-           return JSFUtils.calcSerialVersionUID(buffer);
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(this.getActionFullPath());
+        addSerialUIDData(buffer);
+        return JSFUtils.calcSerialVersionUID(buffer);
     }
 
     /**
@@ -385,9 +387,9 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetPopulatorName()
     {
-           return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
-               "\\{0\\}",
-               StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
+        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
+            "\\{0\\}",
+            StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
     }
 
     /**
@@ -396,7 +398,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetPopulatorFullPath()
     {
-           return '/' + StringUtils.replace(this.getPopulatorType(), this.getNamespaceProperty(), "/");
+        return '/' + StringUtils.replace(this.getPopulatorType(), this.getNamespaceProperty(), "/");
     }
 
     /**
@@ -405,7 +407,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetPopulatorType()
     {
-           return this.getManageablePackageName() + this.getNamespaceProperty() + this.getPopulatorName();
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getPopulatorName();
     }
 
     /**
@@ -414,7 +416,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetViewFullPath()
     {
-           return '/' + this.getManageablePackagePath() + '/' + this.getViewName();
+        return '/' + this.getManageablePackagePath() + '/' + this.getViewName();
     }
 
     /**
@@ -423,7 +425,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetOdsExportFullPath()
     {
-           return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase()+"-ods-export";
+        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase()+"-ods-export";
     }
 
     /**
@@ -432,17 +434,18 @@ public class JSFManageableEntityLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-           for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
-           {
-               if(attribute instanceof JSFManageableEntityAttribute){
-                   final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
-                   if (jsfAttribute.isValidationRequired())
-                   {
-                       return true;
-                   }
-               }
-           }
-           return false;
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
+        {
+            if(attribute instanceof JSFManageableEntityAttribute)
+            {
+                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
+                if (jsfAttribute.isValidationRequired())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -451,9 +454,9 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanName()
     {
-           final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
-           final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage"); 
-           return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
+        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
+        return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
     }
 
     /**
@@ -462,7 +465,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanType()
     {
-           return this.getManageablePackageName() + this.getNamespaceProperty() + this.getSearchFormBeanClassName();
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getSearchFormBeanClassName();
     }
 
     /**
@@ -471,7 +474,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanFullPath()
     {
-           return StringUtils.replace(this.getSearchFormBeanType(), this.getNamespaceProperty(), "/");
+        return StringUtils.replace(this.getSearchFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
     /**
@@ -480,7 +483,7 @@ public class JSFManageableEntityLogicImpl
      */
     protected String handleGetSearchFormBeanClassName()
     {
-           return StringUtils.capitalize(this.getSearchFormBeanName());
+        return StringUtils.capitalize(this.getSearchFormBeanName());
     }
 
     /**
@@ -499,7 +502,7 @@ public class JSFManageableEntityLogicImpl
                        coll.add(attr);
                }
            }
-           return coll;
+        return coll;
     }
 
     /**
@@ -508,11 +511,11 @@ public class JSFManageableEntityLogicImpl
      */
     protected Collection<ManageableEntityAssociationEnd> handleGetManageableSearchAssociationEnds()
     {
-           return getManageableAssociationEnds();
+        return getManageableAssociationEnds();
     }
 
     /**
-     * @param element 
+     * @param element
      * @return isSearchable
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#isSearchable(Object)
      */
@@ -522,13 +525,17 @@ public class JSFManageableEntityLogicImpl
 //               return getManageableSearchAttributes().contains(element);
 //           else
 //               return getManageableSearchAssociationEnds().contains(element);
-       
+
            //TODO corrigir
-       
+
            if(element instanceof JSFManageableEntityAttribute)
+           {
                return !((JSFManageableEntityAttribute)element).isHidden();
+           }
            else
+           {
                return true;
+           }
     }
 
     /**
@@ -539,7 +546,8 @@ public class JSFManageableEntityLogicImpl
         return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
-   private void addSerialUIDData(StringBuilder buffer){
+   private void addSerialUIDData(StringBuilder buffer)
+   {
        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
            buffer.append(attribute.getName());
@@ -548,9 +556,8 @@ public class JSFManageableEntityLogicImpl
        {
            buffer.append(end.getName());
        }
-   
    }
-      
+
    /**
     * @return allRoles
     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getRoles()
@@ -619,7 +626,7 @@ public class JSFManageableEntityLogicImpl
        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
            if(attribute instanceof JSFManageableEntityAttribute)
-           {    
+           {
                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
                if(jsfAttribute.isNeedsFileUpload())
                {
@@ -629,7 +636,7 @@ public class JSFManageableEntityLogicImpl
        }
        return false;
    }
-   
+
    /**
     * @return needsUserInterface
     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#isNeedsUserInterface()
@@ -639,7 +646,7 @@ public class JSFManageableEntityLogicImpl
        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
        {
            if(attribute instanceof JSFManageableEntityAttribute)
-           {    
+           {
                final JSFManageableEntityAttribute jsfAttribute = (JSFManageableEntityAttribute)attribute;
                if(!jsfAttribute.isHidden())
                {
@@ -647,10 +654,10 @@ public class JSFManageableEntityLogicImpl
                }
            }
        }
-       for (final ManageableEntityAssociationEnd associationEnd :  this.getManageableAssociationEnds())
+       for (final ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds())
        {
            if(associationEnd instanceof JSFManageableEntityAssociationEnd)
-           {    
+           {
                final JSFManageableEntityAssociationEnd jsfAssociationEnd = (JSFManageableEntityAssociationEnd)associationEnd;
                if(!jsfAssociationEnd.isDisplay())
                {
@@ -660,12 +667,13 @@ public class JSFManageableEntityLogicImpl
        }
        return false;
    }
-   
+
    /**
     * @return converterClassName
     * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getConverterClassName
     */
-    public String handleGetConverterClassName(){
+    public String handleGetConverterClassName()
+    {
         return StringUtils.replace(
             ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONVERTER_PATTERN)),
             "{0}",
@@ -676,7 +684,8 @@ public class JSFManageableEntityLogicImpl
      * @return converterType
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getConverterType
      */
-     public String handleGetConverterType(){
+     public String handleGetConverterType()
+     {
          return this.getManageablePackageName() + this.getNamespaceProperty() + this.getConverterClassName();
      }
 
@@ -684,7 +693,8 @@ public class JSFManageableEntityLogicImpl
      * @return converterFullPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntity#getConverterFullPath
      */
-     public String handleGetConverterFullPath(){
+     public String handleGetConverterFullPath()
+     {
          return StringUtils.replace(this.getConverterType(), this.getNamespaceProperty(), "/");
      }
 }

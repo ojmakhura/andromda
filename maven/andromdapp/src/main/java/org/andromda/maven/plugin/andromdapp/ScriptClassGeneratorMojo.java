@@ -20,7 +20,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-
 /**
  * Allows for the {@link ScriptClassGenerator} mojo to be invoked.
  * on one or more given classes.

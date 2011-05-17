@@ -19,7 +19,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.DirectoryScanner;
 
-
 /**
  * Basically post processes a previously built ear and replaces any war
  * artifacts with symbolic links and then symbolic links the ear to the deploy

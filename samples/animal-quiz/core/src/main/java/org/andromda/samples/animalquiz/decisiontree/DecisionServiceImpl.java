@@ -12,7 +12,6 @@ package org.andromda.samples.animalquiz.decisiontree;
 public class DecisionServiceImpl
     extends org.andromda.samples.animalquiz.decisiontree.DecisionServiceBase
 {
-
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getFirstQuestion()
      */

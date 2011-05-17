@@ -8,9 +8,8 @@ package org.andromda.cartridges.jsf.validator;
 public class JSFValidatorException
     extends RuntimeException
 {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

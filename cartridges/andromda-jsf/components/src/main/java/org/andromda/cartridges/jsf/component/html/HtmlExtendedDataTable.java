@@ -12,7 +12,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.component.html.ext.HtmlDataTable;
 
-
 /**
  * Extends the datatable and provides the ability to have a backing value: this is
  * useful when submitting tables of information.

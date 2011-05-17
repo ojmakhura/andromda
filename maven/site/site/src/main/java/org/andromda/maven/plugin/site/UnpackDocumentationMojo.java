@@ -9,7 +9,7 @@ import org.apache.maven.project.MavenProject;
 /**
  * Goal that unpacks the required AndroMDA site zip packages to suitable locations preparing
  * for deployment.
- * 
+ *
  * @phase site
  * @goal unpack-documentation
  * @description Goal to unpack required site files prior to site deployment
@@ -20,47 +20,47 @@ public class UnpackDocumentationMojo
 {
     /**
      * Path to the JMI 1.4 API zip source
-     * 
+     *
      * @parameter expression="${basedir}/src/site/resources/resources/jmi-uml1.4.zip"
      */
     private File jmiApiSourcePath;
-    
+
     /**
      * Path to the JMI 1.4 API destination extraction directory
-     * 
+     *
      * @parameter expression="${basedir}/../../target/site"
      */
     private File jmiApiOutputDirectory;
-    
+
     /**
      * Path to the UmlDoc car-rental-sample zip source
-     * 
+     *
      * @parameter expression="${basedir}/src/site/resources/resources/car-rental-umldoc.zip"
      */
     private File umlDocCarRentalSampleSourcePath;
-    
+
     /**
      * Path to the UmlDoc car-rental-sample extraction directory
-     * 
+     *
      * @parameter expression="${basedir}/../../target/site"
      */
     private File umlDocCarRentalSampleOutputDirectory;
-    
+
     /**
      * The name of the project injected from pom.xml. Not used.
-     * 
+     *
      * @parameter default-value="${project.name}"
      */
     @SuppressWarnings("unused")
     private String projectName;
-    
+
     /**
      * @parameter expression="${project}"
      * @required
      * @readonly
      */
     protected MavenProject project;
-    
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -73,13 +73,13 @@ public class UnpackDocumentationMojo
 
         this.unpackUmlDocCarRentalSample();
         this.unpackJmiApi();
-        
+
         this.getLog().info("SITE DOCUMENTATION UNPACK SUCCESSFUL");
     }
-    
+
     /**
      * Unpack the JMI 1.4 API
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -92,7 +92,7 @@ public class UnpackDocumentationMojo
             {
                 throw new MojoExecutionException("JMI API source location is invalid");
             }
-            
+
             this.unpack(
                     this.jmiApiSourcePath,
                     this.jmiApiOutputDirectory);
@@ -108,10 +108,10 @@ public class UnpackDocumentationMojo
                 ExceptionUtils.getRootCause(throwable));
         }
     }
-    
+
     /**
      * Unpack the UmlDoc for the car-rental-sample
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -124,7 +124,7 @@ public class UnpackDocumentationMojo
             {
                 throw new MojoExecutionException("UmlDoc car-rental-sample source location is invalid");
             }
-            
+
             this.unpack(
                     this.umlDocCarRentalSampleSourcePath,
                     this.umlDocCarRentalSampleOutputDirectory);

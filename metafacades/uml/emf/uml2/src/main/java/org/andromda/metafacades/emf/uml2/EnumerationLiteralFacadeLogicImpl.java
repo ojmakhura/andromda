@@ -46,7 +46,7 @@ public class EnumerationLiteralFacadeLogicImpl
     {
         return this.getValue(false);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getName(boolean)
      */
@@ -61,7 +61,7 @@ public class EnumerationLiteralFacadeLogicImpl
         }
         return name;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getValue(boolean)
      */
@@ -75,7 +75,7 @@ public class EnumerationLiteralFacadeLogicImpl
      * @see EnumerationLiteralFacade#getEnumerationValue()
      */
     @Override
-    protected String handleGetEnumerationValue() 
+    protected String handleGetEnumerationValue()
     {
         String value = this.getValue();
         if (StringUtils.isEmpty(value))

@@ -1,6 +1,5 @@
 package org.andromda.core.translation;
 
-
 /**
  * Any unchecked exception that will be thrown when an Expression exception occurs.
  */
