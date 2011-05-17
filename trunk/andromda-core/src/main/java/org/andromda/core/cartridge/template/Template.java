@@ -7,7 +7,6 @@ import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 /**
  * This class implements the <code>&lt;template&gt;</code> tag in a cartridge
  * descriptor file.

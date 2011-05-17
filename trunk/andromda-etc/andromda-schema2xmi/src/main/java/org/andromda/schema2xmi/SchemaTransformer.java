@@ -132,20 +132,17 @@ public class SchemaTransformer
      */
     private String metaColumnTypeName = "TYPE_NAME";
 
-
     /**
      * The metadata column name needed to retrieve the database column size field.
      */
     private String metaColumnColumnSize = "COLUMN_SIZE";
 //    private String metaColumnColumnSize = "PRECISION";
 
-
     /**
      * The metadata column name needed to retrieve the database column number of decimal places
      */
     private String metaColumnDecPlaces = null;
 //    private String metaColumnDecPlaces = "SCALE";
-
 
     /**
      * The set of additional tagged values that are (optionally) added to each attribute
@@ -375,7 +372,6 @@ public class SchemaTransformer
         }
     }
 
-
     /**
      * Sets the version of XMI that will be produced.
      *
@@ -395,7 +391,6 @@ public class SchemaTransformer
      * The model thats currently being processed
      */
     private Model model;
-
 
     /**
      * Performs the actual translation of the Schema to the XMI and returns the

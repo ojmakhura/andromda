@@ -1,6 +1,5 @@
 package org.andromda.core.configuration;
 
-
 /**
  * This exception is thrown when an error occurs during AndroMDA configuration.
  *

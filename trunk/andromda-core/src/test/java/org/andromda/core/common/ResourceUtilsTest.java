@@ -67,7 +67,7 @@ public class ResourceUtilsTest
     }
 
     /**
-     * Test for ResourceUtils.writeUrlToFile method 
+     * Test for ResourceUtils.writeUrlToFile method
      * @throws Exception
      */
     @Test
@@ -94,5 +94,5 @@ public class ResourceUtilsTest
 
         IOUtils.closeQuietly(inputStream);
         IOUtils.closeQuietly(inputStream2);
-    }    
+    }
 }

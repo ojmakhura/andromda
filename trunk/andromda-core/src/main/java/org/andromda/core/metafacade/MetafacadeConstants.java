@@ -1,6 +1,5 @@
 package org.andromda.core.metafacade;
 
-
 /**
  * Contains constants for use with metafacades.
  * For example, the metafacade namespace separator <em>::</em>

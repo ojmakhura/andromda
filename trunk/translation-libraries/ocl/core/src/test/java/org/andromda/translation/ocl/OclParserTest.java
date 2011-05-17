@@ -22,7 +22,6 @@ import org.andromda.translation.ocl.parser.OclParser;
 public class OclParserTest
         extends TestCase
 {
-
     private String PACKAGE_DIR = ClassUtils.getPackageName(OclParserTest.class).replace('.', '/');
 
     /**
@@ -62,7 +61,7 @@ public class OclParserTest
     }
 
     /**
-     * 
+     *
      */
     public void testValidExpressions()
     {
@@ -91,7 +90,7 @@ public class OclParserTest
 
     /**
      * Runs the test suite
-     * @param args 
+     * @param args
      */
     public static void main(String[] args)
     {

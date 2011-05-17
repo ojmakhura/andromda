@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.order;
  * Uncomment to enable webservices for OrderManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.order.OrderManagerWSInterface")
  */
-public class OrderManagerBean 
-    extends org.andromda.demo.ejb3.order.OrderManagerBase 
+public class OrderManagerBean
+    extends org.andromda.demo.ejb3.order.OrderManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public OrderManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.order.OrderManagerBase#addOrder(org.andromda.demo.ejb3.order.OrderInfo)
      */
@@ -66,5 +66,5 @@ public class OrderManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

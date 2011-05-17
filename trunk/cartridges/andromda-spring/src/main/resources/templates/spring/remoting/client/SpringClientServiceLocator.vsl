@@ -40,7 +40,7 @@ public class $clientServiceLocatorName
     /**
      * The shared instance of this ${clientServiceLocatorName}.
      */
-    private final static ${clientServiceLocatorName} instance = new ${clientServiceLocatorName}();
+    private static final ${clientServiceLocatorName} instance = new ${clientServiceLocatorName}();
 
     /**
      * Gets the shared instance of this Class

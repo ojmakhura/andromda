@@ -16,7 +16,6 @@ package $springTypesPackage;
 public class $clientExceptionHandlingAdviceName
     implements org.springframework.aop.ThrowsAdvice
 {
-
     /**
      * This method will be invoked each time a {@link org.springframework.remoting.RemoteAccessException}
      * gets thrown by any service method.
@@ -29,5 +28,4 @@ public class $clientExceptionHandlingAdviceName
     {
         // ${toDoTag} Add the logic to handle the exception
     }
-
 }

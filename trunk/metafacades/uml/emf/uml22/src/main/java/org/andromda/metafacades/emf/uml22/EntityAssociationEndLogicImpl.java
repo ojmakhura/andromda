@@ -221,7 +221,7 @@ public class EntityAssociationEndLogicImpl
     protected boolean handleIsIdentifiersPresent() {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
-    
+
     /**
      * @return findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_UNIQUE_GROUP)
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getUniqueGroup()

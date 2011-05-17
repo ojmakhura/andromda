@@ -5,12 +5,11 @@ import org.andromda.core.profile.Profile;
 /**
  * Represents stereotypes and tagged values to be used with the deployment
  * cartridge.
- * 
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
 public class DeploymentProfile
 {
-
     private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */

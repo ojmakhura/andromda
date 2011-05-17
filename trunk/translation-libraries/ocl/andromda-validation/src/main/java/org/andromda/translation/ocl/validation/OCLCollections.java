@@ -25,8 +25,8 @@ public final class OCLCollections
 {
     /**
      * Counts the number of occurrences of the argument item in the source collection.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return CollectionUtils.cardinality(item, collection)
      */
     public static int count(
@@ -38,8 +38,8 @@ public final class OCLCollections
 
     /**
      * Return true if the object is not an element of the collection, false otherwise.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return !collection.contains(item
      */
     public static boolean excludes(
@@ -52,8 +52,8 @@ public final class OCLCollections
     /**
      * Returns true if all elements of the parameter collection are not present in the current collection, false
      * otherwise.
-     * @param collection 
-     * @param items 
+     * @param collection
+     * @param items
      * @return excludesAll
      */
     public static boolean excludesAll(
@@ -75,8 +75,8 @@ public final class OCLCollections
 
     /**
      * Returns true if the object is an element of the collection, false otherwise.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return collection.contains(item)
      */
     public static boolean includes(
@@ -88,8 +88,8 @@ public final class OCLCollections
 
     /**
      * Returns true if all elements of the parameter collection are present in the current collection, false otherwise.
-     * @param collection 
-     * @param items 
+     * @param collection
+     * @param items
      * @return collection.containsAll(items)
      */
     public static boolean includesAll(
@@ -101,7 +101,7 @@ public final class OCLCollections
 
     /**
      * Returns true if the collection contains no elements, false otherwise.
-     * @param collection 
+     * @param collection
      * @return collection.isEmpty()
      */
     public static boolean isEmpty(final Collection collection)
@@ -111,7 +111,7 @@ public final class OCLCollections
 
     /**
      * Returns true if the argument is <code>null</code>, false otherwise.
-     * @param object 
+     * @param object
      * @return isEmpty
      */
     public static boolean isEmpty(final Object object)
@@ -122,11 +122,11 @@ public final class OCLCollections
             if (object instanceof Collection)
             {
                 isEmpty = ((Collection) object).isEmpty();
-            } 
+            }
             else if (object instanceof String)
             {
                 isEmpty = isEmpty((String) object);
-            } 
+            }
             else if (object != null && object.getClass().isArray())
             {
                 isEmpty = ((Object[]) object).length == 0;
@@ -138,7 +138,7 @@ public final class OCLCollections
     /**
      * Returns true if the argument is either <code>null</code> or only contains whitespace characters, false
      * otherwise.
-     * @param string 
+     * @param string
      * @return isBlank(string)
      */
     public static boolean isEmpty(final String string)
@@ -148,7 +148,7 @@ public final class OCLCollections
 
     /**
      * Returns true if the collection contains one or more elements, false otherwise.
-     * @param collection 
+     * @param collection
      * @return isEmpty(collection)
      */
     public static boolean notEmpty(final Collection collection)
@@ -158,7 +158,7 @@ public final class OCLCollections
 
     /**
      * Returns true if the argument is not <code>null</code>, false otherwise.
-     * @param object 
+     * @param object
      * @return notEmpty
      */
     public static boolean notEmpty(final Object object)
@@ -169,11 +169,11 @@ public final class OCLCollections
             if (object instanceof Collection)
             {
                 notEmpty = !((Collection) object).isEmpty();
-            } 
+            }
             else if (object instanceof String)
             {
                 notEmpty = notEmpty((String) object);
-            } 
+            }
             else if (object != null && object.getClass().isArray())
             {
                 notEmpty = ((Object[]) object).length > 0;
@@ -185,7 +185,7 @@ public final class OCLCollections
     /**
      * Returns true if the argument is neither <code>null</code> nor only contains whitespace characters, false
      * otherwise.
-     * @param string 
+     * @param string
      * @return isNotBlank(string)
      */
     public static boolean notEmpty(final String string)
@@ -218,7 +218,7 @@ public final class OCLCollections
 
     /**
      * Returns the number of elements in the collection.
-     * @param collection 
+     * @param collection
      * @return collection.size()
      */
     public static int size(final Collection collection)
@@ -287,8 +287,8 @@ public final class OCLCollections
 
     /**
      * Appends the item to the list.
-     * @param list 
-     * @param item 
+     * @param list
+     * @param item
      * @return true if the operation was a success
      */
     public static boolean append(
@@ -300,8 +300,8 @@ public final class OCLCollections
 
     /**
      * Insert the item into the first position of the list.
-     * @param list 
-     * @param item 
+     * @param list
+     * @param item
      * @return the element previously at the first position
      */
     public static Object prepend(
@@ -313,8 +313,8 @@ public final class OCLCollections
 
     /**
      * Appends the item to the bag.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return true if the operation was a success
      */
     public static boolean append(
@@ -326,7 +326,7 @@ public final class OCLCollections
 
     /**
      * Returns the argument as a bag.
-     * @param collection 
+     * @param collection
      * @return new HashBag(collection)
      */
     public static Bag asBag(final Collection collection)
@@ -336,7 +336,7 @@ public final class OCLCollections
 
     /**
      * Returns the argument as an ordered set.
-     * @param collection 
+     * @param collection
      * @return SetUtils.orderedSet(new TreeSet(collection))
      */
     public static Set asOrderedSet(final Collection collection)
@@ -346,7 +346,7 @@ public final class OCLCollections
 
     /**
      * Returns the argument as a list.
-     * @param collection 
+     * @param collection
      * @return new ArrayList(collection)
      */
     public static List asSequence(final Collection collection)
@@ -356,7 +356,7 @@ public final class OCLCollections
 
     /**
      * Returns the argument as a set.
-     * @param collection 
+     * @param collection
      * @return new HashSet(collection)
      */
     public static Set asSet(final Collection collection)
@@ -366,8 +366,8 @@ public final class OCLCollections
 
     /**
      * Returns the element at the specified index in the argument list.
-     * @param list 
-     * @param index 
+     * @param list
+     * @param index
      * @return list.get(index)
      */
     public static Object at(
@@ -379,8 +379,8 @@ public final class OCLCollections
 
     /**
      * Removes all occurrences of the item in the source collection.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return true if one or more elements were removed
      */
     public static boolean excluding(
@@ -392,8 +392,8 @@ public final class OCLCollections
 
     /**
      * Adds the item to the list
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return true if the element was added
      */
     public static boolean including(
@@ -406,7 +406,7 @@ public final class OCLCollections
     /**
      * Recursively flattens this collection, this method returns a Collection containing no nested Collection
      * instances.
-     * @param collection 
+     * @param collection
      * @return flattenedCollection.addAll(flatten((Collection) object))
      */
     public static Collection flatten(final Collection collection)
@@ -418,7 +418,7 @@ public final class OCLCollections
             if (object instanceof Collection)
             {
                 flattenedCollection.addAll(flatten((Collection) object));
-            } 
+            }
             else
             {
                 flattenedCollection.add(object);
@@ -432,8 +432,8 @@ public final class OCLCollections
      * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not
      * contain this element. More formally, returns the lowest index i such that (o == null ? get(i) = =null :
      * o.equals(get(i))), or -1 if there is no such index.
-     * @param collection 
-     * @param item 
+     * @param collection
+     * @param item
      * @return collection.indexOf(item)
      */
     public static int indexOf(
@@ -445,9 +445,9 @@ public final class OCLCollections
 
     /**
      * Insert the item at the specified index into the collection.
-     * @param collection 
-     * @param index 
-     * @param item 
+     * @param collection
+     * @param index
+     * @param item
      */
     public static void insertAt(
             final List collection,
@@ -459,8 +459,8 @@ public final class OCLCollections
 
     /**
      * Returns the collection of elements common in both argument collections.
-     * @param first 
-     * @param second 
+     * @param first
+     * @param second
      * @return CollectionUtils.intersection(first, second)
      */
     public static Collection intersection(
@@ -472,8 +472,8 @@ public final class OCLCollections
 
     /**
      * Returns the union of both collections into a single collection.
-     * @param first 
-     * @param second 
+     * @param first
+     * @param second
      * @return CollectionUtils.union(first, second)
      */
     public static Collection union(
@@ -521,8 +521,8 @@ public final class OCLCollections
 
     /**
      * Returns those element that are contained in only one of both collections.
-     * @param first 
-     * @param second 
+     * @param first
+     * @param second
      * @return CollectionUtils.disjunction(first, second)
      */
     public static Collection symmetricDifference(
@@ -534,7 +534,7 @@ public final class OCLCollections
 
     /**
      * TODO: implement
-     * @param collection 
+     * @param collection
      * @return UnsupportedOperationException
      */
     public static Set subOrderedSet(final Set collection)
@@ -544,7 +544,7 @@ public final class OCLCollections
 
     /**
      * TODO: implement
-     * @param collection 
+     * @param collection
      * @return UnsupportedOperationException
      */
     public static List subSequence(final List collection)
@@ -554,8 +554,8 @@ public final class OCLCollections
 
     /**
      * Returns a random element from the collection for which the argument expression evaluates true.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return selectedElements.get(random.nextInt(selectedElements.size())
      */
     public static Object any(
@@ -570,8 +570,8 @@ public final class OCLCollections
     /**
      * Returns the collection of Objects that results from executing the transformer on each individual element in the
      * source collection.
-     * @param collection 
-     * @param transformer 
+     * @param collection
+     * @param transformer
      * @return CollectionUtils.collect(collection, transformer)
      */
     public static Collection collect(
@@ -583,7 +583,7 @@ public final class OCLCollections
 
     /**
      * TODO: implement
-     * @param collection 
+     * @param collection
      * @return UnsupportedOperationException
      */
     public static Collection collectNested(final Collection collection)
@@ -594,8 +594,8 @@ public final class OCLCollections
     /**
      * Returns true if a predicate is true for at least one element of a collection. <p/>A null collection or predicate
      * returns false.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return CollectionUtils.exists(collection, predicate)
      */
     public static boolean exists(
@@ -608,8 +608,8 @@ public final class OCLCollections
     /**
      * Returns true if a predicate is true for at least one element of a collection. <p/>A null collection or predicate
      * returns false.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return exists((Collection) collection, predicate)
      */
     public static boolean exists(
@@ -624,8 +624,8 @@ public final class OCLCollections
      * Executes every <code>predicate</code> for the given collectoin, if one evaluates to <code>false</code> this
      * operation returns <code>false</code>, otherwise <code>true</code> is returned. </p> If the input collection or
      * closure is null <code>false</code> is returned.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return true if every evaluated predicate returns true, false otherwise.
      */
     public static boolean forAll(
@@ -653,8 +653,8 @@ public final class OCLCollections
      * Executes every <code>predicate</code> for the given collection, if one evaluates to <code>false</code> this
      * operation returns <code>false</code>, otherwise <code>true</code> is returned. </p> If the input collection or
      * closure is null <code>false</code> is returned.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      *
      * @return true if every evaluated predicate returns true, false otherwise.
      */
@@ -673,8 +673,8 @@ public final class OCLCollections
     /**
      * Returns <code>true</code> if the result of executing the <code>transformer</code> has a unique value for each
      * element in the source collection.
-     * @param collection 
-     * @param transformer 
+     * @param collection
+     * @param transformer
      * @return unique
      */
     public static boolean isUnique(
@@ -701,8 +701,8 @@ public final class OCLCollections
     /**
      * Returns <code>true</code> if the result of executing the <code>transformer</code> has a unique value for each
      * element in the source collection.
-     * @param collection 
-     * @param transformer 
+     * @param collection
+     * @param transformer
      * @return isUnique
      */
     public static boolean isUnique(
@@ -719,7 +719,7 @@ public final class OCLCollections
 
     /**
      * TODO: implement
-     * @param collection 
+     * @param collection
      * @return UnsupportedOperationException
      */
     public static Collection iterate(final Collection collection)
@@ -730,8 +730,8 @@ public final class OCLCollections
     /**
      * Returns <code>true</true> when the argument expression evaluates true for one and only one element in the
      * collection. Returns <code>false</code> otherwise.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return found
      */
     public static boolean one(
@@ -763,8 +763,8 @@ public final class OCLCollections
      * Returns <code>true</true> if <code>collection</code> is actually a Collection instance and if the
      * <code>predicate</code> expression evaluates true for one and only one element in the collection. Returns
      * <code>false</code> otherwise. </p>
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return one((Collection) collection, predicate)
      */
     public static boolean one(
@@ -778,8 +778,8 @@ public final class OCLCollections
     /**
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>false</code>.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return CollectionUtils.selectRejected(collection, predicate)
      */
     public static Collection reject(
@@ -792,8 +792,8 @@ public final class OCLCollections
     /**
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>true</code>.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return CollectionUtils.select(collection, predicate)
      */
     public static Collection select(
@@ -806,8 +806,8 @@ public final class OCLCollections
     /**
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>true</code>.
-     * @param collection 
-     * @param predicate 
+     * @param collection
+     * @param predicate
      * @return CollectionUtils.select((Collection) collection, predicate)
      */
     public static Collection select(
@@ -819,7 +819,7 @@ public final class OCLCollections
 
     /**
      * TODO: implement
-     * @param collection 
+     * @param collection
      * @return UnsupportedOperationException
      */
     public static Collection sortedBy(final Collection collection)

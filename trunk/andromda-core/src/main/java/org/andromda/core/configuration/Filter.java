@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-
 /**
  * Used to specify which filter should or should not be applied within a model.
  *

@@ -6,7 +6,6 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * @author Chad Brandon
  * @author Carlos Cuenca

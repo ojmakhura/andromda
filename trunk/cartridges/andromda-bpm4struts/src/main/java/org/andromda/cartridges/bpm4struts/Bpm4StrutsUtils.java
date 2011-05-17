@@ -265,7 +265,7 @@ public final class Bpm4StrutsUtils
     /**
      *
      */
-    final static class ManageableEntityComparator
+    static final class ManageableEntityComparator
         implements Comparator, Serializable
     {
         private static final long serialVersionUID = 1L;

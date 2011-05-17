@@ -47,13 +47,13 @@ public interface $entity.daoName
      * <p>
      * This specific flag denotes no transformation will occur.
      */
-    public final static int $entity.daoNoTransformationConstantName = 0;
+    public static final int $entity.daoNoTransformationConstantName = 0;
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
      * A transformation flag constant that denotes a transformation into a dom4j XML document tree should occur.
      */
-    public final static int TRANSFORM_XML = 1;
+    public static final int TRANSFORM_XML = 1;
 
 #end
 #end
@@ -75,7 +75,7 @@ public interface $entity.daoName
      * This specific flag denotes entities must be transformed into objects of type
      * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
-    public final static int $valueObjectRef.transformationConstantName = $valueObjectRef.transformationConstantValue;
+    public static final int $valueObjectRef.transformationConstantName = $valueObjectRef.transformationConstantValue;
 
     /**
      * Copies the fields of the specified entity to the target value object. This method is similar to

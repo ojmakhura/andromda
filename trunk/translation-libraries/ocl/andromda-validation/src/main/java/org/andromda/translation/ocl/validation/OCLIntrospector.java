@@ -58,7 +58,7 @@ public final class OCLIntrospector
         {
             throwable = getRootCause(throwable);
 
-            // If cause is an OCLIntrospectorException re-throw 
+            // If cause is an OCLIntrospectorException re-throw
             // the exception rather than creating a new one.
             if (throwable instanceof OCLIntrospectorException)
             {

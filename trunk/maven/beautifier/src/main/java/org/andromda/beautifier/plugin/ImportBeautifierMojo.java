@@ -1,7 +1,7 @@
 package org.andromda.beautifier.plugin;
 
 /*
- * Run org.andromda.beautifier as a maven plugin after generating sources. 
+ * Run org.andromda.beautifier as a maven plugin after generating sources.
  * Beautifier (open source) is available from http://www.andromda.org/activities.html.
  * Version 1.1.7 7/15/2007 is current.
  * Beautifier changes all fully-qualified classname references to import statements.
@@ -63,7 +63,7 @@ public class ImportBeautifierMojo
     /**
      * Whether or not processing should be skipped (this is if you just want to force Beautifier not to run on your code, i.e. if generating
      * site from already formatted source code).
-     * 
+     *
      * @parameter expression="${beautifier.run.skip}"
      */
     private boolean skipProcessing = false;
@@ -95,7 +95,7 @@ public class ImportBeautifierMojo
             File outputFile = this.outputDirectory;
             if ( !outputFile.exists() )
             {
-                throw new MojoExecutionException("Beautifier format output directory does not exist: " 
+                throw new MojoExecutionException("Beautifier format output directory does not exist: "
                         + this.outputDirectory);
             }
         }

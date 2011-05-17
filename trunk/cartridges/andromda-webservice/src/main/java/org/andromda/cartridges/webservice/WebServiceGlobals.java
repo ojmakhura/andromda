@@ -11,7 +11,7 @@ public class WebServiceGlobals
     /**
      * The prefix for the XSD namespace.
      */
-    public final static String XSD_NAMESPACE_PREFIX = "xs:";
+    public static final String XSD_NAMESPACE_PREFIX = "xs:";
 
     /**
      * Defines the property that stores the location of the schema type mappings URI.
@@ -27,6 +27,11 @@ public class WebServiceGlobals
      * The namespace delimiter (separates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';
+
+    /**
+     * If backslash should be appended to all namespaces. Default=true, set to false for backwards compatibility.
+     */
+    public static final String ADD_NAMESPACE_BACKSLASH = "addNamespaceBackslash";
 
     /**
      * Defines the style of the web service to be generated (i.e. wrapped, document, rpc). Default=wrapped.

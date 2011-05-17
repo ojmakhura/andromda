@@ -68,7 +68,7 @@ public class BinaryFileRenderer
             final String encoding = fileComponent.getEncoding();
             if (StringUtils.isNotBlank(encoding))
             {
-            	response.setCharacterEncoding(encoding);
+                response.setCharacterEncoding(encoding);
             }
             if (value != null)
             {

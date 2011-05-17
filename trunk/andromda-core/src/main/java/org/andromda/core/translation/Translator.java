@@ -1,6 +1,5 @@
 package org.andromda.core.translation;
 
-
 /**
  * Provides expression translation capabilities. Every expression translator must implement this interface.
  *

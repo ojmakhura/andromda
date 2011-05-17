@@ -11,7 +11,6 @@ package org.andromda.samples.carrental.admins;
 public class AdminServiceImpl
     extends AdminServiceBase
 {
-
     /**
      * @see org.andromda.samples.carrental.admins.AdminService#authenticateAsAdministrator(String, String, String)
      */

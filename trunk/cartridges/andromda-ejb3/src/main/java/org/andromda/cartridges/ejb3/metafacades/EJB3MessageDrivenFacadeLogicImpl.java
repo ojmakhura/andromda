@@ -403,7 +403,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3MessageDrivenFacade#getConstants(boolean)
      */

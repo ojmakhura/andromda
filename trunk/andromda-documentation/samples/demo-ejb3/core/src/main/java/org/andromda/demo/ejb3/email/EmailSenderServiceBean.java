@@ -23,18 +23,18 @@ import javax.jms.TextMessage;
  * Uncomment to enable webservices for EmailSenderServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.email.EmailSenderServiceWSInterface")
  */
-public class EmailSenderServiceBean 
-    extends org.andromda.demo.ejb3.email.EmailSenderServiceBase 
+public class EmailSenderServiceBean
+    extends org.andromda.demo.ejb3.email.EmailSenderServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public EmailSenderServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.email.EmailSenderServiceBase#sendEmail(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
@@ -50,10 +50,10 @@ public class EmailSenderServiceBean
             connection = queueFactory.createQueueConnection();
             session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
             sender = session.createSender((Queue)emailSender);
-            
+
             TextMessage txtMessage = session.createTextMessage(message);
             sender.send(txtMessage);
-        } 
+        }
         catch (JMSException e)
         {
             // TODO Auto-generated catch block
@@ -65,14 +65,14 @@ public class EmailSenderServiceBean
                 try
                 {
                     sender.close();
-                } 
+                }
                 catch (JMSException e)
                 {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
-                
+
             if (session != null) {
                 try
                 {
@@ -84,7 +84,7 @@ public class EmailSenderServiceBean
                     e.printStackTrace();
                 }
             }
-                
+
             if (connection != null) {
                 try
                 {
@@ -101,5 +101,5 @@ public class EmailSenderServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

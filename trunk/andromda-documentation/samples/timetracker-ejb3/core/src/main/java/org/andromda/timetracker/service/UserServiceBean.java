@@ -24,18 +24,18 @@ import org.andromda.timetracker.vo.UserVO;
  * Uncomment to enable webservices for UserServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.timetracker.service.UserServiceWSInterface")
  */
-public class UserServiceBean 
-    extends org.andromda.timetracker.service.UserServiceBase 
+public class UserServiceBean
+    extends org.andromda.timetracker.service.UserServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public UserServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.timetracker.service.UserServiceBase#getAllUsers()
      */
@@ -82,5 +82,5 @@ public class UserServiceBean
 
 
     // -------- Lifecycle Callback Implementation --------------
-    
+
 }

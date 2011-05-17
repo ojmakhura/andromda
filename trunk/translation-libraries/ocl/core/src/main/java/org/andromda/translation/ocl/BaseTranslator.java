@@ -44,7 +44,6 @@ public abstract class BaseTranslator
         extends DepthFirstAdapter
         implements Translator
 {
-
     /**
      * The logger instance that can be used by all decendant classes.
      */

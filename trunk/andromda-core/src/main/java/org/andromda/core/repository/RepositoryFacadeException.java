@@ -1,6 +1,5 @@
 package org.andromda.core.repository;
 
-
 /**
  * An exception thrown whenever an error is encountered while performing RepositoryFacade processing.
  *

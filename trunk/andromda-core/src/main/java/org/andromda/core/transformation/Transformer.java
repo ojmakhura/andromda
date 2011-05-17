@@ -1,9 +1,7 @@
 package org.andromda.core.transformation;
 
 import java.io.InputStream;
-
 import org.andromda.core.configuration.Transformation;
-
 
 /**
  * Is able to apply transformations to a given model (such as an XMI file).

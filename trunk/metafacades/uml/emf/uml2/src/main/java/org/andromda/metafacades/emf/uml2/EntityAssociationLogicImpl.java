@@ -15,7 +15,6 @@ import org.eclipse.uml2.Association;
 import org.eclipse.uml2.Property;
 import org.eclipse.uml2.Type;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.EntityAssociation.

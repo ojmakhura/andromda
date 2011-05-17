@@ -9,8 +9,6 @@ import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
-
 /**
  * MetafacadeLogic implementation.
  *

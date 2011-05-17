@@ -120,7 +120,7 @@ public class TranslationLibraryTestMojo
     protected boolean skip;
 
     /**
-     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
      * @parameter expression="${skipTests}"
      */

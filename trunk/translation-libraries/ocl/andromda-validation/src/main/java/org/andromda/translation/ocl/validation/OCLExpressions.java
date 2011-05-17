@@ -181,7 +181,7 @@ public final class OCLExpressions
             if (comparable instanceof Integer)
             {
                 equal = comparable.compareTo(Integer.valueOf((int) second)) > 0;
-            } 
+            }
             else
             {
                 equal = comparable.equals(Long.valueOf(second));
@@ -608,7 +608,7 @@ public final class OCLExpressions
             if (first instanceof Integer)
             {
                 lessOrEqual = lessOrEqual((Comparable) first, Integer.valueOf((int) second));
-            } 
+            }
             else
             {
                 lessOrEqual = lessOrEqual((Comparable) first, Long.valueOf(second));
@@ -666,7 +666,7 @@ public final class OCLExpressions
             if (second instanceof Integer)
             {
                 lessOrEqual = lessOrEqual(Integer.valueOf((int) first), (Comparable) second);
-            } 
+            }
             else
             {
                 lessOrEqual = lessOrEqual(Long.valueOf(first), (Comparable) second);

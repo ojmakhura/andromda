@@ -5,9 +5,9 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * Contains some utilities methods for dealing with the EMF repository 
+ * Contains some utilities methods for dealing with the EMF repository
  * facade functionality.
- * 
+ *
  * @author Chad Brandon
  */
 class EMFRepositoryFacadeUtils
@@ -16,7 +16,7 @@ class EMFRepositoryFacadeUtils
      * The URI file prefix.
      */
     private static final String FILE_PREFIX = "file:";
-    
+
     /**
      * The URI archive file prefix.
      */

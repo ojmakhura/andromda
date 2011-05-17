@@ -1,6 +1,5 @@
 package org.andromda.core.translation.library;
 
-
 /**
  * Any unchecked exception that will be thrown when any translation rules exception occurs.
  */

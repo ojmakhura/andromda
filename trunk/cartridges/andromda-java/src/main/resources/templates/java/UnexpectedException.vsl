@@ -115,7 +115,7 @@ public#if($class.abstract) abstract#end class ${class.name}
     {
         this.messageArguments = arguments;
     }
-#parse("templates/java/ExceptionUtils.vm")
 
+#parse("templates/java/ExceptionUtils.vm")
 }
 #end

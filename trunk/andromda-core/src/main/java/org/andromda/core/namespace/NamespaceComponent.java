@@ -2,7 +2,6 @@ package org.andromda.core.namespace;
 
 import java.net.URL;
 
-
 /**
  * This represents a component that can be discovered/registered within a namespace.
  *

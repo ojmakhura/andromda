@@ -636,7 +636,7 @@ public class ManageableEntityLogicImpl
     /**
      *
      */
-    final static class ManageableComparator
+    static final class ManageableComparator
         implements Comparator
     {
         /**

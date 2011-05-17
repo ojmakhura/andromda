@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.Collection;
 import org.eclipse.uml2.TemplateBinding;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.BindingFacade.

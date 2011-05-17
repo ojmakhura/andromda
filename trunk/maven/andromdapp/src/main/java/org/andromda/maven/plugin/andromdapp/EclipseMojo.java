@@ -35,7 +35,6 @@ import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
-
 /**
  * Writes the necessary .classpath and .project files
  * for a new eclipse application.

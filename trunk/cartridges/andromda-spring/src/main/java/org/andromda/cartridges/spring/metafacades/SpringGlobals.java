@@ -26,37 +26,37 @@ public class SpringGlobals
     /**
      * POJO implementation class suffix.
      */
-    final static String IMPLEMENTATION_SUFFIX = "Impl";
+    static final String IMPLEMENTATION_SUFFIX = "Impl";
 
     /**
      * EJB implementation class suffix.
      */
-    final static String EJB_IMPLEMENTATION_SUFFIX = "Bean";
+    static final String EJB_IMPLEMENTATION_SUFFIX = "Bean";
 
     /**
      * The service base class suffix.
      */
-    final static String SERVICE_BASE_SUFFIX = "Base";
+    static final String SERVICE_BASE_SUFFIX = "Base";
 
     /**
-     * The name prefix for all spring bean ids.   
+     * The name prefix for all spring bean ids.
      */
-    final static String BEAN_NAME_PREFIX = "beanNamePrefix";
-    
+    static final String BEAN_NAME_PREFIX = "beanNamePrefix";
+
     /**
      * The bean name target suffix
      */
-    final static String BEAN_NAME_TARGET_SUFFIX = "Target";
+    static final String BEAN_NAME_TARGET_SUFFIX = "Target";
 
     /**
      * The service web service delegator.
      */
-    final static String WEB_SERVICE_DELEGATOR_SUFFIX = "WSDelegator";
+    static final String WEB_SERVICE_DELEGATOR_SUFFIX = "WSDelegator";
 
     /**
      * The prefix given to transformation method names.
      */
-    final static String TRANSFORMATION_METHOD_PREFIX = "to";
+    static final String TRANSFORMATION_METHOD_PREFIX = "to";
 
     /**
      * The suffix given to collection transformation method names.
@@ -71,7 +71,7 @@ public class SpringGlobals
     /**
      * Defines the prefix given to the transformation constants.
      */
-    final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
+    static final String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
 
     /**
      * The property used to specify the implementation operation name pattern (on both services and DAOs).
@@ -82,7 +82,7 @@ public class SpringGlobals
      * The name pattern for service implementation class packages
      */
     static final String IMPLEMENTATION_PACKAGE_NAME_PATTERN = "implementationPackageNamePattern";
-    
+
     /**
      * The pattern used to construct the DAO base name.
      */
@@ -228,17 +228,16 @@ public class SpringGlobals
      * The version for Hibernate 3.
      */
     public static final String HIBERNATE_VERSION_3 = "3";
-    
+
     /**
      * JMS Message types.
      */
-    public static String[] jmsMessageTypes = new String[] { 
+    public static String[] jmsMessageTypes = new String[] {
         "javax.jms.Message",
-        "javax.jms.MapMessage", 
-        "javax.jms.TextMessage", 
+        "javax.jms.MapMessage",
+        "javax.jms.TextMessage",
         "javax.jms.StreamMessage",
         "javax.jms.BytesMessage",
         "javax.jms.ObjectMessage"
         };
-
 }

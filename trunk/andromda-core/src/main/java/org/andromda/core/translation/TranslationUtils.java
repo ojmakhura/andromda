@@ -5,7 +5,6 @@ import org.andromda.core.common.Introspector;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Contains translation utilities.
  *
@@ -132,7 +131,7 @@ public class TranslationUtils
     }
 
     /**
-     * Removes any extra whitepace --> does not remove the spaces between the words. Only removes tabs and newline
+     * Removes any extra whitespace --> does not remove the spaces between the words. Only removes tabs and newline
      * characters. This is to allow everything to be on one line while keeping the spaces between words.
      *
      * @param string the string
@@ -144,7 +143,7 @@ public class TranslationUtils
     }
 
     /**
-     * Just retriieves properties from a bean, but gives a more informational error when the property can't be
+     * Just retrieves properties from a bean, but gives a more informational error when the property can't be
      * retrieved, it also cleans the resulting property from any excess white space
      *
      * @param bean     the bean from which to retrieve the property
@@ -169,7 +168,7 @@ public class TranslationUtils
     }
 
     /**
-     * Just retriieves properties from a bean, but gives a more informational error when the property can't be
+     * Just retrieves properties from a bean, but gives a more informational error when the property can't be
      * retrieved, it also cleans the resulting property from any excess white space
      *
      * @param bean     the bean from which to retrieve the property

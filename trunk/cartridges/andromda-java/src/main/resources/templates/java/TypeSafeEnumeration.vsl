@@ -120,7 +120,7 @@ $member.getDocumentation("     * ")
     }
 
 #if (!$enumeration.memberVariables.empty)
-## From EJB3 cartridge. Need valueIn to avoid compiler error - initialized final static attribute
+## From EJB3 cartridge. Need valueIn to avoid compiler error - initialized static final attribute
     /**
      * $enumeration.name constructor with list of member variables
      */

@@ -11,7 +11,6 @@ import org.andromda.core.namespace.NamespaceRegistry;
 import org.andromda.core.namespace.PropertyDefinition;
 import org.apache.log4j.Logger;
 
-
 /**
  * Directory of configurable Namespace objects. Namespace objects are used for configuring AndroMDA
  * namespaces.

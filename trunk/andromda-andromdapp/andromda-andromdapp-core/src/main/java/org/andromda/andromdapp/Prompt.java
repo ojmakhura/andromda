@@ -125,7 +125,7 @@ public class Prompt
     public boolean isValidResponse(final String response)
     {
         return this.responses.contains(response) ||
-        (this.responses.isEmpty() && (!this.isRequired() || (StringUtils.isNotBlank(response))));
+            (this.responses.isEmpty() && (!this.isRequired() || (StringUtils.isNotBlank(response))));
     }
 
     /**
@@ -167,11 +167,13 @@ public class Prompt
     private String getResponsesAsString()
     {
         final StringBuilder responsesString = new StringBuilder("[");
-        for (String response : this.responses) {
+        for (String response : this.responses)
+        {
             responsesString.append(response).append(", ");
         }
         //remove last ", "
-        if(!this.responses.isEmpty()) {
+        if(!this.responses.isEmpty())
+        {
             responsesString.delete(responsesString.length()-2, responsesString.length());
         }
         responsesString.append(']');

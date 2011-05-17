@@ -109,12 +109,6 @@
                     Indicates whether or not templated (strongly typed) Lists will be generated.
                 </documentation>
             </property>
-            <property name="enableAnnotations">
-                <default>true</default>
-                <documentation>
-                    Indicates whether JDK5 annotations will be generated, i.e. @Override, @Deprecated.
-                </documentation>
-            </property>
             <property name="xmlAttributes">
                 <default>true</default>
                 <documentation>
@@ -151,6 +145,14 @@
                     When set to 'true' the setAttribute method returns 'this' instead of void, allowing setter methods to be
                     chained together after the constructor for improved readability and reduced lines of code. For example: 
                     Type variable = new Type().setAttribute1(value1).setAttribute2(value2); etc
+                </documentation>
+            </property>
+            <property name="addNamespaceBackslash">
+                <default>true</default>
+                <documentation>
+                    Add a trailing backslash to the namespace declaration in wsdl/xsd/annotations.
+                    Needed for backwards compatibility. Services created from URL ?wsdl will have trailing
+                    backslashes added automatically.
                 </documentation>
             </property>
             <property name="XMLDateAdapter">

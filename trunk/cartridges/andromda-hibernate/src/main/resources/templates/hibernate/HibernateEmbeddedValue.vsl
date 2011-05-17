@@ -27,7 +27,7 @@ public abstract class $embeddedValue.name
      * Creates a new instance of {@link ${embeddedValue.name}}
      * taking all properties.
 #foreach ($attribute in $embeddedValue.attributes)
-     * @param $attribute.name 
+     * @param $attribute.name
 #end
      * @return object
      */
@@ -49,7 +49,7 @@ $attribute.getterSetterTypeName ${attribute.name}#if($velocityHasNext),#else)#en
 
     /**
      * Creates a new instance from other $embeddedValue.name instance.
-     * @param otherObject 
+     * @param otherObject
      * @return newInstance
      */
     public static ${embeddedValue.name} newInstance($embeddedValue.name otherObject)

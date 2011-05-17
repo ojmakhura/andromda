@@ -128,10 +128,10 @@
         }
         return th;
     }
-
 #foreach ($operation in $class.operations)
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
+
     /**
 $operation.getDocumentation("     * ")
 #foreach ($parameter in $operation.parameters)
@@ -165,11 +165,11 @@ $operation.getDocumentation("     * ")
         throw new UnsupportedOperationException("${class.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
     }
-
 #end
 ## webFault has properties in the fault bean which must be referenced instead of these properties
 #if (!$webFault)
 #foreach ($attribute in $class.properties)
+
     private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**

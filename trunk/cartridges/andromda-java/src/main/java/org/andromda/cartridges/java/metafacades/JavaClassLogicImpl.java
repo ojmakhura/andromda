@@ -35,7 +35,7 @@ public class JavaClassLogicImpl
 
     /**
      * If WebFault stereotype, change name from XXException to XXFault. Class should
-     * also have XXException stereotype so that the corresponding Exception referencing the 
+     * also have XXException stereotype so that the corresponding Exception referencing the
      * fault is also created.
      * @param fault true if name is to be converted to Fault version, for VO Template only
      * @return the class name.

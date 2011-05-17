@@ -27,7 +27,6 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndControllerOperation.

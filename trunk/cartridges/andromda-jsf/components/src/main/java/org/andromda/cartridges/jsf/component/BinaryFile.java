@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 public class BinaryFile
     extends UIComponentBase
 {
-    private static final Log logger = LogFactory.getLog(BinaryFile.class);
+    private static final Log LOGGER = LogFactory.getLog(BinaryFile.class);
     /**
      * BinaryFile.class.getName()
      */
@@ -242,7 +242,7 @@ public class BinaryFile
     /**
      * Stores the default content types.
      */
-    final static Properties contentTypes = new Properties();
+    static final Properties contentTypes = new Properties();
 
     /**
      * Load up the default content types
@@ -253,7 +253,7 @@ public class BinaryFile
         final InputStream stream = BinaryFile.class.getResourceAsStream(fileName);
         if (stream == null)
         {
-            logger.error("Could not load file from '" + fileName + '\'');
+            LOGGER.error("Could not load file from '" + fileName + '\'');
         }
         try
         {
@@ -261,11 +261,11 @@ public class BinaryFile
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            LOGGER.error(throwable);
         }
         try
         {
-            if (stream != null) {stream.close();}
+            if (stream != null) {stream.close(); }
         }
         catch (final Throwable throwable)
         {

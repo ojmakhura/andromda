@@ -19,28 +19,24 @@ import org.andromda.demo.ejb3.vehicle.Motocycle;
 import org.andromda.demo.ejb3.vehicle.VehicleException;
 import org.andromda.demo.ejb3.vehicle.VehicleManagerDelegate;
 
-public class Client 
+public class Client
 {
-
     private Properties prop;
-    
-    public void init() 
+
+    public void init()
     {
         prop = new Properties();
         prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
         prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
         prop.put("java.naming.provider.url", "localhost");
     }
-    
-    
-    
-    
+
     public void insertBook()
     {
         System.out.println("Inserting book...");
-        
+
         Book book = new Book("Sheytan", 300);
-        
+
         BookServiceDelegate serviceDelegate = new BookServiceDelegate(prop);
         try
         {
@@ -54,23 +50,19 @@ public class Client
         {
             serviceDelegate.close();
         }
-        
+
         System.out.println("Insert complete.");
     }
 
-    
-    
-    
-    
     public void deleteBook()
     {
         System.out.println("deleting book...");
-        
+
         BookServiceDelegate serviceDelegate = new BookServiceDelegate(prop);
         try
         {
             serviceDelegate.deleteBook(1);
-        } 
+        }
         catch (BookException e)
         {
             // TODO Auto-generated catch block
@@ -80,21 +72,17 @@ public class Client
         {
             serviceDelegate.close();
         }
-        
+
         System.out.println("delete complete.");
     }
 
-    
-    
-    
     /**
      * @param args
      */
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         Client client = new Client();
         client.init();
         client.deleteBook();
     }
-
 }

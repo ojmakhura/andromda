@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Represents a mapping within an AndroMDApp descriptor.
- * 
+ *
  * @author Chad Brandon
  */
 public class Mapping
@@ -15,23 +15,23 @@ public class Mapping
      * Stores the mappings from which the output is mapped.
      */
     private final List<String> froms = new ArrayList<String>();
-   
+
     /**
      * Adds a from to this mapping's list of from mappings.
-     * 
+     *
      * @param from the from mapping.
      */
     public void addFrom(final String from)
     {
         this.froms.add(from);
     }
-    
+
     /**
-     * Attempts to match the given <code>path</code> on one of the 
+     * Attempts to match the given <code>path</code> on one of the
      * the from values, if a match can be made, the new path value is returned,
      * otherwise null is returned.
-     * @param path 
-     * 
+     * @param path
+     *
      * @return true/false
      */
     public String getMatch(final String path)
@@ -46,8 +46,8 @@ public class Mapping
         }
         return match;
     }
-    
-    
+
+
     private String to;
 
     /**

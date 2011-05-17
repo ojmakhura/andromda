@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml2;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.TemplateParameterFacade.

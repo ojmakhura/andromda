@@ -190,7 +190,7 @@ public class MDRXmiReferenceResolverContext
     /**
      * The suffixes to use when searching for referenced models on the classpath.
      */
-    protected final static String[] CLASSPATH_MODEL_SUFFIXES = new String[] {"xml", "xmi"};
+    protected static final String[] CLASSPATH_MODEL_SUFFIXES = new String[] {"xml", "xmi"};
 
     /**
      * Searches for the model URL on the classpath.

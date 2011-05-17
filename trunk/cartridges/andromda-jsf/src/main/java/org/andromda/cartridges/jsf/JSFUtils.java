@@ -53,10 +53,10 @@ public class JSFUtils
         Pattern.compile("\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
 
     private static final String ANNOTATION_VALIDATOR_PREFIX = "@";
-    
+
     /**
      * Reads the validator arguments from the the given tagged value.
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return returns a list of String instances or an empty list
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -68,7 +68,7 @@ public class JSFUtils
         }
 
         final List<String> validatorArgs = new ArrayList<String>();
-        
+
         //isn't it an annotation ?
         if(!StringUtils.startsWith(validatorTaggedValue,ANNOTATION_VALIDATOR_PREFIX))
         {
@@ -81,7 +81,7 @@ public class JSFUtils
                     "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
                     "andromda_presentation_view_field_format?): " + validatorTaggedValue);
             }
-    
+
             // only keep what is between parentheses (if any)
             int left = validatorTaggedValue.indexOf('(');
             if (left > -1)
@@ -90,13 +90,13 @@ public class JSFUtils
                 validatorTaggedValue = validatorTaggedValue.substring(
                         left + 1,
                         right);
-    
+
                 final String[] pairs = validatorTaggedValue.split(",");
                 for (int i = 0; i < pairs.length; i++)
                 {
                     final String pair = pairs[i];
                     final int equalsIndex = pair.indexOf('=');
-    
+
                     // it's possible the argument is the empty string
                     if (equalsIndex < pair.length() - 1)
                     {
@@ -114,7 +114,7 @@ public class JSFUtils
 
     /**
      * Reads the validator variable names from the the given tagged value.
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -136,7 +136,7 @@ public class JSFUtils
             {
                 throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
             }
-    
+
             // only keep what is between parentheses (if any)
             int left = validatorTaggedValue.indexOf('(');
             if (left > -1)
@@ -145,7 +145,7 @@ public class JSFUtils
                 validatorTaggedValue = validatorTaggedValue.substring(
                         left + 1,
                         right);
-    
+
                 final String[] pairs = validatorTaggedValue.split(",");
                 for (int i = 0; i < pairs.length; i++)
                 {
@@ -162,7 +162,7 @@ public class JSFUtils
 
     /**
      * Parses the validator name for a tagged value.
-     * @param validatorTaggedValue 
+     * @param validatorTaggedValue
      * @return validatorTaggedValue
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -174,7 +174,7 @@ public class JSFUtils
         }
 
         //isn't it an annotation ?
-        if(StringUtils.startsWith(validatorTaggedValue,ANNOTATION_VALIDATOR_PREFIX))
+        if(StringUtils.startsWith(validatorTaggedValue, ANNOTATION_VALIDATOR_PREFIX))
         {
             return validatorTaggedValue;
         }
@@ -216,24 +216,18 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return this field's date format
      */
     public static String getDateFormat(String format)
     {
         format = StringUtils.trimToEmpty(format);
-        return format.endsWith(STRICT) ? getToken(
-            format,
-            1,
-            2) : getToken(
-            format,
-            0,
-            1);
+        return format.endsWith(STRICT) ? getToken(format, 1, 2) : getToken(format, 0, 1);
     }
 
     private static String defaultDateFormat = "MM/dd/yyyy HH:mm:ssZ";
     private static FastDateFormat df = FastDateFormat.getInstance(defaultDateFormat);
-    
+
     /**
      * Returns the current Date in the specified format.
      *
@@ -262,8 +256,9 @@ public class JSFUtils
     private static final String STRICT = "strict";
 
     /**
-     * @param format 
-     * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
+     * @param format
+     * @return <code>true</code> if this field's value needs to conform to a
+     * strict date format, <code>false</code> otherwise
      */
     public static boolean isStrictDateFormat(String format)
     {
@@ -275,8 +270,9 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is an email format.
-     * @param format 
-     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
+     * @param format
+     * @return <code>true</code> if this field is to be formatted as an email
+     * address, <code>false</code> otherwise
      */
     public static boolean isEmailFormat(String format)
     {
@@ -288,46 +284,38 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is an equal format.
-     * @param format 
-     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
+     * @param format
+     * @return <code>true</code> if this field is to be formatted as an
+     * email address, <code>false</code> otherwise
      */
     public static boolean isEqualFormat(String format)
     {
-        return "equal".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
+        return "equal".equalsIgnoreCase(JSFUtils.getToken(format, 0, 2));
     }
 
     /**
      * Indicates if the given <code>format</code> is a credit card format.
-     * @param format 
+     * @param format
      * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
      */
     public static boolean isCreditCardFormat(final String format)
     {
-        return "creditcard".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
+        return "creditcard".equalsIgnoreCase(JSFUtils.getToken(format, 0, 2));
     }
 
     /**
      * Indicates if the given <code>format</code> is a pattern format.
-     * @param format 
+     * @param format
      * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
      */
     public static boolean isPatternFormat(final String format)
     {
-        return "pattern".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
+        return "pattern".equalsIgnoreCase(JSFUtils.getToken(format, 0, 2));
     }
 
     /**
      * Indicates if the given <code>format</code> is a minlength format.
-     * @param format 
+     * @param format
      * @return <code>true</code> if this field's value needs to consist of at least a certain
      *         number of characters, <code>false</code> otherwise
      */
@@ -341,7 +329,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a maxlength format.
-     * @param format 
+     * @param format
      * @return <code>true</code> if this field's value needs to consist of at maximum a certain
      *         number of characters, <code>false</code> otherwise
      */
@@ -354,9 +342,9 @@ public class JSFUtils
     }
 
     /**
-     * @param string 
-     * @param index 
-     * @param limit 
+     * @param string
+     * @param index
+     * @param limit
      * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
      */
     public static String getToken(
@@ -390,7 +378,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a range format.
-     * @param format 
+     * @param format
      * @return <code>true</code> if this field's value needs to be in a specific range, <code>false</code> otherwise
      */
     public static boolean isRangeFormat(final String format)
@@ -402,7 +390,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
      */
     public static boolean isByte(final ClassifierFacade type)
@@ -413,7 +401,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a short, <code>false</code> otherwise
      */
     public static boolean isShort(final ClassifierFacade type)
@@ -424,7 +412,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is an integer, <code>false</code> otherwise
      */
     public static boolean isInteger(final ClassifierFacade type)
@@ -435,7 +423,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a long integer, <code>false</code> otherwise
      */
     public static boolean isLong(final ClassifierFacade type)
@@ -446,7 +434,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a floating point, <code>false</code> otherwise
      */
     public static boolean isFloat(final ClassifierFacade type)
@@ -457,8 +445,9 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
-     * @return <code>true</code> if the type of this field is a double precision floating point, <code>false</code> otherwise
+     * @param type
+     * @return <code>true</code> if the type of this field is a double precision floating point,
+     * <code>false</code> otherwise
      */
     public static boolean isDouble(final ClassifierFacade type)
     {
@@ -467,9 +456,8 @@ public class JSFUtils
             JSFProfile.DOUBLE_TYPE_NAME);
     }
 
-
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a date, <code>false</code> otherwise
      */
     public static boolean isDate(final ClassifierFacade type)
@@ -478,7 +466,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
      */
     public static boolean isTime(final ClassifierFacade type)
@@ -489,7 +477,7 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
+     * @param type
      * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
      */
     public static boolean isUrl(final ClassifierFacade type)
@@ -498,7 +486,6 @@ public class JSFUtils
             type,
             JSFProfile.URL_TYPE_NAME);
     }
-
 
     private static boolean isType(final ClassifierFacade type, String typeName)
     {
@@ -510,10 +497,12 @@ public class JSFUtils
             // - handle abstract types that are mapped to java types
             if (type.getLanguageMappings() != null)
             {
-                final String javaTypeName = type.getLanguageMappings().getTo(type.getFullyQualifiedName(true));
+                final String javaTypeName = type.getLanguageMappings()
+                    .getTo(type.getFullyQualifiedName(true));
                 if (javaTypeName != null)
                 {
-                    isType = javaTypeName.replaceAll(".*\\.", "").equalsIgnoreCase(type.getLanguageMappings().getTo(typeName));
+                    isType = javaTypeName.replaceAll(".*\\.", "").equalsIgnoreCase(
+                        type.getLanguageMappings().getTo(typeName));
                 }
             }
         }
@@ -521,8 +510,9 @@ public class JSFUtils
     }
 
     /**
-     * @param type 
-     * @return <code>true</code> if the type of this field is a String, <code>false</code> otherwise
+     * @param type
+     * @return <code>true</code> if the type of this field is a String,
+     * <code>false</code> otherwise
      */
     public static boolean isString(final ClassifierFacade type)
     {
@@ -603,7 +593,7 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return the lower limit for this field's value's range
      */
     public static String getRangeStart(final String format)
@@ -615,7 +605,7 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return the upper limit for this field's value's range
      */
     public static String getRangeEnd(final String format)
@@ -627,7 +617,7 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return the minimum number of characters this field's value must consist of
      */
     public static String getMinLengthValue(final String format)
@@ -639,7 +629,7 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return the maximum number of characters this field's value must consist of
      */
     public static String getMaxLengthValue(final String format)
@@ -651,7 +641,7 @@ public class JSFUtils
     }
 
     /**
-     * @param format 
+     * @param format
      * @return the pattern this field's value must respect
      */
     public static String getPatternValue(final String format)
@@ -664,30 +654,30 @@ public class JSFUtils
 
     //validator strings
     /** "required" */
-    static final public String VT_REQUIRED="required";
+    public static final String VT_REQUIRED="required";
     /** "url" */
-    static final public String VT_URL="url";
+    public static final String VT_URL="url";
     /** "intRange" */
-    static final public String VT_INT_RANGE="intRange";
+    public static final String VT_INT_RANGE="intRange";
     /** "floatRange" */
-    static final public String VT_FLOAT_RANGE="floatRange";
+    public static final String VT_FLOAT_RANGE="floatRange";
     /** "doubleRange" */
-    static final public String VT_DOUBLE_RANGE="doubleRange";
+    public static final String VT_DOUBLE_RANGE="doubleRange";
     /** "email" */
-    static final public String VT_EMAIL="email";
+    public static final String VT_EMAIL="email";
     /** "creditCard" */
-    static final public String VT_CREDIT_CARD="creditCard";
+    public static final String VT_CREDIT_CARD="creditCard";
     /** "minlength" */
-    static final public String VT_MIN_LENGTH="minlength";
+    public static final String VT_MIN_LENGTH="minlength";
     /** "maxlength" */
-    static final public String VT_MAX_LENGTH="maxlength";
+    public static final String VT_MAX_LENGTH="maxlength";
     /** "mask" */
-    static final public String VT_MASK="mask";
+    public static final String VT_MASK="mask";
     /** "validwhen" */
-    static final public String VT_VALID_WHEN="validwhen";
+    public static final String VT_VALID_WHEN="validwhen";
     /** "equal" */
-    static final public String VT_EQUAL="equal";
-    
+    public static final String VT_EQUAL="equal";
+
     /**
      * Retrieves the validator types as a collection from the given
      * <code>element</code> (if any can be retrieved).
@@ -953,11 +943,11 @@ public class JSFUtils
             for (final Object value : taggedValues)
             {
                 final String validator = String.valueOf(value);
-    
+
                 // - guaranteed to be of the same length
                 final List<String> validatorVars = JSFUtils.parseValidatorVars(validator);
                 final List<String> validatorArgs = JSFUtils.parseValidatorArgs(validator);
-    
+
                 for (int ctr = 0; ctr < validatorVars.size(); ctr++)
                 {
                     vars.put(validatorVars.get(ctr),
@@ -1075,7 +1065,7 @@ public class JSFUtils
     /**
      * Indicates whether or not the format for this element is a strict date
      * format.
-     * @param element 
+     * @param element
      * @return true/false
      */
     public static boolean isStrictDateFormat(final ModelElementFacade element)
@@ -1089,8 +1079,8 @@ public class JSFUtils
      *
      * @param element the element for which to retrieve the format.
      * @param type the type of the element.
-     * @param defaultDateFormat 
-     * @param defaultTimeFormat 
+     * @param defaultDateFormat
+     * @param defaultTimeFormat
      * @return the format string (if one is present otherwise null).
      */
     public static String getFormat(
@@ -1208,10 +1198,11 @@ public class JSFUtils
     }
 
     /**
-     * @param buffer 
+     * @param buffer
      * @return the calculated SerialVersionUID
      */
-    public static String calcSerialVersionUID(StringBuilder buffer){
+    public static String calcSerialVersionUID(StringBuilder buffer)
+    {
         final String signature = buffer.toString();
         String serialVersionUID = String.valueOf(0L);
         try
@@ -1232,10 +1223,10 @@ public class JSFUtils
         {
             throw new RuntimeException("Error performing JSFAction.getFormSerialVersionUID",exception);
         }
-        
+
         return serialVersionUID;
     }
-    
+
     /**
      * @param string
      * @return Integer.valueOf(string) * 6000

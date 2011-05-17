@@ -113,13 +113,13 @@ public class $className
     protected static final String MESSAGES_TITLE = "${formMessagesProperty}Title";
 
     /**
-	 * Empty method
+     * Empty method
      * @see org.andromda.presentation.jsf.AbstractPhaseListener#hash()handleAfterPhase(javax.faces.event.PhaseEvent)
      */
     @Override
     protected void handleAfterPhase(javax.faces.event.PhaseEvent event)
     {
-	    // Empty method
+        // Empty method
     }
 
     /**

@@ -89,7 +89,7 @@ public class FrontEndActionLogicImpl
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.emptyList() : new ArrayList(trigger.getParameters());
     }
-    
+
     /**
      * @see  org.andromda.metafacades.uml.FrontEndAction#findParameter(String)
      */
@@ -353,8 +353,8 @@ public class FrontEndActionLogicImpl
     {
         final Map<String, ParameterFacade> formFieldMap = new LinkedHashMap<String, ParameterFacade>();
 
-        // - For an action that starts the use case, we need to detect all usecases forwarding to the one 
-        //   belonging to this action if there are any parameters in those transitions we need to have 
+        // - For an action that starts the use case, we need to detect all usecases forwarding to the one
+        //   belonging to this action if there are any parameters in those transitions we need to have
         //   them included in this action's form
         if (this.isUseCaseStart())
         {
@@ -480,7 +480,7 @@ public class FrontEndActionLogicImpl
             }
         }
 
-        // - if we don't have any fields defined on this action and there are no action forwards, 
+        // - if we don't have any fields defined on this action and there are no action forwards,
         //   take the parameters from the deferred operations (since we would want to stay on the same view)
         if (formFieldMap.isEmpty() && this.getActionForwards().isEmpty())
         {

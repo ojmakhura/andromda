@@ -17,14 +17,14 @@ public interface CarDao
      * <p/>
      * This specific flag denotes no transformation will occur.
      */
-    public final static int TRANSFORM_NONE = 0;
+    public static final int TRANSFORM_NONE = 0;
 
     /**
      * Loads an instance of org.andromda.howto2.rental.Car from the persistent store.
      * @param id the identifier of the entity to load.
      * @throws org.andromda.howto2.rental.CarDaoException
      */
-    public org.andromda.howto2.rental.Car load(java.lang.Long id) 
+    public org.andromda.howto2.rental.Car load(java.lang.Long id)
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
@@ -41,7 +41,7 @@ public interface CarDao
      * @return either the entity or the object transformed from the entity.
      * @throws org.andromda.howto2.rental.CarDaoException
      */
-    public Object load(int transform, java.lang.Long id) 
+    public Object load(int transform, java.lang.Long id)
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
@@ -50,7 +50,7 @@ public interface CarDao
      * @return the loaded entities.
      * @throws org.andromda.howto2.rental.CarDaoException
      */
-    public java.util.Collection<org.andromda.howto2.rental.Car> loadAll() 
+    public java.util.Collection<org.andromda.howto2.rental.Car> loadAll()
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
@@ -67,7 +67,7 @@ public interface CarDao
      * @return the loaded entities.
      * @throws org.andromda.howto2.rental.CarDaoException
      */
-    public java.util.Collection loadAll(final int transform) 
+    public java.util.Collection loadAll(final int transform)
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
@@ -225,7 +225,7 @@ public interface CarDao
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
-     * 
+     *
      */
     public java.util.List findByType(org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException;
@@ -268,7 +268,7 @@ public interface CarDao
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
-     * 
+     *
      */
     public boolean allCarsAreRented();
 

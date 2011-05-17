@@ -68,7 +68,7 @@ public class RegisterCarControllerImpl extends RegisterCarController
             this.registrationNo = registrationNo;
             this.id = id;
         }
-        
+
         public void setInventoryNo(String inventoryNo)
         {
             this.inventoryNo = inventoryNo;
@@ -78,7 +78,7 @@ public class RegisterCarControllerImpl extends RegisterCarController
         {
             return this.inventoryNo;
         }
-        
+
         public void setRegistrationNo(String registrationNo)
         {
             this.registrationNo = registrationNo;
@@ -88,7 +88,7 @@ public class RegisterCarControllerImpl extends RegisterCarController
         {
             return this.registrationNo;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -98,6 +98,6 @@ public class RegisterCarControllerImpl extends RegisterCarController
         {
             return this.id;
         }
-        
+
     }
 }

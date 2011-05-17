@@ -3,7 +3,6 @@ package org.andromda.core.repository;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.namespace.BaseNamespaceComponent;
 
-
 /**
  * Represents the repository namespace component.  This is what
  * configures a repository instance.

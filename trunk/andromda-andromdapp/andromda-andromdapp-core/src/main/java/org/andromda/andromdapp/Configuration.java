@@ -118,10 +118,10 @@ public class Configuration
      * Stores whether or not the application should be overwritten if it previously existed.
      */
     private boolean overwrite;
-    
+
     /**
      * Whether or not the application should be overwritten if it already exits.
-     * 
+     *
      * @return true/false
      */
     public boolean isOverwrite()
@@ -130,7 +130,7 @@ public class Configuration
     }
     /**
      * Sets whether or not the application should be overwritten if it previously existed.
-     * 
+     *
      * @param overwrite true/false
      */
     public void setOverwrite(final boolean overwrite)

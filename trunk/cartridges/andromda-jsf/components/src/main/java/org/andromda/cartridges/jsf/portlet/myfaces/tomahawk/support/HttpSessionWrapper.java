@@ -16,10 +16,9 @@ import javax.servlet.http.HttpSessionContext;
  */
 @SuppressWarnings("deprecation")
 public class HttpSessionWrapper
-implements HttpSession
+    implements HttpSession
 {
     private final PortletSession portletSession;
-
     private final PortletContext portletContext;
 
     /**
@@ -87,6 +86,7 @@ implements HttpSession
      * @see javax.servlet.http.HttpSession#getSessionContext()
      * @deprecated
      */
+    @Deprecated
     public HttpSessionContext getSessionContext()
     {
         // TODO Portlet API does not have this method
@@ -105,6 +105,7 @@ implements HttpSession
      * @see javax.servlet.http.HttpSession#getValue(String)
      * @deprecated
      */
+    @Deprecated
     public Object getValue(final String arg0)
     {
         return portletSession.getAttribute(arg0);
@@ -122,6 +123,7 @@ implements HttpSession
      * @see javax.servlet.http.HttpSession#getValueNames()
      * @deprecated
      */
+    @Deprecated
     public String[] getValueNames()
     {
         final List objs = new ArrayList();
@@ -150,6 +152,7 @@ implements HttpSession
      * @see javax.servlet.http.HttpSession#putValue(String, Object)
      * @deprecated
      */
+    @Deprecated
     public void putValue(final String arg0, final Object arg1)
     {
         portletSession.setAttribute(arg0, arg1);
@@ -167,6 +170,7 @@ implements HttpSession
      * @see javax.servlet.http.HttpSession#removeValue(String)
      * @deprecated
      */
+    @Deprecated
     public void removeValue(final String arg0)
     {
         portletSession.removeAttribute(arg0);

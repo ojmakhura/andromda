@@ -37,7 +37,7 @@ public class OclParser
         extends Parser
 {
     /**
-     * 
+     *
      */
     protected Node oclNode;
 
@@ -62,7 +62,7 @@ public class OclParser
     }
 
     /**
-     * 
+     *
      */
     protected SyntaxHandler handler = new SyntaxHandler();
 
@@ -74,7 +74,7 @@ public class OclParser
     {
 
         /**
-         * @param featureCallParameters 
+         * @param featureCallParameters
          * @see #org.andromda.translation.ocl.parser.OclParser.SyntaxHandler.getParametersWithStandardDeclarator(AConcreteFeatureCallParameters featureCallParameters, PFeatureCallParameterOption[] parameterOptions)
          */
         public void caseAConcreteFeatureCallParameters(AConcreteFeatureCallParameters featureCallParameters)
@@ -262,7 +262,7 @@ public class OclParser
         private Map namesAndTypes = new HashMap();
 
         /**
-         * @param name 
+         * @param name
          * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#orderedNames
          */
         public void inAPathName(APathName name)
@@ -279,7 +279,7 @@ public class OclParser
         }
 
         /**
-         * @param commaName 
+         * @param commaName
          * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#orderedNames
          */
         public void inACommaFeatureCallParameterOption(ACommaFeatureCallParameterOption commaName)
@@ -289,7 +289,7 @@ public class OclParser
         }
 
         /**
-         * @param type 
+         * @param type
          * @see org.andromda.translation.ocl.parser.OclParser.VariableDeclarationListFinder#namesAndTypes
          */
         public void inATypeDeclaration(ATypeDeclaration type)
@@ -346,7 +346,7 @@ public class OclParser
         private TName foundName;
 
         /**
-         * @param pathName 
+         * @param pathName
          * @see org.andromda.translation.ocl.node.APathName#getName()
          */
         public void caseAPathName(APathName pathName)

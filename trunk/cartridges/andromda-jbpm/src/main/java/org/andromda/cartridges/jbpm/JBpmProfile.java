@@ -13,7 +13,7 @@ public class JBpmProfile
      * The Profile instance from which we retrieve the mapped profile names.
      */
     private static final Profile profile = Profile.instance();
-    
+
     // Stereotypes
     /**
      * profile.get("BUSINESS_PROCESS")

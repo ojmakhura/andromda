@@ -8,8 +8,8 @@ import org.apache.commons.fileupload.FileItem;
  *
  * @author <a href="mailto:shinsuke@yahoo.co.jp">Shinsuke Sugaya</a>
  */
-public interface MultipartRequest {
-
+public interface MultipartRequest
+{
     // Hook for the t:inputFileUpload tag.
     /**
      * @param fieldName

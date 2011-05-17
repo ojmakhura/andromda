@@ -8,7 +8,6 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
 
-
 /**
  * Finds model elements by their names.
  *

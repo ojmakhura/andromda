@@ -1,6 +1,5 @@
 package org.andromda.core.namespace;
 
-
 /**
  * Any unchecked exception that will be thrown during execution of the NamespaceComponents.
  */

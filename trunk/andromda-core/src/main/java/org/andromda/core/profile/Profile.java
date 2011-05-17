@@ -13,7 +13,6 @@ import org.andromda.core.configuration.Property;
 import org.andromda.core.namespace.BaseNamespaceComponent;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Represents an AndroMDA profile applied to a model.
  * Profiles allow us to extend aspects of a model.

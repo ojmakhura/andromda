@@ -31,7 +31,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Set the username to connect to the service.
-     * @param username 
+     * @param username
      */
     public void setUsername(String username)
     {
@@ -51,7 +51,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Set the password to connect to the service.
-     * @param password 
+     * @param password
      */
     public void setPassword(String password)
     {
@@ -120,7 +120,7 @@ public class Axis2PortClientInterceptor
 
     /**
      * Set the interface of the service that this factory should create a proxy for.
-     * @param serviceInterface 
+     * @param serviceInterface
      */
     public void setServiceInterface(Class serviceInterface)
     {
@@ -257,9 +257,9 @@ public class Axis2PortClientInterceptor
      * Translates the method invocation into a JAX-RPC service invocation.
      * Uses traditional RMI stub invocation if a JAX-RPC port stub is available;
      * falls back to JAX-RPC dynamic calls else.
-     * @param invocation 
+     * @param invocation
      * @return invoked operation return
-     * @throws Throwable 
+     * @throws Throwable
      * @see WebServiceClient#invokeBlocking(String, Object[])
      * @see org.springframework.remoting.rmi.RmiClientInterceptorUtils
      */

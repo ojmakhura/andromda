@@ -14,7 +14,6 @@ import java.util.Date;
 public class ContractServiceImpl
     extends ContractServiceBase
 {
-
     /**
      * @see org.andromda.samples.carrental.contracts.ContractService#searchForReservationsOfCustomer(String)
      */

@@ -10,7 +10,7 @@ import org.apache.maven.project.MavenProject;
 /**
  * Goal that copies the required AndroMDA site files to suitable locations preparing
  * for deployment.
- * 
+ *
  * @phase site
  * @goal copy-documentation
  * @description Goal to copy required site files prior to site deployment
@@ -21,75 +21,75 @@ public class CopyDocumentationMojo
 {
     /**
      * Path to the mapping source directory containing the mappings
-     * 
+     *
      * @parameter expression="${basedir}/../andromda-etc/mappings"
      */
     private File mappingsSourceDirectory;
-    
+
     /**
      * Path to the mapping destination directory
-     * 
+     *
      * @parameter expression="${project.reporting.outputDirectory}/mappings"
      */
     private File mappingsOutputDirectory;
-    
+
     /**
      * Path to the car-rental-system model
-     * 
+     *
      * @parameter expression="${basedir}/../samples/car-rental-system/mda/src/main/uml/CarRentalSystem.xml.zip"
      */
     private File carRentalSystemSourcePath;
-    
+
     /**
      * Path to the destination directory to copy the car-rental-system model
-     * 
+     *
      * @parameter expression="${project.reporting.outputDirectory}"
      */
     private File carRentalSystemOutputDirectory;
-    
+
     /**
      * Path to the animal-quiz model
-     * 
+     *
      * @parameter expression="${basedir}/../samples/animal-quiz/mda/src/main/uml/AnimalQuiz.xml.zip"
      */
     private File animalQuizSourcePath;
-    
+
     /**
      * Path to the destination directory to copy the animal-quiz model
-     * 
+     *
      * @parameter expression="${project.reporting.outputDirectory}"
      */
     private File animalQuizOutputDirectory;
-    
+
     /**
      * The directory containing the documentation site reporting artifacts
-     * 
+     *
      * @parameter expression="${project.reporting.outputDirectory}"
      */
     private File documentationSourceDirectory;
-    
+
     /**
      * The documentation output directory used to copy the generated site reporting artifacts
-     * 
+     *
      * @parameter expression="${project.reporting.outputDirectory}"
      */
     private File documentationOutputDirectory;
-    
+
     /**
      * The name of the project injected from pom.xml. Not used.
-     * 
+     *
      * @parameter default-value="${project.name}"
      */
     @SuppressWarnings("unused")
     private String projectName;
-    
+
     /**
      * @parameter expression="${project}"
      * @required
      * @readonly
      */
     protected MavenProject project;
-    
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -104,13 +104,13 @@ public class CopyDocumentationMojo
         this.copyCarRentalSystemModel();
         this.copyMappings();
         this.copyDocumentationReportArtifacts();
-        
+
         this.getLog().info("SITE DOCUMENTATION COPY SUCCESSFUL");
     }
-    
+
     /**
      * Copy the animal-quiz model for site reference
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -123,11 +123,11 @@ public class CopyDocumentationMojo
             {
                 throw new MojoExecutionException("The animal-quiz model location is invalid");
             }
-            
+
             this.copyFile(
                     this.animalQuizSourcePath,
                     new File(
-                            this.animalQuizOutputDirectory, 
+                            this.animalQuizOutputDirectory,
                             this.animalQuizSourcePath.getName()));
         }
         catch (final Throwable throwable)
@@ -141,10 +141,10 @@ public class CopyDocumentationMojo
                 ExceptionUtils.getRootCause(throwable));
         }
     }
-    
+
     /**
      * Copy the car-rental-system model for site reference
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -157,7 +157,7 @@ public class CopyDocumentationMojo
             {
                 throw new MojoExecutionException("The car-rental-system model location is invalid");
             }
-            
+
             this.copyFile(
                     this.carRentalSystemSourcePath,
                     new File(
@@ -175,10 +175,10 @@ public class CopyDocumentationMojo
                 ExceptionUtils.getRootCause(throwable));
         }
     }
-    
+
     /**
      * Copy the mapping files to site documentation location
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -191,7 +191,7 @@ public class CopyDocumentationMojo
             {
                 throw new MojoExecutionException("Mapping source location is invalid");
             }
-            
+
             final File[] files = this.mappingsSourceDirectory.listFiles();
             for (File file : files)
             {
@@ -215,10 +215,10 @@ public class CopyDocumentationMojo
                 ExceptionUtils.getRootCause(throwable));
         }
     }
-    
+
     /**
      * Copy the documentation reporting artifacts
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -231,13 +231,13 @@ public class CopyDocumentationMojo
             {
                 throw new MojoExecutionException("Documentation source location is invalid");
             }
-            
+
             /**
              * Retrieve a directory listing with a filename filter
              */
             FilenameFilter filter = new FilenameFilter()
             {
-                final String[] filteredReports = 
+                final String[] filteredReports =
                 {
                         ".svn",
                         "integration.html",

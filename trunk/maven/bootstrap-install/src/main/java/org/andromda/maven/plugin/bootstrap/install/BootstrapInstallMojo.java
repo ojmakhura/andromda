@@ -164,7 +164,7 @@ public class BootstrapInstallMojo
             {
                 Dependency dependency = (Dependency)object;
                 final String lGroupId = dependency.getGroupId();
-                return !lGroupId.startsWith("org.andromda") || lGroupId.startsWith("org.andromda.thirdparty"); 
+                return !lGroupId.startsWith("org.andromda") || lGroupId.startsWith("org.andromda.thirdparty");
             }
         });
         minModel.setDependencies(dependencies);

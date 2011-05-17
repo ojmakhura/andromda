@@ -179,7 +179,7 @@ public class HibernateEntityLogicImpl
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
-        
+
         inheritance = inheritance != null ? inheritance.toLowerCase() : null;
 
         if (StringUtils.isBlank(inheritance) || !inheritanceStrategies.contains(inheritance))
@@ -231,8 +231,8 @@ public class HibernateEntityLogicImpl
         properties.addAll(this.getAttributes());
         for (final AssociationEndFacade end : this.getAssociationEnds())
         {
-            final AssociationEndFacade otherEnd = end.getOtherEnd(); 
-            if (otherEnd.isNavigable() || 
+            final AssociationEndFacade otherEnd = end.getOtherEnd();
+            if (otherEnd.isNavigable() ||
                 (end.isChild() && isForeignHibernateGeneratorClass()))
             {
                 properties.add(otherEnd);
@@ -544,7 +544,7 @@ public class HibernateEntityLogicImpl
     @Override
     protected int handleGetEhCacheTimeToIdleSeconds()
     {
-        String timeToIdle = 
+        String timeToIdle =
            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
         if (StringUtils.isBlank(timeToIdle))
         {
@@ -559,7 +559,7 @@ public class HibernateEntityLogicImpl
     @Override
     protected int handleGetEhCacheTimeToLiveSeconds()
     {
-        String timeToLive = 
+        String timeToLive =
            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
         if (StringUtils.isBlank(timeToLive))
         {
@@ -771,7 +771,7 @@ public class HibernateEntityLogicImpl
         }
         return version;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateVersionPropertySqlName()
      */

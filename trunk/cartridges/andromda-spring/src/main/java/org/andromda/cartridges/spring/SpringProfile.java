@@ -123,7 +123,7 @@ public class SpringProfile
     * Define whether the service is private.
     */
     public static final String TAGGEDVALUE_SERVICE_PRIVATE = PROFILE.get("SPRING_SERVICE_PRIVATE");
-    
+
     /**
      * Optimize acknowledge flag for ActiveMQ connections.
      */

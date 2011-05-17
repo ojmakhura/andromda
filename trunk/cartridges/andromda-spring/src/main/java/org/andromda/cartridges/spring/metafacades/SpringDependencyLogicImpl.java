@@ -23,8 +23,8 @@ public class SpringDependencyLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringDependencyLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency
      */
     public SpringDependencyLogicImpl(

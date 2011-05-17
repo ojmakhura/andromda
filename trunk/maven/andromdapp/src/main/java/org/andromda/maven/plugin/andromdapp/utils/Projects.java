@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.andromdapp.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 /**
  * Stores projects ids.
  *

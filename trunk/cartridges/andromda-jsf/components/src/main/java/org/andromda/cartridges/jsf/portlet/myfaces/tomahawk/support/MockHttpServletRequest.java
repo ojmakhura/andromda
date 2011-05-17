@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 public class MockHttpServletRequest
     implements HttpServletRequest
 {
-
     /**
      * @see javax.servlet.http.HttpServletRequest#getAuthType()
      */
@@ -200,6 +199,7 @@ public class MockHttpServletRequest
      * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
      * @deprecated
      */
+    @Deprecated
     public boolean isRequestedSessionIdFromUrl()
     {
         return false;
@@ -361,6 +361,7 @@ public class MockHttpServletRequest
      * @see javax.servlet.ServletRequest#getRealPath(String)
      * @deprecated
      */
+    @Deprecated
     public String getRealPath(String arg0)
     {
         return null;

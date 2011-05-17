@@ -23,32 +23,32 @@ public class ProfileTransformerMojo
 {
     /**
      * The name of the project injected from pom.xml
-     * 
+     *
      * @parameter default-value="${project.name}"
      */
     private String projectName;
-    
+
     /**
      * Path to the project profile.xml
-     * 
+     *
      * @parameter expression="${basedir}/src/main/resources/META-INF/andromda/profile.xml"
      */
     private File profileDocumentPath;
-    
+
     /**
      * Path to the project profile transformation XSL
      */
     private static final String PROFILE_TRANSFORMATION_URI = "META-INF/xsl/profile.xsl";
-    
+
     /** Not used.
      * @parameter expression="${basedir}/src/main/resources/META-INF/xsl/profile.xsl"
      */
     @SuppressWarnings("unused")
     private File profileTransformationPath;
-    
+
     /**
      * Path to the project profile document output
-     * 
+     *
      * @parameter expression="${basedir}/src/site/xdoc/profile.xml"
      */
     private File profileOutputPath;
@@ -59,13 +59,13 @@ public class ProfileTransformerMojo
      * @readonly
      */
     protected MavenProject project;
-    
+
     /**
      * XSL Transformer
      */
     private XslTransformer xslTransformer;
-    
-    
+
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -80,9 +80,9 @@ public class ProfileTransformerMojo
         {
             xslTransformer = new XslTransformer(projectName);
         }
-        
+
         this.getLog().info("Transforming profile " + this.profileDocumentPath);
-        
+
         try
         {
             if (this.profileDocumentPath.exists() && this.profileDocumentPath.isFile())
@@ -90,7 +90,7 @@ public class ProfileTransformerMojo
                 final URL profileTransformationUrl = ResourceUtils.getResource(PROFILE_TRANSFORMATION_URI);
                 xslTransformer.transform(profileDocumentPath.getAbsolutePath(), profileTransformationUrl, profileOutputPath.getAbsolutePath());
             }
-            
+
             this.getLog().info("Transformation result " + this.profileOutputPath);
             this.getLog().info("TRANSFORMING PROFILE SUCCESSFUL");
         }

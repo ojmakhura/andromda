@@ -10,9 +10,9 @@ package $controller.packageName;
 #end
 public class ${controller.name}Factory
 {
-    private final static ${controller.name} INSTANCE = new ${controller.name}Impl();
+    private static final ${controller.name} INSTANCE = new ${controller.name}Impl();
 
-    public final static ${controller.name} get${controller.name}Instance()
+    public static final ${controller.name} get${controller.name}Instance()
     {
         return INSTANCE;
     }

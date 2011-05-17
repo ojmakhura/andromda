@@ -1,6 +1,5 @@
 package org.andromda.core.mapping;
 
-
 /**
  * Any error occurring during processing of Mappings should through this exception.
  */

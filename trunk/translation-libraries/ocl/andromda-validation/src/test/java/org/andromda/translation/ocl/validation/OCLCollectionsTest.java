@@ -13,7 +13,6 @@ import java.util.Collection;
  */
 public class OCLCollectionsTest extends TestCase
 {
-
     /**
      * Constructor for OCLCollectionsTest.
      *

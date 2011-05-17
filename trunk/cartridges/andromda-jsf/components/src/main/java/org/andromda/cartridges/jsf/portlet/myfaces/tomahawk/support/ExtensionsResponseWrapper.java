@@ -21,8 +21,8 @@ import org.xml.sax.InputSource;
  * @author Chad Brandon
  */
 public class ExtensionsResponseWrapper
-extends HttpServletResponseWrapper
-implements RenderResponse
+    extends HttpServletResponseWrapper
+    implements RenderResponse
 {
     private ByteArrayOutputStream stream = null;
     private PrintWriter printWriter = null;
@@ -78,7 +78,8 @@ implements RenderResponse
     {
         if (printWriter == null)
         {
-            final OutputStreamWriter streamWriter = new OutputStreamWriter(stream, Charset.forName(getCharacterEncoding()));
+            final OutputStreamWriter streamWriter = new OutputStreamWriter(
+                stream, Charset.forName(getCharacterEncoding()));
             printWriter = new PrintWriter(streamWriter, true);
         }
         return printWriter;
@@ -141,7 +142,7 @@ implements RenderResponse
     }
 
     /**
-     * 
+     *
      */
     public void finishResponse()
     {
@@ -161,6 +162,7 @@ implements RenderResponse
         }
         catch (final IOException e)
         {
+            // Ignore
         }
     }
 

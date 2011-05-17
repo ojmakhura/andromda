@@ -14,8 +14,8 @@ public class SpringManageableEntityAssociationEndLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringManageableEntityAssociationEndLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd
      */
     public SpringManageableEntityAssociationEndLogicImpl (Object metaObject, String context)

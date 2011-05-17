@@ -25,7 +25,7 @@ public class NamespacesTest
     }
 
     /**
-     * 
+     *
      */
     public void testAddAndFindNamespaceProperty()
     {

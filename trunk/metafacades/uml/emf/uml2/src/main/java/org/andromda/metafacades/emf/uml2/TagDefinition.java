@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 
-
 /**
  * Represents a TagDefinition metaclass (was needed because it doesn't exist in
  * the uml2 metamodel).

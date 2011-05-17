@@ -13,6 +13,7 @@
     <!-- WSDL Types -->
     <wsdl:types>
         <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+##        <xs:schema attributeFormDefault="$service.package.attributeFormDefault.toLowerCase()" elementFormDefault="$service.package.elementFormDefault.toLowerCase()"
                     targetNamespace="$service.namespace"
                     xmlns:${service.namespacePrefix}="$service.namespace"
                     xmlns="$xmlSchemaNamespace">

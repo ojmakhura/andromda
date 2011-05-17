@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.metafacades;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFEvent.
  *
@@ -17,9 +16,9 @@ public class JSFEventLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFEventLogicImpl (Object metaObject, String context)
+    public JSFEventLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -52,7 +51,7 @@ public class JSFEventLogicImpl
     {
         return StringUtilsHelper.toPhrase(this.getName());
     }
-    
+
     /**
      * @return "Reset"
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getResetMessageValue()
@@ -61,7 +60,7 @@ public class JSFEventLogicImpl
     {
         return "Reset";
     }
-    
+
     /**
      * @return getMessageKey() + ".reset.message"
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getResetMessageKey()
@@ -70,7 +69,7 @@ public class JSFEventLogicImpl
     {
         return this.getMessageKey() + ".reset.message";
     }
-    
+
     /**
      * Indicates whether or not we should normalize messages.
      * @return normalizeMessages true/false

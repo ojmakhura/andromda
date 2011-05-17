@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Represents a &lt;conditions/&gt; element, which groups more than
  * one condition together.

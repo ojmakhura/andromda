@@ -28,7 +28,6 @@ public class MDRepositoryTransformationTest
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
 
-
     /**
      * @see TestCase#setUp
      */

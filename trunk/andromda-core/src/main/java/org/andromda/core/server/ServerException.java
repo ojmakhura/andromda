@@ -1,6 +1,5 @@
 package org.andromda.core.server;
 
-
 /**
  * This exception is thrown when a special situation is encountered within an
  * {@link DefaultServer} instance.

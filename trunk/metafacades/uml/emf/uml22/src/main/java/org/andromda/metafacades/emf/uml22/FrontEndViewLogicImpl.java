@@ -183,7 +183,7 @@ public class FrontEndViewLogicImpl
         }
         return variables;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndView#getActions()
      */

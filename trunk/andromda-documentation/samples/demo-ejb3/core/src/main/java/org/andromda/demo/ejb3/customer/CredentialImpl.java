@@ -12,10 +12,8 @@ public class CredentialImpl
     extends org.andromda.demo.ejb3.customer.Credential
     implements java.io.Serializable
 {
-
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = 9121678933567284167L;
-    
 }

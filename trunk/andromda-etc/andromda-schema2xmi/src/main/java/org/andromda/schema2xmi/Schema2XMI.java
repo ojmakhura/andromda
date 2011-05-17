@@ -115,7 +115,7 @@ public class Schema2XMI
      * each column attribute.
      */
     private static final String ATTRIBUTE_TAGGEDVALUES = "A";
-    
+
     /**
      * Configure the CLI options.
      */
@@ -207,11 +207,11 @@ public class Schema2XMI
             new Option(OUTPUT_MODEL, true, "Output location to which the result of the transformation will be written");
         option.setLongOpt("output");
         options.addOption(option);
-        
+
         option = new Option(ATTRIBUTE_TAGGEDVALUES, true, "The tagged value(s) added to each attribute generated. Comma separated list (i.e. @tag1=val1,@tag2=val2)");
         option.setLongOpt("attributeTaggedValues");
         options.addOption(option);
-        
+
     }
 
     /**

@@ -14,7 +14,7 @@ public final class ProcessManager
     /**
      * Constructs the jBpm session factory, this will initialize the environment.
      */
-    private final static org.jbpm.db.JbpmSessionFactory SESSION_FACTORY =
+    private static final org.jbpm.db.JbpmSessionFactory SESSION_FACTORY =
         org.jbpm.db.JbpmSessionFactory.buildJbpmSessionFactory();
 
     /**

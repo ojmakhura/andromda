@@ -11,7 +11,6 @@ import org.apache.commons.lang.time.FastDateFormat;
  */
 public class JavaUtils
 {
-
     /**
      * The namespace delimiter (separates namespaces).
      */
@@ -27,9 +26,9 @@ public class JavaUtils
     {
         return StringUtils.reverseDelimited(packageName, NAMESPACE_DELIMITER);
     }
-    
+
     private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ssZ");
-    
+
     /**
      * Returns the current Date in the specified format.
      *

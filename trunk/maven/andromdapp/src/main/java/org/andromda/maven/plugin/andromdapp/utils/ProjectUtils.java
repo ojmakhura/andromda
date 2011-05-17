@@ -10,7 +10,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 
-
 /**
  * Contains utilities for dealing with Maven projects.
  *

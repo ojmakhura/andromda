@@ -23,7 +23,7 @@ public class $testServiceLocatorName
     /**
      * The shared instance of this ${testServiceLocatorName}.
      */
-    private final static $testServiceLocatorName instance = new $testServiceLocatorName();
+    private static final $testServiceLocatorName instance = new $testServiceLocatorName();
 
     /**
      * Gets the shared instance of this Class

@@ -162,30 +162,23 @@ final class MetafacadeUtils
                    // Check at the interface level
                    boolean expectedResultNotCompliant = CollectionUtils.exists(classToCheckInterfaces, new Predicate()
                    {
-                        
                         public boolean evaluate(Object object)
                         {
                             Class<?> classToCheckInterface = (Class<?>)object;
-     
                             return !classToCheckInterface.isAssignableFrom(expectedResult);
                         }
-                        
                    });
-                   
                    if (!expectedResultNotCompliant) {
                        results.add(classesToName.get(expectedResult));
                    } else {
                        Set<Class> expectedResultInterfaces = new HashSet<Class>(Arrays.asList(expectedResult.getInterfaces()));
                        boolean classToCheckNotCompliant = CollectionUtils.exists(expectedResultInterfaces, new Predicate()
                        {
-                            
                             public boolean evaluate(Object object)
                             {
                                 Class<?> expectedResultInterface = (Class<?>)object;
-         
                                 return !expectedResultInterface.isAssignableFrom(classToCheck);
                             }
-                            
                        });
                        if (!classToCheckNotCompliant) {
                            results.add(classesToName.get(classToCheck));

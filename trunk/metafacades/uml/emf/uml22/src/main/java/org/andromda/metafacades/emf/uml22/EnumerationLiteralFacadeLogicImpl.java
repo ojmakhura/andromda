@@ -44,7 +44,7 @@ public class EnumerationLiteralFacadeLogicImpl
     {
         return this.getValue(false);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getName(boolean)
      */
@@ -59,7 +59,7 @@ public class EnumerationLiteralFacadeLogicImpl
         }
         return name;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getValue(boolean)
      */

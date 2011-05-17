@@ -14,7 +14,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
  */
 public class EJBScriptHelper
 {
-
     /**
      * Create a comma separated list of attributes.
      * <p>

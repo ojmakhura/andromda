@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.athlete;
  * Uncomment to enable webservices for AthleteManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.athlete.AthleteManagerWSInterface")
  */
-public class AthleteManagerBean 
-    extends org.andromda.demo.ejb3.athlete.AthleteManagerBase 
+public class AthleteManagerBean
+    extends org.andromda.demo.ejb3.athlete.AthleteManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public AthleteManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.athlete.AthleteManagerBase#addTrackAthlete(org.andromda.demo.ejb3.athlete.TrackAthlete)
      */
@@ -48,5 +48,5 @@ public class AthleteManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

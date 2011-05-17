@@ -56,7 +56,6 @@ public abstract class ${entity.name}Factory {
      *
      * Finds ${entity.name} object by its primary key.
      * In Hibernate, this is just a call to load().
-     *
      */
     public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException

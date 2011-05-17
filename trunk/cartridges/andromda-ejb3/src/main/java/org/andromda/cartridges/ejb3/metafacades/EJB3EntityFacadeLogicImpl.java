@@ -410,7 +410,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getCreateMethods(this, follow)
      * @see EJB3EntityFacade#getCreateMethods(boolean)
      */
@@ -420,7 +420,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return selectMethods
      * @see EJB3EntityFacade#getSelectMethods(boolean)
      */
@@ -451,7 +451,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow)
      * @see EJB3EntityFacade#getEnvironmentEntries(boolean)
      */
@@ -461,7 +461,7 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3EntityFacade#getConstants(boolean)
      */

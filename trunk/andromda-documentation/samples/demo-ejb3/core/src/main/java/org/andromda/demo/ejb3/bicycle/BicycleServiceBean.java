@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.bicycle;
  * Uncomment to enable webservices for BicycleServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.bicycle.BicycleServiceWSInterface")
  */
-public class BicycleServiceBean 
-    extends org.andromda.demo.ejb3.bicycle.BicycleServiceBase 
+public class BicycleServiceBean
+    extends org.andromda.demo.ejb3.bicycle.BicycleServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public BicycleServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.bicycle.BicycleServiceBase#addBicycle(org.andromda.demo.ejb3.bicycle.Bicycle)
      */
@@ -57,5 +57,5 @@ public class BicycleServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

@@ -208,7 +208,7 @@ public class SpringUtils
         }
         return present;
     }
-    
+
     /**
      * Indicates if any public (non private) services are present.
      *
@@ -239,7 +239,7 @@ public class SpringUtils
         }
         return present;
     }
-    
+
     /**
      * Based on the given <code>value</code>, this method will return
      * a formatted Spring property (including the handling of 'null').
@@ -289,7 +289,7 @@ public class SpringUtils
 
     /**
      * Sets if code is being generated for a rich client.
-     * @param richClientProperty 
+     * @param richClientProperty
      */
     public void setRichClient(final boolean richClientProperty)
     {
@@ -418,7 +418,7 @@ public class SpringUtils
         }
         return result;
     }
-    
+
     /**
      * Constructs the fully qualified class name from the packageName and name.
      * @param packageName the package name to which the class belongs.

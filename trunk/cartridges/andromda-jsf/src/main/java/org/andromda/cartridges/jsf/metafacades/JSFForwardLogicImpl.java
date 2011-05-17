@@ -24,9 +24,9 @@ public class JSFForwardLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFForwardLogicImpl (Object metaObject, String context)
+    public JSFForwardLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**

@@ -64,7 +64,6 @@ public class ${service.serviceName}
 
     /**
 $operation.getDocumentation("     * ")
-     *
      */
     public ${service.serviceName}($operation.typedArgumentList)
     {

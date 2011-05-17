@@ -17,7 +17,7 @@ public class UserServiceImpl
 {
     /**
      * @return userVOs
-     * @throws Exception 
+     * @throws Exception
      * @see org.andromda.timetracker.service.UserService#getAllUsers()
      */
     // Use this implementation for UML2 model with returnParameter * multiplicity

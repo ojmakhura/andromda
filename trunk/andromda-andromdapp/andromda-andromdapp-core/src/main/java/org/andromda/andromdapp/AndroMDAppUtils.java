@@ -6,7 +6,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Some utilities for dealing with the AndroMDApp generator.
  *

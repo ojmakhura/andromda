@@ -13,7 +13,7 @@ import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 /**
  * Abstract parent class used by site mojos to perform helper functions like copy
  * and unpack.
- * 
+ *
  * @author vancek
  *
  */
@@ -22,19 +22,19 @@ public abstract class AbstractSiteMojo
 {
     /**
      * To look up Archiver/UnArchiver implementations
-     * 
+     *
      * @component role="org.codehaus.plexus.archiver.manager.ArchiverManager"
      * @required
      * @readonly
      */
     protected ArchiverManager archiverManager;
-    
+
     /**
      * Does the actual copy of the file and logging.
-     * 
+     *
      * @param sourceFile represents the file to copy.
      * @param destFile file name of destination file.
-     * 
+     *
      * @throws MojoExecutionException with a message if an error occurs.
      */
     public void copyFile(File sourceFile, File destFile)
@@ -50,13 +50,13 @@ public abstract class AbstractSiteMojo
             throw new MojoExecutionException("Error copying file from " + sourceFile + " to " + destFile, e);
         }
     }
-    
+
     /**
      * Unpacks the archive file.
-     * 
+     *
      * @param file File to be unpacked.
      * @param location Location where to put the unpacked files.
-     * @throws MojoExecutionException 
+     * @throws MojoExecutionException
      */
     protected void unpack(File file, File location)
         throws MojoExecutionException
@@ -78,13 +78,13 @@ public abstract class AbstractSiteMojo
         catch (ArchiverException e)
         {
             e.printStackTrace();
-            throw new MojoExecutionException("Error unpacking file: " + 
+            throw new MojoExecutionException("Error unpacking file: " +
                     file + " to: " + location + "\r\n" + e.toString(), e);
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new MojoExecutionException("Error unpacking file: " + 
+            throw new MojoExecutionException("Error unpacking file: " +
                     file.getAbsolutePath() + " to: " + location + "\r\n" + e.toString(), e);
         }
     }

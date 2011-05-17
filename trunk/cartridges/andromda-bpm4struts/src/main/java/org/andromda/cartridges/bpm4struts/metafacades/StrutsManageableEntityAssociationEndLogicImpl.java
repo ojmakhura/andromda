@@ -79,7 +79,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
      */
     protected String handleGetOnlineHelpValue()
     {
-        return (!this.isDocumentationPresent()) ? "No field documentation has been specified" : 
+        return (!this.isDocumentationPresent()) ? "No field documentation has been specified" :
             StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 }

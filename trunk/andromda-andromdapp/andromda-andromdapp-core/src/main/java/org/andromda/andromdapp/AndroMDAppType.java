@@ -94,7 +94,7 @@ public class AndroMDAppType
                         }
                     }
                     else
-                   {
+                    {
                         // otherwise we break at the first true condition
                         if (validPreconditions)
                         {

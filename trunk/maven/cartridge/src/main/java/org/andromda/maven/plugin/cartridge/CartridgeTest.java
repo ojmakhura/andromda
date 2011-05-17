@@ -52,15 +52,15 @@ public class CartridgeTest
      * compared as strings).
      */
     public static final String BINARY_SUFFIXES = "binary.suffixes";
-    
+
     /**
      * The shared instance of this class.
      */
     private static CartridgeTest instance;
-    
+
     /**
      * Retrieves the shared instance of this class.
-     * 
+     *
      * @return the shared instance.
      */
     public static final CartridgeTest instance()
@@ -71,53 +71,53 @@ public class CartridgeTest
         }
         return instance;
     }
-    
+
     private CartridgeTest()
     {
         super();
     }
-    
+
     /**
      * Stores a comma separated list of binary suffixes.
      */
     private String binarySuffixes = StringUtils.trimToEmpty(System.getProperty(BINARY_SUFFIXES));
-    
+
     /**
      * Sets the value of the suffixes that indicate a binary file (binary files
      * are not compared as text).
-     * 
+     *
      * @param binarySuffixes a comma separated list of binary suffixes.
      */
     public void setBinarySuffixes(final String binarySuffixes)
     {
         this.binarySuffixes = binarySuffixes;
     }
-    
+
     /**
      * Stores the actual directory.
      */
     private String actualOutputPath = StringUtils.trimToEmpty(System.getProperty(ACTUAL_DIRECTORY));
-    
+
     /**
-     * Sets the path to the <em>actual</em> directory (that is the 
+     * Sets the path to the <em>actual</em> directory (that is the
      * directory which contains the actual output being tested.
-     * 
+     *
      * @param actualOutputPath the path to the actual directory.
      */
     public void setActualOutputPath(final String actualOutputPath)
     {
         this.actualOutputPath = actualOutputPath;
     }
-    
+
     /**
      * Stores the path to the excepted directory.
      */
     private String expectedOutputPath = StringUtils.trimToEmpty(System.getProperty(EXPECTED_DIRECTORY));
-    
+
     /**
      * Sets the path to the <em>expected</em> directory.  This is the directory
      * to which the expected output is extracted.
-     * 
+     *
      * @param expectedOutputPath the path to the expected output directory.
      */
     public void setExpectedOutputPath(final String expectedOutputPath)
@@ -193,7 +193,7 @@ public class CartridgeTest
                     actualFile,
                     binary,
                     false,
-                    true, 
+                    true,
                     strings));
         }
         if (!missingFiles.isEmpty())
@@ -245,7 +245,7 @@ public class CartridgeTest
         }
         return new File(actualFile);
     }
-    
+
     /**
      * The expected output directory.
      */
@@ -253,7 +253,7 @@ public class CartridgeTest
 
     /**
      * Retrieves the expected output directory.
-     * 
+     *
      * @return the file representing the directory.
      */
     private File getExpectedOutputDirectory()
@@ -264,12 +264,12 @@ public class CartridgeTest
        }
        return this.expectedOutputDirectory;
     }
-    
+
     /**
      * The actual output directory.
      */
     private File actualOutputDirectory;
-    
+
     private File getActualOutputDirectory()
     {
         if (this.actualOutputDirectory == null)
@@ -278,7 +278,7 @@ public class CartridgeTest
         }
         return this.actualOutputDirectory;
     }
-    
+
     /**
      * Gets the directory from the system property key.
      *
@@ -304,10 +304,10 @@ public class CartridgeTest
      */
     private boolean isBinary(final File file)
     {
-        String suffix = FilenameUtils.getExtension(file.getName());        
+        String suffix = FilenameUtils.getExtension(file.getName());
         return this.getBinarySuffixes().contains(suffix);
     }
-    
+
     private Collection<String> binarySuffixCollection;
 
     /**
@@ -326,7 +326,7 @@ public class CartridgeTest
         }
         return this.binarySuffixCollection;
     }
-    
+
     /**
      * Releases any resources held by this cartridge test instance.
      */

@@ -22,7 +22,6 @@ import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndUseCase.

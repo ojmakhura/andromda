@@ -21,28 +21,24 @@ import org.andromda.demo.ejb3.vehicle.Motocycle;
 import org.andromda.demo.ejb3.vehicle.VehicleException;
 import org.andromda.demo.ejb3.vehicle.VehicleManagerDelegate;
 
-public class Client 
+public class Client
 {
-
     private Properties prop;
-    
-    public void init() 
+
+    public void init()
     {
         prop = new Properties();
         prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
         prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
         prop.put("java.naming.provider.url", "localhost:1099");
     }
-    
-    
-    
-    
+
     public void insertOrder()
     {
         System.out.println("Inserting order...");
-        
+
         OrderInfo order = new OrderInfo("Test Order7", 7);
-        
+
         OrderManagerDelegate manager = new OrderManagerDelegate(prop);
         try
         {
@@ -56,18 +52,14 @@ public class Client
         {
             manager.close();
         }
-        
+
         System.out.println("Insert complete.");
     }
 
-    
-    
-    
-    
     public void getAllAccounts()
     {
         System.out.println("getting all accounts...");
-        
+
         OrderManagerDelegate manager = new OrderManagerDelegate(prop);
         try
         {
@@ -77,7 +69,7 @@ public class Client
                 System.out.println("Order " + order.getId() + ", " + order.getDescription() + ", " + order.getVolume());
             }
 
-        } 
+        }
         catch (OrderException e)
         {
             // TODO Auto-generated catch block
@@ -89,16 +81,12 @@ public class Client
         }
     }
 
-    
-    
-    
-    
     public void getAccountsStartingIndex()
     {
         int index = 3;
-        
+
         System.out.println("getting accounts at index " + index + " ...");
-        
+
         OrderManagerDelegate manager = new OrderManagerDelegate(prop);
         try
         {
@@ -108,7 +96,7 @@ public class Client
                 System.out.println("Order " + order.getId() + ", " + order.getDescription() + ", " + order.getVolume());
             }
 
-        } 
+        }
         catch (OrderException e)
         {
             // TODO Auto-generated catch block
@@ -119,18 +107,14 @@ public class Client
             manager.close();
         }
     }
-    
-    
-    
-    
-    
+
     public void getAccountsStartingIndexAndMaxCount()
     {
         int index = 3;
         int max = 3;
-        
+
         System.out.println("getting accounts at index " + index + " and max " + max + " ...");
-        
+
         OrderManagerDelegate manager = new OrderManagerDelegate(prop);
         try
         {
@@ -140,7 +124,7 @@ public class Client
                 System.out.println("Order " + order.getId() + ", " + order.getDescription() + ", " + order.getVolume());
             }
 
-        } 
+        }
         catch (OrderException e)
         {
             // TODO Auto-generated catch block
@@ -151,18 +135,14 @@ public class Client
             manager.close();
         }
     }
-    
-    
-    
-    
+
     /**
      * @param args
      */
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         Client client = new Client();
         client.init();
         client.getAccountsStartingIndex();
     }
-
 }

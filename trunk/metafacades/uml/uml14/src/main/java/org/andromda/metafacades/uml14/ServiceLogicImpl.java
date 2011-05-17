@@ -176,7 +176,7 @@ public class ServiceLogicImpl
         });
         return destinations;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.Service#getAllEntityReferences()
      */

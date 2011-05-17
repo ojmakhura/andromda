@@ -11,7 +11,7 @@ import org.junit.Test;
 public class StringUtilsHelperTest
 {
     /**
-     * 
+     *
      */
     @Test
     public void testReplaceSuffix()
@@ -35,7 +35,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testUpperCamelCaseName()
@@ -58,7 +58,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testLowerCamelCaseName()
@@ -81,7 +81,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testToResourceMessageKey()
@@ -103,7 +103,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testToPhrase()
@@ -125,7 +125,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testPrefixWithAPredicate()
@@ -155,7 +155,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testToSingleLine()
@@ -181,7 +181,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testRemoveLastOccurence()
@@ -194,7 +194,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testPluralize()
@@ -211,7 +211,7 @@ public class StringUtilsHelperTest
                 new String[] {"keys", "keys"}, new String[] {"words", "words"}, new String[] {"properties", "properties"},
                 new String[] {"buses", "buses"}, new String[] {"crosses", "crosses"}, new String[] {"girls", "girls"},
                 new String[] {"nouns", "nouns"}, new String[] {"knives", "knives"}, new String[] {"children", "children"},
-                new String[] {"people", "people"}, new String[] {"feet", "feet"}, new String[] {"women", "women"}, new String[] {"elves", "elves"}, 
+                new String[] {"people", "people"}, new String[] {"feet", "feet"}, new String[] {"women", "women"}, new String[] {"elves", "elves"},
             };
 
         for (String[] strings : fixture)
@@ -224,7 +224,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testSeparate()
@@ -245,7 +245,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testSimpleFormat()
@@ -275,7 +275,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testIndentedFormat()
@@ -301,7 +301,7 @@ public class StringUtilsHelperTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testHtmlFormat()

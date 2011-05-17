@@ -19,5 +19,4 @@ public class CarDaoImpl
         // TODO implement public boolean handleAllCarsAreRented()
         return false;
     }
-
 }

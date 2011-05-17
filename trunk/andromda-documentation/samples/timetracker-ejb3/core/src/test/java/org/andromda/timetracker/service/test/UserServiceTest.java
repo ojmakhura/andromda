@@ -28,14 +28,14 @@ import org.apache.commons.logging.LogFactory;
 public class UserServiceTest
 {
     private static final Log logger = LogFactory.getLog(UserServiceTest.class);
-    
+
     @org.testng.annotations.Test
-    public void testRegisterUser() 
+    public void testRegisterUser()
     {
         try
         {
             UserServiceRemote userService = (UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
-            
+
             // Remote testuser if it already exists
             UserVO userVO = null;
             try
@@ -50,7 +50,7 @@ public class UserServiceTest
             {
                 // OK to avoid
             }
-            
+
             // Add testuser
             UserDetailsVO udVO = new UserDetailsVO();
             udVO.setFirstName("testuser");
@@ -63,16 +63,16 @@ public class UserServiceTest
 
             UserRoleVO urVO = new UserRoleVO();
             urVO.setRole(Role.USER);
-            
+
             udVO.setRoles(new UserRoleVO[]{urVO});
-            
+
             udVO = userService.registerUser(udVO);
-            
+
             assert udVO != null;
             assert udVO.getId() > 0;
-            
+
             logger.info("Registered new user: " + udVO.getFirstName() + ", " + udVO.getId());
-            
+
             // Remote testuser if it already exists
             try
             {
@@ -93,16 +93,16 @@ public class UserServiceTest
             logger.warn("Failed test testRegisterUser()", ex);
         }
     }
-    
+
     @org.testng.annotations.Test
-    public void testGetAllUsers() 
+    public void testGetAllUsers()
     {
         try
         {
             UserServiceRemote userService = (UserServiceRemote)EJB3Container.getInitialContext("user","password").lookup("UserServiceBean/remote");
             UserVO[] users = userService.getAllUsers();
             assert users.length > 0;
-            
+
             for (UserVO userVO : users)
             {
                 logger.info("user : " + userVO.getFirstName());

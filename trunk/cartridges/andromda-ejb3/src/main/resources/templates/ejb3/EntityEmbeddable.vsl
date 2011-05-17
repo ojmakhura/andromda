@@ -36,7 +36,6 @@ package $entity.packageName;
  * DO NOT MODIFY this class.
  *
 $entity.getDocumentation(" * ")
- *
  */
 ##
 ## Only set the Entity annotation if it is explicity defined as an embeddable super class
@@ -147,11 +146,10 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #end
 
 {
-
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
+
 #set ($constants = $entity.getConstants(true))
 #if (!$constants.empty)
-
     // ----------- Constant Definitions -------------
 
 #**##foreach ($constant in $constants)
@@ -171,7 +169,6 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #**##set ($attributes = $entity.getInstanceAttributes(false, true))
 #end
 #if (!$attributes.empty)
-
     // ----------- Attribute Definitions ------------
 
 ##
@@ -201,7 +198,6 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #end
 #set ($entityRelations = $entity.allEntityRelations)
 #if (!$entityRelations.empty)
-
     // --------- Relationship Definitions -----------
 
 #**##foreach ($associationEnd in  $entityRelations)
@@ -216,7 +212,6 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #**##end
 #end
 #if (!$entityRelations.empty)
-
     // ---- Manageable Display Attributes (Transient) -----
 
 ##
@@ -325,7 +320,6 @@ $operation.getDocumentation("    * ")
 
 #end
 #if (!$constants.empty)
-
     // --------- Constant Accessors ----------
 
 #**##foreach($constant in $constants)
@@ -341,7 +335,6 @@ $constant.getDocumentation("     * ")
 #**##end
 #end
 #if ($entity.compositePrimaryKeyPresent)
-
     // ----- Composite PK Accessors ------
 
     /**
@@ -377,7 +370,6 @@ $constant.getDocumentation("     * ")
 
 #end
 #if (!$attributes.empty)
-
     // -------- Attribute Accessors ----------
 
 #**##foreach ($attribute in $attributes)
@@ -531,7 +523,6 @@ $attribute.getDocumentation("     * ")
 #*  *##end
 #**##end
 #end
-
     // ------------- Relations ------------------
 
 #foreach ($associationEnd in $entity.allEntityRelations)

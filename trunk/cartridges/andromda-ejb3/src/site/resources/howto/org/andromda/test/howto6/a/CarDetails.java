@@ -6,7 +6,7 @@
 package org.andromda.test.howto6.a;
 
 /**
- * 
+ *
  */
 public class CarDetails
     implements java.io.Serializable
@@ -60,7 +60,7 @@ public class CarDetails
     private java.lang.String name;
 
     /**
-     * 
+     *
      */
     public java.lang.String getName()
     {
@@ -75,7 +75,7 @@ public class CarDetails
     private java.lang.String serial;
 
     /**
-     * 
+     *
      */
     public java.lang.String getSerial()
     {
@@ -90,7 +90,7 @@ public class CarDetails
     private java.lang.String ownerName;
 
     /**
-     * 
+     *
      */
     public java.lang.String getOwnerName()
     {
@@ -105,7 +105,7 @@ public class CarDetails
     private java.util.Date year;
 
     /**
-     * 
+     *
      */
     public java.util.Date getYear()
     {
@@ -120,7 +120,7 @@ public class CarDetails
     private int timesRented;
 
     /**
-     * 
+     *
      */
     public int getTimesRented()
     {

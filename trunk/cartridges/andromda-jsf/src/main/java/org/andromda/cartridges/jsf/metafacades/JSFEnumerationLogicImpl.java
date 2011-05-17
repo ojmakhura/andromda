@@ -18,9 +18,9 @@ public class JSFEnumerationLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFEnumerationLogicImpl (Object metaObject, String context)
+    public JSFEnumerationLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -61,5 +61,4 @@ public class JSFEnumerationLogicImpl
     {
         return StringUtilsHelper.toResourceMessageKey(getName());
     }
-
 }

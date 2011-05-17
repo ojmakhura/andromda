@@ -22,7 +22,7 @@ public class UserDaoImpl
      * @see org.andromda.timetracker.domain.UserDao#toUserVO(org.andromda.timetracker.domain.User, org.andromda.timetracker.vo.UserVO)
      */
     public void toUserVO(
-        org.andromda.timetracker.domain.User sourceEntity, 
+        org.andromda.timetracker.domain.User sourceEntity,
         org.andromda.timetracker.vo.UserVO targetVO)
     {
         // ${toDoTag} verify behavior of toUserVO
@@ -46,7 +46,7 @@ public class UserDaoImpl
 
     /**
      * Retrieves the entity object that is associated with the specified value object
-     * from the object store. If no such entity object exists in the object store, 
+     * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
     private org.andromda.timetracker.domain.User loadUserFromUserVO(org.andromda.timetracker.vo.UserVO userVO)
@@ -54,7 +54,7 @@ public class UserDaoImpl
         // ${toDoTag} implement loadUserFromUserVO
         throw new java.lang.UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserVO(org.andromda.timetracker.vo.UserVO) not yet implemented.");
 
-        /* A typical implementation looks like this:        
+        /* A typical implementation looks like this:
         org.andromda.timetracker.domain.User user = this.load(userVO.getId());
         if (user == null)
         {
@@ -64,7 +64,7 @@ public class UserDaoImpl
         */
     }
 
-    
+
     /**
      * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(org.andromda.timetracker.vo.UserVO)
      */
@@ -112,7 +112,7 @@ public class UserDaoImpl
         }
         targetVO.setRoles(targetRoles);
     }
-    
+
     /**
      * Retrieves the entity object that is associated with the specified value object
      * from the object store. If no such entity object exists in the object store,
@@ -138,7 +138,7 @@ public class UserDaoImpl
         }
         return user;
     }
-    
+
     /**
      * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO)
      */
@@ -148,7 +148,7 @@ public class UserDaoImpl
         this.userDetailsVOToEntity(userDetailsVO, entity, true);
         return entity;
     }
-    
+
     /**
      * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO, org.andromda.timetracker.domain.User)
      */
@@ -159,11 +159,11 @@ public class UserDaoImpl
     {
         // @todo verify behavior of userDetailsVOToEntity
         super.userDetailsVOToEntity(sourceVO, targetEntity, copyIfNull);
-        
+
         if (sourceVO.getRoles().length > 0)
         {
             Set<UserRole> roles = new TreeSet<UserRole>();
-            
+
             for (UserRoleVO userRoleVO : sourceVO.getRoles())
             {
                 System.out.println(" user role : " + userRoleVO.getRole());

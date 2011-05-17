@@ -1,11 +1,9 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.net.URL;
-
 import org.andromda.andromdapp.AndroMDApp;
 import org.andromda.core.common.ResourceUtils;
 import org.apache.maven.plugin.MojoExecutionException;
-
 
 /**
  * AndroMDA application generator Mojo.

@@ -1,7 +1,6 @@
 package org.andromda.timetracker.service;
 
 import java.util.Formatter;
-
 import org.andromda.timetracker.ServiceLocator;
 import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
 import org.andromda.timetracker.vo.TimecardSummaryVO;
@@ -37,7 +36,7 @@ public class TimeTrackingServiceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testFindAllTimecards() {
@@ -49,7 +48,7 @@ public class TimeTrackingServiceTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testFindTimecardsForSubmitter() {

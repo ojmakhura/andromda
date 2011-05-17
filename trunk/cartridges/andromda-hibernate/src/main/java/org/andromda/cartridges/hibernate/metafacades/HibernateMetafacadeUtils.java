@@ -130,5 +130,4 @@ class HibernateMetafacadeUtils
         }
         return useNamedParameters;
     }
-
 }

@@ -199,7 +199,6 @@ public class EJB3AssociationEndFacadeLogicImpl
 
     // --------------- methods ---------------------
 
-
     /**
      * @see AssociationEndFacade#getGetterSetterTypeName()
      */
@@ -919,7 +918,6 @@ public class EJB3AssociationEndFacadeLogicImpl
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_ENABLE_CACHE)));
     }
 
-
     /**
      * @see EJB3AssociationEndFacadeLogic#handleIsForeignKeyConstraintDefined()
      */
@@ -1005,7 +1003,6 @@ public class EJB3AssociationEndFacadeLogicImpl
 
         return buffer.toString();
     }
-
 
     /**
      * @see EJB3AssociationEndFacadeLogic#handleGetForeignKeyName(String)

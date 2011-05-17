@@ -1,6 +1,5 @@
 package org.andromda.core.cartridge.template;
 
-
 /**
  * Wraps any unexpected exception when using a Template instance.
  *

@@ -25,18 +25,19 @@ public class JSFControllerLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFControllerLogicImpl (Object metaObject, String context)
+    public JSFControllerLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * @return implementationName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getImplementationName()
      */
     protected String handleGetImplementationName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
+        final String pattern = ObjectUtils.toString(
+            this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
@@ -85,25 +86,26 @@ public class JSFControllerLogicImpl
             final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
             if (!(targetElement instanceof JSFSessionObject))
             {
-                iterator.remove();   
+                iterator.remove();
             }
         }
         return references;
     }
-    
+
     /**
      * @return controllerSerialVersionUID
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getControllerSerialVersionUID()
      */
     protected String handleGetControllerSerialVersionUID()
     {
-           final StringBuilder buffer = new StringBuilder();
-           buffer.append(this.getFullyQualifiedImplementationName());
-           addSerialUIDData(buffer);
-           return JSFUtils.calcSerialVersionUID(buffer);
+       final StringBuilder buffer = new StringBuilder();
+       buffer.append(this.getFullyQualifiedImplementationName());
+       addSerialUIDData(buffer);
+       return JSFUtils.calcSerialVersionUID(buffer);
     }
 
-    private void addSerialUIDData(StringBuilder buffer){
+    private void addSerialUIDData(StringBuilder buffer)
+    {
         for (final FrontEndAction action : this.getUseCase().getActions())
         {
             buffer.append(action.getName());

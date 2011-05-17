@@ -1,6 +1,5 @@
 package org.andromda.core.templateengine;
 
-
 /**
  * Any unchecked exception that will be thrown when any processing by a TemplateEngine occurs..
  */

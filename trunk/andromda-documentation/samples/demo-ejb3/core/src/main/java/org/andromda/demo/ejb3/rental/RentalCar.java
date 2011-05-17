@@ -11,7 +11,7 @@ package org.andromda.demo.ejb3.rental;
  * Add any manual implementation within this class.  This class will NOT
  * be overwritten with incremental changes.
  *
- * 
+ *
  *
  */
 
@@ -25,38 +25,37 @@ package org.andromda.demo.ejb3.rental;
 // @javax.persistence.EntityListeners({org.andromda.demo.ejb3.rental.RentalCarListener.class})
 // Uncomment to enable caching for RentalCar
 // @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.TRANSACTIONAL)
-@javax.persistence.NamedQuery(name = "RentalCar.findAll", query = "select rentalCar from RentalCar AS rentalCar")    
+@javax.persistence.NamedQuery(name = "RentalCar.findAll", query = "select rentalCar from RentalCar AS rentalCar")
 public class RentalCar
     extends org.andromda.demo.ejb3.rental.RentalCarEmbeddable
     implements java.io.Serializable, Comparable<RentalCar>
 {
-
     /**
      * The serial version UID of this class required for serialization.
      */
     private static final long serialVersionUID = 2906953605375104726L;
 
     // --------------- constructors -----------------
-    
+
     /**
      * Default RentalCar constructor
      */
     public RentalCar()
-    { 
+    {
         super();
     }
-    
+
     /**
      * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
      * This method sets all POJO fields defined in this/super class to the
      * values provided by the parameters.
      *
      */
-    public RentalCar(java.lang.String serial, java.lang.String name, org.andromda.demo.ejb3.rental.CarType type) 
+    public RentalCar(java.lang.String serial, java.lang.String name, org.andromda.demo.ejb3.rental.CarType type)
     {
         super(serial, name, type);
     }
-    
+
     /**
      * Constructor with all POJO attribute values and CMR relations.
      *
@@ -69,12 +68,12 @@ public class RentalCar
     {
         super(serial, name, type, owner);
     }
-    
+
 
     // -------------- Entity Methods -----------------
-    
+
     /**
-     * 
+     *
      */
     @javax.persistence.Transient
     public boolean isRented()
@@ -84,7 +83,7 @@ public class RentalCar
     }
 
     /**
-     * 
+     *
      */
     @javax.persistence.Transient
     public static boolean allCarsAreRented()
@@ -92,7 +91,6 @@ public class RentalCar
         // TODO put your implementation here.
         return false;
     }
-
 
     // --------------- Lifecycle callbacks -----------------
 

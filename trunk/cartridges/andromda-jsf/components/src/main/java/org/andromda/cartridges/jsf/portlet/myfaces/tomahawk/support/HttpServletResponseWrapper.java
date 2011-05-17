@@ -16,9 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:shinsuke@yahoo.co.jp">Shinsuke Sugaya</a>
  */
 public class HttpServletResponseWrapper
-implements HttpServletResponse, RenderResponse
+    implements HttpServletResponse, RenderResponse
 {
-
     private final RenderResponse renderResponse;
 
     /**
@@ -32,7 +31,7 @@ implements HttpServletResponse, RenderResponse
 
     /**
      * @return renderResponse.getWriter()
-     * @throws IOException 
+     * @throws IOException
      * @see javax.servlet.ServletResponseWrapper#getWriter()
      */
     public PrintWriter getWriter() throws IOException
@@ -195,7 +194,6 @@ implements HttpServletResponse, RenderResponse
     public void addDateHeader(final String arg0, final long arg1)
     {
 
-
     }
 
     /**
@@ -204,7 +202,6 @@ implements HttpServletResponse, RenderResponse
      */
     public void addHeader(final String arg0, final String arg1)
     {
-
 
     }
 
@@ -215,7 +212,6 @@ implements HttpServletResponse, RenderResponse
     public void addIntHeader(final String arg0, final int arg1)
     {
 
-
     }
 
     /**
@@ -223,7 +219,6 @@ implements HttpServletResponse, RenderResponse
      */
     public boolean containsHeader(final String arg0)
     {
-
         return false;
     }
 
@@ -231,9 +226,9 @@ implements HttpServletResponse, RenderResponse
      * @see javax.servlet.http.HttpServletResponse#encodeRedirectUrl(String)
      * @deprecated
      */
+    @Deprecated
     public String encodeRedirectUrl(final String arg0)
     {
-
         return null;
     }
 
@@ -242,7 +237,6 @@ implements HttpServletResponse, RenderResponse
      */
     public String encodeRedirectURL(final String arg0)
     {
-
         return null;
     }
 
@@ -250,6 +244,7 @@ implements HttpServletResponse, RenderResponse
      * @see javax.servlet.http.HttpServletResponse#encodeUrl(String)
      * @deprecated
      */
+    @Deprecated
     public String encodeUrl(final String arg0)
     {
         if (renderResponse != null)
@@ -274,7 +269,6 @@ implements HttpServletResponse, RenderResponse
     public void sendError(final int arg0, final String arg1) throws IOException
     {
 
-
     }
 
     /**
@@ -283,7 +277,6 @@ implements HttpServletResponse, RenderResponse
     public void sendError(final int arg0) throws IOException
     {
 
-
     }
 
     /**
@@ -291,7 +284,6 @@ implements HttpServletResponse, RenderResponse
      */
     public void sendRedirect(final String arg0) throws IOException
     {
-
 
     }
 
@@ -302,7 +294,6 @@ implements HttpServletResponse, RenderResponse
     public void setDateHeader(final String arg0, final long arg1)
     {
 
-
     }
 
     /**
@@ -311,7 +302,6 @@ implements HttpServletResponse, RenderResponse
      */
     public void setHeader(final String arg0, final String arg1)
     {
-
 
     }
 
@@ -322,7 +312,6 @@ implements HttpServletResponse, RenderResponse
     public void setIntHeader(final String arg0, final int arg1)
     {
 
-
     }
 
     /**
@@ -330,9 +319,9 @@ implements HttpServletResponse, RenderResponse
      *      String)
      * @deprecated
      */
+    @Deprecated
     public void setStatus(final int arg0, final String arg1)
     {
-
 
     }
 
@@ -341,7 +330,6 @@ implements HttpServletResponse, RenderResponse
      */
     public void setStatus(final int arg0)
     {
-
 
     }
 

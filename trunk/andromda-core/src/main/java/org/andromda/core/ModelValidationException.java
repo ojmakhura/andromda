@@ -1,6 +1,5 @@
 package org.andromda.core;
 
-
 /**
  * The exception thrown when model validation fails.
  *

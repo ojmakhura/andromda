@@ -3,7 +3,6 @@ package org.andromda.cartridges.meta;
 import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * The Meta profile. Contains the profile information (tagged values, and stereotypes) for the Meta cartridge.
  *

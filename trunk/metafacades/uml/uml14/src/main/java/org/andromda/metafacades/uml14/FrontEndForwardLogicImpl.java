@@ -22,7 +22,6 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndForward.
  *

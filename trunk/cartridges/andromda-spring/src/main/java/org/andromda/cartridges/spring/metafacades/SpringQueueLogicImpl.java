@@ -14,8 +14,8 @@ public class SpringQueueLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringQueueLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringQueue
      */
     public SpringQueueLogicImpl (Object metaObject, String context)
@@ -60,7 +60,7 @@ public class SpringQueueLogicImpl
     {
         return "set" + StringUtils.capitalize(this.getTemplateBeanName());
     }
-    
+
     /**
      * Gets the value of the {@link SpringGlobals#JMS_DESTINATION_TEMPLATE_PATTERN}
      *

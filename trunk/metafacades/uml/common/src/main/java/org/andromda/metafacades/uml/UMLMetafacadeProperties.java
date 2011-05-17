@@ -23,7 +23,7 @@ public class UMLMetafacadeProperties
      * Stores the property defining the default schema name for entity tables.
      */
     public static final String SCHEMA_NAME = "schemaName";
-    
+
     /**
      * Stores the property defining the prefix for entity table names.
      */
@@ -83,43 +83,43 @@ public class UMLMetafacadeProperties
     public static final String CONSTRAINT_SUFFIX = "constraintSuffix";
 
     /**
-     * The mask to apply to role names 
+     * The mask to apply to role names
      * @see NameMasker#mask(String, String)
      */
     public static final String ROLE_NAME_MASK = "roleNameMask";
 
     /**
-     * The mask to apply to any classifier names 
+     * The mask to apply to any classifier names
      * @see NameMasker#mask(String, String)
      */
     public static final String CLASSIFIER_NAME_MASK = "classifierNameMask";
 
     /**
-     * The mask to apply to any of the classifier property names 
+     * The mask to apply to any of the classifier property names
      * @see NameMasker#mask(String, String)
      */
     public static final String CLASSIFIER_PROPERTY_NAME_MASK = "classifierPropertyNameMask";
 
     /**
-     * The mask to apply to any operation names 
+     * The mask to apply to any operation names
      * @see NameMasker#mask(String, String)
      */
     public static final String OPERATION_NAME_MASK = "operationNameMask";
 
     /**
-     * The mask to apply to any parameter names 
+     * The mask to apply to any parameter names
      * @see NameMasker#mask(String, String)
      */
     public static final String PARAMETER_NAME_MASK = "parameterNameMask";
 
     /**
-     * The mask to apply to enumeration literal names 
+     * The mask to apply to enumeration literal names
      * @see NameMasker#mask(String, String)
      */
     public static final String ENUMERATION_LITERAL_NAME_MASK = "enumerationLiteralNameMask";
 
     /**
-     * The mask to apply to the enumeration literal name 
+     * The mask to apply to the enumeration literal name
      * @see NameMasker#mask(String, String)
      */
     public static final String ENUMERATION_NAME_MASK = "enumerationNameMask";
@@ -131,7 +131,7 @@ public class UMLMetafacadeProperties
     public static final String ENTITY_NAME_MASK = "entityNameMask";
 
     /**
-     * The mask to apply to the entity property (attributes and association) names 
+     * The mask to apply to the entity property (attributes and association) names
      * @see NameMasker#mask(String, String)
      */
     public static final String ENTITY_PROPERTY_NAME_MASK = "entityPropertyNameMask";
@@ -237,12 +237,12 @@ public class UMLMetafacadeProperties
      * The pattern used for constructing operations that handle postcondition constraints.
      */
     public static final String POSTCONDITION_NAME_PATTERN = "postconditionNamePattern";
-    
+
     /**
      * The namespace property used to identify the pattern used to construct the backend CRUD service's accessor.
      */
     public static final String MANAGEABLE_SERVICE_ACCESSOR_PATTERN = "manageableServiceAccessorPattern";
-    
+
     /**
      * The namespace property used to define the default multiplicity of
      * an attribute or association end (when one isn't modeled).
@@ -256,7 +256,7 @@ public class UMLMetafacadeProperties
     public static final String MANAGEABLE_ID_DISPLAY_STRATEGY = "manageableIdDisplayStrategy";
 
     /**
-     * Indicates whether enumerations must be generated using a Java 5 type-safe enum or a 
+     * Indicates whether enumerations must be generated using a Java 5 type-safe enum or a
      * traditional enumeration-pattern class.
      */
     public static final String TYPE_SAFE_ENUMS_ENABLED = "typeSafeEnumsEnabled";

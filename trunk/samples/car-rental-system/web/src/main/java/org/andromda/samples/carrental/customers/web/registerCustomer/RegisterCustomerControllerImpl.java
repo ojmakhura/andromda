@@ -101,7 +101,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
             this.customerNo = customerNo;
             this.name = name;
         }
-        
+
         public void setCustomerNo(String customerNo)
         {
             this.customerNo = customerNo;
@@ -111,7 +111,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         {
             return this.customerNo;
         }
-        
+
         public void setName(String name)
         {
             this.name = name;
@@ -121,7 +121,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         {
             return this.name;
         }
-        
+
     }
     /**
      * This dummy variable is used to populate the "drivers" table.
@@ -152,7 +152,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
             this.surname = surname;
             this.licenseNo = licenseNo;
         }
-        
+
         public void setName(String name)
         {
             this.name = name;
@@ -162,7 +162,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         {
             return this.name;
         }
-        
+
         public void setSurname(String surname)
         {
             this.surname = surname;
@@ -172,7 +172,7 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         {
             return this.surname;
         }
-        
+
         public void setLicenseNo(String licenseNo)
         {
             this.licenseNo = licenseNo;
@@ -182,6 +182,6 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
         {
             return this.licenseNo;
         }
-        
+
     }
 }

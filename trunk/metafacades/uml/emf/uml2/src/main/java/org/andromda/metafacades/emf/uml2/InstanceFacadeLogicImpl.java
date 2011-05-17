@@ -14,7 +14,6 @@ import org.eclipse.uml2.LiteralString;
 import org.eclipse.uml2.Slot;
 import org.eclipse.uml2.ValueSpecification;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.InstanceFacade.
  *

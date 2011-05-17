@@ -14,8 +14,8 @@ public class SpringCriteriaSearchLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringCriteriaSearchLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch
      */
     public SpringCriteriaSearchLogicImpl(Object metaObject, String context)
@@ -24,7 +24,7 @@ public class SpringCriteriaSearchLogicImpl
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return super.getAttributes(follow).getType()
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation#getImplementationCall()
      */

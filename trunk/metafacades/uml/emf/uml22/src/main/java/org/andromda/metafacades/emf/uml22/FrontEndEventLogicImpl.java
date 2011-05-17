@@ -75,7 +75,7 @@ public class FrontEndEventLogicImpl
         final List<FrontEndControllerOperation> operations = this.getControllerCalls();
         return (operations.isEmpty() ? null : operations.iterator().next());
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndEvent#getControllerCalls()
      */
@@ -94,7 +94,7 @@ public class FrontEndEventLogicImpl
             {
                 final Operation operation = ((CallOperationAction)nextNode).getOperation();
                 if (operation != null)
-                { 
+                {
                     operations.add(operation);
                 }
             }

@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-
 import java.util.List;
 import org.eclipse.uml2.uml.Extend;
 import org.eclipse.uml2.uml.ExtensionPoint;

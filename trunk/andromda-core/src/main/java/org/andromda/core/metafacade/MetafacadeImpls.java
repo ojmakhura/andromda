@@ -16,7 +16,6 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.NamespaceRegistry;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Discovers all metafacade interfaces and implementation classes in each namespace registry. This class is
  * then used to retrieve both the appropriate metafacade interface and/or metafacade implementation class based

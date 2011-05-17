@@ -20,13 +20,28 @@
         <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
-                    <uri>${model.uri}</uri>
+                    <uri>file:${project.basedir}/src/main/uml2/timetracker.uml</uri>
+                    <!--uri>file:${project.basedir}/src/main/uml/timetracker-rsm75.emx</uri-->
                     <!-- List any additional referenced models needed for code generation here, even if already referenced internally within the model file -->
                     <!--uri>file:${project.basedir}/uml/AdditionalModel.emx</uri-->
                     <moduleSearchLocations>
-                        <location patterns="**/*.uml,**/*.e*x">${project.basedir}/src/main/uml</location>
+                        <location patterns="*.uml">${project.basedir}/src/main/uml2</location>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.profile.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+                        <location patterns="**/${andromda.version}/**/*-${andromda.version}.library.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
                         <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
-                        <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
+        <!--repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4</location>
+                        <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location-->
+                        <!--location patterns="**/*.uml,**/*.e*x">${project.basedir}/src/main/uml</location>
+                        <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
+                        <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location-->
                     </moduleSearchLocations>
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
                          types in required (multiplicity > 0) parameters or VO attributes-->

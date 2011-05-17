@@ -140,7 +140,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         boolean isLazy = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (EJB3Globals.FETCH_TYPE_LAZY.equalsIgnoreCase(this.getFetchType())) 
+            if (EJB3Globals.FETCH_TYPE_LAZY.equalsIgnoreCase(this.getFetchType()))
             {
                 isLazy = true;
             }

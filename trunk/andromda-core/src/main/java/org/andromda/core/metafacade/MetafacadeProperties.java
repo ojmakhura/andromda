@@ -1,6 +1,5 @@
 package org.andromda.core.metafacade;
 
-
 /**
  * Stores the common metafacade namespace properties used throughout <strong>ANY </strong> set of metafacades (UML,
  * etc).

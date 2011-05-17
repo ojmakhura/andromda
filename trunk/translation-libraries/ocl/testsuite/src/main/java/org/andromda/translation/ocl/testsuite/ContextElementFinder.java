@@ -27,7 +27,6 @@ import org.apache.commons.lang.StringUtils;
 public class ContextElementFinder
         extends BaseTranslator
 {
-
     private ModelAccessFacade model;
 
     /**
@@ -61,7 +60,7 @@ public class ContextElementFinder
     private Object contextElement = null;
 
     /**
-     * @param declaration 
+     * @param declaration
      * @see org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils#getOperationDeclaration(POperation)
      */
     public void inAOperationContextDeclaration(AOperationContextDeclaration declaration)

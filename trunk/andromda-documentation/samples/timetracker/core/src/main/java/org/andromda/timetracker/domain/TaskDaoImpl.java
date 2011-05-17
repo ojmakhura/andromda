@@ -26,7 +26,6 @@ public class TaskDaoImpl
         super.toTaskVO(source, target);
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -36,7 +35,6 @@ public class TaskDaoImpl
         // TODO verify behavior of toTaskVO
         return super.toTaskVO(entity);
     }
-
 
     /**
      * Retrieves the entity object that is associated with the specified value object
@@ -58,7 +56,6 @@ public class TaskDaoImpl
         */
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -70,7 +67,6 @@ public class TaskDaoImpl
         this.taskVOToEntity(taskVO, entity, true);
         return entity;
     }
-
 
     /**
      * {@inheritDoc}
@@ -84,5 +80,4 @@ public class TaskDaoImpl
         // TODO verify behavior of taskVOToEntity
         super.taskVOToEntity(source, target, copyIfNull);
     }
-
 }

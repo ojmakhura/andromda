@@ -306,7 +306,7 @@ public class ParameterFacadeLogicImpl
         }
         return type;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getGetterSetterTypeName()
      */
@@ -434,7 +434,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected int handleGetLower()
     {
-        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(), 
+        return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
             (ClassifierFacade) this.getType(), "1");
     }
 }

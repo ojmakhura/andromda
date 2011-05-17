@@ -1,6 +1,5 @@
 package org.andromda.maven.plugin.modelarchiver;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

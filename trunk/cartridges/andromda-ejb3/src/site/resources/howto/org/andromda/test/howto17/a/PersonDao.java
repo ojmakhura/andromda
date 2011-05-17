@@ -17,14 +17,14 @@ public interface PersonDao
      * <p/>
      * This specific flag denotes no transformation will occur.
      */
-    public final static int TRANSFORM_NONE = 0;
+    public static final int TRANSFORM_NONE = 0;
 
     /**
      * Loads an instance of org.andromda.howto2.rental.Person from the persistent store.
      * @param id the identifier of the entity to load.
      * @throws org.andromda.howto2.rental.PersonDaoException
      */
-    public org.andromda.howto2.rental.Person load(java.lang.Long id) 
+    public org.andromda.howto2.rental.Person load(java.lang.Long id)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
@@ -41,7 +41,7 @@ public interface PersonDao
      * @return either the entity or the object transformed from the entity.
      * @throws org.andromda.howto2.rental.PersonDaoException
      */
-    public Object load(int transform, java.lang.Long id) 
+    public Object load(int transform, java.lang.Long id)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
@@ -50,7 +50,7 @@ public interface PersonDao
      * @return the loaded entities.
      * @throws org.andromda.howto2.rental.PersonDaoException
      */
-    public java.util.Collection<org.andromda.howto2.rental.Person> loadAll() 
+    public java.util.Collection<org.andromda.howto2.rental.Person> loadAll()
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
@@ -67,7 +67,7 @@ public interface PersonDao
      * @return the loaded entities.
      * @throws org.andromda.howto2.rental.PersonDaoException
      */
-    public java.util.Collection loadAll(final int transform) 
+    public java.util.Collection loadAll(final int transform)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
@@ -188,7 +188,7 @@ public interface PersonDao
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
-     * 
+     *
      */
     public java.util.List findAll()
         throws org.andromda.howto2.rental.PersonDaoException;
@@ -231,7 +231,7 @@ public interface PersonDao
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
-     * 
+     *
      */
     public java.lang.String findByName(java.lang.String name)
         throws org.andromda.howto2.rental.PersonDaoException;
@@ -274,7 +274,7 @@ public interface PersonDao
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
-     * 
+     *
      */
     public java.util.Collection findByNameOrBirthDate(java.lang.String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
@@ -315,5 +315,4 @@ public interface PersonDao
 
     public java.util.Collection findByNameOrBirthDate(int transform, String queryString, java.lang.String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
-
 }

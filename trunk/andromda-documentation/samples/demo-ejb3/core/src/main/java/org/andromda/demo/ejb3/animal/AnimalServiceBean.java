@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.animal;
  * Uncomment to enable webservices for AnimalServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.animal.AnimalServiceWSInterface")
  */
-public class AnimalServiceBean 
-    extends org.andromda.demo.ejb3.animal.AnimalServiceBase 
+public class AnimalServiceBean
+    extends org.andromda.demo.ejb3.animal.AnimalServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public AnimalServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.animal.AnimalServiceBase#addAnimal(org.andromda.demo.ejb3.animal.Animal)
      */
@@ -48,7 +48,7 @@ public class AnimalServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.animal.AnimalServiceBean#init()
      */
@@ -56,7 +56,7 @@ public class AnimalServiceBean
     {
         System.out.println("init...");
     }
-    
+
     /**
      * @see org.andromda.demo.ejb3.animal.AnimalServiceBean#cleanup()
      */
@@ -64,5 +64,5 @@ public class AnimalServiceBean
     {
         System.out.println("cleanup...");
     }
-    
+
 }

@@ -132,7 +132,7 @@ public class JSFParameterLogicImpl
      *
      * @return true/false
      */
-    private final boolean isNormalizeMessages()
+    private boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
@@ -148,7 +148,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @param columnName 
+     * @param columnName
      * @return tableColumnMessageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnMessageKey(String)
      */
@@ -169,7 +169,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @param columnName 
+     * @param columnName
      * @return StringUtilsHelper.toPhrase(columnName)
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnMessageValue(String)
      */
@@ -193,7 +193,7 @@ public class JSFParameterLogicImpl
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private final List<JSFAction> getTableActions(boolean hyperlink)
+    private List<JSFAction> getTableActions(boolean hyperlink)
     {
         final Set<JSFAction> actions = new LinkedHashSet<JSFAction>();
         final String name = StringUtils.trimToNull(getName());
@@ -373,7 +373,7 @@ public class JSFParameterLogicImpl
      *
      * @return the input type name.
      */
-    private final String getInputType()
+    private String getInputType()
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
@@ -384,7 +384,7 @@ public class JSFParameterLogicImpl
      * @param inputType the name of the input type to check for.
      * @return true/false
      */
-    private final boolean isInputType(final String inputType)
+    private boolean isInputType(final String inputType)
     {
         return inputType.equalsIgnoreCase(this.getInputType());
     }
@@ -599,7 +599,7 @@ public class JSFParameterLogicImpl
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
                 final Collection<FrontEndParameter>  formFields = action.getFormFields();
-                for (final Iterator<FrontEndParameter>  fieldIterator = formFields.iterator(); 
+                for (final Iterator<FrontEndParameter>  fieldIterator = formFields.iterator();
                     fieldIterator.hasNext() && !selectable;)
                 {
                     final Object object = fieldIterator.next();
@@ -741,7 +741,7 @@ public class JSFParameterLogicImpl
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private final String constructDummyArray()
+    private String constructDummyArray()
     {
         return JSFUtils.constructDummyArrayDeclaration(
             this.getName(),
@@ -806,7 +806,6 @@ public class JSFParameterLogicImpl
         return (FrontEndView)view;
     }
 
-    
     /**
      * @return validationRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isValidationRequired()
@@ -874,11 +873,14 @@ public class JSFParameterLogicImpl
      */
     public boolean isRequired()
     {
-        if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName())){
+        if("org.omg.uml.foundation.core".equals(metaObject.getClass().getPackage().getName()))
+        {
             //if uml 1.4, keep the old behavior (like bpm4struts)
             final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
             return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
-        } else {
+        }
+        else
+        {
             //if >= uml 2, default behavior
             return super.isRequired();
         }
@@ -894,7 +896,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @param validatorType 
+     * @param validatorType
      * @return validatorArgs
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValidatorArgs(String)
      */
@@ -912,7 +914,7 @@ public class JSFParameterLogicImpl
     protected Collection handleGetValidatorVars()
     {
         return JSFUtils.getValidatorVars(
-            ((ModelElementFacade)this.THIS()),
+            (ModelElementFacade)this.THIS(),
             this.getType(),
             null);
     }
@@ -1090,7 +1092,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @param columnName 
+     * @param columnName
      * @return tableColumnActions
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnActions(String)
      */
@@ -1113,7 +1115,7 @@ public class JSFParameterLogicImpl
 
         return columnActions;
     }
-    
+
     /**
      * @return maxLength
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
@@ -1136,36 +1138,36 @@ public class JSFParameterLogicImpl
         return null;
     }
 
-    //to be used in the range validator: "range - 1000" or "range 20 -". 
+    //to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */
-    final static String UNDEFINED_BOUND="-";
+    static final String UNDEFINED_BOUND="-";
     /** javax.validation.constraints.NotNull */
-    final static String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    static final String AN_REQUIRED = "@javax.validation.constraints.NotNull";
     /** org.hibernate.validator.constraints.URL */
-    final static String AN_URL = "@org.hibernate.validator.constraints.URL";
+    static final String AN_URL = "@org.hibernate.validator.constraints.URL";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.LongRange */
-    final static String AN_LONG_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.LongRange";
+    static final String AN_LONG_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.LongRange";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange */
-    final static String AN_DOUBLE_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange";
+    static final String AN_DOUBLE_RANGE = "@org.apache.myfaces.extensions.validator.baseval.annotation.DoubleRange";
     /** org.hibernate.validator.constraints.Email */
-    final static String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
+    static final String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
     /** org.hibernate.validator.constraints.CreditCardNumber */
-    final static String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
+    static final String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
     /** javax.validation.constraints.Size */
-    final static String AN_LENGTH = "@javax.validation.constraints.Size";
+    static final String AN_LENGTH = "@javax.validation.constraints.Size";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.Pattern */
-    final static String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
+    static final String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
     /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */
-    final static String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
-    
+    static final String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
+
     /**
      * @return the annotations
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMaxLength()
      */
     @Override
-    protected Collection<String> handleGetAnnotations() 
+    protected Collection<String> handleGetAnnotations()
     {
-        final Collection<String>result=new HashSet<String>();
+        final Collection<String> result=new HashSet<String>();
         boolean requiredAdded=false;
         for(String vt: (Collection<String>)getValidatorTypes())
         {
@@ -1187,7 +1189,7 @@ public class JSFParameterLogicImpl
                 final StringBuilder sb=new StringBuilder(AN_LONG_RANGE+"(");
                 final String format = JSFUtils.getInputFormat((ModelElementFacade)this.THIS());
                 final String rangeStart = JSFUtils.getRangeStart(format);
-                boolean addComma=false; 
+                boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
@@ -1210,7 +1212,7 @@ public class JSFParameterLogicImpl
                 final StringBuilder sb=new StringBuilder(AN_DOUBLE_RANGE+"(");
                 final String format = JSFUtils.getInputFormat(((ModelElementFacade)this.THIS()));
                 final String rangeStart = JSFUtils.getRangeStart(format);
-                boolean addComma=false; 
+                boolean addComma=false;
                 if(StringUtils.isNotBlank(rangeStart) && !rangeStart.equals(UNDEFINED_BOUND))
                 {
                     sb.append("minimum="+rangeStart);
@@ -1289,7 +1291,8 @@ public class JSFParameterLogicImpl
                 result.add(AN_EQUALS+"(\""+JSFUtils.getEqual((ModelElementFacade)this.THIS())+"\")");
             }
         }
-        if(!requiredAdded && getLower() > 0){
+        if(!requiredAdded && getLower() > 0)
+        {
             result.add(AN_REQUIRED);
         }
         return result;

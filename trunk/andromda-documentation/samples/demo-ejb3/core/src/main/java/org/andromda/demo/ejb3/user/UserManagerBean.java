@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.user;
  * Uncomment to enable webservices for UserManagerBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.user.UserManagerWSInterface")
  */
-public class UserManagerBean 
-    extends org.andromda.demo.ejb3.user.UserManagerBase 
+public class UserManagerBean
+    extends org.andromda.demo.ejb3.user.UserManagerBase
 {
     // --------------- Constructors ---------------
-    
+
     public UserManagerBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.user.UserManagerBase#addUser(org.andromda.demo.ejb3.user.User)
      */
@@ -57,5 +57,5 @@ public class UserManagerBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

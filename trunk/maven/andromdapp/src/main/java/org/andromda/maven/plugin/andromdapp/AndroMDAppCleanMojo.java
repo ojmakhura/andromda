@@ -2,10 +2,8 @@ package org.andromda.maven.plugin.andromdapp;
 
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import org.andromda.andromdapp.AndroMDApp;
 import org.apache.maven.plugin.MojoExecutionException;
-
 
 /**
  * Removes the an AndroMDApp generated application structure.

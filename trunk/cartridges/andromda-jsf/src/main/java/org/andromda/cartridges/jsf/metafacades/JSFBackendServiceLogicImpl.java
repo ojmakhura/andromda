@@ -2,7 +2,6 @@ package org.andromda.cartridges.jsf.metafacades;
 
 import org.andromda.cartridges.jsf.JSFGlobals;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFBackendService.
  *
@@ -30,11 +29,8 @@ public class JSFBackendServiceLogicImpl
     protected String handleGetAccessorImplementation()
     {
         String accessorImplementation = String.valueOf(getConfiguredProperty(JSFGlobals.SERVICE_ACCESSOR_PATTERN));
-        return accessorImplementation.replaceAll(
-            "\\{0\\}",
-            getPackageName()).replaceAll(
-            "\\{1\\}",
-            getName());
+        return accessorImplementation.replaceAll("\\{0\\}",
+            getPackageName()).replaceAll("\\{1\\}", getName());
     }
 
     /**

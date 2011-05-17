@@ -19,34 +19,34 @@ import org.andromda.demo.ejb3.employee.EmployeeDeptCode;
 import org.andromda.demo.ejb3.employee.EmployeeException;
 import org.andromda.demo.ejb3.employee.EmployeeServiceDelegate;
 
-public class Client 
+public class Client
 {
     private AppCallbackHandler handler = null;
     private LoginContext lc = null;
     private String principalId = "admin";
     private String password = "admin";
-    
+
     private Properties prop;
-    
-    public void init() 
+
+    public void init()
     {
         prop = new Properties();
         prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
         prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
         prop.put("java.naming.provider.url", "localhost:1099");
-        
+
         System.setProperty("java.security.auth.login.config", "./auth.conf");
     }
-    
-    
-    
-    
+
+
+
+
     public void insertBicycle()
     {
         System.out.println("Inserting bicycle...");
-        
+
         Bicycle bicycle = new Bicycle("mountain", 24, "road");
-        
+
         try
         {
             login();
@@ -55,7 +55,7 @@ public class Client
         {
             e.printStackTrace();
         }
-        
+
         BicycleServiceDelegate manager = new BicycleServiceDelegate(prop);
         try
         {
@@ -68,7 +68,7 @@ public class Client
         finally
         {
             manager.close();
-            
+
             try
             {
                 logout();
@@ -79,18 +79,18 @@ public class Client
                 e.printStackTrace();
             }
         }
-        
+
         System.out.println("Insert complete.");
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     public void getBicycle()
     {
         System.out.println("getting bicycle...");
-        
+
         try
         {
             login();
@@ -99,13 +99,13 @@ public class Client
         {
             e.printStackTrace();
         }
-        
+
         BicycleServiceDelegate manager = new BicycleServiceDelegate(prop);
         try
         {
             Bicycle bicycle = manager.getBicycle(1);
             System.out.println("bicycle " + bicycle.getId() + ", " + bicycle.getType() + ", " + bicycle.getGears() + ", " + bicycle.getTyreTypes());
-        } 
+        }
         catch (BicycleException e)
         {
             // TODO Auto-generated catch block
@@ -114,7 +114,7 @@ public class Client
         finally
         {
             manager.close();
-            
+
             try
             {
                 logout();
@@ -127,9 +127,9 @@ public class Client
         }
     }
 
-    
-    
-    
+
+
+
     private void login()
         throws LoginException
     {
@@ -138,43 +138,43 @@ public class Client
         System.out.println("Authenticating username[" + principalId + "] password[" + new String(password) + "]");
         lc.login();
     }
-    
-    
-    
-    
-    public void logout() 
-        throws LoginException 
+
+
+
+
+    public void logout()
+        throws LoginException
     {
-        
+
         if (lc != null) {
             lc.logout();
         } else {
             System.out.println("LoginContext is undefined");
         }
     }
-    
-    
-    
+
+
+
     /**
      * @param args
      */
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         Client client = new Client();
         client.init();
         client.getBicycle();
     }
 
-    
+
     /**
      * CallbackHandler class for JAAS authentication
-     * 
+     *
      * @author VanceKarimi
      * @version 1.0, 10/12/2004
      */
-    private static class AppCallbackHandler 
+    private static class AppCallbackHandler
         implements CallbackHandler {
-        
+
         private String username;
         private char[] passwd;
 
@@ -183,9 +183,9 @@ public class Client
             this.passwd = passwd;
         }
 
-        public void handle(Callback[] callbacks) 
+        public void handle(Callback[] callbacks)
             throws java.io.IOException, UnsupportedCallbackException {
-            
+
             for (int i = 0; i < callbacks.length; i++) {
                 if (callbacks[i] instanceof NameCallback) {
                     NameCallback nc = (NameCallback) callbacks[i];

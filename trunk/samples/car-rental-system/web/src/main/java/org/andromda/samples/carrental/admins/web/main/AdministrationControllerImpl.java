@@ -54,7 +54,7 @@ public class AdministrationControllerImpl extends AdministrationController
             this.registrationNo = registrationNo;
             this.id = id;
         }
-        
+
         public void setInventoryNo(String inventoryNo)
         {
             this.inventoryNo = inventoryNo;
@@ -64,7 +64,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.inventoryNo;
         }
-        
+
         public void setRegistrationNo(String registrationNo)
         {
             this.registrationNo = registrationNo;
@@ -74,7 +74,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.registrationNo;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -84,7 +84,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.id;
         }
-        
+
     }
     /**
      * This dummy variable is used to populate the "carTypes" table.
@@ -117,7 +117,7 @@ public class AdministrationControllerImpl extends AdministrationController
             this.manufacter = manufacter;
             this.id = id;
         }
-        
+
         public void setComfortClass(String comfortClass)
         {
             this.comfortClass = comfortClass;
@@ -127,7 +127,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.comfortClass;
         }
-        
+
         public void setIdentifier(String identifier)
         {
             this.identifier = identifier;
@@ -137,7 +137,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.identifier;
         }
-        
+
         public void setManufacter(String manufacter)
         {
             this.manufacter = manufacter;
@@ -147,7 +147,7 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.manufacter;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -157,6 +157,6 @@ public class AdministrationControllerImpl extends AdministrationController
         {
             return this.id;
         }
-        
+
     }
 }

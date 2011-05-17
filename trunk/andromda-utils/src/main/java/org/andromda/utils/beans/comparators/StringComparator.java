@@ -20,8 +20,8 @@ class StringComparator
     /**
      * Used to sort String values, both objects are assumed
      * to be String instances.
-     * @param objectA 
-     * @param objectB 
+     * @param objectA
+     * @param objectB
      * @return compare result
      */
     public int compare(

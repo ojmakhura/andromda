@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.employee;
  * Uncomment to enable webservices for EmployeeServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.employee.EmployeeServiceWSInterface")
  */
-public class EmployeeServiceBean 
-    extends org.andromda.demo.ejb3.employee.EmployeeServiceBase 
+public class EmployeeServiceBean
+    extends org.andromda.demo.ejb3.employee.EmployeeServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public EmployeeServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.employee.EmployeeServiceBase#addEmployee(org.andromda.demo.ejb3.employee.Employee)
      */
@@ -66,5 +66,5 @@ public class EmployeeServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

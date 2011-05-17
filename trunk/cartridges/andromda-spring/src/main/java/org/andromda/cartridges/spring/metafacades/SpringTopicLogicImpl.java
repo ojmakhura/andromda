@@ -14,8 +14,8 @@ public class SpringTopicLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringTopicLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringTopic
      */
     public SpringTopicLogicImpl (Object metaObject, String context)
@@ -60,7 +60,7 @@ public class SpringTopicLogicImpl
     {
         return "set" + StringUtils.capitalize(this.getTemplateBeanName());
     }
-    
+
     /**
      * Gets the value of the {@link SpringGlobals#JMS_DESTINATION_TEMPLATE_PATTERN}
      *

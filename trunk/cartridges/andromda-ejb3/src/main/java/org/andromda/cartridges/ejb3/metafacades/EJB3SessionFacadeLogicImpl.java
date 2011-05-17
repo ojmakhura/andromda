@@ -510,7 +510,7 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getCreateMethods(this, follow)
      * @see EJB3SessionFacade#getCreateMethods(boolean)
      */
@@ -520,7 +520,7 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow)
      * @see EJB3SessionFacade#getEnvironmentEntries(boolean)
      */
@@ -530,7 +530,7 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
-     * @param follow 
+     * @param follow
      * @return EJB3MetafacadeUtils.getConstants(this, follow)
      * @see EJB3SessionFacade#getConstants(boolean)
      */

@@ -53,7 +53,7 @@ public class FrontEndEventLogicImpl
             return null;
         }
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndEvent#getAction()
      */

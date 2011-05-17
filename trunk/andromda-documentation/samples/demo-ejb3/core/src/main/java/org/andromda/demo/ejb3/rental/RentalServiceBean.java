@@ -23,18 +23,18 @@ import javax.jms.QueueSession;
  * Uncomment to enable webservices for RentalServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.rental.RentalServiceWSInterface")
  */
-public class RentalServiceBean 
-    extends org.andromda.demo.ejb3.rental.RentalServiceBase 
+public class RentalServiceBean
+    extends org.andromda.demo.ejb3.rental.RentalServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public RentalServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.rental.RentalServiceBase#addCar(org.andromda.demo.ejb3.rental.RentalCar)
      */
@@ -82,10 +82,10 @@ public class RentalServiceBean
             connection = queueFactory.createQueueConnection();
             session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
             sender = session.createSender((Queue)paymentProcessor);
-            
+
             ObjectMessage message = session.createObjectMessage(car);
             sender.send(message);
-        } 
+        }
         catch (JMSException e)
         {
             // TODO Auto-generated catch block
@@ -97,14 +97,14 @@ public class RentalServiceBean
                 try
                 {
                     sender.close();
-                } 
+                }
                 catch (JMSException e)
                 {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
-                
+
             if (session != null) {
                 try
                 {
@@ -116,7 +116,7 @@ public class RentalServiceBean
                     e.printStackTrace();
                 }
             }
-                
+
             if (connection != null) {
                 try
                 {
@@ -133,5 +133,5 @@ public class RentalServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

@@ -30,8 +30,8 @@ public class SpringEntityLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for SpringEntityLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity
      */
     public SpringEntityLogicImpl(
@@ -192,14 +192,14 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * @param targetSuffix 
+     * @param targetSuffix
      * @return BeanName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getBeanName(boolean)
      */
     protected String handleGetBeanName(boolean targetSuffix)
     {
         final String beanName = StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName()));
-        StringBuilder beanNameBuffer = new StringBuilder(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX))); 
+        StringBuilder beanNameBuffer = new StringBuilder(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX)));
         beanNameBuffer.append(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName));
         if (targetSuffix)
         {
@@ -289,7 +289,7 @@ public class SpringEntityLogicImpl
      * Retrieves the values object references for this entity.  If
      * <code>follow</code> is true, then all value object references
      * (including those that were inherited) will be retrieved.
-     * @param follow 
+     * @param follow
      * @return ValueObject references
      */
     protected Collection<DependencyFacade> getValueObjectReferences(boolean follow)
@@ -356,7 +356,7 @@ public class SpringEntityLogicImpl
 
     /**
      * Common routine to check inheritance.
-     * @param inheritance 
+     * @param inheritance
      * @return inheritance.equals(getHibernateInheritanceStrategy())
      */
     protected boolean checkHibInheritance(String inheritance)
@@ -500,7 +500,7 @@ public class SpringEntityLogicImpl
         }
         return superEntity;
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAttributeEmbeddedValueList()
      */
@@ -523,17 +523,17 @@ public class SpringEntityLogicImpl
         }
         return buffer.toString();
     }
-    
+
     /**
      * @return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient"))).equalsIgnoreCase("true")
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isRichClient()
      */
-    protected boolean handleIsRichClient() 
+    protected boolean handleIsRichClient()
     {
         String richClient =
             StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient")));
 
         return "true".equalsIgnoreCase(richClient);
     }
-    
+
 }

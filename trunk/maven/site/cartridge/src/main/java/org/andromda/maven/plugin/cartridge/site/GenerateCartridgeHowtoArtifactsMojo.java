@@ -14,10 +14,10 @@ import org.apache.maven.settings.Settings;
  * which are referenced via the cartridge xhtml docs.  It also unpacks the cartridge related
  * archive files, such as the howto pictures for the cartridge site documentation,
  * to target/site/howto locations preparing for deployment.
- * 
+ *
  * @phase site
  * @goal generate-cartridge-howto-artifacts
- * @description Goal to run AndroMDA and generate howto source and unpack cartridge 
+ * @description Goal to run AndroMDA and generate howto source and unpack cartridge
  * archive files prior to site deployment
  * @author vancek
  */
@@ -27,18 +27,18 @@ public class GenerateCartridgeHowtoArtifactsMojo
     /**
      * Path to the cartridge howto pictures zip source.  This file's path is typically
      * cartridge/src/site/resource/howto/HowToPictures.zip.
-     * 
+     *
      * @parameter expression="${basedir}/src/site/resources/howto/HowToPictures.zip"
      */
     private File howtoCartridgePicturesSourcePath;
-    
+
     /**
      * Path to the cartride howto pictures destination extraction directory
-     * 
+     *
      * @parameter expression="${basedir}/target/site/howto"
      */
     private File howtoCartridgePicturesOutputDirectory;
-    
+
     /**
      * This is the URI to the AndroMDA configuration file.
      *
@@ -61,15 +61,15 @@ public class GenerateCartridgeHowtoArtifactsMojo
      * @readonly
      */
     private Settings settings;
-    
+
     /**
      * The name of the project injected from pom.xml. Not used.
-     * 
+     *
      * @parameter default-value="${project.name}"
      */
     @SuppressWarnings("unused")
     private String projectName;
-    
+
     /**
      * @parameter expression="${project}"
      * @required
@@ -84,7 +84,7 @@ public class GenerateCartridgeHowtoArtifactsMojo
      * @parameter expression="${project.build.directory}/history"
      */
     private File modelOutputHistory;
-    
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -97,13 +97,13 @@ public class GenerateCartridgeHowtoArtifactsMojo
 
         this.unpackHowToPictures();
         this.generateHowToSource();
-        
+
         this.getLog().info("GENERATE CARTRIDGE HOWTO ARTIFACTS SUCCESSFUL");
     }
-    
+
     /**
      * Unpack the cartridge howto pictures
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -116,7 +116,7 @@ public class GenerateCartridgeHowtoArtifactsMojo
             {
                 throw new MojoExecutionException("Cartridge howto pictures source location is invalid");
             }
-            
+
             this.unpack(
                     this.howtoCartridgePicturesSourcePath,
                     this.howtoCartridgePicturesOutputDirectory);
@@ -132,11 +132,11 @@ public class GenerateCartridgeHowtoArtifactsMojo
                 ExceptionUtils.getRootCause(throwable));
         }
     }
- 
+
     /**
      * Generate the howto source by running AndroMDA using the howto specific model
      * and andromda.xml config.
-     * 
+     *
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */

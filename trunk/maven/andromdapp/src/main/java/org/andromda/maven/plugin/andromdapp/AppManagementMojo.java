@@ -30,11 +30,11 @@ public abstract class AppManagementMojo
      * @readonly
      */
     protected MavenProject project;
-    
+
     /**
      * Attempts to retrieve the packaging of the current project, and if it can't
      * find it, throws an exception.
-     * 
+     *
      * @return the packaging.
      * @throws MojoExecutionException if no packaging was found.
      */
@@ -48,10 +48,10 @@ public abstract class AppManagementMojo
         }
         return packaging;
     }
-    
+
     /**
      * Retrieves the file that will be or is deployed.
-     * 
+     *
      * @return the deploy file.
      * @throws MojoExecutionException
      */

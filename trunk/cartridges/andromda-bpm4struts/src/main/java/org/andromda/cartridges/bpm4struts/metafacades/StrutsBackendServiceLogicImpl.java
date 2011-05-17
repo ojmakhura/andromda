@@ -42,5 +42,4 @@ public class StrutsBackendServiceLogicImpl
             getConfiguredProperty(Bpm4StrutsGlobals.SERVICE_PACKAGE_NAME_PATTERN));
         return packageName.replaceAll("\\{0\\}", super.getPackageName()) + '.' + this.getName();
     }
-
 }

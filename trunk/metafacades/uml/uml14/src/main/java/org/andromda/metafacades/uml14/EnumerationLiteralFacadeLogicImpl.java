@@ -59,7 +59,7 @@ public class EnumerationLiteralFacadeLogicImpl
         }
         return name;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getValue(boolean)
      */
@@ -69,7 +69,7 @@ public class EnumerationLiteralFacadeLogicImpl
         return StringUtils.trimToEmpty(this.getName(modelValue));
     }
 
-    
+
     /**
      * @see org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogic#handleGetEnumerationValue()
      */

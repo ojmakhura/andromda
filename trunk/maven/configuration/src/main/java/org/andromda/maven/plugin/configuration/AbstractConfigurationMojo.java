@@ -41,7 +41,7 @@ public abstract class AbstractConfigurationMojo
     /**
      * Creates the Configuration instance from the {@link URL}
      *
-     * @param configurationUri 
+     * @param configurationUri
      * @return the configuration instance
      * @throws IOException if the URL is invalid.
      */
@@ -161,7 +161,7 @@ public abstract class AbstractConfigurationMojo
     /**
      * Sets the current context class loader from the given runtime classpath elements.
      *
-     * @param classpathFiles 
+     * @param classpathFiles
      * @throws MalformedURLException
      */
     protected void initializeClasspathFromClassPathElements(final List<String> classpathFiles)
@@ -311,7 +311,7 @@ public abstract class AbstractConfigurationMojo
     protected boolean skip;
 
     /**
-     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
      * @parameter expression="${skipTests}" default-value="false"
      */

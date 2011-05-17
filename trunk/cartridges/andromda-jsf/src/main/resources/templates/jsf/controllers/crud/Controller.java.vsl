@@ -65,8 +65,8 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Initializes the controller. This method can be overridden.
-     * @param form 
-     * @throws Exception 
+     * @param form
+     * @throws Exception
      */
     public void doInit(${manageable.formBeanType} form)
         throws Exception
@@ -107,7 +107,7 @@ public abstract class ${manageable.controllerName}
 
     /**
      * The instance load action.
-     * @param event 
+     * @param event
      */
     public void load(javax.faces.event.ActionEvent event)
     {
@@ -138,9 +138,9 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Loads the selected instance.
-     * @param id 
-     * @param form 
-     * @throws Exception 
+     * @param id
+     * @param form
+     * @throws Exception
      */
     public void doLoad(${identifierType} ${manageable.identifierName}, ${manageable.formBeanType} form)
         throws Exception
@@ -196,8 +196,8 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Executes the edit cancel.
-     * @param form 
-     * @throws Exception 
+     * @param form
+     * @throws Exception
      */
     public void doCancel(${manageable.formBeanType} form)
         throws Exception
@@ -242,8 +242,8 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Executes the new instance action.
-     * @param form 
-     * @throws Exception 
+     * @param form
+     * @throws Exception
      */
     public void doStartNew(${manageable.formBeanType} form)
         throws Exception
@@ -292,7 +292,7 @@ public abstract class ${manageable.controllerName}
 #end
 #if ($manageable.create || $manageable.update)
 
-	/**
+    /**
      * The save instance action.
      *
      * @return the controller view path.
@@ -328,8 +328,8 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Saves instance action.
-     * @param form 
-     * @throws Exception 
+     * @param form
+     * @throws Exception
      */
     public void doSave(${manageable.formBeanType} form)
         throws Exception
@@ -454,8 +454,8 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Executes the search action.
-     * @param form 
-     * @throws Exception 
+     * @param form
+     * @throws Exception
      */
     public void doSearch(${manageable.formBeanType} form)
         throws Exception
@@ -515,7 +515,7 @@ public abstract class ${manageable.controllerName}
 #if ($manageable.delete)
     /**
      * The delete event.
-     * @param event 
+     * @param event
      */
     public void delete(javax.faces.event.ActionEvent event)
     {
@@ -546,9 +546,9 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Deletes the selected instance.
-     * @param id 
-     * @param form 
-     * @throws Exception 
+     * @param id
+     * @param form
+     * @throws Exception
      */
     public void doDelete(${identifierType} ${manageable.identifierName}, ${manageable.formBeanType} form)
         throws Exception
@@ -583,7 +583,7 @@ public abstract class ${manageable.controllerName}
 
     /**
      * Helper method to fill the autocomplete component list.
-     * @param event 
+     * @param event
      */
     public void fillAutocomplete(javax.faces.event.ActionEvent event)
     {

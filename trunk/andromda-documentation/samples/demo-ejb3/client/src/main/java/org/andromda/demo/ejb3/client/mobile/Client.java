@@ -19,26 +19,22 @@ import org.andromda.demo.ejb3.vehicle.Motocycle;
 import org.andromda.demo.ejb3.vehicle.VehicleException;
 import org.andromda.demo.ejb3.vehicle.VehicleManagerDelegate;
 
-public class Client 
+public class Client
 {
-
     private Properties prop;
-    
-    public void init() 
+
+    public void init()
     {
         prop = new Properties();
         prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
         prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
         prop.put("java.naming.provider.url", "localhost:1099");
     }
-    
-    
-    
-    
+
     public void insertMobile1()
     {
         System.out.println("Inserting mobile...");
-        
+
         UserManagerDelegate manager = new UserManagerDelegate(prop);
         User user = null;
         try
@@ -54,9 +50,9 @@ public class Client
         {
             manager.close();
         }
-        
+
         Mobile mobile = new Mobile("0411222333", "Optus", user);
-        
+
         MobileServiceDelegate msd = new MobileServiceDelegate(prop);
         try
         {
@@ -70,19 +66,16 @@ public class Client
         {
             msd.close();
         }
-        
+
         System.out.println("Insert complete.");
     }
 
-    
-    
-    
     public void insertMobile2()
     {
         System.out.println("Inserting mobile...");
-        
+
         Mobile mobile = new Mobile("0411222444", "Telstra");
-        
+
         MobileServiceDelegate msd = new MobileServiceDelegate(prop);
         try
         {
@@ -96,21 +89,17 @@ public class Client
         {
             msd.close();
         }
-        
+
         System.out.println("Insert complete.");
     }
-    
-    
-    
-    
+
     /**
      * @param args
      */
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         Client client = new Client();
         client.init();
         client.insertMobile1();
     }
-
 }

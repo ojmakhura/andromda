@@ -27,7 +27,7 @@ public class $serviceLocatorName
     /**
      * The shared instance of this ${serviceLocatorName}.
      */
-    private final static ${serviceLocatorName} instance = new ${serviceLocatorName}();
+    private static final ${serviceLocatorName} instance = new ${serviceLocatorName}();
 
     /**
      * Gets the shared instance of this Class

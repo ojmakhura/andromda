@@ -2,19 +2,17 @@ package org.andromda.cartridges.deployment.metafacades;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.andromda.cartridges.deployment.psm.ant.Project;
 import org.andromda.cartridges.deployment.psm.ant.Target;
 
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.deployment.metafacades.NodeFacade.
- * 
+ *
  * @see org.andromda.cartridges.deployment.metafacades.NodeFacade
  */
 public class NodeFacadeLogicImpl extends NodeFacadeLogic
 {
-
     public NodeFacadeLogicImpl(org.omg.uml.foundation.core.Node metaObject,
             String context)
     {
@@ -29,7 +27,7 @@ public class NodeFacadeLogicImpl extends NodeFacadeLogic
         return this.metaObject.getDeployedComponent();
     }
 
-    /** 
+    /**
      * @see org.andromda.cartridges.deployment.metafacades.NodeFacadeLogic#handleTransformToAntProject()
      */
     protected Project handleTransformToAntProject()
@@ -54,5 +52,4 @@ public class NodeFacadeLogicImpl extends NodeFacadeLogic
         Project p = new Project(getFullyQualifiedName(), "deploy", allTargets);
         return p;
     }
-
 }

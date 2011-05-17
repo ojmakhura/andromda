@@ -47,7 +47,7 @@ public class TypeMappingsTest
     private static final String FROM_6 = "Class<? extends FromType>";
 
     /**
-     * 
+     *
      */
     public void testGetTo()
     {

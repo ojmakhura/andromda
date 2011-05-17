@@ -12,10 +12,8 @@ public class ContactImpl
     extends org.andromda.demo.ejb3.customer.Contact
     implements java.io.Serializable
 {
-
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = 1240192948153809747L;
-    
 }

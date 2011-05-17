@@ -24,36 +24,35 @@ package org.andromda.demo.ejb3.animal;
 @javax.persistence.NamedQueries
 ({
     @javax.persistence.NamedQuery(name = "Animal.findAll", query = "select animal from Animal AS animal"),
-    @javax.persistence.NamedQuery(name = "Animal.findByType", query = "from Animal as animal where animal.type = :type"), 
+    @javax.persistence.NamedQuery(name = "Animal.findByType", query = "from Animal as animal where animal.type = :type"),
     @javax.persistence.NamedQuery(name = "Animal.deleteByCarnivor", query = "delete from Animal as a where a.carnivor = :carnivor")
 })
 public class Animal
     extends org.andromda.demo.ejb3.animal.AnimalEmbeddable
     implements java.io.Serializable, Comparable<Animal>
 {
-
     /**
      * The serial version UID of this class required for serialization.
      */
     private static final long serialVersionUID = -5959640054204400691L;
 
     // --------------- constructors -----------------
-    
+
     /**
      * Default Animal constructor
      */
     public Animal()
-    { 
+    {
         super();
     }
-    
+
     /**
      * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
      * This method sets all POJO fields defined in this/super class to the
      * values provided by the parameters.
      *
      */
-    public Animal(java.lang.String name, java.lang.String type, boolean carnivor) 
+    public Animal(java.lang.String name, java.lang.String type, boolean carnivor)
     {
         super(name, type, carnivor);
     }
@@ -63,7 +62,7 @@ public class Animal
     // --------------- Lifecycle callbacks -----------------
 
     /**
-     * 
+     *
      */
     @javax.persistence.PrePersist
     public void prePersist()
@@ -72,7 +71,7 @@ public class Animal
     }
 
     /**
-     * 
+     *
      */
     @javax.persistence.PreUpdate
     public void preUpdate()

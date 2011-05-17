@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 
-
 /**
  * Contains a UML model, follows the {@link ModelAccessFacade} interface and can therefore be processed by AndroMDA.
  *

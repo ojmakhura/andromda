@@ -18,8 +18,8 @@ class BooleanComparator
     /**
      * Used to sort Boolean values, both objects are assumed
      * to be Boolean instances.
-     * @param objectA 
-     * @param objectB 
+     * @param objectA
+     * @param objectB
      * @return compare result
      */
     public int compare(

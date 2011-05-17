@@ -8,6 +8,8 @@
     name="${service.name}"
     targetNamespace="http://$namespace"
     xmlns:${service.namespacePrefix}="http://$namespace"
+##    targetNamespace="$service.package.namespace"
+##    xmlns:${service.namespacePrefix}="$service.package.namespace"
 #if ($defaultParameterStyle.equalsIgnoreCase("BARE"))
 ## Abbreviations for all namespcaes referenced by wsdl operations
 #set ($schemaTypes = $service.typeMappingElements)
@@ -19,6 +21,7 @@
 ##    xmlns:$webServiceUtils.getPkgAbbr($service.package)="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"
 #foreach ($pkgRef in $exceptionRefs)
     xmlns:$webServiceUtils.getPkgAbbr($pkgRef)="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
+##    xmlns:$pkgRef.packageAbbr="$pkgRef.namespace"
 #end
     xmlns:xs="$xmlSchemaNamespace"
     xmlns:soap="$wsdlSoapNamespace"
@@ -62,9 +65,14 @@
 #if($importedXSD)
         <xs:schema>
             <xs:import namespace="http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end"
+##<!-- service.package.namespace=$service.package.namespace -->
+##            <xs:import namespace="$service.package.namespace"
+##                schemaLocation="$service.package.schemaLocation"/>
                 schemaLocation="xsd/${webServiceUtils.reversePackage($service.packageName)}.xsd"/>
 #foreach ($pkgRef in $exceptionRefs)
             <xs:import namespace="http://$webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)#if($addNamespaceBackslash)/#end"
+##            <xs:import namespace="$pkgRef.namespace"
+##                schemaLocation="$pkgRef.schemaLocation"/>
                 schemaLocation="xsd/${webServiceUtils.reversePackage($pkgRef.fullyQualifiedName)}.xsd"/>
 #end
         </xs:schema>

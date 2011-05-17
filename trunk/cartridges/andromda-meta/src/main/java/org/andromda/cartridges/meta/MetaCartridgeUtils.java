@@ -40,7 +40,7 @@ public class MetaCartridgeUtils
     /**
      * Used to sort operations by <code>fullyQualifiedName</code>.
      */
-    final static class FullyQualifiedNameComparator
+    static final class FullyQualifiedNameComparator
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();

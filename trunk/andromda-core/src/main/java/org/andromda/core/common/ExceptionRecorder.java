@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
-
 /**
  * <p/>
  * ExceptionRecorder provides a function to record an exception to a file along with the trace data if active. </p>

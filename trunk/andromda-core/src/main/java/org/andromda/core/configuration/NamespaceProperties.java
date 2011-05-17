@@ -1,6 +1,5 @@
 package org.andromda.core.configuration;
 
-
 /**
  * Contains namespace properties used witin the AndroMDA core.
  *
@@ -28,7 +27,7 @@ public interface NamespaceProperties
     public static final String PROFILE_MAPPINGS_URI = "profileMappingsUri";
 
     /**
-     * If true, all resources are overwritten (even if ovewrite is set to <code>false</code>
+     * If true, all resources are overwritten (even if overwrite is set to <code>false</code>
      * within an andromda-cartridge.xml). If false, no resources are overwritten.
      * It is useful to set to <code>true</code> when during pure modeling until you're ready
      * to implement.

@@ -79,7 +79,7 @@ public class $patternMatchingExceptionHandler
      *
      * @param throwable the Exception containing the message to retrieve
      * @return the retrieved message arguments (if any) from the exception.
-     * @throws Throwable 
+     * @throws Throwable
      */
     public Object[] getMessageArguments(final Throwable throwable) throws Throwable
     {
@@ -101,7 +101,7 @@ public class $patternMatchingExceptionHandler
      * @param throwable the Exception containing the message to retrieve
      * @throws Throwable
      */
-    private final Throwable findRootCause(Throwable throwable)
+    private Throwable findRootCause(Throwable throwable)
     {
         final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
         if (rootCause != null)

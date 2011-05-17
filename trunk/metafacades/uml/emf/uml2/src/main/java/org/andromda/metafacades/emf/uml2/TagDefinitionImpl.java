@@ -31,7 +31,6 @@ import org.eclipse.uml2.TemplateBinding;
 import org.eclipse.uml2.TemplateSignature;
 import org.eclipse.uml2.VisibilityKind;
 
-
 /**
  * Represents a TagDefinition metaclass (was needed because it doesn't exist in
  * the uml2 metamodel).

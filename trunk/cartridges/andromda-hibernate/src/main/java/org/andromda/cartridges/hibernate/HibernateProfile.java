@@ -64,7 +64,7 @@ public class HibernateProfile
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = profile.get("EJB_TRANSACTION_TYPE");
 
     /**
-     * andromda_hibernate_lazy 
+     * andromda_hibernate_lazy
      * Stores the aggregation kind (lazy/eager) of the Hibernate Session EJB.
      */
     public static final String TAGGEDVALUE_HIBERNATE_LAZY = profile.get("HIBERNATE_LAZY");

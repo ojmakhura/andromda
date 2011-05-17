@@ -17,7 +17,6 @@ import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndController.
  *

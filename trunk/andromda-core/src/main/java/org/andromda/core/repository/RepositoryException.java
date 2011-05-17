@@ -1,6 +1,5 @@
 package org.andromda.core.repository;
 
-
 /**
  * An exception thrown whenever an unexpected occurs while configuring
  * a repository instance.

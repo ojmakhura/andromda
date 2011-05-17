@@ -16,18 +16,18 @@ package org.andromda.demo.ejb3.bio;
  * Uncomment to enable webservices for BioServiceBean
  *@javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.bio.BioServiceWSInterface")
  */
-public class BioServiceBean 
-    extends org.andromda.demo.ejb3.bio.BioServiceBase 
+public class BioServiceBean
+    extends org.andromda.demo.ejb3.bio.BioServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public BioServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.bio.BioServiceBase#addBio(org.andromda.demo.ejb3.bio.Bio)
      */
@@ -57,5 +57,5 @@ public class BioServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

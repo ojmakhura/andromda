@@ -1,7 +1,5 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmNode.
  *

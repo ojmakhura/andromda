@@ -15,7 +15,6 @@ import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Type;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.AssociationEndFacade.

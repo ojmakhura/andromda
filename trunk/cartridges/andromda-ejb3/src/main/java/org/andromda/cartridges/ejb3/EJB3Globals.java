@@ -7,7 +7,6 @@ package org.andromda.cartridges.ejb3;
  */
 public class EJB3Globals
 {
-
     /**
      * The property that stores the default EJB transaction type.
      */

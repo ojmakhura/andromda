@@ -2,7 +2,7 @@ package org.andromda.core.translation.library;
 
 /**
  * A template object for the library test.
- * 
+ *
  * @author Chad Brandon
  */
 public class LibraryTemplateObject

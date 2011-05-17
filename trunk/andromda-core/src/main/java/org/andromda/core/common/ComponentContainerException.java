@@ -1,6 +1,5 @@
 package org.andromda.core.common;
 
-
 /**
  * Any unchecked exception that will be thrown during the execution of ComponentContainer.
  */

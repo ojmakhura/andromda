@@ -3,9 +3,7 @@ package org.andromda.core.cartridge.template;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Represents the &lt;type/&gt; element nested within the &lt;modelElement/&gt; element.

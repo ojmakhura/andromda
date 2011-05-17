@@ -26,7 +26,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class AndroMDApp
 {
-
     /**
      * An AndroMDApp configuration that contains some internal configuration information (like the AndroMDA
      * version, and other common properties).

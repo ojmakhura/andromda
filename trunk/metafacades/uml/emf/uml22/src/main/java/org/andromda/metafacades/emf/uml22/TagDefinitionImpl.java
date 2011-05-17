@@ -200,7 +200,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return null
      */
     public StringExpression createNameExpression(final EClass arg0)
@@ -287,8 +287,8 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
-     * @param arg1 
+     * @param arg0
+     * @param arg1
      * @return false
      */
     public boolean validateNoName(
@@ -301,8 +301,8 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
-     * @param arg1 
+     * @param arg0
+     * @param arg1
      * @return false
      */
     public boolean validateQualifiedName(
@@ -356,7 +356,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return null
      */
     public TemplateBinding createTemplateBinding(final EClass arg0)
@@ -388,7 +388,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @see org.eclipse.uml2.uml.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.uml.TemplateSignature)
      */
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
@@ -398,7 +398,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
      */
@@ -462,7 +462,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return null
      */
     public Comment createOwnedComment(final EClass arg0)
@@ -539,7 +539,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return false
      */
     public boolean isApplied(final Stereotype arg0)
@@ -550,7 +550,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      * @return false
      */
     public boolean isRequired(final Stereotype arg0)
@@ -601,7 +601,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      */
     public void apply(final Stereotype arg0)
     {
@@ -619,7 +619,7 @@ public class TagDefinitionImpl
 
     /**
      *
-     * @param arg0 
+     * @param arg0
      */
     public void unapply(final Stereotype arg0)
     {
@@ -695,7 +695,7 @@ public class TagDefinitionImpl
     }
 
     /**
-     * @param arg0 
+     * @param arg0
      * @return null
      */
     public String getAppliedVersion(final Stereotype arg0)

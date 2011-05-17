@@ -3,7 +3,6 @@ package org.andromda.maven.plugin;
 import org.andromda.core.AndroMDAServer;
 import org.andromda.core.configuration.Configuration;
 
-
 /**
  * Provides the ability to stop the AndroMDA server.
  *
@@ -23,5 +22,4 @@ public class AndroMDAServerStopMojo
         final AndroMDAServer server = AndroMDAServer.newInstance();
         server.stop(configuration);
     }
-
 }

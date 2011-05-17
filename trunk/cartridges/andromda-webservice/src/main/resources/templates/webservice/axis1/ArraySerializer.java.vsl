@@ -4,13 +4,10 @@ package $webserviceTypesPackage;
 #end
 
 import java.io.IOException;
-
 import javax.xml.namespace.QName;
-
 import org.apache.axis.encoding.SerializationContext;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.Attributes;
-
 
 /**
  * An ArraySerializer for Axis1 that extends the default one provided by Axis (provides the

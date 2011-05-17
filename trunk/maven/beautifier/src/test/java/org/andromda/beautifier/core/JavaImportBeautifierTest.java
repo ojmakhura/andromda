@@ -9,7 +9,7 @@ import de.plushnikov.doctorjim.ImportProcessor;
 import de.plushnikov.doctorjim.javaparser.ParseException;
 
 /**
- * Tests for JavaImportBeautifier. Duplicates the tests found on 
+ * Tests for JavaImportBeautifier. Duplicates the tests found on
  * http://doctor-jim.googlecode.com/svn/trunk
  */
 public class JavaImportBeautifierTest
@@ -17,7 +17,7 @@ public class JavaImportBeautifierTest
     private ImportProcessor mProcessor;
 
     /**
-     * 
+     *
      */
     @Before
     public void setUp()
@@ -489,7 +489,7 @@ public class JavaImportBeautifierTest
 
     /**
      * Execute beautification on the given file and compare result
-     * 
+     *
      * @param pFilename
      *            filename to be used as input for beautification
      * @throws IOException

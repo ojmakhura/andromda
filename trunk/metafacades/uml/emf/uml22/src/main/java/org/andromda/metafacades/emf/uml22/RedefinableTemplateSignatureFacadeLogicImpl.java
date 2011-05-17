@@ -6,7 +6,7 @@ package org.andromda.metafacades.emf.uml22;
 import org.eclipse.uml2.uml.RedefinableTemplateSignature;
 
 /**
- * 
+ *
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade.
  *
  * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
@@ -18,8 +18,8 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
 
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
      */
     public RedefinableTemplateSignatureFacadeLogicImpl (RedefinableTemplateSignature metaObject, String context)
@@ -28,7 +28,7 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
     }
 
     /**
-     * 
+     *
      * @return shieldedElement(metaObject.getClassifier())
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade#getClassifier()
      */

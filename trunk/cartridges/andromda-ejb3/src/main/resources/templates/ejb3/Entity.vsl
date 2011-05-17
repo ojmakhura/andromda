@@ -56,7 +56,6 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
     extends ${entity.fullyQualifiedEntityEmbeddableName}
     implements java.io.Serializable, Comparable<${entity.entityName}>
 {
-
     /**
      * The serial version UID of this class required for serialization.
      */

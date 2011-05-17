@@ -57,7 +57,7 @@ public class TemplateParameterFacadeLogicImpl
     }
 
     // The methods below are a hack, because TemplateParameter no longer inherits from Parameter in UML2
-    // so the Parameter methods normally part of the FacadeLogic must be implemented here. Model hierarchy is: 
+    // so the Parameter methods normally part of the FacadeLogic must be implemented here. Model hierarchy is:
     // ownedTemplateSignature (type=RedefinableTemplateSignature) with ownedParameteredElement
     //   -> ownedParameter (type=ClassifierTemplateParameter) with constrainingClassifier
     //     -> ownedParameteredElement (type=DataType) with name
@@ -145,7 +145,7 @@ public class TemplateParameterFacadeLogicImpl
                 lower = 1;
             }
         }
-        return  lower;        
+        return lower;
     }
 
     /**

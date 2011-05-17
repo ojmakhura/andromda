@@ -61,7 +61,7 @@ public class CartridgeTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetNamespace()
     {
@@ -71,7 +71,7 @@ public class CartridgeTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetResources()
     {
@@ -85,7 +85,7 @@ public class CartridgeTest
         final Iterator<Resource> templateIterator = resources.iterator();
         Resource resource = templateIterator.next();
         assertTrue(resource.isLastModifiedCheck());
-        
+
         Template template = (Template)templateIterator.next();
         assertEquals(
             "EntityBean.vsl",
@@ -138,7 +138,7 @@ public class CartridgeTest
         element = modelElements.iterator().next();
         assertNull(element.getVariable());
         assertNull(element.getStereotype());
-        
+
         final Collection<Type> types = element.getTypes();
         assertNotNull(types);
         assertEquals(1, types.size());
@@ -152,7 +152,7 @@ public class CartridgeTest
         Type.Property property2 = (Type.Property)propertyIterator.next();
         assertEquals("propertyThree", property2.getName());
         assertEquals("Contents", property2.getValue());
-        
+
         final Map<String, String> conditions = cartridge.getConditions();
         assertEquals(1, conditions.size());
         final String expressionName = conditions.keySet().iterator().next();
@@ -162,7 +162,7 @@ public class CartridgeTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetPropertyReferences()
     {
@@ -180,7 +180,7 @@ public class CartridgeTest
     }
 
     /**
-     * 
+     *
      */
     public void testGetTemplateObjects()
     {
@@ -195,11 +195,11 @@ public class CartridgeTest
         CartridgeTemplateObject object = (CartridgeTemplateObject)templateObject.getObject();
         assertNotNull(object);
         assertEquals("3", object.getDefinitionOne());
-        
+
     }
 
     /**
-     * 
+     *
      */
     public void testGetContents()
     {

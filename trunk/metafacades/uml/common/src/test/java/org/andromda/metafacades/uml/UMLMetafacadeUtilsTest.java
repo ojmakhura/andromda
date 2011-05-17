@@ -10,7 +10,7 @@ public class UMLMetafacadeUtilsTest
         extends TestCase
 {
     /**
-     * 
+     *
      */
     public void testIsConstraintKind()
     {

@@ -147,6 +147,13 @@
                     Set this property to <code>true</code> if you want to enable this feature.
                 </documentation>
             </property>
+            <property name="enableAnnotations">
+                <default>true</default>
+                <documentation>
+                    Determines whether or not to enable @Annotations, enabling this feature will produce
+                    JDK5+ annotations such as @Override, @Deprecated, etc.
+                </documentation>
+            </property>
     <!--
             <property name="templatingPattern">
                 <default><![CDATA[<{0} extends {1}>]]></default>

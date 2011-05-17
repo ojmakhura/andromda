@@ -10,9 +10,9 @@ public class BreadCrumbs extends LinkedList
 {
     private static final long serialVersionUID = 34L;
     /** org.andromda.bpm4struts.breadcrumbs */
-    public final static String SESSION_KEY = "org.andromda.bpm4struts.breadcrumbs";
+    public static final String SESSION_KEY = "org.andromda.bpm4struts.breadcrumbs";
     /** 6 */
-    public final static int DEFAULT_SIZE = 6;
+    public static final int DEFAULT_SIZE = 6;
 
     private int maxSize = -1;
 

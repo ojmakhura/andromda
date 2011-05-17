@@ -17,7 +17,7 @@ public class MDRXmiReferenceResolver
      * Constructs an instance of this class.
      *
      * @param extents
-     * @param moduleSearchPath 
+     * @param moduleSearchPath
      */
     public MDRXmiReferenceResolver(
         RefPackage[] extents,

@@ -12,7 +12,6 @@ public class Bpm4StrutsUtilsTest
         super(name);
     }
 
-
     public void testParseValidatorArgs() throws Exception
     {
         final Object[][] fixture = new Object[][]{new Object[]{"myValidator", new Object[0]}, new Object[]{
@@ -38,7 +37,6 @@ public class Bpm4StrutsUtilsTest
                     (Object[]) objects[1]));
         }
     }
-
 
     public void testParseValidatorName() throws Exception
     {

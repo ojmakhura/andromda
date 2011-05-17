@@ -7,7 +7,6 @@ package org.andromda.translation.ocl.syntax;
  */
 public interface VariableDeclaration
 {
-
     /**
      * The variable declaration name
      *
@@ -28,5 +27,4 @@ public interface VariableDeclaration
      * @return String the initial value.
      */
     public String getValue();
-
 }

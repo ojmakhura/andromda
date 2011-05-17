@@ -2,7 +2,7 @@ package org.andromda.core.cartridge;
 
 /**
  * A template object for the cartridge test.
- * 
+ *
  * @author Chad Brandon
  */
 public class CartridgeTemplateObject

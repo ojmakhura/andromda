@@ -1,6 +1,5 @@
 package org.andromda.metafacades.emf.uml22;
 
-
 import org.eclipse.uml2.uml.Stereotype;
 
 /**

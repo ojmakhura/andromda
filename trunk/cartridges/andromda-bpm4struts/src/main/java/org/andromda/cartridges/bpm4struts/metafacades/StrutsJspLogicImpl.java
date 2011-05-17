@@ -126,7 +126,7 @@ public class StrutsJspLogicImpl
      */
     protected String handleGetDocumentationValue()
     {
-        return (!this.isDocumentationPresent()) ? "" 
+        return (!this.isDocumentationPresent()) ? ""
             : StringUtilsHelper.toResourceMessage(this.getDocumentation(""));
     }
 
@@ -146,7 +146,7 @@ public class StrutsJspLogicImpl
         final String crlf = "<br/>";
         final StringBuilder buffer = new StringBuilder();
 
-        buffer.append(!this.isDocumentationPresent() ? "No page documentation has been specified" 
+        buffer.append(!this.isDocumentationPresent() ? "No page documentation has been specified"
             : StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false)));
         buffer.append(crlf);
         buffer.append(crlf);

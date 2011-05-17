@@ -15,7 +15,6 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.UseCase;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndController.

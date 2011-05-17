@@ -253,7 +253,7 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param arg0 
+     * @param arg0
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
      */
@@ -1719,8 +1719,8 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: property.validateUpperGt0 no longer exists
-     * @param arg0 
-     * @param arg1 
+     * @param arg0
+     * @param arg1
      * @return property.getUpper() > 0
      */
     public boolean validateUpperGt0(
@@ -2308,7 +2308,7 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
+     * @param signature
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
@@ -2320,7 +2320,7 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
+     * @param signature
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
@@ -2332,8 +2332,8 @@ public class AttributeImpl
     }
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
-     * @param signature 
-     * @param createOnDemand 
+     * @param signature
+     * @param createOnDemand
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature, boolean)
      */

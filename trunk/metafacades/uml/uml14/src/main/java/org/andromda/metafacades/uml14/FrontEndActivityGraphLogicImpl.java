@@ -38,10 +38,10 @@ public class FrontEndActivityGraphLogicImpl
     {
         return this.getUseCase() instanceof FrontEndUseCase;
     }
-    
+
     /**
      * Retrieves the usecase that owns this activity.
-     * 
+     *
      * @see org.andromda.metafacades.uml14.ActivityGraphFacadeLogic#handleGetUseCase()
      */
     protected Object handleGetUseCase()
@@ -54,7 +54,7 @@ public class FrontEndActivityGraphLogicImpl
         }
         return useCase;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getInitialAction()
      */
@@ -88,7 +88,7 @@ public class FrontEndActivityGraphLogicImpl
 
          // - for those tools not supporting setting the context of an activity graph (such as Poseidon)
          //   an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
-         // 
+         //
          // It is also allowed to set a hyperlink from the controller to the usecase
         if (controller == null)
         {

@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndExceptionHandler.

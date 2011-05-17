@@ -240,7 +240,7 @@ public class StrutsManageableEntityLogicImpl
      */
     protected String handleGetOnlineHelpValue()
     {
-        return (!this.isDocumentationPresent()) ? "No entity documentation has been specified" : 
+        return (!this.isDocumentationPresent()) ? "No entity documentation has been specified" :
             StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
     }
 

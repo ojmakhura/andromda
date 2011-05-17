@@ -34,7 +34,7 @@ import org.eclipse.uml2.ValueSpecification;
 public class AttributeLinkImpl implements AttributeLink
 {
     /**
-     * 
+     *
      */
     final Slot slot;
 

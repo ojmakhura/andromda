@@ -8,7 +8,7 @@ package org.andromda.howto2.rental;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * 
+ *
  */
 public class PersonDaoException
     extends java.lang.Exception

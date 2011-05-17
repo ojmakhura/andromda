@@ -235,7 +235,7 @@ public abstract class HibernateSchemaManagement
      *
      * @param options any options from which to retrieve argument values.
      * @param arguments the list of arguments to add.
-     * @throws Exception 
+     * @throws Exception
      */
     protected abstract void addArguments(
         final Map options,

@@ -9,7 +9,6 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.remoting.rmi.RmiClientInterceptorUtils;
 
-
 /**
  * Interceptor for accessing a specific port of a web service.
  */

@@ -34,7 +34,6 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFUseCase.
  *
@@ -104,7 +103,7 @@ public class JSFUseCaseLogicImpl
     {
         return StringUtilsHelper.toResourceMessageKey(
             this.isNormalizeMessages() ? this.getTitleValue() : this.getName()) + '.' +
-        JSFGlobals.TITLE_MESSAGE_KEY_SUFFIX;
+            JSFGlobals.TITLE_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -121,7 +120,7 @@ public class JSFUseCaseLogicImpl
      *
      * @return true/false
      */
-    private final boolean isNormalizeMessages()
+    private boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
@@ -131,11 +130,10 @@ public class JSFUseCaseLogicImpl
      * @return allMessages
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllMessages()
      */
-    @SuppressWarnings("unchecked")
     protected Map handleGetAllMessages()
     {
         final boolean normalize = this.isNormalizeMessages();
-        final Map<String, String> messages = (normalize) ?
+        final Map<String, String> messages = normalize ?
             (Map<String, String>)new TreeMap() : (Map<String, String>)new LinkedHashMap<String, String>();
 
         // - only retrieve the messages for the entry use case (i.e. the use case
@@ -177,7 +175,8 @@ public class JSFUseCaseLogicImpl
 
                             final Collection<ClassifierFacade> resolvingTypes = new ArrayList<ClassifierFacade>();
                             this.collectAttributeMessages(messages, parameter.getAttributes(), resolvingTypes);
-                            this.collectAssociationEndMessages(messages, parameter.getNavigableAssociationEnds(), resolvingTypes);
+                            this.collectAssociationEndMessages(messages,
+                                parameter.getNavigableAssociationEnds(), resolvingTypes);
                             messages.put(
                                 parameter.getMessageKey(),
                                 parameter.getMessageValue());
@@ -280,8 +279,8 @@ public class JSFUseCaseLogicImpl
                                             final Collection<AttributeFacade> typeAttributes = type.getAttributes();
                                             if (!attributes.isEmpty())
                                             {
-                                                for (final Iterator<AttributeFacade> attributeIterator = typeAttributes.iterator();
-                                                    attributeIterator.hasNext();)
+                                                for (final Iterator<AttributeFacade> attributeIterator
+                                                    = typeAttributes.iterator(); attributeIterator.hasNext();)
                                                 {
                                                     final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
                                                     messages.put(
@@ -423,7 +422,7 @@ public class JSFUseCaseLogicImpl
     {
         if (attributes != null && !attributes.isEmpty())
         {
-            for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = attributes.iterator(); iterator.hasNext(); )
             {
                 final JSFAttribute attribute = (JSFAttribute)iterator.next();
                 messages.put(
@@ -455,28 +454,28 @@ public class JSFUseCaseLogicImpl
         }
     }
 
-   private void collectTypeMessages(Map<String,String> messages, ClassifierFacade type,
-        final Collection<ClassifierFacade> resolvingTypes)
-   {
-       if (type != null)
-       {
-           if (!resolvingTypes.contains(type))
-           {
-               resolvingTypes.add(type);
-               if (type.isArrayType())
-               {
-                   type = type.getNonArray();
-               }
-               //check again, since the type can be changed
-               if (!resolvingTypes.contains(type))
-               {
-                   this.collectAttributeMessages(messages, type.getAttributes(), resolvingTypes);
-                   this.collectAssociationEndMessages(messages, type.getNavigableConnectingEnds(), resolvingTypes);
-               }
-           }
-           resolvingTypes.remove(type);
-       }
-   }
+    private void collectTypeMessages(Map<String,String> messages, ClassifierFacade type,
+         final Collection<ClassifierFacade> resolvingTypes)
+    {
+        if (type != null)
+        {
+            if (!resolvingTypes.contains(type))
+            {
+                resolvingTypes.add(type);
+                if (type.isArrayType())
+                {
+                    type = type.getNonArray();
+                }
+                //check again, since the type can be changed
+                if (!resolvingTypes.contains(type))
+                {
+                    this.collectAttributeMessages(messages, type.getAttributes(), resolvingTypes);
+                    this.collectAssociationEndMessages(messages, type.getNavigableConnectingEnds(), resolvingTypes);
+                }
+            }
+            resolvingTypes.remove(type);
+        }
+    }
 
     /**
      * @return actionForwards
@@ -612,7 +611,7 @@ public class JSFUseCaseLogicImpl
      *
      * @return the initial target.
      */
-    private final Object getInitialTarget()
+    private Object getInitialTarget()
     {
         Object initialTarget = null;
         final FrontEndActivityGraph graph = this.getActivityGraph();
@@ -749,7 +748,7 @@ public class JSFUseCaseLogicImpl
      */
     protected String handleGetForwardsClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX ;
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX;
     }
 
     /**
@@ -816,17 +815,19 @@ public class JSFUseCaseLogicImpl
      */
     protected Collection<FrontEndUseCase> handleGetNavigationParents()
     {
-            final JSFUseCase theUseCase = this;
-            return CollectionUtils.select(getAllUseCases(),new Predicate() {
-                @SuppressWarnings("synthetic-access")
-                public boolean evaluate(Object o)
+        final JSFUseCase theUseCase = this;
+        return CollectionUtils.select(getAllUseCases(),new Predicate() {
+            @SuppressWarnings("synthetic-access")
+            public boolean evaluate(Object o)
+            {
+                final JSFUseCase useCase = (JSFUseCase)o;
+                if (theUseCase.equals(useCase))
                 {
-                    final JSFUseCase useCase = (JSFUseCase)o;
-                    if (theUseCase.equals(useCase))
-                        return false;
-                    return isParent(theUseCase, useCase);
+                    return false;
                 }
-            });
+                return isParent(theUseCase, useCase);
+            }
+        });
     }
 
     /**

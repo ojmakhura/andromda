@@ -13,8 +13,8 @@ public class JSFActivityGraphLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFActivityGraphLogicImpl (Object metaObject, String context)
+    public JSFActivityGraphLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 }

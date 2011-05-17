@@ -16,9 +16,9 @@ public class TimeTrackingServiceImpl
     extends TimeTrackingServiceBase
 {
     /**
-     * @param criteria 
+     * @param criteria
      * @return timecards
-     * @throws Exception 
+     * @throws Exception
      * @see org.andromda.timetracker.service.TimeTrackingService#findTimecards(TimecardSearchCriteriaVO)
      */
     @Override

@@ -44,7 +44,9 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
      *
      * @see org.springframework.ejb.support.AbstractStatelessSessionBean${esc.hash}onEjbCreate()
      */
+#if ($enableAnnotations)
     @Override
+#end
     protected void onEjbCreate()
     {
 #if($service.generalization && !$service.generalization.abstract)
@@ -61,7 +63,9 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
      *
      * $seeComment
      */
+#if ($enableAnnotations)
     @Override
+#end
     public void setSessionContext(javax.ejb.SessionContext sessionContext)
     {
         super.setSessionContext(sessionContext);

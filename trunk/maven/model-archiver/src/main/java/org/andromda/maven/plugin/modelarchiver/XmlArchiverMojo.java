@@ -1,11 +1,9 @@
 package org.andromda.maven.plugin.modelarchiver;
 
+import java.io.File;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.MojoExecutionException;
-
-import java.io.File;
-
 
 /**
  * Builds archived model xml files.

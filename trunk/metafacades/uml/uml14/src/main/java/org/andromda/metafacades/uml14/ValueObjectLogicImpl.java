@@ -43,7 +43,7 @@ public class ValueObjectLogicImpl
     }
 
     /**
-     * @param stereotypes 
+     * @param stereotypes
      * @return specializations
      */
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations(String stereotypes)

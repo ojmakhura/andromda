@@ -15,18 +15,18 @@ import java.util.Collection;
  * @javax.ejb.Stateless
  */
 @javax.jws.WebService(endpointInterface = "org.andromda.demo.ejb3.customer.CustomerServiceWSInterface")
-public class CustomerServiceBean 
-    extends org.andromda.demo.ejb3.customer.CustomerServiceBase 
+public class CustomerServiceBean
+    extends org.andromda.demo.ejb3.customer.CustomerServiceBase
 {
     // --------------- Constructors ---------------
-    
+
     public CustomerServiceBean()
     {
         super();
     }
 
     // -------- Business Methods Impl --------------
-    
+
     /**
      * @see org.andromda.demo.ejb3.customer.CustomerServiceBase#addCustomer(org.andromda.demo.ejb3.customer.Customer)
      */
@@ -48,5 +48,5 @@ public class CustomerServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-    
+
 }

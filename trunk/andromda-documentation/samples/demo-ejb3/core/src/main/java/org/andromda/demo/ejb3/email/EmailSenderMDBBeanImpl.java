@@ -16,12 +16,12 @@ public class EmailSenderMDBBeanImpl
 
 
     // --------- Default Constructor ----------
-    
+
     public EmailSenderMDBBeanImpl()
     {
         super();
     }
-    
+
     /**
      * MessageListener callback on arrival of a JMS message
      *
@@ -32,12 +32,12 @@ public class EmailSenderMDBBeanImpl
         try
         {
             System.out.println("Received new message: " + message.getJMSTimestamp());
-            
+
             TextMessage txtMessage = null;
             if (message != null && message instanceof TextMessage)
             {
                 txtMessage = (TextMessage)message;
-                
+
                 System.out.println("Waiting...");
                 try
                 {
@@ -46,7 +46,7 @@ public class EmailSenderMDBBeanImpl
                 catch (InterruptedException e)
                 {
                 }
-                
+
                 System.out.println("Message = " + txtMessage.getText());
             }
         }
@@ -55,26 +55,26 @@ public class EmailSenderMDBBeanImpl
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         //insertAccount();
     }
 
     public void insertAccount()
     {
         System.out.println("Inserting account...");
-        
+
         Account account = new Account("test");
 
         try
         {
             accountManager.addAccount(account);
-        } 
+        }
         catch (AccountException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         System.out.println("Insert complete.");
     }
 }

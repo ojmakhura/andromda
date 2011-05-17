@@ -13,7 +13,6 @@ import java.util.Collection;
 public class CustomerServiceImpl
     extends CustomerServiceBase
 {
-
     /**
      * @see org.andromda.samples.carrental.customers.CustomerService#createCustomer(String, String, String)
      */

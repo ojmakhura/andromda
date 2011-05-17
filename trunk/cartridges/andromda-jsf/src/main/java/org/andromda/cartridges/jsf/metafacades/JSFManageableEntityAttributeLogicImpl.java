@@ -25,9 +25,9 @@ public class JSFManageableEntityAttributeLogicImpl
      * @param metaObject
      * @param context
      */
-    public JSFManageableEntityAttributeLogicImpl (Object metaObject, String context)
+    public JSFManageableEntityAttributeLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -252,7 +252,7 @@ public class JSFManageableEntityAttributeLogicImpl
     protected Collection handleGetValidatorVars()
     {
         return JSFUtils.getValidatorVars(
-            ((ModelElementFacade)this.THIS()),
+            (ModelElementFacade)this.THIS(),
             this.getType(),
             null);
     }
@@ -534,7 +534,7 @@ public class JSFManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @param validatorType 
+     * @param validatorType
      * @return getValidatorArgs
      * @see org.andromda.cartridges.jsf.metafacades.JSFManageableEntityAttribute#getValidatorArgs(String)
      */
@@ -551,7 +551,7 @@ public class JSFManageableEntityAttributeLogicImpl
      *
      * @return the input type name.
      */
-    private final String getInputType()
+    private String getInputType()
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
@@ -562,7 +562,7 @@ public class JSFManageableEntityAttributeLogicImpl
      * @param inputType the name of the input type to check for.
      * @return true/false
      */
-    private final boolean isInputType(final String inputType)
+    private boolean isInputType(final String inputType)
     {
         return inputType.equalsIgnoreCase(this.getInputType());
     }
@@ -582,7 +582,7 @@ public class JSFManageableEntityAttributeLogicImpl
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private final String constructDummyArray()
+    private String constructDummyArray()
     {
         return JSFUtils.constructDummyArrayDeclaration(
             this.getName(),
@@ -608,11 +608,11 @@ public class JSFManageableEntityAttributeLogicImpl
 
         return dateFormat;
     }
-    
+
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return propertyName
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
+     * @see JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
     protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
@@ -629,17 +629,17 @@ public class JSFManageableEntityAttributeLogicImpl
         }
         return propertyName.toString();
     }
-    
+
     /**
-     * @param ownerParameter 
+     * @param ownerParameter
      * @return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter))
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(ParameterFacade)
+     * @see JSFAttribute#getFormPropertyId(ParameterFacade)
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
-    
+
     //TODO remove after 3.4 release
     /**
      * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT
@@ -663,7 +663,10 @@ public class JSFManageableEntityAttributeLogicImpl
                 defaultValue = "'" + defaultValue.charAt(0) + "'";
             }
         }
-        if (defaultValue==null) defaultValue="";
+        if (defaultValue==null)
+        {
+            defaultValue="";
+        }
         return defaultValue;
     }
 

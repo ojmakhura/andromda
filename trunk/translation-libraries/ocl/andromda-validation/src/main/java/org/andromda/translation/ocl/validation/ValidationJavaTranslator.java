@@ -60,7 +60,7 @@ public class ValidationJavaTranslator
 
     /**
      * This is the start of a new constraint. We prepare everything by resetting and initializing the required objects.
-     * @param node 
+     * @param node
      */
     public void caseAContextDeclaration(AContextDeclaration node)
     {
@@ -140,7 +140,7 @@ public class ValidationJavaTranslator
      * We need to keep track that what follows is in the scope of an arrow feature call, this is important because it
      * means it is a feature that is implied by the OCL language, rather than the model on which the constraint
      * applies.
-     * @param node 
+     * @param node
      */
     public void inAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
@@ -149,7 +149,7 @@ public class ValidationJavaTranslator
 
     /**
      * Undo the arrow feature call trace.
-     * @param node 
+     * @param node
      */
     public void outAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
@@ -159,7 +159,7 @@ public class ValidationJavaTranslator
     /**
      * This indicates we have entered a feature call, we need to mark this to counterpart any previous arrow feature
      * call flags.
-     * @param node 
+     * @param node
      */
     public void inADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
@@ -168,7 +168,7 @@ public class ValidationJavaTranslator
 
     /**
      * Undo the dot feature call trace.
-     * @param node 
+     * @param node
      */
     public void outADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
@@ -179,7 +179,7 @@ public class ValidationJavaTranslator
      * Here we need to make sure the equals sign '=' is not translated into the 'equal' keyword. OCL uses '=' for
      * comparison as well as for assignment, Java uses '==', '=' and .equals() so we override the default OCL value here
      * to use '=' instead of 'equal'
-     * @param node 
+     * @param node
      */
     public void caseALetVariableDeclaration(ALetVariableDeclaration node)
     {
@@ -201,7 +201,7 @@ public class ValidationJavaTranslator
 
     /**
      * Add a variable to the context.
-     * @param node 
+     * @param node
      */
     public void inALetVariableDeclaration(ALetVariableDeclaration node)
     {
@@ -221,7 +221,7 @@ public class ValidationJavaTranslator
 
     /**
      * In Java we need to end the declaration statement with a semicolon, this is handled here.
-     * @param node 
+     * @param node
      */
     public void outALetVariableDeclaration(ALetVariableDeclaration node)
     {
@@ -231,7 +231,7 @@ public class ValidationJavaTranslator
 
     /**
      * Renders a variable declaration. Missing types will imply the Object type.
-     * @param node 
+     * @param node
      */
     public void caseAVariableDeclaration(AVariableDeclaration node)
     {
@@ -534,7 +534,7 @@ public class ValidationJavaTranslator
 
     /**
      * TODO: improve implementation to reduce the code duplication (avoid having two write statements)
-     * @param node 
+     * @param node
      */
     public void caseAFeaturePrimaryExpression(AFeaturePrimaryExpression node)
     {
@@ -591,7 +591,7 @@ public class ValidationJavaTranslator
                         }
                         if (this.isOperationArgument(expressionAsString))
                         {
-                            // - if the expression is an argument, then 
+                            // - if the expression is an argument, then
                             //   that becomes the invoked object
                             invokedObject = this.getRootName(expressionAsString);
                             expressionAsString = this.getPathTail(expressionAsString);
@@ -769,7 +769,7 @@ public class ValidationJavaTranslator
 
     /**
      * We are ready to store a new context of variables
-     * @param node 
+     * @param node
      */
     public void inALetExp(ALetExp node)
     {
@@ -778,7 +778,7 @@ public class ValidationJavaTranslator
 
     /**
      * The variables are out of scope, we need to purge their context.
-     * @param node 
+     * @param node
      */
     public void outALetExp(ALetExp node)
     {
@@ -1401,7 +1401,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * @param tStringLit 
+     * @param tStringLit
      * TODO: this method very naively replaces every single quote by a double quote, this should be updated
      */
     public void caseTStringLit(TStringLit tStringLit)
@@ -1537,7 +1537,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * 
+     *
      */
     public ValidationJavaTranslator()
     {

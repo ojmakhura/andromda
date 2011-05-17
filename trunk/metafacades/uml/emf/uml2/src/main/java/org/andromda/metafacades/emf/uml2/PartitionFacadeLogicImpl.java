@@ -4,7 +4,6 @@ import java.util.Collection;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.StateMachine;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.PartitionFacade.

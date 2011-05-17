@@ -24,7 +24,7 @@ import org.andromda.utils.StringUtilsHelper;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndActionState.
- * 
+ *
  * @see org.andromda.metafacades.uml.FrontEndActionState
  */
 public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic

@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-
 /**
  * This class provides statistics on how the build was performed.
  *

@@ -4,7 +4,6 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.PseudostateFacade;
 
 
-
 /**
  * MetafacadeLogic implementation.
  *

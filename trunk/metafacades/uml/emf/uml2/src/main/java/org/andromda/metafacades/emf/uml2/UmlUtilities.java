@@ -50,7 +50,6 @@ import org.eclipse.uml2.ValueSpecification;
 import org.eclipse.uml2.util.UML2Resource;
 import org.eclipse.uml2.util.UML2Util;
 
-
 /**
  * Contains utilities for the Eclipse/UML2 metafacades.
  *

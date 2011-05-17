@@ -11,7 +11,7 @@ package org.andromda.timetracker.domain;
  * Add any manual implementation within this class.  This class will NOT
  * be overwritten with incremental changes.
  *
- * 
+ *
  *
  */
 
@@ -25,38 +25,37 @@ package org.andromda.timetracker.domain;
 // @javax.persistence.EntityListeners({org.andromda.timetracker.domain.TimecardListener.class})
 // Uncomment to enable caching for Timecard
 // @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.TRANSACTIONAL)
-@javax.persistence.NamedQuery(name = "Timecard.findAll", query = "select timecard from Timecard AS timecard")    
+@javax.persistence.NamedQuery(name = "Timecard.findAll", query = "select timecard from Timecard AS timecard")
 public class Timecard
     extends org.andromda.timetracker.domain.TimecardEmbeddable
     implements java.io.Serializable, Comparable<Timecard>
 {
-
     /**
      * The serial version UID of this class required for serialization.
      */
     private static final long serialVersionUID = -2301368423761775897L;
 
     // --------------- constructors -----------------
-    
+
     /**
      * Default Timecard constructor
      */
     public Timecard()
-    { 
+    {
         super();
     }
-    
+
     /**
      * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
      * This method sets all POJO fields defined in this/super class to the
      * values provided by the parameters.
      *
      */
-    public Timecard(org.andromda.timetracker.domain.TimecardStatus status, java.util.Date startDate, java.lang.String comments) 
+    public Timecard(org.andromda.timetracker.domain.TimecardStatus status, java.util.Date startDate, java.lang.String comments)
     {
         super(status, startDate, comments);
     }
-    
+
     /**
      * Constructor with all POJO attribute values and CMR relations.
      *
@@ -70,12 +69,12 @@ public class Timecard
     {
         super(status, startDate, comments, submitter, approver);
     }
-    
+
 
     // -------------- Entity Methods -----------------
-    
+
     /**
-     * 
+     *
      */
     @javax.persistence.Transient
     public static java.util.List findByCriteria(org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)

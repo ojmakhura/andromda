@@ -14,7 +14,6 @@ import org.andromda.cartridges.deployment.psm.ant.CompilerTaskCall;
 public class DeployedPackageFacadeLogicImpl
     extends DeployedPackageFacadeLogic
 {
-
     public DeployedPackageFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);

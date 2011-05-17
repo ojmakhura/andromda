@@ -43,7 +43,7 @@ public class FrontEndFinalStateLogicImpl
     {
         return this.getStateMachine() instanceof FrontEndActivityGraph;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl#handleGetName()
      */
@@ -61,7 +61,7 @@ public class FrontEndFinalStateLogicImpl
         }
         return name;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
      */
@@ -84,9 +84,9 @@ public class FrontEndFinalStateLogicImpl
                 targetUseCase = taggedValue;
             }
         }
-        
+
         // maybe the name points to a use-case ?
-        if (targetUseCase == null) 
+        if (targetUseCase == null)
         {
             final String name = super.handleGetName();
             if (StringUtils.isNotBlank(name))
@@ -100,7 +100,7 @@ public class FrontEndFinalStateLogicImpl
         }
         return targetUseCase;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getInterUseCaseParameters()
      */

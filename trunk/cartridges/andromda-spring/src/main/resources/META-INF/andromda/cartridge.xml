@@ -163,6 +163,7 @@
     <property reference="serverTestBeanRefFactory"/>
     <property reference="serverTestContextDataSource"/>
     <property reference="enableTemplating"/>
+    <property reference="enableAnnotations"/>
     <property reference="hibernateQueryUseNamedParameters"/>
     <property reference="dataSourceEnabled"/>
     <property reference="messageBundlePath"/>

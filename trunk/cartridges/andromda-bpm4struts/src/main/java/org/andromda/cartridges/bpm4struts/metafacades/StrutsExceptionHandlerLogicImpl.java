@@ -5,7 +5,6 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation.
  *

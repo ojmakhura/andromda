@@ -284,7 +284,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns the first use-case it can find with the given name.
-     * @param name 
+     * @param name
      * @return findFirstUseCaseWithNameAndStereotype(name, null)
      */
     static UseCase findFirstUseCaseWithName(String name)
@@ -322,7 +322,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns the first activity graph it can find with the given name.
-     * @param name 
+     * @param name
      * @return findFirstActivityGraphWithNameAndStereotype(name, null)
      */
     static ActivityGraph findFirstActivityGraphWithName(String name)
@@ -404,8 +404,8 @@ public class UML14MetafacadeUtils
 
     /**
      * Returns true if the given model element has a hyperlink with the given value, returns false otherwise.
-     * @param element 
-     * @param value 
+     * @param element
+     * @param value
      * @return isTagPresent(element, "hyperlinkModel", value)
      */
     static boolean isHyperlinkPresent(ModelElement element, Object value)
@@ -438,8 +438,8 @@ public class UML14MetafacadeUtils
     /**
      * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
      * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
-     * @param tag 
-     * @param value 
+     * @param tag
+     * @param value
      * @return useCaseWithTaggedValue
      */
     static UseCase findUseCaseWithTaggedValueOrHyperlink(String tag, String value)

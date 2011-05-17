@@ -41,7 +41,7 @@ public class MDRepositoryFacadeTest
             {
                 logger.info("found model --> '" + modelURL + '\'');
             }
-            
+
             NamespaceComponents.instance().discover();
             Repositories.instance().initialize();
             repository = (MDRepositoryFacade)Repositories.instance().getImplementation("netBeansMDR");
@@ -50,7 +50,7 @@ public class MDRepositoryFacadeTest
     }
 
     /**
-     * 
+     *
      */
     @Test
     public void testGetModel()

@@ -1,6 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-
 import org.omg.uml.foundation.core.Node;
 
 /**

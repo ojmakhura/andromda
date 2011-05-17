@@ -554,7 +554,7 @@ public class OperationFacadeLogicImpl
         }
         else
         {
-            obj = this.metaObject.getClass_();    
+            obj = this.metaObject.getClass_();
         }
         return obj;*/
         return this.metaObject.getOwner();

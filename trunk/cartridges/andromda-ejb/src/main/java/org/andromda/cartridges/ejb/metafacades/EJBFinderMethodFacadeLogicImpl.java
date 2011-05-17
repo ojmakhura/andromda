@@ -83,5 +83,4 @@ public class EJBFinderMethodFacadeLogicImpl
     {
         return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
-
 }

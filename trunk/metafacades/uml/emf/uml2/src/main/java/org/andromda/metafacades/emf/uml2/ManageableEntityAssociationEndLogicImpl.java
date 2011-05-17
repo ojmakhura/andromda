@@ -4,7 +4,6 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
 
-
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.ManageableEntityAssociationEnd.

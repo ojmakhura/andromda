@@ -3,7 +3,6 @@ package org.andromda.core.configuration;
 import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Represents the configuration for the
  * AndroMDA server.

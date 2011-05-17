@@ -12,7 +12,6 @@ import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import org.apache.commons.lang.ObjectUtils;
 
-
 /**
  * Utilities for dealing with the JSF components.
  *

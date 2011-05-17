@@ -1,6 +1,5 @@
 package org.andromda.core.common;
 
-
 /**
  * Wraps any exception that occurs when merging.
  *

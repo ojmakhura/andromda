@@ -9,7 +9,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 
 /**
- * 
+ *
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler.
  *
  * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler
@@ -20,11 +20,11 @@ public class JSFExceptionHandlerLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for JSFExceptionHandlerLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler
      */
-    public JSFExceptionHandlerLogicImpl (Object metaObject, String context)
+    public JSFExceptionHandlerLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -59,11 +59,17 @@ public class JSFExceptionHandlerLogicImpl
     {
         final StateVertexFacade target = getTarget();
         if (target instanceof JSFForward)
+        {
             return (target).getFullyQualifiedNamePath() + ".jsf";
+        }
         else if (target instanceof JSFFinalState)
+        {
             return ((JSFFinalState)target).getFullyQualifiedNamePath();
+        }
         else
+        {
             return "";
+        }
     }
 
     /**
@@ -81,7 +87,7 @@ public class JSFExceptionHandlerLogicImpl
     }
 
     /**
-     * 
+     *
      * @return messageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFExceptionHandler#getMessageKey()
      */

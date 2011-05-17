@@ -1,6 +1,5 @@
 package org.andromda.cartridges.meta.metafacades;
 
-
 /**
  * Stores Globals specific to the meta cartridge metafacades.
  *

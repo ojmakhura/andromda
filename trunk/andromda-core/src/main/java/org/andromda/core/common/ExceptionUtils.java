@@ -2,7 +2,6 @@ package org.andromda.core.common;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * Contains Exception handling utilities.
  *
@@ -18,6 +17,7 @@ public class ExceptionUtils
      * @param argument the argument we are checking
      * @deprecated used {@link #checkNull(String, Object)} instead since we can detect the method name.
      */
+    @Deprecated
     public static void checkNull(
         final String methodExecuteName,
         final String argumentName,
@@ -77,6 +77,7 @@ public class ExceptionUtils
      * @param argument the argument we are checking
      * @deprecated use {@link #checkEmpty(String, String)} instead since we can detect the method name.
      */
+    @Deprecated
     public static void checkEmpty(
         final String methodExecuteName,
         final String argumentName,
@@ -139,6 +140,7 @@ public class ExceptionUtils
      * @param argumentName the name of the argument we are checking
      * @deprecated use {@link #checkAssignable(Class, String, Class)} since we can detect the method name.
      */
+    @Deprecated
     public static void checkAssignable(
         final String methodExecuteName,
         final Class assignableToClass,

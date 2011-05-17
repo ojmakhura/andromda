@@ -68,7 +68,7 @@ public class UmlUtilities
     private static final Logger logger = Logger.getLogger(UmlUtilities.class);
 
     private static List<Package> models = new ArrayList<Package>();
-    
+
     /**
      * Utility method to return ALL loaded models, populated by RepositoryFacade
      * @return models
@@ -77,7 +77,7 @@ public class UmlUtilities
     {
         return UmlUtilities.models;
     }
-    
+
     /**
      * @param resources
      */
@@ -93,7 +93,7 @@ public class UmlUtilities
     {
         models.add(resource);
     }
-    
+
     /**
      * @param resource
      */
@@ -101,7 +101,7 @@ public class UmlUtilities
     {
         models.remove(resource);
     }
-    
+
     /**
      * A transformer which transforms:
      * <ul>
@@ -341,7 +341,7 @@ public class UmlUtilities
      * returns all owned properties of the given classifier with the right type:
      * attribute if <code>isAssociation</code> is false and association end
      * otherwise.
-     * 
+     *
      * @param classifier the classifier to inspect.
      * @param follow whether to follow inheritance hierarchy upward.
      * @param isAssociation Retrieve only AssociationEnd properties.
@@ -401,9 +401,9 @@ public class UmlUtilities
             }
         }
 
-        return new ArrayList<Property>(attributeMap.values());        
+        return new ArrayList<Property>(attributeMap.values());
     }
-    
+
     /**
      * Gets a collection containing all of the attributes for this
      * class/interface. Superclass properties will included if
@@ -988,7 +988,7 @@ public class UmlUtilities
         String serialVersionString = (String)classifier.findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
     }
-    
+
     /**
      * Gets the opposite end of the given <code>associationEnd</code> if the
      * property is indeed an association end, otherwise returns null.
@@ -1022,7 +1022,7 @@ public class UmlUtilities
         }
         return opposite;
     }
-    
+
 
     /**
      * Gets the opposite end of the given <code>associationEnd</code> if the

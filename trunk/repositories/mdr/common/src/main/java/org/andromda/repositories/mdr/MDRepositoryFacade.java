@@ -44,16 +44,16 @@ public class MDRepositoryFacade
     private ModelAccessFacade modelFacade = null;
     private MDRepository repository = null;
     /**
-     * 
+     *
      */
     protected URL metamodelUri;
     /**
-     * 
+     *
      */
     protected RefPackage model = null;
 
     /**
-     * 
+     *
      */
     public MDRepositoryFacade()
     {
@@ -286,10 +286,10 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @param model 
-     * @param outputLocation 
-     * @param xmiVersion 
-     * @param encoding 
+     * @param model
+     * @param outputLocation
+     * @param xmiVersion
+     * @param encoding
      * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String,
      *      String)
      */

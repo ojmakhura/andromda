@@ -34,19 +34,25 @@ public class $className
 {
     private static final long serialVersionUID = 1L;
 
+#if ($enableAnnotations)
     @Override
+#end
     protected void initStrategies(org.springframework.context.ApplicationContext context)
     {
         super.initStrategies(${serviceLocatorName}.instance().getContext());
     }
 
+#if ($enableAnnotations)
     @Override
+#end
     public Class getContextClass()
     {
         return ${remoteWebApplicationContextName}.class;
     }
 
+#if ($enableAnnotations)
     @Override
+#end
     /**
      * Not required for Spring 2.5.x
      */

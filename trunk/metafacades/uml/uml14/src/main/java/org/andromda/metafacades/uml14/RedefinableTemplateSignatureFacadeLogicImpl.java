@@ -4,7 +4,7 @@
 package org.andromda.metafacades.uml14;
 
 /**
- * 
+ *
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade.
  *
  * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
@@ -15,8 +15,8 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
     private static final long serialVersionUID = 34L;
     /**
      * Public constructor for RedefinableTemplateSignatureFacadeLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
      */
     public RedefinableTemplateSignatureFacadeLogicImpl (Object metaObject, String context)
@@ -24,7 +24,7 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
         super(metaObject, context);
     }
     /**
-     * 
+     *
      * @return UnsupportedOperationException
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade#getClassifier()
      */
