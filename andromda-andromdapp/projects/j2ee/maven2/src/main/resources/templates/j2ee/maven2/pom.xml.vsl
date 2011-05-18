@@ -2011,14 +2011,14 @@
                         <link>http://java.sun.com/javase/6/docs/api/</link>
                         <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
 #if ($spring || $hibernate || $cxf)
-                        <link>http://docs.jboss.org/hibernate/stable/core/api</link>
+                        <link>http://docs.jboss.org/hibernate/stable/core/javadocs/</link>
                         <link>http://static.springsource.org/spring/docs/3.0.x/javadoc-api</link>
 #end
                         <link>http://jakarta.apache.org/commons/collections/apidocs</link>
                         <link>http://jakarta.apache.org/commons/lang/apidocs</link>
                         <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
-                        <link>http://www.junit.org/junit/javadoc/</link>
                         <link>http://logging.apache.org/log4j/docs/api/</link>
+                        <link>http://www.junit.org/junit/javadoc/</link>
                     </links>
                 </configuration>
             </plugin>
