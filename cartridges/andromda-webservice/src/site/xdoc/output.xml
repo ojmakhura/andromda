@@ -18,8 +18,7 @@
             </p>
             <p>
                 Projects are generated in the following order: mda, common, core, webservice, app (if ear), CXF. 
-                Code that is generated once and not overwritten is under /src, code that is generated and 
-                overwritten each time is under /target/src. The process looks like:
+                The process looks like:
             </p>
             <ul>
                 <li>Read model(s) and generate code from andromda</li>

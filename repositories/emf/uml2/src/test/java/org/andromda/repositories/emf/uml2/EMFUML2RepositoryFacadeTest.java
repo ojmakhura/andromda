@@ -3,7 +3,6 @@ package org.andromda.repositories.emf.uml2;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import junit.framework.TestCase;
@@ -57,9 +56,9 @@ public class EMFUML2RepositoryFacadeTest
             System.out.println("Applicable Stereotype Names: " + stereotypes.size());
         }
         ArrayList<String> names = new ArrayList<String>();
-        for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+        for (final Stereotype stereotype : stereotypes)
         {
-            Stereotype stereotype = (Stereotype)iterator.next();
+            System.out.println("stereotype Name: " + stereotype.getName());
             names.add(stereotype.getName());
             System.out.println("Stereotype: " + stereotype.getName());
         }

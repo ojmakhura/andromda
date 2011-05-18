@@ -57,14 +57,14 @@ public abstract class EMFRepositoryFacade
     /**
      * The options for loading the model.
      */
-    private Map loadOptions = new HashMap();
+    private Map<String, Boolean> loadOptions = new HashMap<String, Boolean>();
 
     /**
      * Gets the current load options.
      *
      * @return the load options.
      */
-    protected Map getLoadOptions()
+    protected Map<String, Boolean> getLoadOptions()
     {
         return this.loadOptions;
     }

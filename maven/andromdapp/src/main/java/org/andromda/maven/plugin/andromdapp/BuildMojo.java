@@ -84,7 +84,7 @@ public class BuildMojo
      *
      * @parameter
      */
-    private List<String> goals = new ArrayList(Arrays.asList("install"));
+    private List<String> goals = new ArrayList<String>(Arrays.asList("install"));
 
     /**
      * The string used to quite the console;
@@ -92,7 +92,7 @@ public class BuildMojo
     private static final String EXIT = "exit";
 
     /**
-     * Used to contruct Maven project instances from POMs.
+     * Used to construct Maven project instances from POMs.
      *
      * @component
      */
@@ -256,9 +256,9 @@ public class BuildMojo
      *
      * @return the environment variables.
      */
-    private Map getEnvironment()
+    private Map<String, String> getEnvironment()
     {
-        final Map variables = new HashMap();
+        final Map<String, String> variables = new HashMap<String, String>();
         try
         {
             final Method method = System.class.getMethod(
@@ -267,7 +267,7 @@ public class BuildMojo
                     System.class);
             if (result instanceof Map)
             {
-                variables.putAll((Map)result);
+                variables.putAll((Map<String, String>)result);
             }
         }
         catch (Exception exception)
@@ -392,7 +392,7 @@ public class BuildMojo
         boolean sortProjects)
         throws MojoExecutionException
     {
-        final Map projects = this.collectProjects(modules);
+        final Map<MavenProject, List<String>> projects = this.collectProjects(modules);
         boolean executed = !projects.isEmpty();
 
         // - only execute if we have some projects
@@ -400,13 +400,12 @@ public class BuildMojo
         {
             if (!sortProjects)
             {
-                for (final Iterator<MavenProject> iterator = projects.keySet().iterator(); iterator.hasNext();)
+                for (final MavenProject project : projects.keySet())
                 {
-                    final MavenProject project = iterator.next();
                     List<String> projectGoals;
                     if (goals == null)
                     {
-                        projectGoals = (List)projects.get(project);
+                        projectGoals = projects.get(project);
                         if (projectGoals.isEmpty())
                         {
                             projectGoals.addAll(this.goals);
@@ -494,17 +493,16 @@ public class BuildMojo
      *         the goals).
      * @throws MojoExecutionException
      */
-    private Map collectProjects(final String modules)
+    private Map<MavenProject, List<String>> collectProjects(final String modules)
         throws MojoExecutionException
     {
-        final Map projects = new LinkedHashMap();
-        final Map poms = getModulePoms(modules);
+        final Map<MavenProject, List<String>> projects = new LinkedHashMap<MavenProject, List<String>>();
+        final Map<File, List<String>> poms = getModulePoms(modules);
 
         if (!poms.isEmpty())
         {
-            for (final Iterator<File> iterator = poms.keySet().iterator(); iterator.hasNext();)
+            for (final File pom : poms.keySet())
             {
-                final File pom = iterator.next();
                 try
                 {
                     final MavenProject project = ProjectUtils.getProject(
@@ -545,9 +543,9 @@ public class BuildMojo
      * @param moduleList the list of modules to execute.
      * @return the list of module poms
      */
-    private Map getModulePoms(final String moduleList)
+    private Map<File, List<String>> getModulePoms(final String moduleList)
     {
-        final Map poms = new LinkedHashMap();
+        final Map<File, List<String>> poms = new LinkedHashMap<File, List<String>>();
         final String[] modules = moduleList != null ? moduleList.split(",") : null;
 
         final String goalPrefix = ":";

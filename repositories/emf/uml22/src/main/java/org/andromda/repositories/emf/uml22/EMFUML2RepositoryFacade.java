@@ -207,7 +207,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         }
 
         // - populate the load options
-        final Map loadOptions = this.getLoadOptions();
+        final Map<String, Boolean> loadOptions = this.getLoadOptions();
         // Enable notifications during load. Profiles not found do not generate a notification
         loadOptions.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.FALSE);
         loadOptions.put(XMLResource.OPTION_DOM_USE_NAMESPACES_IN_SCOPE, Boolean.TRUE);

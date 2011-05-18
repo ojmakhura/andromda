@@ -60,7 +60,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         registerOptionalRsmMetamodels(proxyResourceSet.getPackageRegistry());
 
         // - populate the load options
-        final Map loadOptions = this.getLoadOptions();
+        final Map<String, Boolean> loadOptions = this.getLoadOptions();
         loadOptions.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.FALSE);
         loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
 

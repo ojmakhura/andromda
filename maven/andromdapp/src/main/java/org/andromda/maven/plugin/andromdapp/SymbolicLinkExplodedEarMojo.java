@@ -93,7 +93,7 @@ public class SymbolicLinkExplodedEarMojo
         {
             final File earDirectory =
                 new File(this.project.getBuild().getDirectory() + '/' + project.getBuild().getFinalName());
-            final Map artifacts = new LinkedHashMap();
+            final Map<String, Artifact> artifacts = new LinkedHashMap<String, Artifact>();
             for (final Artifact artifact : this.getExplodedModuleArtifacts())
             {
                 artifacts.put(

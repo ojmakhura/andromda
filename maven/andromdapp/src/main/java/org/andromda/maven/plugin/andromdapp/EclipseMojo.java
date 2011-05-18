@@ -82,7 +82,7 @@ public class EclipseMojo
     private String[] excludes = new String[0];
 
     /**
-     * Used to contruct Maven project instances from POMs.
+     * Used to construct Maven project instances from POMs.
      *
      * @component
      */
@@ -135,7 +135,7 @@ public class EclipseMojo
      *
      * @parameter
      */
-    private Set<String> classpathArtifactTypes = new LinkedHashSet(Arrays.asList("jar","ejb"));
+    private Set<String> classpathArtifactTypes = new LinkedHashSet<String>(Arrays.asList("jar","ejb"));
 
     /**
      * Whether or not transitive dependencies shall be included in any resources (i.e. .classpath

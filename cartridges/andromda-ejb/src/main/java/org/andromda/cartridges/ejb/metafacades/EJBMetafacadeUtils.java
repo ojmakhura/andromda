@@ -2,7 +2,6 @@ package org.andromda.cartridges.ejb.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
@@ -28,17 +27,15 @@ class EJBMetafacadeUtils
      * @param follow if true, all super type create methods are also retrieved
      * @return Collection of create methods found.
      */
-    static Collection getCreateMethods(ClassifierFacade classifier, boolean follow)
+    static Collection<OperationFacade> getCreateMethods(ClassifierFacade classifier, boolean follow)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        Collection retval = new ArrayList();
+        Collection<OperationFacade> retval = new ArrayList<OperationFacade>();
         ClassifierFacade entity = classifier;
         do
         {
-            Collection ops = entity.getOperations();
-            for (final Iterator i = ops.iterator(); i.hasNext();)
+            for (final OperationFacade op : entity.getOperations())
             {
-                OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD))
                 {
                     retval.add(op);
