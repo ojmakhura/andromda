@@ -87,6 +87,11 @@
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
+            <condition id="modelType" equal="emf-uml22"/>
+            <output patterns="andromda-*-${andromda.version}.*.uml">mda/src/main/uml/</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="model" present="false"/>
             <condition id="modelType" equal="rsm7"/>
             <output>mda/src/main/uml/${applicationId}.emx.vsl</output>
         </conditions>

@@ -236,6 +236,28 @@
     <build>
         <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
         <plugins>
+#if (!$cxf && $modelType.equals("emf-uml22") && $andromdaVersion.endsWith("-SNAPSHOT"))
+            <!-- Update the .uml snapshot profiles from the maven download to the local model directory (avoid PATHMAP references) -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${project.basedir}/src/main/uml" preservelastmodified="true" flatten="true" failonerror="false" verbose="true">
+                                    <fileset dir="${m2repo}/org/andromda/profiles/emf/uml22"
+                                     includes="**/${andromda.version}/andromda-*-${andromda.version}.*uml"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+#end
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-plugin</artifactId>
@@ -291,6 +313,24 @@
             <plugin>
               <artifactId>maven-antrun-plugin</artifactId>
               <executions>
+                <!-- $modelType $andromdaVersion $andromdaVersion.endsWith("-SNAPSHOT") -->
+#if ($modelType.equals("emf-uml22") && $andromdaVersion.endsWith("-SNAPSHOT"))
+                <!-- Update the .uml snapshot profiles from the maven download to the local model directory (avoid PATHMAP references) -->
+                <execution>
+                    <phase>initialize</phase>
+                    <configuration>
+                        <target>
+                            <copy todir="${project.basedir}/src/main/uml" preservelastmodified="true" flatten="true" failonerror="false" verbose="true">
+                                <fileset dir="${settings.localRepository}/org/andromda/profiles/emf/uml22"
+                                 includes="**/${andromda.version}/andromda-*-${andromda.version}.*uml"/>
+                            </copy>
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+#end
                 <!-- Clean the implementation code and WSDL code also, during mvn clean -->
                 <execution>
                   <id>clean</id>
