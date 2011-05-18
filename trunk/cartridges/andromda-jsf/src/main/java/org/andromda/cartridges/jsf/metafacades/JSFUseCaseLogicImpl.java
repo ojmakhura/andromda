@@ -134,7 +134,7 @@ public class JSFUseCaseLogicImpl
     {
         final boolean normalize = this.isNormalizeMessages();
         final Map<String, String> messages = normalize ?
-            (Map<String, String>)new TreeMap() : (Map<String, String>)new LinkedHashMap<String, String>();
+            new TreeMap<String, String>() : new LinkedHashMap<String, String>();
 
         // - only retrieve the messages for the entry use case (i.e. the use case
         //   where the application begins)

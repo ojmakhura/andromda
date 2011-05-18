@@ -3,7 +3,6 @@ package org.andromda.repositories.emf.uml22;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import junit.framework.TestCase;
 import org.andromda.core.common.AndroMDALogger;
@@ -15,7 +14,6 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.uml2.uml.util.UMLUtil;
-
 
 /**
  * Implements the JUnit test case for
@@ -43,7 +41,7 @@ public class EMFUML2RepositoryFacadeTest
      * @param modelElement
      * @return StereotypeNames
      */
-    public Collection getStereotypeNames(Object modelElement)
+    public Collection<String> getStereotypeNames(Object modelElement)
     {
         NamedElement element = (NamedElement)modelElement;
         System.out.println("element: " + element);
@@ -71,10 +69,9 @@ public class EMFUML2RepositoryFacadeTest
         //System.out.println("getVisibility: " + element.getVisibility());
         List<Stereotype> stereotypes = element.getAppliedStereotypes();
         System.out.println("stereotypes: " + stereotypes);
-        ArrayList names = new ArrayList();
-        for (final Iterator<Stereotype> iterator = stereotypes.iterator(); iterator.hasNext();)
+        ArrayList<String> names = new ArrayList<String>();
+        for (final Stereotype stereotype : stereotypes)
         {
-            Stereotype stereotype = iterator.next();
             System.out.println("stereotype Name: " + stereotype.getName());
             names.add(stereotype.getName());
         }

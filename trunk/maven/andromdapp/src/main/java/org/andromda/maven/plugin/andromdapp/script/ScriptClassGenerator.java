@@ -111,7 +111,7 @@ public final class ScriptClassGenerator
                     if (returnType.equals(CtClass.voidType))
                     {
                         methodBody =
-                                '{' + contructArgumentString(method) + "scriptWrapper.invoke(\"" + method.getName() +
+                                '{' + constructArgumentString(method) + "scriptWrapper.invoke(\"" + method.getName() +
                             "\", arguments);}";
                     }
                     else
@@ -119,14 +119,14 @@ public final class ScriptClassGenerator
                         if (returnType.isPrimitive())
                         {
                             methodBody =
-                                    '{' + contructArgumentString(method) + " return ((" + getWrapperTypeName(returnType) +
+                                    '{' + constructArgumentString(method) + " return ((" + getWrapperTypeName(returnType) +
                                 ")scriptWrapper.invoke(\"" + method.getName() + "\", arguments))." +
                                 returnType.getName() + "Value();}";
                         }
                         else
                         {
                             methodBody =
-                                    '{' + contructArgumentString(method) + " return (" + method.getReturnType().getName() +
+                                    '{' + constructArgumentString(method) + " return (" + method.getReturnType().getName() +
                                 ")scriptWrapper.invoke(\"" + method.getName() + "\", arguments);}";
                         }
                     }
@@ -164,7 +164,7 @@ public final class ScriptClassGenerator
         return new File(StringUtils.replace(file, classResourcePath, ""));
     }
 
-    private String contructArgumentString(final CtMethod method)
+    private String constructArgumentString(final CtMethod method)
         throws NotFoundException
     {
         CtClass[] argumentTypes = method.getParameterTypes();
