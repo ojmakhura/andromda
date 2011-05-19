@@ -507,7 +507,7 @@ $method.documentation
 #end
     /**
 #foreach ($constraint in $modelElement.getConstraints("inv"))
-     * Constraint: $constraint.getDocumentation("     * ")
+     * Constraint: $constraint.getDocumentation("")
      * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
 #end
      * @param validationMessages Collection<ModelValidationMessage>

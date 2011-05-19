@@ -130,7 +130,7 @@ public class SymbolicLinkExplodedEarMojo
                 {
                     final File file = files[ctr];
                     final String fileName = file.getName();
-                    final Artifact artifact = (Artifact)artifacts.get(fileName);
+                    final Artifact artifact = artifacts.get(fileName);
                     if (artifact == null)
                     {
                         if (file.isFile())

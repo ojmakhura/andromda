@@ -267,13 +267,12 @@ public class StrutsJspLogicImpl
     public List getActions()
     {
         final List actions = new ArrayList();
-        final Collection outgoings = this.getOutgoings();
-
-        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
+        for (final TransitionFacade transition : this.getOutgoings())
         {
-            final Object object = iterator.next();
-            if (object instanceof StrutsAction)
-                actions.add(object);
+            if (transition instanceof StrutsAction)
+            {
+                actions.add(transition);
+            }
         }
 
         return actions;
@@ -285,14 +284,11 @@ public class StrutsJspLogicImpl
     protected List handleGetNonActionForwards()
     {
         final List actions = new ArrayList();
-        final Collection outgoings = getOutgoings();
-
-        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
+        for (final TransitionFacade transition : this.getOutgoings())
         {
-            final Object object = iterator.next();
-            if (!(object instanceof StrutsAction))
+            if (!(transition instanceof StrutsAction))
             {
-                actions.add(object);
+                actions.add(transition);
             }
         }
         return actions;
@@ -328,10 +324,8 @@ public class StrutsJspLogicImpl
         Collection processedTransitions,
         Collection actions)
     {
-        final Collection incomingTransitions = stateVertex.getIncomings();
-        for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
+        for (final TransitionFacade incomingTransition : stateVertex.getIncomings())
         {
-            final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
             collectIncomingActions(incomingTransition, processedTransitions, actions);
         }
     }

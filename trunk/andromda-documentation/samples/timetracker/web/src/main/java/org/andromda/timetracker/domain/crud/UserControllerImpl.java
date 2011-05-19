@@ -15,6 +15,4 @@ public class UserControllerImpl
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = -6474920914620504316L;
-
-
 }

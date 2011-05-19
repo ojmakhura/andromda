@@ -10,6 +10,8 @@ package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
 
+import java.security.Principal;
+
 /**
  * Stores the currently logged in Principal. The principal is passed
  * from another tier of the application (i.e. the web application).
@@ -17,7 +19,7 @@ package $springTypesPackage;
 public final class PrincipalStore
 {
 #if ($enableTemplating)
-    private static final ThreadLocal<java.security.Principal> store = new ThreadLocal<java.security.Principal>();
+    private static final ThreadLocal<Principal> store = new ThreadLocal<Principal>();
 #else
     private static final ThreadLocal store = new ThreadLocal();
 #end
@@ -36,10 +38,10 @@ public final class PrincipalStore
      *
      * @return the current principal.
      */
-    public static java.security.Principal get()
+    public static Principal get()
     {
 #if ($ejbSecurityEnabled)
-        java.security.Principal principal;
+        Principal principal;
         javax.ejb.SessionContext context = getSessionContext();
         if (context != null)
         {
@@ -47,11 +49,11 @@ public final class PrincipalStore
         }
         else
         {
-            principal =#if(!$enableTemplating)(java.security.Principal)#end store.get();
+            principal =#if(!$enableTemplating)(Principal)#end store.get();
         }
         return principal;
 #else
-        return#if(!$enableTemplating)(java.security.Principal)#end store.get();
+        return#if(!$enableTemplating)(Principal)#end store.get();
 #end
     }
 #if ($ejbSecurityEnabled)
@@ -67,7 +69,7 @@ public final class PrincipalStore
      *
      * @param principal the user principal
      */
-    public static void set(final java.security.Principal principal)
+    public static void set(final Principal principal)
     {
         store.set(principal);
     }

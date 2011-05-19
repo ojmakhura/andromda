@@ -12,5 +12,4 @@ public class HomeControllerImpl
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = 979300859059208583L;
-
 }

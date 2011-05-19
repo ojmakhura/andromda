@@ -12,5 +12,4 @@ public class TimecardControllerImpl
      * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = 156949676989040542L;
-
 }
