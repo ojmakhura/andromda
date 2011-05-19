@@ -1280,9 +1280,18 @@
                                 <configuration>
                                     <target>
                                         <!-- copy andromda mapping files-->
-                                        <copy todir="${project.reporting.outputDirectory}/mappings">
-                                            <fileset dir="${project.build.directory}/../andromda-etc/mappings"
-                                                     includes="**/*.xml"/>
+                                        <copy todir="${project.reporting.outputDirectory}/mappings" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-etc/mappings" includes="**/*.xml"/>
+                                        </copy>
+                                        <!-- Update the xsd artifacts on the server, to validate XML with http URL under www.andromda.org/docs/xsd -->
+                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-core/src/main/resources" includes="**/*.xsd"/>
+                                        </copy>
+                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources" includes="**/*.xsd"/>
                                         </copy>
                                         <!-- Extract jmi-uml 1.4 javadoc-->
                                         <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
@@ -1575,9 +1584,18 @@
                                 <configuration>
                                     <target>
                                         <!-- copy andromda mapping files-->
-                                        <copy todir="${project.reporting.outputDirectory}/mappings">
-                                            <fileset dir="${project.build.directory}/../andromda-etc/mappings"
-                                                     includes="**/*.xml"/>
+                                        <copy todir="${project.reporting.outputDirectory}/mappings" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-etc/mappings" includes="**/*.xml"/>
+                                        </copy>
+                                        <!-- Update the xsd artifacts on the server, to validate XML with http URL under www.andromda.org/docs/xsd -->
+                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-core/src/main/resources" includes="**/*.xsd"/>
+                                        </copy>
+                                        <copy todir="${project.reporting.outputDirectory}/xsd" overwrite="false" 
+                                          failonerror="false" flatten="true" preservelastmodified="true" verbose="true">
+                                            <fileset dir="${project.basedir}/andromda-andromdapp/andromda-andromdapp-core/src/main/resources" includes="**/*.xsd"/>
                                         </copy>
                                         <!-- Extract jmi-uml 1.4 javadoc-->
                                         <unzip src="${project.basedir}/src/site/resources/resources/jmi-uml1.4.zip"
