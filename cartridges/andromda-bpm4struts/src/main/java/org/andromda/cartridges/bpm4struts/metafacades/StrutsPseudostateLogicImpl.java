@@ -77,6 +77,7 @@ public class StrutsPseudostateLogicImpl
                 }
             }
         }
+        // Cannot make return type List<StrutsAction> because StrutsAction does not extend FrontEndAction
         return new ArrayList<StrutsAction>(actionSet);
     }
 }

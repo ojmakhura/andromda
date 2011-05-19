@@ -10,13 +10,15 @@ package $springTypesPackage;
 #set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
 
+import java.io.Serializable;
+
 /**
  * Stores the information necessary to perform a property search.
  *
  * @see PropertySearch
  */
 public class $className
-    implements java.io.Serializable
+    implements Serializable
 {
     private static final long serialVersionUID = 8277265070757689152L;
 

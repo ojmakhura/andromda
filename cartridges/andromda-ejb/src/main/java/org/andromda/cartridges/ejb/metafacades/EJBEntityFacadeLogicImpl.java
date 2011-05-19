@@ -279,24 +279,22 @@ public class EJBEntityFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogic#getBusinessOperations()
      */
-    public Collection getBusinessOperations()
+    // TODO: Change return type to Collection<EJBOperationFacade> (metamodel change)
+    public Collection<OperationFacade> getBusinessOperations()
     {
-        Collection operations = super.getBusinessOperations();
-        CollectionUtils.filter(
-            operations,
-            new Predicate()
+        Collection<OperationFacade> businessOperations = new ArrayList<OperationFacade>();
+        for (OperationFacade operation : super.getBusinessOperations())
+        {
+            if (EJBOperationFacade.class.isAssignableFrom(operation.getClass()))
             {
-                public boolean evaluate(Object object)
+                EJBOperationFacade businessOperation = (EJBOperationFacade)operation;
+                if (businessOperation.isBusinessOperation())
                 {
-                    boolean businessOperation = false;
-                    if (EJBOperationFacade.class.isAssignableFrom(object.getClass()))
-                    {
-                        businessOperation = ((EJBOperationFacade)object).isBusinessOperation();
-                    }
-                    return businessOperation;
+                    businessOperations.add(businessOperation);
                 }
-            });
-        return operations;
+            }
+        }
+        return businessOperations;
     }
 
     /**

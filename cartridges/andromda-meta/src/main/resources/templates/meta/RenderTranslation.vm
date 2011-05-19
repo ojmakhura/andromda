@@ -13,11 +13,13 @@
 ##  (since we're using delegate inheritance)
             $stringUtils.replace($constraintTranslation, 'final Object contextElement = this;', 'final Object contextElement = this.THIS();')
             if (!constraintValid)
+            {
                 validationMessages.add(
                     new ModelValidationMessage(
                         (org.andromda.core.metafacade.MetafacadeBase)contextElement ,
                         "$metaUtils.getFullyQualifiedConstraintName($constraint)",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
+            }
         }
 ## getCause returns Throwable, not Exception, so we have to catch Throwable
         catch (Throwable th)
