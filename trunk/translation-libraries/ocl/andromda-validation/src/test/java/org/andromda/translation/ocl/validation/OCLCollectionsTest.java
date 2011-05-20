@@ -28,7 +28,7 @@ public class OCLCollectionsTest extends TestCase
      */
     public void testIsUnique()
     {
-        Collection collection = new ArrayList();
+        Collection<OCLCollectionsTestObject> collection = new ArrayList<OCLCollectionsTestObject>();
         OCLCollectionsTestObject testObject = new OCLCollectionsTestObject();
         testObject.setPropertyOne("propertyOne");
         collection.add(testObject);
@@ -42,7 +42,6 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
         assertTrue(OCLCollections.isUnique((Object) collection, new Transformer()
         {
@@ -50,8 +49,8 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
+
         testObject = new OCLCollectionsTestObject();
         testObject.setPropertyOne("propertyOne");
         collection.add(testObject);
@@ -62,7 +61,6 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
         assertFalse(OCLCollections.isUnique((Object) collection, new Transformer()
         {
@@ -70,8 +68,8 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
+
         collection.remove(testObject);
         assertEquals(2, collection.size());
         assertTrue(OCLCollections.isUnique(collection, new Transformer()
@@ -80,7 +78,6 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
         assertTrue(OCLCollections.isUnique((Object) collection, new Transformer()
         {
@@ -88,8 +85,6 @@ public class OCLCollectionsTest extends TestCase
             {
                 return OCLIntrospector.invoke(object, "propertyOne");
             }
-
         }));
     }
-
 }

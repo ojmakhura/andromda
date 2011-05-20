@@ -3,6 +3,7 @@ package org.andromda.cartridges.hibernate;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,9 +23,9 @@ public class HibernateUtils
      * @param services the collection services.
      * @return all roles from the collection.
      */
-    public Collection getAllRoles(Collection services)
+    public Collection<Role> getAllRoles(Collection services)
     {
-        final Collection allRoles = new LinkedHashSet();
+        final Collection<Role> allRoles = new LinkedHashSet<Role>();
         CollectionUtils.forAllDo(
             services,
             new Closure()

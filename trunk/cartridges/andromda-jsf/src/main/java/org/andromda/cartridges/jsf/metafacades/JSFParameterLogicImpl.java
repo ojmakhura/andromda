@@ -2,7 +2,6 @@ package org.andromda.cartridges.jsf.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -243,6 +242,7 @@ public class JSFParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
+    // TODO tableColumns can be either String or JSFParameter. Should use a single return type in Collection.
     public Collection getTableColumns()
     {
         final Collection tableColumns = super.getTableColumns();
@@ -974,7 +974,7 @@ public class JSFParameterLogicImpl
                 attributes = type.getAttributes(true);
             }
         }
-        return attributes == null ? Collections.EMPTY_LIST : attributes;
+        return attributes == null ? new ArrayList<AttributeFacade>() : attributes;
     }
 
     /**
@@ -996,7 +996,7 @@ public class JSFParameterLogicImpl
                 associationEnds = type.getNavigableConnectingEnds();
             }
         }
-        return associationEnds == null ? Collections.EMPTY_LIST : associationEnds;
+        return associationEnds == null ? new ArrayList<ClassifierFacade>() : associationEnds;
     }
 
     /**
@@ -1062,7 +1062,8 @@ public class JSFParameterLogicImpl
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
                 final Collection<FrontEndParameter> formFields = action.getFormFields();
-                for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
+                for (final Iterator<FrontEndParameter> fieldIterator = formFields.iterator();
+                    fieldIterator.hasNext() && !required;)
                 {
                     final Object object = fieldIterator.next();
                     if (object instanceof JSFParameter)

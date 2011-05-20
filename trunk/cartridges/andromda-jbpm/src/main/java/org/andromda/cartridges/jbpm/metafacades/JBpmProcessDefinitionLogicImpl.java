@@ -1,11 +1,11 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
+import org.andromda.metafacades.uml.PartitionFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -25,97 +25,81 @@ public class JBpmProcessDefinitionLogicImpl
      * @param metaObject
      * @param context
      */
-    public JBpmProcessDefinitionLogicImpl (Object metaObject, String context)
+    public JBpmProcessDefinitionLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetStates()
      */
-    protected List handleGetStates()
+    protected List<JBpmState> handleGetStates()
     {
-        final List states = new ArrayList();
-
+        final List<JBpmState> states = new ArrayList<JBpmState>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection graphStates = graph.getStates();
-            for (final Iterator stateIterator = graphStates.iterator(); stateIterator.hasNext();)
+            for (final StateFacade state : graph.getStates())
             {
-                final StateFacade state = (StateFacade)stateIterator.next();
                 if (state instanceof JBpmState)
                 {
-                    states.add(state);
+                    states.add((JBpmState)state);
                 }
             }
         }
-
         return states;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetNodes()
      */
-    protected List handleGetNodes()
+    protected List<JBpmNode> handleGetNodes()
     {
-        final List states = new ArrayList();
-
+        final List<JBpmNode> states = new ArrayList<JBpmNode>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection actionStates = graph.getActionStates();
-            for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            for (final ActionStateFacade state : graph.getActionStates())
             {
-                final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
                 if (state instanceof JBpmNode && !((JBpmNode)state).isTaskNode())
                 {
-                    states.add(state);
+                    states.add((JBpmNode)state);
                 }
             }
         }
-
         return states;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetTaskNodes()
      */
-    protected List handleGetTaskNodes()
+    protected List<JBpmNode> handleGetTaskNodes()
     {
-        final List taskNodes = new ArrayList();
-
+        final List<JBpmNode> taskNodes = new ArrayList<JBpmNode>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection actionStates = graph.getActionStates();
-            for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            for (final ActionStateFacade state : graph.getActionStates())
             {
-                final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
                 if (state instanceof JBpmNode && ((JBpmNode)state).isTaskNode())
                 {
-                    taskNodes.add(state);
+                    taskNodes.add((JBpmNode)state);
                 }
             }
         }
-
         return taskNodes;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetTasks()
      */
-    protected List handleGetTasks()
+    protected List<JBpmAction> handleGetTasks()
     {
-        final List tasks = new ArrayList();
-
-        final List taskNodes = getTaskNodes();
-        for (int i = 0; i < taskNodes.size(); i++)
+        final List<JBpmAction> tasks = new ArrayList<JBpmAction>();
+        for (JBpmNode node : getTaskNodes())
         {
-            final JBpmNode node = (JBpmNode)taskNodes.get(i);
             tasks.addAll(node.getTasks());
         }
-
         return tasks;
     }
 
@@ -130,120 +114,102 @@ public class JBpmProcessDefinitionLogicImpl
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetSwimlanes()
      */
-    protected List handleGetSwimlanes()
+    protected List<PartitionFacade> handleGetSwimlanes()
     {
-        final List swimlanes = new ArrayList();
-
+        final List<PartitionFacade> swimlanes = new ArrayList<PartitionFacade>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
             swimlanes.addAll(graph.getPartitions());
         }
-
         return swimlanes;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetStartState()
      */
-    protected Object handleGetStartState()
+    protected PseudostateFacade  handleGetStartState()
     {
-        Object startState = null;
-
+        PseudostateFacade  startState = null;
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
             startState = graph.getInitialState();
         }
-
         return startState;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetEndStates()
      */
-    protected List handleGetEndStates()
+    protected List<FinalStateFacade> handleGetEndStates()
     {
-        final List endStates = new ArrayList();
-
+        final List<FinalStateFacade> endStates = new ArrayList<FinalStateFacade>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
             endStates.addAll(graph.getFinalStates());
         }
-
         return endStates;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetDecisions()
      */
-    protected List handleGetDecisions()
+    protected List<PseudostateFacade> handleGetDecisions()
     {
-        final List decisions = new ArrayList();
-
+        final List<PseudostateFacade> decisions = new ArrayList<PseudostateFacade>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection pseudostates = graph.getPseudostates();
-            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final PseudostateFacade pseudostate : graph.getPseudostates())
             {
-                final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isDecisionPoint())
                 {
                     decisions.add(pseudostate);
                 }
             }
         }
-
         return decisions;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetForks()
      */
-    protected List handleGetForks()
+    protected List<PseudostateFacade> handleGetForks()
     {
-        final List forks = new ArrayList();
-
+        final List<PseudostateFacade> forks = new ArrayList<PseudostateFacade>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection pseudostates = graph.getPseudostates();
-            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final PseudostateFacade pseudostate : graph.getPseudostates())
             {
-                final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isSplit())
                 {
                     forks.add(pseudostate);
                 }
             }
         }
-
         return forks;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetJoins()
      */
-    protected List handleGetJoins()
+    protected List<PseudostateFacade> handleGetJoins()
     {
-        final List joins = new ArrayList();
-
+        final List<PseudostateFacade> joins = new ArrayList<PseudostateFacade>();
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
-            final Collection pseudostates = graph.getPseudostates();
-            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final PseudostateFacade pseudostate : graph.getPseudostates())
             {
-                final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isCollect())
                 {
                     joins.add(pseudostate);
                 }
             }
         }
-
         return joins;
     }
 

@@ -1,8 +1,6 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -76,26 +74,21 @@ public class JBpmHandlerLogicImpl
         return actionHandler;
     }
 
-    private List internalActions = null;
+    private List<EventFacade> internalActions = null;
 
-    private List internalJBpmActions()
+    private List<EventFacade> internalJBpmActions()
     {
         if (this.internalActions == null)
         {
-            internalActions = new ArrayList();
-
+            internalActions = new ArrayList<EventFacade>();
             final StateMachineFacade stateMachine = getOwner().getStateMachineContext();
             if (stateMachine instanceof ActivityGraphFacade)
             {
                 final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
-                final Collection states = graph.getStates();
-                for (final Iterator stateIterator = states.iterator(); stateIterator.hasNext();)
+                for (final StateFacade state : graph.getStates())
                 {
-                    final StateFacade state = (StateFacade)stateIterator.next();
-                    final Collection events = state.getDeferrableEvents();
-                    for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+                    for (final EventFacade event : state.getDeferrableEvents())
                     {
-                        final EventFacade event = (EventFacade)eventIterator.next();
                         if (event instanceof JBpmAction)
                         {
                             final JBpmAction action = (JBpmAction)event;
@@ -107,10 +100,8 @@ public class JBpmHandlerLogicImpl
                     }
                 }
 
-                final Collection transitions = graph.getTransitions();
-                for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                for (final TransitionFacade transition : graph.getTransitions())
                 {
-                    final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                     final EventFacade event = transition.getTrigger();
                     if (event != null)
                     {

@@ -1,9 +1,8 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import org.andromda.metafacades.uml.EventFacade;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmEventState.
@@ -19,128 +18,104 @@ public class JBpmEventStateLogicImpl
      * @param metaObject
      * @param context
      */
-    public JBpmEventStateLogicImpl (Object metaObject, String context)
+    public JBpmEventStateLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetBeforeSignals()
      */
-    protected List handleGetBeforeSignals()
+    protected List<JBpmAction> handleGetBeforeSignals()
     {
-        final List beforeSignals = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> beforeSignals = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isBeforeSignal())
             {
-                beforeSignals.add(eventObject);
+                beforeSignals.add((JBpmAction)eventObject);
             }
         }
-
         return beforeSignals;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetAfterSignals()
      */
-    protected List handleGetAfterSignals()
+    protected List<JBpmAction> handleGetAfterSignals()
     {
-        final List afterSignals = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> afterSignals = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isAfterSignal())
             {
-                afterSignals.add(eventObject);
+                afterSignals.add((JBpmAction)eventObject);
             }
         }
-
         return afterSignals;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetNodeEnters()
      */
-    protected List handleGetNodeEnters()
+    protected List<JBpmAction> handleGetNodeEnters()
     {
-        final List nodeEnters = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> nodeEnters = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isNodeEnter())
             {
-                nodeEnters.add(eventObject);
+                nodeEnters.add((JBpmAction)eventObject);
             }
         }
-
         return nodeEnters;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetNodeLeaves()
      */
-    protected List handleGetNodeLeaves()
+    protected List<JBpmAction> handleGetNodeLeaves()
     {
-        final List nodeLeaves = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> nodeLeaves = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isNodeLeave())
             {
-                nodeLeaves.add(eventObject);
+                nodeLeaves.add((JBpmAction)eventObject);
             }
         }
-
         return nodeLeaves;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetTasks()
      */
-    protected List handleGetTasks()
+    protected List<JBpmAction> handleGetTasks()
     {
-        final List tasks = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> tasks = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isTask())
             {
-                tasks.add(eventObject);
+                tasks.add((JBpmAction)eventObject);
             }
         }
-
         return tasks;
     }
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventStateLogic#handleGetTimers()
      */
-    protected List handleGetTimers()
+    protected List<JBpmAction> handleGetTimers()
     {
-        final List timers = new ArrayList();
-
-        final Collection events = this.getDeferrableEvents();
-        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        final List<JBpmAction> timers = new ArrayList<JBpmAction>();
+        for (final EventFacade eventObject : this.getDeferrableEvents())
         {
-            final Object eventObject = eventIterator.next();
             if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isTimer())
             {
-                timers.add(eventObject);
+                timers.add((JBpmAction)eventObject);
             }
         }
-
         return timers;
     }
 }

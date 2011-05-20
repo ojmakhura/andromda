@@ -44,13 +44,11 @@ public class ValidationJavaTranslator
             features.load(stream);
             stream.close();
             stream = null;
-
         }
         catch (final Throwable throwable)
         {
             throw new ValidationTranslatorException(throwable);
         }
-
     }
 
     /**
