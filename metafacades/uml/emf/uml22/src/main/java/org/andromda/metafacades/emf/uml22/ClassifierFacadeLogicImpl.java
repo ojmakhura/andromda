@@ -187,9 +187,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAllRequiredConstructorParameters()
      */
     @Override
-    public Collection handleGetAllRequiredConstructorParameters()
+    public Collection<ModelElementFacade> handleGetAllRequiredConstructorParameters()
     {
-        final Collection allRequiredConstructorParameters = new ArrayList();
+        final Collection<ModelElementFacade> allRequiredConstructorParameters = new ArrayList<ModelElementFacade>();
 
         final Collection<GeneralizableElementFacade> generalizations = this.getGeneralizations();
         for ( GeneralizableElementFacade parent : generalizations)
@@ -213,7 +213,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     public Collection handleGetRequiredConstructorParameters()
     {
-        final Collection requiredConstructorParameters = new ArrayList();
+        final Collection<ModelElementFacade> requiredConstructorParameters = new ArrayList<ModelElementFacade>();
 
         final Collection properties = this.getProperties();
         for (final Object property : properties)

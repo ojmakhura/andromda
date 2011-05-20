@@ -93,9 +93,9 @@ class HibernateMetafacadeUtils
      * @param operations
      * @return businessOperations
      */
-    static Collection filterBusinessOperations(Collection operations)
+    static Collection<OperationFacade> filterBusinessOperations(Collection<OperationFacade> operations)
     {
-        Collection businessOperations =
+        Collection<OperationFacade> businessOperations =
             new FilteredCollection(operations)
             {
                 private static final long serialVersionUID = 34L;
