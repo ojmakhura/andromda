@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Filters;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -168,10 +169,10 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(String)
      */
-    public Collection<NamedElement> findByStereotype(final String name)
+    public Collection<MetafacadeBase> findByStereotype(final String name)
     {
         final List<NamedElement> elements = new ArrayList<NamedElement>();
-        for (UMLResource modelResource : this.model)
+        for (final UMLResource modelResource : this.model)
         {
             // TODO UmlUtilities.findModel() can return null. Check for null return value.
             for (TreeIterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
@@ -201,14 +202,13 @@ public class UMLModelAccessFacade
         {
             logger.debug("Filtered out " + (elementSize-elements.size()) + " elements");
         }
-        MetafacadeFactory.getInstance().createMetafacades(elements);
-        return elements;
+        return MetafacadeFactory.getInstance().createMetafacades(elements);
     }
 
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#getModelElements()
      */
-    public Collection<NamedElement> getModelElements()
+    public Collection<MetafacadeBase> getModelElements()
     {
         final List<NamedElement> elements = new ArrayList<NamedElement>();
 
@@ -233,11 +233,11 @@ public class UMLModelAccessFacade
             elements,
             UmlUtilities.ELEMENT_TRANSFORMER);
 
-        final Collection metafacades;
+        final Collection<MetafacadeBase> metafacades;
 
         if (elements.isEmpty())
         {
-            metafacades = Collections.emptyList();
+            metafacades = new ArrayList<MetafacadeBase>();
         }
         else
         {
@@ -253,7 +253,7 @@ public class UMLModelAccessFacade
      *
      * @param metafacades the Collection of metafacades.
      */
-    private void filterElements(final Collection metafacades)
+    private void filterElements(final Collection<NamedElement> metafacades)
     {
         if (this.modelPackages != null && !this.modelPackages.isEmpty())
         {

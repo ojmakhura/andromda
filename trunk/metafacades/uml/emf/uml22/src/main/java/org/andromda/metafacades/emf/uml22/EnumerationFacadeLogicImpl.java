@@ -58,19 +58,20 @@ public class EnumerationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationFacade#getLiterals()
      */
     @Override
-    protected Collection handleGetLiterals()
+    protected Collection<? extends ModelElementFacade> handleGetLiterals()
     {
         // To Check: could be sufficient to return the collection of literals only
         //           without filtering
-        final Collection literals = (this.metaObject instanceof Enumeration
+        final Collection<? extends ModelElementFacade> literals = 
+            this.metaObject instanceof Enumeration
             ? ((Enumeration)this.metaObject).getOwnedLiterals()
-            : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER));
+            : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER);
 
         CollectionUtils.filter(
             literals,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     // evaluates to true in case it's a native literal
                     // or an attribute which is not considered a regular member
@@ -92,15 +93,15 @@ public class EnumerationFacadeLogicImpl
         // To Check: could be sufficient to return the collection of attributes only
         //           without filtering
         // http://www.andromda.org/jira/browse/UMLMETA-87
-        final Collection variables = (this.metaObject instanceof Enumeration
+        final Collection variables = this.metaObject instanceof Enumeration
                 ? ((Enumeration)this.metaObject).getOwnedAttributes()
-                : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER));
+                : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER);
 
         CollectionUtils.filter(
             variables,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     // evaluates to true in case it's NOT a native literal
                     // but an attribute which considered as a regular member
@@ -144,7 +145,7 @@ public class EnumerationFacadeLogicImpl
     @Override
     protected String handleGetFromOperationName()
     {
-        StringBuilder name = new StringBuilder("from");
+        final StringBuilder name = new StringBuilder("from");
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {
@@ -163,7 +164,7 @@ public class EnumerationFacadeLogicImpl
         final Collection<AttributeFacade> literals = this.getLiterals();
         if (literals != null && !literals.isEmpty())
         {
-            ModelElementFacade literal = (ModelElementFacade)literals.iterator().next();
+            final ModelElementFacade literal = (ModelElementFacade)literals.iterator().next();
             if (literal instanceof AttributeFacade)
             {
                 type = ((AttributeFacade)literals.iterator().next()).getType();
@@ -181,46 +182,46 @@ public class EnumerationFacadeLogicImpl
                 {
                     // Requires customized mapping in etc/*Mappings.xml files
                     type = UmlUtilities.findByFullyQualifiedName(
-                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "UML2::String",
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                    true);
+                        ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                        "UML2::String",
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                        true);
                 }
                 if (type==null)
                 {
                     // Requires customized mapping in etc/*Mappings.xml files
                     type = UmlUtilities.findByFullyQualifiedName(
-                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "PrimitiveTypes::String",
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                    true);
+                        ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                        "PrimitiveTypes::String",
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                        true);
                 }
                 if (type==null)
                 {
                     // Requires customized mapping in etc/*Mappings.xml files
                     type = UmlUtilities.findByFullyQualifiedName(
-                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "UMLPrimitiveTypes::String",
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                    true);
+                        ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                        "UMLPrimitiveTypes::String",
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                        true);
                 }
                 if (type==null)
                 {
                     // Requires customized mapping in etc/*Mappings.xml files
                     type = UmlUtilities.findByFullyQualifiedName(
-                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "UMLTypes::String",
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                    true);
+                        ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                        "UMLTypes::String",
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                        true);
                 }
                 if (type==null)
                 {
                     // Requires customized mapping in etc/*Mappings.xml files
                     type = UmlUtilities.findByFullyQualifiedName(
-                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "String",
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                    true);
+                        ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                        "String",
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                        true);
                 }
             }
         }

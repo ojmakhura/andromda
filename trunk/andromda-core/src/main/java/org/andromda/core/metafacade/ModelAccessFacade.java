@@ -77,7 +77,7 @@ public interface ModelAccessFacade
      * @param stereotype the name of the stereotype, they are matched without regard to case.
      * @return Collection of model elements having the given stereotype
      */
-    public Collection findByStereotype(String stereotype);
+    public Collection<MetafacadeBase> findByStereotype(String stereotype);
 
     // TODO Add typesafe Collection type
     /**
@@ -86,5 +86,5 @@ public interface ModelAccessFacade
      *
      * @return Collection of all metafacades
      */
-    public Collection getModelElements();
+    public Collection<MetafacadeBase> getModelElements();
 }

@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -63,7 +62,7 @@ public class StateMachineFacadeLogicImpl
         final Predicate filter =
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     return object instanceof FinalState;
                 }
@@ -75,12 +74,12 @@ public class StateMachineFacadeLogicImpl
      * @see org.andromda.metafacades.uml.StateMachineFacade#getStates()
      */
     @Override
-    protected Collection handleGetStates()
+    protected Collection<Vertex> handleGetStates()
     {
         final Predicate filter =
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     return object instanceof State;
                 }
@@ -115,11 +114,9 @@ public class StateMachineFacadeLogicImpl
     @Override
     protected Collection<Transition> handleGetTransitions()
     {
-        Collection<Region> regions = this.metaObject.getRegions();
-        Collection<Transition> transitions = new LinkedList<Transition>();
-        for (Iterator<Region> it = regions.iterator(); it.hasNext();)
+        final Collection<Transition> transitions = new LinkedList<Transition>();
+        for (final Region region : this.metaObject.getRegions())
         {
-            Region region = it.next();
             transitions.addAll(region.getTransitions());
         }
         return transitions;
@@ -134,10 +131,10 @@ public class StateMachineFacadeLogicImpl
         final Predicate filter =
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     return (object instanceof Pseudostate) &&
-                    (PseudostateKind.INITIAL == ((Pseudostate)object).getKind().getValue());
+                        (PseudostateKind.INITIAL == ((Pseudostate)object).getKind().getValue());
                 }
             };
         return this.getSubvertices(filter);
@@ -169,9 +166,9 @@ public class StateMachineFacadeLogicImpl
         final Predicate filter =
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
-                    return (object instanceof Pseudostate);
+                    return object instanceof Pseudostate;
                 }
             };
         return this.getSubvertices(filter);
@@ -183,8 +180,8 @@ public class StateMachineFacadeLogicImpl
      */
     protected Collection<Vertex> getSubvertices(final Predicate collectionFilter)
     {
-        Collection<Region> regions = this.metaObject.getRegions();
-        Collection<Vertex> subvertices = new LinkedList<Vertex>();
+        final Collection<Region> regions = this.metaObject.getRegions();
+        final Collection<Vertex> subvertices = new LinkedList<Vertex>();
         for (Region region : regions)
         {
             subvertices.addAll(region.getSubvertices());
