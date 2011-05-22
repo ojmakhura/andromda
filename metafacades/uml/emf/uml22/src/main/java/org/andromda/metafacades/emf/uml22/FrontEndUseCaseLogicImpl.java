@@ -192,7 +192,8 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected List<ActionStateFacade> handleGetViews()
     {
-        List views = new ArrayList<ActionStateFacade>();
+        // TODO: Return type FrontEndView, instead of ActionStateFacade
+        final List views = new ArrayList<ActionStateFacade>();
         final ActivityGraphFacade graph = this.getActivityGraph();
         if (graph != null)
         {
@@ -237,8 +238,8 @@ public class FrontEndUseCaseLogicImpl
     {
         FrontEndView view = null;
         final FrontEndActivityGraph graph = this.getActivityGraph();
-        final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
-        final Collection<FrontEndForward> forwards = action != null ? action.getActionForwards() : null;
+        final FrontEndAction action = graph == null ? null : this.getActivityGraph().getInitialAction();
+        final Collection<FrontEndForward> forwards = action == null ? null : action.getActionForwards();
         if (forwards != null)
         {
             for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
@@ -286,12 +287,9 @@ public class FrontEndUseCaseLogicImpl
                 if (StringUtils.isNotBlank(name))
                 {
                     final FrontEndParameter existingVariable = pageVariableMap.get(name);
-                    if (existingVariable != null)
+                    if (existingVariable != null && existingVariable.isTable())
                     {
-                        if (existingVariable.isTable())
-                        {
-                            variable = existingVariable;
-                        }
+                        variable = existingVariable;
                     }
                     pageVariableMap.put(
                         name,

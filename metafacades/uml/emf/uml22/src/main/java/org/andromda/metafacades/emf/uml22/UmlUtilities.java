@@ -81,7 +81,7 @@ public class UmlUtilities
     /**
      * @param resources
      */
-    public static void setModels(List<Package> resources)
+    public static void setModels(final List<Package> resources)
     {
         models = Collections.synchronizedList(resources);
     }
@@ -89,7 +89,7 @@ public class UmlUtilities
     /**
      * @param resource
      */
-    public static void addModel(Package resource)
+    public static void addModel(final Package resource)
     {
         models.add(resource);
     }
@@ -97,7 +97,7 @@ public class UmlUtilities
     /**
      * @param resource
      */
-    public static void removeModel(Package resource)
+    public static void removeModel(final Package resource)
     {
         models.remove(resource);
     }
@@ -116,7 +116,7 @@ public class UmlUtilities
     protected static final Transformer ELEMENT_TRANSFORMER =
         new Transformer()
         {
-            public Object transform(Object element)
+            public Object transform(final Object element)
             {
                 final Object transformedObject;
 
@@ -127,23 +127,25 @@ public class UmlUtilities
                     {
                         transformedObject = property;
                     }
-                    else if (property.getAssociation() != null)
-                    {
-                        transformedObject = new AssociationEndImpl(property);
-                    }
-                    else
+                    else if (property.getAssociation() == null)
                     {
                         transformedObject = new AttributeImpl(property);
                     }
+                    else
+                    {
+                        transformedObject = new AssociationEndImpl(property);
+                    }
                     if (logger.isDebugEnabled() && property.getName() != null && !property.getName().startsWith("andromda"))
                     {
-                        logger.debug("UMLUtilities.transform " + property.getName() + " " + property.getType().getName() + " " + property + " " + transformedObject);
+                        logger.debug("UMLUtilities.transform " + property.getName() + " " 
+                            + property.getType().getName() + " " + property + " " + transformedObject);
                     }
                 }
                 else if (element instanceof Slot)
                 {
                     final Slot slot = (Slot)element;
 
+                    // TODO: This mixes uml2 types and metafacade types, uml2 cannot be instanceof mf type
                     if (slot instanceof LinkEnd || slot instanceof AttributeLink)
                     {
                         transformedObject = slot;
@@ -186,7 +188,8 @@ public class UmlUtilities
             }
         };
 
-    private static final Map<String,List<EObject>> allMetaObjectsCache = Collections.synchronizedMap(new HashMap<String,List<EObject>>());
+    private static final Map<String,List<EObject>> allMetaObjectsCache = 
+        Collections.synchronizedMap(new HashMap<String,List<EObject>>());
 
     /**
      * List all meta objects instances of a given meta class It's a way to
@@ -210,12 +213,12 @@ public class UmlUtilities
         {
             metaObjects = new ArrayList<EObject>();
 
-            for (Package model : models)
+            for (final Package model : models)
             {
                 if (model!=null)
                 {
                     //for (Object metaObject : model.eAllContents())
-                    for (Iterator<EObject> it = model.eAllContents(); it.hasNext();)
+                    for (final Iterator<EObject> it = model.eAllContents(); it.hasNext();)
                     {
                         EObject metaObject = it.next();
                         if (metaClass.isInstance(metaObject))
@@ -257,14 +260,14 @@ public class UmlUtilities
         {
             return new ArrayList<EObject>();
         }
-        List<EObject> metaObjects = new ArrayList<EObject>();
+        final List<EObject> metaObjects = new ArrayList<EObject>();
 
         if (model!=null)
         {
             //for (Object metaObject : model.eAllContents())
-            for (Iterator<EObject> it = model.eAllContents(); it.hasNext();)
+            for (final Iterator<EObject> it = model.eAllContents(); it.hasNext();)
             {
-                EObject metaObject = it.next();
+                final EObject metaObject = it.next();
                 if (metaClass.isInstance(metaObject))
                 {
                     metaObjects.add(metaObject);
@@ -299,8 +302,8 @@ public class UmlUtilities
         {
             return null;
         }
-        StringBuilder commentString = new StringBuilder();
-        Collection<Comment> comments = element.getOwnedComments();
+        final StringBuilder commentString = new StringBuilder();
+        final Collection<Comment> comments = element.getOwnedComments();
 
         for (final Comment comment : comments)
         {
@@ -428,7 +431,8 @@ public class UmlUtilities
             {
                 if (!classifier.getQualifiedName().startsWith("andromda"))
                 {
-                    logger.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName() + " " + property.getName() + " " + property.getType().getName());
+                    logger.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName()
+                        + " " + property.getName() + " " + property.getType().getName());
                 }
             }
         }
@@ -460,11 +464,11 @@ public class UmlUtilities
                 {
                     //if (parent instanceof Classifier)
                     //{
-                        attachedToType =
-                            isAssociationEndAttachedToType(
-                                parent,
-                                property,
-                                follow);
+                    attachedToType =
+                        isAssociationEndAttachedToType(
+                            parent,
+                            property,
+                            follow);
                     //}
                 }
             }
@@ -498,14 +502,15 @@ public class UmlUtilities
             return Collections.emptyList();
         }
         associationEnds.addAll(getOwnedProperty(classifier, follow, true));
-        CollectionUtils.transform(associationEnds, new Transformer() {
+        CollectionUtils.transform(associationEnds, new Transformer()
+        {
             public Object transform(Object input) {
                 return getOppositeProperty((Property)input);
             }
         });
         // TODO: Iterate through all referenced models, not just the model containing this classifier.
         // TODO: UML2 bug? getModel returns null because UMLUtil.getOwningElement getBaseElement(owner.eContainer()) changes owningElement to null
-        Package modelPackage = UmlUtilities.findModel(classifier);
+        final Package modelPackage = UmlUtilities.findModel(classifier);
         /*if (modelPackage==null)
         {
             logger.error(classifier + " getModel was null: " + classifier.getOwner() + " " + classifier.getQualifiedName());
@@ -622,8 +627,8 @@ public class UmlUtilities
      * incoming <code>null</code> values.
      */
     private static boolean isEqual(
-        Object first,
-        Object second)
+        final Object first,
+        final Object second)
     {
         return first == null ? second == null : first.equals(second);
     }
@@ -708,7 +713,7 @@ public class UmlUtilities
         {
             return false;
         }
-        Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
+        final Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
             !stereotypes.isEmpty();
@@ -718,11 +723,11 @@ public class UmlUtilities
             class StereotypeFilter
                 implements Predicate
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     boolean valid;
-                    Stereotype stereotype = (Stereotype)object;
-                    String name = StringUtils.trimToEmpty(stereotype.getName());
+                    final Stereotype stereotype = (Stereotype)object;
+                    final String name = StringUtils.trimToEmpty(stereotype.getName());
                     valid = stereotypeName.equalsIgnoreCase(name);
                     for (Classifier itStereo : stereotype.allParents())
                     {
@@ -775,7 +780,8 @@ public class UmlUtilities
         }
         String elementName = "";
 
-        if (element instanceof NamedElement) {
+        if (element instanceof NamedElement)
+        {
             elementName = ((NamedElement)element).getName();
         }
         else
@@ -788,14 +794,14 @@ public class UmlUtilities
             logger.debug("Searching Tagged Values for " + elementName);
         }*/
         final Collection<Stereotype> stereotypes = element.getAppliedStereotypes();
-        for (Stereotype stereo : stereotypes)
+        for (final Stereotype stereo : stereotypes)
         {
             if (TAGGED_VALUES_STEREOTYPE.equals(stereo.getName()))
             {
-                List tagNames = (List)element.getValue(
+                final List tagNames = (List)element.getValue(
                         stereo,
                         "TagName");
-                List tagValues = (List)element.getValue(
+                final List tagValues = (List)element.getValue(
                         stereo,
                         "TagValue");
                 for (int ctr = 0; ctr < tagValues.size(); ctr++)
@@ -818,7 +824,7 @@ public class UmlUtilities
             }
             else
             {
-                for (Property tagProperty : getAttributes(stereo, true))
+                for (final Property tagProperty : getAttributes(stereo, true))
                 {
                     String tagName = tagProperty.getName();
                     if (!tagName.startsWith("base$"))
@@ -829,34 +835,34 @@ public class UmlUtilities
                                 tagName))
                         {
                             // Obtain its value
-                            Object tagValue = element.getValue(
+                            final Object tagValue = element.getValue(
                                     stereo,
                                     tagName);
                             if (tagValue instanceof Collection)
                             {
-                                Collection tagValues = (Collection)tagValue;
+                                final Collection tagValues = (Collection)tagValue;
                                 if (!tagValues.isEmpty())
                                 {
-                                    Collection tagValuesInString =
+                                    final Collection tagValuesInString =
                                         CollectionUtils.collect(
                                             tagValues,
                                             new Transformer()
                                             {
-                                                public Object transform(Object object)
+                                                public Object transform(final Object object)
                                                 {
                                                     return getTagValueAsString(object);
                                                 }
                                             });
-                                    TagDefinition tagDefinition = new TagDefinitionImpl(tagName, tagValuesInString);
+                                    final TagDefinition tagDefinition = new TagDefinitionImpl(tagName, tagValuesInString);
                                     tags.add(tagDefinition);
                                 }
                             }
                             else
                             {
-                                String tagString = getTagValueAsString(tagValue);
+                                final String tagString = getTagValueAsString(tagValue);
                                 if (!StringUtils.isBlank(tagString) && !"default".equalsIgnoreCase(tagString))
                                 {
-                                    TagDefinition tagDefinition =
+                                    final TagDefinition tagDefinition =
                                         new TagDefinitionImpl(tagName, tagString);
                                     tags.add(tagDefinition);
                                 }
@@ -880,7 +886,7 @@ public class UmlUtilities
      * @param tagValue
      * @return the tag value as a string.
      */
-    static String getTagValueAsString(Object tagValue)
+    static String getTagValueAsString(final Object tagValue)
     {
         String valueAsString = null;
         if (tagValue != null)
@@ -888,12 +894,12 @@ public class UmlUtilities
             valueAsString = tagValue.toString();
             if (tagValue instanceof ValueSpecification)
             {
-                ValueSpecification literal = (ValueSpecification)tagValue;
+                final ValueSpecification literal = (ValueSpecification)tagValue;
                 valueAsString = literal.stringValue();
             }
             else if (tagValue instanceof NamedElement)
             {
-                NamedElement instance = (NamedElement)tagValue;
+                final NamedElement instance = (NamedElement)tagValue;
                 valueAsString = instance.getName();
             }
         }
@@ -985,7 +991,7 @@ public class UmlUtilities
         ExceptionUtils.checkNull(
             "classifer",
             classifier);
-        String serialVersionString = (String)classifier.findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
+        final String serialVersionString = (String)classifier.findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
     }
 
@@ -1005,12 +1011,11 @@ public class UmlUtilities
         Property opposite = associationEnd.getOpposite();
         if (opposite == null)
         {
-            Association association = associationEnd.getAssociation();
-
+            final Association association = associationEnd.getAssociation();
             if (association != null)
             {
-                Collection<Property> ends = association.getMemberEnds();
-                for (Property end : ends)
+                final Collection<Property> ends = association.getMemberEnds();
+                for (final Property end : ends)
                 {
                     if (end != null && !associationEnd.equals(end))
                     {
@@ -1096,7 +1101,7 @@ public class UmlUtilities
         {
             return null;
         }
-        Package model = (Package)EcoreUtil.getObjectByType(
+        final Package model = (Package)EcoreUtil.getObjectByType(
                 resource.getContents(),
                 EcorePackage.eINSTANCE.getEObject());
         if (model==null)
@@ -1243,6 +1248,46 @@ public class UmlUtilities
     }
 
     /**
+     * Returns the fully-qualified name of the model element by iterating up through the getOwner hierarchy.
+     * @param metaObject
+     * @param separator
+     * @param modelName
+     * @return packageName
+     */
+    static String getFullyQualifiedName(
+        final Element metaObject,
+        final String separator,
+        final boolean modelName)
+    {
+        if (metaObject==null || StringUtils.isBlank(separator) || !(metaObject instanceof NamedElement))
+        {
+            return "";
+        }
+        NamedElement element = (NamedElement)metaObject;
+        String name = element.getName();
+        Element owner = element.getOwner();
+        String ownerName = null;
+
+        while (owner != null)
+        {
+            // Don't add the top level model name(s) to the FQN, unless the model is a Package.
+            if (owner instanceof NamedElement && !(owner instanceof Model) && !(owner instanceof Profile))
+            {
+                ownerName = ((NamedElement)owner).getName();
+                name = ownerName + separator + name;
+            }
+            owner = owner.getOwner();
+        }
+        /*// remove the top level model name, so that mapping works correctly...
+        if (ownerName != null)
+        {
+            name = name.substring(ownerName.length() + separator.length());
+        }*/
+
+        return name;
+    }
+
+    /**
      * Finds and returns the first model element having the given
      * <code>name</code> in the <code>modelPackage</code>, returns
      * <code>null</code> if not found.
@@ -1313,12 +1358,12 @@ public class UmlUtilities
                     {
                         if (object instanceof NamedElement)
                         {
-                            NamedElement element = (NamedElement)object;
-                            StringBuilder fullName = new StringBuilder(getPackageName(
+                            final NamedElement element = (NamedElement)object;
+                            final StringBuilder fullName = new StringBuilder(getPackageName(
                                         element,
                                         separator,
                                         modelName));
-                            String name = element.getName();
+                            final String name = element.getName();
                             if (StringUtils.isNotBlank(name))
                             {
                                 String namespaceSeparator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
@@ -1383,26 +1428,26 @@ public class UmlUtilities
      * @param defaultValue when null: 1 for upper multiplicity, 0 for lower multiplicity.
      * @return the parsed integer. Defaults to 1.
      */
-    static int parseMultiplicity(final ValueSpecification multValue, int defaultValue)
+    static int parseMultiplicity(final ValueSpecification multValue, final int defaultValue)
     {
         int value = defaultValue;
         if (multValue != null)
         {
             if (multValue instanceof LiteralInteger)
             {
-                LiteralInteger litInt = (LiteralInteger)multValue;
+                final LiteralInteger litInt = (LiteralInteger)multValue;
                 value = litInt.getValue();
             }
             else if (multValue instanceof LiteralUnlimitedNatural)
             {
-                LiteralUnlimitedNatural litInt = (LiteralUnlimitedNatural)multValue;
+                final LiteralUnlimitedNatural litInt = (LiteralUnlimitedNatural)multValue;
                 value = litInt.getValue();
             }
 
             else if (multValue instanceof LiteralString)
             {
-                LiteralString litStr = (LiteralString)multValue;
-                String multString = litStr.getValue();
+                final LiteralString litStr = (LiteralString)multValue;
+                final String multString = litStr.getValue();
                 if ("*".equals(multString))
                 {
                     value = LiteralUnlimitedNatural.UNLIMITED;
@@ -1438,8 +1483,8 @@ public class UmlUtilities
      * @return Equals
      */
     public static boolean doesTagValueNameMatch(
-        String requestedName,
-        String tagValueName)
+        final String requestedName,
+        final String tagValueName)
     {
         if (StringUtils.isBlank(requestedName) || StringUtils.isBlank(tagValueName))
         {
@@ -1460,7 +1505,7 @@ public class UmlUtilities
                 if (!result)
                 {
                     // let's try emf normalization
-                    String emfName = EMFNormalizer.getEMFName(requestedName);
+                    final String emfName = EMFNormalizer.getEMFName(requestedName);
                     result = emfName.equals(tagValueName);
                 }
                 /*}
@@ -1492,7 +1537,7 @@ public class UmlUtilities
             {
                 // MD converts to _andromdavalue when exporting to EMF UML2 (v2.x) XMI and
                 // the requestValue uses andromda_value
-                String emfName = '_' + StringUtils.remove(requestedName, '_');
+                final String emfName = '_' + StringUtils.remove(requestedName, '_');
                 result = emfName.equals(tagValueName);
             }
         }
@@ -1513,7 +1558,8 @@ public class UmlUtilities
     @SuppressWarnings("unused")
     private static class PropertyComparator implements Comparator<Property>
     {
-        public int compare(Property property1, Property property2)
+        private static final long serialVersionUID = 1L;
+        public int compare(final Property property1, final Property property2)
         {
             return property1.getName().compareTo(property2.getName());
         }

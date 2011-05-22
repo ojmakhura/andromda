@@ -272,7 +272,7 @@ public class FrontEndActionLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionStates()
      */
     @Override
-    protected List handleGetActionStates()
+    protected List<FrontEndActionState> handleGetActionStates()
     {
         if (this.actionStates == null)
         {
@@ -298,7 +298,7 @@ public class FrontEndActionLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionForwards()
      */
     @Override
-    protected List handleGetActionForwards()
+    protected List<TransitionFacade> handleGetActionForwards()
     {
         if (this.actionForwards == null)
         {

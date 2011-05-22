@@ -206,8 +206,8 @@ public class ManageableEntityLogicImpl
         return accessorImplementation.replaceAll(
             "\\{0\\}",
             this.getManageablePackageName()).replaceAll(
-            "\\{1\\}",
-            this.getManageableServiceName());
+                "\\{1\\}",
+                this.getManageableServiceName());
     }
 
     /**
@@ -243,8 +243,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected List<AttributeFacade> handleGetManageableAttributes()
     {
-        List<AttributeFacade> attList = new ArrayList<AttributeFacade>(this.getAttributes(true));
-        return attList;
+        return new ArrayList<AttributeFacade>(this.getAttributes(true));
     }
 
     /**
@@ -263,7 +262,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected List<ModelElementFacade> handleGetManageableMembers()
     {
-        final List criteria = new ArrayList();
+        final List<ModelElementFacade> criteria = new ArrayList();
         criteria.addAll(this.getManageableAttributes());
         criteria.addAll(this.getManageableAssociationEnds());
         return criteria;
@@ -372,7 +371,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected String handleListManageableMembers(final boolean withTypes)
     {
-        return createListWithManageableMembers(withTypes? ListType.PRIMITIVE: null);
+        return createListWithManageableMembers(withTypes ? ListType.PRIMITIVE : null);
     }
 
     /**
@@ -511,7 +510,11 @@ public class ManageableEntityLogicImpl
         int maximumListSize;
 
         final Object taggedValueObject = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE);
-        if (taggedValueObject != null)
+        if (taggedValueObject == null)
+        {
+            maximumListSize = this.internalDefaultMaximumListSize();
+        }
+        else
         {
             try
             {
@@ -521,10 +524,6 @@ public class ManageableEntityLogicImpl
             {
                 maximumListSize = this.internalDefaultMaximumListSize();
             }
-        }
-        else
-        {
-            maximumListSize = this.internalDefaultMaximumListSize();
         }
 
         return maximumListSize;
@@ -557,7 +556,11 @@ public class ManageableEntityLogicImpl
         int pageSize;
 
         final Object taggedValueObject = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_PAGE_SIZE);
-        if (taggedValueObject != null)
+        if (taggedValueObject == null)
+        {
+            pageSize = this.internalDefaultPageSize();
+        }
+        else
         {
             try
             {
@@ -567,10 +570,6 @@ public class ManageableEntityLogicImpl
             {
                 pageSize = this.internalDefaultPageSize();
             }
-        }
-        else
-        {
-            pageSize = this.internalDefaultPageSize();
         }
 
         return pageSize;
@@ -603,7 +602,11 @@ public class ManageableEntityLogicImpl
         boolean resolveable;
 
         final Object taggedValueObject = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_RESOLVEABLE);
-        if (taggedValueObject != null)
+        if (taggedValueObject == null)
+        {
+            resolveable = this.internalDefaultResolveable();
+        }
+        else
         {
             try
             {
@@ -613,10 +616,6 @@ public class ManageableEntityLogicImpl
             {
                 resolveable = this.internalDefaultResolveable();
             }
-        }
-        else
-        {
-            resolveable = this.internalDefaultResolveable();
         }
 
         return resolveable;
@@ -630,7 +629,7 @@ public class ManageableEntityLogicImpl
         {
             resolveable =
                Boolean.valueOf(
-                   (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
+               (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
         }
         catch (NumberFormatException ex)
         {
@@ -665,6 +664,7 @@ public class ManageableEntityLogicImpl
     static final class ManageableComparator
         implements Comparator
     {
+        private static final long serialVersionUID = 1L;
         /**
          * @see java.util.Comparator#compare(Object, Object)
          */

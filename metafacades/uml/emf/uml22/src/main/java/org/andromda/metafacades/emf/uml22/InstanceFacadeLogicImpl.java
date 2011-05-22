@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import org.andromda.metafacades.uml.InstanceFacade;
+import org.andromda.metafacades.uml.LinkFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.eclipse.uml2.uml.Classifier;
@@ -34,7 +35,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
      * @param metaObject
      * @param context
      */
-    public InstanceFacadeLogicImpl(ObjectInstance metaObject, String context)
+    public InstanceFacadeLogicImpl(final ObjectInstance metaObject, final String context)
     {
         super(metaObject, context);
     }
@@ -43,7 +44,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
      * @param valueSpecification
      * @return LiteralInteger or LiteralBoolean or LiteralString
      */
-    public static InstanceFacade createInstanceFor(ValueSpecification valueSpecification)
+    public static InstanceFacade createInstanceFor(final ValueSpecification valueSpecification)
     {
         final InstanceFacadeLogicImpl instance = new InstanceFacadeLogicImpl(null, null);
 
@@ -105,7 +106,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         final Collection<Element> ownedElements = new ArrayList<Element>(this.metaObject.getOwnedElements());
         CollectionUtils.filter(ownedElements, new Predicate()
         {
-            public boolean evaluate(Object object)
+            public boolean evaluate(final Object object)
             {
                 return object instanceof InstanceSpecification;
             }
@@ -119,7 +120,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
      * @see org.andromda.metafacades.uml.InstanceFacade#getOwnedLinks()
      */
     @Override
-    protected Collection handleGetOwnedLinks()
+    protected Collection<LinkFacade> handleGetOwnedLinks()
     {
         return Collections.emptyList();
     }
@@ -144,9 +145,10 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         // only retain the slots mapping onto attributes
         CollectionUtils.filter(slots, new Predicate()
         {
-            public boolean evaluate(Object object)
+            public boolean evaluate(final Object object)
             {
-                return UmlUtilities.ELEMENT_TRANSFORMER.transform(((Slot)object).getDefiningFeature()) instanceof Attribute;
+                return UmlUtilities.ELEMENT_TRANSFORMER.transform(
+                    ((Slot)object).getDefiningFeature()) instanceof Attribute;
             }
         });
 
@@ -164,9 +166,10 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         // only retain the slots mapping onto association ends
         CollectionUtils.filter(slots, new Predicate()
         {
-            public boolean evaluate(Object object)
+            public boolean evaluate(final Object object)
             {
-                return UmlUtilities.ELEMENT_TRANSFORMER.transform(((Slot)object).getDefiningFeature()) instanceof AssociationEnd;
+                return UmlUtilities.ELEMENT_TRANSFORMER.transform(
+                    ((Slot)object).getDefiningFeature()) instanceof AssociationEnd;
             }
         });
 

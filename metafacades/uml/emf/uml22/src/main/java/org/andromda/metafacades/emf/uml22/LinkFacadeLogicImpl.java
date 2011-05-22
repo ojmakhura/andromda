@@ -16,7 +16,7 @@ public class LinkFacadeLogicImpl extends LinkFacadeLogic
      * @param metaObject
      * @param context
      */
-    public LinkFacadeLogicImpl(LinkInstance metaObject, String context)
+    public LinkFacadeLogicImpl(final LinkInstance metaObject, final String context)
     {
         super(metaObject, context);
     }
@@ -25,7 +25,7 @@ public class LinkFacadeLogicImpl extends LinkFacadeLogic
      * @see org.andromda.metafacades.uml.LinkFacade#getLinkEnds()
      */
     @Override
-    protected Collection handleGetLinkEnds()
+    protected Collection<LinkEnd> handleGetLinkEnds()
     {
         return CollectionUtils.collect(this.metaObject.getSlots(), UmlUtilities.ELEMENT_TRANSFORMER);
     }

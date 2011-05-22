@@ -87,13 +87,13 @@ public class PackageFacadeLogicImpl
     @Override
     protected Collection<Class> handleGetClasses()
     {
-        List<Class> classes = new ArrayList<Class>();
+        final List<Class> classes = new ArrayList<Class>();
         for (Element element : this.metaObject.getOwnedElements())
         {
             // Behavior Activity is mapped to EventFacade, unlike UML2 it does not inherit from Class so it must be excluded.
             // TODO Fix inheritance hierarchy of EventFacade
             if ((element instanceof ClassImpl)
-                && ! (element instanceof BehaviorImpl || element instanceof ComponentImpl || element instanceof NodeImpl || element instanceof StereotypeImpl))
+                && !(element instanceof BehaviorImpl || element instanceof ComponentImpl || element instanceof NodeImpl || element instanceof StereotypeImpl))
             {
                 classes.add((Class)element);
             }
@@ -114,7 +114,7 @@ public class PackageFacadeLogicImpl
      * @see org.andromda.metafacades.uml.PackageFacade#getModelElements()
      */
     @Override
-    protected Collection handleGetModelElements()
+    protected Collection<? extends ModelElementFacade> handleGetModelElements()
     {
         return CollectionUtils.collect(UmlUtilities.findModel(this.metaObject)
                 .allOwnedElements(), UmlUtilities.ELEMENT_TRANSFORMER);
@@ -124,7 +124,7 @@ public class PackageFacadeLogicImpl
      * @see org.andromda.metafacades.uml.PackageFacade#getOwnedElements()
      */
     @Override
-    protected Collection handleGetOwnedElements()
+    protected Collection<? extends ModelElementFacade> handleGetOwnedElements()
     {
         return CollectionUtils.collect(
             this.metaObject.getOwnedMembers(),

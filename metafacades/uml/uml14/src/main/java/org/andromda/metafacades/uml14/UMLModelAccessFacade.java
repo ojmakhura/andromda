@@ -123,10 +123,10 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(String)
      */
-    public Collection findByStereotype(String stereotype)
+    public Collection<MetafacadeBase> findByStereotype(String stereotype)
     {
         final String methodName = "UMLModelAccessFacade.findByStereotype";
-        final Collection metafacades = new ArrayList();
+        final Collection<MetafacadeBase> metafacades = new ArrayList<MetafacadeBase>();
         stereotype = StringUtils.trimToEmpty(stereotype);
         if (StringUtils.isNotBlank(stereotype))
         {
@@ -135,9 +135,8 @@ public class UMLModelAccessFacade
                 final Collection<ModelElement> underlyingElements = model.getCore().getModelElement().refAllOfType();
                 if (underlyingElements != null && !underlyingElements.isEmpty())
                 {
-                    for (final Iterator<ModelElement> iterator = underlyingElements.iterator(); iterator.hasNext();)
+                    for (final ModelElement element : underlyingElements)
                     {
-                        ModelElement element = iterator.next();
                         Collection<String> stereotypeNames = this.getStereotypeNames(element);
                         if (stereotypeNames != null && stereotypeNames.contains(stereotype))
                         {
