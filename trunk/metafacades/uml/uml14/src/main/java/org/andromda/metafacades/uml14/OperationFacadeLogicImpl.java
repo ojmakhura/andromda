@@ -332,13 +332,12 @@ public class OperationFacadeLogicImpl
     //@Override
     protected boolean handleIsMany()
     {
-        /*boolean isMany = false;
+        boolean isMany = false;
         if (null!=this.getReturnParameter())
         {
-            isMany = this.getParameter().isMany();
+            isMany = this.getReturnParameter().isMany();
         }
-        return isMany;*/
-        return false;
+        return isMany;
     }
 
     /**
