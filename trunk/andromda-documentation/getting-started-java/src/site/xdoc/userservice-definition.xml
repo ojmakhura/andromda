@@ -256,6 +256,28 @@
                     bypassing the EJB container completely. 
                 </p>
                 <p>
+                    Add or verify that the current version of the testng test dependency is in the maven pom.xml files.
+                    In the top level pom.xml:
+<code><![CDATA[
+    <dependencyManagement>
+        <dependencies>
+...
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>5.14.6</version>
+                <scope>test</scope>
+            </dependency>
+]]></code>
+                    And in the core/pom.xml:
+<code><![CDATA[
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+]]></code>
+                </p>
+                <p>
                     Copy the entire
                     <tt>test</tt>
                     directory located under
