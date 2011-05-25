@@ -226,7 +226,7 @@ $attribute.getDocumentation("     * ")
     /** $toDoTag: Model Documentation for attribute $connectingEnd.name */
 #else
     /**
-$attribute.getDocumentation("     * ")
+$connectingEnd.getDocumentation("     * ")
      */
 #end
 #if ($XMLOutput)
