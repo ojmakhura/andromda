@@ -1031,6 +1031,11 @@
             <url>http://www.andromda.org/maven2</url>
         </repository>
         <repository>
+            <id>java.net</id>
+            <name>Java.net</name>
+            <url>http://download.java.net/maven/2/</url>
+        </repository>
+        <repository>
             <id>central-staging</id>
             <name>Sonatype Central Staging</name>
             <url>http://oss.sonatype.org/content/groups/central-staging/</url>
