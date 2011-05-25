@@ -9,7 +9,6 @@
 */
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
-
 #end
 
 /**

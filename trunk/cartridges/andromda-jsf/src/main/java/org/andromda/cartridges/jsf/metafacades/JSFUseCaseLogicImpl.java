@@ -280,7 +280,7 @@ public class JSFUseCaseLogicImpl
                                             if (!attributes.isEmpty())
                                             {
                                                 for (final Iterator<AttributeFacade> attributeIterator
-                                                    = typeAttributes.iterator(); attributeIterator.hasNext();)
+                                                    = typeAttributes.iterator(); attributeIterator.hasNext(); )
                                                 {
                                                     final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
                                                     messages.put(

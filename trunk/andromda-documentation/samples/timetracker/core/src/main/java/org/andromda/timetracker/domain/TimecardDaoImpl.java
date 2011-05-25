@@ -23,7 +23,7 @@ public class TimecardDaoImpl
      * @see org.andromda.timetracker.domain.TimecardDao#findByCriteria(TimecardSearchCriteriaVO)
      */
     @Override
-    protected List handleFindByCriteria(TimecardSearchCriteriaVO criteria)
+    protected List<Timecard> handleFindByCriteria(TimecardSearchCriteriaVO criteria)
     {
         // Create the timecard criteria
         Criteria timecardCriteria = this.getSession()
@@ -58,7 +58,7 @@ public class TimecardDaoImpl
             timecardCriteria.add(Restrictions.le("startDate", criteria.getStartDateMax()));
         }
 
-        List timecards = timecardCriteria.list();
+        List<Timecard> timecards = timecardCriteria.list();
         if (this.logger.isDebugEnabled()) {
             this.logger.debug(timecards.size() + " timecards found");
         }
