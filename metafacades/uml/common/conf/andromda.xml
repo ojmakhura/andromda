@@ -18,12 +18,10 @@
         <model type="emf-uml22">
           <uri>file:${project.basedir}/src/main/uml2/andromda-metafacades-uml.uml</uri>
           <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location>
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/main/uml2</location>
           </moduleSearchLocations-->
           <constraints>
-            <!-- Note misspelling in the validation statement -->
             <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a direct dependency to a metaclass</constraint>
-            <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a directy dependency to a metaclass</constraint>
           </constraints>
         </model>
       </models>
