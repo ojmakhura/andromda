@@ -101,7 +101,7 @@
         <!--webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration-->
         <property name="webserviceHost">localhost</property>
         <property name="webservicePort">8080</property>
-        <property name="webContext">${application.id}-webservice</property>
+        <property name="webContext">${project.artifactId}</property>
         <property name="servicesPath">services</property>
         <!--Creates default/dummy implementation for service, iterating down through parameter hierarchy-->
         <property name="generateMethodImpl">true</property>
