@@ -272,8 +272,8 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #end
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
-                <xs:complexContent>
-                <xs:extension base="${type.generalization.namespacePrefix}:$type.generalization.name">
+            <xs:complexContent>
+                <xs:extension base="$webServiceUtils.getPkgAbbr($type.generalization.package,$pkg):$type.generalization.name">
 #set ($tab="        ")
 #else
 #set ($tab="")
@@ -368,7 +368,7 @@ $tab            </xs:sequence>
 #else
 #set ($use = "")
 #end
-##            <!-- $attribute.name type=$attribute.getterSetterTypeName packageName=$attribute.packageName typeName=$attribute.fullyQualifiedName typeNameMdl=$attribute.getFullyQualifiedName(false) schemaType=$type.schemaType default=$attribute.defaultValuePresent isMany=$isMany -->
+##$tab            <!-- $attribute.name schemaType=$attributeType.schemaType type=$attributeType typeName=$attribute.fullyQualifiedName schemaType=$type.schemaType -->
 $tab            <xs:attribute name="$attribute.name"#if (!$attribute.hasStereotype("Validation")) type="$attributeType.schemaType"#end${use}>
 #renderRestrictions($attribute, $attributeType.schemaType)
 #if ($stringUtils.isNotBlank($attribute.getDocumentation("", 9999, false)))

@@ -286,8 +286,8 @@ $stringUtils.replaceChars($type.getDocumentation("                ", 100, false)
 #end
 #set ($extensionRequired = $type.generalization && !$extensionInheritanceDisabled)
 #if ($extensionRequired)
-                <xs:complexContent>
-                <xs:extension base="${type.generalization.namespacePrefix}:$type.generalization.qName">
+            <xs:complexContent>
+                <xs:extension base="$webServiceUtils.getPkgAbbr($type.generalization.package,$pkg):$type.generalization.qName">
 #set ($tab="        ")
 #else
 #set ($tab="")
