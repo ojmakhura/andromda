@@ -31,6 +31,9 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     /**
      * @see ${entity.fullyQualifiedEntityName}${esc.hash}${operation.getSignature(false)}
      */
+#if ($enableAnnotations)
+    @Override
+#end
 #set ($abstract = $entity.abstract && $operation.abstract)
     $operation.visibility#if ($abstract) abstract#end $operation.getterSetterReturnTypeName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
 #if ($operation.exceptionsPresent)
