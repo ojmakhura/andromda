@@ -186,6 +186,7 @@
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
                 <property name="entityManagerJTADataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
 #if($hibernate)
                 <property name="persistenceProviderExtensions">hibernate</property>
@@ -239,6 +240,7 @@
                 <property name="hibernateVersion">3</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${application.package}</property>
@@ -281,6 +283,7 @@
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
                 <property name="connectionUrl">${jdbc.url}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
