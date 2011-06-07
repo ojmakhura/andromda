@@ -1024,7 +1024,7 @@ public class WebServiceUtils
                             }
                         }
                     }
-                    if (facade.hasStereotype("ValueObject"))
+                    if (facade.hasStereotype("ValueObject") || facade.hasStereotype("Exception") || facade.hasStereotype("UnexpectedException") || facade.hasStereotype("ApplicationException"))
                     {
                         // This element is contained in this package, see what it references
                         for (ModelElementFacade attr : (List<ModelElementFacade>)facade.getProperties(follow))
