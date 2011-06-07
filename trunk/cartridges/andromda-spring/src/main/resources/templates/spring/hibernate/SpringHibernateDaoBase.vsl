@@ -1348,6 +1348,9 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($enableAnnotations)
     @Override
 #end
+#if ($valueObjectRef.targetElement.abstract)
+    public abstract $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity);
+#else
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
         $valueObjectRef.targetElement.fullyQualifiedName target = null;
@@ -1361,6 +1364,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         }
         return target;
     }
+#end
 
     /**
      * {@inheritDoc}
