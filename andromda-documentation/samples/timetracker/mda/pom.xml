@@ -108,7 +108,7 @@
     </build>
     <properties>
         <!-- Avoid JDK6 XJC runtime error on wdsl2java from conflicting Jaxb2.2 -->
-        <cxf.version>2.2.12</cxf.version>
+        <cxf.version>2.3.3</cxf.version>
         <!-- Versioned independently from CXF core -->
         <cxf.xjc.version>2.3.0</cxf.xjc.version>
         <model.uri>file:${project.basedir}/src/main/uml2/timetracker.uml</model.uri>

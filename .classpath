@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="andromda-andromdapp/andromda-andromdapp-core/src/main/java"/>
+    <classpathentry kind="src" path="andromda-andromdapp/andromda-andromdapp-core/src/main/java"/>
 	<classpathentry kind="src" path="andromda-core/src/main/java"/>
 	<classpathentry kind="src" path="andromda-core/src/main/resources"/>
 	<classpathentry kind="src" path="andromda-core/src/test/java"/>
@@ -74,7 +74,6 @@
 	<classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/main/java"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar" sourcepath="/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/bsh/bsh/2.0b4/bsh-2.0b4.jar" sourcepath="/M2_REPO/bsh/bsh/2.0b4/bsh-2.0b4-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar" sourcepath="/M2_REPO/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2.jar" sourcepath="/M2_REPO/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" sourcepath="/M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar"/>
@@ -82,10 +81,10 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-dbutils/commons-dbutils/1.3/commons-dbutils-1.3.jar" sourcepath="/M2_REPO/commons-dbutils/commons-dbutils/1.3/commons-dbutils-1.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1.jar" sourcepath="/M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-el/commons-el/1.0/commons-el-1.0.jar" sourcepath="M2_REPO/commons-el/commons-el/1.0/commons-el-1.0-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar" sourcepath="/M2_REPO/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar" sourcepath="/M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar" sourcepath="/M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-io/commons-io/2.0/commons-io-2.0.jar" sourcepath="/M2_REPO/commons-io/commons-io/2.0/commons-io-2.0-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/commons-lang/commons-lang/2.5/commons-lang-2.5.jar" sourcepath="/M2_REPO/commons-lang/commons-lang/2.5/commons-lang-2.5-sources.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" sourcepath="/M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1.jar" sourcepath="M2_REPO/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/de/plushnikov/doctor-jim/1.0/doctor-jim-1.0.jar" sourcepath="M2_REPO/de/plushnikov/doctor-jim/1.0/doctor-jim-1.0-sources.jar"/>
@@ -136,12 +135,12 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/velocity/velocity-tools/2.0/velocity-tools-2.0.jar" sourcepath="/M2_REPO/org/apache/velocity/velocity-tools/2.0/velocity-tools-2.0-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/ws/commons/axiom/axiom-api/1.2.7/axiom-api-1.2.7.jar" sourcepath="/M2_REPO/org/apache/ws/commons/axiom/axiom-api/1.2.7/axiom-api-1.2.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar" sourcepath="/M2_REPO/org/beanshell/bsh/2.0b4/bsh-2.0b4-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/groovy/groovy-all/1.7.3/groovy-all-1.7.3.jar" sourcepath="/M2_REPO/org/codehaus/groovy/groovy-all/1.7.3/groovy-all-1.7.3-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/groovy/groovy-all/1.8.0/groovy-all-1.8.0.jar" sourcepath="/M2_REPO/org/codehaus/groovy/groovy-all/1.8.0/groovy-all-1.8.0-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-archiver/1.2/plexus-archiver-1.2.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-archiver/1.2/plexus-archiver-1.2-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15-sources.jar"/>
+	<!--classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-component-api/1.0-alpha-15/plexus-component-api-1.0-alpha-15-sources.jar"/-->
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-compiler-api/1.5.3/plexus-compiler-api-1.5.3.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-compiler-api/1.5.3/plexus-compiler-api-1.5.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-container-default/1.5.5/plexus-container-default-1.5.5.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-container-default/1.5.5/plexus-container-default-1.5.5-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/1.5.9/plexus-utils-1.5.9.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-utils/1.5.9/plexus-utils-1.5.9-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.jar" sourcepath="/M2_REPO/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.common/2.6.0.v20100614-1136/org.eclipse.emf.common-2.6.0.v20100614-1136.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.common/2.6.0.v20100614-1136/org.eclipse.emf.common-2.6.0.v20100614-1136-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore/2.6.0.v20100614-1136/org.eclipse.emf.ecore-2.6.0.v20100614-1136.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore/2.6.0.v20100614-1136/org.eclipse.emf.ecore-2.6.0.v20100614-1136-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.5.0.v20100521-1846/org.eclipse.emf.ecore.xmi-2.5.0.v20100521-1846.jar" sourcepath="/M2_REPO/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.5.0.v20100521-1846/org.eclipse.emf.ecore.xmi-2.5.0.v20100521-1846-sources.jar"/>

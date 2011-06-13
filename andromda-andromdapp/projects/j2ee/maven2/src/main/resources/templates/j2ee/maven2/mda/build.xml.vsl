@@ -22,7 +22,7 @@ Customize as necessary - it is generated once only, when the project is created.
 #if ($cxf)
   <path id="cxf.classpath">
     <pathelement location="${m2repo}/org/apache/cxf/cxf-bundle/${cxf.version}/cxf-bundle-${cxf.version}.jar"/>
-    <pathelement location="${m2repo}/commons-lang/commons-lang/2.5/commons-lang-2.5.jar"/>
+    <pathelement location="${m2repo}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
     <fileset dir="${m2repo}/org/andromda/thirdparty/jaxb-commons">
         <include name="**/*.jar"/>
         <exclude name="**/*-sources.jar"/>
@@ -36,13 +36,13 @@ Customize as necessary - it is generated once only, when the project is created.
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
-    <pathelement location="${m2repo}/org/hibernate/hibernate/3.2.6.ga/hibernate-3.2.6.ga.jar"/>
-    <pathelement location="${m2repo}/org/springframework/spring/2.0.8/spring-2.0.8.jar"/>
+    <pathelement location="${m2repo}/org/hibernate/hibernate/3.6.4.Final/hibernate-3.6.4.Final.jar"/>
+    <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
 #elseif ($cxf)
-    <pathelement location="${m2repo}/org/springframework/spring/2.5.6/spring-2.5.6.jar"/>
+    <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
 #end
 #if ($ejb)
-    <pathelement location="${m2repo}/jboss/jboss-j2ee/3.2.3/jboss-j2ee-3.2.3.jar"/>
+    <pathelement location="${m2repo}/jboss/jboss-j2ee/4.2.3.GA/jboss-j2ee-4.2.3.GA.jar"/>
 #end
   </path>
 
@@ -256,7 +256,7 @@ Customize as necessary - it is generated once only, when the project is created.
             <pathelement location="${andromda.project}/common/target/classes"/>
             <path refid="project.classpath"/>
             <pathelement location="${andromda.project}/webservice/src/main/webapp/WEB-INF/classes"/>
-            <pathelement location="${m2repo}/org/eclipse/jetty/jetty-server/7.2.2.v20101205/jetty-server-7.2.2.v20101205.jar"/>
+            <pathelement location="${m2repo}/org/eclipse/jetty/jetty-server/${jetty.version}/jetty-server-${jetty.version}.jar"/>
         </classpath>
     </javac-->
 #end
