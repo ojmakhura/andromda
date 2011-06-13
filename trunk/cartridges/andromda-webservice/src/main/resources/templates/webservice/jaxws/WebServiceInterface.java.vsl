@@ -73,6 +73,21 @@ public interface ${service.name}${seiSuffix}
 #foreach ( $operation in $service.allowedOperations)
 ## Only expose public methods
 #if ($operation.visibility == "public")
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+#set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
+#set ($servicePartName = $service.findTaggedValue("andromda_wsdl_header_partName"))
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+#set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
+#set ($securityPartName = $service.findTaggedValue("andromda_wsdl_security_partName"))
+#if ($stringUtils.isEmpty($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#end
 
    /**
     * Invokes the $operation.name service method on ${service.name}. $operation.restAtom
@@ -94,6 +109,12 @@ $operation.getDocumentation("    * ")
 #set ($multiplicity=$parameter.upper)
 #end
     * @param $parameter.name $parameter.type.fullyQualifiedName required=$parameter.required Multiplicity $multiplicity
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+    * @param $serviceParameterName $serviceClassName
+#end
+#if ($service.hasStereotype("WSSecurity"))
+    * @param $securityParameterName $securityClassName
 #end
 #if ($operation.restAtom)
     * @return ${operation.operationName}Response org.apache.abdera.model.Feed
@@ -132,6 +153,9 @@ $operation.getDocumentation("    * ")
 #else
 #set ($returnName=$stringUtils.capitalize($operation.name))
 #end
+#if ($returnName.endsWith("[]"))
+#set ($returnName=$returnName.nonArray)
+#end
     @WebResult(name = "$returnName", targetNamespace = "http://$webServiceUtils.reversePackage($service.packageName)#if($addNamespaceBackslash)/#end") //, partName = "${operation.name}Response")
 #if ($defaultParameterStyle.equalsIgnoreCase("WRAPPED"))
 #if ($operation.returnTypePresent || $operation.exceptionsPresent)
@@ -147,8 +171,8 @@ $operation.getDocumentation("    * ")
 ##        $stringUtils.capitalize(${operation.name}) ${operation.name}
 ##else
     (
-#if (!$operation.arguments.empty)
 #set ($comma = "  ")
+#if (!$operation.arguments.empty)
 #foreach ($parameter in $operation.arguments)
 #if ($stringUtils.isNotBlank($parameter.type.packageName) && !$parameter.type.packageName.equals("PrimitiveTypes"))
 #set ($targetNamespace="$webServiceUtils.reversePackage($parameter.type.packageName)#if($addNamespaceBackslash)/#end")
@@ -167,6 +191,15 @@ $operation.getDocumentation("    * ")
         $paramType $parameter.name
 #set ($comma = ", ")
 #end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+      ${comma}@WebParam(header=true, name = "$serviceElementName", targetNamespace = "$serviceNamespace", partName="$servicePartName")
+        $serviceClassName $serviceParameterName
+#set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+      ${comma}@WebParam(header=true, name = "$securityElementName", targetNamespace = "$securityNamespace", partName="$securityPartName")
+        $securityClassName $securityParameterName
 #end
 ##end
 #if ($operation.exceptionsPresent)

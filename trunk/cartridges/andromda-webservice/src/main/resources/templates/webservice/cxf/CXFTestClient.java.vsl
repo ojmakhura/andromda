@@ -164,7 +164,7 @@ $operation.getDocumentation("    * ")
         // TestCase.setUp and tearDown methods for each individual service method test
 #set ($inputType = "${service.packageName}.$stringUtils.capitalize($operation.name)")
         ${inputType}Impl.${operation.name}SetUp();
-#if (!$operation.arguments.empty)
+#if (!$operation.arguments.empty || $service.hasStereotype("WSCustomHeader") || $service.hasStereotype("WSSecurity"))
         // Customize CreateInput method if different default input data is required.
         $inputType ${operation.name}Input = ${inputType}Impl.${operation.name}CreateInput();
 #end
@@ -197,13 +197,27 @@ $operation.getDocumentation("    * ")
 #else
         $returnType ${operation.name}Response = null;
 #end
-        try {
+        try
+        {
             ${operation.operationName}Response = client.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
                 ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+                ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+                ${comma} new ${securityClassName}()  // WSSecurity securityElementName
 #end
                 );
             System.out.println(" Result = " + ${operation.operationName}Response#if (!$operation.returnType.primitive && !$operation.many).toString()#end);

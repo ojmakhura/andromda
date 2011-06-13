@@ -71,18 +71,19 @@
         <!-- Default XJC binding is XMLGregorianCalendar, must match java cartridge mapping -->
         <!-- Date=$webServiceUtils.getTypeMapping($service.languageMappings, "Date") Time=$webServiceUtils.getTypeMapping($service.languageMappings, "Time") DateTime=$webServiceUtils.getTypeMapping($service.languageMappings, "DateTime") Integer=$webServiceUtils.getTypeMapping($service.languageMappings, "Integer") Decimal=$webServiceUtils.getTypeMapping($service.languageMappings, "Decimal") -->
         <!-- See http://cxf.apache.org/docs/wsdl-to-java.html -->
+#set ($dateMapping = $webServiceUtils.getTypeMapping($service.languageMappings, "Date"))
 #if ($stringUtils.isBlank($XMLDateAdapter))
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Date").equals("java.util.Date"))
+#if ($dateMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:date" name="java.util.Date"
                       parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
                       printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "Date").equals("java.util.Calendar"))
+#elseif ($dateMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:date" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
 #end
 #else
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Date").equals("java.util.Date"))
+#if ($dateMapping.equals("java.util.Date"))
 #if ($cxfVersion.startsWith("2.0"))
         <!-- Requires custom developed datatype bindings for both print and parse methods -->
         <!--jxb:javaType xmlType="xs:date" name="java.util.Date"
@@ -91,7 +92,7 @@
 #else
         <xjc:javaType xmlType="xs:date" name="java.util.Date" adapter="$XMLDateAdapter"/>
 #end
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "Date").equals("java.util.Calendar"))
+#elseif ($dateMapping.equals("java.util.Calendar"))
 #if ($cxfVersion.startsWith("2.0"))
         <jxb:javaType xmlType="xs:date" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
@@ -99,20 +100,23 @@
 #else
         <xjc:javaType xmlType="xs:date" name="java.util.Calendar" adapter="$XMLDateAdapter"/>
 #end
+#else
+        <xjc:javaType xmlType="xs:date" name="$dateMapping" adapter="$XMLDateAdapter"/>
 #end
 #end
+#set ($timeMapping = $webServiceUtils.getTypeMapping($service.languageMappings, "Time"))
 #if ($stringUtils.isBlank($XMLTimeAdapter))
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Time").equals("java.util.Date"))
+#if ($timeMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:time" name="java.util.Date"
                       parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseTime"
                       printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printTime"/>
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "Time").equals("java.util.Calendar"))
+#elseif ($timeMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:time" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printTime"/>
 #end
 #else
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Time").equals("java.util.Date"))
+#if ($timeMapping.equals("java.util.Date"))
 #if ($cxfVersion.startsWith("2.0"))
         <!-- Requires custom developed datatype bindings -->
         <!--jxb:javaType xmlType="xs:time" name="java.util.Date"
@@ -121,7 +125,7 @@
 #else
         <xjc:javaType xmlType="xs:time" name="java.util.Date" adapter="$XMLTimeAdapter"/>
 #end
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "Time").equals("java.util.Calendar"))
+#elseif ($timeMapping.equals("java.util.Calendar"))
 #if ($cxfVersion.startsWith("2.0"))
         <xjc:javaType xmlType="xs:time" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseTime"
@@ -129,20 +133,23 @@
 #else
         <xjc:javaType xmlType="xs:time" name="java.util.Calendar" adapter="$XMLTimeAdapter"/>
 #end
+#else
+        <xjc:javaType xmlType="xs:date" name="$timeMapping" adapter="$XMLTimeAdapter"/>
 #end
 #end
+#set ($datetimeMapping = $webServiceUtils.getTypeMapping($service.languageMappings, "DateTime"))
 #if ($stringUtils.isBlank($XMLDateTimeAdapter))
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.util.Date"))
+#if ($datetimeMapping.equals("java.util.Date"))
         <jxb:javaType xmlType="xs:dateTime" name="java.util.Date"
                       parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
                       printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.util.Calendar"))
+#elseif ($datetimeMapping.equals("java.util.Calendar"))
         <jxb:javaType xmlType="xs:dateTime" name="java.util.Calendar"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
 #end
 #elseif ($stringUtils.isNotBlank($XMLDateTimeAdapter))
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.util.Date") || $webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.sql.Timestamp"))
+#if ($datetimeMapping.equals("java.util.Date") || $datetimeMapping.equals("java.sql.Timestamp"))
 #if ($cxfVersion.startsWith("2.0"))
         <!-- Requires custom developed datatype bindings -->
         <!--jxb:javaType xmlType="xs:dateTime" name="java.util.Date"
@@ -151,15 +158,15 @@
 #else
         <xjc:javaType xmlType="xs:dateTime" name="java.util.Date" adapter="$XMLDateTimeAdapter"/>
 #end
-#elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.util.Calendar"))
+#elseif ($datetimeMapping.equals("java.util.Calendar"))
 #if ($cxfVersion.startsWith("2.0"))
-        <jxb:javaType xmlType="xs:dateTime" name="java.util.Calendar"
+        <jxb:javaType xmlType="xs:dateTime" name="$datetimeMapping"
                       parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
                       printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
 #else
-        <xjc:javaType xmlType="xs:dateTime" name="java.util.Calendar" adapter="$XMLDateTimeAdapter"/>
+        <xjc:javaType xmlType="xs:dateTime" name="$datetimeMapping" adapter="$XMLDateTimeAdapter"/>
 #end
-##elseif ($webServiceUtils.getTypeMapping($service.languageMappings, "DateTime").equals("java.sql.Timestamp"))
+##elseif ($datetimeMapping.equals("java.sql.Timestamp"))
 ##if ($cxfVersion.startsWith("2.0"))
 ##        <jxb:javaType xmlType="xs:dateTime" name="java.sql.Timestamp" adapter="$XMLTimestampAdapter"/-->
 ##                      parseMethod="com.xxx.DatatypeConverter.parseTimestamp"
@@ -167,6 +174,8 @@
 ##else
 ##        <xjc:javaType xmlType="xs:dateTime" name="java.sql.Timestamp" adapter="$XMLTimestampAdapter"/>
 ##end
+#else
+        <xjc:javaType xmlType="xs:dateTime" name="$datetimeMapping" adapter="$XMLDateTimeAdapter"/>
 #end
 #end
 ## Binding moved to individual XSD elements so that primitive datatypes remain primitive

@@ -47,6 +47,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 #else
 #set ($returnName="#if ($stringUtils.isBlank($operation.returnType.packageName) || $operation.returnType.schemaType.startsWith('xs:'))_#end${operation.returnType.name}")
 #end
+#if ($returnName.endsWith("[]"))
+#set ($returnName=$returnName.replace("[]",""))
+#end
     "$stringUtils.uncapitalize($returnName)"
 #else
 #set ($returnName=$stringUtils.uncapitalize($operation.operationName))

@@ -139,6 +139,9 @@ public final class ${service.name}_WSClient extends TestCase
 ##     * @return _${operation.name}__return $returnType
 ##end
 ##end
+#foreach($exception in $operation.exceptions)
+     * @throws ${exception.fullyQualifiedName} $exception.getDocumentation("")
+#end
      */
     public void test${stringUtils.capitalize(${operation.operationName})}()
 #if ($operation.exceptionsPresent)
@@ -156,6 +159,18 @@ public final class ${service.name}_WSClient extends TestCase
 #if (!$webServiceUtils.isSimpleType($argument))
 #set ($complexParam = $argument)
 #end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+            + " WSCustomHeader=" + new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+            + " WSSecurity=" + new ${securityClassName}()  // WSSecurity securityElementName
 #end        );
 #set ($indent="")
 #if ($operation.rest)
@@ -249,6 +264,19 @@ $indent       #if ($operation.returnTypePresent) $returnType _${operation.name}_
 ##$indent      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
 $indent            ${comma} ${operation.operationName}Input.${argument.getterName}()
 #set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+               ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+               ${comma} new ${securityClassName}()  // WSSecurity securityElementName
 #end$indent        );
 #end
 #if ($operation.returnTypePresent || $operation.rest)

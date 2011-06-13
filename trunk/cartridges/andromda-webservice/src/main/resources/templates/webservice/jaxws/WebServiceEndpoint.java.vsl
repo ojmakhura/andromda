@@ -73,6 +73,18 @@ public class ${service.name}${seiSuffix}Impl #if(!$service.rest)implements ${ser
     }
 #end
 #foreach ( $operation in $service.allowedOperations)
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+#set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+#set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
+#end
 
    /**
     * Invokes the $operation.name service method on ${service.name}.
@@ -128,8 +140,8 @@ $operation.getDocumentation("    * ")
 ##    ($stringUtils.capitalize(${operation.operationName})RequestWrapper ${operation.operationName}RequestWrapper)
 ##else
     (
-#if (!$operation.arguments.empty)
 #set ($comma = "")
+#if (!$operation.arguments.empty)
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
 ## JAXB always creates type List even if unique/sorted
@@ -143,6 +155,13 @@ $operation.getDocumentation("    * ")
         ${comma}#if($operation.rest)$parameter.restParamType#end $paramType $parameter.name
 #set ($comma = ", ")
 #end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+        ${comma}$serviceClassName $serviceParameterName
+#set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+        ${comma}$securityClassName $securityParameterName
 #end
     )
 ##end
@@ -417,7 +436,24 @@ $tab        }
 #end
 #else
 #set ($returnTypeName=$stringUtils.uncapitalize($operation.returnType.name))
+#if ($returnTypeName.endsWith("[]"))
+#set ($returnTypeName=$returnTypeName.replace("[]",""))
+#end
 #set ($arguments="$operation.argumentNames")
+#if ($service.hasStereotype("WSCustomHeader"))
+#if ($stringUtils.isBlank($arguments))
+#set ($arguments="$serviceParameterName")
+#else
+#set ($arguments="$arguments, $serviceParameterName")
+#end
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#if ($stringUtils.isBlank($arguments))
+#set ($arguments="$securityParameterName")
+#else
+#set ($arguments="$arguments, $securityParameterName")
+#end
+#end
 #end
         ${service.name}WSDelegate delegate = new ${service.name}WSDelegate();
 #if ($operation.returnTypePresent || $operation.restAtom)

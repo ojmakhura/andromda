@@ -144,6 +144,9 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
 #else
 #set ($returnName=$stringUtils.uncapitalize($operation.operationName))
 #end
+#if ($returnName.endsWith("[]"))
+#set ($returnName=$returnName.nonArray)
+#end
             <xs:complexType>
                 <xs:sequence>
 ##                    <!-- $type $operation.returnType.name $operation.returnType $operation.returnType.schemaType -->

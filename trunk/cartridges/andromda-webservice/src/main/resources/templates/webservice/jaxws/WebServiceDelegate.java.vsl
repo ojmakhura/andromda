@@ -85,10 +85,29 @@ $operation.getDocumentation("    * ")
     * @param $arguments Abdera Feed initialized.
     * @return ${operation.operationName}Response org.apache.abdera.model.Feed Abdera Feed populated with content.
 #else
-#set ($returnTypeName=$stringUtils.uncapitalize($operation.returnType.name))
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+#set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+#set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
+#if ($stringUtils.isEmpty($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+#end
+#set ($returnTypeName=$stringUtils.uncapitalize($operation.returnType.nonArray.name))
 #set ($arguments="$operation.argumentNames")
 #foreach ( $parameter in $operation.arguments)
     * @param $parameter.name $parameter.type.packageName $parameter.type.name multiplicity=${parameter.lower}..${parameter.upper}
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+    * @param serviceParameterName $serviceClassName WSCustomHeader
+#end
+#if ($service.hasStereotype("WSSecurity"))
+    * @param securityParameterName $securityClassName WSSecurity
 #end
 #if ($operation.returnTypePresent)
     * @return ${operation.operationName}Response $returnType
@@ -104,10 +123,10 @@ $operation.getDocumentation("    * ")
     */
     $operation.visibility #if ($operation.restAtom)Feed#else$returnType#end $operation.name
     (
+#set ($comma = " ")
 #if ($operation.restAtom)
         Feed feed
 #elseif (!$operation.arguments.empty)
-#set ($comma = "")
 ##set ($parameterList="")
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
@@ -123,6 +142,13 @@ $operation.getDocumentation("    * ")
 #set ($comma = ", ")
 #end
 #end
+#if ($service.hasStereotype("WSCustomHeader"))
+      ${comma} $serviceClassName $serviceParameterName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+      ${comma} $securityClassName $securityParameterName
+#end
     )
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
@@ -137,6 +163,13 @@ $operation.getDocumentation("    * ")
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
             ${comma} $parameter.name
 #set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+            ${comma}$serviceParameterName
+#set ($comma = ", ")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+            ${comma}$securityParameterName
 #end
         );
 #end
