@@ -89,18 +89,33 @@ public class ${service.name}${seiSuffix}ImplTest extends TestCase
         ${service.name}${seiSuffix}Impl delegate = new ${service.name}${seiSuffix}Impl();
         System.out.println("Invoking ${service.name}${seiSuffix}Impl.${operation.operationName}#if ($operation.arguments.empty)"#else with " + ${operation.operationName}Input#end);
 #if (!$operation.exceptions.empty)
+#set ($indent = "    ")
         try
         {
+#else
+#set ($indent = "")
 #end
-        #if ($operation.restAtom)org.apache.abdera.model.Feed rtn =#elseif ($operation.returnTypePresent)$returnType rtn =#end delegate.${operation.name}(
+$indent            #if ($operation.restAtom)org.apache.abdera.model.Feed rtn =#elseif ($operation.returnTypePresent)$returnType rtn =#end delegate.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
 ##      ${comma}@WebParam(name="$parameter.name"#if ($stringUtils.isNotBlank($parameter.type.packageName)), targetNamespace="http://$parameter.type.packageName#if($addNamespaceBackslash)/#end"#end) $parameter.type.fullyQualifiedName $parameter.name
-                ${comma} ${operation.operationName}Input.${argument.getterName}()  // $argument.getterSetterTypeName
+$indent            ${comma} ${operation.operationName}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ",")
 #end
-            );
-        System.out.println("${service.name}${seiSuffix}Impl.${operation.name}"#if ($operation.returnTypePresent) + " returned " + rtn#end);
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName =  "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+$indent            ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+       ${comma} new ${securityClassName}()  // WSSecurity securityElementName
+#end$indent        );
+$indent        System.out.println("${service.name}${seiSuffix}Impl.${operation.name}"#if ($operation.returnTypePresent) + " returned " + rtn#end);
 #if (!$operation.exceptions.empty)
         }
         catch (Exception ex)

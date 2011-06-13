@@ -1,11 +1,14 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -84,6 +87,59 @@ public class WebServiceOperationLogicImpl
     {
         return this.getTestImplementationOperationNamePrefix() +
         StringUtils.capitalize(this.getTestSignature());
+    }
+
+    /**
+     * @return Operation Signature, taking WSSecurity and WSCustomHeader annotations into account
+     * @param withArgumentNames boolean Use argument names.
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getSignature()
+     */
+    protected String handleGetSignature(final boolean withArgumentNames)
+    {
+        Collection<ParameterFacade> arguments = this.getArguments();
+        String signature = MetafacadeUtils.getSignature(
+                this.getName(),
+                arguments,
+                withArgumentNames,
+                null);
+        Service service = this.getService();
+        if (this.hasStereotype("WSCustomHeader") || this.getService().hasStereotype("WSCustomHeader"))
+        {
+            String serviceElementName = (String) service.findTaggedValue("andromda_wsdl_header_element");
+            String serviceNamespace = (String) service.findTaggedValue("andromda_header_namespace");
+            String serviceClassName = WebServiceUtils.getPackageName(serviceNamespace) + '.' + serviceElementName;
+            String serviceParameterName = StringUtils.uncapitalize(serviceElementName);
+            signature = signature.substring(0, signature.length()-1);
+            if (!arguments.isEmpty())
+            {
+                signature += ", ";
+            }
+            signature += serviceClassName;
+            if (withArgumentNames)
+            {
+                signature += " " + serviceParameterName;
+            }
+            signature += ')';
+        }
+        if (this.hasStereotype("WSSecurity") || this.getService().hasStereotype("WSSecurity"))
+        {
+            String securityElementName = (String) service.findTaggedValue("andromda_wsdl_security_element");
+            String securityNamespace = (String) service.findTaggedValue("andromda_security_namespace");
+            String securityClassName = WebServiceUtils.getPackageName(securityNamespace) + '.' + securityElementName;
+            String securityParameterName = StringUtils.uncapitalize(securityElementName);
+            signature = signature.substring(0, signature.length()-1);
+            if (!arguments.isEmpty() || this.hasStereotype("WSCustomHeader") || this.getService().hasStereotype("WSCustomHeader"))
+            {
+                signature += ", ";
+            }
+            signature += securityClassName;
+            if (withArgumentNames)
+            {
+                signature += " " + securityParameterName;
+            }
+            signature += ')';
+        }
+        return signature;
     }
 
     /**

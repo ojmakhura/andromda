@@ -281,6 +281,14 @@ and allows double-checking of both java and wsdl code generation and all annotat
           <path refid="project1.classpath"/>
        </classpath>
     </java>
+#set ($header=false)
+#foreach ($service in $services)
+#if ($umlUtils.shouldOutput($service))
+#if ($service.hasStereotype("WSCustomHeader") || $service.hasStereotype("WSSecurity"))
+#set ($header=true)
+#end
+#end
+#end
     <echo message="running wsdl2java for service ${service}"/>
     <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true" failonerror="true" append="true">
       <arg value="-p"/>
@@ -294,6 +302,10 @@ and allows double-checking of both java and wsdl code generation and all annotat
       <arg value="${andromda.project}/CXF/src/main/webapp/WEB-INF/classes"/>
       <arg value="-all"/>
       <arg value="-verbose"/>
+#if ($header)
+      <arg value="-exsh"/>
+      <arg value="true"/>
+#end
 #if (!$cxfVersion.startsWith("2.0"))
       <arg value="-autoNameResolution"/>
       <!-- Bug: CXF StackOverflow if values are bidirectional -->

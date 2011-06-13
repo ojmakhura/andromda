@@ -74,8 +74,8 @@ $operation.getDocumentation("    * ")
     */
 ## Make all these operations public, we are just filling in dummy data $operation.visibility
     public static void ${operation.name}TransformInput(
-#if (!$operation.arguments.empty)
 #set ($comma = "")
+#if (!$operation.arguments.empty)
 ## If parameter.name not supplied by WebParam, it defaults to arg0, arg1 etc from wsdlgen tools
 #foreach ($parameter in $operation.arguments)
 #if (!$useArrayWrapper && ($parameter.upper>1 || $parameter.upper==-1))
@@ -88,6 +88,22 @@ $operation.getDocumentation("    * ")
         ${comma}final $paramType $parameter.name
 #set ($comma = ", ")
 #end
+#end
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+#set ($serviceParameterName = $stringUtils.uncapitalize($serviceElementName))
+        ${comma}$serviceClassName $serviceParameterName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+#set ($securityParameterName = $stringUtils.uncapitalize($securityElementName))
+#if ($stringUtils.isEmpty($securityNamespace))#set ($securityNamespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")#end
+        ${comma}$securityClassName $securityParameterName
 #end
     )
 ##        throws TransformationException?)

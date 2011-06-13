@@ -1746,6 +1746,94 @@ public class WebServiceUtils
     }
 
     /**
+     * Creates the package name from the element namespace, following the JAXB rules.
+     * Reverse the hostname (separated by .)
+     * Add the service context (separated by /)
+     * Substitute underscore _ for dash - in name
+     * Put _ in front of numeric values for package components.
+     *
+     * @param namespace the XML namespace.
+     * @return the reversed package name.
+     */
+    public static String getPackageName(String namespace)
+    {
+        if (StringUtils.isBlank(namespace))
+        {
+            return "";
+        }
+        if (namespace.startsWith("http://"))
+        {
+            namespace = namespace.substring(7);
+        }
+        if (namespace.endsWith("/"))
+        {
+            namespace = namespace.substring(0, namespace.length()-1);
+        }
+        if (namespace.endsWith(".xsd"))
+        {
+            namespace = namespace.substring(0, namespace.length()-4);
+        }
+        String hostname = namespace;
+        if (namespace.indexOf('/')>0)
+        {
+            hostname = namespace.substring(0, namespace.indexOf('/'));
+            namespace = StringUtils.reverseDelimited(hostname, WebServiceGlobals.NAMESPACE_DELIMITER)
+                + namespace.substring(namespace.indexOf('/'), namespace.length());
+        }
+        else
+        {
+            namespace = StringUtils.reverseDelimited(hostname, WebServiceGlobals.NAMESPACE_DELIMITER);
+        }
+        // TODO Change to tokenizer + pattern matcher
+        /*StrTokenizer tok = new StrTokenizer(namespace, WebServiceGlobals.NAMESPACE_DELIMITER);
+        for (String token : (List<String>)tok.getTokenList())
+        {
+            if (token.s)
+        }*/
+        namespace = StringUtils.replaceChars(namespace, '-', '_');
+        namespace = StringUtils.replace(namespace, ".0", "_0");
+        namespace = StringUtils.replace(namespace, ".1", "_1");
+        namespace = StringUtils.replace(namespace, ".2", "_2");
+        namespace = StringUtils.replace(namespace, ".3", "_3");
+        namespace = StringUtils.replace(namespace, ".4", "_4");
+        namespace = StringUtils.replace(namespace, ".5", "_5");
+        namespace = StringUtils.replace(namespace, ".6", "_6");
+        namespace = StringUtils.replace(namespace, ".7", "_7");
+        namespace = StringUtils.replace(namespace, ".8", "_8");
+        namespace = StringUtils.replace(namespace, ".9", "_9");
+        namespace = StringUtils.replace(namespace, "$", "");
+        namespace = StringUtils.replaceChars(namespace, '/', WebServiceGlobals.NAMESPACE_DELIMITER);
+        namespace = StringUtils.replace(namespace, ".0", "._0");
+        namespace = StringUtils.replace(namespace, ".1", "._1");
+        namespace = StringUtils.replace(namespace, ".2", "._2");
+        namespace = StringUtils.replace(namespace, ".3", "._3");
+        namespace = StringUtils.replace(namespace, ".4", "._4");
+        namespace = StringUtils.replace(namespace, ".5", "._5");
+        namespace = StringUtils.replace(namespace, ".6", "._6");
+        namespace = StringUtils.replace(namespace, ".7", "._7");
+        namespace = StringUtils.replace(namespace, ".8", "._8");
+        namespace = StringUtils.replace(namespace, ".9", "._9");
+        return namespace;
+    }
+
+    /**
+     * Gets the fully qualified name of a class given the XML Element Name and namespace.
+     * Assumes the namespace is the reversed package name.
+     *
+     * @param elementName the XML element name.
+     * @param namespace the XML namespace for the element.
+     * @return String the package + element name
+     */
+    public String getElementClassName(String elementName, String namespace)
+    {
+        if (StringUtils.isBlank(elementName) || StringUtils.isBlank(namespace))
+        {
+            return "";
+        }
+        return WebServiceUtils.reversePackage(namespace) + '.' + elementName;
+    }
+
+    /**
      * Supplies a result for type = <new value>; initialization for all types
      * @param facade Type to create default object for
      * @return Constructor String with facade name
@@ -2097,7 +2185,14 @@ public class WebServiceUtils
             else if (type instanceof GeneralizableElementFacade)
             {
                 // If type has a descendant with name <typeName>Impl, assume typeNameImpl must be instantiated instead of typeName
+                if (typeName.endsWith("[]"))
+                {
+                    rtn = "{ new " + typeName.substring(0, typeName.length()-2) + "() }";
+                }
+                else
+                {
                 rtn = "new " + typeName + "()";
+                }
                 //if (facade instanceof ClassifierFacade)
                 //{
                     //ClassifierFacade classifier = (ClassifierFacade)facade;
@@ -2124,6 +2219,10 @@ public class WebServiceUtils
                         rtn = '(' + type.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";
                     }
                 }
+            }
+            else if (typeName.endsWith("[]"))
+            {
+                rtn = "{ new " + typeName.substring(0, typeName.length()-2) + "() }";
             }
             else
             {
@@ -2359,6 +2458,10 @@ public class WebServiceUtils
      */
     public static String reversePackage(String packageName)
     {
+        if (StringUtils.isBlank(packageName))
+        {
+            return "";
+        }
         if (packageName.startsWith("http://"))
         {
             packageName = packageName.substring(7);
