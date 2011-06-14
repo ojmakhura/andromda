@@ -57,7 +57,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
         return "${manageable.viewFullPath}";
@@ -131,7 +131,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
     }
@@ -186,7 +186,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
 
@@ -232,7 +232,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
 
@@ -318,7 +318,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
 
@@ -409,7 +409,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
 
@@ -444,7 +444,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
 
@@ -539,7 +539,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
     }
@@ -618,7 +618,7 @@ public abstract class ${manageable.controllerName}
         }
         catch (final Throwable throwable)
         {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
         }
     }
@@ -655,7 +655,7 @@ public abstract class ${manageable.controllerName}
         try {
             vos = ${manageable.manageableServiceAccessorCall}.readAll();
         } catch (final Throwable throwable) {
-            logger.error(throwable);
+            logger.error(throwable.getMessage(),throwable);
             this.addExceptionMessage(throwable);
             return null;
         }
