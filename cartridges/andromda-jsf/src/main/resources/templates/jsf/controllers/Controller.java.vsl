@@ -68,7 +68,7 @@ public abstract class $controller.name
     @Override
     public void renderingException(com.icesoft.faces.webapp.xmlhttp.RenderingException exception)
     {
-        logger.error(exception);
+        logger.error(exception.getMessage(),exception);
     }
 
     @Override
@@ -279,7 +279,7 @@ $action.trigger.getDocumentation("     * ")
             }
             catch (Throwable exception)
             {
-                logger.error(exception);
+                logger.error(exception.getMessage(),exception);
                 this.addExceptionMessage(exception);
             }
         }

@@ -224,7 +224,7 @@ public class FileDownloadServlet
             }
             catch (final Throwable throwable)
             {
-                logger.error(throwable);
+                logger.error(throwable.getMessage(),throwable);
             }
         }
         try
