@@ -175,21 +175,16 @@
         <to>java.lang.Float</to>
     </mapping>
     <mapping>
-        <from>decimal</from>
         <from>Java::double</from>
         <from>UML Standard Profile::double</from>
         <from>PrimitiveTypes::double</from>
         <from>datatype::double</from>
         <from>datatypes::double</from>
-        <from>XSDDatatypes::decimal</from>
         <to>double</to>
     </mapping>
     <mapping>
         <from>Double</from>
-        <from>Decimal</from>
         <from>PrimitiveTypes::Double</from>
-        <from>PrimitiveTypes::Decimal</from>
-        <from>datatype::Decimal</from>
         <from>datatype::Double</from>
         <to>java.lang.Double</to>
     </mapping>
@@ -202,15 +197,21 @@
     </mapping>
     <mapping>
         <from>BigDecimal</from>
+        <from>decimal</from>
+        <from>Decimal</from>
         <from>money</from>
         <from>Money</from>
+        <from>datatype::BigDecimal</from>
+        <from>datatype::Decimal</from>
         <from>datatype::money</from>
         <from>datatype::Money</from>
         <from>PrimitiveTypes::BigDecimal</from>
+        <from>PrimitiveTypes::decimal</from>
+        <from>PrimitiveTypes::Decimal</from>
         <from>PrimitiveTypes::money</from>
         <from>PrimitiveTypes::Money</from>
-        <from>datatype::BigDecimal</from>
         <from>RoseJavaDatatypes::java::math::BigDecimal</from>
+        <from>XSDDatatypes::decimal</from>
         <to>java.math.BigDecimal</to>
     </mapping>
     <mapping>
