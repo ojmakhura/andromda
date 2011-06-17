@@ -34,7 +34,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * <p>Java class for web service ${operation.operationName}Response element declaration.
+ * Method Response wrapper for webservice response element for
+ * ${operation.owner.fullyQualifiedName}.${operation.name}()
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)

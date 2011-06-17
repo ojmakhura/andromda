@@ -28,7 +28,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * <p>Java class for ${operation.owner.fullyQualifiedName}.${operation.name}() web service request element declaration.
+ * Method Request wrapper for webservice request element
+ * ${operation.owner.fullyQualifiedName}.${operation.name}()
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 #set ($comma="")
