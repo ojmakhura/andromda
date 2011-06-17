@@ -50,6 +50,12 @@ public class EnglishInflector
         rules.put("(\\w*)feet$", "$1feet");
         rules.put("(\\w*)teeth$", "$1teeth");
         rules.put("(\\w*)men$", "$1men");
+        rules.put("(\\w*)equipment$", "$1equipment");
+        rules.put("(\\w*)information$", "$1information");
+        rules.put("(\\w*)rice$", "$1rice");
+        rules.put("(\\w*)money$", "$1money");
+        rules.put("(\\w*)fish$", "$fish");
+        rules.put("(\\w*)sheep$", "$1sheep");
         rules.put("(\\w+)(es)$", "$1es");
         // Check exception special case words
         rules.put("(\\w*)person$", "$1people");
@@ -58,15 +64,27 @@ public class EnglishInflector
         rules.put("(\\w*)tooth$", "$1teeth");
         rules.put("(\\w*)bus$", "$1buses");
         rules.put("(\\w*)man$", "$1men");
+        rules.put("(\\w*)(ox|oxen)$", "$1$2");
+        rules.put("(\\w*)(buffal|tomat)o$", "$1$2oes");
+        rules.put("(\\w*)quiz$", "$1$2zes");
         // Greek endings
+        rules.put("(\\w+)(matr|vert|ind)ix|ex$", "$1$2ices");
         rules.put("(\\w+)(sis)$", "$1ses");
+        rules.put("(\\w+)(um)$", "$1a");
         // Old English. hoof -> hooves, leaf -> leaves
         rules.put("(\\w*)(fe)$", "$1ves");
         rules.put("(\\w*)(f)$", "$1ves");
-        // Y preceeded by a consonant changes to ies
-        rules.put("(\\w+)([^aeiou])y$", "$1$2ies");
+        rules.put("(\\w*)([m|l])ouse$", "$1$2ice");
+        // Y preceded by a consonant changes to ies
+        rules.put("(\\w+)([^aeiou]|qu)y$", "$1$2ies");
         // Voiced consonants add es instead of s
-        rules.put("(\\w+)(z|ch|ss|sh|x)$", "$1$2es");
+        rules.put("(\\w+)(z|ch|sh|as|ss|us|x)$", "$1$2es");
+        // Check exception special case words
+        rules.put("(\\w*)cactus$", "$1cacti");
+        rules.put("(\\w*)focus$", "$1foci");
+        rules.put("(\\w*)fungus$", "$1fungi");
+        rules.put("(\\w*)octopus$", "$1octopi");
+        rules.put("(\\w*)radius$", "$1radii");
         // If nothing else matches, and word ends in s, assume plural already
         rules.put("(\\w+)(s)$", "$1s");
         // Otherwise, just add s at the end in pluralize()
