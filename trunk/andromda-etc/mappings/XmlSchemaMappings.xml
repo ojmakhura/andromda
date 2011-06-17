@@ -159,35 +159,35 @@
     <mapping>
         <from>Decimal</from>
         <from>BigDecimal</from>
+        <from>money</from>
+        <from>Money</from>
         <from>PrimitiveTypes::decimal</from>
         <from>PrimitiveTypes::Decimal</from>
         <from>PrimitiveTypes::BigDecimal</from>
+        <from>PrimitiveTypes::Money</from>
         <from>datatype::Decimal</from>
         <from>datatype::decimal</from>
         <from>datatype::BigDecimal</from>
+        <from>datatype::money</from>
+        <from>datatype::Money</from>
         <from>datatypes::Decimal</from>
         <from>datatypes::decimal</from>
         <from>datatypes::BigDecimal</from>
+        <from>datatypes::money</from>
+        <from>datatypes::Money</from>
         <to>decimal</to>
     </mapping>
     <mapping>
         <from>double</from>
         <from>Double</from>
-        <from>money</from>
-        <from>Money</from>
         <from>Java::double</from>
         <from>PrimitiveTypes::double</from>
         <from>PrimitiveTypes::Double</from>
         <from>PrimitiveTypes::money</from>
-        <from>PrimitiveTypes::Money</from>
         <from>datatype::double</from>
         <from>datatype::Double</from>
-        <from>datatype::money</from>
-        <from>datatype::Money</from>
         <from>datatypes::double</from>
         <from>datatypes::Double</from>
-        <from>datatypes::money</from>
-        <from>datatypes::Money</from>
         <to>double</to>
     </mapping>
     <mapping>
