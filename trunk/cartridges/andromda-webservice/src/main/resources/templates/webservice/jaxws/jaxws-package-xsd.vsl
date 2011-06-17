@@ -150,7 +150,7 @@ $stringUtils.replaceChars($parameter.getDocumentation("                        "
             <xs:complexType>
                 <xs:sequence>
 ##                    <!-- $type $operation.returnType.name $operation.returnType $operation.returnType.schemaType -->
-                    <xs:element name="$returnName" type="$type"${maxOccurs}>
+                    <xs:element name="$returnName" type="$type"${minOccurs}${maxOccurs}>
 ## JAXB does not bind wrapped types properly - always primitive if no custimization, always wrapped if customization
 #if ($operation.returnType.booleanType && $operation.returnType.wrappedPrimitive && $stringUtils.isNotBlank($XMLBooleanAdapter))
                       <xs:annotation><xs:appinfo><jxb:property><jxb:baseType>
@@ -265,9 +265,11 @@ $stringUtils.replaceChars($literal.getDocumentation("                        ", 
         <!-- ValueObject $type.fullyQualifiedName -->
 #end
 #if ($type.hasStereotype("ValueObject") || $webFault)
+#if ($type.abstract)#set ($abstract=' abstract="true"')#else#set ($abstract='')#end
+#if ($type.leaf)#set ($final=' final="true"')#else#set ($final='')#end
 ##        <!-- WebFault=$type.hasStereotype("WebFault") Exception=$type.hasStereotype("Exception") ApplicationException=$type.hasStereotype("ApplicationException") UnexpectedException=$type.hasStereotype("UnexpectedException") -->
-        <xs:element name="$typeName" type="impl:$typeName" />
-        <xs:complexType name="$typeName">
+        <xs:element name="$typeName" type="impl:$typeName"$abstract$final/>
+        <xs:complexType name="$typeName"$abstract$final>
 #if ($stringUtils.isNotBlank($type.getDocumentation("", 9999, false)))
             <xs:annotation><xs:documentation>
 $stringUtils.replaceChars($type.getDocumentation("                ", 100, false), "\"'&<>", "")
