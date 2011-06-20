@@ -160,7 +160,6 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>2.1.13</version>
             <scope>runtime</scope>
         </dependency>
         <!-- Need to reference the classpath for ant in wsdl2java java2ws -->
