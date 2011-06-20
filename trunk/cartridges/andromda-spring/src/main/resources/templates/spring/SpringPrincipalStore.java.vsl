@@ -18,6 +18,11 @@ import java.security.Principal;
  */
 public final class PrincipalStore
 {
+    /**
+     * The security realm of this application.
+     */
+    public static String SECURITY_REALM = "$securityRealm";
+
 #if ($enableTemplating)
     private static final ThreadLocal<Principal> store = new ThreadLocal<Principal>();
 #else
