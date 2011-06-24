@@ -21,7 +21,7 @@
             </div>
             <p>
                 Notice that we have added a <i>page variable</i> called <tt>timecardSummaries</tt>,
-                which is an array of <tt>TimecardSummaryVO</tt> objects. This page variable
+                which is a collection of <tt>TimecardSummaryVO</tt> objects. This page variable
                 will be tagged to tell AndroMDA to render it as a table. Follow one of the links
                 below to add the page variable to your model.
             </p>
@@ -82,51 +82,36 @@
             <source>
                 // license-header java merge-point
                 package org.andromda.timetracker.web.timecardsearch;
-
-                ...
-                import javax.servlet.http.HttpServletResponse;
-                &lt;b&gt;import org.andromda.timetracker.domain.TimecardStatus;&lt;/b&gt;
-                &lt;b&gt;import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;&lt;/b&gt;
-                &lt;b&gt;import org.andromda.timetracker.vo.TimecardSummaryVO;&lt;/b&gt;
-                import org.andromda.timetracker.vo.UserVO;
-                ...
+                ...<b>
+import org.andromda.timetracker.vo.TimecardSearchCriteriaVO;
+import org.andromda.timetracker.vo.TimecardSummaryVO;</b>
+import org.andromda.timetracker.vo.UserVO;
 
                 public class SearchControllerImpl extends SearchController
                 {
-                ...
-                public final void populateSearchScreen(...)
-                throws Exception
-                {
-                ...
+                    ...
+                    public final void populateSearchScreen(...)
+                    throws Exception
+                    {
+                    ...
+    
+                        // Populate submitter and approver dropdowns
+                        form.setSubmitterBackingList(userList, &quot;id&quot;, &quot;username&quot;);
+                        form.setApproverBackingList(userList, &quot;id&quot;, &quot;username&quot;);
+<b>        
+                        // Populate timecard summaries
+                        TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(
+                            form.getSubmitter(),
+                            form.getApprover(),
+                            form.getStatus(),
+                            form.getStartDateMinimum(),
+                            form.getStartDateMaximum());
+                
+                        Collection&lt;TimecardSummaryVO&gt; timecards = 
+                            getTimeTrackingService().findTimecards(criteria);
+                        form.setTimecardSummaries(timecards);</b>
+                    }
 
-                // Populate submitter and approver dropdowns
-                form.setSubmitterBackingList(userList, &quot;id&quot;, &quot;username&quot;);
-                form.setApproverBackingList(userList, &quot;id&quot;, &quot;username&quot;);
-
-                &lt;b&gt;// Populate status dropdown&lt;/b&gt;
-                &lt;b&gt;List statusLabels = new ArrayList(TimecardStatus.literals());&lt;/b&gt;
-                &lt;b&gt;List statusValues = new ArrayList(TimecardStatus.literals());&lt;/b&gt;
-                &lt;b&gt;statusLabels.add(0, ALL_STRING);&lt;/b&gt;
-                &lt;b&gt;statusValues.add(0, &quot;&quot;);&lt;/b&gt;
-                &lt;b&gt;form.setStatusLabelList(statusLabels.toArray());&lt;/b&gt;
-                &lt;b&gt;form.setStatusValueList(statusValues.toArray());&lt;/b&gt;
-
-                &lt;b&gt;// Populate timecard summaries&lt;/b&gt;
-                &lt;b&gt;TimecardStatus status = null;&lt;/b&gt;
-                &lt;b&gt;if (form.getStatus() != null &amp;&amp; form.getStatus().length() $gt; 0) {&lt;/b&gt;
-                &lt;b&gt;status = TimecardStatus.fromString(form.getStatus());&lt;/b&gt;
-                &lt;b&gt;}&lt;/b&gt;
-                &lt;b&gt;TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(&lt;/b&gt;
-                &lt;b&gt;form.getSubmitter(),&lt;/b&gt;
-                &lt;b&gt;form.getApprover(),&lt;/b&gt;
-                &lt;b&gt;status,&lt;/b&gt;
-                &lt;b&gt;form.getStartDateMinimumAsDate(),&lt;/b&gt;
-                &lt;b&gt;form.getStartDateMaximumAsDate());&lt;/b&gt;
-
-                &lt;b&gt;TimecardSummaryVO[] timecards =&lt;/b&gt;
-                &lt;b&gt;getTimeTrackingService().findTimecards(criteria);&lt;/b&gt;
-                &lt;b&gt;form.setTimecardSummaries(timecards);&lt;/b&gt;
-                }
                 }
             </source>
             <p>
