@@ -9,7 +9,7 @@
     </parent>
     <artifactId>${applicationId}-core</artifactId>
 ## Spring assumes EJB implementation
-#if ($ejb || $ejb3)
+#if ($ejb || $ejb3 || $ear)
     <packaging>ejb</packaging>
 #else
     <packaging>jar</packaging>
@@ -101,14 +101,17 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+#if ($ear)
+            <scope>provided</scope>
+#end            
         </dependency>
 #end
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>3.6.4.Final</version>
-            <scope>runtime</scope>
 #if ($ear)
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
@@ -119,6 +122,8 @@
                     <artifactId>javassist</artifactId>
                 </exclusion>
             </exclusions>
+#else
+            <scope>runtime</scope>
 #end
         </dependency>
         <dependency>
@@ -495,12 +500,10 @@
         </dependency>
 #end
 #end
-#if ($ejb3)
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
-#end
 #if ($mysql)
         <dependency>
             <groupId>mysql</groupId>
