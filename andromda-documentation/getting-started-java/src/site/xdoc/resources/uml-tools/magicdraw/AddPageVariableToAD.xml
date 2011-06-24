@@ -44,8 +44,8 @@
                     The Parameter Specification dialog comes up. Enter
                     <tt>timecardSummaries</tt>
                     as the name of the parameter and
-                    <tt>TimecardSummaryVO[]</tt>
-                    as its type.
+                    <tt>TimecardSummaryVO</tt>
+                    as its type. Set its <tt>Multiplicity</tt> to <tt>0..*</tt> and <tt>Is Unique</tt> to <tt>false</tt>.
                 </li>
                 <li>Click on the Tagged Values tab and click on the tagged value named
                     <tt>andromda_presentation_view_table_columns</tt>.
