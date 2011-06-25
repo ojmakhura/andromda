@@ -38,12 +38,16 @@ public class $className
 
     public void init() throws UnavailableException, PortletException
     {
-        _editPage = this.getInitParameter("EditPage");
-        _helpPage = this.getInitParameter("HelpPage");
-        _viewPage = this.getInitParameter("ViewPage");
+        this._editPage = this.getInitParameter("EditPage");
+        this._helpPage = this.getInitParameter("HelpPage");
+        this._viewPage = this.getInitParameter("ViewPage");
         super.init();
     }
 
+    /**
+     * @see javax.portlet.GenericPortlet{esc.hash}render(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
+     */
+    @Override
     public void render(RenderRequest req, RenderResponse res)
         throws IOException, PortletException
     {

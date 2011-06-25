@@ -36,11 +36,11 @@ public class JsfVariableResolver extends VariableResolver
         if(result == null)
         {
 #if($standalone)
-            final Map<String, Object> pageFlowScope=org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance().getPageFlowScope();
-            final Map<String, Object> controllerForms=(Map<String, Object>)pageFlowScope.get(ControllerBase.USE_CASE_FORMS_KEY);
+            final Map<String, Object> pageFlowScope = org.apache.myfaces.trinidad.context.RequestContext.getCurrentInstance().getPageFlowScope();
+            final Map<String, Object> controllerForms = (Map<String, Object>)pageFlowScope.get(ControllerBase.USE_CASE_FORMS_KEY);
 #else
-            final $jsfUtils.sessionClassName session=context.getExternalContext().getSession(true);
-            final Map<String, Object> controllerForms=(Map<String, Object>)session.getAttribute(ControllerBase.USE_CASE_FORMS_KEY);
+            final $jsfUtils.sessionClassName session = ($jsfUtils.sessionClassName)context.getExternalContext().getSession(true);
+            final Map<String, Object> controllerForms = (Map<String, Object>)session.getAttribute(ControllerBase.USE_CASE_FORMS_KEY);
 #end
 
             if(controllerForms != null)
@@ -51,9 +51,9 @@ public class JsfVariableResolver extends VariableResolver
             if(result == null)
             {
 #if($standalone)
-                final Map<String, Object> controllerVariables=(Map<String, Object>)pageFlowScope.get(ControllerBase.USE_CASE_PAGE_VARIABLES_KEY);
+                final Map<String, Object> controllerVariables = (Map<String, Object>)pageFlowScope.get(ControllerBase.USE_CASE_PAGE_VARIABLES_KEY);
 #else
-                final Map<String, Object> controllerVariables=(Map<String, Object>)session.getAttribute(ControllerBase.USE_CASE_PAGE_VARIABLES_KEY);
+                final Map<String, Object> controllerVariables = (Map<String, Object>)session.getAttribute(ControllerBase.USE_CASE_PAGE_VARIABLES_KEY);
 #end
                 if(controllerVariables != null)
                 {

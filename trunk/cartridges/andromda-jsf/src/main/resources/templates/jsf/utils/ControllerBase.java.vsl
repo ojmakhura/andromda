@@ -10,6 +10,10 @@ package $managedBeansPackage;
  */
 public abstract class ControllerBase
 {
+#if ($portlet)
+    private static final org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(ControllerBase.class);
+
+#end
     /** org.andromda.cartridges.jsf.USE_CASE_FORMS */
     public static final String USE_CASE_FORMS_KEY="org.andromda.cartridges.jsf.USE_CASE_FORMS";
     /** org.andromda.cartridges.jsf.PAGE_VARIABLES */
@@ -21,16 +25,17 @@ public abstract class ControllerBase
 
     /**
      * Returns the forms associated with this controller in the pageFlowScope.
-     * @param pageFlowScope
+     * @param#if($portlet) session#else pageFlowScope#end
+
      * @return Forms Map<String,Object>
      */
     @SuppressWarnings("unchecked")
-    public static java.util.Map<String,Object> getForms(#if($portlet) $jsfUtils.sessionClassName session#else java.util.Map<String,Object> pageFlowScope#end)
+    public static java.util.Map<String,Object> getForms(#if($portlet)$jsfUtils.sessionClassName session#else java.util.Map<String,Object> pageFlowScope#end)
     {
 #if($standalone)
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_FORMS_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_FORMS_KEY);
 #else
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)session.getAttribute(USE_CASE_FORMS_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)session.getAttribute(USE_CASE_FORMS_KEY);
 #end
         if(result == null){
             result=new java.util.HashMap<String, Object>();
@@ -73,19 +78,20 @@ public abstract class ControllerBase
 
     /**
      * Returns the page variables associated with this controller, in the pageFlowScope.
-     * @param pageFlowScope
+     * @param#if($portlet) session#else pageFlowScope#end
+
      * @return PageVariables
      */
-    @SuppressWarnings("unchecked")
     public static java.util.Map<String,Object> getPageVariables(#if($portlet) $jsfUtils.sessionClassName session#else java.util.Map<String,Object> pageFlowScope#end)
     {
+        @SuppressWarnings("unchecked")
 #if($standalone)
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PAGE_VARIABLES_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PAGE_VARIABLES_KEY);
 #else
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)session.getAttribute(USE_CASE_PAGE_VARIABLES_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)session.getAttribute(USE_CASE_PAGE_VARIABLES_KEY);
 #end
         if(result == null){
-            result=new java.util.HashMap<String, Object>();
+            result = new java.util.HashMap<String, Object>();
 #if($standalone)
             pageFlowScope.put(USE_CASE_PAGE_VARIABLES_KEY, result);
 #else
@@ -117,9 +123,9 @@ public abstract class ControllerBase
     {
 #if($standalone)
         final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
-        java.util.Map<String,Object> parameters=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
+        java.util.Map<String,Object> parameters = (java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
 #else
-        java.util.Map<String,Object> parameters=(java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
+        java.util.Map<String,Object> parameters = (java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
 #end
         return parameters != null && !parameters.isEmpty();
     }
@@ -133,9 +139,9 @@ public abstract class ControllerBase
     {
 #if($standalone)
         final java.util.Map<String, Object> pageFlowScope=this.getPageFlowScope();
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)pageFlowScope.get(USE_CASE_PARAMETERS_KEY);
 #else
-        java.util.Map<String,Object> result=(java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
+        java.util.Map<String,Object> result = (java.util.Map<String,Object>)getSession(false).getAttribute(USE_CASE_PARAMETERS_KEY);
 #end
         if(result == null){
             result=new java.util.HashMap<String, Object>();
@@ -563,7 +569,8 @@ public abstract class ControllerBase
     }
 
     /**
-     * @param mode.
+     * @param mode
+     * @throws PortletModeException 
      */
     protected void setPortletMode(final javax.portlet.PortletMode mode)
         throws javax.portlet.PortletModeException
@@ -616,7 +623,7 @@ public abstract class ControllerBase
         String transactionTokenName = null;
         try
         {
-            final Class transactionTokenClass = Thread.currentThread().getContextClassLoader().loadClass(
+            final Class<?> transactionTokenClass = Thread.currentThread().getContextClassLoader().loadClass(
                 "org.andromda.cartridges.jsf.component.TransactionToken");
             transactionTokenName = (String)transactionTokenClass.getField("TRANSACTION_TOKEN").get(null);
         }
