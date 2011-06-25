@@ -4,6 +4,7 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.uml.EnumerationLiteral;
+import org.eclipse.uml2.uml.OpaqueExpression;
 
 /**
  * MetafacadeLogic implementation for
@@ -66,7 +67,20 @@ public class EnumerationLiteralFacadeLogicImpl
     @Override
     protected String handleGetValue(boolean modelValue)
     {
-        return StringUtils.trimToEmpty(this.getName(modelValue));
+        String value = null;
+        if (this.metaObject.getSpecification() != null && this.metaObject.getSpecification() instanceof OpaqueExpression)
+        {
+            OpaqueExpression expression = (OpaqueExpression)this.metaObject.getSpecification();
+            if (expression.getBodies() != null && !expression.getBodies().isEmpty())
+            {
+                value = expression.getBodies().get(0);
+            }
+        }
+        if (value == null)
+        {
+            value = this.getName(modelValue);
+        }
+        return StringUtils.trimToEmpty(value);
     }
 
     /**
