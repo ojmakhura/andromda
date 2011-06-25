@@ -212,6 +212,10 @@
         </dependency>
 #if ($ejb3)
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
@@ -222,10 +226,6 @@
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
         </dependency>
         <!--dependency>
             <groupId>hibernate-entitymanager</groupId>
@@ -238,19 +238,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.6.4.Final</version>
-            <scope>test</scope>
-        </dependency-->
-        <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-annotations-ejb3</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-remoting</artifactId>
@@ -526,7 +520,7 @@
             </dependency>
 #elseif ($hypersonic)
         <dependency>
-            <groupId>hsqldb</groupId>
+            <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
 #else
@@ -596,10 +590,27 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate</artifactId>
-                        <version>3.2.6.ga</version>
+                        <artifactId>hibernate-core</artifactId>
+                        <version>3.6.4.Final</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+#end
+#if ($ejb3)
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
+                    <systemProperties>
+                        <property>
+                            <name>java.class.path</name>
+                            <value>target/classes</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
             </plugin>
 #end
 #if ($ejb || $ejb3)

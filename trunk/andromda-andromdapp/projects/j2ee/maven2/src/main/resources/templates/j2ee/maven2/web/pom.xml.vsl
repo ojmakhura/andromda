@@ -102,25 +102,25 @@
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/jboss-seam-ui.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces</groupId>
+            <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
-            <!--version>unknown</version>
+            <version>1.1.10</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath-->
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-api</artifactId>
-            <!--version>unknown</version>
+            <version>1.2.9</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-api-1.0.1-incubating-SNAPSHOT.jar</systemPath-->
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-api-1.2.9.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-impl</artifactId>
-            <!--version>unknown</version>
+            <version>1.2.9</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.0.1-incubating-SNAPSHOT.jar</systemPath-->
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.2.9.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.cyberneko</groupId>
@@ -265,16 +265,12 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
         </dependency>
-        <dependency>
-            <groupId>hibernate-entitymanager</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency>
-#if($hibernate)
+##if($hibernate)
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
-#end
+##end
 #end
 #if ($spring)
         <dependency>
@@ -308,7 +304,7 @@
         </dependency>
 #elseif ($hypersonic)
         <dependency>
-            <groupId>hsqldb</groupId>
+            <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
 #else

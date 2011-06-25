@@ -373,6 +373,11 @@
 #end
             </dependency>
 #if ($ejb3)
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>3.6.4.Final</version>
+            </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
                 <groupId>jboss</groupId>
@@ -392,7 +397,7 @@
                 <version>4.2.3.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>hibernate-entitymanager</groupId>
                 <artifactId>ejb3-persistence</artifactId>
                 <version>3.3.2.GA</version>
@@ -403,7 +408,7 @@
                 <artifactId>jboss-annotations-ejb3</artifactId>
                 <version>4.2.3.GA</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency-->
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-serialization</artifactId>
@@ -1080,7 +1085,7 @@
             <dependency>
                 <groupId>postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>8.4-702.jdbc4</version>
+                <version>9.0-801.jdbc4</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1089,16 +1094,16 @@
             <dependency>
                 <groupId>org.apache.derby</groupId>
                 <artifactId>derby</artifactId>
-                <version>10.6.2.1</version>
+                <version>10.8.1.2</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
             </dependency>
 #elseif ($hypersonic)
             <dependency>
-                <groupId>hsqldb</groupId>
+                <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>1.8.0.7</version>
+                <version>2.2.4</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1177,20 +1182,6 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.8.1</version>
-#if ($ejb3)
-                    <configuration>
-                        <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                        </suiteXmlFiles>
-                        <!-- This trick allows the JBoss EJB3StandaloneBootstrap to find and deploy our compiled EJBs!! -->
-                        <systemProperties>
-                            <property>
-                                <name>java.class.path</name>
-                                <value>target/classes</value>
-                            </property>
-                        </systemProperties>
-                    </configuration>
-#end
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
