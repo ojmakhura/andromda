@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
  * @author Chris Shaw
  * @author Chad Brandon
  * @author Wouter Zoons
+ * @author Bob Fields
  */
 public class StringUtilsHelper
     extends StringUtils
@@ -28,7 +29,7 @@ public class StringUtilsHelper
     private static final Logger logger = Logger.getLogger(StringUtilsHelper.class);
 
     /**
-     * <p/> Replaces a given suffix of the source string with a new one. If the
+     * <p> Replaces a given suffix of the source string with a new one. If the
      * suffix isn't present, the string is returned unmodified.
      * </p>
      *
@@ -53,10 +54,10 @@ public class StringUtilsHelper
     }
 
     /**
-     * <p/> Returns the argument string as a camel cased name beginning with an
+     * <p> Returns the argument string as a camel cased name beginning with an
      * uppercased letter.
      * </p>
-     * <p/> Non word characters be removed and the letter following such a
+     * <p> Non word characters be removed and the letter following such a
      * character will be uppercased.
      * </p>
      *
@@ -116,10 +117,10 @@ public class StringUtilsHelper
     }
 
     /**
-     * <p/> Returns the argument string as a camel cased name beginning with a
+     * <p> Returns the argument string as a camel cased name beginning with a
      * lowercased letter.
      * </p>
-     * <p/> Non word characters be removed and the letter following such a
+     * <p> Non word characters be removed and the letter following such a
      * character will be uppercased.
      * </p>
      *
@@ -130,6 +131,40 @@ public class StringUtilsHelper
     public static String lowerCamelCaseName(final String string)
     {
         return uncapitalize(upperCamelCaseName(string));
+    }
+
+    /**
+     * Returns true if the input string starts with a lowercase letter.
+     * Used for validations of property/operation names against naming conventions.
+     *
+     * @param string any string
+     * @return true/false, null if null input
+     */
+    public static Boolean startsWithLowercaseLetter(final String string)
+    {
+        if (string==null)
+        {
+            return null;
+        }
+        final String start = string.substring(0, 1);
+        return isAllLowerCase(start) && isAlpha(start);
+    }
+
+    /**
+     * Returns true if the input string starts with an uppercase letter.
+     * Used for validations of Class names against naming conventions.
+     *
+     * @param string any string
+     * @return true/false, null if null input
+     */
+    public static Boolean startsWithUppercaseLetter(final String string)
+    {
+        if (string==null)
+        {
+            return null;
+        }
+        final String start = string.substring(0, 1);
+        return isAllUpperCase(start) && isAlpha(start);
     }
 
     /**
@@ -189,7 +224,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Splits at each sequence of non-word characters. <p/>Sequences of capitals
+     * Splits at each sequence of non-word characters. Sequences of capitals
      * will be left untouched.
      */
     private static String[] splitAtNonWordCharacters(final String string)
@@ -258,7 +293,7 @@ public class StringUtilsHelper
 
     /**
      * Takes an English word as input and prefixes it with 'a ' or 'an '
-     * depending on the first character of the argument String. <p/> The
+     * depending on the first character of the argument String. <p> The
      * characters 'a', 'e', 'i' and 'o' will yield the 'an' predicate while all
      * the others will yield the 'a' predicate.
      * </p>
@@ -293,9 +328,8 @@ public class StringUtilsHelper
     /**
      * Converts multi-line text into a single line, normalizing whitespace in the
      * process. This means whitespace characters will not follow each other
-     * directly. <p/> The resulting String will be trimmed. <p/> <p/> If the
+     * directly. The resulting String will be trimmed. If the
      * input String is null the return value will be an empty string.
-     * </p>
      *
      * @param string A String, may be null
      * @return The argument in a single line
@@ -307,7 +341,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Linguistically pluralizes a singular noun. <p/>
+     * Linguistically pluralizes a singular noun. 
      * <ul>
      * <li><code>noun</code> becomes <code>nouns</code></li>
      * <li><code>key</code> becomes <code>keys</code></li>
@@ -316,7 +350,7 @@ public class StringUtilsHelper
      * <li><code>bus</code> becomes <code>busses</code></li>
      * <li><code>boss</code> becomes <code>bosses</code></li>
      * </ul>
-     * <p/> Whitespace as well as <code>null</code> arguments will return an
+     * <p> Whitespace as well as <code>null</code> arguments will return an
      * empty String.
      * </p>
      *
@@ -379,20 +413,20 @@ public class StringUtilsHelper
     }
 
     /**
-     * <p/>
+     * <p>
      * Formats the given argument with the specified indentation, wrapping the
      * text at the desired column margin.
      * </p>
-     * <p/>
+     * <p>
      * When enabling <em>htmlStyle</em> the returned text will be suitable for
      * display in HTML environments such as JavaDoc, all newlines will be
      * replaced by paragraphs.
      * </p>
-     * <p/>
+     * <p>
      * This method trims the input text: all leading and trailing whitespace
      * will be removed.
      * </p>
-     * <p/>
+     * <p>
      * If for some reason this method would fail it will return the
      * <em>plainText</em> argument.
      * </p>
