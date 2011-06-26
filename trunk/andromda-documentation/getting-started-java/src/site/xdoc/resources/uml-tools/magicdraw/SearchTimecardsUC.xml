@@ -161,7 +161,8 @@
                     <tt>submitter</tt>
                     as the name of the parameter and
                     <tt>Long</tt>
-                    as its type (note that it is <tt>Long</tt>, not <tt>long</tt>). Now click
+                    as its type (note that it is <tt>Long</tt>, not <tt>long</tt>). 
+                    Set its <tt>Multiplicity</tt> to <tt>0..1</tt> (this way it will not be required). Now click
                     on the
                     <i>Tag Values</i>
                     tab and click on the tagged value named <tt>andromda_presentation_web_view_field_type</tt>.
@@ -177,7 +178,7 @@
                 <li>
                     Add the second parameter called
                     <tt>approver</tt>
-                    with type of <tt>Long</tt>.
+                    with type of <tt>Long</tt> and <tt>Multiplicity</tt> set to <tt>0..1</tt>.
                     Again set the tagged value
                     <tt>andromda_presentation_web_view_field_type</tt>
                     to <tt>select</tt>.
@@ -186,18 +187,18 @@
                     Add the third parameter called
                     <tt>startDateMinimum</tt>
                     with type of <tt>
-                    Date</tt>.
+                    Date</tt> and <tt>Multiplicity</tt> set to <tt>0..1</tt>.
                 </li>
                 <li>
                     Add the fourth parameter called
                     <tt>startDateMaximum</tt>
                     with type of <tt>
-                    Date</tt>.
+                    Date</tt> and <tt>Multiplicity</tt> set to <tt>0..1</tt>.
                 </li>
                 <li>
                     Add the fifth parameter called
                     <tt>status</tt>
-                    with type of <tt>TimecardStatus</tt>.
+                    with type of <tt>TimecardStatus</tt> and <tt>Multiplicity</tt> set to <tt>0..1</tt>.
                     Set the tagged value
                     <tt>andromda_presentation_web_view_field_type</tt>
                     to <tt>select</tt>.
