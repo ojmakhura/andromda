@@ -142,7 +142,7 @@
         <module>uml14</module>
         <!-- Change to emf/uml2 for UML2 1.x and RSM 6.x support -->
         <module>emf/uml22</module>
-        <module>emf/uml2</module>
+        <!--module>emf/uml2</module-->
     </modules>
     <properties>
         <model.file>${project.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
