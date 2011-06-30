@@ -14,7 +14,7 @@
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
@@ -25,7 +25,7 @@
                 <property name="facades" ignore="true"/>
                 <property name="facade-logics">${maven.build.src}</property>
                 <property name="facade-logic-impls">${maven.src.dir}/java</property>
-                <property name="metamodelVersionPackage">org.andromda.metafacades.emf.uml2</property>            
+                <property name="metamodelVersionPackage">org.andromda.metafacades.emf.uml2</property>
                 <property name="enableTemplating">true</property>
                 <property name="enableAnnotations">true</property>
                 <property name="typeSafeEnumsEnabled">true</property>

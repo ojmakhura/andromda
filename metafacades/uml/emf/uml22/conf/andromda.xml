@@ -18,10 +18,10 @@
                 <model type="emf-uml22">
                   <uri>file:${project.basedir}/src/main/uml2/andromda-metafacades-emf-uml22.uml</uri>
                   <moduleSearchLocations>
-                    <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/uml2</location>
+                    <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/main/uml2</location>
                     </moduleSearchLocations-->
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
@@ -32,7 +32,7 @@
                 <property name="facades" ignore="true"/>
                 <property name="facade-logics">${maven.build.src}</property>
                 <property name="facade-logic-impls">${maven.src.dir}/java</property>
-                <property name="metamodelVersionPackage">org.andromda.metafacades.emf.uml22</property>            
+                <property name="metamodelVersionPackage">org.andromda.metafacades.emf.uml22</property>
                 <property name="enableTemplating">true</property>
                 <property name="enableAnnotations">true</property>
                 <property name="typeSafeEnumsEnabled">true</property>
