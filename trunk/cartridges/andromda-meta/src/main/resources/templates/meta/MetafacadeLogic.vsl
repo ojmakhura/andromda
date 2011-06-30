@@ -506,9 +506,10 @@ $method.documentation
 
 #end
     /**
-#foreach ($constraint in $modelElement.getConstraints("inv"))
-     * Constraint: $constraint.getDocumentation("")
-     * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
+#foreach ($constraint in $metafacade.getConstraints("inv"))
+     * Constraint: $metaUtils.getFullyQualifiedConstraintName($constraint)
+     *   $constraint.getDocumentation("",-1,false)
+     *   #if($constraint.precondition)precondition #end#if($constraint.postcondition)postcondition #end$constraint.body
 #end
      * @param validationMessages Collection<ModelValidationMessage>
 #if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)

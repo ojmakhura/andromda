@@ -963,7 +963,7 @@ public class WebServiceUtils
                             {
                                 // TODO Why does MEF.getPackage return a ModelElementFacade instead of Package?
                                 pkg = (PackageFacade) arg.getPackage();
-                                if (!pkg.getFullyQualifiedName().equals(classifier.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
+                                if (pkg != null && !pkg.getFullyQualifiedName().equals(classifier.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
                                 {
                                     pkgRef.add(pkg);
                                     if (logger.isDebugEnabled())
@@ -1087,7 +1087,7 @@ public class WebServiceUtils
                             {
                                 // TODO Why does MEF.getPackage return a ModelElementFacade instead of Package?
                                 pkg = (PackageFacade) arg.getPackage();
-                                if (!pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
+                                if (pkg != null && !pkg.getFullyQualifiedName().equals(facade.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
                                 {
                                     pkgRef.add(pkg);
                                     if (logger.isDebugEnabled())
