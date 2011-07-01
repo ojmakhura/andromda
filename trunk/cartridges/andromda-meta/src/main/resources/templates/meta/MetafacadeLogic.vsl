@@ -507,9 +507,9 @@ $method.documentation
 #end
     /**
 #foreach ($constraint in $metafacade.getConstraints("inv"))
-     * Constraint: $metaUtils.getFullyQualifiedConstraintName($constraint)
-     *   $constraint.getDocumentation("",-1,false)
-     *   #if($constraint.precondition)precondition #end#if($constraint.postcondition)postcondition #end$constraint.body
+     * <p><b>Constraint:</b> $metaUtils.getFullyQualifiedConstraintName($constraint)</p>
+     * <p><b>Error:</b> $constraint.getDocumentation("",-1,false)</p>
+     * <p><b>OCL:</b> #if($constraint.precondition)precondition #end#if($constraint.postcondition)postcondition #end${constraint.body}</p>
 #end
      * @param validationMessages Collection<ModelValidationMessage>
 #if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
