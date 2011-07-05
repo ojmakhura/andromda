@@ -50,11 +50,9 @@ public class $className
         return ${remoteWebApplicationContextName}.class;
     }
 
-#if ($enableAnnotations)
-    @Override
-#end
     /**
-     * Not required for Spring 2.5.x
+     * Not required for Spring 2.5.x.  Do not add @Override
+     * since its not required for later Spring versions.
      */
     public boolean isPublishEvents()
     {
