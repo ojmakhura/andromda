@@ -94,7 +94,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     @Override
-    protected Collection<EntityQueryOperation> handleGetQueryOperations()
+    protected Collection<OperationFacade> handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -103,10 +103,10 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
     @Override
-    protected Collection<EntityQueryOperation> handleGetQueryOperations(final boolean follow)
+    protected Collection<OperationFacade> handleGetQueryOperations(final boolean follow)
     {
         final Collection<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
-        final Collection<EntityQueryOperation> queryOperations = new ArrayList<EntityQueryOperation>();
+        final Collection<OperationFacade> queryOperations = new ArrayList<OperationFacade>();
 
         MetafacadeUtils.filterByType(
                 operations,

@@ -168,18 +168,18 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
     @Override
-    protected List<? extends ModelElementFacadeLogic> handleGetProperties()
+    protected List<ModelElementFacade> handleGetProperties()
     {
-        return this.handleGetProperties(false);
+        return (List<ModelElementFacade>) this.handleGetProperties(false);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAllProperties()
      */
     @Override
-    public Collection<? extends ModelElementFacade> handleGetAllProperties()
+    public Collection<ModelElementFacade> handleGetAllProperties()
     {
-        return this.handleGetProperties(true);
+        return (Collection<ModelElementFacade>) this.handleGetProperties(true);
     }
 
     /**
@@ -211,7 +211,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getRequiredConstructorParameters()
      */
     @Override
-    public Collection<? extends ModelElementFacade> handleGetRequiredConstructorParameters()
+    public Collection<ModelElementFacade> handleGetRequiredConstructorParameters()
     {
         final Collection<ModelElementFacade> requiredConstructorParameters = new ArrayList<ModelElementFacade>();
 
@@ -770,7 +770,7 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
      */
     @Override
-    protected List<? extends ModelElementFacadeLogic> handleGetProperties(final boolean follow)
+    protected List<ModelElementFacade> handleGetProperties(final boolean follow)
     {
         final List properties = new ArrayList();
         if (follow && !this.getGeneralizations().isEmpty())
@@ -1044,7 +1044,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<AssociationEndFacade> handleGetNavigableConnectingEnds()
     {
-        final Collection<AssociationEndFacade> connectingEnds = 
+        final Collection<AssociationEndFacade> connectingEnds =
             new ArrayList<AssociationEndFacade>(this.getAssociationEnds());
         CollectionUtils.transform(
             connectingEnds,

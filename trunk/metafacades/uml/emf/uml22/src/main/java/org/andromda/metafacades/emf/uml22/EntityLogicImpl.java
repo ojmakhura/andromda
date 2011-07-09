@@ -64,7 +64,7 @@ public class EntityLogicImpl
      * A collection of MOF ids for entities that have dynamic identifiers
      * present.
      */
-    private static final Collection<String> DYNAMIC_IDENTIFIERS_PRESENT 
+    private static final Collection<String> DYNAMIC_IDENTIFIERS_PRESENT
         = Collections.synchronizedList(new ArrayList<String>());
 
     /**
@@ -102,7 +102,7 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations()
      */
     @Override
-    protected Collection<EntityQueryOperation> handleGetQueryOperations()
+    protected Collection<OperationFacade> handleGetQueryOperations()
     {
         return this.getQueryOperations(false);
     }
@@ -111,10 +111,10 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
     @Override
-    protected Collection<EntityQueryOperation> handleGetQueryOperations(final boolean follow)
+    protected Collection<OperationFacade> handleGetQueryOperations(final boolean follow)
     {
         final Collection<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
-        final Collection<EntityQueryOperation> queryOperations = new ArrayList<EntityQueryOperation>();
+        final Collection<OperationFacade> queryOperations = new ArrayList<OperationFacade>();
 
         MetafacadeUtils.filterByType(
             operations,
@@ -447,7 +447,7 @@ public class EntityLogicImpl
      *            the attributes and associationEnds to construct the list from.
      * @return the comma separated list of attribute types.
      */
-    private String getTypeList(final Collection<? extends ModelElementFacadeLogicImpl> properties)
+    private String getTypeList(final Collection<? extends ModelElementFacade> properties)
     {
         final StringBuilder list = new StringBuilder();
         final String comma = ", ";
@@ -688,11 +688,11 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getProperties(boolean, boolean)
      */
     @Override
-    protected Collection<? extends ModelElementFacade> handleGetProperties(
+    protected Collection<ModelElementFacade> handleGetProperties(
         final boolean follow,
         final boolean withIdentifiers)
     {
-        final Collection<? extends ModelElementFacade> properties = this.getProperties(follow);
+        final Collection<ModelElementFacade> properties = this.getProperties(follow);
         // only filter when we don't want identifiers
         if (!withIdentifiers)
         {
@@ -749,11 +749,11 @@ public class EntityLogicImpl
      *      boolean)
      */
     @Override
-    protected Collection<? extends ModelElementFacade> handleGetRequiredProperties(
+    protected Collection<ModelElementFacade> handleGetRequiredProperties(
         final boolean follow,
         final boolean withIdentifiers)
     {
-        final Set<? extends ModelElementFacade> properties = new LinkedHashSet<ModelElementFacade>(this.getProperties(
+        final Set<ModelElementFacade> properties = new LinkedHashSet<ModelElementFacade>(this.getProperties(
                     follow,
                     withIdentifiers));
         CollectionUtils.filter(
@@ -781,7 +781,7 @@ public class EntityLogicImpl
                 }
             });
 
-        final List<? extends ModelElementFacade> sortedProperties = new ArrayList<ModelElementFacade>(properties);
+        final List<ModelElementFacade> sortedProperties = new ArrayList<ModelElementFacade>(properties);
         MetafacadeUtils.sortByFullyQualifiedName(sortedProperties);
         return sortedProperties;
     }

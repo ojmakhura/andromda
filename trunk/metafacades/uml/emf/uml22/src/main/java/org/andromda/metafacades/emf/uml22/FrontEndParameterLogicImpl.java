@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -158,12 +157,12 @@ public class FrontEndParameterLogicImpl
     protected Collection<String> handleGetTableColumnNames()
     {
         final Collection<String> tableColumnNames = new LinkedHashSet<String>();
-        final Collection<String> taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+        final Collection<Object> taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
         if (!taggedValues.isEmpty())
         {
-            for (final Iterator<String> iterator = taggedValues.iterator(); iterator.hasNext();)
+            for (final Object value : taggedValues)
             {
-                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                final String taggedValue = StringUtils.trimToNull(String.valueOf(value));
                 if (taggedValue != null)
                 {
                     final String[] properties = taggedValue.split("[,\\s]+");
