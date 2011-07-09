@@ -451,41 +451,41 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions, may be different for maven v3 -->
-        <plexus.util.version>2.0.6</plexus.util.version>
-        <cobertura-maven-plugin.version>2.4</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.3.1</findbugs-maven-plugin.version>
-        <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
-        <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
+        <plexus.util.version>2.1</plexus.util.version>
         <maven-antrun-plugin.version>1.6</maven-antrun-plugin.version>
         <maven-archetype-plugin.version>2.0</maven-archetype-plugin.version>
-        <maven-assembly-plugin.version>2.2</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>2.2.1</maven-assembly-plugin.version>
         <maven-changelog-plugin.version>2.2</maven-changelog-plugin.version>
-        <maven-changes-plugin.version>2.4</maven-changes-plugin.version>
+        <maven-changes-plugin.version>2.5</maven-changes-plugin.version>
         <maven-checkstyle-plugin.version>2.6</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.1</maven-dependency-plugin.version>
-        <maven-deploy-plugin.version>2.5</maven-deploy-plugin.version>
+        <maven-dependency-plugin.version>2.2</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>2.6</maven-deploy-plugin.version>
         <maven-eclipse-plugin.version>2.8</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.0</maven-enforcer-plugin.version>
-        <maven-gpg-plugin.version>1.1</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>1.3</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.5</maven-invoker-plugin.version>
         <maven-jar-plugin.version>2.3.1</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.2</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.5</maven-pmd-plugin.version>
-        <maven-project-info-reports-plugin.version>2.3.1</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-site-plugin.version>2.2</maven-site-plugin.version>
         <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.7.2</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.7.1</maven-surefire-report-plugin.version>
+        <maven-surefire-plugin.version>2.8.1</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.8.1</maven-surefire-report-plugin.version>
+        <clirr-maven-plugin.version>2.3</clirr-maven-plugin.version>
+        <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.3.2</findbugs-maven-plugin.version>
+        <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
+        <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <versions-maven-plugin.version>1.2</versions-maven-plugin.version>
-        <xml-maven-plugin.version>1.0-beta-3</xml-maven-plugin.version>
-        <clirr-maven-plugin.version>2.3</clirr-maven-plugin.version>
+        <xml-maven-plugin.version>1.0</xml-maven-plugin.version>
     </properties>
     <profiles>
         <!--Profile configuration for local builds-->
