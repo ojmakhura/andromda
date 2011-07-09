@@ -124,7 +124,7 @@ public class $criteriaSearchBaseName
         if (this.orderList.size() > 0)
         {
             Collections.sort(this.orderList, new ParameterComparator());
-            for (final CriteriaSearchParameter parameter : this.orderList)
+            for (final CriteriaSearchParameter parameter : #if (!$enableTemplating)(Collection<CriteriaSearchParameter>)#end this.orderList)
             {
                 int direction = parameter.getOrderDirection();
                 if (direction == SearchParameter.ORDER_ASC)
