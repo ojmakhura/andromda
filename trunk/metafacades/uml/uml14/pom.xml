@@ -72,7 +72,7 @@
                             <file>${project.basedir}/../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.jar</file>
                             <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-uml14.pom</pomFile>
                             <version>${project.version}</version>
-                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                            <sources>${project.build.directory}/${project.artifactId}-${project.version}-sources.jar</sources>
                         </configuration>
                     </execution>
                 </executions>

@@ -237,7 +237,7 @@
                             <file>${project.basedir}/../../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.jar</file>
                             <pomFile>${project.basedir}/../../../../lib/org/andromda/bootstrap/metafacades/andromda-metafacades-emf-uml22.pom</pomFile>
                             <version>${project.version}</version>
-                            <sources>${build.directory}/${build.finalName}-sources.jar</sources>
+                            <sources>${project.build.directory}/${project.build.finalName}-sources.jar</sources>
                         </configuration>
                     </execution>
                 </executions>
