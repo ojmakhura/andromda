@@ -36,13 +36,13 @@
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
