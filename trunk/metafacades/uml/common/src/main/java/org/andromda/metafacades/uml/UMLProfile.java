@@ -65,6 +65,13 @@ public class UMLProfile
 
     /**
      * <p/>
+     * Represents a web service exception (fault). Stereotype a class with this stereotype when it is thrown by a CXF/JAX-WS service.</p>
+     */
+    public static final String STEREOTYPE_WEB_FAULT = profile.get(
+        "WEB_FAULT");
+
+    /**
+     * <p/>
      * Represents a web service. Stereotype a class with this stereotype when you want everything on the class to be
      * exposed as a web service. </p>
      */
@@ -77,6 +84,13 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_WEBSERVICE_OPERATION = profile.get(
         "WEBSERVICE_OPERATION");
+
+    /**
+     * <p/>
+     * Stereotype an operation on a <code>service</code> if you wish to expose the operation. </p>
+     */
+    public static final String STEREOTYPE_XMLSCHEMA = profile.get(
+        "XMLSCHEMA");
 
     /**
      * The base exception stereotype. If a model element is stereotyped with this (or one of its specializations), then

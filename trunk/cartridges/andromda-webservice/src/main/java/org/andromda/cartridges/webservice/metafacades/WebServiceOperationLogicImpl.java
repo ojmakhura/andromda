@@ -6,11 +6,18 @@ import java.util.Iterator;
 import java.util.Map;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.core.metafacade.MetafacadeBase;
+import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.translation.ocl.validation.OCLExpressions;
+import org.andromda.translation.ocl.validation.OCLIntrospector;
+import org.andromda.translation.ocl.validation.OCLResultEnsurer;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceOperation.
@@ -32,6 +39,11 @@ public class WebServiceOperationLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(WebServiceOperationLogicImpl.class);
 
     /**
      * @return getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) or hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)
@@ -567,5 +579,78 @@ public class WebServiceOperationLogicImpl
             serviceName = this.getName();
         }
         return serviceName;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleIsWebFaultOnAllExceptions()
+     */
+    @Override
+    protected boolean handleIsWebFaultOnAllExceptions()
+    {
+        boolean result = true;
+        String soapStack = String.valueOf(this.getConfiguredProperty("soapStack"));
+        if (soapStack.equals("cxf") || soapStack.equals("jaxws"))
+        {
+            Collection<ModelElementFacade> exceptions = this.getExceptions();
+            for (ModelElementFacade exception : exceptions)
+            {
+                // Log the missing exception class, since validation message only shows the service operation name
+                if (!exception.hasStereotype(UMLProfile.STEREOTYPE_WEB_FAULT))
+                {
+                    result = false;
+                    logger.warn(exception.getFullyQualifiedName() + " WebFault stereotype missing from operation exception thrown by " + this.getFullyQualifiedName());
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogic#handleGetWebServicePackage()
+     */
+    @Override
+    protected ModelElementFacade handleGetWebServicePackage()
+    {
+        return this.getOwner().getPackage();
+    }
+
+    /**
+     * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter</p>
+     * <p><b>Error:</b> Operation name must start with a lowercase letter.</p>
+     * @param validationMessages Collection<ModelValidationMessage>
+     * @see MetafacadeBase#validateInvariants(Collection validationMessages)
+     */
+    @Override
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    {
+        super.validateInvariants(validationMessages);
+        try
+        {
+            final Object contextElement = this.THIS();
+            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
+            boolean constraintValid = OCLExpressions.equal(
+                name.substring(0,1).toLowerCase(),
+                name.substring(0,1));
+            if (!constraintValid)
+            {
+                validationMessages.add(
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
+                        "org::andromda::cartridges::webservice::metafacades::WebServiceOperation::operation must start with a lowercase letter",
+                        "Operation name must start with a lowercase letter."));
+            }
+        }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
+            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebServicePackage::operation must start with a lowercase letter' ON "
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
     }
 }

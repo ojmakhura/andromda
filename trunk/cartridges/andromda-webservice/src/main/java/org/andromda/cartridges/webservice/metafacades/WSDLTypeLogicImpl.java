@@ -1,9 +1,15 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -176,5 +182,67 @@ public class WSDLTypeLogicImpl
     {
         return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
                 .booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#handleIsWebFaultAnException()
+     */
+    @Override
+    protected boolean handleIsWebFaultAnException()
+    {
+        boolean result = true;
+        if (this.hasStereotype(UMLProfile.STEREOTYPE_WEB_FAULT))
+        {
+            if (!this.hasStereotype(UMLProfile.STEREOTYPE_APPLICATION_EXCEPTION) &&
+                !this.hasStereotype(UMLProfile.STEREOTYPE_UNEXPECTED_EXCEPTION) &&
+                !this.hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION))
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    private static final List<WebServiceOperation> weboperations = new ArrayList<WebServiceOperation>();
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeLogic#handleIsWebFaultThrown()
+     */
+    @Override
+    protected boolean handleIsWebFaultThrown()
+    {
+        boolean result = true;
+        if (this.hasStereotype(UMLProfile.STEREOTYPE_WEB_FAULT))
+        {
+            result = false;
+            // collect all webservice operations for the entire model in a static list, only once for all wsdl types
+            if (weboperations.isEmpty())
+            {
+                for (ClassifierFacade classifier : this.getModel().getAllClasses())
+                {
+                    boolean isService = classifier.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+                    for (OperationFacade operation : classifier.getOperations())
+                    {
+                        boolean visibility = operation.getVisibility().equals("public") || operation.getVisibility().equals("protected");
+                        if (visibility && (isService || operation.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE)))
+                        {
+                            weboperations.add((WebServiceOperation)operation);
+                        }
+                    }
+                }
+            }
+            for (WebServiceOperation op : weboperations)
+            {
+                for (ModelElementFacade exception : (List<ModelElementFacade>)op.getExceptions())
+                {
+                    if (exception.getFullyQualifiedName().equals(this.getFullyQualifiedName()))
+                    {
+                        // WebFault is actually thrown by a service - OK
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
     }
 }
