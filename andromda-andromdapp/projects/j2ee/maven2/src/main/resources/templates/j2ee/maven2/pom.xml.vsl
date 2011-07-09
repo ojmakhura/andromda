@@ -1418,6 +1418,7 @@
         <uniqueVersion>false</uniqueVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <stagingDirectory>${applicationParentDirectory.replace('\', '/')}/${applicationId}/target/site</stagingDirectory>
+#if ($hibernate || $spring || $ejb3)
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
@@ -1462,7 +1463,6 @@
             HypersonicSql
 #end
         </sql.mappings>
-#if ($hibernate || $spring || $ejb3)
         <!--
         Change this for the appropriate database
         For DB2 use: org.hibernate.dialect.DB2Dialect or org.hibernate.dialect.DB2390Dialect org.hibernate.dialect.DB2400Dialect
@@ -1584,12 +1584,11 @@
         -->
 #end
 #if ($cxf)
-        <!-- CXF 2.4.x wsdl2java on JDK6 gives IncompatibleClassChangeError: wss4j version? -->
-        <!-- CXF 2.3.4 wsdl2java gives: Server returned HTTP response code: 503 for URL: http://www.w3.org/2001/XMLSchema.dtd -->
-        <cxf.version>2.3.3</cxf.version>
+        <cxf.version>2.4.1</cxf.version>
+        <cxf.xjc.version>2.3.2</cxf.xjc.version>
 #end
 #if ($cxf || $embeddedJetty)
-        <jetty.version>7.4.2.v20110526</jetty.version>
+        <jetty.version>7.4.3.v20110701</jetty.version>
 #end
 #if ($cxf || $spring)
         <spring.version>3.0.5.RELEASE</spring.version>

@@ -10,11 +10,11 @@ project=${applicationParentDirectory.replace('\', '/')}/${applicationId}
 
 #if ($cxf)
 # The CXF XJC version used in wsdl2java and java2ws, not the same as base CXF version, may conflict with J2SE jaxb versions
-cxf.version=2.3.3
+cxf.version=2.4.1
 #end
 
 # Fail on error for ant commands
-FOE=false
+FOE=true
 
 # Record logs output dir
 LOG_DIR=${applicationParentDirectory.replace('\', '/')}/${applicationId}/mda/logs
@@ -26,10 +26,12 @@ offline=
 # Only needed for AndroMDA ant task
 andromda.model.uri=file:${project}/mda/src/main/uml/${applicationId}.emx
 
+#if($hibernate || $spring || $ejb3 || $ejb)
 # User name and password when connecting to database
 dataSource.user=${applicationId}
 dataSource.password=${applicationId}
 
+#end
 # Set this to "true" when finished reviewing this file
 properties.reviewed=false
 
@@ -42,6 +44,7 @@ initialModel=${applicationId}
 # incremental, full, clean supported for each project
 eclipse.build.type=incremental
 
+#if($hibernate || $spring || $ejb3 || $ejb)
 # The prefix used to formulate JNDI entries for declared resources
 jndi.prefix=${application.id}-${application.version}
 
@@ -55,6 +58,7 @@ dataSource.driver.class=com.mysql.jdbc.Driver
 dataSource.database.name=${application.id}
 dataSource.url.prefix=jdbc:mysql://localhost:3306
 
+#end
 # ======== These items are probably set to good defaults, but you may want to review ====================
 
 andromda.version=$andromdaVersion
@@ -65,12 +69,14 @@ jboss.installation.path=${env.JBOSS_HOME}
 # The path to the deployment directory for local testing
 jboss.default.deploy.dir=${jboss.installation.path}/server/default/deploy
 
+#if($hibernate || $spring || $ejb3 || $ejb)
 # The type of database being used
 # For MySql use: MySQL
 # For Hypersonic use: HypersonicSql
 # For Oracle9i use: Oracle9i
 sql.mappings=MySQL
 
+#end
 # The remoting mechanism to use
 remote.type=httpinvoker
 remote.server=127.0.0.1
@@ -107,6 +113,7 @@ source.server.testCode.dir.config=${source.server.testCode.dir}/config
 
 andromda.cartridgeFilter=
 
+#if($hibernate || $spring || $ejb3 || $ejb)
 # Names of the schema script files to be created...
 dataSource.sql.init=${source.server.codeGen.dir.sql}/schema-create.sql
 dataSource.sql.drop=${source.server.codeGen.dir.sql}/schema-drop.sql
@@ -124,6 +131,7 @@ hibernate.customTypes.package=${application.package}.utils
 
 spring.types.package=${application.package}.utils
 
+#end
 andromda.mappings.dir=${project}/mda/src/mappings
 
 # The directory where the AndroMDA binary distribution is stored
