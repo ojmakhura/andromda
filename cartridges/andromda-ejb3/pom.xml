@@ -38,7 +38,7 @@
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>        
@@ -86,5 +86,7 @@
     <properties>        
         <model.uri>jar:file:${src.dir}/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
+        <uml2.model.uri>file:${src.dir}/uml2/EJB3MetafacadeModel.uml</uml2.model.uri>
+        <uml2.test.model.uri>file:${test.src.dir}/uml2/EJB3CartridgeTestModel.uml</uml2.test.model.uri>
     </properties>
 </project>

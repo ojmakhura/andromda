@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -54,8 +54,8 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
-            <version>1.2.10</version>
-            <scope>runtime</scope>
+            <version>1.2.11</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -66,8 +66,8 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-dom</artifactId>
-            <version>1.2.10</version>
-            <scope>runtime</scope>
+            <version>1.2.11</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -79,62 +79,67 @@
             <groupId>backport-util-concurrent</groupId>
             <artifactId>backport-util-concurrent</artifactId>
             <version>2.2</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>httpcomponents-httpcore</groupId>
             <artifactId>jakarta-httpcore</artifactId>
             <version>4.0-alpha4</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jms_1.1_spec</artifactId>
             <version>1.1.1</version>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.ws.commons.neethi</groupId>
+            <groupId>org.apache.neethi</groupId>
             <artifactId>neethi</artifactId>
-            <version>2.0.1</version>
-            <scope>runtime</scope>
+            <version>3.0.0</version>
+            <scope>test</scope>
         </dependency>
         <!-- Conflicts with parser from JDK 6 -->
         <dependency>
-            <groupId>stax</groupId>
-            <artifactId>stax-api</artifactId>
-            <version>1.0.1</version>
-            <scope>runtime</scope>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>stax2-api</artifactId>
+            <version>3.1.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.woden</groupId>
             <artifactId>woden</artifactId>
-            <version>1.0-incubating-M7a</version>
-            <scope>runtime</scope>
+            <version>1.0M9</version>
+            <type>pom</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.ws.commons.schema</groupId>
-            <artifactId>XmlSchema</artifactId>
-            <version>1.4.7</version>
-            <scope>runtime</scope>
+            <groupId>org.apache.ws.xmlschema</groupId>
+            <artifactId>xmlschema-core</artifactId>
+            <version>2.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>woodstox</groupId>
             <artifactId>wstx-asl</artifactId>
             <version>3.2.7</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>wsdl4j</groupId>
             <artifactId>wsdl4j</artifactId>
             <version>1.6.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
     <build>
