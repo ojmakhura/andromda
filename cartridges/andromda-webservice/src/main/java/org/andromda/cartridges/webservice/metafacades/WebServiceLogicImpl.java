@@ -21,6 +21,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeException;
+import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -34,6 +35,8 @@ import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.translation.ocl.validation.OCLExpressions;
+import org.andromda.translation.ocl.validation.OCLIntrospector;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -1579,5 +1582,43 @@ public class WebServiceLogicImpl
             }
         }
         return restCount;
+    }
+
+    /**
+     * @param validationMessages Collection<ModelValidationMessage>
+     * @see MetafacadeBase#validateInvariants(Collection validationMessages)
+     */
+    @Override
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    {
+        super.validateInvariants(validationMessages);
+        try
+        {
+            final Object contextElement = this.THIS();
+            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
+            boolean constraintValid = OCLExpressions.equal(
+                name.substring(0,1).toUpperCase(),
+                name.substring(0,1));
+            if (!constraintValid)
+            {
+                validationMessages.add(
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
+                        "org::andromda::cartridges::webservice::metafacades::WebService::class name must start with an uppercase letter",
+                        "WebService Class name must start with an uppercase letter."));
+            }
+        }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
+            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WebService::class name must start with an uppercase letter' ON "
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
     }
 }

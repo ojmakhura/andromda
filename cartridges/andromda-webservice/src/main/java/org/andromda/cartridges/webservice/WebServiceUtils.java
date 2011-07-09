@@ -954,7 +954,7 @@ public class WebServiceUtils
                 if (classifier != null)
                 {
                     pkg = (PackageFacade) classifier.getPackage();
-                    if (classifier.hasStereotype("WebService"))
+                    if (classifier.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
                     {
                         // Add references from the operations of the service package itself
                         for (final OperationFacade op : classifier.getOperations())
@@ -1078,7 +1078,7 @@ public class WebServiceUtils
                             }
                         }
                     }
-                    else if (facade.hasStereotype("WebService"))
+                    else if (facade.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
                     {
                         // Add references from the operations of the service package itself
                         for (final OperationFacade op : facade.getOperations())
@@ -1269,7 +1269,7 @@ public class WebServiceUtils
                             }
                         }
                     }
-                    else if (facade.hasStereotype("WebService"))
+                    else if (facade.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
                     {
                         // Add references from the operations of the service package itself
                         for (final OperationFacade op : facade.getOperations())

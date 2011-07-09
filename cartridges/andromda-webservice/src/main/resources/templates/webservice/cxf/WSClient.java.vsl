@@ -253,7 +253,8 @@ public final class ${service.name}_WSClient extends TestCase
 #end
 #else
         ${service.name}${seiSuffix}Client ss = new ${service.name}${seiSuffix}Client(wsdlURL, SERVICE_NAME);
-        ${service.name}${seiSuffix} port = ss.get${service.name}();
+## CXF removes underscores from the generated service getXXX method.
+        ${service.name}${seiSuffix} port = ss.get${service.name.replace("_","")}();
 #if (!$operation.exceptions.empty)
 #set ($indent="    ")
         try {
@@ -308,6 +309,7 @@ $indent        System.out.println("${operation.name} with no result=");
 #if ($operation.visibility == "public")
 #foreach ( $parameter in $operation.arguments)
 #set ($parmName="${operation.name}$stringUtils.capitalize(${parameter.name})")
+        @SuppressWarnings("unused")
         private $parameter.type.fullyQualifiedName $parmName;
         /**
          * Data value for ${parameter.name} ${operation.name} on used by DataDrivenTestSuite in suite().

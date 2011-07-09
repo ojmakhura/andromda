@@ -142,7 +142,7 @@ public class StringUtilsHelper
      */
     public static Boolean startsWithLowercaseLetter(final String string)
     {
-        if (string==null)
+        if (string==null || string.length()<1)
         {
             return null;
         }
@@ -488,6 +488,8 @@ public class StringUtilsHelper
             {
                 if (StringUtils.isNotBlank(line))
                 {
+                    // Remove leading/trailing whitespace before adding indentation and html formatting.
+                    //line = line.trim();
                     // - in HTML mode we start each new line on a paragraph
                     if (htmlStyle)
                     {

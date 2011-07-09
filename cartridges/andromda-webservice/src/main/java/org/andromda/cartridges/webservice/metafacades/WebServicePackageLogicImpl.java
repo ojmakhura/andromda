@@ -4,11 +4,22 @@
 package org.andromda.cartridges.webservice.metafacades;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.core.metafacade.MetafacadeBase;
+import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.PackageFacade;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.translation.ocl.validation.OCLCollections;
+import org.andromda.translation.ocl.validation.OCLExpressions;
+import org.andromda.translation.ocl.validation.OCLIntrospector;
+import org.andromda.translation.ocl.validation.OCLResultEnsurer;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -32,6 +43,11 @@ public class WebServicePackageLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(WebServicePackageLogicImpl.class);
 
     /**
      * The property defining the default style to give the web services.
@@ -208,5 +224,125 @@ public class WebServicePackageLogicImpl
             return -1;
         }
         return ((WebServicePackageLogic)object).getFullyQualifiedName().compareTo(this.getFullyQualifiedName());
+    }
+
+    private static List<WebServiceOperation> warnedOperations = new ArrayList<WebServiceOperation>();
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
+     */
+    @Override
+    protected Collection<WebServiceOperation> handleGetAllowedOperations()
+    {
+        Collection<WebServiceOperation> operations = new WebServiceUtils().getAllowedOperations(this);
+        // Log the actual offending operation name, since validator only shows the package name
+        String soapStack = String.valueOf(this.getConfiguredProperty("soapStack"));
+        if (soapStack.equals("cxf") || soapStack.equals("jaxws"))
+        {
+            for (WebServiceOperation operation : operations)
+            {
+                int matchCount = 0;
+                String operationName = operation.getName();
+                for (WebServiceOperation operationToCheck : operations)
+                {
+                    if (operationName.equals(operationToCheck.getName()))
+                    {
+                        matchCount++;
+                    }
+                }
+                if (matchCount > 1 && !warnedOperations.contains(operation))
+                {
+                    warnedOperations.add(operation);
+                    logger.warn(operation.getFullyQualifiedName() + " Duplicate webservice operation in package " + this.getFullyQualifiedName());
+                }
+            }
+        }
+        return operations;
+    }
+
+    private static List<String> checkedPackages = new ArrayList<String>();
+    /**
+     * @see org.andromda.cartridges.webservice.metafacades.WebServicePackageLogic#handleGetAllowedOperations()
+     */
+    @Override
+    protected boolean handleIsMissingXmlSchema()
+    {
+        boolean result = false;
+        // If the cartridge is configured to use CXF or JAX-WS, and schemas are imported...
+        String soapStack = String.valueOf(this.getConfiguredProperty("soapStack"));
+        String importedSchema = String.valueOf(this.getConfiguredProperty("importedXSD"));
+        if (importedSchema.equals("true") && (soapStack.equals("cxf") || soapStack.equals("jaxws")))
+        {
+            int serviceCount = this.getAllowedOperations().size();
+            // Check this package is it contains services
+            if (serviceCount > 0 && !this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+            {
+                // the packages containing the webservices must be labeled with XmlSchema
+                result = true;
+                if (!checkedPackages.contains(this.getFullyQualifiedName()))
+                {
+                    // Only display the error message once for each referenced package
+                    checkedPackages.add(this.getFullyQualifiedName());
+                }
+            }
+            // Check packages referenced by this package
+            if (serviceCount > 0 || this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+            {
+                Collection<PackageFacade> references = new WebServiceUtils().getPackageReferences(this, true);
+                for (PackageFacade pkg : references)
+                {
+                    if (!pkg.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+                    {
+                        result = true;
+                        if (!checkedPackages.contains(pkg.getFullyQualifiedName()))
+                        {
+                            // Only display the error message once for each referenced package
+                            checkedPackages.add(pkg.getFullyQualifiedName());
+                            logger.warn(pkg.getFullyQualifiedName() + " package is missing XmlSchema stereotype");
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WebServicePackage::package must be lowercase</p>
+     * <p><b>Error:</b>XmlSchema Package name must be lowercase.</p>
+     * @param validationMessages Collection<ModelValidationMessage>
+     * @see MetafacadeBase#validateInvariants(Collection validationMessages)
+     */
+    @Override
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    {
+        super.validateInvariants(validationMessages);
+        try
+        {
+            final Object contextElement = this.THIS();
+            final String name = this.getName();
+            boolean constraintValid = name.toLowerCase().equals(name);
+            // Exclude common package names from validation
+            //boolean common = name.equals("PrimitiveTypes") || name.equals("datatype") || name.startsWith("UML");
+            if (!constraintValid && this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))
+            {
+                validationMessages.add(
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
+                        "org::andromda::cartridges::webservice::metafacades::WebServicePackage::package must be lowercase",
+                        "Package name must be lowercase."));
+            }
+        }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
+            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::metafacades::WebServicePackage::package must be lowercase' ON "
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
     }
 }

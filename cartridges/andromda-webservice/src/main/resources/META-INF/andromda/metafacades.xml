@@ -31,6 +31,7 @@
     <property reference="XMLBooleanAdapter"/>
     <property reference="XMLIntegerAdapter"/>
     <property reference="XMLDecimalAdapter"/>
+    <property reference="soapStack"/>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
     </metafacade>

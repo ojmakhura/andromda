@@ -1,6 +1,11 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import java.util.Collection;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
+import org.andromda.core.metafacade.MetafacadeBase;
+import org.andromda.core.metafacade.ModelValidationMessage;
+import org.andromda.translation.ocl.validation.OCLIntrospector;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -118,4 +123,41 @@ public class WSDLTypeAttributeLogicImpl
         return !isAttribute;
     }
 
+    /**
+     * <p><b>Constraint:</b> org::andromda::cartridges::webservice::metafacades::WSDLTypeAttribute::attribute must start with a lowercase letter</p>
+     * <p><b>Error:</b> Attribute name must start with a lowercase letter.</p>
+     * @param validationMessages Collection<ModelValidationMessage>
+     * @see org.andromda.core.metafacade.MetafacadeBase#validateInvariants(Collection validationMessages)
+     */
+    @Override
+    public void validateInvariants(Collection<ModelValidationMessage> validationMessages)
+    {
+        super.validateInvariants(validationMessages);
+        try
+        {
+            final Object contextElement = this.THIS();
+            final String name = (String)OCLIntrospector.invoke(contextElement,"name");
+            final boolean isStatic = this.isStatic() && this.isLeaf();
+            if (!isStatic && name != null && name.length()>0 && !StringUtilsHelper.startsWithLowercaseLetter(name))
+            {
+                validationMessages.add(
+                    new ModelValidationMessage(
+                        (MetafacadeBase)contextElement ,
+                        "org::andromda::cartridges::webservice::metafacades::WSDLTypeAttribute::attribute must start with a lowercase letter",
+                        "Attribute name must start with a lowercase letter."));
+            }
+        }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
+            logger.error("Error validating constraint 'org::andromda::cartridges::webservice::WSDLTypeAttribute::attribute must start with a lowercase letter' ON "
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
+    }
 }

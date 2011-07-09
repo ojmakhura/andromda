@@ -103,6 +103,21 @@
                 <value>WebServiceOperation</value>
                 <appliedOnElement>WebService operation</appliedOnElement>
             </element>
+            <element name="WEB_FAULT">
+                <documentation>
+                    Denotes an exception thrown by a CXF or JAX-WS webservice operation.
+                </documentation>
+                <value>WebFault</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="XMLSCHEMA">
+                <documentation>
+                    Denotes a package whose contents will be output as an XML Schema file.
+                    Used by XML and WebService cartridges.
+                </documentation>
+                <value>XmlSchema</value>
+                <appliedOnElement>Package</appliedOnElement>
+            </element>
             <element name="NULLABLE">
                 <documentation>
                     Indicates a service operation argument may be left unspecified (eg. Java <code>null</code>).
