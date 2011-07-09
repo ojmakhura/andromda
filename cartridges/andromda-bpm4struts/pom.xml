@@ -121,7 +121,7 @@
     <properties>
         <model.uri>jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/BPM4StrutsCartridgeTestModel.xml.zip!/BPM4StrutsCartridgeTestModel.xml</test.model.uri>
-        <uml2.model.uri>file:${src.dir}/uml2/BPM4StrutsCartridgeTestModel.uml</uml2.model.uri>
+        <uml2.model.uri>file:${src.dir}/uml2/BPM4StrutsMetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/BPM4StrutsCartridgeTestModel.uml</uml2.test.model.uri>
     </properties>
 </project>

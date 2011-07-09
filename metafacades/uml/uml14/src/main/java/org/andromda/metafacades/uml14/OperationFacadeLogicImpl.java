@@ -382,9 +382,9 @@ public class OperationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptions()
      */
     @Override
-    protected Collection<DependencyFacade> handleGetExceptions()
+    protected Collection<ModelElementFacade> handleGetExceptions()
     {
-        Collection <DependencyFacade>exceptions = new LinkedHashSet<DependencyFacade>();
+        Collection <ModelElementFacade> exceptions = new LinkedHashSet<ModelElementFacade>();
 
         // finds both exceptions and exception references
         final class ExceptionFilter

@@ -247,7 +247,7 @@ public class EntityLogicImpl
     @Override
     protected boolean handleIsIdentifiersPresent()
     {
-        final Collection<AttributeFacade> identifiers = this.getIdentifiers(true);
+        final Collection<EntityAttribute> identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
     }
 

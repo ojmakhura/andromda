@@ -7,6 +7,7 @@ import java.util.List;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -201,7 +202,7 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelFacade#findFinalStatesWithNameOrHyperlink(org.andromda.metafacades.uml.UseCaseFacade)
      */
     @Override
-    protected Collection<FinalState> handleFindFinalStatesWithNameOrHyperlink(
+    protected Collection<FinalStateFacade> handleFindFinalStatesWithNameOrHyperlink(
         final UseCaseFacade useCase)
     {
         List<FinalState> fsCollection =
@@ -219,7 +220,7 @@ public class ModelFacadeLogicImpl
                 }
             });
 
-        return fsCollection;
+        return this.shieldedElements(fsCollection);
     }
 
     /**
