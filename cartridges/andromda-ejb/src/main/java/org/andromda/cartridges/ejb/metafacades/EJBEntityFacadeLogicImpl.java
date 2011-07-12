@@ -11,6 +11,7 @@ import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -328,7 +329,7 @@ public class EJBEntityFacadeLogicImpl
      */
     protected boolean handleIsIdentifierPresent(String identifier)
     {
-        Collection<AttributeFacade> collIdentifier = this.getIdentifiers(true);
+        Collection<EntityAttribute> collIdentifier = (Collection<EntityAttribute>)this.getIdentifiers(true);
         for (AttributeFacade attr : collIdentifier)
         {
             if (attr.getName().equalsIgnoreCase(identifier))

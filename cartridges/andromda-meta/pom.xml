@@ -41,7 +41,7 @@
                     <dependency>
                         <groupId>org.andromda.bootstrap.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${andromda.version}</version>                        
+                        <version>${andromda.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -84,7 +84,7 @@
                             <file>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.jar</file>
                             <pomFile>${project.basedir}/../../lib/org/andromda/bootstrap/cartridges/andromda-meta-cartridge.pom</pomFile>
                             <version>${andromda.version}</version>
-                            <sources>${build.directory}/${artifactId}-${version}-sources.jar</sources>
+                            <sources>${project.build.directory}/${project.artifactId}-${project.version}-sources.jar</sources>
                         </configuration>
                     </execution>
                 </executions>

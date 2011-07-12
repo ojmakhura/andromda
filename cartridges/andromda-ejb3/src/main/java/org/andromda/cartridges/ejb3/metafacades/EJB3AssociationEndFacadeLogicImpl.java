@@ -514,11 +514,11 @@ public class EJB3AssociationEndFacadeLogicImpl
     protected String handleGetCascadeType()
     {
         String cascade = null;
-        final Collection<String> taggedValues = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE);
+        final Collection<Object> taggedValues = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE);
         if (taggedValues != null && !taggedValues.isEmpty())
         {
             StringBuilder buf = null;
-            for (String value : taggedValues)
+            for (Object value : taggedValues)
             {
                 if (buf == null)
                 {
@@ -528,7 +528,7 @@ public class EJB3AssociationEndFacadeLogicImpl
                 {
                     buf.append(", ");
                 }
-                if (StringUtils.isNotBlank(value))
+                if (StringUtils.isNotBlank((String)value))
                 {
                     buf.append(cascadeTable.get(value));
                 }
