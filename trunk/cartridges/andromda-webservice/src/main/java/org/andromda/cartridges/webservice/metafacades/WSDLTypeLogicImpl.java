@@ -232,9 +232,9 @@ public class WSDLTypeLogicImpl
             }
             for (WebServiceOperation op : weboperations)
             {
-                for (ModelElementFacade exception : (List<ModelElementFacade>)op.getExceptions())
+                for (Object exception : op.getExceptions())
                 {
-                    if (exception.getFullyQualifiedName().equals(this.getFullyQualifiedName()))
+                    if (((ModelElementFacade)exception).getFullyQualifiedName().equals(this.getFullyQualifiedName()))
                     {
                         // WebFault is actually thrown by a service - OK
                         result = true;
