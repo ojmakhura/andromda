@@ -974,7 +974,7 @@ public class EntityLogicImpl
     @Override
     protected boolean handleIsCompositeIdentifier()
     {
-        int identifiers = !this.getIdentifiers().isEmpty() ? 0 : this.getIdentifiers().size();
+        int identifiers = this.getIdentifiers().isEmpty() ? 0 : this.getIdentifiers().size();
         identifiers +=
             this.getIdentifierAssociationEnds().isEmpty() ? 0 : this.getIdentifierAssociationEnds().size();
         return identifiers >= 2;
