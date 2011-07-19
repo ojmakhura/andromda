@@ -15,7 +15,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
     implements $interface.name
 {
 
-#if ($serializable && !$interface.abstractInterfaceImplementation)
+#if ($serializable)
     /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${interface.serialVersionUID}L;
 
