@@ -34,7 +34,7 @@ public class $enumeration.converterName
         String value)
         throws javax.faces.convert.ConverterException
     {
-#if(${enumeration.literalType.fullyQualifiedName} == "String")
+#if($enumeration.literalType.stringType)
         return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.fromValue(value) : null;
 #elseif ($enumeration.literalType.primitive)
         if(value == null || value.trim().length() == 0)
