@@ -107,7 +107,7 @@ public class $formPopulatorName
      * @param override whether or not to override properties already set on the given form.
      * @param assignableTypesOnly whether or not copying should be attempted only if the property types are assignable.
      */
-    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map<String, DateFormat> formatters, boolean override, boolean assignableTypesOnly)
+    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map<String, java.text.DateFormat> formatters, boolean override, boolean assignableTypesOnly)
     {
         final javax.faces.context.FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
         final String[] names = ${managedBeansPackage}.JsfUtils.getAttributeNames(context.getExternalContext().getRequest());
@@ -129,7 +129,7 @@ public class $formPopulatorName
      * @param formatters any date or time formatters.
      * @param override whether or not to override properties already set on the given form.
      */
-    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map<String, DateFormat> formatters, boolean override)
+    public static final void populateFormFromRequestAttributes(final Object form, final java.util.Map<String, java.text.DateFormat> formatters, boolean override)
     {
         populateFormFromRequestAttributes(form, formatters, override, false);
     }
@@ -143,7 +143,7 @@ public class $formPopulatorName
      * @param properties the properties to populate from.
      * @param override whether or not to override properties already set on the given form.
      */
-    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, DateFormat> formatters, final java.util.Map<String, ?> properties, boolean override)
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, java.text.DateFormat> formatters, final java.util.Map<String, ?> properties, boolean override)
     {
         populateFormFromPropertyMap(form, formatters, properties, null, override, false);
     }
@@ -156,7 +156,7 @@ public class $formPopulatorName
      * @param formatters any date or time formatters.
      * @param properties the properties to populate from.
      */
-    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, DateFormat> formatters, final java.util.Map<String, ?> properties)
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, java.text.DateFormat> formatters, final java.util.Map<String, ?> properties)
     {
         populateFormFromPropertyMap(form, formatters, properties, null, true, false);
     }
@@ -170,7 +170,7 @@ public class $formPopulatorName
      * @param formatters any date or time formatters.
      * @param properties the properties to populate from.
      */
-    public static final void populateFormFromPropertyMapAssignableTypesOnly(final Object form, final java.util.Map<String, DateFormat> formatters, final java.util.Map<String, ?> properties)
+    public static final void populateFormFromPropertyMapAssignableTypesOnly(final Object form, final java.util.Map<String, java.text.DateFormat> formatters, final java.util.Map<String, ?> properties)
     {
         populateFormFromPropertyMap(form, formatters, properties, null, true, true);
     }
@@ -184,7 +184,7 @@ public class $formPopulatorName
      * @param properties the properties to populate from.
      * @param ignoreProperties names of any properties to ignore when it comes to populating on the form.
      */
-    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, DateFormat> formatters,
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, java.text.DateFormat> formatters,
         final java.util.Map<String, ?> properties, final String[] ignoreProperties)
     {
         populateFormFromPropertyMap(form, formatters, properties, ignoreProperties, true, false);
@@ -202,7 +202,7 @@ public class $formPopulatorName
      * @param assignableTypesOnly whether or not copying should be attempted only if the property types are assignable.
      */
     @SuppressWarnings("unchecked") // apache commons-beanutils PropertyUtils has no generics
-    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, DateFormat> formatters,
+    public static final void populateFormFromPropertyMap(final Object form, final java.util.Map<String, java.text.DateFormat> formatters,
         final java.util.Map<String, ?> properties, final String[] ignoreProperties, boolean override, boolean assignableTypesOnly)
     {
         if (properties != null)
@@ -279,7 +279,7 @@ public class $formPopulatorName
                                         {
                                             if (!assignableTypesOnly || descriptor.getPropertyType().isAssignableFrom(value.getClass()))
                                             {
-                                                PropertyUtils.setProperty(form, name, value);
+                                                org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
                                             }
                                         }
                                         catch (Exception exception)
