@@ -40,7 +40,7 @@ public class $criteriaSearchBaseName
 {
     private ${criteriaSearchBaseName}Configuration configuration;
     private ${hibernateUtils.basePackage}.Criteria rootCriteria;
-    private Map#if ($enableTemplating)<String, Criteria>#end childCriteriaMap;
+    private Map#if ($enableTemplating)<String, ${hibernateUtils.basePackage}.Criteria>#end childCriteriaMap;
     private List#if ($enableTemplating)<CriteriaSearchParameter>#end orderList;
 ##if ($enableTemplating)
 ##    @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -91,7 +91,7 @@ public class $criteriaSearchBaseName
         this.configuration = new ${criteriaSearchBaseName}Configuration();
         this.resultType = resultTypeIn;
         this.rootCriteria = session.createCriteria(this.resultType);
-        this.childCriteriaMap = new HashMap<String, Criteria>();
+        this.childCriteriaMap = new HashMap<String, ${hibernateUtils.basePackage}.Criteria>();
         this.orderList = new ArrayList<CriteriaSearchParameter>();
     }
 
@@ -340,7 +340,9 @@ public class $criteriaSearchBaseName
         final int comparator = parameter.getComparator();
         return (parameter.isSearchIfNull() ||
             SearchParameter.NOT_NULL_COMPARATOR == comparator ||
-            SearchParameter.NULL_COMPARATOR == comparator) ||
+            SearchParameter.NULL_COMPARATOR == comparator ||
+            SearchParameter.EMPTY_COMPARATOR == comparator ||
+            SearchParameter.NOT_EMPTY_COMPARATOR == comparator) ||
             (parameter.getParameterValue() != null);
     }
 
@@ -372,6 +374,18 @@ public class $criteriaSearchBaseName
                 criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
                 break;
             }
+#if ($hibernateUtils.version3)
+            case SearchParameter.EMPTY_COMPARATOR:
+            {
+                criteria.add(${hibernateUtils.restrictionClass}.isEmpty(parameterName));
+                break;
+            }
+            case SearchParameter.NOT_EMPTY_COMPARATOR:
+            {
+                criteria.add(${hibernateUtils.restrictionClass}.isNotEmpty(parameterName));
+                break;
+            }
+#end
             default:
             {
                 if (parameterValue != null)
@@ -726,7 +740,25 @@ public class $criteriaSearchBaseName
         }
         else
         {
-            criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
+            switch (comparator)
+            {
+#if ($hibernateUtils.version3)
+                case SearchParameter.EMPTY_COMPARATOR:
+                {
+                    criteria.add(${hibernateUtils.restrictionClass}.isEmpty(parameterName));
+                    break;
+                }
+                case SearchParameter.NOT_EMPTY_COMPARATOR:
+                {
+                    criteria.add(${hibernateUtils.restrictionClass}.isNotEmpty(parameterName));
+                    break;
+                }
+#end
+            	default:
+            	{
+            	    criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
+            	}
+            }
         }
     }
 

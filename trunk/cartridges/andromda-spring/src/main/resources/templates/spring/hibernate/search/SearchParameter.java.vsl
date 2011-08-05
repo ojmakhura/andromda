@@ -47,6 +47,10 @@ public class $className
     public static final int NOT_LIKE_COMPARATOR = 12;
     /** 13 */
     public static final int NOT_INSENSITIVE_LIKE_COMPARATOR = 13;
+    /** 14 */
+    public static final int EMPTY_COMPARATOR = 14;
+    /** 15 */
+    public static final int NOT_EMPTY_COMPARATOR = 15;
 
     /** Order unset */
     public static final int ORDER_UNSET = -1;
