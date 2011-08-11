@@ -86,13 +86,15 @@ public class $manageable.populatorName
 #end
         try
         {
+            //Keep this code out of the 'if' below to force the form creation in case it does not exist.
+            //This way the direct URL access works fine.
+            ${manageable.formBeanType} ${manageable.formBeanName} =
+                            ((${manageable.controllerName})variableResolver.resolveVariable(
+                            facesContext,
+                            "${manageable.controllerBeanName}")).getForm();
             // - populate the forms
             if (form != null && form instanceof $manageable.formBeanType)
             {
-                $manageable.formBeanType $manageable.formBeanName =
-                    (${manageable.formBeanType})variableResolver.resolveVariable(
-                    facesContext,
-                    "$manageable.formBeanName");
                 // - populate the $manageable.formBeanName with any parameters from the previous form
                 ${manageable.formBeanName}.copyFrom((${manageable.formBeanType})form);
             }
