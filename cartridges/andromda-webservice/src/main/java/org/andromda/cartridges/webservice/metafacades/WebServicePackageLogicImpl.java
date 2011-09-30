@@ -13,11 +13,6 @@ import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.translation.ocl.validation.OCLCollections;
-import org.andromda.translation.ocl.validation.OCLExpressions;
-import org.andromda.translation.ocl.validation.OCLIntrospector;
-import org.andromda.translation.ocl.validation.OCLResultEnsurer;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -320,7 +315,7 @@ public class WebServicePackageLogicImpl
         {
             final Object contextElement = this.THIS();
             final String name = this.getName();
-            boolean constraintValid = name.toLowerCase().equals(name);
+            boolean constraintValid = name != null && name.toLowerCase().equals(name);
             // Exclude common package names from validation
             //boolean common = name.equals("PrimitiveTypes") || name.equals("datatype") || name.startsWith("UML");
             if (!constraintValid && this.hasStereotype(UMLProfile.STEREOTYPE_XMLSCHEMA))

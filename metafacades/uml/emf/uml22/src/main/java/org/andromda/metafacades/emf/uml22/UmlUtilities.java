@@ -41,6 +41,7 @@ import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
+import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
@@ -137,7 +138,7 @@ public class UmlUtilities
                     }
                     if (logger.isDebugEnabled() && property.getName() != null && !property.getName().startsWith("andromda"))
                     {
-                        logger.debug("UMLUtilities.transform " + property.getName() + " " 
+                        logger.debug("UMLUtilities.transform " + property.getName() + " "
                             + property.getType().getName() + " " + property + " " + transformedObject);
                     }
                 }
@@ -188,7 +189,7 @@ public class UmlUtilities
             }
         };
 
-    private static final Map<String,List<EObject>> allMetaObjectsCache = 
+    private static final Map<String,List<EObject>> allMetaObjectsCache =
         Collections.synchronizedMap(new HashMap<String,List<EObject>>());
 
     /**
@@ -1459,7 +1460,26 @@ public class UmlUtilities
             }
             else
             {
-                logger.error("Unable to parse this value as multiplicity: " + multValue);
+                // Construct a String with the named element and default value
+                String multString = multValue.toString();
+                String forValue = "";
+                // property owns the upper/lower value OpaqueExpression which owns the multiplicity value body
+                Element element = multValue.getOwner();
+                if (element instanceof Property)
+                {
+                    Property property = (Property)element;
+                    forValue = " in property " + property.getQualifiedName();
+                }
+                if (multValue instanceof OpaqueExpression)
+                {
+                    OpaqueExpression expression = (OpaqueExpression)multValue;
+                    EList<String> bodies = expression.getBodies();
+                    if (bodies != null && !bodies.isEmpty())
+                    {
+                        multString = bodies.get(0);
+                    }
+                }
+                logger.error("Invalid multiplicity value" + forValue + ", using default " + defaultValue + ": " + multString);
             }
         }
         /*if (logger.isDebugEnabled())
