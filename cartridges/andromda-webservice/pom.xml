@@ -26,11 +26,36 @@
             <version>${andromda.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${andromda.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${andromda.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${andromda.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <type>xml.zip</type>
+            <version>${andromda.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- Axis2 Dependencies -->
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2</artifactId>
-            <version>1.2</version>
+            <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -42,7 +67,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
-            <version>1.2.11</version>
+            <version>${axiom.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -54,7 +79,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
-            <version>1.2.11</version>
+            <version>${axiom.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -66,7 +91,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-dom</artifactId>
-            <version>1.2.11</version>
+            <version>${axiom.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -78,7 +103,7 @@
         <dependency>
             <groupId>backport-util-concurrent</groupId>
             <artifactId>backport-util-concurrent</artifactId>
-            <version>2.2</version>
+            <version>3.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -102,7 +127,7 @@
         <dependency>
             <groupId>org.apache.neethi</groupId>
             <artifactId>neethi</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
             <scope>test</scope>
         </dependency>
         <!-- Conflicts with parser from JDK 6 -->
@@ -122,7 +147,7 @@
         <dependency>
             <groupId>org.apache.ws.xmlschema</groupId>
             <artifactId>xmlschema-core</artifactId>
-            <version>2.0</version>
+            <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -187,6 +212,8 @@
         </plugins>
     </build>
     <properties>
+        <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <axiom.version>1.2.12</axiom.version>
         <uml2.output.dir>${project.basedir}/target/cartridge-test/actualUML2</uml2.output.dir>
         <uml2.model.uri>file:${src.dir}/uml2/WebServiceMetafacadeModel.uml</uml2.model.uri>
         <uml2.test.model.uri>file:${test.src.dir}/uml2/WebServiceCartridgeTestModel.uml</uml2.test.model.uri>

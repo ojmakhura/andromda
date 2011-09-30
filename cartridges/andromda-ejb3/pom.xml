@@ -20,7 +20,7 @@
         <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</connection>
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-ejb3</developerConnection>
         <url>http://andromda.svn.sourceforge.net/andromda</url>
-    </scm>    
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
@@ -40,8 +40,43 @@
             <version>${andromda.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.6.7.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.jboss.spec</groupId>
+           <artifactId>jboss-javaee-web-6.0</artifactId>
+           <version>2.0.0.Final</version>
+           <type>pom</type>
+           <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.2.1</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>qdox</groupId>
+                    <artifactId>qdox</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.beanshell</groupId>
+                    <artifactId>bsh</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
-    <build>        
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -80,10 +115,10 @@
                 <configuration>
                     <howtoCartridgePicturesOutputDirectory>${project.basedir}/target/site/images</howtoCartridgePicturesOutputDirectory>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
-    </build>    
-    <properties>        
+    </build>
+    <properties>
         <model.uri>jar:file:${src.dir}/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${test.src.dir}/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
         <uml2.model.uri>file:${src.dir}/main/uml2/EJB3MetafacadeModel.uml</uml2.model.uri>
