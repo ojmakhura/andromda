@@ -276,7 +276,7 @@ $operation.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
 #foreach ($parameter in $operation.arguments)
-     * @param $parameter.name $parameter.type
+     * @param $parameter.name $parameter.type.fullyQualifiedName
 #if (!$stringUtils.isBlank($parameter.getDocumentation("", 9999, false)))
 $parameter.getDocumentation("     * ")
 #end

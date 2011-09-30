@@ -386,8 +386,11 @@ public class Cartridge
                         this.getTemplateEngine().getEvaluatedExpression(
                             template.getOutlet(),
                             templateContext));
-
-                if (location != null)
+                if (location == null)
+                {
+                    LOGGER.warn("Template outlet location '" + template.getOutlet() + "' is not defined in namespace " + this.getNamespace());
+                }
+                else
                 {
                     outputFile =
                         template.getOutputLocation(
@@ -397,7 +400,11 @@ public class Cartridge
                             this.getTemplateEngine().getEvaluatedExpression(
                                 template.getOutputPattern(),
                                 templateContext));
-                    if (outputFile != null)
+                    if (outputFile == null)
+                    {
+                        LOGGER.warn("Template outputFile is null for location " + location);
+                    }
+                    else
                     {
                         // - only write files that do NOT exist, and
                         //   those that have overwrite set to 'true'

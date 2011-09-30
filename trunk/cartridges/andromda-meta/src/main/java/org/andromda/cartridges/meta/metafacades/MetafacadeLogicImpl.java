@@ -244,6 +244,7 @@ public class MetafacadeLogicImpl
     }
 
     /**
+     * Return collection of all methods of all generalization classes for the classifier
      * @see org.andromda.cartridges.meta.metafacades.Metafacade#getMethodDataForPSM(boolean)
      */
     private final Collection<MethodData> getMethodDataForPSM(
@@ -295,6 +296,12 @@ public class MetafacadeLogicImpl
         }
     }
 
+    /**
+     * Returns method data (name, visibility, type, doc) for each property and operation in the Metafacade
+     * @param methodDataMap
+     * @param declarationSet
+     * @param facade
+     */
     private final void getAllFeatures(
         final Map<String, MethodData> methodDataMap,
         final Set<String> declarationSet,

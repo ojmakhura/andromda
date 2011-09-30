@@ -15,7 +15,6 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.validation.OCLExpressions;
 import org.andromda.translation.ocl.validation.OCLIntrospector;
-import org.andromda.translation.ocl.validation.OCLResultEnsurer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
