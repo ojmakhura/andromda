@@ -32,7 +32,7 @@ public class RentalServiceBean
      * @see org.andromda.howto2.rental.RentalServiceBase#getAllCars()
      */
     protected java.util.List handleGetAllCars()
-        throws java.lang.Exception
+        throws Exception
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -40,10 +40,10 @@ public class RentalServiceBean
     }
 
     /**
-     * @see org.andromda.howto2.rental.RentalServiceBase#getCustomersByName(java.lang.String)
+     * @see org.andromda.howto2.rental.RentalServiceBase#getCustomersByName(String)
      */
-    protected java.util.List handleGetCustomersByName(java.lang.String name)
-        throws java.lang.Exception
+    protected java.util.List handleGetCustomersByName(String name)
+        throws Exception
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles

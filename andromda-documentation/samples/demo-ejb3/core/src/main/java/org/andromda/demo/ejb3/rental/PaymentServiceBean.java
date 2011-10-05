@@ -32,7 +32,7 @@ public class PaymentServiceBean
      * @see org.andromda.demo.ejb3.rental.PaymentServiceBase#register(org.andromda.demo.ejb3.rental.RentalCar, int)
      */
     protected void handleRegister(org.andromda.demo.ejb3.rental.RentalCar car, int leasePeriod)
-        throws java.lang.Exception
+        throws Exception
     {
         System.out.println("Registering new car rental: " + car.getSerial() + ", " + car.getName() + ", " + leasePeriod);
     }

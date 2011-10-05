@@ -2,7 +2,6 @@
 package org.andromda.samples.carrental.contracts.web.registerAccident;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;

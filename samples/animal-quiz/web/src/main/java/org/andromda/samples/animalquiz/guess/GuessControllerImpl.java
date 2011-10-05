@@ -36,7 +36,7 @@ public class GuessControllerImpl extends GuessController
     /**
      * @see org.andromda.samples.animalquiz.guess.GuessController#nextDecisionItemAvailable(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.NextDecisionItemAvailableForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final java.lang.String nextDecisionItemAvailable(ActionMapping mapping, org.andromda.samples.animalquiz.guess.NextDecisionItemAvailableForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final String nextDecisionItemAvailable(ActionMapping mapping, org.andromda.samples.animalquiz.guess.NextDecisionItemAvailableForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         final GuessSessionState sessionState = this.getGuessSessionState(request);
         VODecisionItem item = sessionState.getLastDecisionItem();

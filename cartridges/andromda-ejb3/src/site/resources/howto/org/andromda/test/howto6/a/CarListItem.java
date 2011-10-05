@@ -23,7 +23,7 @@ public class CarListItem
         this.ownerName = null;
     }
 
-    public CarListItem(java.lang.String name, java.lang.String serial, java.lang.String ownerName)
+    public CarListItem(String name, String serial, String ownerName)
     {
         this.name = name;
         this.serial = serial;
@@ -51,47 +51,47 @@ public class CarListItem
         this.setOwnerName(otherBean.getOwnerName());
     }
 
-    private java.lang.String name;
+    private String name;
 
     /**
      *
      */
-    public java.lang.String getName()
+    public String getName()
     {
         return this.name;
     }
 
-    public void setName(java.lang.String name)
+    public void setName(String name)
     {
         this.name = name;
     }
 
-    private java.lang.String serial;
+    private String serial;
 
     /**
      *
      */
-    public java.lang.String getSerial()
+    public String getSerial()
     {
         return this.serial;
     }
 
-    public void setSerial(java.lang.String serial)
+    public void setSerial(String serial)
     {
         this.serial = serial;
     }
 
-    private java.lang.String ownerName;
+    private String ownerName;
 
     /**
      *
      */
-    public java.lang.String getOwnerName()
+    public String getOwnerName()
     {
         return this.ownerName;
     }
 
-    public void setOwnerName(java.lang.String ownerName)
+    public void setOwnerName(String ownerName)
     {
         this.ownerName = ownerName;
     }

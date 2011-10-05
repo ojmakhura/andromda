@@ -165,7 +165,7 @@ public abstract class AbstractAndroMDAppMojo
 
     /**
      * The begin token for interpolation (we need it different
-     * than what Maven uses so that Maven variables aren't replace).
+     * than what Maven uses so that Maven variables aren't replaced).
      */
     private static final String BEGIN_TOKEN = "$${";
 

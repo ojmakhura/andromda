@@ -28,7 +28,7 @@ public enum CarType implements java.io.Serializable
      * Return the CarType from a string value
      * @return CarType enum object
      */
-    public static CarType fromString(java.lang.String value)
+    public static CarType fromString(String value)
     {
         return valueOf(value);
     }

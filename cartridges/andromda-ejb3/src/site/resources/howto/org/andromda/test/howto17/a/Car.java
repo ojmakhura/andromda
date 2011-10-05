@@ -54,7 +54,7 @@ public class Car
      * values provided by the parameters.
      *
      */
-    public Car(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type)
+    public Car(String serial, String name, org.andromda.howto2.rental.CarType type)
     {
         super(serial, name, type);
     }
@@ -67,7 +67,7 @@ public class Car
      * @param type Value for the type property
      * @param owner Value for the owner relation role
      */
-    public Car(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type, org.andromda.howto2.rental.Person owner)
+    public Car(String serial, String name, org.andromda.howto2.rental.CarType type, org.andromda.howto2.rental.Person owner)
     {
         super(serial, name, type, owner);
     }

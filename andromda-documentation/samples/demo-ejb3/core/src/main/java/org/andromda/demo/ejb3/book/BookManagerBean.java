@@ -32,7 +32,7 @@ public class BookManagerBean
      * @see org.andromda.demo.ejb3.book.BookManagerBase#getAllBooks()
      */
     protected java.util.Collection handleGetAllBooks()
-        throws java.lang.Exception
+        throws Exception
     {
         return getBookDao().loadAll();
     }

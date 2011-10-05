@@ -32,7 +32,7 @@ public class TicketManagerBean
      * @see org.andromda.demo.ejb3.ticket.TicketManagerBase#addEmailTicket(org.andromda.demo.ejb3.ticket.EmailTicket)
      */
     protected void handleAddEmailTicket(org.andromda.demo.ejb3.ticket.EmailTicket ticket)
-        throws java.lang.Exception
+        throws Exception
     {
         getEmailTicketDao().create(ticket);
     }
@@ -41,7 +41,7 @@ public class TicketManagerBean
      * @see org.andromda.demo.ejb3.ticket.TicketManagerBase#addPaperTicket(org.andromda.demo.ejb3.ticket.PaperTicket)
      */
     protected void handleAddPaperTicket(org.andromda.demo.ejb3.ticket.PaperTicket ticket)
-        throws java.lang.Exception
+        throws Exception
     {
         getPaperTicketDao().create(ticket);
     }

@@ -32,7 +32,7 @@ public class BioServiceBean
      * @see org.andromda.demo.ejb3.bio.BioServiceBase#addBio(org.andromda.demo.ejb3.bio.Bio)
      */
     protected void handleAddBio(org.andromda.demo.ejb3.bio.Bio bio)
-        throws java.lang.Exception
+        throws Exception
     {
         getBioDao().create(bio);
     }
@@ -41,7 +41,7 @@ public class BioServiceBean
      * @see org.andromda.demo.ejb3.bio.BioServiceBase#getBio(java.lang.Long)
      */
     protected org.andromda.demo.ejb3.bio.Bio handleGetBio(java.lang.Long id)
-        throws java.lang.Exception
+        throws Exception
     {
         return getBioDao().load(id);
     }
@@ -50,7 +50,7 @@ public class BioServiceBean
      * @see org.andromda.demo.ejb3.bio.BioServiceBase#getAllBios()
      */
     protected java.util.Collection handleGetAllBios()
-        throws java.lang.Exception
+        throws Exception
     {
         return getBioDao().loadAll();
     }

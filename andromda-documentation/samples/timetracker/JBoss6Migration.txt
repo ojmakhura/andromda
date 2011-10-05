@@ -183,3 +183,166 @@ http://blog.springsource.com/2009/06/03/spring-security-300m1-released/
 20. Migration from Struts to JSF2:
 - Add <<FrontEndUseCase>> to timetrackerhome/TimeTracker Home Use Case
 - Add <<Manageable>> to entities User and Task
+
+21. Exception while parsing ejb-jar.xml:
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[59,13]
+Message: Unexpected element Unexpected element '{http://java.sun.com/xml/ns/j2ee}description' encountered
+    <assembly-descriptor>
+        <method-permission>
+            <description><![CDATA[Create method security constraint]]></description>
+This is schema valid so I don't understand why it doesn't like  description.
+
+15:57:23,523 ERROR [org.jboss.as.deployment] (DeploymentScanner-threads - 1) {"Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => 
+{"Services with missing/unavailable dependencies" => ["jboss.deployment.unit.\"timetracker-3.4.2-SNAPSHOT.ear\".PARSE 
+missing [ jboss.deployment.subunit.\"timetracker-3.4.2-SNAPSHOT.ear\".\"lib/timetracker-common-3.4.2-SNAPSHOT.jar\".STRUCTURE ]"]}}}
+Modify application.xml to remove the jar module reference to common under ear/lib directory. Should be valid - AS7 BUG. AS7 does not recognize core ejb.jar file under lib directory even when specified in application.xml.
+
+22. ClassCastException antlr.CommonToken cannot be cast to antlr.Token
+antlr 2.7.2 vs 2.7.7 different versions in the classloader
+
+Class Path entry commons-beanutils.jar in timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry mysql-connector-java-5.1.14.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-digester.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry jta-1.1.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-fileupload.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry slf4j-api-1.5.8.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-logging.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry ehcache-1.2.3.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-core-3.4-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry commons-validator.jar in timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar"  does not point to a valid jar for a Class-Path reference.
+Class Path entry jakarta-oro.jar in timetracker-3.4-SNAPSHOT.ear/timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/struts-1.2.9.jar" does not point to a valid jar for a Class-Path reference.
+
+17:44:23,477 WARN  [SaxJBossXBParser] SchemaLocation: schemaLocation value = 'http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd' must have even number of URI's. @ vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4.2-SNAPSHOT.ear/timetracker-web-3.4.2-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
+17:44:23,477 WARN  [JBossEntityResolver] Trying to resolve systemId as a non-file URL: http://java.sun.com/xml/ns/javaee
+Caused by: org.jboss.xb.binding.JBossXBException: Failed to parse source: vfs:///C:/Programs/JBoss/6/server/default/deploy/timetracker-3.4.2-SNAPSHOT.ear/timetracker-web-3.4.2-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld@23,23
+Caused by: org.jboss.xb.binding.JBossXBRuntimeException: Failed to parse schema for nsURI=http://java.sun.com/xml/ns/javaee, localName=taglib, schemaLocation=null
+Caused by: org.jboss.xb.binding.JBossXBRuntimeException: -1:-1 31:3 The declaration for the entity "HTML.Version" must end with '>'.
+SEE https://issues.jboss.org/browse/JBAS-8800 AND http://community.jboss.org/thread/164040
+Add the following to all metadata-deployer-jboss-beans.xml files in AS6, near the bottom: 
+      <!-- schema classes by QName's -->
+      <property name="bindingClassesByElementNames">
+         <map keyClass="javax.xml.namespace.QName" valueClass="java.lang.String">
+...
+            <entry>
+               <key>
+                  <bean class="javax.xml.namespace.QName">
+                     <constructor>
+                        <!-- namespace -->
+                        <parameter>http://java.sun.com/xml/ns/javaee</parameter>
+                        <!-- root element name -->
+                        <parameter>taglib</parameter>
+                     </constructor>
+                  </bean>
+               </key>
+               <value>org.jboss.metadata.web.spec.Tld21MetaData</value>
+            </entry>
+         </map>
+      </property>
+   </bean>
+
+ON SEARCH TIMECARDS:
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in class path resource [applicationContext.xml]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: 
+java.lang.NoSuchMethodException: org.hibernate.validator.ClassValidator.<init>(java.lang.Class, java.util.ResourceBundle, org.hibernate.validator.MessageInterpolator, java.util.Map, org.hibernate.annotations.common.reflection.ReflectionManager)
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+SEE: http://jaitechwriteups.blogspot.com/2008/08/how-to-upgrade-hibernate-in-jboss.html
+Adding hibernate-validator-4.1.0 and setting parentDelegation=false doesn't fix the problem.
+SEE: http://stackoverflow.com/questions/4649307/jboss-classloading-problem
+Add hibernate.cfg.xml configuration:
+<property name="hibernate.validator.autoregister_listeners">false</property>
+<property name="hibernate.search.autoregister_listeners">false</property>
+Also add the legacy validator dependency to core pom.xml:
+        <dependency>
+              <groupId>org.hibernate</groupId>
+              <artifactId>hibernate-validator-legacy</artifactId>
+              <version>4.0.2.GA</version>
+        </dependency>
+
+Caused by: java.lang.LinkageError: loader constraint violation: loader (instance of org/jboss/classloader/spi/base/BaseClassLoader) previously initiated loading for a different type with name "org/hibernate/annotations/common/reflection/AnnotationReader"
+common\lib\hibernate-commons-annotations.jar
+Caused by: java.lang.ClassCastException: org.hibernate.validator.HibernateValidator cannot be cast to javax.validation.spi.ValidationProvider
+
+10:42:32,734 WARN  [ClassLoaderManager] Unexpected error during load of:com.disney.security.keystone.message.impl.runtime.ValidatorImpl: java.lang.IncompatibleClassChangeError: Implementing class
+Caused by: java.lang.LinkageError: loader constraint violation: loader (instance of <bootloader>) previously initiated loading for a different type with name "javax/transaction/xa/XAResource"
+java.lang.ClassCastException: org.apache.xerces.jaxp.SAXParserFactoryImpl cannot be cast to javax.xml.parsers.SAXParserFactory
+FIXED in v7, v6 problem only. Need to remove xerces.jar from deployed artifact in v5 and v6
+
+java.lang.UnsupportedOperationException        at javax.faces.application.Application.getResourceHandler(Application.java:287) [jboss-jsf-api_2.0_spec-1.0.0.Final.jar:1.0.0.Final]        at com.sun.faces.config.processor.ApplicationConfigProcessor.setResource
+Handler(ApplicationConfigProcessor.java:752) [jsf-impl-2.0.4-b09-jbossorg-4.jar:2.0.4-b09-jbossorg-4]
+MIXING JSF1 and JSF2. AS7 does not support myfaces (yet) - TODO see if bundled classes override this problem.
+
+
+
+JNDI DataSource naming convention changes: See https://docs.jboss.org/author/display/AS7/How+do+I+migrate+my+application+from+AS5+or+AS6+to+AS7 JNDI Namespace Rules
+Default standalone DS is java:jboss/datasources/ExampleDS (horrible: uses JBoss specific namespace). Arquillian cannot use a custom DS, must be configured for the default. Use this DS in testing, or define a new DS using the standard java:comp/env/jdbc/DSName. AS7 no longer allows dynamically deploying a *-ds.xml datasource with the application, it must be configured in standalone.xml or module.xml - need to generate a script to create the DS. Also want to use the H2 tcp connection URL so that maven and other apps can access the same database, i.e. to run SQL scripts or execute hibernate unit tests in standalone mode.
+<jboss-as7>/bin/jbossadmin.bat --connect [standalone@localhost:9999 /] add-data-source --jndi-name=java:jdbc/timetracker --connection-url=jdbc:h2:tcp://localhost/~/test;DB_CLOSE_DELAY=-1;MODE=Oracle --username=timetracker --password=timetracker --pool-name=timetracker_pool --driver-name=h2
+
+Should define AS7 modules for Hibernate3 etc dependencies in AS7. How to tell AS7 that ear deployment uses those modules in MANIFEST.MF built by maven ear/war/jar plugin?
+
+AS7 says modules bundled in ear/lib directory are not found on the classpath, throws a warning message:
+dom4j-1.6.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core does not point to a valid jar for a Class-Path reference.
+andromda-ejb3-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+andromda-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+commons-digester-2.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+commons-io-2.0.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+xalan-2.7.1.jar in marketingpinnedofferv2-common not found.
+xml-apis-1.0.b2.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+serializer-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+xercesImpl-2.9.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+ doctor-jim-1.0.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+ andromda-utils-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+ andromda-ocl-validation-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-metafacades-uml-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ log4j-1.2.16.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" not found.
+ andromda-java-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-ocl-query-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ andromda-ocl-translation-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common not found.
+ junit-4.8.2.jar in marketingpinnedofferv2-common not found.
+ andromda-ejb3-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ commons-digester-2.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ commons-io-2.0.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ xalan-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
+ xml-apis-1.0.b2.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ serializer-2.7.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ xercesImpl-2.9.1.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ doctor-jim-1.0.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ andromda-utils-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-validation-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-metafacades-uml-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ log4j-1.2.16.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
+ andromda-java-cartridge-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-query-library-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Path reference.
+ andromda-ocl-translation-core-3.4.2-SNAPSHOT.jar in marketingpinnedofferv2-common  does not point to a valid jar for a Class-Pathreference.
+ junit-4.8.2.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
+ commons-lang-2.6.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ commons-beanutils-1.8.3.jar in marketingpinnedofferv2-common-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ marketingpinnedofferv2-common-1.0-SNAPSHOT.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ commons-beanutils-1.8.3.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ commons-lang-2.6.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ commons-codec-1.5.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
+ commons-fileupload-1.2.2.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ hibernate-entitymanager-3.6.6.Final.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ hibernate-core-3.6.6.Final.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ antlr-2.7.7.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ dom4j-1.6.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ hibernate-commons-annotations-3.2.0.Final.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ jta-1.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ cglib-2.2.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ asm-3.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+ javassist-3.12.0.GA.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar" does not point to a valid jar for a Class-Path reference.
+ hibernate-jpa-2.0-api-1.0.1.Final.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core-1.0-SNAPSHOT.jar"  does not point to a valid jar for a Class-Path reference.
+ slf4j-api-1.6.1.jar in marketingpinnedofferv2-1.0-SNAPSHOT.ear/marketingpinnedofferv2-core  does not point to a valid jar for a Class-Path reference.
+
+ Caused by: java.lang.ClassNotFoundException: com.wdpr.dc.model.persist.TradingPartner from [Module "deployment.marketingpinnedofferv2-1.0-SNAPSHOT.ear.marketingpinnedofferv2-core-1.0-SNAPSHOT.jar:main" from Service Module Loader]
+ at org.jboss.as.jpa.hibernate.HibernateAnnotationScanner
+Moving core under ear/lib, deleting module reference from application.xml fixed this problem, but ejb jar is not recognized as EJB3 deployment.
+
+
+FROM Hibernate metamodel code generation (see )
+      <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
+         for typesafe criteria queries -->
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-jpamodelgen</artifactId>
+Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerRoomTypeExclusion_#pk
+Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPackageRoomTypeExclusion_#pk
+Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPackage_#pk

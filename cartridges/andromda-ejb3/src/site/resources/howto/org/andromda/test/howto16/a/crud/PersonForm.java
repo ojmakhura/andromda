@@ -31,14 +31,14 @@ public final class PersonForm
         this.selectedRows = selectedRows;
     }
 
-    private java.lang.String name;
+    private String name;
 
-    public java.lang.String getName()
+    public String getName()
     {
         return this.name;
     }
 
-    public void setName(java.lang.String name)
+    public void setName(String name)
     {
         this.name = name;
     }
@@ -58,12 +58,12 @@ public final class PersonForm
     private static final java.text.DateFormat birthDateFormatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
     static { birthDateFormatter.setLenient(true); }
 
-    public java.lang.String getBirthDateAsString()
+    public String getBirthDateAsString()
     {
         return (birthDate == null) ? null : birthDateFormatter.format(birthDate);
     }
 
-    public void setBirthDateAsString(java.lang.String birthDate)
+    public void setBirthDateAsString(String birthDate)
     {
         try
         {

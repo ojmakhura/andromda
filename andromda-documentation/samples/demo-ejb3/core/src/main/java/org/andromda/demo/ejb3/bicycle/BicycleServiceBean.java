@@ -32,7 +32,7 @@ public class BicycleServiceBean
      * @see org.andromda.demo.ejb3.bicycle.BicycleServiceBase#addBicycle(org.andromda.demo.ejb3.bicycle.Bicycle)
      */
     protected void handleAddBicycle(org.andromda.demo.ejb3.bicycle.Bicycle bicycle)
-        throws java.lang.Exception
+        throws Exception
     {
         getBicycleDao().create(bicycle);
     }
@@ -41,7 +41,7 @@ public class BicycleServiceBean
      * @see org.andromda.demo.ejb3.bicycle.BicycleServiceBase#getBicycle(long)
      */
     protected org.andromda.demo.ejb3.bicycle.Bicycle handleGetBicycle(long id)
-        throws java.lang.Exception
+        throws Exception
     {
         return getBicycleDao().load(id);
     }
@@ -50,7 +50,7 @@ public class BicycleServiceBean
      * @see org.andromda.demo.ejb3.bicycle.BicycleServiceBase#getAllBicycles()
      */
     protected java.util.Collection handleGetAllBicycles()
-        throws java.lang.Exception
+        throws Exception
     {
         return getBicycleDao().loadAll();
     }

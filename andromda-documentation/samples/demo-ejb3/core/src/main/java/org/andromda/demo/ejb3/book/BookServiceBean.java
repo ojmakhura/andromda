@@ -32,7 +32,7 @@ public class BookServiceBean
      * @see org.andromda.demo.ejb3.book.BookServiceBase#addBook(org.andromda.demo.ejb3.book.Book)
      */
     protected void handleAddBook(org.andromda.demo.ejb3.book.Book book)
-        throws java.lang.Exception
+        throws Exception
     {
         getBookDao().create(book);
     }
@@ -41,7 +41,7 @@ public class BookServiceBean
      * @see org.andromda.demo.ejb3.book.BookServiceBase#deleteBook(long)
      */
     protected void handleDeleteBook(long id)
-        throws java.lang.Exception
+        throws Exception
     {
         getBookDao().remove(Long.valueOf(id));
     }

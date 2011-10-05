@@ -25,8 +25,8 @@ public abstract class CarEmbeddable
 
     // ----------- Attribute Definitions ------------
 
-    private java.lang.String serial;
-    private java.lang.String name;
+    private String serial;
+    private String name;
     private org.andromda.howto2.rental.CarType type;
     private java.lang.Long id;
 
@@ -37,7 +37,7 @@ public abstract class CarEmbeddable
 
     // ---- Manageable Display Attributes (Transient) -----
 
-    private java.lang.String ownerLabel;       // Manageable display attribute
+    private String ownerLabel;       // Manageable display attribute
 
     // --------------- Constructors -----------------
 
@@ -58,7 +58,7 @@ public abstract class CarEmbeddable
      * @param name Value for the name property
      * @param type Value for the type property
      */
-    public CarEmbeddable(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type)
+    public CarEmbeddable(String serial, String name, org.andromda.howto2.rental.CarType type)
     {
         setSerial(serial);
         setName(name);
@@ -73,7 +73,7 @@ public abstract class CarEmbeddable
      * @param type Value for the type property
      * @param owner Value for the owner relation role
      */
-    public CarEmbeddable(java.lang.String serial, java.lang.String name, org.andromda.howto2.rental.CarType type, org.andromda.howto2.rental.Person owner)
+    public CarEmbeddable(String serial, String name, org.andromda.howto2.rental.CarType type, org.andromda.howto2.rental.Person owner)
     {
         setSerial(serial);
         setName(name);
@@ -88,10 +88,10 @@ public abstract class CarEmbeddable
     /**
      * Get the serial property.
      *
-     * @return java.lang.String The value of serial
+     * @return String The value of serial
      */
     @javax.persistence.Column(name = "SERIAL", unique = true, nullable = false, insertable = true, updatable = true, length = 50)
-    public java.lang.String getSerial()
+    public String getSerial()
     {
         return serial;
     }
@@ -100,7 +100,7 @@ public abstract class CarEmbeddable
      * Set the serial property.
      * @param value the new value
      */
-    public void setSerial(java.lang.String value)
+    public void setSerial(String value)
     {
         this.serial = value;
     }
@@ -108,10 +108,10 @@ public abstract class CarEmbeddable
     /**
      * Get the name property.
      *
-     * @return java.lang.String The value of name
+     * @return String The value of name
      */
     @javax.persistence.Column(name = "NAME", nullable = false, insertable = true, updatable = true, length = 50)
-    public java.lang.String getName()
+    public String getName()
     {
         return name;
     }
@@ -120,7 +120,7 @@ public abstract class CarEmbeddable
      * Set the name property.
      * @param value the new value
      */
-    public void setName(java.lang.String value)
+    public void setName(String value)
     {
         this.name = value;
     }
@@ -198,10 +198,10 @@ public abstract class CarEmbeddable
     /**
      * Get the ownerLabel
      *
-     * @return java.lang.String
+     * @return String
      */
     @javax.persistence.Transient
-    public java.lang.String getOwnerLabel()
+    public String getOwnerLabel()
     {
         return this.ownerLabel;
     }
@@ -211,7 +211,7 @@ public abstract class CarEmbeddable
      *
      * @param ownerLabel
      */
-    public void setOwnerLabel (java.lang.String ownerLabel)
+    public void setOwnerLabel (String ownerLabel)
     {
         this.ownerLabel = ownerLabel;
     }
