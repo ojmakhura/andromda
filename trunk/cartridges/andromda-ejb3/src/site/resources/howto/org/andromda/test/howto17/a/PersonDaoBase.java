@@ -162,10 +162,10 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#create(String, java.util.Date)
      */
     public org.andromda.howto2.rental.Person create(
-        java.lang.String name,
+        String name,
         java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
@@ -173,11 +173,11 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(int, java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#create(int, String, java.util.Date)
      */
     public Object create(
         final int transform,
-        java.lang.String name,
+        String name,
         java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
@@ -314,9 +314,9 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll(java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findAll(String)
      */
-    public java.util.List findAll(final java.lang.String queryString)
+    public java.util.List findAll(final String queryString)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         return this.findAll(TRANSFORM_NONE, queryString);
@@ -342,9 +342,9 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll(int, java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findAll(int, String)
      */
-    public java.util.List findAll(final int transform, final java.lang.String queryString)
+    public java.util.List findAll(final int transform, final String queryString)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         try
@@ -361,27 +361,27 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findByName(String)
      */
-    public java.lang.String findByName(java.lang.String name)
+    public String findByName(String name)
         throws org.andromda.howto2.rental.PersonDaoException
     {
-        return (java.lang.String)this.findByName(TRANSFORM_NONE, name);
+        return (String)this.findByName(TRANSFORM_NONE, name);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(java.lang.String, java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findByName(String, String)
      */
-    public java.lang.String findByName(final java.lang.String queryString, final java.lang.String name)
+    public String findByName(final String queryString, final String name)
         throws org.andromda.howto2.rental.PersonDaoException
     {
-        return (java.lang.String)this.findByName(TRANSFORM_NONE, queryString, name);
+        return (String)this.findByName(TRANSFORM_NONE, queryString, name);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(int, java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findByName(int, String)
      */
-    public Object findByName(final int transform, final java.lang.String name)
+    public Object findByName(final int transform, final String name)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         try
@@ -399,9 +399,9 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(int, java.lang.String, java.lang.String)
+     * @see org.andromda.howto2.rental.PersonDao#findByName(int, String, String)
      */
-    public Object findByName(final int transform, final java.lang.String queryString, final java.lang.String name)
+    public Object findByName(final int transform, final String queryString, final String name)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         try
@@ -419,27 +419,27 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(String, java.util.Date)
      */
-    public java.util.Collection findByNameOrBirthDate(java.lang.String name, java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         return this.findByNameOrBirthDate(TRANSFORM_NONE, name, birthDate);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(java.lang.String, java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(String, String, java.util.Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final java.lang.String queryString, final java.lang.String name, final java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(final String queryString, final String name, final java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         return this.findByNameOrBirthDate(TRANSFORM_NONE, queryString, name, birthDate);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, String, java.util.Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final int transform, final java.lang.String name, final java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(final int transform, final String name, final java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         try
@@ -458,9 +458,9 @@ public abstract class PersonDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, java.lang.String, java.lang.String, java.util.Date)
+     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, String, String, java.util.Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final int transform, final java.lang.String queryString, final java.lang.String name, final java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(final int transform, final String queryString, final String name, final java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException
     {
         try

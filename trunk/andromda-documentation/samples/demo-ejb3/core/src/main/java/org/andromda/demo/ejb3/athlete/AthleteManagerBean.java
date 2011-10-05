@@ -32,7 +32,7 @@ public class AthleteManagerBean
      * @see org.andromda.demo.ejb3.athlete.AthleteManagerBase#addTrackAthlete(org.andromda.demo.ejb3.athlete.TrackAthlete)
      */
     protected void handleAddTrackAthlete(org.andromda.demo.ejb3.athlete.TrackAthlete trackAthlete)
-        throws java.lang.Exception
+        throws Exception
     {
         getTrackAthleteDao().create(trackAthlete);
     }
@@ -41,7 +41,7 @@ public class AthleteManagerBean
      * @see org.andromda.demo.ejb3.athlete.AthleteManagerBase#getAllAthletes()
      */
     protected java.util.Collection handleGetAllAthletes()
-        throws java.lang.Exception
+        throws Exception
     {
         return getTrackAthleteDao().loadAll();
     }

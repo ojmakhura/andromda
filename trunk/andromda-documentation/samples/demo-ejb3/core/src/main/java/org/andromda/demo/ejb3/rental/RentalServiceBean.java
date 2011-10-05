@@ -39,7 +39,7 @@ public class RentalServiceBean
      * @see org.andromda.demo.ejb3.rental.RentalServiceBase#addCar(org.andromda.demo.ejb3.rental.RentalCar)
      */
     protected void handleAddCar(org.andromda.demo.ejb3.rental.RentalCar car)
-        throws java.lang.Exception
+        throws Exception
     {
         //TODO: put your implementation here.
         throw new java.lang.UnsupportedOperationException("org.andromda.demo.ejb3.rental.RentalServiceBean.handleAddCar(org.andromda.demo.ejb3.rental.RentalCar car) Not implemented!");
@@ -49,7 +49,7 @@ public class RentalServiceBean
      * @see org.andromda.demo.ejb3.rental.RentalServiceBase#getAllCars()
      */
     protected java.util.List handleGetAllCars()
-        throws java.lang.Exception
+        throws Exception
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -60,7 +60,7 @@ public class RentalServiceBean
      * @see org.andromda.demo.ejb3.rental.RentalServiceBase#getCustomersByName(java.lang.String)
      */
     protected java.util.List handleGetCustomersByName(java.lang.String name)
-        throws java.lang.Exception
+        throws Exception
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -71,7 +71,7 @@ public class RentalServiceBean
      * @see org.andromda.demo.ejb3.rental.RentalServiceBase#processRental(org.andromda.demo.ejb3.rental.RentalCar, int)
      */
     protected void handleProcessRental(org.andromda.demo.ejb3.rental.RentalCar car, int leasePeriod)
-        throws java.lang.Exception
+        throws Exception
     {
         QueueConnection connection = null;
         QueueSession session = null;

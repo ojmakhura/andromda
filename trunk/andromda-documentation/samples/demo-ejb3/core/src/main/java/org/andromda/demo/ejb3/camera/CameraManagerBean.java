@@ -32,7 +32,7 @@ public class CameraManagerBean
      * @see org.andromda.demo.ejb3.camera.CameraManagerBase#addCamera(org.andromda.demo.ejb3.camera.Camera)
      */
     protected void handleAddCamera(org.andromda.demo.ejb3.camera.Camera camera)
-        throws java.lang.Exception
+        throws Exception
     {
         getCameraDao().create(camera);
     }
@@ -41,7 +41,7 @@ public class CameraManagerBean
      * @see org.andromda.demo.ejb3.camera.CameraManagerBase#getCamera(java.lang.String, java.lang.String)
      */
     protected org.andromda.demo.ejb3.camera.Camera handleGetCamera(java.lang.String make, java.lang.String model)
-        throws java.lang.Exception
+        throws Exception
     {
         return getCameraDao().load(make, model);
     }
@@ -50,7 +50,7 @@ public class CameraManagerBean
      * @see org.andromda.demo.ejb3.camera.CameraManagerBase#deleteCamera(java.lang.String, java.lang.String)
      */
     protected void handleDeleteCamera(java.lang.String make, java.lang.String model)
-        throws java.lang.Exception
+        throws Exception
     {
         getCameraDao().remove(make, model);
     }

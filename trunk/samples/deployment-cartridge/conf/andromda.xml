@@ -7,9 +7,10 @@
     <!--repository name="emf-uml22">
       <models>
         <model type="emf-uml22">
-          <uri>${model.uri}</uri>
+          <uri>${uml2.model.uri}</uri>
           <moduleSearchLocations>
-            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location-->
+            <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+          </moduleSearchLocations-->
     <repository name="netBeansMDR">
       <models>
         <model>

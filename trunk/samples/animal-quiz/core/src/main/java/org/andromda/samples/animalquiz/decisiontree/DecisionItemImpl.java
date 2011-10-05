@@ -19,6 +19,6 @@ public abstract class DecisionItemImpl
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem#getPrompt()
      */
-    public abstract java.lang.String getPrompt()
+    public abstract String getPrompt()
         throws org.andromda.samples.animalquiz.decisiontree.DecisionException;
 }

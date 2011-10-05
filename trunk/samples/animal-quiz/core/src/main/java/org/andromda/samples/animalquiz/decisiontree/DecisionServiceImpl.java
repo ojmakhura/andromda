@@ -5,7 +5,6 @@
  */
 package org.andromda.samples.animalquiz.decisiontree;
 
-
 /**
  * @see org.andromda.samples.animalquiz.decisiontree.DecisionService
  */
@@ -16,7 +15,7 @@ public class DecisionServiceImpl
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getFirstQuestion()
      */
     protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetFirstQuestion()
-        throws java.lang.Exception
+        throws Exception
     {
         VODecisionItem item = (VODecisionItem)this.getDecisionItemDao().findRoot(DecisionItemDao.TRANSFORM_VODECISIONITEM);
         if (item == null)
@@ -30,19 +29,19 @@ public class DecisionServiceImpl
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getNextQuestion(java.lang.Long)
      */
     protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetNextQuestion(java.lang.Long itemId)
-        throws java.lang.Exception
+        throws Exception
     {
         return (VODecisionItem)this.getDecisionItemDao().load(DecisionItemDao.TRANSFORM_VODECISIONITEM, itemId);
     }
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#addNewAnimalWithQuestion(java.lang.String, java.lang.String, java.lang.Long)
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#addNewAnimalWithQuestion(String, String, java.lang.Long)
      */
-    protected void handleAddNewAnimalWithQuestion(java.lang.String animalName, java.lang.String promptForYes, java.lang.Long idOfLastNoDecision)
-        throws java.lang.Exception
+    protected void handleAddNewAnimalWithQuestion(String animalName, String promptForYes, java.lang.Long idOfLastNoDecision)
+        throws Exception
     {
-        Animal newAnimal = (Animal)this.getAnimalDao().create(animalName, false);
-        Question newQuestion = (Question)this.getQuestionDao().create(promptForYes, false);
+        Animal newAnimal = this.getAnimalDao().create(animalName, false);
+        Question newQuestion = this.getQuestionDao().create(promptForYes, false);
         newQuestion.setYesSuccessor(newAnimal);
 
         DecisionItem lastNoDecision = this.getDecisionItemDao().load(idOfLastNoDecision);
@@ -51,5 +50,4 @@ public class DecisionServiceImpl
         this.getQuestionDao().create(newQuestion);
         this.getDecisionItemDao().update(lastNoDecision);
     }
-
 }

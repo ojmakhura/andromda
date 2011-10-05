@@ -40,7 +40,7 @@ public class UserServiceBean
      * @see org.andromda.timetracker.service.UserServiceBase#getAllUsers()
      */
     protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers()
-        throws java.lang.Exception
+        throws Exception
     {
         Collection userVOs = this.getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
         return (UserVO[])userVOs.toArray(new UserVO[0]);

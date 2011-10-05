@@ -162,11 +162,11 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(java.lang.String, java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#create(String, String, org.andromda.howto2.rental.CarType)
      */
     public org.andromda.howto2.rental.Car create(
-        java.lang.String serial,
-        java.lang.String name,
+        String serial,
+        String name,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
@@ -174,12 +174,12 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int, java.lang.String, java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#create(int, String, String, org.andromda.howto2.rental.CarType)
      */
     public Object create(
         final int transform,
-        java.lang.String serial,
-        java.lang.String name,
+        String serial,
+        String name,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
@@ -191,12 +191,12 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(java.lang.String, org.andromda.howto2.rental.Person, java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#create(String, org.andromda.howto2.rental.Person, String, org.andromda.howto2.rental.CarType)
      */
     public org.andromda.howto2.rental.Car create(
-        java.lang.String name,
+        String name,
         org.andromda.howto2.rental.Person owner,
-        java.lang.String serial,
+        String serial,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
@@ -204,13 +204,13 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int, java.lang.String, org.andromda.howto2.rental.Person, java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#create(int, String, org.andromda.howto2.rental.Person, String, org.andromda.howto2.rental.CarType)
      */
     public Object create(
         final int transform,
-        java.lang.String name,
+        String name,
         org.andromda.howto2.rental.Person owner,
-        java.lang.String serial,
+        String serial,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
@@ -349,9 +349,9 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#findByType(String, org.andromda.howto2.rental.CarType)
      */
-    public java.util.List findByType(final java.lang.String queryString, final org.andromda.howto2.rental.CarType type)
+    public java.util.List findByType(final String queryString, final org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
         return this.findByType(TRANSFORM_NONE, queryString, type);
@@ -379,9 +379,9 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(int, java.lang.String, org.andromda.howto2.rental.CarType)
+     * @see org.andromda.howto2.rental.CarDao#findByType(int, String, org.andromda.howto2.rental.CarType)
      */
-    public java.util.List findByType(final int transform, final java.lang.String queryString, final org.andromda.howto2.rental.CarType type)
+    public java.util.List findByType(final int transform, final String queryString, final org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException
     {
         try
@@ -420,7 +420,7 @@ public abstract class CarDaoBase
       * Performs the core logic for {@link #allCarsAreRented()}
       */
     protected abstract boolean handleAllCarsAreRented()
-        throws java.lang.Exception;
+        throws Exception;
 
     /**
      * Allows transformation of entities into value objects

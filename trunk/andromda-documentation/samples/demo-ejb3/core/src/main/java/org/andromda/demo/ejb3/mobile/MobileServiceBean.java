@@ -32,7 +32,7 @@ public class MobileServiceBean
      * @see org.andromda.demo.ejb3.mobile.MobileServiceBase#addMobile(org.andromda.demo.ejb3.mobile.Mobile)
      */
     protected void handleAddMobile(org.andromda.demo.ejb3.mobile.Mobile mobile)
-        throws java.lang.Exception
+        throws Exception
     {
         System.out.println("min length = " + minMobileLength + " max length = " + maxMobileLength);
 
@@ -54,7 +54,7 @@ public class MobileServiceBean
      * @see org.andromda.demo.ejb3.mobile.MobileServiceBase#getMobile(java.lang.String)
      */
     protected org.andromda.demo.ejb3.mobile.Mobile handleGetMobile(java.lang.String number)
-        throws java.lang.Exception
+        throws Exception
     {
         return getMobileDao().load(number);
     }

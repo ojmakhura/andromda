@@ -32,7 +32,7 @@ public class EmployeeServiceBean
      * @see org.andromda.demo.ejb3.employee.EmployeeServiceBase#addEmployee(org.andromda.demo.ejb3.employee.Employee)
      */
     protected int handleAddEmployee(org.andromda.demo.ejb3.employee.Employee employee)
-        throws java.lang.Exception
+        throws Exception
     {
         return getEmployeeDao().create(employee).getId();
     }
@@ -41,7 +41,7 @@ public class EmployeeServiceBean
      * @see org.andromda.demo.ejb3.employee.EmployeeServiceBase#getEmployee(int)
      */
     protected org.andromda.demo.ejb3.employee.Employee handleGetEmployee(int id)
-        throws java.lang.Exception
+        throws Exception
     {
         return getEmployeeDao().load(id);
     }
@@ -50,7 +50,7 @@ public class EmployeeServiceBean
      * @see org.andromda.demo.ejb3.employee.EmployeeServiceBase#getAllEmployees()
      */
     protected java.util.Collection handleGetAllEmployees()
-        throws java.lang.Exception
+        throws Exception
     {
         return getEmployeeDao().loadAll();
     }
@@ -59,7 +59,7 @@ public class EmployeeServiceBean
      * @see org.andromda.demo.ejb3.employee.EmployeeServiceBase#getEmployeesByContract(org.andromda.demo.ejb3.employee.EmployeeContractType)
      */
     protected java.util.Collection handleGetEmployeesByContract(org.andromda.demo.ejb3.employee.EmployeeContractType contractType)
-        throws java.lang.Exception
+        throws Exception
     {
         return getEmployeeDao().findByContractType(contractType);
     }

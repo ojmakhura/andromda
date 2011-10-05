@@ -32,7 +32,7 @@ public class UserManagerBean
      * @see org.andromda.demo.ejb3.user.UserManagerBase#addUser(org.andromda.demo.ejb3.user.User)
      */
     protected void handleAddUser(org.andromda.demo.ejb3.user.User user)
-        throws java.lang.Exception
+        throws Exception
     {
         getUserDao().create(user);
     }
@@ -41,7 +41,7 @@ public class UserManagerBean
      * @see org.andromda.demo.ejb3.user.UserManagerBase#getUser(java.lang.String)
      */
     protected org.andromda.demo.ejb3.user.User handleGetUser(java.lang.String principalId)
-        throws java.lang.Exception
+        throws Exception
     {
         return getUserDao().load(principalId);
     }
@@ -50,7 +50,7 @@ public class UserManagerBean
      * @see org.andromda.demo.ejb3.user.UserManagerBase#deleteUser(java.lang.String)
      */
     protected void handleDeleteUser(java.lang.String principalId)
-        throws java.lang.Exception
+        throws Exception
     {
         getUserDao().remove(principalId);
     }

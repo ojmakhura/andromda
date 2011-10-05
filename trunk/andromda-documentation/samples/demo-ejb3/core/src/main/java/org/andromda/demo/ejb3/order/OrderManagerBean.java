@@ -32,7 +32,7 @@ public class OrderManagerBean
      * @see org.andromda.demo.ejb3.order.OrderManagerBase#addOrder(org.andromda.demo.ejb3.order.OrderInfo)
      */
     protected long handleAddOrder(org.andromda.demo.ejb3.order.OrderInfo order)
-        throws java.lang.Exception
+        throws Exception
     {
         return getOrderInfoDao().create(order).getId();
     }
@@ -41,7 +41,7 @@ public class OrderManagerBean
      * @see org.andromda.demo.ejb3.order.OrderManagerBase#getOrders(int)
      */
     protected java.util.Collection handleGetOrders(int index)
-        throws java.lang.Exception
+        throws Exception
     {
         return getOrderInfoDao().findAllByIndex(index);
     }
@@ -50,7 +50,7 @@ public class OrderManagerBean
      * @see org.andromda.demo.ejb3.order.OrderManagerBase#getOrders(int, int)
      */
     protected java.util.Collection handleGetOrders(int index, int max)
-        throws java.lang.Exception
+        throws Exception
     {
         return getOrderInfoDao().findAllWithLimits(index, max);
     }
@@ -59,7 +59,7 @@ public class OrderManagerBean
      * @see org.andromda.demo.ejb3.order.OrderManagerBase#getAllOrders()
      */
     protected java.util.Collection handleGetAllOrders()
-        throws java.lang.Exception
+        throws Exception
     {
         return getOrderInfoDao().loadAll();
     }

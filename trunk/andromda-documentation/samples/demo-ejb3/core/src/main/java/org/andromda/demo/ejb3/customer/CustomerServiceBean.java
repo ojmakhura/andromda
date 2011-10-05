@@ -31,7 +31,7 @@ public class CustomerServiceBean
      * @see org.andromda.demo.ejb3.customer.CustomerServiceBase#addCustomer(org.andromda.demo.ejb3.customer.Customer)
      */
     protected void handleAddCustomer(org.andromda.demo.ejb3.customer.Customer customer)
-        throws java.lang.Exception
+        throws Exception
     {
         getCustomerDao().create(customer);
     }
@@ -40,7 +40,7 @@ public class CustomerServiceBean
      * @see org.andromda.demo.ejb3.customer.CustomerServiceBase#getAllCustomers()
      */
     protected org.andromda.demo.ejb3.customer.Customer[] handleGetAllCustomers()
-        throws java.lang.Exception
+        throws Exception
     {
         Collection customers = getCustomerDao().loadAll();
         return (org.andromda.demo.ejb3.customer.Customer[])customers.toArray(new Customer[customers.size()]);

@@ -32,7 +32,7 @@ public class AccountManagerBean
      * @see org.andromda.demo.ejb3.account.AccountManagerBase#addAccount(org.andromda.demo.ejb3.account.Account)
      */
     protected long handleAddAccount(org.andromda.demo.ejb3.account.Account account)
-        throws java.lang.Exception
+        throws Exception
     {
         getAccountDao().create(account);
         return account.getId();
@@ -42,7 +42,7 @@ public class AccountManagerBean
      * @see org.andromda.demo.ejb3.account.AccountManagerBase#getAccount(long)
      */
     protected org.andromda.demo.ejb3.account.Account handleGetAccount(long id)
-        throws java.lang.Exception
+        throws Exception
     {
         return getAccountDao().load(id);
     }
@@ -51,7 +51,7 @@ public class AccountManagerBean
      * @see org.andromda.demo.ejb3.account.AccountManagerBase#deleteAccount(long)
      */
     protected void handleDeleteAccount(long id)
-        throws java.lang.Exception
+        throws Exception
     {
         getAccountDao().remove(id);
     }

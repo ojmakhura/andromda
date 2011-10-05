@@ -170,7 +170,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<ModelElementFacade> handleGetProperties()
     {
-        return (List<ModelElementFacade>) this.handleGetProperties(false);
+        return this.handleGetProperties(false);
     }
 
     /**
@@ -772,7 +772,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<ModelElementFacade> handleGetProperties(final boolean follow)
     {
-        final List properties = new ArrayList();
+        final List<ModelElementFacade> properties = new ArrayList<ModelElementFacade>();
         if (follow && !this.getGeneralizations().isEmpty())
         {
             for (Object generalization : this.getGeneralizations())

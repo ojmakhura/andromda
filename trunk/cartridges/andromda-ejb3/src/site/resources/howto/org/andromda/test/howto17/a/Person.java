@@ -33,7 +33,7 @@ public class Person
 
     // ----------- Attribute Definitions ------------
 
-    private java.lang.String name;
+    private String name;
     private java.util.Date birthDate;
     private java.lang.Long id;
 
@@ -44,7 +44,7 @@ public class Person
 
     // ---- Manageable Display Attributes (Transient) -----
 
-    private java.util.Collection<java.lang.String> carsLabels;
+    private java.util.Collection<String> carsLabels;
 
     // --------------- Constructors -----------------
 
@@ -64,7 +64,7 @@ public class Person
      * @param name Value for the name property
      * @param birthDate Value for the birthDate property
      */
-    public Person(java.lang.String name, java.util.Date birthDate)
+    public Person(String name, java.util.Date birthDate)
     {
         setName(name);
         setBirthDate(birthDate);
@@ -77,7 +77,7 @@ public class Person
      * @param birthDate Value for the birthDate property
      * @param cars Value for the cars relation role
      */
-    public Person(java.lang.String name, java.util.Date birthDate, java.util.SortedSet<org.andromda.howto2.rental.Car> cars)
+    public Person(String name, java.util.Date birthDate, java.util.SortedSet<org.andromda.howto2.rental.Car> cars)
     {
         setName(name);
         setBirthDate(birthDate);
@@ -91,10 +91,10 @@ public class Person
     /**
      * Get the name property.
      *
-     * @return java.lang.String The value of name
+     * @return String The value of name
      */
     @javax.persistence.Column(name = "NAME", unique = true, nullable = false, insertable = true, updatable = true, length = 50)
-    public java.lang.String getName()
+    public String getName()
     {
         return name;
     }
@@ -103,7 +103,7 @@ public class Person
      * Set the name property.
      * @param value the new value
      */
-    public void setName(java.lang.String value)
+    public void setName(String value)
     {
         this.name = value;
     }
@@ -181,10 +181,10 @@ public class Person
     /**
      * Get the carsLabels
      *
-     * @return java.util.Collection<java.lang.String>
+     * @return java.util.Collection<String>
      */
     @javax.persistence.Transient
-    public java.util.Collection<java.lang.String> getCarsLabels()
+    public java.util.Collection<String> getCarsLabels()
     {
         return this.carsLabels;
     }
@@ -194,7 +194,7 @@ public class Person
      *
      * @param carsLabels
      */
-    public void setCarsLabels (java.util.Collection<java.lang.String> carsLabels)
+    public void setCarsLabels (java.util.Collection<String> carsLabels)
     {
         this.carsLabels = carsLabels;
     }

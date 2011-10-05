@@ -35,7 +35,7 @@ public class VehicleManagerBean
      * @see org.andromda.demo.ejb3.vehicle.VehicleManagerBase#addMotorcycle(org.andromda.demo.ejb3.vehicle.Motocycle)
      */
     protected void handleAddMotorcycle(org.andromda.demo.ejb3.vehicle.Motocycle mc)
-        throws java.lang.Exception
+        throws Exception
     {
         getMotocycleDao().create(mc);
 
@@ -66,7 +66,7 @@ public class VehicleManagerBean
      * @see org.andromda.demo.ejb3.vehicle.VehicleManagerBase#addCar(org.andromda.demo.ejb3.vehicle.Car)
      */
     protected void handleAddCar(org.andromda.demo.ejb3.vehicle.Car car)
-        throws java.lang.Exception
+        throws Exception
     {
         getCarDao().create(car);
     }
@@ -75,7 +75,7 @@ public class VehicleManagerBean
      * @see org.andromda.demo.ejb3.vehicle.VehicleManagerBase#addVehicle(org.andromda.demo.ejb3.vehicle.Vehicle)
      */
     protected void handleAddVehicle(org.andromda.demo.ejb3.vehicle.Vehicle vehicle)
-        throws java.lang.Exception
+        throws Exception
     {
         getVehicleDao().create(vehicle);
     }

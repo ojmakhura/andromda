@@ -128,14 +128,14 @@ public interface CarDao
      * </p>
      */
     public org.andromda.howto2.rental.Car create(
-        java.lang.String serial,
-        java.lang.String name,
+        String serial,
+        String name,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(java.lang.String, java.lang.String, org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #create(String, String, org.andromda.howto2.rental.CarType)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -147,8 +147,8 @@ public interface CarDao
      */
     public Object create(
         int transform,
-        java.lang.String serial,
-        java.lang.String name,
+        String serial,
+        String name,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException;
 
@@ -162,15 +162,15 @@ public interface CarDao
      * @throws org.andromda.howto2.rental.CarDaoException
      */
     public org.andromda.howto2.rental.Car create(
-        java.lang.String name,
+        String name,
         org.andromda.howto2.rental.Person owner,
-        java.lang.String serial,
+        String serial,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(java.lang.String, java.lang.String, org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #create(String, String, org.andromda.howto2.rental.CarType)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -182,9 +182,9 @@ public interface CarDao
      */
     public Object create(
         int transform,
-        java.lang.String name,
+        String name,
         org.andromda.howto2.rental.Person owner,
-        java.lang.String serial,
+        String serial,
         org.andromda.howto2.rental.CarType type)
         throws org.andromda.howto2.rental.CarDaoException;
 

@@ -25,6 +25,6 @@ public interface RentalServiceRemote
     /**
      *
      */
-    public java.util.List getCustomersByName(java.lang.String name)
+    public java.util.List getCustomersByName(String name)
         throws org.andromda.howto2.rental.RentalException;
 }

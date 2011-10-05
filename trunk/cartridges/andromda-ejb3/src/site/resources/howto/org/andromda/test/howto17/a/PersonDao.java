@@ -128,13 +128,13 @@ public interface PersonDao
      * </p>
      */
     public org.andromda.howto2.rental.Person create(
-        java.lang.String name,
+        String name,
         java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(java.lang.String, java.util.Date)} with an
+     *   Does the same thing as {@link #create(String, java.util.Date)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -146,7 +146,7 @@ public interface PersonDao
      */
     public Object create(
         int transform,
-        java.lang.String name,
+        String name,
         java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 
@@ -233,23 +233,23 @@ public interface PersonDao
     /**
      *
      */
-    public java.lang.String findByName(java.lang.String name)
+    public String findByName(String name)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByName(java.lang.String)} with an
+     *   Does the same thing as {@link #findByName(String)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByName(java.lang.String)}.
+     *   argument allows you to override the query string defined in {@link #findByName(String)}.
      * </p>
      */
 
-    public java.lang.String findByName(String queryString, java.lang.String name)
+    public String findByName(String queryString, String name)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByName(java.lang.String)} with an
+     *   Does the same thing as {@link #findByName(String)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   finder results will <strong>NOT</strong> be transformed during retrieval.
      *   If this flag is any of the other constants defined here
@@ -259,40 +259,40 @@ public interface PersonDao
      * </p>
      */
 
-    public Object findByName(int transform, java.lang.String name)
+    public Object findByName(int transform, String name)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByName(boolean, java.lang.String)} with an
+     *   Does the same thing as {@link #findByName(boolean, String)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByName(int, java.lang.String name)}.
+     *   argument allows you to override the query string defined in {@link #findByName(int, String name)}.
      * </p>
      */
 
-    public Object findByName(int transform, String queryString, java.lang.String name)
+    public Object findByName(int transform, String queryString, String name)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      *
      */
-    public java.util.Collection findByNameOrBirthDate(java.lang.String name, java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByNameOrBirthDate(java.lang.String, java.util.Date)} with an
+     *   Does the same thing as {@link #findByNameOrBirthDate(String, java.util.Date)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByNameOrBirthDate(java.lang.String, java.util.Date)}.
+     *   argument allows you to override the query string defined in {@link #findByNameOrBirthDate(String, java.util.Date)}.
      * </p>
      */
 
-    public java.util.Collection findByNameOrBirthDate(String queryString, java.lang.String name, java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(String queryString, String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByNameOrBirthDate(java.lang.String, java.util.Date)} with an
+     *   Does the same thing as {@link #findByNameOrBirthDate(String, java.util.Date)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   finder results will <strong>NOT</strong> be transformed during retrieval.
      *   If this flag is any of the other constants defined here
@@ -302,17 +302,17 @@ public interface PersonDao
      * </p>
      */
 
-    public java.util.Collection findByNameOrBirthDate(int transform, java.lang.String name, java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(int transform, String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByNameOrBirthDate(boolean, java.lang.String, java.util.Date)} with an
+     *   Does the same thing as {@link #findByNameOrBirthDate(boolean, String, java.util.Date)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByNameOrBirthDate(int, java.lang.String name, java.util.Date birthDate)}.
+     *   argument allows you to override the query string defined in {@link #findByNameOrBirthDate(int, String name, java.util.Date birthDate)}.
      * </p>
      */
 
-    public java.util.Collection findByNameOrBirthDate(int transform, String queryString, java.lang.String name, java.util.Date birthDate)
+    public java.util.Collection findByNameOrBirthDate(int transform, String queryString, String name, java.util.Date birthDate)
         throws org.andromda.howto2.rental.PersonDaoException;
 }

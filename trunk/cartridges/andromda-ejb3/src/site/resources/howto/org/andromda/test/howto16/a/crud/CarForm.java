@@ -31,38 +31,38 @@ public final class CarForm
         this.selectedRows = selectedRows;
     }
 
-    private java.lang.String serial;
+    private String serial;
 
-    public java.lang.String getSerial()
+    public String getSerial()
     {
         return this.serial;
     }
 
-    public void setSerial(java.lang.String serial)
+    public void setSerial(String serial)
     {
         this.serial = serial;
     }
 
-    private java.lang.String name;
+    private String name;
 
-    public java.lang.String getName()
+    public String getName()
     {
         return this.name;
     }
 
-    public void setName(java.lang.String name)
+    public void setName(String name)
     {
         this.name = name;
     }
 
-    private java.lang.String type;
+    private String type;
 
-    public java.lang.String getType()
+    public String getType()
     {
         return this.type;
     }
 
-    public void setType(java.lang.String type)
+    public void setType(String type)
     {
         this.type = type;
     }

@@ -36,7 +36,7 @@ public class TimeTrackingServiceBean
      * @see org.andromda.timetracker.service.TimeTrackingServiceBase#findTimecards(org.andromda.timetracker.vo.TimecardSearchCriteriaVO)
      */
     protected org.andromda.timetracker.vo.TimecardSummaryVO[] handleFindTimecards(org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
-        throws java.lang.Exception
+        throws Exception
     {
         List timecards = this.getTimecardDao().findByCriteria(criteria);
         this.getTimecardDao().toTimecardSummaryVOCollection(timecards);

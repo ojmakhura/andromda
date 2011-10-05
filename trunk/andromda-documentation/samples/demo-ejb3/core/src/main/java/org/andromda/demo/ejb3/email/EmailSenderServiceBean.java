@@ -39,7 +39,7 @@ public class EmailSenderServiceBean
      * @see org.andromda.demo.ejb3.email.EmailSenderServiceBase#sendEmail(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     protected void handleSendEmail(java.lang.String to, java.lang.String from, java.lang.String subject, java.lang.String message)
-        throws java.lang.Exception
+        throws Exception
     {
         QueueConnection connection = null;
         QueueSession session = null;

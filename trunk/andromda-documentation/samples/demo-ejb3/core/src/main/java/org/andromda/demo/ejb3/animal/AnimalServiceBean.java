@@ -32,7 +32,7 @@ public class AnimalServiceBean
      * @see org.andromda.demo.ejb3.animal.AnimalServiceBase#addAnimal(org.andromda.demo.ejb3.animal.Animal)
      */
     protected void handleAddAnimal(org.andromda.demo.ejb3.animal.Animal animal)
-        throws java.lang.Exception
+        throws Exception
     {
         getAnimalDao().create(animal);
     }
@@ -41,7 +41,7 @@ public class AnimalServiceBean
      * @see org.andromda.demo.ejb3.animal.AnimalServiceBase#getAllAnimals()
      */
     protected java.util.Collection handleGetAllAnimals()
-        throws java.lang.Exception
+        throws Exception
     {
         return getAnimalDao().loadAll();
     }

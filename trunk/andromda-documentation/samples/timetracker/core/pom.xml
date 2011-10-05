@@ -92,6 +92,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>3.3.0.ga</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>

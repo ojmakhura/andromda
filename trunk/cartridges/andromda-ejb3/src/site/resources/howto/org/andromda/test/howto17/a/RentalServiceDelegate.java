@@ -64,11 +64,11 @@ public class RentalServiceDelegate
     }
 
     /**
-     * @see org.andromda.howto2.rental.RentalServiceBean#getCustomersByName(java.lang.String)
+     * @see org.andromda.howto2.rental.RentalServiceBean#getCustomersByName(String)
      *
      * Call the session bean operation using appropriate view type
      */
-    public java.util.List getCustomersByName(java.lang.String name)
+    public java.util.List getCustomersByName(String name)
         throws org.andromda.howto2.rental.RentalException
     {
         try
@@ -82,7 +82,7 @@ public class RentalServiceDelegate
         catch (javax.naming.NamingException ex)
         {
             throw new org.andromda.howto2.rental.RentalServiceException(
-                "Error performing 'org.andromda.howto2.rental.RentalService.getCustomersByName(java.lang.String name)' --> " + ex, ex);
+                "Error performing 'org.andromda.howto2.rental.RentalService.getCustomersByName(String name)' --> " + ex, ex);
         }
     }
 

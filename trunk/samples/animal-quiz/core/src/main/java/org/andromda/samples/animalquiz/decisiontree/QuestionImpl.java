@@ -19,7 +19,7 @@ public class QuestionImpl
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.Question#getPrompt()
      */
-    public java.lang.String getPrompt()
+    public String getPrompt()
     {
         return this.getPromptString();
     }

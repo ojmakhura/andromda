@@ -41,7 +41,7 @@
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-	</dependencies>	
+	</dependencies>
     <build>
         <plugins>
             <plugin>
@@ -100,7 +100,7 @@
                         </transformationSet>
                     </transformationSets>
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
  		<resources>
             <resource>

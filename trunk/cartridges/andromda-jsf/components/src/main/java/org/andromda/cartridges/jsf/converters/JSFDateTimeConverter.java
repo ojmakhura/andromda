@@ -58,7 +58,7 @@ public class JSFDateTimeConverter
     }
 
     /**
-     * @see javax.faces.convert.DateTimeConverter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     * @see javax.faces.convert.DateTimeConverter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
      */
     @Override
     public Object getAsObject(

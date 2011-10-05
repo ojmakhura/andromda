@@ -97,19 +97,19 @@ public abstract class RentalServiceBase
      * Performs the core logic for {@link #getAllCars()}
      */
     protected abstract java.util.List handleGetAllCars()
-        throws java.lang.Exception;
+        throws Exception;
 
     /**
      *
      */
     @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
-    public java.util.List getCustomersByName(java.lang.String name)
+    public java.util.List getCustomersByName(String name)
         throws org.andromda.howto2.rental.RentalException
     {
         if (name == null)
         {
             throw new IllegalArgumentException(
-                "org.andromda.howto2.rental.RentalServiceBean.getCustomersByName(java.lang.String name) - 'name' can not be null");
+                "org.andromda.howto2.rental.RentalServiceBean.getCustomersByName(String name) - 'name' can not be null");
         }
         try
         {
@@ -122,16 +122,16 @@ public abstract class RentalServiceBase
         catch (Throwable th)
         {
             throw new org.andromda.howto2.rental.RentalServiceException(
-                "Error performing 'org.andromda.howto2.rental.RentalService.getCustomersByName(java.lang.String name)' --> " + th,
+                "Error performing 'org.andromda.howto2.rental.RentalService.getCustomersByName(String name)' --> " + th,
                 th);
         }
     }
 
     /**
-     * Performs the core logic for {@link #getCustomersByName(java.lang.String)}
+     * Performs the core logic for {@link #getCustomersByName(String)}
      */
-    protected abstract java.util.List handleGetCustomersByName(java.lang.String name)
-        throws java.lang.Exception;
+    protected abstract java.util.List handleGetCustomersByName(String name)
+        throws Exception;
 
 
     // -------- Lifecycle Callbacks --------------

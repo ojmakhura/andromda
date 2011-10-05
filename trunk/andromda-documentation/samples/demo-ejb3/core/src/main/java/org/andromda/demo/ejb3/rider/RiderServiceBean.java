@@ -32,7 +32,7 @@ public class RiderServiceBean
      * @see org.andromda.demo.ejb3.rider.RiderServiceBase#addRider(org.andromda.demo.ejb3.rider.Rider)
      */
     protected void handleAddRider(org.andromda.demo.ejb3.rider.Rider rider)
-        throws java.lang.Exception
+        throws Exception
     {
         getRiderDao().create(rider);
     }
@@ -41,7 +41,7 @@ public class RiderServiceBean
      * @see org.andromda.demo.ejb3.rider.RiderServiceBase#getRider(long)
      */
     protected org.andromda.demo.ejb3.rider.Rider handleGetRider(long id)
-        throws java.lang.Exception
+        throws Exception
     {
         return getRiderDao().load(id);
     }
@@ -50,7 +50,7 @@ public class RiderServiceBean
      * @see org.andromda.demo.ejb3.rider.RiderServiceBase#getAllRiders()
      */
     protected java.util.Collection handleGetAllRiders()
-        throws java.lang.Exception
+        throws Exception
     {
         return getRiderDao().loadAll();
     }
