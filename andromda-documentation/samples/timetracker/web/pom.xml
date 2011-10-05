@@ -165,6 +165,19 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
+        <!-- TODO Verify this fixes problem in JBoss AS7 and myfaces, see -->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.1.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <resources>

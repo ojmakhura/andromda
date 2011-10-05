@@ -32,17 +32,17 @@ Customize as necessary - it is generated once only, when the project is created.
   <path id="project.classpath">
     <path refid="cxf.classpath"/>
     <pathelement location="${m2repo}/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
-    <pathelement location="${m2repo}/junit/junit/4.7/junit-4.7.jar"/>
+    <pathelement location="${m2repo}/junit/junit/4.9/junit-4.9.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
-    <pathelement location="${m2repo}/org/hibernate/hibernate/3.6.4.Final/hibernate-3.6.4.Final.jar"/>
+    <pathelement location="${m2repo}/org/hibernate/hibernate/3.6.7.Final/hibernate-3.6.7.Final.jar"/>
     <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
 #elseif ($cxf)
     <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
 #end
 #if ($ejb)
-    <pathelement location="${m2repo}/jboss/jboss-j2ee/4.2.3.GA/jboss-j2ee-4.2.3.GA.jar"/>
+    <pathelement location="${m2repo}/jboss/jboss-j2ee/4.2.2.GA/jboss-j2ee-4.2.2.GA.jar"/>
 #end
   </path>
 

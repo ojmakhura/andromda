@@ -11,18 +11,25 @@
     <packaging>ear</packaging>
     <name>$applicationName Application</name>
     <dependencies>
+#if ($ejb3 || $ejb)
         <dependency>
+#else
+        <!-- If deploying both web and webservice wars, common files can be excluded from war artifacts and referenced as dependencies here -->
+        <!--dependency>
+#end
             <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-#if (!$transactionPersistenceType.equals("none"))
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
+#if ($ejb3 || $ejb)
         </dependency>
+#else
+        </dependency-->
 #end
 #if ($web)
         <dependency>
@@ -56,6 +63,7 @@
             <groupId>com.tonicsystems</groupId>
             <artifactId>jarjar</artifactId>
             <version>0.6</version>
+            <scope>provided</scope>
         </dependency>
 #end
 #if ($jbossSeam)
@@ -104,7 +112,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
                     <generateApplicationXml>true</generateApplicationXml>
                     <includeJar>false</includeJar>
@@ -112,10 +120,10 @@
                     <includes>**/*.xml</includes>
                     <excludes>**/jboss-app.xml</excludes>
 #if ($ejb3)
-                    <version>5</version>
+                    <version>6</version>
                     <ejbVersion>3.0</ejbVersion>
 #else
-                    <version>1.4</version>
+                    <version>5</version>
 #end
                     <modules>
 #if ($jbossSeam)
@@ -135,16 +143,25 @@
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
 #end
+## JBoss7 gives an error when including non-ejb jar modules in application.xml
+#if ($ejb3 || $ejb)
+## Don't need to reference module from EAR unless using EJBs, already bundled with war project(s)
                         <jarModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-common</artifactId>
-                            <includeInApplicationXml>true</includeInApplicationXml>
+                            <includeInApplicationXml>false</includeInApplicationXml>
                         </jarModule>
-#if (!$transactionPersistenceType.equals("none"))
                         <ejbModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-core</artifactId>
                         </ejbModule>
+#if ($workflow)
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${applicationId}-workflow</artifactId>
+                            <includeInApplicationXml>false</includeInApplicationXml>
+                        </jarModule>
+#end
 #end
 #if ($web)
                         <webModule>
@@ -156,27 +173,23 @@
 #if ($webservice && !$jsr181Webservice)
                         <webModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>${applicationId}-webservice</artifactId>
-                            <contextRoot>/${application.id}-ws</contextRoot>
+                            <artifactId>${project.parent.artifactId}-webservice</artifactId>
+                            <contextRoot>/${project.parent.artifactId}-webservice</contextRoot>
                         </webModule>
-#end
-#if ($workflow)
-                        <jarModule>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>${applicationId}-workflow</artifactId>
-                        </jarModule>
 #end
                     </modules>
                     <jboss>
                         <version>5</version>
                         <loader-repository>${project.groupId}:loader=${project.build.finalName}</loader-repository>
+                        <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
                     </jboss>
                 </configuration>
             </plugin>
 #if ($axisVersion.equals("2"))
             <!-- remove the 'javax.xml.namespace.QName' class from any jar that bundles it,
-                 it causes classloading issues with containers that alreadly have it -->
-            <plugin>
+                 it causes classloading issues with containers that already have it -->
+            <!-- Commented out because these dependencies should only be bundled with the war, not the ear
+            plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -185,35 +198,35 @@
                         <goals>
                             <goal>run</goal>
                         </goals>
-                            <configuration>
-                                <target>
-                                    <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
-                                    <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/axis2-1.2.jar"
-                                        tofile="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
-                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar">
-                                        <zipfileset src="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
-                                        <zap pattern="javax.xml.namespace.QName"/>
-                                    </jarjar>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/stax-api-1.0.1.jar"
-                                        tofile="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
-                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar">
-                                        <zipfileset src="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
-                                        <zap pattern="javax.xml.namespace.QName"/>
-                                    </jarjar>
-                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/woden-impl-om-1.0M8.jar"
-                                        tofile="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
-                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar">
-                                        <zipfileset src="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
-                                        <zap pattern="javax.xml.namespace.QName"/>
-                                    </jarjar>
-                                    <zip destfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}.ear"
-                                         basedir="${project.basedir}/target/${project.parent.artifactId}-${project.version}" update="true" />
-                                </target>
-                            </configuration>
+                        <configuration>
+                            <target>
+                                <property name="dependencyClasspath" refid="maven.compile.classpath"/>
+                                <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
+                                <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/axis2-1.2.jar"
+                                    tofile="${project.basedir}/target/jarjar/axis2-1.2.jar" failonerror="false"/>
+                                <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar">
+                                    <zipfileset src="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
+                                    <zap pattern="javax.xml.namespace.QName"/>
+                                </jarjar>
+                                <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/stax-api-1.0.1.jar"
+                                    tofile="${project.basedir}/target/jarjar/stax-api-1.0.1.jar" failonerror="false"/>
+                                <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar">
+                                    <zipfileset src="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
+                                    <zap pattern="javax.xml.namespace.QName"/>
+                                </jarjar>
+                                <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/lib/woden-impl-om-1.0M8.jar"
+                                    tofile="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar" failonerror="false"/>
+                                <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-impl-om-1.0M8.jar">
+                                    <zipfileset src="${project.basedir}/target/jarjar/woden-impl-om-1.0M8.jar"/>
+                                    <zap pattern="javax.xml.namespace.QName"/>
+                                </jarjar>
+                                <zip destfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}.ear"
+                                     basedir="${project.basedir}/target/${project.parent.artifactId}-${project.version}" update="true" />
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
 #end
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -232,6 +245,9 @@
                         <include>*ds.xml</include>
                     </includes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

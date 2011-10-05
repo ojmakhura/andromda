@@ -9,8 +9,13 @@
     </parent>
     <artifactId>${applicationId}-core</artifactId>
 ## Spring assumes EJB implementation
-#if ($ejb || $ejb3 || $ear)
+#if ($ejb || $ejb3)
     <packaging>ejb</packaging>
+#if ($ejb3)
+#set ($ejb=false)
+#end
+#set ($hibernate=false)
+#set ($spring=false)
 #else
     <packaging>jar</packaging>
 #end
@@ -97,19 +102,9 @@
         </dependency>
 #end
 #end
-#if (!$hibernate)
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-#if ($ear)
-            <scope>provided</scope>
-#end            
-        </dependency>
-#end
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.4.Final</version>
 #if ($ear)
             <scope>provided</scope>
             <exclusions>
@@ -122,9 +117,34 @@
                     <artifactId>javassist</artifactId>
                 </exclusion>
             </exclusions>
-#else
-            <scope>runtime</scope>
 #end
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- For JBoss AS6 and earlier: Avoid NoSuchMethodException: org.hibernate.validator.ClassValidator.<init> -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-legacy</artifactId>
+            <version>4.0.2.GA</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-commons-annotations</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>3.3.0.ga</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -234,7 +254,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.4.Final</version>
+            <version>3.6.7.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -279,7 +299,7 @@
 #end
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
 #if ($cxf)
             <exclusions>
                 <exclusion>
@@ -494,10 +514,12 @@
         </dependency>
 #end
 #end
+#if ($ejb3)
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
+#end
 #if ($mysql)
         <dependency>
             <groupId>mysql</groupId>
@@ -591,7 +613,7 @@
                     <dependency>
                         <groupId>org.hibernate</groupId>
                         <artifactId>hibernate-core</artifactId>
-                        <version>3.6.4.Final</version>
+                        <version>3.6.7.Final</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -614,6 +636,23 @@
             </plugin>
 #end
 #if ($ejb || $ejb3)
+            <!-- Create the /target/classes dir in case we run a clean with an empty model - avoid ejb plugin build failure -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${basedir}/target/classes"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>
                 <version>2.3</version>
@@ -637,6 +676,9 @@
                 <artifactId>maven-jar-plugin</artifactId>
             </plugin>
 #end
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
         </plugins>
         <resources>
 #if ($groovy)

@@ -16,7 +16,7 @@
             <artifactId>${applicationId}-mda</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
-            <scope>runtime</scope>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -46,6 +46,9 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

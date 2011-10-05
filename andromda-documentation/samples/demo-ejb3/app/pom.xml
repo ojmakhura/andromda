@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -15,7 +15,7 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>demo-ejb3-common</artifactId>
-                <version>${project.version}</version> 
+                <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>${project.groupId}</groupId>
@@ -48,23 +48,23 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-common</artifactId>
-            <version>${project.version}</version>            
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-core</artifactId>
-            <version>${project.version}</version>  
-            <type>ejb</type>          
+            <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>demo-ejb3-web</artifactId>
-            <version>${project.version}</version>            
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>    
+            <artifactId>commons-logging</artifactId>
         </dependency>
     </dependencies>
     <build>

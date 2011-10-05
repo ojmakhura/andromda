@@ -106,7 +106,7 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -137,7 +137,7 @@
                             <fileset dir="${project.basedir}/src/main">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
-                            </fileset>                            
+                            </fileset>
                         </copy>
                     </tasks>
                 </configuration>

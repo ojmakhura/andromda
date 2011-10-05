@@ -42,16 +42,19 @@
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
+                    <!-- Can filter in/out specific model packages (in UML notation) to generate code from (default true=process all) -->
+                    <!--modelPackages>
+                        <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
+                    </modelPackages-->
                     <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
 #if ($jsf || $struts)
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
-                         types in required (multiplicy > 0) parameters or VO attibutes-->
+                         types in required (multiplicity > 0) parameters or VO attributes-->
                     <constraints>
                         <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
                     </constraints>
 #else
-                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
                     <!--constraints enforceAll="true">
                         <constraint enforce="false">**::wrapped primitive attribute should not be required</constraint>
                         <constraint enforce="false">**::wrapped primitive parameter should not be required</constraint>
@@ -63,10 +66,6 @@
                         <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
                     </constraints-->
 #end
-                    <!-- Can filter in/out specific model packages (in UML notation) to generate code from (default true=process all) -->
-                    <!--modelPackages>
-                        <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
-                    </modelPackages-->
                 </model>
             </models>
         </repository>
@@ -114,8 +113,9 @@
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property -->
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
-#if ($spring)
+#if ($spring || $hibernate)
                 <property name="hibernateVersion">3</property>
+                <property name="hibernateEntityAnnotations">false</property>
 #end
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
@@ -125,6 +125,8 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
+                <!-- JDK5 error on @Override on methods implemented from Interfaces -->
+                <property name="javaVersion">${javaVersion}</property>
 #if ($cxf)
                 <!-- CXF Only - output @XmlSeeAlso annotations and java2ws for CXF 2.1 and later -->
                 <property name="cxfVersion">${cxf.version}</property>
@@ -155,7 +157,7 @@
             </properties>
         </namespace>
 #elseif ($ejb3)
-        <!-- See http://web.aanet.com.au/persabi/andromda/namespace.html -->
+        <!-- See http://www.andromda.org/docs/andromda-cartridges/andromda-ejb3-cartridge/namespace.html -->
         <namespace name="ejb3">
             <properties>
                 <property name="dataSourceName">${dataSource.name}</property>
@@ -237,7 +239,6 @@
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-hibernate-cartridge/namespace.html -->
         <namespace name="hibernate">
             <properties>
-                <property name="hibernateVersion">3</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
@@ -252,7 +253,7 @@
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
-                <property name="entities">${common.generated.dir}</property>
+                <property name="entities">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
                 <property name="entity-mappings">${core.generated.dir}</property>
                 <property name="user-types">${core.generated.dir}</property>
