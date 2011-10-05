@@ -62,17 +62,33 @@
         </dependency-->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.4.Final</version>
-            <scope>runtime</scope>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- Do not use 3.3.0.ga See https://jira.springsource.org/browse/SPR-7701, http://forum.springsource.org/showthread.php?89693-AnnotationSessionFactoryBean-needs-MetadataProvider -->
+        <!-- validator-legacy forces an earlier version of annotations. Change scope if < JBoss6>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>3.2.0.Final</version>
+            <scope>provided</scope>
+        </dependency -->
+        <!-- For JBoss AS6 and earlier: Avoid NoSuchMethodException: org.hibernate.validator.ClassValidator.<init> -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator-legacy</artifactId>
+            <version>4.0.2.GA</version>
             <exclusions>
                 <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-commons-annotations</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -138,6 +154,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${testdb.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -193,8 +215,8 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate</artifactId>
-                        <version>3.2.6.ga</version>
+                        <artifactId>hibernate-entitymanager</artifactId>
+                        <version>${hibernate.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -218,7 +240,9 @@
         </resources>
     </build>
     <properties>
-        <!-- Need a running mysql instance. Need to change to automatic maven configured DB --> 
+        <!-- Need a running mysql instance. Need to change to automatic maven configured DB -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
+        <testFailureIgnore>true</testFailureIgnore>
+        <hibernate.version>3.6.7.Final</hibernate.version>
     </properties>
 </project>

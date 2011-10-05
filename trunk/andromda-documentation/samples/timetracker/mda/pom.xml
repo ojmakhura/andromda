@@ -123,6 +123,9 @@
         <core.generated.dir>${project.basedir}/../core/target/src/main/java</core.generated.dir>
         <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
         <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
+        <core.manual.java.resources>${project.basedir}/../core/src/main/resources</core.manual.java.resources>
+        <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
+        <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
         <web.generated.dir>${project.basedir}/../web/target</web.generated.dir>
         <web.generated.java.dir>${web.generated.dir}/src/main/java</web.generated.java.dir>
         <web.generated.web.dir>${web.generated.dir}/src/main/webapp</web.generated.web.dir>
@@ -130,7 +133,7 @@
         <web.manual.web.dir>${web.manual.dir}/webapp</web.manual.web.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
         <!-- hibernate configuration -->
-        <!-- default strategy to use when using inhertiance -->
+        <!-- default strategy to use when using inheritance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
         <!-- hibernate generator class to use for identifiers -->
         <hibernate.generatorClass>native</hibernate.generatorClass>

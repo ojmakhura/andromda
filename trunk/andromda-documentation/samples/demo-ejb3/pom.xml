@@ -201,8 +201,8 @@
             </dependency-->
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-                <version>3.3.1.GA</version>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>3.6.7.Final</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -285,27 +285,27 @@
                 <scope>runtime</scope>
             </dependency>
             <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.9</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.16</version>
                 <scope>provided</scope>
             </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.14</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.17</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.0.1</version>
+                <version>6.2.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -350,21 +350,21 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>4.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>5.14.6</version>
-            <scope>test</scope>
+            <!--version>6.2.1</version>
+            <scope>test</scope-->
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>hibernate-all</artifactId>
             <version>1.0.0.Alpha9</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
@@ -577,6 +577,7 @@
     </modules>
     <properties>
         <andromda.version>3.4-SNAPSHOT</andromda.version>
+        <java.version>1.6</java.version>
         <!--
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL

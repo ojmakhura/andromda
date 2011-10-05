@@ -252,6 +252,13 @@
             <artifactId>andromda-script-wrappers</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Needed to compile JPA2 annotations in the core project -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
@@ -442,6 +449,9 @@
                     </execution>
                 </executions>
             </plugin#if (!$embeddedJetty)--#end>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

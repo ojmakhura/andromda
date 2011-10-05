@@ -40,7 +40,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
                 <exclusions>
 #if ($ear)
                     <exclusion>
@@ -66,7 +66,7 @@
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-translation-core</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -78,7 +78,7 @@
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-validation-library</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -99,7 +99,7 @@
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
@@ -185,15 +185,17 @@
                 <artifactId>myfaces-extval-trinidad-support</artifactId>
                 <version>1.2.4</version>
             </dependency>
+#if (!$spring && !$hibernate && !$ejb3)
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
                 <groupId>org.hibernate</groupId>
-                <version>4.1.0.Final</version>
+                <version>4.2.0.Final</version>
             </dependency>
+#end
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -201,7 +203,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -255,7 +257,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>org.andromda</groupId>
@@ -311,7 +313,7 @@
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -327,7 +329,7 @@
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-script-wrappers</artifactId>
                 <version>${andromda.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -376,13 +378,18 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>3.6.4.Final</version>
+                <version>3.6.7.Final</version>
+            </dependency>
+            <dependency>
+                <artifactId>hibernate-validator</artifactId>
+                <groupId>org.hibernate</groupId>
+                <version>4.2.0.Final</version>
             </dependency>
             <!-- JBoss Dependencies -->
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
             <!--dependency>
@@ -394,21 +401,9 @@
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-ejb3x</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <!--dependency>
-                <groupId>hibernate-entitymanager</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>3.3.2.GA</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jboss</groupId>
-                <artifactId>jboss-annotations-ejb3</artifactId>
-                <version>4.2.3.GA</version>
-                <scope>provided</scope>
-            </dependency-->
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-serialization</artifactId>
@@ -436,7 +431,7 @@
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jbossall-client</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
                 <scope>runtime</scope>
             </dependency>
             <dependency>
@@ -488,29 +483,23 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>2.4.2</version>
+                <version>2.4.3</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
 #if ($spring || $hibernate)
             <!-- Hibernate Dependencies -->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>3.6.4.Final</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.14.0-GA</version>
+                <version>3.15.0-GA</version>
             </dependency>
 #end
 #else
             <dependency>
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
-                <version>4.2.3.GA</version>
+                <version>4.2.2.GA</version>
 #if ($ear)
                 <scope>provided</scope>
 #end
@@ -520,8 +509,8 @@
 #if ($spring || $hibernate)
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>3.6.4.Final</version>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>3.6.7.Final</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.transaction</groupId>
@@ -534,15 +523,20 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <artifactId>hibernate-validator</artifactId>
+                <groupId>org.hibernate</groupId>
+                <version>4.2.0.Final</version>
+            </dependency>
+            <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>2.4.2</version>
+                <version>2.4.3</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.14.0-GA</version>
+                <version>3.15.0-GA</version>
 #if ($ear)
                 <scope>test</scope>
 #end
@@ -551,7 +545,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -559,7 +553,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -947,7 +941,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.8.2</version>
+                <version>4.9</version>
 #if (!$ejb)
                 <scope>test</scope>
 #end
@@ -962,7 +956,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -970,7 +964,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.2</version>
 #if($ear && !$cxf)
                 <scope>provided</scope>
 #end
@@ -1061,6 +1055,13 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- CXF bundle dependencies needed for build that should not be bundled with artifact, especially for WebSphere-->
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-servlet_3.0_spec</artifactId>
+                <version>1.0</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
@@ -1076,25 +1077,29 @@
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.1.1</version>
+                <version>2.2.4-1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
-                <version>2.9.1</version>
+                <version>2.10.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
+                <!-- v2.0.2 gives NoClassDefFoundError org/w3c/dom/ElementTraversal if not provided >
+                <version>1.4.01</version-->
                 <version>2.0.2</version>
+                <scope>provided</scope>
             </dependency>
 #end
 #if ($mysql)
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.16</version>
+                <version>5.1.17</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1141,7 +1146,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.1</version>
+                <version>6.2.1</version>
                 <scope>test</scope>
 #if ($ejb3)
                 <exclusions>
@@ -1149,10 +1154,10 @@
                         <groupId>qdox</groupId>
                         <artifactId>qdox</artifactId>
                     </exclusion>
-                    <exclusion>
+                    <!--exclusion>
                         <groupId>org.beanshell</groupId>
                         <artifactId>bsh</artifactId>
-                    </exclusion>
+                    </exclusion-->
                 </exclusions>
 #end
             </dependency>
@@ -1168,9 +1173,10 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.5</version>
+                    <version>1.7</version>
                     <executions>
                         <execution>
+                            <id>add-target-src</id>
                             <phase>generate-sources</phase>
                             <goals>
                                 <goal>add-source</goal>
@@ -1199,11 +1205,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.8.1</version>
+                    <version>2.9</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>2.3.2</version>
                     <configuration>
                         <excludes>
                             <exclude>**/*.ref</exclude>
@@ -1295,7 +1301,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.7</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-antrun-plugin</artifactId>
@@ -1306,7 +1312,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0</version>
+                <version>1.0.1</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -1388,21 +1394,22 @@
     </build>
     <modules>
         <!-- Save the values used to generate this project from andromdapp
-        ejb3Persistence=$ejb3Persistence
+        applicationType=$applicationType
+        war=$war
         ear=$ear
-        ejb=$ejb
-        ejb3=$ejb3
+        ejb3Persistence=$ejb3Persistence
         transactionPersistenceType=$transactionPersistenceType
         jsr181Webservice=$jsr181Webservice
+        ejb=$ejb
+        ejb3=$ejb3
         hibernate=$hibernate
         spring=$spring
-        webservice=$webservice
         web=$web
+        webservice=$webservice
         struts=$struts
         jsf=$jsf
         cxf=$cxf
         rest=$rest
-        ear=$ear
         jbossSeam=$jbossSeam
         soapStack=$soapStack
         embeddedJetty=$embeddedJetty
@@ -1412,7 +1419,7 @@
 #if (!$transactionPersistenceType.equals("none") || $cxf)
         <module>core</module>
 #end
-#if ($web || ($war && !$cxf))
+#if ($struts || $jsf)
         <module>web</module>
 #end
 #if ($webservice && !$jsr181Webservice && ($ear || $cxf))
@@ -1602,14 +1609,14 @@
         -->
 #end
 #if ($cxf)
-        <cxf.version>2.4.1</cxf.version>
-        <cxf.xjc.version>2.3.2</cxf.xjc.version>
+        <cxf.version>2.4.2</cxf.version>
+        <cxf.xjc.version>2.4.0</cxf.xjc.version>
 #end
 #if ($cxf || $embeddedJetty)
-        <jetty.version>7.4.3.v20110701</jetty.version>
+        <jetty.version>8.0.1.v20110908</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.0.6.RELEASE</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>
@@ -1893,7 +1900,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.8.1</version>
+                            <version>2.9</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -1983,11 +1990,11 @@
         <plugins>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.4</version>
                 <reportSets>
                   <reportSet>
                     <reports>
@@ -2012,7 +2019,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.8</version>
                 <configuration>
                     <minmemory>128m</minmemory>
                     <maxmemory>1g</maxmemory>
@@ -2035,7 +2042,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>2.9</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -2068,7 +2075,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <configuration>
                     <configLocation>config/maven_checks.xml</configLocation>
                 </configuration>
@@ -2080,7 +2087,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.6</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -2160,7 +2167,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5.1</version>
                 <configuration>
                     <formats>
                         <format>html</format>
@@ -2187,7 +2194,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.2</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <effort>Default</effort>
