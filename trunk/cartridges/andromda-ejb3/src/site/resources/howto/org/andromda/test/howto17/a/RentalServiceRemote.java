@@ -5,6 +5,8 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.List;
+
 /**
  * Remote component interface for the RentalServiceBean session bean.
  *
@@ -19,12 +21,12 @@ public interface RentalServiceRemote
     /**
      *
      */
-    public java.util.List getAllCars()
-        throws org.andromda.howto2.rental.RentalException;
+    public List getAllCars()
+        throws RentalException;
 
     /**
      *
      */
-    public java.util.List getCustomersByName(String name)
-        throws org.andromda.howto2.rental.RentalException;
+    public List getCustomersByName(String name)
+        throws RentalException;
 }

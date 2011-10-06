@@ -1,32 +1,43 @@
 // license-header java merge-point
 package org.andromda.test.howto16.a.crud;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.validator.ValidatorForm;
+
 public final class PersonForm
-    extends org.apache.struts.validator.ValidatorForm
-    implements java.io.Serializable
+    extends ValidatorForm
+    implements Serializable
 {
     private static final long serialVersionUID = -3318981191704948354L;
 
-    private java.util.List manageableList = null;
+    private List manageableList = null;
 
-    public java.util.List getManageableList()
+    public List getManageableList()
     {
         return this.manageableList;
     }
 
-    public void setManageableList(java.util.List manageableList)
+    public void setManageableList(List manageableList)
     {
         this.manageableList = manageableList;
     }
 
-    private java.lang.Long[] selectedRows = null;
+    private Long[] selectedRows = null;
 
-    public java.lang.Long[] getSelectedRows()
+    public Long[] getSelectedRows()
     {
         return this.selectedRows;
     }
 
-    public void setSelectedRows(java.lang.Long[] selectedRows)
+    public void setSelectedRows(Long[] selectedRows)
     {
         this.selectedRows = selectedRows;
     }
@@ -43,19 +54,19 @@ public final class PersonForm
         this.name = name;
     }
 
-    private java.util.Date birthDate;
+    private Date birthDate;
 
-    public java.util.Date getBirthDate()
+    public Date getBirthDate()
     {
         return this.birthDate;
     }
 
-    public void setBirthDate(java.util.Date birthDate)
+    public void setBirthDate(Date birthDate)
     {
         this.birthDate = birthDate;
     }
 
-    private static final java.text.DateFormat birthDateFormatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat birthDateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     static { birthDateFormatter.setLenient(true); }
 
     public String getBirthDateAsString()
@@ -67,54 +78,54 @@ public final class PersonForm
     {
         try
         {
-            this.birthDate = (org.apache.commons.lang.StringUtils.isBlank(birthDate)) ? null : birthDateFormatter.parse(birthDate);
+            this.birthDate = (StringUtils.isBlank(birthDate)) ? null : birthDateFormatter.parse(birthDate);
         }
-        catch (java.text.ParseException pe)
+        catch (ParseException pe)
         {
-            throw new java.lang.RuntimeException(pe);
+            throw new RuntimeException(pe);
         }
     }
 
-    private java.lang.Long id;
+    private Long id;
 
-    public java.lang.Long getId()
+    public Long getId()
     {
         return this.id;
     }
 
-    public void setId(java.lang.Long id)
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    private java.lang.Long[] cars;
+    private Long[] cars;
 
-    public java.lang.Long[] getCars()
+    public Long[] getCars()
     {
         return this.cars;
     }
 
-    public void setCars(java.lang.Long[] cars)
+    public void setCars(Long[] cars)
     {
         this.cars = cars;
     }
 
-    private java.util.List carsBackingList;
+    private List carsBackingList;
 
-    public java.util.List getCarsBackingList()
+    public List getCarsBackingList()
     {
         return this.carsBackingList;
     }
 
-    public void setCarsBackingList(java.util.List carsBackingList)
+    public void setCarsBackingList(List carsBackingList)
     {
         this.carsBackingList = carsBackingList;
     }
 
     /**
-     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     * @see ValidatorForm#reset(ActionMapping,HttpServletRequest)
      */
-    public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    public void reset(ActionMapping mapping, HttpServletRequest request)
     {
         name = null;
         birthDate = null;

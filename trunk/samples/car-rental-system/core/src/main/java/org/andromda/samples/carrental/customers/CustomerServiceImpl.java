@@ -52,5 +52,4 @@ public class CustomerServiceImpl
         //@todo implement protected String handleAuthenticateAsCustomer(String customerNo, String password)
         return null;
     }
-
 }

@@ -62,5 +62,4 @@ public class InventoryServiceImpl
         //@todo implement protected Collection handleSearchAllCars()
         return null;
     }
-
 }

@@ -9,12 +9,12 @@ package org.andromda.samples.animalquiz.decisiontree;
  * @see org.andromda.samples.animalquiz.decisiontree.DecisionService
  */
 public class DecisionServiceImpl
-    extends org.andromda.samples.animalquiz.decisiontree.DecisionServiceBase
+    extends DecisionServiceBase
 {
     /**
      * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getFirstQuestion()
      */
-    protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetFirstQuestion()
+    protected VODecisionItem handleGetFirstQuestion()
         throws Exception
     {
         VODecisionItem item = (VODecisionItem)this.getDecisionItemDao().findRoot(DecisionItemDao.TRANSFORM_VODECISIONITEM);
@@ -26,18 +26,18 @@ public class DecisionServiceImpl
     }
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getNextQuestion(java.lang.Long)
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#getNextQuestion(Long)
      */
-    protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetNextQuestion(java.lang.Long itemId)
+    protected VODecisionItem handleGetNextQuestion(Long itemId)
         throws Exception
     {
         return (VODecisionItem)this.getDecisionItemDao().load(DecisionItemDao.TRANSFORM_VODECISIONITEM, itemId);
     }
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#addNewAnimalWithQuestion(String, String, java.lang.Long)
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionService#addNewAnimalWithQuestion(String, String, Long)
      */
-    protected void handleAddNewAnimalWithQuestion(String animalName, String promptForYes, java.lang.Long idOfLastNoDecision)
+    protected void handleAddNewAnimalWithQuestion(String animalName, String promptForYes, Long idOfLastNoDecision)
         throws Exception
     {
         Animal newAnimal = this.getAnimalDao().create(animalName, false);

@@ -6,16 +6,16 @@
 package org.andromda.samples.animalquiz.decisiontree;
 
 /**
- * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem
+ * @see DecisionItem
  */
 public class DecisionItemDaoImpl
-    extends org.andromda.samples.animalquiz.decisiontree.DecisionItemDaoBase
+    extends DecisionItemDaoBase
 {
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#toVODecisionItem(org.andromda.samples.animalquiz.decisiontree.DecisionItem)
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#toVODecisionItem(DecisionItem)
      */
     @Override
-    public org.andromda.samples.animalquiz.decisiontree.VODecisionItem toVODecisionItem(final org.andromda.samples.animalquiz.decisiontree.DecisionItem entity)
+    public VODecisionItem toVODecisionItem(final DecisionItem entity)
     {
         DecisionItem yesSuccessor = entity.getYesSuccessor();
         DecisionItem noSuccessor = entity.getNoSuccessor();
@@ -31,7 +31,7 @@ public class DecisionItemDaoImpl
     }
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#vODecisionItemToEntity(org.andromda.samples.animalquiz.decisiontree.VODecisionItem)
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItemDao#vODecisionItemToEntity(VODecisionItem)
      */
     public DecisionItem vODecisionItemToEntity(VODecisionItem vODecisionItem)
     {

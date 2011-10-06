@@ -73,5 +73,4 @@ public class ContractServiceImpl
         //@todo implement protected String handleRegisterAccident(String idContract)
         return null;
     }
-
 }

@@ -5,37 +5,50 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.Local;
+import javax.ejb.SessionContext;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 /**
  * <p>
  * Base EJB3 DAO Class: is able to create, update, remove, load, and find
- * objects of type <code>org.andromda.howto2.rental.Car</code>.
+ * objects of type <code>Car</code>.
  * </p>
  *
- * @see org.andromda.howto2.rental.CarDao
+ * @see CarDao
  */
-@javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
-@javax.ejb.Local({org.andromda.howto2.rental.CarDao.class})
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Local({CarDao.class})
 public abstract class CarDaoBase
-    implements org.andromda.howto2.rental.CarDao
+    implements CarDao
 {
     // ------ Session Context Injection ------
 
-    @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    @Resource
+    protected SessionContext context;
 
     // ------ Persistence Context Injection --------
 
     /**
      * Inject persistence context howtomodelcaching
      */
-    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")
-    protected javax.persistence.EntityManager emanager;
+    @PersistenceContext(unitName = "howtomodelcaching")
+    protected EntityManager emanager;
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#load(int,)
+     * @see CarDao#load(int,)
      */
-    public Object load(final int transform, final java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Object load(final int transform, final Long id)
+        throws CarDaoException
     {
         if (id == null)
         {
@@ -44,67 +57,67 @@ public abstract class CarDaoBase
         }
         try
         {
-            final Object entity = (org.andromda.howto2.rental.Car)emanager.find(org.andromda.howto2.rental.Car.class, id);
-            return transformEntity(transform, (org.andromda.howto2.rental.Car)entity);
+            final Object entity = (Car)emanager.find(Car.class, id);
+            return transformEntity(transform, (Car)entity);
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#load()
+     * @see CarDao#load()
      */
-    public org.andromda.howto2.rental.Car load( final java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Car load( final Long id)
+        throws CarDaoException
     {
-        return (org.andromda.howto2.rental.Car)this.load(TRANSFORM_NONE, id);
+        return (Car)this.load(TRANSFORM_NONE, id);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#loadAll()
+     * @see CarDao#loadAll()
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection<org.andromda.howto2.rental.Car> loadAll()
-        throws org.andromda.howto2.rental.CarDaoException
+    public Collection<Car> loadAll()
+        throws CarDaoException
     {
-        return (java.util.Collection<org.andromda.howto2.rental.Car>)this.loadAll(TRANSFORM_NONE);
+        return (Collection<Car>)this.loadAll(TRANSFORM_NONE);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#loadAll(int)
+     * @see CarDao#loadAll(int)
      */
-    public java.util.Collection loadAll(final int transform)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Collection loadAll(final int transform)
+        throws CarDaoException
     {
         try
         {
-            javax.persistence.Query query = emanager.createNamedQuery("Car.findAll");
-            java.util.List<org.andromda.howto2.rental.Car> results = query.getResultList();
+            Query query = emanager.createNamedQuery("Car.findAll");
+            List<Car> results = query.getResultList();
             this.transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(org.andromda.howto2.rental.Car)
+     * @see CarDao#create(Car)
      */
-    public org.andromda.howto2.rental.Car create(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Car create(Car car)
+        throws CarDaoException
     {
-        return (org.andromda.howto2.rental.Car)this.create(TRANSFORM_NONE, car);
+        return (Car)this.create(TRANSFORM_NONE, car);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int transform, org.andromda.howto2.rental.Car)
+     * @see CarDao#create(int transform, Car)
      */
-    public Object create(final int transform, final org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Object create(final int transform, final Car car)
+        throws CarDaoException
     {
         if (car == null)
         {
@@ -120,70 +133,70 @@ public abstract class CarDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(java.util.Collection<org.andromda.howto2.rental.Car>)
+     * @see CarDao#create(Collection<Car>)
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection<org.andromda.howto2.rental.Car> create(final java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Collection<Car> create(final Collection<Car> entities)
+        throws CarDaoException
     {
         return create(TRANSFORM_NONE, entities);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int, java.util.Collection<org.andromda.howto2.rental.Car>)
+     * @see CarDao#create(int, Collection<Car>)
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection create(final int transform, final java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException
+    public Collection create(final int transform, final Collection<Car> entities)
+        throws CarDaoException
     {
         if (entities == null)
         {
             throw new IllegalArgumentException(
                 "Car.create - 'entities' can not be null");
         }
-        java.util.Collection results = new java.util.ArrayList();
+        Collection results = new ArrayList();
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                results.add(create(transform, (org.andromda.howto2.rental.Car)entityIterator.next()));
+                results.add(create(transform, (Car)entityIterator.next()));
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
         return results;
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(String, String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#create(String, String, CarType)
      */
-    public org.andromda.howto2.rental.Car create(
+    public Car create(
         String serial,
         String name,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+        CarType type)
+        throws CarDaoException
     {
-        return (org.andromda.howto2.rental.Car)this.create(TRANSFORM_NONE, serial, name, type);
+        return (Car)this.create(TRANSFORM_NONE, serial, name, type);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int, String, String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#create(int, String, String, CarType)
      */
     public Object create(
         final int transform,
         String serial,
         String name,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+        CarType type)
+        throws CarDaoException
     {
-        org.andromda.howto2.rental.Car entity = new org.andromda.howto2.rental.Car();
+        Car entity = new Car();
         entity.setSerial(serial);
         entity.setName(name);
         entity.setType(type);
@@ -191,30 +204,30 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(String, org.andromda.howto2.rental.Person, String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#create(String, Person, String, CarType)
      */
-    public org.andromda.howto2.rental.Car create(
+    public Car create(
         String name,
-        org.andromda.howto2.rental.Person owner,
+        Person owner,
         String serial,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+        CarType type)
+        throws CarDaoException
     {
-        return (org.andromda.howto2.rental.Car)this.create(TRANSFORM_NONE, name, owner, serial, type);
+        return (Car)this.create(TRANSFORM_NONE, name, owner, serial, type);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#create(int, String, org.andromda.howto2.rental.Person, String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#create(int, String, Person, String, CarType)
      */
     public Object create(
         final int transform,
         String name,
-        org.andromda.howto2.rental.Person owner,
+        Person owner,
         String serial,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+        CarType type)
+        throws CarDaoException
     {
-        org.andromda.howto2.rental.Car entity = new org.andromda.howto2.rental.Car();
+        Car entity = new Car();
         entity.setName(name);
         entity.setOwner(owner);
         entity.setSerial(serial);
@@ -223,10 +236,10 @@ public abstract class CarDaoBase
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#update(org.andromda.howto2.rental.Car)
+     * @see CarDao#update(Car)
      */
-    public void update(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException
+    public void update(Car car)
+        throws CarDaoException
     {
         if (car == null)
         {
@@ -240,15 +253,15 @@ public abstract class CarDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#update(java.util.Collection<org.andromda.howto2.rental.Car>)
+     * @see CarDao#update(Collection<Car>)
      */
-    public void update(final java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException
+    public void update(final Collection<Car> entities)
+        throws CarDaoException
     {
         if (entities == null)
         {
@@ -257,22 +270,22 @@ public abstract class CarDaoBase
         }
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                update((org.andromda.howto2.rental.Car)entityIterator.next());
+                update((Car)entityIterator.next());
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#remove(org.andromda.howto2.rental.Car)
+     * @see CarDao#remove(Car)
      */
-    public void remove(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException
+    public void remove(Car car)
+        throws CarDaoException
     {
         if (car == null)
         {
@@ -286,15 +299,15 @@ public abstract class CarDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#remove(java.lang.Long)
+     * @see CarDao#remove(Long)
      */
-    public void remove(java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException
+    public void remove(Long id)
+        throws CarDaoException
     {
         if (id == null)
         {
@@ -303,7 +316,7 @@ public abstract class CarDaoBase
         }
         try
         {
-            final org.andromda.howto2.rental.Car entity = this.load(id);
+            final Car entity = this.load(id);
             if (entity != null)
             {
                 this.remove(entity);
@@ -311,15 +324,15 @@ public abstract class CarDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#remove(java.util.Collection<org.andromda.howto2.rental.Car>)
+     * @see CarDao#remove(Collection<Car>)
      */
-    public void remove(java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException
+    public void remove(Collection<Car> entities)
+        throws CarDaoException
     {
         if (entities == null)
         {
@@ -328,79 +341,79 @@ public abstract class CarDaoBase
         }
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                remove((org.andromda.howto2.rental.Car)entityIterator.next());
+                remove((Car)entityIterator.next());
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(org.andromda.howto2.rental.CarType)
+     * @see CarDao#findByType(CarType)
      */
-    public java.util.List findByType(org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+    public List findByType(CarType type)
+        throws CarDaoException
     {
         return this.findByType(TRANSFORM_NONE, type);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#findByType(String, CarType)
      */
-    public java.util.List findByType(final String queryString, final org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+    public List findByType(final String queryString, final CarType type)
+        throws CarDaoException
     {
         return this.findByType(TRANSFORM_NONE, queryString, type);
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(int, org.andromda.howto2.rental.CarType)
+     * @see CarDao#findByType(int, CarType)
      */
-    public java.util.List findByType(final int transform, final org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+    public List findByType(final int transform, final CarType type)
+        throws CarDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createNamedQuery("Car.findByType");
+            Query queryObject = emanager.createNamedQuery("Car.findByType");
             queryObject.setParameter("type", type.name());
-            queryObject.setHint("org.hibernate.cacheRegion", "/org/andromda/howto2/rental/Car_findByType");
-            java.util.List results = queryObject.getResultList();
+            queryObject.setHint("org.hibernate.cacheRegion", "/Car_findByType");
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#findByType(int, String, org.andromda.howto2.rental.CarType)
+     * @see CarDao#findByType(int, String, CarType)
      */
-    public java.util.List findByType(final int transform, final String queryString, final org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException
+    public List findByType(final int transform, final String queryString, final CarType type)
+        throws CarDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createQuery(queryString);
+            Query queryObject = emanager.createQuery(queryString);
             queryObject.setParameter("type", type.name());
-            queryObject.setHint("org.hibernate.cacheRegion", "/org/andromda/howto2/rental/Car_findByType");
-            java.util.List results = queryObject.getResultList();
+            queryObject.setHint("org.hibernate.cacheRegion", "/Car_findByType");
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.CarDaoException(ex);
+            throw new CarDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.CarDao#allCarsAreRented()
+     * @see CarDao#allCarsAreRented()
      */
     public boolean allCarsAreRented()
     {
@@ -410,8 +423,8 @@ public abstract class CarDaoBase
         }
         catch (Throwable th)
         {
-            throw new java.lang.RuntimeException(
-            "Error performing 'org.andromda.howto2.rental.CarDao.allCarsAreRented()' --> " + th,
+            throw new RuntimeException(
+            "Error performing 'CarDao.allCarsAreRented()' --> " + th,
             th);
         }
     }
@@ -425,18 +438,18 @@ public abstract class CarDaoBase
     /**
      * Allows transformation of entities into value objects
      * (or something else for that matter), when the <code>transform</code>
-     * flag is set to one of the constants defined in <code>org.andromda.howto2.rental.CarDao</code>, please note
+     * flag is set to one of the constants defined in <code>CarDao</code>, please note
      * that the {@link #TRANSFORM_NONE} constant denotes no transformation, so the entity itself
      * will be returned.
      *
      * If the integer argument value is unknown {@link #TRANSFORM_NONE} is assumed.
      *
-     * @param transform one of the constants declared in {@link org.andromda.howto2.rental.CarDao}
+     * @param transform one of the constants declared in {@link CarDao}
      * @param entity an entity that was found
      * @return the transformed entity (i.e. new value object, etc)
-     * @see #transformEntities(int,java.util.Collection)
+     * @see #transformEntities(int,Collection)
      */
-    protected Object transformEntity(final int transform, final org.andromda.howto2.rental.Car entity)
+    protected Object transformEntity(final int transform, final Car entity)
     {
         Object target = null;
         if (entity != null)
@@ -453,17 +466,17 @@ public abstract class CarDaoBase
 
     /**
      * Transforms a collection of entities using the
-     * {@link #transformEntity(int,org.andromda.howto2.rental.Car)}
+     * {@link #transformEntity(int,Car)}
      * method. This method does not instantiate a new collection.
      * <p/>
      * This method is to be used internally only.
      *
-     * @param transform one of the constants declared in <code>org.andromda.howto2.rental.CarDao</code>
+     * @param transform one of the constants declared in <code>CarDao</code>
      * @param entities the collection of entities to transform
      * @return the same collection as the argument, but this time containing the transformed entities
-     * @see #transformEntity(int,org.andromda.howto2.rental.Car)
+     * @see #transformEntity(int,Car)
      */
-    protected void transformEntities(final int transform, final java.util.Collection entities)
+    protected void transformEntities(final int transform, final Collection entities)
     {
         switch (transform)
         {
@@ -472,5 +485,4 @@ public abstract class CarDaoBase
                 // do nothing;
         }
     }
-
 }

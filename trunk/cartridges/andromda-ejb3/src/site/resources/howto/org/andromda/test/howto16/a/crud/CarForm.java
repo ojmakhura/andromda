@@ -1,32 +1,38 @@
 // license-header java merge-point
 package org.andromda.test.howto16.a.crud;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.validator.ValidatorForm;
+
 public final class CarForm
-    extends org.apache.struts.validator.ValidatorForm
-    implements java.io.Serializable
+    extends ValidatorForm
+    implements Serializable
 {
     private static final long serialVersionUID = -6129991580863661323L;
 
-    private java.util.List manageableList = null;
+    private List manageableList = null;
 
-    public java.util.List getManageableList()
+    public List getManageableList()
     {
         return this.manageableList;
     }
 
-    public void setManageableList(java.util.List manageableList)
+    public void setManageableList(List manageableList)
     {
         this.manageableList = manageableList;
     }
 
-    private java.lang.Long[] selectedRows = null;
+    private Long[] selectedRows = null;
 
-    public java.lang.Long[] getSelectedRows()
+    public Long[] getSelectedRows()
     {
         return this.selectedRows;
     }
 
-    public void setSelectedRows(java.lang.Long[] selectedRows)
+    public void setSelectedRows(Long[] selectedRows)
     {
         this.selectedRows = selectedRows;
     }
@@ -67,46 +73,46 @@ public final class CarForm
         this.type = type;
     }
 
-    private java.lang.Long id;
+    private Long id;
 
-    public java.lang.Long getId()
+    public Long getId()
     {
         return this.id;
     }
 
-    public void setId(java.lang.Long id)
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    private java.lang.Long owner;
+    private Long owner;
 
-    public java.lang.Long getOwner()
+    public Long getOwner()
     {
         return this.owner;
     }
 
-    public void setOwner(java.lang.Long owner)
+    public void setOwner(Long owner)
     {
         this.owner = owner;
     }
 
-    private java.util.List ownerBackingList;
+    private List ownerBackingList;
 
-    public java.util.List getOwnerBackingList()
+    public List getOwnerBackingList()
     {
         return this.ownerBackingList;
     }
 
-    public void setOwnerBackingList(java.util.List ownerBackingList)
+    public void setOwnerBackingList(List ownerBackingList)
     {
         this.ownerBackingList = ownerBackingList;
     }
 
     /**
-     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     * @see ValidatorForm#reset(ActionMapping,HttpServletRequest)
      */
-    public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    public void reset(ActionMapping mapping, HttpServletRequest request)
     {
         serial = null;
         name = null;

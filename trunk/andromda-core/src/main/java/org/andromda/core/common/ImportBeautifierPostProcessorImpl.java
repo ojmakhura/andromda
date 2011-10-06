@@ -2,9 +2,8 @@ package org.andromda.core.common;
 
 import de.plushnikov.doctorjim.ImportProcessor;
 import de.plushnikov.doctorjim.javaparser.ParseException;
-import org.apache.log4j.Logger;
-
 import java.io.File;
+import org.apache.log4j.Logger;
 
 /**
  * Implementation of PostProcessor interface to organize imports in java files

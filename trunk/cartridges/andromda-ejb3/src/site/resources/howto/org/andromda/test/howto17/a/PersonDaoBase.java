@@ -5,37 +5,52 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.Local;
+import javax.ejb.SessionContext;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TemporalType;
+
 /**
  * <p>
  * Base EJB3 DAO Class: is able to create, update, remove, load, and find
- * objects of type <code>org.andromda.howto2.rental.Person</code>.
+ * objects of type <code>Person</code>.
  * </p>
  *
- * @see org.andromda.howto2.rental.PersonDao
+ * @see PersonDao
  */
-@javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
-@javax.ejb.Local({org.andromda.howto2.rental.PersonDao.class})
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Local({PersonDao.class})
 public abstract class PersonDaoBase
-    implements org.andromda.howto2.rental.PersonDao
+    implements PersonDao
 {
     // ------ Session Context Injection ------
 
-    @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    @Resource
+    protected SessionContext context;
 
     // ------ Persistence Context Injection --------
 
     /**
      * Inject persistence context howtomodelcaching
      */
-    @javax.persistence.PersistenceContext(unitName = "howtomodelcaching")
-    protected javax.persistence.EntityManager emanager;
+    @PersistenceContext(unitName = "howtomodelcaching")
+    protected EntityManager emanager;
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#load(int,)
+     * @see PersonDao#load(int,)
      */
-    public Object load(final int transform, final java.lang.Long id)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Object load(final int transform, final Long id)
+        throws PersonDaoException
     {
         if (id == null)
         {
@@ -44,67 +59,67 @@ public abstract class PersonDaoBase
         }
         try
         {
-            final Object entity = (org.andromda.howto2.rental.Person)emanager.find(org.andromda.howto2.rental.Person.class, id);
-            return transformEntity(transform, (org.andromda.howto2.rental.Person)entity);
+            final Object entity = (Person)emanager.find(Person.class, id);
+            return transformEntity(transform, (Person)entity);
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#load()
+     * @see PersonDao#load()
      */
-    public org.andromda.howto2.rental.Person load( final java.lang.Long id)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Person load( final Long id)
+        throws PersonDaoException
     {
-        return (org.andromda.howto2.rental.Person)this.load(TRANSFORM_NONE, id);
+        return (Person)this.load(TRANSFORM_NONE, id);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#loadAll()
+     * @see PersonDao#loadAll()
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection<org.andromda.howto2.rental.Person> loadAll()
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection<Person> loadAll()
+        throws PersonDaoException
     {
-        return (java.util.Collection<org.andromda.howto2.rental.Person>)this.loadAll(TRANSFORM_NONE);
+        return (Collection<Person>)this.loadAll(TRANSFORM_NONE);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#loadAll(int)
+     * @see PersonDao#loadAll(int)
      */
-    public java.util.Collection loadAll(final int transform)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection loadAll(final int transform)
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query query = emanager.createNamedQuery("Person.findAll");
-            java.util.List<org.andromda.howto2.rental.Person> results = query.getResultList();
+            Query query = emanager.createNamedQuery("Person.findAll");
+            List<Person> results = query.getResultList();
             this.transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(org.andromda.howto2.rental.Person)
+     * @see PersonDao#create(Person)
      */
-    public org.andromda.howto2.rental.Person create(org.andromda.howto2.rental.Person person)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Person create(Person person)
+        throws PersonDaoException
     {
-        return (org.andromda.howto2.rental.Person)this.create(TRANSFORM_NONE, person);
+        return (Person)this.create(TRANSFORM_NONE, person);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(int transform, org.andromda.howto2.rental.Person)
+     * @see PersonDao#create(int transform, Person)
      */
-    public Object create(final int transform, final org.andromda.howto2.rental.Person person)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Object create(final int transform, final Person person)
+        throws PersonDaoException
     {
         if (person == null)
         {
@@ -120,78 +135,78 @@ public abstract class PersonDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(java.util.Collection<org.andromda.howto2.rental.Person>)
+     * @see PersonDao#create(Collection<Person>)
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection<org.andromda.howto2.rental.Person> create(final java.util.Collection<org.andromda.howto2.rental.Person> entities)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection<Person> create(final Collection<Person> entities)
+        throws PersonDaoException
     {
         return create(TRANSFORM_NONE, entities);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(int, java.util.Collection<org.andromda.howto2.rental.Person>)
+     * @see PersonDao#create(int, Collection<Person>)
      */
     @SuppressWarnings({"unchecked"})
-    public java.util.Collection create(final int transform, final java.util.Collection<org.andromda.howto2.rental.Person> entities)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection create(final int transform, final Collection<Person> entities)
+        throws PersonDaoException
     {
         if (entities == null)
         {
             throw new IllegalArgumentException(
                 "Person.create - 'entities' can not be null");
         }
-        java.util.Collection results = new java.util.ArrayList();
+        Collection results = new ArrayList();
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                results.add(create(transform, (org.andromda.howto2.rental.Person)entityIterator.next()));
+                results.add(create(transform, (Person)entityIterator.next()));
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
         return results;
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(String, java.util.Date)
+     * @see PersonDao#create(String, Date)
      */
-    public org.andromda.howto2.rental.Person create(
+    public Person create(
         String name,
-        java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+        Date birthDate)
+        throws PersonDaoException
     {
-        return (org.andromda.howto2.rental.Person)this.create(TRANSFORM_NONE, name, birthDate);
+        return (Person)this.create(TRANSFORM_NONE, name, birthDate);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#create(int, String, java.util.Date)
+     * @see PersonDao#create(int, String, Date)
      */
     public Object create(
         final int transform,
         String name,
-        java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+        Date birthDate)
+        throws PersonDaoException
     {
-        org.andromda.howto2.rental.Person entity = new org.andromda.howto2.rental.Person();
+        Person entity = new Person();
         entity.setName(name);
         entity.setBirthDate(birthDate);
         return this.create(transform, entity);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#update(org.andromda.howto2.rental.Person)
+     * @see PersonDao#update(Person)
      */
-    public void update(org.andromda.howto2.rental.Person person)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public void update(Person person)
+        throws PersonDaoException
     {
         if (person == null)
         {
@@ -205,15 +220,15 @@ public abstract class PersonDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#update(java.util.Collection<org.andromda.howto2.rental.Person>)
+     * @see PersonDao#update(Collection<Person>)
      */
-    public void update(final java.util.Collection<org.andromda.howto2.rental.Person> entities)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public void update(final Collection<Person> entities)
+        throws PersonDaoException
     {
         if (entities == null)
         {
@@ -222,22 +237,22 @@ public abstract class PersonDaoBase
         }
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                update((org.andromda.howto2.rental.Person)entityIterator.next());
+                update((Person)entityIterator.next());
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#remove(org.andromda.howto2.rental.Person)
+     * @see PersonDao#remove(Person)
      */
-    public void remove(org.andromda.howto2.rental.Person person)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public void remove(Person person)
+        throws PersonDaoException
     {
         if (person == null)
         {
@@ -251,15 +266,15 @@ public abstract class PersonDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#remove(java.lang.Long)
+     * @see PersonDao#remove(Long)
      */
-    public void remove(java.lang.Long id)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public void remove(Long id)
+        throws PersonDaoException
     {
         if (id == null)
         {
@@ -268,7 +283,7 @@ public abstract class PersonDaoBase
         }
         try
         {
-            final org.andromda.howto2.rental.Person entity = this.load(id);
+            final Person entity = this.load(id);
             if (entity != null)
             {
                 this.remove(entity);
@@ -276,15 +291,15 @@ public abstract class PersonDaoBase
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#remove(java.util.Collection<org.andromda.howto2.rental.Person>)
+     * @see PersonDao#remove(Collection<Person>)
      */
-    public void remove(java.util.Collection<org.andromda.howto2.rental.Person> entities)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public void remove(Collection<Person> entities)
+        throws PersonDaoException
     {
         if (entities == null)
         {
@@ -293,206 +308,206 @@ public abstract class PersonDaoBase
         }
         try
         {
-            for (final java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+            for (final Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
             {
-                remove((org.andromda.howto2.rental.Person)entityIterator.next());
+                remove((Person)entityIterator.next());
             }
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll()
+     * @see PersonDao#findAll()
      */
-    public java.util.List findAll()
-        throws org.andromda.howto2.rental.PersonDaoException
+    public List findAll()
+        throws PersonDaoException
     {
         return this.findAll(TRANSFORM_NONE);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll(String)
+     * @see PersonDao#findAll(String)
      */
-    public java.util.List findAll(final String queryString)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public List findAll(final String queryString)
+        throws PersonDaoException
     {
         return this.findAll(TRANSFORM_NONE, queryString);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll(int)
+     * @see PersonDao#findAll(int)
      */
-    public java.util.List findAll(final int transform)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public List findAll(final int transform)
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createNamedQuery("Person.findAll");
-            java.util.List results = queryObject.getResultList();
+            Query queryObject = emanager.createNamedQuery("Person.findAll");
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findAll(int, String)
+     * @see PersonDao#findAll(int, String)
      */
-    public java.util.List findAll(final int transform, final String queryString)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public List findAll(final int transform, final String queryString)
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createQuery(queryString);
-            java.util.List results = queryObject.getResultList();
+            Query queryObject = emanager.createQuery(queryString);
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(String)
+     * @see PersonDao#findByName(String)
      */
     public String findByName(String name)
-        throws org.andromda.howto2.rental.PersonDaoException
+        throws PersonDaoException
     {
         return (String)this.findByName(TRANSFORM_NONE, name);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(String, String)
+     * @see PersonDao#findByName(String, String)
      */
     public String findByName(final String queryString, final String name)
-        throws org.andromda.howto2.rental.PersonDaoException
+        throws PersonDaoException
     {
         return (String)this.findByName(TRANSFORM_NONE, queryString, name);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(int, String)
+     * @see PersonDao#findByName(int, String)
      */
     public Object findByName(final int transform, final String name)
-        throws org.andromda.howto2.rental.PersonDaoException
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createNamedQuery("Person.findByName");
+            Query queryObject = emanager.createNamedQuery("Person.findByName");
             queryObject.setParameter("name", name);
             Object result = queryObject.getSingleResult();
-            result = transformEntity(transform, (org.andromda.howto2.rental.Person)result);
+            result = transformEntity(transform, (Person)result);
             return result;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByName(int, String, String)
+     * @see PersonDao#findByName(int, String, String)
      */
     public Object findByName(final int transform, final String queryString, final String name)
-        throws org.andromda.howto2.rental.PersonDaoException
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createQuery(queryString);
+            Query queryObject = emanager.createQuery(queryString);
             queryObject.setParameter("name", name);
             Object result = queryObject.getSingleResult();
-            result = transformEntity(transform, (org.andromda.howto2.rental.Person)result);
+            result = transformEntity(transform, (Person)result);
             return result;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(String, java.util.Date)
+     * @see PersonDao#findByNameOrBirthDate(String, Date)
      */
-    public java.util.Collection findByNameOrBirthDate(String name, java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection findByNameOrBirthDate(String name, Date birthDate)
+        throws PersonDaoException
     {
         return this.findByNameOrBirthDate(TRANSFORM_NONE, name, birthDate);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(String, String, java.util.Date)
+     * @see PersonDao#findByNameOrBirthDate(String, String, Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final String queryString, final String name, final java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection findByNameOrBirthDate(final String queryString, final String name, final Date birthDate)
+        throws PersonDaoException
     {
         return this.findByNameOrBirthDate(TRANSFORM_NONE, queryString, name, birthDate);
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, String, java.util.Date)
+     * @see PersonDao#findByNameOrBirthDate(int, String, Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final int transform, final String name, final java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection findByNameOrBirthDate(final int transform, final String name, final Date birthDate)
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createNamedQuery("Person.findByNameOrBirthDate");
+            Query queryObject = emanager.createNamedQuery("Person.findByNameOrBirthDate");
             queryObject.setParameter("name", name);
-            queryObject.setParameter("birthDate", birthDate, javax.persistence.TemporalType.DATE);
-            java.util.List results = queryObject.getResultList();
+            queryObject.setParameter("birthDate", birthDate, TemporalType.DATE);
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
-     * @see org.andromda.howto2.rental.PersonDao#findByNameOrBirthDate(int, String, String, java.util.Date)
+     * @see PersonDao#findByNameOrBirthDate(int, String, String, Date)
      */
-    public java.util.Collection findByNameOrBirthDate(final int transform, final String queryString, final String name, final java.util.Date birthDate)
-        throws org.andromda.howto2.rental.PersonDaoException
+    public Collection findByNameOrBirthDate(final int transform, final String queryString, final String name, final Date birthDate)
+        throws PersonDaoException
     {
         try
         {
-            javax.persistence.Query queryObject = emanager.createQuery(queryString);
+            Query queryObject = emanager.createQuery(queryString);
             queryObject.setParameter("name", name);
-            queryObject.setParameter("birthDate", birthDate, javax.persistence.TemporalType.DATE);
-            java.util.List results = queryObject.getResultList();
+            queryObject.setParameter("birthDate", birthDate, TemporalType.DATE);
+            List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
         }
         catch (Exception ex)
         {
-            throw new org.andromda.howto2.rental.PersonDaoException(ex);
+            throw new PersonDaoException(ex);
         }
     }
 
     /**
      * Allows transformation of entities into value objects
      * (or something else for that matter), when the <code>transform</code>
-     * flag is set to one of the constants defined in <code>org.andromda.howto2.rental.PersonDao</code>, please note
+     * flag is set to one of the constants defined in <code>PersonDao</code>, please note
      * that the {@link #TRANSFORM_NONE} constant denotes no transformation, so the entity itself
      * will be returned.
      *
      * If the integer argument value is unknown {@link #TRANSFORM_NONE} is assumed.
      *
-     * @param transform one of the constants declared in {@link org.andromda.howto2.rental.PersonDao}
+     * @param transform one of the constants declared in {@link PersonDao}
      * @param entity an entity that was found
      * @return the transformed entity (i.e. new value object, etc)
-     * @see #transformEntities(int,java.util.Collection)
+     * @see #transformEntities(int,Collection)
      */
-    protected Object transformEntity(final int transform, final org.andromda.howto2.rental.Person entity)
+    protected Object transformEntity(final int transform, final Person entity)
     {
         Object target = null;
         if (entity != null)
@@ -509,17 +524,17 @@ public abstract class PersonDaoBase
 
     /**
      * Transforms a collection of entities using the
-     * {@link #transformEntity(int,org.andromda.howto2.rental.Person)}
+     * {@link #transformEntity(int,Person)}
      * method. This method does not instantiate a new collection.
      * <p/>
      * This method is to be used internally only.
      *
-     * @param transform one of the constants declared in <code>org.andromda.howto2.rental.PersonDao</code>
+     * @param transform one of the constants declared in <code>PersonDao</code>
      * @param entities the collection of entities to transform
      * @return the same collection as the argument, but this time containing the transformed entities
-     * @see #transformEntity(int,org.andromda.howto2.rental.Person)
+     * @see #transformEntity(int,Person)
      */
-    protected void transformEntities(final int transform, final java.util.Collection entities)
+    protected void transformEntities(final int transform, final Collection entities)
     {
         switch (transform)
         {
@@ -528,5 +543,4 @@ public abstract class PersonDaoBase
                 // do nothing;
         }
     }
-
 }

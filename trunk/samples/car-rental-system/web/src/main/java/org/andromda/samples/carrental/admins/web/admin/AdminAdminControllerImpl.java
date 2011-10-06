@@ -1,10 +1,9 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.admins.web.admin;
 
-import org.apache.struts.action.ActionMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.admins.web.admin.AdminAdminController
@@ -38,5 +37,4 @@ public class AdminAdminControllerImpl extends AdminAdminController
         form.setName("name-test");
         return null;
     }
-
 }

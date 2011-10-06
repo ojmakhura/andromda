@@ -35,5 +35,4 @@ public class CustomerImpl
         //@todo implement public Customer create(long id, String name, String customerNo, String password)
         return null;
     }
-
 }

@@ -5,11 +5,13 @@
 //
 package org.andromda.test.howto6.a;
 
+import java.io.Serializable;
+
 /**
  *
  */
 public class CarListItem
-    implements java.io.Serializable
+    implements Serializable
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -95,5 +97,4 @@ public class CarListItem
     {
         this.ownerName = ownerName;
     }
-
 }

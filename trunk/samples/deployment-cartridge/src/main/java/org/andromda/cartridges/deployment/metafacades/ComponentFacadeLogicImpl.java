@@ -3,10 +3,9 @@ package org.andromda.cartridges.deployment.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.deployment.profile.DeploymentProfile;
 import org.andromda.metafacades.uml.DependencyFacade;
-
+import org.omg.uml.foundation.core.Component;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.deployment.metafacades.ComponentFacade.
@@ -16,14 +15,14 @@ import org.andromda.metafacades.uml.DependencyFacade;
 public class ComponentFacadeLogicImpl
     extends ComponentFacadeLogic
 {
-    public ComponentFacadeLogicImpl (org.omg.uml.foundation.core.Component metaObject, String context)
+    public ComponentFacadeLogicImpl (Component metaObject, String context)
     {
         super (metaObject, context);
     }
     /**
      * @see org.andromda.cartridges.deployment.metafacades.ComponentFacade#getManifestingArtifacts()
      */
-    protected java.util.Collection handleGetManifestingArtifacts()
+    protected Collection handleGetManifestingArtifacts()
     {
         ArrayList result = new ArrayList();
 
@@ -77,5 +76,4 @@ public class ComponentFacadeLogicImpl
 
         return result;
     }
-
 }

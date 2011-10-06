@@ -12,7 +12,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  * within {@link org.andromda.howto2.rental.RentalService}.
  */
 public class RentalServiceException
-    extends java.lang.RuntimeException
+    extends RuntimeException
 {
     /**
      * The serial version UID of this class. Needed for serialization.

@@ -5,8 +5,11 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
- * @see org.andromda.howto2.rental.Car
+ * @see Car
  */
 public interface CarDao
 {
@@ -20,16 +23,16 @@ public interface CarDao
     public static final int TRANSFORM_NONE = 0;
 
     /**
-     * Loads an instance of org.andromda.howto2.rental.Car from the persistent store.
+     * Loads an instance of Car from the persistent store.
      * @param id the identifier of the entity to load.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public org.andromda.howto2.rental.Car load(java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Car load(Long id)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #load(java.lang.Long)} with an
+     *   Does the same thing as {@link #load(Long)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
@@ -39,19 +42,19 @@ public interface CarDao
      *
      * @param id the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public Object load(int transform, java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Object load(int transform, Long id)
+        throws CarDaoException;
 
     /**
-     * Loads all entities of type {@link org.andromda.howto2.rental.Car}.
+     * Loads all entities of type {@link Car}.
      *
      * @return the loaded entities.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public java.util.Collection<org.andromda.howto2.rental.Car> loadAll()
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Collection<Car> loadAll()
+        throws CarDaoException;
 
     /**
      * <p>
@@ -65,21 +68,21 @@ public interface CarDao
      *
      * @param transform the flag indicating what transformation to use.
      * @return the loaded entities.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public java.util.Collection loadAll(final int transform)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Collection loadAll(final int transform)
+        throws CarDaoException;
 
     /**
-     * Creates an instance of org.andromda.howto2.rental.Car and adds it to the persistent store.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * Creates an instance of Car and adds it to the persistent store.
+     * @throws CarDaoException
      */
-    public org.andromda.howto2.rental.Car create(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Car create(Car car)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(org.andromda.howto2.rental.Car)} with an
+     *   Does the same thing as {@link #create(Car)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -87,27 +90,27 @@ public interface CarDao
      *   not occur.
      * </p>
      *
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public Object create(int transform, org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Object create(int transform, Car car)
+        throws CarDaoException;
 
     /**
-     * Creates a new instance of org.andromda.howto2.rental.Car and adds
+     * Creates a new instance of Car and adds
      * from the passed in <code>entities</code> collection
      *
-     * @param entities the collection of org.andromda.howto2.rental.Car
+     * @param entities the collection of Car
      *        instances to create.
      *
      * @return the created instances.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public java.util.Collection<org.andromda.howto2.rental.Car> create(java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Collection<Car> create(Collection<Car> entities)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(org.andromda.howto2.rental.Car)} with an
+     *   Does the same thing as {@link #create(Car)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -115,27 +118,27 @@ public interface CarDao
      *   not occur.
      * </p>
      *
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public java.util.Collection create(int transform, java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public Collection create(int transform, Collection<Car> entities)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Creates a new <code>org.andromda.howto2.rental.Car</code>
+     *   Creates a new <code>Car</code>
      *   instance from <strong>all</strong> attributes and adds it to
      *   the persistent store.
      * </p>
      */
-    public org.andromda.howto2.rental.Car create(
+    public Car create(
         String serial,
         String name,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+        CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(String, String, org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #create(String, String, CarType)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -143,34 +146,34 @@ public interface CarDao
      *   not occur.
      * </p>
      *
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
     public Object create(
         int transform,
         String serial,
         String name,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+        CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *  Creates a new <code>org.andromda.howto2.rental.Car</code>
+     *  Creates a new <code>Car</code>
      *  instance from only <strong>required</strong> properties (attributes
      *  and association ends) and adds it to the persistent store.
      * </p>
      *
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public org.andromda.howto2.rental.Car create(
+    public Car create(
         String name,
-        org.andromda.howto2.rental.Person owner,
+        Person owner,
         String serial,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+        CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #create(String, String, org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #create(String, String, CarType)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -178,72 +181,72 @@ public interface CarDao
      *   not occur.
      * </p>
      *
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
     public Object create(
         int transform,
         String name,
-        org.andromda.howto2.rental.Person owner,
+        Person owner,
         String serial,
-        org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+        CarType type)
+        throws CarDaoException;
 
     /**
      * Updates the <code>car</code> instance in the persistent store.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public void update(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public void update(Car car)
+        throws CarDaoException;
 
     /**
      * Updates all instances in the <code>entities</code> collection in the persistent store.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public void update(java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public void update(Collection<Car> entities)
+        throws CarDaoException;
 
     /**
-     * Removes the instance of org.andromda.howto2.rental.Car from the persistent store.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * Removes the instance of Car from the persistent store.
+     * @throws CarDaoException
      */
-    public void remove(org.andromda.howto2.rental.Car car)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public void remove(Car car)
+        throws CarDaoException;
 
     /**
-     * Removes the instance of org.andromda.howto2.rental.Car having the given
+     * Removes the instance of Car having the given
      * <code>identifier</code> from the persistent store.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public void remove(java.lang.Long id)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public void remove(Long id)
+        throws CarDaoException;
 
     /**
      * Removes all entities in the given <code>entities<code> collection.
-     * @throws org.andromda.howto2.rental.CarDaoException
+     * @throws CarDaoException
      */
-    public void remove(java.util.Collection<org.andromda.howto2.rental.Car> entities)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public void remove(Collection<Car> entities)
+        throws CarDaoException;
 
     /**
      *
      */
-    public java.util.List findByType(org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public List findByType(CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByType(org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #findByType(CarType)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByType(org.andromda.howto2.rental.CarType)}.
+     *   argument allows you to override the query string defined in {@link #findByType(CarType)}.
      * </p>
      */
 
-    public java.util.List findByType(String queryString, org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public List findByType(String queryString, CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByType(org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #findByType(CarType)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
      *   finder results will <strong>NOT</strong> be transformed during retrieval.
      *   If this flag is any of the other constants defined here
@@ -253,23 +256,22 @@ public interface CarDao
      * </p>
      */
 
-    public java.util.List findByType(int transform, org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public List findByType(int transform, CarType type)
+        throws CarDaoException;
 
     /**
      * <p>
-     *   Does the same thing as {@link #findByType(boolean, org.andromda.howto2.rental.CarType)} with an
+     *   Does the same thing as {@link #findByType(boolean, CarType)} with an
      *   additional argument called <code>queryString</code>.  This <code>queryString</code>
-     *   argument allows you to override the query string defined in {@link #findByType(int, org.andromda.howto2.rental.CarType type)}.
+     *   argument allows you to override the query string defined in {@link #findByType(int, CarType type)}.
      * </p>
      */
 
-    public java.util.List findByType(int transform, String queryString, org.andromda.howto2.rental.CarType type)
-        throws org.andromda.howto2.rental.CarDaoException;
+    public List findByType(int transform, String queryString, CarType type)
+        throws CarDaoException;
 
     /**
      *
      */
     public boolean allCarsAreRented();
-
 }

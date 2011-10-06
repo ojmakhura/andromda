@@ -5,13 +5,19 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.List;
+import java.util.Properties;
+import javax.naming.NamingException;
+import org.andromda.howto2.ServiceDelegateBase;
+import org.andromda.howto2.ServiceLocator;
+
 /**
  * Web service delegator for {@link org.andromda.howto2.rental.RentalServiceBean}.
  *
  * @see org.andromda.howto2.rental.RentalServiceBean
  */
 public class RentalServiceDelegate
-    extends org.andromda.howto2.ServiceDelegateBase
+    extends ServiceDelegateBase
 {
     /**
      * Default constructor
@@ -26,18 +32,18 @@ public class RentalServiceDelegate
      *
      * @param properties
      */
-    public RentalServiceDelegate(java.util.Properties properties)
+    public RentalServiceDelegate(Properties properties)
     {
         super(properties);
     }
 
     /**
-     * Gets an instance of {@link org.andromda.howto2.rental.RentalServiceRemote}
+     * Gets an instance of {@link RentalServiceRemote}
      */
-    private final org.andromda.howto2.rental.RentalServiceRemote getRentalServiceRemote()
-        throws javax.naming.NamingException
+    private final RentalServiceRemote getRentalServiceRemote()
+        throws NamingException
     {
-        return org.andromda.howto2.ServiceLocator.getInstance().get_org_andromda_howto2_rental_RentalServiceBean_Remote(getProperties());
+        return ServiceLocator.getInstance().get_org_andromda_howto2_rental_RentalServiceBean_Remote(getProperties());
     }
 
     /**
@@ -45,20 +51,20 @@ public class RentalServiceDelegate
      *
      * Call the session bean operation using appropriate view type
      */
-    public java.util.List getAllCars()
-        throws org.andromda.howto2.rental.RentalException
+    public List getAllCars()
+        throws RentalException
     {
         try
         {
             return getRentalServiceRemote().getAllCars();
         }
-        catch (org.andromda.howto2.rental.RentalException ex)
+        catch (RentalException ex)
         {
             throw ex;
         }
-        catch (javax.naming.NamingException ex)
+        catch (NamingException ex)
         {
-            throw new org.andromda.howto2.rental.RentalServiceException(
+            throw new RentalServiceException(
                 "Error performing 'org.andromda.howto2.rental.RentalService.getAllCars()' --> " + ex, ex);
         }
     }
@@ -68,22 +74,21 @@ public class RentalServiceDelegate
      *
      * Call the session bean operation using appropriate view type
      */
-    public java.util.List getCustomersByName(String name)
-        throws org.andromda.howto2.rental.RentalException
+    public List getCustomersByName(String name)
+        throws RentalException
     {
         try
         {
             return getRentalServiceRemote().getCustomersByName(name);
         }
-        catch (org.andromda.howto2.rental.RentalException ex)
+        catch (RentalException ex)
         {
             throw ex;
         }
-        catch (javax.naming.NamingException ex)
+        catch (NamingException ex)
         {
-            throw new org.andromda.howto2.rental.RentalServiceException(
+            throw new RentalServiceException(
                 "Error performing 'org.andromda.howto2.rental.RentalService.getCustomersByName(String name)' --> " + ex, ex);
         }
     }
-
 }

@@ -6,10 +6,10 @@
 package org.andromda.samples.animalquiz.decisiontree;
 
 /**
- * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem
+ * @see DecisionItem
  */
 public abstract class DecisionItemImpl
-    extends org.andromda.samples.animalquiz.decisiontree.DecisionItem
+    extends DecisionItem
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -17,8 +17,8 @@ public abstract class DecisionItemImpl
     private static final long serialVersionUID = -2291269241763377348L;
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem#getPrompt()
+     * @see DecisionItem#getPrompt()
      */
     public abstract String getPrompt()
-        throws org.andromda.samples.animalquiz.decisiontree.DecisionException;
+        throws DecisionException;
 }

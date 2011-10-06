@@ -1,12 +1,12 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.admins.web.main;
 
-import org.apache.struts.action.ActionMapping;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.admins.web.main.AdministrationController
