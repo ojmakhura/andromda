@@ -16,8 +16,8 @@ public class IncludeFacadeLogicImpl
      * @param context
      */
     public IncludeFacadeLogicImpl(
-        Include metaObject,
-        String context)
+        final Include metaObject,
+        final String context)
     {
         super(metaObject, context);
     }

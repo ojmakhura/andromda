@@ -35,7 +35,7 @@ public class EventFacadeLogicImpl
     @Override
     protected Transition handleGetTransition()
     {
-        Element owner = this.metaObject.getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof Transition)
         {
             return (Transition) owner;
@@ -58,7 +58,7 @@ public class EventFacadeLogicImpl
     @Override
     protected State handleGetState()
     {
-        Element owner = this.metaObject.getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof State)
         {
             return (State)owner;

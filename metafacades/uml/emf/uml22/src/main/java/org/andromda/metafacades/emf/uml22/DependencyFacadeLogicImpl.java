@@ -30,7 +30,7 @@ public class DependencyFacadeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(DependencyFacadeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(DependencyFacadeLogicImpl.class);
 
     /**
      * Gets the name in the following manner.
@@ -78,15 +78,15 @@ public class DependencyFacadeLogicImpl
     protected Object handleGetTargetElement()
     {
         Object transform = null;
-        List<Element> elist = this.metaObject.getTargets();
-        if (elist != null && !elist.isEmpty())
+        final List<Element> elist = this.metaObject.getTargets();
+        if (elist == null || elist.isEmpty())
         {
-            transform = UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getTargets().toArray()[0]);
+            DependencyFacadeLogicImpl.LOGGER.error("DependencyFacade has no targets: " + this.metaObject.getSources().toString());
         }
         else
         {
-            DependencyFacadeLogicImpl.logger.error("DependencyFacade has no targets: " + this.metaObject.getSources().toString());
-       }
+            transform = UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getTargets().toArray()[0]);
+        }
         return transform;
     }
 

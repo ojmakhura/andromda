@@ -91,7 +91,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#setOwningInstance(org.eclipse.uml2.uml.InstanceSpecification)
      */
-    public void setOwningInstance(InstanceSpecification instanceSpecification)
+    public void setOwningInstance(final InstanceSpecification instanceSpecification)
     {
         this.slot.setOwningInstance(instanceSpecification);
     }
@@ -108,7 +108,7 @@ public class LinkEndImpl implements LinkEnd
      * @param string
      * @return slot.getValue(string, null)
      */
-    public ValueSpecification getValue(String string)
+    public ValueSpecification getValue(final String string)
     {
         return this.slot.getValue(string, null);
     }
@@ -116,7 +116,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type)
      */
-    public ValueSpecification getValue(String string, Type type)
+    public ValueSpecification getValue(final String string, final Type type)
     {
         return this.slot.getValue(string, type);
     }
@@ -124,7 +124,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#getValue(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass, boolean)
      */
-    public ValueSpecification getValue(String name, Type type, boolean ignoreCase, EClass eClass, boolean createOnDemand)
+    public ValueSpecification getValue(final String name, final Type type, final boolean ignoreCase, final EClass eClass, final boolean createOnDemand)
     {
         return this.slot.getValue(name, type, ignoreCase, eClass, createOnDemand);
     }
@@ -133,7 +133,7 @@ public class LinkEndImpl implements LinkEnd
      * @param eClass
      * @return slot.createValue(null, null, eClass)
      */
-    public ValueSpecification createValue(EClass eClass)
+    public ValueSpecification createValue(final EClass eClass)
     {
         return this.slot.createValue(null, null, eClass);
     }
@@ -141,7 +141,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#createValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createValue(String name, Type type, EClass eClass)
+    public ValueSpecification createValue(final String name, final Type type, final EClass eClass)
     {
         return this.slot.createValue(name, type, eClass);
     }
@@ -157,7 +157,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Slot#setDefiningFeature(org.eclipse.uml2.uml.StructuralFeature)
      */
-    public void setDefiningFeature(StructuralFeature structuralFeature)
+    public void setDefiningFeature(final StructuralFeature structuralFeature)
     {
         this.slot.setDefiningFeature(structuralFeature);
     }
@@ -165,15 +165,15 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
      */
-    public Object eGet(EStructuralFeature eStructuralFeature, boolean b)
+    public Object eGet(final EStructuralFeature eStructuralFeature, final boolean resolve)
     {
-        return this.slot.eGet(eStructuralFeature, b);
+        return this.slot.eGet(eStructuralFeature, resolve);
     }
 
     /**
      * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, Object)
      */
-    public void eSet(EStructuralFeature eStructuralFeature, Object object)
+    public void eSet(final EStructuralFeature eStructuralFeature, final Object object)
     {
         this.slot.eSet(eStructuralFeature, object);
     }
@@ -181,7 +181,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public void eUnset(EStructuralFeature eStructuralFeature)
+    public void eUnset(final EStructuralFeature eStructuralFeature)
     {
         this.slot.eUnset(eStructuralFeature);
     }
@@ -189,7 +189,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public boolean eIsSet(EStructuralFeature eStructuralFeature)
+    public boolean eIsSet(final EStructuralFeature eStructuralFeature)
     {
         return this.slot.eIsSet(eStructuralFeature);
     }
@@ -222,7 +222,7 @@ public class LinkEndImpl implements LinkEnd
      * @param eClass
      * @return slot.createOwnedComment()
      */
-    public Comment createOwnedComment(EClass eClass)
+    public Comment createOwnedComment(final EClass eClass)
     {
         return this.slot.createOwnedComment();
     }
@@ -238,7 +238,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasOwner(DiagnosticChain diagnosticChain, Map<Object, Object> context)
+    public boolean validateHasOwner(final DiagnosticChain diagnosticChain, final Map<Object, Object> context)
     {
         return this.slot.validateHasOwner(diagnosticChain, context);
     }
@@ -246,7 +246,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateNotOwnSelf(DiagnosticChain diagnosticChain, Map<Object, Object> context)
+    public boolean validateNotOwnSelf(final DiagnosticChain diagnosticChain, final Map<Object, Object> context)
     {
         return this.slot.validateNotOwnSelf(diagnosticChain, context);
     }
@@ -270,7 +270,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#createEAnnotation(String)
      */
-    public EAnnotation createEAnnotation(String string)
+    public EAnnotation createEAnnotation(final String string)
     {
         return this.slot.createEAnnotation(string);
     }
@@ -278,7 +278,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @param stereotype
      */
-    public void apply(Stereotype stereotype)
+    public void apply(final Stereotype stereotype)
     {
         this.slot.applyStereotype(stereotype);
     }
@@ -286,7 +286,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject applyStereotype(Stereotype stereotype)
+    public EObject applyStereotype(final Stereotype stereotype)
     {
         return this.slot.applyStereotype(stereotype);
     }
@@ -294,7 +294,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(String)
      */
-    public Stereotype getApplicableStereotype(String string)
+    public Stereotype getApplicableStereotype(final String string)
     {
         return this.slot.getApplicableStereotype(string);
     }
@@ -310,7 +310,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedStereotype(String)
      */
-    public Stereotype getAppliedStereotype(String string)
+    public Stereotype getAppliedStereotype(final String string)
     {
         return this.slot.getAppliedStereotype(string);
     }
@@ -318,7 +318,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotype(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public Stereotype getAppliedSubstereotype(Stereotype stereotype, String string)
+    public Stereotype getAppliedSubstereotype(final Stereotype stereotype, final String string)
     {
         return this.slot.getAppliedSubstereotype(stereotype, string);
     }
@@ -334,7 +334,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotypes(org.eclipse.uml2.uml.Stereotype)
      */
-    public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
+    public EList<Stereotype> getAppliedSubstereotypes(final Stereotype stereotype)
     {
         return this.slot.getAppliedSubstereotypes(stereotype);
     }
@@ -358,7 +358,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getValue(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public Object getValue(Stereotype stereotype, String string)
+    public Object getValue(final Stereotype stereotype, final String string)
     {
         return this.slot.getValue(stereotype, string);
     }
@@ -366,7 +366,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeApplicable(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeApplicable(Stereotype stereotype)
+    public boolean isStereotypeApplicable(final Stereotype stereotype)
     {
         return this.slot.isStereotypeApplicable(stereotype);
     }
@@ -375,7 +375,7 @@ public class LinkEndImpl implements LinkEnd
      * @param stereotype
      * @return slot.isStereotypeApplied(stereotype)
      */
-    public boolean isApplied(Stereotype stereotype)
+    public boolean isApplied(final Stereotype stereotype)
     {
         return this.slot.isStereotypeApplied(stereotype);
     }
@@ -383,7 +383,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeApplied(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeApplied(Stereotype stereotype)
+    public boolean isStereotypeApplied(final Stereotype stereotype)
     {
         return this.slot.isStereotypeApplied(stereotype);
     }
@@ -392,7 +392,7 @@ public class LinkEndImpl implements LinkEnd
      * @param stereotype
      * @return slot.isStereotypeRequired(stereotype)
      */
-    public boolean isRequired(Stereotype stereotype)
+    public boolean isRequired(final Stereotype stereotype)
     {
         return this.slot.isStereotypeRequired(stereotype);
     }
@@ -400,7 +400,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeRequired(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeRequired(Stereotype stereotype)
+    public boolean isStereotypeRequired(final Stereotype stereotype)
     {
         return this.slot.isStereotypeRequired(stereotype);
     }
@@ -408,7 +408,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#setValue(org.eclipse.uml2.uml.Stereotype, String, Object)
      */
-    public void setValue(Stereotype stereotype, String string, Object object)
+    public void setValue(final Stereotype stereotype, final String string, final Object object)
     {
         this.slot.setValue(stereotype, string, object);
     }
@@ -416,7 +416,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#hasValue(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public boolean hasValue(Stereotype stereotype, String string)
+    public boolean hasValue(final Stereotype stereotype, final String string)
     {
         return this.slot.hasValue(stereotype, string);
     }
@@ -429,7 +429,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject unapplyStereotype(Stereotype stereotype)
+    public EObject unapplyStereotype(final Stereotype stereotype)
     {
         return this.slot.unapplyStereotype(stereotype);
     }
@@ -450,7 +450,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#addKeyword(String)
      */
-    public boolean addKeyword(String string)
+    public boolean addKeyword(final String string)
     {
         return this.slot.addKeyword(string);
     }
@@ -466,7 +466,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#hasKeyword(String)
      */
-    public boolean hasKeyword(String string)
+    public boolean hasKeyword(final String string)
     {
         return this.slot.hasKeyword(string);
     }
@@ -474,7 +474,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#removeKeyword(String)
      */
-    public boolean removeKeyword(String string)
+    public boolean removeKeyword(final String string)
     {
         return this.slot.removeKeyword(string);
     }
@@ -490,7 +490,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(String)
      */
-    public EAnnotation getEAnnotation(String string)
+    public EAnnotation getEAnnotation(final String string)
     {
         return this.slot.getEAnnotation(string);
     }
@@ -514,9 +514,9 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
      */
-    public void eSetDeliver(boolean b)
+    public void eSetDeliver(final boolean deliver)
     {
-        this.slot.eSetDeliver(b);
+        this.slot.eSetDeliver(deliver);
     }
 
     /**
@@ -594,7 +594,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public Object eGet(EStructuralFeature eStructuralFeature)
+    public Object eGet(final EStructuralFeature eStructuralFeature)
     {
         return this.slot.eGet(eStructuralFeature);
     }
@@ -602,7 +602,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
      */
-    public void eNotify(Notification notification)
+    public void eNotify(final Notification notification)
     {
         this.slot.eNotify(notification);
     }
@@ -618,7 +618,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<Relationship> getRelationships(EClass eClass)
+    public EList<Relationship> getRelationships(final EClass eClass)
     {
         return this.slot.getRelationships(eClass);
     }
@@ -626,7 +626,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getRequiredStereotype(String)
      */
-    public Stereotype getRequiredStereotype(String qualifiedName)
+    public Stereotype getRequiredStereotype(final String qualifiedName)
     {
         return this.slot.getRequiredStereotype(qualifiedName);
     }
@@ -650,7 +650,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getSourceDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass eClass)
+    public EList<DirectedRelationship> getSourceDirectedRelationships(final EClass eClass)
     {
         return this.slot.getSourceDirectedRelationships(eClass);
     }
@@ -658,7 +658,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getStereotypeApplication(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject getStereotypeApplication(Stereotype stereotype)
+    public EObject getStereotypeApplication(final Stereotype stereotype)
     {
         return this.slot.getStereotypeApplication(stereotype);
     }
@@ -682,7 +682,7 @@ public class LinkEndImpl implements LinkEnd
     /**
      * @see org.eclipse.uml2.uml.Element#getTargetDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass eClass)
+    public EList<DirectedRelationship> getTargetDirectedRelationships(final EClass eClass)
     {
         return this.slot.getTargetDirectedRelationships(eClass);
     }
@@ -691,8 +691,8 @@ public class LinkEndImpl implements LinkEnd
      * UML2 3.1 (Eclipse 3.6) only
      * @see org.eclipse.emf.ecore.EObject#eInvoke(org.eclipse.emf.ecore.EOperation, org.eclipse.emf.common.util.EList)
      */
-    public Object eInvoke(EOperation arg0, EList<?> arg1) throws InvocationTargetException
+    public Object eInvoke(final EOperation operation, final EList<?> arguments) throws InvocationTargetException
     {
-        return this.slot.eInvoke(arg0, arg1);
+        return this.slot.eInvoke(operation, arguments);
     }
 }

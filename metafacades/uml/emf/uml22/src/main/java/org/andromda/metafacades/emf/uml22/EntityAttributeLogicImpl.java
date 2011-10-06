@@ -35,7 +35,7 @@ public class EntityAttributeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(EntityAttributeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EntityAttributeLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
@@ -135,7 +135,7 @@ public class EntityAttributeLogicImpl
                 // if its an enumeration, the sql type is the literal type
                 if (type.isEnumeration())
                 {
-                    ClassifierFacade literalType = ((EnumerationFacade)type).getLiteralType();
+                    final ClassifierFacade literalType = ((EnumerationFacade)type).getLiteralType();
                     if (literalType != null)
                     {
                         typeName = literalType.getFullyQualifiedName(true);
@@ -180,7 +180,7 @@ public class EntityAttributeLogicImpl
     protected String handleGetColumnIndex()
     {
         final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
-        return index != null ? StringUtils.trimToEmpty(index) : null;
+        return index == null ? null : StringUtils.trimToEmpty(index);
     }
 
     /**
@@ -197,7 +197,7 @@ public class EntityAttributeLogicImpl
         TypeMappings mappings = null;
         if (property instanceof String)
         {
-            String uri = (String)property;
+            final String uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -207,8 +207,8 @@ public class EntityAttributeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
-                EntityAttributeLogicImpl.logger.error(
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
+                EntityAttributeLogicImpl.LOGGER.error(
                     errMsg,
                     th);
 
@@ -237,6 +237,6 @@ public class EntityAttributeLogicImpl
     @Override
     protected String handleGetUniqueGroup() {
         final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE_GROUP);
-        return group != null ? StringUtils.trimToEmpty(group) : null;
+        return group == null ? null : StringUtils.trimToEmpty(group);
     }
 }

@@ -51,7 +51,7 @@ public class ParameterFacadeLogicImpl
         // declare Type parameter = $parameter.defaultValue, requiring quotes around the value
         if (StringUtils.isNotBlank(defaultValue) && !this.handleIsMany())
         {
-            String typeName = this.metaObject.getType().getName();
+            final String typeName = this.metaObject.getType().getName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
@@ -116,7 +116,7 @@ public class ParameterFacadeLogicImpl
     @Override
     public String handleGetEffect()
     {
-        ParameterEffectKind effect = this.metaObject.getEffect();
+        final ParameterEffectKind effect = this.metaObject.getEffect();
         if (effect==null)
         {
             return "NONE";
@@ -249,7 +249,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected Operation handleGetOperation()
     {
-        Object owner = this.metaObject.getOwner();
+        final Object owner = this.metaObject.getOwner();
         if (owner instanceof Operation)
         {
             return (Operation) owner;
@@ -263,7 +263,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected Activity handleGetEvent()
     {
-        Element owner = this.metaObject.getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof Activity)
         {
             return (Activity)owner;

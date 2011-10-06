@@ -58,7 +58,7 @@ public class AttributeImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(AttributeImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(AttributeImpl.class);
 
     /** UML2 3.0: Property no longer inherits from TemplateableElement
      * org.eclipse.uml2.uml.Property
@@ -86,7 +86,7 @@ public class AttributeImpl
         }*/
         if (obj instanceof AssociationEndImpl)
         {
-            Property other = ((AssociationEndImpl)obj).property;
+            final Property other = ((AssociationEndImpl)obj).property;
             return this.property.equals(other);
         }
         return this.property.equals(obj);
@@ -155,7 +155,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#createDefaultValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createDefaultValue(String name, Type type, EClass eClass)
+    public ValueSpecification createDefaultValue(final String name, final Type type, final EClass eClass)
     {
         return this.property.createLowerValue(name, type, eClass);
     }
@@ -248,7 +248,7 @@ public class AttributeImpl
     public TemplateSignature createOwnedTemplateSignature()
     {
         //return this.property.createOwnedTemplateSignature();
-        logger.error("Attribute.createOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.getQualifiedName());
+        LOGGER.error("Attribute.createOwnedTemplateSignature has been removed from UML2 3.x, fix " + this.getQualifiedName());
         return null;
     }
 
@@ -260,7 +260,7 @@ public class AttributeImpl
     public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
         //return this.property.createOwnedTemplateSignature(arg0);
-        logger.error("Attribute.createOwnedTemplateSignature(EClass) has been removed from UML2 3.x, fix " + this.getQualifiedName());
+        LOGGER.error("Attribute.createOwnedTemplateSignature(EClass) has been removed from UML2 3.x, fix " + this.getQualifiedName());
         return null;
     }
 
@@ -286,7 +286,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type)
      */
-    public Property createQualifier(String name, Type type)
+    public Property createQualifier(final String name, final Type type)
     {
         return this.property.createQualifier(name, type);
     }
@@ -294,7 +294,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#createQualifier(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public Property createQualifier(String name, Type type, EClass eClass)
+    public Property createQualifier(final String name, final Type type, final EClass eClass)
     {
         return this.property.createQualifier(name, type, eClass);
     }
@@ -305,7 +305,7 @@ public class AttributeImpl
     public TemplateBinding createTemplateBinding()
     {
         //return this.property.createTemplateBinding(null);
-        logger.error("Attribute.property.createTemplateBinding has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.createTemplateBinding has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -316,7 +316,7 @@ public class AttributeImpl
     public TemplateBinding createTemplateBinding(final EClass arg0)
     {
         //return this.property.createTemplateBinding((TemplateSignature) arg0);
-        logger.error("Attribute.property.createTemplateBinding(EClass) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.createTemplateBinding(EClass) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -783,7 +783,7 @@ public class AttributeImpl
     public TemplateSignature getOwnedTemplateSignature()
     {
         //return this.property.getOwnedTemplateSignature();
-        logger.error("Attribute.property.getOwnedTemplateSignature() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.getOwnedTemplateSignature() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -913,7 +913,7 @@ public class AttributeImpl
     public EList getTemplateBindings()
     {
         //return this.property.getTemplateBindings();
-        logger.error("AttributeImpl.property.getTemplateBindings() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("AttributeImpl.property.getTemplateBindings() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1175,7 +1175,7 @@ public class AttributeImpl
     public EList<ParameterableElement> parameterableElements()
     {
         //return this.property.parameterableElements();
-        logger.error("AttributeImpl.property.parameterableElements() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("AttributeImpl.property.parameterableElements() has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -1369,7 +1369,7 @@ public class AttributeImpl
     public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
         //this.property.setOwnedTemplateSignature(arg0);
-        logger.error("Attribute.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.setOwnedTemplateSignature(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
     }
 
     /**
@@ -1756,7 +1756,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getQualifier(String, org.eclipse.uml2.uml.Type)
      */
-    public Property getQualifier(String name, Type type)
+    public Property getQualifier(final String name, final Type type)
     {
         return this.property.getQualifier(name, type);
     }
@@ -1764,8 +1764,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getQualifier(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass, boolean)
      */
-    public Property getQualifier(String name, Type type, boolean ignoreCase, EClass eClass,
-            boolean createOnDemand)
+    public Property getQualifier(final String name, final Type type, final boolean ignoreCase, final EClass eClass,
+        final boolean createOnDemand)
     {
         return this.property.getQualifier(name, type, ignoreCase, eClass, createOnDemand);
     }
@@ -1773,7 +1773,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getRedefinedProperty(String, org.eclipse.uml2.uml.Type)
      */
-    public Property getRedefinedProperty(String name, Type type)
+    public Property getRedefinedProperty(final String name, final Type type)
     {
         return this.property.getRedefinedProperty(name, type);
     }
@@ -1781,7 +1781,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getRedefinedProperty(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Property getRedefinedProperty(String name, Type type, boolean ignoreCase, EClass eClass)
+    public Property getRedefinedProperty(final String name, final Type type, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getRedefinedProperty(name, type, ignoreCase, eClass);
     }
@@ -1789,7 +1789,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getSubsettedProperty(String, org.eclipse.uml2.uml.Type)
      */
-    public Property getSubsettedProperty(String name, Type type)
+    public Property getSubsettedProperty(final String name, final Type type)
     {
         return this.property.getSubsettedProperty(name, type);
     }
@@ -1797,7 +1797,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#getSubsettedProperty(String, org.eclipse.uml2.uml.Type, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Property getSubsettedProperty(String name, Type type, boolean ignoreCase, EClass eClass)
+    public Property getSubsettedProperty(final String name, final Type type, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getSubsettedProperty(name, type, ignoreCase, eClass);
     }
@@ -1805,9 +1805,9 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#isAttribute(org.eclipse.uml2.uml.Property)
      */
-    public boolean isAttribute(Property p)
+    public boolean isAttribute(final Property prop)
     {
-        return this.property.isAttribute(p);
+        return this.property.isAttribute(prop);
     }
 
     /**
@@ -1821,7 +1821,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setBooleanDefaultValue(boolean)
      */
-    public void setBooleanDefaultValue(boolean value)
+    public void setBooleanDefaultValue(final boolean value)
     {
         this.property.setBooleanDefaultValue(value);
     }
@@ -1829,7 +1829,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setDefault(String)
      */
-    public void setDefault(String value)
+    public void setDefault(final String value)
     {
         this.property.setDefault(value);
     }
@@ -1837,7 +1837,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setIntegerDefaultValue(int)
      */
-    public void setIntegerDefaultValue(int value)
+    public void setIntegerDefaultValue(final int value)
     {
         this.property.setIntegerDefaultValue(value);
     }
@@ -1845,7 +1845,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setIsComposite(boolean)
      */
-    public void setIsComposite(boolean value)
+    public void setIsComposite(final boolean value)
     {
         this.property.setIsComposite(value);
     }
@@ -1853,7 +1853,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setIsNavigable(boolean)
      */
-    public void setIsNavigable(boolean isNavigable)
+    public void setIsNavigable(final boolean isNavigable)
     {
         this.property.setIsNavigable(isNavigable);
     }
@@ -1869,7 +1869,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setOpposite(org.eclipse.uml2.uml.Property)
      */
-    public void setOpposite(Property value)
+    public void setOpposite(final Property value)
     {
         this.property.setOpposite(value);
     }
@@ -1877,7 +1877,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setStringDefaultValue(String)
      */
-    public void setStringDefaultValue(String value)
+    public void setStringDefaultValue(final String value)
     {
         this.property.setStringDefaultValue(value);
     }
@@ -1885,7 +1885,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#setUnlimitedNaturalDefaultValue(int)
      */
-    public void setUnlimitedNaturalDefaultValue(int value)
+    public void setUnlimitedNaturalDefaultValue(final int value)
     {
         this.property.setUnlimitedNaturalDefaultValue(value);
     }
@@ -1901,8 +1901,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateBindingToAttribute(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateBindingToAttribute(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateBindingToAttribute(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateBindingToAttribute(diagnostics, context);
     }
@@ -1910,7 +1910,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateDeploymentTarget(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateDeploymentTarget(DiagnosticChain diagnostics, Map<Object, Object> context)
+    public boolean validateDeploymentTarget(final DiagnosticChain diagnostics, final Map<Object, Object> context)
     {
         return this.property.validateDeploymentTarget(diagnostics, context);
     }
@@ -1919,8 +1919,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateDerivedUnionIsReadOnly(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateDerivedUnionIsReadOnly(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateDerivedUnionIsReadOnly(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateDerivedUnionIsDerived(diagnostics, context);
     }
@@ -1928,8 +1928,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateRedefinedPropertyInherited(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateRedefinedPropertyInherited(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateRedefinedPropertyInherited(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateRedefinedPropertyInherited(diagnostics, context);
     }
@@ -1937,8 +1937,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateSubsettedPropertyNames(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateSubsettedPropertyNames(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateSubsettedPropertyNames(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateSubsettedPropertyNames(diagnostics, context);
     }
@@ -1946,8 +1946,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Property#validateSubsettingContextConforms(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateSubsettingContextConforms(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateSubsettingContextConforms(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateSubsettingContextConforms(diagnostics, context);
     }
@@ -1955,7 +1955,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Feature#getFeaturingClassifier(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Classifier getFeaturingClassifier(String name, boolean ignoreCase, EClass eClass)
+    public Classifier getFeaturingClassifier(final String name, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getFeaturingClassifier(name, ignoreCase, eClass);
     }
@@ -1963,7 +1963,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.RedefinableElement#getRedefinedElement(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public RedefinableElement getRedefinedElement(String name, boolean ignoreCase, EClass eClass)
+    public RedefinableElement getRedefinedElement(final String name, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getRedefinedElement(name, ignoreCase, eClass);
     }
@@ -1971,7 +1971,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.RedefinableElement#getRedefinitionContext(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Classifier getRedefinitionContext(String name, boolean ignoreCase, EClass eClass)
+    public Classifier getRedefinitionContext(final String name, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getRedefinitionContext(name, ignoreCase, eClass);
     }
@@ -1987,7 +1987,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.NamedElement#createNameExpression(String, org.eclipse.uml2.uml.Type)
      */
-    public StringExpression createNameExpression(String name, Type type)
+    public StringExpression createNameExpression(final String name, final Type type)
     {
         return this.property.createNameExpression(name, type);
     }
@@ -1995,7 +1995,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.NamedElement#createUsage(org.eclipse.uml2.uml.NamedElement)
      */
-    public Usage createUsage(NamedElement supplier)
+    public Usage createUsage(final NamedElement supplier)
     {
         return this.property.createUsage(supplier);
     }
@@ -2003,7 +2003,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Dependency getClientDependency(String name, boolean ignoreCase, EClass eClass)
+    public Dependency getClientDependency(final String name, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getClientDependency(name, ignoreCase, eClass);
     }
@@ -2043,8 +2043,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.NamedElement#validateHasNoQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasNoQualifiedName(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateHasNoQualifiedName(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateHasNoQualifiedName(diagnostics, context);
     }
@@ -2052,7 +2052,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.NamedElement#validateHasQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasQualifiedName(DiagnosticChain diagnostics, Map<Object, Object> context)
+    public boolean validateHasQualifiedName(final DiagnosticChain diagnostics, final Map<Object, Object> context)
     {
         return this.property.validateHasQualifiedName(diagnostics, context);
     }
@@ -2060,7 +2060,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject applyStereotype(Stereotype stereotype)
+    public EObject applyStereotype(final Stereotype stereotype)
     {
         return this.property.applyStereotype(stereotype);
     }
@@ -2068,7 +2068,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotype(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public Stereotype getAppliedSubstereotype(Stereotype stereotype, String qualifiedName)
+    public Stereotype getAppliedSubstereotype(final Stereotype stereotype, final String qualifiedName)
     {
         return this.property.getAppliedSubstereotype(stereotype, qualifiedName);
     }
@@ -2076,7 +2076,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedSubstereotypes(org.eclipse.uml2.uml.Stereotype)
      */
-    public EList<Stereotype> getAppliedSubstereotypes(Stereotype stereotype)
+    public EList<Stereotype> getAppliedSubstereotypes(final Stereotype stereotype)
     {
         return this.property.getAppliedSubstereotypes(stereotype);
     }
@@ -2092,7 +2092,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<Relationship> getRelationships(EClass eClass)
+    public EList<Relationship> getRelationships(final EClass eClass)
     {
         return this.property.getRelationships(eClass);
     }
@@ -2100,7 +2100,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getRequiredStereotype(String)
      */
-    public Stereotype getRequiredStereotype(String qualifiedName)
+    public Stereotype getRequiredStereotype(final String qualifiedName)
     {
         return this.property.getRequiredStereotype(qualifiedName);
     }
@@ -2124,7 +2124,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getSourceDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getSourceDirectedRelationships(EClass eClass)
+    public EList<DirectedRelationship> getSourceDirectedRelationships(final EClass eClass)
     {
         return this.property.getSourceDirectedRelationships(eClass);
     }
@@ -2132,7 +2132,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getStereotypeApplication(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject getStereotypeApplication(Stereotype stereotype)
+    public EObject getStereotypeApplication(final Stereotype stereotype)
     {
         return this.property.getStereotypeApplication(stereotype);
     }
@@ -2156,7 +2156,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#getTargetDirectedRelationships(org.eclipse.emf.ecore.EClass)
      */
-    public EList<DirectedRelationship> getTargetDirectedRelationships(EClass eClass)
+    public EList<DirectedRelationship> getTargetDirectedRelationships(final EClass eClass)
     {
         return this.property.getTargetDirectedRelationships(eClass);
     }
@@ -2164,7 +2164,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeApplicable(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeApplicable(Stereotype stereotype)
+    public boolean isStereotypeApplicable(final Stereotype stereotype)
     {
         return this.property.isStereotypeApplicable(stereotype);
     }
@@ -2172,7 +2172,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeApplied(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeApplied(Stereotype stereotype)
+    public boolean isStereotypeApplied(final Stereotype stereotype)
     {
         return this.property.isStereotypeApplied(stereotype);
     }
@@ -2180,7 +2180,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#isStereotypeRequired(org.eclipse.uml2.uml.Stereotype)
      */
-    public boolean isStereotypeRequired(Stereotype stereotype)
+    public boolean isStereotypeRequired(final Stereotype stereotype)
     {
         return this.property.isStereotypeRequired(stereotype);
     }
@@ -2188,7 +2188,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject unapplyStereotype(Stereotype stereotype)
+    public EObject unapplyStereotype(final Stereotype stereotype)
     {
         return this.property.unapplyStereotype(stereotype);
     }
@@ -2196,7 +2196,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#compatibleWith(org.eclipse.uml2.uml.MultiplicityElement)
      */
-    public boolean compatibleWith(MultiplicityElement other)
+    public boolean compatibleWith(final MultiplicityElement other)
     {
         return this.property.compatibleWith(other);
     }
@@ -2204,7 +2204,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#createLowerValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createLowerValue(String name, Type type, EClass eClass)
+    public ValueSpecification createLowerValue(final String name, final Type type, final EClass eClass)
     {
         return this.property.createLowerValue(name, type, eClass);
     }
@@ -2212,7 +2212,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#createUpperValue(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createUpperValue(String name, Type type, EClass eClass)
+    public ValueSpecification createUpperValue(final String name, final Type type, final EClass eClass)
     {
         return this.property.createUpperValue(name, type, eClass);
     }
@@ -2220,7 +2220,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#is(int, int)
      */
-    public boolean is(int lowerbound, int upperbound)
+    public boolean is(final int lowerbound, final int upperbound)
     {
         return this.property.is(lowerbound, upperbound);
     }
@@ -2228,7 +2228,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#setLower(int)
      */
-    public void setLower(int value)
+    public void setLower(final int value)
     {
         this.property.setLower(value);
     }
@@ -2236,7 +2236,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#setUpper(int)
      */
-    public void setUpper(int value)
+    public void setUpper(final int value)
     {
         this.property.setUpper(value);
     }
@@ -2244,8 +2244,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#validateValueSpecificationConstant(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateValueSpecificationConstant(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateValueSpecificationConstant(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateValueSpecificationConstant(diagnostics, context);
     }
@@ -2253,8 +2253,8 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.MultiplicityElement#validateValueSpecificationNoSideEffects(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateValueSpecificationNoSideEffects(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateValueSpecificationNoSideEffects(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.property.validateValueSpecificationNoSideEffects(diagnostics, context);
     }
@@ -2270,9 +2270,9 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.ParameterableElement#isCompatibleWith(org.eclipse.uml2.uml.ParameterableElement)
      */
-    public boolean isCompatibleWith(ParameterableElement p)
+    public boolean isCompatibleWith(final ParameterableElement param)
     {
-        return this.property.isCompatibleWith(p);
+        return this.property.isCompatibleWith(param);
     }
 
     /**
@@ -2286,7 +2286,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(String)
      */
-    public Deployment createDeployment(String name)
+    public Deployment createDeployment(final String name)
     {
         return this.property.createDeployment(name);
     }
@@ -2294,7 +2294,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public PackageableElement getDeployedElement(String name, boolean ignoreCase, EClass eClass)
+    public PackageableElement getDeployedElement(final String name, final boolean ignoreCase, final EClass eClass)
     {
         return this.property.getDeployedElement(name, ignoreCase, eClass);
     }
@@ -2302,7 +2302,7 @@ public class AttributeImpl
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String, boolean, boolean)
      */
-    public Deployment getDeployment(String name, boolean ignoreCase, boolean createOnDemand)
+    public Deployment getDeployment(final String name, final boolean ignoreCase, final boolean createOnDemand)
     {
         return this.property.getDeployment(name, ignoreCase, createOnDemand);
     }
@@ -2312,10 +2312,10 @@ public class AttributeImpl
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#createTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
-    public TemplateBinding createTemplateBinding(TemplateSignature signature)
+    public TemplateBinding createTemplateBinding(final TemplateSignature signature)
     {
         //return this.property.createTemplateBinding(signature);
-        logger.error("Attribute.property.createTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.createTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2324,10 +2324,10 @@ public class AttributeImpl
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature)
      */
-    public TemplateBinding getTemplateBinding(TemplateSignature signature)
+    public TemplateBinding getTemplateBinding(final TemplateSignature signature)
     {
         //return this.property.getTemplateBinding(signature);
-        logger.error("Attribute.property.getTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.getTemplateBinding(TemplateSignature) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2337,10 +2337,10 @@ public class AttributeImpl
      * @return null
      * @see org.eclipse.uml2.uml.TemplateableElement#getTemplateBinding(org.eclipse.uml2.uml.TemplateSignature, boolean)
      */
-    public TemplateBinding getTemplateBinding(TemplateSignature signature, boolean createOnDemand)
+    public TemplateBinding getTemplateBinding(final TemplateSignature signature, final boolean createOnDemand)
     {
         //return this.property.getTemplateBinding(signature, createOnDemand);
-        logger.error("Attribute.property.getTemplateBinding(TemplateSignature, boolean) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.getTemplateBinding(TemplateSignature, boolean) has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return null;
     }
 
@@ -2351,7 +2351,7 @@ public class AttributeImpl
     public boolean isTemplate()
     {
         //return this.property.isTemplate();
-        logger.error("Attribute.property.isTemplate has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
+        LOGGER.error("Attribute.property.isTemplate has been removed from UML2 3.x, fix " + this.property.getQualifiedName());
         return false;
     }
 
@@ -2359,8 +2359,8 @@ public class AttributeImpl
      * UML2 3.1 (Eclipse 3.6) only
      * @see org.eclipse.emf.ecore.EObject#eInvoke(org.eclipse.emf.ecore.EOperation, org.eclipse.emf.common.util.EList)
      */
-    public Object eInvoke(EOperation arg0, EList<?> arg1) throws InvocationTargetException
+    public Object eInvoke(final EOperation operation, final EList<?> arguments) throws InvocationTargetException
     {
-        return this.property.eInvoke(arg0, arg1);
+        return this.property.eInvoke(operation, arguments);
     }
 }

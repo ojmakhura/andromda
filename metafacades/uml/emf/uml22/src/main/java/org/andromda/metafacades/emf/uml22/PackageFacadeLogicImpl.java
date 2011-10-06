@@ -42,7 +42,7 @@ public class PackageFacadeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(PackageFacadeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PackageFacadeLogicImpl.class);
 
     /**
      * @see org.andromda.metafacades.uml.PackageFacade#findModelElement(String)
@@ -52,9 +52,9 @@ public class PackageFacadeLogicImpl
         final String fullyQualifiedName)
     {
         Object modelElement = null;
-        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
+        if (PackageFacadeLogicImpl.LOGGER.isDebugEnabled())
         {
-            PackageFacadeLogicImpl.logger.debug("Looking for >> " + fullyQualifiedName);
+            PackageFacadeLogicImpl.LOGGER.debug("Looking for >> " + fullyQualifiedName);
         }
         modelElement =
             UmlUtilities.findByFullyQualifiedName(
@@ -72,9 +72,9 @@ public class PackageFacadeLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                     false);
         }
-        if (PackageFacadeLogicImpl.logger.isDebugEnabled())
+        if (PackageFacadeLogicImpl.LOGGER.isDebugEnabled())
         {
-            PackageFacadeLogicImpl.logger.debug("Found: '" + modelElement + '\'');
+            PackageFacadeLogicImpl.LOGGER.debug("Found: '" + modelElement + '\'');
         }
         return (ModelElementFacade)this.shieldedElement(modelElement);
     }

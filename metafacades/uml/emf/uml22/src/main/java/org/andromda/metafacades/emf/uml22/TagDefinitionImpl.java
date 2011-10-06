@@ -53,7 +53,7 @@ public class TagDefinitionImpl
     /**
      * The value of the tag: collection of strings.
      */
-    private Collection<Object> values;
+    private final Collection<Object> values;
 
     /**
      * Constructor
@@ -114,7 +114,7 @@ public class TagDefinitionImpl
     public String toString()
     {
         final StringBuilder out = new StringBuilder(this.name).append(": ");
-        for (Iterator<Object> it = this.values.iterator(); it.hasNext();)
+        for (final Iterator<Object> it = this.values.iterator(); it.hasNext();)
         {
             out.append(it.next());
             out.append(it.hasNext() ? ", " : ".");

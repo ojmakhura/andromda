@@ -44,7 +44,7 @@ public class OperationFacadeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(OperationFacadeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(OperationFacadeLogicImpl.class);
 
     /**
      * @param metaObject
@@ -110,7 +110,7 @@ public class OperationFacadeLogicImpl
      */
     private String getCall(final String name)
     {
-        StringBuilder buffer = new StringBuilder(name);
+        final StringBuilder buffer = new StringBuilder(name);
         buffer.append('(');
         buffer.append(this.getArgumentNames());
         buffer.append(')');
@@ -169,18 +169,18 @@ public class OperationFacadeLogicImpl
     @Override
     protected Collection handleGetExceptions()
     {
-        Collection<DependencyFacade> exceptions = new LinkedHashSet<DependencyFacade>();
+        final Collection<DependencyFacade> exceptions = new LinkedHashSet<DependencyFacade>();
 
         // finds both exceptions and exception references
         final class ExceptionFilter
                 implements Predicate
         {
-            public boolean evaluate(Object object)
+            public boolean evaluate(final Object object)
             {
                 boolean hasException = object instanceof DependencyFacade;
                 if (hasException)
                 {
-                    DependencyFacade dependency = (DependencyFacade)object;
+                    final DependencyFacade dependency = (DependencyFacade)object;
                     // first check for exception references
                     hasException = dependency.hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION_REF);
 
@@ -188,7 +188,7 @@ public class OperationFacadeLogicImpl
                     // now check for actual exceptions
                     if (!hasException)
                     {
-                        ModelElementFacade targetElement = dependency.getTargetElement();
+                        final ModelElementFacade targetElement = dependency.getTargetElement();
                         hasException = targetElement != null && targetElement.hasStereotype(
                                 UMLProfile.STEREOTYPE_EXCEPTION);
                     }
@@ -217,7 +217,7 @@ public class OperationFacadeLogicImpl
         // now transform the dependency(s) to the actual exception(s)
         CollectionUtils.transform(exceptions, new Transformer()
         {
-            public Object transform(Object object)
+            public Object transform(final Object object)
             {
                 return ((DependencyFacade)object).getTargetElement();
             }
@@ -225,7 +225,7 @@ public class OperationFacadeLogicImpl
 
         // finally add in any members of the UML2 RaisedException list
         // (the 'proper' UML2 way of doing exceptions .. or at least one way).
-        Collection<Type> raisedExceptions = this.metaObject.getRaisedExceptions();
+        final Collection<Type> raisedExceptions = this.metaObject.getRaisedExceptions();
         exceptions.addAll(this.shieldedElements(raisedExceptions));
 
         return exceptions;
@@ -244,12 +244,12 @@ public class OperationFacadeLogicImpl
             hasReturnType = !("void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()))
                 || StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME));
         }
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            String rtnFQN = this.getReturnType().getFullyQualifiedName(true);
+            final String rtnFQN = this.getReturnType().getFullyQualifiedName(true);
             final boolean voidType = "void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()));
-            String voidRtn = this.getReturnType().getFullyQualifiedName();
-            logger.debug("OperationFacadeLogicImpl.handleIsReturnTypePresent rtnFQN=" + rtnFQN + " voidType=" + voidType + " voidRtn=" + voidRtn + " hasReturnType=" + hasReturnType);
+            final String voidRtn = this.getReturnType().getFullyQualifiedName();
+            LOGGER.debug("OperationFacadeLogicImpl.handleIsReturnTypePresent rtnFQN=" + rtnFQN + " voidType=" + voidType + " voidRtn=" + voidRtn + " hasReturnType=" + hasReturnType);
         }
         return hasReturnType;
     }
@@ -269,23 +269,22 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentNames()
     {
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
 
-        Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
+        final Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
         boolean commaNeeded = false;
-        String comma = ", ";
+        final String comma = ", ";
         while (iterator.hasNext())
         {
-            Parameter parameter = iterator.next();
-
+            final Parameter parameter = iterator.next();
             if (!parameter.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL))
             {
                 if (commaNeeded)
                 {
                     buffer.append(comma);
                 }
-                ParameterFacade facade = (ParameterFacade)this.shieldedElement(parameter);
+                final ParameterFacade facade = (ParameterFacade)this.shieldedElement(parameter);
                 buffer.append(facade.getName());
                 commaNeeded = true;
             }
@@ -299,14 +298,14 @@ public class OperationFacadeLogicImpl
     @Override
     protected String handleGetArgumentTypeNames()
     {
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
 
-        Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
+        final Iterator<Parameter> iterator = this.metaObject.getOwnedParameters().iterator();
 
         boolean commaNeeded = false;
         while (iterator.hasNext())
         {
-            Parameter parameter = iterator.next();
+            final Parameter parameter = iterator.next();
 
             if (!parameter.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL))
             {
@@ -314,7 +313,7 @@ public class OperationFacadeLogicImpl
                 {
                     buffer.append(", ");
                 }
-                ParameterFacade facade = (ParameterFacade)this.shieldedElement(parameter);
+                final ParameterFacade facade = (ParameterFacade)this.shieldedElement(parameter);
                 buffer.append(facade.getType().getFullyQualifiedName());
                 commaNeeded = true;
             }
@@ -452,17 +451,17 @@ public class OperationFacadeLogicImpl
      */
     @Override
     protected Object handleFindTaggedValue(
-        String name,
+        final String name,
         final boolean follow)
     {
-        name = StringUtils.trimToEmpty(name);
-        Object value = this.findTaggedValue(name);
+        final String trimName = StringUtils.trimToEmpty(name);
+        Object value = this.findTaggedValue(trimName);
         if (follow)
         {
             ClassifierFacade type = this.getReturnType();
             while (value == null && type != null)
             {
-                value = type.findTaggedValue(name);
+                value = type.findTaggedValue(trimName);
                 type = (ClassifierFacade)type.getGeneralization();
             }
         }
@@ -476,19 +475,19 @@ public class OperationFacadeLogicImpl
     protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
-        StringBuilder exceptionList = new StringBuilder(initialExceptions);
+        final StringBuilder exceptionList = new StringBuilder(initialExceptions);
         // TODO getExceptions = Collection<ClassifierFacade> or <ModelElementFacade>?
-        Collection exceptions = this.getExceptions();
+        final Collection exceptions = this.getExceptions();
         if (exceptions != null && !exceptions.isEmpty())
         {
             if (StringUtils.isNotBlank(initialExceptions))
             {
                 exceptionList.append(", ");
             }
-            Iterator exceptionIt = exceptions.iterator();
+            final Iterator exceptionIt = exceptions.iterator();
             while (exceptionIt.hasNext())
             {
-                ModelElementFacade exception = (ModelElementFacade)exceptionIt.next();
+                final ModelElementFacade exception = (ModelElementFacade)exceptionIt.next();
                 exceptionList.append(exception.getFullyQualifiedName());
                 if (exceptionIt.hasNext())
                 {
@@ -597,7 +596,7 @@ public class OperationFacadeLogicImpl
     protected String handleGetGetterSetterReturnTypeName()
     {
         String name = null;
-        ClassifierFacade returnType = this.getReturnType();
+        final ClassifierFacade returnType = this.getReturnType();
 
         if (returnType!=null && (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED))
         {
@@ -687,8 +686,8 @@ public class OperationFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    Parameter p = (Parameter)object;
-                    return !p.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL) && !p.isException();
+                    final Parameter param = (Parameter)object;
+                    return !param.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL) && !param.isException();
                 }
             });
         return arguments;
@@ -788,7 +787,7 @@ public class OperationFacadeLogicImpl
         ClassifierFacade ancestor = this.getOwner().getSuperClass();
         while (overriddenOperation == null && ancestor != null)
         {
-            for (Iterator<OperationFacade> operationIterator = ancestor.getOperations().iterator();
+            for (final Iterator<OperationFacade> operationIterator = ancestor.getOperations().iterator();
                  overriddenOperation == null && operationIterator.hasNext();)
             {
                 final OperationFacade ancestorOperation = operationIterator.next();

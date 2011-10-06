@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -274,7 +275,7 @@ public class ManageableEntityLogicImpl
         WRAPPER
     }
 
-    private String createListWithManageableMembers(ListType listType)
+    private String createListWithManageableMembers(final ListType listType)
     {
         final StringBuilder buffer = new StringBuilder();
 
@@ -662,7 +663,7 @@ public class ManageableEntityLogicImpl
     /**
      */
     static final class ManageableComparator
-        implements Comparator
+        implements Serializable, Comparator
     {
         private static final long serialVersionUID = 1L;
         /**

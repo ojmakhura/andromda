@@ -58,7 +58,7 @@ public class ActivityGraphFacadeLogicImpl
     @Override
     protected UseCase handleGetUseCase()
     {
-        Element owner = (this.metaObject).getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof UseCase)
         {
             return (UseCase)owner;
@@ -75,7 +75,7 @@ public class ActivityGraphFacadeLogicImpl
     {
         // Since we mapped ActivityGraph to StateMachine, dividers are Regions,
         // not Partitions
-        return (this.metaObject).getRegions();
+        return this.metaObject.getRegions();
     }
 
     /**

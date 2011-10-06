@@ -33,7 +33,7 @@ public class ValueObjectLogicImpl
     @Override
     protected Collection<ValueObjectLogic> handleGetTypeSpecializations()
     {
-        StringBuilder stereotypes = new StringBuilder();
+        final StringBuilder stereotypes = new StringBuilder();
         for (StereotypeFacade stereotype : this.getStereotypes())
         {
             stereotypes.append(stereotype.getName()).append(',');
@@ -45,10 +45,10 @@ public class ValueObjectLogicImpl
      * @param stereotypes
      * @return specializations
      */
-    protected Collection<ValueObjectLogic> handleGetTypeSpecializations(String stereotypes)
+    protected Collection<ValueObjectLogic> handleGetTypeSpecializations(final String stereotypes)
     {
-        Collection<ValueObjectLogic> specializations = new TreeSet<ValueObjectLogic>();
-        String[] stereotypeList = stereotypes.split(",", -1);
+        final Collection<ValueObjectLogic> specializations = new TreeSet<ValueObjectLogic>();
+        final String[] stereotypeList = stereotypes.split(",", -1);
         for (GeneralizableElementFacade classifier : this.getAllSpecializations())
         {
             if (classifier instanceof ValueObjectLogic)

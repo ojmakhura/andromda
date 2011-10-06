@@ -46,7 +46,7 @@ public class ServiceLogicImpl extends ServiceLogic
             @Override
             public boolean evaluate(final Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                final ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -64,7 +64,7 @@ public class ServiceLogicImpl extends ServiceLogic
             @Override
             public boolean evaluate(final Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                final ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -88,7 +88,7 @@ public class ServiceLogicImpl extends ServiceLogic
             {
                 public void execute(final Object object)
                 {
-                    Service service = (Service)object;
+                    final Service service = (Service)object;
                     result.addAll(service.getServiceReferences());
                 }
             });
@@ -108,7 +108,7 @@ public class ServiceLogicImpl extends ServiceLogic
             {
                 public boolean evaluate(final Object object)
                 {
-                    DependencyFacade dependency = (DependencyFacade)object;
+                    final DependencyFacade dependency = (DependencyFacade)object;
                     return dependency != null && dependency.getSourceElement() instanceof Role;
                 }
             });
@@ -168,7 +168,7 @@ public class ServiceLogicImpl extends ServiceLogic
         final Set<Destination> destinations = new LinkedHashSet<Destination>();
         CollectionUtils.forAllDo(this.getOperations(), new Closure()
         {
-            public void execute(Object object)
+            public void execute(final Object object)
             {
                 if (object instanceof ServiceOperation)
                 {
@@ -201,7 +201,7 @@ public class ServiceLogicImpl extends ServiceLogic
         // get references of all super classes
         CollectionUtils.forAllDo(this.getAllGeneralizations(), new Closure()
         {
-            public void execute(Object object)
+            public void execute(final Object object)
             {
                 if (object instanceof Service)
                 {
@@ -227,7 +227,7 @@ public class ServiceLogicImpl extends ServiceLogic
         // get references of all super classes
         CollectionUtils.forAllDo(this.getAllGeneralizations(), new Closure()
         {
-            public void execute(Object object)
+            public void execute(final Object object)
             {
                 if (object instanceof Service)
                 {

@@ -33,7 +33,7 @@ public class PartitionFacadeLogicImpl
     @Override
     protected StateMachine handleGetActivityGraph()
     {
-        Element owner = this.metaObject.getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof StateMachine)
         {
             return (StateMachine)owner;

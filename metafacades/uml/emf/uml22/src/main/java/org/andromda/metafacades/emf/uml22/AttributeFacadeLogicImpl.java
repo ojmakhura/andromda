@@ -75,7 +75,7 @@ public class AttributeFacadeLogicImpl
         // declare Type attribute = $attribute.defaultValue, requiring quotes around the value
         if (StringUtils.isNotBlank(defaultValue) && !this.isMany())
         {
-            String typeName = this.metaObject.getType().getName();
+            final String typeName = this.metaObject.getType().getName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';

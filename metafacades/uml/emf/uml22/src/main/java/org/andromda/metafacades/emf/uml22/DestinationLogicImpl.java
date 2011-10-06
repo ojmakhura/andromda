@@ -13,7 +13,7 @@ public class DestinationLogicImpl
      * @param metaObject
      * @param context
      */
-    public DestinationLogicImpl (Object metaObject, String context)
+    public DestinationLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }

@@ -50,7 +50,7 @@ public class EnumerationLiteralFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getName(boolean)
      */
     @Override
-    protected String handleGetName(boolean modelName)
+    protected String handleGetName(final boolean modelName)
     {
         String name = super.handleGetName();
         final String mask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
@@ -65,12 +65,12 @@ public class EnumerationLiteralFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getValue(boolean)
      */
     @Override
-    protected String handleGetValue(boolean modelValue)
+    protected String handleGetValue(final boolean modelValue)
     {
         String value = null;
         if (this.metaObject.getSpecification() != null && this.metaObject.getSpecification() instanceof OpaqueExpression)
         {
-            OpaqueExpression expression = (OpaqueExpression)this.metaObject.getSpecification();
+            final OpaqueExpression expression = (OpaqueExpression)this.metaObject.getSpecification();
             if (expression.getBodies() != null && !expression.getBodies().isEmpty())
             {
                 value = expression.getBodies().get(0);

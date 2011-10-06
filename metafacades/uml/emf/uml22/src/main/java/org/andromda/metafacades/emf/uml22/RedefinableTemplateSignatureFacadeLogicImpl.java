@@ -22,7 +22,7 @@ public class RedefinableTemplateSignatureFacadeLogicImpl
      * @param context
      * @see org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade
      */
-    public RedefinableTemplateSignatureFacadeLogicImpl (RedefinableTemplateSignature metaObject, String context)
+    public RedefinableTemplateSignatureFacadeLogicImpl(final RedefinableTemplateSignature metaObject, final String context)
     {
         super(metaObject, context);
     }

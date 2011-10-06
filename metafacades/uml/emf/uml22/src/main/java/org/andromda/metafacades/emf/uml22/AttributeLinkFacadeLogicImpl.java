@@ -22,7 +22,7 @@ public class AttributeLinkFacadeLogicImpl
      * @param context
      * @see org.andromda.metafacades.uml.AttributeLinkFacade
      */
-    public AttributeLinkFacadeLogicImpl(AttributeLink metaObject, String context)
+    public AttributeLinkFacadeLogicImpl(final AttributeLink metaObject, final String context)
     {
         super(metaObject, context);
     }
@@ -65,7 +65,7 @@ public class AttributeLinkFacadeLogicImpl
 
         CollectionUtils.transform(values, new Transformer()
         {
-            public Object transform(Object object)
+            public Object transform(final Object object)
             {
                 return InstanceFacadeLogicImpl.createInstanceFor((ValueSpecification)object);
             }

@@ -13,7 +13,7 @@ public class InteractionFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public InteractionFacadeLogicImpl (Object metaObject, String context)
+    public InteractionFacadeLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }

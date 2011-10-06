@@ -39,7 +39,7 @@ public class EntityAssociationEndLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(EntityAssociationEndLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EntityAssociationEndLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
@@ -121,7 +121,7 @@ public class EntityAssociationEndLogicImpl
     protected String handleGetColumnIndex()
     {
         final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
-        return index != null ? StringUtils.trimToEmpty(index) : null;
+        return index == null ? null : StringUtils.trimToEmpty(index);
     }
 
     /**
@@ -145,7 +145,7 @@ public class EntityAssociationEndLogicImpl
                 final Collection<EntityAttribute> identifiers = type.getIdentifiers();
                 if (identifiers != null && !identifiers.isEmpty())
                 {
-                    AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
+                    final AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
                     if (attribute instanceof EntityAttribute)
                     {
                         identifier = (EntityAttribute)attribute;
@@ -154,7 +154,7 @@ public class EntityAssociationEndLogicImpl
             }
             if (identifier != null && identifier.getType() != null)
             {
-                String typeName = identifier.getType().getFullyQualifiedName(true);
+                final String typeName = identifier.getType().getFullyQualifiedName(true);
                 value = this.getSqlMappings().getTo(typeName);
                 final String columnLength = identifier.getColumnLength();
                 if (StringUtils.isNotBlank(columnLength))
@@ -180,7 +180,7 @@ public class EntityAssociationEndLogicImpl
         TypeMappings mappings = null;
         if (property instanceof String)
         {
-            String uri = (String)property;
+            final String uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -190,8 +190,8 @@ public class EntityAssociationEndLogicImpl
             }
             catch (Throwable throwable)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
-                EntityAssociationEndLogicImpl.logger.error(
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
+                EntityAssociationEndLogicImpl.LOGGER.error(
                     errMsg,
                     throwable);
 
@@ -228,6 +228,6 @@ public class EntityAssociationEndLogicImpl
      */
     protected String handleGetUniqueGroup() {
         final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_UNIQUE_GROUP);
-        return group != null ? StringUtils.trimToEmpty(group) : null;
+        return group == null ? null : StringUtils.trimToEmpty(group);
     }
 }

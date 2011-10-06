@@ -211,7 +211,7 @@ public class EntityLogicImpl
                     true);
             if (modelElement instanceof Type)
             {
-                Type element = (Type)modelElement;
+                final Type element = (Type)modelElement;
                 // Identifiers will always have lowerBound 0, since they are optional when creating the Entity class but still valid.
                 // Creates a property with the specified name, type, lower bound, and upper bound
                 final Property property = umlClass.createOwnedAttribute(
@@ -233,7 +233,7 @@ public class EntityLogicImpl
                     kind = VisibilityKind.PROTECTED_LITERAL;
                 }
                 property.setVisibility(kind);
-                Stereotype stereotype =
+                final Stereotype stereotype =
                     UmlUtilities.findApplicableStereotype(
                         property,
                         UMLProfile.STEREOTYPE_IDENTIFIER);
@@ -554,7 +554,7 @@ public class EntityLogicImpl
                 this.getAssociationEnds(),
                 new Predicate()
                 {
-                    public boolean evaluate(Object object)
+                    public boolean evaluate(final Object object)
                     {
                         return ((AssociationEndFacade)object).getOtherEnd().isComposition();
                     }
@@ -578,7 +578,7 @@ public class EntityLogicImpl
                 private static final long serialVersionUID = -7200489183737785955L;
 
                 @Override
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     return ((AssociationEndFacade)object).isComposition();
                 }
@@ -621,7 +621,7 @@ public class EntityLogicImpl
             @Override
                 public boolean evaluate(final Object object)
                 {
-                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                final ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                     return targetElement instanceof Entity;
                 }
             };
@@ -877,7 +877,7 @@ public class EntityLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    ClassifierFacade type = ((AssociationEndFacade)object).getOtherEnd().getType();
+                    final ClassifierFacade type = ((AssociationEndFacade)object).getOtherEnd().getType();
                     /*if (!(type instanceof Entity || type instanceof EnumerationFacade))
                     {
                         logger.debug("EntityLogic.getAssociationEnds " + type);
@@ -912,7 +912,7 @@ public class EntityLogicImpl
                     boolean valid = false;
                     if (object != null && EntityAssociationEnd.class.isAssignableFrom(object.getClass()))
                     {
-                        EntityAssociationEnd end = (EntityAssociationEnd)object;
+                        final EntityAssociationEnd end = (EntityAssociationEnd)object;
                         valid = end.isForeignIdentifier();
                     }
                     return valid;
@@ -931,7 +931,7 @@ public class EntityLogicImpl
         if (identifiers != null && !identifiers.isEmpty())
         {
             final Object id = identifiers.iterator().next();
-            AttributeFacade identifier = (AttributeFacade)id;
+            final AttributeFacade identifier = (AttributeFacade)id;
             assigned =
                     Boolean.valueOf(
                         ObjectUtils.toString(

@@ -87,10 +87,10 @@ public class FrontEndActivityGraphLogicImpl
     {
         // Take the first class inside the FSM
         Class controller = null;
-        for (Iterator<NamedElement> it = ((StateMachine)this.metaObject).getOwnedMembers().iterator();
+        for (final Iterator<NamedElement> it = ((StateMachine)this.metaObject).getOwnedMembers().iterator();
             it.hasNext() && controller == null;)
         {
-            Object next = it.next();
+            final Object next = it.next();
             if (next instanceof Class)
             {
                 controller = (Class)next;

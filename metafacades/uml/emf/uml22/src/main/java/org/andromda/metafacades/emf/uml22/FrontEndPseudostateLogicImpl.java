@@ -67,7 +67,7 @@ public class FrontEndPseudostateLogicImpl
                     final List<FrontEndForward> transitions = action.getTransitions();
                     for (final Iterator<FrontEndForward> transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
-                        TransitionFacade transition = (TransitionFacade)transitionIterator.next();
+                        final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                         if (this.equals(transition.getTarget()))
                         {
                             actionSet.add(action);

@@ -13,7 +13,7 @@ public class TopicLogicImpl
      * @param metaObject
      * @param context
      */
-    public TopicLogicImpl (Object metaObject, String context)
+    public TopicLogicImpl (final Object metaObject, final String context)
     {
         super (metaObject, context);
     }

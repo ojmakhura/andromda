@@ -44,20 +44,20 @@ public class RoleLogicImpl
     public String handleGetName()
     {
         String name;
-        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_ROLE_NAME);
-        if (value != null)
-        {
-            name = StringUtils.trimToEmpty(String.valueOf(value));
-        }
-        else
+        final Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_ROLE_NAME);
+        if (value == null)
         {
             name = super.handleGetName();
-            String mask =
+            final String mask =
                 StringUtils.trimToEmpty(
                     String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             name = NameMasker.mask(
                     name,
                     mask);
+        }
+        else
+        {
+            name = StringUtils.trimToEmpty(String.valueOf(value));
         }
         return name;
     }
@@ -79,7 +79,7 @@ public class RoleLogicImpl
                 allSourceDependencies,
                 new Predicate()
                 {
-                    public boolean evaluate(Object object)
+                    public boolean evaluate(final Object object)
                     {
                         DependencyFacade dependency = (DependencyFacade)object;
                         Object target = dependency.getTargetElement();
