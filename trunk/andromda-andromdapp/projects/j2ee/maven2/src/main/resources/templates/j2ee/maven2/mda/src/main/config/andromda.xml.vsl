@@ -190,6 +190,7 @@
                 <property name="entityManagerJTADataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
+                <!-- Comment to disable $persistenceProviderExtensions specific extensions such as Cache, Types, Validations -->
 #if($hibernate)
                 <property name="persistenceProviderExtensions">hibernate</property>
 #elseif($kodoJpa)
@@ -253,6 +254,7 @@
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
+                <property name="entityManagerName">${application.id}</property>
                 <property name="entities">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
                 <property name="entity-mappings">${core.generated.dir}</property>
@@ -298,12 +300,29 @@
 #end
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
+#if ($webservice && !$cxf)
+                <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
+#if ($axis)
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.saveAttachment(content, contentType, dime)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.getAttachments()</property>
+#end
+#end
+                <!-- Specialized use: OSGI, RichClient, remoting, generated JDBC tests -->
+                <!--property name="advice-impls">${core.generated.dir}</property>
+                <property name="remoting-war-support">${core.manual.java.dir}</property>
+                <property name="open-session-in-view">${core.manual.java.dir}</property>
+                <property name="client-config">${core.manual.test.dir}</property>
+                <property name="client">${core.manual.java.dir}</property>
+                <property name="client-test">${core.manual.test.dir}</property>
+                <property name="osgi">${core.generated.dir}</property-->
                 <property name="daos">${core.generated.dir}</property>
                 <property name="dao-impls">#if($groovy)${core.manual.groovy.dir}#else${core.manual.java.dir}#end</property>
                 <property name="spring-configuration">${core.generated.dir}</property>
+                <property name="server-test-config">${core.manual.test.resources}</property>
+                <property name="server-test">${core.generated.test.dir}</property>
                 <property name="services">${core.generated.dir}</property>
                 <property name="service-impls">#if($groovy)${core.manual.groovy.dir}#else${core.manual.java.dir}#end</property>
-                <property name="service-interfaces">${common.generated.dir}</property>
+                <property name="service-interfaces">${core.generated.dir}</property>
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
 #if ($ear)
@@ -317,13 +336,6 @@
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                  -->
-#end
-#if ($webservice && !$cxf)
-                <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
-#if ($axis)
-                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.saveAttachment(content, contentType, dime)</property>
-                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.getAttachments()</property>
-#end
 #end
             </properties>
         </namespace>

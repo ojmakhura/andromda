@@ -164,7 +164,7 @@
                 Provides the basic project information.
             </documentation>
             <prompt id="applicationParentDirectory">
-                <text>Please enter the parent directory of your new application directory (i.e. C:/workspaces)</text>
+                <text>Please enter the parent directory of your new application directory (i.e. C:/Workspaces)</text>
                 <shortText>Application location</shortText>
             </prompt>
             <prompt id="author">
@@ -253,15 +253,16 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
             </prompt>
             <!--prompt id="ejb3Persistence" setResponseAsTrue="true">
                 <text>Please enter the ejb3 persistence cartridge to use (enter hibernate, openJpa, kodoJpa, or topLink)</text>
-                <shortText>EJB2 JPA version</shortText>
+                <shortText>JPA persistence provider</shortText>
                 <preconditions>
-                    <condition id="transactionPersistenceType" equal="ejb3"/>
+                    <condition id="transactionPersistenceType" notEqual="none"/>
                 </preconditions>
                 <responses>
                     <response>hibernate</response>
-                    <response>kodoJpa</response>
-                    <response>openJpa</response>
+                    <response>eclipseLink</response>
                     <response>topLink</response>
+                    <response>openJpa</response>
+                    <response>kodoJpa</response>
                 </responses>
                 <conditions>
                     <condition equal="kodoJpa">

@@ -41,7 +41,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <!-- Includes org.springframework.web.context.ContextLoaderListener -->
         <dependency>
@@ -182,6 +181,18 @@
                     <!-- Even though these dependencies are 'provided', they are still bundled with the war file. Modify as necessary.
                          Exclude everything not already included in the EAR. -->
                     <packagingExcludes>**/*.java,**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache*.jar,**/geronimo-*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/oro-*.jar,**/qdox*.jar,**/saaj*.jar,**/spring-2.0.8.jar,**/stax*.jar,**/woodstox*.jar,**/xerces*.jar,**/xml-api*.jar,**/xmlbean*.jar</packagingExcludes>
+                    <archive>
+                        <manifest>
+                          <addClasspath>true</addClasspath>
+                          <useUniqueVersions>false</useUniqueVersions>
+                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                          <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                          <Implementation-Build>${maven.build.timestamp}</Implementation-Build>
+                          <url>${project.url}</url>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
