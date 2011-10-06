@@ -30,5 +30,4 @@ public class AdminServiceImpl
         //@todo implement protected String handleCreateAdministrator(String name, String accountNo, String password)
         return null;
     }
-
 }

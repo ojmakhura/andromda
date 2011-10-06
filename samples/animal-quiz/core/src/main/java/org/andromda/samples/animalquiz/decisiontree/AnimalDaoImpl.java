@@ -9,6 +9,6 @@ package org.andromda.samples.animalquiz.decisiontree;
  * @see org.andromda.samples.animalquiz.decisiontree.Animal
  */
 public class AnimalDaoImpl
-    extends org.andromda.samples.animalquiz.decisiontree.AnimalDaoBase
+    extends AnimalDaoBase
 {
 }

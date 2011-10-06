@@ -2,9 +2,7 @@ package org.andromda.cartridges.deployment.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.andromda.cartridges.deployment.psm.ant.CompilerTaskCall;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.deployment.metafacades.DeployedPackageFacade.

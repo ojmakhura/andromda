@@ -9,6 +9,6 @@ package org.andromda.howto2.rental;
  * @see org.andromda.howto2.rental.Person
  */
 public class PersonDaoImpl
-    extends org.andromda.howto2.rental.PersonDaoBase
+    extends PersonDaoBase
 {
 }

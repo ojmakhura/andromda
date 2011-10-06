@@ -5,6 +5,8 @@
 //
 package org.andromda.howto2;
 
+import java.util.Properties;
+
 /**
  * Service delegate base class extended by all service delegates.
  *
@@ -29,7 +31,7 @@ public abstract class ServiceDelegateBase
     /**
      * Environment properties
      */
-    private java.util.Properties properties = null;
+    private Properties properties = null;
 
     /**
      * Default empty constructor
@@ -44,7 +46,7 @@ public abstract class ServiceDelegateBase
      *
      * @param properties
      */
-    public ServiceDelegateBase(java.util.Properties properties)
+    public ServiceDelegateBase(Properties properties)
     {
         this.properties = properties;
     }
@@ -68,7 +70,7 @@ public abstract class ServiceDelegateBase
     /**
      * Get the environment properties if set, otherwise return null
      */
-    public java.util.Properties getProperties()
+    public Properties getProperties()
     {
         return this.properties;
     }
@@ -76,7 +78,7 @@ public abstract class ServiceDelegateBase
     /**
      * Set the environment properties
      */
-    public void setProperties(java.util.Properties properties)
+    public void setProperties(Properties properties)
     {
         this.properties = properties;
     }
@@ -86,6 +88,5 @@ public abstract class ServiceDelegateBase
      */
     public void close()
     {
-        org.andromda.howto2.ServiceLocator.getInstance().shutdown();
+        ServiceLocator.getInstance().shutdown();
     }
-}

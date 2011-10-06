@@ -26,5 +26,4 @@ public class ReservationImpl
         //@todo implement public Reservation create(long id, Date reservationDate, String comfortClass)
         return null;
     }
-
 }

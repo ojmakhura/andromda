@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.deployment.profile.DeploymentProfile;
 import org.andromda.cartridges.deployment.psm.ant.JarTaskCall;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.omg.uml.foundation.core.Artifact;
 
 /**
  * MetafacadeLogic implementation for
@@ -16,7 +17,7 @@ import org.andromda.metafacades.uml.DependencyFacade;
 public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
 {
     public ArtifactFacadeLogicImpl(
-            org.omg.uml.foundation.core.Artifact metaObject, String context)
+            Artifact metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -24,7 +25,7 @@ public class ArtifactFacadeLogicImpl extends ArtifactFacadeLogic
     /**
      * @see org.andromda.cartridges.deployment.metafacades.ArtifactFacade#getWrappedPackages()
      */
-    protected java.util.Collection handleGetWrappedPackages()
+    protected Collection handleGetWrappedPackages()
     {
         ArrayList result = new ArrayList();
 

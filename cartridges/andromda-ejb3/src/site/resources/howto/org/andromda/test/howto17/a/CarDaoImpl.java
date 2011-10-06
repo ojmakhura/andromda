@@ -9,7 +9,7 @@ package org.andromda.howto2.rental;
  * @see org.andromda.howto2.rental.Car
  */
 public class CarDaoImpl
-    extends org.andromda.howto2.rental.CarDaoBase
+    extends CarDaoBase
 {
     /**
      * @see org.andromda.howto2.rental.CarDao#allCarsAreRented()

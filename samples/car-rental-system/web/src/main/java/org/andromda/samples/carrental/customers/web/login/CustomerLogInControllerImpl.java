@@ -1,9 +1,9 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.customers.web.login;
 
-import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.customers.web.login.CustomerLogInController
@@ -21,5 +21,4 @@ public class CustomerLogInControllerImpl extends CustomerLogInController
         form.setCustomerNo("customerNo-test");
         return null;
     }
-
 }

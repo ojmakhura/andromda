@@ -38,7 +38,7 @@ public class $className
     private static final Pattern compiledPattern = Pattern.compile("(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)");
 
     /**
-     * This method is overriden to provide an alternative implementation for storing the exception.
+     * This method is overridden to provide an alternative implementation for storing the exception.
      * This method will use a pattern matching algorithm to extract a possible resource message that is used instead
      * of the argument exception's message.
      */

@@ -1,18 +1,21 @@
 // license-header java merge-point
 package org.andromda.test.howto16.a.crud;
 
-import org.apache.struts.actions.DispatchAction;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import org.andromda.test.ManageableServiceLocator;
+import org.andromda.test.howto16.a.CarType;
 import org.apache.commons.lang.StringUtils;
+import org.apache.struts.Globals;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
 
 public final class ManageCar extends DispatchAction
 {
@@ -24,17 +27,17 @@ public final class ManageCar extends DispatchAction
 
     public ActionForward create(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.CarForm form = (org.andromda.test.howto16.a.crud.CarForm)actionForm;
+        final CarForm form = (CarForm)actionForm;
 
-        if (StringUtils.isNotBlank(request.getParameter("type")) && !org.andromda.test.howto16.a.CarType.literals().contains(form.getType()))
+        if (StringUtils.isNotBlank(request.getParameter("type")) && !CarType.literals().contains(form.getType()))
         {
-            throw new IllegalArgumentException("type must be  one of " + org.andromda.test.howto16.a.CarType.literals());
+            throw new IllegalArgumentException("type must be  one of " + CarType.literals());
         }
 
-        org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().create(
+        ManageableServiceLocator.instance().getCarManageableService().create(
             (StringUtils.isBlank(request.getParameter("serial"))) ? null : form.getSerial()
             , (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
-            , (StringUtils.isBlank(request.getParameter("type"))) ? null : org.andromda.test.howto16.a.CarType.fromString(form.getType())
+            , (StringUtils.isBlank(request.getParameter("type"))) ? null : CarType.fromString(form.getType())
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
             , (StringUtils.isBlank(request.getParameter("owner"))) ? null : form.getOwner()
         );
@@ -44,12 +47,12 @@ public final class ManageCar extends DispatchAction
 
     public ActionForward read(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.CarForm form = (org.andromda.test.howto16.a.crud.CarForm)actionForm;
+        final CarForm form = (CarForm)actionForm;
 
-        final java.util.List list = org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().read(
+        final List list = ManageableServiceLocator.instance().getCarManageableService().read(
             (StringUtils.isBlank(request.getParameter("serial"))) ? null : form.getSerial()
             , (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
-            , (StringUtils.isBlank(request.getParameter("type"))) ? null : org.andromda.test.howto16.a.CarType.fromString(form.getType())
+            , (StringUtils.isBlank(request.getParameter("type"))) ? null : CarType.fromString(form.getType())
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
             , (StringUtils.isBlank(request.getParameter("owner"))) ? null : form.getOwner()
         );
@@ -60,17 +63,17 @@ public final class ManageCar extends DispatchAction
             saveMaxResultsWarning(request);
         }
 
-        final java.util.Map backingLists = org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().readBackingLists();
-        form.setOwnerBackingList((java.util.List)backingLists.get("owner"));
+        final Map backingLists = ManageableServiceLocator.instance().getCarManageableService().readBackingLists();
+        form.setOwnerBackingList((List)backingLists.get("owner"));
 
         return mapping.getInputForward();
     }
 
     public ActionForward preload(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.CarForm form = (org.andromda.test.howto16.a.crud.CarForm)actionForm;
+        final CarForm form = (CarForm)actionForm;
 
-        final java.util.List list = org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().readAll();
+        final List list = ManageableServiceLocator.instance().getCarManageableService().readAll();
         form.setManageableList(list);
 
         if (list.size() >= 250)
@@ -78,12 +81,12 @@ public final class ManageCar extends DispatchAction
             saveMaxResultsWarning(request);
         }
 
-        final java.util.Map backingLists = org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().readBackingLists();
+        final Map backingLists = ManageableServiceLocator.instance().getCarManageableService().readBackingLists();
         if (StringUtils.isNotBlank(request.getParameter("ref_Person")))
         {
-            form.setOwner(new java.lang.Long(request.getParameter("ref_Person")));
+            form.setOwner(new Long(request.getParameter("ref_Person")));
         }
-        form.setOwnerBackingList((java.util.List)backingLists.get("owner"));
+        form.setOwnerBackingList((List)backingLists.get("owner"));
 
         return mapping.getInputForward();
     }
@@ -95,17 +98,17 @@ public final class ManageCar extends DispatchAction
 
     public ActionForward update(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.CarForm form = (org.andromda.test.howto16.a.crud.CarForm) actionForm;
+        final CarForm form = (CarForm) actionForm;
 
-        if (StringUtils.isNotBlank(request.getParameter("type")) && !org.andromda.test.howto16.a.CarType.literals().contains(form.getType()))
+        if (StringUtils.isNotBlank(request.getParameter("type")) && !CarType.literals().contains(form.getType()))
         {
-            throw new IllegalArgumentException("type must be  one of " + org.andromda.test.howto16.a.CarType.literals());
+            throw new IllegalArgumentException("type must be  one of " + CarType.literals());
         }
 
-        org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().update(
+        ManageableServiceLocator.instance().getCarManageableService().update(
             (StringUtils.isBlank(request.getParameter("serial"))) ? null : form.getSerial()
             , (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
-            , (StringUtils.isBlank(request.getParameter("type"))) ? null : org.andromda.test.howto16.a.CarType.fromString(form.getType())
+            , (StringUtils.isBlank(request.getParameter("type"))) ? null : CarType.fromString(form.getType())
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
             , (StringUtils.isBlank(request.getParameter("owner"))) ? null : form.getOwner()
         );
@@ -115,12 +118,12 @@ public final class ManageCar extends DispatchAction
 
     public ActionForward delete(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.CarForm form = (org.andromda.test.howto16.a.crud.CarForm) actionForm;
+        final CarForm form = (CarForm) actionForm;
 
-        final java.lang.Long[] selectedRows = form.getSelectedRows();
+        final Long[] selectedRows = form.getSelectedRows();
         if (selectedRows != null && selectedRows.length > 0)
         {
-            org.andromda.test.ManageableServiceLocator.instance().getCarManageableService().delete(selectedRows);
+            ManageableServiceLocator.instance().getCarManageableService().delete(selectedRows);
         }
 
         return preload(mapping, actionForm, request, response);
@@ -130,11 +133,11 @@ public final class ManageCar extends DispatchAction
     {
         final HttpSession session = request.getSession();
 
-        ActionMessages messages = (ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+        ActionMessages messages = (ActionMessages)session.getAttribute(Globals.MESSAGE_KEY);
         if (messages == null)
         {
             messages = new ActionMessages();
-            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
+            session.setAttribute(Globals.MESSAGE_KEY, messages);
         }
         messages.add("org.andromda.bpm4struts.warningmessages", new ActionMessage("maximum.results.fetched.warning", "250"));
     }

@@ -24,5 +24,4 @@ public class CarImpl
         //@todo implement public Car create(Long id, String registrationNumber, String inventoryNumber)
         return null;
     }
-
 }

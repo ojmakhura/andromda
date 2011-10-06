@@ -1,18 +1,20 @@
 // license-header java merge-point
 package org.andromda.test.howto16.a.crud;
 
-import org.apache.struts.actions.DispatchAction;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import org.andromda.test.ManageableServiceLocator;
 import org.apache.commons.lang.StringUtils;
+import org.apache.struts.Globals;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.DispatchAction;
 
 public final class ManagePerson extends DispatchAction
 {
@@ -24,9 +26,9 @@ public final class ManagePerson extends DispatchAction
 
     public ActionForward create(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.PersonForm form = (org.andromda.test.howto16.a.crud.PersonForm)actionForm;
+        final PersonForm form = (PersonForm)actionForm;
 
-        org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().create(
+        ManageableServiceLocator.instance().getPersonManageableService().create(
             (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
             , (StringUtils.isBlank(request.getParameter("birthDateAsString"))) ? null : form.getBirthDate()
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
@@ -38,9 +40,9 @@ public final class ManagePerson extends DispatchAction
 
     public ActionForward read(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.PersonForm form = (org.andromda.test.howto16.a.crud.PersonForm)actionForm;
+        final PersonForm form = (PersonForm)actionForm;
 
-        final java.util.List list = org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().read(
+        final List list = ManageableServiceLocator.instance().getPersonManageableService().read(
             (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
             , (StringUtils.isBlank(request.getParameter("birthDateAsString"))) ? null : form.getBirthDate()
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
@@ -53,17 +55,17 @@ public final class ManagePerson extends DispatchAction
             saveMaxResultsWarning(request);
         }
 
-        final java.util.Map backingLists = org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().readBackingLists();
-        form.setCarsBackingList((java.util.List)backingLists.get("cars"));
+        final Map backingLists = ManageableServiceLocator.instance().getPersonManageableService().readBackingLists();
+        form.setCarsBackingList((List)backingLists.get("cars"));
 
         return mapping.getInputForward();
     }
 
     public ActionForward preload(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.PersonForm form = (org.andromda.test.howto16.a.crud.PersonForm)actionForm;
+        final PersonForm form = (PersonForm)actionForm;
 
-        final java.util.List list = org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().readAll();
+        final List list = ManageableServiceLocator.instance().getPersonManageableService().readAll();
         form.setManageableList(list);
 
         if (list.size() >= 250)
@@ -71,14 +73,14 @@ public final class ManagePerson extends DispatchAction
             saveMaxResultsWarning(request);
         }
 
-        final java.util.Map backingLists = org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().readBackingLists();
+        final Map backingLists = ManageableServiceLocator.instance().getPersonManageableService().readBackingLists();
         if (StringUtils.isNotBlank(request.getParameter("ref_Car")))
         {
-            final java.lang.Long[] array = new java.lang.Long[1];
-            array[0] = new java.lang.Long(request.getParameter("ref_Car"));
+            final Long[] array = new Long[1];
+            array[0] = new Long(request.getParameter("ref_Car"));
             form.setCars(array);
         }
-        form.setCarsBackingList((java.util.List)backingLists.get("cars"));
+        form.setCarsBackingList((List)backingLists.get("cars"));
 
         return mapping.getInputForward();
     }
@@ -90,9 +92,9 @@ public final class ManagePerson extends DispatchAction
 
     public ActionForward update(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.PersonForm form = (org.andromda.test.howto16.a.crud.PersonForm) actionForm;
+        final PersonForm form = (PersonForm) actionForm;
 
-        org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().update(
+        ManageableServiceLocator.instance().getPersonManageableService().update(
             (StringUtils.isBlank(request.getParameter("name"))) ? null : form.getName()
             , (StringUtils.isBlank(request.getParameter("birthDateAsString"))) ? null : form.getBirthDate()
             , (StringUtils.isBlank(request.getParameter("id"))) ? null : form.getId()
@@ -104,12 +106,12 @@ public final class ManagePerson extends DispatchAction
 
     public ActionForward delete(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final org.andromda.test.howto16.a.crud.PersonForm form = (org.andromda.test.howto16.a.crud.PersonForm) actionForm;
+        final PersonForm form = (PersonForm) actionForm;
 
-        final java.lang.Long[] selectedRows = form.getSelectedRows();
+        final Long[] selectedRows = form.getSelectedRows();
         if (selectedRows != null && selectedRows.length > 0)
         {
-            org.andromda.test.ManageableServiceLocator.instance().getPersonManageableService().delete(selectedRows);
+            ManageableServiceLocator.instance().getPersonManageableService().delete(selectedRows);
         }
 
         return preload(mapping, actionForm, request, response);
@@ -119,11 +121,11 @@ public final class ManagePerson extends DispatchAction
     {
         final HttpSession session = request.getSession();
 
-        ActionMessages messages = (ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+        ActionMessages messages = (ActionMessages)session.getAttribute(Globals.MESSAGE_KEY);
         if (messages == null)
         {
             messages = new ActionMessages();
-            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
+            session.setAttribute(Globals.MESSAGE_KEY, messages);
         }
         messages.add("org.andromda.bpm4struts.warningmessages", new ActionMessage("maximum.results.fetched.warning", "250"));
     }

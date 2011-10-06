@@ -6,10 +6,10 @@
 package org.andromda.samples.animalquiz.decisiontree;
 
 /**
- * @see org.andromda.samples.animalquiz.decisiontree.Question
+ * @see Question
  */
 public class QuestionImpl
-    extends org.andromda.samples.animalquiz.decisiontree.Question
+    extends Question
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -17,7 +17,7 @@ public class QuestionImpl
     private static final long serialVersionUID = -6784248913029486142L;
 
     /**
-     * @see org.andromda.samples.animalquiz.decisiontree.Question#getPrompt()
+     * @see Question#getPrompt()
      */
     public String getPrompt()
     {

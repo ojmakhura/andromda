@@ -5,11 +5,14 @@
 //
 package org.andromda.test.howto6.a;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  *
  */
 public class CarDetails
-    implements java.io.Serializable
+    implements Serializable
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -25,7 +28,7 @@ public class CarDetails
         this.timesRented = 0;
     }
 
-    public CarDetails(String name, String serial, String ownerName, java.util.Date year, int timesRented)
+    public CarDetails(String name, String serial, String ownerName, Date year, int timesRented)
     {
         this.name = name;
         this.serial = serial;
@@ -102,17 +105,17 @@ public class CarDetails
         this.ownerName = ownerName;
     }
 
-    private java.util.Date year;
+    private Date year;
 
     /**
      *
      */
-    public java.util.Date getYear()
+    public Date getYear()
     {
         return this.year;
     }
 
-    public void setYear(java.util.Date year)
+    public void setYear(Date year)
     {
         this.year = year;
     }
@@ -131,5 +134,4 @@ public class CarDetails
     {
         this.timesRented = timesRented;
     }
-
 }

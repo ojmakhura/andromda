@@ -1,9 +1,9 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.inventory.web.registerCarType;
 
-import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController
@@ -37,5 +37,4 @@ public class RegisterCarTypeControllerImpl extends RegisterCarTypeController
         form.setComfortClassValueList(new Object[] {"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
         form.setComfortClassLabelList(form.getComfortClassValueList());
     }
-
 }

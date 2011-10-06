@@ -4,6 +4,8 @@
 //
 package org.andromda.howto2.rental;
 
+import java.util.List;
+
 /**
  * @see org.andromda.howto2.rental.RentalServiceBean
  */
@@ -17,7 +19,7 @@ package org.andromda.howto2.rental;
  *@javax.jws.WebService(endpointInterface = "org.andromda.howto2.rental.RentalServiceWSInterface")
  */
 public class RentalServiceBean
-    extends org.andromda.howto2.rental.RentalServiceBase
+    extends RentalServiceBase
 {
     // --------------- Constructors ---------------
 
@@ -29,9 +31,9 @@ public class RentalServiceBean
     // -------- Business Methods Impl --------------
 
     /**
-     * @see org.andromda.howto2.rental.RentalServiceBase#getAllCars()
+     * @see RentalServiceBase#getAllCars()
      */
-    protected java.util.List handleGetAllCars()
+    protected List handleGetAllCars()
         throws Exception
     {
         //TODO: put your implementation here.
@@ -40,9 +42,9 @@ public class RentalServiceBean
     }
 
     /**
-     * @see org.andromda.howto2.rental.RentalServiceBase#getCustomersByName(String)
+     * @see RentalServiceBase#getCustomersByName(String)
      */
-    protected java.util.List handleGetCustomersByName(String name)
+    protected List handleGetCustomersByName(String name)
         throws Exception
     {
         //TODO: put your implementation here.
@@ -52,5 +54,4 @@ public class RentalServiceBean
 
 
     // -------- Lifecycle Callback Impl --------------
-
 }
