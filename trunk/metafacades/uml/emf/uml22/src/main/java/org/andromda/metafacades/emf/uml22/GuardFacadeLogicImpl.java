@@ -53,7 +53,7 @@ public class GuardFacadeLogicImpl
     @Override
     protected Transition handleGetTransition()
     {
-        Element owner = this.metaObject.getOwner();
+        final Element owner = this.metaObject.getOwner();
         if (owner instanceof Transition)
         {
             return (Transition)owner;

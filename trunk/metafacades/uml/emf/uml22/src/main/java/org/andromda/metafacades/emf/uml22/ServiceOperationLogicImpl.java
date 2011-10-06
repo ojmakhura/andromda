@@ -56,7 +56,7 @@ public class ServiceOperationLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    DependencyFacade dependency = (DependencyFacade)object;
+                    final DependencyFacade dependency = (DependencyFacade)object;
                     return dependency != null && dependency.getSourceElement() != null &&
                     Role.class.isAssignableFrom(dependency.getSourceElement().getClass());
                 }
@@ -140,11 +140,11 @@ public class ServiceOperationLogicImpl
         final DependencyFacade dependency = (DependencyFacade)
             CollectionUtils.find(dependencies,
                 new Predicate() {
-                    public boolean evaluate(Object object)
+                    public boolean evaluate(final Object object)
                     {
                         return ((DependencyFacade)object).getSourceElement() instanceof Destination;
                     }});
-        return (dependency != null ? dependency.getSourceElement() : null);
+        return (dependency == null ? null : dependency.getSourceElement());
     }
 
     /**
@@ -157,10 +157,10 @@ public class ServiceOperationLogicImpl
         final DependencyFacade dependency = (DependencyFacade)
             CollectionUtils.find(dependencies,
                 new Predicate() {
-                    public boolean evaluate(Object object)
+                    public boolean evaluate(final Object object)
                     {
                         return ((DependencyFacade)object).getTargetElement() instanceof Destination;
                     }});
-        return (Destination)(dependency != null ? dependency.getTargetElement() : null);
+        return (Destination)(dependency == null ? null : dependency.getTargetElement());
     }
 }

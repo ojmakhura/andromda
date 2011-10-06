@@ -942,7 +942,7 @@ public class ClassifierFacadeLogicImpl
             if (!name.contains(this.getArraySuffix()))
             {
                 name += this.getArraySuffix();
-                PackageFacade pkg = this.getRootPackage();
+                final PackageFacade pkg = this.getRootPackage();
                 if (pkg!=null)
                 {
                     arrayType = (ClassifierFacade)this.shieldedElement(this.getRootPackage().findModelElement(name));
@@ -962,7 +962,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<AttributeFacade> handleGetStaticAttributes()
     {
-        Collection<AttributeFacade> attributes = this.getAttributes();
+        final Collection<AttributeFacade> attributes = this.getAttributes();
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -982,7 +982,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected Collection<AttributeFacade> handleGetInstanceAttributes()
     {
-        Collection<AttributeFacade> attributes = this.getAttributes();
+        final Collection<AttributeFacade> attributes = this.getAttributes();
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -1001,7 +1001,7 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected List<OperationFacade> handleGetStaticOperations()
     {
-        List<OperationFacade> operations = new ArrayList<OperationFacade>();
+        final List<OperationFacade> operations = new ArrayList<OperationFacade>();
         for (OperationFacade operation : this.getOperations())
         {
             if (operation.isStatic())

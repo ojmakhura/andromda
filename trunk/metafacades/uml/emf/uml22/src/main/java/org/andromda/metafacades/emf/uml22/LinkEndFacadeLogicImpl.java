@@ -21,7 +21,7 @@ public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
      * @param metaObject
      * @param context
      */
-    public LinkEndFacadeLogicImpl(LinkEnd metaObject, String context)
+    public LinkEndFacadeLogicImpl(final LinkEnd metaObject, final String context)
     {
         super(metaObject, context);
     }
@@ -46,7 +46,7 @@ public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
 
         CollectionUtils.transform(values, new Transformer()
         {
-            public Object transform(Object object)
+            public Object transform(final Object object)
             {
                 return UmlUtilities.ELEMENT_TRANSFORMER.transform(((InstanceValue)object).getInstance());
             }

@@ -37,7 +37,7 @@ public class StateVertexFacadeLogicImpl
     @Override
     protected Collection<Transition> handleGetOutgoings()
     {
-        List<Transition> outList = new ArrayList<Transition>();
+        final List<Transition> outList = new ArrayList<Transition>();
         outList.addAll(this.metaObject.getOutgoings());
         return outList;
     }
@@ -48,7 +48,7 @@ public class StateVertexFacadeLogicImpl
     @Override
     protected Collection<Transition> handleGetIncomings()
     {
-        List<Transition> inList = new ArrayList<Transition>();
+        final List<Transition> inList = new ArrayList<Transition>();
         inList.addAll(this.metaObject.getIncomings());
         return inList;
     }

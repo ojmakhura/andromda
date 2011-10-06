@@ -35,7 +35,7 @@ public class ActionStateFacadeLogicImpl
     @Override
     protected Action handleGetEntry()
     {
-        Behavior activity = this.metaObject.getEntry();
+        final Behavior activity = this.metaObject.getEntry();
         if (activity != null)
         {
             for (ConnectableElement nextNode : activity.getRoles())

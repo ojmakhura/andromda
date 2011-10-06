@@ -49,23 +49,20 @@ public class EntityAssociationLogicImpl
         {
             final AssociationEndFacade end = ends.iterator().next();
             final ClassifierFacade type = end.getType();
-            if (type != null)
+            // - prevent ClassCastException if the association isn't an Entity
+            if (type != null && type instanceof Entity)
             {
-                // - prevent ClassCastException if the association isn't an Entity
-                if (type instanceof Entity)
-                {
-                    final String prefixProperty = UMLMetafacadeProperties.TABLE_NAME_PREFIX;
-                    final String tableNamePrefix =
-                        this.isConfiguredProperty(prefixProperty)
-                        ? ObjectUtils.toString(this.getConfiguredProperty(prefixProperty)) : null;
-                    tableName =
-                        EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                            tableNamePrefix,
-                            this,
-                            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                            Short.valueOf(((Entity)type).getMaxSqlNameLength()),
-                            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
-                }
+                final String prefixProperty = UMLMetafacadeProperties.TABLE_NAME_PREFIX;
+                final String tableNamePrefix =
+                    this.isConfiguredProperty(prefixProperty)
+                    ? ObjectUtils.toString(this.getConfiguredProperty(prefixProperty)) : null;
+                tableName =
+                    EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                        tableNamePrefix,
+                        this,
+                        UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                        Short.valueOf(((Entity)type).getMaxSqlNameLength()),
+                        this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
             }
         }
         return tableName;
@@ -102,7 +99,7 @@ public class EntityAssociationLogicImpl
             throw new MetafacadeImplsException("Incorrect metafacade mapping for " + this.toString());
         }
         boolean isEntityAssociation = true;
-        for (Iterator<Property> ends = ((Association)this.metaObject).getMemberEnds().iterator(); ends.hasNext();)
+        for (final Iterator<Property> ends = ((Association)this.metaObject).getMemberEnds().iterator(); ends.hasNext();)
         {
             final Property prop = ends.next();
             final Type propertyType = prop.getType();

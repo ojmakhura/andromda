@@ -22,7 +22,7 @@ public class TemplateParameterFacadeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(TemplateParameterFacadeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(TemplateParameterFacadeLogicImpl.class);
     private static final long serialVersionUID = 3750035061795880358L;
 
     /**
@@ -67,7 +67,7 @@ public class TemplateParameterFacadeLogicImpl
     public final String getName()
     {
         // ParameterableElement is actually uml:DataType in the model, even though it doesn't inherit from
-        NamedElement type = (NamedElement) this.metaObject.getOwnedParameteredElement();
+        final NamedElement type = (NamedElement) this.metaObject.getOwnedParameteredElement();
         // Assumes no templating of template types, no array types, same declared/impl types
         return type.getName();
     }
@@ -88,14 +88,14 @@ public class TemplateParameterFacadeLogicImpl
     public final ClassifierFacade getType()
     {
         ClassifierFacade getType2r = null;
-        ClassifierTemplateParameter param = (ClassifierTemplateParameter)this.metaObject;
+        final ClassifierTemplateParameter param = (ClassifierTemplateParameter)this.metaObject;
         // param.getConstrainingClassifiers()) for UML2 3.0
         Classifier type = param.getConstrainingClassifier(this.getName());
         if (type==null && param.getConstrainingClassifiers()!=null && param.getConstrainingClassifiers().size()==1)
         {
             type = param.getConstrainingClassifiers().get(0);
         }
-        Object result = this.shieldedElement(type);
+        final Object result = this.shieldedElement(type);
         try
         {
             getType2r = (ClassifierFacade)result;
@@ -103,7 +103,7 @@ public class TemplateParameterFacadeLogicImpl
         catch (ClassCastException ex)
         {
             // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
-            TemplateParameterFacadeLogicImpl.logger.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getType ClassifierFacade " + handleGetParameter() + ": " + result);
+            TemplateParameterFacadeLogicImpl.LOGGER.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getType ClassifierFacade " + handleGetParameter() + ": " + result);
         }
         return getType2r;
     }
@@ -115,8 +115,8 @@ public class TemplateParameterFacadeLogicImpl
     {
         ClassifierFacade getClassifier2r = null;
         String name = null;
-        DataType type = (DataType) this.metaObject.getOwnedParameteredElement();
-        Object result = this.shieldedElement(type);
+        final DataType type = (DataType) this.metaObject.getOwnedParameteredElement();
+        final Object result = this.shieldedElement(type);
         try
         {
             getClassifier2r = (ClassifierFacade)result;
@@ -125,7 +125,7 @@ public class TemplateParameterFacadeLogicImpl
         catch (ClassCastException ex)
         {
             // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
-            TemplateParameterFacadeLogicImpl.logger.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getFullyQualifiedName ClassifierFacade " + handleGetParameter() + ": " + result);
+            TemplateParameterFacadeLogicImpl.LOGGER.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getFullyQualifiedName ClassifierFacade " + handleGetParameter() + ": " + result);
         }
         // templateParameterFacade has no post constraints
         return name;
@@ -137,13 +137,10 @@ public class TemplateParameterFacadeLogicImpl
     public final int getLower()
     {
         int lower = 0;
-        ClassifierFacade type = this.getType();
-        if (type != null)
+        final ClassifierFacade type = this.getType();
+        if (type != null && type.isPrimitive())
         {
-            if (type.isPrimitive())
-            {
-                lower = 1;
-            }
+            lower = 1;
         }
         return lower;
     }
@@ -156,8 +153,8 @@ public class TemplateParameterFacadeLogicImpl
     {
         ClassifierFacade getClassifier2r = this.getType();
         String name = null;
-        DataType type = (DataType) this.metaObject.getOwnedParameteredElement();
-        Object result = this.shieldedElement(type);
+        final DataType type = (DataType) this.metaObject.getOwnedParameteredElement();
+        final Object result = this.shieldedElement(type);
         try
         {
             getClassifier2r = (ClassifierFacade)result;
@@ -166,7 +163,7 @@ public class TemplateParameterFacadeLogicImpl
         catch (ClassCastException ex)
         {
             // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
-            TemplateParameterFacadeLogicImpl.logger.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getFullyQualifiedName ClassifierFacade " + handleGetParameter() + ": " + result);
+            TemplateParameterFacadeLogicImpl.LOGGER.warn("incorrect metafacade cast for TemplateParameterFacadeLogicImpl.getFullyQualifiedName ClassifierFacade " + handleGetParameter() + ": " + result);
         }
         // templateParameterFacade has no post constraints
         return name;

@@ -43,13 +43,13 @@ public class TransitionFacadeLogicImpl
         // Effect is mapped to action, not activity
         // We return the first action encountered in the activity
         Action effectAction = null;
-        Behavior effect = this.metaObject.getEffect();
+        final Behavior effect = this.metaObject.getEffect();
         if (effect != null)
         {
-            Collection<ConnectableElement> nodes = effect.getRoles();
-            for (Iterator<ConnectableElement> nodesIt = nodes.iterator(); nodesIt.hasNext() && effectAction == null;)
+            final Collection<ConnectableElement> nodes = effect.getRoles();
+            for (final Iterator<ConnectableElement> nodesIt = nodes.iterator(); nodesIt.hasNext() && effectAction == null;)
             {
-                Object nextNode = nodesIt.next();
+                final Object nextNode = nodesIt.next();
                 if (nextNode instanceof Action)
                 {
                     effectAction = (Action)nextNode;
@@ -153,7 +153,7 @@ public class TransitionFacadeLogicImpl
     @Override
     protected boolean handleIsExitingInitialState()
     {
-        StateVertexFacade sourceVertex = this.getSource();
+        final StateVertexFacade sourceVertex = this.getSource();
         return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isInitialState();
     }
 

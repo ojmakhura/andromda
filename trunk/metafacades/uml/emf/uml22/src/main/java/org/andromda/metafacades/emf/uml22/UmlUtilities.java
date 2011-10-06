@@ -66,7 +66,7 @@ public class UmlUtilities
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(UmlUtilities.class);
+    private static final Logger LOGGER = Logger.getLogger(UmlUtilities.class);
 
     private static List<Package> models = new ArrayList<Package>();
 
@@ -136,9 +136,9 @@ public class UmlUtilities
                     {
                         transformedObject = new AssociationEndImpl(property);
                     }
-                    if (logger.isDebugEnabled() && property.getName() != null && !property.getName().startsWith("andromda"))
+                    if (LOGGER.isDebugEnabled() && property.getName() != null && !property.getName().startsWith("andromda"))
                     {
-                        logger.debug("UMLUtilities.transform " + property.getName() + " "
+                        LOGGER.debug("UMLUtilities.transform " + property.getName() + " "
                             + property.getType().getName() + " " + property + " " + transformedObject);
                     }
                 }
@@ -189,7 +189,7 @@ public class UmlUtilities
             }
         };
 
-    private static final Map<String,List<EObject>> allMetaObjectsCache =
+    private static final Map<String,List<EObject>> ALL_META_OBJECTS_CACHE =
         Collections.synchronizedMap(new HashMap<String,List<EObject>>());
 
     /**
@@ -209,7 +209,7 @@ public class UmlUtilities
         {
             return new ArrayList<EObject>();
         }
-        List<EObject> metaObjects = allMetaObjectsCache.get(metaClass.getCanonicalName());
+        List<EObject> metaObjects = ALL_META_OBJECTS_CACHE.get(metaClass.getCanonicalName());
         if (metaObjects == null)
         {
             metaObjects = new ArrayList<EObject>();
@@ -221,13 +221,13 @@ public class UmlUtilities
                     //for (Object metaObject : model.eAllContents())
                     for (final Iterator<EObject> it = model.eAllContents(); it.hasNext();)
                     {
-                        EObject metaObject = it.next();
+                        final EObject metaObject = it.next();
                         if (metaClass.isInstance(metaObject))
                         {
                             metaObjects.add(metaObject);
-                            if (logger.isDebugEnabled())
+                            if (LOGGER.isDebugEnabled())
                             {
-                                logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObject.getClass());
+                                LOGGER.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObject.getClass());
                             }
                         }
                     }
@@ -235,11 +235,11 @@ public class UmlUtilities
             }
         }
 
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
+            LOGGER.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
         }
-        allMetaObjectsCache.put(metaClass.getCanonicalName(), metaObjects);
+        ALL_META_OBJECTS_CACHE.put(metaClass.getCanonicalName(), metaObjects);
 
         return metaObjects;
     }
@@ -287,7 +287,7 @@ public class UmlUtilities
      */
     public static void clearAllMetaObjectsCache()
     {
-        allMetaObjectsCache.clear();
+        ALL_META_OBJECTS_CACHE.clear();
     }
 
     /**
@@ -382,9 +382,9 @@ public class UmlUtilities
 
                 if (isAssociation && property.getAssociation() != null)
                 {
-                    if (logger.isDebugEnabled())
+                    if (LOGGER.isDebugEnabled())
                     {
-                        logger.debug("Association found for " + classifier.getName() + ": " + property.getName());
+                        LOGGER.debug("Association found for " + classifier.getName() + ": " + property.getName());
                     }
                     // property represents an association end
                     attributeMap.put(
@@ -393,9 +393,9 @@ public class UmlUtilities
                 }
                 else if (!isAssociation && property.getAssociation() == null)
                 {
-                    if (logger.isDebugEnabled())
+                    if (LOGGER.isDebugEnabled())
                     {
-                        logger.debug("Attribute found for " + classifier.getName() + ": " + property.getName());
+                        LOGGER.debug("Attribute found for " + classifier.getName() + ": " + property.getName());
                     }
                     // property represents an attribute
                     attributeMap.put(
@@ -426,13 +426,13 @@ public class UmlUtilities
             attributeList,
             ELEMENT_TRANSFORMER);
         //Collections.sort(attributeList, new PropertyComparator());
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
             for (Property property : attributeList)
             {
                 if (!classifier.getQualifiedName().startsWith("andromda"))
                 {
-                    logger.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName()
+                    LOGGER.debug("UMLUtilities.getAttributes " + classifier.getQualifiedName()
                         + " " + property.getName() + " " + property.getType().getName());
                 }
             }
@@ -473,9 +473,9 @@ public class UmlUtilities
                     //}
                 }
             }
-            if (logger.isDebugEnabled() && attachedToType)
+            if (LOGGER.isDebugEnabled() && attachedToType)
             {
-                logger.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + ' ' + property + ' ' + property.getQualifiedName() + ' ' + property.getAssociation() + ' ' + property.getAssociationEnd() + ' ' + attachedToType);
+                LOGGER.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + ' ' + property + ' ' + property.getQualifiedName() + ' ' + property.getAssociation() + ' ' + property.getAssociationEnd() + ' ' + attachedToType);
             }
         }
         return attachedToType;
@@ -505,7 +505,7 @@ public class UmlUtilities
         associationEnds.addAll(getOwnedProperty(classifier, follow, true));
         CollectionUtils.transform(associationEnds, new Transformer()
         {
-            public Object transform(Object input) {
+            public Object transform(final Object input) {
                 return getOppositeProperty((Property)input);
             }
         });
@@ -528,9 +528,9 @@ public class UmlUtilities
         final List<Property> allProperties = getAllMetaObjectsInstanceOf(
                 Property.class,
                 modelPackage);
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": getAllMetaObjectsInstanceOf=" + allProperties.size());
+            LOGGER.debug("getAssociationEnds " + classifier.getQualifiedName() + ": getAllMetaObjectsInstanceOf=" + allProperties.size());
         }
 
         for (Property property : allProperties)
@@ -555,9 +555,9 @@ public class UmlUtilities
                 {*/
                     // TODO: associationEnds always show up as non-navigable because the association property (not the end) is added.
                     associationEnds.add(property);
-                    if (logger.isDebugEnabled())
+                    if (LOGGER.isDebugEnabled())
                     {
-                        logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + ' ' + property.getType() + ' ' + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
+                        LOGGER.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + ' ' + property.getType() + ' ' + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
                     }
                /* }*/
             }
@@ -742,17 +742,17 @@ public class UmlUtilities
                     stereotypes,
                     new StereotypeFilter()) != null;
         }
-        if (logger.isDebugEnabled() && hasStereotype)
+        if (LOGGER.isDebugEnabled() && hasStereotype)
         {
             if (element instanceof NamedElement)
             {
-                logger.debug(
+                LOGGER.debug(
                     ((NamedElement)element).getQualifiedName() + " has stereotype <<" + stereotypeName + ">> : " +
                     hasStereotype);
             }
             else
             {
-                logger.debug(element.toString() + " has stereotype <<" + stereotypeName + ">> : " + hasStereotype);
+                LOGGER.debug(element.toString() + " has stereotype <<" + stereotypeName + ">> : " + hasStereotype);
             }
         }
         return hasStereotype;
@@ -827,46 +827,39 @@ public class UmlUtilities
             {
                 for (final Property tagProperty : getAttributes(stereo, true))
                 {
-                    String tagName = tagProperty.getName();
-                    if (!tagName.startsWith("base$"))
+                    final String tagName = tagProperty.getName();
+                    // Some metafacades depend on an actual returned value. hasValue returns nothing if taggedValue=default for the attribute.
+                    if (!tagName.startsWith("base$") && element.hasValue(stereo, tagName))
                     {
-                        // Some metafacades depend on an actual returned value. hasValue returns nothing if taggedValue=default for the attribute.
-                        if (element.hasValue(
-                                stereo,
-                                tagName))
+                        // Obtain its value
+                        final Object tagValue = element.getValue(stereo, tagName);
+                        if (tagValue instanceof Collection)
                         {
-                            // Obtain its value
-                            final Object tagValue = element.getValue(
-                                    stereo,
-                                    tagName);
-                            if (tagValue instanceof Collection)
+                            final Collection tagValues = (Collection)tagValue;
+                            if (!tagValues.isEmpty())
                             {
-                                final Collection tagValues = (Collection)tagValue;
-                                if (!tagValues.isEmpty())
-                                {
-                                    final Collection tagValuesInString =
-                                        CollectionUtils.collect(
-                                            tagValues,
-                                            new Transformer()
+                                final Collection tagValuesInString =
+                                    CollectionUtils.collect(
+                                        tagValues,
+                                        new Transformer()
+                                        {
+                                            public Object transform(final Object object)
                                             {
-                                                public Object transform(final Object object)
-                                                {
-                                                    return getTagValueAsString(object);
-                                                }
-                                            });
-                                    final TagDefinition tagDefinition = new TagDefinitionImpl(tagName, tagValuesInString);
-                                    tags.add(tagDefinition);
-                                }
+                                                return getTagValueAsString(object);
+                                            }
+                                        });
+                                final TagDefinition tagDefinition = new TagDefinitionImpl(tagName, tagValuesInString);
+                                tags.add(tagDefinition);
                             }
-                            else
+                        }
+                        else
+                        {
+                            final String tagString = getTagValueAsString(tagValue);
+                            if (!StringUtils.isBlank(tagString) && !"default".equalsIgnoreCase(tagString))
                             {
-                                final String tagString = getTagValueAsString(tagValue);
-                                if (!StringUtils.isBlank(tagString) && !"default".equalsIgnoreCase(tagString))
-                                {
-                                    final TagDefinition tagDefinition =
-                                        new TagDefinitionImpl(tagName, tagString);
-                                    tags.add(tagDefinition);
-                                }
+                                final TagDefinition tagDefinition =
+                                    new TagDefinitionImpl(tagName, tagString);
+                                tags.add(tagDefinition);
                             }
                         }
                     }
@@ -874,9 +867,9 @@ public class UmlUtilities
             }
         }
 
-        if (logger.isDebugEnabled() && !tags.isEmpty())
+        if (LOGGER.isDebugEnabled() && !tags.isEmpty())
         {
-            logger.debug("Found " + tags.size() + " tagged values for " + elementName);
+            LOGGER.debug("Found " + tags.size() + " tagged values for " + elementName);
         }
 
         return tags;
@@ -1107,11 +1100,11 @@ public class UmlUtilities
                 EcorePackage.eINSTANCE.getEObject());
         if (model==null)
         {
-            logger.error("getModel was null: " + resource);
+            LOGGER.error("getModel was null: " + resource);
         }
-        else if (logger.isDebugEnabled())
+        else if (LOGGER.isDebugEnabled())
         {
-            logger.debug("Model found: " + model);
+            LOGGER.debug("Model found: " + model);
         }
         return model;
     }
@@ -1130,9 +1123,9 @@ public class UmlUtilities
         Package modelPackage = element.getModel();
         if (modelPackage==null)
         {
-            if (logger.isDebugEnabled())
+            if (LOGGER.isDebugEnabled())
             {
-                logger.error("getModel was null: " + element + " OWNER: " + element.getOwner());
+                LOGGER.error("getModel was null: " + element + " OWNER: " + element.getOwner());
             }
             Element classifierOwner = element.getOwner();
             Element owner = null;
@@ -1264,7 +1257,7 @@ public class UmlUtilities
         {
             return "";
         }
-        NamedElement element = (NamedElement)metaObject;
+        final NamedElement element = (NamedElement)metaObject;
         String name = element.getName();
         Element owner = element.getOwner();
         String ownerName = null;
@@ -1464,22 +1457,22 @@ public class UmlUtilities
                 String multString = multValue.toString();
                 String forValue = "";
                 // property owns the upper/lower value OpaqueExpression which owns the multiplicity value body
-                Element element = multValue.getOwner();
+                final Element element = multValue.getOwner();
                 if (element instanceof Property)
                 {
-                    Property property = (Property)element;
+                    final Property property = (Property)element;
                     forValue = " in property " + property.getQualifiedName();
                 }
                 if (multValue instanceof OpaqueExpression)
                 {
-                    OpaqueExpression expression = (OpaqueExpression)multValue;
-                    EList<String> bodies = expression.getBodies();
+                    final OpaqueExpression expression = (OpaqueExpression)multValue;
+                    final EList<String> bodies = expression.getBodies();
                     if (bodies != null && !bodies.isEmpty())
                     {
                         multString = bodies.get(0);
                     }
                 }
-                logger.error("Invalid multiplicity value" + forValue + ", using default " + defaultValue + ": " + multString);
+                LOGGER.error("Invalid multiplicity value" + forValue + ", using default " + defaultValue + ": " + multString);
             }
         }
         /*if (logger.isDebugEnabled())
@@ -1568,7 +1561,7 @@ public class UmlUtilities
     private static class EMFNormalizer
         extends UML2Util
     {
-        public static String getEMFName(String name)
+        public static String getEMFName(final String name)
         {
             return getValidJavaIdentifier(name);
         }

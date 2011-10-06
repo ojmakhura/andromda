@@ -82,8 +82,8 @@ public class GeneralizableElementFacadeLogicImpl
     @Override
     protected Collection<Classifier> handleGetGeneralizations()
     {
-        Collection<Classifier> parents = new LinkedHashSet<Classifier>();
-        Collection<Generalization> generalizations = ((Classifier)this.metaObject).getGeneralizations();
+        final Collection<Classifier> parents = new LinkedHashSet<Classifier>();
+        final Collection<Generalization> generalizations = ((Classifier)this.metaObject).getGeneralizations();
         if (generalizations != null && !generalizations.isEmpty())
         {
             for (Generalization general : generalizations)

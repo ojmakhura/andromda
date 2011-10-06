@@ -40,7 +40,7 @@ public class TaggedValueFacadeLogicImpl
     @Override
     protected Collection<Object> handleGetValues()
     {
-        Collection<Object> collection = new ArrayList<Object>();
+        final Collection<Object> collection = new ArrayList<Object>();
         collection.addAll(this.metaObject.getValues());
         return collection;
     }

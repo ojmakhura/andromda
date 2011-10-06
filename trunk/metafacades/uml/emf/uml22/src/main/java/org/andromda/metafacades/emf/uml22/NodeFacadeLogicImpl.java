@@ -15,7 +15,7 @@ public class NodeFacadeLogicImpl
      * @param metaObject
      * @param context
      */
-    public NodeFacadeLogicImpl (Node metaObject, String context)
+    public NodeFacadeLogicImpl(final Node metaObject, final String context)
     {
         super (metaObject, context);
     }

@@ -233,7 +233,7 @@ public class FrontEndParameterLogicImpl
     @Override
     protected Collection<String> handleGetTableAttributeNames()
     {
-        Collection<String> tableAttributeNames = new ArrayList<String>();
+        final Collection<String> tableAttributeNames = new ArrayList<String>();
         for (AttributeFacade attribute : this.getNonArrayAttributes())
         {
             tableAttributeNames.add(attribute.getName());

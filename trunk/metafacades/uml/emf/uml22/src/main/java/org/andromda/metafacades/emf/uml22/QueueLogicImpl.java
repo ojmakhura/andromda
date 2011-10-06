@@ -14,7 +14,7 @@ public class QueueLogicImpl
      * @param metaObject
      * @param context
      */
-    public QueueLogicImpl (Object metaObject, String context)
+    public QueueLogicImpl(final Object metaObject, final String context)
     {
         super (metaObject, context);
     }

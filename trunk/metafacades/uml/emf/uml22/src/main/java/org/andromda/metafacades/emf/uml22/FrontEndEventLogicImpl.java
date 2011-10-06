@@ -86,7 +86,7 @@ public class FrontEndEventLogicImpl
         // - Note: this is the same implementation as CallEvent.getOperationCall()
         final Activity activity = (Activity)this.metaObject;
         final List<Operation> operations = new ArrayList<Operation>();
-        Collection<ActivityNode> nodes = activity.getNodes();
+        final Collection<ActivityNode> nodes = activity.getNodes();
         for (final Iterator<ActivityNode> iterator = nodes.iterator(); iterator.hasNext();)
         {
             final Object nextNode = iterator.next();
@@ -109,7 +109,7 @@ public class FrontEndEventLogicImpl
     protected FrontEndAction handleGetAction()
     {
         FrontEndAction action = null;
-        TransitionFacade transition = this.getTransition();
+        final TransitionFacade transition = this.getTransition();
         if (transition instanceof FrontEndAction)
         {
             action = (FrontEndAction)transition;

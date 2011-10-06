@@ -48,7 +48,7 @@ public class ModelFacadeLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(ModelFacadeLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ModelFacadeLogicImpl.class);
 
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithTaggedValueOrHyperlink(String,
@@ -61,23 +61,23 @@ public class ModelFacadeLogicImpl
     {
         UseCaseFacade useCaseWithTaggedValue = null;
 
-        Collection<UseCaseFacade> useCases = this.getAllUseCases();
+        final Collection<UseCaseFacade> useCases = this.getAllUseCases();
         for (final Iterator<UseCaseFacade> useCaseIterator = useCases.iterator(); useCaseIterator.hasNext()
             && useCaseWithTaggedValue == null;)
         {
-            UseCaseFacade useCase = useCaseIterator.next();
+            final UseCaseFacade useCase = useCaseIterator.next();
             // UML2: taggedValue must belong to a defined stereotype
-            if (useCase.findTaggedValue(tag, true) != null)
-            {
-                useCaseWithTaggedValue = useCase;
-            }
-            else
+            if (useCase.findTaggedValue(tag, true) == null)
             {
                 final Object taggedValue = useCase.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
                 if (taggedValue != null)
                 {
                     useCaseWithTaggedValue = useCase;
                 }
+            }
+            else
+            {
+                useCaseWithTaggedValue = useCase;
             }
         }
 
@@ -98,22 +98,22 @@ public class ModelFacadeLogicImpl
     {
         ClassifierFacade classWithTaggedValue = null;
 
-        Collection<ClassifierFacade> classes = this.getAllClasses();
+        final Collection<ClassifierFacade> classes = this.getAllClasses();
         for (final Iterator<ClassifierFacade> classIterator = classes.iterator(); classIterator.hasNext()
             && classWithTaggedValue == null;)
         {
-            ClassifierFacade clazz = classIterator.next();
-            if (clazz.findTaggedValue(tag, true) != null)
-            {
-                classWithTaggedValue = clazz;
-            }
-            else
+            final ClassifierFacade clazz = classIterator.next();
+            if (clazz.findTaggedValue(tag, true) == null)
             {
                 final Object taggedValue = clazz.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
                 if (taggedValue != null)
                 {
                     classWithTaggedValue = clazz;
                 }
+            }
+            else
+            {
+                classWithTaggedValue = clazz;
             }
         }
 
@@ -143,20 +143,18 @@ public class ModelFacadeLogicImpl
     {
         ActivityGraphFacade agfFound = null;
 
-        List<StateMachine> agfCollection =
+        final List<StateMachine> agfCollection =
             (List<StateMachine>) UmlUtilities.getAllMetaObjectsInstanceOf(
             StateMachine.class,
             UmlUtilities.getModels());
 
-        for (Iterator<StateMachine> it = agfCollection.iterator(); it.hasNext() && agfFound == null;)
+        for (final Iterator<StateMachine> it = agfCollection.iterator(); it.hasNext() && agfFound == null;)
         {
-            ActivityGraphFacade agf = (ActivityGraphFacade)this.shieldedElement(it.next());
-            if (agf.getName().equals(name))
+            final ActivityGraphFacade agf = (ActivityGraphFacade)this.shieldedElement(it.next());
+            if (agf.getName().equals(name)
+                && (stereotypeName == null || agf.hasStereotype(stereotypeName)))
             {
-                if(stereotypeName == null || agf.hasStereotype(stereotypeName))
-                {
-                    agfFound = agf;
-                }
+                agfFound = agf;
             }
         }
         return agfFound;
@@ -183,16 +181,14 @@ public class ModelFacadeLogicImpl
         final String stereotypeName)
     {
         UseCaseFacade ucfFound = null;
-        Collection<UseCaseFacade> ucCollections = this.getAllUseCases();
-        for (Iterator<UseCaseFacade> it = ucCollections.iterator(); it.hasNext() && ucfFound == null;)
+        final Collection<UseCaseFacade> ucCollections = this.getAllUseCases();
+        for (final Iterator<UseCaseFacade> it = ucCollections.iterator(); it.hasNext() && ucfFound == null;)
         {
-            UseCaseFacade ucf = it.next();
-            if (ucf.getName().equals(name))
+            final UseCaseFacade ucf = it.next();
+            if (ucf.getName().equals(name) &&
+                (stereotypeName == null || ucf.hasStereotype(stereotypeName)))
             {
-                if (stereotypeName == null || ucf.hasStereotype(stereotypeName))
-                {
-                    ucfFound = ucf;
-                }
+                ucfFound = ucf;
             }
         }
         return ucfFound;
@@ -205,7 +201,7 @@ public class ModelFacadeLogicImpl
     protected Collection<FinalStateFacade> handleFindFinalStatesWithNameOrHyperlink(
         final UseCaseFacade useCase)
     {
-        List<FinalState> fsCollection =
+        final List<FinalState> fsCollection =
             (List<FinalState>) UmlUtilities.getAllMetaObjectsInstanceOf(
             FinalState.class,
             UmlUtilities.getModels());
@@ -215,8 +211,8 @@ public class ModelFacadeLogicImpl
             {
                 public boolean evaluate(final Object candidate)
                 {
-                    FinalState fs = (FinalState)candidate;
-                    return (fs != null && StringUtils.isNotBlank(fs.getName()) && fs.getName().equals(useCase.getName()));
+                    final FinalState finalState = (FinalState)candidate;
+                    return (finalState != null && StringUtils.isNotBlank(finalState.getName()) && finalState.getName().equals(useCase.getName()));
                 }
             });
 
@@ -232,14 +228,14 @@ public class ModelFacadeLogicImpl
         final ActivityGraphFacade activityGraph,
         final String stereotypeName)
     {
-        Collection<ActionStateFacade> asCollection = this.getAllActionStates();
+        final Collection<ActionStateFacade> asCollection = this.getAllActionStates();
         CollectionUtils.filter(
             asCollection,
             new Predicate()
             {
                 public boolean evaluate(final Object candidate)
                 {
-                    ActionStateFacade asf = (ActionStateFacade)candidate;
+                    final ActionStateFacade asf = (ActionStateFacade)candidate;
                     return asf.hasStereotype(stereotypeName) &&
                     asf.getPartition().getActivityGraph().equals(activityGraph);
                 }
@@ -254,10 +250,10 @@ public class ModelFacadeLogicImpl
     @Override
     protected Package handleGetRootPackage()
     {
-        Package model = UmlUtilities.findModel(this.metaObject);
-        if (ModelFacadeLogicImpl.logger.isDebugEnabled())
+        final Package model = UmlUtilities.findModel(this.metaObject);
+        if (ModelFacadeLogicImpl.LOGGER.isDebugEnabled())
         {
-            ModelFacadeLogicImpl.logger.debug("Root package " + model);
+            ModelFacadeLogicImpl.LOGGER.debug("Root package " + model);
         }
         return model;
     }
@@ -291,7 +287,7 @@ public class ModelFacadeLogicImpl
     protected Collection<ActionStateFacade> handleGetAllActionStates()
     {
         // cf documentation, action states are mapped to uml2 normal state
-        Collection allActionStates =
+        final Collection allActionStates =
             UmlUtilities.getAllMetaObjectsInstanceOf(
                 State.class,
                 UmlUtilities.getModels());

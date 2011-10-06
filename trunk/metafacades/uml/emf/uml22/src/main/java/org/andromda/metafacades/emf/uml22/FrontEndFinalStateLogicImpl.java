@@ -56,7 +56,7 @@ public class FrontEndFinalStateLogicImpl
         String name = super.handleGetName();
         if (name == null)
         {
-            FrontEndUseCase useCase = this.getTargetUseCase();
+            final FrontEndUseCase useCase = this.getTargetUseCase();
             if (useCase != null)
             {
                 name = useCase.getName();

@@ -38,13 +38,14 @@ public class UMLModelAccessFacade
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(UMLModelAccessFacade.class);
+    private static final Logger LOGGER = Logger.getLogger(UMLModelAccessFacade.class);
 
     /**
      * Protected to improve performance.
      */
     protected Filters modelPackages = new Filters();
 
+    private static final String MODEL_ELEMENT = "modelElement";
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(Object)
      */
@@ -54,8 +55,8 @@ public class UMLModelAccessFacade
             "model",
             modelIn);
         ExceptionUtils.checkAssignable(
-            ArrayList.class,
-            "modelElement",
+            List.class,
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelIn.getClass());
         // TODO Find models that are already in the models list, don't clear, remove the rest.
         if (this.model!=null)
@@ -93,11 +94,11 @@ public class UMLModelAccessFacade
     public String getName(final Object modelElement)
     {
         ExceptionUtils.checkNull(
-            "modelElement",
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelElement);
         ExceptionUtils.checkAssignable(
             ModelElementFacade.class,
-            "modelElement",
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelElement.getClass());
         return ((ModelElementFacade)modelElement).getName();
     }
@@ -108,11 +109,11 @@ public class UMLModelAccessFacade
     public String getPackageName(final Object modelElement)
     {
         ExceptionUtils.checkNull(
-            "modelElement",
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelElement);
         ExceptionUtils.checkAssignable(
             ModelElementFacade.class,
-            "modelElement",
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelElement.getClass());
         final ModelElementFacade modelElementFacade = (ModelElementFacade)modelElement;
         final StringBuilder packageName = new StringBuilder(modelElementFacade.getPackageName(true));
@@ -150,13 +151,13 @@ public class UMLModelAccessFacade
     public Collection<String> getStereotypeNames(final Object modelElement)
     {
         ExceptionUtils.checkNull(
-            "modelElement",
+            UMLModelAccessFacade.MODEL_ELEMENT,
             modelElement);
 
         Collection<String> stereotypeNames = Collections.emptyList();
         if (modelElement instanceof Element)
         {
-            Element element = (Element)modelElement;
+            final Element element = (Element)modelElement;
             stereotypeNames = UmlUtilities.getStereotypeNames(element);
         }
         else if (modelElement instanceof ModelElementFacade)
@@ -175,7 +176,7 @@ public class UMLModelAccessFacade
         for (final UMLResource modelResource : this.model)
         {
             // TODO UmlUtilities.findModel() can return null. Check for null return value.
-            for (TreeIterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
+            for (final TreeIterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
             {
                 final EObject object = iterator.next();
                 if (object instanceof NamedElement)
@@ -191,16 +192,16 @@ public class UMLModelAccessFacade
             }
         }
         final int elementSize = elements.size();
-        if (logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-            logger.debug("Finding stereotype <<" + name + ">> in elements " +
+            LOGGER.debug("Finding stereotype <<" + name + ">> in elements " +
                 elements.size());
         }
         // - filter any elements before we turn them into metafacades (for performance reasons)
         this.filterElements(elements);
-        if (logger.isDebugEnabled() && elements.size()<elementSize)
+        if (LOGGER.isDebugEnabled() && elements.size()<elementSize)
         {
-            logger.debug("Filtered out " + (elementSize-elements.size()) + " elements");
+            LOGGER.debug("Filtered out " + (elementSize-elements.size()) + " elements");
         }
         return MetafacadeFactory.getInstance().createMetafacades(elements);
     }

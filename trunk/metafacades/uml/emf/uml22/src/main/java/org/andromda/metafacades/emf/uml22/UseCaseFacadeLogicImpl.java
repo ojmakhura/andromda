@@ -40,7 +40,7 @@ public class UseCaseFacadeLogicImpl
     protected StateMachine handleGetFirstActivityGraph()
     {
         StateMachine activityGraph = null;
-        Collection<Behavior> behaviors = new ArrayList<Behavior>();
+        final Collection<Behavior> behaviors = new ArrayList<Behavior>();
         behaviors.addAll(this.metaObject.getOwnedBehaviors()); // For MD11.5
         //behaviors.addAll(this.metaObject.getOwnedStateMachines()); // For RSM // No longer exists in UML2 2.x
         for (final Iterator<Behavior> iterator = behaviors.iterator(); iterator.hasNext() && activityGraph == null;)

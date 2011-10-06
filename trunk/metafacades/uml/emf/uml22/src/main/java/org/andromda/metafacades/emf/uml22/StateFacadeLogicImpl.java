@@ -32,11 +32,11 @@ public class StateFacadeLogicImpl
     protected Collection<Behavior> handleGetDeferrableEvents()
     {
         // UML1.4 Events are mapped to UML2 Activity
-        // We obtains them through entry, doactivity and exit
-        Collection<Behavior> events = new ArrayList<Behavior>();
-        Behavior entry = this.metaObject.getEntry();
-        Behavior doActivity = this.metaObject.getDoActivity();
-        Behavior onExit = this.metaObject.getExit();
+        // We obtain them through entry, doActivity and exit
+        final Collection<Behavior> events = new ArrayList<Behavior>();
+        final Behavior entry = this.metaObject.getEntry();
+        final Behavior doActivity = this.metaObject.getDoActivity();
+        final Behavior onExit = this.metaObject.getExit();
 
         if (entry != null)
         {

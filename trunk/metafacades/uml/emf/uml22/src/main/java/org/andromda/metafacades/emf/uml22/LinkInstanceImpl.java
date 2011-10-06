@@ -50,7 +50,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @param instanceSpecificationIn
      */
-    LinkInstanceImpl(InstanceSpecification instanceSpecificationIn)
+    LinkInstanceImpl(final InstanceSpecification instanceSpecificationIn)
     {
         this.instanceSpecification = instanceSpecificationIn;
     }
@@ -59,7 +59,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @see Object#equals(Object)
      */
     @Override
-    public boolean equals(Object object)
+    public boolean equals(final Object object)
     {
         /*if (object instanceof ObjectInstanceImpl)
         {
@@ -101,7 +101,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String, boolean, boolean)
      */
-    public Deployment getDeployment(String string, boolean ignoreCase, boolean createOnDemand)
+    public Deployment getDeployment(final String string, final boolean ignoreCase, final boolean createOnDemand)
     {
         return this.instanceSpecification.getDeployment(string, ignoreCase, createOnDemand);
     }
@@ -109,7 +109,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployment(String)
      */
-    public Deployment getDeployment(String string)
+    public Deployment getDeployment(final String string)
     {
         return this.instanceSpecification.getDeployment(string);
     }
@@ -118,7 +118,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createDeployment(eClass.getName())
      */
-    public Deployment createDeployment(EClass eClass)
+    public Deployment createDeployment(final EClass eClass)
     {
         return this.instanceSpecification.createDeployment(eClass.getName());
     }
@@ -126,7 +126,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#createDeployment(String)
      */
-    public Deployment createDeployment(String eClass)
+    public Deployment createDeployment(final String eClass)
     {
         return this.instanceSpecification.createDeployment(eClass);
     }
@@ -150,7 +150,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String)
      */
-    public PackageableElement getDeployedElement(String string)
+    public PackageableElement getDeployedElement(final String string)
     {
         return this.instanceSpecification.getDeployedElement(string);
     }
@@ -158,7 +158,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.DeploymentTarget#getDeployedElement(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public PackageableElement getDeployedElement(String string, boolean bool, EClass eClass)
+    public PackageableElement getDeployedElement(final String string, final boolean bool, final EClass eClass)
     {
         return this.instanceSpecification.getDeployedElement(string, bool, eClass);
     }
@@ -175,7 +175,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createSlot()
      */
-    public Slot createSlot(EClass eClass)
+    public Slot createSlot(final EClass eClass)
     {
         return this.instanceSpecification.createSlot();
     }
@@ -199,7 +199,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String)
      */
-    public Classifier getClassifier(String string)
+    public Classifier getClassifier(final String string)
     {
         return this.instanceSpecification.getClassifier(string);
     }
@@ -207,7 +207,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#getClassifier(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Classifier getClassifier(String string, boolean ignoreCase, EClass eClass)
+    public Classifier getClassifier(final String string, final boolean ignoreCase, final EClass eClass)
     {
         return this.instanceSpecification.getClassifier(string, ignoreCase, eClass);
     }
@@ -223,7 +223,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#setSpecification(org.eclipse.uml2.uml.ValueSpecification)
      */
-    public void setSpecification(ValueSpecification valueSpecification)
+    public void setSpecification(final ValueSpecification valueSpecification)
     {
         this.instanceSpecification.setSpecification(valueSpecification);
     }
@@ -232,7 +232,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createSpecification(null, null, eClass)
      */
-    public ValueSpecification createSpecification(EClass eClass)
+    public ValueSpecification createSpecification(final EClass eClass)
     {
         return this.instanceSpecification.createSpecification(null, null, eClass);
     }
@@ -242,7 +242,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param map
      * @return instanceSpecification.validateDefiningFeature(diagnosticChain, map)
      */
-    public boolean validateSlotsAreDefined(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateSlotsAreDefined(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateDefiningFeature(diagnosticChain, map);
     }
@@ -252,7 +252,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param map
      * @return instanceSpecification.validateStructuralFeature(diagnosticChain, map)
      */
-    public boolean validateNoDuplicateSlots(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateNoDuplicateSlots(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateStructuralFeature(diagnosticChain, map);
     }
@@ -268,15 +268,15 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
      */
-    public Object eGet(EStructuralFeature eStructuralFeature, boolean b)
+    public Object eGet(final EStructuralFeature eStructuralFeature, final boolean resolve)
     {
-        return this.instanceSpecification.eGet(eStructuralFeature, b);
+        return this.instanceSpecification.eGet(eStructuralFeature, resolve);
     }
 
     /**
      * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, Object)
      */
-    public void eSet(EStructuralFeature eStructuralFeature, Object object)
+    public void eSet(final EStructuralFeature eStructuralFeature, final Object object)
     {
         this.instanceSpecification.eSet(eStructuralFeature, object);
     }
@@ -284,7 +284,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public void eUnset(EStructuralFeature eStructuralFeature)
+    public void eUnset(final EStructuralFeature eStructuralFeature)
     {
         this.instanceSpecification.eUnset(eStructuralFeature);
     }
@@ -292,7 +292,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public boolean eIsSet(EStructuralFeature eStructuralFeature)
+    public boolean eIsSet(final EStructuralFeature eStructuralFeature)
     {
         return this.instanceSpecification.eIsSet(eStructuralFeature);
     }
@@ -308,7 +308,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.ParameterableElement#setTemplateParameter(org.eclipse.uml2.uml.TemplateParameter)
      */
-    public void setTemplateParameter(TemplateParameter templateParameter)
+    public void setTemplateParameter(final TemplateParameter templateParameter)
     {
         this.instanceSpecification.setTemplateParameter(templateParameter);
     }
@@ -324,7 +324,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @param templateParameter
      */
-    public void setOwningParameter(TemplateParameter templateParameter)
+    public void setOwningParameter(final TemplateParameter templateParameter)
     {
         this.instanceSpecification.setOwningTemplateParameter(templateParameter);
     }
@@ -340,7 +340,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @param visibilityKind
      */
-    public void setPackageableElement_visibility(VisibilityKind visibilityKind)
+    public void setPackageableElement_visibility(final VisibilityKind visibilityKind)
     {
         this.instanceSpecification.setVisibility(visibilityKind);
     }
@@ -356,7 +356,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#setVisibility(org.eclipse.uml2.uml.VisibilityKind)
      */
-    public void setVisibility(VisibilityKind visibilityKind)
+    public void setVisibility(final VisibilityKind visibilityKind)
     {
         this.instanceSpecification.setVisibility(visibilityKind);
     }
@@ -372,7 +372,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#setName(String)
      */
-    public void setName(String string)
+    public void setName(final String string)
     {
         this.instanceSpecification.setName(string);
     }
@@ -388,7 +388,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String)
      */
-    public Dependency getClientDependency(String string)
+    public Dependency getClientDependency(final String string)
     {
         return this.instanceSpecification.getClientDependency(string);
     }
@@ -396,7 +396,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#getClientDependency(String, boolean, org.eclipse.emf.ecore.EClass)
      */
-    public Dependency getClientDependency(String string, boolean ignoreCase, EClass eClass)
+    public Dependency getClientDependency(final String string, final boolean ignoreCase, final EClass eClass)
     {
         return this.instanceSpecification.getClientDependency(string, ignoreCase, eClass);
     }
@@ -412,7 +412,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#setNameExpression(org.eclipse.uml2.uml.StringExpression)
      */
-    public void setNameExpression(StringExpression stringExpression)
+    public void setNameExpression(final StringExpression stringExpression)
     {
         this.instanceSpecification.setNameExpression(stringExpression);
     }
@@ -421,7 +421,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createNameExpression(eClass.getName(), null)
      */
-    public StringExpression createNameExpression(EClass eClass)
+    public StringExpression createNameExpression(final EClass eClass)
     {
         return this.instanceSpecification.createNameExpression(eClass.getName(), null);
     }
@@ -431,7 +431,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createNameExpression(name, null)
      */
-    public StringExpression createNameExpression(String name, EClass eClass)
+    public StringExpression createNameExpression(final String name, final EClass eClass)
     {
         return this.instanceSpecification.createNameExpression(name, null);
     }
@@ -449,7 +449,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param map
      * @return instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map)
      */
-    public boolean validateNoName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateNoName(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map);
     }
@@ -457,7 +457,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#validateHasNoQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasNoQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateHasNoQualifiedName(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasNoQualifiedName(diagnosticChain, map);
     }
@@ -467,7 +467,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param map
      * @return instanceSpecification.validateHasQualifiedName(diagnosticChain, map)
      */
-    public boolean validateQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateQualifiedName(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
     }
@@ -475,7 +475,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#validateHasQualifiedName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasQualifiedName(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateHasQualifiedName(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasQualifiedName(diagnosticChain, map);
     }
@@ -491,7 +491,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#isDistinguishableFrom(org.eclipse.uml2.uml.NamedElement, org.eclipse.uml2.uml.Namespace)
      */
-    public boolean isDistinguishableFrom(NamedElement namedElement, Namespace namespace)
+    public boolean isDistinguishableFrom(final NamedElement namedElement, final Namespace namespace)
     {
         return this.instanceSpecification.isDistinguishableFrom(namedElement, namespace);
     }
@@ -515,7 +515,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#validateVisibilityNeedsOwnership(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateVisibilityNeedsOwnership(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateVisibilityNeedsOwnership(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateVisibilityNeedsOwnership(diagnosticChain, map);
     }
@@ -539,15 +539,15 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#getLabel(boolean)
      */
-    public String getLabel(boolean b)
+    public String getLabel(final boolean localize)
     {
-        return this.instanceSpecification.getLabel(b);
+        return this.instanceSpecification.getLabel(localize);
     }
 
     /**
      * @see org.eclipse.uml2.uml.NamedElement#createDependency(org.eclipse.uml2.uml.NamedElement)
      */
-    public Dependency createDependency(NamedElement namedElement)
+    public Dependency createDependency(final NamedElement namedElement)
     {
         return this.instanceSpecification.createDependency(namedElement);
     }
@@ -620,7 +620,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param eClass
      * @return instanceSpecification.createOwnedComment()
      */
-    public Comment createOwnedComment(EClass eClass)
+    public Comment createOwnedComment(final EClass eClass)
     {
         return this.instanceSpecification.createOwnedComment();
     }
@@ -636,7 +636,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateNotOwnSelf(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateNotOwnSelf(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateNotOwnSelf(diagnosticChain, map);
     }
@@ -644,7 +644,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateHasOwner(DiagnosticChain diagnosticChain, Map<Object, Object> map)
+    public boolean validateHasOwner(final DiagnosticChain diagnosticChain, final Map<Object, Object> map)
     {
         return this.instanceSpecification.validateHasOwner(diagnosticChain, map);
     }
@@ -668,7 +668,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#createEAnnotation(String)
      */
-    public EAnnotation createEAnnotation(String string)
+    public EAnnotation createEAnnotation(final String string)
     {
         return this.instanceSpecification.createEAnnotation(string);
     }
@@ -677,7 +677,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param stereotype
      * @return applyStereotype(stereotype)
      */
-    public EObject apply(Stereotype stereotype)
+    public EObject apply(final Stereotype stereotype)
     {
         return this.applyStereotype(stereotype);
     }
@@ -685,7 +685,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#applyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject applyStereotype(Stereotype stereotype)
+    public EObject applyStereotype(final Stereotype stereotype)
     {
         return this.instanceSpecification.applyStereotype(stereotype);
     }
@@ -693,7 +693,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getApplicableStereotype(String)
      */
-    public Stereotype getApplicableStereotype(String string)
+    public Stereotype getApplicableStereotype(final String string)
     {
         return this.instanceSpecification.getApplicableStereotype(string);
     }
@@ -709,7 +709,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getAppliedStereotype(String)
      */
-    public Stereotype getAppliedStereotype(String string)
+    public Stereotype getAppliedStereotype(final String string)
     {
         return this.instanceSpecification.getAppliedStereotype(string);
     }
@@ -741,7 +741,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#getValue(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public Object getValue(Stereotype stereotype, String string)
+    public Object getValue(final Stereotype stereotype, final String string)
     {
         return this.instanceSpecification.getValue(stereotype, string);
     }
@@ -750,7 +750,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param stereotype
      * @return instanceSpecification.isStereotypeApplied(stereotype)
      */
-    public boolean isApplied(Stereotype stereotype)
+    public boolean isApplied(final Stereotype stereotype)
     {
         return this.instanceSpecification.isStereotypeApplied(stereotype);
     }
@@ -759,7 +759,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param stereotype
      * @return instanceSpecification.isStereotypeRequired(stereotype)
      */
-    public boolean isRequired(Stereotype stereotype)
+    public boolean isRequired(final Stereotype stereotype)
     {
         return this.instanceSpecification.isStereotypeRequired(stereotype);
     }
@@ -767,7 +767,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#setValue(org.eclipse.uml2.uml.Stereotype, String, Object)
      */
-    public void setValue(Stereotype stereotype, String string, Object object)
+    public void setValue(final Stereotype stereotype, final String string, final Object object)
     {
         this.instanceSpecification.setValue(stereotype, string, object);
     }
@@ -775,7 +775,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#hasValue(org.eclipse.uml2.uml.Stereotype, String)
      */
-    public boolean hasValue(Stereotype stereotype, String string)
+    public boolean hasValue(final Stereotype stereotype, final String string)
     {
         return this.instanceSpecification.hasValue(stereotype, string);
     }
@@ -784,7 +784,7 @@ public class LinkInstanceImpl implements LinkInstance
      * @param stereotype
      * @return unapplyStereotype(stereotype)
      */
-    public EObject unapply(Stereotype stereotype)
+    public EObject unapply(final Stereotype stereotype)
     {
         return this.unapplyStereotype(stereotype);
     }
@@ -792,7 +792,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#unapplyStereotype(org.eclipse.uml2.uml.Stereotype)
      */
-    public EObject unapplyStereotype(Stereotype stereotype)
+    public EObject unapplyStereotype(final Stereotype stereotype)
     {
         return this.instanceSpecification.unapplyStereotype(stereotype);
     }
@@ -813,7 +813,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#addKeyword(String)
      */
-    public boolean addKeyword(String string)
+    public boolean addKeyword(final String string)
     {
         return this.instanceSpecification.addKeyword(string);
     }
@@ -829,7 +829,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#hasKeyword(String)
      */
-    public boolean hasKeyword(String string)
+    public boolean hasKeyword(final String string)
     {
         return this.instanceSpecification.hasKeyword(string);
     }
@@ -837,7 +837,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.Element#removeKeyword(String)
      */
-    public boolean removeKeyword(String string)
+    public boolean removeKeyword(final String string)
     {
         return this.instanceSpecification.removeKeyword(string);
     }
@@ -853,7 +853,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(String)
      */
-    public EAnnotation getEAnnotation(String string)
+    public EAnnotation getEAnnotation(final String string)
     {
         return this.instanceSpecification.getEAnnotation(string);
     }
@@ -877,9 +877,9 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
      */
-    public void eSetDeliver(boolean b)
+    public void eSetDeliver(final boolean deliver)
     {
-        this.instanceSpecification.eSetDeliver(b);
+        this.instanceSpecification.eSetDeliver(deliver);
     }
 
     /**
@@ -957,7 +957,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
      */
-    public Object eGet(EStructuralFeature eStructuralFeature)
+    public Object eGet(final EStructuralFeature eStructuralFeature)
     {
         return this.instanceSpecification.eGet(eStructuralFeature);
     }
@@ -973,7 +973,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#createSpecification(String, org.eclipse.uml2.uml.Type, org.eclipse.emf.ecore.EClass)
      */
-    public ValueSpecification createSpecification(String name, Type type, EClass eClass)
+    public ValueSpecification createSpecification(final String name, final Type type, final EClass eClass)
     {
         return this.instanceSpecification.createSpecification(name, type, eClass);
     }
@@ -981,7 +981,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#validateDefiningFeature(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateDefiningFeature(DiagnosticChain diagnostics, Map<Object, Object> context)
+    public boolean validateDefiningFeature(final DiagnosticChain diagnostics, final Map<Object, Object> context)
     {
         return this.instanceSpecification.validateDefiningFeature(diagnostics, context);
     }
@@ -989,8 +989,8 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#validateDeploymentArtifact(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateDeploymentArtifact(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateDeploymentArtifact(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.instanceSpecification.validateDeploymentArtifact(diagnostics, context);
     }
@@ -998,7 +998,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#validateDeploymentTarget(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateDeploymentTarget(DiagnosticChain diagnostics, Map<Object, Object> context)
+    public boolean validateDeploymentTarget(final DiagnosticChain diagnostics, final Map<Object, Object> context)
     {
         return this.instanceSpecification.validateDeploymentTarget(diagnostics, context);
     }
@@ -1006,8 +1006,8 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.InstanceSpecification#validateStructuralFeature(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
      */
-    public boolean validateStructuralFeature(DiagnosticChain diagnostics,
-            Map<Object, Object> context)
+    public boolean validateStructuralFeature(final DiagnosticChain diagnostics,
+        final Map<Object, Object> context)
     {
         return this.instanceSpecification.validateStructuralFeature(diagnostics, context);
     }
@@ -1023,7 +1023,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#createNameExpression(String, org.eclipse.uml2.uml.Type)
      */
-    public StringExpression createNameExpression(String name, Type type)
+    public StringExpression createNameExpression(final String name, final Type type)
     {
         return this.instanceSpecification.createNameExpression(name, type);
     }
@@ -1031,7 +1031,7 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.NamedElement#createUsage(org.eclipse.uml2.uml.NamedElement)
      */
-    public Usage createUsage(NamedElement supplier)
+    public Usage createUsage(final NamedElement supplier)
     {
         return this.instanceSpecification.createUsage(supplier);
     }
@@ -1199,9 +1199,9 @@ public class LinkInstanceImpl implements LinkInstance
     /**
      * @see org.eclipse.uml2.uml.ParameterableElement#isCompatibleWith(org.eclipse.uml2.uml.ParameterableElement)
      */
-    public boolean isCompatibleWith(ParameterableElement p)
+    public boolean isCompatibleWith(ParameterableElement parameter)
     {
-        return this.instanceSpecification.isCompatibleWith(p);
+        return this.instanceSpecification.isCompatibleWith(parameter);
     }
 
     /**
