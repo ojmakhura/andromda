@@ -252,6 +252,7 @@
             <artifactId>andromda-script-wrappers</artifactId>
             <scope>provided</scope>
         </dependency>
+#if (!$transactionPersistenceType.equals("none"))
         <!-- Needed to compile JPA2 annotations in the core project -->
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -259,6 +260,7 @@
             <version>1.0.2</version>
             <scope>provided</scope>
         </dependency>
+#end
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
@@ -395,6 +397,18 @@
                     <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
                     <useCache>false</useCache>
                     <excludes>**/*.java</excludes>
+                    <archive>
+                        <manifest>
+                          <addClasspath>true</addClasspath>
+                          <useUniqueVersions>false</useUniqueVersions>
+                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                          <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                          <Implementation-Build>${maven.build.timestamp}</Implementation-Build>
+                          <url>${project.url}</url>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>

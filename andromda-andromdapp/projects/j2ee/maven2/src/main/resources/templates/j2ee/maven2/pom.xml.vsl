@@ -1187,6 +1187,18 @@
                                 </sources>
                             </configuration>
                         </execution>
+                        <execution>
+                            <id>add-target-test</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>add-test-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>target/src/test/java</source>
+                                </sources>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
                 <plugin>
@@ -1211,6 +1223,18 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.3.2</version>
                     <configuration>
+                        <archive>
+                            <manifest>
+                              <addClasspath>true</addClasspath>
+                              <useUniqueVersions>false</useUniqueVersions>
+                              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                            <manifestEntries>
+                              <Implementation-Build>${maven.build.timestamp}</Implementation-Build>
+                              <url>${project.url}</url>
+                            </manifestEntries>
+                        </archive>
                         <excludes>
                             <exclude>**/*.ref</exclude>
                         </excludes>

@@ -20,6 +20,7 @@
 #set ($spring=false)
 #end
     <dependencies>
+        <!-- provided profile dependencies are not added to the manifest, used only at code generation time -->
 #if ($modelType.equals("uml1.4"))
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
