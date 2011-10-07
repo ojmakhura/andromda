@@ -61,7 +61,7 @@ public class Mapping
     /**
      * @param to The to to set.
      */
-    public void setTo(String to)
+    public void setTo(final String to)
     {
         this.to = to;
     }

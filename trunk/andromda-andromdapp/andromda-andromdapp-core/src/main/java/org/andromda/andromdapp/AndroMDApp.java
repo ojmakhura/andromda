@@ -73,7 +73,7 @@ public class AndroMDApp
     /**
      * All types of discovered AndroMDApps
      */
-    private Map<String, AndroMDAppType> types = new LinkedHashMap<String, AndroMDAppType>();
+    private final Map<String, AndroMDAppType> types = new LinkedHashMap<String, AndroMDAppType>();
 
     /**
      * Performs any required initialization.
@@ -115,7 +115,7 @@ public class AndroMDApp
     /**
      * Stores the optional configuration instance.
      */
-    private List<Configuration> configurations = new ArrayList<Configuration>();
+    private final List<Configuration> configurations = new ArrayList<Configuration>();
 
     /**
      * Adds the URI for an optional configuration  These are useful if you want
@@ -156,7 +156,7 @@ public class AndroMDApp
      * @throws Exception
      */
     @SuppressWarnings("null")
-    private List<File> chooseTypeAndRun(boolean write)
+    private List<File> chooseTypeAndRun(final boolean write)
         throws Exception
     {
         if (this.types.isEmpty())
@@ -274,8 +274,8 @@ public class AndroMDApp
      */
     private void printText(final String text)
     {
-        System.out.println();
-        System.out.println(text);
+        System.out.println();  // NOPMD - have to print to console prompt
+        System.out.println(text);  // NOPMD - have to print to console prompt
         System.out.flush();
     }
 

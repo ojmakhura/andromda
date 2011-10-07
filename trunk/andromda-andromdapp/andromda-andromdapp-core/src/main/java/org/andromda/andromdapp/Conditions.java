@@ -43,7 +43,7 @@ public class Conditions
      *
      * @param type The type to set.
      */
-    public void setType(String type)
+    public void setType(final String type)
     {
         this.type = type;
     }
@@ -51,7 +51,7 @@ public class Conditions
     /**
      * Stores the conditions.
      */
-    private List<Condition> conditions = new ArrayList<Condition>();
+    private final List<Condition> conditions = new ArrayList<Condition>();
 
     /**
      * Adds a condition instance to this conditions.
@@ -76,7 +76,7 @@ public class Conditions
     /**
      * Stores the output paths.
      */
-    private Map<String, String[]> outputPaths = new LinkedHashMap<String, String[]>();
+    private final Map<String, String[]> outputPaths = new LinkedHashMap<String, String[]>();
 
     /**
      * Adds a path to the output paths.

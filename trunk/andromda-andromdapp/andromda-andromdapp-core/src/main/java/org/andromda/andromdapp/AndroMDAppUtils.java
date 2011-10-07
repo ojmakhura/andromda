@@ -26,7 +26,7 @@ public class AndroMDAppUtils
      */
     public static String[] stringToArray(final String string)
     {
-        return string != null ? string.split(COMMA) : null;
+        return string == null ? null : string.split(COMMA);
     }
 
     /**

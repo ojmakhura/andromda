@@ -107,7 +107,7 @@
   <!-- ******************************************************************* -->
   <!-- Allow warning and higher messages from everyone to go to console and file -->
   <root>
-    <level value="warn"/>
+    <level value="info"/>
     <appender-ref ref="ConsoleAppender"/>
     <appender-ref ref="FileAppender"/>
   </root>

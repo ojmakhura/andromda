@@ -31,7 +31,7 @@ public class Condition
      *
      * @param id The id to set.
      */
-    public void setId(String id)
+    public void setId(final String id)
     {
         this.id = id;
     }
@@ -172,7 +172,7 @@ public class Condition
             }
             else if (notEqualConditionPresent && notEqual != null)
             {
-                valid = !notEqual.equals(value);
+                valid ^= notEqual.equals(value);
             }
         }
         return valid;
