@@ -172,8 +172,8 @@
                 <shortText>Author</shortText>
             </prompt>
             <prompt id="modelType" setResponseAsTrue="true">
-                <text>Which kind of modeling tool will you use? 
-(uml1.4 or uml2 for .xml.zip/.xml/.xmi/.zargo files, 
+                <text>Which kind of modeling tool will you use?
+(uml1.4 or uml2 for .xml.zip/.xml/.xmi/.zargo files,
 emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <shortText>Model type</shortText>
                 <responses>
@@ -255,7 +255,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 <text>Please enter the ejb3 persistence cartridge to use (enter hibernate, openJpa, kodoJpa, or topLink)</text>
                 <shortText>JPA persistence provider</shortText>
                 <preconditions>
-                    <condition id="transactionPersistenceType" notEqual="none"/>
+                    <condition id="transactionPersistenceType" equal="ejb3"/>
                 </preconditions>
                 <responses>
                     <response>hibernate</response>
@@ -424,7 +424,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </responses>
             </prompt>
             <prompt id="rest">
-                <text>What is your JAX-WS REST provider/consumer media type? 
+                <text>What is your JAX-WS REST provider/consumer media type?
 (none for JAX-WS only, xml for JAX-RS only, or appxml, json, atom, plain, multipart, fastinfoset, yaml)</text>
                 <shortText>REST Media type</shortText>
                 <preconditions>
