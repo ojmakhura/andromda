@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -565,7 +566,7 @@ public class SchemaMojo
     /**
      * Stores the task types.
      */
-    private static final LinkedHashMap<String, Map<String, Class>> tasksCache = new LinkedHashMap<String, Map<String, Class>>();
+    private static final HashMap<String, Map<String, Class>> tasksCache = new LinkedHashMap<String, Map<String, Class>>();
 
     static
     {

@@ -86,6 +86,11 @@
     - Add the namespace elements to andromda.xml
     - Add the cartridge dependency (including version) to mda/pom.xml
     - Add additional build dependencies to individual project pom.xml files -->
+#if ($ejb3)
+#set ($ejb=false)
+#set ($hibernate=false)
+#set ($spring=false)
+#end
     <namespaces>
         <!-- namespace property values used by ALL cartridges -->
         <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->

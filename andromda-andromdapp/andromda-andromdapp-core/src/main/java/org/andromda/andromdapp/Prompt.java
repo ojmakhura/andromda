@@ -31,7 +31,7 @@ public class Prompt
      *
      * @param id The id to set.
      */
-    public void setId(String id)
+    public void setId(final String id)
     {
         this.id = id;
     }
@@ -92,7 +92,7 @@ public class Prompt
      *
      * @param text The text to set.
      */
-    public void setText(String text)
+    public void setText(final String text)
     {
         this.text = StringUtils.trim(text);
     }
@@ -100,7 +100,7 @@ public class Prompt
     /**
      * Stores the possible responses of the prompt.
      */
-    private List<String> responses = new ArrayList<String>();
+    private final List<String> responses = new ArrayList<String>();
 
     /**
      * Adds a response to the possible responses.
@@ -183,7 +183,7 @@ public class Prompt
     /**
      * The conditions that apply to this prompt.
      */
-    private List<Condition> conditions = new ArrayList<Condition>();
+    private final List<Condition> conditions = new ArrayList<Condition>();
 
     /**
      * Adds a condition to this prompt.
@@ -209,7 +209,7 @@ public class Prompt
      * The preconditions that must be valid for this prompt
      * in order for it to be executed.
      */
-    private List<Conditions> preconditions = new ArrayList<Conditions>();
+    private final List<Conditions> preconditions = new ArrayList<Conditions>();
 
     /**
      * Adds preconditions to this prompt.
@@ -252,7 +252,7 @@ public class Prompt
      *
      * @param setResponseAsBoolean The setResponseAsTrue to set.
      */
-    public void setSetResponseAsTrue(boolean setResponseAsBoolean)
+    public void setSetResponseAsTrue(final boolean setResponseAsBoolean)
     {
         this.setResponseAsTrue = setResponseAsBoolean;
     }

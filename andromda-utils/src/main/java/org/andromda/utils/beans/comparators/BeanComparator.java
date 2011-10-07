@@ -224,7 +224,7 @@ public class BeanComparator
 
     /**
      * Retrieves the associated Comparator for the type
-     * @param type tye class of which to retrieve the comparator.
+     * @param type the class of which to retrieve the comparator.
      * @return appropriate comparator or null if one wasn't defined.
      */
     private final Comparator getComparator(final Class type)

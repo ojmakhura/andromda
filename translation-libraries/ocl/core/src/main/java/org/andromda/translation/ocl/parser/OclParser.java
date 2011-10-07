@@ -254,7 +254,7 @@ public class OclParser
          * Stores the variable names in an ordered fashion so that we can retrieve them from the namesAndTypes map in
          * the order they were stored.
          */
-        private LinkedList orderedNames = new LinkedList();
+        private List orderedNames = new LinkedList();
 
         /**
          * Stores the variable names along with its variable type (if there is one).
@@ -274,7 +274,7 @@ public class OclParser
             {
                 TName initialVariableName = name.getName();
                 this.orderedNames.add(initialVariableName);
-                this.namesAndTypes.put(this.orderedNames.getLast(), null);
+                this.namesAndTypes.put(((LinkedList)this.orderedNames).getLast(), null);
             }
         }
 
@@ -294,9 +294,9 @@ public class OclParser
          */
         public void inATypeDeclaration(ATypeDeclaration type)
         {
-            if (this.namesAndTypes.containsKey(this.orderedNames.getLast()))
+            if (this.namesAndTypes.containsKey(((LinkedList)this.orderedNames).getLast()))
             {
-                this.namesAndTypes.put(this.orderedNames.getLast(), type);
+                this.namesAndTypes.put(((LinkedList)this.orderedNames).getLast(), type);
             }
         }
 
@@ -308,7 +308,7 @@ public class OclParser
         public AVariableDeclarationList getList()
         {
 
-            TName initialName = (TName) this.orderedNames.getFirst();
+            TName initialName = (TName) ((LinkedList)this.orderedNames).getFirst();
 
             ATypeDeclaration typeDeclaration = (ATypeDeclaration) namesAndTypes.get(initialName);
 

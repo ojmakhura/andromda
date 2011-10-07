@@ -666,6 +666,9 @@
                           <useUniqueVersions>false</useUniqueVersions>
                           <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                           <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                          <useUniqueVersions>false</useUniqueVersions>
+                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                          <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
                           <Implementation-Build>${maven.build.timestamp}</Implementation-Build>

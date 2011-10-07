@@ -14,7 +14,7 @@ public class AndroMDAppException
      *
      * @param parent previous exception
      */
-    public AndroMDAppException(Throwable parent)
+    public AndroMDAppException(final Throwable parent)
     {
         super(parent);
     }
@@ -24,7 +24,7 @@ public class AndroMDAppException
      *
      * @param message exception message
      */
-    public AndroMDAppException(String message)
+    public AndroMDAppException(final String message)
     {
         super(message);
     }
@@ -36,8 +36,8 @@ public class AndroMDAppException
      * @param parent previous exception
      */
     public AndroMDAppException(
-        String message,
-        Throwable parent)
+        final String message,
+        final Throwable parent)
     {
         super(message, parent);
     }

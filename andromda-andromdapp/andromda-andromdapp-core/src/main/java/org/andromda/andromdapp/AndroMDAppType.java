@@ -234,7 +234,7 @@ public class AndroMDAppType
     /**
      * Stores the template engine exclusions.
      */
-    private Map<String, String[]> templateEngineExclusions = new LinkedHashMap<String, String[]>();
+    private final Map<String, String[]> templateEngineExclusions = new LinkedHashMap<String, String[]>();
 
     /**
      * Adds a template engine exclusion (these are the things that the template engine
@@ -289,7 +289,7 @@ public class AndroMDAppType
      * @return processedResources
      * @throws Exception
      */
-    protected List<File> processResources(boolean write)
+    protected List<File> processResources(final boolean write)
         throws Exception
     {
         // - all resources that have been processed.
@@ -715,7 +715,7 @@ public class AndroMDAppType
      */
     private void printPromptText(final String text)
     {
-        System.out.println();
+        System.out.println();  // NOPMD - have to print to console prompt
         this.printText(text);
     }
 
@@ -726,7 +726,7 @@ public class AndroMDAppType
      */
     private void printText(final String text)
     {
-        System.out.println(text);
+        System.out.println(text);  // NOPMD - have to print to console prompt
         System.out.flush();
     }
 
@@ -770,7 +770,7 @@ public class AndroMDAppType
      *
      * @param type The type to set.
      */
-    public void setType(String type)
+    public void setType(final String type)
     {
         this.type = type;
     }
@@ -795,7 +795,7 @@ public class AndroMDAppType
      *
      * @param root The root to set.
      */
-    public void setRoot(String root)
+    public void setRoot(final String root)
     {
         this.root = root;
     }
@@ -844,7 +844,7 @@ public class AndroMDAppType
     /**
      * The locations where templates are stored.
      */
-    private List<String> resourceLocations = new ArrayList<String>();
+    private final List<String> resourceLocations = new ArrayList<String>();
 
     /**
      * Adds a location where templates and or project files are located.
@@ -860,7 +860,7 @@ public class AndroMDAppType
      * The any empty directories that should be created when generating the
      * application.
      */
-    private List<String> directories = new ArrayList<String>();
+    private final List<String> directories = new ArrayList<String>();
 
     /**
      * The relative path to the directory to be created.
@@ -876,7 +876,7 @@ public class AndroMDAppType
      * Stores the output conditions (that is the conditions
      * that must apply for the defined output to be written).
      */
-    private List<Conditions> outputConditions = new ArrayList<Conditions>();
+    private final List<Conditions> outputConditions = new ArrayList<Conditions>();
 
     /**
      * Adds an conditions element to the output conditions..
@@ -954,7 +954,7 @@ public class AndroMDAppType
     /**
      * Stores any of the mappings available to this type.
      */
-    private List<Mapping> mappings = new ArrayList<Mapping>();
+    private final List<Mapping> mappings = new ArrayList<Mapping>();
 
     /**
      * Adds a new mapping to this type.

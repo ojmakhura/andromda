@@ -147,7 +147,7 @@
                 <property name="server-test">${core.manual.test.dir}</property>
                 <property name="services">${core.generated.dir}</property>
                 <property name="service-impls">${core.manual.java.dir}</property>
-                <property name="service-interfaces">${common.generated.dir}</property>
+                <property name="service-interfaces">${core.generated.dir}</property>
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
                 <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>

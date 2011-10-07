@@ -6,61 +6,138 @@
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
   <description>
-  	AndroMDA custom ruleset
+    AndroMDA custom ruleset
   </description>
 
   <rule ref="rulesets/basic.xml"/>
   <rule ref="rulesets/braces.xml"/>
-  <rule ref="rulesets/codesize.xml"/>
   <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
     <priority>4</priority>
     <properties>
         <property name="reportLevel" value="20"/>
     </properties>
   </rule>
+  <!-- Must specify each rule in a ruleset individually if any have customized priority or property -->
+  <rule ref="rulesets/codesize.xml/ExcessiveMethodLength"/>
+  <rule ref="rulesets/codesize.xml/ExcessiveParameterList"/>
+  <rule ref="rulesets/codesize.xml/ExcessiveClassLength"/>
+  <rule ref="rulesets/codesize.xml/ExcessivePublicCount"/>
+  <rule ref="rulesets/codesize.xml/NPathComplexity"/>
+  <rule ref="rulesets/codesize.xml/NcssMethodCount"/>
+  <rule ref="rulesets/codesize.xml/NcssTypeCount"/>
+  <rule ref="rulesets/codesize.xml/TooManyFields"/>
   <rule ref="rulesets/codesize.xml/TooManyMethods">
     <priority>4</priority>
     <properties>
         <property name="maxmethods" value="40"/>
     </properties>
   </rule>
-  <rule ref="rulesets/controversial.xml">
-    <exclude name="AtLeastOneConstructor"/>
+    <!--exclude name="AtLeastOneConstructor"/>
     <exclude name="AvoidFinalLocalVariable"/>
-    <exclude name="DataflowAnomalyAnalysis"/>
-    <!--exclude name="AvoidUsingShortType"/>
-    <exclude name="OnlyOneReturn"/-->
-  </rule>
+    <exclude name="DataflowAnomalyAnalysis"/-->
+  <rule ref="rulesets/controversial.xml/AssignmentInOperand"/>
+  <rule ref="rulesets/controversial.xml/AvoidAccessibilityAlteration"/>
+  <rule ref="rulesets/controversial.xml/AvoidLiteralsInIfCondition"/>
   <rule ref="rulesets/controversial.xml/AvoidUsingShortType">
       <priority>4</priority>
   </rule>
+  <rule ref="rulesets/controversial.xml/BooleanInversion"/>
+  <rule ref="rulesets/controversial.xml/CallSuperInConstructor"/>
+  <rule ref="rulesets/controversial.xml/DefaultPackage"/>
+  <rule ref="rulesets/controversial.xml/DoNotCallGarbageCollectionExplicitly"/>
+  <rule ref="rulesets/controversial.xml/DontImportSun"/>
+  <rule ref="rulesets/controversial.xml/NullAssignment"/>
   <rule ref="rulesets/controversial.xml/OnlyOneReturn">
       <priority>4</priority>
   </rule>
+  <rule ref="rulesets/controversial.xml/SuspiciousOctalEscape"/>
+  <rule ref="rulesets/controversial.xml/UnnecessaryConstructor"/>
+  <rule ref="rulesets/controversial.xml/UnnecessaryParentheses"/>
+  <rule ref="rulesets/controversial.xml/UnusedModifier"/>
+  <rule ref="rulesets/controversial.xml/UseConcurrentHashMap"/>
   <rule ref="rulesets/coupling.xml"/>
-  <rule ref="rulesets/design.xml"/>
+  <rule ref="rulesets/design.xml/AbstractClassWithoutAbstractMethod"/>
+  <rule ref="rulesets/design.xml/AbstractClassWithoutAnyMethod"/>
+  <rule ref="rulesets/design.xml/AssignmentToNonFinalStatic"/>
+  <rule ref="rulesets/design.xml/AvoidConstantsInterface"/>
+  <rule ref="rulesets/design.xml/AvoidDeeplyNestedIfStmts"/>
+  <rule ref="rulesets/design.xml/AvoidInstanceofChecksInCatchClause"/>
   <rule ref="rulesets/design.xml/AvoidReassigningParameters">
       <priority>3</priority>
   </rule>
+  <rule ref="rulesets/design.xml/AvoidProtectedFieldInFinalClass"/>
+  <rule ref="rulesets/design.xml/AvoidSynchronizedAtMethodLevel"/>
+  <rule ref="rulesets/design.xml/AccessorClassGeneration"/>
+  <rule ref="rulesets/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+  <rule ref="rulesets/design.xml/CloseResource"/>
+  <rule ref="rulesets/design.xml/ConfusingTernary"/>
+  <rule ref="rulesets/design.xml/ConstructorCallsOverridableMethod"/>
+  <rule ref="rulesets/design.xml/FinalFieldCouldBeStatic"/>
+  <rule ref="rulesets/design.xml/DefaultLabelNotLastInSwitchStmt"/>
+  <rule ref="rulesets/design.xml/BadComparison"/>
+  <rule ref="rulesets/design.xml/CompareObjectsWithEquals"/>
+  <rule ref="rulesets/design.xml/EmptyMethodInAbstractClassShouldBeAbstract"/>
+  <rule ref="rulesets/design.xml/EqualsNull"/>
+  <rule ref="rulesets/design.xml/IdempotentOperations"/>
+  <rule ref="rulesets/design.xml/ImmutableField"/>
+  <rule ref="rulesets/design.xml/InstantiationToGetClass"/>
+  <rule ref="rulesets/design.xml/MissingBreakInSwitch"/>
+  <rule ref="rulesets/design.xml/MissingStaticMethodInNonInstantiatableClass"/>
+  <rule ref="rulesets/design.xml/NonCaseLabelInSwitchStatement"/>
+  <rule ref="rulesets/design.xml/NonStaticInitializer"/>
+  <rule ref="rulesets/design.xml/NonThreadSafeSingleton"/>
+  <rule ref="rulesets/design.xml/OptimizableToArrayCall"/>
+  <rule ref="rulesets/design.xml/PositionLiteralsFirstInComparisons"/>
+  <rule ref="rulesets/design.xml/PreserveStackTrace"/>
+  <rule ref="rulesets/design.xml/ReturnEmptyArrayRatherThanNull"/>
+  <rule ref="rulesets/design.xml/SimpleDateFormatNeedsLocale"/>
+  <rule ref="rulesets/design.xml/SimplifyConditional"/>
+  <rule ref="rulesets/design.xml/SimplifyBooleanExpressions"/>
+  <rule ref="rulesets/design.xml/SimplifyBooleanReturns"/>
+  <rule ref="rulesets/design.xml/SingularField"/>
+  <rule ref="rulesets/design.xml/SwitchDensity"/>
+  <rule ref="rulesets/design.xml/SwitchStmtsShouldHaveDefault"/>
+  <rule ref="rulesets/design.xml/TooFewBranchesForASwitchStatement"/>
+  <rule ref="rulesets/design.xml/UncommentedEmptyConstructor"/>
+  <rule ref="rulesets/design.xml/UncommentedEmptyMethod"/>
+  <rule ref="rulesets/design.xml/UnnecessaryLocalBeforeReturn"/>
+  <rule ref="rulesets/design.xml/UnsynchronizedStaticDateFormatter"/>
+  <rule ref="rulesets/design.xml/UseCollectionIsEmpty"/>
+  <rule ref="rulesets/design.xml/UseNotifyAllInsteadOfNotify"/>
+  <rule ref="rulesets/design.xml/UseSingleton"/>
   <rule ref="rulesets/finalizers.xml"/>
   <rule ref="rulesets/imports.xml"/>
   <rule ref="rulesets/javabeans.xml"/>
   <rule ref="rulesets/junit.xml"/>
   <rule ref="rulesets/logging-java.xml"/>
-  <rule ref="rulesets/naming.xml"/>
+  <rule ref="rulesets/naming.xml/AbstractNaming"/>
+  <rule ref="rulesets/naming.xml/AvoidDollarSigns"/>
+  <rule ref="rulesets/naming.xml/AvoidFieldNameMatchingMethodName"/>
+  <rule ref="rulesets/naming.xml/AvoidFieldNameMatchingTypeName"/>
+  <rule ref="rulesets/naming.xml/BooleanGetMethodName"/>
   <!-- See http://pmd.sourceforge.net/rule-guidelines.html for rule priority guidelines. Naming should not be considered a 'bug' error -->
   <rule ref="rulesets/naming.xml/ClassNamingConventions">
       <priority>3</priority>
   </rule>
+  <rule ref="rulesets/naming.xml/GenericsNaming"/>
   <!-- Default maxlength 17 is way too short -->
   <rule ref="rulesets/naming.xml/LongVariable">
+    <priority>4</priority>
     <properties>
         <property name="minimum" value="31"/>
     </properties>
   </rule>
+  <rule ref="rulesets/naming.xml/NoPackage"/>
   <rule ref="rulesets/naming.xml/MethodNamingConventions">
       <priority>4</priority>
   </rule>
+  <rule ref="rulesets/naming.xml/MethodWithSameNameAsEnclosingClass"/>
+  <rule ref="rulesets/naming.xml/MisleadingVariableName"/>
+  <rule ref="rulesets/naming.xml/PackageCase"/>
+  <rule ref="rulesets/naming.xml/ShortMethodName"/>
+  <rule ref="rulesets/naming.xml/SuspiciousHashcodeMethodName"/>
+  <rule ref="rulesets/naming.xml/SuspiciousConstantFieldName"/>
+  <rule ref="rulesets/naming.xml/SuspiciousEqualsMethodName"/>
   <rule ref="rulesets/naming.xml/VariableNamingConventions">
       <priority>4</priority>
   </rule>

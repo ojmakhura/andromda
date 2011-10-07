@@ -21,7 +21,7 @@ public class Configuration
     /**
      * Stores any properties defined in this configuration.
      */
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     /**
      * Adds a property with the name and value to the current properties
@@ -106,7 +106,7 @@ public class Configuration
      * @param target
      * @param properties
      */
-    protected void addProperties(Map<String, String> target, Properties properties)
+    protected void addProperties(final Map<String, String> target, final Properties properties)
     {
         for (final String propertyName : properties.stringPropertyNames())
         {
