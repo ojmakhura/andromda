@@ -941,7 +941,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.9</version>
+                <version>4.10</version>
 #if (!$ejb)
                 <scope>test</scope>
 #end
@@ -1089,8 +1089,6 @@
             <dependency>
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
-                <!-- v2.0.2 gives NoClassDefFoundError org/w3c/dom/ElementTraversal if not provided >
-                <version>1.4.01</version-->
                 <version>2.0.2</version>
                 <scope>provided</scope>
             </dependency>
@@ -1217,7 +1215,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>2.10</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -1924,7 +1922,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.9</version>
+                            <version>2.10</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -2066,7 +2064,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.9</version>
+                <version>2.10</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
