@@ -149,9 +149,9 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(String)
      */
     @Override
-    protected Collection handleFindTaggedValues(String name)
+    protected Collection<Object> handleFindTaggedValues(String name)
     {
-        final Collection values = new ArrayList();
+        final Collection<Object> values = new ArrayList<Object>();
 
         // only search a tagged value when it actually has a name
         if (StringUtils.isNotBlank(name))
