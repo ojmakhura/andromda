@@ -8,7 +8,9 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -154,13 +156,14 @@ public class HibernateEntityLogicImpl
      */
     protected Collection<OperationFacade> handleGetAllBusinessOperations()
     {
-        Entity superElement = (Entity)this.getGeneralization();
         Collection<OperationFacade> result = this.getBusinessOperations();
-
-        while (superElement != null)
+        GeneralizableElementFacade general = this.getGeneralization();
+        // Allow for Entities that inherit from a non-Entity ancestor
+        if (general != null && general instanceof Entity)
         {
+            Entity superElement = (Entity)general;
             result.addAll(superElement.getBusinessOperations());
-            superElement = (Entity)superElement.getGeneralization();
+            general = this.getGeneralization();
         }
 
         return result;
@@ -667,7 +670,11 @@ public class HibernateEntityLogicImpl
 
         if ((superEntity != null) && superEntity.isHibernateInheritanceSubclass())
         {
-            column = (this.getIdentifiers().iterator().next()).getColumnName();
+            ModelElementFacade facade = this.getIdentifiers().iterator().next();
+            if (facade instanceof EntityAttribute)
+            {
+                column = ((EntityAttribute)facade).getColumnName();
+            }
         }
 
         return column;

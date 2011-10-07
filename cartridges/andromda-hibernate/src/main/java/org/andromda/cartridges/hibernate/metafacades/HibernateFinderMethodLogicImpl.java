@@ -55,26 +55,23 @@ public class HibernateFinderMethodLogicImpl
         {
             String variableName = StringUtils.uncapitalize(this.getOwner().getName());
             queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
-            if (!this.getArguments().isEmpty())
+            Collection arguments = this.getArguments();
+            if (arguments != null && !arguments.isEmpty())
             {
                 queryString = queryString + " where";
-                Collection arguments = this.getArguments();
-                if (arguments != null && !arguments.isEmpty())
+                Iterator argumentIt = arguments.iterator();
+                for (; argumentIt.hasNext();)
                 {
-                    Iterator argumentIt = arguments.iterator();
-                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
+                    ParameterFacade argument = (ParameterFacade)argumentIt.next();
+                    String parameter = "?";
+                    if (this.isUseNamedParameters())
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                        String parameter = "?";
-                        if (this.isUseNamedParameters())
-                        {
-                            parameter = ':' + argument.getName();
-                        }
-                        queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
-                        if (argumentIt.hasNext())
-                        {
-                            queryString = queryString + " and";
-                        }
+                        parameter = ':' + argument.getName();
+                    }
+                    queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
+                    if (argumentIt.hasNext())
+                    {
+                        queryString = queryString + " and";
                     }
                 }
             }
