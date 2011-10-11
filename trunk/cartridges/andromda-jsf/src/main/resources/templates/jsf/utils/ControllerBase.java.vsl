@@ -447,7 +447,7 @@ public abstract class ControllerBase
      */
     protected void setRequestAttribute(final String name, final Object object)
     {
-        ${managedBeansPackage}.JsfUtils.setAttribute(this.getContext().getExternalContext().getRequest(), name, object);
+        this.getRequest().setAttribute(name, object);
     }
 
     /**
@@ -456,7 +456,7 @@ public abstract class ControllerBase
      */
     protected Object getRequestAttribute(final String name)
     {
-        return ${managedBeansPackage}.JsfUtils.getAttribute(this.getContext().getExternalContext().getRequest(), name);
+        return this.getRequest().getAttribute(name);
     }
 
     /**
