@@ -374,6 +374,7 @@ public class WebServiceLogicImpl
             this.elementSet = (TreeSet<ModelElementFacade>)handleGetTypeMappingElements();
         }
         setPkgAbbr(this.elementSet);
+        @SuppressWarnings("unused")
         String pkgList = EMPTY_STRING;
         for (final String pkg : this.packageAbbr.keySet())
         {
