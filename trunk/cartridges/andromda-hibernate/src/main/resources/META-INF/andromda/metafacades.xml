@@ -2,8 +2,10 @@
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades>
     <property reference="hibernateVersion"/>
+    <property reference="hibernateEntityAnnotations"/>
     <property reference="hibernateXMLPersistence"/>
     <property reference="hibernateXMLPersistIDAsAttribute"/>
+    <property reference="hibernateJAXBPersistence"/>
     <property reference="entityNamePattern"/>
     <property reference="entityImplementationNamePattern"/>
     <property reference="defaultHibernateGeneratorClass"/>

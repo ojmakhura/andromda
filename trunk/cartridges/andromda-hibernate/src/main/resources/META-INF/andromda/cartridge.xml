@@ -30,6 +30,10 @@
     <property reference="username"/>
     <property reference="password"/>
     <property reference="connectionUrl"/>
+    <property reference="testDriver"/>
+    <property reference="testUsername"/>
+    <property reference="testPassword"/>
+    <property reference="testConnectionUrl"/>
     <property reference="dataSource"/>
     <property reference="schemaName"/>
     <property reference="hibernateDefaultCascade"/>
@@ -66,10 +70,15 @@
 	<property reference="typeSafeEnumsEnabled"/>
     <property reference="enableTemplating"/>
     <property reference="enableAnnotations"/>
-    <!-- These 3 properties are only relevant for Hibernate 3 -->
+    <property reference="hibernateEntityAnnotations"/>
+    <property reference="hibernateJAXBPersistence"/>
+    <!-- These 6 properties are only relevant for Hibernate 3 -->
     <property reference="hibernateQueryFactory"/>
     <property reference="hibernateOneToManyNotFoundAction"/>
     <property reference="generateDatabaseDependentCode"/>
+    <property reference="persistenceContextUnitName"/>
+    <property reference="entityManagerName"/>
+    <property reference="entityManagerJTADataSource"/>
 
     <!-- cartridge-property merge-point-->
 
@@ -77,6 +86,7 @@
 	<condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
 	<condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->

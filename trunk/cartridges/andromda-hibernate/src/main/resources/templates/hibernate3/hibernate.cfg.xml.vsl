@@ -6,7 +6,7 @@
 <!DOCTYPE
     hibernate-configuration
     PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-           "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+           "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
         <!-- properties -->
@@ -73,6 +73,8 @@
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
         <property name="hibernate.hbm2ddl.auto">$hibernateHbm2DDLAuto</property>
 #end
+## Use the new Identifier generator for Hibernate 3.x, if using annotation mappings
+        <property name="hibernate.id.new_generator_mappings">true</property>
 #if ($stringUtils.isNotBlank($hibernateQueryFactory))
         <property name="hibernate.query.factory_class">$hibernateQueryFactory</property>
 #end
@@ -91,9 +93,11 @@
 #if ($stringUtils.isNotBlank($hibernateConnectionReleaseMode))
         <property name="hibernate.connection.release_mode">$hibernateConnectionReleaseMode</property>
 #end
+#if (!$hibernateEntityAnnotations)
         <!-- mapping files -->
 #foreach($entity in $entities)
         <mapping resource="${entity.packagePath}/${entity.entityName}.hbm.xml"/>
+#end
 #end
     </session-factory>
 </hibernate-configuration>

@@ -78,7 +78,7 @@
                 <documentation>
                     The location to which the AndroMDA OpenSessionInViewFilter will be generated
                     (allows the Hibernate <em>open-session-in-view</em> pattern when you want to
-                    expose your enties directly to your presentation tier - allows lazy-loading to
+                    expose your entities directly to your presentation tier - allows lazy-loading to
                     occur that level).
                 </documentation>
             </property>
@@ -137,13 +137,13 @@
             <property name="server-test" required="false">
                 <documentation>
                     The location where server side test implementation code will be generated if using a Rich Client environment
-                    (i.e. the richClient namespace entry is "true").
+                    (i.e. the richClient namespace entry is "true") or if generating unit tests.
                 </documentation>
             </property>
             <property name="server-test-config" required="false">
                 <documentation>
                     The location where server side test configuration files will be generated if using a Rich Client environment
-                    (i.e. the richClient namespace entry is "true").
+                    (i.e. the richClient namespace entry is "true") or if generating unit tests.
                 </documentation>
             </property>
             <property name="merge-mappings" required="false">
@@ -345,7 +345,7 @@
                 <default>true</default>
                 <documentation>
                     Whether or not to generate a default exception for each service.  This exception
-                    will handle unexpected exceptions occuring within the implemented operations.
+                    will handle unexpected exceptions occurring within the implemented operations.
                 </documentation>
             </property>
             <property name="serviceInterceptors" required="false">
@@ -468,6 +468,31 @@
                 <documentation>
                     JNDI name of data source to use. (would be used instead
                     of the connection properties, driver, username, password, etc).
+                </documentation>
+            </property>
+            <property name="testDriver" required="false">
+                <documentation>
+                    JDBC Driver to make a local in-memory unit test database connection.
+                </documentation>
+            </property>
+            <property name="testUsername" required="false">
+                <documentation>
+                    The local in-memory unit test database user login name.
+                </documentation>
+            </property>
+            <property name="testPassword" required="false">
+                <documentation>
+                    The local in-memory unit test database user password.
+                </documentation>
+            </property>
+            <property name="testConnectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the local in-memory unit test database.
+                </documentation>
+            </property>
+            <property name="testDialect" required="false">
+                <documentation>
+                    Hibernate Dialect for the JDBC Driver to make the connection to the local in-memory unit test database.
                 </documentation>
             </property>
             <property name="applicationContext">
@@ -908,14 +933,22 @@
                 The properties for configuring <a href="http://www.hibernate.org">Hibernate</a> support generation.
             </documentation>
             <property name="hibernateVersion">
-                <default>2</default>
+                <default>3</default>
                 <documentation>
                     The version of Hibernate to use when generating.
                     <ul>
                         Allowable values are:
-                        <li>2</li>
-                        <li>3</li>
+                        <li>2 - Hibernate 2.x</li>
+                        <li>3 - Hibernate 3.x</li>
+                        <li>4 - Hibernate 4.x</li>
                     </ul>
+                </documentation>
+            </property>
+            <property name="hibernateEntityAnnotations" required="false">
+                <default>false</default>
+                <documentation>
+                    Set to <code>true</code> to enable Hibernate @Annotations on Entity classes for ORM properties,
+                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code>.
                 </documentation>
             </property>
             <property name="hibernateMappingStrategy">
@@ -1184,7 +1217,7 @@
                 <documentation>
                     The prefix for all roles defined in the model. This configures the <code>acegiServiceDecisionVoter</code>s <code>rolePrefix</code>
                     attribute. As proposed by Acegi for our default voter <code>org.acegisecurity.vote.RoleVoter</code>, the default value is <code>ROLE_</code>.
-                    It can be overwritten with an empty string if no prefix is wanted/neccessary at all.
+                    It can be overwritten with an empty string if no prefix is wanted/necessary at all.
                     Please <strong>NOTE</strong> that AndroMDA will add this prefix to all role/actor names,
                     which do not already have it defined in the model.
                 </documentation>
