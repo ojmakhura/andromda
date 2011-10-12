@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
+<!-- Rules for pmd plugin v2.5 PMD v4.2.5, v4.2.6 rules are commented out -->
+<!-- New rules: Controversial: AvoidLiteralsInIfCondition, UseConcurrentHashMap, StrictExceptions: AvoidCatchingGenericException, AvoidLosingExceptionInformation, Naming: GenericsNaming -->
 <ruleset name="AndroMDA custom ruleset"
     xmlns="http://pmd.sf.net/ruleset/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -37,7 +39,7 @@
     <exclude name="DataflowAnomalyAnalysis"/-->
   <rule ref="rulesets/controversial.xml/AssignmentInOperand"/>
   <rule ref="rulesets/controversial.xml/AvoidAccessibilityAlteration"/>
-  <rule ref="rulesets/controversial.xml/AvoidLiteralsInIfCondition"/>
+  <!--rule ref="rulesets/controversial.xml/AvoidLiteralsInIfCondition"/-->
   <rule ref="rulesets/controversial.xml/AvoidUsingShortType">
       <priority>4</priority>
   </rule>
@@ -54,7 +56,7 @@
   <rule ref="rulesets/controversial.xml/UnnecessaryConstructor"/>
   <rule ref="rulesets/controversial.xml/UnnecessaryParentheses"/>
   <rule ref="rulesets/controversial.xml/UnusedModifier"/>
-  <rule ref="rulesets/controversial.xml/UseConcurrentHashMap"/>
+  <!--rule ref="rulesets/controversial.xml/UseConcurrentHashMap"/-->
   <rule ref="rulesets/coupling.xml"/>
   <rule ref="rulesets/design.xml/AbstractClassWithoutAbstractMethod"/>
   <rule ref="rulesets/design.xml/AbstractClassWithoutAnyMethod"/>
@@ -119,7 +121,7 @@
   <rule ref="rulesets/naming.xml/ClassNamingConventions">
       <priority>3</priority>
   </rule>
-  <rule ref="rulesets/naming.xml/GenericsNaming"/>
+  <!--rule ref="rulesets/naming.xml/GenericsNaming"/-->
   <!-- Default maxlength 17 is way too short -->
   <rule ref="rulesets/naming.xml/LongVariable">
     <priority>4</priority>
