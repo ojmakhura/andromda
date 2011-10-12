@@ -43,6 +43,11 @@
                         <location patterns="**/${andromda.version}/*.e*x">${settings.localRepository}/org/andromda/profiles/emf/rsm75</location>
                         <location patterns="**/${andromda.version}/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location-->
                     </moduleSearchLocations>
+                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
+                    <!--constraints enforceAll="true">
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
+                    </constraints-->
                     <!-- JSF needs to disable these validations because there are situations where we can't use native
                          types in required (multiplicity > 0) parameters or VO attributes-->
                     <constraints>
@@ -53,11 +58,6 @@
                     <!--modelPackages>
                         <modelPackage process="false">org::andromda::sample::notprocessed</modelPackage>
                     </modelPackages-->
-                    <!-- Can filter in/out specific andromda model validation constraints (default true=validate all) -->
-                    <!--constraints enforceAll="true">
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
-                    </constraints-->
                 </model>
             </models>
         </repository>
@@ -115,22 +115,23 @@
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
                 <property name="xmlAttributes">false</property>
+                <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
+                <property name="username">${jdbc.username}</property>
+                <property name="password">${jdbc.password}</property>
+                <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
                 <property name="testUsername">${testdb.username}</property>
                 <property name="testPassword">${testdb.password}</property>
                 <property name="testDriver">${testdb.driver}</property>
                 <property name="testConnectionUrl">${testdb.url}</property>
                 <property name="testDialect">${testdb.dialect}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
         <namespace name="spring">
             <properties>
-                <property name="dataSource">${dataSource}</property>
-                <property name="username">${jdbc.username}</property>
-                <property name="password">${jdbc.password}</property>
-                <property name="driver">${jdbc.driver}</property>
-                <property name="connectionUrl">${jdbc.url}</property>
-                <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
@@ -151,8 +152,8 @@
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
                 <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
-                <!-- to remove any dependency on EJB, comment the following property -->
-                <property name="session-ejbs">${core.generated.dir}</property>
+                <!-- to remove any dependency on EJB, comment the following property>
+                <property name="session-ejbs">${core.generated.dir}</property -->
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                  -->
@@ -167,7 +168,7 @@
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
-                <property name="hibernateEntityAnnotations">false</property>
+                <!--property name="hibernateEntityAnnotations">false</property-->
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>

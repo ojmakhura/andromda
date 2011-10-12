@@ -64,7 +64,7 @@
                     <excludes>**/jboss-app.xml</excludes>
                     <version>6</version>
                     <modules>
-                        <jarModule>
+                        <!--jarModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-common</artifactId>
                             <includeInApplicationXml>false</includeInApplicationXml>
@@ -72,7 +72,7 @@
                         <ejbModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-core</artifactId>
-                        </ejbModule>
+                        </ejbModule-->
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-web</artifactId>
