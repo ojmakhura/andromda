@@ -3,7 +3,7 @@
 ##
 #macro (renderEjbJarMethodPermission $operation)
         <method-permission>
-            <description><![CDATA[$operation.signature security constraint]]></description>
+            <description>$operation.signature security constraint></description>
 #if (!$ejbSecurityEnabled || $operation.roles.empty)
             <unchecked/>
 #else

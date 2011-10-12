@@ -28,6 +28,11 @@
     <property reference="username"/>
     <property reference="password"/>
     <property reference="connectionUrl"/>
+    <property reference="testDriver"/>
+    <property reference="testUsername"/>
+    <property reference="testPassword"/>
+    <property reference="testConnectionUrl"/>
+    <property reference="testDialect"/>
     <property reference="dataSource"/>
     <property reference="hibernatePoolSize"/>
     <property reference="hibernateTransactionManagerStrategy"/>
@@ -162,8 +167,10 @@
     <property reference="toDoTag"/>
     <property reference="serverTestBeanRefFactory"/>
     <property reference="serverTestContextDataSource"/>
+	<property reference="typeSafeEnumsEnabled"/>
     <property reference="enableTemplating"/>
     <property reference="enableAnnotations"/>
+    <property reference="hibernateEntityAnnotations"/>
     <property reference="hibernateQueryUseNamedParameters"/>
     <property reference="dataSourceEnabled"/>
     <property reference="messageBundlePath"/>

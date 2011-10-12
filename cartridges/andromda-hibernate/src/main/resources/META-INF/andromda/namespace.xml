@@ -60,6 +60,13 @@
                     The directory to which the hibernate.cfg.xml file is generated.
                 </documentation>
             </property>
+            <property name="test-configuration" required="false">
+                <documentation>
+                    The location where manual session bean and entity test resources
+                    such as persistence.xml and log4j.xml are generated.
+                    These will not be regenerated and may require user intervention.
+                </documentation>
+            </property>
             <property name="cache" required="false">
                 <documentation>
                     The directory to which the ehcache.xml file is generated.
@@ -263,6 +270,26 @@
                     URL for the JDBC Driver to make the connection to the database.
                 </documentation>
             </property>
+            <property name="testDriver" required="false">
+                <documentation>
+                    JDBC Driver to make test database connection, this should be a fully qualified Java class name.
+                </documentation>
+            </property>
+            <property name="testUsername" required="false">
+                <documentation>
+                    The test database user login name.
+                </documentation>
+            </property>
+            <property name="testPassword" required="false">
+                <documentation>
+                    The test database user password.
+                </documentation>
+            </property>
+            <property name="testConnectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the test database.
+                </documentation>
+            </property>
             <property name="dataSource" required="false">
                 <documentation>
                     JNDI name of data source to use. (would be used instead
@@ -337,6 +364,19 @@
             <property name="hibernateUseOuterJoin" required="false">
                 <documentation>
                     Whether or not to use outer join.
+                </documentation>
+            </property>
+            <property name="entityManagerName" required="false">
+                <documentation>
+                    The name assigned to the entity manager.  If no name
+                    is specified, the name of the containing persistence
+                    archive without the .par extension is used.
+                </documentation>
+            </property>
+            <property name="entityManagerJTADataSource" required="false">
+                <default>java:/DefaultDS</default>
+                <documentation>
+                    Specifies the global JNDI name of the JTA data source.
                 </documentation>
             </property>
         </propertyGroup>
@@ -419,15 +459,64 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="deploymentPlatform" required="false">
+                <default>jboss7</default>
+                <documentation>
+                    The default container deployment platform name and version.
+                    Used when specifying specific annotations and dependencies and tests
+                    for different persistence containers.
+                    Possible values are:
+                    <ul>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="persistenceContextUnitName" required="false">
+                <documentation>
+                    Specifies the default persistence context
+                    unit name associated with the default Entity
+                    Manager.
+                </documentation>
+            </property>
             <property name="hibernateVersion">
-                <default>2</default>
+                <default>3</default>
                 <documentation>
                     The version of Hibernate to use when generating.
                     Allowable values are:
                     <ul>
                         <li>2 - Hibernate 2.x</li>
                         <li>3 - Hibernate 3.x</li>
+                        <li>4 - Hibernate 4.x</li>
                     </ul>
+                </documentation>
+            </property>
+            <property name="hibernateEntityAnnotations" required="false">
+                <default>false</default>
+                <documentation>
+                    Set to <code>true</code> to enable Hibernate @Annotations on Entity classes for ORM properties,
+                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code>.
                 </documentation>
             </property>
             <property name="hibernateXMLPersistence">
@@ -446,6 +535,13 @@
                     <a href="http://www.hibernate.org/hib_docs/v3/reference/en/html/xml.html">XML persistence support</a>
                     is enabled. The <code>hibernateXMLPersistence</code> namespace property must be set
                     to <code>true</code> for this option to have meaning.
+                </documentation>
+            </property>
+            <property name="hibernateJAXBPersistence">
+                <default>false</default>
+                <documentation>
+                    Set to <code>true</code> to enable JAXB XML annotations on Entity classes, used for serialization as
+                    part of REST services. The <code>hibernateVersion</code> namespace property must be set to <code>3</code>.
                 </documentation>
             </property>
             <property name="defaultHibernateGeneratorClass">

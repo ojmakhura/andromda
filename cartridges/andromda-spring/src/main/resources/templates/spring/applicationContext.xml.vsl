@@ -3,7 +3,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd">
 
     <!-- ========================= GENERAL DEFINITIONS ========================= -->
 
@@ -16,6 +16,7 @@
 #set ($daosEnabled = $daosEnabled && !$entities.empty)
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
+#if (!$hibernateEntityAnnotations)
     <bean id="${beanNamePrefix}hibernateMappingLocations" class="org.springframework.beans.factory.config.ListFactoryBean">
         <property name="sourceList">
             <list>
@@ -29,6 +30,7 @@
          </property>
     </bean>
 
+#end
     <bean id="${beanNamePrefix}hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="properties">
             <props>
@@ -106,7 +108,13 @@
     <!-- Hibernate SessionFactory -->
     <bean id="${beanNamePrefix}sessionFactory" class="$sessionFactory">
         <property name="dataSource" ref="${beanNamePrefix}dataSource"/>
+#if ($hibernateEntityAnnotations)
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+#else
         <property name="mappingLocations" ref="${beanNamePrefix}hibernateMappingLocations"/>
+#end
         <property name="hibernateProperties" ref="${beanNamePrefix}hibernateProperties"/>
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
