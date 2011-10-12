@@ -321,6 +321,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleGetInterceptors()
      */
+    @SuppressWarnings("null")
     protected Collection<String> handleGetInterceptors()
     {
         String serviceInterceptorString =

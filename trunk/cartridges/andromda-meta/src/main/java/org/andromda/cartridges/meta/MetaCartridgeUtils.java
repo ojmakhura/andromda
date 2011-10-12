@@ -76,6 +76,7 @@ public class MetaCartridgeUtils
      * @param constraint the constraint of which to retrieve the name.
      * @return the fully qualified name.
      */
+    @SuppressWarnings("null")
     public static String getFullyQualifiedConstraintName(final ConstraintFacade constraint)
     {
         final StringBuilder name = new StringBuilder();

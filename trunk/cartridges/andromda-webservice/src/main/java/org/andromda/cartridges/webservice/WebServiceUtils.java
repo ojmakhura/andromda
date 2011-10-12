@@ -946,6 +946,7 @@ public class WebServiceUtils
             String name = null;
             PackageFacade pkg = null;
             String packageName = packageFacade.getFullyQualifiedName();
+            @SuppressWarnings("unused")
             String pkgRefs = "";
             // Copy package names and collection of related packages to package references list
             for (final ClassifierFacade classifier : packageFacade.getClasses())
@@ -1861,6 +1862,7 @@ public class WebServiceUtils
      * @param parent Object containing this facade, which may have an attribute named dependency to a different type
      * @return Constructor String with facade name
      */
+    @SuppressWarnings("null")
     public String createConstructor(ModelElementFacade facade, boolean useMany, ModelElementFacade parent)
     {
         if (facade==null)
@@ -2373,6 +2375,7 @@ public class WebServiceUtils
         Collection<ModelElementFacade> opRef = new HashSet<ModelElementFacade>();
         //String name = null;
         String pkg = null;
+        @SuppressWarnings("unused")
         String typeRefs = "";
         // Copy package names and collection of related packages to package references list
         // Add references from the operations of the service package itself
