@@ -16,6 +16,7 @@
         <property name="webType">struts</property>
         <property name="webservice">no</property>
         <property name="model">jar:file:${project.basedir}/src/main/uml/online-store.xml.zip!/online-store.xml</property>
+        <property name="deploymentPlatform">jboss7</property>
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
         <property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
         <property name="distributionManagementRepositoryId">$${project.distributionManagement.repository.id}</property>
