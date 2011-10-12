@@ -166,13 +166,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.6.2</version>
-                <scope>provided</scope>
+                <!--scope>provided</scope-->
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.2</version>
-                <scope>provided</scope>
+                <!--scope>provided</scope-->
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
@@ -255,8 +255,8 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
-                <!-- JBoss contains a version which causes a classloader conflict unless not bundled -->
-                <scope>provided</scope>
+                <!-- JBoss contains a version which causes a classloader conflict unless not bundled>
+                <scope>provided</scope -->
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -267,7 +267,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.0.1</version>
+                <version>2.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -422,7 +422,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.17</version>
+                <version>5.1.18</version>
                 <!--scope>test</scope-->
             </dependency>
             <dependency>
@@ -527,7 +527,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.7</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-antrun-plugin</artifactId>
@@ -677,7 +677,7 @@
             For SapDB use: SapDB
             For Derby use: Derby
         -->
-        <sql.mappings>H2</sql.mappings>
+        <sql.mappings>H2Sql</sql.mappings>
         <!--
             Change this for the appropriate database
             For Derby use: org.hibernate.dialect.DerbyDialect
@@ -829,7 +829,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.8.1</version>
+                            <version>2.10</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -872,7 +872,7 @@
                     <plugin>
                         <inherited>true</inherited>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.2</version>
+                        <version>1.4</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -957,7 +957,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1010,7 +1010,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.10</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -1025,7 +1025,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <configuration>
                     <configLocation>andromda/checkstyle_checks.xml</configLocation>
                 </configuration>
@@ -1037,7 +1037,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <reportSets>
                     <reportSet>
                         <reports>

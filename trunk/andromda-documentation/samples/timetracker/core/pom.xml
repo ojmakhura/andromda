@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
+            <version>3.2.0.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -227,9 +227,180 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>                
-                <artifactId>maven-jar-plugin</artifactId>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>hibernate3-maven-plugin</artifactId>
+              <version>2.2</version>
+              <executions>
+                <execution>
+                  <phase>process-classes</phase>
+                  <goals>
+                    <goal>hbm2ddl</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <components>
+                  <component>
+                    <name>hbm2ddl</name>
+                    <implementation>configuration</implementation>
+                  </component>
+                </components>
+                <componentProperties>
+                  <!--hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect-->
+                  <export>false</export><!-- do not export to the database: tries to use jdbc datasource -->
+                  <drop>true</drop>
+                  <create>true</create>
+                  <format>true</format>
+                  <jdk5>true</jdk5>
+                  <persistenceunit>${project.parent.artifactId}</persistenceunit>
+                  <configurationfile>src/test/resources/hibernate.cfg.xml</configurationfile>
+                  <outputfilename>../../../../app/src/main/sql/schema.sql</outputfilename>
+                </componentProperties>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                    <version>${hibernate.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <version>${hibernate.version}</version>
+                  </dependency>
+                  <!--dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-annotations</artifactId>
+                    <version>3.5.6-Final</version>
+                  </dependency-->
+                  <dependency>
+                      <groupId>org.hibernate</groupId>
+                      <artifactId>hibernate-validator</artifactId>
+                      <version>4.2.0.Final</version>
+                  </dependency>
+                </dependencies>
             </plugin>
+            <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB >
+            <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                  <phase>generate-test-sources</phase>
+                  <configuration>
+                    <target>
+                      <replace dir="${basedir}/../app/src/main/sql" value="">
+                        <include name="schema.sql"/>
+                        <replacetoken> ENGINE=InnoDB</replacetoken>
+                      </replace>
+                    </target>
+                  </configuration>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin-->
+            <!-- Run h2 tcp server manually by 'mvn exec:java sql:execute' for local unit testing, this is configuration only, not run during build -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                  <execution>
+                      <!--phase>test-compile</phase-->
+                      <goals>
+                          <goal>java</goal>
+                      </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.wdpr.dbtest.H2</mainClass>
+                    <classpathScope>test</classpathScope>
+                    <workingDirectory>${project.basedir}/target</workingDirectory>
+                    <arguments>
+                    </arguments>
+                </configuration>
+                <dependencies>
+                  <dependency>
+                    <groupId>${testdb.groupId}</groupId>
+                    <artifactId>${testdb.artifactId}</artifactId>
+                    <version>${testdb.version}</version>
+                  </dependency>
+                </dependencies>
+            </plugin>
+            <!-- See http://mojo.codehaus.org/sql-maven-plugin/examples/execute.html -->
+            <!-- Can't connect to the h2 process outside of the mvn JVM because it locks the DB -->
+            <!-- See http://www.h2database.com/html/cheatSheet.html -->
+            <!-- Can't use in-memory DB for tomcat/jetty initialization - goes away on exit -->
+            <!-- Use for in-memory DB jdbc:h2:timetracker;MODE=MySQL for in-JVM connections only, but it must be started within maven -->
+            <!-- Use for server DB jdbc:h2:tcp://localhost/timetracker;MODE=MySQL for external connections, but it must be started outside maven -->
+            <!-- default-cli execution id allows us to run the same configuration from the mvn command line -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <driver>${testdb.driver}</driver>
+                    <url>${testdb.url}</url>
+                    <username>${testdb.username}</username>
+                    <password>${testdb.password}</password>
+                    <autocommit>true</autocommit>
+                    <skip>${maven.test.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <orderFile>ascending</orderFile><!-- Ascending alphabetical order, not the order of files in includes -->
+                            <fileset>
+                                <basedir>${basedir}/../app/src/main/sql</basedir>
+                                <includes>
+                                    <include>schema.sql</include>
+                                    <include>static-data-insert.sql</include>
+                                    <include>test-data-insert.sql</include>
+                                </includes>
+                            </fileset>
+                            <onError>continue</onError>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>${testdb.groupId}</groupId>
+                        <artifactId>${testdb.artifactId}</artifactId>
+                        <version>${testdb.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <!--version>2.3</version-->
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                    <generateClient>true</generateClient>
+                    <excludes>
+                        <exclude>**/*.ref</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!--plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
