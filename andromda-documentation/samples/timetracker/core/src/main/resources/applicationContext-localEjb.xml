@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+
+    <!-- UserService -->
+    <bean id="userService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        <property name="jndiName"><value>timetracker-3.4-SNAPSHOT/ejb/org.andromda.timetracker.service.UserService</value></property>
+        <property name="businessInterface"><value>org.andromda.timetracker.service.UserService</value></property>
+    </bean>
+
+    <!-- TimeTrackingService -->
+    <bean id="timeTrackingService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        <property name="jndiName"><value>timetracker-3.4-SNAPSHOT/ejb/org.andromda.timetracker.service.TimeTrackingService</value></property>
+        <property name="businessInterface"><value>org.andromda.timetracker.service.TimeTrackingService</value></property>
+    </bean>
+
+    <!-- SecurityService -->
+    <bean id="securityService" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        <property name="jndiName"><value>timetracker-3.4-SNAPSHOT/ejb/org.andromda.timetracker.service.SecurityService</value></property>
+        <property name="businessInterface"><value>org.andromda.timetracker.service.SecurityService</value></property>
+    </bean>
+
+    <!-- applicationContext-localEjb merge-point -->
+    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+
+</beans>

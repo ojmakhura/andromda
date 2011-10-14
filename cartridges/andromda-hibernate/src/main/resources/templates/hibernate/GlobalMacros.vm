@@ -1,0 +1,742 @@
+##
+##  This macro will render the equals() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
+#macro (renderEqualsMethod $class $className $attributeSet)
+    /**
+     * Indicates if the argument is of the same type and all values are equal.
+     * @param object The target object to compare with
+     * @return boolean True if both objects a 'equal'
+     * @see Object${esc.hash}equals(Object)
+     */
+    @Override
+    public boolean equals(Object object)
+    {
+#if ($attributeSet.empty)
+        return super.equals(object);
+#else
+        if (null == object)
+        {
+            return false;
+        }
+        if (this == object)
+        {
+            return true;
+        }
+        if (!(object instanceof $className))
+        {
+            return false;
+        }
+        final $className that = ($className)object;
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($idType = $attribute.type)
+#*    *##if ($idType.primitive)
+        if (this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() != that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}())
+        {
+            return false;
+        }
+#*    *##elseif ($idType.arrayType)
+        if (!java.util.Arrays.equals(this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}(), that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}()))
+        {
+            return false;
+        }
+#*    *##else
+        if (this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() == null || that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() == null || !this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}().equals(that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}()))
+        {
+            return false;
+        }
+#*    *##end
+#*  *##end
+        return true;
+#end
+    }
+#end
+##
+##  This macro will render the hashCode() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
+#macro (renderHashCodeMethod $class $attributeSet)
+    /**
+     * Returns a hash code value for the object
+     * @return int The hash code value
+     * @see Object${esc.hash}hashCode
+     */
+    @Override
+    public int hashCode()
+    {
+#if ($attributeSet.empty)
+        return super.hashCode();
+#else
+#*  *##if ($class.generalization)
+        int hashCode = super.hashCode();
+#*  *##else
+        int hashCode = 0;
+#*  *##end
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($attrType = $attribute.type)
+#*    *##if  ($attribute.getterSetterTypeName == "boolean")
+        hashCode = 29 * hashCode + (#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}() ? 1 : 0);
+#*    *##elseif ($attrType.arrayType)
+        // arrays are not part of the hashCode calculation
+#*    *##elseif ($attrType.primitive)
+        hashCode = 29 * hashCode + #if(!$attrType.name.equals("int"))(int)#end#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}();
+#*    *##else
+        hashCode = 29 * hashCode + (#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}() == null ? 0 : #if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}().hashCode());
+#*    *##end## if
+#*  *##end## foreach
+
+        return hashCode;
+#end## $attributeSet.empty
+    }
+#end
+##
+##  This macro will render the toString() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
+#macro (renderToStringMethod $class $className $attributeSet)
+    /**
+     * Returns a String representation of the object
+     * @return String Textual representation of the object displaying name/value pairs for all attributes
+     * @see Object${esc.hash}toString
+     */
+    @Override
+    public String toString()
+    {
+#if ($attributeSet.empty)
+        return super.toString();
+#else
+        StringBuilder sb = new StringBuilder();
+        sb.append("${className}(");
+#*  *##if ($class.generalization)
+        sb.append(super.toString());
+#*  *##end
+#*  *##set( $sep = "" )
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($attrType = $attribute.type)
+        sb.append(" #if ($class.compositePrimaryKeyPresent && $attribute.identifier)pk.#end${attribute.name}=").append(#if ($class.compositePrimaryKeyPresent && $attribute.identifier)this.getPk().#end${attribute.getterName}()#if ($attribute.containsEmbeddedObject).toString()#end);
+#*    *##set( $sep = ", " )
+#*  *##end## foreach
+        sb.append(")");
+        return sb.toString();
+#end## $attributeSet.empty
+    }
+#end
+##
+##  This macro will render the compareTo(Object o) method
+##  This is required since each entity implements Comparable<T>
+##
+#macro (renderCompareToMethod $class $className $identifiers)
+    /**
+     * @see Comparable${esc.hash}compareTo
+     */
+    public int compareTo($className o)
+    {
+        int cmp = 0;
+#if ($entity.compositeIdentifier)
+        if (this.${entity.identifierGetterName}() != null)
+        {
+            cmp = this.${entity.identifierGetterName}().compareTo(o.${entity.identifierGetterName}());
+        }
+#elseif ($identifiers.size()==1)
+#set ($getter = "${identifiers.get(0).getterName}()")
+## Assume numeric identifier if primitive
+#if ($identifier.type.primitive)
+        if (this.$getter > 0)
+        {
+            cmp = this.${getter} - o.${getter};
+        }
+#else
+        if (this.$getter != null)
+        {
+            cmp = this.${getter}.compareTo(o.${getter});
+        }
+#end
+#end
+#set ($attributes = $class.attributes)
+#if (!$attributes.empty)
+#if ($identifiers.size()>0)
+        else
+        {
+#end
+#*  *##foreach ($attribute in $attributes)
+##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
+#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType)
+            if (this.${attribute.getterName}() != null)
+            {
+#if ($attribute.many)
+                // Compare Collection sizes for ordering
+                cmp = (cmp != 0 ? cmp : Math.abs(this.${attribute.getterName}().size()-o.${attribute.getterName}().size()));
+#else
+                cmp = (cmp != 0 ? cmp : this.${attribute.getterName}().compareTo(o.${attribute.getterName}()));
+#end
+            }
+#*    *##end
+#*  *##end
+#if ($identifiers.size()>0)
+        }
+#end
+#end
+        return cmp;
+    }
+#end
+##
+##  This macro will render the attribute annotations, value, and get/set methods
+##  For each entity and embedded entity
+##
+#macro (renderAttribute $entity $attribute)
+#set ($typeName = $attribute.getterSetterTypeName)
+#if ($attribute.containsEmbeddedObject)
+#set ($typeName = $attribute.type.fullyQualifiedEntityName)
+#end
+#set ($visibility=$attribute.visibility)
+#if ($attribute.visibility.equals("public"))
+#set ($visibility="private")
+#end
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
+    $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+
+#end
+    /**
+$attribute.getDocumentation("     * ")
+     * @return this.${attribute.name} $typeName
+     */
+#if ($hibernateEntityAnnotations)
+#if($stringUtils.isNotBlank($entity.schema))
+#set($sequencePrefix = "${entity.schema}.")
+#else
+#set($sequencePrefix = "")
+#end
+##
+## If attribute is transient ONLY add Transient annotation
+##
+#*  *##if ($attribute.transient)
+    @javax.persistence.Transient
+#*  *##else
+#*    *##if (!$attribute.version)
+#*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
+    @javax.persistence.Id
+#*        *##if ($entity.sequenceHibernateGeneratorClass)
+    @javax.persistence.GeneratedValue(strategy=GenerationType.SEQUENCE, generator="${sequencePrefix}${entity.sequenceName}")
+    @javax.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
+#*        *##elseif ($attribute.generatorTypeTable)
+    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+#*        *##end
+#*        *##if (!$attribute.generatorTypeNone)
+#*          *##if ($attribute.generatorTypeGeneric)
+    @javax.persistence.GeneratedValue(generator = "${attribute.generatorName}")
+#*            *##if ($hibernateExtensionEnabled)
+    @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
+#*            *##end
+#*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
+    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
+#*          *##end
+#*        *##end
+#*      *##end
+#*      *##if ($attribute.lob)
+##
+## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
+## Also sepcify Fetch type in Basic annotation if set to EAGER since
+## default fetch type for LOB annotation is LAZY.
+##
+    @javax.persistence.Lob
+#*        *##if ($attribute.eager)
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+#*        *##end
+#*      *##end
+#*      *##if ($attribute.containsEmbeddedObject)
+    @javax.persistence.Embedded
+##
+## Render AttributeOverrides if attributes exist on the embedded object
+##
+#*        *##if (!$attribute.type.attributes.empty)
+    @javax.persistence.AttributeOverrides
+    ({
+#*          *##foreach ($embeddedAttribute in $attribute.type.attributes)
+        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}", unique =#if ($embeddedAttribute.unique && $embeddedAttribute.required) ${embeddedAttribute.unique}#else false#end#if (!$embeddedAttribute.required), nullable = ${embeddedAttribute.required}#end
+, insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
+
+#*          *##end
+    })
+#*        *##end
+##
+## Render AssociationOverrides for embedded object if associations exist on the embedded object
+##
+#*        *##if (!$attribute.type.associationEnds.empty)
+    @javax.persistence.AssociationOverrides
+    ({
+#*          *##foreach ($associationEnd in $attribute.type.associationEnds)
+#*            *##set ($target = $associationEnd.otherEnd)
+#*            *##if (!$target.type.compositePrimaryKeyPresent)
+        @javax.persistence.AssociationOverride(name = "$target.name", joinColumns = @javax.persistence.JoinColumn(name = "${target.columnName}_$stringUtils.upperCase($target.name)"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end))#if($velocityCount != $attribute.type.associationEnds.size()),#end
+
+#*            *##else
+#*              *##set ($identifiers = $target.type.identifiers)
+        @javax.persistence.AssociationOverride(name = "$target.name",
+            joinColumns =
+            {
+#*              *##foreach ($attribute in $identifiers)
+                @javax.persistence.JoinColumn(name = "${attribute.columnName}_$stringUtils.upperCase(${target.name})_${target.columnName}", referencedColumnName = "${target.columnName}")#if($velocityCount != $identifiers.size()),#end
+
+#*              *##end
+            })#if($velocityCount != $attribute.type.associationEnds.size()),#end
+
+#*            *##end
+#*          *##end
+    })
+#*        *##end
+#*      *##else
+    @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable = ${attribute.required}, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+#*      *##end
+#*      *##if (!$attribute.lob && $attribute.lazy)
+##
+## Only add the fetch type property for LAZY hints - default is EAGER
+##
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+#*      *##end
+#*      *##if ($stringUtils.isNotBlank($attribute.temporalType))
+    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+#*      *##end
+#*      *##if ($attribute.type.enumeration)
+    // $attribute.name $attribute.type.fullyQualifiedName $attribute.temporalType $attribute.enumerationType
+    @javax.persistence.Enumerated(javax.persistence.EnumType#if ($stringUtils.isNotBlank($attribute.enumerationType)).${attribute.enumerationType}#else.STRING#end)
+#*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+##
+## If JBoss Seam and Hibernate extensions are both enabled, add NotNull and Length annotations where required
+##
+#*        *##if (!$attribute.columnNullable && !($entity.dynamicIdentifiersPresent && $attribute.identifier))
+##
+## Only specify this validator if identifier explicitly specified and explicitly set as not null
+##
+    @org.hibernate.validator.NotNull
+#*        *##end
+#*        *##if ($attribute.columnLength)
+    @org.hibernate.validator.Length(max = $attribute.columnLength)
+#*        *##end
+#*      *##end
+#*    *##else
+##
+## Add the Version annotation on the attribute itself
+##
+    @javax.persistence.Version
+#*    *##end
+#*    *##if ($attribute.lob)
+##
+## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
+## Also sepcify Fetch type in Basic annotation if set to EAGER since
+## default fetch type for LOB annotation is LAZY.
+##
+    @javax.persistence.Lob
+#*      *##if ($attribute.eager)
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+#*      *##end
+#*    *##end
+##    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.required}#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+#*    *##if (!$attribute.lob && $attribute.lazy)
+##
+## Only add the fetch type property for LAZY hints - default is EAGER
+##
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+#*    *##end
+#*    *##if ($stringUtils.isNotBlank($attribute.temporalType))
+    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+#*    *##end
+#*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
+    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+#*    *##end
+#*  *##end
+##
+## Override attribute type if attribute is a LOB and lob type is specified
+##
+##if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
+##    @javax.persistence.Id
+##end
+#end
+    $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
+    {
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
+        return this.${attribute.name};
+#else
+        return this.${entity.identifierGetterName}().${attribute.getterName}();
+#end
+    }
+
+    /**
+$attribute.getDocumentation("     * ")
+     * @param ${attribute.name}In ${typeName}
+     */
+    $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In)
+    {
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
+        this.${attribute.name} = ${attribute.name}In;
+#else
+        this.${entity.identifierGetterName}().${attribute.setterName}(${attribute.name}In);
+#end
+    }
+
+#end
+##
+##  This macro will render the association annotations, value, and get/set methods
+##  For each entity and embedded entity
+##
+#macro (renderAssociation $entity $associationEnd)
+#set ($target = $associationEnd.otherEnd)
+    // $target.navigable $associationEnd.child $entity.foreignHibernateGeneratorClass $target $associationEnd
+#set ($visibility=$target.visibility)
+#if ($visibility.equals("public"))
+#set ($visibility="private")
+#end
+#if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
+#if ($target.many)
+    $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
+#else
+    $visibility $target.getterSetterTypeName $target.name;
+#end
+
+    /**
+$target.getDocumentation("     * ")
+     * @return this.${target.name} $target.getterSetterTypeName
+     */
+#if ($associationEnd.many2One)
+## Default fetch type: EAGER
+#*      *##set ($argExists = false)
+    @javax.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+##
+## Add the JoinColumns annotation if the target entity has a composite primary key
+## Otherwise add the JoinColumn annotation.
+##
+    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
+#*      *##if (!$target.type.compositePrimaryKeyPresent)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+#*      *##else
+#*        *##set ($identifiers = $target.type.getIdentifiers())
+    @javax.persistence.JoinColumns
+    ({
+#*        *##foreach ($attribute in $identifiers)
+        @javax.persistence.JoinColumn(name = "${attribute.columnName}"##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+#*        *##end
+    })
+#*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*        *##if ($target.foreignKeyConstraintDefined)
+##
+## Override the Hibernate foreign key constraint name
+## Currently does not support composite PKs
+##
+    @org.hibernate.annotations.ForeignKey(name = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})")
+#*        *##end
+#*      *##end
+#elseif ($associationEnd.one2Many)
+##
+## ONE TO MANY RELATIONSHIP
+##
+## Include the mappedBy element for bidirection relationships ONLY
+## Default fetch type: LAZY
+## If orderBy element is not specified, container assumes PK ordering
+##
+## If target association is transient ONLY add Transient annotation
+##
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##set ($argExists = false)
+##
+## When the target entity is a mapped superclass AND Hibernate extensions is enabled
+## then instead of the @OneToMany annotations, add the @CollectionOfElements instead.
+## This is only applied when the target entity in the association is NOT and entity.
+## In this situation, the target entity is a mapped superclass.
+##
+#*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
+    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+
+#*      *##else
+    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+#*      *##end
+##
+## Set the JoinTable annotation to limit the association table name length.
+## This is only set if the relationship is unidirectional.
+##
+#*      *##if (!$associationEnd.navigable && $target.navigable)
+    @javax.persistence.JoinTable
+    (
+        name = "${associationEnd.association.tableName}",
+#*      *##set ($identifiers = $entity.getIdentifiers())
+        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$attribute.columnName")#if($velocityCount != $identifiers.size()), #end#end},
+#*      *##set ($identifiers = $target.type.getIdentifiers())
+        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$attribute.columnName")#if($velocityCount != $identifiers.size()), #end#end}
+    )
+#*      *##end
+#*      *##if ($target.map)
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "$target.collectionIndexName")#end
+
+#*      *##else
+#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
+#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
+    @javax.persistence.OrderBy("${target.orderByClause}")
+#*          *##else
+    @javax.persistence.OrderBy
+#*          *##end
+#*        *##elseif ($hibernateExtensionEnabled)
+##
+## Override the Hibernate foreign key constraint name
+## Must define the name property.  If the constraint on the entity itself is not defined, then dont
+## render the annotation at all.
+##
+#*          *##if ($associationEnd.owning)
+#*            *##if ($associationEnd.foreignKeyConstraintDefined)
+    @org.hibernate.annotations.ForeignKey(#if ($associationEnd.foreignKeyConstraintDefined)name = "$associationEnd.getForeignKeyConstraintName(${associationEnd.type.identifier.columnName})"#end#if ($target.foreignKeyConstraintDefined)#if ($associationEnd.foreignKeyConstraintDefined), #end inverseName = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})"#end)
+#*            *##end
+#*          *##end
+#*          *##if ($target.list)
+##
+## Only add the IndexColumn annotation if Hibernate extensions is enabled
+##
+    @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
+#*          *##end
+#*        *##end
+#*      *##end
+##
+## Add the general Hibernate annotations if Hibernate extensions is enabled
+##
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.associationCacheEnabled)
+##
+## Add Cache annotations if association cache and Hibernate extensions are both enabled
+##
+    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*        *##end
+#*        *##if ($target.collectionInterfaceSortedSet)
+##
+## Only add the Sort annotation if interface is SortedSet and Hibernate extentions are enabled
+##
+    @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
+#*        *##end
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*      *##end
+#*    *##end
+#elseif ($associationEnd.one2One)
+##
+## If target association is transient ONLY add Transient annotation
+##
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##set ($argExists = false)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+#*      *##if($associationEnd.owning)
+##
+## Add the JoinColumns annotation if the target entity has a composite primary key
+## Otherwise add the JoinColumn annotation.
+##
+#*        *##if (!$target.type.compositePrimaryKeyPresent)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+#*        *##else
+#*          *##set ($identifiers = $target.type.getIdentifiers())
+    @javax.persistence.JoinColumns
+    ({
+#*          *##foreach ($attribute in $identifiers)
+        @javax.persistence.JoinColumn(name = "${attribute.columnName}"##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+#*          *##end
+    })
+#*        *##end
+#*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*        *##if($associationEnd.owning && $target.foreignKeyConstraintDefined)
+##
+## Override the Hibernate foreign key constraint name
+##
+    @org.hibernate.annotations.ForeignKey(name = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})")
+#*        *##end
+#*      *##end
+#*    *##end
+#elseif ($associationEnd.many2Many)
+##
+## MANY TO MANY RELATIONSHIP
+##
+## Default fetch type: LAZY
+##
+##
+## If target association is transient ONLY add Transient annotation
+##
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##set ($argExists = false)
+##
+## When the target entity is a mapped superclass AND Hibernate extensions is enabled
+## then instead of the @OneToMany annotations, add the @CollectionOfElements instead.
+## This is only applied when the target entity in the association is NOT and entity.
+## In this situation, the target entity is a mapped superclass.
+##
+#*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
+    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+
+#*      *##else
+    @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+#*      *##end
+## Use Aggregation and Composition to determine owning side
+#*      *##if (${associationEnd.association.tableName})
+#*        *##if($associationEnd.owning)
+##
+## Add the JoinTable annotation on the owning side
+##
+    @javax.persistence.JoinTable
+    (
+        name = "${associationEnd.association.tableName}",
+#set ($identifiers = $entity.getIdentifiers())
+        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
+#set ($identifiers = $target.type.getIdentifiers())
+        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
+    )
+#*        *##end
+#*      *##end
+#*      *##if ($target.map)
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("andromda_persistence_collection_index"))(name = "${target.collectionIndexName}")#end
+
+#*      *##else
+#*        *##if ($target.hasTaggedValue("andromda_persistence_orderBy"))
+#*          *##if ($stringUtils.isNotBlank(${target.orderByClause}))
+    @javax.persistence.OrderBy("${target.orderByClause}")
+#*          *##else
+    @javax.persistence.OrderBy
+#*          *##end
+#*        *##elseif ($hibernateExtensionEnabled)
+##
+## Only add the IndexColumn annotation if Hibernate extensions are enabled
+##
+#*          *##if ($target.list)
+    @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
+#*          *##end
+#*        *##end
+#*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+##
+## Override the Hibernate foreign key constraint name
+## Only generate the ForeignKey annotation if the constraint on the entity end is defined. The
+## inverseName property cannot be defined without the name property.
+##
+#*        *##if($associationEnd.owning)
+#*          *##if($associationEnd.foreignKeyConstraintDefined)
+    @org.hibernate.annotations.ForeignKey(#if ($associationEnd.foreignKeyConstraintDefined)name = "$associationEnd.getForeignKeyConstraintName(${associationEnd.type.identifier.columnName})"#end#if ($target.foreignKeyConstraintDefined)#if ($associationEnd.foreignKeyConstraintDefined), #end inverseName = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})"#end)
+#*          *##end
+#*        *##end
+#*        *##if ($target.associationCacheEnabled)
+##
+## Only add the Cache annotation if assocation cache and Hibernate extensions are both enabled
+##
+    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*        *##end
+#*        *##if ($target.collectionInterfaceSortedSet)
+##
+## Only add Sort annotation if collection interface is SortedSet and Hibernate extensions are enabled
+##
+    @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
+#*        *##end
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*      *##end
+#*    *##end
+#end
+    public $target.getterSetterTypeName ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+#if(!$target.readOnly)
+    /**
+$target.getDocumentation("     * ")
+     * @param ${target.name}In $target.getterSetterTypeName
+     */
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name}In)
+    {
+        this.${target.name} = ${target.name}In;
+    }
+
+#end
+#if ($target.many)
+#if ($target.map)
+    /**
+$target.getDocumentation("     * ")
+     * @param elementKey $target.collectionIndexType
+     * @param elementToAdd $target.type.fullyQualifiedName
+     * @return the previous value associated with <tt>key</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
+     *         (A <tt>null</tt> return can also indicate that the map
+     *         previously associated <tt>null</tt> with <tt>key</tt>,
+     *         if the implementation supports <tt>null</tt> values.)
+     */
+    public $target.type.fullyQualifiedName ${target.adderName}($target.collectionIndexType elementKey, $target.type.fullyQualifiedName elementToAdd)
+    {
+        return this.${target.name}.put(elementKey, elementToAdd);
+    }
+
+    /**
+$target.getDocumentation("     * ")
+     * @param elementKey $target.collectionIndexType
+     * @return the previous value associated with <tt>key</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
+     */
+    public $target.type.fullyQualifiedName ${target.removerName}($target.collectionIndexType elementKey)
+    {
+        return this.${target.name}.remove(elementKey);
+    }
+#else
+    /**
+$target.getDocumentation("     * ")
+     * @param elementToAdd $target.type.fullyQualifiedName
+     * @return <tt>true</tt> if this collection changed as a result of the
+     *         call
+     */
+    public boolean ${target.adderName}($target.type.fullyQualifiedName elementToAdd)
+    {
+        return this.${target.name}.add(elementToAdd);
+    }
+
+    /**
+$target.getDocumentation("     * ")
+     * @param elementToRemove $target.type.fullyQualifiedName
+     * @return <tt>true</tt> if this collection changed as a result of the
+     *         call
+     */
+    public boolean ${target.removerName}($target.type.fullyQualifiedName elementToRemove)
+    {
+        return this.${target.name}.remove(elementToRemove);
+    }
+#end
+
+#end
+#end
+#end

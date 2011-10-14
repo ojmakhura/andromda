@@ -105,7 +105,7 @@
   <!-- ******************************************************************* -->
   <!-- Root Logger                                                         -->
   <!-- ******************************************************************* -->
-  <!-- Allow warning and higher messages from everyone to go to console and file -->
+  <!-- Allow info and higher messages from everyone to go to console and file -->
   <root>
     <level value="info"/>
     <appender-ref ref="ConsoleAppender"/>

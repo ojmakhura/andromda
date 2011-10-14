@@ -346,3 +346,19 @@ FROM Hibernate metamodel code generation (see )
 Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerRoomTypeExclusion_#pk
 Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPackageRoomTypeExclusion_#pk
 Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPackage_#pk
+
+JBoss 6.1 Migration:
+- Uses JSF2 by default, must be switched back to JSF12
+
+JBoss7 Migration:
+1. Need to turn off hibernate3 and JSF2 in 
+Add hibernate3 persistence provider as described in http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1
+Have to add hibernate3 module because hibernate4 scanner can't be turned off. Change to hibernate3 scanner by modifying persistence.xml:
+
+2. faces-config.xml https://issues.apache.org/jira/browse/TRINIDAD-1991
+17:48:07,295 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/timetracker-web-3.4-SNAPSHOT].[org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome]] (http--127.0.0.1-8080-1) Servlet.service() for servlet org.andromda.timetracker.web.timetrackerhome.TimeTrackerHome threw exception: java.lang.NullPointerException
+	at org.apache.myfaces.trinidadinternal.config.dispatch.ContentTypeAndCharacterSet.<init>(ContentTypeAndCharacterSet.java:42) [trinidad-impl-1.2.14.jar:]
+	at org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse.setContentType(DispatchServletResponse.java:39) [trinidad-impl-1.2.14.jar:]
+	at javax.servlet.ServletResponseWrapper.setContentType(ServletResponseWrapper.java:168) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]
+NullPointer when using DTD instead of xsd in xml file. After changing to xsd:
+converter converter-id and converter-for-class must have unique values.
