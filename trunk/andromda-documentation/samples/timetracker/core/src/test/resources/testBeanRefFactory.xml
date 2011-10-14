@@ -11,7 +11,7 @@
         <constructor-arg>
            <list>
                 <value>applicationContext.xml</value>
-                <value>applicationContext-localDataSource.xml</value>
+                <value>applicationContext-testDataSource.xml</value>
                 <!-- beanRefFactory merge-point -->
            </list>
         </constructor-arg>

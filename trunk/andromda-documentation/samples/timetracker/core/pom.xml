@@ -157,15 +157,15 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${testdb.version}</version>
-            <scope>test</scope>
+            <!--scope>test</scope-->
         </dependency>
     </dependencies>
     <build>
@@ -320,7 +320,7 @@
                   </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.wdpr.dbtest.H2</mainClass>
+                    <mainClass>org.andromda.dbtest.H2</mainClass>
                     <classpathScope>test</classpathScope>
                     <workingDirectory>${project.basedir}/target</workingDirectory>
                     <arguments>
@@ -416,9 +416,51 @@
                 </excludes>
             </resource>
         </resources>
+        <pluginManagement>
+         <plugins>
+          <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+          <plugin>
+           <groupId>org.eclipse.m2e</groupId>
+           <artifactId>lifecycle-mapping</artifactId>
+           <version>1.0.0</version>
+           <configuration>
+            <lifecycleMappingMetadata>
+             <pluginExecutions>
+              <pluginExecution>
+               <pluginExecutionFilter>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>hibernate3-maven-plugin</artifactId>
+                <versionRange>[2.2,)</versionRange>
+                <goals>
+                 <goal>hbm2ddl</goal>
+                </goals>
+               </pluginExecutionFilter>
+               <action>
+                <ignore></ignore>
+               </action>
+              </pluginExecution>
+              <pluginExecution>
+               <pluginExecutionFilter>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <versionRange>[1.5,)</versionRange>
+                <goals>
+                 <goal>execute</goal>
+                </goals>
+               </pluginExecutionFilter>
+               <action>
+                <ignore></ignore>
+               </action>
+              </pluginExecution>
+             </pluginExecutions>
+            </lifecycleMappingMetadata>
+           </configuration>
+          </plugin>
+         </plugins>
+        </pluginManagement>
     </build>
     <properties>
-        <!-- Need a running mysql instance. Need to change to automatic maven configured DB -->
+        <!-- Need a running db instance. Changed to automatic maven configured H2 DB -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <testFailureIgnore>true</testFailureIgnore>
         <hibernate.version>3.6.7.Final</hibernate.version>

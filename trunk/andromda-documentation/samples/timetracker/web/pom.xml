@@ -15,14 +15,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-common</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-core</artifactId>
             <version>${project.version}</version>
-            <type>ejb</type>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -35,12 +32,12 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <scope>provided</scope>
+            <!--scope>provided</scope-->
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <scope>provided</scope>
+            <!--scope>provided</scope-->
         </dependency>
         <!-- Required by spring security.providers.encoding password decoder -->
         <dependency>
@@ -55,7 +52,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <scope>provided</scope>
+            <!--scope>provided</scope-->
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -68,6 +65,20 @@
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-jsf-cartridge-components</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.andromda</groupId>
+                    <artifactId>andromda-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.andromda.metafacades</groupId>
+                    <artifactId>andromda-metafacades-uml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.andromda.translationlibraries</groupId>
+                    <artifactId>andromda-ocl-validation-library</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
@@ -122,7 +133,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <scope>provided</scope>
+            <!--scope>provided</scope-->
         </dependency>
         <dependency>
             <groupId>com.sun.facelets</groupId>
@@ -139,6 +150,7 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -165,19 +177,18 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
-        <!-- TODO Verify this fixes problem in JBoss AS7 and myfaces, see -->
+        <!-- JBoss7 requires overriding default classloader to support JSF 1.2 -->
         <dependency>
-            <groupId>com.sun.faces</groupId>
+            <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>2.1.2</version>
-            <scope>compile</scope>
+            <version>1.2_15</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>2.1.2</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency-->
     </dependencies>
     <build>
         <resources>
@@ -220,8 +231,7 @@
                     <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
                     <useCache>false</useCache>
                     <excludes>**/*.java</excludes>
-                    <!-- Avoid dependencies duplicated in both war and ear -->
-                    <packagingExcludes>**/aopa*.jar,**/cglib-*.jar,**/commons-codec*.jar,**/commons-fileu*.jar,**/commons-logging*.jar,**/hibernate-validator*.jar,**/spring-a*.jar,**/spring-bean*.jar,**/spring-co*.jar,**/spring-expr*.jar,**/spring-tx*.jar,**/spring-web*.jar</packagingExcludes>
+                    <!--packagingExcludes>**/aopa*.jar,**/cglib-*.jar,**/commons-codec*.jar,**/commons-fileu*.jar,**/commons-logging*.jar,**/hibernate-validator*.jar,**/spring-a*.jar,**/spring-bean*.jar,**/spring-co*.jar,**/spring-expr*.jar,**/spring-tx*.jar,**/spring-web*.jar</packagingExcludes-->
                 </configuration>
             </plugin>
             <plugin>
