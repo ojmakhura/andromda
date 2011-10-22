@@ -163,7 +163,7 @@
                 <default>default</default>
                 <documentation>
                     The default skin to be applied (i.e look and feel of the application).
-                    If you use 'none', it will disable the skinning feature.                    
+                    If you use 'none', it will disable the skinning feature.
                 </documentation>
             </property>
             <property name="preferencesBeanName">
@@ -289,7 +289,7 @@
             <property name="defaultInputRowCount" required="false">
                 <documentation>
                     If specified denotes the default number of rows of <code>textarea</code> elements.
-                    Not speciying any valid value will make the cartridge ignore it and resort
+                    Not specifying any valid value will make the cartridge ignore it and resort
                     to the default browser value by not rendering any <code>size</code> attribute.
                 </documentation>
             </property>
@@ -455,7 +455,7 @@
                 <default>FormPopulator</default>
                 <documentation>
                     The name to give the form populator utility class. This utility class provides
-                    JSF's form population when transfering information from one form to another
+                    JSF's form population when transferring information from one form to another
                     during application flow.
                 </documentation>
             </property>
