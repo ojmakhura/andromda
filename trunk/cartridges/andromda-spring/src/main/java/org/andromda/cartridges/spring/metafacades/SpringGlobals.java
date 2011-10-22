@@ -230,6 +230,11 @@ public class SpringGlobals
     public static final String HIBERNATE_VERSION_3 = "3";
 
     /**
+     * The version for Hibernate 4.
+     */
+    public static final String HIBERNATE_VERSION_4 = "4";
+
+    /**
      * JMS Message types.
      */
     public static String[] jmsMessageTypes = new String[] {

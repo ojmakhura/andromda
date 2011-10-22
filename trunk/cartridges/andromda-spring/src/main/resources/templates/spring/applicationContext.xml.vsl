@@ -119,6 +119,7 @@
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
+#if (!$hibernateUtils.version4)
     <!-- The Hibernate interceptor -->
     <bean id="${beanNamePrefix}hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateInterceptor">
         <property name="sessionFactory" ref="${beanNamePrefix}sessionFactory"/>
@@ -127,6 +128,7 @@
 #end
         <!-- applicationContext hibernateInterceptor merge-point -->
     </bean>
+#end
 
 #foreach($entity in $entities)
 #if($implementationLanguage == "groovy" && $entity.daoImplementationRequired)

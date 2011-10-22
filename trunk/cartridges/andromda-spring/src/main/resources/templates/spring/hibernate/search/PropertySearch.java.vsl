@@ -121,7 +121,7 @@ public class $className
      */
     public int getTotalCount()
     {
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
         int count;
         if (this.search.isUseSqlLimiting())
         {

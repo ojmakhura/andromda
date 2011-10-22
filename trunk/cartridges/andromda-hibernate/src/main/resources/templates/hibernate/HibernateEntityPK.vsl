@@ -11,8 +11,8 @@ package $entity.packageName;
 /**
  * Primary key class for ${entity.entityName}
  */
-public class $entity.identifierTypeName implements java.io.Serializable {
-
+public class $entity.identifierTypeName implements java.io.Serializable, Comparable<${entity.identifierTypeName}>
+{
     /**
      * The serial version UID of this class. Needed for serialization.
      */
@@ -80,6 +80,7 @@ $identifier.getDocumentation("     * ")
     }
 
 #end
+    @Override
     public boolean equals(Object object)
     {
         if (this == object)
@@ -103,6 +104,7 @@ $identifier.getDocumentation("     * ")
             .isEquals();
     }
 
+    @Override
     public int hashCode()
     {
         return new org.apache.commons.lang.builder.HashCodeBuilder()
@@ -115,5 +117,43 @@ $identifier.getDocumentation("     * ")
             .append(${identifier.getterName}())
 #end
             .toHashCode();
+    }
+
+    /**
+     * @see Comparable${esc.hash}compareTo
+     */
+    @Override
+    public int compareTo(${entity.identifierTypeName} o)
+    {
+        int cmp = 0;
+#set ($identifiers = $entity.identifiers)
+#if (!$identifiers.empty)
+#**##foreach ($identifier in $identifiers)
+#*  *##if (!$identifier.type.primitive && !$identifier.type.arrayType && !$identifier.lob && !$identifier.containsEmbeddedObject && !$identifier.type.collectionType && !$identifier.type.name.equals("Object"))
+#*    *##if ($velocityCount == 1)
+        if (this.${identifier.getterName}() != null)
+        {
+#if ($identifier.many)
+            // Compare Collection sizes for ordering
+            cmp = Math.abs(this.${identifier.getterName}().size()-o.${identifier.getterName}().size());
+#else
+            cmp = this.${identifier.getterName}().compareTo(o.${identifier.getterName}());
+#end
+        }
+#*    *##else
+        if (this.${identifier.getterName}() != null)
+        {
+#if ($identifier.many)
+            // Compare Collection sizes for ordering
+            cmp = (cmp != 0 ? cmp : Math.abs(this.${identifier.getterName}().size()-o.${identifier.getterName}().size()));
+#else
+            cmp = (cmp != 0 ? cmp : this.${identifier.getterName}().compareTo(o.${identifier.getterName}()));
+#end
+        }
+#*    *##end
+#*  *##end
+#**##end
+#end
+        return cmp;
     }
 }

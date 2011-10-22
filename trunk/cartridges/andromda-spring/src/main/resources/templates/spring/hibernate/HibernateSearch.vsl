@@ -374,7 +374,7 @@ public class $criteriaSearchBaseName
                 criteria.add(${hibernateUtils.restrictionClass}.isNull(parameterName));
                 break;
             }
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
             case SearchParameter.EMPTY_COMPARATOR:
             {
                 criteria.add(${hibernateUtils.restrictionClass}.isEmpty(parameterName));
@@ -497,7 +497,7 @@ public class $criteriaSearchBaseName
                             }
                             break;
                         }
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
                         case SearchParameter.NOT_EQUAL_COMPARATOR:
                         {
                             criteria.add(${hibernateUtils.restrictionClass}.ne(parameterName, parameterValue));
@@ -708,7 +708,7 @@ public class $criteriaSearchBaseName
                     criteria.add(${hibernateUtils.restrictionClass}.not(${hibernateUtils.restrictionClass}.in(parameterName, parameterValues)));
                     break;
                 }
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
                 case SearchParameter.NOT_EQUAL_COMPARATOR:
                 {
                     conjunction = ${hibernateUtils.disjunctionClassName}.conjunction();
@@ -742,7 +742,7 @@ public class $criteriaSearchBaseName
         {
             switch (comparator)
             {
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
                 case SearchParameter.EMPTY_COMPARATOR:
                 {
                     criteria.add(${hibernateUtils.restrictionClass}.isEmpty(parameterName));

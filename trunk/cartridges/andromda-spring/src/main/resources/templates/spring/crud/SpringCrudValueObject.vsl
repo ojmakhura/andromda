@@ -22,7 +22,9 @@ public class $manageable.manageableValueObjectClassName
 
 #end
 #foreach ($member in $manageable.getAttributes(false))
-    private $member.type.fullyQualifiedName $member.name;
+#set ($visibility = $member.visibility)
+#if ($visibility.equals("public"))#set ($visibility = "private")#end
+    $visibility $member.type.fullyQualifiedName $member.name;
 
     /**
 $member.getDocumentation("     * ")
@@ -53,7 +55,10 @@ $member.getDocumentation("     * ")
 #if ($member.many)
 #set ($fieldType = "${fieldType}[]")
 #end
-    private $fieldType $member.name;
+#set ($visibility = $member.visibility)
+#if ($visibility.equals("public"))#set ($visibility = "private")#end
+
+    $visibility $fieldType $member.name;
 
     /**
 $member.getDocumentation("     * ")
@@ -80,7 +85,7 @@ $member.getDocumentation("     * ")
 #set ($fieldType = "${fieldType}[]")
 #set ($labelSuffix = "${labelSuffix}s")
 #end
-    private $fieldType ${member.name}${labelSuffix};
+    $visibility $fieldType ${member.name}${labelSuffix};
 
     /**
 $member.getDocumentation("     * ")

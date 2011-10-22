@@ -28,6 +28,7 @@
     <property reference="XMLIntegerAdapter"/>
     <property reference="XMLDecimalAdapter"/>
     <property reference="cxfVersion"/>
+    <property reference="javaVersion"/>
     <!-- cartridge-property merge-point-->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>

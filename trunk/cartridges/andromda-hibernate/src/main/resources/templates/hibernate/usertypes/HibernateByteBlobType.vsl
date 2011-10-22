@@ -75,7 +75,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $hibernateUtils.version3)
     @Override
 #end
     public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
@@ -115,7 +115,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $hibernateUtils.version3)
     @Override
 #end
     public void nullSafeSet(PreparedStatement statement, Object value, int index) throws SQLException
@@ -137,6 +137,34 @@ public class $className
         {
             statement.setBinaryStream(index, new ByteArrayInputStream(bytes), bytes.length);
         }
+    }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public Object nullSafeGet(ResultSet resultSet, String[] names,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session, Object owner) throws HibernateException, SQLException
+    {
+        return this.nullSafeGet(resultSet, names, owner);
+    }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public void nullSafeSet(
+        PreparedStatement preparedStatement,
+        Object data,
+        int index,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session)
+        throws HibernateException, SQLException
+    {
+        this.nullSafeSet(preparedStatement, data, index);
     }
 
     /**
@@ -167,7 +195,7 @@ public class $className
     {
         return true;
     }
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}replace(Object, Object, Object)
