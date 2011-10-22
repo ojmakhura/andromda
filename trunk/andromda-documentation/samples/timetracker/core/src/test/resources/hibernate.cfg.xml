@@ -13,14 +13,13 @@
         <property name="connection.driver_class">org.h2.Driver</property>
         <property name="connection.username">sa</property>
         <property name="connection.password">sa</property>
-        <property name="connection.url">jdbc:h2:~/timetracker;MODE=MYSQL;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</property>
+        <property name="connection.url">jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</property>
         <property name="jta.UserTransaction">UserTransaction</property>
         <property name="transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>
         <property name="session_factory_name">java:/hibernate/SessionFactory</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="jdbc.batch_size">0</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.id.new_generator_mappings">true</property>
         <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
         <property name="hibernate.cache.use_query_cache">false</property>
         <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>

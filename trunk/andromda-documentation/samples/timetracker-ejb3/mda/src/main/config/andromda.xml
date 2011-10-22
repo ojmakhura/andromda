@@ -89,6 +89,7 @@
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property -->
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="hibernateVersion">3</property>
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
@@ -98,16 +99,23 @@
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
                 <property name="xmlAttributes">false</property>
-            </properties>
-        </namespace>
-        <!-- See http://web.aanet.com.au/persabi/andromda/namespace.html -->
-        <namespace name="ejb3">
-            <properties>
-                <property name="dataSourceName">${dataSource.name}</property>
                 <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="username">${jdbc.username}</property>
                 <property name="password">${jdbc.password}</property>
                 <property name="driver">${jdbc.driver}</property>
+                <property name="testUsername">${testdb.username}</property>
+                <property name="testPassword">${testdb.password}</property>
+                <property name="testDriver">${testdb.driver}</property>
+                <property name="testConnectionUrl">${testdb.url}</property>
+                <property name="testDialect">${testdb.dialect}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+            </properties>
+        </namespace>
+        <!-- See http://docs.andromda.org/andromda-cartridges/andromda-ejb3-cartridge/namespace.html -->
+        <namespace name="ejb3">
+            <properties>
+                <property name="dataSourceName">${dataSource.name}</property>
                 <property name="connectionUrl">${jdbc.url}</property>
                 <property name="entity-beans">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.java.dir}</property>
@@ -131,8 +139,6 @@
                 <property name="persistenceContextUnitName">${application.id}</property>
                 <property name="entityManagerName">${application.id}</property>
                 <property name="entityManagerJTADataSource">${dataSource}</property>
-                <property name="hibernateDialect">${hibernate.dialect}</property>
-                <property name="hibernateHbm2DDLAuto">update</property>
                 <!-- uncomment to specify transaction manager
                 <property name="hibernateTransactionManagerLookupClass">org.hibernate.transaction.JBossTransactionManagerLookup</property>
                 -->

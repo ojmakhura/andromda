@@ -44,7 +44,7 @@ public class H2
     public static void main(String[] args)
     {
         // Using Embedded H2 database with multiple connections, starting a TCP instance
-        initDb("jdbc:h2:~/timetracker;MODE=MYSQL;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1", null);
+        initDb("jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1", null);
             // "C:/Workspaces/A34/andromda342/andromda-documentation/samples/timetracker/core/src/test/scripts/DB drop script.sql;C:/Workspaces/A34/andromda342/andromda-documentation/samples/timetracker/core/src/test/scripts/DB create script.sql");
             // ;C:/Workspaces/A34/andromda342/andromda-documentation/samples/timetracker/core/src/test/scripts/DB insert script.sql");
     }
