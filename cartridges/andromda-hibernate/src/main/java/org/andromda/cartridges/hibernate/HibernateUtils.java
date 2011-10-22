@@ -63,7 +63,7 @@ public class HibernateUtils
      */
     public String getHibernatePackage()
     {
-        return this.isVersion3() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -74,7 +74,7 @@ public class HibernateUtils
      */
     public String getHibernateUserTypePackage()
     {
-        return isVersion3() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
+        return this.isVersion3() || this.isVersion4() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
     }
 
     /**
@@ -88,6 +88,16 @@ public class HibernateUtils
     }
 
     /**
+     * Indicates whether or not Hibernate 3 is enabled.
+     *
+     * @return true/false
+     */
+    public boolean isVersion4()
+    {
+        return isVersion4(this.hibernateVersion);
+    }
+
+    /**
      * Indicates whether or not the given property value is version 3 or not.
      *
      * @param hibernateVersionPropertyValue the value of the property
@@ -98,9 +108,25 @@ public class HibernateUtils
         boolean version3 = false;
         if (hibernateVersionPropertyValue != null)
         {
-            version3 = hibernateVersionPropertyValue.equals(HibernateGlobals.HIBERNATE_VERSION_3);
+            version3 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_3);
         }
         return version3;
+    }
+
+    /**
+     * Indicates whether or not the given property value is version 3 or not.
+     *
+     * @param hibernateVersionPropertyValue the value of the property
+     * @return true/false
+     */
+    public static boolean isVersion4(String hibernateVersionPropertyValue)
+    {
+        boolean version4 = false;
+        if (hibernateVersionPropertyValue != null)
+        {
+            version4 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_4);
+        }
+        return version4;
     }
 
     /**

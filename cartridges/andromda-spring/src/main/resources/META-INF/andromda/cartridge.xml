@@ -229,12 +229,13 @@
     <condition name="jmsTransactionsEnabled">$jmsTransactionsEnabled.equalsIgnoreCase("true")</condition>
     <condition name="dataSourceEnabled">$dataSourceEnabled.equalsIgnoreCase("true")</condition>
     <condition name="enableCaching">$hibernateEnableCache.equalsIgnoreCase("true")</condition>
+    <condition name="hibernateEntityAnnotations">$hibernateEntityAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="remoteUsernameAuthenticationEnabled">$stringUtils.isNotBlank($remoteServiceUsername)</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
 
-     <template
+    <template
         path="templates/spring/SpringServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -255,7 +256,7 @@
         </modelElements>
     </template>
 
-     <template
+    <template
         path="templates/spring/SpringServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="server"
@@ -704,6 +705,23 @@
         outputToSingleFile="true"
         outputOnEmptyElements="false"
         outputCondition="dataSourceEnabled">
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext-testDataSource.xml.vsl"
+        outputPattern="applicationContext-testDataSource.xml"
+        outlet="server-test-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true">
         <modelElements>
             <modelElement variable="entities">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>

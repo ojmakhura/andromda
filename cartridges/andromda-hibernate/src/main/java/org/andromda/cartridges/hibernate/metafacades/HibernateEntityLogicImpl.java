@@ -794,7 +794,16 @@ public class HibernateEntityLogicImpl
     @Override
     protected int handleGetVersion()
     {
-        return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));
+        String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
+        if (version==null)
+        {
+            version = HibernateGlobals.HIBERNATE_VERSION_3;
+        }
+        else
+        {
+            version = version.substring(0, 1);
+        }
+        return Integer.parseInt(version);
     }
 
     private boolean isXmlPersistenceActive()

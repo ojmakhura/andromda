@@ -90,7 +90,9 @@
 #end
         <!-- mapping files -->
 #foreach($entity in $entities)
+#if ($entity.requiresMapping)
         <mapping resource="${entity.packagePath}/${entity.entityName}.hbm.xml"/>
+#end
 #end
     </session-factory>
 </hibernate-configuration>

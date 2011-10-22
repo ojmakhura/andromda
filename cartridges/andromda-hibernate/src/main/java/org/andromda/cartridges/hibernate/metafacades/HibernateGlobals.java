@@ -50,6 +50,11 @@ public class HibernateGlobals
     public static final String HIBERNATE_VERSION_3 = "3";
 
     /**
+     * The version for Hibernate 4.
+     */
+    public static final String HIBERNATE_VERSION_4 = "4";
+
+    /**
      * EJB implementation class suffix.
      */
     static final String EJB_IMPLEMENTATION_SUFFIX = "Bean";

@@ -309,7 +309,7 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
 #*      *##end
 #*      *##if ($attribute.type.enumeration)
-    // $attribute.name $attribute.type.fullyQualifiedName $attribute.temporalType $attribute.enumerationType
+##    // $attribute.name $attribute.type.fullyQualifiedName $attribute.temporalType $attribute.enumerationType
     @javax.persistence.Enumerated(javax.persistence.EnumType#if ($stringUtils.isNotBlank($attribute.enumerationType)).${attribute.enumerationType}#else.STRING#end)
 #*      *##end
 #*      *##if ($hibernateExtensionEnabled)
@@ -393,7 +393,7 @@ $attribute.getDocumentation("     * ")
 ##
 #macro (renderAssociation $entity $associationEnd)
 #set ($target = $associationEnd.otherEnd)
-    // $target.navigable $associationEnd.child $entity.foreignHibernateGeneratorClass $target $associationEnd
+##    // $target.navigable $associationEnd.child $entity.foreignHibernateGeneratorClass $target $associationEnd
 #set ($visibility=$target.visibility)
 #if ($visibility.equals("public"))
 #set ($visibility="private")
@@ -409,6 +409,7 @@ $attribute.getDocumentation("     * ")
 $target.getDocumentation("     * ")
      * @return this.${target.name} $target.getterSetterTypeName
      */
+#if ($hibernateEntityAnnotations)
 #if ($associationEnd.many2One)
 ## Default fetch type: EAGER
 #*      *##set ($argExists = false)
@@ -417,7 +418,7 @@ $target.getDocumentation("     * ")
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
 ##
-    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
+##    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
     @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*      *##else
@@ -669,6 +670,7 @@ $target.getDocumentation("     * ")
 #*        *##end
 #*      *##end
 #*    *##end
+#end
 #end
     public $target.getterSetterTypeName ${target.getterName}()
     {

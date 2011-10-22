@@ -11,11 +11,14 @@ package $embeddedValue.packageName;
 /**
 $embeddedValue.getDocumentation(" * ")
  */
+#if ($hibernateEntityAnnotations)
+    @javax.persistence.Embeddable
+#end
 public abstract class $embeddedValue.name
 #if($embeddedValue.generalization)
     extends $embeddedValue.generalization.fullyQualifiedName
 #end
-    implements java.io.Serializable
+    implements java.io.Serializable, Comparable<$embeddedValue.name>
 {
     /**
      * The serial version UID of this class. Needed for serialization.
@@ -140,4 +143,5 @@ $operation.getDocumentation("     * ")
      * @see Object#hashCode()
      */
 #renderHashCodeMethod($class $embeddedValue.name $attributeCollection)
+#renderCompareToMethod($embeddedValue $embeddedValue.name $embeddedValue.identifiers)
 }

@@ -337,7 +337,7 @@ public class HibernateAssociationEndLogicImpl
                 {
                     inverse=false;
                 }
-                if (inverse && this.isBidirectionalOrderedListChild() && this.isVersion3())
+                if (inverse && this.isBidirectionalOrderedListChild() && (this.isVersion3() || this.isVersion4()))
                 { // A special case - when using ver 3 of hibernate for a bi-dir
                   // ordered list, "inverse" should be set to FALSE, rather than
                   // the usual TRUE. See http://www.hibernate.org/193.html
@@ -768,6 +768,11 @@ public class HibernateAssociationEndLogicImpl
     private boolean isVersion3()
     {
         return HibernateUtils.isVersion3((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));
+    }
+
+    private boolean isVersion4()
+    {
+        return HibernateUtils.isVersion4((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));
     }
 
     private boolean isXMLPersistenceActive()

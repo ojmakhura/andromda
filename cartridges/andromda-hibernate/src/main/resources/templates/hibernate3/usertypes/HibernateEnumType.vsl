@@ -98,6 +98,9 @@ public class $className implements EnhancedUserType, ParameterizedType
      * @see org.hibernate.usertype.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
      */
     @SuppressWarnings("unchecked")
+#if ($enableAnnotations && $hibernateUtils.version3)
+    @Override
+#end
     public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
     {
         final String name = resultSet.getString(names[0]);
@@ -108,6 +111,9 @@ public class $className implements EnhancedUserType, ParameterizedType
      * @see org.hibernate.usertype.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
      */
     @SuppressWarnings("unchecked")
+#if ($enableAnnotations && $hibernateUtils.version3)
+    @Override
+#end
     public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException
     {
         if (value == null)
@@ -125,6 +131,34 @@ public class $className implements EnhancedUserType, ParameterizedType
                 statement.setString(index, (String)value);
             }
         }
+    }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public Object nullSafeGet(ResultSet resultSet, String[] names,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session, Object owner) throws HibernateException, SQLException
+    {
+        return this.nullSafeGet(resultSet, names, owner);
+    }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public void nullSafeSet(
+        PreparedStatement preparedStatement,
+        Object data,
+        int index,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session)
+        throws HibernateException, SQLException
+    {
+        this.nullSafeSet(preparedStatement, data, index);
     }
 
     /**

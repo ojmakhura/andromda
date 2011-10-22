@@ -88,7 +88,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $hibernateUtils.version3)
     @Override
 #end
     public Object nullSafeGet(
@@ -128,7 +128,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
      */
-#if ($enableAnnotations)
+#if ($enableAnnotations && $hibernateUtils.version3)
     @Override
 #end
     public void nullSafeSet(
@@ -154,6 +154,34 @@ public class $className
     }
 
     /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, String[], Object)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public Object nullSafeGet(ResultSet resultSet, String[] names,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session, Object owner) throws HibernateException, SQLException
+    {
+        return this.nullSafeGet(resultSet, names, owner);
+    }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, Object, int)
+     */
+#if ($enableAnnotations && $hibernateUtils.version4)
+    @Override
+#end
+    public void nullSafeSet(
+        PreparedStatement preparedStatement,
+        Object data,
+        int index,
+        org.hibernate.engine#if($hibernateUtils.version4).spi#end.SessionImplementor session)
+        throws HibernateException, SQLException
+    {
+        this.nullSafeSet(preparedStatement, data, index);
+    }
+
+    /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}deepCopy(Object)
      */
 #if ($enableAnnotations)
@@ -175,7 +203,7 @@ public class $className
     {
         return false;
     }
-#if ($hibernateUtils.version3)
+#if ($hibernateUtils.version3 || $hibernateUtils.version4)
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}replace(Object original, Object target, Object owner)

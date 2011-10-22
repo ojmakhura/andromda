@@ -3,6 +3,7 @@
 <!-- contains the spring cartridge metafacade mappings -->
 <metafacades>
     <property reference="hibernateVersion"/>
+    <property reference="hibernateEntityAnnotations"/>
     <property reference="hibernateXMLPersistence"/>
     <property reference="daoNamePattern"/>
     <property reference="daoBaseNamePattern"/>

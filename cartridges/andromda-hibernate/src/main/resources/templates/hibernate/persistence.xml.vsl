@@ -78,6 +78,9 @@
 #if ($stringUtils.isNotBlank($hibernateTransactionAutoCloseSession))
             <property name="hibernate.transaction.auto_close_session" value="${hibernateTransactionAutoCloseSession}"/>
 #end
+            <!-- Must add hibernate3 module: http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1
+            <property name="hibernate.ejb.resource_scanner" value="org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner"/>-->
+            <property name="jboss.as.jpa.providerModule" value="org.hibernate:3"/>
         </properties>
     </persistence-unit>
 #foreach ($persistenceContext in $persistenceContexts)
@@ -132,6 +135,9 @@
 #if ($stringUtils.isNotBlank($hibernateTransactionAutoCloseSession))
             <property name="hibernate.transaction.auto_close_session" value="${hibernateTransactionAutoCloseSession}"/>
 #end
+            <!-- Must add hibernate3 module: http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1
+            <property name="hibernate.ejb.resource_scanner" value="org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner"/>-->
+            <property name="jboss.as.jpa.providerModule" value="org.hibernate:3"/>
         </properties>
     </persistence-unit>
 #end

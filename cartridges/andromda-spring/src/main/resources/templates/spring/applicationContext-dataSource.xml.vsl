@@ -5,7 +5,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd">
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 #if ($dataSourceEnabled || !$entities.empty)
     <!-- ========================= DATASOURCE DEFINITION ========================= -->
@@ -25,6 +28,8 @@
 #if ($stringUtils.isNotBlank($transactionManager))
     <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
 
+    <!-- Use underlying server capabilities automatically -->
+    <tx:jta-transaction-manager/>
     <bean id="${beanNamePrefix}transactionManager" class="$transactionManager">
 #if ($transactionManager.indexOf('HibernateTransactionManager') != -1)
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -32,10 +37,13 @@
             <property name="dataSource" ref="${beanNamePrefix}dataSource"/>
 #else
 #if ($stringUtils.isNotBlank($userTransactionName))
-        <property name="userTransactionName">$springUtils.getSpringPropertyValue($userTransactionName)</property>
+        <property name="userTransactionName" value="$springUtils.getSpringPropertyValue($userTransactionName)"/>
 #end
 #if ($stringUtils.isNotBlank($transactionManagerName))
-        <property name="transactionManagerName">$springUtils.getSpringPropertyValue($transactionManagerName)</property>
+        <property name="transactionManagerName" value="$springUtils.getSpringPropertyValue($transactionManagerName)"/>
+## Tomcat7 configuration, causes JB7 to break arjuna UserTransactionImpl not assignambe to javax.transaction.TransactionManager
+##else
+##        <property name="transactionManagerName" value="java:comp/UserTransaction"/>
 #end
 #end
     </bean>
