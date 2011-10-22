@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_6_0.xsd"
+    version="6.0">
+    <!-- Isolate hibernate jars in war from the older versions bundled in JBoss6. Prevent ClassCastException.
+    See http://community.jboss.org/wiki/ClassLoadingConfiguration. XSD Error on AS7 because java2ParentDelegation=false is the default -->
+   <!--class-loading java2ClassLoadingCompliance="false">
+      <loader-repository>
+         org.andromda.timetracker:archive=timetracker-web-3.4-SNAPSHOT.war
+         <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+      </loader-repository>
+   </class-loading-->
+   <context-root>/timetracker</context-root>
+   <!--resource-ref>
+      <mapped-name>java:comp/env/jdbc/timetracker</mapped-name>
+      <jndi-name>java:/jdbc/timetracker</jndi-name>
+   </resource-ref-->
+   <!-- Point to the global jndi name of the datasource. AS7 Local java:comp/env does not work -->
+   <!--resource-ref id="TimeTracker">
+      <res-ref-name>TimeTracker</res-ref-name>
+      <jndi-name>java:/jdbc/timetracker</jndi-name>
+   </resource-ref-->
+      <!--mapped-name>java:comp/env/jdbc/timetracker</mapped-name-->
+</jboss-web>

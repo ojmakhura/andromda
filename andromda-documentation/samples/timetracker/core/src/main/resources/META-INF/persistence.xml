@@ -17,8 +17,8 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.id.new_generator_mappings" value="true"/>
             <property name="hibernate.jdbc.batch_size" value="0"/>
-            <property name="hibernate.ejb.resource_scanner" value="org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner"/>
-            <!-- Must add hibernate3 module: http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1 -->
+            <!-- Must add hibernate3 module: http://planet.jboss.org/post/using_a_different_persistence_provider_with_as_7_0_1
+            <property name="hibernate.ejb.resource_scanner" value="org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner"/>-->
             <property name="jboss.as.jpa.providerModule" value="org.hibernate:3"/>
         </properties>
     </persistence-unit>

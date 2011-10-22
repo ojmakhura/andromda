@@ -13,6 +13,19 @@
     </bean>
 
     <!-- applicationContext merge-point -->
+    <bean id="hibernateMappingLocations" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <!-- applicationContext hibernateMappingLocations merge-point -->
+                <value>classpath:org/andromda/timetracker/domain/User.hbm.xml</value>
+                <value>classpath:org/andromda/timetracker/domain/Timecard.hbm.xml</value>
+                <value>classpath:org/andromda/timetracker/domain/TimeAllocation.hbm.xml</value>
+                <value>classpath:org/andromda/timetracker/domain/Task.hbm.xml</value>
+                <value>classpath:org/andromda/timetracker/domain/UserRole.hbm.xml</value>
+            </list>
+         </property>
+    </bean>
+
     <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="properties">
             <props>
@@ -29,9 +42,7 @@
     <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>
+        <property name="mappingLocations" ref="hibernateMappingLocations"/>
         <property name="hibernateProperties" ref="hibernateProperties"/>
         <!-- applicationContext sessionFactory merge-point -->
     </bean>

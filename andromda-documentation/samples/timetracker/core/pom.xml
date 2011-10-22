@@ -463,6 +463,5 @@
         <!-- Need a running db instance. Changed to automatic maven configured H2 DB -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <testFailureIgnore>true</testFailureIgnore>
-        <hibernate.version>3.6.7.Final</hibernate.version>
     </properties>
 </project>
