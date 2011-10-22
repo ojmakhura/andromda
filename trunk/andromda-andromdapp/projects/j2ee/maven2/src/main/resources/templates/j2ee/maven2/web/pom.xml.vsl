@@ -354,9 +354,9 @@
 #end
     </dependencies>
     <build>
-#if ($war)
-        <finalName>${application.id}-${project.version}</finalName>
-#end
+##if ($war)
+        <finalName>${application.id}</finalName>
+##end
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

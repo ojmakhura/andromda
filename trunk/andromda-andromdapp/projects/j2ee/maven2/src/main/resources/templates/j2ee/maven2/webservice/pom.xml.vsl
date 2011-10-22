@@ -162,6 +162,7 @@
 #end
     </dependencies>
     <build>
+        <finalName>${application.id}-webservice</finalName>
         <!-- Change from default src/main/java and src/test/java>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>src-test</testSourceDirectory -->
