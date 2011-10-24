@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+    <properties>
+        <title>Papyrus Installation</title>
+        <author email="bob@andromda.org">Bob Fields</author>
+    </properties>
+
+    <body>
+        <section name="Papyrus Insallation">
+            <p>
+                This page provides directions to download and install Papyrus,
+                an Eclipse-based tool for creating UML models. You must install Eclipse 3.6 or 3.7 first.
+            </p>
+
+            <p class="highlight">
+                Papyrus is an open source UML modeling tool. The AndroMDA project
+                is not affiliated with Papyrus in any way.
+            </p>
+
+            <p>Follow the instructions below to install Papyrus.</p>
+            <ol>
+              <li>Documentation is on the Papyrus site
+                  <a href="http://www.eclipse.org/modeling/mdt/papyrus/">http://www.eclipse.org/modeling/mdt/papyrus</a>
+              </li>
+              <li>
+                  Add the update site for Papyrus to Eclipse as specified in
+                  <a href="http://www.eclipse.org/modeling/mdt/papyrus/updates/index.php">http://www.eclipse.org/modeling/mdt/papyrus/updates/index.php</a>
+                  Install Papyrus from Eclipse by Help -> Install New Software...
+              </li>
+              <li>
+                  After generating the starter project with the EMF-UML2 modeling option. This creates the project .uml and profile.uml files in the
+                  mda\src\main\uml directory. The .uml profile files in the maven repository, under org/andromda/profiles/emf-uml22, are copied to the
+                  mda\src\main\uml and are not referenced directly
+                  by the starter model, because Papyrus does not support UML2 PATHMAP variables pointing to file locations.
+              </li>
+              <li>
+                  Import the starter .uml model into Papyrus to create a papyrus 'diagram', following the instructions at
+                  <a href="http://wiki.eclipse.org/Papyrus_User_Guide#Create_a_diagram_from_an_existing_uml_file">http://wiki.eclipse.org/Papyrus_User_Guide#Create_a_diagram_from_an_existing_uml_file</a>
+                  Create a diagram from an existing uml file (New -> Initialize Papyrus Diagram).
+              </li>
+            </ol>
+        </section>
+    </body>
+</document>

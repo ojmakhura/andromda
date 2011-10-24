@@ -239,9 +239,8 @@
                     <tt>mvn -f web/pom.xml install</tt>
                 </li>
                 <li>Make sure the JBoss server is running.</li>
-                <li>Deploy the application:
-                    <br/>
-                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                <li>Deploy the application: Copy timetracker.war from
+                    web\target to Jboss standalone\deployments directory.
                 </li>
                 <li>Open a browser and make it point to http://localhost:8080/timetracker. The TimeTracker
                     search page should appear with

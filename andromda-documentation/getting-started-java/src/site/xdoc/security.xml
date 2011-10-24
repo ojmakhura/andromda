@@ -11,14 +11,14 @@
             <p>
                 NOTE: AndroMDA has been upgraded to Spring 3.0, however the Acegi framework is not compatible
                 with Spring 2.5+, and has been replaced by the spring-security framework. This completely changes the
-                namespace and values in the Spring configuration file. See 
+                namespace and values in the Spring configuration file. See
                 <a href="http://static.springsource.org/spring-security/site/">
                 http://static.springsource.org/spring-security/site/</a> and
                 <a href="http://java.dzone.com/tips/pathway-acegi-spring-security-">
                 http://java.dzone.com/tips/pathway-acegi-spring-security-</a> and
                 <a href="http://raibledesigns.com/rd/entry/upgrading_to_spring_security_2">
                 http://raibledesigns.com/rd/entry/upgrading_to_spring_security_2</a>
-                
+
             </p>
             <p>
                 In this section we will add security to TimeTracker by integrating it with the Acegi
@@ -162,22 +162,22 @@
                             (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
                             EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
                             values (1, 'nbhatia', '756slLjeNViurJBGI5JeqA==', 'Naresh', 'Bhatia',
-                            'nbhatia@northwind.com', 1, '2006/01/01 09:00', null);
+                            'nbhatia@northwind.com', 1, '2011/01/01 09:00', null);
                             insert into USERS
                             (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
                             EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
                             values (2, 'lcoude', '756slLjeNViurJBGI5JeqA==', 'Louis', 'Coude',
-                            'lcoude@northwind.com', 1, '2006/01/01 09:00', null);
+                            'lcoude@northwind.com', 1, '2011/01/01 09:00', null);
                             insert into USERS
                             (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
                             EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
                             values (3, 'ecrutchfield', '756slLjeNViurJBGI5JeqA==', 'Eric', 'Crutchfield',
-                            'ecrutchfield@northwind.com', 1, '2006/01/01 09:00', null);
+                            'ecrutchfield@northwind.com', 1, '2011/01/01 09:00', null);
                             insert into USERS
                             (ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME,
                             EMAIL, IS_ACTIVE, CREATION_DATE, COMMENT)
                             values (4, 'cmicali', '756slLjeNViurJBGI5JeqA==', 'Chris', 'Micali',
-                            'cmicali@northwind.com', 1, '2006/01/01 09:00', null);
+                            'cmicali@northwind.com', 1, '2011/01/01 09:00', null);
 
                             insert into USER_ROLE (ID, ROLE, USER_FK)
                             values (1, 'StandardUser', 1);
@@ -191,40 +191,40 @@
                             values (5, 'StandardUser', 4);
 
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 1, 'Approved', '2006/05/15', 'Timecard 01', 1, 2);
+                            values ( 1, 'Approved', '2011/05/15', 'Timecard 01', 1, 2);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 2, 'Approved', '2006/05/15', 'Timecard 02', 2, 3);
+                            values ( 2, 'Approved', '2011/05/15', 'Timecard 02', 2, 3);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 3, 'Approved', '2006/05/15', 'Timecard 03', 3, 4);
+                            values ( 3, 'Approved', '2011/05/15', 'Timecard 03', 3, 4);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 4, 'Approved', '2006/05/15', 'Timecard 04', 4, 1);
+                            values ( 4, 'Approved', '2011/05/15', 'Timecard 04', 4, 1);
 
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 5, 'Rejected', '2006/05/22', 'Timecard 05', 1, 2);
+                            values ( 5, 'Rejected', '2011/05/22', 'Timecard 05', 1, 2);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 6, 'Rejected', '2006/05/22', 'Timecard 06', 2, 3);
+                            values ( 6, 'Rejected', '2011/05/22', 'Timecard 06', 2, 3);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 7, 'Rejected', '2006/05/22', 'Timecard 07', 3, 4);
+                            values ( 7, 'Rejected', '2011/05/22', 'Timecard 07', 3, 4);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 8, 'Rejected', '2006/05/22', 'Timecard 08', 4, 1);
+                            values ( 8, 'Rejected', '2011/05/22', 'Timecard 08', 4, 1);
 
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values ( 9, 'Submitted', '2006/05/29', 'Timecard 09', 1, 2);
+                            values ( 9, 'Submitted', '2011/05/29', 'Timecard 09', 1, 2);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (10, 'Submitted', '2006/05/29', 'Timecard 10', 2, 3);
+                            values (10, 'Submitted', '2011/05/29', 'Timecard 10', 2, 3);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (11, 'Submitted', '2006/05/29', 'Timecard 11', 3, 4);
+                            values (11, 'Submitted', '2011/05/29', 'Timecard 11', 3, 4);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (12, 'Submitted', '2006/05/29', 'Timecard 12', 4, 1);
+                            values (12, 'Submitted', '2011/05/29', 'Timecard 12', 4, 1);
 
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (13, 'Draft', '2006/06/05', 'Timecard 13', null, 2);
+                            values (13, 'Draft', '2011/06/05', 'Timecard 13', null, 2);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (14, 'Draft', '2006/06/05', 'Timecard 14', null, 3);
+                            values (14, 'Draft', '2011/06/05', 'Timecard 14', null, 3);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (15, 'Draft', '2006/06/05', 'Timecard 15', null, 4);
+                            values (15, 'Draft', '2011/06/05', 'Timecard 15', null, 4);
                             insert into TIMECARD (ID, STATUS, START_DATE, COMMENTS, APPROVER_FK, SUBMITTER_FK)
-                            values (16, 'Draft', '2006/06/05', 'Timecard 16', null, 1);
+                            values (16, 'Draft', '2011/06/05', 'Timecard 16', null, 1);
                         </source>
                     </li>
                     <li>Now build the application again by executing <tt>mvn install</tt>. This time
@@ -419,9 +419,8 @@
                         in the Command Prompt.
                     </li>
                     <li>Make sure the JBoss server is running.</li>
-                    <li>Deploy the application:
-                        <br/>
-                        <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                    <li>Deploy the application: Copy timetracker.war from
+                    web\target to Jboss standalone\deployments directory.
                     </li>
                     <li>Open a browser and make it point to http://localhost:8080/timetracker. This time
                         the login page will appear because the search page is configured as a secure page.
