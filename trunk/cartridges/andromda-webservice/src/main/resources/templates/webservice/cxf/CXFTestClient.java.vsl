@@ -230,6 +230,19 @@ $operation.getDocumentation("    * ")
                 ${comma} ${operation.name}Input.${argument.getterName}()  // $argument.getterSetterTypeName
 #set ($comma = ", ")
 #end
+#if ($service.hasStereotype("WSCustomHeader"))
+#set ($serviceElementName = $service.findTaggedValue("andromda_wsdl_header_element"))
+#set ($serviceNamespace = $service.findTaggedValue("andromda_header_namespace"))
+#set ($serviceClassName = "${webServiceUtils.getPackageName($serviceNamespace)}.$serviceElementName")
+                ${comma} new ${serviceClassName}()  // WSCustomHeader serviceElementName
+#set ($comma = ",")
+#end
+#if ($service.hasStereotype("WSSecurity"))
+#set ($securityElementName = $service.findTaggedValue("andromda_wsdl_security_element"))
+#set ($securityNamespace = $service.findTaggedValue("andromda_security_namespace"))
+#set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
+                ${comma} new ${securityClassName}()  // WSSecurity securityElementName
+#end
                 );
 #end
 ##elseif ($operation.restAtom || $operation.returnTypePresent)

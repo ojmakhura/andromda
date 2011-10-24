@@ -94,11 +94,11 @@ import org.andromda.timetracker.vo.UserVO;
                     throws Exception
                     {
                     ...
-    
+
                         // Populate submitter and approver dropdowns
                         form.setSubmitterBackingList(userList, &quot;id&quot;, &quot;username&quot;);
                         form.setApproverBackingList(userList, &quot;id&quot;, &quot;username&quot;);
-<b>        
+<b>
                         // Populate timecard summaries
                         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(
                             form.getSubmitter(),
@@ -106,8 +106,8 @@ import org.andromda.timetracker.vo.UserVO;
                             form.getStatus(),
                             form.getStartDateMinimum(),
                             form.getStartDateMaximum());
-                
-                        Collection&lt;TimecardSummaryVO&gt; timecards = 
+
+                        Collection&lt;TimecardSummaryVO&gt; timecards =
                             getTimeTrackingService().findTimecards(criteria);
                         form.setTimecardSummaries(timecards);</b>
                     }
@@ -124,9 +124,8 @@ import org.andromda.timetracker.vo.UserVO;
                     <tt>mvn -f web/pom.xml install</tt>
                 </li>
                 <li>Make sure the JBoss server is running.</li>
-                <li>Deploy the application:
-                    <br/>
-                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                <li>Deploy the application: Copy timetracker.war from
+                    web\target to Jboss standalone\deployments directory.
                 </li>
                 <li>Open a browser and make it point to http://localhost:8080/timetracker. The TimeTracker
                     search page should appear along with search results. You should be able to change

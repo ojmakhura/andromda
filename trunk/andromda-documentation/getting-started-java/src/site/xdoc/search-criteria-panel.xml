@@ -24,7 +24,7 @@
                     The <i>Introduction</i> and <i>Goal</i> sections provide a good overview of the cartridge.
                 </li>
                 <li>
-                    <a href="http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/howto.html">BPM4Struts How-to Guide</a>: 
+                    <a href="http://docs.andromda.org/andromda-cartridges/andromda-bpm4struts-cartridge/howto.html">BPM4Struts How-to Guide</a>:
                     Quickly look over the concepts behind use-cases, activity graphs/state machines and controllers.
                 </li>
             </ol>
@@ -95,7 +95,7 @@
             <ol style="list-style-type: decimal">
                 <li>Execute the command
                     <tt>mvn install -Peclipse</tt>
-                    in the Command Prompt (the <tt>-Peclipse</tt> is needed to update the project configuration in eclipse). 
+                    in the Command Prompt (the <tt>-Peclipse</tt> is needed to update the project configuration in eclipse).
                     Make sure you get a
                     <tt>BUILD SUCCESSFUL</tt>
                     message.
@@ -149,7 +149,7 @@ public class SearchControllerImpl
 
         // Add the 'All' option at the top of the list, as a fake user
         List<UserVO> userList = new ArrayList<UserVO>(users);
-        
+
         // Sorts the names
         Collections.sort(userList, new UserVOComparator());
         userList.add(0, new UserVO(null, ALL_STRING, null, null));
@@ -183,13 +183,10 @@ public class SearchControllerImpl
                     <tt>mvn -f web/pom.xml install</tt>
                 </li>
                 <li>Start the JBoss server. To do this, open a Command Prompt in the JBoss bin directory
-                    ( <tt>C:\Programs\JBoss\51\bin</tt>) and execute the command <tt>run</tt>.
+                    ( <tt>C:\Programs\JBoss\7\bin</tt>) and execute the command <tt>standalone</tt>.
                 </li>
-                <li>Deploy the application to the JBoss server. Go to the previous Command Prompt (in
-                    the directory <tt>C:\timetracker</tt>) and execute the command:
-                    <br/>
-                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
-                    <br/>
+                <li>Deploy the application to the JBoss server. Copy timetracker.war from
+                    web\target to Jboss standalone\deployments directory.
                     Look for JBoss console message indicating that the application has started.
                 </li>
                 <li>Open a browser and make it point to http://localhost:8080/timetracker. The TimeTracker
@@ -203,7 +200,7 @@ public class SearchControllerImpl
             </ol>
             <p>
                 Below is a screen shot of the Search screen so far. Isn't it amazing that we were
-                able to get all this functionality without much coding? 
+                able to get all this functionality without much coding?
             </p>
             <div align="center">
                 <img src="images/SearchCriteriaPanel.jpg" alt="Search Criteria Panel"/>

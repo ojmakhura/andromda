@@ -55,97 +55,7 @@
                     a successful build.
                 </li>
                 <li>Let this Command Prompt remain open for subsequent steps.</li>
-                <li>Now that we have built the application, let us create a datasource for the H2 database on the target server.
-                For JBoss7:
-                    <ul>
-                        <li>Edit standalone/configuration/standalone.xml to add a new datasource just below the existing ExampleDS
-                        Note: You can also use the JBoss admin console at
-                        <a href="http://localhost:9990/console/App.html#server/datasources">http://localhost:9990/console/App.html#server/datasources</a>
-                        to add the datasource.</li>
-                    </ul>
-                    <source><![CDATA[
-        <subsystem xmlns="urn:jboss:domain:datasources:1.0">
-            <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="H2DS" enabled="true" jta="true" use-java-context="true" use-ccm="true">
-...
-                <datasource jndi-name="java:/jdbc/timetracker" pool-name="timetracker_Pool" enabled="true" jta="true" use-java-context="true" use-ccm="true">
-                    <connection-url>
-                        jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
-                    </connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
-                    ]]></source>
-                    <ul>
-                        <li>We do not need to copy the h2-version.jar file to JBoss because H2 is already the default DBMS.
-                        You can also use the JBoss Admin console at http://localhost:8080/admin to create the datasource, but it is easier
-                        to simply edit the configuration file directly</li>
-                    </ul>
-                    <ul>
-                        <li>Documentation for the H2 database is at <a href="http://www.h2database.com">http://www.h2database.com</a>.
-                        Documentation for configuring datasources in JBoss7 is at <a href="https://docs.jboss.org/author/display/AS7/Admin+Guide#AdminGuide-DatasourceDefinitions">https://docs.jboss.org/author/display/AS7/Admin+Guide#AdminGuide-DatasourceDefinitions</a>.
-                        JBoss7 no longer allows deploying the database configuration (*-ds.xml) along with the application.</li>
-                    </ul>
-                    <ul>
-                        <li>JBoss7 comes with hibernate4 beta as the default persistence module, which does not yet work completely with Spring 3.1 beta. It
-                        also uses jsf2 as the default JSP provider. AndroMDA uses hibernate 3.6 and Spring 3.0 and JSF 1.2.
-                        To be compatible, the jboss-deployment-structure.xml file under timetracker\web\src\main\webapp\WEB-INF
-                        has exclusions. See <a href="http://community.jboss.org/blogs/marek-novotny/2011/07/15/seam-2-jpa-example-on-jboss-as7">http://community.jboss.org/blogs/marek-novotny/2011/07/15/seam-2-jpa-example-on-jboss-as7</a>
-                        and <a href="https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7">https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7</a></li>
-                    </ul>
-                </li>
-                <li>If using Tomcat7 for deployment testing:
-                    <ul>
-                        <li>Download Tomcat (current version 7.0.22) from <a href="http://tomcat.apache.org">http://tomcat.apache.org</a>,
-                        unzip to a local directory, verify that bin\startup.bat or .sh starts the server properly. Shutdown.</li>
-                    </ul>
-                    <ul>
-                        <li>Or - download TomEE (Tomcat with embedded JavaEE OpenJPA) from <a href="http://http://openejb.apache.org/3.0/apache-tomee.html">http://http://openejb.apache.org/3.0/apache-tomee.html</a>,
-                        unzip to a local directory, verify that bin\startup.bat or .sh starts the server properly. Shutdown.</li>
-                    </ul>
-                    <ul>
-                        <li>Add JTA support using some provider such as JOTM or Automatix, as described in
-                        <a href="http://codepitbull.wordpress.com/2011/07/08/tomcat-7-with-full-jta">http://codepitbull.wordpress.com/2011/07/08/tomcat-7-with-full-jta</a>,
-                        if using base Tomcat. I didn't need the resource-env-ref in web.xml for it to work.</li>
-                    </ul>
-                    <ul>
-                        <li>Add the datasource and JTA support in conf\server.xml and context.xml as described in
-                        <a href="http://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html">http://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html</a>,
-                        copying the needed h2 jar to Tomcat \lib.</li>
-                    </ul>
-                In tomcat conf\context.xml:
-                    <source><![CDATA[
-<Context>
-...
-    <ResourceLink global="jdbc/timetracker" name="jdbc/timetracker" type="javax.sql.DataSource"/>
-    <Resource
-       name="TransactionSynchronizationRegistry"
-       auth="Container"
-       type="javax.transaction.TransactionSynchronizationRegistry"
-       factory="org.objectweb.jotm.TransactionSynchronizationRegistryFactory"/>
-    <Transaction factory="org.objectweb.jotm.UserTransactionFactory" jotm.timeout="60"/>
-]]></source>
-                In tomcat conf\server.xml:
-<source><![CDATA[
-  <GlobalNamingResources>
-...
-   <Resource name="jdbc/timetracker" auth="Container"
-             type="javax.sql.DataSource"
-             maxActive="4" maxIdle="2" maxWait="10000"
-             username="sa"  password="sa"
-             driverClassName="org.h2.Driver"
-             url="jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1"/>
-]]></source>
-                    <ul>
-                        <li>Copy the h2-version.jar file from web\target\timetracker\version\WEB-INF\lib to Tomcat \lib.
-                        Copy jta.jar from <a href="http://java.sun.com/products/jta">http://java.sun.com/products/jta</a>
-                        (or other jta provider) to the same directory.</li>
-                    </ul>
-                </li>
-                <!--li>Now that we have built the application, let us create a database schema to store
+                <li>Now that we have built the application, let us create a database schema to store
                     its data. We will create a schema called
                     <tt>timetracker</tt>
                     and a user called
@@ -223,36 +133,31 @@
                         </li>
                         <li>Close MySQL Query Browser.</li>
                     </ol>
-                </li-->
+                </li>
                 <li>Let's start the JBoss server so we can deploy the TimeTracker application to it.
                     To do this, open a second Command Prompt in the JBoss bin directory ( <tt>C:\Programs\JBoss\7\bin</tt>)
-                    and execute the command <tt>standalone.sh</tt> or <tt>standalone.bat</tt>. JBoss should start up in about 5 seconds.
+                    and execute the command <tt>run</tt>. JBoss will take some time to start up.
                     Wait for a message similar to this to make sure JBoss has started successfully:
                     <br/>
-                    <tt>17:57:19,981 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.2.Final "Arc" started in 2775ms - Started 97 of 152 services (55 services are passive or on-demand)</tt>.
+                    <tt>13:29:41,925 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] JBossAS
+ [6.0.0.Final "Neo"] Started in 40s:633ms</tt>.
                 </li>
-                <li>Now we are ready to deploy the finished application to the JBoss server. Copy timetracker.war from
-                    web\target to Jboss standalone\deployments directory. The JBoss console displays several messages indicating that it is deploying
-                    the application.
-                    <!--Go to the
+                <li>Now we are ready to deploy the finished application to the JBoss server. Go to the
                     previous Command Prompt (in the directory <tt>C:\timetracker-completed</tt>)
-                    and execute the command:
-                    <br/>
-                    <tt>mvn -f app/pom.xml -Ddeploy</tt>
+                    and execute the command: Copy timetracker.war from
+                    web\target to Jboss standalone\deployments directory.
                     <br/>
                     You will notice that the TimeTracker EAR (Executable Archive) file is copied over
                     to the JBoss deploy directory ( <tt>C:\Programs\JBoss\51\server\default\deploy</tt>)
                     and the JBoss console displays several messages indicating that it is deploying
-                    the application.--> Wait for a message similar to this to make sure TimeTracker has
+                    the application. Wait for a message similar to this to make sure TimeTracker has
                     started successfully:
                     <br/>
-                    <tt>19:28:59,154 INFO  [org.jboss.web] (MSC service thread 1-4) registering web context: /timetracker
-                        19:28:59,237 INFO  [org.jboss.as.server.controller] (DeploymentScanner-threads -
-                         2) Deployed "timetracker.war"</tt>
+                    <tt>19:59:53,767 INFO [EARDeployer] Started J2EE application: file:/C:/Programs/JBoss/6/server/default/deploy/timetracker-1.0-SNAPSHOT.ear</tt>
                 </li>
                 <li>Now we are ready to test the application. Open a browser and make it point to http://localhost:8080/timetracker.
                     (If you have changed the JBoss HTTP port, then replace 8080 with the appropriate
-                    port number.) <!-- The login page should appear.
+                    port number.) The login page should appear.
                 </li>
                 <li>Enter
                     <tt>nbhatia</tt>
@@ -261,7 +166,7 @@
                     as the password.
                     Click the
                     <i>Login</i>
-                    button.--> The TimeTracker home page should appear with links
+                    button. The TimeTracker home page should appear with links
                     to various sections of the application.
                 </li>
                 <li>Click on<i>Search Timecards</i>. The search screen should appear. Try changing
@@ -275,7 +180,7 @@
                 <li>When you are satisfied with the TimeTracker tour, you may stop the JBoss Server
                     by typing Control-C in the JBoss Command Prompt.
                 </li>
-                <!--li>We can now drop all the tables in the TimeTracker database in preparation of your
+                <li>We can now drop all the tables in the TimeTracker database in preparation of your
                     turn to build the application from scratch. To do this, simply go to the first Command
                     Prompt in the
                     <tt>C:\timetracker-completed</tt>
@@ -283,7 +188,7 @@
                     command:
                     <br/>
                     <tt>mvn -f core/pom.xml andromdapp:schema -Dtasks=drop</tt>
-                </li-->
+                </li>
             </ol>
             <p>
                 Well, now that you have seen the TimeTracker application in action, are you ready
