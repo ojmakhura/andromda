@@ -5,11 +5,6 @@
 package org.andromda.timetracker.service.test;
 
 import java.util.Date;
-import java.util.Hashtable;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.andromda.timetracker.domain.Role;
 import org.andromda.timetracker.security.PasswordEncoder;
 import org.andromda.timetracker.service.UserDoesNotExistException;
@@ -23,12 +18,15 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Service test class UserServiceTest for testing with TestNG
- * Check the testng.xml for initialisation of the EJB3Container before running any tests.
+ * Check the testng.xml for initialization of the EJB3Container before running any tests.
  */
 public class UserServiceTest
 {
     private static final Log logger = LogFactory.getLog(UserServiceTest.class);
 
+    /**
+     *
+     */
     @org.testng.annotations.Test
     public void testRegisterUser()
     {
@@ -41,7 +39,7 @@ public class UserServiceTest
             try
             {
                 userVO = userService.getUser("testuser");
-                if (userVO != null && userVO.getId() > 0)
+                if (userVO != null && userVO.getId().longValue() > 0)
                 {
                     userService.removeUser(userVO);
                 }
@@ -69,7 +67,7 @@ public class UserServiceTest
             udVO = userService.registerUser(udVO);
 
             assert udVO != null;
-            assert udVO.getId() > 0;
+            assert udVO.getId().longValue() > 0;
 
             logger.info("Registered new user: " + udVO.getFirstName() + ", " + udVO.getId());
 
@@ -77,7 +75,7 @@ public class UserServiceTest
             try
             {
                 userVO = userService.getUser("testuser");
-                if (userVO != null && userVO.getId() > 0)
+                if (userVO != null && userVO.getId().longValue() > 0)
                 {
                     userService.removeUser(userVO);
                 }
@@ -94,6 +92,9 @@ public class UserServiceTest
         }
     }
 
+    /**
+     *
+     */
     @org.testng.annotations.Test
     public void testGetAllUsers()
     {

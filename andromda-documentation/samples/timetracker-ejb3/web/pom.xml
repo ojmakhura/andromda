@@ -183,6 +183,10 @@
         <!--dependency>
             <groupId>org.jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency-->
         <dependency>
             <groupId>hibernate-entitymanager</groupId>
@@ -192,9 +196,15 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${testdb.version}</version>
+            <!--scope>test</scope-->
         </dependency>
     </dependencies>
     <build>
@@ -225,10 +235,10 @@
                             <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
-                            </fileset>                            
+                            </fileset>
                             <fileset dir="${project.basedir}/src/main/webapp">
                                 <include name="skins/**"/>
-                            </fileset>	
+                            </fileset>
                         </copy>
                         <!-- place any facelet tag files in ${project.basedir}/src/main/webapp/xml/tags -->
                         <copy todir="${project.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">

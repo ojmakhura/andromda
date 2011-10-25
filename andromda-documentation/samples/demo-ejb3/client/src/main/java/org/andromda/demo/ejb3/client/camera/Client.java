@@ -89,7 +89,7 @@ public class Client
         try
         {
             Camera camera = ams.getCamera("cannon", "300d");
-            System.out.println("Camera " + camera.getPk().getMake() + ", " + camera.getMegapixels() + ", " + camera.getSlr());
+            System.out.println("Camera " + camera.getPk().getMake() + ", " + camera.getMegapixels() + ", " + camera.isSlr());
         }
         catch (CameraException e)
         {
