@@ -52,7 +52,7 @@ public class Animal
      * values provided by the parameters.
      *
      */
-    public Animal(java.lang.String name, java.lang.String type, boolean carnivor)
+    public Animal(String name, String type, boolean carnivor)
     {
         super(name, type, carnivor);
     }
@@ -80,7 +80,7 @@ public class Animal
     }
 
     /**
-     * @see java.lang.Comparable#compareTo(T)
+     * @see Comparable#compareTo(T)
      */
     public int compareTo(Animal o)
     {

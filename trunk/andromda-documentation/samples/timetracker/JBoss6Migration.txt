@@ -349,6 +349,30 @@ Unable to locate static metamodel field : com.wdpr.dc.model.persist.PartnerPacka
 
 JBoss 6.1 Migration:
 - Uses JSF2 by default, must be switched back to JSF12
+- Deployment "persistence.unit:unitName=timetracker-web-3.4-SNAPSHOT.war#timetracker" is in error due to the following reason(s): 
+java.lang.ClassCastException:org.hibernate.ejb.HibernatePersistence cannot be cast to javax.persistence.spi.PersistenceProvider
+JBoss and TT hibernate dependencies conflicting with each other. Must deploy ear instead of war to load the jboss-app.xml parentLast configuration value.
+http://community.jboss.org/wiki/ClassLoadingConfiguration use jboss-web.xml instead of jboss-app.xml, if loading only the war file.
+Created file web\src\main\webapp\WEB-INF\jboss-web.xml with required configuration. Or deploy ear instead of war. Still fails, finally removed hibernate* from war.
+
+- Takes a really long time to deploy compared to JB7 - hibern
+
+- schemaLocation value = 'http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd' must have even number of URI's. 
+timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/tomahawk12-1.1.10.jar/META-INF/tomahawk.tld[23,23]
+timetracker-web-3.4-SNAPSHOT.war/WEB-INF/lib/trinidad-impl-1.2.14.jar/META-INF/tr.tld[1,238]
+See http://community.jboss.org/message/533953, http://community.jboss.org/message/573741, https://issues.jboss.org/browse/JBAS-8800, http://old.nabble.com/-VOTE--Apache-MyFaces-Trinidad-1.2.14-to30635260.html#a30636561.
+
+- java.lang.OutOfMemoryError: PermGen space
+OutOfMemoryError: GC overhead limit exceeded
+In jboss\bin\run_conf.bat: set "JAVA_OPTS=-Xms128M -Xmx512M -XX:PermSize=256m -XX:MaxPermSize=256m"
+
+- EAR plugin generates invalid application.xml? javaee:display-name fails schema validation.
+Caused by: org.jboss.xb.binding.JBossXBRuntimeException: {http://java.sun.com/xml/ns/javaee}display-name not found as a child of {http://java.sun.com/xml/ns/j2ee}application in unordered_sequence: {http://java.sun.com/xml/ns/j2ee}module* {http://java.sun.com/xml/ns/j2ee}security-role* {all {http://java.sun.com/xml/ns/j2ee}descriptionGroup}?
+
+After removing hibernate*.jar from the deployed application (parentDelegation=false did not work)
+- PersistenceException: Cannot find scanner class. hibernate.ejb.resource_scanner=org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner
+Caused by: java.lang.ClassNotFoundException: org.jboss.as.jpa.hibernate3.HibernateAnnotationScanner from BaseClassLoader@5999ae9c{vfs:///C:/Programs/JBoss/61/server/default/conf/jboss-service.xml}
+core persistence.xml hibernate.ejb.resource_scanner configuration value. Coment out from hibernate.cfg.xml, not needed for JB7 deployment.
 
 JBoss7 Migration:
 1. Need to turn off hibernate3 and JSF2 in 
@@ -360,5 +384,56 @@ Have to add hibernate3 module because hibernate4 scanner can't be turned off. Ch
 	at org.apache.myfaces.trinidadinternal.config.dispatch.ContentTypeAndCharacterSet.<init>(ContentTypeAndCharacterSet.java:42) [trinidad-impl-1.2.14.jar:]
 	at org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse.setContentType(DispatchServletResponse.java:39) [trinidad-impl-1.2.14.jar:]
 	at javax.servlet.ServletResponseWrapper.setContentType(ServletResponseWrapper.java:168) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]
-NullPointer when using DTD instead of xsd in xml file. After changing to xsd:
+NullPointer when using DTD instead of xsd in xml file. After changing to xsd, faces-config file fails validation:
 converter converter-id and converter-for-class must have unique values.
+
+After removing JSF12 module reference in deployment descriptor:
+could not find Factory: javax.faces.application.ApplicationFactory
+Still tries to load Mojarra2 even though it is excluded, through the scanner.
+Removed JSF2 dependencies from web project
+
+3. JBoss uses java:/jdbc/timetracker JNDI lookup, Tomcat and most others use java:comp/env/jdbc/timetracker
+Cannot create datasource with java:jdbc or java:comp through AS7 admin console, must use java:/jdbc
+See http://blog.vinodsingh.com/2008/12/jndi-lookup-on-tomcat-and-jboss-using.html
+Use java:comp/env/jdbc in Spring configuration lookup. Configure Tomcat with jdbc/timetracker + resource-ref in web.xml
+Configure JBoss with java:/jdbc/timetracker and map the java:comp/env using jboss-web.xml under web\WEB-INF
+
+Could not determine type for resource-ref java:module/env/jdbc/timetracker, change lookup to java:/jdbc/timetracker
+      <resource-ref id="ResourceRef_1">
+         <res-ref-name>TimeTracker</res-ref-name>        
+         <res-type>javax.sql.DataSource</res-type>
+         <res-auth>Container</res-auth>
+         <res-sharing-scope>Shareable</res-sharing-scope>
+         <!-- Point to the jndi name of the datasource -->
+         <lookup-name>jdbc/timetracker</lookup-name>
+      </resource-ref>
+
+      See http://community.jboss.org/message/603656
+
+Tomcat 7 deployment:
+- Follow instructions at http://codepitbull.wordpress.com/2011/07/08/tomcat-7-with-full-jta/ for Spring/Hibernate/JTA deployment
+Specifically:
+- Add JOTM or Atomikos or other JTA provider to server\lib. Spring tcServer uses Atomikos as an optional provider
+- Configure resources in config.xml. I was unable to get the file bundled with the war to work, so I had to declare the resources globally on the server
+- Can't get lookup java:/jdbc/timetracker to work
+
+
+- Takes a long time to deploy, at [StartupServletContextListener:81] Checking for plugins:org.apache.myfaces.FACES_INIT_PLUGINS
+
+<resource-ref id="ResourceRef_1">
+    <res-ref-name>TimeTracker</res-ref-name>    	
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+    <res-sharing-scope>Shareable</res-sharing-scope>
+    <!-- Point to the jndi name of the datasource -->
+    <lookup-name>jdbc/timetracker</lookup-name>
+</resource-ref>
+
+http://community.jboss.org/thread/173769
+See http://community.jboss.org/message/570071#570071. Looks like a bug with the way JBoss reports contextInitialized before it is truly initialized. Spring depends on this event to do JNDI lookups, which fail when the local app context is still not initialized. It works fine when using the global context java:/jdbc. I verified that the bug still exists in JB 7.0.2, and also in v6.1, by updating the test war files attached in the message for AS7.
+
+JB61:
+  Deployment "jboss.jca:name=comp/env/jdbc/ExampleDS,service=DataSourceBinding"
+is in error due to the following reason(s): ** NOT FOUND Depends on 'jboss.jca:name=comp/env/jdbc/ExampleDS,service=DataSourceBinding' **
+
+I wasn't able to find a specific bug report on this one, so I created a new one. 

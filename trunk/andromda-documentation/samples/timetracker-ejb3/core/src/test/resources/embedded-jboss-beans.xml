@@ -72,11 +72,12 @@
    -->
 
    <bean name="DefaultDSBootstrap" class="org.jboss.resource.adapter.jdbc.local.LocalTxDataSource">
-      <property name="driverClass">org.hsqldb.jdbcDriver</property>
-      <property name="connectionURL">jdbc:hsqldb:.</property>
+      <property name="driverClass">org.h2.Driver</property>
+      <property name="connectionURL">jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</property>
       <!--      <property name="connectionURL">jdbc:hsqldb:./hypersonic/localDB</property> -->
       <property name="userName">sa</property>
-      <property name="jndiName">java:/DefaultDS</property>
+      <property name="password">sa</property>
+      <property name="jndiName">java:/jdbc/timetracker-ejb3</property>
       <property name="minSize">0</property>
       <property name="maxSize">10</property>
       <property name="blockingTimeout">1000</property>
@@ -93,11 +94,11 @@
    </bean>
 
    <bean name="timetrackerDatasourceBootstrap" class="org.jboss.resource.adapter.jdbc.local.LocalTxDataSource">
-      <property name="driverClass">com.mysql.jdbc.Driver</property>
-      <property name="connectionURL">jdbc:mysql://localhost:3306/timetracker</property>
+      <property name="driverClass">org.h2.Driver</property>
+      <property name="connectionURL">jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</property>
       <!--      <property name="connectionURL">jdbc:hsqldb:./hypersonic/localDB</property> -->
       <!--      <property name="userName">sa</property> -->
-      <property name="jndiName">java:/jdbc/timetracker</property>
+      <property name="jndiName">java:/jdbc/timetracker-ejb3</property>
       <property name="minSize">0</property>
       <property name="maxSize">10</property>
       <property name="blockingTimeout">1000</property>
@@ -121,28 +122,28 @@
             org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.HSQLDBDelegate
             org.quartz.jobStore.tablePrefix=QRTZ_
             org.quartz.jobStore.dataSource=myDS
-         
+
 	        # To get it to work with hypersonic
 	        # FIXME: this doesn't lock the row
             org.quartz.jobStore.selectWithLockSQL=SELECT * FROM qrtz_locks WHERE lock_name = ?
-         
+
         	# from quartz.properties
             org.quartz.scheduler.instanceName=JBossEJB3QuartzScheduler
             org.quartz.scheduler.rmi.export=false
             org.quartz.scheduler.rmi.proxy=false
             org.quartz.scheduler.wrapJobExecutionInUserTransaction=false
-   
+
             org.quartz.threadPool.class=org.quartz.simpl.SimpleThreadPool
             org.quartz.threadPool.threadCount=10
             org.quartz.threadPool.threadPriority=5
             org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread=true
-   
+
         	org.quartz.jobStore.misfireThreshold=60000
       </property>
       <property name="dataSource">java:/DefaultDS</property>
       <property name="sqlProperties">
          CREATE_DB_ON_STARTUP = TRUE
-         
+
          CREATE_TABLE_JOB_DETAILS = CREATE TABLE qrtz_job_details(JOB_NAME VARCHAR(80) NOT NULL, JOB_GROUP VARCHAR(80) NOT NULL, \
             DESCRIPTION VARCHAR(120) NULL, JOB_CLASS_NAME VARCHAR(128) NOT NULL, IS_DURABLE VARCHAR(1) NOT NULL, \
             IS_VOLATILE VARCHAR(1) NOT NULL, IS_STATEFUL VARCHAR(1) NOT NULL, REQUESTS_RECOVERY VARCHAR(1) NOT NULL, \
@@ -192,5 +193,5 @@
    </bean>
 
    -->
-   
+
 </deployment>

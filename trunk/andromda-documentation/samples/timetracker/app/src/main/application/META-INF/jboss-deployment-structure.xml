@@ -1,0 +1,44 @@
+<!-- See http://community.jboss.org/blogs/marek-novotny/2011/07/15/seam-2-jpa-example-on-jboss-as7,
+https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
+JBoss7: Need to exclude JSF2 and Hibernate4 OSGI dependencies, use war/ear bundled dependencies.
+JSF2 is loaded automatically through the scanner by default.
+Hibernate4 conflicts with Spring 3.0, need v3.1 -->
+<jboss-deployment-structure>
+   <deployment>
+        <exclusions>
+          <module name="javax.faces.api" slot="main"/>
+          <module name="com.sun.jsf-impl" slot="main"/>
+          <module name="org.hibernate" slot="main"/>
+          <module name="org.hibernate.validator" slot="main"/>
+          <module name="javax.persistence.api" slot="main"/>
+        </exclusions>
+        <dependencies>
+          <module name="org.apache.commons.logging" />
+          <module name="org.apache.commons.collections" />
+          <module name="org.apache.log4j" />
+          <module name="org.dom4j" />
+          <!-- Load JSF 1.2 dependencies from AS7 -->
+          <module name="javax.faces.api" slot="1.2"/>
+          <module name="com.sun.jsf-impl" slot="1.2"/>
+        </dependencies>
+    </deployment>
+    <!-- This corresponds to the module for a web deployment within an ear archive -->
+    <sub-deployment name="timetracker-web-3.4-SNAPSHOT.war">
+      <exclusions>
+        <module name="javax.faces.api" slot="main"/>
+        <module name="com.sun.jsf-impl" slot="main"/>
+        <module name="org.hibernate" slot="main"/>
+        <module name="org.hibernate.validator" slot="main"/>
+        <module name="javax.persistence.api" slot="main"/>
+      </exclusions>
+      <dependencies>
+        <module name="org.apache.commons.logging" />
+        <module name="org.apache.commons.collections" />
+        <module name="org.apache.log4j" />
+        <module name="org.dom4j" />
+        <!-- Load JSF 1.2 dependencies from AS7 -->
+        <module name="javax.faces.api" slot="1.2"/>
+        <module name="com.sun.jsf-impl" slot="1.2"/>
+      </dependencies>
+    </sub-deployment>
+</jboss-deployment-structure>
