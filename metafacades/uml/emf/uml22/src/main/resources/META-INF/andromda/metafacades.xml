@@ -158,6 +158,7 @@
             <property name="operation"/>
         </mapping>
     </metafacade>
+    <!-- UML2 Activity inherits from Class, UML14 does not. Must filter out when getting classes -->
     <metafacade class="org.andromda.metafacades.emf.uml22.EventFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.ActivityImpl"/>
     </metafacade>
@@ -318,6 +319,13 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.TemplateParameterFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.TemplateParameterImpl"/>
+    </metafacade>
+    <!-- This should map getTemplateParameter to ParameterFacade, getFullyQualifiedName needs type because it doesn't. JavaCartridge test migration fails.
+    ParameterableElement can be a Class, Operation, Property, or PackagableElement. Need to cast to determine type -->
+    <metafacade class="org.andromda.metafacades.emf.uml22.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ParameterableElementImpl"/>
+        <property reference="parameterNameMask"/>
+        <property reference="pluralizeParameterNames"/>
     </metafacade>
 
     <!-- FrontEnd metafacades -->
