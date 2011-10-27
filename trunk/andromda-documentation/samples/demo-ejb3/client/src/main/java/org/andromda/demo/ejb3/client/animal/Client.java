@@ -1,6 +1,8 @@
 package org.andromda.demo.ejb3.client.animal;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Properties;
 import org.andromda.demo.ejb3.animal.Animal;
 import org.andromda.demo.ejb3.animal.AnimalCreateException;
@@ -30,8 +32,10 @@ public class Client
     public void insertAnimal()
     {
         System.out.println("Inserting animal...");
+        List<String> types = new ArrayList<String>();
+        types.add("farm");
 
-        Animal animal = new Animal("sheep", "farm", false);
+        Animal animal = new Animal("sheep", types, false);
 
         AnimalServiceDelegate manager = new AnimalServiceDelegate(this.prop);
         try
