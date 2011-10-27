@@ -304,6 +304,50 @@
             <property name="hibernateDialect" required="false">
                 <documentation>
                     SQL dialect of the database.
+                    <ul>
+                        <li>org.hibernate.dialect.Cache71Dialect</li>
+                        <li>org.hibernate.dialect.DataDirectOracle9Dialect</li>
+                        <li>org.hibernate.dialect.DB2390Dialect</li>
+                        <li>org.hibernate.dialect.DB2400Dialect</li>
+                        <li>org.hibernate.dialect.DB2Dialect</li>
+                        <li>org.hibernate.dialect.DerbyDialect</li>
+                        <li>org.hibernate.dialect.FirebirdDialect</li>
+                        <li>org.hibernate.dialect.FrontbaseDialect</li>
+                        <li>org.hibernate.dialect.H2Dialect</li>
+                        <li>org.hibernate.dialect.HSQLDialect</li>
+                        <li>org.hibernate.dialect.InformixDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect9</li>
+                        <li>org.hibernate.dialect.IngresDialect10</li>
+                        <li>org.hibernate.dialect.InterbaseDialect</li>
+                        <li>org.hibernate.dialect.JDataStoreDialect</li>
+                        <li>org.hibernate.dialect.MckoiDialect</li>
+                        <li>org.hibernate.dialect.MimerSQLDialect</li>
+                        <li>org.hibernate.dialect.MySQL5Dialect</li>
+                        <li>org.hibernate.dialect.MySQL5InnoDBDialect</li>
+                        <li>org.hibernate.dialect.MySQLDialect</li>
+                        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
+                        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
+                        <li>org.hibernate.dialect.OracleDialect</li>
+                        <li>org.hibernate.dialect.Oracle8iDialect</li>
+                        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.Oracle9iDialect</li>
+                        <li>org.hibernate.dialect.Oracle10gDialect</li>
+                        <li>org.hibernate.dialect.PointbaseDialect</li>
+                        <li>org.hibernate.dialect.PostgresPlusDialect</li>
+                        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+                        <li>org.hibernate.dialect.ProgressDialect</li>
+                        <li>org.hibernate.dialect.RDMSOS2200Dialect</li>
+                        <li>org.hibernate.dialect.SAPDBDialect</li>
+                        <li>org.hibernate.dialect.SQLServer2008Dialect</li>
+                        <li>org.hibernate.dialect.SQLServerDialect</li>
+                        <li>org.hibernate.dialect.SybaseDialect</li>
+                        <li>org.hibernate.dialect.Sybase11Dialect</li>
+                        <li>org.hibernate.dialect.SybaseAnywhereDialect</li>
+                        <li>org.hibernate.dialect.SybaseASE15Dialect</li>
+                        <li>org.hibernate.dialect.TeradataDialect</li>
+                        <li>org.hibernate.dialect.TimesTenDialect</li>
+                    </ul>
                 </documentation>
             </property>
             <property name="hibernateMaxFetchDepth" required="false">
