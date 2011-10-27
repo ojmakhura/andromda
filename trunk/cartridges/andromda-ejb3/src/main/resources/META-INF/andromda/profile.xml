@@ -71,6 +71,7 @@
                     enumeration class variable of type enum introduced
                     in JDK 1.5. That way it is possible for Entities to
                     use this enumeration type for their attributes.
+                    Deprecated: Use UML Enumeration instead of UML Class.
                 </documentation>
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
@@ -893,6 +894,23 @@
 			        <value>NONE</value>
 			    </allowedValues>
 			</element>
+            <element name="OVERRIDE_TYPE">
+                <documentation>
+                    The overridden type indicating the overridden type specified on attributes or
+                    finder method arguments, to generate @org.hibernate.annotations.Type annotations.
+                    Generally used for Boolean types in legacy databases, i.e yes_no, true_false.
+                    Could be: The name of a Hibernate basic type: integer, string, character, date, timestamp, float, binary, serializable, object, blob etc.;
+                    The name of a Java class with a default basic type: int, float, char, java.lang.String, java.util.Date, java.lang.Integer, java.sql.Clob etc.;
+                    The name of a serializable Java class;
+                    The class name of a custom type: com.illflow.type.MyCustomType etc.
+                </documentation>
+                <value>
+                    andromda_hibernate_type
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
 			<element name="FETCH_TYPE">
 			    <documentation>
 			        Denotes whether or not to hint to the EJB3 container 
@@ -1367,7 +1385,7 @@
 			<element name="SECURITY_DENY_ALL">
 				<documentation>
 					Specifies whether to deny all roles to
-					execute the opertions in the bean.
+					execute the operations in the bean.
 					This can be set on the session bean or on
 					individual operations.
 					If set on the session bean, all operations will

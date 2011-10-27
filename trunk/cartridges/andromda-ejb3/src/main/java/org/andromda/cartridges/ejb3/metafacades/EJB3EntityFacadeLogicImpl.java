@@ -972,7 +972,7 @@ public class EJB3EntityFacadeLogicImpl
             boolean includeNames,
             boolean includeAutoIdentifiers)
     {
-        if (!includeNames && !includeTypes || attributes == null)
+        if ((!includeNames && !includeTypes) || attributes == null)
         {
             return "";
         }
@@ -989,7 +989,7 @@ public class EJB3EntityFacadeLogicImpl
             boolean isCompositePKPresent = this.isCompositePrimaryKeyPresent();
             if (!attr.isVersion())
             {
-                /**
+                /*
                  * Do not include identifier attributes for entities with a composite primary key
                  * or if includeAutoIdentifiers is false, do not include identifiers with auto generated values.
                  */
@@ -1013,7 +1013,7 @@ public class EJB3EntityFacadeLogicImpl
                         }
                         else
                         {
-                            sb.append(attr.getType().getFullyQualifiedName());
+                            sb.append(attr.getGetterSetterTypeName());
                         }
                         sb.append(" ");
                     }
@@ -1023,7 +1023,6 @@ public class EJB3EntityFacadeLogicImpl
                     }
                 }
             }
-
         }
         return sb.toString();
     }
@@ -1114,7 +1113,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetManageableDisplayAttribute()
      */
-    protected Object handleGetManageableDisplayAttribute()
+    protected AttributeFacade handleGetManageableDisplayAttribute()
     {
         AttributeFacade displayAttribute = null;
 
@@ -1124,11 +1123,11 @@ public class EJB3EntityFacadeLogicImpl
             displayAttribute = this.findAttribute(StringUtils.trimToEmpty(taggedValueObject.toString()));
         }
 
-        final Collection attributes = this.getAttributes(true);
-        for (final Iterator attributeIterator = attributes.iterator();
+        final Collection<AttributeFacade> attributes = this.getAttributes(true);
+        for (final Iterator<AttributeFacade> attributeIterator = attributes.iterator();
             attributeIterator.hasNext() && displayAttribute == null;)
         {
-            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
+            final AttributeFacade attribute = attributeIterator.next();
             if (attribute.isUnique())
             {
                 displayAttribute = attribute;
@@ -1153,7 +1152,7 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetIdentifier()
      */
-    protected Object handleGetIdentifier()
+    protected EJB3EntityAttributeFacade handleGetIdentifier()
     {
         return (EJB3EntityAttributeFacade)this.getIdentifiers().iterator().next();
     }
@@ -1517,7 +1516,7 @@ public class EJB3EntityFacadeLogicImpl
                         final AttributeFacade attribute = (AttributeFacade)object;
                         if (attribute.getType() != null)
                         {
-                            list.append(attribute.getType().getFullyQualifiedName());
+                            list.append(attribute.getGetterSetterTypeName());
                             list.append(comma);
                         }
                     }
@@ -1526,7 +1525,7 @@ public class EJB3EntityFacadeLogicImpl
                         final AssociationEndFacade associationEnd = (AssociationEndFacade)object;
                         if (associationEnd.getType() != null)
                         {
-                            list.append(associationEnd.getType().getFullyQualifiedName());
+                            list.append(associationEnd.getGetterSetterTypeName());
                             list.append(comma);
                         }
                     }

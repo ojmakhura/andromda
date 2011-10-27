@@ -1,7 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.util.Collection;
-import java.util.Iterator;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -136,15 +135,13 @@ public class EJB3FinderMethodFacadeLogicImpl
             }
             String variableName = StringUtils.uncapitalize(owner.getName());
             queryString = "from " + owner.getName() + " as " + variableName;
-            if (this.getArguments().size() > 0)
-            {
                 Collection<ParameterFacade> arguments = this.getArguments();
+            //int size = this.getArguments().size();
                 if (arguments != null && !arguments.isEmpty())
                 {
-                    Iterator argumentIt = arguments.iterator();
-                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
+                for (ParameterFacade facade : arguments)
                     {
-                        EJB3FinderMethodArgumentFacade argument = (EJB3FinderMethodArgumentFacade)argumentIt.next();
+                    EJB3FinderMethodArgumentFacade argument = (EJB3FinderMethodArgumentFacade)facade;
                         if (!argument.isFirstResult() && !argument.isMaxResults())
                         {
                             if (!whereClauseExists)
@@ -157,13 +154,13 @@ public class EJB3FinderMethodFacadeLogicImpl
                             {
                                 parameter = ':' + argument.getName();
                             }
-                            queryString += ' ' + variableName + '.' + argument.getName() + " = " + parameter;
-                            if (argumentIt.hasNext())
-                            {
-                                queryString += " and";
-                            }
+                        queryString += ' ' + variableName + '.' + argument.getName() + " = " + parameter + " and";
                         }
                     }
+                if (this.getArguments().size() > 1)
+                {
+                    // Remove the final ' and'
+                    queryString = queryString.substring(0, queryString.length()-4);
                 }
             }
         }

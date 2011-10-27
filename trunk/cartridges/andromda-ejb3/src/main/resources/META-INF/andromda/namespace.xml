@@ -53,7 +53,7 @@
 					files are generated.
 				</documentation>
 			</property>
-			<property name="session-config">
+            <property name="session-config">
 			    <documentation>
 			        The location where the ejb-jar.xml XML descriptor
 			        is generated.
@@ -123,8 +123,10 @@
             </property>
 			<property name="test-config">
 			    <documentation>
-			        The location where the JBoss Embedded/Microcontainer
-                    configuration files are generated.
+                    The location where manual session bean and entity test resources
+                    such as persistence.xml and log4j.xml are generated, as well as
+                    the JBoss Embedded/Microcontainer configuration files.  These will not be regenerated
+                    and may require user intervention.
 			    </documentation>
 			</property>
 			<property name="tests">
@@ -136,11 +138,27 @@
 			</property>
 			<property name="test-impls">
 			    <documentation>
-			        The location where manual session bean test classes
+			        The location where manual session bean and entity test classes
                     are generated.  These will not be regenerated and require
                     user intervention.
 			    </documentation>
 			</property>
+            <property name="java-refs">
+                <documentation>
+                    The location containing java Impl classes that would have been
+                    generated but are not overwritten. Use these to compare and merge with the
+                    existing Impl classes when reconciling model changes. These will be regenerated
+                    every time.
+                </documentation>
+            </property>
+            <property name="test-refs">
+                <documentation>
+                    The location containing test classes that would have been
+                    generated but are not overwritten. Use these to compare and merge with the
+                    existing Impl classes when reconciling model changes. These will be regenerated
+                    every time.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="JDBC">
 		    <property name="entityManagerName" required="false">
@@ -171,28 +189,52 @@
                 </documentation>
             </property>
             <property name="hibernateDialect" required="false">
-            	<default>org.hibernate.dialect.MySQLDialect</default>
+            	<default>org.hibernate.dialect.H2Dialect</default>
             	<documentation>
             	    The SQL dialect of the database.
             	    <ul>
+            	        <li>org.hibernate.dialect.Cache71Dialect</li>
+                        <li>org.hibernate.dialect.DataDirectOracle9Dialect</li>
+                        <li>org.hibernate.dialect.DB2390Dialect</li>
+                        <li>org.hibernate.dialect.DB2400Dialect</li>
+                        <li>org.hibernate.dialect.DB2Dialect</li>
+                        <li>org.hibernate.dialect.DerbyDialect</li>
+                        <li>org.hibernate.dialect.FirebirdDialect</li>
+                        <li>org.hibernate.dialect.FrontbaseDialect</li>
+                        <li>org.hibernate.dialect.H2Dialect</li>
+                        <li>org.hibernate.dialect.HSQLDialect</li>
+                        <li>org.hibernate.dialect.InformixDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect9</li>
+                        <li>org.hibernate.dialect.IngresDialect10</li>
+                        <li>org.hibernate.dialect.InterbaseDialect</li>
+                        <li>org.hibernate.dialect.JDataStoreDialect</li>
+                        <li>org.hibernate.dialect.MckoiDialect</li>
+                        <li>org.hibernate.dialect.MimerSQLDialect</li>
+                        <li>org.hibernate.dialect.MySQL5Dialect</li>
+                        <li>org.hibernate.dialect.MySQL5InnoDBDialect</li>
             	        <li>org.hibernate.dialect.MySQLDialect</li>
             	        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
             	        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
-            	        <li>org.hibernate.dialect.HSQLDialect</li>
-            	        <li>org.hibernate.dialect.PostgreSQLDialect</li>
-            	        <li>org.hibernate.dialect.DB2Dialect</li>
             	        <li>org.hibernate.dialect.OracleDialect</li>
+            	        <li>org.hibernate.dialect.Oracle8iDialect</li>
             	        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.Oracle9iDialect</li>
+                        <li>org.hibernate.dialect.Oracle10gDialect</li>
+                        <li>org.hibernate.dialect.PointbaseDialect</li>
+                        <li>org.hibernate.dialect.PostgresPlusDialect</li>
+                        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+                        <li>org.hibernate.dialect.ProgressDialect</li>
+                        <li>org.hibernate.dialect.RDMSOS2200Dialect</li>
+                        <li>org.hibernate.dialect.SAPDBDialect</li>
+                        <li>org.hibernate.dialect.SQLServer2008Dialect</li>
+                        <li>org.hibernate.dialect.SQLServerDialect</li>
             	        <li>org.hibernate.dialect.SybaseDialect</li>
-            	        <li>org.hibernate.dialect.SQLServerDialect</li>
-            	        <li>org.hibernate.dialect.SAPDBDialect</li>
-            	        <li>org.hibernate.dialect.InformixDialect</li>
-            	        <li>org.hibernate.dialect.IngresDialect</li>
-            	        <li>org.hibernate.dialect.ProgressDialect</li>
-            	        <li>org.hibernate.dialect.InterbaseDialect</li>
-            	        <li>org.hibernate.dialect.PointbaseDialect</li>
-            	        <li>org.hibernate.dialect.FrontbaseDialect</li>
-            	        <li>org.hibernate.dialect.FirebirdDialect</li>
+            	        <li>org.hibernate.dialect.Sybase11Dialect</li>
+                        <li>org.hibernate.dialect.SybaseAnywhereDialect</li>
+                        <li>org.hibernate.dialect.SybaseASE15Dialect</li>
+                        <li>org.hibernate.dialect.TeradataDialect</li>
+                        <li>org.hibernate.dialect.TimesTenDialect</li>
             	    </ul>
             	</documentation>
             </property>
@@ -255,6 +297,53 @@
             <property name="connectionUrl" required="false">
                 <documentation>
                     URL for the JDBC Driver to make the connection to the database.
+                </documentation>
+            </property>
+            <property name="testDriver" required="false">
+                <documentation>
+                    JDBC Driver to make test database connection, this should be a fully qualified Java class name.
+                </documentation>
+            </property>
+            <property name="testUsername" required="false">
+                <documentation>
+                    The test database user login name.
+                </documentation>
+            </property>
+            <property name="testPassword" required="false">
+                <documentation>
+                    The test database user password.
+                </documentation>
+            </property>
+            <property name="testConnectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the test database.
+                </documentation>
+            </property>
+            <property name="testDialect" required="false">
+                <default>org.hibernate.dialect.H2Dialect</default>
+                <documentation>
+                    The SQL dialect of the test database.
+                    <ul>
+                        <li>org.hibernate.dialect.MySQLDialect</li>
+                        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
+                        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
+                        <li>org.hibernate.dialect.H2Dialect</li>
+                        <li>org.hibernate.dialect.HSQLDialect</li>
+                        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+                        <li>org.hibernate.dialect.DB2Dialect</li>
+                        <li>org.hibernate.dialect.OracleDialect</li>
+                        <li>org.hibernate.dialect.Oracle9Dialect</li>
+                        <li>org.hibernate.dialect.SybaseDialect</li>
+                        <li>org.hibernate.dialect.SQLServerDialect</li>
+                        <li>org.hibernate.dialect.SAPDBDialect</li>
+                        <li>org.hibernate.dialect.InformixDialect</li>
+                        <li>org.hibernate.dialect.IngresDialect</li>
+                        <li>org.hibernate.dialect.ProgressDialect</li>
+                        <li>org.hibernate.dialect.InterbaseDialect</li>
+                        <li>org.hibernate.dialect.PointbaseDialect</li>
+                        <li>org.hibernate.dialect.FrontbaseDialect</li>
+                        <li>org.hibernate.dialect.FirebirdDialect</li>
+                    </ul>
                 </documentation>
             </property>
             <property name="dataSource" required="false">
@@ -349,7 +438,7 @@
                 <default>TRANSACTIONAL</default>
                 <documentation>
                     Defines the default strategy for associations between 
-                    Entities caching. Can be overwrited with the corresponding 
+                    Entities caching. Can be overwritten with the corresponding
                     tagged value <code>andromda_persistence_association_cache</code>.
                     Possible values are:
                     <ul>
@@ -386,7 +475,7 @@
                      Defines the classname of a TransactionManagerLookup
                      which is required when JVM-level caching is enabled 
                      or when using hilo generator in a JTA environment.
-                     Typicallyl, this value is:
+                     Typically, this value is:
                      <ul>
                          <li>org.hibernate.transaction.JBossTransactionManagerLookup</li>
                      </ul>
@@ -546,7 +635,7 @@
                 <default>{0}Exception</default>
                 <documentation>
                     The pattern to use when constructing the default service exception name.
-                    <strong>NOTE:</strong> This propety is only applicable when 
+                    <strong>NOTE:</strong> This property is only applicable when
                     allowDefaultServiceExceptions is <code>true</code>.
                 </documentation>
             </property>
@@ -560,7 +649,7 @@
 			<property name="messageDrivenListenerNamePattern">
 				<default>{0}Listener</default>
 				<documentation>
-					The pattern to use when constucting the JMS message driven
+					The pattern to use when constructing the JMS message driven
 					bean listener class name.
 				</documentation>
 			</property>
@@ -707,7 +796,7 @@
 			<property name="entityViewType">
 				<default>local</default>
 				<documentation>
-					The default view type accessability for an entity POJO bean.
+					The default view type accessibility for an entity POJO bean.
 					<ul>
 						Permitted values are:
 						<li>local</li>
@@ -739,7 +828,7 @@
 				<documentation>
 					Indicates how a UML composition should be
 					interpreted to determine cascadable operations that
-					are propogated to the associated entity.
+					are propagated to the associated entity.
 					<ul>
 						<li>
 							If undefined, the cascade attribute is
@@ -752,27 +841,27 @@
 							.
 						</li>
 						<li>
-							If ths property is defined, its value is
+							If this property is defined, its value is
 							generated at each occurrence of a UML
 							composition as the inverse side is not
 							marked with a cascade annotation element
-							which indicates no cascade propgation.
+							which indicates no cascade propagation.
 						</li>
 					</ul>
 				</documentation>
 			</property>
 			<property name="entityAggregationCascade" required="false">
 				<documentation>
-					Indicates how a UML aggreation should be interpreted
+					Indicates how a UML aggregation should be interpreted
 					to determine cascadable operations that are
-					propogated to the associated entity.
+					propagated to the associated entity.
 					<ul>
 						<li>
-							If underfined, aggregation is not
+							If undefined, aggregation is not
 							interpreted as a cascade value.
 						</li>
 						<li>
-							If the property is defined, its valie is
+							If the property is defined, its value is
 							generated at each occurrence of a UML
 							aggregation ad the inverse side is not
 							marked with a cascade annotation element
@@ -895,6 +984,51 @@
 					</ul>
 				</documentation>
 			</property>
+            <property name="entityHibernateValidations">
+                <default>true</default>
+                <documentation>
+                    Generate hibernate bean validations on the Entity, for
+                    NotNull, Size, Pattern according to JSR303 and JEE6.
+                    See http://docs.jboss.org/hibernate/validator/4.2/reference/en-US/html_single/#table-spec-constraints
+                    default = true.
+                </documentation>
+            </property>
+            <property name="entityVOTransformations">
+                <default>false</default>
+                <documentation>
+                    Generate Entity Domain to VO transformations and mappings automatically.
+                    No longer needed for JPA since the domain Entity acts as a ValueObject.
+                    This allows strongly-typed queries and results. Domain classes can be used as
+                    VOs in the service and UI layers, especially if the DAO handles all database operations.
+                    Default = false.
+                </documentation>
+            </property>
+            <property name="entityCmpEqHash">
+                <default>true</default>
+                <documentation>
+                    Generate Entity compareTo, equals, and hashCode methods. The only reason to turn this off
+                    is if the Entity inherits from a custom framework class that has the same methods as final
+                    and uses its own ancestor implementation for these methods.
+                    default = true.
+                </documentation>
+            </property>
+            <property name="entityFindersOnUniqueProperties">
+                <default>true</default>
+                <documentation>
+                    Generate Entity findByX methods, returning a single Domain instance, for all unique properties automatically.
+                    UML2 only, since UML14 cannot mark attributes or associations as Unique,
+                    they all become unique when migrated to UML2.
+                    default = true.
+                </documentation>
+            </property>
+            <property name="daoNamedQueries">
+                <default>true</default>
+                <documentation>
+                    Generate DAO named queries, where a strongly-typed result domain object is returned methods.
+                    Only JPA2 supports this, avoiding compiler warnings from class cast.
+                    default = true.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="Service Properties">
 			<property name="serviceViewType">
@@ -917,6 +1051,22 @@
             </property>
 		</propertyGroup>
 		<propertyGroup name="DAO Properties">
+            <property name="daoType">
+                <default>ejb3</default>
+                <documentation>
+                    The output type for classes which use EntityManager. Default is ejb3.
+                    Spring will create JpaTemplate DAO classes. Use 'none' if you have your
+                    own framework which creates and uses and tests EntityManager, and you only want to
+                    generate the Entity and Embeddable classes with andromda (no unit tests).
+                    Possible choices are:
+                    <ul>
+                        <li>ejb3</li>
+                        <li>spring</li>
+                        <li>custom</li>
+                        <li>none</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="daoInheritanceEnabled">
                 <default>false</default>
                 <documentation>
@@ -1107,12 +1257,54 @@
 					this must be set to <b>hibernate</b> such that
 					the hibernate validator annotations are
 					rendered.
-                    To enable Hiberate Criteria Query, this must
+                    To enable Hibernate Criteria Query, this must
                     be set to <b>hibernate</b>.
 					Possible values are:
 					<ul>
 						<li>none</li>
 						<li>hibernate</li>
+					</ul>
+				</documentation>
+			</property>
+            <property name="javaVersion">
+                <default>1.6</default>
+                <documentation>
+                    Determines if some annotations or JDK-specific features are output such as @Override compareTo().
+                    If 1.4, templating and generics should be turned off. Should be set by property java.version in pom.xml
+                    which is also used by the maven-compiler-plugin. Allowed values=1.4,1.5,1.6. Default=1.6.
+                </documentation>
+            </property>
+			<property name="deploymentPlatform">
+				<default>jboss6</default>
+				<documentation>
+					The default container deployment platform name and version.
+					Used when specifying specific annotations and dependencies and tests
+					for different persistence containers.
+					Possible values are:
+					<ul>
+                      <li>jboss7</li>
+                      <li>jboss6</li>
+                      <li>jboss51</li>
+                      <li>jboss5</li>
+                      <li>jboss42</li>
+                      <li>jboss4</li>
+                      <li>jboss3</li>
+                      <li>was8</li>
+                      <li>was7</li>
+                      <li>was61</li>
+                      <li>wasce2</li>
+                      <li>glassfish3</li>
+                      <li>glassfish2</li>
+                      <li>weblogic11</li>
+                      <li>weblogic10</li>
+                      <li>weblogic9</li>
+                      <li>weblogic8</li>
+                      <li>geronimo</li>
+                      <li>jonas5</li>
+                      <li>oracleas</li>
+                      <li>resin3</li>
+                      <li>resin4</li>
+                      <li>sun8</li>
 					</ul>
 				</documentation>
 			</property>
@@ -1295,7 +1487,7 @@
                 <documentation>
                    A list of one or more fully qualified java types that should be ignored whenever a type conversion
                    needs to be done. Currently, there is an issue with ValueObjects generated with the Java Axis
-                   mappings that causes the relevant cartidge to generate DAO "entity to value object" type conversions
+                   mappings that causes the relevant cartridge to generate DAO "entity to value object" type conversions
                    incorrectly for all date types.  By listing those date types here, the relevant cartridge will not
                    attempt to auto-generate conversions for date/time related attributes.
                 </documentation>

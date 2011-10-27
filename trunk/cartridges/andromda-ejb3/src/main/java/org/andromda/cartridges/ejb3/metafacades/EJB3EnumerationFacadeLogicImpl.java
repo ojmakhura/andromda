@@ -45,7 +45,7 @@ public class EJB3EnumerationFacadeLogicImpl
             separator = ", ";
             if (includeTypes)
             {
-                sb.append(attr.getType().getFullyQualifiedName());
+                sb.append(attr.getGetterSetterTypeName());
                 sb.append(" ");
             }
             if (includeNames)
