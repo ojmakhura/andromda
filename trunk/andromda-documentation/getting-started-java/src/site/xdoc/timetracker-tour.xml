@@ -144,6 +144,15 @@
                         Copy jta.jar from <a href="http://java.sun.com/products/jta">http://java.sun.com/products/jta</a>
                         (or other jta provider) to the same directory.</li>
                     </ul>
+                     <ul>
+                        <li>There is a bug in JBoss6.1 and 7 where the standard datasource lookup java:comp/env fails during deployment.
+                        Tomcat (and every other app server) requires the java:comp/env/jdbc/timetracker format for JNDI datasource lookups.
+                        The bug is fixed in JBoss7.1. See <a href="https://issues.jboss.org/browse/AS7-2184">https://issues.jboss.org/browse/AS7-2184</a>.
+                        To workaround: Edit timetracker/pom.xml to change the property dataSource from java:/${dataSource.name} to
+                        <source><![CDATA[<dataSource>java:comp/env/${dataSource.name}</dataSource>]]></source> and clean/build timetracker again.
+                        Specifically this changes the output in the following files: core/src/main/resources/META-INF/persistence.xml jta-data-source, and
+                        core/src/main/resources/applicationContext-dataSource.xml</li>
+                    </ul>
                 </li>
                 <!--li>Now that we have built the application, let us create a database schema to store
                     its data. We will create a schema called

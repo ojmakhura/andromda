@@ -427,6 +427,9 @@
                 </configuration>
 #end
             </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
 #if ($embeddedJetty)
             <plugin>
 #else
