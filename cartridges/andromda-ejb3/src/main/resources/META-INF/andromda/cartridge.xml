@@ -10,10 +10,12 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="collectionUtils" className="org.apache.commons.collections.CollectionUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
+    <templateObject name="entityUtils" className="org.andromda.metafacades.uml.EntityMetafacadeUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb3.EJB3ScriptHelper"/>
     <templateObject name="converter" className="org.andromda.utils.JavaTypeConverter">
         <property reference="javaTypeConversionIgnoreList"/>
     </templateObject>
+    <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
     
@@ -47,6 +49,8 @@
     <property reference="ejb3TypesPackage"/>
     <property reference="persistenceProviderExtensions"/>
     <property reference="persistenceContextUnitName"/>
+    <property reference="javaVersion"/>
+    <property reference="deploymentPlatform"/>
     <property reference="persistenceContainerName"/>
     <property reference="parameterRequiredCheck"/>
     <property reference="xmlEncoding"/>
@@ -59,15 +63,28 @@
     <property reference="webServiceUrlPattern"/>
     <property reference="dao-impls"/>
     <property reference="daos"/>
+    <property reference="daoType"/>
     <property reference="daoInheritanceEnabled"/>
+    <property reference="daoNamedQueries"/>
     <property reference="enableDaoPropertiesCreateMethod"/>
     <property reference="seamEnabled"/>
     <property reference="jarFiles"/>
+    <property reference="test-impls"/>
+    <property reference="tests"/>
+    <property reference="entityHibernateValidations"/>
+    <property reference="entityVOTransformations"/>
+    <property reference="entityCmpEqHash"/>
+    <property reference="entityFindersOnUniqueProperties"/>
     
     <!-- cartridge-property merge-point -->
 
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="daoInheritanceEnabled">$daoInheritanceEnabled.equalsIgnoreCase("true")</condition>
+    <condition name="daoNamedQueries">$daoNamedQueries.equalsIgnoreCase("true")</condition>
+    <condition name="entityHibernateValidations">$entityHibernateValidations.equalsIgnoreCase("true")</condition>
+    <condition name="entityVOTransformations">$entityVOTransformations.equalsIgnoreCase("true")</condition>
+    <condition name="entityCmpEqHash">$entityCmpEqHash.equalsIgnoreCase("true")</condition>
+    <condition name="entityFindersOnUniqueProperties">$entityFindersOnUniqueProperties.equalsIgnoreCase("true")</condition>
 
     <!-- condition merge-point-->
 

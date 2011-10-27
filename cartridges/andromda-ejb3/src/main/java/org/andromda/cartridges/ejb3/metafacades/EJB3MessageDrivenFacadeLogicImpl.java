@@ -391,7 +391,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
             separator = ", ";
             if (includeTypes)
             {
-                sb.append(attr.getType().getFullyQualifiedName());
+                sb.append(attr.getGetterSetterTypeName());
                 sb.append(" ");
             }
             if (includeNames)

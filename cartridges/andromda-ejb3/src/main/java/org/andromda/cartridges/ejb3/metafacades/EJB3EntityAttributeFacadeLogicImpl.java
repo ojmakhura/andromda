@@ -571,4 +571,13 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return returnValue;
     }
+
+    /**
+     * @return findTaggedValue 'andromda_hibernate_type'
+     */
+    //@Override
+    protected String getOverrideType()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_OVERRIDE_TYPE);
+    }
 }

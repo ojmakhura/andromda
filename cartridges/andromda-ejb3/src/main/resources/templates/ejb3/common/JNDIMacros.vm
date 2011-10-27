@@ -1,7 +1,7 @@
 ##
 ##  This macro will render the jndiName template parameter
 ##  for the remote interface.  This takes into account if
-##  the jndi name is explicity specified.
+##  the jndi name is explicitly specified.
 ##
 #macro (remoteJndiName $service $includePrefix)
 #**##if ($stringUtils.isNotBlank($service.jndiNameRemote))
@@ -17,7 +17,7 @@
 ##
 ##  This macro will render the jndiName template parameter
 ##  for the local interface.  This takes into account if
-##  the jndi name is explicity specified.
+##  the jndi name is explicitly specified.
 ##
 #macro (localJndiName $service $includePrefix)
 #**##if ($stringUtils.isNotBlank($service.jndiNameLocal))

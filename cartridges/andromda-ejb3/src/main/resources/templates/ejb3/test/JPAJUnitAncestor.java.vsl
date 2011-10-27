@@ -1,0 +1,241 @@
+/**
+ *
+ */
+package org.andromda.dbtest;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.testng.Assert;
+
+/**
+ * Contains methods used by multiple JPA unit tests, to initialize and log
+ */
+public abstract class JPAJUnitAncestor
+{
+    private static Logger LOGGER = LogManager.getLogger(JPAJUnitAncestor.class);
+    /** EntityManagerFactory used here and in descendants */
+    protected EntityManagerFactory emf;
+    /** EntityManager */
+    protected EntityManager em;
+    /** "UNIT_TEST" */
+    public static final String PERSISTENCE_UNIT = "UNIT_TEST";
+    /** Entity to log data on, and delete from */
+    protected String entityName = null;
+    /** Table to log data on, and delete from */
+    protected String table = null;
+
+    /**
+     *
+     */
+    public JPAJUnitAncestor()
+    {
+        // Public no arg constructor
+    }
+
+    /**
+     * @param name
+     */
+    public JPAJUnitAncestor(final String name)
+    {
+        // Public constructor
+    }
+
+    /**
+     * Creates EntityManagerFactory and EntityManager
+     * Run before class is tested
+     */
+    public void setUpBeforeClass()
+    {
+        // Test class specific setUpBeforeClass
+        JPAJUnitAncestor.LOGGER.debug("creating entity manager");
+        this.emf = Persistence.createEntityManagerFactory(JPAJUnitAncestor.PERSISTENCE_UNIT);
+        this.em = this.emf.createEntityManager();
+        Assert.assertNotNull(this.em);
+    }
+
+    /**
+     * Runs before each test
+     */
+    public void setUp()
+    {
+        // Test class specific before each test
+    }
+
+    /**
+     * Runs after class test
+     */
+    public void tearDownAfterClass()
+    {
+        // Test specific tearDownAfterClass
+    }
+
+    /**
+     * Flush all pending transactions. Run logEntities from descendant to log the current rowcount.
+     * Run deleteAll from descendant to delete all added rows.
+     */
+    public void tearDown()
+    {
+        JPAJUnitAncestor.LOGGER.debug("tearDownAfterClass() started, em=" + this.em);
+        EntityTransaction trans = this.em.getTransaction();
+        if (!trans.isActive())
+        {
+            trans.begin();
+        }
+        if (trans.getRollbackOnly())
+        {
+            trans.rollback();
+        }
+        else
+        {
+            trans.commit();
+        }
+        // Run closeAll() after logging test output from DB query
+    }
+
+    /**
+     * To be run after tearDownAfterClass
+     */
+    public void closeAll()
+    {
+        try
+        {
+            EntityTransaction trans = this.em.getTransaction();
+            if (!trans.isActive())
+            {
+                trans.begin();
+            }
+            if (trans.getRollbackOnly())
+            {
+                trans.rollback();
+            }
+            else
+            {
+                trans.commit();
+            }
+        }
+        finally
+        {
+            this.em.close();
+            this.emf.close();
+            JPAJUnitAncestor.LOGGER.debug("closeAll() complete, em=" + this.em);
+        }
+    }
+
+    /**
+     * Log number of rows in table
+     * @return number of rows in table
+     */
+    public int logEntities()
+    {
+        if (this.entityName != null)
+        {
+            final Query query = this.em.createQuery("select a from " + this.entityName + " as a");
+            @SuppressWarnings("rawtypes")
+            List results = query.getResultList();
+            JPAJUnitAncestor.LOGGER.info("select a from " + this.entityName + " as a");
+            for (final Object o : results)
+            {
+                JPAJUnitAncestor.LOGGER.info(this.entityName + ": " + o);
+            }
+            return results.size();
+        }
+        return 0;
+    }
+
+    /**
+     * Delete all rows in table
+     */
+    public void deleteAll()
+    {
+        if (this.entityName != null)
+        {
+            EntityTransaction trans = this.em.getTransaction();
+            if (!trans.isActive())
+            {
+                trans.begin();
+            }
+            final Query query = this.em.createNativeQuery("delete from " + this.table);
+            final int rows = query.executeUpdate();
+            if (trans.getRollbackOnly())
+            {
+                trans.rollback();
+            }
+            else
+            {
+                trans.commit();
+            }
+            JPAJUnitAncestor.LOGGER.info("removed " + rows + " rows");
+        }
+    }
+
+    /**
+     * @return emf
+     */
+    public EntityManagerFactory getEmf()
+    {
+        return this.emf;
+    }
+
+    /**
+     * @param emfIn
+     */
+    public void setEmf(final EntityManagerFactory emfIn)
+    {
+        this.emf = emfIn;
+    }
+
+    /**
+     * @return em
+     */
+    public EntityManager getEm()
+    {
+        return this.em;
+    }
+
+    /**
+     * @param emIn EntityManager
+     */
+    public void setEm(final EntityManager emIn)
+    {
+        this.em = emIn;
+    }
+
+    /**
+     * @return entityName
+     */
+    public String getEntityName()
+    {
+        return this.entityName;
+    }
+
+    /**
+     * @param entityNameIn
+     */
+    public void setEntity(final String entityNameIn)
+    {
+        this.entityName = entityNameIn;
+    }
+
+    /**
+     * @return PERSISTENCE_UNIT
+     */
+    public static String getPersistenceUnit()
+    {
+        return JPAJUnitAncestor.PERSISTENCE_UNIT;
+    }
+
+    /**
+     * To be used by descendant after initializing the class LOGGER
+     * @param logger
+     */
+    public static void setLOGGER(Logger logger)
+    {
+        LOGGER = logger;
+    }
+}

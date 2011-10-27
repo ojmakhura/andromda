@@ -81,6 +81,32 @@ public class EJB3ScriptHelper
     }
 
     /**
+     * Filter a list of EntityAttributes by removing all non-required attributes.
+     * This filter currently removes all attributes that are of stereotype Version
+     * It also removes identifier attributes for an entity with a composite primary key class
+     * or if the identifier attribute have a specified generator.
+     *
+     * @param list The original list
+     * @param isCompositePKPresent True if entity has a composite primary key
+     * @return Collection A list of EntityAttributes from the original list that are updatable
+     */
+    public Collection<EJB3EntityAttributeFacade> filterRequiredAttributes(final Collection<EJB3EntityAttributeFacade> list, final boolean isCompositePKPresent)
+    {
+        return CollectionUtils.select(list, new Predicate()
+        {
+            public boolean evaluate(final Object pObj)
+            {
+                EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade )pObj;
+                return !attr.isVersion() && attr.isRequired() &&
+                    ((isCompositePKPresent && !attr.isIdentifier()) ||
+                    (!isCompositePKPresent && (!attr.isIdentifier() ||
+                        (attr.isIdentifier() && attr.isGeneratorTypeNone()))
+                    ));
+            }
+        });
+    }
+
+    /**
      * Replaces all instances of the dot (.) in the name argument with an underscore (_)
      * and returns the string response.
      *

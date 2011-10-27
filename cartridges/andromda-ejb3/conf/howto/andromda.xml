@@ -13,7 +13,7 @@
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
@@ -66,6 +66,7 @@
                 <property name="tests">${howto.output.dir}</property>
                 <property name="test-impls">${howto.output.dir}</property>
                 <property name="ejb3TypesPackage">org.andromda.test</property>
+                <property name="deploymentPlatform">jboss7</property>
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">howtomodel</property>
                 <property name="entityManagerName">howtomodel</property>
@@ -122,7 +123,7 @@
                 <property name="configuration">${howto.output.dir}/WEB-INF</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
-                <!-- uncomment to enable web tier security 
+                <!-- uncomment to enable web tier security
                 <property name="securityRealm">${application.id}</property>
                  -->
                 <property name="serviceAccessorPattern">{0}.ServiceLocator.instance().get{1}()</property>

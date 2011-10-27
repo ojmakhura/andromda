@@ -1081,4 +1081,35 @@ public class EJB3AssociationEndFacadeLogicImpl
     {
         return StringUtils.isNotBlank(this.getHibernateCascadeType()) ? true : false;
     }
+
+    /**
+     * @return isColumnNullable
+     * @see EJB3AssociationEndFacadeLogic#handleIsColumnNullable()
+     */
+    //@Override
+    protected boolean isColumnNullable()
+    {
+        boolean nullable = true;
+        String nullableString = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_NULLABLE);
+
+        if (StringUtils.isBlank(nullableString))
+        {
+            nullable = (this.handleIsIdentifier() || this.isUnique()) ? false : !this.isRequired();
+        }
+        else
+        {
+            nullable = Boolean.valueOf(nullableString).booleanValue();
+        }
+        return nullable;
+    }
+
+    /**
+     * @return isIdentifier
+     * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
+     */
+    //@Override
+    protected boolean handleIsIdentifier()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
+    }
 }

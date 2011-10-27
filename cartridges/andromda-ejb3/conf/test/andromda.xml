@@ -74,6 +74,7 @@
                 <property name="tests">${test.output.dir}</property>
                 <property name="test-impls">${test.output.dir}</property>
                 <property name="ejb3TypesPackage">org.andromda.ejb3test</property>
+                <property name="deploymentPlatform">jboss7</property>
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">ejb3test</property>
                 <property name="entityManagerName">ejb3test</property>

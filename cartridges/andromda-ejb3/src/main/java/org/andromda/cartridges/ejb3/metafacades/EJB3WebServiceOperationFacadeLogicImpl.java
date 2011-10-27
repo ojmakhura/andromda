@@ -85,7 +85,7 @@ public class EJB3WebServiceOperationFacadeLogicImpl
             }
             else
             {
-                type = paramter.getType().getFullyQualifiedName();
+                type = paramter.getGetterSetterTypeName();
             }
 
             if (commaNeeded)
