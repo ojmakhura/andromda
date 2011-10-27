@@ -40,9 +40,9 @@ $class.getDocumentation(" * ")
 #if($enableTemplating && !$class.templateParameters.empty)
 #set ($templating=true)
 #set ($genericTemplate=$umlUtils.getGenericTemplate($class, $enableTemplating))
- * Class template parameters<type1, type2, etc>
+ * Class template parameters<parameter1, parameter2, etc>
 #foreach ($param in $class.templateParameters)
- * @param <$param.parameter.name> $param.parameter.getterSetterTypeName
+ * @param $param.parameter.name $param.getterSetterTypeName $param.parameter.getterSetterTypeName
 #end
 #end
  */

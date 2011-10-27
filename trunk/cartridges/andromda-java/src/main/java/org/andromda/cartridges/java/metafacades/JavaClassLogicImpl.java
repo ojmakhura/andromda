@@ -145,7 +145,7 @@ public class JavaClassLogicImpl
                     (parameterIterator.next()).getParameter();
 
                 // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
-                // Mapping from UML2 should return ParameterFacade, with a getType method.
+                // Mapping from UML2 should return ParameterFacade, with a getType method. Need TemplateParameter.getName method.
                 if (modelElement instanceof ParameterFacade)
                 {
                     buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());

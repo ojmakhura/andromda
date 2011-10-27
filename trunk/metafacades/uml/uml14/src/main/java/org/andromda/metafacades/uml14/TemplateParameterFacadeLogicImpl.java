@@ -32,7 +32,7 @@ public class TemplateParameterFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.TemplateParameterFacade#getDefaultElement()
+     * @see org.andromda.metafacades.uml.TemplateParameterFacade#getDefaultElement
      */
     @Override
     protected ModelElement handleGetDefaultElement()
@@ -40,4 +40,21 @@ public class TemplateParameterFacadeLogicImpl
         return metaObject.getDefaultElement();
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName
+     */
+    @Override
+    public String getValidationName()
+    {
+        return metaObject.getParameter().getName();
+    }
+
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner
+     */
+    @Override
+    public ModelElement getValidationOwner()
+    {
+        return metaObject.getTemplate();
+    }
 }
