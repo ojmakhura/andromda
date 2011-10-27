@@ -306,7 +306,6 @@ public class ManageableEntityLogicImpl
         for (ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds())
         {
             final Entity entity = (Entity)associationEnd.getType();
-
             if(entity.isCompositeIdentifier())
             {
                 if (buffer.length() > 0)
@@ -665,6 +664,7 @@ public class ManageableEntityLogicImpl
     static final class ManageableComparator
         implements Serializable, Comparator
     {
+        @SuppressWarnings("unused")
         private static final long serialVersionUID = 1L;
         /**
          * @see java.util.Comparator#compare(Object, Object)

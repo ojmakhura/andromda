@@ -35,6 +35,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ClassifierTemplateParameter;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Dependency;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -262,7 +263,10 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsArrayType()
     {
-        return this.handleGetFullyQualifiedName(true).endsWith(this.getArraySuffix());
+        // try both the mapped name and the implementation name, since byte[] is mapped to Blob
+        final String name =  this.handleGetFullyQualifiedName(true);
+        final String suffix = this.getArraySuffix();
+        return name.endsWith(suffix) || this.handleGetFullyQualifiedName(true).endsWith(suffix);
     }
 
     /*
@@ -743,8 +747,8 @@ public class ClassifierFacadeLogicImpl
     protected List<AttributeFacade> handleGetAttributes(final boolean follow)
     {
         return this.shieldedElements(UmlUtilities.getAttributes(
-                this.metaObject,
-                follow));
+            this.metaObject,
+            follow));
     }
 
     /**
@@ -896,6 +900,16 @@ public class ClassifierFacadeLogicImpl
     protected List<AssociationEndFacade> handleGetAssociationEnds()
     {
         return this.shieldedElements(UmlUtilities.getAssociationEnds(this.metaObject, false));
+    }
+
+    /**
+     * @return Owner of this Classifier. Used to distinguish between a regular class
+     * and a TemplateParameter Class/Interface/Type
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
+     */
+    protected Element getOwner()
+    {
+        return this.metaObject.getOwner();
     }
 
     /**
@@ -1252,7 +1266,6 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsAssociationClass()
     {
-        // TODO: Check it's working.
         return AssociationClass.class.isAssignableFrom(this.metaObject.getClass());
     }
 

@@ -62,7 +62,7 @@ public class EnumerationFacadeLogicImpl
     {
         // To Check: could be sufficient to return the collection of literals only
         //           without filtering
-        final Collection<? extends ModelElementFacade> literals = 
+        final Collection<? extends ModelElementFacade> literals =
             this.metaObject instanceof Enumeration
             ? ((Enumeration)this.metaObject).getOwnedLiterals()
             : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER);
@@ -167,7 +167,7 @@ public class EnumerationFacadeLogicImpl
             final ModelElementFacade literal = (ModelElementFacade)literals.iterator().next();
             if (literal instanceof AttributeFacade)
             {
-                type = ((AttributeFacade)literals.iterator().next()).getType();
+                type = ((AttributeFacade)literal).getType();
             }
             else
             {

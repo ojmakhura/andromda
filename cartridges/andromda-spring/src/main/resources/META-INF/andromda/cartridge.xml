@@ -431,6 +431,7 @@
         </modelElements>
     </template>
 
+    <!-- Should not generate both services and server PrincipalStore because of different $richClient value, but it does -->
     <template
         path="templates/spring/SpringPrincipalStore.java.vsl"
         outputPattern="$generatedFile"
@@ -463,7 +464,6 @@
             </modelElement>
         </modelElements>
     </template>
-
 
     <template
         path="templates/spring/SpringServiceImpl.vsl"
@@ -809,6 +809,20 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="richClient">true</property>
                 </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/hibernate/H2.java.vsl"
+        outputPattern="org/andromda/dbtest/H2.java"
+        outlet="server-test"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true">
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>

@@ -4,8 +4,12 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import org.andromda.core.common.ExceptionUtils;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -200,6 +204,94 @@ public class EntityMetafacadeUtils
     }
 
     /**
+     * Puts non-abstract entities in order based on associations. To be used in constructors and
+     * tests so that entities may be created and deleted in the proper order, without
+     * violating key constraints in the database
+     *
+     * @param entities the entity list to be sorted.
+     * @param ascending true for entities with no associations first.
+     * @return the sorted entity list.
+     */
+    public static List<Entity> sortEntities(
+        final Collection<Entity> entities,
+        boolean ascending)
+    {
+        // Initially holds entities with no outgoing relations. Add related entities to the end
+        List<Entity> sorted = new ArrayList<Entity>();
+        // Holds entities with relations after first pass. Second pass sorts the entities
+        List<Entity> unsorted = new ArrayList<Entity>();
+        if (entities != null)
+        {
+            for (Entity entity : entities)
+            {
+                // We won't be testing or creating abstract entities
+                if (!entity.isAbstract())
+                {
+                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    // Put the entities with no associations first in the sorted list
+                    if (ends.size()==0)
+                    {
+                        sorted.add(entity);
+                        //System.out.println(entity.getName() + " No associations");
+                    }
+                    else
+                    {
+                        unsorted.add(entity);
+                    }
+                }
+            }
+            for (Entity entity : unsorted)
+            {
+                if (!entity.isAbstract())
+                {
+                    Collection<AssociationEndFacade> ends = entity.getAssociationEnds();
+                    // Test each association to see if incoming or outgoing. sort outgoing before incoming.
+                    //for (AssociationEndFacade end : ends)
+                    for (AssociationEndFacade end : ends)
+                    {
+                        AssociationEndFacade otherEnd = end.getOtherEnd();
+                        if (end.isNavigable() && end.getType() instanceof Entity)
+                        {
+                            // otherEnd is actually the association/type on this entity
+                            Entity entityEnd = (Entity)end.getType();
+                            // Incoming relations are sorted after other entities
+                            // Aggregation and Composition always owns the end
+                            // One to Many association many end comes last
+                            int thisPosition = unsorted.lastIndexOf(entity);
+                            int referencedPosition = unsorted.lastIndexOf(entityEnd);
+                            // Special case: 1to1 with one end marked as primary. Hibernate cartridge specific.
+                            boolean primary = BooleanUtils.toBoolean(
+                                ObjectUtils.toString(end.findTaggedValue("andromda_persistence_associationEnd_primary")));
+                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " primary=" + primary + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
+                            //System.out.println(entity.getName() + "=" + thisPosition + " " + entityEnd.getName() + "=" + referencedPosition + " prop=" + end.getName() + " AggE=" + end.isAggregation() + " CompE=" + end.isComposition() + " Agg=" + otherEnd.isAggregation() + " Comp=" + otherEnd.isComposition() + " Many=" + end.isMany() + " One2One=" + end.isOne2One() + " end=" + end + " other=" + otherEnd);
+                            if (!otherEnd.isAggregation() && !otherEnd.isComposition() &&
+                                (!end.isMany() || end.isOne2One()))
+                            {
+                                if (!end.isOne2One() || !primary)
+                                {
+                                    if (thisPosition > -1 && referencedPosition > -1 && referencedPosition > thisPosition)
+                                    {
+                                        // Swap the locations of the two List entries if referenced entity is higher in the list
+                                        unsorted.set(referencedPosition, entity);
+                                        unsorted.set(thisPosition, entityEnd);
+                                        //System.out.println(entity.getName() + " swapped with " + entityEnd.getName());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            sorted.addAll(unsorted);
+        }
+        if (!ascending)
+        {
+            Collections.reverse(sorted);
+        }
+        return sorted;
+    }
+
+    /**
      * <p/> Trims the passed in value to the maximum name length.
      * </p>
      * If no maximum length has been set then this method does nothing.
@@ -250,10 +342,17 @@ public class EntityMetafacadeUtils
             UMLProfile.STEREOTYPE_IDENTIFIER);
         final Collection<EntityAttribute> identifiers = new ArrayList<EntityAttribute>();
         identifiers.addAll(attributes);
+        /*final Collection<AssociationEndFacade> associations = new ArrayList<AssociationEndFacade>(entity.getNavigableConnectingEnds(follow));
+        MetafacadeUtils.filterByStereotype(
+                associations,
+                UMLProfile.STEREOTYPE_IDENTIFIER);
+        identifiers.addAll(associations);*/
 
-        return (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity
-            ? getIdentifiers((Entity)entity.getGeneralization(), follow)
-            : identifiers);
+        if (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity)
+        {
+            identifiers.addAll(getIdentifiers((Entity)entity.getGeneralization(), follow));
+        }
+        return identifiers;
     }
 
     /**

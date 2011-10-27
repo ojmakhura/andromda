@@ -42,6 +42,7 @@
             <element name="UNIQUE">
                 <documentation>
                     Denotes an attribute to be unique among all possible instances of the underlying entity.
+                    In UML2, the attribute 'Unique' property=true has the same effect.
                 </documentation>
                 <value>Unique</value>
                 <appliedOnElement>Entity attribute</appliedOnElement>
@@ -77,6 +78,7 @@
             <element name="EXCEPTION_REF">
                 <documentation>
                     Indicates that the target is an exception which is thrown by the method.
+                    Deprecated: In UML2, design the operation to throw the declared exceptions instead of drawing a dependency.
                 </documentation>
                 <value>ExceptionRef</value>
                 <appliedOnElement>dependency</appliedOnElement>
@@ -84,6 +86,7 @@
             <element name="ENUMERATION">
                 <documentation>
                     This class will instruct the generation of a type-safe enumeration class.
+                    Deprecated: Use UML Enumeration types instead of the stereotype.
                 </documentation>
                 <value>Enumeration</value>
                 <appliedOnElement>class</appliedOnElement>
@@ -121,6 +124,7 @@
             <element name="NULLABLE">
                 <documentation>
                     Indicates a service operation argument may be left unspecified (eg. Java <code>null</code>).
+                    Deprecated: Use the parameter multiplicity lowerBound=0 instead
                 </documentation>
                 <value>Nullable</value>
                 <appliedOnElement>Service operation parameter</appliedOnElement>

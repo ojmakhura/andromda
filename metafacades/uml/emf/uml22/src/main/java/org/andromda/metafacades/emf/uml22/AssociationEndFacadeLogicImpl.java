@@ -234,6 +234,7 @@ public class AssociationEndFacadeLogicImpl
             final TypeMappings mappings = this.getLanguageMappings();
             if (mappings != null)
             {
+                // TODO Use 'Unique' attribute to determine List/Set type
                 name = mappings.getTo(this.isOrdered() ? UMLProfile.LIST_TYPE_NAME : UMLProfile.COLLECTION_TYPE_NAME);
             }
 
@@ -360,11 +361,36 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * Override to change public to private, since we provide accessors in generated code
+     * Allows for protected, package level visibility in the model
+     * @return String visibility
+     */
+    @Override
+    protected String handleGetVisibility()
+    {
+        String visibility = super.handleGetVisibility();
+        if (visibility==null || visibility.equals("private"))
+        {
+            visibility = "public";
+        }
+        return visibility;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isDerived()
      */
     @Override
     protected boolean handleIsDerived()
     {
         return this.metaObject.isDerived();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isStatic()
+     */
+    //@Override
+    protected boolean isStatic()
+    {
+        return this.metaObject.isStatic();
     }
 }

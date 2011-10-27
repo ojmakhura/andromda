@@ -98,19 +98,25 @@ public class ModelElementFacadeLogicImpl
             final NamedElement element = (NamedElement)this.metaObject;
             final VisibilityKind kind = element.getVisibility();
             String visibility = null;
-            if (kind.equals(VisibilityKind.PACKAGE_LITERAL))
+            if (kind.equals(VisibilityKind.PUBLIC_LITERAL))
             {
-                visibility = "package";
+                visibility = "public";
             }
-            if (kind.equals(VisibilityKind.PRIVATE_LITERAL))
+            else if (kind.equals(VisibilityKind.PRIVATE_LITERAL))
             {
                 visibility = "private";
             }
-            if (kind.equals(VisibilityKind.PROTECTED_LITERAL))
+            else if (kind.equals(VisibilityKind.PROTECTED_LITERAL))
             {
                 visibility = "protected";
             }
-            if (kind.equals(VisibilityKind.PUBLIC_LITERAL))
+            else if (kind.equals(VisibilityKind.PACKAGE_LITERAL))
+            {
+                // So that we can use $attribute.visibility without having to remove the 'package' qualifier
+                //visibility = "package";
+                visibility = "";
+            }
+            else
             {
                 visibility = "public";
             }
@@ -119,6 +125,7 @@ public class ModelElementFacadeLogicImpl
             {
                 visibility = languageMappings.getTo(visibility);
             }
+            // Attribute and Associations change visibility from private to public, instead of throwing an error. Get/Set should still be public.
             return visibility;
         }
         return null;
@@ -1119,14 +1126,10 @@ public class ModelElementFacadeLogicImpl
                         throw new IllegalStateException("The size of the arguments of the BindingFacace must be equals to the size of the TemplateParameter collection of this element.");
                     }
 
-                    final Iterator<TemplateParameterFacade> templateParametersIterator = templateParameters.iterator();
                     final Iterator<TemplateArgumentFacade> templateArgumentsIterator = arguments.iterator();
-
-                    while(templateParametersIterator.hasNext())
+                    for (final TemplateParameterFacade templateParameter : templateParameters)
                     {
-                        final TemplateParameterFacade templateParameter = templateParametersIterator.next();
-                        final TemplateArgumentFacade templateArgument =  templateArgumentsIterator.next();
-                        bindedParameters.put(templateParameter, templateArgument.getElement());
+                        bindedParameters.put(templateParameter, templateArgumentsIterator.next().getElement());
                     }
                 }
             }
@@ -1134,7 +1137,10 @@ public class ModelElementFacadeLogicImpl
             {
                 for(TemplateParameterFacade templateParameterFacade : templateParameters)
                 {
-                    bindedParameters.put(templateParameterFacade, templateParameterFacade.getParameter());
+                    if (templateParameterFacade != null)
+                    {
+                        bindedParameters.put(templateParameterFacade, templateParameterFacade.getParameter());
+                    }
                 }
             }
 
@@ -1146,21 +1152,34 @@ public class ModelElementFacadeLogicImpl
             // outer condition)
             for (final Iterator<TemplateParameterFacade> parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
             {
-                final ModelElementFacade modelElement = bindedParameters.get(parameterIterator.next());
-
-                // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
-                // Mapping from UML2 should return ParameterFacade, with a getType method.
-                // Add TemplateParameterFacade.getType method - need to access this in vsl templates.
-                if (modelElement instanceof ParameterFacade)
+                TemplateParameterFacadeLogicImpl parameter = (TemplateParameterFacadeLogicImpl)parameterIterator.next();
+                if (parameter == null)
                 {
-                    buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
+                    ModelElementFacadeLogicImpl.LOGGER.error("TemplateParameter was null");
+                }
+                if (parameter != null && parameter.getType() != null)
+                {
+                    String typeName = parameter.getType().getFullyQualifiedName();
+                    /*final ModelElementFacade modelElement = bindedParameters.get(parameterIterator.next());
+
+                    // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
+                    // Mapping from UML2 should return ParameterFacade, with a getType method.
+                    // Add TemplateParameterFacade.getType method - need to access this in vsl templates.
+                    if (modelElement instanceof ParameterFacade)
+                    {
+                        buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
+                    }
+                    else
+                    {*/
+                        buffer.append(typeName);
+                    //}
+
+                    if (parameterIterator.hasNext())
+                    {
+                        buffer.append(", ");
+                    }
                 }
                 else
-                {
-                    buffer.append(modelElement.getFullyQualifiedName());
-                }
-
-                if (parameterIterator.hasNext())
                 {
                     buffer.append(", ");
                 }
