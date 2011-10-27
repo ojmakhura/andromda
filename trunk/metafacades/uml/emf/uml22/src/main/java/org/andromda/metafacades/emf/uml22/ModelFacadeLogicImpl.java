@@ -1,9 +1,11 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -317,11 +319,24 @@ public class ModelFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelFacade#getAllClasses()
      */
     @Override
-    protected List<Class> handleGetAllClasses()
+    protected List<ClassifierFacade> handleGetAllClasses()
     {
-        return (List<Class>) UmlUtilities.getAllMetaObjectsInstanceOf(
+        List<ClassifierFacade> facades = new ArrayList<ClassifierFacade>();
+        List<Class> classes = (List<Class>) UmlUtilities.getAllMetaObjectsInstanceOf(
             Class.class,
             UmlUtilities.getModels());
+        // Some examples where UML2 Class does not map to andromda ClassifierFacade:
+        // ActivityImpl -> EventFacadeLogicImpl
+        // Must filter out classes that don't map correctly, we just want Classes and Datatypes and Interfaces
+        for (Class metaClass : classes)
+        {
+            MetafacadeBase metafacade = this.shieldedElement(metaClass);
+            if (metafacade instanceof ClassifierFacade)
+            {
+                facades.add((ClassifierFacade) metafacade);
+            }
+        }
+        return facades;
     }
 
     /**

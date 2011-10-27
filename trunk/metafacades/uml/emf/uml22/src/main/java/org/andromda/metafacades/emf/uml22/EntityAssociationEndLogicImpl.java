@@ -230,4 +230,13 @@ public class EntityAssociationEndLogicImpl
         final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_UNIQUE_GROUP);
         return group == null ? null : StringUtils.trimToEmpty(group);
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#isIdentifier()
+     */
+    //@Override
+    protected boolean isIdentifier()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
+    }
 }

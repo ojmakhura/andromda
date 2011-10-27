@@ -76,6 +76,7 @@ public class AttributeFacadeLogicImpl
         if (StringUtils.isNotBlank(defaultValue) && !this.isMany())
         {
             final String typeName = this.metaObject.getType().getName();
+            final String fullyQualifiedName = this.handleGetFullyQualifiedName();
             if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
@@ -84,6 +85,10 @@ public class AttributeFacadeLogicImpl
                 && defaultValue.indexOf('\'')<0)
             {
                 defaultValue = "'" + defaultValue.charAt(0) + '\'';
+            }
+            else if (fullyQualifiedName.startsWith("java.lang") && defaultValue.indexOf(".valueOf(")<0)
+            {
+                defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ')';
             }
         }
         if (defaultValue==null) {defaultValue="";}
@@ -228,6 +233,7 @@ public class AttributeFacadeLogicImpl
         {
             final TypeMappings mappings = this.getLanguageMappings();
             //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
+            // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
             /*if (this.handleIsUnique())
             {
                 name =
@@ -432,6 +438,22 @@ public class AttributeFacadeLogicImpl
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
             this.getType(),
             ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+    }
+
+    /**
+     * Override to change private to public, since we provide accessors in generated code
+     * Allows for protected, package level visibility of accessors/mutators in the model
+     * @return String visibility
+     */
+    @Override
+    protected String handleGetVisibility()
+    {
+        String visibility = super.handleGetVisibility();
+        if (visibility==null || visibility.equals("private"))
+        {
+            visibility = "public";
+        }
+        return visibility;
     }
 
     /**

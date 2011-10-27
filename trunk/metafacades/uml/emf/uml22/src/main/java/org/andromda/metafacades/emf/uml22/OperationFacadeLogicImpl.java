@@ -766,6 +766,22 @@ public class OperationFacadeLogicImpl
     }
 
     /**
+     * Override to change private to public, since it makes no sense to have private operations in generated code
+     * Allows for protected, package level visibility of operations in the model
+     * @return String visibility
+     */
+    @Override
+    protected String handleGetVisibility()
+    {
+        String visibility = super.handleGetVisibility();
+        if (visibility==null || visibility.equals("private"))
+        {
+            visibility = "public";
+        }
+        return visibility;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.OperationFacade#isOverriding()
      */
     @Override
