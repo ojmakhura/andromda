@@ -61,10 +61,10 @@ public class $className
     /**
 $parameter.getDocumentation("     * ")
      */
-#if (($paramType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($paramType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($paramType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($paramType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($paramType.equals("Decimal") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($paramType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
+#if (($paramType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($paramType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($paramType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($paramType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($paramType.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($paramType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
 ##set ($elementType=", type=String.class")
     @javax.xml.bind.annotation.XmlElement(#if ($parameter.required)required = true,#end type = String.class)
-    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($paramType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($paramType.equals("Time"))${XMLTimeAdapter}#elseif($paramType.equals("Date"))${XMLDateAdapter}#elseif($paramType.equals("Integer"))${XMLIntegerAdapter}#elseif($paramType.equals("Decimal"))${XMLDecimalAdapter}#elseif($paramType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
+    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($paramType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($paramType.equals("Time"))${XMLTimeAdapter}#elseif($paramType.equals("Date"))${XMLDateAdapter}#elseif($paramType.equals("Integer"))${XMLIntegerAdapter}#elseif($paramType.equals("Double"))${XMLDecimalAdapter}#elseif($paramType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
 ##set ($schemaType=$operation.returnType.schemaType.substring(0,9))
     @javax.xml.bind.annotation.XmlSchemaType(name = "$parameter.type.schemaType.substring(3)")
 #else
