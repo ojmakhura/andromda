@@ -4,7 +4,6 @@
 //
 package org.andromda.timetracker.service.test;
 
-//import org.andromda.timetracker.test.EJB3Container;
 import org.andromda.timetracker.test.EJB3Container;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -32,7 +32,7 @@ Customize as necessary - it is generated once only, when the project is created.
   <path id="project.classpath">
     <path refid="cxf.classpath"/>
     <pathelement location="${m2repo}/log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
-    <pathelement location="${m2repo}/junit/junit/4.9/junit-4.9.jar"/>
+    <pathelement location="${m2repo}/junit/junit/4.10/junit-4.10.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
