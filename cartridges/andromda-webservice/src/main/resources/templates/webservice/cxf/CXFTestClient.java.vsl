@@ -37,6 +37,7 @@ public class ${service.name}WSITCase
     public ${service.name}WSITCase()
     {
         super();
+        this.setName("${service.name}WSITCase");
     }
 
     /*
@@ -160,7 +161,7 @@ $operation.getDocumentation("    * ")
 ##        throws $operation.exceptionList
 ##end
     {
-        System.out.println("Starting test: ${operation.name} for " + this.getName() + " for " + "${service.name}Client");
+        System.out.println("Starting test: ${operation.name} for " + this.getName());
         // TestCase.setUp and tearDown methods for each individual service method test
 #set ($inputType = "${service.packageName}.$stringUtils.capitalize($operation.name)")
         ${inputType}Impl.${operation.name}SetUp();
@@ -219,10 +220,22 @@ $operation.getDocumentation("    * ")
 #set ($securityClassName = "${webServiceUtils.getPackageName($securityNamespace)}.$securityElementName")
                 ${comma} new ${securityClassName}()  // WSSecurity securityElementName
 #end
-                );
-            System.out.println(" Result = " + ${operation.operationName}Response#if (!$operation.returnType.primitive && !$operation.many).toString()#end);
+            );
+#if ($operation.returnType.primitive)
+            System.out.println(" Result = " + ${operation.operationName}Response);
 #else
-        try {
+            if (${operation.operationName}Response==null)
+            {
+                System.out.println("${operation.operationName}Response Result was valid and null");
+            }
+            else
+            {
+                System.out.println(" Result = " + ${operation.operationName}Response.toString());
+            }
+#end
+#else
+        try
+        {
             client.${operation.name}(
 #set ($comma = "")
 #foreach ($argument in $operation.arguments)
@@ -260,7 +273,7 @@ $operation.getDocumentation("    * ")
         }
         catch (Exception ex)
         {
-            System.out.println("${service.name} port.${operation.name}" + " threw exception " + ex);
+            System.out.println("${service.name} client.${operation.name}" + " threw exception " + ex);
 #if ($operation.exceptions.empty)
             throw new junit.framework.AssertionFailedError(ex.toString());
 #end

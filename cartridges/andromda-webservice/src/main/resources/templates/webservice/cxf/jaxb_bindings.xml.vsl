@@ -207,15 +207,15 @@
 #end
 #end
 #if ($stringUtils.isNotBlank($XMLDecimalAdapter))
-#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("Decimal") || $webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("java.lang.Decimal"))
+#if ($webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("Double") || $webServiceUtils.getTypeMapping($service.languageMappings, "Decimal").equals("java.lang.Double"))
         <!-- Default XJC binding is BigInteger, must match java cartridge mapping -->
 #if ($cxfVersion.startsWith("2.0"))
         <!-- Requires custom developed datatype bindings -->
-        <!--xjc:javaType xmlType="xs:decimal" name="Decimal"
+        <!--xjc:javaType xmlType="xs:decimal" name="Double"
                       parseMethod="com.xxx.DatatypeConverter.parseDecimal"
                       printMethod="com.xxx.DatatypeConverter.printDecimal"/-->
 #else
-        <xjc:javaType xmlType="xs:decimal" name="Decimal" adapter="$XMLDecimalAdapter"/>
+        <xjc:javaType xmlType="xs:decimal" name="Double" adapter="$XMLDecimalAdapter"/>
 #end
 #end
 #end

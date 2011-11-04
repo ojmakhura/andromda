@@ -85,9 +85,9 @@ public class ${className}Response
 #end
 #set ($setOperation="set$stringUtils.capitalize($returnName)")
 ##set ($type=$stringUtils.substring($operation.returnType.name, 0, 9))
-#if (($returnType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($returnType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($returnType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($returnType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($returnType.equals("Decimal") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($returnType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
+#if (($returnType.equals("DateTime") && $stringUtils.isNotBlank(${XMLDateTimeAdapter})) || ($returnType.equals("Time") && $stringUtils.isNotBlank(${XMLTimeAdapter}))|| ($returnType.equals("Date") && $stringUtils.isNotBlank(${XMLDateAdapter}))|| ($returnType.equals("Integer") && $stringUtils.isNotBlank(${XMLIntegerAdapter}))|| ($returnType.equals("Double") && $stringUtils.isNotBlank(${XMLDecimalAdapter}))|| ($returnType.equals("Boolean") && $stringUtils.isNotBlank(${XMLBooleanAdapter})))
     @XmlElement(name = "$returnName", type = String.class, required = true)
-    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($returnType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($returnType.equals("Time"))${XMLTimeAdapter}#elseif($returnType.equals("Date"))${XMLDateAdapter}#elseif($returnType.equals("Integer"))${XMLIntegerAdapter}#elseif($returnType.equals("Decimal"))${XMLDecimalAdapter}#elseif($returnType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
+    @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(#if ($returnType.equals("DateTime"))${XMLDateTimeAdapter}#elseif($returnType.equals("Time"))${XMLTimeAdapter}#elseif($returnType.equals("Date"))${XMLDateAdapter}#elseif($returnType.equals("Integer"))${XMLIntegerAdapter}#elseif($returnType.equals("Double"))${XMLDecimalAdapter}#elseif($returnType.equals("Boolean"))${XMLBooleanAdapter}#end.class)
 ## Remove the beginning xs: from schema type
     @javax.xml.bind.annotation.XmlSchemaType(name = "$operation.returnType.schemaType.substring(3)")
 #else
