@@ -15,10 +15,9 @@
     <description>The top level module for all AndroMDA documentation</description>
     <modules>
         <module>samples/timetracker</module>
-        <!-- Can't seem to find the JBoss dependencies in JBoss repository for download-->
         <module>samples/timetracker-ejb3</module>
-        <!-- Model fixes needed: No Webservices generated-->
-        <module>samples/demo-ejb3</module>
+        <!-- Need jbossws-client 4.0.5-GA: Deprecated org.jboss.ws.annotation.PortComponent
+        <module>samples/demo-ejb3</module-->
         <module>getting-started-java</module>
         <module>getting-started-dotnet</module>
         <module>steps-to-write-a-cartridge</module>

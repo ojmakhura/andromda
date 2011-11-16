@@ -261,22 +261,16 @@
                 <version>4.2.2.GA</version>
                 <scope>provided</scope>
             </dependency>
-            <!--dependency>
-                <groupId>hibernate-entitymanager</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>3.3.2.GA</version>
-                <scope>provided</scope>
-            </dependency-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>3.6.8.Final</version>
+                <version>${hibernate.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
-                <version>3.6.8.Final</version>
+                <version>${hibernate.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.transaction</groupId>
@@ -756,7 +750,7 @@
         <application.version>${project.version}</application.version>
         <dataSource.name>jdbc/${application.id}</dataSource.name>
         <dataSource>java:/${dataSource.name}</dataSource>
-        <hibernate.version>3.6.7.Final</hibernate.version>
+        <hibernate.version>3.6.8.Final</hibernate.version>
         <spring.version>3.0.6.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
