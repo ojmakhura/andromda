@@ -36,7 +36,7 @@ Customize as necessary - it is generated once only, when the project is created.
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"/>
     <pathelement location="${m2repo}/commons-beanutils/commons-beanutils-core/1.8.3/commons-beanutils-1.8.3.jar"/>
 #if ($spring || $hibernate)
-    <pathelement location="${m2repo}/org/hibernate/hibernate/3.6.7.Final/hibernate-3.6.7.Final.jar"/>
+    <pathelement location="${m2repo}/org/hibernate/hibernate/3.6.8.Final/hibernate-3.6.8.Final.jar"/>
     <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
 #elseif ($cxf)
     <pathelement location="${m2repo}/org/springframework/spring/${spring.version}/spring-${spring.version}.jar"/>
