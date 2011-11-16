@@ -432,7 +432,7 @@
                 <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
                 <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
                 <property name="webserviceHost">localhost</property>
-                <property name="webservicePort">8080</property>
+                <property name="webservicePort">9090</property>
                 <property name="webContext">${application.id}-webservice</property>
                 <property name="servicesPath">services</property>
                 <!-- Creates default/dummy implementation for service, iterating down through parameter hierarchy -->

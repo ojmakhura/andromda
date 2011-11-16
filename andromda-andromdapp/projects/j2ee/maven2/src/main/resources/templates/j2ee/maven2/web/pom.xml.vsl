@@ -438,6 +438,12 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
+                    <connectors>
+                       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                          <port>9090</port>
+                          <maxIdleTime>60000</maxIdleTime>
+                       </connector>
+                    </connectors>
                     <webAppSourceDirectory>${project.basedir}/target/src/main/webapp</webAppSourceDirectory>
                     <webAppConfig>
                         <contextPath>/${application.id}-${project.version}</contextPath>
@@ -466,9 +472,6 @@
                     </execution>
                 </executions>
             </plugin#if (!$embeddedJetty)--#end>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 </project>
