@@ -459,7 +459,7 @@
         <webservice.test.dir>${project.basedir}/../webservice/src/test/java</webservice.test.dir>
 #end
         <webservice.host>localhost</webservice.host>
-        <webservice.port>8080</webservice.port>
+        <webservice.port>9090</webservice.port>
 #end
 #if ($ejb3)
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>

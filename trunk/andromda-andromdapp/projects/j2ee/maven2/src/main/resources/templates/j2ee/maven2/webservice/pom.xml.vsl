@@ -197,6 +197,8 @@
                 </configuration>
             </plugin>
             <!-- See http://wiki.eclipse.org/Jetty/Reference and http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+            <!-- If you see ClassNotFoundException: org.springframework.web.context.ContextLoaderListener
+                and are running maven2, switch jetty.version to 7.x. v8 requires maven3 -->
 #if ($embeddedJetty)
             <plugin>
 #else
@@ -205,6 +207,12 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
+                    <connectors>
+                       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                          <port>9090</port>
+                          <maxIdleTime>60000</maxIdleTime>
+                       </connector>
+                    </connectors>
                     <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
                     <webAppConfig>
                         <overrideDescriptor>${project.basedir}/src/main/webapp/WEB-INF/web.xml</overrideDescriptor>
