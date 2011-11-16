@@ -56,18 +56,18 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-        </dependency-->
-        <dependency>
+        </dependency>
+        <!--dependency>
             <groupId>hibernate-entitymanager</groupId>
             <artifactId>ejb3-persistence</artifactId>
-        </dependency>
+        </dependency-->
         <!--dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.6.4.Final</version>
+            <version>3.6.8.Final</version>
             <scope>test</scope>
         </dependency-->
         <!--dependency>
@@ -97,15 +97,15 @@
             <type>pom</type>
         </dependency-->
         <dependency>
-       	    <groupId>org.jboss.microcontainer</groupId>
+       	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
        	    <artifactId>hibernate-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
         </dependency>
         <dependency>
-      	    <groupId>org.jboss.microcontainer</groupId>
+      	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
        	    <artifactId>thirdparty-all</artifactId>
         </dependency>
         <!--dependency>
