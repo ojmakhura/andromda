@@ -37,41 +37,42 @@
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-ejb3x</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>hibernate-entitymanager</groupId>
             <artifactId>ejb3-persistence</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-annotations-ejb3</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-remoting</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aop-jdk50-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
+        <!--dependency>
+            <groupId>jboss</groupId>
             <artifactId>jboss-aspect-jdk50-client</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jbossws-client</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-client</artifactId>-->
-<!--        </dependency>-->
+<!--        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-client</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -89,12 +90,16 @@
        	    <artifactId>hibernate-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.microcontainer</groupId>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
+            <version>1.0.0.Alpha9</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-      	    <groupId>org.jboss.microcontainer</groupId>
+      	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
        	    <artifactId>thirdparty-all</artifactId>
+            <version>1.0.0.Alpha9</version>
+            <scope>test</scope>
         </dependency-->
         <dependency>
             <groupId>org.testng</groupId>

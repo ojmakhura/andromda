@@ -41,15 +41,15 @@
                     <artifactId>ehcache</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.jboss.microcontainer</groupId>
+                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
                     <artifactId>hibernate-all</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.jboss.microcontainer</groupId>
+                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
                     <artifactId>jboss-ejb3-all</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.jboss.microcontainer</groupId>
+                    <groupId>jboss.jboss-embeddable-ejb3</groupId>
                     <artifactId>thirdparty-all</artifactId>
                 </exclusion>
             </exclusions>
