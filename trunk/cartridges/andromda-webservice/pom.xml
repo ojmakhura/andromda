@@ -52,10 +52,11 @@
             <scope>provided</scope>
         </dependency>
         <!-- Axis2 Dependencies -->
+        <!-- Update version causes dependency convergence error, since webservice-client project requires migration -->
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2</artifactId>
-            <version>1.6.1</version>
+            <version>1.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
