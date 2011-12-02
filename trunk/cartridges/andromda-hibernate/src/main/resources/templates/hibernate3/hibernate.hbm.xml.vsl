@@ -1,4 +1,4 @@
-#if (!$hibernateEntityAnnotations)
+#if(!$hibernateUtils.version2 && !$hibernateEntityAnnotations)
 #parse("templates/hibernate3/hibernate.hbm.xml.vm")
 #set ($generatedFile = "${entity.packagePath}/${entity.entityName}.hbm.xml")
 <?xml version="1.0" encoding="$xmlEncoding"?>

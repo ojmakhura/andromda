@@ -374,7 +374,8 @@ public class HibernateAssociationEndLogicImpl
         String outerValue = StringUtils.trimToEmpty(String.valueOf(value));
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
 
-        if (StringUtils.isBlank(version) || version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
+        if (StringUtils.isBlank(version) || version.equals(HibernateGlobals.HIBERNATE_VERSION_3)
+            || version.equals(HibernateGlobals.HIBERNATE_VERSION_4))
         {
             outerValue =
                 (outerValue.equals(HIBERNATE_OUTER_JOIN_AUTO) || outerValue.equals(HIBERNATE_OUTER_JOIN_YES))

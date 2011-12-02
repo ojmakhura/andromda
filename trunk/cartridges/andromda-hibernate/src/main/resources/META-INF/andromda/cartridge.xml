@@ -304,9 +304,7 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="version">3</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -320,9 +318,7 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="entities">
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="version">3</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -336,9 +332,7 @@
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="version">3</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -352,9 +346,7 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="entities">
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="version">3</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -368,9 +360,7 @@
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
-                    <property name="version">3</property>
-                </type>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -384,7 +374,6 @@
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
                     <property name="requiresMapping"/>
-                    <property name="version">3</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -398,7 +387,6 @@
         <modelElements variable="enumeration">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EnumerationFacade">
-                    <property name="version">3</property>
                     <property name="typeSafe">false</property>
                 </type>
             </modelElement>
@@ -415,7 +403,6 @@
         <modelElements variable="enumeration">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EnumerationFacade">
-                    <property name="version">3</property>
                     <property name="typeSafe">true</property>
                 </type>
             </modelElement>
