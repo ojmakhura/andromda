@@ -969,6 +969,7 @@ public abstract class $entity.daoBaseName
     {
         this.emanager = emanagerIn;
     }
+#if ($hibernateExtensionEnabled)
 
     /**
      * @return the hibernateSession
@@ -985,5 +986,6 @@ public abstract class $entity.daoBaseName
     {
         this.hibernateSession = hibernateSessionIn;
     }
+#end
 }
 #end
