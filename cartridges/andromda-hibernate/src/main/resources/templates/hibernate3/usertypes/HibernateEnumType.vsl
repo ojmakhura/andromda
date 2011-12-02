@@ -1,3 +1,4 @@
+#if(!$hibernateUtils.version2)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -213,3 +214,4 @@ public class $className implements EnhancedUserType, ParameterizedType
         return ((Enum)value).name();
     }
 }
+#end

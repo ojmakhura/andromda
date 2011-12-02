@@ -1,3 +1,4 @@
+#if(!$hibernateUtils.version2)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -190,3 +191,4 @@ public final class $enumeration.enumerationName
         return ${enumeration.fullyQualifiedName}.${enumeration.fromOperationName}($value);
     }
 }
+#end

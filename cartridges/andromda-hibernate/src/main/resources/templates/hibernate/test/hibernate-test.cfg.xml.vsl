@@ -1,3 +1,4 @@
+#if(!$hibernateUtils.version2)
 <?xml version="1.0" encoding="$xmlEncoding"?>
 <!--
      Attention: Generated code! Do not modify by hand!
@@ -103,3 +104,4 @@
 #end
     </session-factory>
 </hibernate-configuration>
+#end

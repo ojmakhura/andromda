@@ -287,8 +287,8 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateInheritanceUnionSubClass()
     {
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
-        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3)) &&
-        this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
+        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3) || version.equals(HibernateGlobals.HIBERNATE_VERSION_4))
+            && this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
     }
 
     /**
