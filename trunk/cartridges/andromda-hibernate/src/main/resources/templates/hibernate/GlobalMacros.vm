@@ -152,7 +152,7 @@
 #elseif ($identifiers.size()==1)
 #set ($getter = "${identifiers.get(0).getterName}()")
 ## Assume numeric identifier if primitive
-#if ($identifier.type.primitive)
+#if ($identifiers.get(0).type.primitive)
         if (this.$getter > 0)
         {
             cmp = this.${getter} - o.${getter};
