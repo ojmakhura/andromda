@@ -336,6 +336,9 @@ public final class $manageable.manageableDaoBaseName
         final java.util.Set<${member.type.fullyQualifiedName}> $memberEntityName = ($member.name != null && ${member.name}.length > 0)
             ? this.find${member.type.name}ByIds($member.name)
             : java.util.Collections.EMPTY_SET;
+
+        entity.${member.getterName}().clear();
+        entity.${member.getterName}().addAll($memberEntityName);
 #else
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
@@ -343,9 +346,9 @@ public final class $manageable.manageableDaoBaseName
         {
             $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedIdentifierTypeName})#end$member.name);
         }
-#end
 
         entity.${member.setterName}($memberEntityName);
+#end
 
 #if ($member.many2many)
 #if ($member.otherEnd.navigable)
