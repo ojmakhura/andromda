@@ -124,7 +124,11 @@ public final class $enumeration.enumerationName
 #else
 #set ($typeName = $enumeration.literalType.fullyQualifiedName)
 #end
-            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)#if($typeName == "java.lang.Character" || $typeName == "Character" || $typeName == "char").charAt(0)#end));
+#if($typeName == "String" || $typeName == "java.lang.String" || $typeName == "java.lang.Character" || $typeName == "Character")
+            statement.setObject(index, String.valueOf(value));
+#else
+            statement.setObject(index, ${typeName}.valueOf(String.valueOf(value)));
+#end
         }
     }
 
