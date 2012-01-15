@@ -1028,12 +1028,12 @@
             <url>http://oss.sonatype.org/content/groups/public</url>
         </repository>
         <!-- There are still dependencies that need to be synched to maven central repo that are not proxied by Sonatype -->
-        <!--repository>
+        <repository>
             <id>andromda</id>
             <name>AndroMDA Repository</name>
             <url>http://www.andromda.org/maven2</url>
         </repository>
-        <repository>
+        <!--repository>
             <id>java.net</id>
             <name>Java.net</name>
             <url>http://download.java.net/maven/2/</url>
