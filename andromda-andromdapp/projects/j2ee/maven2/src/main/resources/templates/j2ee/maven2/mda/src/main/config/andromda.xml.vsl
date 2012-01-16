@@ -4,6 +4,7 @@
         <property name="modelValidation">${validation}</property>
         <property name="xmlValidation">true</property>
         <property name="failOnValidationErrors">true</property>
+        <property name="outputEncoding">ISO-8859-1</property>
         <!-- Comma separated list of cartridges to be processed by namespace name, such as java,webservice. Empty = true = process all -->
         <property name="cartridgeFilter">${filter}</property>
         <!-- Debug andromda processing using example log4j.xml file -->
@@ -117,6 +118,7 @@
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property -->
+                <property name="xmlEncoding">ISO-8859-1</property>
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">3</property>
