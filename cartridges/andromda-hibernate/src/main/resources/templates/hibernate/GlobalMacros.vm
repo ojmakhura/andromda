@@ -155,7 +155,21 @@
 #if ($identifiers.get(0).type.primitive)
         if (this.$getter > 0)
         {
-            cmp = this.${getter} - o.${getter};
+         if ( this.${getter} == o.${getter} )
+         {
+            cmp = 0;
+         }
+         else
+         {
+            if ( this.${getter} > o.${getter} )
+            {
+               cmp = 1;
+            }
+            else
+            {
+               cmp = -1;
+            }
+         }
         }
 #else
         if (this.$getter != null)
@@ -228,7 +242,7 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
     @javax.persistence.Id
 #*        *##if ($entity.sequenceHibernateGeneratorClass)
-    @javax.persistence.GeneratedValue(strategy=GenerationType.SEQUENCE, generator="${sequencePrefix}${entity.sequenceName}")
+    @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.SEQUENCE, generator="${sequencePrefix}${entity.sequenceName}")
     @javax.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
 #*        *##elseif ($attribute.generatorTypeTable)
     @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
