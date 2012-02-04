@@ -186,7 +186,7 @@
 #end
 #*  *##foreach ($attribute in $attributes)
 ##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
-#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType)
+#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
             if (this.${attribute.getterName}() != null)
             {
 #if ($attribute.many)
