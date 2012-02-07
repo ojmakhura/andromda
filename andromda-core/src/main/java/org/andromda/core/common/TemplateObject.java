@@ -48,6 +48,11 @@ public class TemplateObject
     private final Map<String, Object> objectCache = new HashMap<String, Object>();
 
     /**
+     * Defines the class should be used in a static way
+     */
+    private static final String STATIC_SUFFIX = ".class";
+    
+    /**
      * Returns the actuall object instance described by this
      * template object.
      *
@@ -65,8 +70,17 @@ public class TemplateObject
         {
             if (templateObject == null)
             {
-                final Class templateObjectClass = ClassUtils.loadClass(this.className);
-                templateObject = templateObjectClass.newInstance();
+                final Class templateObjectClass;
+                if(this.className.endsWith(STATIC_SUFFIX))
+                {
+                    templateObjectClass = ClassUtils.loadClass(StringUtils.substringBefore(this.className, STATIC_SUFFIX));
+                    templateObject = templateObjectClass; 
+                }
+                else
+                {
+                    templateObjectClass = ClassUtils.loadClass(this.className);
+                    templateObject = templateObjectClass.newInstance();
+                }
                 this.objectCache.put(this.className, templateObject);
             }
 
