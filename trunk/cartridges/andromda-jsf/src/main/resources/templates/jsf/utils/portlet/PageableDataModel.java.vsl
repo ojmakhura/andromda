@@ -92,7 +92,7 @@ public abstract class $className
     {
         int pageNumber = 1;
         int rowIndex = this.rowIndex + 1;
-        if (rowIndex >= this.pageSize)
+        if (rowIndex > this.pageSize)
         {
             pageNumber = this.rowIndex / this.pageSize;
             if ((rowIndex % this.pageSize) > 0)
