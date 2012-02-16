@@ -195,8 +195,9 @@ $action.trigger.getDocumentation("     * ")
             {
 #end
 #if ($formPopulationOperationRequired)
+#set ($formPopulateOverride = $icefaces && $action.useCaseStart)
             ${indent}// - pass any properties from the previous form along
-            ${indent}${managedBeansPackage}.${formPopulatorName}.populateForm(currentForm, form);
+            ${indent}${managedBeansPackage}.${formPopulatorName}.populateForm(currentForm, form, $formPopulateOverride);
             ${indent}// - populate the form with any event attributes that may match
             ${indent}// IMPORTANT: it isn't possible to automatically populate any property named "id" since that
             ${indent}// is a reserved name in JSF (the id of a component), therefore we have to unfortunately ignore any available "id" attribute
