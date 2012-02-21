@@ -163,7 +163,7 @@ public abstract class $className
     @Override
     public Object getWrappedData()
     {
-        return page.getData();
+        return this.page != null ? this.page.getData() : null;
     }
 
     /**
