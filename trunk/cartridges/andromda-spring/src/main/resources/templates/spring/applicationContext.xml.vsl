@@ -98,7 +98,7 @@
                 <prop key="hibernate.connection.release_mode">$hibernateConnectionReleaseMode</prop>
 #end
 #if ($stringUtils.isNotBlank($hibernateTransactionFactoryClass))
-        <property name="transaction.factory_class">$hibernateTransactionFactoryClass</property>
+                <prop key="transaction.factory_class">$hibernateTransactionFactoryClass</prop>
 #end
                 <!-- applicationContext hibernateProperties merge-point -->
             </props>
