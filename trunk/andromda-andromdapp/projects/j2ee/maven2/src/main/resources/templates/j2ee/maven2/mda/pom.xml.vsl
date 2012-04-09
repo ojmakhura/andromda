@@ -427,7 +427,7 @@
 #if ($groovy)
         <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end
-#if ($ejb3 || $cxf)
+#if ($ejb3 || $cxf || $spring)
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
