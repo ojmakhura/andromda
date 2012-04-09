@@ -28,6 +28,12 @@
                     <li>none - no mask is applied</li>
                 </ul>
             </documentation>
+            <property name="modelElementNameMask">
+                <default>none</default>
+                <documentation>
+                   Provides the ability to apply a mask to all model element names.
+                </documentation>
+            </property>
             <property name="classifierNameMask">
                 <default>none</default>
                 <documentation>
