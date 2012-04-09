@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
@@ -84,10 +85,26 @@ public class ModelElementFacadeLogicImpl
     protected String handleGetPackageName()
     {
         final boolean modelName = false;
-        return UML14MetafacadeUtils.getPackageName(
+        String packageName = UML14MetafacadeUtils.getPackageName(
             this.metaObject,
             this.getNamespaceScope(modelName),
             modelName);
+        
+        //package names are treated differently so we have to apply the name mask here
+        //since there isn't a packageNameMask, we're using the modelElementNameMask
+        String nameMask = null;
+        try
+        {
+            nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.MODEL_ELEMENT_NAME_MASK));
+        }
+        catch (Exception ignore)
+        {
+            logger.warn("modelElementNameMask not found in " + this.toString() + " (getPackageName)");
+            nameMask = "none";
+        }
+
+        return NameMasker.mask(packageName, nameMask);
+        
     }
 
     /**
@@ -517,7 +534,24 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetName()
     {
-        return metaObject.getName();
+        String name=metaObject.getName();
+        
+        if(name != null)
+        {
+            String nameMask = null;
+            try
+            {
+                nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.MODEL_ELEMENT_NAME_MASK));
+            }
+            catch (Exception ignore)
+            {
+                logger.warn("modelElementNameMask not found in " + this.toString());
+                nameMask = "none";
+            }
+            name = NameMasker.mask(name, nameMask);
+        }
+
+        return name;
     }
 
     /**

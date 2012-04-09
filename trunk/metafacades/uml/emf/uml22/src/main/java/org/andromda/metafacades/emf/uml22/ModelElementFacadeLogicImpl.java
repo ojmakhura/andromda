@@ -11,6 +11,7 @@ import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
@@ -154,8 +155,19 @@ public class ModelElementFacadeLogicImpl
         if (this.metaObject instanceof NamedElement)
         {
             final NamedElement namedElement = (NamedElement) this.metaObject;
-            return namedElement.getName();
 
+            String nameMask = null;
+            try
+            {
+                nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.MODEL_ELEMENT_NAME_MASK));
+            }
+            catch (Exception ignore)
+            {
+                LOGGER.warn("modelElementNameMask not found in " + this.toString());
+                nameMask = "none";
+            }
+
+            return NameMasker.mask(namedElement.getName(), nameMask);
         }
         return "";
     }
@@ -182,7 +194,22 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected String handleGetPackageName()
     {
-        return UmlUtilities.getPackageName(this.metaObject, this.getNamespaceScope(false), false);
+        String packageName = UmlUtilities.getPackageName(this.metaObject, this.getNamespaceScope(false), false);
+        
+        //package names are treated differently so we have to apply the name mask here
+        //since there isn't a packageNameMask, we're using the modelElementNameMask
+        String nameMask = null;
+        try
+        {
+            nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.MODEL_ELEMENT_NAME_MASK));
+        }
+        catch (Exception ignore)
+        {
+            LOGGER.warn("modelElementNameMask not found in " + this.toString() + " (getPackageName)");
+            nameMask = "none";
+        }
+
+        return NameMasker.mask(packageName, nameMask);
     }
 
     /**

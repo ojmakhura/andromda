@@ -89,6 +89,12 @@ public class UMLMetafacadeProperties
     public static final String ROLE_NAME_MASK = "roleNameMask";
 
     /**
+     * The mask to apply to any model element names
+     * @see NameMasker#mask(String, String)
+     */
+    public static final String MODEL_ELEMENT_NAME_MASK = "modelElementNameMask";
+    
+    /**
      * The mask to apply to any classifier names
      * @see NameMasker#mask(String, String)
      */
