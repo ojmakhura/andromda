@@ -90,7 +90,7 @@ public class $entity.daoImplementationName
         throw new UnsupportedOperationException("${entity.packageName}.load${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName) not yet implemented.");
 
         /* A typical implementation looks like this:
-        $entity.fullyQualifiedEntityName $stringUtils.uncapitalize($entity.name) = this.load(${stringUtils.uncapitalize($valueObjectRef.name)}.getId());
+        $entity.fullyQualifiedEntityName $stringUtils.uncapitalize($entity.name) = this.get(${stringUtils.uncapitalize($valueObjectRef.name)}.getId());
         if ($stringUtils.uncapitalize($entity.name) == null)
         {
             $stringUtils.uncapitalize($entity.name) = ${entity.fullyQualifiedEntityName}.Factory.newInstance();
