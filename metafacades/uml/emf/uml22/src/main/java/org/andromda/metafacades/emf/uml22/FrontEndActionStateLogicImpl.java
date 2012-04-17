@@ -11,15 +11,19 @@ import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 /**
  * MetafacadeLogic implementation for
@@ -86,6 +90,38 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @see org.andromda.metafacades.uml.FrontEndActionState#getServiceCalls()
+     */
+    @Override
+    protected List<OperationFacade> handleGetServiceCalls()
+    {
+        final List<OperationFacade> serviceCallsList = new ArrayList<OperationFacade>();
+        final Collection<EventFacade> deferrableEvents = this.getDeferrableEvents();
+        for (final Iterator<EventFacade> iterator = deferrableEvents.iterator(); iterator
+                .hasNext();)
+        {
+            final EventFacade event = iterator.next();
+            if (event instanceof CallEventFacade)
+            {
+                serviceCallsList.addAll(((CallEventFacade)event).getOperations());
+            }
+            else if (event instanceof FrontEndEvent)
+            {
+                serviceCallsList.addAll(((FrontEndEvent)event).getControllerCalls());
+            }
+        }
+        //removing the controller calls
+        CollectionUtils.filter(serviceCallsList, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                final OperationFacade operation=(OperationFacade)object;
+                return operation instanceof ServiceOperation;
+            }
+        });
+        return serviceCallsList;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getControllerCalls()
      */
     @Override
@@ -106,6 +142,14 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
                 controllerCallsList.addAll(((FrontEndEvent)event).getControllerCalls());
             }
         }
+        //removing the direct service calls
+        CollectionUtils.filter(controllerCallsList, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                final OperationFacade operation=(OperationFacade)object;
+                return operation instanceof FrontEndControllerOperation;
+            }
+        });
         return controllerCallsList;
     }
 
