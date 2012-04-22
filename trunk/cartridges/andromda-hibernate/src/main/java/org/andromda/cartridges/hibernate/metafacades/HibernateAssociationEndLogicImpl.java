@@ -2,6 +2,7 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -829,5 +830,24 @@ public class HibernateAssociationEndLogicImpl
             }
         }
         return (StringUtils.isBlank(tagName)) ? null : tagName;
+    }
+    
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#handleIsOwning()
+     */
+    @Override
+    protected boolean handleIsOwning()
+    {
+        boolean owning = false;
+        if (this.isAggregation() || this.isComposition())
+        {
+            owning = true;
+        }
+        else if (!this.isNavigable())
+        {
+            owning = true;
+        }
+        return owning;
     }
 }
