@@ -48,7 +48,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
  * Implementation of AssociationEnd. We extend Property, we keep a reference to
  * the original property, and we defer almost all method calls to it.
  *
- * @author Cédric Jeanneret
+ * @author Cï¿½dric Jeanneret
  * @author Bob Fields
  */
 public class AssociationEndImpl
@@ -78,12 +78,12 @@ public class AssociationEndImpl
     @Override
     public boolean equals(final Object obj)
     {
-        /*if (obj instanceof AttributeImpl)
+        if (obj instanceof AttributeImpl)
         {
             Property other = ((AttributeImpl)obj).property;
             return this.property.equals(other);
-        }*/
-        if (obj instanceof AssociationEndImpl)
+        } 
+        else if (obj instanceof AssociationEndImpl)
         {
             final Property other = ((AssociationEndImpl)obj).property;
             return this.property.equals(other);
