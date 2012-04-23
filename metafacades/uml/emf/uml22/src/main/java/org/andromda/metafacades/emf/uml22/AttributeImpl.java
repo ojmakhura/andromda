@@ -50,7 +50,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
  * We extend Property. We keep a reference to the original property and defer
  * almost all method calls to it.
  *
- * @author Cédric Jeanneret
+ * @author Cï¿½dric Jeanneret
  */
 public class AttributeImpl
     implements Attribute
@@ -79,11 +79,11 @@ public class AttributeImpl
     @Override
     public boolean equals(final Object obj)
     {
-        /*if (obj instanceof AttributeImpl)
+        if (obj instanceof AttributeImpl)
         {
             Property other = ((AttributeImpl)obj).property;
             return this.property.equals(other);
-        }*/
+        }
         if (obj instanceof AssociationEndImpl)
         {
             final Property other = ((AssociationEndImpl)obj).property;
