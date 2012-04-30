@@ -1,6 +1,7 @@
 package org.andromda.core.common;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -61,7 +62,9 @@ public class ResourceUtils
             "resourceName",
             resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
-        return loader != null ? loader.getResource(resourceName) : null;
+        URL resource = loader != null ? loader.getResource(resourceName) : null;
+        //if (resource==null)
+        return resource;
     }
 
     /**
@@ -307,10 +310,25 @@ public class ResourceUtils
                             entryPrefixIndex);
                 }
                 resourceUrl = URLDecoder.decode(new URL(resourceUrl).getFile(), URL_DECODE_ENCODING);
-                archive = new ZipFile(resourceUrl);
+                File zipFile = new File(resourceUrl);
+                if (zipFile.exists())
+                {
+                    archive = new ZipFile(resourceUrl);
+                }
+                else
+                {
+                    // ZipFile doesn't give enough detail about missing file
+                    throw new FileNotFoundException("ResourceUtils.getArchive " + resourceUrl + " NOT FOUND.");
+                }
             }
             return archive;
         }
+        // Don't unnecessarily wrap RuntimeException
+        catch (final RuntimeException ex)
+        {
+            throw ex;
+        }
+        // But don't require Exception declaration either.
         catch (final Throwable throwable)
         {
             throw new RuntimeException(throwable);
