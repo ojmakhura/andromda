@@ -11,16 +11,16 @@
           <uri>${model.uri}</uri>
           <moduleSearchLocations>
             <location patterns="**/${andromda.version}/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
-            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0.1/UML_Standard_Profile-1.0.1.jar!/</location>
           </moduleSearchLocations>
         </model>
       </models>
     </repository>
   </repositories>
   <namespaces>
-        <!-- namespace property values used by ALL cartridges -->
-        <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
-        <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
+    <!-- namespace property values used by ALL cartridges -->
+    <!-- Variable references refer to properties defined in root pom.xml or mda/pom.xml files -->
+    <!-- See http://www.andromda.org/docs/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-emf-uml2/namespace.html -->
     <namespace name="default">
       <properties>
         <property name="enableTemplating">true</property>
@@ -37,7 +37,7 @@
         <property name="maxSqlNameLength">30</property>
         <property name="foreignKeySuffix">_FK</property>
         <property name="ejbJndiNamePrefix">${application.id}</property>
-        <property name="hibernateVersion">3</property>
+        <property name="hibernateVersion">4</property>
         <property name="xmlAttributes">false</property>
       </properties>
     </namespace>
@@ -55,7 +55,7 @@
         <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
         <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
         <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
-        <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>        
+        <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
         <property name="springTypesPackage">${application.package}</property>
         <property name="daos">${core.generated.dir}</property>
         <property name="dao-impls">${core.manual.java.dir}</property>
