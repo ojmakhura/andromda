@@ -37,8 +37,10 @@
         </license>
     </licenses>
     <ciManagement>
-        <system>hudson</system>
-        <url>http://www.andromda.org/hudson</url>
+        <system>jenkins</system>
+        <url>https://andromdabuild.ci.cloudbees.com/job/Andromda/</url>
+        <!--system>hudson</system>
+        <url>http://www.andromda.org/hudson</url-->
     </ciManagement>
     <mailingLists>
         <mailingList>
@@ -229,7 +231,7 @@
             <dependency>
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
-                <version>1.3.1</version>
+                <version>1.4.0</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -263,12 +265,21 @@
             <dependency>
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.3</version>
                 <exclusions>
                     <!--Exclude old xerces-->
                     <exclusion>
                         <groupId>xerces</groupId>
                         <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                    <!--Exclude maven v1 dependencies. See http://jira.codehaus.org/browse/JAXEN-218 -->
+                    <exclusion>
+                        <groupId>maven-plugins</groupId>
+                        <artifactId>maven-cobertura-plugin</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>maven-plugins</groupId>
+                        <artifactId>maven-findbugs-plugin</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -285,12 +296,12 @@
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
-                <version>1.8.2</version>
+                <version>1.8.3</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
-                <version>2.3.18</version>
+                <version>2.3.19</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -305,18 +316,19 @@
             <dependency>
                 <groupId>org.beanshell</groupId>
                 <artifactId>bsh</artifactId>
-                <version>2.0b4</version>
+                <version>2.0b5</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>1.8.0</version>
+                <version>1.8.6</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.15.0-GA</version>
+                <version>3.16.1-GA</version>
             </dependency>
+            <!-- Dependencies refer to jsp-api 2.2.1 which does not exist -->
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
@@ -398,18 +410,24 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-archiver</artifactId>
-                <version>2.0.1</version>
+                <version>2.1.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
         <defaultGoal>install</defaultGoal>
-        <!-- Configurations for QA checks, accessed as classpath resources -->
         <extensions>
+            <!-- Configurations for QA checks, accessed as classpath resources -->
             <extension>
                 <groupId>org.andromda.maven</groupId>
                 <artifactId>maven-config</artifactId>
                 <version>${andromda.version}</version>
+            </extension>
+            <!-- Required to deploy a snapshot or a release to the CloudBees remote maven repository using Webdav -->
+            <extension>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-webdav</artifactId>
+              <version>1.0-beta-2</version>
             </extension>
         </extensions>
         <pluginManagement>
@@ -589,6 +607,10 @@
                             <link>http://www.junit.org/junit/javadoc/</link>
                         </links>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -1070,33 +1092,37 @@
         <!-- Plugin version definitions-->
         <plexus.util.version>3.0</plexus.util.version>
         <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-        <maven-archetype-plugin.version>2.1</maven-archetype-plugin.version>
-        <maven-assembly-plugin.version>2.2.1</maven-assembly-plugin.version>
+        <maven-archetype-plugin.version>2.2</maven-archetype-plugin.version>
+        <maven-assembly-plugin.version>2.3</maven-assembly-plugin.version>
         <maven-changelog-plugin.version>2.2</maven-changelog-plugin.version>
         <maven-changes-plugin.version>2.6</maven-changes-plugin.version>
+        <!-- v2.9 gives IllegalCharsetException UTF-8,ISO-8859-1 -->
         <maven-checkstyle-plugin.version>2.8</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.3</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
-        <maven-eclipse-plugin.version>2.8</maven-eclipse-plugin.version>
+        <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>1.0.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
         <maven-invoker-plugin.version>1.5</maven-invoker-plugin.version>
-        <maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
-        <maven-pmd-plugin.version>2.5</maven-pmd-plugin.version>
+        <!-- v2.7 causes ClassCastException: java.lang.String cannot be cast to java.io.File
+        at org.apache.maven.plugin.pmd.AbstractPmdReport.getFilesToProcess(AbstractPmdReport.java:284) -->
+        <maven-pmd-plugin.version>2.6</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>2.2.2</maven-release-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-site-plugin.version>2.3</maven-site-plugin.version>
         <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.10</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.10</maven-surefire-report-plugin.version>
-        <clirr-maven-plugin.version>2.3</clirr-maven-plugin.version>
+        <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>2.12</maven-surefire-report-plugin.version>
+        <clirr-maven-plugin.version>2.4</clirr-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.3.2</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.4.0</findbugs-maven-plugin.version>
         <javancss-maven-plugin.version>2.0</javancss-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <sablecc-maven-plugin.version>2.2</sablecc-maven-plugin.version>
@@ -1159,23 +1185,76 @@
                 <repository>
                     <id>andromda-repository</id>
                     <name>AndroMDA Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </repository>
                 <snapshotRepository>
                     <id>andromda-snapshots</id>
                     <name>AndroMDA Snapshot Repository</name>
-                    <url>file:/var/www/maven2</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site/</url>
                 </site>
             </distributionManagement>
         </profile>
+        <!--Profile configuration for cloudbees WebDav. See https://github.com/CloudBees-community/maven-config-github-cloudbees/blob/master/pom.xml
+            Need to configure server id/password in settings.xml in order to deploy. -->
         <profile>
-            <!--Profile configuration for server builds-->
+            <id>cloudbees</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <!-- Deploy releases and snapshots to the CloudBees maven repositories -->
+            <distributionManagement>
+              <repository>
+                <id>andromdabuild-cloudbees-release</id>
+                <name>andromdabuild-cloudbees-release</name>
+                <!-- Webdav repository url are prefixed with dav: -->
+                <url>dav:https://repository-andromdabuild.forge.cloudbees.com/release/</url>
+                <uniqueVersion>true</uniqueVersion>
+              </repository>
+              <snapshotRepository>
+                <id>andromdabuild-cloudbees-snapshot</id>
+                <name>andromdabuild-cloudbees-snapshot</name>
+                <url>dav:https://andromdabuild-javaetmoi.forge.cloudbees.com/snapshot/</url>
+                <uniqueVersion>false</uniqueVersion>
+              </snapshotRepository>
+              <site>
+                  <id>website</id>
+                  <url>file:/scratch/hudson/workspace/Andromda/site/</url>
+              </site>
+            </distributionManagement>
+            <repositories>
+              <!-- Cloudbees maven repositories for releases and snapshots -->
+              <repository>
+                <id>andromdabuild-cloudbees-release</id>
+                <name>andromdabuild-cloudbees-release</name>
+                <url>https://andromdabuild-javaetmoi.forge.cloudbees.com/release/</url>
+                <releases>
+                  <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>false</enabled>
+                </snapshots>
+              </repository>
+              <repository>
+                <id>andromdabuild-cloudbees-snapshot</id>
+                <name>andromdabuild-cloudbees-snapshot</name>
+                <url>https://repository-andromdabuild.forge.cloudbees.com/snapshot/</url>
+                <releases>
+                  <enabled>false</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>true</enabled>
+                </snapshots>
+              </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <!--Profile configuration for sonatype builds and distribution -->
             <id>server</id>
             <build>
                 <plugins>
@@ -1200,7 +1279,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>file:/var/www/docs</url>
+                    <url>file:/scratch/hudson/workspace/Andromda/site</url>
                 </site>
             </distributionManagement>
             <properties>
@@ -1438,6 +1517,10 @@
                                 </reports>
                             </reportSet>
                         </reportSets>
+                        <configuration>
+                            <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-report-plugin</artifactId>
@@ -1789,6 +1872,20 @@
                                 </tagClasses>
                             </tagListOptions>
                         </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>${versions-maven-plugin.version}</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>dependency-updates-report</report>
+                                    <report>plugin-updates-report</report>
+                                    <report>property-updates-report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
                     </plugin>
                 </plugins>
             </reporting>
