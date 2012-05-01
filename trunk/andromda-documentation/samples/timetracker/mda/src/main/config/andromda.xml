@@ -105,7 +105,7 @@
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property -->
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
-                <property name="hibernateVersion">4</property>
+                <property name="hibernateVersion">3</property>
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
@@ -134,8 +134,8 @@
             <properties>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateEnableCache">false</property>
-                <property name="sessionFactory">org.springframework.orm.hibernate4.LocalSessionFactoryBean</property>
-                <property name="localTransactionManager">org.springframework.orm.hibernate4.HibernateTransactionManager</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.ehcache.hibernate.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/SpringMergeMappings.xml</property>
