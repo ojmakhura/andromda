@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.8.Final</version>
+            <version>4.0.1.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.3</version>
+            <version>6.3.1</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

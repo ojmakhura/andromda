@@ -88,8 +88,7 @@ public class H2
             // Starts H2, allowing TCP connections also, to jdbc:h2:tcp://localhost/${sql.database}
             // Must use id/password with embedded persisted mode
             Connection conn = DriverManager.getConnection(url, "sa", "sa");
-            // Use System.out in case logging is not configured correctly
-            System.out.println("Connected to DB " + url + "\r in " + (System.currentTimeMillis() - now) + " ms");
+            LOGGER.info("Connected to DB " + url + "\r in " + (System.currentTimeMillis() - now) + " ms");
             long now1 = System.currentTimeMillis();
             Statement stat = conn.createStatement();
             int stmtCount = 0;
@@ -138,12 +137,9 @@ public class H2
                     }
                 }
             }
-            if (stmtCount > 0)
-            {
-                System.out.println("Executed " + successfulCount + " out of " + stmtCount + " sql statements in "
-                        + (System.currentTimeMillis() - now1) + " ms, total time = "
-                         + (System.currentTimeMillis() - now) + " ms");
-            }
+            LOGGER.info("Executed " + successfulCount + " out of " + stmtCount + " sql statements in "
+                + (System.currentTimeMillis() - now1) + " ms, total time = "
+                 + (System.currentTimeMillis() - now) + " ms");
             // Keep in-memory DB connection open after executing SQL statements
             int i =1;
             while (i>0)

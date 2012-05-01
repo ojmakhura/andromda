@@ -264,15 +264,16 @@
                     <artifactId>h2</artifactId>
                     <version>${testdb.version}</version>
                   </dependency>
+                  <!-- hibernate4 incompatible with hibernate3 maven plugin -->
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-core</artifactId>
-                    <version>${hibernate.version}</version>
+                    <version>3.6.9.Final</version>
                   </dependency>
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
-                    <version>${hibernate.version}</version>
+                    <version>3.6.9.Final</version>
                   </dependency>
                   <!--dependency>
                     <groupId>org.hibernate</groupId>

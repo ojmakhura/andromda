@@ -199,13 +199,7 @@
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <!-- Comment to disable $persistenceProviderExtensions specific extensions such as Cache, Types, Validations -->
-#if($hibernate)
-                <property name="persistenceProviderExtensions">hibernate</property>
-#elseif($kodoJpa)
-                <property name="persistenceProviderExtensions">kodoJpa</property>
-#elseif($openJpa)
-                <property name="persistenceProviderExtensions">openJpa</property>
-#end
+                <property name="persistenceProviderExtensions">$persistenceProviderExtensions</property>
                 <!-- uncomment to specify transaction manager
                 <property name="hibernateTransactionManagerLookupClass">org.hibernate.transaction.JBossTransactionManagerLookup</property>
                 -->
@@ -434,8 +428,8 @@
                      -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve -->
                 <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
                 <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
-                <property name="webserviceHost">localhost</property>
-                <property name="webservicePort">9090</property>
+                <property name="webserviceHost">${webservice.host}</property>
+                <property name="webservicePort">${webservice.port}</property>
                 <property name="webContext">${application.id}-webservice</property>
                 <property name="servicesPath">services</property>
                 <!-- Creates default/dummy implementation for service, iterating down through parameter hierarchy -->
