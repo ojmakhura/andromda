@@ -32,7 +32,7 @@
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}</property>
                 <!-- used in both hibernate and spring cartridges -->
-                <property name="hibernateVersion">4</property>
+                <property name="hibernateVersion">3</property>
             </properties>
         </namespace>
         <!-- See http://docs.andromda.org/andromda-cartridges/andromda-spring-cartridge/namespace.html -->
