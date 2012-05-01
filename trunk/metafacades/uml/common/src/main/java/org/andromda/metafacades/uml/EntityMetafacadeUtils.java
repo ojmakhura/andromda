@@ -227,9 +227,9 @@ public class EntityMetafacadeUtils
                 // We won't be testing or creating abstract entities
                 if (!entity.isAbstract())
                 {
-                    Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
+                    //Collection<ClassifierFacade> ends = entity.getNavigableConnectingEnds();
                     // Put the entities with no associations first in the sorted list
-                    if (ends.size()==0)
+                    if (entity.getNavigableConnectingEnds().size()==0)
                     {
                         sorted.add(entity);
                         //System.out.println(entity.getName() + " No associations");
