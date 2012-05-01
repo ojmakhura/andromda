@@ -164,10 +164,11 @@
 #end
 #if ($cxf)
         <!-- CXF 2.3.x wsdl2java on JDK6 gives NoSuchMethodException: javax.xml.bind.annotation.XmlElementRef.required()
-        unless we roll back XJC version -->
+        unless we roll back XJC version to 2.1.x to match the JDK6 embedded version -->
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
+            <version>2.1.13</version>
             <scope>provided</scope>
         </dependency>
         <!-- Need to reference the classpath for ant in wsdl2java java2ws -->
@@ -427,7 +428,7 @@
 #if ($groovy)
         <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end
-#if ($ejb3 || $cxf || $spring)
+#if ($ejb3 || $cxf || $hibernate || $spring)
         <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
         <core.generated.test.dir>${project.basedir}/../core/target/src/test/java</core.generated.test.dir>
         <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
@@ -458,8 +459,6 @@
 #if ($cxf)
         <webservice.test.dir>${project.basedir}/../webservice/src/test/java</webservice.test.dir>
 #end
-        <webservice.host>localhost</webservice.host>
-        <webservice.port>9090</webservice.port>
 #end
 #if ($ejb3)
         <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>

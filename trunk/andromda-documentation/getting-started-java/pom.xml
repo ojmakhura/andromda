@@ -14,7 +14,7 @@
     <description>The AndroMDA getting started Java documentation</description>
     <build>
         <plugins>
-            <!-- Update the timetracker-completed.zip artifact from the source tree before code generation>
+            <!-- Update the timetracker-completed.zip artifact from the source tree before code generation-->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -24,7 +24,7 @@
                             <target>
                                 <zip destfile="${project.basedir}/src/site/resources/timetracker-completed.zip">
                                     <zipfileset dir="${project.basedir}/../samples/timetracker" prefix="timetracker-completed"
-                                     excludes="**/target,**/clean.txt,**/*.log,**/*.0,**/uml2X"/>
+                                     excludes="**/target,**/clean.txt,**/*.log,**/*.0,**/uml2X,**/*.jar,**/*.war,**/*.ear,**/class"/>
                                 </zip>
                             </target>
                         </configuration>
@@ -33,7 +33,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin -->
+            </plugin>
         </plugins>
     </build>
 </project>

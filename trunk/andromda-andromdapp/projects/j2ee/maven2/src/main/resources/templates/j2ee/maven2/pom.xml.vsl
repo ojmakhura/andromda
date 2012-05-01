@@ -339,7 +339,7 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.5</version>
+                <version>1.6</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -378,7 +378,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>3.6.8.Final</version>
+                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <artifactId>hibernate-validator</artifactId>
@@ -483,7 +483,7 @@
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>2.4.6</version>
+                <version>2.5.0</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
@@ -510,7 +510,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>3.6.8.Final</version>
+                <version>${hibernate.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.transaction</groupId>
@@ -700,7 +700,7 @@
             <dependency>
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
-                <version>1.3.1</version>
+                <version>1.4.0</version>
             </dependency>
             <dependency>
                 <groupId>struts</groupId>
@@ -1074,6 +1074,7 @@
                 <version>1.6.4</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- Should be either in the JDK6 runtime, or deployed on the AppServer already -->
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
@@ -1133,7 +1134,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.3.154</version>
+                <version>1.3.163</version>
 #if (!$embeddedJetty)
                 <scope>test</scope>
 #end
@@ -1144,7 +1145,7 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.3</version>
+                <version>6.3.1</version>
                 <scope>test</scope>
 #if ($ejb3)
                 <exclusions>
@@ -1168,6 +1169,28 @@
         <testSourceDirectory>src-test</testSourceDirectory -->
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${project.basedir}</directory>
+                                <includes>
+                                    <include>*.log</include>
+                                    <include>**/*.exc</include>
+                                    <include>**/*.bak</include>
+                                </includes>
+                                <excludes>
+                                    <!-- Allow mvn clean install > install.log -->
+                                    <exclude>build.log</exclude>
+                                    <exclude>install.log</exclude>
+                                </excludes>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -1210,12 +1233,23 @@
                     <version>${andromda.version}</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                        <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>2.11</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -1255,7 +1289,8 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository.
+                         Causes generate-sources phase to execute twice if under plugins instead of pluginManagement - bug -->
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.1.2</version>
                     <executions>
@@ -1329,6 +1364,10 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.6</version>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -1360,57 +1399,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.basedir}</directory>
-                            <includes>
-                                <include>*.log</include>
-                                <include>**/*.exc</include>
-                                <include>**/*.bak</include>
-                            </includes>
-                            <excludes>
-                                <!-- Allow mvn clean install > install.log -->
-                                <exclude>build.log</exclude>
-                                <exclude>install.log</exclude>
-                            </excludes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <compilerArgument>-Xlint:cast,unchecked,fallthrough,finally,serial</compilerArgument>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>2.2</version>
             </plugin>
         </plugins>
     </build>
@@ -1631,14 +1619,17 @@
         -->
 #end
 #if ($cxf)
-        <cxf.version>2.5.0</cxf.version>
+        <cxf.version>2.5.3</cxf.version>
         <cxf.xjc.version>2.4.0</cxf.xjc.version>
+#end
+#if ($spring || $hibernate || $ejb3)
+        <hibernate.version>3.6.9.Final</hibernate.version>
 #end
 #if ($cxf || $embeddedJetty)
         <jetty.version>8.0.4.v20111024</jetty.version>
 #end
 #if ($cxf || $spring)
-        <spring.version>3.0.6.RELEASE</spring.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
 #end
         <!-- SCM user ID and Password here, or in user specific settings.xml file -->
         <username></username>
@@ -1922,7 +1913,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-surefire-plugin</artifactId>
-                            <version>2.10</version>
+                            <version>2.11</version>
                         </plugin>
                         <plugin>
                             <artifactId>maven-site-plugin</artifactId>
@@ -1989,8 +1980,26 @@
     <prerequisites>
         <maven>2.0.10</maven>
     </prerequisites>
+    <!-- Customize for your project -->
 #if ($stringUtils.isNotBlank($distributionManagementRepositoryUrl) && !$distributionManagementRepositoryUrl.equals('$distributionManagementRepositoryUrl'))
     <distributionManagement>
+        <repository>
+            <id>$distributionManagementRepositoryId</id>
+            <url>$distributionManagementRepositoryUrl</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>$distributionManagementSnapshotRepositoryId</id>
+            <url>$distributionManagementSnapshotRepositoryUrl</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <!--site>
+            <id>website</id>
+            <url>file:/var/www/docs/$applicationId</url>
+        </site-->
+    </distributionManagement>
+#else
+    <!--distributionManagement>
         <repository>
             <id>$distributionManagementRepositoryId</id>
             <url>$distributionManagementRepositoryUrl</url>
@@ -2005,7 +2014,7 @@
             <id>website</id>
             <url>file:/var/www/docs/$applicationId</url>
         </site>
-    </distributionManagement>
+    </distributionManagement-->
 #end
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
@@ -2064,11 +2073,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.10</version>
+                <version>2.11</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
                     <targetJdk>${java.version}</targetJdk>
                     <linkXRef>true</linkXRef>
@@ -2216,7 +2225,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.3.3</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <effort>Default</effort>
