@@ -75,9 +75,7 @@
         <property name="hibernate.hbm2ddl.auto">$hibernateHbm2DDLAuto</property>
 #end
 ## Use the new Identifier generator for Hibernate 3.x, if using annotation mappings
-#if ($hibernateEntityAnnotations)
         <property name="hibernate.id.new_generator_mappings">true</property>
-#end
 #if ($stringUtils.isNotBlank($hibernateQueryFactory))
         <property name="hibernate.query.factory_class">$hibernateQueryFactory</property>
 #end
@@ -99,7 +97,9 @@
 #if (!$hibernateEntityAnnotations)
         <!-- mapping files -->
 #foreach($entity in $entities)
+#if ($entity.requiresMapping)
         <mapping resource="${entity.packagePath}/${entity.entityName}.hbm.xml"/>
+#end
 #end
 #end
     </session-factory>

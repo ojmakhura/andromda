@@ -30,6 +30,18 @@
          </property>
     </bean>
 
+#else
+    <bean id="hibernateAnnotatedClasses" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <!-- applicationContext hibernateAnnotatedClasses merge-point -->
+#foreach($entity in $entities)
+                <value>${entity.packageName}.${entity.entityName}Impl</value>
+#end
+            </list>
+         </property>
+    </bean>
+
 #end
     <bean id="${beanNamePrefix}hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="properties">
@@ -109,9 +121,12 @@
     <bean id="${beanNamePrefix}sessionFactory" class="$sessionFactory">
         <property name="dataSource" ref="${beanNamePrefix}dataSource"/>
 #if ($hibernateEntityAnnotations)
+#if (!$hibernateUtils.version4)
         <property name="configurationClass">
             <value>org.hibernate.cfg.AnnotationConfiguration</value>
         </property>
+#end
+        <property name="annotatedClasses" ref="hibernateAnnotatedClasses"/>
 #else
         <property name="mappingLocations" ref="${beanNamePrefix}hibernateMappingLocations"/>
 #end
@@ -161,11 +176,13 @@
     <bean id="$entity.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="$entity.fullyQualifiedDaoImplementationName"/>
         <property name="proxyInterfaces" value="$entity.fullyQualifiedDaoName"/>
+#if (!$hibernateUtils.version4)
         <property name="interceptorNames">
             <list>
                 <value>${beanNamePrefix}hibernateInterceptor</value>
             </list>
         </property>
+#end
     </bean>
 
 #end
@@ -236,7 +253,7 @@
 #if ($enableSpringTransactions)
                 <value>${beanNamePrefix}serviceTransactionInterceptor</value>
 #end
-#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled)
+#if ((!$entities.empty || !$service.allEntityReferences.empty) && $service.hibernateInterceptorEnabled && !$hibernateUtils.version4)
                 <value>${beanNamePrefix}hibernateInterceptor</value>
 #end
 #foreach($interceptor in $service.interceptors)

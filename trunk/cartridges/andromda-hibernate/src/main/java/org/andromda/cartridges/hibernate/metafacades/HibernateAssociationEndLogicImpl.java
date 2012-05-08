@@ -375,8 +375,8 @@ public class HibernateAssociationEndLogicImpl
         String outerValue = StringUtils.trimToEmpty(String.valueOf(value));
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
 
-        if (StringUtils.isBlank(version) || version.equals(HibernateGlobals.HIBERNATE_VERSION_3)
-            || version.equals(HibernateGlobals.HIBERNATE_VERSION_4))
+        if (StringUtils.isBlank(version) || version.startsWith(HibernateGlobals.HIBERNATE_VERSION_3)
+            || version.startsWith(HibernateGlobals.HIBERNATE_VERSION_4))
         {
             outerValue =
                 (outerValue.equals(HIBERNATE_OUTER_JOIN_AUTO) || outerValue.equals(HIBERNATE_OUTER_JOIN_YES))
@@ -740,7 +740,7 @@ public class HibernateAssociationEndLogicImpl
         String property = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
         if (property != null)
         {
-            usingHibernate3 = property.equals(HibernateGlobals.HIBERNATE_VERSION_3);
+            usingHibernate3 = property.startsWith(HibernateGlobals.HIBERNATE_VERSION_3);
         }
         return usingHibernate3;
     }
@@ -831,10 +831,9 @@ public class HibernateAssociationEndLogicImpl
         }
         return (StringUtils.isBlank(tagName)) ? null : tagName;
     }
-    
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#handleIsOwning()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isOwning()
      */
     @Override
     protected boolean handleIsOwning()

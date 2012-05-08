@@ -91,6 +91,6 @@ public class HibernateEnumerationLogicImpl
     @Override
     protected int handleGetVersion()
     {
-        return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));
+        return Integer.parseInt(((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION)).substring(0, 1));
     }
 }

@@ -225,6 +225,11 @@ public class SpringGlobals
     static public final String HIBERNATE_VERSION = "hibernateVersion";
 
     /**
+     * The version for Hibernate 2.
+     */
+    public static final String HIBERNATE_VERSION_2 = "2";
+
+    /**
      * The version for Hibernate 3.
      */
     public static final String HIBERNATE_VERSION_3 = "3";

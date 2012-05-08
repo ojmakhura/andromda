@@ -560,7 +560,7 @@
                 <default>false</default>
                 <documentation>
                     Set to <code>true</code> to enable Hibernate @Annotations on Entity classes for ORM properties,
-                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code>.
+                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code> or <code>4</code>.
                 </documentation>
             </property>
             <property name="hibernateXMLPersistence">
@@ -680,18 +680,19 @@
             <property name="hibernateInheritanceStrategy">
                 <default>subclass</default>
                 <documentation>
+                    See <a href="http://docs.jboss.org/hibernate/stable/orm/manual/en-US/html_single/">Hibernate ORM</a>.
                     Defines the hibernate inheritance strategy (unless
                     overridden on an entity level by the
                     <a href="profile.html#andromda_hibernate_inheritance">andromda_hibernate_inheritance</a>
                     tagged value, can be the following possible values:
                       <ul>
-                          <li>class - table per hierarchy.</li>
-                          <li>subclass - table per class in hierarchy.</li>
-                          <li>concrete - Table per class.</li>
+                          <li>class - single table per hierarchy. SINGLE_TABLE</li>
+                          <li>hierarchy - table per subclass in hierarchy. JOINED</li>
+                          <li>concrete - Table per class. Only concrete classes. TABLE_PER_CLASS</li>
                           <li>union-subclass - Table per class (Only Hibernate 3).</li>
                           <li>
                               interface - Root class is defined as an interface and the
-                              attributes remapped to the subclasses.  This is useful in
+                              attributes re-mapped to the subclasses.  This is useful in
                               the concrete case because it has limitations in the associations.
                           </li>
                       </ul>

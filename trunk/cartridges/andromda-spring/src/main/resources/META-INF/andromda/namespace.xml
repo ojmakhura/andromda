@@ -948,7 +948,7 @@
                 <default>false</default>
                 <documentation>
                     Set to <code>true</code> to enable Hibernate @Annotations on Entity classes for ORM properties,
-                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code>.
+                    no hbm.xml files will be generated. The <code>hibernateVersion</code> namespace property must be set to <code>3</code> or <code>4</code>.
                 </documentation>
             </property>
             <property name="hibernateMappingStrategy">

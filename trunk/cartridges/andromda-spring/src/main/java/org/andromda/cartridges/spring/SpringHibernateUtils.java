@@ -90,6 +90,16 @@ public class SpringHibernateUtils
     }
 
     /**
+     * Indicates whether or not version 2 is the one that is currently being used.
+     *
+     * @return true/false
+     */
+    public boolean isVersion2()
+    {
+        return isVersion2(hibernateVersion);
+    }
+
+    /**
      * Indicates whether or not version 3 is the one that is currently being used.
      *
      * @return true/false
@@ -111,20 +121,29 @@ public class SpringHibernateUtils
 
     /**
      * @param hibernateVersionPropertyValue
-     * @return SpringGlobals.HIBERNATE_VERSION_3.equals(hibernateVersionPropertyValue)
+     * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_2)
      */
-    public static boolean isVersion3(String hibernateVersionPropertyValue)
+    public static boolean isVersion2(String hibernateVersionPropertyValue)
     {
-        return SpringGlobals.HIBERNATE_VERSION_3.startsWith(hibernateVersionPropertyValue);
+        return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_2);
     }
 
     /**
      * @param hibernateVersionPropertyValue
-     * @return SpringGlobals.HIBERNATE_VERSION_4.equals(hibernateVersionPropertyValue)
+     * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_3)
+     */
+    public static boolean isVersion3(String hibernateVersionPropertyValue)
+    {
+        return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_3);
+    }
+
+    /**
+     * @param hibernateVersionPropertyValue
+     * @return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_4)
      */
     public static boolean isVersion4(String hibernateVersionPropertyValue)
     {
-        return SpringGlobals.HIBERNATE_VERSION_4.startsWith(hibernateVersionPropertyValue);
+        return hibernateVersionPropertyValue.startsWith(SpringGlobals.HIBERNATE_VERSION_4);
     }
 
     /**

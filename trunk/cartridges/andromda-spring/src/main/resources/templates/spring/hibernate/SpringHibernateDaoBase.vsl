@@ -37,9 +37,11 @@ package $entity.packageName;
 ##
 #set($identifierTypeName="${entity.fullyQualifiedIdentifierTypeName}")
 #set($identifierName="${entity.identifierName}")
+#if (!$entity.identifiers.empty)
 #set($identifierTypePrimitive = $entity.identifiers.iterator().next().type.primitive)
 #if($identifierTypePrimitive)
 #set($identifierTypeWrapperName = $entity.identifiers.iterator().next().type.wrapperName)
+#end
 #end
 
 /**
@@ -104,7 +106,7 @@ public abstract class $entity.daoBaseName
         if (transform == TRANSFORM_XML)
         {
             final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback()
+                    new org.springframework.orm.hibernate#if($hibernateVersion.startsWith("4"))4#else3#end.HibernateCallback()
                     {
                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                             throws ${hibernateUtils.basePackage}.HibernateException
@@ -160,7 +162,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         if (transform == TRANSFORM_XML)
         {
             final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback()
+                    new org.springframework.orm.hibernate#if($hibernateVersion.startsWith("4"))4#else3#end.HibernateCallback()
                     {
                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                             throws ${hibernateUtils.basePackage}.HibernateException
@@ -314,7 +316,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.create - '$argumentName' can not be null");
         }
         Object newID = this.getHibernateTemplate().${executeWithNativeSessionMethodname}((
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate#if($hibernateVersion.startsWith("4"))4#else3#end.HibernateCallback()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException
@@ -531,7 +533,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.update - '$argumentName' can not be null");
         }
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate#if($hibernateVersion.startsWith("4"))4#else3#end.HibernateCallback()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException
@@ -610,7 +612,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.remove - '$argumentName' can not be null");
         }
         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback()
+                new org.springframework.orm.hibernate#if($hibernateVersion.startsWith("4"))4#else3#end.HibernateCallback()
                 {
                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
                         throws ${hibernateUtils.basePackage}.HibernateException

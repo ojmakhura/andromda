@@ -24,6 +24,11 @@ public class HibernateGlobals
     static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierarchy";
 
     /**
+     * A mapping file per hierarchy.
+     */
+    static public final String HIBERNATE_MAPPING_STRATEGY_CONCRETE = "concrete";
+
+    /**
      * Indicates if "XML Persistence" code generation is enabled. Requires Hibernate 3.
      */
     static public final String HIBERNATE_XML_PERSISTENCE = "hibernateXMLPersistence";
