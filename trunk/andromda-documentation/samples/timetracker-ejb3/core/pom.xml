@@ -25,6 +25,11 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>
@@ -41,24 +46,16 @@
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-        </dependency>
-        <!--dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3-client</artifactId>
-        </dependency-->
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-ejb3x</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate</groupId>
         </dependency>
         <!--dependency>
             <groupId>hibernate-entitymanager</groupId>
@@ -70,6 +67,35 @@
             <version>${hibernate.version}</version>
             <scope>test</scope>
         </dependency-->
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-script-wrappers</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <!--dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <scope>provided</scope>
+        </dependency-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
         <!--dependency>
             <groupId>jboss</groupId>
             <artifactId>ejb3-persistence</artifactId>
@@ -96,11 +122,16 @@
   	        <artifactId>ehcache</artifactId>
             <type>pom</type>
         </dependency-->
-        <dependency>
+        <!-- Embeddable and thirdparty dependencies last, otherwise RuntimeException: java.lang.NoSuchFieldError: TRACE
+        at org.jboss.ejb3.embedded.EJB3StandaloneBootstrap.boot(EJB3StandaloneBootstrap.java:386) -->
+        <!--dependency>
        	    <groupId>jboss.jboss-embeddable-ejb3</groupId>
        	    <artifactId>hibernate-all</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
+            <!--groupId>org.jboss.embedded</groupId>
+            <artifactId>jboss-embedded-all</artifactId>
+            <version>beta3.SP15</version-->
             <groupId>jboss.jboss-embeddable-ejb3</groupId>
             <artifactId>jboss-ejb3-all</artifactId>
         </dependency>
@@ -127,24 +158,17 @@
             <scope>test</scope>
         </dependency-->
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-script-wrappers</artifactId>
-            <scope>provided</scope>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+        </dependency>
+        <!--dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-ejb3-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-ejb3x</artifactId>
+        </dependency-->
     </dependencies>
     <build>
         <plugins>
@@ -218,6 +242,8 @@
 		</testResources>
     </build>
     <properties>
+        <javaVersion>${java.version}</javaVersion>
+        <validation>true</validation>
         <!-- Until 'org.jboss.ejb3.embedded.UserTransactionImpl IllegalArgumentException: Null name' is fixed -->
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
     </properties>
