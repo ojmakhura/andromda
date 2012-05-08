@@ -77,7 +77,7 @@
       <!--      <property name="connectionURL">jdbc:hsqldb:./hypersonic/localDB</property> -->
       <property name="userName">sa</property>
       <property name="password">sa</property>
-      <property name="jndiName">java:/jdbc/timetracker-ejb3</property>
+      <property name="jndiName">java:/timetracker-ejb3</property>
       <property name="minSize">0</property>
       <property name="maxSize">10</property>
       <property name="blockingTimeout">1000</property>
@@ -98,7 +98,7 @@
       <property name="connectionURL">jdbc:h2:~/timetracker;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</property>
       <!--      <property name="connectionURL">jdbc:hsqldb:./hypersonic/localDB</property> -->
       <!--      <property name="userName">sa</property> -->
-      <property name="jndiName">java:/jdbc/timetracker-ejb3</property>
+      <property name="jndiName">java:/timetracker-ejb3</property>
       <property name="minSize">0</property>
       <property name="maxSize">10</property>
       <property name="blockingTimeout">1000</property>
