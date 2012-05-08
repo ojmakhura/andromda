@@ -112,10 +112,10 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -227,10 +227,11 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- See http://mojo.codehaus.org/hibernate3-maven-plugin/examples/run-multiple-goals.html -->
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>hibernate3-maven-plugin</artifactId>
-              <version>2.2</version>
+              <version>3.0</version>
               <executions>
                 <execution>
                   <phase>process-classes</phase>
@@ -240,15 +241,24 @@
                 </execution>
               </executions>
               <configuration>
-                <components>
+                <hibernatetool destdir="../app/src/main/sql">
+                  <configuration configurationfile="src/test/resources/hibernate.cfg.xml"/>
+                  <hbm2ddl outputfilename="schema.sql" export="false" drop="true" create="true" format="true"/>
+                  <jpaconfiguration/>
+                  <!-- Use the test DB configuration and logging when running hbm2ddl -->
+                  <classpath>
+                      <path location="src/test/resources"/>
+                  </classpath>
+                </hibernatetool>
+                <!-- hibernate3 plugin v2.2 only. v3 uses ant hibernatetool configuration -->
+                <!--components>
                   <component>
                     <name>hbm2ddl</name>
-                    <implementation>configuration</implementation>
+                    <implementation>jpaconfiguration</implementation>
                   </component>
                 </components>
                 <componentProperties>
-                  <!--hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect-->
-                  <export>false</export><!-- do not export to the database: tries to use jdbc datasource -->
+                  <export>false</export>
                   <drop>true</drop>
                   <create>true</create>
                   <format>true</format>
@@ -256,7 +266,7 @@
                   <persistenceunit>${project.parent.artifactId}</persistenceunit>
                   <configurationfile>src/test/resources/hibernate.cfg.xml</configurationfile>
                   <outputfilename>../../../../app/src/main/sql/schema.sql</outputfilename>
-                </componentProperties>
+                </componentProperties-->
               </configuration>
               <dependencies>
                   <dependency>
@@ -264,33 +274,34 @@
                     <artifactId>h2</artifactId>
                     <version>${testdb.version}</version>
                   </dependency>
-                  <!-- hibernate4 incompatible with hibernate3 maven plugin -->
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-core</artifactId>
-                    <version>3.6.9.Final</version>
+                    <version>${hibernate.version}</version>
                   </dependency>
                   <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-entitymanager</artifactId>
-                    <version>3.6.9.Final</version>
+                    <version>${hibernate.version}</version>
                   </dependency>
-                  <!--dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-annotations</artifactId>
-                    <version>3.5.6-Final</version>
-                  </dependency-->
                   <dependency>
                       <groupId>org.hibernate</groupId>
                       <artifactId>hibernate-validator</artifactId>
                       <version>4.2.0.Final</version>
                   </dependency>
+                  <!-- Default maven 2.2.1 depends on slf4j-jdk14 1.5.6 which conflicts with JDK6 and slf4j12-log4j -->
+                  <dependency>
+                      <groupId>org.apache.maven</groupId>
+                      <artifactId>maven-core</artifactId>
+                      <version>3.0.4</version>
+                  </dependency>
                 </dependencies>
             </plugin>
-            <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB >
-            <plugin>
+            <!-- H2 chokes on 'ENGINE=InnoDB' in DDL, remove from generated SQL before running against H2 DB -->
+            <!--plugin>
               <artifactId>maven-antrun-plugin</artifactId>
               <executions>
+                <execution>
                 <execution>
                   <phase>generate-test-sources</phase>
                   <configuration>

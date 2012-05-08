@@ -40,13 +40,18 @@
     </bean>
 
     <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingLocations" ref="hibernateMappingLocations"/>
         <property name="hibernateProperties" ref="hibernateProperties"/>
         <!-- applicationContext sessionFactory merge-point -->
     </bean>
 
+    <!-- The Hibernate interceptor -->
+    <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate3.HibernateInterceptor">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <!-- applicationContext hibernateInterceptor merge-point -->
+    </bean>
 
     <bean id="org.andromda.timetracker.domain.UserDaoImpl" class="org.andromda.timetracker.domain.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
