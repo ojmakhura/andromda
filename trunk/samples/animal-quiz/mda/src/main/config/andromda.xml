@@ -45,7 +45,8 @@
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property>
-                <property name="hibernateVersion">3</property>
+                <property name="hibernateVersion">${hibernate.version}</property>
+                <property name="hibernateEntityAnnotations">false</property>
                 <property name="xmlAttributes">false</property>
             </properties>
         </namespace>

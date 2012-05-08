@@ -173,7 +173,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <!-- Default for maven is src/main/webapp. WebContent is Eclipse convention. -->
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
@@ -209,7 +209,7 @@
                 <configuration>
                     <connectors>
                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                          <port>9090</port>
+                          <port>${service.port}</port>
                           <maxIdleTime>60000</maxIdleTime>
                        </connector>
                     </connectors>
