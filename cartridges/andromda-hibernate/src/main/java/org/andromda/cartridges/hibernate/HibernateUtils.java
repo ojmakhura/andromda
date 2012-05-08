@@ -78,6 +78,16 @@ public class HibernateUtils
     }
 
     /**
+     * Indicates whether or not Hibernate 2 is enabled.
+     *
+     * @return true/false
+     */
+    public boolean isVersion2()
+    {
+        return isVersion2(this.hibernateVersion);
+    }
+
+    /**
      * Indicates whether or not Hibernate 3 is enabled.
      *
      * @return true/false
@@ -95,6 +105,22 @@ public class HibernateUtils
     public boolean isVersion4()
     {
         return isVersion4(this.hibernateVersion);
+    }
+
+    /**
+     * Indicates whether or not the given property value is version 3 or not.
+     *
+     * @param hibernateVersionPropertyValue the value of the property
+     * @return true/false
+     */
+    public static boolean isVersion2(String hibernateVersionPropertyValue)
+    {
+        boolean version2 = false;
+        if (hibernateVersionPropertyValue != null)
+        {
+            version2 = hibernateVersionPropertyValue.startsWith(HibernateGlobals.HIBERNATE_VERSION_2);
+        }
+        return version2;
     }
 
     /**
@@ -193,5 +219,29 @@ public class HibernateUtils
     {
         // subclass or hierarchy
         return HibernateGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy);
+    }
+
+    /**
+     * Needed for InheritanceType enumeration in hibernate annotations
+     * @param hibernateMappingStrategy
+     * @return javax.persistence.InheritanceType enum value for template
+     */
+    public static String getInheritanceTypeEnum(
+        String hibernateMappingStrategy)
+    {
+        String inheritanceType = null;
+        if (HibernateGlobals.HIBERNATE_MAPPING_STRATEGY_HIERARCHY.equalsIgnoreCase(hibernateMappingStrategy))
+        {
+            inheritanceType = "JOINED";
+        }
+        else if (HibernateGlobals.HIBERNATE_MAPPING_STRATEGY_CONCRETE.equalsIgnoreCase(hibernateMappingStrategy))
+        {
+            inheritanceType = "TABLE_PER_CLASS";
+        }
+        else /* if (HibernateGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy)) */
+        {
+            inheritanceType = "SINGLE_TABLE";
+        }
+        return inheritanceType;
     }
 }

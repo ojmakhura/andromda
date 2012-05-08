@@ -40,7 +40,7 @@ $entity.getDocumentation(" * ")
 ## in the hierarchy, regardless of the number of levels in the hierarchy.
 ##
 #if ($entity.specializations.empty && !$entity.generalizations.empty)
-@javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.${entity.hibernateInheritanceStrategy})
+@javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.$hibernateUtils.getInheritanceTypeEnum(${entity.hibernateInheritanceStrategy}))
 ##
 ## Discriminator components only apply to single table mapping strategy
 ##
@@ -287,7 +287,9 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
             final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($property in $entity.allRequiredConstructorParameters)
 #if ($entity.usingForeignIdentifier || !$property.identifier)
+#if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
             entity.${property.setterName}(${property.name});
+#end
 #end
 #end
             return entity;
@@ -324,7 +326,9 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
             final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($property in $entity.allProperties)
 #if ($entity.usingForeignIdentifier || !$property.identifier)
+#if ($property.hibernateEntityAttributeMetaType || ($property.navigable && $property.otherEnd))
             entity.${property.setterName}(${property.name});
+#end
 #end
 #end
             return entity;

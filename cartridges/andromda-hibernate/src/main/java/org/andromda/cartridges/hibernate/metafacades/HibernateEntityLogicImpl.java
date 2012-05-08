@@ -287,7 +287,7 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateInheritanceUnionSubClass()
     {
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
-        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3) || version.equals(HibernateGlobals.HIBERNATE_VERSION_4))
+        return (version.startsWith(HibernateGlobals.HIBERNATE_VERSION_3) || version.startsWith(HibernateGlobals.HIBERNATE_VERSION_4))
             && this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
     }
 
@@ -301,7 +301,7 @@ public class HibernateEntityLogicImpl
         if (StringUtils.isBlank(value))
         {
             String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
-            value = version.equals(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
+            value = version.startsWith(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
         }
         return Boolean.valueOf(value).booleanValue();
     }
@@ -689,11 +689,11 @@ public class HibernateEntityLogicImpl
         final HibernateEntity superEntity = this.getSuperEntity();
         return HibernateUtils.mapSubclassesInSeparateFile(
             (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_MAPPING_STRATEGY)) ||
-        this.isRoot() &&
-        (
-            !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
-            (superEntity != null && superEntity.isHibernateInheritanceInterface())
-        );
+            this.isRoot() &&
+            (
+                !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
+                (superEntity != null && superEntity.isHibernateInheritanceInterface())
+            );
     }
 
     /**
