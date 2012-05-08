@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-api</artifactId>
-            <version>1.2.12</version>
+            <version>1.2.13</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
-            <version>1.2.12</version>
+            <version>1.2.13</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -98,7 +98,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -131,7 +131,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <spring.version>3.0.6.RELEASE</spring.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
     </properties>
     <build>
         <plugins>

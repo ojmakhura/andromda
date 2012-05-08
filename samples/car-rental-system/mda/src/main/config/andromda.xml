@@ -37,7 +37,8 @@
         <property name="maxSqlNameLength">30</property>
         <property name="foreignKeySuffix">_FK</property>
         <property name="ejbJndiNamePrefix">${application.id}</property>
-        <property name="hibernateVersion">3</property>
+        <property name="hibernateVersion">${hibernate.version}</property>
+        <property name="hibernateEntityAnnotations">false</property>
         <property name="xmlAttributes">false</property>
       </properties>
     </namespace>

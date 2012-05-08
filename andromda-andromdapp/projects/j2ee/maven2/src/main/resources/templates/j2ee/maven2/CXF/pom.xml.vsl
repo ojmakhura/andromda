@@ -36,7 +36,7 @@
         -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
@@ -81,7 +81,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
                     <excludes>**/*.java</excludes>
@@ -129,7 +129,7 @@
                 <configuration>
                     <connectors>
                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                          <port>9090</port>
+                          <port>${service.port}</port>
                           <maxIdleTime>60000</maxIdleTime>
                        </connector>
                     </connectors>
@@ -173,7 +173,7 @@
 #end
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.11</version>
+                <version>2.12</version>
                 <configuration>
                     <parallel>methods</parallel>
                     <threadCount>5</threadCount>

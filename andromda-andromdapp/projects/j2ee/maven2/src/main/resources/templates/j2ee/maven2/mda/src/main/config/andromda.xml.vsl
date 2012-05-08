@@ -122,7 +122,7 @@
                 <property name="xmlEncoding">ISO-8859-1</property>
                 <property name="enumerationLiteralNameMask">upperunderscore</property>
 #if ($spring || $hibernate)
-                <property name="hibernateVersion">3</property>
+                <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">false</property>
 #end
                 <property name="persistenceContainerName">jboss</property>
@@ -399,7 +399,7 @@
 #end
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
-                <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
+                <property name="wsdlSoapAddress">http://${webservice.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="webserviceTypesPackage">${application.package}</property>
 #if ($spring || $hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
@@ -429,7 +429,7 @@
                 <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
                 <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
                 <property name="webserviceHost">${webservice.host}</property>
-                <property name="webservicePort">${webservice.port}</property>
+                <property name="webservicePort">${service.port}</property>
                 <property name="webContext">${application.id}-webservice</property>
                 <property name="servicesPath">services</property>
                 <!-- Creates default/dummy implementation for service, iterating down through parameter hierarchy -->

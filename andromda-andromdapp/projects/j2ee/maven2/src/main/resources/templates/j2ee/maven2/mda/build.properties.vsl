@@ -80,7 +80,7 @@ sql.mappings=MySQL
 # The remoting mechanism to use
 remote.type=httpinvoker
 remote.server=127.0.0.1
-remote.port=9090
+remote.port=${service.port}
 
 #I think these dir variables are outdated, but I'm reluctant to remove
 source.client.base.dir=client/src
