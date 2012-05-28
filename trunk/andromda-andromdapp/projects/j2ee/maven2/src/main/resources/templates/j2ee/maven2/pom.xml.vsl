@@ -1492,7 +1492,7 @@
             Change this to generate to the correct MDA database mappings,
             For MySql use: MySQL
             For Hypersonic use: HypersonicSql
-            For H2 use: H2
+            For H2 use: H2Sql
             For Oracle9i use: Oracle9i
             For DB2 use: DB2
             For Informix use: InformixDB
@@ -1527,7 +1527,7 @@
 #elseif ($derby)
             Derby
 #elseif ($h2)
-            H2
+            H2Sql
 #elseif ($hypersonic)
             HypersonicSql
 #end
