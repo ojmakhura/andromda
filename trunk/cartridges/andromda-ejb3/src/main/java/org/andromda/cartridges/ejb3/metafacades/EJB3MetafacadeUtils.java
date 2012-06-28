@@ -267,7 +267,7 @@ class EJB3MetafacadeUtils
     /**
      * Gets all constants for the specified <code>classifier</code>.
      * If <code>follow</code> is true, then a search up
-     * the inheritance hierachy will be performed and all super
+     * the inheritance hierarchy will be performed and all super
      * type constants will also be retrieved.
      *
      * @param classifier the classifier from which to retrieve the constants

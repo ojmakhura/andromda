@@ -296,6 +296,18 @@
                 </documentation>
                 <value>andromda_persistence_immutable</value>
             </element>
+            <element name="PERSISTENCE_JOINCOLUMN_ORDER">
+                <documentation>
+                    For ManyToOne associations, the order of the @JoinColumn annotations in the composite PK MUST
+                    match the order of the columns in the FK definition. The JoinColumn order should be the same
+                    as the order of columns in the Primary Key of the Entity.
+                </documentation>
+                <value>andromda_persistence_joincolumn_order</value>
+                <appliedOnElement>Entities</appliedOnElement>
+                <allowedValues>
+                    <value>An associationEnd of this entity</value>
+                </allowedValues>
+            </element>
 			<element name="PERSISTENCE_ENUMERATION_MEMBER_VARIABLE">
 			    <documentation>
 			        Specifies whether the enumeration attribute is

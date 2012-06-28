@@ -41,9 +41,7 @@ public class H2
     public static void main(String[] args)
     {
         // Using Embedded H2 database with multiple connections, starting a TCP instance
-        initDb("jdbc:h2:~/mpo;MODE=Oracle;AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1",
-            "C:/Workspaces/marketingpinnedofferv2/core/src/test/scripts/ECM DB drop script.sql;C:/Workspaces/marketingpinnedofferv2/core/src/test/scripts/ECM DB create script.sql");
-            // ;C:/Workspaces/marketingpinnedofferv2/core/src/test/scripts/ECM DB insert script.sql");
+        initDb("${testConnectionUrl}", null);
     }
 
     /**
@@ -55,7 +53,7 @@ public class H2
         long now = System.currentTimeMillis();
         try
         {
-            Class.forName("org.h2.Driver");
+            Class.forName("${testDriver}");
             // IF there are any errors in SQL Files, the connection throws an Exception
             List<String> sqls = new ArrayList<String>();
             if (StringUtils.isNotBlank(sqlFile))
@@ -84,7 +82,7 @@ public class H2
             }
             // Starts H2, allowing TCP connections also, to jdbc:h2:tcp://localhost/${sql.database}
             // Must use id/password with embedded persisted mode
-            Connection conn = DriverManager.getConnection(url, "sa", "sa");
+            Connection conn = DriverManager.getConnection(url, "${testUsername}", "${testPassword}");
             LOGGER.info("Connected to DB " + url + "\r in " + (System.currentTimeMillis() - now) + " ms");
             long now1 = System.currentTimeMillis();
             Statement stat = conn.createStatement();

@@ -9,12 +9,12 @@ package org.andromda.schema2xmi;
 class Schema2XMIGlobals
 {
     /**
-     * The token used to separate packages.
+     * "::" The token used to separate packages.
      */
     public static String PACKAGE_SEPARATOR = "::";
 
     /**
-     * The namespace of the NetBeans MDR repository.
+     * "netBeansMDR" The namespace of the NetBeans MDR repository.
      */
     public static String REPOSITORY_NAMESPACE_NETBEANSMDR = "netBeansMDR";
 }

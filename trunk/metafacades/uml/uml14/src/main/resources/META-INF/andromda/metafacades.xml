@@ -40,7 +40,7 @@
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
         <property reference="classifierNameMask"/>
-	</metafacade>	
+	</metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
         <property reference="enumerationLiteralNameMask"/>
@@ -394,13 +394,13 @@
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
         <property reference="classifierNameMask"/>
-    </metafacade>   
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
         <property reference="classifierNameMask"/>
-    </metafacade> 
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Primitive$Impl"/>
         <property reference="classifierNameMask"/>
-    </metafacade--> 
+    </metafacade-->
 </metafacades>

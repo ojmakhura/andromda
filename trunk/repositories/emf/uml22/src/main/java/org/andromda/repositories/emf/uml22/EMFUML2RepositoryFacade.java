@@ -51,7 +51,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
      * @see org.andromda.core.repository.RepositoryFacade#open()
      */
     @Override
-    protected ResourceSet createNewResourceSet()
+    public ResourceSet createNewResourceSet()
     {
         if (logger.isDebugEnabled())
         {
@@ -107,6 +107,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         // - *.uml -> native Eclipse/UML2 2.x resource
         // - *.uml2 -> native Eclipse/UML2 1.x resource
         // - *.xmi, *.xml -> OMG XMI UML2 resource
+        // - *.emx, *.epx -> IBM Rational Modeler UML2 model and profile resource
         extensionToFactoryMap.put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
         extensionToFactoryMap.put("emx", UMLResource.Factory.INSTANCE);
         extensionToFactoryMap.put("epx", UMLResource.Factory.INSTANCE);
@@ -179,7 +180,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
             //URI uri = URI.createURI("jar:file:/C:/Programs/IBM/SDP70Shared/plugins/com.ibm.xtools.uml.msl_7.5.0.v20080731_1905.jar!/");
             //URIConverter.URI_MAP.put(URI.createURI("pathmap://UML2_MSL_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
             // UML2_MSL_PROFILES are used in IBM RSM models.
-            uriMap.put(URI.createURI("pathmap://UML2_MSL_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
+            URIConverter.URI_MAP.put(URI.createURI("pathmap://UML2_MSL_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
         }
         // Add pathmap for RUP_PROFILES in com/ibm/xtools/modeler/ui/templates/7.5.500/templates-7.5.500.jar
         url = this.getClass().getResource("/profiles/RUPAnalysis.epx");
@@ -189,21 +190,21 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
             URI uri = URI.createURI("jar:" + path);
             //URIConverter.URI_MAP.put(URI.createURI("pathmap://UML2_MSL_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
             // UML2_MSL_PROFILES are used in IBM RSM models.
-            uriMap.put(URI.createURI("pathmap://RUP_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
+            URIConverter.URI_MAP.put(URI.createURI("pathmap://RUP_PROFILES/"), uri.appendSegment("profiles").appendSegment(""));
         }
 
         //TODO This doesn't seem to help to resolve the pathmap.
-        // moduleSearchLocations values must be added to andromda.xml
+        // moduleSearchLocations values must still be added to andromda.xml
         //TODO Enable <pathmaps><pathmap name= value=/> in andromda.xml configuration
         // pathmap://m2repository is used in starter models to reference profiles deployed in maven local repository
         String m2repository = System.getenv("M2_REPO");
         if (m2repository!=null)
         {
-            URI uri = URI.createURI(m2repository.replace("\\", "/") + '/');
+            URI uri = URI.createURI("file:" + m2repository.replace("\\", "/") + '/');
             // This doesn't seem to load the pathmap resources from the m2repository.
-            uriMap.put(URI.createURI("pathmap://m2repository/"), uri.appendSegment(""));
+            URIConverter.URI_MAP.put(URI.createURI("pathmap://m2repository/"), uri.appendSegment(""));
             // m2repository conflicts with pathmap variable added by Sonatype eclipse plugin, use M2_REPO instead.
-            uriMap.put(URI.createURI("pathmap://M2_REPO/"), uri.appendSegment(""));
+            URIConverter.URI_MAP.put(URI.createURI("pathmap://M2_REPO/"), uri.appendSegment(""));
         }
 
         // - populate the load options
@@ -289,7 +290,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
      * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(String)
      */
     @Override
-    protected void readModel(final String uri)
+    public void readModel(final String uri)
     {
         UmlUtilities.getModels().clear();
         super.readModel(uri);

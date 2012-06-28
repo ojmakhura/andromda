@@ -55,6 +55,34 @@ public class JavaClassLogicImpl
     }
 
     /**
+     * UML22 implementation for TemplateParameter logic
+     * @return the class name.
+     */
+    public Object getType()
+    {
+        /*if (this.metaObject instanceof TemplateParameterFacade)
+        {
+            return
+        }
+        System.out.println(this.metaObject);*/
+        return this.metaObject;
+    }
+
+    /**
+     * UML22 implementation for TemplateParameter logic
+     * @return the class name.
+    public Object getOwner()
+    {
+        if (this.metaObject instanceof ClassifierFacade)
+        {
+            ClassifierFacade facade = (ClassifierFacade)this.metaObject;
+            return facade.getOwner();
+        }
+        return this.metaObject;
+    }
+     */
+
+    /**
      * @return InterfaceImplementionName
      * @see org.andromda.cartridges.java.metafacades.JavaClass#getInterfaceImplementationName()
      */

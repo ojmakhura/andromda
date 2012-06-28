@@ -341,7 +341,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Linguistically pluralizes a singular noun. 
+     * Linguistically pluralizes a singular noun.
      * <ul>
      * <li><code>noun</code> becomes <code>nouns</code></li>
      * <li><code>key</code> becomes <code>keys</code></li>

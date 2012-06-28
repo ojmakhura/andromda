@@ -155,6 +155,8 @@ public final class $manageable.actionClassName extends DispatchAction
         if (StringUtils.isNotBlank(request.getParameter("$referenceParameterName")))
         {
 ## here we assume the id is of a type (with a wrapper) supporting .valueOf(String)
+##            // $member.type.identifiers.size()
+#if (!$member.type.identifiers.empty)
 #set ($identifierType = $member.type.identifiers.iterator().next().type)
 #if ($member.many)
             final ${identifierType.fullyQualifiedName}[] array = new ${identifierType.fullyQualifiedName}[1];
@@ -165,6 +167,7 @@ public final class $manageable.actionClassName extends DispatchAction
             form.${member.setterName}(${identifierType.wrapperName}.valueOf(request.getParameter("$referenceParameterName")));
 #else
             form.${member.setterName}(new ${identifierType.fullyQualifiedName}(request.getParameter("$referenceParameterName")));
+#end
 #end
 #end
         }

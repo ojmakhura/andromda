@@ -74,7 +74,7 @@ public abstract class EMFRepositoryFacade
      *
      * @param uri the URI to the model
      */
-    protected void readModel(final String uri)
+    public void readModel(final String uri)
     {
         try
         {
@@ -156,7 +156,7 @@ public abstract class EMFRepositoryFacade
      *
      * @return a new resource set to be used by this repository
      */
-    protected abstract ResourceSet createNewResourceSet();
+    public abstract ResourceSet createNewResourceSet();
 
     /**
      * Ignore. Avoid compiler warning.
@@ -205,7 +205,10 @@ public abstract class EMFRepositoryFacade
             }
         }
         logger.debug("ModuleSearchPaths: " + moduleSearchPathList);
-        this.resourceSet.setURIConverter(new EMFURIConverter(moduleSearchPathList));
+        // Add the new URI map to the existing URI map
+
+        this.resourceSet.setURIConverter(new EMFURIConverter(moduleSearchPathList,
+            this.resourceSet.getURIConverter().getURIMap()));
         if (modelUris.length > 0)
         {
             final int numberOfModelUris = modelUris.length;

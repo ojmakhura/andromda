@@ -50,7 +50,8 @@ public class EMXProxyResolvingResourceSet extends ResourceSetImpl
             // This will point out invalid model references....
             if (uri.toString().indexOf('?')<0)
             {
-                logger.warn("Could not load referenced model uri " + (System.currentTimeMillis() - now) + "ms: " + uri.toString());
+                logger.warn("Could not load referenced model uri " + (System.currentTimeMillis() - now) + "ms: " +
+                    uri.toString() + " " + e.getCause(), e.getCause());
             }
             if (!connectExceptions.contains(uri.toString()))
             {

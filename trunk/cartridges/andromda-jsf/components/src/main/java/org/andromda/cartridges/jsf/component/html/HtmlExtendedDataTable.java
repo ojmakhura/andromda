@@ -187,7 +187,7 @@ public class HtmlExtendedDataTable
      *
      * @return Class the value's type or null if undefined.
      */
-    private Class getValueType()
+    public Class getValueType()
     {
         return this.getBindingType(VALUE);
     }
