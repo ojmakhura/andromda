@@ -103,6 +103,8 @@
         <plugins>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
+                <!-- v3.0: org.apache.maven.plugin.PluginParameterException: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' 
+                for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:3.4-SNAPSHOT:xml.zip -->
                 <version>2.9</version>
                 <executions>
                     <execution>

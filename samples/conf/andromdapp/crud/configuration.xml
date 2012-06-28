@@ -22,9 +22,11 @@
         <property name="databaseType">hypersonic</property>
         <property name="testDatabase">h2</property>
         <property name="deploymentPlatform">jboss7</property>
-        <property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
+        <!--property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
+        <property name="distributionManagementSnapshotRepositoryUrl">$${project.distributionManagement.snapshotRepository.url}</property-->
+        <property name="distributionManagementRepositoryUrl">http://repository-andromdabuild.forge.cloudbees.com/release/</property>
+        <property name="distributionManagementSnapshotRepositoryUrl">file:/scratch/hudson/workspace/Andromda/</property>
         <property name="distributionManagementRepositoryId">$${project.distributionManagement.repository.id}</property>
-        <property name="distributionManagementSnapshotRepositoryUrl">$${project.distributionManagement.snapshotRepository.url}</property>
         <property name="distributionManagementSnapshotRepositoryId">$${project.distributionManagement.snapshotRepository.id}</property>
     </properties>
 </andromdapp>

@@ -399,7 +399,7 @@
 #end
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
-                <property name="wsdlSoapAddress">http://${webservice.host}:${service.port}/${application.id}-ws/services</property>
+                <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="webserviceTypesPackage">${application.package}</property>
 #if ($spring || $hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
@@ -428,7 +428,7 @@
                      -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve -->
                 <property name="xjcArguments">-Xts,-Xts:style:simple,-Xdv</property>
                 <!-- webserviceHost:webservicePort/webContext/servicesPath used in wsdl and spring configuration -->
-                <property name="webserviceHost">${webservice.host}</property>
+                <property name="webserviceHost">${service.host}</property>
                 <property name="webservicePort">${service.port}</property>
                 <property name="webContext">${application.id}-webservice</property>
                 <property name="servicesPath">services</property>
