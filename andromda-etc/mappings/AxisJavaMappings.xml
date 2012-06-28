@@ -18,10 +18,6 @@
         <from>datatype::DateTime</from>
 	  	<from>datatype::Timestamp</from>
         <from>datatype::Time</from>
-        <from>datatypes::Date</from>
-        <from>datatypes::DateTime</from>
-        <from>datatypes::Timestamp</from>
-        <from>datatypes::Time</from>
         <from>XSDDatatypes::date</from>
         <from>XSDDatatypes::time</from>
         <from>XSDDatatypes::dateTime</from>
@@ -38,7 +34,6 @@
         <from>UML Standard Profile::Integer</from>
         <from>PrimitiveTypes::Integer</from>
         <from>datatype::Integer</from>
-        <from>datatypes::Integer</from>
         <from>XSDDatatypes::integer</from>
         <from>RoseJavaDatatypes::java::lang::Integer</from>
         <to>java.math.BigInteger</to>

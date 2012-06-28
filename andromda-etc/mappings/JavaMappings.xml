@@ -47,7 +47,6 @@
         <from>datatype::Time</from>
         <from>datatype::Date</from>
         <from>datatype::DateTime</from>
-        <from>datatypes::date</from>
         <from>XSDDatatypes::date</from>
         <from>XSDDatatypes::time</from>
         <from>XSDDatatypes::dateTime</from>
@@ -67,9 +66,9 @@
     <mapping>
         <from>Java::char</from>
         <from>UML Standard Profile::char</from>
+        <from>JavaPrimitiveTypes::char</from>
         <from>PrimitiveTypes::char</from>
         <from>datatype::char</from>
-        <from>datatypes::char</from>
         <from>RoseCppDatatypes::char</from>
         <to>char</to>
     </mapping>
@@ -83,9 +82,9 @@
     <mapping>
         <from>Java::byte</from>
         <from>UML Standard Profile::byte</from>
+        <from>JavaPrimitiveTypes::byte</from>
         <from>PrimitiveTypes::byte</from>
         <from>datatype::byte</from>
-        <from>datatypes::byte</from>
         <from>XSDDatatypes::byte</from>
         <from>RoseCppDatatypes::byte</from>
         <to>byte</to>
@@ -101,9 +100,9 @@
     <mapping>
         <from>Java::short</from>
         <from>UML Standard Profile::short</from>
+        <from>JavaPrimitiveTypes::short</from>
         <from>PrimitiveTypes::short</from>
         <from>datatype::short</from>
-        <from>datatypes::short</from>
         <from>XSDDatatypes::short</from>
         <from>RoseCppDatatypes::short</from>
         <to>short</to>
@@ -118,9 +117,9 @@
     <mapping>
         <from>Java::int</from>
         <from>UML Standard Profile::int</from>
+        <from>JavaPrimitiveTypes::int</from>
         <from>PrimitiveTypes::int</from>
         <from>datatype::int</from>
-        <from>datatypes::int</from>
         <from>XSDDatatypes::int</from>
         <from>RoseCppDatatypes::int</from>
         <to>int</to>
@@ -139,9 +138,9 @@
     <mapping>
         <from>Java::long</from>
         <from>UML Standard Profile::long</from>
+        <from>JavaPrimitiveTypes::long</from>
         <from>PrimitiveTypes::long</from>
         <from>datatype::long</from>
-        <from>datatypes::long</from>
         <from>XSDDatatypes::long</from>
         <from>RoseCppDatatypes::long</from>
         <to>long</to>
@@ -160,9 +159,9 @@
     <mapping>
         <from>Java::float</from>
         <from>UML Standard Profile::float</from>
+        <from>JavaPrimitiveTypes::float</from>
         <from>PrimitiveTypes::float</from>
         <from>datatype::float</from>
-        <from>datatypes::float</from>
         <from>XSDDatatypes::float</from>
         <from>RoseCppDatatypes::float</from>
         <to>float</to>
@@ -177,9 +176,9 @@
     <mapping>
         <from>Java::double</from>
         <from>UML Standard Profile::double</from>
+        <from>JavaPrimitiveTypes::double</from>
         <from>PrimitiveTypes::double</from>
         <from>datatype::double</from>
-        <from>datatypes::double</from>
         <to>double</to>
     </mapping>
     <mapping>
@@ -226,9 +225,9 @@
     <mapping>
         <from>Java::boolean</from>
         <from>UML Standard Profile::boolean</from>
+        <from>JavaPrimitiveTypes::boolean</from>
         <from>PrimitiveTypes::boolean</from>
         <from>datatype::boolean</from>
-        <from>datatypes::boolean</from>
         <from>XSDDatatypes::boolean</from>
         <to>boolean</to>
     </mapping>
@@ -352,7 +351,6 @@
         <from>PrimitiveTypes::void</from>
         <from>PrimitiveTypes::Void</from>
         <from>datatype::void</from>
-        <from>datatypes::void</from>
         <from>RoseJavaDatatypes::java::lang::Void</from>
         <from>RoseCppDatatypes::void</from>
         <to>void</to>

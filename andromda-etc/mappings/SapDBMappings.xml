@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This is used to map the model types to 
+  This is used to map the model types to
   SAPDB types for generated code.
 -->
 <mappings name="SapDB">
@@ -64,7 +64,6 @@
     </mapping>
     <mapping>
         <from>datatype::Decimal</from>
-        <from>datatype::decimal</from>
         <to>DECIMAL</to>
     </mapping>
     <mapping>
