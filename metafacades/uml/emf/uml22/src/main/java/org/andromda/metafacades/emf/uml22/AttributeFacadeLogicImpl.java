@@ -273,12 +273,12 @@ public class AttributeFacadeLogicImpl
             // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
             if (this.getType().isBooleanType())
             {
-                if (this.getType().isPrimitive() && this.getLower() < 1)
+                if (!this.getType().isPrimitive() || this.getLower() < 1)
                 {
                     // Type is optional, should not be primitive
                     name = StringUtils.capitalize(name);
                 }
-                else if (!this.getType().isPrimitive() && this.getLower() > 0)
+                else //if (this.getType().isPrimitive())
                 {
                     // Type is required, should not be wrapped
                     name = StringUtils.uncapitalize(name);

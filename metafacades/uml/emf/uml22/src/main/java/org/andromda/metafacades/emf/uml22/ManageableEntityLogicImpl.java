@@ -296,7 +296,7 @@ public class ManageableEntityLogicImpl
                 }
                 else if(ListType.WRAPPER.equals(listType))
                 {
-                    buffer.append(type.isPrimitive()? type.getWrapperName(): type.getFullyQualifiedName());
+                    buffer.append(type.isPrimitive() ? type.getWrapperName() : type.getFullyQualifiedName());
                     buffer.append(' ');
                 }
                 buffer.append(attribute.getName());

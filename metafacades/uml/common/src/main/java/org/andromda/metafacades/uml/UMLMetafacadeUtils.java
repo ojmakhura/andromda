@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.log4j.Logger;
@@ -1013,6 +1015,103 @@ public class UMLMetafacadeUtils
             e.printStackTrace();
         }
         return rtn;
+    }
+
+    /**
+     * TODO Reference this logic from AssociationEnd
+     * Determine if this association end owns the relationship. i.e. if the associationEnd property
+     * belonging to the Entity on the opposite end owns the relationship. Based on tagged value,
+     * multiplicity, aggregation/composition. If all else fails, the longest name owns the
+     * association, or else the alphabetically first name. One side of a relationship must
+     * always own the association and be created and deleted first.
+     * @param associationEnd the association end
+     * @return true if the associationEnd (property of the entity on the other end) is owned by the entity on the other end
+     */
+    public static boolean isOwningEnd(AssociationEndFacade associationEnd)
+    {
+        boolean owning = false;
+        AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
+        //String assoc = ((Entity)otherEnd.getValidationOwner()).getName() + "." + associationEnd.getName() + " -> " + associationEnd.getType().getName() + " ";
+        if (BooleanUtils.toBoolean(
+                ObjectUtils.toString(otherEnd.findTaggedValue(
+                    "andromda_persistence_associationEnd_primary"))))
+        {
+            owning = true;
+        }
+        // See if this end or the other end is tagged as the association owner
+        else if (BooleanUtils.toBoolean(
+            ObjectUtils.toString(otherEnd.findTaggedValue(
+                "andromda_persistence_associationEnd_primary"))))
+        {
+            owning = false;
+        }
+        // Navigable side always owns the relationship
+        else if (associationEnd.isNavigable() && !otherEnd.isNavigable())
+        {
+            owning = true;
+            //LOGGER.info("Owning=true: " + assoc + "nav=" + associationEnd.isNavigable() + " Onav=" + otherEnd.isNavigable());
+        }
+        else if (!associationEnd.isNavigable() && otherEnd.isNavigable())
+        {
+            owning = false;
+            //LOGGER.info("Owning=false: " + assoc + "nav=" + associationEnd.isNavigable() + " Onav=" + otherEnd.isNavigable());
+        }
+        // Other side: aggregation/composition side does not own the bidirectional relationship
+        else if (otherEnd.isAggregation() || otherEnd.isComposition())
+        {
+            owning = false;
+            //LOGGER.info("Owning=true: " + assoc + "Oagg=" + otherEnd.isAggregation() + " Ocomp=" + otherEnd.isComposition());
+        }
+        else if (associationEnd.isAggregation() || associationEnd.isComposition())
+        {
+            owning = true;
+            //LOGGER.info("Owning=false: " + assoc + "Oagg=" + associationEnd.isAggregation() + " Ocomp=" + otherEnd.isComposition());
+        }
+        // The many side of 1:M owns the bidirectional relationship
+        else if (!associationEnd.isMany() && otherEnd.isMany())
+        {
+            owning = true;
+            //LOGGER.info("Owning=true: " + assoc + "many=" + associationEnd.isMany() + " Omany=" + otherEnd.isMany());
+        }
+        // Other side: the many side of 1:M owns the bidirectional relationship if no composition/aggregation
+        else if (associationEnd.isMany() && !otherEnd.isMany())
+        {
+            owning = false;
+            //LOGGER.info("Owning=false: " + assoc + "many=" + associationEnd.isMany() + " Omany=" + otherEnd.isMany());
+        }
+        // The optional side of 1:1 or M:M owns the bidirectional relationship
+        else if (associationEnd.getLower() > 0 && otherEnd.getLower() == 0)
+        {
+            owning = true;
+            //LOGGER.info("Owning=true: " + assoc + "many=" + associationEnd.isMany() + " Omany=" + otherEnd.isMany());
+        }
+        // If bidirectional 1:1 or M:M, choose the side with the longest type name because it typically indicates a composition relationship
+        /*else if (this.getOtherEnd().getType().getName().length()
+                > this.getType().getName().length())*/
+        else if (associationEnd.getName().length()
+            < otherEnd.getName().length())
+        {
+            owning = true;
+            //LOGGER.info("Owning=true: " + assoc + "endLength=" + associationEnd.getName().length() + " Olength=" + otherEnd.getName().length());
+        }
+        // If length is the same, alphabetically earliest is the owner
+        else if (associationEnd.getName().compareTo(
+            otherEnd.getName()) < 0)
+        {
+            owning = true;
+            //LOGGER.info("Owning=true: " + assoc + "name=" + associationEnd.getName() + " < OName=" + otherEnd.getName());
+        }
+        /*LOGGER.info(((Entity)associationEnd.getOtherEnd().getValidationOwner()).getName()
+            + "." + associationEnd.getName() +" IsOwningEnd=" + owning + " for "
+            + ((Entity)associationEnd.getOtherEnd().getValidationOwner()).getName()
+            + " OName=" + otherEnd.getName() + " Aggregation=" + associationEnd.isAggregation()
+            + " Composition=" + associationEnd.isComposition() + " Navigable=" + associationEnd.isNavigable()
+            + " !Navigable=" + !otherEnd.isNavigable() + " Many=" + associationEnd.isMany()
+            + " OMany=" + otherEnd.isMany() + " Upper=" + associationEnd.getUpper()
+            + " OUpper=" + otherEnd.getUpper() + " OAggregation=" + otherEnd.isAggregation()
+            + " OComposition=" + otherEnd.isComposition() + " ONavigable=" + otherEnd.isNavigable()
+            + " otherEnd=" + otherEnd.getFullyQualifiedName());*/
+        return owning;
     }
 
     private static FastDateFormat df = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ss");

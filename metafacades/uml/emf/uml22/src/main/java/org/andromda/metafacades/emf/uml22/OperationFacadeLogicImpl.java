@@ -219,6 +219,7 @@ public class OperationFacadeLogicImpl
         {
             public Object transform(final Object object)
             {
+                if (object == null) return null;
                 return ((DependencyFacade)object).getTargetElement();
             }
         });
@@ -574,7 +575,7 @@ public class OperationFacadeLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return !((Parameter)object).isException();
+                    return object != null && !((Parameter)object).isException();
                 }
             });
         return params;

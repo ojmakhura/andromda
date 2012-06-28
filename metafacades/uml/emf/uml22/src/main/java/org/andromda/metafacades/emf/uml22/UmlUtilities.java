@@ -996,7 +996,7 @@ public class UmlUtilities
      * @param associationEnd the association end from which to retrieve the opposite end.
      * @return the opposite association end or null.
      */
-    static Property getOppositeProperty(final Property associationEnd)
+    public static Property getOppositeProperty(final Property associationEnd)
     {
         if (associationEnd==null)
         {
@@ -1030,7 +1030,7 @@ public class UmlUtilities
      * @param associationEnd the association end from which to retrieve the opposite end.
      * @return the opposite association end or null.
      */
-    static AssociationEnd getOppositeAssociationEnd(final Property associationEnd)
+    public static AssociationEnd getOppositeAssociationEnd(final Property associationEnd)
     {
         if (associationEnd==null)
         {
@@ -1048,7 +1048,7 @@ public class UmlUtilities
      *
      * @return the found model element.
      */
-    static Object findByPredicate(
+    public static Object findByPredicate(
         final ResourceSet resourceSet,
         final Predicate pred)
     {
@@ -1150,7 +1150,7 @@ public class UmlUtilities
      *                   instead of the PSM package name.
      * @return the package name.
      */
-    static String getPackageName(
+    public static String getPackageName(
         final NamedElement metaObject,
         final String separator,
         final boolean modelName)
@@ -1206,7 +1206,7 @@ public class UmlUtilities
      *
      * @see #getPackageName(org.eclipse.uml2.uml.NamedElement, String, boolean)
      */
-    static String getPackageName(
+    public static String getPackageName(
         final Element metaObject,
         final String separator,
         final boolean modelName)
@@ -1248,7 +1248,7 @@ public class UmlUtilities
      * @param modelName
      * @return packageName
      */
-    static String getFullyQualifiedName(
+    public static String getFullyQualifiedName(
         final Element metaObject,
         final String separator,
         final boolean modelName)
@@ -1290,7 +1290,7 @@ public class UmlUtilities
      * @param name the name to find.
      * @return the found model element.
      */
-    static Object findByName(
+    public static Object findByName(
         final ResourceSet rs,
         final String name)
     {
@@ -1332,7 +1332,7 @@ public class UmlUtilities
      *                           name.
      * @return the found model element
      */
-    static Object findByFullyQualifiedName(
+    public static Object findByFullyQualifiedName(
         final ResourceSet resourceSet,
         final String fullyQualifiedName,
         final String separator,
@@ -1385,7 +1385,7 @@ public class UmlUtilities
      * @param defaultMultiplicity from ClassifierFacadeLogic.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)
      * @return the parsed integer. Defaults to 1.
      */
-    static int parseLowerMultiplicity(final ValueSpecification multValue, final ClassifierFacade type, final String defaultMultiplicity)
+    public static int parseLowerMultiplicity(final ValueSpecification multValue, final ClassifierFacade type, final String defaultMultiplicity)
     {
         int value = 1;
         if (multValue == null)
@@ -1422,7 +1422,7 @@ public class UmlUtilities
      * @param defaultValue when null: 1 for upper multiplicity, 0 for lower multiplicity.
      * @return the parsed integer. Defaults to 1.
      */
-    static int parseMultiplicity(final ValueSpecification multValue, final int defaultValue)
+    public static int parseMultiplicity(final ValueSpecification multValue, final int defaultValue)
     {
         int value = defaultValue;
         if (multValue != null)

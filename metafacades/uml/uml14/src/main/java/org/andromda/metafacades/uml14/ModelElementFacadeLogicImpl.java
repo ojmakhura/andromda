@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -37,8 +38,10 @@ import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.Abstraction;
+import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.Dependency;
+import org.omg.uml.foundation.core.Feature;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Namespace;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
@@ -612,6 +615,41 @@ public class ModelElementFacadeLogicImpl
      */
 
     /**
+     * @return Feature owner, or namespace
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
+     */
+    //@Override
+    protected Object handleGetOwner()
+    {
+        if (this.metaObject instanceof Feature)
+        {
+            Feature feature = (Feature)this.metaObject;
+            return feature.getOwner();
+        }
+        return metaObject.getNamespace();
+    }
+
+    /**
+     * @return Collection of Features or Namespace elements
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
+     */
+    //@Override
+    protected Collection handleGetOwnedElements()
+    {
+        if (this.metaObject instanceof Classifier)
+        {
+            Classifier classifier = (Classifier)this.metaObject;
+            return classifier.getFeature();
+        }
+        if (this.metaObject instanceof Namespace)
+        {
+            Namespace namespace = (Namespace)this.metaObject;
+            return namespace.getOwnedElement();
+        }
+        return null;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
      */
     @Override
@@ -1135,5 +1173,18 @@ public class ModelElementFacadeLogicImpl
         }
 
         return fullName;
+    }
+
+    // Valid identifier starts with alphanum or _$ and contains only alphanum or _$ or digits
+    private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("[a-zA-Z_$][a-zA-Z\\d_$]*");
+    /**
+     * Return true if name matches the pattern [a-zA-Z_$][a-zA-Z\\d_$]*
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleIsValidIdentifierName()
+     */
+    //@Override
+    protected boolean handleIsValidIdentifierName()
+    {
+        final String name = this.handleGetName();
+        return IDENTIFIER_PATTERN.matcher(name).matches();
     }
 }

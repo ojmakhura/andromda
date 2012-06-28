@@ -96,7 +96,7 @@ public class TagDefinitionImpl
      */
     public Object getValue()
     {
-        return this.values.iterator().next();
+        return (this.values != null && !this.values.isEmpty()) ? this.values.iterator().next() : null;
     }
 
     /**
