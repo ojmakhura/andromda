@@ -120,6 +120,10 @@ public abstract class AbstractAndroMDAMojo
                 this.addPluginDependencies(
                     Constants.ARTIFACT_ID,
                     Artifact.SCOPE_RUNTIME);
+                // TODO Change from runtime to test scoped dependencies for mda generation, so they are not added to the dependent manifest files.
+                /*this.addPluginDependencies(
+                        Constants.ARTIFACT_ID,
+                        Artifact.SCOPE_TEST);*/
                 this.initializeClasspathFromClassPathElements(this.project.getRuntimeClasspathElements());
                 final Configuration configuration = this.getConfiguration(configurationUri);
                 this.execute(configuration);

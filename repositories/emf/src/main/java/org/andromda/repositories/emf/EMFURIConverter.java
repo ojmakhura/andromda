@@ -25,6 +25,27 @@ public class EMFURIConverter
 {
     /**
      * Creates a new instance of EMFURIConverter taking the <code>moduleSearchPaths</code>
+     * and the existing URI Map as arguments. These are the paths used to attempt to normalize a given URI during
+     * the call to {@link #normalize(URI)} provided that it couldn't be found in the normal manner.
+     *
+     * @param moduleSearchPaths the paths to search for modules.
+     * @param uriMap
+     */
+    public EMFURIConverter(final List<String> moduleSearchPaths, Map<URI, URI> uriMap)
+    {
+        this.normalizedUris = uriMap;
+        this.moduleSearchPaths = moduleSearchPaths;
+        if (logger.isDebugEnabled())
+        {
+            for (final String path : moduleSearchPaths)
+            {
+                logger.debug("Model search path:" + path);
+            }
+        }
+    }
+
+    /**
+     * Creates a new instance of EMFURIConverter taking the <code>moduleSearchPaths</code>
      * as an argument. These are the paths used to attempt to normalize a given URI during
      * the call to {@link #normalize(URI)} provided that it couldn't be found in the normal manner.
      *
@@ -50,7 +71,7 @@ public class EMFURIConverter
     /**
      * Stores the URIs that have been normalized.
      */
-    private final Map<URI, URI> normalizedUris = new HashMap<URI, URI>();
+    private Map<URI, URI> normalizedUris = new HashMap<URI, URI>();
 
     /**
      * The logger instance.

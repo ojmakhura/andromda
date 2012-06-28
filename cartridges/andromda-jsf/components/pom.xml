@@ -40,6 +40,7 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
+            <!-- v1.1.10 or later: HtmlExtendedDataTable cannot override getValueType() in org.apache.myfaces.component.html.ext.AbstractHtmlDataTable; incompatible return type java.lang.Class -->
             <version>1.1.9</version>
             <exclusions>
                 <exclusion>

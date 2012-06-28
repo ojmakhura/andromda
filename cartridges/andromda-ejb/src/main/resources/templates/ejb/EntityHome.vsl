@@ -3,7 +3,9 @@
 package $entity.packageName;
 #end
 
+#if (!$entity.identifiers.empty)
 #set ($identifier = $entity.identifiers.iterator().next())
+#end
 /**
  * Home interface for the $entity.name entity bean.
 $entity.getDocumentation(" * ")

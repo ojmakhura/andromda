@@ -18,11 +18,11 @@ public class $entity.identifierTypeName implements java.io.Serializable, Compara
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
-        public ${entity.identifierTypeName}()
-        {
-        }
+    public ${entity.identifierTypeName}()
+    {
+    }
 
-        public ${entity.identifierTypeName}(## no newline
+    public ${entity.identifierTypeName}(## no newline
 #set ($comma = "")
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
@@ -35,16 +35,16 @@ ${comma}${identifier.type.fullyQualifiedName} ${identifier.name}## no newline
 #set ($comma = ", ")
 #end
 )
-        {
+    {
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
-            this.${associationEnd.otherEnd.name} = ${associationEnd.otherEnd.name};
+        this.${associationEnd.otherEnd.name} = ${associationEnd.otherEnd.name};
 #end
 #end
 #foreach ( $identifier in $entity.identifiers )
-            this.${identifier.name} = ${identifier.name};
+        this.${identifier.name} = ${identifier.name};
 #end
-        }
+    }
 
 #foreach($associationEnd in $entity.identifierAssociationEnds)
 #if($associationEnd.many2One)
